@@ -18,6 +18,7 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -57,7 +58,7 @@ abstract public class CookieTestCase<C extends Cookie> extends HeaderValueTestCa
 
     @Test
     public final void testWithInvalidValueFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             this.createCookie(CookieTestCase.NAME, "  ");
         });
     }

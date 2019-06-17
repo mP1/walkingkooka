@@ -18,6 +18,7 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.PredicateTesting;
@@ -68,14 +69,14 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     @Test
     public void testTypeContainsSlashFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             MediaType.with("ty/pe", SUBTYPE);
         });
     }
 
     @Test
     public void testTypeContainsInvalidCharacterFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             MediaType.with("ty?pe", SUBTYPE);
         });
     }
@@ -96,14 +97,14 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     @Test
     public void testEmptyIncludesSlashFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             MediaType.with(TYPE, "s/ub");
         });
     }
 
     @Test
     public void testEmptyIncludesInvalidCharacterFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             MediaType.with(TYPE, "s?ub");
         });
     }
@@ -160,14 +161,14 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     @Test
     public void testSetTypeInvalidCharacterFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             this.mediaType().setType("type/");
         });
     }
 
     @Test
     public void testSetTypeInvalidCharacterFails2() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             this.mediaType().setType("type?");
         });
     }
@@ -211,14 +212,14 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     @Test
     public void testSetSubTypeInvalidCharacterFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             this.mediaType().setSubType("type/");
         });
     }
 
     @Test
     public void testSetSubTypeInvalidCharacterFails2() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             this.mediaType().setSubType("type?");
         });
     }

@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * An {@link IllegalArgumentException} that reports an {@link String} with an invalid length.
  */
-public class InvalidTextLengthException extends IllegalArgumentException {
+public class InvalidTextLengthException extends InvalidTextException {
 
     public InvalidTextLengthException(final String label,
                                       final String text,

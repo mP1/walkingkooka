@@ -19,6 +19,7 @@ package walkingkooka.net.header;
 
 import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;
+import walkingkooka.InvalidTextLengthException;
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.character.CharPredicate;
@@ -192,7 +193,7 @@ public final class MediaTypeBoundary implements Value<String>,
 
         final int length = value.length();
         if (length >= MAX_LENGTH) {
-            throw new IllegalArgumentException("MediaTypeBoundary length " + length + ">=" + MAX_LENGTH + " =" + CharSequences.quote(value));
+            throw new InvalidTextLengthException("MediaTypeBoundary", value, 0, MAX_LENGTH);
         }
         this.value = value;
         this.headerText = headerText;

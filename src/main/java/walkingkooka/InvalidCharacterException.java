@@ -22,7 +22,7 @@ import walkingkooka.text.CharSequences;
 /**
  * An {@link IllegalArgumentException} that reports an invalid character within some text.
  */
-public class InvalidCharacterException extends IllegalArgumentException {
+public class InvalidCharacterException extends InvalidTextException {
 
     public InvalidCharacterException(final String text,
                                      final int position) {
@@ -57,7 +57,14 @@ public class InvalidCharacterException extends IllegalArgumentException {
     public InvalidCharacterException setTextAndPosition(final String text, final int position) {
         return this.text.equals(text) && this.position == position ?
                 this :
-                new InvalidCharacterException(text, position, this.getCause());
+                this.replace(text, position);
+    }
+
+    private InvalidCharacterException replace(final String text, final int position) {
+        final Throwable cause = this.getCause();
+        return null != cause ?
+                new InvalidCharacterException(text, position, cause) :
+                new InvalidCharacterException(text, position);
     }
 
     private final String text;

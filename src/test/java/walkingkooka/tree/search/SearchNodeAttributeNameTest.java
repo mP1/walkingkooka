@@ -18,6 +18,7 @@
 package walkingkooka.tree.search;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
@@ -30,7 +31,7 @@ public final class SearchNodeAttributeNameTest implements ClassTesting2<SearchNo
 
     @Test
     public void testWithDotDotFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             this.createName("abc..def");
         });
     }

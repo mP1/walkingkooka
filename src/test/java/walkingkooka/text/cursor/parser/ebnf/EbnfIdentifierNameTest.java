@@ -18,6 +18,7 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.naming.PropertiesPath;
 import walkingkooka.test.ClassTesting2;
@@ -31,21 +32,21 @@ final public class EbnfIdentifierNameTest implements ClassTesting2<EbnfIdentifie
 
     @Test
     public void testCreateContainsSeparatorFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             EbnfIdentifierName.with("xyz" + PropertiesPath.SEPARATOR.string());
         });
     }
 
     @Test
     public void testWithInvalidInitialFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             EbnfIdentifierName.with("1abc");
         });
     }
 
     @Test
     public void testWithInvalidPartFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             EbnfIdentifierName.with("abc$def");
         });
     }

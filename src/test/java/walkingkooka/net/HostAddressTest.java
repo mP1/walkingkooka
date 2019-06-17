@@ -106,7 +106,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
     }
 
     private void withFails(final String address, final String message) {
-        final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> {
+        final Exception expected = assertThrows(RuntimeException.class, () -> {
             HostAddress.with(address);
         });
         if (null != message) {

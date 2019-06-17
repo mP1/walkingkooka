@@ -19,6 +19,7 @@ package walkingkooka.naming;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
+import walkingkooka.InvalidTextLengthException;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 
@@ -217,7 +218,7 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> & HashCode
             final String chars = IntStream.rangeClosed(0, max + 1)
                     .mapToObj(i -> String.valueOf(this.possibleValidChars(i).charAt(0)))
                     .collect(Collectors.joining(""));
-            assertThrows(IllegalArgumentException.class, () -> {
+            assertThrows(InvalidTextLengthException.class, () -> {
                 this.createName(chars);
             });
         }

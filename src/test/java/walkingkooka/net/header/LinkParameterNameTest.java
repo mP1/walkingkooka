@@ -19,6 +19,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.Url;
 
@@ -33,7 +34,7 @@ final public class LinkParameterNameTest extends HeaderParameterNameTestCase<Lin
 
     @Test
     public void testWithIncludesWhitespaceFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             LinkParameterName.with("paramet er");
         });
     }

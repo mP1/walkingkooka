@@ -18,6 +18,7 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.test.ParseStringTesting;
@@ -49,7 +50,7 @@ public final class ContentEncodingTest extends HeaderValueTestCase<ContentEncodi
 
     @Test
     public void testWithInvalidCharacterFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             ContentEncoding.with("\u001f");
         });
     }

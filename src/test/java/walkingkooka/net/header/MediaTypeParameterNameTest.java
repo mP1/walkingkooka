@@ -19,6 +19,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.map.Maps;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -30,21 +31,21 @@ final public class MediaTypeParameterNameTest extends HeaderParameterNameTestCas
 
     @Test
     public void testWithIncludesWhitespaceFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             MediaTypeParameterName.with("paramet er");
         });
     }
 
     @Test
     public void testWithIncludesEqualSignFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             MediaTypeParameterName.with("parameter=value");
         });
     }
 
     @Test
     public void testWithIncludesSemiColonFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             MediaTypeParameterName.with("parameter=value;header2");
         });
     }

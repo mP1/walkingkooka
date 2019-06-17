@@ -18,6 +18,7 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.InvalidTextLengthException;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.SerializationTesting;
@@ -50,7 +51,7 @@ public final class UrlPathNameTest implements ClassTesting2<UrlPathName>,
         final char[] chars = new char[UrlPathName.MAXIMUM_LENGTH + 1];
         Arrays.fill(chars, 'x');
 
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidTextLengthException.class, () -> {
             UrlPathName.with(new String(chars));
         });
     }

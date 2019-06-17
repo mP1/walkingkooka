@@ -20,6 +20,7 @@ package walkingkooka.net.http.server.hateos;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.Cast;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.compare.Range;
@@ -130,7 +131,7 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
 
     @Test
     public void testGetBadRequestInvalidRelation() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             LinkRelation.with("!!");
         });
         this.routeGetAndCheck("/api/resource1/1/!!",
