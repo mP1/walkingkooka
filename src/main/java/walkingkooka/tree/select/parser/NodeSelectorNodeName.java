@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.select.parser;
 
+import walkingkooka.InvalidTextLengthException;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
@@ -38,9 +39,8 @@ final public class NodeSelectorNodeName extends NodeSelectorNameValue implements
     public static NodeSelectorNodeName with(final String name) {
         CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name, NodeSelectorNodeName.class.getSimpleName(), INITIAL, PART);
 
-        final int length = name.length();
-        if (length > MAX_LENGTH) {
-            throw new IllegalArgumentException("Name length " + length + " greater than allowed of " + MAX_LENGTH);
+        if (name.length() > MAX_LENGTH) {
+            throw new InvalidTextLengthException("NodeName", name, 0, MAX_LENGTH);
         }
 
         return new NodeSelectorNodeName(name);
