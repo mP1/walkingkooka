@@ -49,20 +49,20 @@ import java.util.Optional;
  * Router which accepts a request and then dispatches after testing the {@link HttpMethod}. This is the product of
  * {@link HateosHandlerRouterBuilder}.
  */
-final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<N extends Node<N, ?, ?, ?>> {
+final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest<N extends Node<N, ?, ?, ?>> {
 
-    static <N extends Node<N, ?, ?, ?>> HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<N> with(final HateosHandlerRouter<N> router,
-                                                                                                            final HttpRequest request,
-                                                                                                            final HttpResponse response) {
-        return new HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<>(router, request, response);
+    static <N extends Node<N, ?, ?, ?>> HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest<N> with(final HateosHandlerRouter<N> router,
+                                                                                                                             final HttpRequest request,
+                                                                                                                             final HttpResponse response) {
+        return new HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest<>(router, request, response);
     }
 
     /**
      * Package private ctor use factory.
      */
-    private HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest(final HateosHandlerRouter<N> router,
-                                                                        final HttpRequest request,
-                                                                        final HttpResponse response) {
+    private HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest(final HateosHandlerRouter<N> router,
+                                                                                         final HttpRequest request,
+                                                                                         final HttpResponse response) {
         super();
         this.router = router;
         this.request = request;
@@ -307,7 +307,7 @@ final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<N extend
     <R extends HateosResource<?>> Optional<R> resourceOrBadRequest(final String requestText,
                                                                    final HateosContentType<N> hateosContentType,
                                                                    final Class<R> resourceType,
-                                                                   final HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<N> request) {
+                                                                   final HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest<N> request) {
         Optional<R> resource;
 
         if (requestText.isEmpty()) {
@@ -329,7 +329,7 @@ final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<N extend
     <R extends HateosResource<?>> List<R> resourcesListOrBadRequest(final String requestText,
                                                                     final HateosContentType<N> hateosContentType,
                                                                     final Class<R> resourceType,
-                                                                    final HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<N> request) {
+                                                                    final HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest<N> request) {
         List<R> resources;
 
         if (requestText.isEmpty()) {
