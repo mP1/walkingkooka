@@ -51,7 +51,7 @@ final class HateosHandlerRouterHttpRequestHttpResponseBiConsumer<N extends Node<
     }
 
     /**
-     * Tests the method and calls the matching {@link HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest}.
+     * Tests the method and calls the matching {@link HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest}.
      */
     @Override
     public void accept(final HttpRequest request, final HttpResponse response) {
@@ -59,16 +59,7 @@ final class HateosHandlerRouterHttpRequestHttpResponseBiConsumer<N extends Node<
         Objects.requireNonNull(response, "response");
 
         try {
-            final HttpMethod httpMethod = request.method();
-            if (httpMethod.equals(HttpMethod.GET) ||
-                    httpMethod.equals(HttpMethod.POST) ||
-                    httpMethod.equals(HttpMethod.PUT) ||
-                    httpMethod.equals(HttpMethod.DELETE)) {
-                HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest.with(this.router, request, response)
-                        .execute();
-            } else {
-                methodNotAllowed(httpMethod.value(), response);
-            }
+            HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor.accept(request, response, this.router);
         } catch (final UnsupportedOperationException unsupported) {
             response.setStatus(HttpStatusCode.NOT_IMPLEMENTED.setMessageOrDefault(unsupported.getMessage()));
         } catch (final IllegalArgumentException badRequest) {

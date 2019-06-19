@@ -18,16 +18,17 @@
 package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.Cast;
+import walkingkooka.net.http.HttpMethodVisitor;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.function.BiConsumer;
 
-public final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequestTest extends HateosHandlerRouterTestCase<HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<JsonNode>> {
+public final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequestTest extends HateosHandlerRouterTestCase<HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest<JsonNode>> {
 
     @Override
-    public Class<HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<JsonNode>> type() {
-        return Cast.to(HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest.class);
+    public Class<HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest<JsonNode>> type() {
+        return Cast.to(HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest.class);
     }
 
     @Override
@@ -42,6 +43,6 @@ public final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequestTe
 
     @Override
     public String typeNameSuffix() {
-        return BiConsumer.class.getSimpleName() + "Request";
+        return BiConsumer.class.getSimpleName() + HttpMethodVisitor.class.getSimpleName() + "Request";
     }
 }
