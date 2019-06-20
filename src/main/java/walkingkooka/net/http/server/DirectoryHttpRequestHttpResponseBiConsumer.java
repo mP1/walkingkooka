@@ -26,7 +26,6 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.text.CharSequences;
-import walkingkooka.util.Optionals;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -95,10 +94,11 @@ final class DirectoryHttpRequestHttpResponseBiConsumer implements BiConsumer<Htt
             final LocalDateTime fileLastModified = this.fileLastModified(filePath);
 
             // if last modified header present check if matches file.last modified
-            Optionals.ifPresentOrElse(HttpHeaderName.IF_MODIFIED_SINCE.parameterValue(request)
-                            .filter(header -> fileLastModifiedTest(header, fileLastModified))
-                    , (ifModifiedSince) -> this.notModified(fileLastModified, filePathInfo, response),
-                    () -> this.modified(fileLastModified, fileFile, response));
+            HttpHeaderName.IF_MODIFIED_SINCE.parameterValue(request)
+                    .filter(header -> fileLastModifiedTest(header, fileLastModified))
+                    .ifPresentOrElse(
+                            (ifModifiedSince) -> this.notModified(fileLastModified, filePathInfo, response),
+                            () -> this.modified(fileLastModified, fileFile, response));
         } else {
             response.setStatus(HttpStatusCode.NOT_FOUND.status());
         }
