@@ -51,12 +51,10 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
                 .setToString("whitespace");
         final Parser<EbnfParserContext> comment = Parsers.<EbnfParserContext>surround("(*", "*)")
                 .transform((string, context) -> EbnfCommentParserToken.with(StringParserToken.class.cast(string).value(), string.text()))
-                .setToString("comment")
-                .cast();
+                .setToString("comment");
 
-        return whitespace.or(comment.cast())
-                .repeating()
-                .cast();
+        return whitespace.or(comment)
+                .repeating();
     }
 
     /**
@@ -70,12 +68,11 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
 
     private static Parser<EbnfParserContext> identifier() {
         return Parsers.<EbnfParserContext>sequenceParserBuilder()
-                .required(Parsers.character(EbnfIdentifierName.INITIAL).cast())
+                .required(Parsers.character(EbnfIdentifierName.INITIAL))
                 .required(Parsers.character(EbnfIdentifierName.PART).repeating().orReport(ParserReporters.basic()).cast())
                 .build()
                 .transform(EbnfGrammarParser::ebnfIdentifierParserToken)
-                .setToString("IDENTIFIER")
-                .cast();
+                .setToString("IDENTIFIER");
     }
 
     private static EbnfIdentifierParserToken ebnfIdentifierParserToken(final ParserToken tokens, final EbnfParserContext context) {
@@ -116,7 +113,7 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
      *      | rhs , "," , rhs ;
      * </pre>
      */
-    static final Parser<EbnfParserContext> RHS = new Parser<EbnfParserContext>() {
+    static final Parser<EbnfParserContext> RHS = new Parser<>() {
 
         @Override
         public Optional<ParserToken> parse(TextCursor cursor, EbnfParserContext context) {
@@ -429,8 +426,7 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
                 .optional(RULE.repeating().cast())
                 .optional(WHITESPACE_OR_COMMENT)
                 .build()
-                .transform(EbnfGrammarParser::grammarParserToken)
-                .cast();
+                .transform(EbnfGrammarParser::grammarParserToken);
     }
 
     private static EbnfGrammarParserToken grammarParserToken(final ParserToken sequence, final EbnfParserContext context) {
