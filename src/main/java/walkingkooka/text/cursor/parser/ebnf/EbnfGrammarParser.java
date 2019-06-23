@@ -22,6 +22,7 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.parser.CharacterParserToken;
 import walkingkooka.text.cursor.parser.Parser;
+import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.Parsers;
@@ -47,14 +48,23 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
 
     private static Parser<EbnfParserContext> whitespaceOrComment() {
         final Parser<EbnfParserContext> whitespace = Parsers.<EbnfParserContext>stringCharPredicate(CharPredicates.whitespace(), 1, Integer.MAX_VALUE)
-                .transform((string, context) -> EbnfWhitespaceParserToken.with(StringParserToken.class.cast(string).value(), string.text()))
+                .transform(EbnfGrammarParser::transformWhitespace)
                 .setToString("whitespace");
+
         final Parser<EbnfParserContext> comment = Parsers.<EbnfParserContext>surround("(*", "*)")
-                .transform((string, context) -> EbnfCommentParserToken.with(StringParserToken.class.cast(string).value(), string.text()))
+                .transform(EbnfGrammarParser::transformComment)
                 .setToString("comment");
 
         return whitespace.or(comment)
                 .repeating();
+    }
+
+    private static ParserToken transformWhitespace(final ParserToken token, ParserContext context) {
+        return EbnfWhitespaceParserToken.with(StringParserToken.class.cast(token).value(), token.text());
+    }
+
+    private static ParserToken transformComment(final ParserToken token, ParserContext context) {
+        return EbnfCommentParserToken.with(StringParserToken.class.cast(token).value(), token.text());
     }
 
     /**
@@ -351,9 +361,13 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
      */
     private static Parser<EbnfParserContext> symbol(final char c, final String name) {
         return Parsers.character(CharPredicates.is(c))
-                .transform((character, context) -> EbnfSymbolParserToken.with(CharacterParserToken.class.cast(character).value().toString(), character.text()))
+                .transform(EbnfGrammarParser::transformSymbolCharacter)
                 .setToString(name)
                 .cast();
+    }
+
+    private static ParserToken transformSymbolCharacter(final ParserToken token, final ParserContext context) {
+        return EbnfSymbolParserToken.with(CharacterParserToken.class.cast(token).value().toString(), token.text());
     }
 
     /**
@@ -361,9 +375,13 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
      */
     private static Parser<EbnfParserContext> symbol(final String symbol, final String name) {
         return CaseSensitivity.SENSITIVE.parser(symbol)
-                .transform((string, context) -> EbnfSymbolParserToken.with(StringParserToken.class.cast(string).value(), string.text()))
+                .transform(EbnfGrammarParser::transformSymbolString)
                 .setToString(name)
                 .cast();
+    }
+
+    private static ParserToken transformSymbolString(final ParserToken token, final ParserContext context) {
+        return EbnfSymbolParserToken.with(StringParserToken.class.cast(token).value(), token.text());
     }
 
     private static BiFunction<ParserToken, EbnfParserContext, ParserToken> filterAndWrapMany(final BiFunction<List<ParserToken>, String, ParserToken> wrapper) {
