@@ -71,19 +71,8 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
                 .required(Parsers.character(EbnfIdentifierName.INITIAL))
                 .required(Parsers.character(EbnfIdentifierName.PART).repeating().orReport(ParserReporters.basic()).cast())
                 .build()
-                .transform(EbnfGrammarParser::ebnfIdentifierParserToken)
+                .transform(EbnfGrammarParserIdentifierParserTokenVisitor::ebnfIdentifierParserToken)
                 .setToString("IDENTIFIER");
-    }
-
-    private static EbnfIdentifierParserToken ebnfIdentifierParserToken(final ParserToken tokens, final EbnfParserContext context) {
-        final StringBuilder b = new StringBuilder();
-        for (ParserToken c : SequenceParserToken.class.cast(tokens).flat().value()) {
-            final CharacterParserToken character = c.cast();
-            b.append(character.value());
-        }
-
-        final String text = b.toString();
-        return EbnfParserToken.identifier(EbnfIdentifierName.with(text), text);
     }
 
     /**
