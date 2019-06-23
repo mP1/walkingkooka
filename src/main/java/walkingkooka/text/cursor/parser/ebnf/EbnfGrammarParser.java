@@ -366,25 +366,6 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
                 .cast();
     }
 
-    /**
-     * Accepts a {@link SequenceParserToken} that contains a mixture of symbols and {@link StringParserToken}
-     * returning a string holding all the characters as a {@link String}
-     */
-    static String string(final SequenceParserToken token) {
-        final StringBuilder string = new StringBuilder();
-
-        // join all the character parser tokens
-        token.flat()
-                .value()
-                .stream()
-                .filter(t -> t instanceof StringParserToken)
-                .forEach(t -> {
-                    StringParserToken stringParserToken = t.cast();
-                    string.append(stringParserToken.value());
-                });
-        return string.toString();
-    }
-
     private static BiFunction<ParserToken, EbnfParserContext, ParserToken> filterAndWrapMany(final BiFunction<List<ParserToken>, String, ParserToken> wrapper) {
         return (sequence, context) -> {
             final List<EbnfParserToken> many = filterNonEbnfParserTokens(sequence);
