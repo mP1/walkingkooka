@@ -32,7 +32,6 @@ import walkingkooka.text.cursor.parser.StringParserToken;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
-import java.util.stream.Collectors;
 
 /**
  * A parser that accepts a grammar and returns a {@link EbnfGrammarParserToken}.
@@ -142,7 +141,7 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
                 .optional(WHITESPACE_OR_COMMENT)
                 .required(close)
                 .build()
-                .transform(filterAndWrapMany(EbnfParserToken::optional));
+                .transform(filterAndWrap(EbnfParserToken::optional));
     }
 
     /**
@@ -163,7 +162,7 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
                 .optional(WHITESPACE_OR_COMMENT)
                 .required(close)
                 .build()
-                .transform(filterAndWrapMany(EbnfParserToken::repeated));
+                .transform(filterAndWrap(EbnfParserToken::repeated));
     }
 
     /**
@@ -184,7 +183,7 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
                 .optional(WHITESPACE_OR_COMMENT)
                 .required(close)
                 .build()
-                .transform(filterAndWrapMany(EbnfParserToken::group));
+                .transform(filterAndWrap(EbnfParserToken::group));
     }
 
     /**
@@ -230,7 +229,7 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
                 .optional(optionalRepeating.cast())
                 .build());
         return all
-                .transform(filterAndWrapMany(EbnfParserToken::alternative));
+                .transform(filterAndWrap(EbnfParserToken::alternative));
     }
 
     /**
@@ -264,7 +263,7 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
                 .optional(optionalRepeating.cast())
                 .build());
         return all
-                .transform(filterAndWrapMany(EbnfParserToken::concatenation));
+                .transform(filterAndWrap(EbnfParserToken::concatenation));
     }
 
     /**
@@ -285,7 +284,7 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
                 .optional(WHITESPACE_OR_COMMENT)
                 .required(RHS2)
                 .build()
-                .transform(filterAndWrapMany(EbnfParserToken::exception));
+                .transform(filterAndWrap(EbnfParserToken::exception));
     }
 
     /**
@@ -306,7 +305,7 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
                 .optional(WHITESPACE_OR_COMMENT)
                 .required(RHS2)
                 .build()
-                .transform(filterAndWrapMany(EbnfParserToken::range));
+                .transform(filterAndWrap(EbnfParserToken::range));
     }
 
     /**
@@ -332,7 +331,7 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
                 .optional(WHITESPACE_OR_COMMENT)
                 .required(termination)
                 .build()
-                .transform(filterAndWrapMany(EbnfParserToken::rule));
+                .transform(filterAndWrap(EbnfParserToken::rule));
     }
 
     /**
@@ -384,20 +383,8 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
         return EbnfSymbolParserToken.with(StringParserToken.class.cast(token).value(), token.text());
     }
 
-    private static BiFunction<ParserToken, EbnfParserContext, ParserToken> filterAndWrapMany(final BiFunction<List<ParserToken>, String, ParserToken> wrapper) {
-        return (sequence, context) -> {
-            final List<EbnfParserToken> many = filterNonEbnfParserTokens(sequence);
-            return wrapper.apply(Cast.to(many), sequence.text());
-        };
-    }
-
-    private static List<EbnfParserToken> filterNonEbnfParserTokens(final ParserToken sequence) {
-        return SequenceParserToken.class.cast(sequence).flat()
-                .value()
-                .stream()
-                .filter(token -> token instanceof EbnfParserToken)
-                .map(t -> EbnfParserToken.class.cast(t))
-                .collect(Collectors.toList());
+    private static BiFunction<ParserToken, EbnfParserContext, ParserToken> filterAndWrap(final BiFunction<List<ParserToken>, String, ParserToken> wrapper) {
+        return (token, context) -> EbnfGrammarParserWrapperParserTokenVisitor.wrap(token, wrapper);
     }
 
     /**
