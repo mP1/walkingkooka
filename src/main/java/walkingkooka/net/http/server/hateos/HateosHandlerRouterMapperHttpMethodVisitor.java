@@ -17,7 +17,6 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import jdk.jfr.Percentage;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.net.http.HttpMethodVisitor;
 
@@ -59,7 +58,7 @@ final class HateosHandlerRouterMapperHttpMethodVisitor<I extends Comparable<I>, 
 
     HateosHandler<I, R, S> mapping;
 
-    @Percentage
+    @Override
     public String toString() {
         return ToStringBuilder.empty()
                 .value(this.mapper)
