@@ -58,24 +58,22 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void testOnlyWhitespaceFails() {
-        this.parseFails("    ");
+        final String email = "    ";
+        this.parseFails2(email, new InvalidCharacterException(email, 0));
     }
 
     @Test
     public void testTooLongFails() {
         final char[] array = new char[EmailAddress.MAX_EMAIL_LENGTH - 5];
         Arrays.fill(array, 'x');
-        final String email = "user@" + new String(array);
-
-        assertThrows(InvalidTextLengthException.class, () -> {
-            EmailAddress.parse(email);
-        });
-        assertEquals(Optional.empty(), EmailAddress.tryParse(email));
+        this.parseFails2("user@" + new String(array),
+                InvalidTextLengthException.class,
+                null);
     }
 
     @Test
     public void testTooShortFails() {
-        this.parseFails(".");
+        this.parseFails2(".", new InvalidCharacterException(".", 0));
     }
 
     @Test
@@ -112,96 +110,102 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     private void invalidUserNameCharacter(final String email, final char c) {
         final int at = email.indexOf(c);
         assertNotEquals(-1, at, "invalid character '" + c + "' does not appear in email=" + email);
-        this.parseFails(email, new InvalidCharacterException(email, at).getMessage());
+        this.parseFails2(email, new InvalidCharacterException(email, at));
     }
 
     @Test
     public void testServerContainsInvalidCharacterFails() {
         final String email = "user@s erver";
-        this.parseFails(email, HostAddressProblem.invalidCharacter(email.indexOf(' ')));
+        this.parseFails2(email, new InvalidCharacterException(email, email.lastIndexOf(' ')));
     }
 
     @Test
     public void testExtraAtSignFails() {
         final String email = "user@extra@atsign";
-        this.parseFails(email, HostAddressProblem.invalidCharacter(email.lastIndexOf('@')));
+        this.parseFails2(email, new InvalidCharacterException(email, email.lastIndexOf('@')));
     }
 
     @Test
     public void testWithoutUserFails() {
         final String email = "@server";
-        this.parseFails(email, EmailAddress.missingUser(email));
+        this.parseFails2(email, EmailAddress.missingUser(email));
     }
 
     @Test
     public void testWithoutHostFails() {
         final String email = "user@";
-        this.parseFails(email, EmailAddress.missingHost(email));
+        this.parseFails2(email, EmailAddress.missingHost(email));
     }
 
     @Test
     public void testDoubleDotFails() {
         final String email = "use..r@serve";
-        this.parseFails(email, new InvalidCharacterException(email, email.indexOf("..") + 1).getMessage());
+        this.parseFails2(email, new InvalidCharacterException(email, email.indexOf("..") + 1));
     }
 
     @Test
     public void testIp4MissingClosingBracketFails() {
         final String email = "user@[1.2.3.4";
-        this.parseFails(email, HostAddressProblem.incomplete());
+        this.parseFails2(email, HostAddressProblem.incomplete());
     }
 
     @Test
     public void testIp6MissingClosingBracketFails() {
         final String email = "user@[1:2:3:4:5:6:7:8";
-        this.parseFails(email, HostAddressProblem.incomplete());
+        this.parseFails2(email, HostAddressProblem.incomplete());
     }
 
     @Test
     public void testIp4UnnecesssaryClosingBracketFails() {
         final String email = "user@1.2.3.4]";
-        this.parseFails(email, HostAddressProblem.invalidCharacter(email.indexOf(']')));
+        this.parseFails2(email, new InvalidCharacterException(email, email.lastIndexOf(']')));
     }
 
     @Test
     public void testIp6EmbeddedIp4WithInvalidValueFails() {
         final String email = "user@1:2:3:4:5:6:7.888.9.0";
-        this.parseFails(email, HostAddressProblem.invalidValue(email.indexOf('8')));
+        this.parseFails2(email, HostAddressProblem.invalidValue(email.indexOf('8')));
     }
 
     @Test
     public void testIp6UnnecessaryClosingBracketFails() {
         final String email = "user@1:2:3:4:5:6:7:8]";
-        this.parseFails(email, HostAddressProblem.invalidCharacter(email.indexOf(']')));
+        this.parseFails2(email, new InvalidCharacterException(email, email.lastIndexOf(']')));
     }
 
     @Test
     public void testUsernameTooLongFails() {
         final char[] user = new char[EmailAddress.MAX_LOCAL_LENGTH];
         Arrays.fill(user, 'a');
-        final String email = new String(user) + "@example.com";
 
-        assertThrows(InvalidTextLengthException.class, () -> {
-            EmailAddress.parse(email);
-        });
-        assertEquals(Optional.empty(), EmailAddress.tryParse(email));
+        this.parseFails2(new String(user) + "@example.com",
+                InvalidTextLengthException.class,
+                null);
     }
 
-    private void parseFails(final String email) {
-        this.parseFails(email, (String) null);
+    private void parseFails2(final String address, final HostAddressProblem problem) {
+        this.parseFails2(address,
+                problem.message(address));
     }
 
-    private void parseFails(final String address, final HostAddressProblem problem) {
-        this.parseFails(address, problem.message(address));
-    }
-
-    private void parseFails(final String email, final String expectedMessage) {
-        withFails(email, expectedMessage);
+    private void parseFails2(final String email, final RuntimeException thrown) {
+        parseFails2(email,
+                thrown.getClass(),
+                thrown.getMessage());
         assertEquals(Optional.empty(), EmailAddress.tryParse(email), email);
     }
 
-    private void withFails(final String email, final String message) {
-        final Exception expected = assertThrows(RuntimeException.class, () -> {
+    private void parseFails2(final String email, final String expectedMessage) {
+        parseFails2(email,
+                IllegalArgumentException.class,
+                expectedMessage);
+        assertEquals(Optional.empty(), EmailAddress.tryParse(email), email);
+    }
+
+    private <T extends RuntimeException> void parseFails2(final String email,
+                                                          final Class<T> thrown,
+                                                          final String message) {
+        final T expected = assertThrows(thrown, () -> {
             EmailAddress.parse(email);
         });
         expected.printStackTrace();
@@ -213,75 +217,75 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void testWith() {
-        this.createAndCheck("user", "server");
+        this.parseAndCheck("user", "server");
     }
 
     @Test
     public void testWith2() {
-        this.createAndCheck("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!.#$%&'*+-/=?^_`{|}~", "server");
+        this.parseAndCheck("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!.#$%&'*+-/=?^_`{|}~", "server");
     }
 
     @Test
     public void testUsernameWithQuotedSquareBrackets() {
-        this.createAndCheck("user\"[]\"", "server");
+        this.parseAndCheck("user\"[]\"", "server");
     }
 
     @Test
     public void testUsernameWithQuotedLessAndGreaterThan() {
-        this.createAndCheck("user\"<>\"", "server");
+        this.parseAndCheck("user\"<>\"", "server");
     }
 
     @Test
     public void testUsernameWithQuotedColon() {
-        this.createAndCheck("user\":\"", "server");
+        this.parseAndCheck("user\":\"", "server");
     }
 
     @Test
     public void testUsernameWithQuotedSemiColon() {
-        this.createAndCheck("user\":\"", "server");
+        this.parseAndCheck("user\":\"", "server");
     }
 
     @Test
     public void testUsernameWithQuotedAtSign() {
-        this.createAndCheck("user\"@\"", "server");
+        this.parseAndCheck("user\"@\"", "server");
     }
 
     @Test
     public void testUsernameWithQuotedBackslash() {
-        this.createAndCheck("user\"\\\\\"", "server");
+        this.parseAndCheck("user\"\\\\\"", "server");
     }
 
     @Test
     public void testIp4Address() {
-        this.createAndCheck("user", "1.2.3.4");
+        this.parseAndCheck("user", "1.2.3.4");
     }
 
     @Test
     public void testIp4AddressSurroundedBySquareBrackets() {
-        this.createAndCheck("user", "[1.2.3.4]");
+        this.parseAndCheck("user", "[1.2.3.4]");
     }
 
     @Test
     public void testIp6Address() {
-        this.createAndCheck("user", "1111:2222:3333:4444:5555:6666:7777:8888");
+        this.parseAndCheck("user", "1111:2222:3333:4444:5555:6666:7777:8888");
     }
 
     @Test
     public void testIp6AddressWithEmbeddedIp4() {
-        this.createAndCheck("user", "1111:2222:3333:4444:5555:6666:255.7.8.9");
+        this.parseAndCheck("user", "1111:2222:3333:4444:5555:6666:255.7.8.9");
     }
 
     @Test
     public void testIp6AddressSurroundedBySquareBrackets() {
-        this.createAndCheck("user", "[1111:2222:3333:4444:5555:6666:7777:8888]");
+        this.parseAndCheck("user", "[1111:2222:3333:4444:5555:6666:7777:8888]");
     }
 
     @Test
     public void testManyNoneConsecutiveDots() {
-        this.createAndCheck("first.middle.last", "server");
+        this.parseAndCheck("first.middle.last", "server");
     }
 
-    private void createAndCheck(final String user, final String server) {
+    private void parseAndCheck(final String user, final String server) {
         final String address = user + '@' + server;
         final EmailAddress emailAddress = EmailAddress.parse(address);
         this.parseSuccessful(user, server, emailAddress);
@@ -311,7 +315,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test003__first_DOT_last_ATSIGN_sub_DOT_docom__Mistyped_comma_instead_of_dot__LEFT_PAREN_replaces_old_3_which_was_the_same_as_57_RIGHT_PAREN_() {
-        this.parseFails2("first.last@sub.do,com",
+        this.parseFailsWithComment("first.last@sub.do,com",
                 "Mistyped comma instead of dot (replaces old #3 which was the same as #57)");
     }
 
@@ -322,7 +326,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test005__first_ATSIGN_last_ATSIGN_iana_DOT_org__Escaping_can_only_happen_within_a_quoted_string() {
-        this.parseFails2("first\\@last@iana.org", "Escaping can only happen within a quoted string");
+        this.parseFailsWithComment("first\\@last@iana.org", "Escaping can only happen within a quoted string");
     }
 
     @Test
@@ -406,40 +410,40 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test021__123456789012345678901234567890123456789012345678901234567890_ATSIGN_12345678901234567890123456789012345678901234567890123456789_DOT_12345678901234567890123456789012345678901234567890123456789_DOT_12345678901234567890123456789012345678901234567890123456789_DOT_12345_DOT_iana_DOT_org__Entire_address_is_longer_than_254_characters() {
-        this.parseFails2(
+        this.parseFailsWithComment(
                 "123456789012345678901234567890123456789012345678901234567890@12345678901234567890123456789012345678901234567890123456789.12345678901234567890123456789012345678901234567890123456789.12345678901234567890123456789012345678901234567890123456789.12345.iana.org",
                 "Entire address is longer than 254 characters");
     }
 
     @Test
     public void test022__first_DOT_last__No__ATSIGN_() {
-        this.parseFails2("first.last", "No @");
+        this.parseFailsWithComment("first.last", "No @");
     }
 
     @Test
     public void test023__12345678901234567890123456789012345678901234567890123456789012345_ATSIGN_iana_DOT_org__Local_part_more_than_64_characters() {
-        this.parseFails2("12345678901234567890123456789012345678901234567890123456789012345@iana.org",
+        this.parseFailsWithComment("12345678901234567890123456789012345678901234567890123456789012345@iana.org",
                 "Local part more than 64 characters");
     }
 
     @Test
     public void test024___DOT_first_DOT_last_ATSIGN_iana_DOT_org__Local_part_starts_with_a_dot() {
-        this.parseFails2(".first.last@iana.org", "Local part starts with a dot");
+        this.parseFailsWithComment(".first.last@iana.org", "Local part starts with a dot");
     }
 
     @Test
     public void test025__first_DOT_last_DOT__ATSIGN_iana_DOT_org__Local_part_ends_with_a_dot() {
-        this.parseFails2("first.last.@iana.org", "Local part ends with a dot");
+        this.parseFailsWithComment("first.last.@iana.org", "Local part ends with a dot");
     }
 
     @Test
     public void test026__first_DOT__DOT_last_ATSIGN_iana_DOT_org__Local_part_has_consecutive_dots() {
-        this.parseFails2("first..last@iana.org", "Local part has consecutive dots");
+        this.parseFailsWithComment("first..last@iana.org", "Local part has consecutive dots");
     }
 
     @Test
     public void test027__firstlast_ATSIGN_iana_DOT_org__Local_part_contains_unescaped_excluded_characters() {
-        this.parseFails2("\"first\"last\"@iana.org", "Local part contains unescaped excluded characters");
+        this.parseFailsWithComment("\"first\"last\"@iana.org", "Local part contains unescaped excluded characters");
     }
 
     @Test
@@ -449,55 +453,55 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test029___ATSIGN_iana_DOT_org__Local_part_contains_unescaped_excluded_characters() {
-        this.parseFails2("\"\"\"@iana.org", "Local part contains unescaped excluded characters");
+        this.parseFailsWithComment("\"\"\"@iana.org", "Local part contains unescaped excluded characters");
     }
 
     @Test
     public void test030___ATSIGN_iana_DOT_org__Local_part_cannot_end_with_a_backslash() {
-        this.parseFails2("\"\\\"@iana.org", "Local part cannot end with a backslash");
+        this.parseFailsWithComment("\"\\\"@iana.org", "Local part cannot end with a backslash");
     }
 
     @Test
     public void test031___ATSIGN_iana_DOT_org__Local_part_is_effectively_empty() {
-        this.parseFails2("\"\"@iana.org", "Local part is effectively empty");
+        this.parseFailsWithComment("\"\"@iana.org", "Local part is effectively empty");
     }
 
     @Test
     public void test032__first_ATSIGN_last_ATSIGN_iana_DOT_org__Local_part_contains_unescaped_excluded_characters() {
-        this.parseFails2("first\\\\@last@iana.org", "Local part contains unescaped excluded characters");
+        this.parseFailsWithComment("first\\\\@last@iana.org", "Local part contains unescaped excluded characters");
     }
 
     @Test
     public void test033__first_DOT_last_ATSIGN___No_domain() {
-        this.parseFails2("first.last@", "No domain");
+        this.parseFailsWithComment("first.last@", "No domain");
     }
 
     @Test
     public void test034__x_ATSIGN_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456789_DOT_x23456__Domain_exceeds_255_chars() {
-        this.parseFails2(
+        this.parseFailsWithComment(
                 "x@x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456789.x23456",
                 "Domain exceeds 255 chars");
     }
 
     @Test
     public void test035__first_DOT_last_ATSIGN__DOT_12_DOT_34_DOT_56_DOT_78__Only_char_that_can_precede_IPv4_address_is_() {
-        this.parseFails2("first.last@[.12.34.56.78]", "Only char that can precede IPv4 address is \':\'");
+        this.parseFailsWithComment("first.last@[.12.34.56.78]", "Only char that can precede IPv4 address is \':\'");
     }
 
     @Test
     public void test036__first_DOT_last_ATSIGN_12_DOT_34_DOT_56_DOT_789__Cant_be_interpreted_as_IPv4_so_IPv6_tag_is_missing() {
-        this.parseFails2("first.last@[12.34.56.789]", "Can\'t be interpreted as IPv4 so IPv6 tag is missing");
+        this.parseFailsWithComment("first.last@[12.34.56.789]", "Can\'t be interpreted as IPv4 so IPv6 tag is missing");
     }
 
     @Test
     @Disabled
     public void test037__first_DOT_last_ATSIGN_12_DOT_34_DOT_56_DOT_78__IPv6_tag_is_missing() {
-        this.parseFails2("first.last@[::12.34.56.78]", "IPv6 tag is missing");
+        this.parseFailsWithComment("first.last@[::12.34.56.78]", "IPv6 tag is missing");
     }
 
     @Test
     public void test038__first_DOT_last_ATSIGN_IPv512_DOT_34_DOT_56_DOT_78__IPv6_tag_is_wrong() {
-        this.parseFails2("first.last@[IPv5:::12.34.56.78]", "IPv6 tag is wrong");
+        this.parseFailsWithComment("first.last@[IPv5:::12.34.56.78]", "IPv6 tag is wrong");
     }
 
     @Test
@@ -508,27 +512,27 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test040__first_DOT_last_ATSIGN_IPv61111222233334444555512_DOT_34_DOT_56_DOT_78__Not_enough_IPv6_groups() {
-        this.parseFails2("first.last@[IPv6:1111:2222:3333:4444:5555:12.34.56.78]", "Not enough IPv6 groups");
+        this.parseFailsWithComment("first.last@[IPv6:1111:2222:3333:4444:5555:12.34.56.78]", "Not enough IPv6 groups");
     }
 
     @Test
     public void test041__first_DOT_last_ATSIGN_IPv6111122223333444455556666777712_DOT_34_DOT_56_DOT_78__Too_many_IPv6_groups__LEFT_PAREN_6_max_RIGHT_PAREN_() {
-        this.parseFails2("first.last@[IPv6:1111:2222:3333:4444:5555:6666:7777:12.34.56.78]", "Too many IPv6 groups (6 max)");
+        this.parseFailsWithComment("first.last@[IPv6:1111:2222:3333:4444:5555:6666:7777:12.34.56.78]", "Too many IPv6 groups (6 max)");
     }
 
     @Test
     public void test042__first_DOT_last_ATSIGN_IPv61111222233334444555566667777__Not_enough_IPv6_groups() {
-        this.parseFails2("first.last@[IPv6:1111:2222:3333:4444:5555:6666:7777]", "Not enough IPv6 groups");
+        this.parseFailsWithComment("first.last@[IPv6:1111:2222:3333:4444:5555:6666:7777]", "Not enough IPv6 groups");
     }
 
     @Test
     public void test043__first_DOT_last_ATSIGN_IPv6111122223333444455556666777788889999__Too_many_IPv6_groups__LEFT_PAREN_8_max_RIGHT_PAREN_() {
-        this.parseFails2("first.last@[IPv6:1111:2222:3333:4444:5555:6666:7777:8888:9999]", "Too many IPv6 groups (8 max)");
+        this.parseFailsWithComment("first.last@[IPv6:1111:2222:3333:4444:5555:6666:7777:8888:9999]", "Too many IPv6 groups (8 max)");
     }
 
     @Test
     public void test044__first_DOT_last_ATSIGN_IPv6111122223333444455556666__Too_many___LEFT_PAREN_can_be_none_or_one_RIGHT_PAREN_() {
-        this.parseFails2("first.last@[IPv6:1111:2222::3333::4444:5555:6666]", "Too many \'::\' (can be none or one)");
+        this.parseFailsWithComment("first.last@[IPv6:1111:2222::3333::4444:5555:6666]", "Too many \'::\' (can be none or one)");
     }
 
     @Test
@@ -539,12 +543,12 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test046__first_DOT_last_ATSIGN_IPv611112222333x44445555__x_is_not_valid_in_an_IPv6_address() {
-        this.parseFails2("first.last@[IPv6:1111:2222:333x::4444:5555]", "x is not valid in an IPv6 address");
+        this.parseFailsWithComment("first.last@[IPv6:1111:2222:333x::4444:5555]", "x is not valid in an IPv6 address");
     }
 
     @Test
     public void test047__first_DOT_last_ATSIGN_IPv6111122223333344445555__33333_is_not_a_valid_group_in_an_IPv6_address() {
-        this.parseFails2("first.last@[IPv6:1111:2222:33333::4444:5555]", "33333 is not a valid group in an IPv6 address");
+        this.parseFailsWithComment("first.last@[IPv6:1111:2222:33333::4444:5555]", "33333 is not a valid group in an IPv6 address");
     }
 
     @Test
@@ -559,17 +563,17 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test050__first_DOT_last_ATSIGN_xample_DOT_com__Label_cant_begin_with_a_hyphen() {
-        this.parseFails2("first.last@-xample.com", "Label can\'t begin with a hyphen");
+        this.parseFailsWithComment("first.last@-xample.com", "Label can\'t begin with a hyphen");
     }
 
     @Test
     public void test051__first_DOT_last_ATSIGN_exampl_DOT_com__Label_cant_end_with_a_hyphen() {
-        this.parseFails2("first.last@exampl-.com", "Label can\'t end with a hyphen");
+        this.parseFailsWithComment("first.last@exampl-.com", "Label can\'t end with a hyphen");
     }
 
     @Test
     public void test052__first_DOT_last_ATSIGN_x234567890123456789012345678901234567890123456789012345678901234_DOT_iana_DOT_org__Label_cant_be_longer_than_63_octets() {
-        this.parseFails2("first.last@x234567890123456789012345678901234567890123456789012345678901234.iana.org",
+        this.parseFailsWithComment("first.last@x234567890123456789012345678901234567890123456789012345678901234.iana.org",
                 "Label can\'t be longer than 63 octets");
     }
 
@@ -630,12 +634,12 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test064__abc_ATSIGN_def_ATSIGN_iana_DOT_org__This_example_from_RFC_3696_was_corrected_in_an_erratum() {
-        this.parseFails2("abc\\@def@iana.org", "This example from RFC 3696 was corrected in an erratum");
+        this.parseFailsWithComment("abc\\@def@iana.org", "This example from RFC 3696 was corrected in an erratum");
     }
 
     @Test
     public void test065__abc_ATSIGN_iana_DOT_org__This_example_from_RFC_3696_was_corrected_in_an_erratum() {
-        this.parseFails2("abc\\\\@iana.org", "This example from RFC 3696 was corrected in an erratum");
+        this.parseFailsWithComment("abc\\\\@iana.org", "This example from RFC 3696 was corrected in an erratum");
     }
 
     @Test
@@ -645,7 +649,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test067__Doug_Ace_Lovell_ATSIGN_iana_DOT_org__Escaping_can_only_happen_in_a_quoted_string() {
-        this.parseFails2("Doug\\ \\\"Ace\\\"\\ Lovell@iana.org", "Escaping can only happen in a quoted string");
+        this.parseFailsWithComment("Doug\\ \\\"Ace\\\"\\ Lovell@iana.org", "Escaping can only happen in a quoted string");
     }
 
     @Test
@@ -655,73 +659,73 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test069__abc_ATSIGN_def_ATSIGN_iana_DOT_org__Doug_Lovell_says_this_should_fail() {
-        this.parseFails2("abc@def@iana.org", "Doug Lovell says this should fail");
+        this.parseFailsWithComment("abc@def@iana.org", "Doug Lovell says this should fail");
     }
 
     @Test
     public void test070__abc_ATSIGN_def_ATSIGN_iana_DOT_org__Doug_Lovell_says_this_should_fail() {
-        this.parseFails2("abc\\\\@def@iana.org", "Doug Lovell says this should fail");
+        this.parseFailsWithComment("abc\\\\@def@iana.org", "Doug Lovell says this should fail");
     }
 
     @Test
     public void test071__abc_ATSIGN_iana_DOT_org__Doug_Lovell_says_this_should_fail() {
-        this.parseFails2("abc\\@iana.org", "Doug Lovell says this should fail");
+        this.parseFailsWithComment("abc\\@iana.org", "Doug Lovell says this should fail");
     }
 
     @Test
     public void test072___ATSIGN_iana_DOT_org__No_local_part() {
-        this.parseFails2("@iana.org", "No local part");
+        this.parseFailsWithComment("@iana.org", "No local part");
     }
 
     @Test
     public void test073__doug_ATSIGN___Doug_Lovell_says_this_should_fail() {
-        this.parseFails2("doug@", "Doug Lovell says this should fail");
+        this.parseFailsWithComment("doug@", "Doug Lovell says this should fail");
     }
 
     @Test
     public void test074__qu_ATSIGN_iana_DOT_org__Doug_Lovell_says_this_should_fail() {
-        this.parseFails2("\"qu@iana.org", "Doug Lovell says this should fail");
+        this.parseFailsWithComment("\"qu@iana.org", "Doug Lovell says this should fail");
     }
 
     @Test
     public void test075__ote_ATSIGN_iana_DOT_org__Doug_Lovell_says_this_should_fail() {
-        this.parseFails2("ote\"@iana.org", "Doug Lovell says this should fail");
+        this.parseFailsWithComment("ote\"@iana.org", "Doug Lovell says this should fail");
     }
 
     @Test
     public void test076___DOT_dot_ATSIGN_iana_DOT_org__Doug_Lovell_says_this_should_fail() {
-        this.parseFails2(".dot@iana.org", "Doug Lovell says this should fail");
+        this.parseFailsWithComment(".dot@iana.org", "Doug Lovell says this should fail");
     }
 
     @Test
     public void test077__dot_DOT__ATSIGN_iana_DOT_org__Doug_Lovell_says_this_should_fail() {
-        this.parseFails2("dot.@iana.org", "Doug Lovell says this should fail");
+        this.parseFailsWithComment("dot.@iana.org", "Doug Lovell says this should fail");
     }
 
     @Test
     public void test078__two_DOT__DOT_dot_ATSIGN_iana_DOT_org__Doug_Lovell_says_this_should_fail() {
-        this.parseFails2("two..dot@iana.org", "Doug Lovell says this should fail");
+        this.parseFailsWithComment("two..dot@iana.org", "Doug Lovell says this should fail");
     }
 
     @Test
     @Disabled
     public void test079__Doug_Ace_L_DOT__ATSIGN_iana_DOT_org__Doug_Lovell_says_this_should_fail() {
-        this.parseFails2("\"Doug \"Ace\" L.\"@iana.org", "Doug Lovell says this should fail");
+        this.parseFailsWithComment("\"Doug \"Ace\" L.\"@iana.org", "Doug Lovell says this should fail");
     }
 
     @Test
     public void test080__Doug_Ace_L_DOT__ATSIGN_iana_DOT_org__Doug_Lovell_says_this_should_fail() {
-        this.parseFails2("Doug\\ \\\"Ace\\\"\\ L\\.@iana.org", "Doug Lovell says this should fail");
+        this.parseFailsWithComment("Doug\\ \\\"Ace\\\"\\ L\\.@iana.org", "Doug Lovell says this should fail");
     }
 
     @Test
     public void test081__hello_world_ATSIGN_iana_DOT_org__Doug_Lovell_says_this_should_fail() {
-        this.parseFails2("hello world@iana.org", "Doug Lovell says this should fail");
+        this.parseFailsWithComment("hello world@iana.org", "Doug Lovell says this should fail");
     }
 
     @Test
     public void test082__gatsby_ATSIGN_f_DOT_sc_DOT_ot_DOT_t_DOT_f_DOT_i_DOT_tzg_DOT_era_DOT_l_DOT_d_DOT___Doug_Lovell_says_this_should_fail() {
-        this.parseFails2("gatsby@f.sc.ot.t.f.i.tzg.era.l.d.", "Doug Lovell says this should fail");
+        this.parseFailsWithComment("gatsby@f.sc.ot.t.f.i.tzg.era.l.d.", "Doug Lovell says this should fail");
     }
 
     @Test
@@ -817,42 +821,42 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test101__test_DOT_iana_DOT_org() {
-        this.parseFails2("test.iana.org");
+        this.parseFailsWithComment("test.iana.org");
     }
 
     @Test
     public void test102__test_DOT__ATSIGN_iana_DOT_org() {
-        this.parseFails2("test.@iana.org");
+        this.parseFailsWithComment("test.@iana.org");
     }
 
     @Test
     public void test103__test_DOT__DOT_test_ATSIGN_iana_DOT_org() {
-        this.parseFails2("test..test@iana.org");
+        this.parseFailsWithComment("test..test@iana.org");
     }
 
     @Test
     public void test104___DOT_test_ATSIGN_iana_DOT_org() {
-        this.parseFails2(".test@iana.org");
+        this.parseFailsWithComment(".test@iana.org");
     }
 
     @Test
     public void test105__test_ATSIGN_test_ATSIGN_iana_DOT_org() {
-        this.parseFails2("test@test@iana.org");
+        this.parseFailsWithComment("test@test@iana.org");
     }
 
     @Test
     public void test106__test_ATSIGN__ATSIGN_iana_DOT_org() {
-        this.parseFails2("test@@iana.org");
+        this.parseFailsWithComment("test@@iana.org");
     }
 
     @Test
     public void test107___test__ATSIGN_iana_DOT_org__No_spaces_allowed_in_local_part() {
-        this.parseFails2("-- test --@iana.org", "No spaces allowed in local part");
+        this.parseFailsWithComment("-- test --@iana.org", "No spaces allowed in local part");
     }
 
     @Test
     public void test108__test_ATSIGN_iana_DOT_org__Square_brackets_only_allowed_within_quotes() {
-        this.parseFails2("[test]@iana.org", "Square brackets only allowed within quotes");
+        this.parseFailsWithComment("[test]@iana.org", "Square brackets only allowed within quotes");
     }
 
     @Test
@@ -862,27 +866,27 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test110__testtest_ATSIGN_iana_DOT_org__Quotes_cannot_be_nested() {
-        this.parseFails2("\"test\"test\"@iana.org", "Quotes cannot be nested");
+        this.parseFailsWithComment("\"test\"test\"@iana.org", "Quotes cannot be nested");
     }
 
     @Test
     public void test112__test_ATSIGN__DOT___Dave_Child_says_so() {
-        this.parseFails2("test@.", "Dave Child says so");
+        this.parseFailsWithComment("test@.", "Dave Child says so");
     }
 
     @Test
     public void test113__test_ATSIGN_example_DOT___Dave_Child_says_so() {
-        this.parseFails2("test@example.", "Dave Child says so");
+        this.parseFailsWithComment("test@example.", "Dave Child says so");
     }
 
     @Test
     public void test114__test_ATSIGN__DOT_org__Dave_Child_says_so() {
-        this.parseFails2("test@.org", "Dave Child says so");
+        this.parseFailsWithComment("test@.org", "Dave Child says so");
     }
 
     @Test
     public void test115__test_ATSIGN_123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012_DOT_com__255_characters_is_maximum_length_for_domain_DOT__This_is_256_DOT_() {
-        this.parseFails2(
+        this.parseFailsWithComment(
                 "test@123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012.com",
                 "255 characters is maximum length for domain. This is 256.");
     }
@@ -894,22 +898,22 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test117__test_ATSIGN_123_DOT_123_DOT_123_DOT_123__Dave_Child_says_so() {
-        this.parseFails2("test@[123.123.123.123", "Dave Child says so");
+        this.parseFailsWithComment("test@[123.123.123.123", "Dave Child says so");
     }
 
     @Test
     public void test118__test_ATSIGN_123_DOT_123_DOT_123_DOT_123__Dave_Child_says_so() {
-        this.parseFails2("test@123.123.123.123]", "Dave Child says so");
+        this.parseFailsWithComment("test@123.123.123.123]", "Dave Child says so");
     }
 
     @Test
     public void test119__NotAnEmail__Phil_Haack_says_so() {
-        this.parseFails2("NotAnEmail", "Phil Haack says so");
+        this.parseFailsWithComment("NotAnEmail", "Phil Haack says so");
     }
 
     @Test
     public void test120___ATSIGN_NotAnEmail__Phil_Haack_says_so() {
-        this.parseFails2("@NotAnEmail", "Phil Haack says so");
+        this.parseFailsWithComment("@NotAnEmail", "Phil Haack says so");
     }
 
     @Test
@@ -930,7 +934,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     @Test
     @Disabled
     public void test124__testblah_ATSIGN_iana_DOT_org__Quoted_string_specifically_excludes_carriage_returns() {
-        this.parseFails2("\"test\rblah\"@iana.org", "Quoted string specifically excludes carriage returns");
+        this.parseFailsWithComment("\"test\rblah\"@iana.org", "Quoted string specifically excludes carriage returns");
     }
 
     @Test
@@ -940,7 +944,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test126__testblah_ATSIGN_iana_DOT_org__Phil_Haack_says_so() {
-        this.parseFails2("\"test\"blah\"@iana.org", "Phil Haack says so");
+        this.parseFailsWithComment("\"test\"blah\"@iana.org", "Phil Haack says so");
     }
 
     @Test
@@ -960,22 +964,22 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test130___DOT_wooly_ATSIGN_iana_DOT_org__Phil_Haack_says_so() {
-        this.parseFails2(".wooly@iana.org", "Phil Haack says so");
+        this.parseFailsWithComment(".wooly@iana.org", "Phil Haack says so");
     }
 
     @Test
     public void test131__wo_DOT__DOT_oly_ATSIGN_iana_DOT_org__Phil_Haack_says_so() {
-        this.parseFails2("wo..oly@iana.org", "Phil Haack says so");
+        this.parseFailsWithComment("wo..oly@iana.org", "Phil Haack says so");
     }
 
     @Test
     public void test132__pootietang_DOT__ATSIGN_iana_DOT_org__Phil_Haack_says_so() {
-        this.parseFails2("pootietang.@iana.org", "Phil Haack says so");
+        this.parseFailsWithComment("pootietang.@iana.org", "Phil Haack says so");
     }
 
     @Test
     public void test133___DOT__ATSIGN_iana_DOT_org__Phil_Haack_says_so() {
-        this.parseFails2(".@iana.org", "Phil Haack says so");
+        this.parseFailsWithComment(".@iana.org", "Phil Haack says so");
     }
 
     @Test
@@ -1000,12 +1004,12 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test138__Ima_Fool_ATSIGN_iana_DOT_org__Phil_Haack_says_so() {
-        this.parseFails2("Ima Fool@iana.org", "Phil Haack says so");
+        this.parseFailsWithComment("Ima Fool@iana.org", "Phil Haack says so");
     }
 
     @Test
     public void test139__phil_DOT_h_ATSIGN__ATSIGN_ck_ATSIGN_haacked_DOT_com__Escaping_can_only_happen_in_a_quoted_string() {
-        this.parseFails2("phil.h\\@\\@ck@haacked.com", "Escaping can only happen in a quoted string");
+        this.parseFailsWithComment("phil.h\\@\\@ck@haacked.com", "Escaping can only happen in a quoted string");
     }
 
     @Test
@@ -1020,7 +1024,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test142__firstlast_ATSIGN_iana_DOT_org__Contains_an_unescaped_quote() {
-        this.parseFails2("\"first\\\\\"last\"@iana.org", "Contains an unescaped quote");
+        this.parseFailsWithComment("\"first\\\\\"last\"@iana.org", "Contains an unescaped quote");
     }
 
     @Test
@@ -1055,7 +1059,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test149__foo_ATSIGN_1_DOT_2_DOT_3_DOT_4__RFC_5321_specifies_the_syntax_for_addressliteral_and_does_not_allow_escaping() {
-        this.parseFails2("foo@[\\1.2.3.4]", "RFC 5321 specifies the syntax for address-literal and does not allow escaping");
+        this.parseFailsWithComment("foo@[\\1.2.3.4]", "RFC 5321 specifies the syntax for address-literal and does not allow escaping");
     }
 
     @Test
@@ -1076,39 +1080,39 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test153__first_DOT__DOT_last_ATSIGN_iana_DOT_org__Contains_a_zerolength_element() {
-        this.parseFails2("first.\"\".last@iana.org", "Contains a zero-length element");
+        this.parseFailsWithComment("first.\"\".last@iana.org", "Contains a zero-length element");
     }
 
     @Test
     public void test154__firstlast_ATSIGN_iana_DOT_org__Unquoted_string_must_be_an_atom() {
-        this.parseFails2("first\\last@iana.org", "Unquoted string must be an atom");
+        this.parseFailsWithComment("first\\last@iana.org", "Unquoted string must be an atom");
     }
 
     @Test
     public void test155__Abc_ATSIGN_def_ATSIGN_iana_DOT_org__Was_incorrectly_given_as_a_valid_address_in_the_original_RFC_3696() {
-        this.parseFails2("Abc\\@def@iana.org", "Was incorrectly given as a valid address in the original RFC 3696");
+        this.parseFailsWithComment("Abc\\@def@iana.org", "Was incorrectly given as a valid address in the original RFC 3696");
     }
 
     @Test
     public void test156__Fred_Bloggs_ATSIGN_iana_DOT_org__Was_incorrectly_given_as_a_valid_address_in_the_original_RFC_3696() {
-        this.parseFails2("Fred\\ Bloggs@iana.org", "Was incorrectly given as a valid address in the original RFC 3696");
+        this.parseFailsWithComment("Fred\\ Bloggs@iana.org", "Was incorrectly given as a valid address in the original RFC 3696");
     }
 
     @Test
     public void test157__Joe_DOT_Blow_ATSIGN_iana_DOT_org__Was_incorrectly_given_as_a_valid_address_in_the_original_RFC_3696() {
-        this.parseFails2("Joe.\\\\Blow@iana.org", "Was incorrectly given as a valid address in the original RFC 3696");
+        this.parseFailsWithComment("Joe.\\\\Blow@iana.org", "Was incorrectly given as a valid address in the original RFC 3696");
     }
 
     @Test
     public void test158__first_DOT_last_ATSIGN_IPv611112222333344445555666612_DOT_34_DOT_567_DOT_89__IPv4_part_contains_an_invalid_octet() {
-        this.parseFails2("first.last@[IPv6:1111:2222:3333:4444:5555:6666:12.34.567.89]",
+        this.parseFailsWithComment("first.last@[IPv6:1111:2222:3333:4444:5555:6666:12.34.567.89]",
                 "IPv4 part contains an invalid octet");
     }
 
     @Test
     @Disabled
     public void test159__test_blah_ATSIGN_iana_DOT_org__Folding_white_space_cant_appear_within_a_quoted_pair() {
-        this.parseFails2("\"test\\\r\n blah\"@iana.org", "Folding white space can\'t appear within a quoted pair");
+        this.parseFailsWithComment("\"test\\\r\n blah\"@iana.org", "Folding white space can\'t appear within a quoted pair");
     }
 
     @Test
@@ -1118,7 +1122,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test161__c_ATSIGN_Dog_ATSIGN_cartoon_DOT_com__This_is_a_throwaway_example_from_Doug_Lovells_article_DOT__Actually_its_not_a_valid_address_DOT_() {
-        this.parseFails2("{^c\\@**Dog^}@cartoon.com",
+        this.parseFailsWithComment("{^c\\@**Dog^}@cartoon.com",
                 "This is a throwaway example from Doug Lovell\'s article. Actually it\'s not a valid address.");
     }
 
@@ -1129,7 +1133,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test189___DOT__ATSIGN_() {
-        this.parseFails2(".@");
+        this.parseFailsWithComment(".@");
     }
 
     @Test
@@ -1139,12 +1143,12 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test191___ATSIGN_bar_DOT_com() {
-        this.parseFails2("@bar.com");
+        this.parseFailsWithComment("@bar.com");
     }
 
     @Test
     public void test192___ATSIGN__ATSIGN_bar_DOT_com() {
-        this.parseFails2("@@bar.com");
+        this.parseFailsWithComment("@@bar.com");
     }
 
     @Test
@@ -1154,17 +1158,17 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test194__aaa_DOT_com() {
-        this.parseFails2("aaa.com");
+        this.parseFailsWithComment("aaa.com");
     }
 
     @Test
     public void test195__aaa_ATSIGN__DOT_com() {
-        this.parseFails2("aaa@.com");
+        this.parseFailsWithComment("aaa@.com");
     }
 
     @Test
     public void test196__aaa_ATSIGN__DOT_123() {
-        this.parseFails2("aaa@.123");
+        this.parseFailsWithComment("aaa@.123");
     }
 
     @Test
@@ -1174,17 +1178,17 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test198__aaa_ATSIGN_123_DOT_123_DOT_123_DOT_123a__extra_data_outside_ip() {
-        this.parseFails2("aaa@[123.123.123.123]a", "extra data outside ip");
+        this.parseFailsWithComment("aaa@[123.123.123.123]a", "extra data outside ip");
     }
 
     @Test
     public void test199__aaa_ATSIGN_123_DOT_123_DOT_123_DOT_333__not_a_valid_IP() {
-        this.parseFails2("aaa@[123.123.123.333]", "not a valid IP");
+        this.parseFailsWithComment("aaa@[123.123.123.333]", "not a valid IP");
     }
 
     @Test
     public void test200__a_ATSIGN_bar_DOT_com_DOT_() {
-        this.parseFails2("a@bar.com.");
+        this.parseFailsWithComment("a@bar.com.");
     }
 
     @Test
@@ -1209,22 +1213,22 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test205__a_ATSIGN_b_DOT_com() {
-        this.parseFails2("a@-b.com");
+        this.parseFailsWithComment("a@-b.com");
     }
 
     @Test
     public void test206__a_ATSIGN_b_DOT_com() {
-        this.parseFails2("a@b-.com");
+        this.parseFailsWithComment("a@b-.com");
     }
 
     @Test
     public void test207___ATSIGN__DOT__DOT_com() {
-        this.parseFails2("-@..com");
+        this.parseFailsWithComment("-@..com");
     }
 
     @Test
     public void test208___ATSIGN_a_DOT__DOT_com() {
-        this.parseFails2("-@a..com");
+        this.parseFailsWithComment("-@a..com");
     }
 
     @Test
@@ -1249,7 +1253,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test213__invalid_ATSIGN_about_DOT_museum() {
-        this.parseFails2("invalid@about.museum-");
+        this.parseFailsWithComment("invalid@about.museum-");
     }
 
     @Test
@@ -1259,7 +1263,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test215__test_ATSIGN__DOT__DOT__DOT__DOT__DOT__DOT__DOT__DOT__DOT__DOT__DOT_com___DOT__DOT__DOT__DOT__DOT__DOT_() {
-        this.parseFails2("test@...........com", "......");
+        this.parseFailsWithComment("test@...........com", "......");
     }
 
     @Test
@@ -1274,7 +1278,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test218__Invalid__Folding__Whitespace_ATSIGN_iana_DOT_org__This_isnt_FWS_so_Dominic_Sayers_says_its_invalid() {
-        this.parseFails2("Invalid \\\n Folding \\\n Whitespace@iana.org",
+        this.parseFailsWithComment("Invalid \\\n Folding \\\n Whitespace@iana.org",
                 "This isn\'t FWS so Dominic Sayers says it\'s invalid");
     }
 
@@ -1298,7 +1302,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test225__test_DOT__obs_ATSIGN_syntax_DOT_com__obsfws_must_have_at_least_one_WSP_per_line() {
-        this.parseFails2("test.\r\n\r\n obs@syntax.com", "obs-fws must have at least one WSP per line");
+        this.parseFailsWithComment("test.\r\n\r\n obs@syntax.com", "obs-fws must have at least one WSP per line");
     }
 
     @Test
@@ -1309,12 +1313,12 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     @Test
     @Disabled
     public void test227__Unicode_NULL__ATSIGN_char_DOT_com__Cannot_have_unescaped_Unicode_Character_NULL__LEFT_PAREN_U0000_RIGHT_PAREN_() {
-        this.parseFails2("\"Unicode NULL \0\"@char.com", "Cannot have unescaped Unicode Character \'NULL\' (U+0000)");
+        this.parseFailsWithComment("\"Unicode NULL \0\"@char.com", "Cannot have unescaped Unicode Character \'NULL\' (U+0000)");
     }
 
     @Test
     public void test228__Unicode_NULL__ATSIGN_char_DOT_com__Escaped_Unicode_Character_NULL__LEFT_PAREN_U0000_RIGHT_PAREN__must_be_in_quoted_string() {
-        this.parseFails2("Unicode NULL \\\0@char.com",
+        this.parseFailsWithComment("Unicode NULL \\\0@char.com",
                 "Escaped Unicode Character \'NULL\' (U+0000) must be in quoted string");
     }
 
@@ -1337,7 +1341,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test232__first_DOT_last_ATSIGN_IPv6__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6::]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6::]", "IPv6 authority is RFC 4291");
     }
 
     @Test
@@ -1347,12 +1351,12 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test234__first_DOT_last_ATSIGN_IPv6__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6::::]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6::::]", "IPv6 authority is RFC 4291");
     }
 
     @Test
     public void test235__first_DOT_last_ATSIGN_IPv6b4__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6::b4]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6::b4]", "IPv6 authority is RFC 4291");
     }
 
     @Test
@@ -1362,12 +1366,12 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test237__first_DOT_last_ATSIGN_IPv6b4__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6::::b4]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6::::b4]", "IPv6 authority is RFC 4291");
     }
 
     @Test
     public void test238__first_DOT_last_ATSIGN_IPv6b3b4__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6::b3:b4]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6::b3:b4]", "IPv6 authority is RFC 4291");
     }
 
     @Test
@@ -1377,7 +1381,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test240__first_DOT_last_ATSIGN_IPv6b3b4__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6::::b3:b4]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6::::b3:b4]", "IPv6 authority is RFC 4291");
     }
 
     @Test
@@ -1387,12 +1391,12 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test242__first_DOT_last_ATSIGN_IPv6a1b4__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6:a1:::b4]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6:a1:::b4]", "IPv6 authority is RFC 4291");
     }
 
     @Test
     public void test243__first_DOT_last_ATSIGN_IPv6a1__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6:a1:]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6:a1:]", "IPv6 authority is RFC 4291");
     }
 
     @Test
@@ -1402,12 +1406,12 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test245__first_DOT_last_ATSIGN_IPv6a1__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6:a1:::]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6:a1:::]", "IPv6 authority is RFC 4291");
     }
 
     @Test
     public void test246__first_DOT_last_ATSIGN_IPv6a1a2__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6:a1:a2:]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6:a1:a2:]", "IPv6 authority is RFC 4291");
     }
 
     @Test
@@ -1417,7 +1421,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test248__first_DOT_last_ATSIGN_IPv6a1a2__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6:a1:a2:::]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6:a1:a2:::]", "IPv6 authority is RFC 4291");
     }
 
     @Test
@@ -1454,17 +1458,17 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test255__first_DOT_last_ATSIGN_IPv611_DOT_22_DOT_33_DOT_44__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6::11.22.33.44]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6::11.22.33.44]", "IPv6 authority is RFC 4291");
     }
 
     @Test
     public void test256__first_DOT_last_ATSIGN_IPv611_DOT_22_DOT_33_DOT_44__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6::::11.22.33.44]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6::::11.22.33.44]", "IPv6 authority is RFC 4291");
     }
 
     @Test
     public void test257__first_DOT_last_ATSIGN_IPv6a111_DOT_22_DOT_33_DOT_44__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6:a1:11.22.33.44]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6:a1:11.22.33.44]", "IPv6 authority is RFC 4291");
     }
 
     @Test
@@ -1474,7 +1478,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test259__first_DOT_last_ATSIGN_IPv6a111_DOT_22_DOT_33_DOT_44__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6:a1:::11.22.33.44]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6:a1:::11.22.33.44]", "IPv6 authority is RFC 4291");
     }
 
     @Test
@@ -1484,7 +1488,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test261__first_DOT_last_ATSIGN_IPv6a1a211_DOT_22_DOT_33_DOT_44__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6:a1:a2:::11.22.33.44]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6:a1:a2:::11.22.33.44]", "IPv6 authority is RFC 4291");
     }
 
     @Test
@@ -1494,7 +1498,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test263__first_DOT_last_ATSIGN_IPv60123456789abcdef11_DOT_22_DOT_33_DOT_xx__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6:0123:4567:89ab:cdef::11.22.33.xx]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6:0123:4567:89ab:cdef::11.22.33.xx]", "IPv6 authority is RFC 4291");
     }
 
     @Test
@@ -1504,27 +1508,27 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test265__first_DOT_last_ATSIGN_IPv60123456789abCDEFF11_DOT_22_DOT_33_DOT_44__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6:0123:4567:89ab:CDEFF::11.22.33.44]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6:0123:4567:89ab:CDEFF::11.22.33.44]", "IPv6 authority is RFC 4291");
     }
 
     @Test
     public void test266__first_DOT_last_ATSIGN_IPv6a1a4b1b411_DOT_22_DOT_33_DOT_44__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6:a1::a4:b1::b4:11.22.33.44]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6:a1::a4:b1::b4:11.22.33.44]", "IPv6 authority is RFC 4291");
     }
 
     @Test
     public void test267__first_DOT_last_ATSIGN_IPv6a111_DOT_22_DOT_33__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6:a1::11.22.33]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6:a1::11.22.33]", "IPv6 authority is RFC 4291");
     }
 
     @Test
     public void test268__first_DOT_last_ATSIGN_IPv6a111_DOT_22_DOT_33_DOT_44_DOT_55__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6:a1::11.22.33.44.55]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6:a1::11.22.33.44.55]", "IPv6 authority is RFC 4291");
     }
 
     @Test
     public void test269__first_DOT_last_ATSIGN_IPv6a1b211_DOT_22_DOT_33_DOT_44__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6:a1::b211.22.33.44]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6:a1::b211.22.33.44]", "IPv6 authority is RFC 4291");
     }
 
     @Test
@@ -1534,32 +1538,32 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void test271__first_DOT_last_ATSIGN_IPv6a1b211_DOT_22_DOT_33_DOT_44__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6:a1::b2::11.22.33.44]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6:a1::b2::11.22.33.44]", "IPv6 authority is RFC 4291");
     }
 
     @Test
     public void test272__first_DOT_last_ATSIGN_IPv6a1b3__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6:a1::b3:]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6:a1::b3:]", "IPv6 authority is RFC 4291");
     }
 
     @Test
     public void test273__first_DOT_last_ATSIGN_IPv6a2b4__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6::a2::b4]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6::a2::b4]", "IPv6 authority is RFC 4291");
     }
 
     @Test
     public void test274__first_DOT_last_ATSIGN_IPv6a1a2a3a4b1b2b3__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6:a1:a2:a3:a4:b1:b2:b3:]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6:a1:a2:a3:a4:b1:b2:b3:]", "IPv6 authority is RFC 4291");
     }
 
     @Test
     public void test275__first_DOT_last_ATSIGN_IPv6a2a3a4b1b2b3b4__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6::a2:a3:a4:b1:b2:b3:b4]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6::a2:a3:a4:b1:b2:b3:b4]", "IPv6 authority is RFC 4291");
     }
 
     @Test
     public void test276__first_DOT_last_ATSIGN_IPv6a1a2a3a4b1b2b3b4__IPv6_authority_is_RFC_4291() {
-        this.parseFails2("first.last@[IPv6:a1:a2:a3:a4::b1:b2:b3:b4]", "IPv6 authority is RFC 4291");
+        this.parseFailsWithComment("first.last@[IPv6:a1:a2:a3:a4::b1:b2:b3:b4]", "IPv6 authority is RFC 4291");
     }
 
     @Test
@@ -1570,7 +1574,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     @Test
     @Disabled
     public void test278__test_ATSIGN_example_DOT_com__Address_has_a_newline_at_the_end() {
-        this.parseFails2("test@example.com", "Address has a newline at the end");
+        this.parseFailsWithComment("test@example.com", "Address has a newline at the end");
     }
 
     @Test
@@ -1601,11 +1605,11 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         }
     }
 
-    private void parseFails2(final String address) {
-        this.parseFails2(address, null);
+    private void parseFailsWithComment(final String address) {
+        this.parseFailsWithComment(address, null);
     }
 
-    private void parseFails2(final String address, final String comment) {
+    private void parseFailsWithComment(final String address, final String comment) {
         assertThrows(RuntimeException.class, () -> {
             this.parse(address);
         }, "Invalid email " + CharSequences.quoteAndEscape(address) + " should have failed="
