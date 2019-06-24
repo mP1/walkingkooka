@@ -62,11 +62,6 @@ final public class EmailAddress implements Value<String>,
     final static int MAX_EMAIL_LENGTH = 255;
 
     /**
-     * The message when an email is too long.
-     */
-    final static String EMAIL_TOO_LONG = "Email too long";
-
-    /**
      * The maximum number of characters that can appear in as a user name in an email.
      */
     final static int MAX_LOCAL_LENGTH = 65;
@@ -76,13 +71,6 @@ final public class EmailAddress implements Value<String>,
      */
     static String missingUser(final String address) {
         return "Email missing user=" + CharSequences.quote(address);
-    }
-
-    /**
-     * Message when a user name is too long.
-     */
-    static String userNameTooLong(final int length, final String email) {
-        return "Email user too long=" + length + " in " + CharSequences.quoteAndEscape(email);
     }
 
     /**
