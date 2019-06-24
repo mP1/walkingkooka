@@ -18,7 +18,7 @@
 package walkingkooka.net.email;
 
 import walkingkooka.InvalidCharacterException;
-import walkingkooka.text.CharSequences;
+import walkingkooka.InvalidTextLengthException;
 
 /**
  * The {@link EmailAddressParser} which throws an {@link IllegalArgumentException} on any failed tests.
@@ -35,7 +35,7 @@ final class EmailAddressParserWith extends EmailAddressParser {
 
     @Override
     void emailTooLong(final String email) {
-        this.fail(EmailAddress.EMAIL_TOO_LONG + " " + CharSequences.quoteAndEscape(email));
+        throw new InvalidTextLengthException("Email", email, 0, EmailAddress.MAX_EMAIL_LENGTH);
     }
 
     @Override
@@ -45,7 +45,7 @@ final class EmailAddressParserWith extends EmailAddressParser {
 
     @Override
     void userNameTooLong(final int length, final String email) {
-        this.fail(EmailAddress.userNameTooLong(length, email));
+        throw new InvalidTextLengthException("Email username", email, 0, EmailAddress.MAX_LOCAL_LENGTH);
     }
 
     @Override

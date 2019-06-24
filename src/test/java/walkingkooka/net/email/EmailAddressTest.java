@@ -20,6 +20,7 @@ package walkingkooka.net.email;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
+import walkingkooka.InvalidTextLengthException;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.net.HostAddressProblem;
 import walkingkooka.test.ClassTesting2;
@@ -66,7 +67,10 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         Arrays.fill(array, 'x');
         final String email = "user@" + new String(array);
 
-        this.parseFails(email, EmailAddress.EMAIL_TOO_LONG + " " + CharSequences.quoteAndEscape(email));
+        assertThrows(InvalidTextLengthException.class, () -> {
+            EmailAddress.parse(email);
+        });
+        assertEquals(Optional.empty(), EmailAddress.tryParse(email));
     }
 
     @Test
@@ -177,7 +181,10 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         Arrays.fill(user, 'a');
         final String email = new String(user) + "@example.com";
 
-        this.parseFails(email, EmailAddress.userNameTooLong(EmailAddress.MAX_LOCAL_LENGTH, email));
+        assertThrows(InvalidTextLengthException.class, () -> {
+            EmailAddress.parse(email);
+        });
+        assertEquals(Optional.empty(), EmailAddress.tryParse(email));
     }
 
     private void parseFails(final String email) {
