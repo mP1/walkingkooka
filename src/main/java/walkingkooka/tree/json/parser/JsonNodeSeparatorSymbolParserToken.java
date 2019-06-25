@@ -61,7 +61,7 @@ public final class JsonNodeSeparatorSymbolParserToken extends JsonNodeSymbolPars
 
     @Override
     public boolean isSeparatorSymbol() {
-        return false;
+        return true;
     }
 
     @Override
