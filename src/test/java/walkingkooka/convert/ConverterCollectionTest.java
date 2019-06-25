@@ -20,14 +20,11 @@ package walkingkooka.convert;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ConverterCollectionTest implements ClassTesting2<ConverterCollection>,
-        ConverterTesting<ConverterCollection> {
+public final class ConverterCollectionTest extends ConverterTestCase<ConverterCollection> {
 
     @Override
     public void testTypeNaming() {
@@ -80,10 +77,5 @@ public final class ConverterCollectionTest implements ClassTesting2<ConverterCol
     @Override
     public Class<ConverterCollection> type() {
         return ConverterCollection.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

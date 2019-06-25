@@ -18,17 +18,14 @@ package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
-import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CustomToStringConverterTest implements ClassTesting2<CustomToStringConverter>,
-        ConverterTesting<CustomToStringConverter>,
-        HashCodeEqualsDefinedTesting<CustomToStringConverter> {
+public final class CustomToStringConverterTest extends ConverterTestCase<CustomToStringConverter>
+        implements HashCodeEqualsDefinedTesting<CustomToStringConverter> {
 
     private final static Converter WRAPPED = Converters.string();
     private final static String CUSTOM_TO_STRING = "!!custom-to-string!!";
@@ -108,11 +105,6 @@ public final class CustomToStringConverterTest implements ClassTesting2<CustomTo
     @Override
     public Class<CustomToStringConverter> type() {
         return Cast.to(CustomToStringConverter.class);
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

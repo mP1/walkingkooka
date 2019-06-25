@@ -18,11 +18,8 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
 
-public final class SimpleConverterTest implements ClassTesting2<SimpleConverter>,
-        ConverterTesting<SimpleConverter> {
+public final class SimpleConverterTest extends ConverterTestCase<SimpleConverter> {
 
     @Test
     public void testSameType() {
@@ -52,10 +49,5 @@ public final class SimpleConverterTest implements ClassTesting2<SimpleConverter>
     @Override
     public Class<SimpleConverter> type() {
         return SimpleConverter.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
