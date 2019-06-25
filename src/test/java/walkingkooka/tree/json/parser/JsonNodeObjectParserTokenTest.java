@@ -83,15 +83,6 @@ public final class JsonNodeObjectParserTokenTest extends JsonNodeParentParserTok
     }
 
     @Test
-    public void testWithoutWhitespace() {
-        final JsonNodeParserToken key = string("key");
-        final JsonNodeParserToken value = string("value");
-        final JsonNodeObjectParserToken object = object(objectBegin(), whitespace(), key, objectAssignment(), value, objectEnd()).cast();
-        final JsonNodeObjectParserToken without = object.withoutSymbols().get().cast();
-        assertEquals(Lists.of(key, value), without.value(), "value");
-    }
-
-    @Test
     public void testToJsonNodeEmpty() {
         assertEquals(Optional.of(JsonNode.object()), JsonNodeObjectParserToken.with(Lists.empty(), "{}").toJsonNode());
     }

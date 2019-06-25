@@ -30,17 +30,11 @@ public final class JsonNodeArrayParserToken extends JsonNodeParentParserToken<Js
 
     static JsonNodeArrayParserToken with(final List<ParserToken> value, final String text) {
         return new JsonNodeArrayParserToken(copyAndCheckTokens(value),
-                checkText(text),
-                WITHOUT_COMPUTE_REQUIRED);
+                checkText(text));
     }
 
-    private JsonNodeArrayParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
-        super(value, text, valueWithout);
-    }
-
-    @Override
-    JsonNodeParentParserToken replaceValue(final List<ParserToken> tokens, final List<ParserToken> without) {
-        return new JsonNodeArrayParserToken(tokens, this.text(), without);
+    private JsonNodeArrayParserToken(final List<ParserToken> value, final String text) {
+        super(value, text);
     }
 
     @Override
