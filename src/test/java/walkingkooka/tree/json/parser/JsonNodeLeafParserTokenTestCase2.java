@@ -16,7 +16,6 @@
  */
 package walkingkooka.tree.json.parser;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.Optional;
@@ -27,12 +26,6 @@ public abstract class JsonNodeLeafParserTokenTestCase2<T extends JsonNodeLeafPar
 
     JsonNodeLeafParserTokenTestCase2() {
         super();
-    }
-
-    @Test
-    public final void testWithoutSymbols() {
-        final T token = this.createToken();
-        assertEquals(Optional.of(token), token.withoutSymbols());
     }
 
     @Override

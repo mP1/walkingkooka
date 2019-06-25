@@ -17,6 +17,7 @@
 package walkingkooka.tree.json.parser;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.cursor.parser.ParentParserToken;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
@@ -32,17 +33,16 @@ public final class JsonNodeObjectParserToken extends JsonNodeParentParserToken<J
 
     static JsonNodeObjectParserToken with(final List<ParserToken> value, final String text) {
         return new JsonNodeObjectParserToken(copyAndCheckTokens(value),
-                checkText(text),
-                WITHOUT_COMPUTE_REQUIRED);
+                checkText(text));
     }
 
-    private JsonNodeObjectParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
-        super(value, text, valueWithout);
+    private JsonNodeObjectParserToken(final List<ParserToken> value, final String text) {
+        super(value, text);
         this.checkKeys(text);
     }
 
     private void checkKeys(final String text) {
-        final List<ParserToken> without = this.valueIfWithoutSymbolsOrNull();
+        final List<ParserToken> without = ParentParserToken.filterWithoutNoise(this.value);
         if (null != without) {
             int i = 0;
             JsonNodeParserToken j = null;
@@ -63,11 +63,6 @@ public final class JsonNodeObjectParserToken extends JsonNodeParentParserToken<J
     }
 
     @Override
-    JsonNodeParentParserToken replaceValue(final List<ParserToken> tokens, final List<ParserToken> without) {
-        return new JsonNodeObjectParserToken(tokens, this.text(), without);
-    }
-
-    @Override
     public boolean isArray() {
         return false;
     }
@@ -84,7 +79,7 @@ public final class JsonNodeObjectParserToken extends JsonNodeParentParserToken<J
         final JsonObjectNode object = JsonNode.object();
         final List<JsonNode> objectChildren = Lists.array();
 
-        for (ParserToken element : JsonNodeObjectParserToken.class.cast(this.withoutSymbols().get()).value()) {
+        for (ParserToken element : ParentParserToken.filterWithoutNoise(this.value)) {
             if (element instanceof JsonNodeParserToken) {
                 final JsonNodeParserToken j = JsonNodeParserToken.class.cast(element);
                 if (j.isNoise()) {

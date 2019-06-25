@@ -16,8 +16,6 @@
  */
 package walkingkooka.tree.json.parser;
 
-import java.util.Optional;
-
 /**
  * Base class for a leaf token. A leaf has no further breakdown into more detailed tokens.
  */
@@ -25,11 +23,6 @@ abstract class JsonNodeValueParserToken<V> extends JsonNodeLeafParserToken<V> {
 
     JsonNodeValueParserToken(final V value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    public final Optional<JsonNodeParserToken> withoutSymbols() {
-        return Optional.of(this);
     }
 
     // isXXX............................................................................................................

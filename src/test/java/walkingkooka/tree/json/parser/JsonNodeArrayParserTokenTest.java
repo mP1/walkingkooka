@@ -30,13 +30,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public final class JsonNodeArrayParserTokenTest extends JsonNodeParentParserTokenTestCase<JsonNodeArrayParserToken> {
 
     @Test
-    public void testWithoutWhitespace() {
-        final JsonNodeArrayParserToken array = array(arrayBegin(), whitespace(), string("abc"), arrayEnd()).cast();
-        final JsonNodeArrayParserToken without = array.withoutSymbols().get().cast();
-        assertEquals(Lists.of(string("abc")), without.value(), "value");
-    }
-
-    @Test
     public void testToJsonNodeEmpty() {
         assertEquals(Optional.of(JsonNode.array()), JsonNodeParserToken.array(Lists.empty(), "[]").toJsonNode());
     }
