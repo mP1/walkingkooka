@@ -33,7 +33,7 @@ import java.util.Set;
 
 /**
  * A grammar holds all the rules and is the root of the graph. Note the {@link #value()} will contain a mixture of rules,
- * comments and whitespace until {@link #withoutCommentsSymbolsOrWhitespace()} is invoked.
+ * comments and whitespace.
  */
 public final class EbnfGrammarParserToken extends EbnfParentParserToken<EbnfGrammarParserToken> {
 
@@ -42,12 +42,11 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken<EbnfGram
         checkText(text);
 
         return new EbnfGrammarParserToken(Lists.immutable(tokens),
-                text,
-                WITHOUT_COMPUTE_REQUIRED);
+                text);
     }
 
-    private EbnfGrammarParserToken(final List<ParserToken> tokens, final String text, final List<ParserToken> valueWithout) {
-        super(tokens, text, valueWithout);
+    private EbnfGrammarParserToken(final List<ParserToken> tokens, final String text) {
+        super(tokens, text);
 
         final Optional<ParserToken> firstRule = tokens.stream()
                 .filter(t -> t instanceof EbnfRuleParserToken)
@@ -56,12 +55,6 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken<EbnfGram
             throw new IllegalArgumentException("Grammar requires at least 1 rule=" + tokens);
         }
     }
-
-    @Override
-    EbnfGrammarParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
-        return new EbnfGrammarParserToken(tokens, text, without);
-    }
-
 
     /**
      * Constant to be passed to {@link #checkIdentifiers(Set)} if no external references exist.

@@ -27,17 +27,12 @@ import java.util.List;
 public final class EbnfConcatenationParserToken extends EbnfParentParserToken<EbnfConcatenationParserToken> {
 
     static EbnfConcatenationParserToken with(final List<ParserToken> tokens, final String text) {
-        return new EbnfConcatenationParserToken(copyAndCheckTokens(tokens), checkText(text), WITHOUT_COMPUTE_REQUIRED);
+        return new EbnfConcatenationParserToken(copyAndCheckTokens(tokens), checkText(text));
     }
 
-    private EbnfConcatenationParserToken(final List<ParserToken> tokens, final String text, final List<ParserToken> valueWithout) {
-        super(tokens, text, valueWithout);
+    private EbnfConcatenationParserToken(final List<ParserToken> tokens, final String text) {
+        super(tokens, text);
         this.checkAtLeastTwoTokens();
-    }
-
-    @Override
-    EbnfConcatenationParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
-        return new EbnfConcatenationParserToken(tokens, text, without);
     }
 
     // isXXX............................................................................................................

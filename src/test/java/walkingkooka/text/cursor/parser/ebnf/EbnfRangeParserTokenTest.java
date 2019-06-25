@@ -24,7 +24,6 @@ import walkingkooka.tree.visit.Visiting;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -126,12 +125,6 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
                        final EbnfParserToken begin, final EbnfParserToken end) {
         assertSame(begin, token.begin(), "begin");
         assertSame(end, token.end());
-    }
-
-    @Test
-    public void testWithoutCommentsSymbolsOrWhitespace() {
-        final EbnfRangeParserToken token = this.createToken();
-        assertNotSame(token, token.withoutCommentsSymbolsOrWhitespace().get());
     }
 
     @Test

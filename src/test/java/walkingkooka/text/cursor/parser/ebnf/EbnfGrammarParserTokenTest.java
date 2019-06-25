@@ -41,12 +41,6 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
     }
 
     @Test
-    public void testWithoutCommentsSymbolsOrWhitespace() {
-        final EbnfGrammarParserToken token = this.createToken();
-        assertSame(token, token.withoutCommentsSymbolsOrWhitespace().get());
-    }
-
-    @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
         final List<ParserToken> visited = Lists.array();

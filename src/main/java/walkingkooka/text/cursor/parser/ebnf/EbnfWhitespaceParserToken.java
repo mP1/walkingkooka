@@ -18,8 +18,6 @@ package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.text.CharSequences;
 
-import java.util.Optional;
-
 /**
  * Holds the combination of whitespace or comments.
  */
@@ -34,11 +32,6 @@ public final class EbnfWhitespaceParserToken extends EbnfLeafParserToken<String>
 
     private EbnfWhitespaceParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    public Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace() {
-        return Optional.empty();
     }
 
     // isXXX............................................................................................................

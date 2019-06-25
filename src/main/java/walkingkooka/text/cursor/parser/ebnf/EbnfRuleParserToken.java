@@ -31,14 +31,12 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken<EbnfRulePar
         checkText(text);
 
         return new EbnfRuleParserToken(copy,
-                text,
-                WITHOUT_COMPUTE_REQUIRED);
+                text);
     }
 
     private EbnfRuleParserToken(final List<ParserToken> tokens,
-                                final String text,
-                                final List<ParserToken> valueWithout) {
-        super(tokens, text, valueWithout);
+                                final String text) {
+        super(tokens, text);
 
         final EbnfRuleParserTokenConsumer checker = new EbnfRuleParserTokenConsumer();
         tokens.stream()
@@ -70,13 +68,6 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken<EbnfRulePar
     }
 
     private final EbnfParserToken token;
-
-    @Override
-    EbnfRuleParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
-        return new EbnfRuleParserToken(tokens,
-                text,
-                without);
-    }
 
     // isXXX............................................................................................................
 

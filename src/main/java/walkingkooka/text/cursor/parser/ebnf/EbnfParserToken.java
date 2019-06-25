@@ -26,7 +26,6 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * Represents a token within an EBNF grammar.
@@ -171,12 +170,6 @@ public abstract class EbnfParserToken implements ParserToken {
      * Value getter, used within equals.
      */
     abstract Object value();
-
-    /**
-     * Sub classes must override. Not all types of token support this operation, eg this doesnt make sense
-     * given a {@link EbnfCommentParserToken} will return empty.
-     */
-    abstract public Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace();
 
     // isXXX............................................................................................................
 

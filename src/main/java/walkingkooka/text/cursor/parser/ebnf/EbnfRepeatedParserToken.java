@@ -27,17 +27,12 @@ import java.util.List;
 public final class EbnfRepeatedParserToken extends EbnfParentParserToken<EbnfRepeatedParserToken> {
 
     static EbnfRepeatedParserToken with(final List<ParserToken> tokens, final String text) {
-        return new EbnfRepeatedParserToken(copyAndCheckTokens(tokens), checkText(text), WITHOUT_COMPUTE_REQUIRED);
+        return new EbnfRepeatedParserToken(copyAndCheckTokens(tokens), checkText(text));
     }
 
-    private EbnfRepeatedParserToken(final List<ParserToken> tokens, final String text, final List<ParserToken> valueWithout) {
-        super(tokens, text, valueWithout);
+    private EbnfRepeatedParserToken(final List<ParserToken> tokens, final String text) {
+        super(tokens, text);
         this.checkOnlyOneToken();
-    }
-
-    @Override
-    EbnfRepeatedParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
-        return new EbnfRepeatedParserToken(tokens, text, without);
     }
 
     // isXXX............................................................................................................

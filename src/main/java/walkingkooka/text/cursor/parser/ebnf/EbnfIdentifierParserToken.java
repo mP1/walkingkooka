@@ -16,8 +16,6 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import java.util.Optional;
-
 /**
  * Holds the text for an identifier. Identifiers may appear on the left of a definition or as a reference to another rule definition.
  */
@@ -32,11 +30,6 @@ public final class EbnfIdentifierParserToken extends EbnfLeafParserToken<EbnfIde
 
     private EbnfIdentifierParserToken(final EbnfIdentifierName value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    public Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace() {
-        return Optional.of(this);
     }
 
     // ixXXX............................................................................................................

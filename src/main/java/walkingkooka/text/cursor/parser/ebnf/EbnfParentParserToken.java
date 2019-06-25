@@ -20,55 +20,42 @@ import walkingkooka.text.cursor.parser.ParentParserToken;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Base class for a token that contain another child token, with the class knowing the cardinality.
  */
 abstract class EbnfParentParserToken<T extends EbnfParentParserToken> extends EbnfParserToken implements ParentParserToken<T> {
 
-    final static List<ParserToken> WITHOUT_COMPUTE_REQUIRED = null;
-
-    EbnfParentParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
+    EbnfParentParserToken(final List<ParserToken> value, final String text) {
         super(text);
         this.value = value;
-        this.without = value.equals(valueWithout) ?
-                Optional.of(this) :
-                computeWithout(value);
     }
 
-    private Optional<EbnfParserToken> computeWithout(final List<ParserToken> value) {
-        final List<ParserToken> without = ParentParserToken.filterWithoutNoise(value);
-
-        return Optional.of(value.size() == without.size() ?
-                this :
-                this.replace(without, this.text(), without));
-    }
-
-    final void checkOnlyOneToken() {
-        final int count = this.tokenCount();
+    final List<ParserToken> checkOnlyOneToken() {
+        final List<ParserToken> without = ParentParserToken.filterWithoutNoise(this.value);
+        final int count = without.size();
         if (count != 1) {
             throw new IllegalArgumentException("Expected 1 token(ignoring comments, symbols and whitespace) but was " + count + "=" + this.text());
         }
+        return without;
     }
 
-    final void checkAtLeastTwoTokens() {
-        final int count = this.tokenCount();
+    final List<ParserToken> checkAtLeastTwoTokens() {
+        final List<ParserToken> without = ParentParserToken.filterWithoutNoise(this.value);
+        final int count = without.size();
         if (count < 2) {
             throw new IllegalArgumentException("Expected at least 2 tokens(ignoring comments, symbols and whitespace) but was " + count + "=" + this.text());
         }
+        return without;
     }
 
-    final void checkOnlyTwoTokens() {
-        final int count = this.tokenCount();
+    final List<ParserToken> checkOnlyTwoTokens() {
+        final List<ParserToken> without = ParentParserToken.filterWithoutNoise(this.value);
+        final int count = without.size();
         if (count != 2) {
             throw new IllegalArgumentException("Expected 2 tokens(ignoring comments, symbols and whitespace) but was " + count + "=" + this.text());
         }
-    }
-
-    private int tokenCount() {
-        final EbnfParentParserToken without = this.without.get().cast();
-        return without.value().size();
+        return without;
     }
 
     @Override
@@ -77,22 +64,6 @@ abstract class EbnfParentParserToken<T extends EbnfParentParserToken> extends Eb
     }
 
     final List<ParserToken> value;
-
-    @Override
-    public final Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace() {
-        return this.without;
-    }
-
-    /**
-     * A cached copy of this parent/container without any comments, symbols or whitespace.
-     */
-    final Optional<EbnfParserToken> without;
-
-    /**
-     * Factory that creates a new {@link EbnfParentParserToken} with the same text but new tokens.
-     * This is only called when creating the withoutCommentsSymbolsOrWhitespace() instance.
-     */
-    abstract EbnfParentParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without);
 
     @Override
     public final boolean isComment() {

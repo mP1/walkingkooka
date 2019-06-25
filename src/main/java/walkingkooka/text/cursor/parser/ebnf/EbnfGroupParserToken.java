@@ -27,17 +27,12 @@ import java.util.List;
 public final class EbnfGroupParserToken extends EbnfParentParserToken<EbnfGroupParserToken> {
 
     static EbnfGroupParserToken with(final List<ParserToken> tokens, final String text) {
-        return new EbnfGroupParserToken(copyAndCheckTokens(tokens), checkText(text), WITHOUT_COMPUTE_REQUIRED);
+        return new EbnfGroupParserToken(copyAndCheckTokens(tokens), checkText(text));
     }
 
-    private EbnfGroupParserToken(final List<ParserToken> tokens, final String text, final List<ParserToken> valueWithout) {
-        super(tokens, text, valueWithout);
+    private EbnfGroupParserToken(final List<ParserToken> tokens, final String text) {
+        super(tokens, text);
         this.checkOnlyOneToken();
-    }
-
-    @Override
-    EbnfGroupParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
-        return new EbnfGroupParserToken(tokens, text, without);
     }
 
     // isXXX............................................................................................................

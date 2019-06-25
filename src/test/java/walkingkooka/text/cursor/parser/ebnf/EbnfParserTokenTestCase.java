@@ -17,8 +17,6 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.predicate.Predicates;
-import walkingkooka.test.BeanPropertiesTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.PublicStaticFactoryTesting;
@@ -26,7 +24,6 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenTesting;
 import walkingkooka.type.JavaVisibility;
 
-import java.util.Optional;
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -52,14 +49,6 @@ public abstract class EbnfParserTokenTestCase<T extends EbnfParserToken> impleme
         assertThrows(IllegalArgumentException.class, () -> {
             this.createToken("");
         });
-    }
-
-    @Test
-    public void testWithoutCommentsSymbolsOrWhitespacePropertiesNullCheck() throws Exception {
-        final Optional<EbnfParserToken> without = this.createToken().withoutCommentsSymbolsOrWhitespace();
-        if (without.isPresent()) {
-            BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(without.get(), Predicates.never());
-        }
     }
 
     static EbnfSymbolParserToken symbol(final String s) {
