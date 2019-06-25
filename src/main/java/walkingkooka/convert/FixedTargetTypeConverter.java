@@ -19,16 +19,31 @@ package walkingkooka.convert;
 
 import walkingkooka.Cast;
 
+import java.util.Objects;
+
 /**
- * A base converter that only accepts one target.
+ * A base {@link Converter} that only accepts one target type.
  */
-abstract class FixedTargetTypeConverter<T> extends ConverterTemplate {
+abstract class FixedTargetTypeConverter<T> implements Converter {
 
     /**
      * Package private to limit sub classing.
      */
     FixedTargetTypeConverter() {
         super();
+    }
+
+    @Override
+    public final <T> T convert(final Object value, final Class<T> type, final ConverterContext context) {
+        Objects.requireNonNull(value, "value");
+        Objects.requireNonNull(type, "type");
+        Objects.requireNonNull(context, "context");
+
+        if (!this.canConvert(value, type, context)) {
+            failConversion(value, type);
+        }
+
+        return this.convert0(value, type, context);
     }
 
     final <TT> TT convert0(final Object value, final Class<TT> type, final ConverterContext context) {
