@@ -27,22 +27,16 @@ import java.util.List;
 public final class EbnfExceptionParserToken extends EbnfParentParserToken<EbnfExceptionParserToken> {
 
     static EbnfExceptionParserToken with(final List<ParserToken> tokens, final String text) {
-        return new EbnfExceptionParserToken(copyAndCheckTokens(tokens), checkText(text), WITHOUT_COMPUTE_REQUIRED);
+        return new EbnfExceptionParserToken(copyAndCheckTokens(tokens), checkText(text));
     }
 
-    private EbnfExceptionParserToken(final List<ParserToken> tokens, final String text, final List<ParserToken> valueWithout) {
-        super(tokens, text, valueWithout);
-        this.checkOnlyTwoTokens();
+    private EbnfExceptionParserToken(final List<ParserToken> tokens, final String text) {
+        super(tokens, text);
+        ;
 
-        final EbnfExceptionParserToken without = this.withoutCommentsSymbolsOrWhitespace().get().cast();
-        final List<ParserToken> withoutTokens = without.value();
-        this.token = withoutTokens.get(0).cast();
-        this.exception = withoutTokens.get(1).cast();
-    }
-
-    @Override
-    EbnfExceptionParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
-        return new EbnfExceptionParserToken(tokens, text, without);
+        final List<ParserToken> without = this.checkOnlyTwoTokens();
+        this.token = without.get(0).cast();
+        this.exception = without.get(1).cast();
     }
 
     /**

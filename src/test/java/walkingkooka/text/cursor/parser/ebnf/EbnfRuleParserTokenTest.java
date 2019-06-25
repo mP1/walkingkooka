@@ -25,7 +25,6 @@ import walkingkooka.tree.visit.Visiting;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -50,12 +49,6 @@ public class EbnfRuleParserTokenTest extends EbnfParentParserTokenTestCase<EbnfR
         assertThrows(IllegalArgumentException.class, () -> {
             this.createToken(this.text(), identifier1(), assignment(), terminator());
         });
-    }
-
-    @Test
-    public void testWithoutCommentsSymbolsOrWhitespace() {
-        final EbnfRuleParserToken token = this.createToken();
-        assertNotSame(token, token.withoutCommentsSymbolsOrWhitespace().get());
     }
 
     @Test

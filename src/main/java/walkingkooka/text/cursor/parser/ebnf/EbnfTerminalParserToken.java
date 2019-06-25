@@ -16,8 +16,6 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import java.util.Optional;
-
 /**
  * Holds the terminal token portion of the rhs of a rule.
  */
@@ -32,11 +30,6 @@ public final class EbnfTerminalParserToken extends EbnfLeafParserToken<String> {
 
     private EbnfTerminalParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    public Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace() {
-        return Optional.of(this);
     }
 
     // isXXX............................................................................................................

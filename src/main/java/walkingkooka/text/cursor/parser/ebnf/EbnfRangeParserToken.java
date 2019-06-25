@@ -30,13 +30,12 @@ final public class EbnfRangeParserToken extends EbnfParentParserToken<EbnfRangeP
         final List<ParserToken> copy = copyAndCheckTokens(tokens);
         checkText(text);
 
-        return new EbnfRangeParserToken(copy, text, WITHOUT_COMPUTE_REQUIRED);
+        return new EbnfRangeParserToken(copy, text);
     }
 
     private EbnfRangeParserToken(final List<ParserToken> tokens,
-                                 final String text,
-                                 final List<ParserToken> valueWithout) {
-        super(tokens, text, valueWithout);
+                                 final String text) {
+        super(tokens, text);
         this.checkOnlyTwoTokens();
 
         final EbnfRangeParserTokenConsumer checker = new EbnfRangeParserTokenConsumer();
@@ -56,13 +55,6 @@ final public class EbnfRangeParserToken extends EbnfParentParserToken<EbnfRangeP
 
         this.begin = begin;
         this.end = end;
-    }
-
-    @Override
-    EbnfRangeParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
-        return new EbnfRangeParserToken(tokens,
-                text,
-                without);
     }
 
     public EbnfParserToken begin() {

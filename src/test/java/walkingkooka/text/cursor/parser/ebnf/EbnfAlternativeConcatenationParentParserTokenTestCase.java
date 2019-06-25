@@ -22,8 +22,6 @@ import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class EbnfAlternativeConcatenationParentParserTokenTestCase<T extends EbnfParentParserToken<T>> extends EbnfParentParserTokenTestCase2<T> {
@@ -37,20 +35,6 @@ public abstract class EbnfAlternativeConcatenationParentParserTokenTestCase<T ex
         assertThrows(IllegalArgumentException.class, () -> {
             this.createToken(this.text(), this.identifier("first"), this.comment2());
         });
-    }
-
-    @Test
-    public void testWithoutCommentsSymbolsWhitespace() {
-        final EbnfParserToken identifier1 = this.identifier1();
-        final EbnfParserToken comment2 = this.comment2();
-        final EbnfParserToken identifier3 = this.identifier("identifier3");
-
-        final T token = this.createToken(this.text(), identifier1, comment2, identifier3);
-        assertEquals(Lists.of(identifier1, comment2, identifier3), token.value(), "value");
-
-        final T without = token.withoutCommentsSymbolsOrWhitespace().get().cast();
-        assertNotSame(token, without);
-        assertEquals(Lists.of(identifier1, identifier3), without.value(), "value");
     }
 
     @Override
