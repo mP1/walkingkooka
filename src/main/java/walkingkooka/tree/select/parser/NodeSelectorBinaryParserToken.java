@@ -16,7 +16,7 @@
  */
 package walkingkooka.tree.select.parser;
 
-import walkingkooka.Cast;
+import walkingkooka.text.cursor.parser.ParentParserToken;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
@@ -30,11 +30,10 @@ abstract class NodeSelectorBinaryParserToken<T extends NodeSelectorBinaryParserT
      * Package private to limit sub classing.
      */
     NodeSelectorBinaryParserToken(final List<ParserToken> value,
-                                  final String text,
-                                  final List<ParserToken> valueWithout) {
-        super(value, text, valueWithout);
+                                  final String text) {
+        super(value, text);
 
-        final List<ParserToken> without = Cast.to(NodeSelectorParentParserToken.class.cast(this.withoutSymbols().get()).value());
+        final List<ParserToken> without = ParentParserToken.filterWithoutNoise(value);
         final int count = without.size();
         if (2 != count) {
             throw new IllegalArgumentException("Expected 2 tokens but got " + count + "=" + without);

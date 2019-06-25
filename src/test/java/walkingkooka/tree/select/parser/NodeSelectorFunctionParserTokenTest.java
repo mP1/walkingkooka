@@ -75,13 +75,6 @@ public final class NodeSelectorFunctionParserTokenTest extends NodeSelectorParen
     }
 
     @Test
-    public void testWithoutSymbols() {
-        final NodeSelectorFunctionParserToken expression = this.createToken();
-        final NodeSelectorFunctionParserToken without = expression.withoutSymbols().get().cast();
-        assertEquals(Lists.of(functionName(), quotedText()), without.value(), "value");
-    }
-
-    @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
         final List<ParserToken> visited = Lists.array();

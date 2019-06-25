@@ -32,13 +32,6 @@ public final class NodeSelectorNegativeParserTokenTest extends NodeSelectorParen
     // -123
 
     @Test
-    public void testWithoutSymbols() {
-        final NodeSelectorNegativeParserToken negative = this.createToken();
-        final NodeSelectorNegativeParserToken without = negative.withoutSymbols().get().cast();
-        assertEquals(Lists.of(number()), without.value(), "value");
-    }
-
-    @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
         final List<ParserToken> visited = Lists.array();

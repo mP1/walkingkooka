@@ -28,20 +28,12 @@ public final class NodeSelectorAndParserToken extends NodeSelectorBinaryParserTo
 
     static NodeSelectorAndParserToken with(final List<ParserToken> value, final String text) {
         return new NodeSelectorAndParserToken(copyAndCheckTokens(value),
-                checkTextNullOrWhitespace(text),
-                WITHOUT_COMPUTE_REQUIRED);
+                checkTextNullOrWhitespace(text));
     }
 
     private NodeSelectorAndParserToken(final List<ParserToken> value,
-                                       final String text,
-                                       final List<ParserToken> valueWithout) {
-        super(value, text, valueWithout);
-    }
-
-    @Override
-    NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens,
-                                               final List<ParserToken> without) {
-        return new NodeSelectorAndParserToken(tokens, this.text(), without);
+                                       final String text) {
+        super(value, text);
     }
 
     // is................................................................................................

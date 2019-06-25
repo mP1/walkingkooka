@@ -27,7 +27,6 @@ import walkingkooka.tree.visit.Visiting;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * Represents a token within the xpath query grammar.
@@ -484,12 +483,6 @@ public abstract class NodeSelectorParserToken implements ParserToken {
     private final String text;
 
     abstract Object value();
-
-    /**
-     * Returns a copy without any symbols or whitespace tokens. The original text form will still contain
-     * those tokens as text, but the tokens themselves will be removed.
-     */
-    abstract public Optional<NodeSelectorParserToken> withoutSymbols();
 
     /**
      * Only {@link NodeSelectorAbsoluteParserToken} return true

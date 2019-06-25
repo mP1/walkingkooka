@@ -19,15 +19,11 @@ package walkingkooka.tree.select.parser;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.predicate.Predicates;
-import walkingkooka.test.BeanPropertiesTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NodeSelectorParentParserTokenTestCase<T extends NodeSelectorParentParserToken<T>> extends NodeSelectorParserTokenTestCase<T> {
@@ -55,27 +51,6 @@ public abstract class NodeSelectorParentParserTokenTestCase<T extends NodeSelect
         this.checkText(token, text);
         assertEquals(tokens, token.value(), "tokens");
         assertEquals(tokens, token.value(), "tokens not copied");
-    }
-
-    @Test
-    public final void testWithoutSymbolsCached() {
-        final T token = this.createToken();
-        assertSame(token.withoutSymbols(), token.withoutSymbols());
-        assertSame(token.withoutSymbols().get().withoutSymbols(), token.withoutSymbols().get().withoutSymbols());
-    }
-
-    @Test
-    public final void testWithoutSymbolsDoubleSame() {
-        final T token = this.createToken();
-        assertSame(token.withoutSymbols(), token.withoutSymbols());
-    }
-
-    @Test
-    public void testWithoutCommentsSymbolsOrWhitespacePropertiesNullCheck() throws Exception {
-        final Optional<NodeSelectorParserToken> without = this.createToken().withoutSymbols();
-        if (without.isPresent()) {
-            BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(without.get(), Predicates.never());
-        }
     }
 
     @Override

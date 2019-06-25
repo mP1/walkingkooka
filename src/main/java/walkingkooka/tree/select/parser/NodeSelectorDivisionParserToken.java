@@ -29,19 +29,12 @@ public final class NodeSelectorDivisionParserToken extends NodeSelectorArithmeti
     static NodeSelectorDivisionParserToken with(final List<ParserToken> value,
                                                 final String text) {
         return new NodeSelectorDivisionParserToken(copyAndCheckTokens(value),
-                checkTextNullOrWhitespace(text),
-                WITHOUT_COMPUTE_REQUIRED);
+                checkTextNullOrWhitespace(text));
     }
 
     private NodeSelectorDivisionParserToken(final List<ParserToken> value,
-                                            final String text,
-                                            final List<ParserToken> valueWithout) {
-        super(value, text, valueWithout);
-    }
-
-    @Override
-    NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens, final List<ParserToken> without) {
-        return new NodeSelectorDivisionParserToken(tokens, this.text(), without);
+                                            final String text) {
+        super(value, text);
     }
 
     // is..............................................................................................................

@@ -29,9 +29,8 @@ abstract public class NodeSelectorArithmeticParserToken<T extends NodeSelectorAr
      * Package private to limit sub classing.
      */
     NodeSelectorArithmeticParserToken(final List<ParserToken> value,
-                                      final String text,
-                                      final List<ParserToken> valueWithout) {
-        super(value, text, valueWithout);
+                                      final String text) {
+        super(value, text);
     }
 
     // isXXX............................................................................................................
