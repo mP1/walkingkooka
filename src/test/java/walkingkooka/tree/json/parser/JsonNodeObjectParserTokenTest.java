@@ -24,11 +24,13 @@ import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class JsonNodeObjectParserTokenTest extends JsonNodeParentParserTokenTestCase<JsonNodeObjectParserToken> {
@@ -110,6 +112,79 @@ public final class JsonNodeObjectParserTokenTest extends JsonNodeParentParserTok
         assertEquals(Optional.of(JsonNode.object().set(JsonNodeName.with("key1"), JsonNode.number(123))),
                 object(whitespace(), string("key1"), whitespace(), number(123))
                         .toJsonNode());
+    }
+
+    @Test
+    public void testAccept() {
+        final StringBuilder b = new StringBuilder();
+        final JsonNodeObjectParserToken token = this.createToken();
+        final JsonNodeObjectBeginSymbolParserToken begin = token.value.get(0).cast();
+        final JsonNodeStringParserToken string1 = token.value.get(1).cast();
+        final JsonNodeObjectAssignmentSymbolParserToken assignment = token.value.get(2).cast();
+        final JsonNodeStringParserToken string2 = token.value.get(3).cast();
+        final JsonNodeObjectEndSymbolParserToken end = token.value.get(4).cast();
+
+        new FakeJsonNodeParserTokenVisitor() {
+            @Override
+            protected Visiting startVisit(final ParserToken t) {
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final ParserToken t) {
+                b.append("2");
+            }
+
+            @Override
+            protected Visiting startVisit(final JsonNodeParserToken t) {
+                b.append("3");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final JsonNodeParserToken t) {
+                b.append("4");
+            }
+
+            @Override
+            protected Visiting startVisit(final JsonNodeObjectParserToken t) {
+                assertSame(token, t);
+                b.append("5");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final JsonNodeObjectParserToken t) {
+                assertSame(token, t);
+                b.append("6");
+            }
+
+            @Override
+            protected void visit(final JsonNodeObjectBeginSymbolParserToken t) {
+                assertSame(begin, t);
+                b.append("7");
+            }
+
+            @Override
+            protected void visit(final JsonNodeObjectAssignmentSymbolParserToken t) {
+                assertSame(assignment, t);
+                b.append("8");
+            }
+
+            @Override
+            protected void visit(final JsonNodeObjectEndSymbolParserToken t) {
+                assertSame(end, t);
+                b.append("9");
+            }
+
+            @Override
+            protected void visit(final JsonNodeStringParserToken t) {
+                b.append("a");
+            }
+        }.accept(token);
+
+        assertEquals("1351374213a421384213a4213942642", b.toString());
     }
 
     @Override
