@@ -18,49 +18,13 @@
 package walkingkooka.convert;
 
 import walkingkooka.Cast;
-import walkingkooka.test.ToStringTesting;
-import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public interface ConverterTesting<C extends Converter> extends ToStringTesting<C>,
-        TypeNameTesting<C> {
-
-    C createConverter();
-
-    ConverterContext createContext();
-
-    default void convertAndCheck(final Object value) {
-        assertSame(value, this.convertAndCheck(value, value.getClass(), value));
-    }
-
-    default Object convertAndCheck(final Object value, final Class<?> target) {
-        final Object result = this.convertAndCheck(this.createConverter(), value, target, value);
-        assertSame(result, value);
-        return result;
-    }
-
-    default Object convertAndCheck(final Object value, final Class<?> target, final Object expected) {
-        return this.convertAndCheck(this.createConverter(), value, target, expected);
-    }
-
-    default Object convertAndCheck(final Object value,
-                                   final Class<?> target,
-                                   final ConverterContext context,
-                                   final Object expected) {
-        return this.convertAndCheck(this.createConverter(), value, target, context, expected);
-    }
-
-    default Object convertAndCheck(final Converter converter,
-                                   final Object value,
-                                   final Class<?> target,
-                                   final Object expected) {
-        return this.convertAndCheck(converter, value, target, this.createContext(), expected);
-    }
+public interface ConverterTesting<C extends Converter> {
 
     default Object convertAndCheck(final Converter converter,
                                    final Object value,
@@ -91,14 +55,6 @@ public interface ConverterTesting<C extends Converter> extends ToStringTesting<C
         }
     }
 
-    default <T> void convertFails(final Object value, final Class<?> type) {
-        this.convertFails(this.createConverter(), value, type);
-    }
-
-    default <T> void convertFails(final Converter converter, final Object value, final Class<?> type) {
-        this.convertFails(converter, value, type, this.createContext());
-    }
-
     default <T> void convertFails(final Converter converter,
                                   final Object value,
                                   final Class<?> type,
@@ -108,25 +64,5 @@ public interface ConverterTesting<C extends Converter> extends ToStringTesting<C
             fail("Expected " + converter + " with " + CharSequences.quoteIfChars(value) + " to " + type.getName() + " to fail but got " + CharSequences.quoteIfChars(result));
         } catch (final ConversionException ignored) {
         }
-    }
-
-    default Object convert(final Object value) {
-        return this.convert(value, value.getClass());
-    }
-
-    default Object convert(final Object value, final Class<?> type) {
-        return this.createConverter().convert(value, type, this.createContext());
-    }
-
-    // TypeNameTesting .........................................................................................
-
-    @Override
-    default String typeNamePrefix() {
-        return "";
-    }
-
-    @Override
-    default String typeNameSuffix() {
-        return Converter.class.getSimpleName();
     }
 }

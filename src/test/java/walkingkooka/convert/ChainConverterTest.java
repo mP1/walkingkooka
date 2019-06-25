@@ -18,8 +18,6 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -28,8 +26,7 @@ import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ChainConverterTest implements ClassTesting2<ChainConverter>,
-        ConverterTesting<ChainConverter> {
+public final class ChainConverterTest extends ConverterTestCase<ChainConverter> {
 
     @Test
     public void testWithNullFirstConverterFails() {
@@ -104,10 +101,5 @@ public final class ChainConverterTest implements ClassTesting2<ChainConverter>,
     @Override
     public Class<ChainConverter> type() {
         return ChainConverter.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
