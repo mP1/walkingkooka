@@ -32,16 +32,6 @@ public final class NodeSelectorAttributeParserTokenTest extends NodeSelectorPare
     // @id
 
     @Test
-    public void testWithoutSymbols() {
-        final NodeSelectorAttributeParserToken attribute = this.createToken();
-        final NodeSelectorAttributeParserToken without = attribute.withoutSymbols().get().cast();
-        assertEquals(Lists.of(attributeName()), without.value(), "value");
-
-        this.checkAttributeName(this.createToken());
-        this.checkAttributeName(without);
-    }
-
-    @Test
     public void testAttributeName() {
         this.checkAttributeName(this.createToken());
     }

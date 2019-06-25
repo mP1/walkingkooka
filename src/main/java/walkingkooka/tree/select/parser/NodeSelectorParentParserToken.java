@@ -20,7 +20,6 @@ import walkingkooka.text.cursor.parser.ParentParserToken;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Base class for a token that contain another child token, with the class knowing the cardinality.
@@ -28,39 +27,10 @@ import java.util.Optional;
 abstract class NodeSelectorParentParserToken<T extends NodeSelectorParentParserToken> extends NodeSelectorParserToken
         implements ParentParserToken<T> {
 
-    final static List<ParserToken> WITHOUT_COMPUTE_REQUIRED = null;
-
     NodeSelectorParentParserToken(final List<ParserToken> value,
-                                  final String text,
-                                  final List<ParserToken> valueWithout) {
+                                  final String text) {
         super(text);
         this.value = value;
-        this.without = value.equals(valueWithout) ?
-                Optional.of(this) :
-                computeWithout(value);
-    }
-
-    private Optional<NodeSelectorParserToken> computeWithout(final List<ParserToken> value) {
-        final List<ParserToken> without = ParentParserToken.filterWithoutNoise(value);
-
-        return Optional.of(value.size() == without.size() ?
-                this :
-                this.replaceValue(without, without));
-    }
-
-    @Override
-    public final Optional<NodeSelectorParserToken> withoutSymbols() {
-        return this.without;
-    }
-
-    final boolean isWithout() {
-        return this.without.get() == this;
-    }
-
-    private final Optional<NodeSelectorParserToken> without;
-
-    final List<ParserToken> valueIfWithoutSymbolsOrNull() {
-        return this == this.without.get() ? this.value : null;
     }
 
     @Override
@@ -69,12 +39,6 @@ abstract class NodeSelectorParentParserToken<T extends NodeSelectorParentParserT
     }
 
     final List<ParserToken> value;
-
-    /**
-     * Factory that creates a new {@link NodeSelectorParentParserToken} with the same text but new tokens.
-     */
-    abstract NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens,
-                                                        final List<ParserToken> without);
 
     // is...............................................................................................................
 

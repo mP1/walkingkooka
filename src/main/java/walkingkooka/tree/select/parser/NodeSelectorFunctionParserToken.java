@@ -16,6 +16,7 @@
  */
 package walkingkooka.tree.select.parser;
 
+import walkingkooka.text.cursor.parser.ParentParserToken;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
@@ -29,16 +30,14 @@ public final class NodeSelectorFunctionParserToken extends NodeSelectorParentPar
     static NodeSelectorFunctionParserToken with(final List<ParserToken> value,
                                                 final String text) {
         return new NodeSelectorFunctionParserToken(copyAndCheckTokens(value),
-                checkTextNullOrWhitespace(text),
-                WITHOUT_COMPUTE_REQUIRED);
+                checkTextNullOrWhitespace(text));
     }
 
     private NodeSelectorFunctionParserToken(final List<ParserToken> value,
-                                            final String text,
-                                            final List<ParserToken> valueWithout) {
-        super(value, text, valueWithout);
+                                            final String text) {
+        super(value, text);
 
-        final List<ParserToken> without = NodeSelectorFunctionParserToken.class.cast(this.withoutSymbols().get()).value();
+        final List<ParserToken> without = ParentParserToken.filterWithoutNoise(value);
         final int count = without.size();
         if (count < 1) {
             throw new IllegalArgumentException("Expected at least 1 tokens but got " + count + "=" + without);
@@ -63,12 +62,6 @@ public final class NodeSelectorFunctionParserToken extends NodeSelectorParentPar
     }
 
     private final List<ParserToken> parameters;
-
-    @Override
-    NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens,
-                                               final List<ParserToken> without) {
-        return new NodeSelectorFunctionParserToken(tokens, this.text(), without);
-    }
 
     // is...............................................................................................................
 

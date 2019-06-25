@@ -30,19 +30,12 @@ public final class NodeSelectorNotEqualsParserToken extends NodeSelectorComparis
     static NodeSelectorNotEqualsParserToken with(final List<ParserToken> value,
                                                  final String text) {
         return new NodeSelectorNotEqualsParserToken(copyAndCheckTokens(value),
-                checkTextNullOrWhitespace(text),
-                WITHOUT_COMPUTE_REQUIRED);
+                checkTextNullOrWhitespace(text));
     }
 
     private NodeSelectorNotEqualsParserToken(final List<ParserToken> value,
-                                             final String text,
-                                             final List<ParserToken> valueWithout) {
-        super(value, text, valueWithout);
-    }
-
-    @Override
-    NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens,final List<ParserToken> without) {
-        return new NodeSelectorNotEqualsParserToken(tokens, this.text(), without);
+                                             final String text) {
+        super(value, text);
     }
 
     // is...............................................................................................................

@@ -29,20 +29,12 @@ public final class NodeSelectorExpressionParserToken extends NodeSelectorParentP
     static NodeSelectorExpressionParserToken with(final List<ParserToken> value,
                                                   final String text) {
         return new NodeSelectorExpressionParserToken(copyAndCheckTokens(value),
-                checkTextNullOrWhitespace(text),
-                WITHOUT_COMPUTE_REQUIRED);
+                checkTextNullOrWhitespace(text));
     }
 
     private NodeSelectorExpressionParserToken(final List<ParserToken> value,
-                                              final String text,
-                                              final List<ParserToken> valueWithout) {
-        super(value, text, valueWithout);
-    }
-
-    @Override
-    NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens,
-                                               final List<ParserToken> without) {
-        return new NodeSelectorExpressionParserToken(tokens, this.text(), without);
+                                              final String text) {
+        super(value, text);
     }
 
     // is................................................................................................................

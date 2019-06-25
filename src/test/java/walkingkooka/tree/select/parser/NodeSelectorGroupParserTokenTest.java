@@ -100,13 +100,6 @@ public final class NodeSelectorGroupParserTokenTest extends NodeSelectorParentPa
                 "visited");
     }
 
-    @Test
-    public void testWithoutSymbolsExpressionWhitespace() {
-        final NodeSelectorGroupParserToken expression = this.createToken();
-        final NodeSelectorGroupParserToken without = expression.withoutSymbols().get().cast();
-        assertEquals(Lists.of(number()), without.value(), "value");
-    }
-
     @Override
     NodeSelectorGroupParserToken createToken(final String text, final List<ParserToken> tokens) {
         return NodeSelectorGroupParserToken.with(tokens, text);

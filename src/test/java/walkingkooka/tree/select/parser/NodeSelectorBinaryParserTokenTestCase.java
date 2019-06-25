@@ -18,14 +18,11 @@
 package walkingkooka.tree.select.parser;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotSame;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NodeSelectorBinaryParserTokenTestCase<T extends NodeSelectorBinaryParserToken<T>> extends NodeSelectorParentParserTokenTestCase<T> {
@@ -75,8 +72,6 @@ public abstract class NodeSelectorBinaryParserTokenTestCase<T extends NodeSelect
         final T token = this.createToken(text, left, right);
         this.checkText(token, text);
         this.checkValue(token, left, right);
-
-        assertSame(token, token.withoutSymbols().get());
     }
 
     @Test
@@ -91,12 +86,6 @@ public abstract class NodeSelectorBinaryParserTokenTestCase<T extends NodeSelect
         final T token = this.createToken(text, left, operator, right);
         this.checkText(token, text);
         this.checkValue(token, left, operator, right);
-
-        final T without = Cast.to(token.withoutSymbols().get());
-        assertNotSame(token, without);
-
-        this.checkText(without, text);
-        this.checkValue(without, left, right);
     }
 
     final NodeSelectorParserToken leftToken() {

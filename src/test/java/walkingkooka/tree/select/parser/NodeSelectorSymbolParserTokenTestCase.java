@@ -16,21 +16,9 @@
  */
 package walkingkooka.tree.select.parser;
 
-import org.junit.jupiter.api.Test;
-
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public abstract class NodeSelectorSymbolParserTokenTestCase<T extends NodeSelectorSymbolParserToken, V> extends NodeSelectorLeafParserTokenTestCase<T, V> {
 
     NodeSelectorSymbolParserTokenTestCase() {
         super();
-    }
-
-    @Test
-    public final void testWithoutSymbols() {
-        final T token = this.createToken();
-        assertEquals(Optional.empty(), token.withoutSymbols());
     }
 }

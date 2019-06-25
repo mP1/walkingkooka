@@ -16,8 +16,6 @@
  */
 package walkingkooka.tree.select.parser;
 
-import java.util.Optional;
-
 /**
  * Base class for all NodeSelectorParserToken symbol parser tokens.
  */
@@ -25,11 +23,6 @@ abstract class NodeSelectorSymbolParserToken extends NodeSelectorLeafParserToken
 
     NodeSelectorSymbolParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    public final Optional<NodeSelectorParserToken> withoutSymbols() {
-        return Optional.empty();
     }
 
     // is..............................................................................................

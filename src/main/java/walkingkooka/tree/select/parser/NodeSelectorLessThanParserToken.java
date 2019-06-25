@@ -30,20 +30,12 @@ public final class NodeSelectorLessThanParserToken extends NodeSelectorCompariso
     static NodeSelectorLessThanParserToken with(final List<ParserToken> value,
                                                 final String text) {
         return new NodeSelectorLessThanParserToken(copyAndCheckTokens(value),
-                checkTextNullOrWhitespace(text),
-                WITHOUT_COMPUTE_REQUIRED);
+                checkTextNullOrWhitespace(text));
     }
 
     private NodeSelectorLessThanParserToken(final List<ParserToken> value,
-                                            final String text,
-                                            final List<ParserToken> valueWithout) {
-        super(value, text, valueWithout);
-    }
-
-    @Override
-    NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens,
-                                               final List<ParserToken> without) {
-        return new NodeSelectorLessThanParserToken(tokens, this.text(), without);
+                                            final String text) {
+        super(value, text);
     }
 
     // is...............................................................................................................

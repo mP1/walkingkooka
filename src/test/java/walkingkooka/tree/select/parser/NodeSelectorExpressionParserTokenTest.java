@@ -84,13 +84,6 @@ public final class NodeSelectorExpressionParserTokenTest extends NodeSelectorPar
                 "visited");
     }
 
-    @Test
-    public void testWithoutSymbolsExpressionWhitespace() {
-        final NodeSelectorExpressionParserToken expression = this.createToken();
-        final NodeSelectorExpressionParserToken without = expression.withoutSymbols().get().cast();
-        assertEquals(Lists.of(wildcard()), without.value(), "value");
-    }
-
     @Override
     NodeSelectorExpressionParserToken createToken(final String text, final List<ParserToken> tokens) {
         return NodeSelectorExpressionParserToken.with(tokens, text);
