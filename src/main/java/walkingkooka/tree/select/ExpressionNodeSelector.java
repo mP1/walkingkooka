@@ -80,8 +80,8 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
             if (context.nodePositionTest(this.expressionNode.toValue(ExpressionNodeSelectorExpressionEvaluationContext.with(node, context)))) {
                 result = this.select(node, context);
             }
-        } catch (final ConversionException | NodeSelectorException fail) {
-            // nop
+        } catch (final ConversionException cause) {
+            throw new NodeSelectorException("Failed to execute expression: " + this, cause);
         }
 
         return result;
