@@ -1785,7 +1785,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         this.parseExpressionEvaluateAndCheck("//*[number(@id) > 300]",
                 root,
-                leaf);
+                root, leaf);
     }
 
     // function: text().......................................................................................
@@ -2071,8 +2071,10 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                     }
 
                     private Number convertToNumber(final Object value) {
-                        return Converters.booleanConverter(Boolean.class, Boolean.TRUE, Number.class, 1L, 0L)
-                                .convert(value, Number.class, ConverterContexts.fake());
+                        return value instanceof String ?
+                                Integer.parseInt((String) value) :
+                                Converters.booleanConverter(Boolean.class, Boolean.TRUE, Number.class, 1L, 0L)
+                                        .convert(value, Number.class, ConverterContexts.fake());
                     }
 
                     private Integer convertToInteger(final Object value) {
