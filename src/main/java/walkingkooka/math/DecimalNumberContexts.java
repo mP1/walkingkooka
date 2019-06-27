@@ -19,6 +19,7 @@ package walkingkooka.math;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.math.MathContext;
+import java.text.DecimalFormatSymbols;
 
 /**
  * A collection of factory methods to create {@link DecimalNumberContext}.
@@ -49,6 +50,19 @@ public final class DecimalNumberContexts implements PublicStaticHelper {
                 groupingSeparator,
                 minusSign,
                 percentageSymbol,
+                plusSign,
+                mathContext);
+    }
+
+    /**
+     * {@see DecimalFormatSymbolsDecimalNumberContext}
+     */
+    public static DecimalNumberContext decimalFormatSymbols(final DecimalFormatSymbols symbols,
+                                                            final char exponentSymbol,
+                                                            final char plusSign,
+                                                            final MathContext mathContext) {
+        return DecimalFormatSymbolsDecimalNumberContext.with(symbols,
+                exponentSymbol,
                 plusSign,
                 mathContext);
     }
