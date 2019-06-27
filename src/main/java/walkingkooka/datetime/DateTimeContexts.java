@@ -18,10 +18,19 @@ package walkingkooka.datetime;
 
 import walkingkooka.type.PublicStaticHelper;
 
+import java.text.DateFormatSymbols;
+
 /**
  * A collection of factory methods to create {@link DateTimeContext}.
  */
 public final class DateTimeContexts implements PublicStaticHelper {
+
+    /**
+     * {@see DateFormatSymbolsDateTimeContext}
+     */
+    public static DateTimeContext dateFormatSymbols(final DateFormatSymbols symbols) {
+        return DateFormatSymbolsDateTimeContext.with(symbols);
+    }
 
     /**
      * {@see FakeDateTimeContext}
