@@ -99,7 +99,7 @@ public final class ExpressionLocalDateTimeNodeTest extends ExpressionLeafNodeTes
     @Test
     public void testToLocalDate() {
         this.evaluateAndCheckLocalDate(this.createExpressionNode(),
-                Converters.localDateTimeLocalDate(Converters.JAVA_EPOCH_OFFSET)
+                Converters.localDateTimeLocalDate()
                         .convert(this.value(), LocalDate.class, ConverterContexts.fake()));
     }
 

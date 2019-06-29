@@ -365,7 +365,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
                 Converters.localDateTimeBigDecimal(Converters.JAVA_EPOCH_OFFSET),
                 Converters.localDateTimeBigInteger(Converters.JAVA_EPOCH_OFFSET),
                 Converters.localDateTimeDouble(Converters.JAVA_EPOCH_OFFSET),
-                Converters.localDateTimeLocalDate(Converters.JAVA_EPOCH_OFFSET),
+                Converters.localDateTimeLocalDate(),
                 Converters.localDateTimeLocalTime(),
                 Converters.localDateTimeLong(Converters.JAVA_EPOCH_OFFSET),
                 Converters.forward(Converters.localDateTimeDouble(Converters.JAVA_EPOCH_OFFSET), Number.class, Double.class).setToString("LocalDateTime->Number"),
