@@ -212,7 +212,7 @@ public final class Converters implements PublicStaticHelper {
     /**
      * {@see LocalDateTimeLocalDateConverter}
      */
-    public static Converter localDateTimeLocalDate(final long offset) {
+    public static Converter localDateTimeLocalDate() {
         return LocalDateTimeLocalDateConverter.INSTANCE;
     }
 
