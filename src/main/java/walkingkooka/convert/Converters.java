@@ -89,8 +89,16 @@ public final class Converters implements PublicStaticHelper {
     /**
      * [@see BooleanConverter}
      */
-    public static <S, T> Converter booleanConverter(final Class<S> sourceType, final S trueValue, final Class<T> targetType, final T trueAnswer, final T falseAnswer) {
-        return BooleanConverter.with(sourceType, trueValue, targetType, trueAnswer, falseAnswer);
+    public static <S, T> Converter booleanConverter(final Class<S> sourceType,
+                                                    final S falseValue,
+                                                    final Class<T> targetType,
+                                                    final T trueAnswer,
+                                                    final T falseAnswer) {
+        return BooleanConverter.with(sourceType,
+                falseValue,
+                targetType,
+                trueAnswer,
+                falseAnswer);
     }
 
     /**
