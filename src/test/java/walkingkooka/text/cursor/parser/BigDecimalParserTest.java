@@ -397,7 +397,7 @@ public final class BigDecimalParserTest extends Parser2TestCase<BigDecimalParser
 
     @Override
     public BigDecimalParser<ParserContext> createParser() {
-        return BigDecimalParser.with(MathContext.DECIMAL64);
+        return BigDecimalParser.with();
     }
 
     @Override

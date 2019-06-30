@@ -19,8 +19,10 @@ package walkingkooka.tree.select.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringBuilder;
+import walkingkooka.math.HasMathContext;
 
 import java.math.MathContext;
+import java.util.Objects;
 
 /**
  * A {@link NodeSelectorParserContext} without any functionality.
@@ -28,19 +30,17 @@ import java.math.MathContext;
 final class BasicNodeSelectorParserContext implements NodeSelectorParserContext {
 
     /**
-     * Type safe getter
+     * Creates a new {@link }
      */
-    static BasicNodeSelectorParserContext instance() {
-        return INSTANCE;
+    static BasicNodeSelectorParserContext with(final HasMathContext hasMathContext) {
+        Objects.requireNonNull(hasMathContext, "hasMathContext");
+
+        return new BasicNodeSelectorParserContext(hasMathContext);
     }
 
-    /**
-     * Singleton
-     */
-    private final static BasicNodeSelectorParserContext INSTANCE = new BasicNodeSelectorParserContext();
-
-    private BasicNodeSelectorParserContext() {
+    private BasicNodeSelectorParserContext(final HasMathContext hasMathContext) {
         super();
+        this.hasMathContext = hasMathContext;
     }
 
     @Override
@@ -80,8 +80,10 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext 
 
     @Override
     public MathContext mathContext() {
-        throw new UnsupportedOperationException();
+        return this.hasMathContext.mathContext();
     }
+
+    private final HasMathContext hasMathContext;
 
     @Test
     public String toString() {

@@ -19,6 +19,7 @@ package walkingkooka.tree.select.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.parser.Parser;
@@ -28,6 +29,7 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -1809,7 +1811,7 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
 
     @Override
     public NodeSelectorParserContext createContext() {
-        return NodeSelectorParserContexts.basic();
+        return NodeSelectorParserContexts.basic(DecimalNumberContexts.american(MathContext.DECIMAL32));
     }
 
     // helpers................................................................................................

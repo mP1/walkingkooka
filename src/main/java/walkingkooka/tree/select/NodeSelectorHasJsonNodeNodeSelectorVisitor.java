@@ -37,6 +37,7 @@ import walkingkooka.tree.select.parser.NodeSelectorParsers;
 import walkingkooka.tree.select.parser.NodeSelectorPredicateParserToken;
 import walkingkooka.tree.visit.Visiting;
 
+import java.math.MathContext;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -165,11 +166,15 @@ final class NodeSelectorHasJsonNodeNodeSelectorVisitor<N extends Node<N, NAME, A
         final Parser<NodeSelectorParserContext> parser = NodeSelectorParsers.predicate()
                 .orReport(ParserReporters.basic())
                 .cast();
-        final NodeSelectorPredicateParserToken token = parser.parse(TextCursors.charSequence(expression), NodeSelectorParserContexts.basic())
+        final NodeSelectorPredicateParserToken token = parser.parse(TextCursors.charSequence(expression), NodeSelectorParserContexts.basic(NodeSelectorHasJsonNodeNodeSelectorVisitor::hasMathContext))
                 .get()
                 .cast();
 
         return ExpressionNodeSelectorNodeSelectorParserTokenVisitor.toExpressionNode(token, Predicates.always());
+    }
+
+    private static MathContext hasMathContext() {
+        return MathContext.DECIMAL32;
     }
 
     /**

@@ -2061,7 +2061,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                         final Converter converter = value instanceof Boolean ?
                                 Converters.booleanConverter(Boolean.class, Boolean.TRUE, BigDecimal.class, BigDecimal.ONE, BigDecimal.ZERO) :
                                 value instanceof String ?
-                                        Converters.parser(BigDecimal.class, Parsers.bigDecimal(MathContext.DECIMAL32), (c) -> ParserContexts.basic(c)) :
+                                        Converters.parser(BigDecimal.class, Parsers.bigDecimal(), (c) -> ParserContexts.basic(c)) :
                                         Converters.numberBigDecimal();
                         return converter.convert(value, BigDecimal.class, this.converterContext);
                     }
@@ -2113,7 +2113,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
         return NodeSelectorParsers.expression()
                 .orFailIfCursorNotEmpty(ParserReporters.basic())
                 .parse(TextCursors.charSequence(expression),
-                        NodeSelectorParserContexts.basic())
+                        NodeSelectorParserContexts.basic(DecimalNumberContexts.american(MathContext.DECIMAL32)))
                 .orElseThrow(() -> new UnsupportedOperationException(expression))
                 .cast();
     }
