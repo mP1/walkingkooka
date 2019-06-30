@@ -20,7 +20,6 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.PublicStaticHelper;
 
-import java.math.MathContext;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
@@ -48,8 +47,8 @@ public final class Parsers implements PublicStaticHelper {
     /**
      * {@see BigDecimalParser}
      */
-    public static <C extends ParserContext> Parser<C> bigDecimal(final MathContext context) {
-        return BigDecimalParser.with(context);
+    public static <C extends ParserContext> Parser<C> bigDecimal() {
+        return BigDecimalParser.with();
     }
 
     /**

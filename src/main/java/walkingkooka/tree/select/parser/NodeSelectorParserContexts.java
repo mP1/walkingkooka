@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.select.parser;
 
+import walkingkooka.math.HasMathContext;
 import walkingkooka.type.PublicStaticHelper;
 
 public final class NodeSelectorParserContexts implements PublicStaticHelper {
@@ -24,8 +25,8 @@ public final class NodeSelectorParserContexts implements PublicStaticHelper {
     /**
      * {@see BasicNodeSelectorParserContext}
      */
-    public static NodeSelectorParserContext basic() {
-        return BasicNodeSelectorParserContext.instance();
+    public static NodeSelectorParserContext basic(final HasMathContext hasMathContext) {
+        return BasicNodeSelectorParserContext.with(hasMathContext);
     }
 
     /**

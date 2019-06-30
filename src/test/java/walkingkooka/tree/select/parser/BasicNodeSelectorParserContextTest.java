@@ -25,8 +25,17 @@ import walkingkooka.type.JavaVisibility;
 
 import java.math.MathContext;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class BasicNodeSelectorParserContextTest implements ClassTesting2<BasicNodeSelectorParserContext>,
         NodeSelectorParserContextTesting<BasicNodeSelectorParserContext> {
+
+    @Test
+    public void testWithNullHasMathContextFails() {
+        assertThrows(NullPointerException.class, () -> {
+            BasicNodeSelectorParserContext.with(null);
+        });
+    }
 
     @Override
     public void testCurrencySymbol() {
@@ -48,7 +57,7 @@ public final class BasicNodeSelectorParserContextTest implements ClassTesting2<B
 
     @Override
     public BasicNodeSelectorParserContext createContext() {
-        return BasicNodeSelectorParserContext.instance();
+        return BasicNodeSelectorParserContext.with(DecimalNumberContexts.american(MathContext.DECIMAL32));
     }
 
     @Override

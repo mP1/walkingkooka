@@ -22,7 +22,6 @@ import walkingkooka.text.cursor.TextCursorSavePoint;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -34,17 +33,15 @@ final class BigDecimalParser<C extends ParserContext> extends Parser2<C> {
     /**
      * Factory that creates a {@link BigDecimalParser}
      */
-    static <C extends ParserContext> BigDecimalParser<C> with(final MathContext context) {
-        Objects.requireNonNull(context, "context");
-
-        return new BigDecimalParser<>(context);
+    static <C extends ParserContext> BigDecimalParser<C> with() {
+        return new BigDecimalParser<>();
     }
 
     /**
      * Private ctor to limit subclassing.
      */
-    private BigDecimalParser(final MathContext context) {
-        this.context = context;
+    private BigDecimalParser() {
+        super();
     }
 
     private final static int RADIX = 10;
@@ -75,6 +72,8 @@ final class BigDecimalParser<C extends ParserContext> extends Parser2<C> {
         final int plusSign = context.plusSign();
         final char littleE = Character.toLowerCase(context.exponentSymbol());
         final char bigE = Character.toUpperCase(littleE);
+
+        final MathContext mathContext = context.mathContext();
 
         BigDecimalParserToken token = null;
 
@@ -124,7 +123,7 @@ final class BigDecimalParser<C extends ParserContext> extends Parser2<C> {
                     final int digit = digit(c);
                     if (digit >= 0) {
                         cursor.next();
-                        number = number(number, digit);
+                        number = number(number, digit, mathContext);
                         mode = NUMBER_DIGIT | DECIMAL | EXPONENT;
                         empty = false;
                         break;
@@ -141,7 +140,7 @@ final class BigDecimalParser<C extends ParserContext> extends Parser2<C> {
                     final int digit = digit(c);
                     if (digit >= 0) {
                         cursor.next();
-                        number = number(number, digit);
+                        number = number(number, digit, mathContext);
                         fractionFactor--;
                         break;
                     }
@@ -192,7 +191,7 @@ final class BigDecimalParser<C extends ParserContext> extends Parser2<C> {
                         exponent = -exponent;
                     }
                     if (numberNegative) {
-                        number = number.negate(this.context);
+                        number = number.negate(mathContext);
                     }
                     exponent = exponent + fractionFactor;
                     if (0 != exponent) {
@@ -211,8 +210,10 @@ final class BigDecimalParser<C extends ParserContext> extends Parser2<C> {
         return Character.digit(c, RADIX);
     }
 
-    private BigDecimal number(final BigDecimal value, final int digit) {
-        return value.multiply(RADIX_BIGDECIMAL, this.context)
+    private static BigDecimal number(final BigDecimal value,
+                                     final int digit,
+                                     final MathContext context) {
+        return value.multiply(RADIX_BIGDECIMAL, context)
                 .add(BigDecimal.valueOf(digit));
     }
 
@@ -224,8 +225,6 @@ final class BigDecimalParser<C extends ParserContext> extends Parser2<C> {
         return BigDecimalParserToken.with(value,
                 save.textBetween().toString());
     }
-
-    private final MathContext context;
 
     @Override
     public String toString() {

@@ -35,7 +35,6 @@ import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
 import walkingkooka.type.PublicStaticHelper;
 
-import java.math.MathContext;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -232,7 +231,7 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
             NodeSelectorBracketCloseSymbolParserToken.class);
 
     private static final EbnfIdentifierName NUMBER_IDENTIFIER = EbnfIdentifierName.with("NUMBER");
-    private static final Parser<ParserContext> NUMBER_PARSER = Parsers.bigDecimal(MathContext.UNLIMITED)
+    private static final Parser<ParserContext> NUMBER_PARSER = Parsers.bigDecimal()
             .transform(NodeSelectorParsers::number)
             .setToString(NUMBER_IDENTIFIER.toString());
 

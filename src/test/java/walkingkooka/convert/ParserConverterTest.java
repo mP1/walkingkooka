@@ -87,7 +87,7 @@ public final class ParserConverterTest extends FixedTypeConverterTestCase<Parser
     }
 
     private Parser<ParserContext> bigDecimalParser() {
-        return Parsers.bigDecimal(MathContext.DECIMAL32);
+        return Parsers.bigDecimal();
     }
 
     @Override
