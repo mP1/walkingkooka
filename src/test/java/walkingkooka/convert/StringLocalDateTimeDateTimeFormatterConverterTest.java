@@ -28,7 +28,15 @@ public final class StringLocalDateTimeDateTimeFormatterConverterTest extends Dat
 
     @Test
     public void testConvert() {
-        this.convertAndCheck("2000-01-31T12:58:59", LocalDateTime.of(LocalDate.of(2000, 1, 31), LocalTime.of(12, 58, 59)));
+        this.convertAndCheck("12 58 59 2000 01 31", LocalDateTime.of(LocalDate.of(2000, 1, 31), LocalTime.of(12, 58, 59)));
+    }
+
+    @Test
+    public void testConvert2() {
+        this.convertAndCheck(StringLocalDateTimeDateTimeFormatterConverter.with(DateTimeFormatter.ofPattern("HH mm ss yyyy MM dd")),
+                "2000 01 31 12 58 59",
+                LocalDateTime.class,
+                LocalDateTime.of(LocalDate.of(2000, 1, 31), LocalTime.of(12, 58, 59)));
     }
 
     @Override
@@ -38,7 +46,7 @@ public final class StringLocalDateTimeDateTimeFormatterConverterTest extends Dat
 
     @Override
     DateTimeFormatter formatter() {
-        return DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        return DateTimeFormatter.ofPattern("HH mm ss yyyy MM dd");
     }
 
     @Override
