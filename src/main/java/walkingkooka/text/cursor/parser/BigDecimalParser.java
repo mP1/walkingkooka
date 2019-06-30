@@ -114,7 +114,7 @@ final class BigDecimalParser<C extends ParserContext> extends Parser2<C> {
                 if ((NUMBER_ZERO & mode) != 0) {
                     if ('0' == c) {
                         cursor.next();
-                        mode = DECIMAL | EXPONENT;
+                        mode = NUMBER_ZERO | NUMBER_DIGIT | DECIMAL | EXPONENT;
                         empty = false;
                         break;
                     }
