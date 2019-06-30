@@ -154,7 +154,7 @@ public interface ParserTesting<P extends Parser<C>,
                     token.isPresent() ? this.parserTokenToString(token.get()) : "",
                     () -> "Incorrect result returned by parser: " + parser + "\ntext:\n" + CharSequences.quoteAndEscape(all2) + "\nunconsumed text:\n" + textRemaining);
         }
-        assertEquals(consumed, text, "incorrect consumed text");
+        assertEquals(text, consumed, "incorrect consumed text");
         assertEquals(text, result.isPresent() ? result.get().text() : "", "token consume text is incorrect");
         assertEquals(textAfter, textRemaining, "Incorrect text after match");
 
