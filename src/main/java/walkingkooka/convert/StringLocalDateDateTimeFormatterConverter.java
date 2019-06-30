@@ -49,6 +49,6 @@ final class StringLocalDateDateTimeFormatterConverter extends DateTimeFormatterC
 
     @Override
     LocalDate convert3(final String value) throws DateTimeParseException {
-        return LocalDate.parse(value);
+        return LocalDate.parse(value, this.formatter);
     }
 }

@@ -26,7 +26,15 @@ public final class StringLocalDateDateTimeFormatterConverterTest extends DateTim
 
     @Test
     public void testConvert() {
-        this.convertAndCheck("2000-01-31", LocalDate.of(2000, 1, 31));
+        this.convertAndCheck("01 2000 31", LocalDate.of(2000, 1, 31));
+    }
+
+    @Test
+    public void testConvert2() {
+        this.convertAndCheck(StringLocalDateDateTimeFormatterConverter.with(DateTimeFormatter.ofPattern("yyyy dd MM")),
+                "2000 31 01",
+                LocalDate.class,
+                LocalDate.of(2000, 1, 31));
     }
 
     @Override
@@ -36,7 +44,7 @@ public final class StringLocalDateDateTimeFormatterConverterTest extends DateTim
 
     @Override
     DateTimeFormatter formatter() {
-        return DateTimeFormatter.ISO_LOCAL_DATE;
+        return DateTimeFormatter.ofPattern("MM yyyy dd");
     }
 
     @Override
