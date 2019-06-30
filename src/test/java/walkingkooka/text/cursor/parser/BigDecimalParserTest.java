@@ -62,6 +62,11 @@ public final class BigDecimalParserTest extends Parser2TestCase<BigDecimalParser
     }
 
     @Test
+    public void testZeroZeroZero() {
+        this.parseAndCheck2("000");
+    }
+
+    @Test
     public void testZero2() {
         this.parseAndCheck2("0", "~");
     }
@@ -159,6 +164,16 @@ public final class BigDecimalParserTest extends Parser2TestCase<BigDecimalParser
     @Test
     public void testZeroDecimalFraction5() {
         this.parseAndCheck2("-0.000000001");
+    }
+
+    @Test
+    public void testZeroNumber() {
+        this.parseAndCheck2("0123");
+    }
+
+    @Test
+    public void testZeroNumber2() {
+        this.parseAndCheck2("00123");
     }
 
     @Test
