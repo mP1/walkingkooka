@@ -26,7 +26,15 @@ public final class StringLocalTimeDateTimeFormatterConverterTest extends DateTim
 
     @Test
     public void testConvert() {
-        this.convertAndCheck("12:58:59", LocalTime.of(12, 58, 59));
+        this.convertAndCheck("59 58 12", LocalTime.of(12, 58, 59));
+    }
+
+    @Test
+    public void testConvert2() {
+        this.convertAndCheck(StringLocalTimeDateTimeFormatterConverter.with(DateTimeFormatter.ofPattern("ss HH mm")),
+                "59 12 58",
+                LocalTime.class,
+                LocalTime.of(12, 58, 59));
     }
 
     @Override
@@ -36,7 +44,7 @@ public final class StringLocalTimeDateTimeFormatterConverterTest extends DateTim
 
     @Override
     DateTimeFormatter formatter() {
-        return DateTimeFormatter.ISO_LOCAL_TIME;
+        return DateTimeFormatter.ofPattern("ss mm HH");
     }
 
     @Override
