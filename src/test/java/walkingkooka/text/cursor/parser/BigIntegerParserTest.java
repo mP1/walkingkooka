@@ -65,6 +65,21 @@ public class BigIntegerParserTest extends Parser2TestCase<BigIntegerParser<Parse
     }
 
     @Test
+    public void testZero() {
+        this.parseAndCheck2("0", 0, "0", "");
+    }
+
+    @Test
+    public void testZeroZero() {
+        this.parseAndCheck2("00", 0, "00", "");
+    }
+
+    @Test
+    public void testZeroZeroZero() {
+        this.parseAndCheck2("000", 0, "000", "");
+    }
+
+    @Test
     public void testDecimal() {
         this.parseAndCheck2("1", 1, "1", "");
     }
@@ -72,6 +87,21 @@ public class BigIntegerParserTest extends Parser2TestCase<BigIntegerParser<Parse
     @Test
     public void testDecimal2() {
         this.parseAndCheck2("123", 123, "123", "");
+    }
+
+    @Test
+    public void testDecimal3() {
+        this.parseAndCheck2("12305", 12305, "12305", "");
+    }
+
+    @Test
+    public void testZeroDecimal() {
+        this.parseAndCheck2("0123", 123, "0123", "");
+    }
+
+    @Test
+    public void testZeroZeroDecimal() {
+        this.parseAndCheck2("00123", 123, "00123", "");
     }
 
     @Test
