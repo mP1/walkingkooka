@@ -33,7 +33,7 @@ public final class StringLocalDateTimeDateTimeFormatterConverterTest extends Dat
 
     @Test
     public void testConvert2() {
-        this.convertAndCheck(StringLocalDateTimeDateTimeFormatterConverter.with(DateTimeFormatter.ofPattern("HH mm ss yyyy MM dd")),
+        this.convertAndCheck(StringLocalDateTimeDateTimeFormatterConverter.with(DateTimeFormatter.ofPattern("yyyy MM dd HH mm ss")),
                 "2000 01 31 12 58 59",
                 LocalDateTime.class,
                 LocalDateTime.of(LocalDate.of(2000, 1, 31), LocalTime.of(12, 58, 59)));
