@@ -30,7 +30,6 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.routing.Router;
 import walkingkooka.tree.Node;
 
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.BiConsumer;
 
@@ -98,11 +97,8 @@ public final class HateosHandlerRouterBuilder<N extends Node<N, ?, ?, ?>>
      */
     @Override
     public Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> build() throws BuilderException {
-        final Map<HateosHandlerRouterKey, HateosHandlerRouterMapper<?, ?, ?>> copy = Maps.sorted();
-        copy.putAll(this.mappers);
-
         return HateosHandlerRouter.with(this.base,
                 this.contentType,
-                copy);
+                this.mappers);
     }
 }
