@@ -21,6 +21,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
@@ -310,7 +312,53 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
 
     @Override
     public CycleDetectingExpressionEvaluationContext createContext() {
-        return this.createContext(ExpressionEvaluationContexts.fake());
+        final DecimalNumberContext decimalNumberContext = this.decimalNumberContext();
+
+        return this.createContext(new FakeExpressionEvaluationContext() {
+            @Override
+            public MathContext mathContext() {
+                return decimalNumberContext.mathContext();
+            }
+
+            @Override
+            public String currencySymbol() {
+                return decimalNumberContext.currencySymbol();
+            }
+
+            @Override
+            public char decimalPoint() {
+                return decimalNumberContext.decimalPoint();
+            }
+
+            @Override
+            public char exponentSymbol() {
+                return decimalNumberContext.exponentSymbol();
+            }
+
+            @Override
+            public char groupingSeparator() {
+                return decimalNumberContext.groupingSeparator();
+            }
+
+            @Override
+            public char minusSign() {
+                return decimalNumberContext.minusSign();
+            }
+
+            @Override
+            public char percentageSymbol() {
+                return decimalNumberContext.percentageSymbol();
+            }
+
+            @Override
+            public char plusSign() {
+                return decimalNumberContext.plusSign();
+            }
+        });
+    }
+
+    private DecimalNumberContext decimalNumberContext() {
+        return DecimalNumberContexts.american(this.mathContext());
     }
 
     private CycleDetectingExpressionEvaluationContext createContext(final ExpressionEvaluationContext context) {
@@ -320,6 +368,48 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     private ExpressionNode text() {
         return ExpressionNode.text(VALUE);
     }
+
+    @Override
+    public String currencySymbol() {
+        return this.decimalNumberContext().currencySymbol();
+    }
+
+    @Override
+    public char decimalPoint() {
+        return this.decimalNumberContext().decimalPoint();
+    }
+
+    @Override
+    public char exponentSymbol() {
+        return this.decimalNumberContext().exponentSymbol();
+    }
+
+    @Override
+    public char groupingSeparator() {
+        return this.decimalNumberContext().groupingSeparator();
+    }
+
+    @Override
+    public MathContext mathContext() {
+        return MathContext.DECIMAL32;
+    }
+
+    @Override
+    public char minusSign() {
+        return this.decimalNumberContext().minusSign();
+    }
+
+    @Override
+    public char percentageSymbol() {
+        return this.decimalNumberContext().percentageSymbol();
+    }
+
+    @Override
+    public char plusSign() {
+        return this.decimalNumberContext().plusSign();
+    }
+
+    // ClassTesting.....................................................................................................
 
     @Override
     public Class<CycleDetectingExpressionEvaluationContext> type() {
