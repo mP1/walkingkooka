@@ -18,7 +18,6 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.Cast;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -33,7 +32,7 @@ public final class LocalDateTimeNumberConverterTest extends LocalDateTimeConvert
     @Test
     public void testConverterRoundTripWithNonMidnightTime() {
         final LocalDateTime localDateTime = LocalDateTime.of(DAY, QUARTER_DAY);
-        final BigDecimal bigDecimal = Cast.to(this.convertAndCheck(localDateTime, BigDecimal.valueOf(VALUE + 0.25)));
+        final Number bigDecimal = this.convertAndCheck(localDateTime, BigDecimal.valueOf(VALUE + 0.25));
         this.convertAndCheck(Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET),
                 bigDecimal,
                 LocalDateTime.class,

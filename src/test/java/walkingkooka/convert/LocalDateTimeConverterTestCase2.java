@@ -18,7 +18,6 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.Cast;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -54,7 +53,7 @@ public abstract class LocalDateTimeConverterTestCase2<C extends FixedSourceTypeT
     @Test
     public final void testConverterRoundTrip() {
         final LocalDateTime localDateTime = LocalDateTime.of(DAY, MIDNIGHT);
-        final Object value = Cast.to(this.convertAndCheck(localDateTime, this.value(VALUE)));
+        final Object value = this.convertAndCheck(localDateTime, this.value(VALUE));
         this.convertAndCheck(Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET),
                 value,
                 LocalDateTime.class,

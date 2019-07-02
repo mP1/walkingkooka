@@ -30,8 +30,12 @@ public abstract class FixedTypeConverterTestCase<C extends Converter, T> extends
         assertSame(value, this.convertAndCheck(value, this.onlySupportedType(), value));
     }
 
-    final Object convertAndCheck(final Object value, final Object expected) {
-        return this.convertAndCheck(this.createConverter(), value, this.onlySupportedType(), expected);
+    final T convertAndCheck(final Object value, final T expected) {
+        final Class<T> targetType = this.onlySupportedType();
+        return targetType.cast(this.convertAndCheck(this.createConverter(),
+                value,
+                targetType,
+                expected));
     }
 
     final void convertFails(final Object value) {

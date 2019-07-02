@@ -18,7 +18,6 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.Cast;
 
 import java.math.BigDecimal;
 import java.time.LocalTime;
@@ -40,7 +39,7 @@ public final class LocalTimeBigDecimalConverterTest extends LocalTimeConverterTe
     @Test
     public void testConverterRoundTrip() {
         final LocalTime localTime = LocalTime.ofSecondOfDay(VALUE);
-        final BigDecimal bigDecimal = Cast.to(this.convertAndCheck(localTime, BigDecimal.valueOf(VALUE)));
+        final BigDecimal bigDecimal = this.convertAndCheck(localTime, BigDecimal.valueOf(VALUE));
         this.convertAndCheck(Converters.numberLocalTime(), bigDecimal, LocalTime.class, localTime);
     }
 
@@ -48,7 +47,7 @@ public final class LocalTimeBigDecimalConverterTest extends LocalTimeConverterTe
     public void testConverterRoundTripWithNanos() {
         final LocalTime localTime = LocalTime.ofSecondOfDay(VALUE)
                 .plusNanos(Converters.NANOS_PER_SECOND / 2);
-        final BigDecimal bigDecimal = Cast.to(this.convertAndCheck(localTime, BigDecimal.valueOf(VALUE + 0.5)));
+        final BigDecimal bigDecimal = this.convertAndCheck(localTime, BigDecimal.valueOf(VALUE + 0.5));
         this.convertAndCheck(Converters.numberLocalTime(), bigDecimal, LocalTime.class, localTime);
     }
 
