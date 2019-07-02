@@ -18,7 +18,6 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.Cast;
 
 import java.time.LocalDateTime;
 
@@ -32,7 +31,7 @@ public final class LocalDateTimeDoubleConverterTest extends LocalDateTimeConvert
     @Test
     public void testConverterRoundTripWithNonMidnightTime() {
         final LocalDateTime localDateTime = LocalDateTime.of(DAY, QUARTER_DAY);
-        final Double doubleValue = Cast.to(this.convertAndCheck(localDateTime, Double.valueOf(VALUE + 0.25)));
+        final Double doubleValue = this.convertAndCheck(localDateTime, Double.valueOf(VALUE + 0.25));
         this.convertAndCheck(Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET), doubleValue, LocalDateTime.class, localDateTime);
     }
 

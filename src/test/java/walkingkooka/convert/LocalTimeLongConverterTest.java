@@ -18,7 +18,6 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.Cast;
 
 import java.time.LocalTime;
 
@@ -34,7 +33,7 @@ public final class LocalTimeLongConverterTest extends LocalTimeConverterTestCase
     @Test
     public void testConverterRoundTripWithNanos() {
         final LocalTime localTime = LocalTime.ofSecondOfDay(VALUE);
-        final Long longValue = Cast.to(this.convertAndCheck(localTime, Long.valueOf(VALUE)));
+        final Long longValue = this.convertAndCheck(localTime, Long.valueOf(VALUE));
         this.convertAndCheck(Converters.numberLocalTime(), longValue, LocalTime.class, localTime);
     }
 
