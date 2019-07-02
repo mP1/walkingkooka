@@ -289,6 +289,13 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
+     * {@see LocalTimeNumberConverter}
+     */
+    public static Converter localTimeNumber() {
+        return LocalTimeNumberConverter.INSTANCE;
+    }
+
+    /**
      * {@see LocalTimeStringDateTimeFormatterConverter}
      */
     public static Converter localTimeString(final DateTimeFormatter formatter) {
