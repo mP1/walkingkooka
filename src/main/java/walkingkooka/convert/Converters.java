@@ -183,6 +183,13 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
+     * {@see LocalDateLocalDateTimeConverter}
+     */
+    public static Converter localDateLocalDateTime() {
+        return LocalDateLocalDateTimeConverter.INSTANCE;
+    }
+
+    /**
      * {@see LocalDateLongConverter}
      */
     public static Converter localDateLong(final long offset) {
@@ -190,10 +197,10 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * {@see LocalDateLocalDateTimeConverter}
+     * {@see LocalDateNumberConverter}
      */
-    public static Converter localDateLocalDateTime() {
-        return LocalDateLocalDateTimeConverter.INSTANCE;
+    public static Converter localDateNumber(final long offset) {
+        return LocalDateNumberConverter.with(offset);
     }
 
     /**
