@@ -253,6 +253,13 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
+     * {@see LocalDateTimeNumberConverter}
+     */
+    public static Converter localDateTimeNumber(final long offset) {
+        return LocalDateTimeNumberConverter.with(offset);
+    }
+
+    /**
      * {@see LocalDateTimeStringDateTimeFormatterConverter}
      */
     public static Converter localDateTimeString(final DateTimeFormatter formatter) {
