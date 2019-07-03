@@ -24,6 +24,8 @@ import walkingkooka.tree.visit.Visiting;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -118,7 +120,181 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     }
 
     @Test
-    public void testHttpWithDefaultPort() {
+    public void testSetSchemeSame() {
+        final AbsoluteUrl url = this.createUrl();
+        assertSame(url, url.setScheme(SCHEME));
+    }
+
+    @Test
+    public void testSetSchemeDifferent() {
+        final AbsoluteUrl url = this.createUrl();
+        final UrlScheme value = UrlScheme.HTTPS;
+        assertNotEquals(value, SCHEME);
+
+        final AbsoluteUrl different = url.setScheme(value);
+
+        assertNotSame(url, different);
+
+        this.checkScheme(different, value);
+        this.checkCredentials(different, CREDENTIALS);
+        this.checkHost(different, HOST);
+        this.checkPort(different, PORT);
+        this.checkPath(different, PATH);
+        this.checkQueryString(different, QUERY);
+        this.checkFragment(different, FRAGMENT);
+
+        this.checkScheme(url, SCHEME);
+        this.checkCredentials(url, CREDENTIALS);
+        this.checkHost(url, HOST);
+        this.checkPort(url, PORT);
+        this.checkPath(url, PATH);
+        this.checkQueryString(url, QUERY);
+        this.checkFragment(url, FRAGMENT);
+    }
+
+    @Test
+    public void testSetCredentialsSame() {
+        final AbsoluteUrl url = this.createUrl();
+        assertSame(url, url.setCredentials(CREDENTIALS));
+    }
+
+    @Test
+    public void testSetCredentialsDifferent() {
+        final AbsoluteUrl url = this.createUrl();
+        final UrlCredentials credentials = UrlCredentials.with("user123", "pass456");
+        final AbsoluteUrl different = url.setCredentials(Optional.of(credentials));
+
+        assertNotSame(url, different);
+
+        this.checkScheme(different, SCHEME);
+        this.checkCredentials(different, credentials);
+        this.checkHost(different, HOST);
+        this.checkPort(different, PORT);
+        this.checkPath(different, PATH);
+        this.checkQueryString(different, QUERY);
+        this.checkFragment(different, FRAGMENT);
+
+        this.checkScheme(url, SCHEME);
+        this.checkCredentials(url, CREDENTIALS);
+        this.checkHost(url, HOST);
+        this.checkPort(url, PORT);
+        this.checkPath(url, PATH);
+        this.checkQueryString(url, QUERY);
+        this.checkFragment(url, FRAGMENT);
+    }
+
+    @Test
+    public void testSetCredentialsSame2() {
+        final Optional<UrlCredentials> credentials = Optional.of(UrlCredentials.with("user123", "pass456"));
+
+        final AbsoluteUrl url = this.createUrl().setCredentials(credentials);
+        assertSame(url, url.setCredentials(credentials));
+    }
+
+    @Test
+    public void testSetPortSame() {
+        final AbsoluteUrl url = this.createUrl();
+        assertSame(url, url.setPort(PORT));
+    }
+
+    @Test
+    public void testSetPortDifferent() {
+        final AbsoluteUrl url = this.createUrl();
+        final IpPort value = IpPort.DNS;
+        final AbsoluteUrl different = url.setPort(Optional.of(value));
+
+        assertNotSame(url, different);
+
+        this.checkScheme(different, SCHEME);
+        this.checkCredentials(different, CREDENTIALS);
+        this.checkHost(different, HOST);
+        this.checkPort(different, value);
+        this.checkPath(different, PATH);
+        this.checkQueryString(different, QUERY);
+        this.checkFragment(different, FRAGMENT);
+
+        this.checkScheme(url, SCHEME);
+        this.checkCredentials(url, CREDENTIALS);
+        this.checkHost(url, HOST);
+        this.checkPort(url, PORT);
+        this.checkPath(url, PATH);
+        this.checkQueryString(url, QUERY);
+        this.checkFragment(url, FRAGMENT);
+    }
+
+    @Test
+    public void testSetHostSame() {
+        final AbsoluteUrl url = this.createUrl();
+        assertSame(url, url.setHost(HOST));
+    }
+
+    @Test
+    public void testSetHostDifferent() {
+        final AbsoluteUrl url = this.createUrl();
+        final HostAddress value = HostAddress.with("different.example.com");
+        final AbsoluteUrl different = url.setHost(value);
+
+        assertNotSame(url, different);
+
+        this.checkScheme(different, SCHEME);
+        this.checkCredentials(different, CREDENTIALS);
+        this.checkHost(different, value);
+        this.checkPort(different, PORT);
+        this.checkPath(different, PATH);
+        this.checkQueryString(different, QUERY);
+        this.checkFragment(different, FRAGMENT);
+
+        this.checkScheme(url, SCHEME);
+        this.checkCredentials(url, CREDENTIALS);
+        this.checkHost(url, HOST);
+        this.checkPort(url, PORT);
+        this.checkPath(url, PATH);
+        this.checkQueryString(url, QUERY);
+        this.checkFragment(url, FRAGMENT);
+    }
+
+    @Test
+    public void testSetSame() {
+        final AbsoluteUrl url = this.createUrl();
+        assertSame(url, url.set(url.scheme(), url.credentials(), url.host(), url.port()));
+    }
+
+    @Test
+    public void testSetDifferent() {
+        final AbsoluteUrl url = this.createUrl();
+
+        final UrlScheme scheme = UrlScheme.HTTPS;
+        assertNotEquals(scheme, SCHEME);
+
+        final HostAddress host = HostAddress.with("different.example.com");
+        final IpPort port = IpPort.HTTPS;
+        final Optional<UrlCredentials> credentials = Optional.of(UrlCredentials.with("user123", "pass456"));
+
+        final AbsoluteUrl different = url.set(scheme, credentials, host, Optional.of(port));
+
+        assertNotSame(url, different);
+
+        this.checkScheme(different, scheme);
+        this.checkCredentials(different, credentials);
+        this.checkHost(different, host);
+        this.checkPort(different, port);
+        this.checkPath(different, PATH);
+        this.checkQueryString(different, QUERY);
+        this.checkFragment(different, FRAGMENT);
+
+        this.checkScheme(url, SCHEME);
+        this.checkCredentials(url, CREDENTIALS);
+        this.checkHost(url, HOST);
+        this.checkPort(url, PORT);
+        this.checkPath(url, PATH);
+        this.checkQueryString(url, QUERY);
+        this.checkFragment(url, FRAGMENT);
+    }
+
+    // toString.........................................................................................................
+
+    @Test
+    public void testToStringHttpWithDefaultPort() {
         toStringAndCheck(AbsoluteUrl.with(SCHEME,
                 CREDENTIALS,
                 HOST,
@@ -130,7 +306,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     }
 
     @Test
-    public void testHttpsWithDefaultPort() {
+    public void testToStringHttpsWithDefaultPort() {
         toStringAndCheck(AbsoluteUrl.with(UrlScheme.HTTPS,
                 CREDENTIALS,
                 HOST,
@@ -142,7 +318,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     }
 
     @Test
-    public void testHttpsWithNonDefaultPort() {
+    public void testToStringHttpsWithNonDefaultPort() {
         toStringAndCheck(AbsoluteUrl.with(UrlScheme.HTTPS,
                 CREDENTIALS,
                 HOST,
@@ -212,7 +388,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     }
 
     @Test
-    public void testUrlWithCredentials() {
+    public void testToStringUrlWithCredentials() {
         toStringAndCheck(AbsoluteUrl.with(SCHEME,
                 Optional.of(UrlCredentials.with("user123", "password456")),
                 HOST,
@@ -301,6 +477,11 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         this.checkPath(url, UrlPath.parse("/"));
         this.checkQueryString(url, UrlQueryString.EMPTY);
         this.checkFragment(url, UrlFragment.EMPTY);
+    }
+
+    @Test
+    public void testParseCredentialsMissingPasswordFails() {
+        this.parseFails("\"http://abc@example.com", IllegalArgumentException.class);
     }
 
     @Test
