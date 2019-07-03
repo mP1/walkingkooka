@@ -63,6 +63,11 @@ public final class HttpMethodVisitorTest implements HttpMethodVisitorTesting<Htt
     }
 
     @Test
+    public void testHead2() {
+        new HttpMethodVisitor().accept(HttpMethod.HEAD);
+    }
+
+    @Test
     public void testGet() {
         final StringBuilder b = new StringBuilder();
 
@@ -88,6 +93,11 @@ public final class HttpMethodVisitorTest implements HttpMethodVisitorTesting<Htt
         }.accept(method);
 
         assertEquals("132", b.toString());
+    }
+
+    @Test
+    public void testGet2() {
+        new HttpMethodVisitor().accept(HttpMethod.GET);
     }
 
     @Test
@@ -119,6 +129,11 @@ public final class HttpMethodVisitorTest implements HttpMethodVisitorTesting<Htt
     }
 
     @Test
+    public void testPost2() {
+        new HttpMethodVisitor().accept(HttpMethod.POST);
+    }
+
+    @Test
     public void testPut() {
         final StringBuilder b = new StringBuilder();
 
@@ -144,6 +159,11 @@ public final class HttpMethodVisitorTest implements HttpMethodVisitorTesting<Htt
         }.accept(method);
 
         assertEquals("132", b.toString());
+    }
+
+    @Test
+    public void testPut2() {
+        new HttpMethodVisitor().accept(HttpMethod.PUT);
     }
 
     @Test
@@ -175,6 +195,11 @@ public final class HttpMethodVisitorTest implements HttpMethodVisitorTesting<Htt
     }
 
     @Test
+    public void testDelete2() {
+        new HttpMethodVisitor().accept(HttpMethod.DELETE);
+    }
+
+    @Test
     public void testTrace() {
         final StringBuilder b = new StringBuilder();
 
@@ -200,6 +225,11 @@ public final class HttpMethodVisitorTest implements HttpMethodVisitorTesting<Htt
         }.accept(method);
 
         assertEquals("132", b.toString());
+    }
+
+    @Test
+    public void testTrace2() {
+        new HttpMethodVisitor().accept(HttpMethod.TRACE);
     }
 
     @Test
@@ -231,6 +261,11 @@ public final class HttpMethodVisitorTest implements HttpMethodVisitorTesting<Htt
     }
 
     @Test
+    public void testOption2() {
+        new HttpMethodVisitor().accept(HttpMethod.OPTIONS);
+    }
+
+    @Test
     public void testConnect() {
         final StringBuilder b = new StringBuilder();
 
@@ -256,6 +291,11 @@ public final class HttpMethodVisitorTest implements HttpMethodVisitorTesting<Htt
         }.accept(method);
 
         assertEquals("132", b.toString());
+    }
+
+    @Test
+    public void testConnect2() {
+        new HttpMethodVisitor().accept(HttpMethod.CONNECT);
     }
 
     @Test
@@ -287,6 +327,11 @@ public final class HttpMethodVisitorTest implements HttpMethodVisitorTesting<Htt
     }
 
     @Test
+    public void testPatch2() {
+        new HttpMethodVisitor().accept(HttpMethod.PATCH);
+    }
+
+    @Test
     public void testUnknown() {
         final StringBuilder b = new StringBuilder();
 
@@ -313,6 +358,11 @@ public final class HttpMethodVisitorTest implements HttpMethodVisitorTesting<Htt
         }.accept(method);
 
         assertEquals("132", b.toString());
+    }
+
+    @Test
+    public void testUnknown2() {
+        new HttpMethodVisitor().accept(HttpMethod.with("Unknown"));
     }
 
     @Override
