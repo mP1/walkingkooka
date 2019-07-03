@@ -62,6 +62,16 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
     }
 
     @Test
+    public void testParseNonBase64Fails() {
+        this.parseFails("data:text/plain;unsupported,XYZ123", IllegalArgumentException.class);
+    }
+
+    @Test
+    public void testParseMissingBinaryFails() {
+        this.parseFails("data:text/plain;base64", IllegalArgumentException.class);
+    }
+
+    @Test
     public void testParseWithContentTypeBase64AndEncoded() {
         this.parseAndCheck("data:text/plain;base64,YWJjMTIz", this.createUrl());
     }
