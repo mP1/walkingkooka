@@ -79,6 +79,49 @@ public final class NodePointerVisitorTest implements NodePointerVisitorTesting<F
     }
 
     @Test
+    public void testAny2() {
+        new NodePointerVisitor<JsonNode, JsonNodeName>() {
+        }.accept(NodePointer.any(JsonNode.class));
+    }
+
+    @Test
+    public void testRelative() {
+        final StringBuilder b = new StringBuilder();
+
+        new FakeNodePointerVisitor<JsonNode, JsonNodeName>() {
+            @Override
+            protected Visiting startVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+                b.append("2");
+            }
+
+            protected Visiting startVisit(final RelativeNodePointer<JsonNode, JsonNodeName> node) {
+                b.append("3");
+                return Visiting.CONTINUE;
+            }
+
+            protected void endVisit(final RelativeNodePointer<JsonNode, JsonNodeName> node) {
+                b.append("4");
+                // nop
+            }
+
+        }.accept(NodePointer.relative(0, JsonNode.class));
+
+        assertEquals("1342", b.toString());
+    }
+
+    @Test
+    public void testRelative2() {
+        new NodePointerVisitor<JsonNode, JsonNodeName>() {
+        }.accept(NodePointer.relative(0, JsonNode.class));
+    }
+
+    @Test
     public void testMultipleComponents() {
         final StringBuilder b = new StringBuilder();
 
@@ -140,44 +183,49 @@ public final class NodePointerVisitorTest implements NodePointerVisitorTesting<F
     private void visitAndCheck(final String path) {
         final StringBuilder b = new StringBuilder();
 
+        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.parse(path, JsonNodeName::with, JsonNode.class);
+
         new FakeNodePointerVisitor<JsonNode, JsonNodeName>() {
             @Override
-            protected Visiting startVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+            protected Visiting startVisit(final NodePointer<JsonNode, JsonNodeName> p) {
                 b.append("/");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+            protected void endVisit(final NodePointer<JsonNode, JsonNodeName> p) {
             }
 
             @Override
-            protected void visit(final AppendNodePointer<JsonNode, JsonNodeName> node) {
+            protected void visit(final AppendNodePointer<JsonNode, JsonNodeName> p) {
                 b.append("-");
             }
 
             @Override
-            protected Visiting startVisit(final IndexedChildNodePointer<JsonNode, JsonNodeName> node) {
-                b.append(node.index());
+            protected Visiting startVisit(final IndexedChildNodePointer<JsonNode, JsonNodeName> p) {
+                b.append(p.index());
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final IndexedChildNodePointer<JsonNode, JsonNodeName> node) {
+            protected void endVisit(final IndexedChildNodePointer<JsonNode, JsonNodeName> p) {
             }
 
             @Override
-            protected Visiting startVisit(final NamedChildNodePointer<JsonNode, JsonNodeName> node) {
-                b.append(node.name());
+            protected Visiting startVisit(final NamedChildNodePointer<JsonNode, JsonNodeName> p) {
+                b.append(p.name());
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final NamedChildNodePointer<JsonNode, JsonNodeName> node) {
+            protected void endVisit(final NamedChildNodePointer<JsonNode, JsonNodeName> p) {
             }
-        }.accept(NodePointer.parse(path, JsonNodeName::with, JsonNode.class));
+        }.accept(pointer);
 
         assertEquals(path, b.toString());
+
+        new NodePointerVisitor<JsonNode, JsonNodeName>() {
+        }.accept(pointer);
     }
 
     @Override
