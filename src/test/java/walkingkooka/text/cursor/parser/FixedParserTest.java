@@ -37,7 +37,7 @@ public final class FixedParserTest extends ParserTestCase<FixedParser<ParserCont
 
     @Test
     public void testEmptyCursorFail() {
-        this.parseAndCheck("", ParserTokens.string("", ""), "", "");
+        this.parseAndCheck("", RESULT, "", "");
     }
 
     @Test
