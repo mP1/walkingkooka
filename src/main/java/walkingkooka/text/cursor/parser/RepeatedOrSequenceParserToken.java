@@ -16,7 +16,6 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 
 import java.util.List;
@@ -57,24 +56,6 @@ abstract public class RepeatedOrSequenceParserToken<T extends RepeatedOrSequence
      * Recursively flattens all embedded {@link RepeatedOrSequenceParserToken} into a single {@link RepeatedOrSequenceParserToken}.
      */
     public abstract RepeatedOrSequenceParserToken<?> flat();
-
-    /**
-     * Takes the tokens of something that is a {@link RepeatedOrSequenceParserToken} and flattens them so no tokens that remain are also flattenable.
-     */
-    final List<ParserToken> flat0() {
-        final List<ParserToken> flat = Lists.array();
-
-        for (ParserToken token : this.value()) {
-            if (token instanceof RepeatedOrSequenceParserToken) {
-                final RepeatedOrSequenceParserToken<?> has = Cast.to(token);
-                flat.addAll(has.flat0());
-            } else {
-                flat.add(token);
-            }
-        }
-
-        return flat;
-    }
 
     // ParserTokenVisitor...............................................................................................
 
