@@ -406,9 +406,13 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
 
     private static final EbnfIdentifierName WHITESPACE_IDENTIFIER = EbnfIdentifierName.with("WHITESPACE");
     private final static Parser<ParserContext> WHITESPACE_PARSER = Parsers.<NodeSelectorParserContext>stringCharPredicate(CharPredicates.whitespace(), 1, Integer.MAX_VALUE)
-            .transform((stringParserToken, nodeSelectorParserContext) -> NodeSelectorParserToken.whitespace(StringParserToken.class.cast(stringParserToken).value(), stringParserToken.text()).cast())
+            .transform(NodeSelectorParsers::transformWhitespace)
             .setToString(NodeSelectorWhitespaceParserToken.class.getSimpleName())
             .cast();
+
+    private static ParserToken transformWhitespace(final ParserToken token, final ParserContext context) {
+        return NodeSelectorParserToken.whitespace(StringParserToken.class.cast(token).value(), token.text());
+    }
 
     private static final EbnfIdentifierName WILDCARD_IDENTIFIER = EbnfIdentifierName.with("WILDCARD");
     private static final Parser<ParserContext> WILDCARD_PARSER = literal('*',
