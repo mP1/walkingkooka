@@ -23,7 +23,6 @@ import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokens;
 import walkingkooka.text.cursor.parser.SequenceParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfAlternativeParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfConcatenationParserToken;
@@ -55,109 +54,9 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
     /**
      * Special case for binary operators and operator priorities.
      */
-    private ParserToken concatenation(final ParserToken sequence, final ParserContext context) {
-        return this.concatenation0(sequence.cast(), context);
-    }
-
-    private ParserToken concatenation0(final SequenceParserToken sequence, final ParserContext context) {
-        ParserToken result;
-
-        for (; ; ) {
-            final SequenceParserToken cleaned = sequence.flat();
-
-            final NodeSelectorParserToken first = cleaned.removeWhitespace()
-                    .value()
-                    .get(0)
-                    .cast();
-
-            if (first.isSymbol()) {
-                result = sequence;
-                break;
-            }
-
-            result = this.binaryOperandPrioritize(cleaned.value(), sequence);
-            break;
-        }
-
-        return result;
-    }
-
-    private ParserToken binaryOperandPrioritize(final List<ParserToken> tokens, final SequenceParserToken parent) {
-        List<ParserToken> prioritized = this.maybeExpandNegatives(tokens);
-
-        for (int priority = NodeSelectorParserToken.HIGHEST_PRIORITY; priority > NodeSelectorParserToken.LOWEST_PRIORITY; priority--) {
-            boolean changed;
-
-            do {
-                changed = false;
-                int i = 0;
-                for (ParserToken t : prioritized) {
-                    final NodeSelectorParserToken s = t.cast();
-                    if (s.operatorPriority() == priority) {
-                        changed = true;
-
-                        final int firstIndex = this.findNonWhitespaceSiblingToken(prioritized, i - 1, -1);
-                        final int lastIndex = this.findNonWhitespaceSiblingToken(prioritized, i + 1, +1);
-
-                        final List<ParserToken> binaryOperandTokens = Lists.array();
-                        binaryOperandTokens.addAll(prioritized.subList(firstIndex, lastIndex + 1));
-
-                        final List<ParserToken> replaced = Lists.array();
-                        replaced.addAll(prioritized.subList(0, firstIndex));
-                        replaced.add(s.binaryOperand(binaryOperandTokens, ParserToken.text(binaryOperandTokens)));
-                        replaced.addAll(prioritized.subList(lastIndex + 1, prioritized.size()));
-
-                        prioritized = replaced;
-                        break;
-                    }
-                    i++;
-                }
-            } while (changed && prioritized.size() > 1);
-        }
-
-        return prioritized.size() == 1 ?
-                prioritized.get(0) :
-                ParserTokens.sequence(prioritized, parent.text());
-    }
-
-    /**
-     * Expands any {@link NodeSelectorNegativeParserToken} into its core components, only if it doesnt follow another symbol.
-     * This fixes the parsing "mistake" that converts any minus followed by a token into a {@link NodeSelectorNegativeParserToken}.
-     */
-    private List<ParserToken> maybeExpandNegatives(final List<ParserToken> tokens) {
-        final List<ParserToken> expanded = Lists.array();
-        boolean expand = false;
-
-        for (ParserToken t : tokens) {
-            final NodeSelectorParserToken s = t.cast();
-            if (s.isWhitespace()) {
-                expanded.add(t);
-                continue;
-            }
-
-            if (s.isNegative() && expand) {
-                final NodeSelectorNegativeParserToken negativeParserToken = s.cast();
-                expanded.addAll(negativeParserToken.value());
-                expand = true;
-                continue;
-            }
-            expand = !s.isSymbol();
-            expanded.add(s);
-        }
-
-        return expanded;
-    }
-
-    private int findNonWhitespaceSiblingToken(final List<ParserToken> tokens, final int startIndex, final int step) {
-        int i = startIndex;
-        for (; ; ) {
-            final NodeSelectorParserToken token = tokens.get(i).cast();
-            if (!token.isWhitespace()) {
-                break;
-            }
-            i = i + step;
-        }
-        return i;
+    private ParserToken concatenation(final ParserToken token, final ParserContext context) {
+        return SequenceParserToken.class.cast(token)
+                .transform(NodeSelectorEbnfParserCombinatorSyntaxTreeTransformerBinaryOperatorTransformer.INSTANCE);
     }
 
     @Override

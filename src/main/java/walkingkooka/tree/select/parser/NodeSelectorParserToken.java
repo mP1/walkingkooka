@@ -789,8 +789,10 @@ public abstract class NodeSelectorParserToken implements ParserToken {
      */
     abstract int operatorPriority();
 
-    final static int LOWEST_PRIORITY = 0;
-    final static int COMPARISON_PRIORITY = LOWEST_PRIORITY + 1;
+    final static int IGNORED = 0;
+
+    final static int LOWEST_PRIORITY = IGNORED + 1;
+    final static int COMPARISON_PRIORITY = LOWEST_PRIORITY;
     final static int ADDITION_SUBTRACTION_PRIORITY = COMPARISON_PRIORITY + 1;
     final static int MULTIPLY_DIVISION_PRIORITY = ADDITION_SUBTRACTION_PRIORITY + 1;
     final static int MOD_PRIORITY = MULTIPLY_DIVISION_PRIORITY + 1;
