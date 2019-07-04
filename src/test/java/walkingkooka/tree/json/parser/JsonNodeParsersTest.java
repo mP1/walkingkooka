@@ -24,6 +24,7 @@ import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.json.JsonNode;
 
 public final class JsonNodeParsersTest implements ParserTesting<Parser<JsonNodeParserContext>,
         JsonNodeParserContext> {
@@ -416,7 +417,7 @@ public final class JsonNodeParsersTest implements ParserTesting<Parser<JsonNodeP
     }
 
     @Override
-    public String parserTokenToString(final ParserToken token) {
-        return JsonParserPrettyJsonNodeParserTokenVisitor.toString(token);
+    public String parserTokenTypeNamePrefix() {
+        return JsonNode.class.getSimpleName();
     }
 }

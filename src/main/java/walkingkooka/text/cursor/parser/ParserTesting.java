@@ -17,6 +17,7 @@
 
 package walkingkooka.text.cursor.parser;
 
+import org.opentest4j.AssertionFailedError;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.Testing;
@@ -148,12 +149,12 @@ public interface ParserTesting<P extends Parser<C>,
         }
 
         final String textRemaining = after.textBetween().toString();
-        if (!token.equals(result)) {
-            final CharSequence all2 = all;
-            assertEquals(token.isPresent() ? this.parserTokenToString(token.get()) : "",
-                    token.isPresent() ? this.parserTokenToString(token.get()) : "",
-                    () -> "Incorrect result returned by parser: " + parser + "\ntext:\n" + CharSequences.quoteAndEscape(all2) + "\nunconsumed text:\n" + textRemaining);
+        if (!token.toString().equals(result.toString())) {
+            throw new AssertionFailedError("Incorrect result returned by parser: " + parser + "\ntext:\n" + CharSequences.quoteAndEscape(all) + "\nunconsumed text:\n" + textRemaining,
+                    ParserTestingPrettyDumper.dump(token, this.parserTokenTypeNamePrefix()),
+                    ParserTestingPrettyDumper.dump(result, this.parserTokenTypeNamePrefix()));
         }
+
         assertEquals(text, consumed, "incorrect consumed text");
         assertEquals(text, result.isPresent() ? result.get().text() : "", "token consume text is incorrect");
         assertEquals(textAfter, textRemaining, "Incorrect text after match");
@@ -162,9 +163,7 @@ public interface ParserTesting<P extends Parser<C>,
         return cursor;
     }
 
-    default String parserTokenToString(final ParserToken token) {
-        return token.toString();
-    }
+    String parserTokenTypeNamePrefix();
 
     default TextCursor parseFailAndCheck(final String cursorText) {
         return this.parseFailAndCheck(TextCursors.charSequence(cursorText));

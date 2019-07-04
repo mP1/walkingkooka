@@ -26,6 +26,7 @@ import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.visit.Visiting;
 
 import java.math.BigDecimal;
@@ -2096,22 +2097,22 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
     }
 
     final NodeSelectorParserToken number() {
-        return number(1);
+        return number(1.5);
     }
 
     final NodeSelectorParserToken number2() {
-        return number(23);
+        return number(23.5);
     }
 
     final NodeSelectorParserToken number3() {
-        return number(345);
+        return number(345.5);
     }
 
     final NodeSelectorParserToken number4() {
-        return number(4567);
+        return number(4567.5);
     }
 
-    final NodeSelectorParserToken number(final int value) {
+    final NodeSelectorParserToken number(final double value) {
         return NodeSelectorParserToken.number(BigDecimal.valueOf(value), String.valueOf(value));
     }
 
@@ -2196,7 +2197,7 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
     }
 
     @Override
-    public String parserTokenToString(final ParserToken token) {
-        return NodeSelectorParserPrettyNodeSelectorParserTokenVisitor.toString(token);
+    public String parserTokenTypeNamePrefix() {
+        return NodeSelector.class.getSimpleName();
     }
 }

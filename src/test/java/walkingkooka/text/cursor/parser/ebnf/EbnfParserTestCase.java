@@ -164,4 +164,9 @@ public abstract class EbnfParserTestCase<T extends EbnfParserToken> implements P
     static EbnfSymbolParserToken closeRepeatToken() {
         return symbol(CLOSE_REPEAT);
     }
+
+    @Override
+    public final String parserTokenTypeNamePrefix() {
+        return "Ebnf";
+    }
 }

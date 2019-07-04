@@ -119,6 +119,11 @@ public abstract class DateTimeFormatterParserTestCase<P extends DateTimeFormatte
         this.parseThrows(this.createParser(pattern), this.createContext(), TextCursors.charSequence(text), "");
     }
 
+    @Override
+    public String parserTokenTypeNamePrefix() {
+        return "";
+    }
+
     // ClassTesting......................................................................................................
 
     @Override
