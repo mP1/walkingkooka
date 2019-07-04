@@ -19,6 +19,7 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.search.SearchNode;
 
 import java.util.Arrays;
 import java.util.List;
@@ -77,6 +78,39 @@ public abstract class RepeatedOrSequenceParserTokenTestCase<T extends RepeatedOr
         final T flat = parent.flat().cast();
         assertNotSame(parent, flat);
         assertEquals(Lists.of(STRING1, STRING2, STRING4, STRING5, STRING6), flat.value(), "values after flattening");
+        this.checkText(flat, "a1b2d4e5f6");
+    }
+
+    @Test
+    public final void testFlatRequired3() {
+        final ParserToken parserToken = new ParserToken() {
+            @Override
+            public boolean isSymbol() {
+                return false;
+            }
+
+            @Override
+            public void accept(final ParserTokenVisitor visitor) {
+                // nop
+            }
+
+            @Override
+            public String text() {
+                return "abc123";
+            }
+
+            @Override
+            public SearchNode toSearchNode() {
+                throw new UnsupportedOperationException();
+            }
+        };
+
+        final T childChild = this.createToken(STRING5, STRING6, parserToken);
+        final T child = this.createToken(STRING4, childChild);
+        final T parent = this.createToken(STRING1, STRING2, child);
+        final T flat = parent.flat().cast();
+        assertNotSame(parent, flat);
+        assertEquals(Lists.of(STRING1, STRING2, STRING4, STRING5, STRING6, parserToken), flat.value(), "values after flattening");
         this.checkText(flat, "a1b2d4e5f6");
     }
 
