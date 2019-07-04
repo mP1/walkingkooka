@@ -47,6 +47,8 @@ public final class RepeatedParserToken extends RepeatedOrSequenceParserToken<Rep
         return this.setValue(this.flat0()).cast();
     }
 
+    // ParserTokenVisitor...............................................................................................
+
     @Override
     public void accept(final ParserTokenVisitor visitor) {
         if (Visiting.CONTINUE == visitor.startVisit(this)) {
@@ -54,6 +56,8 @@ public final class RepeatedParserToken extends RepeatedOrSequenceParserToken<Rep
         }
         visitor.endVisit(this);
     }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {
