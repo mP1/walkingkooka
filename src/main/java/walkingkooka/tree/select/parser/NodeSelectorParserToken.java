@@ -806,17 +806,19 @@ public abstract class NodeSelectorParserToken implements ParserToken {
     /**
      * Begins the visiting process.
      */
+    @Override
     public final void accept(final ParserTokenVisitor visitor) {
-        final NodeSelectorParserTokenVisitor visitor2 = Cast.to(visitor);
-        final NodeSelectorParserToken token = this;
+        if (visitor instanceof NodeSelectorParserTokenVisitor) {
+            final NodeSelectorParserTokenVisitor visitor2 = Cast.to(visitor);
 
-        if (Visiting.CONTINUE == visitor2.startVisit(token)) {
-            this.accept(NodeSelectorParserTokenVisitor.class.cast(visitor));
+            if (Visiting.CONTINUE == visitor2.startVisit(this)) {
+                this.accept(visitor2);
+            }
+            visitor2.endVisit(this);
         }
-        visitor2.endVisit(token);
     }
 
-    abstract public void accept(final NodeSelectorParserTokenVisitor visitor);
+    abstract void accept(final NodeSelectorParserTokenVisitor visitor);
 
     // Object ...........................................................................................................
 

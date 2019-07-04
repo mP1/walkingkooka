@@ -240,17 +240,19 @@ public abstract class EbnfParserToken implements ParserToken {
 
     // EbnfParserTokenVisitor............................................................................................
 
+    @Override
     public final void accept(final ParserTokenVisitor visitor) {
-        final EbnfParserTokenVisitor ebnfParserTokenVisitor = Cast.to(visitor);
-        final EbnfParserToken token = this;
+        if (visitor instanceof EbnfParserTokenVisitor) {
+            final EbnfParserTokenVisitor visitor2 = Cast.to(visitor);
 
-        if (Visiting.CONTINUE == ebnfParserTokenVisitor.startVisit(token)) {
-            this.accept(EbnfParserTokenVisitor.class.cast(visitor));
+            if (Visiting.CONTINUE == visitor2.startVisit(this)) {
+                this.accept(visitor2);
+            }
+            visitor2.endVisit(this);
         }
-        ebnfParserTokenVisitor.endVisit(token);
     }
 
-    abstract public void accept(final EbnfParserTokenVisitor visitor);
+    abstract void accept(final EbnfParserTokenVisitor visitor);
 
     // Object ...........................................................................................................
 

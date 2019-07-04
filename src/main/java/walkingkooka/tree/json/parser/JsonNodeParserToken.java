@@ -225,17 +225,19 @@ public abstract class JsonNodeParserToken implements ParserToken {
     /**
      * Begins the visiting process.
      */
+    @Override
     public final void accept(final ParserTokenVisitor visitor) {
-        final JsonNodeParserTokenVisitor visitor2 = Cast.to(visitor);
-        final JsonNodeParserToken token = this;
+        if (visitor instanceof JsonNodeParserTokenVisitor) {
+            final JsonNodeParserTokenVisitor visitor2 = Cast.to(visitor);
 
-        if (Visiting.CONTINUE == visitor2.startVisit(token)) {
-            this.accept(JsonNodeParserTokenVisitor.class.cast(visitor));
+            if (Visiting.CONTINUE == visitor2.startVisit(this)) {
+                this.accept(visitor2);
+            }
+            visitor2.endVisit(this);
         }
-        visitor2.endVisit(token);
     }
 
-    abstract public void accept(final JsonNodeParserTokenVisitor visitor);
+    abstract void accept(final JsonNodeParserTokenVisitor visitor);
 
     /**
      * Converts this token to its {@link JsonNode} equivalent. Note that {@link JsonNodeWhitespaceParserToken} will
