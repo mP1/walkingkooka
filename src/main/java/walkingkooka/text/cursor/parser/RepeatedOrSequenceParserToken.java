@@ -53,12 +53,6 @@ abstract public class RepeatedOrSequenceParserToken<T extends RepeatedOrSequence
 
     abstract ParserToken2<List<ParserToken>> replaceValue(final List<ParserToken> value);
 
-    final void acceptValues(final ParserTokenVisitor visitor) {
-        for (ParserToken token : this.value()) {
-            visitor.accept(token);
-        }
-    }
-
     /**
      * Recursively flattens all embedded {@link RepeatedOrSequenceParserToken} into a single {@link RepeatedOrSequenceParserToken}.
      */
@@ -81,6 +75,16 @@ abstract public class RepeatedOrSequenceParserToken<T extends RepeatedOrSequence
 
         return flat;
     }
+
+    // ParserTokenVisitor...............................................................................................
+
+    final void acceptValues(final ParserTokenVisitor visitor) {
+        for (ParserToken token : this.value()) {
+            visitor.accept(token);
+        }
+    }
+
+    // Object...........................................................................................................
 
     @Override
     final boolean equals1(final ParserToken2<?> other) {

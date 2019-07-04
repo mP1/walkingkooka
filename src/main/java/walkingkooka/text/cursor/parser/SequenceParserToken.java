@@ -74,14 +74,6 @@ public final class SequenceParserToken extends RepeatedOrSequenceParserToken<Seq
     }
 
     @Override
-    public void accept(final ParserTokenVisitor visitor) {
-        if (Visiting.CONTINUE == visitor.startVisit(this)) {
-            this.acceptValues(visitor);
-        }
-        visitor.endVisit(this);
-    }
-
-    @Override
     public SequenceParserToken flat() {
         return this.setValue(this.flat0()).cast();
     }
@@ -106,6 +98,18 @@ public final class SequenceParserToken extends RepeatedOrSequenceParserToken<Seq
             throw new IndexOutOfBoundsException("Invalid index " + index + " must be between 0 and " + tokens.size());
         }
     }
+
+    // ParserTokenVisitor...............................................................................................
+
+    @Override
+    public void accept(final ParserTokenVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
+            this.acceptValues(visitor);
+        }
+        visitor.endVisit(this);
+    }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {
