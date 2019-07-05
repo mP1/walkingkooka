@@ -17,10 +17,46 @@
 
 package walkingkooka.text.cursor.parser;
 
+import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.JavaVisibility;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public final class ParserTestingPrettyDumperTest implements ClassTesting2<ParserTestingPrettyDumper> {
+
+    @Test
+    public void testDumpStringParserToken() {
+        this.dumpAndCheck(ParserTokens.string("abc123", "abc123"),
+                "String=abc123\n");
+    }
+
+    @Test
+    public void testDumpSequenceParserToken() {
+        final List<ParserToken> tokens = Lists.of(ParserTokens.string("a1", "a1"),
+                ParserTokens.bigDecimal(BigDecimal.valueOf(1.5), "1.5"),
+                ParserTokens.bigInteger(BigInteger.valueOf(23), "23"));
+
+        this.dumpAndCheck(
+                ParserTokens.sequence(tokens, ParserToken.text(tokens))
+                , "Sequence\n" +
+                        "  String=a1\n" +
+                        "  BigDecimal=1.5\n" +
+                        "  BigInteger=23\n");
+    }
+
+    private void dumpAndCheck(final ParserToken token,
+                              final String expected) {
+        assertEquals(expected,
+                ParserTestingPrettyDumper.dump(Optional.of(token), ""),
+                () -> "" + token);
+    }
 
     @Override
     public Class<ParserTestingPrettyDumper> type() {
