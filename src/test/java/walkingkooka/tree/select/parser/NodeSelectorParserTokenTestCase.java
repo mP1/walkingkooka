@@ -51,6 +51,12 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
         });
     }
 
+    @Test
+    public final void testAccept2() {
+        new NodeSelectorParserTokenVisitor() {
+        }.accept(this.createToken());
+    }
+
     // token factories...............................................................................
 
     final NodeSelectorParserToken absolute() {
