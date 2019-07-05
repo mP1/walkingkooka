@@ -148,6 +148,11 @@ public final class OffsetTimeDateTimeFormatterParserTest extends OffsetDateTimeF
     }
 
     @Override
+    String differentPattern() {
+        return "x SSS ss mm HH";
+    }
+
+    @Override
     OffsetTimeParserToken createParserToken(final DateTimeFormatter formatter, final String text) {
         return OffsetTimeParserToken.with(OffsetTime.parse(text, formatter), text);
     }

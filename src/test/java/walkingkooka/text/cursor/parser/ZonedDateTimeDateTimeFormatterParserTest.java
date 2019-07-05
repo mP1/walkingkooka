@@ -212,6 +212,11 @@ public final class ZonedDateTimeDateTimeFormatterParserTest extends DateTimeForm
     }
 
     @Override
+    String differentPattern() {
+        return "dd-MM-yyyy HH:mm:ss.SSSZ";
+    }
+
+    @Override
     ZonedDateTimeParserToken createParserToken(final DateTimeFormatter formatter, final String text) {
         return ZonedDateTimeParserToken.with(ZonedDateTime.parse(text, formatter), text);
     }
