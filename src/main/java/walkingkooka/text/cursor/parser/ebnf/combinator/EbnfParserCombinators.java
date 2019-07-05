@@ -32,30 +32,30 @@ import java.util.Objects;
 public final class EbnfParserCombinators implements PublicStaticHelper {
 
     /**
-     * Accepts a grammar and returns a {@link Map} holding all identifiers(the names) to a parser.
+     * Accepts a {@link EbnfGrammarParserToken} and returns a {@link Map} holding all identifiers(the names) to a parser.
      * The {@link Map} will be used as defaults, any new definitions in the grammar will replace those in the map.
      */
     public static Map<EbnfIdentifierName, Parser<ParserContext>> transform(final EbnfGrammarParserToken grammar,
                                                                            final Map<EbnfIdentifierName, Parser<ParserContext>> identifierToParser,
-                                                                           final EbnfParserCombinatorSyntaxTreeTransformer syntaxTreeTransformer) {
+                                                                           final EbnfParserCombinatorSyntaxTreeTransformer transformer) {
         Objects.requireNonNull(grammar, "grammar");
         Objects.requireNonNull(identifierToParser, "identifierToParser");
-        Objects.requireNonNull(syntaxTreeTransformer, "syntaxTreeTransformer");
+        Objects.requireNonNull(transformer, "syntaxTreeTransformer");
 
         return transform0(EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitor.clean(grammar),
                 identifierToParser,
-                syntaxTreeTransformer);
+                transformer);
     }
 
     private static Map<EbnfIdentifierName, Parser<ParserContext>> transform0(final EbnfGrammarParserToken grammar,
                                                                              final Map<EbnfIdentifierName, Parser<ParserContext>> identifierToParser,
-                                                                             final EbnfParserCombinatorSyntaxTreeTransformer syntaxTreeTransformer) {
+                                                                             final EbnfParserCombinatorSyntaxTreeTransformer transformer) {
 
         grammar.checkIdentifiers(identifierToParser.keySet());
         preloadProxies(grammar, identifierToParser);
-
-        new EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor(identifierToParser, syntaxTreeTransformer)
-                .accept(grammar);
+        EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor.compile(identifierToParser,
+                transformer,
+                grammar);
         return EbnfParserCombinatorsTransformMap.with(identifierToParser);
     }
 
