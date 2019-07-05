@@ -407,6 +407,11 @@ final class NodeSelectorParsersTestNodeSelectorParserTokenVisitor extends NodeSe
     }
 
     @Override
+    protected void visit(final NodeSelectorPlusSymbolParserToken token) {
+        this.add(token, NodeSelectorParserToken::plusSymbol);
+    }
+
+    @Override
     protected void visit(final NodeSelectorPrecedingParserToken token) {
         this.add(token, NodeSelectorParserToken::preceding);
     }
