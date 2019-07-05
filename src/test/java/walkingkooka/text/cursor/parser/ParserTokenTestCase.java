@@ -17,6 +17,7 @@
 
 package walkingkooka.text.cursor.parser;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.JavaVisibility;
 
@@ -25,6 +26,12 @@ public abstract class ParserTokenTestCase<T extends ParserToken> implements Clas
 
     ParserTokenTestCase() {
         super();
+    }
+
+    @Test
+    public final void testAccept2() {
+        new ParserTokenVisitor() {
+        }.accept(this.createToken());
     }
 
     @Override
