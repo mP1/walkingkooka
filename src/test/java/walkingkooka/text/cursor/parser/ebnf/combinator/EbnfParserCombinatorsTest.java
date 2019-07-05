@@ -524,6 +524,11 @@ public final class EbnfParserCombinatorsTest implements ClassTesting2<EbnfParser
         return new FakeParserContext();
     }
 
+    @Override
+    public String parserTokenTypeNamePrefix() {
+        return "Ebnf";
+    }
+
     // Class ................................................................................
 
     @Override
