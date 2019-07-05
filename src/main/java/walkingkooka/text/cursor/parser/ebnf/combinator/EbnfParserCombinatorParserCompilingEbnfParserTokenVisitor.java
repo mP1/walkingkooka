@@ -54,6 +54,13 @@ import java.util.Set;
  */
 final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor extends EbnfParserTokenVisitor {
 
+    static void compile(final Map<EbnfIdentifierName, Parser<ParserContext>> identifierToParser,
+                        final EbnfParserCombinatorSyntaxTreeTransformer transformer,
+                        final EbnfGrammarParserToken grammar) {
+        new EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor(identifierToParser, transformer)
+                .accept(grammar);
+    }
+
     EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor(final Map<EbnfIdentifierName, Parser<ParserContext>> identifierToParser,
                                                               final EbnfParserCombinatorSyntaxTreeTransformer transformer) {
         super();
