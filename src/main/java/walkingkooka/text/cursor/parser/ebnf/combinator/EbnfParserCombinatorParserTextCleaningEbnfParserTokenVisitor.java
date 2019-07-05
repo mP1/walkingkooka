@@ -54,7 +54,7 @@ final class EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitor extends
         return visitor.children.get(0).cast();
     }
 
-    private EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitor() {
+    EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitor() {
         super();
     }
 

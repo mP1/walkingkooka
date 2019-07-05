@@ -17,10 +17,25 @@
 
 package walkingkooka.text.cursor.parser.ebnf.combinator;
 
-import walkingkooka.test.ClassTesting2;
+import org.junit.jupiter.api.Test;
+import walkingkooka.text.cursor.parser.ebnf.EbnfParserToken;
+import walkingkooka.text.cursor.parser.ebnf.EbnfParserTokenVisitorTesting;
 import walkingkooka.type.JavaVisibility;
 
-public final class EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitorTest implements ClassTesting2<EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitor> {
+public final class EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitorTest implements EbnfParserTokenVisitorTesting<EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitor, EbnfParserToken> {
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(this.createVisitor(), "[],[]");
+    }
+
+    @Override
+    public EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitor createVisitor() {
+        return new EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitor();
+    }
+
+    // ClassTesting.....................................................................................................
+
     @Override
     public Class<EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitor> type() {
         return EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitor.class;
@@ -29,5 +44,12 @@ public final class EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitorT
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting..................................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return "EbnfParserCombinator";
     }
 }
