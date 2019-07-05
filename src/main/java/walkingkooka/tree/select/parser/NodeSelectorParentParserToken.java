@@ -256,7 +256,7 @@ abstract class NodeSelectorParentParserToken<T extends NodeSelectorParentParserT
 
     @Override
     final int operatorPriority() {
-        return LOWEST_PRIORITY;
+        return IGNORED;
     }
 
     @Override

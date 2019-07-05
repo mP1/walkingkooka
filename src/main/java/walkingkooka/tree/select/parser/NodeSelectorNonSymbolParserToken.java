@@ -143,7 +143,7 @@ abstract class NodeSelectorNonSymbolParserToken<T> extends NodeSelectorLeafParse
 
     @Override
     final int operatorPriority() {
-        return LOWEST_PRIORITY;
+        return IGNORED;
     }
 
     @Override

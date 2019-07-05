@@ -100,7 +100,7 @@ abstract class NodeSelectorNonBinaryOperandSymbolParserToken extends NodeSelecto
 
     @Override
     final int operatorPriority() {
-        return LOWEST_PRIORITY;
+        return IGNORED;
     }
 
     @Override
