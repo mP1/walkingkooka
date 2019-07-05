@@ -109,6 +109,11 @@ public final class LocalDateTimeDateTimeFormatterParserTest extends LocalDateTim
     }
 
     @Override
+    String differentPattern() {
+        return "dd-MM-yyyy'T'HH:mm:ss.SSS";
+    }
+
+    @Override
     LocalDateTimeParserToken createParserToken(final DateTimeFormatter formatter, final String text) {
         return LocalDateTimeParserToken.with(LocalDateTime.parse(text, formatter), text);
     }

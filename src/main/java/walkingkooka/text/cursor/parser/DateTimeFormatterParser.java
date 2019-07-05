@@ -19,6 +19,7 @@ package walkingkooka.text.cursor.parser;
 
 import walkingkooka.Cast;
 import walkingkooka.NeverError;
+import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
 import walkingkooka.text.cursor.TextCursor;
@@ -39,7 +40,7 @@ import java.util.Optional;
  * The pattern that created the {@link DateTimeFormatter} must be given to the factory so the preliminary phase can
  * try its simple parsing.
  */
-abstract class DateTimeFormatterParser<C extends ParserContext> extends Parser2<C> {
+abstract class DateTimeFormatterParser<C extends ParserContext> extends Parser2<C> implements HashCodeEqualsDefined {
 
     // values between 0 -> Character.MAX are literal required characters. values beginning with TEXT are character classes.
     final static int TEXT = 100000;
@@ -485,13 +486,14 @@ abstract class DateTimeFormatterParser<C extends ParserContext> extends Parser2<
      */
     abstract boolean canBeEqual(final Object other);
 
+    // DateTimeFormatter does not implement equals so test DateTimeFormatter.toString
     private boolean equals0(final DateTimeFormatterParser<?> other) {
-        return this.formatter.equals(other.formatter) &&
-                this.pattern.equals(other.pattern);
+        return this.pattern.equals(other.pattern) &&
+                this.formatter.toString().equals(other.formatter.toString());
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return this.pattern;
     }
 
