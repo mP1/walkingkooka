@@ -19,18 +19,16 @@ package walkingkooka.text.cursor.parser;
 import walkingkooka.tree.search.SearchNode;
 
 /**
- * The parser token for a matched quoted string.
+ * A {@link ParserToken} holding text surrounded by either single or double quotes.
  */
 public abstract class QuotedParserToken extends ParserToken2<String> implements LeafParserToken<String> {
 
     /**
-     * Ctor only called by {@link CharacterCharPredicateParser}
+     * Package private to limit sub classing.
      */
     QuotedParserToken(final String value, final String text) {
         super(value, text);
     }
-
-    abstract char quotedCharacter();
 
     @Override
     final boolean equals1(final ParserToken2<?> other) {
