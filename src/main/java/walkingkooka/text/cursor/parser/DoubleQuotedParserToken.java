@@ -19,7 +19,7 @@ package walkingkooka.text.cursor.parser;
 import java.util.Objects;
 
 /**
- * A matched double quoted string.
+ * A {@link ParserToken} with text surrounded by double quotes.
  */
 public final class DoubleQuotedParserToken extends QuotedParserToken {
 
@@ -35,11 +35,6 @@ public final class DoubleQuotedParserToken extends QuotedParserToken {
 
     private DoubleQuotedParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    char quotedCharacter() {
-        return '"';
     }
 
     @Override

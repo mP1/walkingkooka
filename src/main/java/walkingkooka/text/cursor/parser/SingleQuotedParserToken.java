@@ -19,13 +19,13 @@ package walkingkooka.text.cursor.parser;
 import java.util.Objects;
 
 /**
- * A matched single quoted string.
+ * A {@link ParserToken} with text surrounded by single quotes.
  */
 public final class SingleQuotedParserToken extends QuotedParserToken {
 
     static SingleQuotedParserToken with(final String value, final String text) {
         Objects.requireNonNull(value, "value");
-        Objects.requireNonNull(value, "value");
+
         if (!text.startsWith("'") || !text.endsWith("'")) {
             throw new IllegalArgumentException("text must start and end with '\'' but was " + text);
         }
@@ -35,11 +35,6 @@ public final class SingleQuotedParserToken extends QuotedParserToken {
 
     private SingleQuotedParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    char quotedCharacter() {
-        return '\'';
     }
 
     @Override
