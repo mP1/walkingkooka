@@ -74,8 +74,7 @@ public final class SequenceParserBuilderTest implements ClassTesting2<SequencePa
         this.toStringAndCheck(this.createBuilder()
                         .optional(PARSER1)
                         .required(PARSER2)
-                        .required(PARSER3)
-                        .build(),
+                        .required(PARSER3),
                 "([" + PARSER1 + "], " + PARSER2 + ", " + PARSER3 + ")");
     }
 
