@@ -45,7 +45,7 @@ final class ParserTestingPrettyDumper {
         try (final IndentingPrinter printer = IndentingPrinters.printer(Printers.stringBuilder(b, LineEnding.NL))) {
             dump(token, VisitorPrettyPrinter.with(printer,
                     Indentation.with("  "),
-                    (t) -> VisitorPrettyPrinter.computeFromClassSimpleName(token, prefix, ParserToken.class.getSimpleName())));
+                    (t) -> VisitorPrettyPrinter.computeFromClassSimpleName(t, prefix, ParserToken.class.getSimpleName())));
             printer.flush();
         }
 
