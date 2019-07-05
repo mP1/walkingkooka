@@ -51,11 +51,12 @@ public final class EbnfGrammarParserTest extends EbnfParserTestCase<EbnfGrammarP
 
     @Test
     public void testWhitespaceAfterRules() {
-        final String text = RULE1 + RULE2 + "   ";
+        final String text = RULE1 + RULE2 + WHITESPACE1;
         this.parseAndCheck(text,
                 grammar(text,
                         rule1(),
-                        rule2()),
+                        rule2(),
+                        whitespace1()),
                 text);
     }
 
@@ -100,7 +101,7 @@ public final class EbnfGrammarParserTest extends EbnfParserTestCase<EbnfGrammarP
         this.parseThrows(IDENTIFIER1 + ASSIGNMENT + "'A'-123", '1', IDENTIFIER1 + ASSIGNMENT + "'A'-'", 1);
     }
 
-    private EbnfGrammarParserToken grammar(final String text, final EbnfRuleParserToken... rules) {
+    private EbnfGrammarParserToken grammar(final String text, final EbnfParserToken... rules) {
         return EbnfGrammarParserToken.with(Lists.of(rules), text);
     }
 
