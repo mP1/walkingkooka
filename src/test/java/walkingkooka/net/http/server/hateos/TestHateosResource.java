@@ -51,9 +51,14 @@ public final class TestHateosResource extends FakeHateosResource<BigInteger> {
     private final BigInteger id;
 
     @Override
+    public String idForHateosLink() {
+        return Integer.toHexString(this.id.intValueExact());
+    }
+
+    @Override
     public JsonNode toJsonNode() {
         return JsonNode.object()
-                .set(ID, HasJsonNode.toJsonNodeObject(this.id()));
+                .set(ID, HasJsonNode.toJsonNodeObject(this.id));
     }
 
     private final static JsonNodeName ID = JsonNodeName.with("id");

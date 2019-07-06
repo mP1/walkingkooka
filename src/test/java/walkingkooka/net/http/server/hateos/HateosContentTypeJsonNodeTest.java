@@ -51,7 +51,7 @@ public final class HateosContentTypeJsonNodeTest extends HateosContentTypeTestCa
                 "{\n" +
                         "  \"id\": \"123\",\n" +
                         "  \"_links\": [{\n" +
-                        "    \"href\": \"http://example.com/api/test/123\",\n" +
+                        "    \"href\": \"http://example.com/api/test/7b\",\n" +
                         "    \"method\": \"PUT\",\n" +
                         "    \"rel\": \"self\",\n" +
                         "    \"type\": \"application/hal+json\"\n" +
@@ -118,12 +118,12 @@ public final class HateosContentTypeJsonNodeTest extends HateosContentTypeTestCa
                 "[{\n" +
                         "  \"id\": \"111\",\n" +
                         "  \"_links\": [{\n" +
-                        "    \"href\": \"http://example.com/api/test/111\",\n" +
+                        "    \"href\": \"http://example.com/api/test/6f\",\n" +
                         "    \"method\": \"PUT\",\n" +
                         "    \"rel\": \"self\",\n" +
                         "    \"type\": \"application/hal+json\"\n" +
                         "  }, {\n" +
-                        "    \"href\": \"http://example.com/api/test/111/about\",\n" +
+                        "    \"href\": \"http://example.com/api/test/6f/about\",\n" +
                         "    \"method\": \"PUT\",\n" +
                         "    \"rel\": \"about\",\n" +
                         "    \"type\": \"application/hal+json\"\n" +
@@ -131,12 +131,12 @@ public final class HateosContentTypeJsonNodeTest extends HateosContentTypeTestCa
                         "}, {\n" +
                         "  \"id\": \"222\",\n" +
                         "  \"_links\": [{\n" +
-                        "    \"href\": \"http://example.com/api/test/222\",\n" +
+                        "    \"href\": \"http://example.com/api/test/de\",\n" +
                         "    \"method\": \"PUT\",\n" +
                         "    \"rel\": \"self\",\n" +
                         "    \"type\": \"application/hal+json\"\n" +
                         "  }, {\n" +
-                        "    \"href\": \"http://example.com/api/test/222/about\",\n" +
+                        "    \"href\": \"http://example.com/api/test/de/about\",\n" +
                         "    \"method\": \"PUT\",\n" +
                         "    \"rel\": \"about\",\n" +
                         "    \"type\": \"application/hal+json\"\n" +

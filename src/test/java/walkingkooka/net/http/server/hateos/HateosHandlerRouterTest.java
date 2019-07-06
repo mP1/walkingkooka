@@ -193,7 +193,7 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
 
     @Test
     public void testPostBadRequestIdAndInvalidJson() {
-        this.routePostAndCheck("/api/resource1/123/self",
+        this.routePostAndCheck("/api/resource1/7b/self",
                 "!invalid json",
                 HttpStatusCode.BAD_REQUEST.setMessage("Invalid JSON: Unrecognized character '!' at (1,1) \"!invalid json\" expected NULL | BOOLEAN | STRING | NUMBER | ARRAY | OBJECT"));
     }
@@ -357,14 +357,14 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                                       return Optional.of(RESPONSE_RESOURCE);
                                   }
                               },
-                "/api/resource1/123/self",
+                "/api/resource1/7b/self",
                 this.contentType(),
                 "",
                 HttpStatusCode.OK.setMessage("GET resource successful"),
                 this.httpEntity("{\n" +
                         "  \"id\": \"999\",\n" +
                         "  \"_links\": [{\n" +
-                        "    \"href\": \"http://www.example.com/api/resource1/999\",\n" +
+                        "    \"href\": \"http://www.example.com/api/resource1/3e7\",\n" +
                         "    \"method\": \"GET\",\n" +
                         "    \"rel\": \"self\",\n" +
                         "    \"type\": \"application/hal+json\"\n" +
@@ -397,14 +397,14 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                                       return Optional.of(responseResource);
                                   }
                               },
-                "/api/resource1/123/self",
+                "/api/resource1/7b/self",
                 contentType,
                 requestResource.toJsonNode().toString(),
                 HttpStatusCode.OK.setMessage("GET resource successful"),
                 this.httpEntity("{\n" +
                         "  \"id\": \"234\",\n" +
                         "  \"_links\": [{\n" +
-                        "    \"href\": \"http://www.example.com/api/resource1/234\",\n" +
+                        "    \"href\": \"http://www.example.com/api/resource1/ea\",\n" +
                         "    \"method\": \"GET\",\n" +
                         "    \"rel\": \"self\",\n" +
                         "    \"type\": \"application/hal+json\"\n" +
@@ -428,7 +428,7 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                                }
                            },
                 HttpMethod.GET,
-                "/api/resource1/123/self",
+                "/api/resource1/7b/self",
                 this.contentType(),
                 requestResource.toJsonNode().toString(),
                 HttpStatusCode.NO_CONTENT.setMessage("GET resource successful"),
@@ -448,7 +448,7 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                     }
                 }),
                 HttpMethod.POST,
-                "/api/resource1/123/self",
+                "/api/resource1/7b/self",
                 this.contentType(),
                 REQUEST_RESOURCE.toJsonNode().toString(),
                 HttpStatusCode.NO_CONTENT.setMessage("POST resource successful"),
@@ -468,7 +468,7 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                     }
                 }),
                 HttpMethod.PUT,
-                "/api/resource1/123/self",
+                "/api/resource1/7b/self",
                 this.contentType(),
                 REQUEST_RESOURCE.toJsonNode().toString(),
                 HttpStatusCode.NO_CONTENT.setMessage("PUT resource successful"),
@@ -488,7 +488,7 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                     }
                 }),
                 HttpMethod.DELETE,
-                "/api/resource1/123/self",
+                "/api/resource1/7b/self",
                 this.contentType(),
                 REQUEST_RESOURCE.toJsonNode().toString(),
                 HttpStatusCode.NO_CONTENT.setMessage("DELETE resource successful"),
@@ -507,44 +507,11 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                                       return Optional.empty();
                                   }
                               },
-                "/api/resource1/\\1\\2\\3/self",
+                "/api/resource1/\\7\\b/self",
                 this.contentType(),
                 REQUEST_RESOURCE.toJsonNode().toString(),
                 HttpStatusCode.NO_CONTENT.setMessage("GET resource successful"),
                 this.httpEntity("", this.contentType()));
-    }
-
-    @Test
-    public void testIdDifferentTypeFromHateosResourceIdType() {
-        final Long id = 123L;
-
-        final HateosHandlerRouterBuilder<JsonNode> builder = this.builder()
-                .add(this.resourceName1(), this.relation1(), HateosHandlerRouterMapper.with(Long::parseLong, TestHateosResource.class, TestHateosResource2.class)
-                        .get(new FakeHateosHandler<Long, TestHateosResource, TestHateosResource2>() {
-                            @Override
-                            public Optional<TestHateosResource2> handle(final Long i,
-                                                                        final Optional<TestHateosResource> resource,
-                                                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                assertEquals(id, i, "id");
-                                return Optional.of(RESPONSE_RESOURCE);
-                            }
-                        }));
-        this.routeAndCheck(builder,
-                HttpMethod.GET,
-                "/api/resource1/123/self",
-                this.contentType(),
-                REQUEST_RESOURCE.toJsonNode().toString(),
-                HttpStatusCode.OK.setMessage("GET resource successful"),
-                this.httpEntity("{\n" +
-                                "  \"id\": \"999\",\n" +
-                                "  \"_links\": [{\n" +
-                                "    \"href\": \"http://www.example.com/api/resource1/999\",\n" +
-                                "    \"method\": \"GET\",\n" +
-                                "    \"rel\": \"self\",\n" +
-                                "    \"type\": \"application/hal+json\"\n" +
-                                "  }]\n" +
-                                "}",
-                        this.contentType()));
     }
 
     private void routeGetAndCheck(final HateosHandler<BigInteger, TestHateosResource, TestHateosResource2> handler,
@@ -588,7 +555,7 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                 "{\n" +
                         "  \"id\": \"123\",\n" +
                         "  \"_links\": [{\n" +
-                        "    \"href\": \"http://www.example.com/api/resource1/123\",\n" +
+                        "    \"href\": \"http://www.example.com/api/resource1/7b\",\n" +
                         "    \"method\": \"GET\",\n" +
                         "    \"rel\": \"self\",\n" +
                         "    \"type\": \"application/hal+json\"\n" +
@@ -607,7 +574,7 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                 "{\n" +
                         "  \"id\": \"999\",\n" +
                         "  \"_links\": [{\n" +
-                        "    \"href\": \"http://www.example.com/api/resource1/999\",\n" +
+                        "    \"href\": \"http://www.example.com/api/resource1/3e7\",\n" +
                         "    \"method\": \"GET\",\n" +
                         "    \"rel\": \"self\",\n" +
                         "    \"type\": \"application/hal+json\"\n" +
@@ -639,7 +606,7 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                 "{\n" +
                         "  \"id\": \"123\",\n" +
                         "  \"_links\": [{\n" +
-                        "    \"href\": \"http://www.example.com/api/resource1/123\",\n" +
+                        "    \"href\": \"http://www.example.com/api/resource1/7b\",\n" +
                         "    \"method\": \"GET\",\n" +
                         "    \"rel\": \"self\",\n" +
                         "    \"type\": \"application/hal+json\"\n" +
@@ -658,7 +625,7 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                 "{\n" +
                         "  \"id\": \"999\",\n" +
                         "  \"_links\": [{\n" +
-                        "    \"href\": \"http://www.example.com/api/resource1/999\",\n" +
+                        "    \"href\": \"http://www.example.com/api/resource1/3e7\",\n" +
                         "    \"method\": \"GET\",\n" +
                         "    \"rel\": \"self\",\n" +
                         "    \"type\": \"application/hal+json\"\n" +
@@ -702,7 +669,7 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                 "{\n" +
                         "  \"id\": \"999\",\n" +
                         "  \"_links\": [{\n" +
-                        "    \"href\": \"http://www.example.com/api/resource1/999\",\n" +
+                        "    \"href\": \"http://www.example.com/api/resource1/3e7\",\n" +
                         "    \"method\": \"GET\",\n" +
                         "    \"rel\": \"self\",\n" +
                         "    \"type\": \"application/hal+json\"\n" +
@@ -723,7 +690,7 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                 "{\n" +
                         "  \"id\": \"999\",\n" +
                         "  \"_links\": [{\n" +
-                        "    \"href\": \"http://www.example.com/api/resource1/999\",\n" +
+                        "    \"href\": \"http://www.example.com/api/resource1/3e7\",\n" +
                         "    \"method\": \"GET\",\n" +
                         "    \"rel\": \"self\",\n" +
                         "    \"type\": \"application/hal+json\"\n" +
@@ -744,7 +711,7 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                 "{\n" +
                         "  \"id\": \"999\",\n" +
                         "  \"_links\": [{\n" +
-                        "    \"href\": \"http://www.example.com/api/resource1/999\",\n" +
+                        "    \"href\": \"http://www.example.com/api/resource1/3e7\",\n" +
                         "    \"method\": \"GET\",\n" +
                         "    \"rel\": \"self\",\n" +
                         "    \"type\": \"application/hal+json\"\n" +
@@ -935,9 +902,13 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
     }
 
     private HateosHandlerRouterMapper<BigInteger, TestHateosResource, TestHateosResource2> mapper() {
-        return HateosHandlerRouterMapper.with(BigInteger::new,
+        return HateosHandlerRouterMapper.with(HateosHandlerRouterTest::parseId,
                 TestHateosResource.class,
                 TestHateosResource2.class);
+    }
+
+    private static BigInteger parseId(final String id) {
+        return BigInteger.valueOf(Integer.parseInt(id, 16));
     }
 
     private HttpRequest request(final HttpMethod method,

@@ -121,7 +121,7 @@ final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisito
                     escaped = true;
                     continue;
                 }
-                if (SEPARATOR == c) {
+                if (HateosResource.HATEOS_LINK_RANGE_SEPARATOR == c) {
                     if (null == begin) {
                         begin = component.toString();
                         component.setLength(0);
@@ -145,11 +145,6 @@ final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisito
                     pathIndex);
         } while (false);
     }
-
-    /**
-     * A dash is used to separate ids.
-     */
-    final static char SEPARATOR = '-';
 
     // ID.............................................................................................................
 

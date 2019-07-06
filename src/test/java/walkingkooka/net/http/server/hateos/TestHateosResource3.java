@@ -50,6 +50,11 @@ public final class TestHateosResource3 extends FakeHateosResource<String> {
     private final String id;
 
     @Override
+    public String idForHateosLink() {
+        return this.id;
+    }
+
+    @Override
     public JsonNode toJsonNode() {
         return JsonNode.object()
                 .set(ID, HasJsonNode.toJsonNodeObject(this.id()));
