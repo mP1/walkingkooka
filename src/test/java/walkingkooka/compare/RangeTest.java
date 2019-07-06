@@ -979,6 +979,172 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
     }
 
     @Test
+    public void testFromJsonNodeAll() {
+        this.fromJsonNodeAndCheck("{\n" +
+                        "  \"lower-bound\": {\n" +
+                        "    \"all\": {}\n" +
+                        "  },\n" +
+                        "  \"upper-bound\": {\n" +
+                        "    \"all\": {}\n" +
+                        "  }\n" +
+                        "}",
+                Range.all());
+    }
+
+    @Test
+    public void testToJsonNodeAll() {
+        this.toJsonNodeAndCheck(Range.all(),
+                "{\n" +
+                        "  \"lower-bound\": {\n" +
+                        "    \"all\": {}\n" +
+                        "  },\n" +
+                        "  \"upper-bound\": {\n" +
+                        "    \"all\": {}\n" +
+                        "  }\n" +
+                        "}");
+    }
+
+    @Test
+    public void testFromJsonNodeLowerInclusive() {
+        this.fromJsonNodeAndCheck("{\n" +
+                        "  \"lower-bound\": {\n" +
+                        "    \"inclusive\": {\n" +
+                        "      \"type\": \"int\",\n" +
+                        "      \"value\": 1\n" +
+                        "    }\n" +
+                        "  },\n" +
+                        "  \"upper-bound\": {\n" +
+                        "    \"all\": {}\n" +
+                        "  }\n" +
+                        "}",
+                Range.greaterThanEquals(1));
+    }
+
+    @Test
+    public void testToJsonNodeLowerInclusive() {
+        this.toJsonNodeAndCheck(Range.greaterThanEquals(1),
+                "{\n" +
+                        "  \"lower-bound\": {\n" +
+                        "    \"inclusive\": {\n" +
+                        "      \"type\": \"int\",\n" +
+                        "      \"value\": 1\n" +
+                        "    }\n" +
+                        "  },\n" +
+                        "  \"upper-bound\": {\n" +
+                        "    \"all\": {}\n" +
+                        "  }\n" +
+                        "}");
+    }
+
+    @Test
+    public void testFromJsonNodeUpperInclusive() {
+        this.fromJsonNodeAndCheck("{\n" +
+                        "  \"lower-bound\": {\n" +
+                        "    \"all\": {}\n" +
+                        "  },\n" +
+                        "  \"upper-bound\": {\n" +
+                        "    \"exclusive\": {\n" +
+                        "      \"type\": \"int\",\n" +
+                        "      \"value\": 1\n" +
+                        "    }\n" +
+                        "  }\n" +
+                        "}",
+                Range.lessThan(1));
+    }
+
+    @Test
+    public void testToJsonNodeUpperInclusive() {
+        this.toJsonNodeAndCheck(Range.lessThan(1),
+                "{\n" +
+                        "  \"lower-bound\": {\n" +
+                        "    \"all\": {}\n" +
+                        "  },\n" +
+                        "  \"upper-bound\": {\n" +
+                        "    \"exclusive\": {\n" +
+                        "      \"type\": \"int\",\n" +
+                        "      \"value\": 1\n" +
+                        "    }\n" +
+                        "  }\n" +
+                        "}");
+    }
+
+    @Test
+    public void testFromJsonNodeLowerInclusiveAndUpperInclusive() {
+        this.fromJsonNodeAndCheck("{\n" +
+                        "  \"lower-bound\": {\n" +
+                        "    \"inclusive\": {\n" +
+                        "      \"type\": \"int\",\n" +
+                        "      \"value\": 1\n" +
+                        "    }\n" +
+                        "  },\n" +
+                        "  \"upper-bound\": {\n" +
+                        "    \"inclusive\": {\n" +
+                        "      \"type\": \"int\",\n" +
+                        "      \"value\": 22\n" +
+                        "    }\n" +
+                        "  }\n" +
+                        "}",
+                Range.greaterThanEquals(1).and(Range.lessThanEquals(22)));
+    }
+
+    @Test
+    public void testToJsonNodeLowerInclusiveAndUpperInclusive() {
+        this.toJsonNodeAndCheck(Range.greaterThanEquals(1).and(Range.lessThanEquals(22)),
+                "{\n" +
+                        "  \"lower-bound\": {\n" +
+                        "    \"inclusive\": {\n" +
+                        "      \"type\": \"int\",\n" +
+                        "      \"value\": 1\n" +
+                        "    }\n" +
+                        "  },\n" +
+                        "  \"upper-bound\": {\n" +
+                        "    \"inclusive\": {\n" +
+                        "      \"type\": \"int\",\n" +
+                        "      \"value\": 22\n" +
+                        "    }\n" +
+                        "  }\n" +
+                        "}");
+    }
+
+    @Test
+    public void testFromJsonNodeLowerExclusiveAndUpperExclusive() {
+        this.fromJsonNodeAndCheck("{\n" +
+                        "  \"lower-bound\": {\n" +
+                        "    \"exclusive\": {\n" +
+                        "      \"type\": \"int\",\n" +
+                        "      \"value\": 1\n" +
+                        "    }\n" +
+                        "  },\n" +
+                        "  \"upper-bound\": {\n" +
+                        "    \"exclusive\": {\n" +
+                        "      \"type\": \"int\",\n" +
+                        "      \"value\": 22\n" +
+                        "    }\n" +
+                        "  }\n" +
+                        "}",
+                Range.greaterThan(1).and(Range.lessThan(22)));
+    }
+
+    @Test
+    public void testToJsonNodeLowerExclusiveAndUpperExclusive() {
+        this.toJsonNodeAndCheck(Range.greaterThan(1).and(Range.lessThan(22)),
+                "{\n" +
+                        "  \"lower-bound\": {\n" +
+                        "    \"exclusive\": {\n" +
+                        "      \"type\": \"int\",\n" +
+                        "      \"value\": 1\n" +
+                        "    }\n" +
+                        "  },\n" +
+                        "  \"upper-bound\": {\n" +
+                        "    \"exclusive\": {\n" +
+                        "      \"type\": \"int\",\n" +
+                        "      \"value\": 22\n" +
+                        "    }\n" +
+                        "  }\n" +
+                        "}");
+    }
+
+    @Test
     public void testToJsonNodeRoundtripAll() {
         this.toJsonNodeRoundTripTwiceAndCheck(Range.all());
     }

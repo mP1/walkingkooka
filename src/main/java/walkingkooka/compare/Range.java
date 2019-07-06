@@ -300,7 +300,7 @@ public final class Range<C extends Comparable> implements Predicate<C>,
     public JsonNode toJsonNode() {
         return JsonNode.object()
                 .set(LOWER_BOUND_PROPERTY, this.lower.toJsonNode())
-                .set(UPPER_BOUND_PROPERTY, this.lower.toJsonNode());
+                .set(UPPER_BOUND_PROPERTY, this.upper.toJsonNode());
     }
 
     final static String LOWER_BOUND = "lower-bound";
