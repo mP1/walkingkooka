@@ -20,6 +20,7 @@ package walkingkooka.net.http.server.hateos;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.LinkRelation;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.tree.json.JsonNode;
 
 import java.math.BigInteger;
@@ -130,8 +131,18 @@ public final class HateosContentTypeJsonNodeTest extends HateosContentTypeTestCa
     }
 
     @Override
-    HateosContentTypeJsonNode contentType() {
+    HateosContentTypeJsonNode hateosContentType() {
         return HateosContentTypeJsonNode.INSTANCE;
+    }
+
+    @Override
+    MediaType contentType() {
+        return MediaType.parse("application/hal+json");
+    }
+
+    @Override
+    String expectedToString() {
+        return "JSON";
     }
 
     @Override

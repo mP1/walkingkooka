@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.LinkRelation;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.tree.xml.XmlNode;
 
 import java.math.BigInteger;
@@ -32,14 +33,14 @@ public final class HateosContentTypeXmlNodeTest extends HateosContentTypeTestCas
     @Test
     public void testFromNodeFails() {
         assertThrows(UnsupportedOperationException.class, () -> {
-            this.contentType().fromNode("<test1/>", documentBuilder(), TestHateosResource.class);
+            this.hateosContentType().fromNode("<test1/>", documentBuilder(), TestHateosResource.class);
         });
     }
 
     @Test
     public void testFromNodeListFails() {
         assertThrows(UnsupportedOperationException.class, () -> {
-            this.contentType().fromNodeList("<test1/>", documentBuilder(), TestHateosResource.class);
+            this.hateosContentType().fromNodeList("<test1/>", documentBuilder(), TestHateosResource.class);
         });
     }
 
@@ -72,8 +73,18 @@ public final class HateosContentTypeXmlNodeTest extends HateosContentTypeTestCas
     }
 
     @Override
-    HateosContentTypeXmlNode contentType() {
+    HateosContentTypeXmlNode hateosContentType() {
         return HateosContentTypeXmlNode.INSTANCE;
+    }
+
+    @Override
+    MediaType contentType() {
+        return MediaType.parse("application/hal+xml");
+    }
+
+    @Override
+    String expectedToString() {
+        return "XML";
     }
 
     @Override
