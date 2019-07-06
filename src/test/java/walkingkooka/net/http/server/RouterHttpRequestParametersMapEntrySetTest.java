@@ -178,6 +178,11 @@ public class RouterHttpRequestParametersMapEntrySetTest implements ClassTesting2
         assertEquals(value, entry.getValue(), "entry value");
     }
 
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(this.createSet(), "SECURED HTTP/1.1 /path1/file2.html?parameter1=parameter-value-1&parameter-2=parameter-value-2 CUSTOMHTTPMETHOD {Content-Length=1, Cookie=[cookie1=cookievalue1;, cookie2=cookievalue2;]}");
+    }
+
     // helpers ...........................................................................................
 
     @Override
