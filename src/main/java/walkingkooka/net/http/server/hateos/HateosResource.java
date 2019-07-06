@@ -18,6 +18,7 @@
 package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.HasId;
+import walkingkooka.compare.Range;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.xml.HasXmlNode;
 import walkingkooka.tree.xml.XmlNode;
@@ -30,4 +31,15 @@ public interface HateosResource<I> extends HasId<I>, HasJsonNode, HasXmlNode {
     default XmlNode toXmlNode() {
         throw new UnsupportedOperationException(); // #1092
     }
+
+    /**
+     * This character should be used to separate values within a {@link Range}.
+     */
+    char HATEOS_LINK_RANGE_SEPARATOR = '-';
+
+    /**
+     * Formats the {@link #id()} ready to appear within a hateos link. If a {@link Range} it should use the separator
+     * character given.
+     */
+    String idForHateosLink();
 }

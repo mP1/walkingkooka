@@ -36,4 +36,9 @@ public class FakeHateosResource<I> implements HateosResource<I> {
     public XmlNode toXmlNode() {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public String idForHateosLink() {
+        throw new UnsupportedOperationException();
+    }
 }

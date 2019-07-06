@@ -47,28 +47,28 @@ public final class HateosContentTypeXmlNodeTest extends HateosContentTypeTestCas
     public void testToText() {
         this.toTextAndCheck(TestHateosResource.with(BigInteger.valueOf(123)),
                 Lists.of(LinkRelation.SELF),
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test1><id>123</id><links><link href=\"http://example.com/api/test/123\" method=\"PUT\" rel=\"self\" type=\"application/hal+xml\"/></links></test1>");
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test1><id>123</id><links><link href=\"http://example.com/api/test/7b\" method=\"PUT\" rel=\"self\" type=\"application/hal+xml\"/></links></test1>");
     }
 
     @Test
     public void testToTextNonSelfLinkRelation() {
         this.toTextAndCheck(TestHateosResource.with(BigInteger.valueOf(123)),
                 Lists.of(LinkRelation.ITEM),
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test1><id>123</id><links><link href=\"http://example.com/api/test/123/item\" method=\"PUT\" rel=\"item\" type=\"application/hal+xml\"/></links></test1>");
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test1><id>123</id><links><link href=\"http://example.com/api/test/7b/item\" method=\"PUT\" rel=\"item\" type=\"application/hal+xml\"/></links></test1>");
     }
 
     @Test
     public void testToTextSeveralLinks() {
         this.toTextAndCheck(TestHateosResource.with(BigInteger.valueOf(123)),
                 Lists.of(LinkRelation.ITEM, LinkRelation.ABOUT),
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test1><id>123</id><links><link href=\"http://example.com/api/test/123/item\" method=\"PUT\" rel=\"item\" type=\"application/hal+xml\"/><link href=\"http://example.com/api/test/123/about\" method=\"PUT\" rel=\"about\" type=\"application/hal+xml\"/></links></test1>");
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test1><id>123</id><links><link href=\"http://example.com/api/test/7b/item\" method=\"PUT\" rel=\"item\" type=\"application/hal+xml\"/><link href=\"http://example.com/api/test/7b/about\" method=\"PUT\" rel=\"about\" type=\"application/hal+xml\"/></links></test1>");
     }
 
     @Test
     public void testToTextList() {
         this.toTextListAndCheck(Lists.of(TestHateosResource.with(BigInteger.valueOf(111)), TestHateosResource.with(BigInteger.valueOf(222))),
                 Lists.of(LinkRelation.SELF, LinkRelation.ABOUT),
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><list><test1><id>111</id><links><link href=\"http://example.com/api/test/111\" method=\"PUT\" rel=\"self\" type=\"application/hal+xml\"/><link href=\"http://example.com/api/test/111/about\" method=\"PUT\" rel=\"about\" type=\"application/hal+xml\"/></links></test1><test1><id>222</id><links><link href=\"http://example.com/api/test/222\" method=\"PUT\" rel=\"self\" type=\"application/hal+xml\"/><link href=\"http://example.com/api/test/222/about\" method=\"PUT\" rel=\"about\" type=\"application/hal+xml\"/></links></test1></list>");
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><list><test1><id>111</id><links><link href=\"http://example.com/api/test/6f\" method=\"PUT\" rel=\"self\" type=\"application/hal+xml\"/><link href=\"http://example.com/api/test/6f/about\" method=\"PUT\" rel=\"about\" type=\"application/hal+xml\"/></links></test1><test1><id>222</id><links><link href=\"http://example.com/api/test/de\" method=\"PUT\" rel=\"self\" type=\"application/hal+xml\"/><link href=\"http://example.com/api/test/de/about\" method=\"PUT\" rel=\"about\" type=\"application/hal+xml\"/></links></test1></list>");
     }
 
     @Override
