@@ -28,6 +28,18 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public abstract class HeaderParameterNameTestCase<N extends HeaderParameterName<?>, C extends Comparable<C> & HashCodeEqualsDefined>
         extends HeaderName2TestCase<N, C> {
 
+    HeaderParameterNameTestCase() {
+        super();
+    }
+
+    @Test
+    public final void testIsStarParameter() {
+        final N name = this.createName();
+        assertEquals(name.value().endsWith("*"),
+                name.isStarParameter(),
+                () -> name + " is star parameter");
+    }
+
     @Test
     public final void testParameterValueNullFails() {
         assertThrows(NullPointerException.class, () -> {
