@@ -53,6 +53,12 @@ public abstract class JsonNodeParserTokenTestCase<T extends JsonNodeParserToken>
         });
     }
 
+    @Test
+    public final void testAccept2() {
+        new JsonNodeParserTokenVisitor() {
+        }.accept(this.createToken());
+    }
+
     final JsonNodeParserToken arrayBegin() {
         return JsonNodeParserToken.arrayBeginSymbol("[", "[");
     }
