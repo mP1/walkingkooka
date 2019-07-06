@@ -153,9 +153,7 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
         // base + resource name.
         final UrlPath pathAndResourceNameAndId = base.path()
                 .append(UrlPathName.with(resourceName.value()))
-                .append(UrlPathName.with(resource.idForHateosLink()
-                        .replace("\\", "\\\\") // escape backslash into double backslash
-                        .replace("-", "\\-"))); // escape dash into backslash then dash
+                .append(UrlPathName.with(resource.idForHateosLink()));
 
         JsonArrayNode links = JsonNode.array();
 
