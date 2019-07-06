@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public interface HateosHandlerTesting<H extends HateosHandler<I, R, S>,
         I extends Comparable<I>,
-        R extends HateosResource<I>,
+        R extends HateosResource<Optional<I>>,
         S extends HateosResource<Range<I>>>
         extends ClassTesting2<H>,
         TypeNameTesting<H> {
@@ -88,13 +88,13 @@ public interface HateosHandlerTesting<H extends HateosHandler<I, R, S>,
                 NullPointerException.class);
     }
 
-    default Optional<R> handle(final I id,
+    default Optional<R> handle(final Optional<I> id,
                                final Optional<R> resource,
                                final Map<HttpRequestAttribute<?>, Object> parameters) {
         return this.createHandler().handle(id, resource, parameters);
     }
 
-    default void handleAndCheck(final I id,
+    default void handleAndCheck(final Optional<I> id,
                                 final Optional<R> resource,
                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                 final Optional<R> result) {
@@ -102,7 +102,7 @@ public interface HateosHandlerTesting<H extends HateosHandler<I, R, S>,
     }
 
     default void handleAndCheck(final HateosHandler<I, R, S> handler,
-                                final I id,
+                                final Optional<I> id,
                                 final Optional<R> resource,
                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                 final Optional<R> result) {
@@ -111,7 +111,7 @@ public interface HateosHandlerTesting<H extends HateosHandler<I, R, S>,
                 () -> handler + " id=" + id + ", resource: " + resource);
     }
 
-    default <T extends Throwable> T handleFails(final I id,
+    default <T extends Throwable> T handleFails(final Optional<I> id,
                                                 final Optional<R> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                                 final Class<T> thrown) {
@@ -123,7 +123,7 @@ public interface HateosHandlerTesting<H extends HateosHandler<I, R, S>,
     }
 
     default <T extends Throwable> T handleFails(final HateosHandler<I, R, S> handler,
-                                                final I id,
+                                                final Optional<I> id,
                                                 final Optional<R> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                                 final Class<T> thrown) {
@@ -141,7 +141,7 @@ public interface HateosHandlerTesting<H extends HateosHandler<I, R, S>,
     }
 
     default UnsupportedOperationException handleUnsupported(final HateosHandler<I, R, S> handler,
-                                                            final I id,
+                                                            final Optional<I> id,
                                                             final Optional<R> resource,
                                                             final Map<HttpRequestAttribute<?>, Object> parameters) {
         return this.handleFails(handler,
@@ -216,7 +216,7 @@ public interface HateosHandlerTesting<H extends HateosHandler<I, R, S>,
                 UnsupportedOperationException.class);
     }
 
-    I id();
+    Optional<I> id();
 
     Range<I> collection();
 

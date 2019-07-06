@@ -146,6 +146,19 @@ final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisito
         } while (false);
     }
 
+    // ID MISSING.............................................................................................................
+
+    private void idMissing(final HateosResourceName resourceName,
+                           final int pathIndex) {
+        final LinkRelation<?> linkRelation = this.linkRelationOrDefaultOrResponseBadRequest(pathIndex + 2);
+        if (null != linkRelation) {
+            final HateosHandlerRouterMapper<?, ?, ?> mapper = this.handlersOrResponseNotFound(resourceName, linkRelation);
+            if (null != mapper) {
+                mapper.handleId0(resourceName, Optional.empty(), linkRelation, this);
+            }
+        }
+    }
+
     // ID.............................................................................................................
 
     private void id(final HateosResourceName resourceName,
@@ -166,31 +179,16 @@ final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisito
         }
     }
 
-    // ID MISSING.............................................................................................................
-
-    private void idMissing(final HateosResourceName resourceName,
-                           final int pathIndex) {
-        final LinkRelation<?> linkRelation = this.linkRelationOrDefaultOrResponseBadRequest(pathIndex + 2);
-        if (null != linkRelation) {
-            this.idMissingOrWildcard(resourceName, linkRelation);
-        }
-    }
-
     // WILDCARD.............................................................................................................
 
     private void wildcard(final HateosResourceName resourceName,
                           final int pathIndex) {
         final LinkRelation<?> linkRelation = this.linkRelationOrDefaultOrResponseBadRequest(pathIndex + 2);
         if (null != linkRelation) {
-            this.idMissingOrWildcard(resourceName, linkRelation);
-        }
-    }
-
-    private void idMissingOrWildcard(final HateosResourceName resourceName,
-                                     final LinkRelation<?> linkRelation) {
-        final HateosHandlerRouterMapper<?, ?, ?> mapper = this.handlersOrResponseNotFound(resourceName, linkRelation);
-        if (null != mapper) {
-            mapper.handleIdRange(resourceName, linkRelation, this);
+            final HateosHandlerRouterMapper<?, ?, ?> mapper = this.handlersOrResponseNotFound(resourceName, linkRelation);
+            if (null != mapper) {
+                mapper.handleIdRange(resourceName, linkRelation, this);
+            }
         }
     }
 

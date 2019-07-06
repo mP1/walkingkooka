@@ -40,7 +40,7 @@ public final class HateosHandlerTestingTest implements HateosHandlerTesting<Fake
 
     @Test
     public void testHandleIdAndCheck() {
-        final BigInteger id = this.id();
+        final Optional<BigInteger> id = this.id();
         final Optional<TestHateosResource> in = this.resource();
         final Map<HttpRequestAttribute<?>, Object> parameters = this.parameters();
 
@@ -48,7 +48,7 @@ public final class HateosHandlerTestingTest implements HateosHandlerTesting<Fake
 
         this.handleAndCheck(new FakeHateosHandler<>() {
                                 @Override
-                                public Optional<TestHateosResource> handle(final BigInteger i,
+                                public Optional<TestHateosResource> handle(final Optional<BigInteger> i,
                                                                            final Optional<TestHateosResource> r,
                                                                            final Map<HttpRequestAttribute<?>, Object> p) {
                                     assertSame(id, i);
@@ -108,8 +108,8 @@ public final class HateosHandlerTestingTest implements HateosHandlerTesting<Fake
     }
 
     @Override
-    public BigInteger id() {
-        return BigInteger.valueOf(111);
+    public Optional<BigInteger> id() {
+        return Optional.of(BigInteger.valueOf(111));
     }
 
     @Override

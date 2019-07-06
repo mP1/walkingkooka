@@ -33,13 +33,13 @@ import java.util.function.Function;
 /**
  * Holds all the mappers for a router mapping.
  */
-public final class HateosHandlerRouterMapper<I extends Comparable<I>, R extends HateosResource<I>, S extends HateosResource<Range<I>>> {
+public final class HateosHandlerRouterMapper<I extends Comparable<I>, R extends HateosResource<Optional<I>>, S extends HateosResource<Range<I>>> {
 
     /**
      * Created by the builder with one for each resource name.
      */
     public static <I extends Comparable<I>,
-            R extends HateosResource<I>,
+            R extends HateosResource<Optional<I>>,
             S extends HateosResource<Range<I>>> HateosHandlerRouterMapper<I, R, S> with(final Function<String, I> stringToId,
                                                                                         final Class<R> resourceType,
                                                                                         final Class<S> collectionResourceType) {
@@ -125,37 +125,47 @@ public final class HateosHandlerRouterMapper<I extends Comparable<I>, R extends 
                                                final HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest<N> request) {
         final I id = this.idOrBadRequest(idText, request);
         if (null != id) {
-            final HateosHandler<I, R, S> handler = this.handlerOrResponseMethodNotAllowed(resourceName,
-                    linkRelation,
-                    request);
-            if (null != handler) {
-                final String requestText = request.resourceTextOrBadRequest();
-                if (null != request) {
-                    final HateosContentType<N> hateosContentType = request.hateosContentType();
-                    final Optional<R> requestResource = request.resourceOrBadRequest(requestText,
-                            hateosContentType,
-                            this.resourceType,
-                            request);
+            this.handleId0(resourceName, Optional.of(id), linkRelation, request);
+        }
+    }
 
-                    if (null != requestResource) {
-                        final HttpRequest httpRequest = request.request;
-                        final HttpMethod method = httpRequest.method();
-                        String responseText = null;
-                        Optional<R> maybeResponseResource = handler.handle(id,
-                                requestResource,
-                                request.parameters);
-                        if (maybeResponseResource.isPresent()) {
-                            final R responseResource = maybeResponseResource.get();
-                            responseText = hateosContentType.toText(responseResource,
-                                    null,
-                                    method,
-                                    request.router.base,
-                                    resourceName,
-                                    request.router.linkRelations(resourceName));
-                        }
+    /**
+     * Handles a request for a single resource with the given parameters, assumes the ID has already been parsed.
+     */
+    <N extends Node<N, ?, ?, ?>> void handleId0(final HateosResourceName resourceName,
+                                                final Optional<I> id,
+                                                final LinkRelation<?> linkRelation,
+                                                final HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest<N> request) {
+        final HateosHandler<I, R, S> handler = this.handlerOrResponseMethodNotAllowed(resourceName,
+                linkRelation,
+                request);
+        if (null != handler) {
+            final String requestText = request.resourceTextOrBadRequest();
+            if (null != request) {
+                final HateosContentType<N> hateosContentType = request.hateosContentType();
+                final Optional<R> requestResource = request.resourceOrBadRequest(requestText,
+                        hateosContentType,
+                        this.resourceType,
+                        request);
 
-                        request.setStatusAndBody(method + " resource successful", responseText);
+                if (null != requestResource) {
+                    final HttpRequest httpRequest = request.request;
+                    final HttpMethod method = httpRequest.method();
+                    String responseText = null;
+                    Optional<R> maybeResponseResource = handler.handle(id,
+                            requestResource,
+                            request.parameters);
+                    if (maybeResponseResource.isPresent()) {
+                        final R responseResource = maybeResponseResource.get();
+                        responseText = hateosContentType.toText(responseResource,
+                                null,
+                                method,
+                                request.router.base,
+                                resourceName,
+                                request.router.linkRelations(resourceName));
                     }
+
+                    request.setStatusAndBody(method + " resource successful", responseText);
                 }
             }
         }
