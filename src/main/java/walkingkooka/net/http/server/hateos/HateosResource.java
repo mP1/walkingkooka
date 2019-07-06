@@ -39,7 +39,7 @@ public interface HateosResource<I> extends HasId<I>, HasJsonNode, HasXmlNode {
 
     /**
      * Formats the {@link #id()} ready to appear within a hateos link. If a {@link Range} it should use the separator
-     * character given.
+     * character given. This also assumes that special characters are escaped as necessary.
      */
     String idForHateosLink();
 }
