@@ -17,17 +17,31 @@
 
 package walkingkooka.net.email;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
+import org.junit.jupiter.api.Test;
 
-public final class EmailAddressParserWithTest implements ClassTesting2<EmailAddressParserWith> {
-    @Override
-    public Class<EmailAddressParserWith> type() {
-        return EmailAddressParserWith.class;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+public final class EmailAddressParserWithTest extends EmailAddressParserTestCase<EmailAddressParserWith> {
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(new EmailAddressParserWith(), "EmailAddress.with");
     }
 
     @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+    void parse(final String text) {
+        EmailAddressParserWith.parseOrFail(text);
+    }
+
+    @Override
+    void parseFails(final String text) {
+        assertThrows(RuntimeException.class, () -> {
+            EmailAddressParserWith.parseOrFail(text);
+        });
+    }
+
+    @Override
+    public Class<EmailAddressParserWith> type() {
+        return EmailAddressParserWith.class;
     }
 }
