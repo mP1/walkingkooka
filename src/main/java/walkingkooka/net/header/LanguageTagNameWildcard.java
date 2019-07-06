@@ -53,7 +53,7 @@ final class LanguageTagNameWildcard extends LanguageTagName {
      * True for all {@link LanguageTag} except for wildcards.
      */
     @Override
-    boolean test(final LanguageTag languageTag) {
+    public boolean test(final LanguageTag languageTag) {
         if (languageTag.value.isWildcard()) {
             throw new IllegalArgumentException("Parameter is wildcard=" + languageTag);
         }

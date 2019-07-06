@@ -24,11 +24,13 @@ import walkingkooka.text.CaseSensitivity;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 /**
  * Holds a LanguageTagName only when combined with parameters creates a {@link LanguageTag} header value.
  */
-public abstract class LanguageTagName extends HeaderNameValue implements Comparable<LanguageTagName> {
+public abstract class LanguageTagName extends HeaderNameValue implements Comparable<LanguageTagName>,
+        Predicate<LanguageTag> {
 
     /**
      * No {@link Locale}.
@@ -63,12 +65,10 @@ public abstract class LanguageTagName extends HeaderNameValue implements Compara
     /**
      * Factory that creates a {@link LanguageTag} with the given parameters.
      */
-    public LanguageTag setParameters(final Map<LanguageTagParameterName<?>, Object> parameters) {
+    public final LanguageTag setParameters(final Map<LanguageTagParameterName<?>, Object> parameters) {
         return LanguageTag.with(this)
                 .setParameters(parameters);
     }
-
-    abstract boolean test(final LanguageTag languageTag);
 
     // Locale ........................................................................................................
 
@@ -97,7 +97,7 @@ public abstract class LanguageTagName extends HeaderNameValue implements Compara
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof CookieName;
+        return other instanceof LanguageTagName;
     }
 
     // Comparable..........................................................................................................

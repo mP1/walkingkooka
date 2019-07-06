@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.NameTesting;
+import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CaseSensitivity;
@@ -34,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class LanguageTagNameTestCase<L extends LanguageTagName> implements ClassTesting2<L>,
         NameTesting<L, LanguageTagName>,
+        PredicateTesting<L, LanguageTag>,
         TypeNameTesting<L> {
 
     LanguageTagNameTestCase() {
@@ -47,12 +49,13 @@ public abstract class LanguageTagNameTestCase<L extends LanguageTagName> impleme
 
     @Test
     public final void testSetParameters() {
-        final LanguageTagName name = this.createName("en");
+        final L name = this.createName(this.nameText());
         final Map<LanguageTagParameterName<?>, Object> parameters = Maps.of(LanguageTagParameterName.Q_FACTOR, 0.5f);
         final LanguageTag tag = name.setParameters(parameters);
         assertSame(name, tag.value(), "value");
         assertEquals(parameters, tag.parameters(), "parameters");
     }
+
 
     final void check(final LanguageTagName name,
                      final String value,
@@ -88,5 +91,12 @@ public abstract class LanguageTagNameTestCase<L extends LanguageTagName> impleme
     @Override
     public String typeNameSuffix() {
         return "";
+    }
+
+    // PredicateTesting ................................................................................................
+
+    @Override
+    public final L createPredicate() {
+        return this.createName(this.nameText());
     }
 }
