@@ -17,11 +17,14 @@
 
 package walkingkooka.net.http.server.hateos;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.header.LinkRelation;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.test.ClassTesting2;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.Node;
 import walkingkooka.type.JavaVisibility;
@@ -34,17 +37,34 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class HateosContentTypeTestCase<C extends HateosContentType<N>, N extends Node<N, ?, ?, ?>> implements ClassTesting2<C>,
+        ToStringTesting<C>,
         TypeNameTesting<C> {
 
     HateosContentTypeTestCase() {
         super();
     }
 
+    @Test
+    public final void testContentType() {
+        assertEquals(this.contentType(), this.hateosContentType().contentType());
+    }
+
+    abstract MediaType contentType();
+
+    @Test
+    public final void testToString() {
+        this.toStringAndCheck(this.hateosContentType(), this.expectedToString());
+    }
+
+    abstract String expectedToString();
+
+    // helpers..........................................................................................................
+
     final void fromNodeAndCheck(final String text,
                                 final Class<TestHateosResource> resourceType,
                                 final TestHateosResource resource) {
         assertEquals(resource,
-                this.contentType()
+                this.hateosContentType()
                         .fromNode(text, this.documentBuilder(), resourceType),
                 () -> "fromNode failed: " + text);
     }
@@ -53,7 +73,7 @@ public abstract class HateosContentTypeTestCase<C extends HateosContentType<N>, 
                                     final Class<TestHateosResource> resourceType,
                                     final TestHateosResource... resources) {
         assertEquals(Lists.of(resources),
-                this.contentType()
+                this.hateosContentType()
                         .fromNodeList(text, this.documentBuilder(), resourceType),
                 () -> "fromNodeList failed: " + text);
     }
@@ -65,7 +85,7 @@ public abstract class HateosContentTypeTestCase<C extends HateosContentType<N>, 
         final HateosResourceName resourceName = HateosResourceName.with("test");
 
         assertEquals(text,
-                this.contentType()
+                this.hateosContentType()
                         .toText(resource,
                                 this.documentBuilder(),
                                 HttpMethod.PUT,
@@ -82,7 +102,7 @@ public abstract class HateosContentTypeTestCase<C extends HateosContentType<N>, 
         final HateosResourceName resourceName = HateosResourceName.with("test");
 
         assertEquals(text,
-                this.contentType()
+                this.hateosContentType()
                         .toTextList(resources,
                                 this.documentBuilder(),
                                 HttpMethod.PUT,
@@ -92,7 +112,7 @@ public abstract class HateosContentTypeTestCase<C extends HateosContentType<N>, 
                 () -> "toTextList failed: " + resources + " PUT " + base + " " + resourceName + " " + linkRelations);
     }
 
-    abstract C contentType();
+    abstract C hateosContentType();
 
     final DocumentBuilder documentBuilder() {
         try {
@@ -113,7 +133,7 @@ public abstract class HateosContentTypeTestCase<C extends HateosContentType<N>, 
         return JavaVisibility.PACKAGE_PRIVATE;
     }
 
-    // TypeNameTesting .........................................................................................
+    // TypeNameTesting ................................................................................................
 
     @Override
     public final String typeNamePrefix() {
