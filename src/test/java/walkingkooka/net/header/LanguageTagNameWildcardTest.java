@@ -46,6 +46,16 @@ public final class LanguageTagNameWildcardTest extends LanguageTagNameTestCase<L
     }
 
     @Test
+    public void testTestEn() {
+        this.testTrue(LanguageTag.with(LanguageTagName.with("en")));
+    }
+
+    @Test
+    public void testTestFr() {
+        this.testTrue(LanguageTag.with(LanguageTagName.with("fr")));
+    }
+
+    @Test
     public void testNonWildcard() {
         this.checkNotEquals(LanguageTagName.with("en"));
     }

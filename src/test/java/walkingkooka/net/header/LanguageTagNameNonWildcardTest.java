@@ -19,6 +19,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.NameTesting2;
 
 import java.util.Locale;
@@ -68,6 +69,28 @@ public final class LanguageTagNameNonWildcardTest extends LanguageTagNameTestCas
     public void testConstant() {
         assertSame(LanguageTagNameNonWildcard.nonWildcard("en"),
                 LanguageTagNameNonWildcard.nonWildcard("en"));
+    }
+
+    @Test
+    public void testTestSameTrue() {
+        this.testTrue(LanguageTag.with(LanguageTagName.with(this.nameText())));
+    }
+
+    @Test
+    public void testTestSameTrueWithParameters() {
+        this.testTrue(LanguageTagName.with(this.nameText()).setParameters(Maps.of(LanguageTagParameterName.Q_FACTOR, 0.5f)),
+                LanguageTag.with(LanguageTagName.with(this.nameText())));
+    }
+
+    @Test
+    public void testTestDifferentFalse() {
+        this.testFalse(LanguageTag.with(LanguageTagName.with(this.differentNameText())));
+    }
+
+    @Test
+    public void testTestDifferentFalseWithParameters() {
+        this.testFalse(LanguageTagName.with(this.nameText()).setParameters(Maps.of(LanguageTagParameterName.Q_FACTOR, 0.5f)),
+                LanguageTag.with(LanguageTagName.with(this.differentNameText())));
     }
 
     @Test
