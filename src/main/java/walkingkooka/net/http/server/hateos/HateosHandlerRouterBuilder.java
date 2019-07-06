@@ -20,6 +20,7 @@ package walkingkooka.net.http.server.hateos;
 import walkingkooka.build.Builder;
 import walkingkooka.build.BuilderException;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.compare.Range;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlFragment;
 import walkingkooka.net.UrlQueryString;
@@ -71,10 +72,11 @@ public final class HateosHandlerRouterBuilder<N extends Node<N, ?, ?, ?>>
      * Adds a mapper for the given hateos resource and relation combination.
      */
     public <I extends Comparable<I>,
-            R extends HateosResource<?>,
-            S extends HateosResource<?>> HateosHandlerRouterBuilder<N> add(final HateosResourceName name,
-                                                                           final LinkRelation<?> relation,
-                                                                           final HateosHandlerRouterMapper<I, R, S> mapper) {
+            R extends HateosResource<I>,
+            S extends HateosResource<Range<I>>>
+    HateosHandlerRouterBuilder<N> add(final HateosResourceName name,
+                                      final LinkRelation<?> relation,
+                                      final HateosHandlerRouterMapper<I, R, S> mapper) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(relation, "relation");
         Objects.requireNonNull(mapper, "mapper");

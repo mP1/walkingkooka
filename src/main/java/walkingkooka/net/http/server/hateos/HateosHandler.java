@@ -27,7 +27,7 @@ import java.util.Optional;
 /**
  * Handles any request involving a hateos request.
  */
-public interface HateosHandler<I extends Comparable<I>, R extends HateosResource<?>, S extends HateosResource<?>> {
+public interface HateosHandler<I extends Comparable<I>, R extends HateosResource<I>, S extends HateosResource<Range<I>>> {
 
     /**
      * An empty {@link Map} with no parameters.
@@ -37,7 +37,7 @@ public interface HateosHandler<I extends Comparable<I>, R extends HateosResource
     /**
      * Handles a request resource identified by the ID.
      */
-    Optional<S> handle(final I id,
+    Optional<R> handle(final I id,
                        final Optional<R> resource,
                        final Map<HttpRequestAttribute<?>, Object> parameters);
 
@@ -45,6 +45,6 @@ public interface HateosHandler<I extends Comparable<I>, R extends HateosResource
      * Handles a request resource identified by a range of ids
      */
     Optional<S> handleCollection(final Range<I> id,
-                                 final Optional<R> resource,
+                                 final Optional<S> resource,
                                  final Map<HttpRequestAttribute<?>, Object> parameters);
 }

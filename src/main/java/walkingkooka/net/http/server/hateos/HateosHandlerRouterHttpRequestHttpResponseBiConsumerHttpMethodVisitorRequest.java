@@ -299,11 +299,11 @@ final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisito
     /**
      * Using the given request resource text (request body) read that into an {@link Optional optional} {@link HateosResource resource}.
      */
-    <R extends HateosResource<?>> Optional<R> resourceOrBadRequest(final String requestText,
-                                                                   final HateosContentType<N> hateosContentType,
-                                                                   final Class<R> resourceType,
-                                                                   final HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest<N> request) {
-        Optional<R> resource;
+    <RR extends HateosResource<?>> Optional<RR> resourceOrBadRequest(final String requestText,
+                                                                     final HateosContentType<N> hateosContentType,
+                                                                     final Class<RR> resourceType,
+                                                                     final HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorRequest<N> request) {
+        Optional<RR> resource;
 
         if (requestText.isEmpty()) {
             resource = Optional.empty();

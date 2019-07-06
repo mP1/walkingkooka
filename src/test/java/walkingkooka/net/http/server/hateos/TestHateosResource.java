@@ -28,6 +28,9 @@ import walkingkooka.tree.xml.XmlNode;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.math.BigInteger;
 
+/**
+ * The id type is {@link BigInteger} just to be different from {@link String}.
+ */
 public final class TestHateosResource extends FakeHateosResource<BigInteger> {
 
     static TestHateosResource fromJsonNode(final JsonNode node) {

@@ -18,6 +18,7 @@
 package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.Cast;
+import walkingkooka.compare.Range;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
@@ -28,37 +29,37 @@ import walkingkooka.tree.xml.XmlNode;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.math.BigInteger;
 
-public final class TestHateosResource2 extends FakeHateosResource<BigInteger> {
+public final class TestHateosResource2 extends FakeHateosResource<Range<BigInteger>> {
 
     static TestHateosResource2 fromJsonNode(final JsonNode node) {
-        return with(node.objectOrFail().getOrFail(ID).fromJsonNode(BigInteger.class));
+        return with(node.objectOrFail().getOrFail(ID).fromJsonNodeWithType());
     }
 
-    static TestHateosResource2 with(final BigInteger id) {
+    static TestHateosResource2 with(final Range<BigInteger> id) {
         return new TestHateosResource2(id);
     }
 
-    private TestHateosResource2(final BigInteger id) {
+    private TestHateosResource2(final Range<BigInteger> id) {
         super();
         this.id = id;
     }
 
     @Override
-    public BigInteger id() {
+    public Range<BigInteger> id() {
         return this.id;
     }
 
-    private final BigInteger id;
+    private final Range<BigInteger> id;
 
     @Override
     public String idForHateosLink() {
-        return Integer.toHexString(this.id.intValueExact());
+        return TestHateosResource2RangeVisitor.idForHateosLink(this.id);
     }
 
     @Override
     public JsonNode toJsonNode() {
         return JsonNode.object()
-                .set(ID, HasJsonNode.toJsonNodeObject(this.id()));
+                .set(ID, this.id().toJsonNodeWithType());
     }
 
     private final static JsonNodeName ID = JsonNodeName.with("id");

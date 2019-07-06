@@ -36,70 +36,69 @@ public final class HateosHandlerTestingTest implements HateosHandlerTesting<Fake
 
     @Override
     public final void testTestNaming() {
-
     }
 
     @Test
     public void testHandleIdAndCheck() {
         final BigInteger id = this.id();
-        final Optional<TestHateosResource> resource = this.resource();
+        final Optional<TestHateosResource> in = this.resource();
         final Map<HttpRequestAttribute<?>, Object> parameters = this.parameters();
 
-        final TestHateosResource2 resource2 = TestHateosResource2.with(BigInteger.valueOf(222));
+        final TestHateosResource out = TestHateosResource.with(BigInteger.ONE);
 
-        this.handleAndCheck(new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+        this.handleAndCheck(new FakeHateosHandler<>() {
                                 @Override
-                                public Optional<TestHateosResource2> handle(final BigInteger i,
-                                                                            final Optional<TestHateosResource> r,
-                                                                            final Map<HttpRequestAttribute<?>, Object> p) {
+                                public Optional<TestHateosResource> handle(final BigInteger i,
+                                                                           final Optional<TestHateosResource> r,
+                                                                           final Map<HttpRequestAttribute<?>, Object> p) {
                                     assertSame(id, i);
-                                    assertSame(resource, r);
+                                    assertSame(in, r);
                                     assertSame(parameters, p);
 
-                                    return Optional.of(resource2);
+                                    return Optional.of(out);
                                 }
                             },
                 id,
-                resource,
+                in,
                 parameters,
-                Optional.of(resource2));
+                Optional.of(out));
     }
 
     @Test
     public void testHandleUnsupported() {
-        this.handleUnsupported(new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+        this.handleUnsupported(new FakeHateosHandler<>() {
         });
     }
 
     @Test
     public void testHandleCollectionAndCheck() {
         final Range<BigInteger> id = this.collection();
-        final Optional<TestHateosResource> resources = Optional.of(TestHateosResource.with(BigInteger.valueOf(999)));
+        final Optional<TestHateosResource2> in = Optional.of(TestHateosResource2.with(this.collection()));
         final Map<HttpRequestAttribute<?>, Object> parameters = this.parameters();
 
-        final Optional<TestHateosResource2> resource2 = Optional.of(TestHateosResource2.with(BigInteger.valueOf(222)));
+        final Optional<TestHateosResource2> out = Optional.of(TestHateosResource2.with(Range.singleton(BigInteger.valueOf(222))));
 
-        this.handleCollectionAndCheck(new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+        this.handleCollectionAndCheck(new FakeHateosHandler<>() {
                                           @Override
                                           public Optional<TestHateosResource2> handleCollection(final Range<BigInteger> i,
-                                                                                                final Optional<TestHateosResource> r,
+                                                                                                final Optional<TestHateosResource2> r,
                                                                                                 final Map<HttpRequestAttribute<?>, Object> p) {
                                               assertSame(id, i);
-                                              assertSame(resources, r);
+                                              assertSame(in, r);
                                               assertSame(parameters, p);
 
-                                              return resource2;
+                                              return out;
                                           }
                                       },
                 id,
-                resources,
+                in,
                 parameters,
-                resource2);
+                out);
     }
 
     @Test
     public void testHandleCollectionUnsupported() {
-        this.handleCollectionUnsupported(new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+        this.handleCollectionUnsupported(new FakeHateosHandler<>() {
         });
     }
 
@@ -122,6 +121,11 @@ public final class HateosHandlerTestingTest implements HateosHandlerTesting<Fake
     @Override
     public Optional<TestHateosResource> resource() {
         return Optional.of(TestHateosResource.with(BigInteger.valueOf(999)));
+    }
+
+    @Override
+    public Optional<TestHateosResource2> collectionResource() {
+        return Optional.of(TestHateosResource2.with(this.collection()));
     }
 
     @Override
