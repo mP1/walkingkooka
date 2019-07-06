@@ -27,11 +27,12 @@ import walkingkooka.tree.xml.XmlNode;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.math.BigInteger;
+import java.util.Optional;
 
 /**
  * The id type is {@link BigInteger} just to be different from {@link String}.
  */
-public final class TestHateosResource extends FakeHateosResource<BigInteger> {
+public final class TestHateosResource extends FakeHateosResource<Optional<BigInteger>> {
 
     static TestHateosResource fromJsonNode(final JsonNode node) {
         return with(node.objectOrFail().getOrFail(ID).fromJsonNode(BigInteger.class));
@@ -47,8 +48,8 @@ public final class TestHateosResource extends FakeHateosResource<BigInteger> {
     }
 
     @Override
-    public BigInteger id() {
-        return this.id;
+    public Optional<BigInteger> id() {
+        return Optional.ofNullable(this.id);
     }
 
     private final BigInteger id;
@@ -89,7 +90,7 @@ public final class TestHateosResource extends FakeHateosResource<BigInteger> {
 
     @Override
     public int hashCode() {
-        return this.id.hashCode();
+        return this.id().hashCode();
     }
 
     @Override
@@ -98,11 +99,11 @@ public final class TestHateosResource extends FakeHateosResource<BigInteger> {
     }
 
     private boolean equals0(final TestHateosResource other) {
-        return this.id.equals(other.id);
+        return this.id().equals(other.id());
     }
 
     @Override
     public String toString() {
-        return this.id.toString();
+        return this.id().toString();
     }
 }

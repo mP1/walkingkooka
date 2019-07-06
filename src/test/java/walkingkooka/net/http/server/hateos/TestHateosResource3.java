@@ -26,8 +26,9 @@ import walkingkooka.tree.xml.XmlName;
 import walkingkooka.tree.xml.XmlNode;
 
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.util.Optional;
 
-public final class TestHateosResource3 extends FakeHateosResource<String> {
+public final class TestHateosResource3 extends FakeHateosResource<Optional<String>> {
 
     static TestHateosResource3 fromJsonNode(final JsonNode node) {
         return with(node.objectOrFail().getOrFail(ID).fromJsonNode(String.class));
@@ -43,8 +44,8 @@ public final class TestHateosResource3 extends FakeHateosResource<String> {
     }
 
     @Override
-    public String id() {
-        return this.id;
+    public Optional<String> id() {
+        return Optional.ofNullable(this.id);
     }
 
     private final String id;
@@ -57,7 +58,7 @@ public final class TestHateosResource3 extends FakeHateosResource<String> {
     @Override
     public JsonNode toJsonNode() {
         return JsonNode.object()
-                .set(ID, HasJsonNode.toJsonNodeObject(this.id()));
+                .set(ID, HasJsonNode.toJsonNodeObject(this.id));
     }
 
     private final static JsonNodeName ID = JsonNodeName.with("id");

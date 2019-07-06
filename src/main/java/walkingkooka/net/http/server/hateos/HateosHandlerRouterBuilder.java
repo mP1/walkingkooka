@@ -32,6 +32,7 @@ import walkingkooka.routing.Router;
 import walkingkooka.tree.Node;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.BiConsumer;
 
 /**
@@ -72,7 +73,7 @@ public final class HateosHandlerRouterBuilder<N extends Node<N, ?, ?, ?>>
      * Adds a mapper for the given hateos resource and relation combination.
      */
     public <I extends Comparable<I>,
-            R extends HateosResource<I>,
+            R extends HateosResource<Optional<I>>,
             S extends HateosResource<Range<I>>>
     HateosHandlerRouterBuilder<N> add(final HateosResourceName name,
                                       final LinkRelation<?> relation,
