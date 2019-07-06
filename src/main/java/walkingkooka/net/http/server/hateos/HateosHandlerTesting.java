@@ -34,8 +34,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public interface HateosHandlerTesting<H extends HateosHandler<I, R, S>,
         I extends Comparable<I>,
-        R extends HateosResource<?>,
-        S extends HateosResource<?>>
+        R extends HateosResource<I>,
+        S extends HateosResource<Range<I>>>
         extends ClassTesting2<H>,
         TypeNameTesting<H> {
 
@@ -67,7 +67,7 @@ public interface HateosHandlerTesting<H extends HateosHandler<I, R, S>,
     @Test
     default void testHandleCollectionNullIdRangeFails() {
         this.handleCollectionFails(null,
-                this.resource(),
+                this.collectionResource(),
                 this.parameters(),
                 NullPointerException.class);
     }
@@ -83,12 +83,12 @@ public interface HateosHandlerTesting<H extends HateosHandler<I, R, S>,
     @Test
     default void testHandleCollectionNullParametersFails() {
         this.handleCollectionFails(this.collection(),
-                this.resource(),
+                this.collectionResource(),
                 null,
                 NullPointerException.class);
     }
 
-    default Optional<S> handle(final I id,
+    default Optional<R> handle(final I id,
                                final Optional<R> resource,
                                final Map<HttpRequestAttribute<?>, Object> parameters) {
         return this.createHandler().handle(id, resource, parameters);
@@ -97,7 +97,7 @@ public interface HateosHandlerTesting<H extends HateosHandler<I, R, S>,
     default void handleAndCheck(final I id,
                                 final Optional<R> resource,
                                 final Map<HttpRequestAttribute<?>, Object> parameters,
-                                final Optional<S> result) {
+                                final Optional<R> result) {
         this.handleAndCheck(this.createHandler(), id, resource, parameters, result);
     }
 
@@ -105,7 +105,7 @@ public interface HateosHandlerTesting<H extends HateosHandler<I, R, S>,
                                 final I id,
                                 final Optional<R> resource,
                                 final Map<HttpRequestAttribute<?>, Object> parameters,
-                                final Optional<S> result) {
+                                final Optional<R> result) {
         assertEquals(result,
                 handler.handle(id, resource, parameters),
                 () -> handler + " id=" + id + ", resource: " + resource);
@@ -152,7 +152,7 @@ public interface HateosHandlerTesting<H extends HateosHandler<I, R, S>,
     }
 
     default void handleCollection(final Range<I> collection,
-                                  final Optional<R> resources,
+                                  final Optional<S> resources,
                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
         this.createHandler().handleCollection(collection,
                 resources,
@@ -160,7 +160,7 @@ public interface HateosHandlerTesting<H extends HateosHandler<I, R, S>,
     }
 
     default void handleCollectionAndCheck(final Range<I> collection,
-                                          final Optional<R> resource,
+                                          final Optional<S> resource,
                                           final Map<HttpRequestAttribute<?>, Object> parameters,
                                           final Optional<S> result) {
         this.handleCollectionAndCheck(this.createHandler(), collection, resource, parameters, result);
@@ -168,7 +168,7 @@ public interface HateosHandlerTesting<H extends HateosHandler<I, R, S>,
 
     default void handleCollectionAndCheck(final HateosHandler<I, R, S> handler,
                                           final Range<I> collection,
-                                          final Optional<R> resource,
+                                          final Optional<S> resource,
                                           final Map<HttpRequestAttribute<?>, Object> parameters,
                                           final Optional<S> result) {
         assertEquals(result,
@@ -177,7 +177,7 @@ public interface HateosHandlerTesting<H extends HateosHandler<I, R, S>,
     }
 
     default <T extends Throwable> T handleCollectionFails(final Range<I> collection,
-                                                          final Optional<R> resource,
+                                                          final Optional<S> resource,
                                                           final Map<HttpRequestAttribute<?>, Object> parameters,
                                                           final Class<T> thrown) {
         return this.handleCollectionFails(this.createHandler(),
@@ -189,7 +189,7 @@ public interface HateosHandlerTesting<H extends HateosHandler<I, R, S>,
 
     default <T extends Throwable> T handleCollectionFails(final HateosHandler<I, R, S> handler,
                                                           final Range<I> collection,
-                                                          final Optional<R> resource,
+                                                          final Optional<S> resource,
                                                           final Map<HttpRequestAttribute<?>, Object> parameters,
                                                           final Class<T> thrown) {
         return assertThrows(thrown, () -> {
@@ -200,14 +200,14 @@ public interface HateosHandlerTesting<H extends HateosHandler<I, R, S>,
     default UnsupportedOperationException handleCollectionUnsupported(final HateosHandler<I, R, S> handler) {
         return this.handleCollectionFails(handler,
                 this.collection(),
-                this.resource(),
+                this.collectionResource(),
                 this.parameters(),
                 UnsupportedOperationException.class);
     }
 
     default UnsupportedOperationException handleCollectionUnsupported(final HateosHandler<I, R, S> handler,
                                                                       final Range<I> collection,
-                                                                      final Optional<R> resource,
+                                                                      final Optional<S> resource,
                                                                       final Map<HttpRequestAttribute<?>, Object> parameters) {
         return this.handleCollectionFails(handler,
                 collection,
@@ -221,6 +221,8 @@ public interface HateosHandlerTesting<H extends HateosHandler<I, R, S>,
     Range<I> collection();
 
     Optional<R> resource();
+
+    Optional<S> collectionResource();
 
     H createHandler();
 

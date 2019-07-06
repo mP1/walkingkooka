@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.build.BuilderTesting;
 import walkingkooka.net.Url;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -32,17 +31,12 @@ import walkingkooka.type.JavaVisibility;
 
 import java.math.BigInteger;
 import java.util.function.BiConsumer;
-import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HateosHandlerRouterBuilderTest extends HateosHandlerRouterTestCase<HateosHandlerRouterBuilder<JsonNode>>
         implements BuilderTesting<HateosHandlerRouterBuilder<JsonNode>, Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>> {
-
-    private final static Function<String, BigInteger> STRING_TO_ID = BigInteger::new;
-    private final static Class<EmailAddress> RESOURCE_TYPE = EmailAddress.class;
-    private final static Function<EmailAddress, BigInteger> RESOURCE_TO_ID = (e) -> BigInteger.valueOf(e.user().length());
 
     // creation ..........................................................................................
 
@@ -134,8 +128,9 @@ public final class HateosHandlerRouterBuilderTest extends HateosHandlerRouterTes
                 "http://example.com/api JSON {resource1 item=PUT=put345, resource1 self=GET=get123 POST=post123, resource2 item=DELETE=delete456, resource2 self=POST=post234}");
     }
 
-    private HateosHandler<BigInteger, TestHateosResource, TestHateosResource3> handler(final String toString) {
-        return new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource3>() {
+    private HateosHandler<BigInteger, TestHateosResource, TestHateosResource2> handler(final String toString) {
+        return new FakeHateosHandler<>() {
+            @Override
             public String toString() {
                 return toString;
             }
@@ -172,10 +167,10 @@ public final class HateosHandlerRouterBuilderTest extends HateosHandlerRouterTes
         return HateosContentType.json();
     }
 
-    private HateosHandlerRouterMapper<BigInteger, TestHateosResource, TestHateosResource3> mapper() {
+    private HateosHandlerRouterMapper<BigInteger, TestHateosResource, TestHateosResource2> mapper() {
         return HateosHandlerRouterMapper.with(BigInteger::new,
                 TestHateosResource.class,
-                TestHateosResource3.class);
+                TestHateosResource2.class);
     }
 
     @Override

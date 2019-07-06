@@ -28,11 +28,11 @@ import java.util.Optional;
 /**
  * A {@link HateosHandler} where all methods throw {@link UnsupportedOperationException}.
  */
-public class FakeHateosHandler<I extends Comparable<I>, R extends HateosResource<?>, S extends HateosResource<?>>
+public class FakeHateosHandler<I extends Comparable<I>, R extends HateosResource<I>, S extends HateosResource<Range<I>>>
         implements HateosHandler<I, R, S>, Fake {
 
     @Override
-    public Optional<S> handle(final I id,
+    public Optional<R> handle(final I id,
                               final Optional<R> resource,
                               final Map<HttpRequestAttribute<?>, Object> parameters) {
         Objects.requireNonNull(id, "id");
@@ -44,7 +44,7 @@ public class FakeHateosHandler<I extends Comparable<I>, R extends HateosResource
 
     @Override
     public Optional<S> handleCollection(final Range<I> ids,
-                                        final Optional<R> resource,
+                                        final Optional<S> resource,
                                         final Map<HttpRequestAttribute<?>, Object> parameters) {
         Objects.requireNonNull(ids, "ids");
         Objects.requireNonNull(resource, "resource");

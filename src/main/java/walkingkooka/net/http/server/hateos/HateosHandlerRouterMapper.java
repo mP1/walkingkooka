@@ -33,31 +33,33 @@ import java.util.function.Function;
 /**
  * Holds all the mappers for a router mapping.
  */
-public final class HateosHandlerRouterMapper<I extends Comparable<I>, R extends HateosResource<?>, S extends HateosResource<?>> {
+public final class HateosHandlerRouterMapper<I extends Comparable<I>, R extends HateosResource<I>, S extends HateosResource<Range<I>>> {
 
     /**
      * Created by the builder with one for each resource name.
      */
     public static <I extends Comparable<I>,
-            R extends HateosResource<?>,
-            S extends HateosResource<?>> HateosHandlerRouterMapper<I, R, S> with(final Function<String, I> stringToId,
-                                                                                 final Class<R> inputResourceType,
-                                                                                 final Class<S> outputResourceType) {
+            R extends HateosResource<I>,
+            S extends HateosResource<Range<I>>> HateosHandlerRouterMapper<I, R, S> with(final Function<String, I> stringToId,
+                                                                                        final Class<R> resourceType,
+                                                                                        final Class<S> collectionResourceType) {
         Objects.requireNonNull(stringToId, "stringToId");
-        Objects.requireNonNull(inputResourceType, "inputResourceType");
-        Objects.requireNonNull(outputResourceType, "outputResourceType");
+        Objects.requireNonNull(resourceType, "resourceType");
+        Objects.requireNonNull(collectionResourceType, "collectionResourceType");
 
-        return new HateosHandlerRouterMapper<>(stringToId, inputResourceType);
+        return new HateosHandlerRouterMapper<>(stringToId,
+                resourceType,
+                collectionResourceType);
     }
 
     private HateosHandlerRouterMapper(final Function<String, I> stringToId,
-                                      final Class<R> inputResourceType) {
+                                      final Class<R> resourceType,
+                                      final Class<S> collectionResourceType) {
         super();
         this.stringToId = stringToId;
-        this.inputResourceType = inputResourceType;
+        this.resourceType = resourceType;
+        this.collectionResourceType = collectionResourceType;
     }
-
-    // HateosIdResourceResourceHandler.............................................................................................
 
     /**
      * Adds or replaces a GET {@link HateosHandler}.
@@ -103,7 +105,8 @@ public final class HateosHandlerRouterMapper<I extends Comparable<I>, R extends 
      */
     HateosHandlerRouterMapper<I, R, S> copy() {
         final HateosHandlerRouterMapper<I, R, S> handlers = new HateosHandlerRouterMapper<>(this.stringToId,
-                this.inputResourceType);
+                this.resourceType,
+                this.collectionResourceType);
 
         handlers.get = this.get;
         handlers.post = this.post;
@@ -131,18 +134,18 @@ public final class HateosHandlerRouterMapper<I extends Comparable<I>, R extends 
                     final HateosContentType<N> hateosContentType = request.hateosContentType();
                     final Optional<R> requestResource = request.resourceOrBadRequest(requestText,
                             hateosContentType,
-                            this.inputResourceType,
+                            this.resourceType,
                             request);
 
                     if (null != requestResource) {
                         final HttpRequest httpRequest = request.request;
                         final HttpMethod method = httpRequest.method();
                         String responseText = null;
-                        Optional<S> maybeResponseResource = handler.handle(id,
+                        Optional<R> maybeResponseResource = handler.handle(id,
                                 requestResource,
                                 request.parameters);
                         if (maybeResponseResource.isPresent()) {
-                            final S responseResource = maybeResponseResource.get();
+                            final R responseResource = maybeResponseResource.get();
                             responseText = hateosContentType.toText(responseResource,
                                     null,
                                     method,
@@ -197,9 +200,9 @@ public final class HateosHandlerRouterMapper<I extends Comparable<I>, R extends 
         final String requestText = request.resourceTextOrBadRequest();
         if (null != requestText) {
             final HateosContentType<N> hateosContentType = request.hateosContentType();
-            final Optional<R> requestResource = request.resourceOrBadRequest(requestText,
+            final Optional<S> requestResource = request.resourceOrBadRequest(requestText,
                     hateosContentType,
-                    this.inputResourceType,
+                    this.collectionResourceType,
                     request);
 
             if (null != requestResource) {
@@ -300,7 +303,8 @@ public final class HateosHandlerRouterMapper<I extends Comparable<I>, R extends 
     HateosHandler<I, R, S> put;
     HateosHandler<I, R, S> delete;
 
-    final Class<R> inputResourceType;
+    final Class<R> resourceType;
+    final Class<S> collectionResourceType;
 
     @Override
     public String toString() {

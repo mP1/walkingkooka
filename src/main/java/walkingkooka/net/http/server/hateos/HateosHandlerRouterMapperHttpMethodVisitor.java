@@ -18,14 +18,20 @@
 package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.ToStringBuilder;
+import walkingkooka.compare.Range;
 import walkingkooka.net.http.HttpMethodVisitor;
 
 /**
  * Uses a {@link walkingkooka.net.http.HttpMethod} to find the matching {@link HateosHandler}.
  */
-final class HateosHandlerRouterMapperHttpMethodVisitor<I extends Comparable<I>, R extends HateosResource<?>, S extends HateosResource<?>> extends HttpMethodVisitor {
+final class HateosHandlerRouterMapperHttpMethodVisitor<I extends Comparable<I>,
+        R extends HateosResource<I>,
+        S extends HateosResource<Range<I>>> extends HttpMethodVisitor {
 
-    static <I extends Comparable<I>, R extends HateosResource<?>, S extends HateosResource<?>> HateosHandlerRouterMapperHttpMethodVisitor<I, R, S> with(final HateosHandlerRouterMapper<I, R, S> mapper) {
+    static <I extends Comparable<I>,
+            R extends HateosResource<I>,
+            S extends HateosResource<Range<I>>>
+    HateosHandlerRouterMapperHttpMethodVisitor<I, R, S> with(final HateosHandlerRouterMapper<I, R, S> mapper) {
         return new HateosHandlerRouterMapperHttpMethodVisitor<>(mapper);
     }
 
