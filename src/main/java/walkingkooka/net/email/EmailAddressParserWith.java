@@ -29,7 +29,7 @@ final class EmailAddressParserWith extends EmailAddressParser {
         return new EmailAddressParserWith().parse(email);
     }
 
-    private EmailAddressParserWith() {
+    EmailAddressParserWith() {
         super();
     }
 

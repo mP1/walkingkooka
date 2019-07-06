@@ -1614,6 +1614,11 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
             this.parse(address);
         }, "Invalid email " + CharSequences.quoteAndEscape(address) + " should have failed="
                 + this.makeEmptyIfNull(comment));
+
+        // tryParse should return empty
+        assertEquals(Optional.empty(),
+                EmailAddress.tryParse(address),
+                () -> "Parse " + CharSequences.quoteAndEscape(address) + " comment: " + CharSequences.quoteAndEscape(comment));
     }
 
     private String makeEmptyIfNull(final String string) {

@@ -28,7 +28,7 @@ final class EmailAddressParserTryParse extends EmailAddressParser {
         return Optional.ofNullable(new EmailAddressParserTryParse().parse(email));
     }
 
-    private EmailAddressParserTryParse() {
+    EmailAddressParserTryParse() {
         super();
     }
 
