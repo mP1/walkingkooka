@@ -23,10 +23,20 @@ import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.xml.HasXmlNode;
 import walkingkooka.tree.xml.XmlNode;
 
+import java.util.function.Function;
+
 /**
  * Interface to be implemened by all values/entites that are registered with a {@link HateosResourceName}.
  */
 public interface HateosResource<I> extends HasId<I>, HasJsonNode, HasXmlNode {
+
+    /**
+     * Accepts a {@link Range} and converts it into a {@link String}.
+     */
+    static <I extends Comparable<I>> String rangeIdForHateosLink(final Range<I> range,
+                                                                 final Function<I, String> idForHateosLink) {
+        return HateosResourceRangeIdForHateosLinkRangeVisitor.idForHateosLink(range, idForHateosLink);
+    }
 
     default XmlNode toXmlNode() {
         throw new UnsupportedOperationException(); // #1092
