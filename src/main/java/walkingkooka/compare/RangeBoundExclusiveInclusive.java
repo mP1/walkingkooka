@@ -27,7 +27,7 @@ import java.util.Optional;
 /**
  * Base class for both exclusive and inclusive {@link RangeBound}.
  */
-abstract class RangeBoundExclusiveInclusive<C extends Comparable> extends RangeBound<C> {
+abstract class RangeBoundExclusiveInclusive<C extends Comparable<C>> extends RangeBound<C> {
 
     /**
      * Package private
@@ -55,8 +55,7 @@ abstract class RangeBoundExclusiveInclusive<C extends Comparable> extends RangeB
 
     // Range.toJsonNode......................................................................
 
-    @Override
-    final JsonObjectNode toJsonNode() {
+    @Override final JsonObjectNode toJsonNode() {
         return JsonObjectNode.object()
                 .set(this.property(), HasJsonNode.toJsonNodeWithType(this.value));
     }

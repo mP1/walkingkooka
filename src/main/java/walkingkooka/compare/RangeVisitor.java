@@ -26,7 +26,7 @@ import java.util.Objects;
 /**
  * A {@link Visitor} for a {@link Range}
  */
-public abstract class RangeVisitor<C extends Comparable> extends Visitor<Range<C>> {
+public abstract class RangeVisitor<C extends Comparable<C>> extends Visitor<Range<C>> {
 
     protected RangeVisitor() {
         super();

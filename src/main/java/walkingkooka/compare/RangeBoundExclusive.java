@@ -23,12 +23,12 @@ import walkingkooka.tree.json.JsonObjectNode;
 /**
  * Represents a exclusive value within a {@link Range}
  */
-final class RangeBoundExclusive<C extends Comparable> extends RangeBoundExclusiveInclusive<C> {
+final class RangeBoundExclusive<C extends Comparable<C>> extends RangeBoundExclusiveInclusive<C> {
 
     /**
      * Creates a {@link RangeBoundExclusive}.
      */
-    static <C extends Comparable<?>> RangeBoundExclusive<C> with(final C value) {
+    static <C extends Comparable<C>> RangeBoundExclusive<C> with(final C value) {
         checkValue(value);
         return new RangeBoundExclusive<C>(value);
     }
@@ -184,8 +184,7 @@ final class RangeBoundExclusive<C extends Comparable> extends RangeBoundExclusiv
         return with(node.fromJsonNodeWithType());
     }
 
-    @Override
-    final JsonNodeName property() {
+    @Override final JsonNodeName property() {
         return EXCLUSIVE_PROPERTY;
     }
 

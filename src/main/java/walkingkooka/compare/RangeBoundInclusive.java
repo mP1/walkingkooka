@@ -23,12 +23,12 @@ import walkingkooka.tree.json.JsonObjectNode;
 /**
  * Represents a inclusive value within a {@link Range}
  */
-final class RangeBoundInclusive<C extends Comparable> extends RangeBoundExclusiveInclusive<C> {
+final class RangeBoundInclusive<C extends Comparable<C>> extends RangeBoundExclusiveInclusive<C> {
 
     /**
      * Creates a {@link RangeBoundInclusive}.
      */
-    static <C extends Comparable<?>> RangeBoundInclusive<C> with(final C value) {
+    static <C extends Comparable<C>> RangeBoundInclusive<C> with(final C value) {
         checkValue(value);
         return new RangeBoundInclusive<C>(value);
     }
@@ -186,8 +186,7 @@ final class RangeBoundInclusive<C extends Comparable> extends RangeBoundExclusiv
         return with(node.fromJsonNodeWithType());
     }
 
-    @Override
-    final JsonNodeName property() {
+    @Override final JsonNodeName property() {
         return INCLUSIVE_PROPERTY;
     }
 

@@ -33,10 +33,10 @@ import java.util.function.Predicate;
 
 /**
  * A {@link Range} contains a lower and upper bound of values that may be used for testing...
- * Two create a {@link Range} with both a lower and upper bound it is necessary to create a range for both
+ * To create a {@link Range} with both a lower and upper bound it is necessary to create a range for both
  * and then intersect them.
  */
-public final class Range<C extends Comparable> implements Predicate<C>,
+public final class Range<C extends Comparable<C>> implements Predicate<C>,
         HashCodeEqualsDefined,
         HasJsonNode,
         Visitable {
@@ -45,9 +45,9 @@ public final class Range<C extends Comparable> implements Predicate<C>,
      * Assumes a character is a separator and uses the factory to create each component of the {@link Range}.
      * The separator must be present otherwise an {@link IllegalArgumentException} will be thrown.
      */
-    public static <C extends Comparable> Range<C> parse(final String text,
-                                                        final char separator,
-                                                        final Function<String, C> factory) {
+    public static <C extends Comparable<C>> Range<C> parse(final String text,
+                                                           final char separator,
+                                                           final Function<String, C> factory) {
         CharSequences.failIfNullOrEmpty(text, "text");
         Objects.requireNonNull(factory, "factory");
 
@@ -67,10 +67,10 @@ public final class Range<C extends Comparable> implements Predicate<C>,
                 .and(lessThanEquals(parse0(text, separatorIndex + 1, text.length(), factory)));
     }
 
-    private static <C extends Comparable> C parse0(final String text,
-                                                   final int start,
-                                                   final int end,
-                                                   final Function<String, C> factory) {
+    private static <C extends Comparable<C>> C parse0(final String text,
+                                                      final int start,
+                                                      final int end,
+                                                      final Function<String, C> factory) {
         try {
             return factory.apply(text.substring(start, end));
         } catch (final InvalidCharacterException cause) {
@@ -83,7 +83,7 @@ public final class Range<C extends Comparable> implements Predicate<C>,
     /**
      * A {@link Range} that matches all values.
      */
-    public static <C extends Comparable> Range<C> all() {
+    public static <C extends Comparable<C>> Range<C> all() {
         return Cast.to(ALL);
     }
 
@@ -96,35 +96,35 @@ public final class Range<C extends Comparable> implements Predicate<C>,
     /**
      * A {@link Range} that holds a single value.
      */
-    public static <C extends Comparable<?>> Range<C> singleton(final C value) {
+    public static <C extends Comparable<C>> Range<C> singleton(final C value) {
         return new Range<C>(RangeBound.inclusive(value), RangeBound.inclusive(value));
     }
 
     /**
      * A {@link Range} that matches all values less than but not including the given value.
      */
-    public static <C extends Comparable<?>> Range<C> lessThan(final C value) {
+    public static <C extends Comparable<C>> Range<C> lessThan(final C value) {
         return new Range<C>(RangeBound.all(), RangeBound.exclusive(value));
     }
 
     /**
      * A {@link Range} that matches all values less than and including the given value.
      */
-    public static <C extends Comparable<?>> Range<C> lessThanEquals(final C value) {
+    public static <C extends Comparable<C>> Range<C> lessThanEquals(final C value) {
         return new Range<C>(RangeBound.all(), RangeBound.inclusive(value));
     }
 
     /**
      * A {@link Range} that matches all values greater than but not including the given value.
      */
-    public static <C extends Comparable<?>> Range<C> greaterThan(final C value) {
+    public static <C extends Comparable<C>> Range<C> greaterThan(final C value) {
         return new Range<C>(RangeBound.exclusive(value), RangeBound.all());
     }
 
     /**
      * A {@link Range} that matches all values greater than and including the given value.
      */
-    public static <C extends Comparable<?>> Range<C> greaterThanEquals(final C value) {
+    public static <C extends Comparable<C>> Range<C> greaterThanEquals(final C value) {
         return new Range<C>(RangeBound.inclusive(value), RangeBound.all());
     }
 
@@ -236,7 +236,7 @@ public final class Range<C extends Comparable> implements Predicate<C>,
     /**
      * Begins the visiting process.
      */
-    public void accept(final RangeVisitor<C> visitor ) {
+    public void accept(final RangeVisitor<C> visitor) {
         Objects.requireNonNull(visitor, "visitor");
 
         visitor.traverse(this);
@@ -263,7 +263,7 @@ public final class Range<C extends Comparable> implements Predicate<C>,
      * </pre>
      */
     @SuppressWarnings("unchecked")
-    public static <C extends Comparable> Range<C> fromJsonNode(final JsonNode node) {
+    public static <C extends Comparable<C>> Range<C> fromJsonNode(final JsonNode node) {
         Objects.requireNonNull(node, "node");
 
         RangeBound<?> lower = null;

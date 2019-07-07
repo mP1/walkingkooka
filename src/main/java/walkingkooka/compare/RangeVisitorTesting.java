@@ -19,7 +19,7 @@ package walkingkooka.compare;
 
 import walkingkooka.tree.visit.VisitorTesting;
 
-public interface RangeVisitorTesting<V extends RangeVisitor<C>, C extends Comparable> extends VisitorTesting<V, Range<C>> {
+public interface RangeVisitorTesting<V extends RangeVisitor<C>, C extends Comparable<C>> extends VisitorTesting<V, Range<C>> {
     @Override
     default String typeNameSuffix() {
         return RangeVisitor.class.getSimpleName();
