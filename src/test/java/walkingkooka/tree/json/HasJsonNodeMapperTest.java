@@ -31,6 +31,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJsonNodeMapper<Void>, Void> {
@@ -81,6 +82,23 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
     }
 
     @Test
+    public void testRegisteredTypeNullFails() {
+        assertThrows(NullPointerException.class, () -> {
+            HasJsonNodeMapper.registeredType(null);
+        });
+    }
+
+    @Test
+    public void testRegisteredType() {
+        assertNotEquals(Optional.empty(), HasJsonNodeMapper.registeredType(JsonNode.string("big-decimal")));
+    }
+
+    @Test
+    public void testRegisteredTypeUnknown() {
+        assertEquals(Optional.empty(), HasJsonNodeMapper.registeredType(JsonNode.string("???")));
+    }
+
+    @Test
     public void testTypeNameNullClassFails() {
         assertThrows(NullPointerException.class, () -> {
             HasJsonNodeMapper.typeName(null);
@@ -124,6 +142,46 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
         assertThrows(UnsupportedTypeJsonNodeException.class, () -> {
             HasJsonNodeMapper.mapperOrFail(this.getClass());
         });
+    }
+
+    @Test
+    public void testToJsonNodeObjectNull() {
+        assertEquals(JsonNode.nullNode(), HasJsonNodeMapper.toJsonNodeObject(null));
+    }
+
+    @Test
+    public void testToJsonNodeWithTypeHasJsonNodeNull() {
+        assertEquals(JsonNode.nullNode(), HasJsonNodeMapper.toJsonNodeWithTypeHasJsonNode(null));
+    }
+
+    @Test
+    public void testToJsonNodeListNull() {
+        assertEquals(JsonNode.nullNode(), HasJsonNodeMapper.toJsonNodeList(null));
+    }
+
+    @Test
+    public void testToJsonNodeListEmpty() {
+        assertEquals(JsonNode.array(), HasJsonNodeMapper.toJsonNodeList(Lists.empty()));
+    }
+
+    @Test
+    public void testToJsonNodeMapNull() {
+        assertEquals(JsonNode.nullNode(), HasJsonNodeMapper.toJsonNodeMap(null));
+    }
+
+    @Test
+    public void testToJsonNodeMapEmpty() {
+        assertEquals(JsonNode.array(), HasJsonNodeMapper.toJsonNodeMap(Maps.empty()));
+    }
+
+    @Test
+    public void testToJsonNodeSetNull() {
+        assertEquals(JsonNode.nullNode(), HasJsonNodeMapper.toJsonNodeSet(null));
+    }
+
+    @Test
+    public void testToJsonNodeSetEmpty() {
+        assertEquals(JsonNode.array(), HasJsonNodeMapper.toJsonNodeSet(Sets.empty()));
     }
 
     @Test
