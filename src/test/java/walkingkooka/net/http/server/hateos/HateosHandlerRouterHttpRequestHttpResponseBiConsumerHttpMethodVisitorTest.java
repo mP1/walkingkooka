@@ -17,11 +17,71 @@
 
 package walkingkooka.net.http.server.hateos;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpMethodVisitorTesting;
+import walkingkooka.net.http.HttpStatusCode;
+import walkingkooka.net.http.server.HttpRequest;
+import walkingkooka.net.http.server.HttpRequests;
+import walkingkooka.net.http.server.HttpResponse;
+import walkingkooka.net.http.server.HttpResponses;
+import walkingkooka.net.http.server.RecordingHttpResponse;
 import walkingkooka.type.JavaVisibility;
 
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitorTest implements HttpMethodVisitorTesting<HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor<?, ?>> {
+
+    @Test
+    public void testTraceFails() {
+        this.acceptFails(HttpMethod.TRACE);
+    }
+
+    @Test
+    public void testOptionsFails() {
+        this.acceptFails(HttpMethod.OPTIONS);
+    }
+
+    @Test
+    public void testConnectFails() {
+        this.acceptFails(HttpMethod.CONNECT);
+    }
+
+    @Test
+    public void testPatchFails() {
+        this.acceptFails(HttpMethod.PATCH);
+    }
+
+    @Test
+    public void testCustomMethodFails() {
+        this.acceptFails(HttpMethod.with("Custom"));
+    }
+
+    private void acceptFails(final HttpMethod method) {
+        final HttpRequest request = HttpRequests.fake();
+        final RecordingHttpResponse response = HttpResponses.recording();
+        final HateosHandlerRouter<?> router = null; // too hard to mock
+
+        new HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor<>(request, response, router).accept(method);
+
+        assertEquals(Optional.of(HttpStatusCode.METHOD_NOT_ALLOWED.setMessage(method.toString())),
+                response.status(),
+                () -> method + " " + response);
+    }
+
+    @Test
+    public void testToString() {
+        final HttpRequest request = HttpRequests.fake();
+        final HttpResponse response = HttpResponses.fake();
+        final HateosHandlerRouter<?> router = null; // too hard to mock
+
+        this.toStringAndCheck(new HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor<>(request, response, router),
+                request + " " + response);
+    }
+
     @Override
     public HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor<?, ?> createVisitor() {
         return new HateosHandlerRouterHttpRequestHttpResponseBiConsumerHttpMethodVisitor<>(null, null, null);
