@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.json;
 
-final class HasJsonNodeLongMapper extends HasJsonNodeMapper2<Long> {
+final class HasJsonNodeLongMapper extends HasJsonNodeTypedMapper<Long> {
 
     static HasJsonNodeLongMapper instance() {
         return new HasJsonNodeLongMapper();
@@ -38,7 +38,7 @@ final class HasJsonNodeLongMapper extends HasJsonNodeMapper2<Long> {
     }
 
     @Override
-    Long fromJsonNode0(final JsonNode node) {
+    Long fromJsonNodeNonNull(final JsonNode node) {
         return node.isNumber() ?
                 node.numberValueOrFail().longValue() :
                 this.fromJsonNode1(node);
@@ -61,7 +61,7 @@ final class HasJsonNodeLongMapper extends HasJsonNodeMapper2<Long> {
     private final JsonStringNode TYPE_NAME = JsonStringNode.with("long");
 
     @Override
-    JsonNode toJsonNode0(final Long value) {
+    JsonNode toJsonNodeNonNull(final Long value) {
         return JsonNode.string(value.toString());
     }
 }

@@ -19,10 +19,10 @@ package walkingkooka.tree.json;
 
 import walkingkooka.Cast;
 
-public final class HasJsonNodeMapper3Test extends HasJsonNodeMapperTestCase<HasJsonNodeMapper3<Long>, Long> {
+public final class HasJsonNodeTypedNumberMapperTest extends HasJsonNodeMapperTestCase<HasJsonNodeTypedNumberMapper<Long>, Long> {
 
     @Override
-    public Class<HasJsonNodeMapper3<Long>> type() {
-        return Cast.to(HasJsonNodeMapper3.class);
+    public Class<HasJsonNodeTypedNumberMapper<Long>> type() {
+        return Cast.to(HasJsonNodeTypedNumberMapper.class);
     }
 }

@@ -19,7 +19,7 @@ package walkingkooka.tree.json;
 
 import java.util.function.Function;
 
-final class HasJsonNodeHasJsonNodeMapper<T extends HasJsonNode> extends HasJsonNodeMapper2<T> {
+final class HasJsonNodeHasJsonNodeMapper<T extends HasJsonNode> extends HasJsonNodeTypedMapper<T> {
 
     static <T extends HasJsonNode> HasJsonNodeHasJsonNodeMapper<T> with(final String typeName,
                                                                         final Function<JsonNode, T> fromJsonNode,
@@ -51,7 +51,7 @@ final class HasJsonNodeHasJsonNodeMapper<T extends HasJsonNode> extends HasJsonN
     }
 
     @Override
-    T fromJsonNode0(final JsonNode node) {
+    T fromJsonNodeNonNull(final JsonNode node) {
         return this.fromJsonNode.apply(node);
     }
 
@@ -65,7 +65,7 @@ final class HasJsonNodeHasJsonNodeMapper<T extends HasJsonNode> extends HasJsonN
     private final JsonStringNode typeName;
 
     @Override
-    JsonNode toJsonNode0(final T value) {
+    JsonNode toJsonNodeNonNull(final T value) {
         return value.toJsonNode();
     }
 }

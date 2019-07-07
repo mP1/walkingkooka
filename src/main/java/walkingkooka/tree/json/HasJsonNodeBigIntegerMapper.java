@@ -19,7 +19,7 @@ package walkingkooka.tree.json;
 
 import java.math.BigInteger;
 
-final class HasJsonNodeBigIntegerMapper extends HasJsonNodeMapper2<BigInteger> {
+final class HasJsonNodeBigIntegerMapper extends HasJsonNodeTypedMapper<BigInteger> {
 
     static HasJsonNodeBigIntegerMapper instance() {
         return new HasJsonNodeBigIntegerMapper();
@@ -40,7 +40,7 @@ final class HasJsonNodeBigIntegerMapper extends HasJsonNodeMapper2<BigInteger> {
     }
 
     @Override
-    BigInteger fromJsonNode0(final JsonNode node) {
+    BigInteger fromJsonNodeNonNull(final JsonNode node) {
         return new BigInteger(node.stringValueOrFail());
     }
 
@@ -52,7 +52,7 @@ final class HasJsonNodeBigIntegerMapper extends HasJsonNodeMapper2<BigInteger> {
     private final JsonStringNode TYPE_NAME = JsonStringNode.with("big-integer");
 
     @Override
-    JsonNode toJsonNode0(final BigInteger value) {
+    JsonNode toJsonNodeNonNull(final BigInteger value) {
         return JsonNode.string(value.toString());
     }
 }

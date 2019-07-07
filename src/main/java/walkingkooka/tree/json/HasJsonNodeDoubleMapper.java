@@ -33,7 +33,7 @@ final class HasJsonNodeDoubleMapper extends HasJsonNodeMapper<Double> {
     }
 
     @Override
-    Double fromJsonNode0(final JsonNode node) {
+    Double fromJsonNodeNonNull(final JsonNode node) {
         return node.numberValueOrFail().doubleValue();
     }
 
@@ -43,8 +43,8 @@ final class HasJsonNodeDoubleMapper extends HasJsonNodeMapper<Double> {
     }
 
     @Override
-    JsonNode toJsonNodeWithType0(final Double value) {
-        return this.toJsonNode0(value);
+    JsonNode toJsonNodeWithTypeNonNull(final Double value) {
+        return this.toJsonNodeNonNull(value);
     }
 
     @Override
@@ -55,7 +55,7 @@ final class HasJsonNodeDoubleMapper extends HasJsonNodeMapper<Double> {
     private final JsonStringNode JSON_STRING_NODE = JsonStringNode.with("double");
 
     @Override
-    JsonNode toJsonNode0(final Double value) {
+    JsonNode toJsonNodeNonNull(final Double value) {
         return JsonNode.number(value);
     }
 }

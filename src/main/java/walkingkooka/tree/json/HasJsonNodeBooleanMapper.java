@@ -33,7 +33,7 @@ final class HasJsonNodeBooleanMapper extends HasJsonNodeMapper<Boolean> {
     }
 
     @Override
-    Boolean fromJsonNode0(final JsonNode node) {
+    Boolean fromJsonNodeNonNull(final JsonNode node) {
         return node.booleanValueOrFail();
     }
 
@@ -43,8 +43,8 @@ final class HasJsonNodeBooleanMapper extends HasJsonNodeMapper<Boolean> {
     }
 
     @Override
-    JsonNode toJsonNodeWithType0(final Boolean value) {
-        return this.toJsonNode0(value);
+    JsonNode toJsonNodeWithTypeNonNull(final Boolean value) {
+        return this.toJsonNodeNonNull(value);
     }
 
     @Override
@@ -55,7 +55,7 @@ final class HasJsonNodeBooleanMapper extends HasJsonNodeMapper<Boolean> {
     private final JsonStringNode TYPE_NAME = JsonStringNode.with("boolean");
 
     @Override
-    JsonNode toJsonNode0(final Boolean value) {
+    JsonNode toJsonNodeNonNull(final Boolean value) {
         return JsonNode.booleanNode(value);
     }
 }

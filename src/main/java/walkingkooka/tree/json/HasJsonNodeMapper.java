@@ -346,7 +346,7 @@ abstract class HasJsonNodeMapper<T> {
             throw new JsonNodeException("Type " + type.getName() + " is not compatible with " + has.getClass().getName());
         }
 
-        return mapperOrFail(type.getName()).toJsonNodeWithType0(has);
+        return mapperOrFail(type.getName()).toJsonNodeWithTypeNonNull(has);
     }
 
     // instance...................................................................................................
@@ -370,7 +370,7 @@ abstract class HasJsonNodeMapper<T> {
         try {
             return node.isNull() ?
                     this.fromJsonNodeNull() :
-                    this.fromJsonNode0(node);
+                    this.fromJsonNodeNonNull(node);
         } catch (final NullPointerException | JsonNodeException cause) {
             throw cause;
         } catch (final RuntimeException cause) {
@@ -383,7 +383,7 @@ abstract class HasJsonNodeMapper<T> {
 
     abstract T fromJsonNodeNull();
 
-    abstract T fromJsonNode0(final JsonNode node);
+    abstract T fromJsonNodeNonNull(final JsonNode node);
 
     /**
      * Creates the {@link JsonNode} with the type representation of the given value.
@@ -391,10 +391,10 @@ abstract class HasJsonNodeMapper<T> {
     final JsonNode toJsonNodeWithType(final T value) {
         return null == value ?
                 JsonNode.nullNode() :
-                this.toJsonNodeWithType0(value);
+                this.toJsonNodeWithTypeNonNull(value);
     }
 
-    abstract JsonNode toJsonNodeWithType0(final T value);
+    abstract JsonNode toJsonNodeWithTypeNonNull(final T value);
 
     abstract JsonStringNode typeName();
 
@@ -404,10 +404,10 @@ abstract class HasJsonNodeMapper<T> {
     final JsonNode toJsonNode(final T value) {
         return null == value ?
                 JsonNode.nullNode() :
-                this.toJsonNode0(value);
+                this.toJsonNodeNonNull(value);
     }
 
-    abstract JsonNode toJsonNode0(final T value);
+    abstract JsonNode toJsonNodeNonNull(final T value);
 
     @Override
     public final String toString() {
