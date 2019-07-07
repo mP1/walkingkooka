@@ -19,7 +19,7 @@ package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
 
-public final class HasJsonNodeFloatMapperTest extends HasJsonNodeMapperTestCase2<HasJsonNodeFloatMapper, Float> {
+public final class HasJsonNodeFloatMapperTest extends HasJsonNodeTypedNumberMapperTestCase<HasJsonNodeFloatMapper, Float> {
 
     @Test
     public void testFromJsonNodeInvalidFails() {
@@ -34,11 +34,6 @@ public final class HasJsonNodeFloatMapperTest extends HasJsonNodeMapperTestCase2
     @Override
     Float value() {
         return 123.5f;
-    }
-
-    @Override
-    boolean requiresTypeName() {
-        return true;
     }
 
     @Override

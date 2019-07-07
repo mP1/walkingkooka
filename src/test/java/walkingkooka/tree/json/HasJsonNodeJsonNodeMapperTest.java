@@ -20,7 +20,7 @@ package walkingkooka.tree.json;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-public final class HasJsonNodeJsonNodeMapperTest extends HasJsonNodeMapperTestCase2<HasJsonNodeJsonNodeMapper<JsonStringNode>, JsonNode> {
+public final class HasJsonNodeJsonNodeMapperTest extends HasJsonNodeTypedMapperTestCase<HasJsonNodeJsonNodeMapper<JsonStringNode>, JsonNode> {
 
     @Test
     public void testToJsonWithType() {
@@ -37,11 +37,6 @@ public final class HasJsonNodeJsonNodeMapperTest extends HasJsonNodeMapperTestCa
     @Override
     JsonStringNode value() {
         return JsonNode.string("json-string value");
-    }
-
-    @Override
-    boolean requiresTypeName() {
-        return true;
     }
 
     @Override

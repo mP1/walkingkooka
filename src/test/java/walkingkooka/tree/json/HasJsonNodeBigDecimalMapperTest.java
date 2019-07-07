@@ -17,21 +17,9 @@
 
 package walkingkooka.tree.json;
 
-import org.junit.jupiter.api.Test;
-
 import java.math.BigDecimal;
 
-public final class HasJsonNodeBigDecimalMapperTest extends HasJsonNodeMapperTestCase2<HasJsonNodeBigDecimalMapper, BigDecimal> {
-
-    @Test
-    public void testFromEmptyStringFails() {
-        this.fromJsonNodeFailed(JsonNode.string(""), JsonNodeException.class);
-    }
-
-    @Test
-    public void testFromInvalidNumberFails() {
-        this.fromJsonNodeFailed(JsonNode.string("1A"), JsonNodeException.class);
-    }
+public final class HasJsonNodeBigDecimalMapperTest extends HasJsonNodeTypedMapperTestCase2<HasJsonNodeBigDecimalMapper, BigDecimal> {
 
     @Override
     HasJsonNodeBigDecimalMapper mapper() {
@@ -41,11 +29,6 @@ public final class HasJsonNodeBigDecimalMapperTest extends HasJsonNodeMapperTest
     @Override
     BigDecimal value() {
         return new BigDecimal("123.45");
-    }
-
-    @Override
-    boolean requiresTypeName() {
-        return true;
     }
 
     @Override

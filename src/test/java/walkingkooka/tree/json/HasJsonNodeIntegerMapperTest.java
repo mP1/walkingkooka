@@ -19,7 +19,7 @@ package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
 
-public final class HasJsonNodeIntegerMapperTest extends HasJsonNodeMapperTestCase2<HasJsonNodeIntegerMapper, Integer> {
+public final class HasJsonNodeIntegerMapperTest extends HasJsonNodeTypedNumberMapperTestCase<HasJsonNodeIntegerMapper, Integer> {
 
     @Test
     public void testFromJsonNodeInvalidFails() {
@@ -34,11 +34,6 @@ public final class HasJsonNodeIntegerMapperTest extends HasJsonNodeMapperTestCas
     @Override
     HasJsonNodeIntegerMapper mapper() {
         return HasJsonNodeIntegerMapper.instance();
-    }
-
-    @Override
-    boolean requiresTypeName() {
-        return true;
     }
 
     @Override

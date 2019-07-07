@@ -17,26 +17,9 @@
 
 package walkingkooka.tree.json;
 
-import org.junit.jupiter.api.Test;
-
 import java.math.BigInteger;
 
-public final class HasJsonNodeBigIntegerMapperTest extends HasJsonNodeMapperTestCase2<HasJsonNodeBigIntegerMapper, BigInteger> {
-
-    @Test
-    public void testFromEmptyStringFails() {
-        this.fromJsonNodeFailed(JsonNode.string(""), JsonNodeException.class);
-    }
-
-    @Test
-    public void testFromInvalidNumberFails() {
-        this.fromJsonNodeFailed(JsonNode.string("1A"), JsonNodeException.class);
-    }
-
-    @Test
-    public void testFromInvalidNumberDecimalFails() {
-        this.fromJsonNodeFailed(JsonNode.string("1.5"), JsonNodeException.class);
-    }
+public final class HasJsonNodeBigIntegerMapperTest extends HasJsonNodeTypedMapperTestCase2<HasJsonNodeBigIntegerMapper, BigInteger> {
 
     @Override
     HasJsonNodeBigIntegerMapper mapper() {
@@ -46,11 +29,6 @@ public final class HasJsonNodeBigIntegerMapperTest extends HasJsonNodeMapperTest
     @Override
     BigInteger value() {
         return new BigInteger("123");
-    }
-
-    @Override
-    boolean requiresTypeName() {
-        return true;
     }
 
     @Override

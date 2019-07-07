@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalTime;
 
-public final class HasJsonNodeLocalTimeMapperTest extends HasJsonNodeMapperTestCase2<HasJsonNodeLocalTimeMapper, LocalTime> {
+public final class HasJsonNodeLocalTimeMapperTest extends HasJsonNodeTypedMapperTestCase2<HasJsonNodeLocalTimeMapper, LocalTime> {
 
     @Test
     public void testRoundtripNoon() {
@@ -31,11 +31,6 @@ public final class HasJsonNodeLocalTimeMapperTest extends HasJsonNodeMapperTestC
     @Test
     public void testRoundtripLocalTimeMAX() {
         this.toJsonNodeWithTypeAndCheck(LocalTime.MAX, this.typeAndValue(JsonNode.string(LocalTime.MAX.toString())));
-    }
-
-    @Test
-    public void testFromEmptyStringFails() {
-        this.fromJsonNodeFailed(JsonNode.string(""), JsonNodeException.class);
     }
 
     @Test
@@ -56,11 +51,6 @@ public final class HasJsonNodeLocalTimeMapperTest extends HasJsonNodeMapperTestC
     @Override
     LocalTime value() {
         return LocalTime.of(23, 58, 59, 999);
-    }
-
-    @Override
-    boolean requiresTypeName() {
-        return true;
     }
 
     @Override

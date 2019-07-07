@@ -23,7 +23,7 @@ import walkingkooka.collect.list.Lists;
 
 import java.util.List;
 
-public final class HasJsonNodeListMapperTest extends HasJsonNodeMapperTestCase2<HasJsonNodeListMapper, List<?>> {
+public final class HasJsonNodeListMapperTest extends HasJsonNodeTypedMapperTestCase<HasJsonNodeListMapper, List<?>> {
 
     @Test
     public void testFromEmptyArray() {
@@ -48,11 +48,6 @@ public final class HasJsonNodeListMapperTest extends HasJsonNodeMapperTestCase2<
     @Override
     List<?> value() {
         return Lists.of(null, true, 123.5, "abc123", TestHasJsonNode.with("test-has-json-node"));
-    }
-
-    @Override
-    boolean requiresTypeName() {
-        return true;
     }
 
     @Override

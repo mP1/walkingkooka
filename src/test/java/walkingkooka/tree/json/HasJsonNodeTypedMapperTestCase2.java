@@ -19,45 +19,29 @@ package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
 
-public final class HasJsonNodeLongMapperTest extends HasJsonNodeTypedMapperTestCase<HasJsonNodeLongMapper, Long> {
+public abstract class HasJsonNodeTypedMapperTestCase2<M extends HasJsonNodeTypedMapper<T>, T> extends HasJsonNodeTypedMapperTestCase<M, T> {
+
+    HasJsonNodeTypedMapperTestCase2() {
+        super();
+    }
 
     @Test
     public final void testFromArrayFails() {
         this.fromJsonNodeFailed(JsonNode.array(), JsonNodeException.class);
     }
 
-    @Override
-    HasJsonNodeLongMapper mapper() {
-        return HasJsonNodeLongMapper.instance();
+    @Test
+    public final void testFromNumberFails() {
+        this.fromJsonNodeFailed(JsonNode.number(123), JsonNodeException.class);
     }
 
-    @Override
-    Long value() {
-        return 123L;
+    @Test
+    public final void testFromEmptyStringFails() {
+        this.fromJsonNodeFailed(JsonNode.string(""), JsonNodeException.class);
     }
 
-    @Override
-    JsonNode node() {
-        return JsonNode.string(Long.toString(this.value()));
-    }
-
-    @Override
-    Long jsonNullNode() {
-        return null;
-    }
-
-    @Override
-    String typeName() {
-        return "long";
-    }
-
-    @Override
-    Class<Long> mapperType() {
-        return Long.class;
-    }
-
-    @Override
-    public Class<HasJsonNodeLongMapper> type() {
-        return HasJsonNodeLongMapper.class;
+    @Test
+    public final void testFromStringFails() {
+        this.fromJsonNodeFailed(JsonNode.string("1A"), JsonNodeException.class);
     }
 }
