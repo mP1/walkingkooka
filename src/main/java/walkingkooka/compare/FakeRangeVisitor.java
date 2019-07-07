@@ -20,7 +20,7 @@ package walkingkooka.compare;
 import walkingkooka.test.Fake;
 import walkingkooka.tree.visit.Visiting;
 
-public class FakeRangeVisitor<C extends Comparable> extends RangeVisitor<C> implements Fake {
+public class FakeRangeVisitor<C extends Comparable<C>> extends RangeVisitor<C> implements Fake {
 
     protected FakeRangeVisitor() {
         super();

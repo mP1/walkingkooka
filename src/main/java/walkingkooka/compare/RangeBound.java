@@ -29,26 +29,26 @@ import java.util.Optional;
 /**
  * One of three bounds of a {@link Range}
  */
-abstract public class RangeBound<C extends Comparable> implements HashCodeEqualsDefined, Value<Optional<C>> {
+abstract public class RangeBound<C extends Comparable<C>> implements HashCodeEqualsDefined, Value<Optional<C>> {
 
     /**
      * {@see RangeBoundAll}
      */
-    static <C extends Comparable<?>> RangeBoundAll<C> all() {
+    static <C extends Comparable<C>> RangeBoundAll<C> all() {
         return RangeBoundAll.instance();
     }
 
     /**
      * {@see RangeBoundExclusive}
      */
-    static <C extends Comparable<?>> RangeBoundExclusive<C> exclusive(final C value) {
+    static <C extends Comparable<C>> RangeBoundExclusive<C> exclusive(final C value) {
         return RangeBoundExclusive.with(value);
     }
 
     /**
      * {@see RangeBoundInclusive}
      */
-    static <C extends Comparable<?>> RangeBoundInclusive<C> inclusive(final C value) {
+    static <C extends Comparable<C>> RangeBoundInclusive<C> inclusive(final C value) {
         return RangeBoundInclusive.with(value);
     }
 
