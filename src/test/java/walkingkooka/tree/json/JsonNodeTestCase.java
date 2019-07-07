@@ -142,6 +142,16 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesti
     final static String STRING_VALUE_OR_FAIL = "stringValueOrFail";
     final static String VALUE = "value";
 
+    // JsonNodeVisitor..................................................................................................
+
+    @Test
+    public final void testAccept2() {
+        new JsonNodeVisitor() {
+        }.accept(this.createNode());
+    }
+
+    // Object...........................................................................................................
+
     @Test
     public final void testEqualsDifferentParent() {
         this.checkNotEquals(JsonNode.array().appendChild(this.createObject()));
