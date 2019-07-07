@@ -102,6 +102,8 @@ abstract class HasJsonNodeMapper<T> {
         registerJsonNode(JsonObjectNode.class, "json-object");
         registerJsonNode(JsonArrayNode.class, "json-array");
 
+        register0(HasJsonNodeOptionalMapper.instance(), Optional.class);
+
         register("json-property-name", JsonNodeName::fromJsonNode, JsonNodeName.class);
     }
 
