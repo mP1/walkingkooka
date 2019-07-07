@@ -19,7 +19,7 @@ package walkingkooka.tree.json;
 
 import java.time.LocalTime;
 
-final class HasJsonNodeLocalTimeMapper extends HasJsonNodeMapper2<LocalTime> {
+final class HasJsonNodeLocalTimeMapper extends HasJsonNodeTypedMapper<LocalTime> {
 
     static HasJsonNodeLocalTimeMapper instance() {
         return new HasJsonNodeLocalTimeMapper();
@@ -40,7 +40,7 @@ final class HasJsonNodeLocalTimeMapper extends HasJsonNodeMapper2<LocalTime> {
     }
 
     @Override
-    LocalTime fromJsonNode0(final JsonNode node) {
+    LocalTime fromJsonNodeNonNull(final JsonNode node) {
         return LocalTime.parse(node.stringValueOrFail());
     }
 
@@ -52,7 +52,7 @@ final class HasJsonNodeLocalTimeMapper extends HasJsonNodeMapper2<LocalTime> {
     private final JsonStringNode TYPE_NAME = JsonStringNode.with("local-time");
 
     @Override
-    JsonNode toJsonNode0(final LocalTime value) {
+    JsonNode toJsonNodeNonNull(final LocalTime value) {
         return JsonNode.string(value.toString());
     }
 }

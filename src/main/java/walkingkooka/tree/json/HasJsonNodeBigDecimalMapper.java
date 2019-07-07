@@ -19,7 +19,7 @@ package walkingkooka.tree.json;
 
 import java.math.BigDecimal;
 
-final class HasJsonNodeBigDecimalMapper extends HasJsonNodeMapper2<BigDecimal> {
+final class HasJsonNodeBigDecimalMapper extends HasJsonNodeTypedMapper<BigDecimal> {
 
     static HasJsonNodeBigDecimalMapper instance() {
         return new HasJsonNodeBigDecimalMapper();
@@ -40,7 +40,7 @@ final class HasJsonNodeBigDecimalMapper extends HasJsonNodeMapper2<BigDecimal> {
     }
 
     @Override
-    BigDecimal fromJsonNode0(final JsonNode node) {
+    BigDecimal fromJsonNodeNonNull(final JsonNode node) {
         return new BigDecimal(node.stringValueOrFail());
     }
 
@@ -52,7 +52,7 @@ final class HasJsonNodeBigDecimalMapper extends HasJsonNodeMapper2<BigDecimal> {
     private final JsonStringNode TYPE_NAME = JsonStringNode.with("big-decimal");
 
     @Override
-    JsonNode toJsonNode0(final BigDecimal value) {
+    JsonNode toJsonNodeNonNull(final BigDecimal value) {
         return JsonNode.string(value.toString());
     }
 }

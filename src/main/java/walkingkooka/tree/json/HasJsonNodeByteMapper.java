@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.json;
 
-final class HasJsonNodeByteMapper extends HasJsonNodeMapper3<Byte> {
+final class HasJsonNodeByteMapper extends HasJsonNodeTypedNumberMapper<Byte> {
 
     static HasJsonNodeByteMapper instance() {
         return new HasJsonNodeByteMapper();
@@ -33,7 +33,7 @@ final class HasJsonNodeByteMapper extends HasJsonNodeMapper3<Byte> {
     }
 
     @Override
-    Byte fromJsonNode2(final Number number) {
+    Byte number(final Number number) {
         return number.byteValue();
     }
 

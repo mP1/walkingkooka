@@ -46,7 +46,7 @@ final class HasJsonNodeSetMapper extends HasJsonNodeCollectionMapper<Set<?>> {
     private final static HasJsonNodeSetMapper INSTANCE = instance();
 
     @Override
-    final Set<?> fromJsonNode0(final JsonNode node) {
+    final Set<?> fromJsonNodeNonNull(final JsonNode node) {
         return node.fromJsonNodeWithTypeSet();
     }
 

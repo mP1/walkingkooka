@@ -17,18 +17,22 @@
 
 package walkingkooka.tree.json;
 
-abstract class HasJsonNodeMapper2<T> extends HasJsonNodeMapper<T> {
+/**
+ * A {@link HasJsonNodeMapper} that includes a json object with the type name and the actual jsonized value.
+ * This is mostly used for in built JDK types that cannot be altered.
+ */
+abstract class HasJsonNodeTypedMapper<T> extends HasJsonNodeMapper<T> {
 
-    HasJsonNodeMapper2() {
+    HasJsonNodeTypedMapper() {
         super();
     }
 
-    abstract T fromJsonNode0(final JsonNode node);
+    abstract T fromJsonNodeNonNull(final JsonNode node);
 
     @Override
-    final JsonNode toJsonNodeWithType0(final T value) {
+    final JsonNode toJsonNodeWithTypeNonNull(final T value) {
         return this.objectWithType()
-                .set(JsonObjectNode.VALUE, this.toJsonNode0(value));
+                .set(JsonObjectNode.VALUE, this.toJsonNodeNonNull(value));
     }
 
     /**

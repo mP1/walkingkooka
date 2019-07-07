@@ -33,7 +33,7 @@ final class HasJsonNodeNumberMapper extends HasJsonNodeMapper<Number> {
     }
 
     @Override
-    Number fromJsonNode0(final JsonNode node) {
+    Number fromJsonNodeNonNull(final JsonNode node) {
         return node.numberValueOrFail();
     }
 
@@ -43,8 +43,8 @@ final class HasJsonNodeNumberMapper extends HasJsonNodeMapper<Number> {
     }
 
     @Override
-    JsonNode toJsonNodeWithType0(final Number value) {
-        return this.toJsonNode0(value);
+    JsonNode toJsonNodeWithTypeNonNull(final Number value) {
+        return this.toJsonNodeNonNull(value);
     }
 
     @Override
@@ -55,7 +55,7 @@ final class HasJsonNodeNumberMapper extends HasJsonNodeMapper<Number> {
     private final JsonStringNode TYPE_NAME = JsonStringNode.with("number");
 
     @Override
-    JsonNode toJsonNode0(final Number value) {
+    JsonNode toJsonNodeNonNull(final Number value) {
         return JsonNode.number(value.doubleValue());
     }
 }

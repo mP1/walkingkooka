@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.json;
 
-final class HasJsonNodeShortMapper extends HasJsonNodeMapper3<Short> {
+final class HasJsonNodeShortMapper extends HasJsonNodeTypedNumberMapper<Short> {
 
     static HasJsonNodeShortMapper instance() {
         return new HasJsonNodeShortMapper();
@@ -33,7 +33,7 @@ final class HasJsonNodeShortMapper extends HasJsonNodeMapper3<Short> {
     }
 
     @Override
-    Short fromJsonNode2(final Number number) {
+    Short number(final Number number) {
         return number.shortValue();
     }
 

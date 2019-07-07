@@ -17,15 +17,18 @@
 
 package walkingkooka.tree.json;
 
-abstract class HasJsonNodeMapper3<T extends Number> extends HasJsonNodeMapper2<T> {
+/**
+ * Base for a {@link HasJsonNodeMapper} that holds a number value wrapped inside a JSON object with the type.
+ */
+abstract class HasJsonNodeTypedNumberMapper<T extends Number> extends HasJsonNodeTypedMapper<T> {
 
-    HasJsonNodeMapper3() {
+    HasJsonNodeTypedNumberMapper() {
         super();
     }
 
     @Override
-    final T fromJsonNode0(final JsonNode node) {
-        return this.fromJsonNode1(node.numberValueOrFail());
+    final T fromJsonNodeNonNull(final JsonNode node) {
+        return this.numberWithoutPrecisionLoss(node.numberValueOrFail());
     }
 
     @Override
@@ -36,18 +39,18 @@ abstract class HasJsonNodeMapper3<T extends Number> extends HasJsonNodeMapper2<T
     /**
      * Ensures that no precision is lost.
      */
-    private T fromJsonNode1(final Number number) {
-        final T number2 = this.fromJsonNode2(number);
+    private T numberWithoutPrecisionLoss(final Number number) {
+        final T number2 = this.number(number);
         if(number2.doubleValue() != number.doubleValue()) {
             throw new NumericLossJsonNodeException(number.getClass().getName() + "=" + number);
         }
         return number2;
     }
 
-    abstract T fromJsonNode2(final Number number);
+    abstract T number(final Number number);
 
     @Override
-    final JsonNode toJsonNode0(final T value) {
+    final JsonNode toJsonNodeNonNull(final T value) {
         return JsonNode.number(value.doubleValue());
     }
 }

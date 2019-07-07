@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.json;
 
-final class HasJsonNodeFloatMapper extends HasJsonNodeMapper3<Float> {
+final class HasJsonNodeFloatMapper extends HasJsonNodeTypedNumberMapper<Float> {
 
     static HasJsonNodeFloatMapper instance() {
         return new HasJsonNodeFloatMapper();
@@ -33,7 +33,7 @@ final class HasJsonNodeFloatMapper extends HasJsonNodeMapper3<Float> {
     }
 
     @Override
-    Float fromJsonNode2(final Number number) {
+    Float number(final Number number) {
         return number.floatValue();
     }
 

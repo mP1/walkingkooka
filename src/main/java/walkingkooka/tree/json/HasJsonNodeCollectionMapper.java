@@ -20,7 +20,7 @@ package walkingkooka.tree.json;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-abstract class HasJsonNodeCollectionMapper<C extends Collection<?>> extends HasJsonNodeMapper2<C> {
+abstract class HasJsonNodeCollectionMapper<C extends Collection<?>> extends HasJsonNodeTypedMapper<C> {
 
     HasJsonNodeCollectionMapper() {
         super();
@@ -32,7 +32,7 @@ abstract class HasJsonNodeCollectionMapper<C extends Collection<?>> extends HasJ
     }
 
     @Override
-    final JsonNode toJsonNode0(final C value) {
+    final JsonNode toJsonNodeNonNull(final C value) {
         return JsonObjectNode.array()
                 .setChildren(value.stream()
                         .map(HasJsonNodeMapper::toJsonNodeWithTypeObject)
@@ -42,6 +42,6 @@ abstract class HasJsonNodeCollectionMapper<C extends Collection<?>> extends HasJ
     final JsonNode toJsonNodeWithTypeCollection0(final C collection) {
         return null == collection ?
                 JsonNode.nullNode() :
-                this.toJsonNode0(collection);
+                this.toJsonNodeNonNull(collection);
     }
 }

@@ -33,7 +33,7 @@ final class HasJsonNodeStringMapper extends HasJsonNodeMapper<String> {
     }
 
     @Override
-    String fromJsonNode0(final JsonNode node) {
+    String fromJsonNodeNonNull(final JsonNode node) {
         return node.stringValueOrFail();
     }
 
@@ -43,8 +43,8 @@ final class HasJsonNodeStringMapper extends HasJsonNodeMapper<String> {
     }
 
     @Override
-    JsonNode toJsonNodeWithType0(final String value) {
-        return this.toJsonNode0(value);
+    JsonNode toJsonNodeWithTypeNonNull(final String value) {
+        return this.toJsonNodeNonNull(value);
     }
 
     @Override
@@ -55,7 +55,7 @@ final class HasJsonNodeStringMapper extends HasJsonNodeMapper<String> {
     private final JsonStringNode TYPE_NAME = JsonStringNode.with("string");
 
     @Override
-    JsonNode toJsonNode0(final String value) {
+    JsonNode toJsonNodeNonNull(final String value) {
         return JsonNode.string(value);
     }
 }

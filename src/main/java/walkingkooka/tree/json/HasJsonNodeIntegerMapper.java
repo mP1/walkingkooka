@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.json;
 
-final class HasJsonNodeIntegerMapper extends HasJsonNodeMapper3<Integer> {
+final class HasJsonNodeIntegerMapper extends HasJsonNodeTypedNumberMapper<Integer> {
 
     static HasJsonNodeIntegerMapper instance() {
         return new HasJsonNodeIntegerMapper();
@@ -33,7 +33,7 @@ final class HasJsonNodeIntegerMapper extends HasJsonNodeMapper3<Integer> {
     }
 
     @Override
-    Integer fromJsonNode2(final Number number) {
+    Integer number(final Number number) {
         return number.intValue();
     }
 

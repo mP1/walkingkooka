@@ -19,7 +19,7 @@ package walkingkooka.tree.json;
 
 import java.time.LocalDate;
 
-final class HasJsonNodeLocalDateMapper extends HasJsonNodeMapper2<LocalDate> {
+final class HasJsonNodeLocalDateMapper extends HasJsonNodeTypedMapper<LocalDate> {
 
     static HasJsonNodeLocalDateMapper instance() {
         return new HasJsonNodeLocalDateMapper();
@@ -40,7 +40,7 @@ final class HasJsonNodeLocalDateMapper extends HasJsonNodeMapper2<LocalDate> {
     }
 
     @Override
-    LocalDate fromJsonNode0(final JsonNode node) {
+    LocalDate fromJsonNodeNonNull(final JsonNode node) {
         return LocalDate.parse(node.stringValueOrFail());
     }
 
@@ -52,7 +52,7 @@ final class HasJsonNodeLocalDateMapper extends HasJsonNodeMapper2<LocalDate> {
     private final JsonStringNode TYPE_NAME = JsonStringNode.with("local-date");
 
     @Override
-    JsonNode toJsonNode0(final LocalDate value) {
+    JsonNode toJsonNodeNonNull(final LocalDate value) {
         return JsonNode.string(value.toString());
     }
 }

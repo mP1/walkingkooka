@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
-final class HasJsonNodeMapMapper extends HasJsonNodeMapper2<Map<?, ?>> {
+final class HasJsonNodeMapMapper extends HasJsonNodeTypedMapper<Map<?, ?>> {
 
     static HasJsonNodeMapMapper instance() {
         return new HasJsonNodeMapMapper();
@@ -65,7 +65,7 @@ final class HasJsonNodeMapMapper extends HasJsonNodeMapper2<Map<?, ?>> {
      * {@see JsonArrayNode#fromJsonNodeWithTypeMap}
      */
     @Override
-    Map<?, ?> fromJsonNode0(final JsonNode node) {
+    Map<?, ?> fromJsonNodeNonNull(final JsonNode node) {
         return node.fromJsonNodeWithTypeMap();
     }
 
@@ -82,7 +82,7 @@ final class HasJsonNodeMapMapper extends HasJsonNodeMapper2<Map<?, ?>> {
     private final JsonStringNode TYPE_NAME = JsonStringNode.with("map");
 
     @Override
-    JsonNode toJsonNode0(final Map<?, ?> map) {
+    JsonNode toJsonNodeNonNull(final Map<?, ?> map) {
         return HasJsonNodeMapper.toJsonNodeMapNotNull(map, HasJsonNodeMapMapper::toJsonNodeWithTypeMapEntry);
     }
 
