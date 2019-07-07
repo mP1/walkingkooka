@@ -23,7 +23,7 @@ import walkingkooka.collect.set.Sets;
 
 import java.util.Set;
 
-public final class HasJsonNodeSetMapperTest extends HasJsonNodeMapperTestCase2<HasJsonNodeSetMapper, Set<?>> {
+public final class HasJsonNodeSetMapperTest extends HasJsonNodeTypedMapperTestCase<HasJsonNodeSetMapper, Set<?>> {
 
     @Test
     public void testFromEmptyArray() {
@@ -48,11 +48,6 @@ public final class HasJsonNodeSetMapperTest extends HasJsonNodeMapperTestCase2<H
     @Override
     Set<?> value() {
         return Sets.of(null, true, 123.5, "abc123", TestHasJsonNode.with("test-HasJsonNode-a1"));
-    }
-
-    @Override
-    boolean requiresTypeName() {
-        return true;
     }
 
     @Override

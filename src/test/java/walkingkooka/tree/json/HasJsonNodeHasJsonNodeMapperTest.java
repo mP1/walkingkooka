@@ -19,7 +19,7 @@ package walkingkooka.tree.json;
 
 import walkingkooka.Cast;
 
-public final class HasJsonNodeHasJsonNodeMapperTest extends HasJsonNodeMapperTestCase2<HasJsonNodeHasJsonNodeMapper<TestHasJsonNode>, TestHasJsonNode> {
+public final class HasJsonNodeHasJsonNodeMapperTest extends HasJsonNodeTypedMapperTestCase<HasJsonNodeHasJsonNodeMapper<TestHasJsonNode>, TestHasJsonNode> {
 
     @Override
     HasJsonNodeHasJsonNodeMapper<TestHasJsonNode> mapper() {
@@ -29,11 +29,6 @@ public final class HasJsonNodeHasJsonNodeMapperTest extends HasJsonNodeMapperTes
     @Override
     TestHasJsonNode value() {
         return TestHasJsonNode.with("a1");
-    }
-
-    @Override
-    boolean requiresTypeName() {
-        return true;
     }
 
     @Override

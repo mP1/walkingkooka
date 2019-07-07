@@ -21,12 +21,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-public final class HasJsonNodeLocalDateTimeMapperTest extends HasJsonNodeMapperTestCase2<HasJsonNodeLocalDateTimeMapper, LocalDateTime> {
-
-    @Test
-    public void testFromEmptyStringFails() {
-        this.fromJsonNodeFailed(JsonNode.string(""), JsonNodeException.class);
-    }
+public final class HasJsonNodeLocalDateTimeMapperTest extends HasJsonNodeTypedMapperTestCase2<HasJsonNodeLocalDateTimeMapper, LocalDateTime> {
 
     @Test
     public void testFromInvalidDateFails() {
@@ -41,11 +36,6 @@ public final class HasJsonNodeLocalDateTimeMapperTest extends HasJsonNodeMapperT
     @Override
     LocalDateTime value() {
         return LocalDateTime.of(2000, 1, 31, 12, 58, 59);
-    }
-
-    @Override
-    boolean requiresTypeName() {
-        return true;
     }
 
     @Override

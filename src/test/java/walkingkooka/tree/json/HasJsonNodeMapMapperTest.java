@@ -23,7 +23,7 @@ import walkingkooka.collect.map.Maps;
 
 import java.util.Map;
 
-public final class HasJsonNodeMapMapperTest extends HasJsonNodeMapperTestCase2<HasJsonNodeMapMapper, Map<?, ?>> {
+public final class HasJsonNodeMapMapperTest extends HasJsonNodeTypedMapperTestCase<HasJsonNodeMapMapper, Map<?, ?>> {
 
     @Test
     public void testFromEmptyArray() {
@@ -50,11 +50,6 @@ public final class HasJsonNodeMapMapperTest extends HasJsonNodeMapperTestCase2<H
         return Maps.of(Boolean.TRUE, null,
                 123.5, "abc123",
                 TestHasJsonNode.with("test-has-json-node-a1"), Boolean.FALSE);
-    }
-
-    @Override
-    boolean requiresTypeName() {
-        return true;
     }
 
     @Override
