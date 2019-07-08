@@ -55,7 +55,7 @@ public final class TestHateosResource extends FakeHateosResource<Optional<BigInt
     private final BigInteger id;
 
     @Override
-    public String idForHateosLink() {
+    public String hateosLinkId() {
         return Integer.toHexString(this.id.intValueExact());
     }
 

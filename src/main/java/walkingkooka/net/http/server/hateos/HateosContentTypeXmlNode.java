@@ -146,7 +146,7 @@ final class HateosContentTypeXmlNode extends HateosContentType<XmlNode> {
         // base + resource name.
         final UrlPath pathAndResourceNameAndId = base.path()
                 .append(UrlPathName.with(resourceName.value()))
-                .append(UrlPathName.with(resource.idForHateosLink()));
+                .append(UrlPathName.with(resource.hateosLinkId()));
 
         final List<XmlNode> links = Lists.array();
 

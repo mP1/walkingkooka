@@ -25,23 +25,23 @@ import java.util.Objects;
 import java.util.function.Function;
 
 /**
- * A {@link RangeVisitor} used by {@link HateosResource#rangeIdForHateosLink(Range, Function)}
+ * A {@link RangeVisitor} used by {@link HasHateosLinkId#rangeHateosLinkId(Range, Function)}
  */
-final class HateosResourceRangeIdForHateosLinkRangeVisitor<I extends Comparable<I>> extends RangeVisitor<I> {
+final class HasHateosLinkIdRangeVisitor<I extends Comparable<I>> extends RangeVisitor<I> {
 
-    static <I extends Comparable<I>> String idForHateosLink(final Range<I> range,
-                                                            final Function<I, String> idForHateosLink) {
+    static <I extends Comparable<I>> String hateosLinkId(final Range<I> range,
+                                                         final Function<I, String> hateosLinkId) {
         Objects.requireNonNull(range, "range");
-        Objects.requireNonNull(idForHateosLink, "idForHateosLink");
+        Objects.requireNonNull(hateosLinkId, "hateosLinkId");
 
-        final HateosResourceRangeIdForHateosLinkRangeVisitor<I> visitor = new HateosResourceRangeIdForHateosLinkRangeVisitor<>(idForHateosLink);
+        final HasHateosLinkIdRangeVisitor<I> visitor = new HasHateosLinkIdRangeVisitor<>(hateosLinkId);
         visitor.accept(range);
         return visitor.linkText;
     }
 
-    HateosResourceRangeIdForHateosLinkRangeVisitor(final Function<I, String> idForHateosLink) {
+    HasHateosLinkIdRangeVisitor(final Function<I, String> hateosLinkId) {
         super();
-        this.idForHateosLink = idForHateosLink;
+        this.hateosLinkId = hateosLinkId;
     }
 
     @Override
@@ -51,7 +51,7 @@ final class HateosResourceRangeIdForHateosLinkRangeVisitor<I extends Comparable<
 
     @Override
     protected void singleton(final I value) {
-        this.linkText = idForHateosLink.apply(value);
+        this.linkText = hateosLinkId.apply(value);
     }
 
     @Override
@@ -61,7 +61,7 @@ final class HateosResourceRangeIdForHateosLinkRangeVisitor<I extends Comparable<
 
     @Override
     protected void lowerBoundInclusive(final I value) {
-        this.linkText = idForHateosLink.apply(value) + HateosResource.HATEOS_LINK_RANGE_SEPARATOR;
+        this.linkText = hateosLinkId.apply(value) + HasHateosLinkId.HATEOS_LINK_RANGE_SEPARATOR;
     }
 
     @Override
@@ -71,14 +71,14 @@ final class HateosResourceRangeIdForHateosLinkRangeVisitor<I extends Comparable<
 
     @Override
     protected void upperBoundInclusive(final I value) {
-        final String valueText = this.idForHateosLink.apply(value);
+        final String valueText = this.hateosLinkId.apply(value);
 
         this.linkText = this.linkText.isEmpty() ?
-                HateosResource.HATEOS_LINK_RANGE_SEPARATOR + valueText :
+                HasHateosLinkId.HATEOS_LINK_RANGE_SEPARATOR + valueText :
                 this.linkText + valueText;
     }
 
-    private final Function<I, String> idForHateosLink;
+    private final Function<I, String> hateosLinkId;
 
     private String linkText = "";
 
