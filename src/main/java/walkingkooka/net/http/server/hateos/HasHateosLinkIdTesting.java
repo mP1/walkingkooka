@@ -19,10 +19,23 @@ package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.test.ClassTesting2;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
  * Mixin interface for testing {@link HasHateosLinkId}
  */
 public interface HasHateosLinkIdTesting<H extends HasHateosLinkId> extends ClassTesting2<H> {
 
     H createHasHateosLinkId();
+
+    default void hateosLinkIdAndCheck(final String expected) {
+        this.hateosLinkIdAndCheck(this.createHasHateosLinkId(),
+                expected);
+    }
+
+    default void hateosLinkIdAndCheck(final HasHateosLinkId has, final String expected) {
+        assertEquals(expected,
+                has.hateosLinkId(),
+                () -> has + " hateosLinkId");
+    }
 }
