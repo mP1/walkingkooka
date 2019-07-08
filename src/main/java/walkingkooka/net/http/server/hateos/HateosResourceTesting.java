@@ -26,4 +26,8 @@ public interface HateosResourceTesting<H extends HateosResource> extends HasHate
         ClassTesting2<H> {
 
     H createHateosResource();
+
+    default H createHasHateosLinkId() {
+        return this.createHateosResource();
+    }
 }
