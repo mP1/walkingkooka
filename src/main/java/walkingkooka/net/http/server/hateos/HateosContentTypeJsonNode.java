@@ -149,7 +149,7 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
         // base + resource name.
         final UrlPath pathAndResourceNameAndId = base.path()
                 .append(UrlPathName.with(resourceName.value()))
-                .append(UrlPathName.with(resource.idForHateosLink()));
+                .append(UrlPathName.with(resource.hateosLinkId()));
 
         JsonArrayNode links = JsonNode.array();
 

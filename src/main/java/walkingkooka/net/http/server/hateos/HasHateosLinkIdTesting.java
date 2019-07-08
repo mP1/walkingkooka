@@ -17,28 +17,12 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.xml.XmlNode;
+import walkingkooka.test.ClassTesting2;
 
-public class FakeHateosResource<I> implements HateosResource<I> {
+/**
+ * Mixin interface for testing {@link HasHateosLinkId}
+ */
+public interface HasHateosLinkIdTesting<H extends HasHateosLinkId> extends ClassTesting2<H> {
 
-    @Override
-    public String hateosLinkId() {
-        throw new UnsupportedOperationException();
-    }
-    
-    @Override
-    public I id() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public JsonNode toJsonNode() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public XmlNode toXmlNode() {
-        throw new UnsupportedOperationException();
-    }
+    H createHasHateosLinkId();
 }

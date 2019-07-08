@@ -28,19 +28,19 @@ import java.math.BigInteger;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HateosResourceRangeIdForHateosLinkRangeVisitorTest implements RangeVisitorTesting<HateosResourceRangeIdForHateosLinkRangeVisitor<BigInteger>, BigInteger> {
+public final class HasHateosLinkIdRangeVisitorTest implements RangeVisitorTesting<HasHateosLinkIdRangeVisitor<BigInteger>, BigInteger> {
 
     @Test
     public void testNullRangeFails() {
         assertThrows(NullPointerException.class, () -> {
-            HateosResourceRangeIdForHateosLinkRangeVisitor.idForHateosLink(null, HateosResourceRangeIdForHateosLinkRangeVisitorTest::idForHateosLink);
+            HasHateosLinkIdRangeVisitor.hateosLinkId(null, HasHateosLinkIdRangeVisitorTest::idForHateosLink);
         });
     }
 
     @Test
     public void testNullIdForHateosLinkFunctionFails() {
         assertThrows(NullPointerException.class, () -> {
-            HateosResourceRangeIdForHateosLinkRangeVisitor.idForHateosLink(Range.singleton(BigInteger.valueOf(123)), null);
+            HasHateosLinkIdRangeVisitor.hateosLinkId(Range.singleton(BigInteger.valueOf(123)), null);
         });
     }
 
@@ -81,13 +81,13 @@ public final class HateosResourceRangeIdForHateosLinkRangeVisitorTest implements
 
     private void idForHateosLinkAndCheck(final Range<BigInteger> range, final String text) {
         assertEquals(text,
-                HateosResourceRangeIdForHateosLinkRangeVisitor.idForHateosLink(range, HateosResourceRangeIdForHateosLinkRangeVisitorTest::idForHateosLink),
+                HasHateosLinkIdRangeVisitor.hateosLinkId(range, HasHateosLinkIdRangeVisitorTest::idForHateosLink),
                 () -> "" + range);
     }
 
     private void idForHateosLinkFails(final Range<BigInteger> range) {
         assertThrows(UnsupportedOperationException.class, () -> {
-            HateosResourceRangeIdForHateosLinkRangeVisitor.idForHateosLink(range, HateosResourceRangeIdForHateosLinkRangeVisitorTest::idForHateosLink);
+            HasHateosLinkIdRangeVisitor.hateosLinkId(range, HasHateosLinkIdRangeVisitorTest::idForHateosLink);
         });
     }
 
@@ -98,14 +98,14 @@ public final class HateosResourceRangeIdForHateosLinkRangeVisitorTest implements
 
     @Test
     public void testToString2() {
-        final HateosResourceRangeIdForHateosLinkRangeVisitor<BigInteger> visitor = this.createVisitor();
+        final HasHateosLinkIdRangeVisitor<BigInteger> visitor = this.createVisitor();
         visitor.accept(Range.greaterThanEquals(BigInteger.valueOf(0x12f)));
         this.toStringAndCheck(visitor, "\"12f-\"");
     }
 
     @Override
-    public HateosResourceRangeIdForHateosLinkRangeVisitor<BigInteger> createVisitor() {
-        return new HateosResourceRangeIdForHateosLinkRangeVisitor<>(HateosResourceRangeIdForHateosLinkRangeVisitorTest::idForHateosLink);
+    public HasHateosLinkIdRangeVisitor<BigInteger> createVisitor() {
+        return new HasHateosLinkIdRangeVisitor<>(HasHateosLinkIdRangeVisitorTest::idForHateosLink);
     }
 
     private static String idForHateosLink(final BigInteger value) {
@@ -118,12 +118,12 @@ public final class HateosResourceRangeIdForHateosLinkRangeVisitorTest implements
     }
 
     @Override
-    public Class<HateosResourceRangeIdForHateosLinkRangeVisitor<BigInteger>> type() {
-        return Cast.to(HateosResourceRangeIdForHateosLinkRangeVisitor.class);
+    public Class<HasHateosLinkIdRangeVisitor<BigInteger>> type() {
+        return Cast.to(HasHateosLinkIdRangeVisitor.class);
     }
 
     @Override
     public String typeNamePrefix() {
-        return HateosResource.class.getSimpleName() + "RangeIdForHateosLink";
+        return HasHateosLinkId.class.getSimpleName();
     }
 }

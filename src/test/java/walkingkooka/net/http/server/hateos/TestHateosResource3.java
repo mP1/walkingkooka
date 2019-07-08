@@ -51,7 +51,7 @@ public final class TestHateosResource3 extends FakeHateosResource<Optional<Strin
     private final String id;
 
     @Override
-    public String idForHateosLink() {
+    public String hateosLinkId() {
         return this.id;
     }
 

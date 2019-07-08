@@ -52,8 +52,8 @@ public final class TestHateosResource2 extends FakeHateosResource<Range<BigInteg
     private final Range<BigInteger> id;
 
     @Override
-    public String idForHateosLink() {
-        return HateosResource.rangeIdForHateosLink(this.id, (v) -> v.toString(16));
+    public String hateosLinkId() {
+        return HasHateosLinkId.rangeHateosLinkId(this.id, (v) -> v.toString(16));
     }
 
     @Override
