@@ -24,8 +24,12 @@ import java.util.List;
 
 public abstract class ListToStringBuilderTestCase<T> extends VectorToStringBuilderTestCase<T> {
 
+    ListToStringBuilderTestCase() {
+        super();
+    }
+
     @Test
-    public final void testValueIncludesDefault() {
+    public final void testLabelValueIncludesDefault() {
         final ToStringBuilder b = this.builder();
         b.label(LABEL);
         b.value(this.toValue(Lists.<Object>of(false, (byte) 0, (short) 0, 0, 0L, 0.0f, 0.0, "")));
@@ -34,7 +38,7 @@ public abstract class ListToStringBuilderTestCase<T> extends VectorToStringBuild
     }
 
     @Test
-    public final void testQuotes() {
+    public final void testQuotesValueCharSequence() {
         final ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.QUOTE);
         b.value(this.toValue(Lists.of("ABC", 'z')));
@@ -43,7 +47,7 @@ public abstract class ListToStringBuilderTestCase<T> extends VectorToStringBuild
     }
 
     @Test
-    public final void testLabelValuesX3() {
+    public final void testLabelValuesLabelValuesLabelValues() {
         final ToStringBuilder b = this.builder();
         b.labelSeparator(": ");
         b.valueSeparator(", ");
@@ -62,7 +66,7 @@ public abstract class ListToStringBuilderTestCase<T> extends VectorToStringBuild
     }
 
     @Test
-    public final void testLabelUsesToStringBuilderX3() {
+    public final void testLabelValuesLabelValuesLabelValues2() {
         final ToStringBuilder b = this.builder();
         b.labelSeparator(":: ");
         b.valueSeparator(",, ");
@@ -81,7 +85,7 @@ public abstract class ListToStringBuilderTestCase<T> extends VectorToStringBuild
     }
 
     @Test
-    public final void testLabelValueUsesToStringBuilderX3() {
+    public final void testLabelValuesLabelValuesLabelValues3() {
         final ToStringBuilder b = this.builder();
         b.labelSeparator(":: ");
         b.valueSeparator(",, ");

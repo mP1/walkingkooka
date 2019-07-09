@@ -21,6 +21,10 @@ import org.junit.jupiter.api.Test;
 
 public abstract class VectorToStringBuilderTestCase<T> extends ToStringBuilderTestCase<T> {
 
+    VectorToStringBuilderTestCase() {
+        super();
+    }
+
     @Test
     public final void testValueNull() {
         final ToStringBuilder b = this.builder();
@@ -53,15 +57,15 @@ public abstract class VectorToStringBuilderTestCase<T> extends ToStringBuilderTe
 
     @Test
     public final void testLabelValueSeparator() {
-        this.testLabelValueSeparatorAndCheck(ToStringBuilder.DEFAULT_VALUE_SEPARATOR);
+        this.labelValueSeparatorValueAndCheck(ToStringBuilder.DEFAULT_VALUE_SEPARATOR);
     }
 
     @Test
     public final void testLabelValueSeparator2() {
-        this.testLabelValueSeparatorAndCheck("$");
+        this.labelValueSeparatorValueAndCheck("$");
     }
 
-    private void testLabelValueSeparatorAndCheck(final String valueSeparator) {
+    private void labelValueSeparatorValueAndCheck(final String valueSeparator) {
         final ToStringBuilder b = this.builder();
 
         b.label(LABEL);
@@ -73,15 +77,15 @@ public abstract class VectorToStringBuilderTestCase<T> extends ToStringBuilderTe
 
     @Test
     public void testLabelValueLabelValue() {
-        this.testLabelValueLabelValueAndCheck(ToStringBuilder.SEPARATOR);
+        this.labelSeparatorValueValueAndCheck(ToStringBuilder.SEPARATOR);
     }
 
     @Test
     public void testLabelValueLabelValue2() {
-        this.testLabelValueLabelValueAndCheck("$");
+        this.labelSeparatorValueValueAndCheck("$");
     }
 
-    private void testLabelValueLabelValueAndCheck(final String separator) {
+    private void labelSeparatorValueValueAndCheck(final String separator) {
         final T value1 = this.value1();
         final T value2 = this.value2();
 
@@ -96,25 +100,25 @@ public abstract class VectorToStringBuilderTestCase<T> extends ToStringBuilderTe
 
     @Test
     public void testSurroundValueDefault() {
-        this.testSurroundValueAndCheck("(", ")", this.defaultValue(), "");
+        this.surroundValueAndCheck("(", ")", this.defaultValue(), "");
     }
 
     @Test
     public void testSurroundValueDefault2() {
-        this.testSurroundValueAndCheck("(", ")", this.defaultValue2(), "");
+        this.surroundValueAndCheck("(", ")", this.defaultValue2(), "");
     }
 
     @Test
     public void testSurroundValue() {
-        this.testSurroundValueAndCheck("(", ")", this.value1(), "(" + this.value1ToString() + ")");
+        this.surroundValueAndCheck("(", ")", this.value1(), "(" + this.value1ToString() + ")");
     }
 
     @Test
     public void testSurroundValue2() {
-        this.testSurroundValueAndCheck("(((", ")))", this.value1(), "(((" + this.value1ToString() + ")))");
+        this.surroundValueAndCheck("(((", ")))", this.value1(), "(((" + this.value1ToString() + ")))");
     }
 
-    private void testSurroundValueAndCheck(final String before, final String after, final T value, final String expected) {
+    private void surroundValueAndCheck(final String before, final String after, final T value, final String expected) {
         final ToStringBuilder b = this.builder();
         b.surroundValues(before, after);
         this.value(b, value);
