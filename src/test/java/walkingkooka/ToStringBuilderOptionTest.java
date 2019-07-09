@@ -17,10 +17,9 @@
 
 package walkingkooka;
 
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.JavaVisibility;
 
-final public class ToStringBuilderOptionTest implements ClassTesting2<ToStringBuilderOption> {
+final public class ToStringBuilderOptionTest extends ToStringBuilderTestCase<ToStringBuilderOption> {
 
     @Override
     public Class<ToStringBuilderOption> type() {

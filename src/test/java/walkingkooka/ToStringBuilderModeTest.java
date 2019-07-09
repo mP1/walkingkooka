@@ -17,22 +17,17 @@
 
 package walkingkooka;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.TypeNameTesting;
+import walkingkooka.type.JavaVisibility;
 
-public abstract class ToStringBuilderTestCase<T> implements ClassTesting2<T>, TypeNameTesting<T> {
+final public class ToStringBuilderModeTest extends ToStringBuilderTestCase<ToStringBuilderMode> {
 
-    ToStringBuilderTestCase() {
-        super();
+    @Override
+    public Class<ToStringBuilderMode> type() {
+        return ToStringBuilderMode.class;
     }
 
     @Override
-    public String typeNamePrefix() {
-        return ToStringBuilder.class.getSimpleName();
-    }
-
-    @Override
-    public String typeNameSuffix() {
-        return "";
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

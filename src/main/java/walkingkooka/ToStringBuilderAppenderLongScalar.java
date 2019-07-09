@@ -17,22 +17,23 @@
 
 package walkingkooka;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.TypeNameTesting;
+final class ToStringBuilderAppenderLongScalar extends ToStringBuilderAppenderNonUsesToStringBuilderScalar<Long> {
 
-public abstract class ToStringBuilderTestCase<T> implements ClassTesting2<T>, TypeNameTesting<T> {
+    static ToStringBuilderAppenderLongScalar with(final Long value) {
+        return new ToStringBuilderAppenderLongScalar(value);
+    }
 
-    ToStringBuilderTestCase() {
-        super();
+    private ToStringBuilderAppenderLongScalar(final Long value) {
+        super(value);
     }
 
     @Override
-    public String typeNamePrefix() {
-        return ToStringBuilder.class.getSimpleName();
+    boolean isDefaultValue() {
+        return this.value == 0L;
     }
 
     @Override
-    public String typeNameSuffix() {
-        return "";
+    void value(final ToStringBuilder builder) {
+        builder.numberEncoder().add(this.value, builder);
     }
 }

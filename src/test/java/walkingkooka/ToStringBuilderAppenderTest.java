@@ -17,22 +17,9 @@
 
 package walkingkooka;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.TypeNameTesting;
-
-public abstract class ToStringBuilderTestCase<T> implements ClassTesting2<T>, TypeNameTesting<T> {
-
-    ToStringBuilderTestCase() {
-        super();
-    }
-
+public final class ToStringBuilderAppenderTest extends ToStringBuilderAppenderTestCase<ToStringBuilderAppender<Object>, Object> {
     @Override
-    public String typeNamePrefix() {
-        return ToStringBuilder.class.getSimpleName();
-    }
-
-    @Override
-    public String typeNameSuffix() {
-        return "";
+    public Class<ToStringBuilderAppender<Object>> type() {
+        return Cast.to(ToStringBuilderAppender.class);
     }
 }

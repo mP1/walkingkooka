@@ -18,7 +18,6 @@
 package walkingkooka;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.JavaVisibility;
@@ -26,8 +25,8 @@ import walkingkooka.type.JavaVisibility;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public final class ToStringBuilderSaveStateRunnableTest implements ClassTesting2<ToStringBuilderSaveStateRunnable>,
-        ToStringTesting<ToStringBuilderSaveStateRunnable>,
+public final class ToStringBuilderSaveStateRunnableTest extends ToStringBuilderTestCase<ToStringBuilderSaveStateRunnable>
+        implements ToStringTesting<ToStringBuilderSaveStateRunnable>,
         TypeNameTesting<ToStringBuilderSaveStateRunnable> {
 
     @Test
@@ -69,24 +68,19 @@ public final class ToStringBuilderSaveStateRunnableTest implements ClassTesting2
                 "labelSeparator=\"label1\" options=INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE separator=\"sep1\" valueSeparator=\", \"");
     }
 
-    // ClassTesting....................................................................................................
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
-    }
+    // ClassTesting.....................................................................................................
 
     @Override
     public Class<ToStringBuilderSaveStateRunnable> type() {
         return ToStringBuilderSaveStateRunnable.class;
     }
 
-    // TypeNameTesting.................................................................................................
-
     @Override
-    public String typeNamePrefix() {
-        return ToStringBuilder.class.getSimpleName();
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
+
+    // TypeNameTesting..................................................................................................
 
     @Override
     public String typeNameSuffix() {

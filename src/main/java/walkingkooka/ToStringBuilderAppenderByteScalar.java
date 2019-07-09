@@ -17,22 +17,23 @@
 
 package walkingkooka;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.TypeNameTesting;
+final class ToStringBuilderAppenderByteScalar extends ToStringBuilderAppenderNonUsesToStringBuilderScalar<Byte> {
 
-public abstract class ToStringBuilderTestCase<T> implements ClassTesting2<T>, TypeNameTesting<T> {
+    static ToStringBuilderAppenderByteScalar with(final Byte value) {
+        return new ToStringBuilderAppenderByteScalar(value);
+    }
 
-    ToStringBuilderTestCase() {
-        super();
+    private ToStringBuilderAppenderByteScalar(final Byte value) {
+        super(value);
     }
 
     @Override
-    public String typeNamePrefix() {
-        return ToStringBuilder.class.getSimpleName();
+    boolean isDefaultValue() {
+        return this.value == (byte) 0;
     }
 
     @Override
-    public String typeNameSuffix() {
-        return "";
+    void value(final ToStringBuilder builder) {
+        builder.numberEncoder().add(this.value, builder);
     }
 }

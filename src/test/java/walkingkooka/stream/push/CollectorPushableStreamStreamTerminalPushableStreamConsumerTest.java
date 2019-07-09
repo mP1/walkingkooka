@@ -43,7 +43,7 @@ public final class CollectorPushableStreamStreamTerminalPushableStreamConsumerTe
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createObject(), "collect " + this.collector + "  closeables: " + this.closeables);
+        this.toStringAndCheck(this.createObject(), "collect " + this.collector + " closeables: " + this.closeables);
     }
 
     @Test
