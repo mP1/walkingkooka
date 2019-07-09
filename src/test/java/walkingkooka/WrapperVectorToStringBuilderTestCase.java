@@ -18,5 +18,7 @@
 package walkingkooka;
 
 public abstract class WrapperVectorToStringBuilderTestCase<T> extends VectorToStringBuilderTestCase<T> {
-
+    WrapperVectorToStringBuilderTestCase() {
+        super();
+    }
 }

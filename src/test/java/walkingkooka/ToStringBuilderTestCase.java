@@ -31,7 +31,7 @@ public abstract class ToStringBuilderTestCase<T> {
     }
 
     @Test
-    public void testAppendDefault() {
+    public final void testAppendDefault() {
         final T value = this.defaultValue();
         final String valueString = String.valueOf(value);
 
@@ -42,7 +42,7 @@ public abstract class ToStringBuilderTestCase<T> {
     }
 
     @Test
-    public void testAppend() {
+    public final void testAppend() {
         final T value = this.value1();
         final String valueString = value.toString();
 
@@ -53,7 +53,7 @@ public abstract class ToStringBuilderTestCase<T> {
     }
 
     @Test
-    public void testValueDefault() {
+    public final void testValueDefault() {
         final ToStringBuilder b = this.builder();
 
         this.value(b, this.defaultValue());
@@ -62,7 +62,7 @@ public abstract class ToStringBuilderTestCase<T> {
     }
 
     @Test
-    public void testValue() {
+    public final void testValue() {
         final ToStringBuilder b = this.builder();
 
         this.value(b, this.value1());
@@ -71,7 +71,7 @@ public abstract class ToStringBuilderTestCase<T> {
     }
 
     @Test
-    public void testValueDisableSkipDefaultValue() {
+    public final void testValueDisableSkipDefaultValue() {
         final ToStringBuilder b = this.builder();
         b.disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE);
 
@@ -81,16 +81,16 @@ public abstract class ToStringBuilderTestCase<T> {
     }
 
     @Test
-    public void testValueWithValueSeparator() {
-        this.testValueWithValueSeparatorAndCheck(" ");
+    public final void testValueWithValueSeparator() {
+        this.valueWithValueSeparatorAndCheck(" ");
     }
 
     @Test
-    public void testValueWithValueSeparator2() {
-        this.testValueWithValueSeparatorAndCheck("#");
+    public final void testValueWithValueSeparator2() {
+        this.valueWithValueSeparatorAndCheck("#");
     }
 
-    private void testValueWithValueSeparatorAndCheck(final String valueSeparator) {
+    private void valueWithValueSeparatorAndCheck(final String valueSeparator) {
         final ToStringBuilder b = this.builder();
         b.separator(valueSeparator);
 
@@ -101,7 +101,7 @@ public abstract class ToStringBuilderTestCase<T> {
     }
 
     @Test
-    public void testLabelAppend() {
+    public final void testLabelSeparatorLabelAppend() {
         final T value1 = this.value1();
         final String value1ToString = value1.toString();
 
@@ -113,17 +113,17 @@ public abstract class ToStringBuilderTestCase<T> {
         this.buildAndCheck(b, value1ToString);
     }
 
-    @Test
-    public void testLabelValue() {
-        this.testLabelValueAndCheck(":");
+    @Test // overridden by MapToStringBuilderTest
+    public void testLabelSeparatorLabelValue() {
+        this.labelSeparatorLabelValueAndCheck(":");
     }
 
-    @Test
-    public void testLabelValueLabel2() {
-        this.testLabelValueAndCheck("=");
+    @Test // overridden by MapToStringBuilderTest
+    public void testLabelSeparatorLabelValue2() {
+        this.labelSeparatorLabelValueAndCheck("=");
     }
 
-    private void testLabelValueAndCheck(final String labelSeparator) {
+    private void labelSeparatorLabelValueAndCheck(final String labelSeparator) {
         final ToStringBuilder b = this.builder();
 
         b.labelSeparator(labelSeparator);
@@ -134,7 +134,7 @@ public abstract class ToStringBuilderTestCase<T> {
     }
 
     @Test
-    public void testLabelAppendValue() {
+    public final void testSeparatorLabelAppendValueIgnoresSeparator() {
         final ToStringBuilder b = this.builder();
         b.separator("!!!");
 
@@ -148,7 +148,7 @@ public abstract class ToStringBuilderTestCase<T> {
     }
 
     @Test
-    public void testLabelValueValue() {
+    public final void testSeparatorLabelValueValue() {
         final String separator = "!";
 
         final ToStringBuilder b = this.builder();
@@ -188,7 +188,7 @@ public abstract class ToStringBuilderTestCase<T> {
         if (false == expected.equals(built)) {
             assertEquals(format(expected),
                     format(built),
-                    "options=" + builder.options.toString());
+                    () -> "options=" + builder.options.toString());
         }
     }
 

@@ -134,18 +134,18 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
     // UsesToStringBuilder..............................................................................................
 
     @Test
-    public void testEmptyUsesToStringBuilderIgnoresLabel() {
+    public void testLabelEmptyUsesToStringBuilderNothing() {
         this.buildAndCheck(ToStringBuilder.empty()//
                         .label("label")//
-                        .value(this.createUsesToStringBuilder("")), //
+                        .value(this.usesToStringBuilder("")), //
                 "");
     }
 
     @Test
-    public void testEmptyUsesToStringBuilderThenValue() {
+    public void testValueEmptyUsesThenValueSkipsEmptyUses() {
         this.buildAndCheck(ToStringBuilder.empty()//
                         .separator("%") //
-                        .value(this.createUsesToStringBuilder("")) //
+                        .value(this.usesToStringBuilder("")) //
                         .value("next"),//
                 "\"next\"");
     }
@@ -153,7 +153,7 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
     // separator
 
     @Test
-    public void testSkipSeparatorForValuesWithoutLabelsWithAppendsBetween() {
+    public void testValueAppendValueAppendValueSkipsSeparatorBecauseOfAppends() {
         this.buildAndCheck(ToStringBuilder.empty()//
                         .separator("*")//
                         .value(1)//
@@ -165,7 +165,7 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
     }
 
     @Test
-    public void testAddsSeparatorBetweenValuesWithoutLabels() {
+    public void testValueValueValueInsertsSeparator() {
         this.buildAndCheck(ToStringBuilder.empty()//
                         .separator("*")//
                         .value(1)//
@@ -175,7 +175,7 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
     }
 
     @Test
-    public void testManyLabelsAndValues() {
+    public void testLabelValueLabelValueInsertsDefaultSeparatorBetween() {
         this.buildAndCheck(ToStringBuilder.empty()//
                         .label("label1")//
                         .value(1)//
@@ -185,7 +185,7 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
     }
 
     @Test
-    public void testManyLabelsAndValuesChangeSeparator() {
+    public void testLabelValueLabelValue2() {
         this.buildAndCheck(ToStringBuilder.empty()//
                         .separator("*")//
                         .label("label1")//
@@ -196,7 +196,7 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
     }
 
     @Test
-    public void testManyLabelsIncludingNullValue() {
+    public void testLabelValueLabelNullValueLabelValue() {
         this.buildAndCheck(ToStringBuilder.empty()//
                         .separator("*")//
                         .label("label1").value(1)//
@@ -206,7 +206,7 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
     }
 
     @Test
-    public void testValueWithoutLabelAndNullValue() {
+    public void testLabelValueWithoutLabelNullValue() {
         this.buildAndCheck(ToStringBuilder.empty()//
                         .separator("*")//
                         .label("label1").value(1)//
@@ -216,44 +216,44 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
     }
 
     @Test
-    public void testValueImplementsUsesToStringBuilderNothing() {
+    public void testLabelEmptyUsesToStringBuilderLabelValueInsertsLabelSeparator() {
         this.buildAndCheck(ToStringBuilder.empty()//
                         .separator("*")//
                         .labelSeparator("=")//
                         .valueSeparator(",")//
                         .disable(ToStringBuilderOption.QUOTE)//
-                        .label("label1").value(this.createUsesToStringBuilder(""))//
+                        .label("label1").value(this.usesToStringBuilder(""))//
                         .label("label2").value(2), //
                 "label2=2");
     }
 
     @Test
-    public void testValueImplementsUsesToStringBuilder() {
+    public void testLabelUsesToStringBuilderLabelValue() {
         this.buildAndCheck(ToStringBuilder.empty()//
                         .separator("*")//
                         .labelSeparator("=")//
                         .valueSeparator(",")//
                         .disable(ToStringBuilderOption.QUOTE)//
-                        .label("label1").value(this.createUsesToStringBuilder(1))//
+                        .label("label1").value(this.usesToStringBuilder(1))//
                         .label("label2").value(2), //
                 "label1=1*label2=2");
     }
 
     @Test
-    public void testValueImplementsUsesToStringBuilder2() {
+    public void testLabelValueLabelUsesToStringBuilder() {
         this.buildAndCheck(ToStringBuilder.empty()//
                         .separator("*")//
                         .labelSeparator("=")//
                         .valueSeparator(",")//
                         .disable(ToStringBuilderOption.QUOTE)//
                         .label("label1").value(1) //
-                        .label("label2").value(this.createUsesToStringBuilder(2))//
+                        .label("label2").value(this.usesToStringBuilder(2))//
                         .label("label3").value(3), //
                 "label1=1*label2=2*label3=3");
     }
 
     @Test
-    public void testUsesToStringBuilderChangesBuilderState() {
+    public void testLabelValueLabelUsesToStringBuilderChangesBuilderState() {
         this.buildAndCheck(ToStringBuilder.empty()//
                         .separator("*")
                         .labelSeparator("=")
@@ -371,9 +371,9 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
     // UsesToStringBuilder
 
     @Test
-    public void testUsesToStringBuilderWhenFull() {
+    public void testFullLabelValueUsesToStringBuilder() {
         this.buildAndCheckFull(this.createFullWithLabel()//
-                .value(this.createUsesToStringBuilder("1")));
+                .value(this.usesToStringBuilder("1")));
     }
 
     @Test
@@ -398,13 +398,13 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
             }
         };
 
-        this.buildAndCheck(this.create()//
+        this.buildAndCheck(this.builder()//
                         .value(uses[0]),//
                 "12");
     }
 
     @Test
-    public void testUsesToStringBuilderGlobalLength() {
+    public void testGlobalLengthValueFullValueUsesToStringBuilder() {
         this.buildAndCheckFull(this.createFullWithLabel()//
                 .value(new UsesToStringBuilder() {
 
@@ -418,8 +418,8 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
     }
 
     @Test
-    public void testUsesToStringBuilderGlobalLength2() {
-        this.buildAndCheck(this.create()//
+    public void testGlobalLengthValueFullValueUsesToStringBuilder2() {
+        this.buildAndCheck(this.builder()//
                 .globalLength(15)//
                 .value("1234567890") //
                 .value(new UsesToStringBuilder() {
@@ -437,8 +437,8 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
     }
 
     @Test
-    public void testUsesToStringBuilderGlobalLength3() {
-        this.buildAndCheck(this.create()//
+    public void testGlobalLengthValueFullValueUsesToStringBuilder3() {
+        this.buildAndCheck(this.builder()//
                 .globalLength(15)//
                 .value("1234567890") //
                 .value(new UsesToStringBuilder() {
@@ -462,8 +462,8 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
     }
 
     @Test
-    public void testUsesToStringBuilderValueLength() {
-        this.buildAndCheck(this.create(5, 10)//
+    public void testGlobalLengthValueLengthValueFullValueUsesToStringBuilder() {
+        this.buildAndCheck(this.builder(5, 10)//
                 .value(new UsesToStringBuilder() {
 
                     @Override
@@ -477,8 +477,8 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
     }
 
     @Test
-    public void testUsesToStringBuilderValueLength2() {
-        this.buildAndCheck(this.create()//
+    public void testGlobalLengthValueLengthValueFullValueUsesToStringBuilder2() {
+        this.buildAndCheck(this.builder()//
                 .valueLength(10)//
                 .value(new UsesToStringBuilder() {
 
@@ -494,8 +494,8 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
     }
 
     @Test
-    public void testUsesToStringBuilderValueLength3() {
-        this.buildAndCheck(this.create()//
+    public void testGlobalLengthValueLengthValueFullValueUsesToStringBuilder3() {
+        this.buildAndCheck(this.builder()//
                 .valueLength(10)//
                 .value(new UsesToStringBuilder() {
 
@@ -512,8 +512,8 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
     }
 
     @Test
-    public void testUsesToStringBuilderValueLengthIncreases() {
-        this.buildAndCheck(this.create()//
+    public void testValueLengthUsesToStringBuilderValueLengthIncreases() {
+        this.buildAndCheck(this.builder()//
                 .valueLength(10)//
                 .value(new UsesToStringBuilder() {
 
@@ -531,8 +531,8 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
     }
 
     @Test
-    public void testUsesToStringBuilderValueLengthDecreaseIncrease() {
-        this.buildAndCheck(this.create()//
+    public void testValueLengthUsesToStringBuilderValueLengthDecreaseIncrease() {
+        this.buildAndCheck(this.builder()//
                 .valueLength(10)//
                 .value(new UsesToStringBuilder() {
 
@@ -551,8 +551,8 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
     }
 
     @Test
-    public void testUsesToStringBuilderValueLengthAndGlobalLength() {
-        this.buildAndCheck(this.create()//
+    public void testGlobalLengthValueLengthValueValueUsesToStringBuilderChops() {
+        this.buildAndCheck(this.builder()//
                 .globalLength(15)//
                 .valueLength(5)//
                 .value("1234567") //
@@ -573,8 +573,8 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
     }
 
     @Test
-    public void testUsesToStringBuilderValueLengthAndGlobalLength2() {
-        this.buildAndCheck(this.create()//
+    public void testGlobalLengthValueLengthValueValueUsesToStringBuilderChops2() {
+        this.buildAndCheck(this.builder()//
                 .globalLength(15)//
                 .valueLength(5)//
                 .value("1234567") //
@@ -598,7 +598,7 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
 
     @Test
     public void testValueBigDecimal() {
-        this.buildAndCheck(this.create()//
+        this.buildAndCheck(this.builder()//
                         .value(BigDecimal.valueOf(123.5)),
                 "123.5");
     }
@@ -615,7 +615,7 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
     @Test
     public void testBuildFrom() {
         final Object result = 1;
-        assertEquals(ToStringBuilder.buildFrom(this.createUsesToStringBuilder(result)),
+        assertEquals(ToStringBuilder.buildFrom(this.usesToStringBuilder(result)),
                 result.toString());
     }
 
@@ -650,7 +650,7 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
         return ToStringBuilder.empty();
     }
 
-    private UsesToStringBuilder createUsesToStringBuilder(final Object value) {
+    private UsesToStringBuilder usesToStringBuilder(final Object value) {
         return new UsesToStringBuilder() {
 
             @Override
@@ -680,25 +680,25 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
     /**
      * Creates a {@link ToStringBuilder} with quoting disabled and the separator set to nothing.
      */
-    private ToStringBuilder create() {
+    private ToStringBuilder builder() {
         return ToStringBuilder.empty()//
                 .disable(ToStringBuilderOption.QUOTE)//
                 .separator("");
     }
 
-    private ToStringBuilder create(final int valueLength, final int globalLength) {
-        return this.create()//
+    private ToStringBuilder builder(final int valueLength, final int globalLength) {
+        return this.builder()//
                 .valueLength(valueLength)//
                 .globalLength(globalLength);
     }
 
-    private ToStringBuilder createFull() {
-        return this.create(FULL.length(), FULL.length())
+    private ToStringBuilder builderFull() {
+        return this.builder(FULL.length(), FULL.length())
                 .append(FULL);
     }
 
     private ToStringBuilder createFullWithLabel() {
-        return this.createFull().label("label");
+        return this.builderFull().label("label");
     }
 
     private void buildAndCheckFull(final ToStringBuilder builder) {

@@ -28,7 +28,31 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public final class MapToStringBuilderTest extends VectorToStringBuilderTestCase<Map<String, Integer>> {
 
     @Test
-    public void testLabelValue() {
+    @Override
+    public void testLabelSeparatorLabelValue() {
+        final ToStringBuilder b = this.builder();
+
+        b.labelSeparator("!");
+        b.label(LABEL);
+        this.value(b, Map.of("key", 1));
+
+        this.buildAndCheck(b, LABEL + "!key!1");
+    }
+
+    @Test
+    @Override
+    public void testLabelSeparatorLabelValue2() {
+        final ToStringBuilder b = this.builder();
+
+        b.labelSeparator("/");
+        b.label(LABEL);
+        this.value(b, Map.of("key", 1));
+
+        this.buildAndCheck(b, LABEL + "/key/1");
+    }
+
+    @Test
+    public void testLabelSeparatorLabelValueBetweenEntries() {
         final ToStringBuilder b = this.builder();
         b.labelSeparator("$");
         b.label(LABEL);

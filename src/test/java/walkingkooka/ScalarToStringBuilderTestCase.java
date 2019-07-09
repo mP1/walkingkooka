@@ -23,17 +23,21 @@ import java.util.Arrays;
 
 public abstract class ScalarToStringBuilderTestCase<T> extends ToStringBuilderTestCase<T> {
 
+    ScalarToStringBuilderTestCase() {
+        super();
+    }
+
     private final static int GLOBAL = 100;
 
     @Test
-    public void testAppendWhenFull() {
+    public final void testFullThenAppend() {
         final ToStringBuilder b = this.builderFull();
         this.append(b, this.value1());
         this.buildAndCheck(b, this.full());
     }
 
     @Test
-    public void testValueWhenFull() {
+    public final void testFullThenValue() {
         final ToStringBuilder b = this.builderFull();
         this.value(b, this.value1());
         this.buildAndCheck(b, this.full());
