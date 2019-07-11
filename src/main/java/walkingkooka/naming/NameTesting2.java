@@ -52,7 +52,7 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> & HashCode
     /**
      * The digits 0 .. 9
      */
-    String ASCII_DIGITS = "09123456789";
+    String ASCII_DIGITS = "0123456789";
 
     /**
      * All ascii letters and digits
