@@ -17,22 +17,28 @@
 
 package walkingkooka;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.TypeNameTesting;
+abstract class ToStringBuilderAppenderScalar<V> extends ToStringBuilderAppender<V> {
 
-public abstract class ToStringBuilderTestCase<T> implements ClassTesting2<T>, TypeNameTesting<T> {
-
-    ToStringBuilderTestCase() {
-        super();
+    ToStringBuilderAppenderScalar(final V value) {
+        super(value);
     }
 
     @Override
-    public String typeNamePrefix() {
-        return ToStringBuilder.class.getSimpleName();
+    final boolean shouldSkip(final ToStringBuilder builder) {
+        return builder.option(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE) &&
+                (null == this.value ||
+                        this.isDefaultValue());
+    }
+
+    abstract boolean isDefaultValue();
+
+    @Override
+    final String before(final ToStringBuilder builder) {
+        return null; // no after
     }
 
     @Override
-    public String typeNameSuffix() {
-        return "";
+    final void after(final String after, final ToStringBuilder builder) {
+        // only arrays append after
     }
 }

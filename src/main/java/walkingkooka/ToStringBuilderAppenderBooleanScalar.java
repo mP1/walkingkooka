@@ -17,22 +17,26 @@
 
 package walkingkooka;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.TypeNameTesting;
+final class ToStringBuilderAppenderBooleanScalar extends ToStringBuilderAppenderNonUsesToStringBuilderScalar<Boolean> {
 
-public abstract class ToStringBuilderTestCase<T> implements ClassTesting2<T>, TypeNameTesting<T> {
+    static ToStringBuilderAppenderBooleanScalar with(final boolean value) {
+        return new ToStringBuilderAppenderBooleanScalar(value);
+    }
 
-    ToStringBuilderTestCase() {
-        super();
+    private ToStringBuilderAppenderBooleanScalar(final boolean value) {
+        super(value);
     }
 
     @Override
-    public String typeNamePrefix() {
-        return ToStringBuilder.class.getSimpleName();
+    boolean isDefaultValue() {
+        return this.value == false;
     }
 
     @Override
-    public String typeNameSuffix() {
-        return "";
+    void value(final ToStringBuilder builder) {
+        builder.buffer.append(this.value.booleanValue() ?
+                ToStringBuilder.DEFAULT_TRUE_VALUE :
+                ToStringBuilder.DEFAULT_FALSE_VALUE);
+        builder.mode = builder.mode.value();
     }
 }

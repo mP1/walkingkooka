@@ -28,13 +28,13 @@ import java.util.Map;
  */
 public enum ToStringBuilderOption {
     /**
-     * Any added {@link CharSequence} or characters will be escaped
+     * Any added {@link CharSequence} or characters value will be escaped
      */
     ESCAPE,
     //
 
     /**
-     * Any added {@link CharSequence} or characters will be double quoted.
+     * Any added {@link CharSequence} or characters value will be double quoted.
      */
     QUOTE,
     //
@@ -57,8 +57,8 @@ public enum ToStringBuilderOption {
      */
     HEX_BYTES {
         @Override
-        void add(final byte value, final StringBuilder buffer) {
-            ToStringBuilderOption.addHex(0xFF & value, buffer, 2);
+        void add(final byte value, final ToStringBuilder builder) {
+            addHex(0xFF & value, builder, 2);
         }
     },
     //
@@ -69,23 +69,23 @@ public enum ToStringBuilderOption {
      */
     HEX_WHOLE_NUMBERS {
         @Override
-        void add(final byte value, final StringBuilder buffer) {
-            ToStringBuilderOption.addHex(0xFF & (long) value, buffer, 2);
+        void add(final byte value, final ToStringBuilder builder) {
+            addHex(0xFF & (long) value, builder, 2);
         }
 
         @Override
-        void add(final short value, final StringBuilder buffer) {
-            ToStringBuilderOption.addHex(0xFFFF & (long) value, buffer, 4);
+        void add(final short value, final ToStringBuilder builder) {
+            addHex(0xFFFF & (long) value, builder, 4);
         }
 
         @Override
-        void add(final int value, final StringBuilder buffer) {
-            ToStringBuilderOption.addHex(0xFFFFFFFFL & (value), buffer, 8);
+        void add(final int value, final ToStringBuilder builder) {
+            addHex(0xFFFFFFFFL & (value), builder, 8);
         }
 
         @Override
-        void add(final long value, final StringBuilder buffer) {
-            ToStringBuilderOption.addHex(value, buffer, 16);
+        void add(final long value, final ToStringBuilder builder) {
+            addHex(value, builder, 16);
         }
     },
     //
@@ -99,27 +99,32 @@ public enum ToStringBuilderOption {
     /**
      * Adds the byte in string form using the default base 10 system.
      */
-    void add(final byte value, final StringBuilder buffer) {
-        buffer.append(value);
+    void add(final byte value, final ToStringBuilder builder) {
+        builder.buffer.append(value);
+        builder.mode = builder.mode.value();
     }
 
     /**
      * Encodes the given value into its hex form and pads with leading zeroes of required.
      */
-    static private void addHex(final long value, final StringBuilder buffer, final int pad) {
-        buffer.append(CharSequences.padLeft(Long.toHexString(value).toLowerCase(), pad, '0'));
+    static private void addHex(final long value, final ToStringBuilder builder, final int pad) {
+        builder.buffer.append(CharSequences.padLeft(Long.toHexString(value).toLowerCase(), pad, '0'));
+        builder.mode = builder.mode.value();
     }
 
-    void add(final short value, final StringBuilder buffer) {
-        buffer.append(value);
+    void add(final short value, final ToStringBuilder builder) {
+        builder.buffer.append(value);
+        builder.mode = builder.mode.value();
     }
 
-    void add(final int value, final StringBuilder buffer) {
-        buffer.append(value);
+    void add(final int value, final ToStringBuilder builder) {
+        builder.buffer.append(value);
+        builder.mode = builder.mode.value();
     }
 
-    void add(final long value, final StringBuilder buffer) {
-        buffer.append(value);
+    void add(final long value, final ToStringBuilder builder) {
+        builder.buffer.append(value);
+        builder.mode = builder.mode.value();
     }
 
     final static ToStringBuilderOption DEFAULT = ESCAPE;

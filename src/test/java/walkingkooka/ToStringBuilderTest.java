@@ -20,7 +20,6 @@ package walkingkooka;
 import org.junit.jupiter.api.Test;
 import walkingkooka.build.BuilderTesting;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.JavaVisibility;
 
@@ -32,8 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>,
-        BuilderTesting<ToStringBuilder, String> {
+final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringBuilder>
+        implements BuilderTesting<ToStringBuilder, String> {
     // constants
 
     private final static Object NULL = null;
@@ -108,7 +107,7 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
         });
     }
 
-    // defaults .......................................................................................................
+    // defaults .........................................................................................................
 
     @Test
     public void testDefaults() {
@@ -131,26 +130,7 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
         this.buildAndCheck(builder, built);
     }
 
-    // UsesToStringBuilder..............................................................................................
-
-    @Test
-    public void testLabelEmptyUsesToStringBuilderNothing() {
-        this.buildAndCheck(ToStringBuilder.empty()//
-                        .label("label")//
-                        .value(this.usesToStringBuilder("")), //
-                "");
-    }
-
-    @Test
-    public void testValueEmptyUsesThenValueSkipsEmptyUses() {
-        this.buildAndCheck(ToStringBuilder.empty()//
-                        .separator("%") //
-                        .value(this.usesToStringBuilder("")) //
-                        .value("next"),//
-                "\"next\"");
-    }
-
-    // separator
+    // separator........................................................................................................
 
     @Test
     public void testValueAppendValueAppendValueSkipsSeparatorBecauseOfAppends() {
@@ -205,81 +185,7 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
                 "label1=1*label3=3");
     }
 
-    @Test
-    public void testLabelValueWithoutLabelNullValue() {
-        this.buildAndCheck(ToStringBuilder.empty()//
-                        .separator("*")//
-                        .label("label1").value(1)//
-                        .label("label2").value(NULL)//
-                        .value(3), //
-                "label1=1*3");
-    }
-
-    @Test
-    public void testLabelEmptyUsesToStringBuilderLabelValueInsertsLabelSeparator() {
-        this.buildAndCheck(ToStringBuilder.empty()//
-                        .separator("*")//
-                        .labelSeparator("=")//
-                        .valueSeparator(",")//
-                        .disable(ToStringBuilderOption.QUOTE)//
-                        .label("label1").value(this.usesToStringBuilder(""))//
-                        .label("label2").value(2), //
-                "label2=2");
-    }
-
-    @Test
-    public void testLabelUsesToStringBuilderLabelValue() {
-        this.buildAndCheck(ToStringBuilder.empty()//
-                        .separator("*")//
-                        .labelSeparator("=")//
-                        .valueSeparator(",")//
-                        .disable(ToStringBuilderOption.QUOTE)//
-                        .label("label1").value(this.usesToStringBuilder(1))//
-                        .label("label2").value(2), //
-                "label1=1*label2=2");
-    }
-
-    @Test
-    public void testLabelValueLabelUsesToStringBuilder() {
-        this.buildAndCheck(ToStringBuilder.empty()//
-                        .separator("*")//
-                        .labelSeparator("=")//
-                        .valueSeparator(",")//
-                        .disable(ToStringBuilderOption.QUOTE)//
-                        .label("label1").value(1) //
-                        .label("label2").value(this.usesToStringBuilder(2))//
-                        .label("label3").value(3), //
-                "label1=1*label2=2*label3=3");
-    }
-
-    @Test
-    public void testLabelValueLabelUsesToStringBuilderChangesBuilderState() {
-        this.buildAndCheck(ToStringBuilder.empty()//
-                        .separator("*")
-                        .labelSeparator("=")
-                        .valueSeparator(",")
-                        .disable(ToStringBuilderOption.QUOTE)//
-                        .label("label1")
-                        .value("value1") //
-                        .label("label2")
-                        .value(new UsesToStringBuilder() {
-
-                            @Override
-                            public void buildToString(final ToStringBuilder builder) {
-                                builder.separator("/")
-                                        .labelSeparator(":")
-                                        .valueSeparator(";")
-                                        .enable(ToStringBuilderOption.QUOTE);
-                                builder.value("value2");
-                                builder.label("label3").value(Lists.of(30, 31));
-                            }
-                        })//
-                        .label("label4")
-                        .value(Lists.of("value4", "value4b")), //
-                "label1=value1*label2=\"value2\"/label3:30;31*label4=value4,value4b");
-    }
-
-    // valueLength and globalLength
+    // valueLength and globalLength....................................................................................
 
     @Test
     public void testInvalidValueLengthFails() {
@@ -368,39 +274,12 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
         assertEquals(length, builder.globalLength, "globalLength");
     }
 
-    // UsesToStringBuilder
+    // UsesToStringBuilder..............................................................................................
 
     @Test
     public void testFullLabelValueUsesToStringBuilder() {
         this.buildAndCheckFull(this.createFullWithLabel()//
                 .value(this.usesToStringBuilder("1")));
-    }
-
-    @Test
-    public void testUsesToStringBuilderParent() {
-        final UsesToStringBuilder[] uses = new UsesToStringBuilder[1];
-        uses[0] = new UsesToStringBuilder() {
-
-            @Override
-            public void buildToString(final ToStringBuilder builder) {
-                assertSame(null, builder.parent(), "no parent");
-                builder.value("1");
-                builder.value(new UsesToStringBuilder() {
-
-                    @Override
-                    public void buildToString(final ToStringBuilder builder) {
-                        assertSame(uses[0],
-                                builder.parent(),
-                                "parent should be outer UsesToStringBuilder");
-                        builder.value("2");
-                    }
-                });
-            }
-        };
-
-        this.buildAndCheck(this.builder()//
-                        .value(uses[0]),//
-                "12");
     }
 
     @Test
@@ -645,16 +524,31 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
                 "[QUOTE, INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE, labelSeparator=\"=\", valueSeparator=\", \", separator=\" \", valueLength=900, globalLength=1000] 7=\"*tab \\t*\"");
     }
 
+    @Test
+    public void testToStringFull() {
+        this.toStringAndCheck(ToStringBuilder.empty()//
+                        .append("1234567890abcdef")
+                        .globalLength(10),
+                "[QUOTE, INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE, labelSeparator=\"=\", valueSeparator=\", \", separator=\" \", FULL] 16=\"1234567890abcdef\"");
+    }
+
     @Override
     public ToStringBuilder createBuilder() {
         return ToStringBuilder.empty();
     }
 
     private UsesToStringBuilder usesToStringBuilder(final Object value) {
+        return this.usesToStringBuilder(null, value);
+    }
+
+    private UsesToStringBuilder usesToStringBuilder(final String label, final Object value) {
         return new UsesToStringBuilder() {
 
             @Override
             public void buildToString(final ToStringBuilder builder) {
+                if (null != label) {
+                    builder.label(label);
+                }
                 builder.value(value);
             }
         };
@@ -705,6 +599,8 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
         this.buildAndCheck(builder, FULL);
     }
 
+    // BuilderTesting...................................................................................................
+
     @Override
     public Class<ToStringBuilder> type() {
         return ToStringBuilder.class;
@@ -714,6 +610,8 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
     public Class<String> builderProductType() {
         return String.class;
     }
+
+    // ClassTesting.....................................................................................................
 
     @Override
     public JavaVisibility typeVisibility() {

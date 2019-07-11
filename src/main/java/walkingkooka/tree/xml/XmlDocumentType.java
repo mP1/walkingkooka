@@ -213,6 +213,7 @@ public final class XmlDocumentType extends XmlLeafNode implements HasXmlPublicId
         builder.surroundValues("[", "]");
         builder.value(this.entities());
 
+        builder.surroundValues("[", "]");
         builder.value(this.notations());
 
         builder.value(this.children());

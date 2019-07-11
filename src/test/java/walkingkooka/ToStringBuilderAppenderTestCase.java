@@ -19,20 +19,31 @@ package walkingkooka;
 
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
+import walkingkooka.type.JavaVisibility;
 
-public abstract class ToStringBuilderTestCase<T> implements ClassTesting2<T>, TypeNameTesting<T> {
+public abstract class ToStringBuilderAppenderTestCase<A extends ToStringBuilderAppender<V>, V> implements ClassTesting2<A>,
+        TypeNameTesting<A> {
 
-    ToStringBuilderTestCase() {
+    ToStringBuilderAppenderTestCase() {
         super();
     }
 
+    // ClassTesting.....................................................................................................
+
     @Override
-    public String typeNamePrefix() {
-        return ToStringBuilder.class.getSimpleName();
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting..................................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return ToStringBuilderAppender.class.getSimpleName();
     }
 
     @Override
-    public String typeNameSuffix() {
+    public final String typeNameSuffix() {
         return "";
     }
 }
