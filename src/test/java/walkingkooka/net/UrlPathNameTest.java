@@ -56,6 +56,19 @@ public final class UrlPathNameTest implements ClassTesting2<UrlPathName>,
         });
     }
 
+    // Comparable.......................................................................................................
+
+    @Test
+    public void testCompareToArraySort() {
+        final UrlPathName a1 = UrlPathName.with("A1");
+        final UrlPathName b2 = UrlPathName.with("B2");
+        final UrlPathName c3 = UrlPathName.with("c3");
+        final UrlPathName d4 = UrlPathName.with("d4");
+
+        this.compareToArraySortAndCheck(d4, a1, c3, b2,
+                a1, b2, c3, d4);
+    }
+
     @Test
     public void testWith() {
         this.createNameAndCheck("abc");
@@ -78,7 +91,7 @@ public final class UrlPathNameTest implements ClassTesting2<UrlPathName>,
 
     @Test
     public void testCaseSignificant() {
-        this.checkNotEquals(UrlParameterName.with("ABC"));
+        this.checkNotEquals(UrlPathName.with("ABC"));
     }
 
     @Test

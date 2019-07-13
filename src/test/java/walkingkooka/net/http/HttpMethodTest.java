@@ -187,6 +187,12 @@ final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
     }
 
     @Test
+    public void testCompareToArraySort() {
+        this.compareToArraySortAndCheck(HttpMethod.HEAD, HttpMethod.PUT, HttpMethod.GET, HttpMethod.POST,
+                HttpMethod.GET, HttpMethod.HEAD, HttpMethod.POST, HttpMethod.PUT);
+    }
+
+    @Test
     public void testToString() {
         this.toStringAndCheck(HttpMethod.GET, "GET");
     }

@@ -85,6 +85,16 @@ public final class IpPortTest implements ClassTesting2<IpPort>,
     }
 
     @Test
+    public void testArraySort() {
+        final IpPort port80 = IpPort.with(80);
+        final IpPort port443 = IpPort.with(443);
+        final IpPort port22 = IpPort.with(22);
+
+        this.compareToArraySortAndCheck(port443, port22, port80,
+                port22, port80, port443);
+    }
+
+    @Test
     public void testToString() {
         this.toStringAndCheck(IpPort.HTTP, "80");
     }

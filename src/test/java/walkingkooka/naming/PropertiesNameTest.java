@@ -36,6 +36,17 @@ final public class PropertiesNameTest implements ClassTesting2<PropertiesName>,
         });
     }
 
+    @Test
+    public void testCompareToArraySort() {
+        final PropertiesName a1 = PropertiesName.with("A1");
+        final PropertiesName b2 = PropertiesName.with("B2");
+        final PropertiesName c3 = PropertiesName.with("c3");
+        final PropertiesName d4 = PropertiesName.with("d4");
+
+        this.compareToArraySortAndCheck(d4, a1, c3, b2,
+                a1, b2, c3, d4);
+    }
+
     @Override
     public PropertiesName createName(final String name) {
         return PropertiesName.with(name);

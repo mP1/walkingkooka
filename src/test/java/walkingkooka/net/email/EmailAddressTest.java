@@ -1697,7 +1697,18 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         this.compareToAndCheckLess(EmailAddress.parse("zebra@EXAMPLE.com"));
     }
 
-    // toString.................................................................
+    @Test
+    public void testCompareToArraySort() {
+        final EmailAddress email1 = EmailAddress.parse("user1@example.com");
+        final EmailAddress email2 = EmailAddress.parse("user2@EXAMPLE.com");
+        final EmailAddress email3 = EmailAddress.parse("user3@Example.com");
+        final EmailAddress email4 = EmailAddress.parse("user4@Example.com");
+
+        this.compareToArraySortAndCheck(email4, email2, email3, email1,
+                email1, email2, email3, email4);
+    }
+
+    // toString.........................................................................................................
 
     @Test
     public void testToString() {

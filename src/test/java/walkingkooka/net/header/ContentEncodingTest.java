@@ -135,6 +135,17 @@ public final class ContentEncodingTest extends HeaderValueTestCase<ContentEncodi
     }
 
     @Test
+    public void testCompareToArraySort() {
+        final ContentEncoding br = ContentEncoding.BR;
+        final ContentEncoding gzip = ContentEncoding.GZIP;
+        final ContentEncoding deflate = ContentEncoding.DEFLATE;
+        final ContentEncoding compress = ContentEncoding.COMPRESS;
+
+        this.compareToArraySortAndCheck(deflate, br, compress, gzip,
+                br, compress, deflate, gzip);
+    }
+
+    @Test
     public void testToString() {
         this.toStringAndCheck(this.createHeaderValue(), this.value());
     }

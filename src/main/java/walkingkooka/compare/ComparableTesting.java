@@ -17,9 +17,15 @@
 
 package walkingkooka.compare;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -100,6 +106,22 @@ public interface ComparableTesting<C extends Comparable<C> & HashCodeEqualsDefin
                 this.checkEquals(comparable1, comparable2);
             }
         }
+    }
+
+    default void compareToArraySortAndCheck(final C... values) {
+        if (values.length % 2 != 0) {
+            Assertions.fail("Expected even number of values " + Arrays.toString(values));
+        }
+
+        final List<C> list = Lists.of(values);
+
+        final List<C> unsorted = new ArrayList<>(list.subList(0, values.length / 2));
+        final List<C> sorted = list.subList(values.length / 2, values.length);
+        unsorted.sort(Comparators.naturalOrdering());
+
+        assertEquals(sorted,
+                unsorted,
+                () -> "sort " + unsorted);
     }
 
     static void compareResultCheck(final int expected, final int actual) {
