@@ -19,15 +19,10 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.ComparatorTesting;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.JavaVisibility;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class QFactorWeightComparatorTest implements ClassTesting2<QFactorWeightComparator<MediaType>>,
         ComparatorTesting<QFactorWeightComparator<MediaType>, MediaType> {
@@ -48,19 +43,13 @@ public final class QFactorWeightComparatorTest implements ClassTesting2<QFactorW
     }
 
     @Test
-    public void testListSortedDescending() {
+    public void testArraySortedDescending() {
         final MediaType one = MediaType.parse("a/b;q=1.0");
         final MediaType half = MediaType.parse("c/d;q=0.5");
         final MediaType quarter = MediaType.parse("e/f;q=0.25");
 
-        final List<MediaType> list = Lists.array();
-        list.add(quarter);
-        list.add(one);
-        list.add(half);
-
-        list.sort(QFactorWeightComparator.instance());
-
-        assertEquals(Lists.of(one, half, quarter), list);
+        this.comparatorArraySortAndCheck(half, one, quarter,
+                one, half, quarter);
     }
 
     @Test
@@ -68,15 +57,10 @@ public final class QFactorWeightComparatorTest implements ClassTesting2<QFactorW
         final MediaType one = MediaType.parse("a/b");
         final MediaType half = MediaType.parse("c/d;q=0.5");
         final MediaType quarter = MediaType.parse("e/f;q=0.25");
+        final MediaType eighth = MediaType.parse("g/h;q=0.125");
 
-        final List<MediaType> list = Lists.array();
-        list.add(quarter);
-        list.add(one);
-        list.add(half);
-
-        list.sort(QFactorWeightComparator.instance());
-
-        assertEquals(Lists.of(one, half, quarter), list);
+        this.comparatorArraySortAndCheck(half, eighth, one, quarter,
+                one, half, quarter, eighth);
     }
 
     @Test
