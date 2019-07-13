@@ -138,7 +138,31 @@ final public class CaseSensitivityComparatorTest implements ClassTesting2<CaseSe
         this.compareAndCheckEqual(INSENSITIVE, "apple", new StringBuilder("APPLE"));
     }
 
-    // toString
+    @Test
+    public void testArraySortAndCheckCaseSensitive() {
+        final String a1 = "a1";
+        final String b2 = "B2";
+        final String c3 = "c3";
+        final String d4 = "d4";
+
+        this.comparatorArraySortAndCheck(SENSITIVE,
+                d4, c3, a1, b2,
+                b2, a1, c3, d4);
+    }
+
+    @Test
+    public void testArraySortAndCheckCaseInsensitive() {
+        final String a1 = "a1";
+        final String b2 = "B2";
+        final String c3 = "c3";
+        final String d4 = "d4";
+
+        this.comparatorArraySortAndCheck(INSENSITIVE,
+                d4, c3, a1, b2,
+                a1, b2, c3, d4);
+    }
+
+    // toString.........................................................................................................
 
     @Test
     public void testToString() {
