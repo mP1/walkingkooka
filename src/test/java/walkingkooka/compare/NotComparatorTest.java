@@ -118,7 +118,7 @@ final public class NotComparatorTest implements ClassTesting2<NotComparator<Obje
 
     @Override
     public NotComparator<Object> serializableInstance() {
-        return Cast.to(NotComparator.wrap(Comparators.<String>naturalOrdering()));
+        return Cast.to(NotComparator.wrap(Comparator.<String>naturalOrder()));
     }
 
     @Override
