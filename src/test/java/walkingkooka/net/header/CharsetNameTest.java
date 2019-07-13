@@ -18,15 +18,12 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.list.Lists;
-import walkingkooka.compare.Comparators;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.JavaVisibility;
 
 import java.nio.charset.Charset;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -132,18 +129,13 @@ public final class CharsetNameTest implements ClassTesting2<CharsetName>,
     }
 
     @Test
-    public void testSort() {
+    public void testArraySort() {
         final CharsetName wildcard = CharsetName.WILDCARD_CHARSET;
         final CharsetName utf8 = CharsetName.UTF_8;
         final CharsetName unsupported = CharsetName.with("unsupported");
 
-        final List<CharsetName> sorted = Lists.array();
-        sorted.add(unsupported);
-        sorted.add(utf8);
-        sorted.add(wildcard);
-        sorted.sort(Comparators.naturalOrdering());
-
-        assertEquals(Lists.of(wildcard, unsupported, utf8), sorted);
+        this.compareToArraySortAndCheck(utf8, unsupported, wildcard,
+                wildcard, unsupported, utf8);
     }
 
     @Override
