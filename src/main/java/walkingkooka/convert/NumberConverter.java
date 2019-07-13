@@ -17,8 +17,6 @@
 
 package walkingkooka.convert;
 
-import walkingkooka.Cast;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -44,17 +42,9 @@ abstract class NumberConverter<T> extends FixedTargetTypeConverter<T> {
     @Override
     final T convert1(final Object value, final Class<T> type, final ConverterContext context) {
         try {
-            return Cast.to(value instanceof BigDecimal ?
-                    this.bigDecimal((BigDecimal) value) :
-                    value instanceof BigInteger ?
-                            this.bigInteger((BigInteger) value) :
-                            value instanceof Float ?
-                                    this.floatValue((Float) value) :
-                                    value instanceof Double ?
-                                            this.doubleValue((Double) value) :
-                                            value instanceof Byte || value instanceof Short || value instanceof Integer || value instanceof Long ?
-                                                    this.number(Cast.to(value)) :
-                                                    this.failConversion(value, type));
+            return NumberConverterNumberVisitor.convert(this,
+                    Number.class.cast(value),
+                    type);
         } catch (final ArithmeticException | NumberFormatException fail) {
             return this.failConversion(value, type);
         }
@@ -64,13 +54,13 @@ abstract class NumberConverter<T> extends FixedTargetTypeConverter<T> {
 
     abstract T bigInteger(final BigInteger value);
 
-    private T floatValue(final Float value) {
+    final T floatValue(final Float value) {
         return this.doubleValue(value.doubleValue());
     }
 
     abstract T doubleValue(final Double value);
 
-    private T number(final Number value) {
+    final T number(final Number value) {
         return this.longValue(value.longValue());
     }
 
