@@ -144,6 +144,19 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
                 name.parameterValue(UrlQueryString.with("param1=value1&param2=value2").parameters()));
     }
 
+    // Comparable.......................................................................................................
+
+    @Test
+    public void testCompareToArraySort() {
+        final UrlParameterName a1 = UrlParameterName.with("A1");
+        final UrlParameterName b2 = UrlParameterName.with("B2");
+        final UrlParameterName c3 = UrlParameterName.with("c3");
+        final UrlParameterName d4 = UrlParameterName.with("d4");
+
+        this.compareToArraySortAndCheck(d4, a1, c3, b2,
+                a1, b2, c3, d4);
+    }
+
     @Override
     public UrlParameterName createName(final String name) {
         return UrlParameterName.with(name);

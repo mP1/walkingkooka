@@ -59,6 +59,17 @@ final public class HttpRequestParameterNameTest implements ClassTesting2<HttpReq
                 name.parameterValue(Maps.of(name, value)));
     }
 
+    @Test
+    public void testCompareToArraySort() {
+        final HttpRequestParameterName a1 = HttpRequestParameterName.with("A1");
+        final HttpRequestParameterName b2 = HttpRequestParameterName.with("B2");
+        final HttpRequestParameterName c3 = HttpRequestParameterName.with("c3");
+        final HttpRequestParameterName d4 = HttpRequestParameterName.with("d4");
+
+        this.compareToArraySortAndCheck(d4, a1, c3, b2,
+                a1, b2, c3, d4);
+    }
+
     @Override
     public HttpRequestParameterName createName(final String name) {
         return HttpRequestParameterName.with(name);

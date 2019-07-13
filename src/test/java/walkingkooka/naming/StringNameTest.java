@@ -56,6 +56,17 @@ final public class StringNameTest implements ClassTesting2<StringName>,
         this.fromJsonNodeAndCheck(JsonNode.string(TEXT), StringName.with(TEXT));
     }
 
+    @Test
+    public void testCompareToArraySort() {
+        final StringName a1 = StringName.with("A1");
+        final StringName b2 = StringName.with("B2");
+        final StringName c3 = StringName.with("c3");
+        final StringName d4 = StringName.with("d4");
+
+        this.compareToArraySortAndCheck(d4, a1, c3, b2,
+                a1, b2, c3, d4);
+    }
+
     @Override
     public StringName createName(final String name) {
         return StringName.with(name);

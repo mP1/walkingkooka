@@ -121,6 +121,17 @@ public final class FileExtensionTest implements ComparableTesting<FileExtension>
     }
 
     @Test
+    public void testCompareToArraySort() {
+        final FileExtension txt = FileExtension.with("txt");
+        final FileExtension bin = FileExtension.with("bin");
+        final FileExtension exe = FileExtension.with("exe");
+        final FileExtension png = FileExtension.with("png");
+
+        this.compareToArraySortAndCheck(txt, exe, png, bin,
+                bin, exe, png, txt);
+    }
+
+    @Test
     public void testToString() {
         this.toStringAndCheck(this.createComparable(), "txt");
     }

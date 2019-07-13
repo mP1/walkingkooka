@@ -103,6 +103,18 @@ public final class LanguageTagNameNonWildcardTest extends LanguageTagNameTestCas
         this.checkEquals(LanguageTagNameNonWildcard.nonWildcard("EN"));
     }
 
+    @Test
+    public void testCompareToArraySort() {
+        final LanguageTagName ar = LanguageTagName.with("ar");
+        final LanguageTagName br = LanguageTagName.with("br");
+        final LanguageTagName cz = LanguageTagName.with("cz");
+        final LanguageTagName de = LanguageTagName.with("de");
+        final LanguageTagName wildcard = LanguageTagName.WILDCARD;
+
+        this.compareToArraySortAndCheck(de, ar, cz, wildcard, br,
+                wildcard, ar, br, cz, de);
+    }
+
     @Override
     public LanguageTagNameNonWildcard createName(final String name) {
         return LanguageTagNameNonWildcard.nonWildcard(name);

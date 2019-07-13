@@ -128,6 +128,17 @@ public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
                         .collect(Collectors.toList()));
     }
 
+    @Test
+    public void testCompareToArraySort() {
+        final JsonNodeName a1 = JsonNodeName.with("A1");
+        final JsonNodeName b2 = JsonNodeName.with("B2");
+        final JsonNodeName c3 = JsonNodeName.with("c3");
+        final JsonNodeName d4 = JsonNodeName.with("d4");
+
+        this.compareToArraySortAndCheck(d4, a1, c3, b2,
+                a1, b2, c3, d4);
+    }
+    
     @Override
     public JsonNodeName createName(final String name) {
         return JsonNodeName.with(name);

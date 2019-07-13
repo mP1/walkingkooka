@@ -50,6 +50,19 @@ public final class XmlAttributeNameTest implements ClassTesting2<XmlAttributeNam
                 this.createName(nameText, "different"));
     }
 
+    // Comparable.......................................................................................................
+
+    @Test
+    public void testCompareToArraySort() {
+        final XmlAttributeName a1 = XmlAttributeName.with("A1", XmlAttributeName.NO_PREFIX);
+        final XmlAttributeName b2 = XmlAttributeName.with("B2", XmlAttributeName.NO_PREFIX);
+        final XmlAttributeName c3 = XmlAttributeName.with("c3", Optional.of(XmlNameSpacePrefix.with("A")));
+        final XmlAttributeName d4 = XmlAttributeName.with("d4", XmlAttributeName.NO_PREFIX);
+
+        this.compareToArraySortAndCheck(d4, a1, c3, b2,
+                a1, b2, c3, d4);
+    }
+
     private XmlAttributeName createName(final String name, final String prefix) {
         return XmlAttributeName.with(name, Optional.of(XmlNameSpacePrefix.with(prefix)));
     }
