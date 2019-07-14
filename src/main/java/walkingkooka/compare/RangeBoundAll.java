@@ -18,6 +18,7 @@
 package walkingkooka.compare;
 
 import walkingkooka.Cast;
+import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.JsonNodeName;
@@ -164,7 +165,7 @@ final class RangeBoundAll<C extends Comparable<C>> extends RangeBound<C> {
                 final JsonNodeName name = child.name();
                 switch (name.value()) {
                     default:
-                        throw new IllegalArgumentException("Unknown property " + name + "=" + node);
+                        HasJsonNode.unknownPropertyPresent(name, node);
                 }
             }
         } catch (final JsonNodeException cause) {
