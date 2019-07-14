@@ -182,8 +182,11 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
 
     private String toJsonText(final JsonNode node) {
         final StringBuilder b = new StringBuilder();
-        final IndentingPrinter printer = IndentingPrinters.printer(Printers.stringBuilder(b, LineEnding.SYSTEM));
-        node.printJson(printer);
+
+        try(final IndentingPrinter printer = IndentingPrinters.printer(Printers.stringBuilder(b, LineEnding.SYSTEM))) {
+            node.printJson(printer);
+            printer.flush();
+        }
         return b.toString();
     }
 
