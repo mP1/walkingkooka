@@ -46,7 +46,7 @@ public interface HasJsonNode {
      */
     static void unknownPropertyPresent(final JsonNodeName property,
                                        final JsonNode node) {
-        throw new IllegalArgumentException("Unknown property " + CharSequences.quoteAndEscape(property.value()) + " present=" + node);
+        throw new IllegalArgumentException("Unknown property " + CharSequences.quoteAndEscape(property.value()) + " in " + node);
     }
 
     /**
