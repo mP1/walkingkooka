@@ -84,7 +84,7 @@ public final class JsonNodeNameFromJsonNodeWithTypeFactoryFunctionTest implement
             this.createFunction(JsonNode.object())
                     .apply(this.value().toJsonNode());
         });
-        assertEquals("Unknown property typeNameProperty1={}", thrown.getMessage(), "message");
+        assertEquals("Unknown property \"typeNameProperty1\" in {}", thrown.getMessage(), "message");
     }
 
     @Test
