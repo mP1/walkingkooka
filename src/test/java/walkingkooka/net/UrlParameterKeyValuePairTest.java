@@ -17,10 +17,19 @@
 
 package walkingkooka.net;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.JavaVisibility;
 
-public final class UrlParameterKeyValuePairTest implements ClassTesting2<UrlParameterKeyValuePair> {
+public final class UrlParameterKeyValuePairTest implements ClassTesting2<UrlParameterKeyValuePair>,
+        ToStringTesting<UrlParameterKeyValuePair> {
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(UrlParameterKeyValuePair.nameAndValue(UrlParameterName.with("abc"), "value123"), "");
+    }
+
     @Override
     public Class<UrlParameterKeyValuePair> type() {
         return UrlParameterKeyValuePair.class;

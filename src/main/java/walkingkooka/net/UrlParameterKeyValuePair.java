@@ -79,6 +79,7 @@ final class UrlParameterKeyValuePair {
     final UrlParameterName name;
     final String value;
 
+    @Override
     public String toString() {
         return this.encoded;
     }
