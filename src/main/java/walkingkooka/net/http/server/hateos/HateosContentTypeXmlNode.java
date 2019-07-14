@@ -37,6 +37,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
+import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Collection;
@@ -174,12 +175,13 @@ final class HateosContentTypeXmlNode extends HateosContentType<XmlNode> {
     }
 
     private String toXmlText(final XmlNode node) {
-        try {
-            final StringWriter writer = new StringWriter();
+        try (final StringWriter writer = new StringWriter()) {
             final Transformer transformer = TransformerFactory.newInstance().newTransformer();
             node.toXml(transformer, writer);
             writer.flush();
             return writer.toString();
+        } catch (final IOException cause) {
+            throw new HttpServerException(cause.getMessage(), cause);
         } catch (final TransformerException cause) {
             throw new HttpServerException(cause.getMessage(), cause);
         }
