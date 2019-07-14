@@ -17,6 +17,8 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.ToStringBuilder;
+import walkingkooka.ToStringBuilderOption;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 
@@ -96,6 +98,10 @@ final class HttpServletRequestHttpRequestParametersMap extends AbstractMap<HttpR
 
     @Override
     public String toString() {
-        return this.parameters.toString();
+        return ToStringBuilder.empty()
+                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .surroundValues("{", "}")
+                .value(this.parameters)
+                .build();
     }
 }

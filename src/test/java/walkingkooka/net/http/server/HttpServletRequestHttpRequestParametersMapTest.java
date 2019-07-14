@@ -26,6 +26,8 @@ import walkingkooka.type.JavaVisibility;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public final class HttpServletRequestHttpRequestParametersMapTest implements ClassTesting2<HttpServletRequestHttpRequestParametersMap>,
         MapTesting2<HttpServletRequestHttpRequestParametersMap, HttpRequestParameterName, List<String>> {
 
@@ -66,8 +68,52 @@ public final class HttpServletRequestHttpRequestParametersMapTest implements Cla
     }
 
     @Test
+    public void testGetOrDefaultPresent() {
+        this.getDefaultAndCheck(HttpRequestParameterName.with(KEY2),
+                Lists.of("DEFAULT!"),
+                Lists.of(VALUE2));
+    }
+
+    @Test
+    public void testGetOrDefaultAbsentNonHttpRequestParameterNameKey() {
+        final List<String> defaultValue = Lists.of("DEFAULT!");
+
+        this.getDefaultAndCheck("Unknown",
+                defaultValue,
+                defaultValue);
+    }
+
+    @Test
+    public void testGetOrDefaultAbsent() {
+        final List<String> defaultValue = Lists.of("DEFAULT!");
+
+        this.getDefaultAndCheck(HttpRequestParameterName.with("Unknown"),
+                defaultValue,
+                defaultValue);
+    }
+
+    private void getDefaultAndCheck(final Object key,
+                                    final List<String> defaultValue,
+                                    final Object value) {
+        final HttpServletRequestHttpRequestParametersMap map = this.createMap();
+        assertEquals(value,
+                map.getOrDefault(key, defaultValue),
+                () -> "get " + key + " with default " + defaultValue + " from " + map);
+    }
+
+    @Test
     public void testSize() {
         this.sizeAndCheck(this.createMap(), 2);
+    }
+
+    @Test
+    public void testToStringEmpty() {
+        this.toStringAndCheck(HttpServletRequestHttpRequestParametersMap.with(Maps.empty()), "{}");
+    }
+
+    @Test
+    public void testToStringNotEmpty() {
+        this.toStringAndCheck(this.createMap(), "{parameter1=\"value1a\", \"value1b\", parameter2=\"value2\"}");
     }
 
     @Override
