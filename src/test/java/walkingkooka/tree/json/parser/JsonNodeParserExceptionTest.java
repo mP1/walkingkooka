@@ -18,11 +18,27 @@
 package walkingkooka.tree.json.parser;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 public final class JsonNodeParserExceptionTest implements StandardThrowableTesting<JsonNodeParserException> {
 
     @Override
+    public JsonNodeParserException createThrowable(final String message) {
+        return new JsonNodeParserException(message);
+    }
+
+    @Override
+    public JsonNodeParserException createThrowable(final String message, final Throwable cause) {
+        return new JsonNodeParserException(message, cause);
+    }
+    
+    @Override
     public Class<JsonNodeParserException> type() {
         return JsonNodeParserException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

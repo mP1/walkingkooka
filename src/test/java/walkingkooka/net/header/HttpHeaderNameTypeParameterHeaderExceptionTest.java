@@ -18,11 +18,27 @@
 package walkingkooka.net.header;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 final public class HttpHeaderNameTypeParameterHeaderExceptionTest implements StandardThrowableTesting<HttpHeaderNameTypeParameterHeaderException> {
 
     @Override
+    public HttpHeaderNameTypeParameterHeaderException createThrowable(final String message) {
+        return new HttpHeaderNameTypeParameterHeaderException(message);
+    }
+
+    @Override
+    public HttpHeaderNameTypeParameterHeaderException createThrowable(final String message, final Throwable cause) {
+        return new HttpHeaderNameTypeParameterHeaderException(message, cause);
+    }
+    
+    @Override
     public Class<HttpHeaderNameTypeParameterHeaderException> type() {
         return HttpHeaderNameTypeParameterHeaderException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

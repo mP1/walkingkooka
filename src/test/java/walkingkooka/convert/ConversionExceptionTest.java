@@ -18,11 +18,27 @@
 package walkingkooka.convert;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 public final class ConversionExceptionTest implements StandardThrowableTesting<ConversionException> {
 
     @Override
+    public ConversionException createThrowable(final String message) {
+        return new ConversionException(message);
+    }
+
+    @Override
+    public ConversionException createThrowable(final String message, final Throwable cause) {
+        return new ConversionException(message, cause);
+    }
+    
+    @Override
     public Class<ConversionException> type() {
         return ConversionException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

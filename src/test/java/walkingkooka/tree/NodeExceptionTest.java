@@ -18,11 +18,27 @@
 package walkingkooka.tree;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 public final class NodeExceptionTest implements StandardThrowableTesting<NodeException> {
 
     @Override
+    public NodeException createThrowable(final String message) {
+        return new NodeException(message);
+    }
+
+    @Override
+    public NodeException createThrowable(final String message, final Throwable cause) {
+        return new NodeException(message, cause);
+    }
+    
+    @Override
     public Class<NodeException> type() {
         return NodeException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

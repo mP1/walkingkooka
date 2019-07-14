@@ -21,7 +21,7 @@ class ReaderConsumingCharSequenceTextException extends TextException {
 
     private static final long serialVersionUID = 1L;
 
-    ReaderConsumingCharSequenceTextException(String message, Throwable cause) {
+    ReaderConsumingCharSequenceTextException(final String message, final Throwable cause) {
         super(message, cause);
     }
 }

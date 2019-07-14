@@ -18,11 +18,27 @@
 package walkingkooka.net.http;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 final public class HttpExceptionTest implements StandardThrowableTesting<HttpException> {
 
     @Override
+    public HttpException createThrowable(final String message) {
+        return new HttpException(message);
+    }
+
+    @Override
+    public HttpException createThrowable(final String message, final Throwable cause) {
+        return new HttpException(message, cause);
+    }
+    
+    @Override
     public Class<HttpException> type() {
         return HttpException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

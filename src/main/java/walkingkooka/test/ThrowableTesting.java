@@ -27,22 +27,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * An interface with default methods which may be mixed into a test.
  */
-public interface ThrowableTesting<T extends Throwable> extends Testing {
-
-    @Test
-    default void testClassVisibility() {
-        final Class<?> type = this.type();
-
-        assertEquals(JavaVisibility.PUBLIC,
-                JavaVisibility.get(type),
-                type.getName() + " visibility");
-    }
+public interface ThrowableTesting<T extends Throwable> extends ClassTesting2<T> {
 
     /**
      * The no args ctor must be protected.
      */
     @Test
-    default void testNoDefaultArgumentProtected() throws Throwable {
+    default void testNoDefaultArgumentProtected() {
         Arrays.stream(this.type().getDeclaredConstructors())
                 .filter(c -> c.getParameterTypes().length == 0)
                 .forEach(c -> assertEquals(JavaVisibility.PROTECTED, JavaVisibility.get(c),
@@ -53,12 +44,12 @@ public interface ThrowableTesting<T extends Throwable> extends Testing {
      * Checks that all ctors are protected.
      */
     @Test
-    default void testAllConstructorsVisibility() throws Exception {
+    default void testAllConstructorsVisibility() {
         final Class<T> type = this.type();
         Arrays.stream(type.getDeclaredConstructors())
                 .filter(c -> c.getParameterTypes().length != 0)
                 .forEach(c ->
-                        assertEquals(JavaVisibility.PUBLIC,
+                        assertEquals(this.typeVisibility(),
                                 JavaVisibility.get(c),
                                 () -> "ctor visibility incorrect " + c));
     }
@@ -75,9 +66,4 @@ public interface ThrowableTesting<T extends Throwable> extends Testing {
     default void checkCause(final Throwable throwable, final Throwable cause) {
         assertEquals(cause, throwable.getCause(), () -> "cause of " + throwable);
     }
-
-    /**
-     * The type being tested.
-     */
-    Class<T> type();
 }

@@ -18,11 +18,27 @@
 package walkingkooka.net.header;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 final public class InvalidEncodedTextHeaderExceptionTest implements StandardThrowableTesting<InvalidEncodedTextHeaderException> {
 
     @Override
+    public InvalidEncodedTextHeaderException createThrowable(final String message) {
+        return new InvalidEncodedTextHeaderException(message);
+    }
+
+    @Override
+    public InvalidEncodedTextHeaderException createThrowable(final String message, final Throwable cause) {
+        return new InvalidEncodedTextHeaderException(message, cause);
+    }
+    
+    @Override
     public Class<InvalidEncodedTextHeaderException> type() {
         return InvalidEncodedTextHeaderException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

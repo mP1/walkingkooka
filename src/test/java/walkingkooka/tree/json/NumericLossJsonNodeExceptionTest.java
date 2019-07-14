@@ -18,11 +18,27 @@
 package walkingkooka.tree.json;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 public final class NumericLossJsonNodeExceptionTest implements StandardThrowableTesting<NumericLossJsonNodeException> {
 
     @Override
+    public NumericLossJsonNodeException createThrowable(final String message) {
+        return new NumericLossJsonNodeException(message);
+    }
+
+    @Override
+    public NumericLossJsonNodeException createThrowable(final String message, final Throwable cause) {
+        return new NumericLossJsonNodeException(message, cause);
+    }
+    
+    @Override
     public Class<NumericLossJsonNodeException> type() {
         return NumericLossJsonNodeException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

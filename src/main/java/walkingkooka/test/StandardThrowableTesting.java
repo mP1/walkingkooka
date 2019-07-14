@@ -19,8 +19,6 @@ package walkingkooka.test;
 
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.InvocationTargetException;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
@@ -33,31 +31,21 @@ public interface StandardThrowableTesting<T extends Throwable> extends Throwable
 
     @Test
     default void testWithNullMessageFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            try {
-                this.type().getDeclaredConstructor(String.class).newInstance(null);
-            } catch (final InvocationTargetException thrown) {
-                throw thrown.getTargetException();
-            }
+        assertThrows(NullPointerException.class, () -> {
+            this.createThrowable(null);
         });
     }
 
     @Test
     default void testWithEmptyMessageFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            try {
-                this.type().getDeclaredConstructor(String.class).newInstance("");
-            } catch (final InvocationTargetException thrown) {
-                throw thrown.getTargetException();
-            }
+            this.createThrowable("");
         });
     }
 
     @Test
-    default void testWithMessage() throws Exception {
-        this.check(this.type()
-                        .getDeclaredConstructor(String.class)
-                        .newInstance(MESSAGE),
+    default void testWithMessage() {
+        this.check(this.createThrowable(MESSAGE),
                 MESSAGE,
                 null);
     }
@@ -72,48 +60,32 @@ public interface StandardThrowableTesting<T extends Throwable> extends Throwable
     @Test
     default void testWithNullMessageAndCauseExceptionFails() {
         assertThrows(NullPointerException.class, () -> {
-            try {
-                this.type()
-                        .getDeclaredConstructor(String.class, Throwable.class)
-                        .newInstance(null, CAUSE);
-            } catch (final InvocationTargetException thrown) {
-                throw thrown.getTargetException();
-            }
+            this.createThrowable(null, CAUSE);
         });
     }
 
     @Test
     default void testWithEmptyMessageAndNonNullCauseFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            try {
-                this.type()
-                        .getDeclaredConstructor(String.class, Throwable.class)
-                        .newInstance("", new Throwable());
-            } catch (final InvocationTargetException thrown) {
-                throw thrown.getTargetException();
-            }
+            this.createThrowable("", CAUSE);
         });
     }
 
     @Test
     default void testWithMessageAndNullCauseFails() {
         assertThrows(NullPointerException.class, () -> {
-            try {
-                this.type()
-                        .getDeclaredConstructor(String.class, Throwable.class)
-                        .newInstance(MESSAGE, null);
-            } catch (final InvocationTargetException thrown) {
-                throw thrown.getTargetException();
-            }
+            this.createThrowable(MESSAGE, null);
         });
     }
 
     @Test
-    default void testWithMessageAndCause() throws Throwable {
-        this.check(this.type()
-                        .getDeclaredConstructor(String.class, Throwable.class)
-                        .newInstance(MESSAGE, CAUSE),
+    default void testWithMessageAndCause() {
+        this.check(this.createThrowable(MESSAGE, CAUSE),
                 MESSAGE,
                 CAUSE);
     }
+
+    T createThrowable(final String message);
+
+    T createThrowable(final String message, final Throwable cause);
 }

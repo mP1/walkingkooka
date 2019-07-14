@@ -18,11 +18,27 @@
 package walkingkooka.stream.push;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 final public class PushStreamExceptionTest implements StandardThrowableTesting<PushStreamException> {
 
     @Override
+    public PushStreamException createThrowable(final String message) {
+        return new PushStreamException(message);
+    }
+
+    @Override
+    public PushStreamException createThrowable(final String message, final Throwable cause) {
+        return new PushStreamException(message, cause);
+    }
+    
+    @Override
     public Class<PushStreamException> type() {
         return PushStreamException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

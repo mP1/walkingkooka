@@ -18,10 +18,26 @@
 package walkingkooka.tree.search;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 public final class SearchQueryExceptionTest implements StandardThrowableTesting<SearchQueryException> {
 
+    @Override
+    public SearchQueryException createThrowable(final String message) {
+        return new SearchQueryException(message);
+    }
+
+    @Override
+    public SearchQueryException createThrowable(final String message, final Throwable cause) {
+        return new SearchQueryException(message, cause);
+    }
+    
     public Class<SearchQueryException> type() {
         return SearchQueryException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

@@ -17,10 +17,32 @@
 
 package walkingkooka.text;
 
-import walkingkooka.test.ClassTesting2;
+import walkingkooka.test.StandardThrowableTesting;
 import walkingkooka.type.JavaVisibility;
 
-final public class ReaderConsumingCharSequenceTextExceptionTest implements ClassTesting2<ReaderConsumingCharSequenceTextException> {
+final public class ReaderConsumingCharSequenceTextExceptionTest implements StandardThrowableTesting<ReaderConsumingCharSequenceTextException> {
+
+    @Override
+    public void testWithNullMessageFails() {
+    }
+
+    @Override
+    public void testWithEmptyMessageFails() {
+    }
+
+    @Override
+    public void testWithMessage() {
+    }
+
+    @Override
+    public ReaderConsumingCharSequenceTextException createThrowable(final String message) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ReaderConsumingCharSequenceTextException createThrowable(final String message, final Throwable cause) {
+        return new ReaderConsumingCharSequenceTextException(message, cause);
+    }
 
     @Override
     public Class<ReaderConsumingCharSequenceTextException> type() {

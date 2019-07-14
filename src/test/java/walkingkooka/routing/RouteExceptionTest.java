@@ -18,11 +18,27 @@
 package walkingkooka.routing;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 final public class RouteExceptionTest implements StandardThrowableTesting<RouteException> {
 
     @Override
+    public RouteException createThrowable(final String message) {
+        return new RouteException(message);
+    }
+
+    @Override
+    public RouteException createThrowable(final String message, final Throwable cause) {
+        return new RouteException(message, cause);
+    }
+    
+    @Override
     public Class<RouteException> type() {
         return RouteException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

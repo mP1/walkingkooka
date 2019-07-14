@@ -18,11 +18,27 @@
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 public final class ParserExceptionTest implements StandardThrowableTesting<ParserException> {
+    
+    @Override
+    public ParserException createThrowable(final String message) {
+        return new ParserException(message);
+    }
 
+    @Override
+    public ParserException createThrowable(final String message, final Throwable cause) {
+        return new ParserException(message, cause);
+    }
+    
     @Override
     public Class<ParserException> type() {
         return ParserException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

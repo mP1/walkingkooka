@@ -18,11 +18,27 @@
 package walkingkooka.text.cursor.parser.ebnf.combinator;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 public final class EbnfParserCombinatorExceptionTest implements StandardThrowableTesting<EbnfParserCombinatorException> {
 
     @Override
+    public EbnfParserCombinatorException createThrowable(final String message) {
+        return new EbnfParserCombinatorException(message);
+    }
+
+    @Override
+    public EbnfParserCombinatorException createThrowable(final String message, final Throwable cause) {
+        return new EbnfParserCombinatorException(message, cause);
+    }
+
+    @Override
     public Class<EbnfParserCombinatorException> type() {
         return EbnfParserCombinatorException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

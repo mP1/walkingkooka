@@ -18,11 +18,27 @@
 package walkingkooka.text.cursor;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 final public class TextCursorExceptionTest implements StandardThrowableTesting<TextCursorException> {
 
     @Override
+    public TextCursorException createThrowable(final String message) {
+        return new TextCursorException(message);
+    }
+
+    @Override
+    public TextCursorException createThrowable(final String message, final Throwable cause) {
+        return new TextCursorException(message, cause);
+    }
+    
+    @Override
     public Class<TextCursorException> type() {
         return TextCursorException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

@@ -19,6 +19,7 @@ package walkingkooka;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -173,5 +174,10 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting<Inv
     @Override
     public Class<InvalidCharacterException> type() {
         return InvalidCharacterException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

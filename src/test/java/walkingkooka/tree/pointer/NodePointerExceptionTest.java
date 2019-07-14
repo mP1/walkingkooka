@@ -18,11 +18,27 @@
 package walkingkooka.tree.pointer;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 public final class NodePointerExceptionTest implements StandardThrowableTesting<NodePointerException> {
 
     @Override
+    public NodePointerException createThrowable(final String message) {
+        return new NodePointerException(message);
+    }
+
+    @Override
+    public NodePointerException createThrowable(final String message, final Throwable cause) {
+        return new NodePointerException(message, cause);
+    }
+    
+    @Override
     public Class<NodePointerException> type() {
         return NodePointerException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

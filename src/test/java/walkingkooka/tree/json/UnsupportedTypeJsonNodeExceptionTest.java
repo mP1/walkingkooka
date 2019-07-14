@@ -18,11 +18,27 @@
 package walkingkooka.tree.json;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 public final class UnsupportedTypeJsonNodeExceptionTest implements StandardThrowableTesting<UnsupportedTypeJsonNodeException> {
 
     @Override
+    public UnsupportedTypeJsonNodeException createThrowable(final String message) {
+        return new UnsupportedTypeJsonNodeException(message);
+    }
+
+    @Override
+    public UnsupportedTypeJsonNodeException createThrowable(final String message, final Throwable cause) {
+        return new UnsupportedTypeJsonNodeException(message, cause);
+    }
+    
+    @Override
     public Class<UnsupportedTypeJsonNodeException> type() {
         return UnsupportedTypeJsonNodeException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

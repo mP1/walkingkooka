@@ -19,6 +19,7 @@ package walkingkooka;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -131,5 +132,10 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting<In
     @Override
     public Class<InvalidTextLengthException> type() {
         return InvalidTextLengthException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }
