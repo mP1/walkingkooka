@@ -88,7 +88,11 @@ public final class RecordingHttpResponse implements HttpResponse {
 
     @Override
     public String toString() {
+        final int length = 64 * 1024;
+
         return ToStringBuilder.empty()
+                .globalLength(length)
+                .valueLength(length)
                 .valueSeparator("\n")
                 .separator("\n")
                 .value(this.status)
