@@ -38,13 +38,6 @@ final public class Comparators implements PublicStaticHelper {
     }
 
     /**
-     * {@see NaturalOrderingComparator}.
-     */
-    public static <T extends Comparable<T>> Comparator<T> naturalOrdering() {
-        return NaturalOrderingComparator.instance();
-    }
-
-    /**
      * {@see NormalizingCharSequenceComparator}
      */
     public static <S extends CharSequence> Comparator<S> normalizing(final CharPredicate predicate) {
