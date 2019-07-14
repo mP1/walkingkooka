@@ -100,10 +100,14 @@ public final class UrlCredentials implements HashCodeEqualsDefined, Serializable
         return b.toString();
     }
 
-    final void toString0(final StringBuilder b) {
+    private void toString0(final StringBuilder b) {
         b.append(this.user);
         b.append(SEPARATOR.character());
         b.append(this.password);
+    }
+
+    final void absoluteUrlToString(final StringBuilder b) {
+        this.toString0(b);
         b.append(SUFFIX);
     }
 
