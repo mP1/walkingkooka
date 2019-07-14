@@ -17,6 +17,7 @@
 
 package walkingkooka.net;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.IsMethodTesting;
@@ -25,6 +26,7 @@ import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.json.HasJsonNodeTesting;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.function.Predicate;
@@ -49,7 +51,34 @@ abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
 
     abstract U createUrl();
 
-    // ClassTesting....................................................................................................
+    // fromJsonNode......................................................................................................
+
+    @Test
+    public final void testFromJsonNodeArrayFails() {
+        this.fromJsonNodeFails(JsonNode.array());
+    }
+
+    @Test
+    public final void testFromJsonNodeBooleanFails() {
+        this.fromJsonNodeFails(JsonNode.booleanNode(true));
+    }
+
+    @Test
+    public final void testFromJsonNodeNulFails() {
+        this.fromJsonNodeFails(JsonNode.nullNode());
+    }
+
+    @Test
+    public final void testFromJsonNodeNumberFails() {
+        this.fromJsonNodeFails(JsonNode.number(1.25));
+    }
+
+    @Test
+    public final void testFromJsonNodeObjectFails() {
+        this.fromJsonNodeFails(JsonNode.object());
+    }
+
+    // ClassTesting.....................................................................................................
 
     @Override
     public final JavaVisibility typeVisibility() {

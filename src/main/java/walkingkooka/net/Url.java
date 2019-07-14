@@ -145,15 +145,6 @@ public abstract class Url implements HashCodeEqualsDefined,
         return RelativeUrl.with(path, query, fragment);
     }
 
-    /**
-     * Helper used by all parse methods.
-     */
-    static String nullToEmpty(final String value) {
-        return null == value ?
-                "" :
-                value;
-    }
-
     // ctor.............................................................................................................
 
     /**
