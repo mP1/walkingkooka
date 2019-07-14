@@ -18,11 +18,27 @@
 package walkingkooka.net.header;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 final public class CommentHeaderValueExceptionTest implements StandardThrowableTesting<CommentHeaderValueException> {
 
     @Override
+    public CommentHeaderValueException createThrowable(final String message) {
+        return new CommentHeaderValueException(message);
+    }
+
+    @Override
+    public CommentHeaderValueException createThrowable(final String message, final Throwable cause) {
+        return new CommentHeaderValueException(message, cause);
+    }
+    
+    @Override
     public Class<CommentHeaderValueException> type() {
         return CommentHeaderValueException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

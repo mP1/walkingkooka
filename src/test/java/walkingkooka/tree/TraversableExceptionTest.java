@@ -18,11 +18,27 @@
 package walkingkooka.tree;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 public final class TraversableExceptionTest implements StandardThrowableTesting<TraversableException> {
 
     @Override
+    public TraversableException createThrowable(final String message) {
+        return new TraversableException(message);
+    }
+
+    @Override
+    public TraversableException createThrowable(final String message, final Throwable cause) {
+        return new TraversableException(message, cause);
+    }
+    
+    @Override
     public Class<TraversableException> type() {
         return TraversableException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

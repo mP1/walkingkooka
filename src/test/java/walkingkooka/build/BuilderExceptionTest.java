@@ -18,11 +18,27 @@
 package walkingkooka.build;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 public final class BuilderExceptionTest implements StandardThrowableTesting<BuilderException> {
 
     @Override
+    public BuilderException createThrowable(final String message) {
+        return new BuilderException(message);
+    }
+
+    @Override
+    public BuilderException createThrowable(final String message, final Throwable cause) {
+        return new BuilderException(message, cause);
+    }
+
+    @Override
     public Class<BuilderException> type() {
         return BuilderException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

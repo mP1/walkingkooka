@@ -18,11 +18,27 @@
 package walkingkooka.text;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 final public class TextExceptionTest implements StandardThrowableTesting<TextException> {
 
     @Override
+    public TextException createThrowable(final String message) {
+        return new TextException(message);
+    }
+
+    @Override
+    public TextException createThrowable(final String message, final Throwable cause) {
+        return new TextException(message, cause);
+    }
+
+    @Override
     public Class<TextException> type() {
         return TextException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

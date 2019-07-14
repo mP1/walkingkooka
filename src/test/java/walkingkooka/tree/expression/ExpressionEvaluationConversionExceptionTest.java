@@ -18,11 +18,27 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 public final class ExpressionEvaluationConversionExceptionTest implements StandardThrowableTesting<ExpressionEvaluationConversionException> {
 
     @Override
+    public ExpressionEvaluationConversionException createThrowable(final String message) {
+        return new ExpressionEvaluationConversionException(message);
+    }
+
+    @Override
+    public ExpressionEvaluationConversionException createThrowable(final String message, final Throwable cause) {
+        return new ExpressionEvaluationConversionException(message, cause);
+    }
+    
+    @Override
     public Class<ExpressionEvaluationConversionException> type() {
         return ExpressionEvaluationConversionException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

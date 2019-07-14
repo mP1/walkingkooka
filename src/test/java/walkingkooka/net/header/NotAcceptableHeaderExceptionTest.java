@@ -18,11 +18,27 @@
 package walkingkooka.net.header;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 final public class NotAcceptableHeaderExceptionTest implements StandardThrowableTesting<NotAcceptableHeaderException> {
 
     @Override
+    public NotAcceptableHeaderException createThrowable(final String message) {
+        return new NotAcceptableHeaderException(message);
+    }
+
+    @Override
+    public NotAcceptableHeaderException createThrowable(final String message, final Throwable cause) {
+        return new NotAcceptableHeaderException(message, cause);
+    }
+    
+    @Override
     public Class<NotAcceptableHeaderException> type() {
         return NotAcceptableHeaderException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

@@ -18,11 +18,27 @@
 package walkingkooka.io.printer;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 final public class PrinterExceptionTest implements StandardThrowableTesting<PrinterException> {
 
     @Override
+    public PrinterException createThrowable(final String message) {
+        return new PrinterException(message);
+    }
+
+    @Override
+    public PrinterException createThrowable(final String message, final Throwable cause) {
+        return new PrinterException(message, cause);
+    }
+    
+    @Override
     public Class<PrinterException> type() {
         return PrinterException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

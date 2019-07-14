@@ -18,11 +18,27 @@
 package walkingkooka.tree.select.parser;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 public final class NodeSelectorParserExceptionTest implements StandardThrowableTesting<NodeSelectorParserException> {
 
     @Override
+    public NodeSelectorParserException createThrowable(final String message) {
+        return new NodeSelectorParserException(message);
+    }
+
+    @Override
+    public NodeSelectorParserException createThrowable(final String message, final Throwable cause) {
+        return new NodeSelectorParserException(message, cause);
+    }
+    
+    @Override
     public Class<NodeSelectorParserException> type() {
         return NodeSelectorParserException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

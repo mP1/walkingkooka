@@ -18,11 +18,27 @@
 package walkingkooka.util.systemproperty;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 final public class MissingSystemPropertyExceptionTest implements StandardThrowableTesting<MissingSystemPropertyException> {
 
     @Override
+    public MissingSystemPropertyException createThrowable(final String message) {
+        return new MissingSystemPropertyException(message);
+    }
+
+    @Override
+    public MissingSystemPropertyException createThrowable(final String message, final Throwable cause) {
+        return new MissingSystemPropertyException(message, cause);
+    }
+    
+    @Override
     public Class<MissingSystemPropertyException> type() {
         return MissingSystemPropertyException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

@@ -18,11 +18,27 @@
 package walkingkooka.tree.search;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 public final class SearchExceptionTest implements StandardThrowableTesting<SearchException> {
 
     @Override
+    public SearchException createThrowable(final String message) {
+        return new SearchException(message);
+    }
+
+    @Override
+    public SearchException createThrowable(final String message, final Throwable cause) {
+        return new SearchException(message, cause);
+    }
+    
+    @Override
     public Class<SearchException> type() {
         return SearchException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

@@ -18,11 +18,27 @@
 package walkingkooka.net.header;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 final public class HeaderExceptionTest implements StandardThrowableTesting<HeaderException> {
 
     @Override
+    public HeaderException createThrowable(final String message) {
+        return new HeaderException(message);
+    }
+
+    @Override
+    public HeaderException createThrowable(final String message, final Throwable cause) {
+        return new HeaderException(message, cause);
+    }
+    
+    @Override
     public Class<HeaderException> type() {
         return HeaderException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

@@ -19,6 +19,7 @@ package walkingkooka;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 import java.io.UnsupportedEncodingException;
 
@@ -72,8 +73,23 @@ public final class NeverErrorTest implements StandardThrowableTesting<NeverError
     }
 
     @Override
+    public NeverError createThrowable(final String message) {
+        return new NeverError(message);
+    }
+
+    @Override
+    public NeverError createThrowable(final String message, final Throwable cause) {
+        return new NeverError(message, cause);
+    }
+
+    @Override
     public Class<NeverError> type() {
         return NeverError.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     @Override

@@ -18,11 +18,27 @@
 package walkingkooka.net;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 final public class NetExceptionTest implements StandardThrowableTesting<NetException> {
 
     @Override
+    public NetException createThrowable(final String message) {
+        return new NetException(message);
+    }
+
+    @Override
+    public NetException createThrowable(final String message, final Throwable cause) {
+        return new NetException(message, cause);
+    }
+    
+    @Override
     public Class<NetException> type() {
         return NetException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

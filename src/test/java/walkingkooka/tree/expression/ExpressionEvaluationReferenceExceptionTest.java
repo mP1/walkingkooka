@@ -18,11 +18,27 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 public final class ExpressionEvaluationReferenceExceptionTest implements StandardThrowableTesting<ExpressionEvaluationReferenceException> {
 
     @Override
+    public ExpressionEvaluationReferenceException createThrowable(final String message) {
+        return new ExpressionEvaluationReferenceException(message);
+    }
+
+    @Override
+    public ExpressionEvaluationReferenceException createThrowable(final String message, final Throwable cause) {
+        return new ExpressionEvaluationReferenceException(message, cause);
+    }
+    
+    @Override
     public Class<ExpressionEvaluationReferenceException> type() {
         return ExpressionEvaluationReferenceException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

@@ -18,11 +18,27 @@
 package walkingkooka.stream;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 final public class StreamExceptionTest implements StandardThrowableTesting<StreamException> {
 
     @Override
+    public StreamException createThrowable(final String message) {
+        return new StreamException(message);
+    }
+
+    @Override
+    public StreamException createThrowable(final String message, final Throwable cause) {
+        return new StreamException(message, cause);
+    }
+    
+    @Override
     public Class<StreamException> type() {
         return StreamException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }
