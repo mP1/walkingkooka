@@ -17,6 +17,8 @@
 
 package walkingkooka.tree.json;
 
+import walkingkooka.text.CharSequences;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +38,7 @@ public interface HasJsonNode {
      */
     static void requiredPropertyMissing(final JsonNodeName property,
                                         final JsonNode node) {
-        throw new IllegalArgumentException("Required property " + property + " missing=" + node);
+        throw new IllegalArgumentException("Required property " + CharSequences.quoteAndEscape(property.value()) + " missing=" + node);
     }
 
     /**
@@ -44,7 +46,7 @@ public interface HasJsonNode {
      */
     static void unknownPropertyPresent(final JsonNodeName property,
                                        final JsonNode node) {
-        throw new IllegalArgumentException("Unknown property " + property + " present=" + node);
+        throw new IllegalArgumentException("Unknown property " + CharSequences.quoteAndEscape(property.value()) + " present=" + node);
     }
 
     /**
