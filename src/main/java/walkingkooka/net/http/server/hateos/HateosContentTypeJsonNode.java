@@ -70,9 +70,10 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
     /**
      * Reads a resource object from its {@link JsonNode} representation.
      */
-    @Override <R extends HateosResource<?>> R fromNode(final String text,
-                                                       final DocumentBuilder documentBuilder,
-                                                       final Class<R> resourceType) {
+    @Override
+    <R extends HateosResource<?>> R fromNode(final String text,
+                                             final DocumentBuilder documentBuilder,
+                                             final Class<R> resourceType) {
         return JsonNode.parse(text)
                 .fromJsonNode(resourceType);
     }
@@ -80,9 +81,10 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
     /**
      * Reads a list of resource objects from their {@link JsonNode} representation.
      */
-    @Override <R extends HateosResource<?>> List<R> fromNodeList(final String text,
-                                                                 final DocumentBuilder documentBuilder,
-                                                                 final Class<R> resourceType) {
+    @Override
+    <R extends HateosResource<?>> List<R> fromNodeList(final String text,
+                                                       final DocumentBuilder documentBuilder,
+                                                       final Class<R> resourceType) {
         return JsonNode.parse(text).fromJsonNodeList(resourceType);
     }
 
@@ -97,12 +99,13 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
      * },
      * </pre>
      */
-    @Override <R extends HateosResource<?>> String toText(final R resource,
-                                                          final DocumentBuilder documentBuilder,
-                                                          final HttpMethod method,
-                                                          final AbsoluteUrl base,
-                                                          final HateosResourceName resourceName,
-                                                          final Collection<LinkRelation<?>> linkRelations) {
+    @Override
+    <R extends HateosResource<?>> String toText(final R resource,
+                                                final DocumentBuilder documentBuilder,
+                                                final HttpMethod method,
+                                                final AbsoluteUrl base,
+                                                final HateosResourceName resourceName,
+                                                final Collection<LinkRelation<?>> linkRelations) {
         return toJsonText(addLinks(resource, method, base, resourceName, linkRelations));
     }
 
@@ -115,12 +118,13 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
         return HasJsonNode.toJsonNodeObject(value).toString();
     }
 
-    @Override <R extends HateosResource<?>> String toTextList(final List<R> resources,
-                                                              final DocumentBuilder documentBuilder,
-                                                              final HttpMethod method,
-                                                              final AbsoluteUrl base,
-                                                              final HateosResourceName resourceName,
-                                                              final Collection<LinkRelation<?>> linkRelations) {
+    @Override
+    <R extends HateosResource<?>> String toTextList(final List<R> resources,
+                                                    final DocumentBuilder documentBuilder,
+                                                    final HttpMethod method,
+                                                    final AbsoluteUrl base,
+                                                    final HateosResourceName resourceName,
+                                                    final Collection<LinkRelation<?>> linkRelations) {
         return toJsonText(
                 JsonNode.array().setChildren(resources.
                         stream()
