@@ -19,6 +19,7 @@ package walkingkooka.compare;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
@@ -26,6 +27,7 @@ import walkingkooka.test.ParseStringTesting;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.VisitableTesting;
+import walkingkooka.tree.visit.Visiting;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -843,6 +845,18 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
     }
 
     @Test
+    public void testParseInvalidCharacterFails() {
+        final String text = "1A:2!";
+
+        final InvalidCharacterException thrown = assertThrows(InvalidCharacterException.class, () -> {
+            Range.parse(text, ':', (s) -> {
+                throw new InvalidCharacterException("2!", 1);
+            });
+        });
+        assertEquals(text, thrown.text(), "text");
+    }
+
+    @Test
     public void testParseMissingSeparatorFails() {
         this.parseFails("1", new IllegalArgumentException("Missing separator \':\' in \"1\""));
     }
@@ -910,6 +924,12 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
     // lessThan.....................................................................................
 
     @Test
+    public void testEqualsLessThan() {
+        final Range<Integer> range = Range.lessThanEquals(VALUE);
+        this.checkEquals(range, range);
+    }
+
+    @Test
     public void testEqualsLessThanAll() {
         this.checkNotEquals(Range.lessThan(VALUE), Range.all());
     }
@@ -972,6 +992,44 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
     }
 
     // HasJsonNode...........................................................................................
+
+    @Test
+    public void testFromJsonNodeMissingLowerBoundFails() {
+        this.fromJsonNodeFails("{\n" +
+                "  \"upper-bound\": {\n" +
+                "    \"all\": {}\n" +
+                "  }\n" +
+                "}");
+    }
+
+    @Test
+    public void testFromJsonNodeMissingUpperBoundFails() {
+        this.fromJsonNodeFails("{\n" +
+                "  \"lower-bound\": {\n" +
+                "    \"all\": {}\n" +
+                "  }\n" +
+                "}");
+    }
+
+    @Test
+    public void testFromJsonNodeLowerBoundUnknownPropertyFails() {
+        this.fromJsonNodeFails("{\n" +
+                "  \"lower-bound\": {\n" +
+                "    \"unknown\": {}\n" +
+                "  }\n" +
+                "}");
+    }
+
+    @Test
+    public void testFromJsonNodeAllUnknownPropertyFails() {
+        this.fromJsonNodeFails("{\n" +
+                "  \"lower-bound\": {\n" +
+                "    \"all\": {\n" +
+                "       \"unknown\": 1\n" +
+                "    }\n" +
+                "  }\n" +
+                "}");
+    }
 
     @Test
     public void testFromJsonNodeUnknownPropertyFails() {
@@ -1174,7 +1232,59 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
         this.toJsonNodeRoundTripTwiceAndCheck(Range.greaterThanEquals(123).and(Range.greaterThanEquals(456)));
     }
 
-    // Parse ..........................................................................................
+    // RangeVisitor....................................................................................................
+
+    @Test
+    public void testAcceptGreaterThan() {
+        final StringBuilder visited = new StringBuilder();
+
+        final Integer lower = 55;
+        final Range<Integer> range = Range.greaterThan(lower);
+
+        range.accept(new FakeRangeVisitor<Integer>() {
+
+            @Override
+            protected Visiting startVisit(final Range<Integer> r) {
+                assertSame(range, r);
+                visited.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected Visiting startBetween(final RangeBound<Integer> lowerBound, final RangeBound<Integer> upperBound) {
+                check(range, lowerBound, upperBound);
+                visited.append("2");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void lowerBoundExclusive(final Integer value) {
+                assertSame(lower, value, "lowerBoundExclusive");
+                visited.append("3");
+            }
+
+            @Override
+            protected void upperBoundAll() {
+                visited.append("4");
+            }
+
+            @Override
+            protected void endBetween(final RangeBound<Integer> lowerBound, final RangeBound<Integer> upperBound) {
+                check(range, lowerBound, upperBound);
+                visited.append("5");
+            }
+
+            @Override
+            protected void endVisit(final Range<Integer> range) {
+                visited.append("6");
+                super.endVisit(range);
+            }
+        });
+
+        assertEquals(visited.toString(), "123456");
+    }
+
+    // Parse ........................................................................................................
 
     public Range<Integer> parse(final String text) {
         return Range.parse(text, ':', Integer::valueOf);
