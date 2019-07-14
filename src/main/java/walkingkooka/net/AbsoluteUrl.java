@@ -309,12 +309,5 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
         return new AbsoluteUrlSerializationProxy(this);
     }
 
-    /**
-     * Should never be called expect a serialization proxy
-     */
-    private Object readResolve() {
-        throw new UnsupportedOperationException();
-    }
-
     private final static long serialVersionUID = 1L;
 }

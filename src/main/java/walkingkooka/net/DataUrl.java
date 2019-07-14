@@ -207,12 +207,5 @@ public final class DataUrl extends Url {
         return DataUrlSerializationProxy.with(this);
     }
 
-    /**
-     * Should never be called expect a serialization proxy
-     */
-    private Object readResolve() {
-        throw new UnsupportedOperationException();
-    }
-
     private final static long serialVersionUID = 1L;
 }
