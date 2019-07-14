@@ -59,12 +59,12 @@ final class HasJsonNodeOptionalMapper extends HasJsonNodeTypedMapper<Optional<?>
         final List<JsonNode> children = array.children();
         return children.isEmpty() ?
                 Optional.empty() :
-                this.fromJsonNodeNonNull1(children);
+                this.fromJsonNodeNonNull1(children, array);
     }
 
-    private Optional<?> fromJsonNodeNonNull1(final List<JsonNode> children) {
+    private Optional<?> fromJsonNodeNonNull1(final List<JsonNode> children, final JsonNode parent) {
         if(children.size() > 1) {
-            throw new IllegalArgumentException("Optional expected only 0/1 children but got " + children);
+            throw new FromJsonNodeException("Optional expected only 0/1 children but got " + children, parent);
         }
 
         return Optional.of(fromJsonNodeWithType(children.get(0)));

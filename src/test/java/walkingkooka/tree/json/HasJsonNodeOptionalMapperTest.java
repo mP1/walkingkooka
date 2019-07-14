@@ -29,6 +29,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public final class HasJsonNodeOptionalMapperTest extends HasJsonNodeTypedMapperTestCase<HasJsonNodeOptionalMapper, Optional<?>> {
 
     @Test
+    public final void testFromBooleanFails() {
+        this.fromJsonNodeFailed(JsonNode.booleanNode(true), JsonNodeException.class);
+    }
+
+    @Test
+    public final void testFromNumberFails() {
+        this.fromJsonNodeFailed(JsonNode.number(123), JsonNodeException.class);
+    }
+
+    @Test
     public void testFromStringFails() {
         this.fromJsonNodeFailed(JsonNode.string("a1"), JsonNodeException.class);
     }
@@ -43,7 +53,7 @@ public final class HasJsonNodeOptionalMapperTest extends HasJsonNodeTypedMapperT
         this.fromJsonNodeFailed(JsonNode.array()
                         .appendChild(JsonNode.number(1))
                         .appendChild(JsonNode.number(2)),
-                JsonNodeException.class);
+                null);
     }
 
     @Test

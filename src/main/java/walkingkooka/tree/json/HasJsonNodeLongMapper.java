@@ -40,16 +40,25 @@ final class HasJsonNodeLongMapper extends HasJsonNodeTypedMapper<Long> {
     @Override
     Long fromJsonNodeNonNull(final JsonNode node) {
         return node.isNumber() ?
-                node.numberValueOrFail().longValue() :
-                this.fromJsonNode1(node);
+                this.fromJsonNodeNumber(node.numberValueOrFail()) :
+                this.fromJsonNodeString(node);
     }
 
-    private Long fromJsonNode1(final JsonNode node) {
+    private Long fromJsonNodeNumber(final Number number) {
+        final double doubleValue = number.doubleValue();
+        final long longValue = number.longValue();
+        if (doubleValue != longValue) {
+            throw new NumericLossJsonNodeException("Unable to convert " + number + " to Long");
+        }
+        return Long.valueOf(longValue);
+    }
+
+    private Long fromJsonNodeString(final JsonNode node) {
         try {
             final String text = node.stringValueOrFail();
             return Long.parseLong(text);
         } catch (final NumberFormatException cause) {
-            throw new IllegalArgumentException(cause.getMessage(), cause);
+            throw new FromJsonNodeException(cause.getMessage(), node, cause);
         }
     }
 

@@ -23,6 +23,11 @@ import walkingkooka.Cast;
 public final class HasJsonNodeJsonNodeMapperTest extends HasJsonNodeTypedMapperTestCase<HasJsonNodeJsonNodeMapper<JsonStringNode>, JsonNode> {
 
     @Test
+    public final void testFromBooleanFails() {
+        this.fromJsonNodeFailed(JsonNode.booleanNode(true), ClassCastException.class);
+    }
+
+    @Test
     public void testToJsonWithType() {
         final JsonStringNode string = JsonNode.string("abc123");
         this.toJsonNodeWithTypeAndCheck(string,

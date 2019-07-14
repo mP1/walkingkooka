@@ -17,7 +17,6 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.Visiting;
 
@@ -144,11 +143,7 @@ public final class ExpressionPowerNode extends ExpressionArithmeticBinaryNode {
 
     // @VisibleForTesting
     static ExpressionPowerNode fromJsonNode(final JsonNode node) {
-        final JsonArrayNode array = node.arrayOrFail();
-
-        return ExpressionPowerNode.with(
-                array.get(0).fromJsonNodeWithType(),
-                array.get(1).fromJsonNodeWithType());
+        return fromJsonNode0(node, ExpressionPowerNode::with);
     }
 
     static {

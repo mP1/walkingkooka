@@ -17,7 +17,6 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.Visiting;
 
@@ -111,11 +110,7 @@ public final class ExpressionGreaterThanNode extends ExpressionComparisonBinaryN
 
     // @VisibleForTesting
     static ExpressionGreaterThanNode fromJsonNode(final JsonNode node) {
-        final JsonArrayNode array = node.arrayOrFail();
-
-        return ExpressionGreaterThanNode.with(
-                array.get(0).fromJsonNodeWithType(),
-                array.get(1).fromJsonNodeWithType());
+        return fromJsonNode0(node, ExpressionGreaterThanNode::with);
     }
 
     static {

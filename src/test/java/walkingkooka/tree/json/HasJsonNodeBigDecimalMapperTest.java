@@ -52,6 +52,11 @@ public final class HasJsonNodeBigDecimalMapperTest extends HasJsonNodeTypedMappe
     }
 
     @Override
+    Class<? extends RuntimeException> fromFailsCauseType() {
+        return NumberFormatException.class;
+    }
+
+    @Override
     public Class<HasJsonNodeBigDecimalMapper> type() {
         return HasJsonNodeBigDecimalMapper.class;
     }

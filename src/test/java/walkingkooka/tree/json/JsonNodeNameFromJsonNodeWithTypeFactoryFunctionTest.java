@@ -80,7 +80,7 @@ public final class JsonNodeNameFromJsonNodeWithTypeFactoryFunctionTest implement
 
     @Test
     public void testApplyTypeMissingFromSource() {
-        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+        final FromJsonNodeException thrown = assertThrows(FromJsonNodeException.class, () -> {
             this.createFunction(JsonNode.object())
                     .apply(this.value().toJsonNode());
         });

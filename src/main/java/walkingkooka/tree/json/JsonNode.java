@@ -301,17 +301,17 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     public abstract JsonObjectNode objectOrFail();
 
     /**
-     * Reports a json node is not an object.
+     * Reports a json node is not an object during a fromJsonNode
      */
     final <V> V reportInvalidNodeObject() {
-        return this.reportInvalidNode(Object.class);
+        throw new FromJsonNodeException("Node is not an JSON Object =" + this, this);
     }
 
     /**
-     * Reports a json node is not an array.
+     * Reports a json node is not an array during a fromJsonNode operation.
      */
     final <V> V reportInvalidNodeArray() {
-        return this.reportInvalidNode("Array");
+        throw new FromJsonNodeException("Node is not an JSON Array =" + this, this);
     }
 
     /**

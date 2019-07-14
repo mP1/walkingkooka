@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.tree.json.FromJsonNodeException;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
@@ -265,11 +266,17 @@ public final class ExpressionFunctionNode extends ExpressionVariableNode {
 
     // @VisibleForTesting
     static ExpressionFunctionNode fromJsonNode(final JsonNode node) {
-        final JsonArrayNode array = node.arrayOrFail();
+        try {
+            final JsonArrayNode array = node.arrayOrFail();
 
-        return ExpressionFunctionNode.with(
-                ExpressionNodeName.fromJsonNode(array.get(0)),
-                array.get(1).fromJsonNodeWithTypeList());
+            return ExpressionFunctionNode.with(
+                    ExpressionNodeName.fromJsonNode(array.get(0)),
+                    array.get(1).fromJsonNodeWithTypeList());
+        } catch (final FromJsonNodeException cause) {
+            throw cause;
+        } catch (final RuntimeException cause) {
+            throw new FromJsonNodeException(cause.getMessage(), node, cause);
+        }
     }
 
     /**

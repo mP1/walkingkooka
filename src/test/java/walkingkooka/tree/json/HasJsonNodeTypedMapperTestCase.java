@@ -17,17 +17,10 @@
 
 package walkingkooka.tree.json;
 
-import org.junit.jupiter.api.Test;
-
 public abstract class HasJsonNodeTypedMapperTestCase<M extends HasJsonNodeTypedMapper<T>, T> extends HasJsonNodeMapperTestCase2<M, T> {
 
     HasJsonNodeTypedMapperTestCase() {
         super();
-    }
-
-    @Test
-    public final void testFromBooleanFails() {
-        this.fromJsonNodeFailed(JsonNode.booleanNode(true), JsonNodeException.class);
     }
 
     @Override

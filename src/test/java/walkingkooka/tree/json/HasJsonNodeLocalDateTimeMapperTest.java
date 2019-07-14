@@ -20,12 +20,13 @@ package walkingkooka.tree.json;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 public final class HasJsonNodeLocalDateTimeMapperTest extends HasJsonNodeTypedMapperTestCase2<HasJsonNodeLocalDateTimeMapper, LocalDateTime> {
 
     @Test
     public void testFromInvalidDateFails() {
-        this.fromJsonNodeFailed(JsonNode.string("ABC123"), JsonNodeException.class);
+        this.fromJsonNodeFailed(JsonNode.string("ABC123"), DateTimeParseException.class);
     }
 
     @Override
@@ -56,6 +57,11 @@ public final class HasJsonNodeLocalDateTimeMapperTest extends HasJsonNodeTypedMa
     @Override
     Class<LocalDateTime> mapperType() {
         return LocalDateTime.class;
+    }
+
+    @Override
+    Class<? extends RuntimeException> fromFailsCauseType() {
+        return DateTimeParseException.class;
     }
 
     @Override

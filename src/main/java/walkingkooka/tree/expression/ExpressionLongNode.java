@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.tree.json.FromJsonNodeException;
 import walkingkooka.tree.json.JsonNode;
 
 /**
