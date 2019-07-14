@@ -279,7 +279,7 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
                         upper = RangeBound.fromJsonNode(child.objectOrFail());
                         break;
                     default:
-                        throw new IllegalArgumentException("Unknown property " + name + "=" + node);
+                        HasJsonNode.unknownPropertyPresent(name, node);
                 }
             }
         } catch (final JsonNodeException cause) {

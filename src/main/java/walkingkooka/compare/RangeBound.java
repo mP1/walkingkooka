@@ -19,6 +19,7 @@ package walkingkooka.compare;
 
 import walkingkooka.Value;
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.JsonObjectNode;
@@ -160,7 +161,7 @@ abstract public class RangeBound<C extends Comparable<C>> implements HashCodeEqu
                     bound = RangeBoundInclusive.fromJsonNode0(child.objectOrFail());
                     break;
                 default:
-                    throw new IllegalArgumentException("Unknown property " + name + "=" + node);
+                    HasJsonNode.unknownPropertyPresent(name, node);
             }
         }
         return bound;
