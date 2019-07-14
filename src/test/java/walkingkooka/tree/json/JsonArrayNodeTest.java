@@ -585,7 +585,7 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
 
     @Test
     public void testFromJsonNodeWithType() {
-        this.fromJsonNodeWithTypeAndFail(JsonNodeException.class);
+        this.fromJsonNodeWithTypeAndFail(null);
     }
 
     @Test

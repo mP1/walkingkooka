@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.json;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ToStringTesting;
 
 public abstract class HasJsonNodeTypedNumberMapperTestCase<M extends HasJsonNodeTypedNumberMapper<T>, T extends Number> extends HasJsonNodeTypedMapperTestCase<M, T>
@@ -24,5 +25,25 @@ public abstract class HasJsonNodeTypedNumberMapperTestCase<M extends HasJsonNode
 
     HasJsonNodeTypedNumberMapperTestCase() {
         super();
+    }
+
+    @Test
+    public final void testFromArrayFails() {
+        this.fromJsonNodeFailed(JsonNode.array(), JsonNodeException.class);
+    }
+
+    @Test
+    public final void testFromBooleanFails() {
+        this.fromJsonNodeFailed(JsonNode.booleanNode(true), JsonNodeException.class);
+    }
+
+    @Test
+    public final void testFromObjectFails() {
+        this.fromJsonNodeFailed(JsonNode.object(), JsonNodeException.class);
+    }
+
+    @Test
+    public final void testFromStringFails() {
+        this.fromJsonNodeFailed(JsonNode.string("abc123"), JsonNodeException.class);
     }
 }

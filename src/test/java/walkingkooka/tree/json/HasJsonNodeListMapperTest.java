@@ -26,6 +26,21 @@ import java.util.List;
 public final class HasJsonNodeListMapperTest extends HasJsonNodeTypedMapperTestCase<HasJsonNodeListMapper, List<?>> {
 
     @Test
+    public final void testFromBooleanFails() {
+        this.fromJsonNodeFailed(JsonNode.booleanNode(true), null);
+    }
+
+    @Test
+    public final void testFromNumberFails() {
+        this.fromJsonNodeFailed(JsonNode.number(123), null);
+    }
+
+    @Test
+    public final void testFromStringFails() {
+        this.fromJsonNodeFailed(JsonNode.string("abc123"), null);
+    }
+
+    @Test
     public void testFromEmptyArray() {
         this.fromJsonNodeAndCheck(JsonNode.array(), Lists.empty());
     }

@@ -152,7 +152,7 @@ public final class ExpressionNegativeNode extends ExpressionUnaryNode {
 
     // @VisibleForTesting
     static ExpressionNegativeNode fromJsonNode(final JsonNode node) {
-        return ExpressionNegativeNode.with(node.fromJsonNodeWithType());
+        return fromJsonNode0(node, ExpressionNegativeNode::with);
     }
 
     static {

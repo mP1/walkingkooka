@@ -257,7 +257,7 @@ public final class JsonArrayNode extends JsonParentNode<List<JsonNode>> {
             try {
                 entryObject = entry.objectOrFail();
             } catch (final JsonNodeException cause) {
-                throw new IllegalArgumentException(cause.getMessage(), cause);
+                throw new FromJsonNodeException(cause.getMessage(), this, cause);
             }
 
             map.put(keyMapper.fromJsonNode(entryObject.getOrFail(HasJsonNodeMapper.ENTRY_KEY)),
@@ -293,7 +293,7 @@ public final class JsonArrayNode extends JsonParentNode<List<JsonNode>> {
             try {
                 childObject = child.objectOrFail();
             } catch (final JsonNodeException cause) {
-                throw new IllegalArgumentException(cause.getMessage(), cause);
+                throw new FromJsonNodeException(cause.getMessage(), this, cause);
             }
 
             map.put(childObject.getOrFail(HasJsonNodeMapper.ENTRY_KEY).fromJsonNodeWithType(),
@@ -305,7 +305,7 @@ public final class JsonArrayNode extends JsonParentNode<List<JsonNode>> {
 
     @Override
     public <T> T fromJsonNodeWithType() {
-        return this.reportInvalidNodeObject();
+        throw new FromJsonNodeException("fromJsonNodeWithType from array", this);
     }
 
     @Override

@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.json;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ToStringTesting;
 
@@ -40,7 +41,9 @@ public abstract class HasJsonNodeMapperTestCase2<M extends HasJsonNodeMapper<T>,
 
     @Test
     public final void testFromJsonNodeNullFails() {
-        this.fromJsonNodeFailed(null, NullPointerException.class);
+        assertThrows(NullPointerException.class, () -> {
+            this.mapper().fromJsonNode(null);
+        });
     }
 
     @Test
@@ -152,10 +155,20 @@ public abstract class HasJsonNodeMapperTestCase2<M extends HasJsonNodeMapper<T>,
                 node;
     }
 
-    final void fromJsonNodeFailed(final JsonNode node, final Class<? extends Throwable> thrown) {
-        assertThrows(thrown, () -> {
+    final void fromJsonNodeFailed(final JsonNode node, final Class<? extends Throwable> wrapped) {
+        final FromJsonNodeException from = assertThrows(FromJsonNodeException.class, () -> {
             this.mapper().fromJsonNode(node);
         });
+        final Throwable cause = from.getCause();
+        if (null == wrapped) {
+            from.printStackTrace();
+            Assertions.assertEquals(null, cause, "Cause");
+        } else {
+            if (wrapped != cause.getClass()) {
+                from.printStackTrace();
+                Assertions.assertEquals(wrapped, cause, "Wrong cause type");
+            }
+        }
     }
 
     final void fromJsonNodeAndCheck(final JsonNode node, final T value) {

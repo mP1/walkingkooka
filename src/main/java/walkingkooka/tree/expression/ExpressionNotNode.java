@@ -133,7 +133,7 @@ public final class ExpressionNotNode extends ExpressionUnaryNode {
 
     // @VisibleForTesting
     static ExpressionNotNode fromJsonNode(final JsonNode node) {
-        return ExpressionNotNode.with(node.fromJsonNodeWithType());
+        return fromJsonNode0(node, ExpressionNotNode::with);
     }
 
     static {

@@ -26,6 +26,11 @@ public abstract class HasJsonNodeTypedMapperTestCase2<M extends HasJsonNodeTyped
     }
 
     @Test
+    public final void testFromBooleanFails() {
+        this.fromJsonNodeFailed(JsonNode.booleanNode(true), JsonNodeException.class);
+    }
+
+    @Test
     public final void testFromArrayFails() {
         this.fromJsonNodeFailed(JsonNode.array(), JsonNodeException.class);
     }
@@ -37,11 +42,13 @@ public abstract class HasJsonNodeTypedMapperTestCase2<M extends HasJsonNodeTyped
 
     @Test
     public final void testFromEmptyStringFails() {
-        this.fromJsonNodeFailed(JsonNode.string(""), JsonNodeException.class);
+        this.fromJsonNodeFailed(JsonNode.string(""), this.fromFailsCauseType());
     }
 
     @Test
     public final void testFromStringFails() {
-        this.fromJsonNodeFailed(JsonNode.string("1A"), JsonNodeException.class);
+        this.fromJsonNodeFailed(JsonNode.string("1A"), this.fromFailsCauseType());
     }
+
+    abstract Class<? extends RuntimeException> fromFailsCauseType();
 }

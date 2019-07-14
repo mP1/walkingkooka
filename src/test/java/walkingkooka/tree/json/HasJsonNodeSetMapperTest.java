@@ -26,6 +26,26 @@ import java.util.Set;
 public final class HasJsonNodeSetMapperTest extends HasJsonNodeTypedMapperTestCase<HasJsonNodeSetMapper, Set<?>> {
 
     @Test
+    public final void testFromBooleanFails() {
+        this.fromJsonNodeFailed(JsonNode.booleanNode(true), null);
+    }
+
+    @Test
+    public final void testFromNumberFails() {
+        this.fromJsonNodeFailed(JsonNode.number(123), null);
+    }
+
+    @Test
+    public final void testFromStringFails() {
+        this.fromJsonNodeFailed(JsonNode.string("abc123"), null);
+    }
+
+    @Test
+    public final void testFromObjectFails() {
+        this.fromJsonNodeFailed(JsonNode.object(), null);
+    }
+
+    @Test
     public void testFromEmptyArray() {
         this.fromJsonNodeAndCheck(JsonNode.array(), Sets.empty());
     }

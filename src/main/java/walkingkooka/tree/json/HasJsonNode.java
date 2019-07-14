@@ -38,7 +38,8 @@ public interface HasJsonNode {
      */
     static void requiredPropertyMissing(final JsonNodeName property,
                                         final JsonNode node) {
-        throw new IllegalArgumentException("Required property " + CharSequences.quoteAndEscape(property.value()) + " missing=" + node);
+        throw new FromJsonNodeException("Required property " + CharSequences.quoteAndEscape(property.value()) + " missing=" + node,
+                node);
     }
 
     /**
@@ -46,7 +47,8 @@ public interface HasJsonNode {
      */
     static void unknownPropertyPresent(final JsonNodeName property,
                                        final JsonNode node) {
-        throw new IllegalArgumentException("Unknown property " + CharSequences.quoteAndEscape(property.value()) + " in " + node);
+        throw new FromJsonNodeException("Unknown property " + CharSequences.quoteAndEscape(property.value()) + " in " + node,
+                node);
     }
 
     /**

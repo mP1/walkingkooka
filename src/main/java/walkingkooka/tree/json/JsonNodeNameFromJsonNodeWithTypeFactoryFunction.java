@@ -57,7 +57,11 @@ final class JsonNodeNameFromJsonNodeWithTypeFactoryFunction<T> implements Functi
      */
     private HasJsonNodeMapper<T> mapper() {
         if (null == this.mapper) {
-            this.mapper = HasJsonNodeMapper.mapperOrFail(this.source.getOrFail(this.property).stringValueOrFail());
+            try {
+                this.mapper = HasJsonNodeMapper.mapperOrFail(this.source.getOrFail(this.property).stringValueOrFail());
+            } catch (final IllegalArgumentException cause) {
+                throw new FromJsonNodeException(cause.getMessage(), this.source, cause);
+            }
         }
         return this.mapper;
     }

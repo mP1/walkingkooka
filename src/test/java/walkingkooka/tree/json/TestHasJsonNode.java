@@ -44,7 +44,7 @@ final class TestHasJsonNode implements HasJsonNode {
         try {
             return with(node.stringValueOrFail());
         } catch (final JsonNodeException cause) {
-            throw new IllegalArgumentException(cause.getMessage(), cause);
+            throw new FromJsonNodeException(cause.getMessage(), node, cause);
         }
     }
 

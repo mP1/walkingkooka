@@ -93,7 +93,7 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
     }
 
     default void fromJsonNodeFails(final JsonNode from) {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(FromJsonNodeException.class, () -> {
             this.fromJsonNode(from);
         });
     }

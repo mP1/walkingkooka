@@ -22,6 +22,32 @@ import org.junit.jupiter.api.Test;
 public final class HasJsonNodeLongMapperTest extends HasJsonNodeTypedMapperTestCase<HasJsonNodeLongMapper, Long> {
 
     @Test
+    public final void testFromBooleanFails() {
+        this.fromJsonNodeFailed(JsonNode.booleanNode(true), JsonNodeException.class);
+    }
+
+    @Test
+    public final void testFromNumber() {
+        this.fromJsonNodeAndCheck(JsonNode.number(123),
+                123L);
+    }
+
+    @Test
+    public final void testFromNumberDecimalFails() {
+        this.fromJsonNodeFailed(JsonNode.number(123.5), NumericLossJsonNodeException.class);
+    }
+
+    @Test
+    public final void testFromObjectFails() {
+        this.fromJsonNodeFailed(JsonNode.object(), JsonNodeException.class);
+    }
+
+    @Test
+    public final void testFromStringFails() {
+        this.fromJsonNodeFailed(JsonNode.string("abc123"), NumberFormatException.class);
+    }
+
+    @Test
     public final void testFromArrayFails() {
         this.fromJsonNodeFailed(JsonNode.array(), JsonNodeException.class);
     }

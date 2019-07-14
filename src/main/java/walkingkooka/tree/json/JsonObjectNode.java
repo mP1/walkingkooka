@@ -119,8 +119,7 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
      */
     public JsonNode getOrFail(final JsonNodeName name) {
         return this.get(name).orElseThrow(() -> {
-            HasJsonNode.unknownPropertyPresent(name, this);
-            return null;
+            throw new IllegalArgumentException("Unknown property " + CharSequences.quoteAndEscape(name.value()) + " in " + this);
         });
     }
 
@@ -299,14 +298,16 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
      */
     @Override
     public <T> T fromJsonNodeWithType() {
-        String type;
-        try {
-            type = this.getOrFail(TYPE).stringValueOrFail();
-        } catch (final JsonNodeException cause) {
-            throw new IllegalArgumentException(cause.getMessage(), cause);
-        }
 
-        return Cast.to(HasJsonNodeMapper.mapperOrFail(type).fromJsonNode(this.getOrFail(VALUE)));
+        try {
+            final String type = this.getOrFail(TYPE).stringValueOrFail();
+            return Cast.to(HasJsonNodeMapper.mapperOrFail(type)
+                    .fromJsonNode(this.getOrFail(VALUE)));
+        } catch (final FromJsonNodeException cause) {
+            throw cause;
+        } catch (final RuntimeException cause) {
+            throw new FromJsonNodeException(cause.getMessage(), this, cause);
+        }
     }
 
     // @VisibleTesting

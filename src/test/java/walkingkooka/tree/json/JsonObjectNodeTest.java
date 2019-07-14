@@ -815,32 +815,32 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
 
     @Test
     public void testFromJsonNodeListFails() {
-        this.fromJsonNodeListAndFail(Void.class, JsonNodeException.class);
+        this.fromJsonNodeListAndFail(Void.class, null);
     }
 
     @Test
     public void testFromJsonNodeSetFails() {
-        this.fromJsonNodeSetAndFail(Void.class, JsonNodeException.class);
+        this.fromJsonNodeSetAndFail(Void.class, null);
     }
 
     @Test
     public void testFromJsonNodeMapFails() {
-        this.fromJsonNodeMapAndFail(Void.class, Void.class, JsonNodeException.class);
+        this.fromJsonNodeMapAndFail(Void.class, Void.class, null);
     }
 
     @Test
     public void testFromJsonNodeListWithTypeFails() {
-        this.fromJsonNodeWithTypeListAndFail(JsonNodeException.class);
+        this.fromJsonNodeWithTypeListAndFail(null);
     }
 
     @Test
     public void testFromJsonNodeSetWithTypeFails() {
-        this.fromJsonNodeWithTypeSetAndFail(JsonNodeException.class);
+        this.fromJsonNodeWithTypeSetAndFail(null);
     }
 
     @Test
     public void testFromJsonNodeMapWithTypeFails() {
-        this.fromJsonNodeWithTypeMapAndFail(JsonNodeException.class);
+        this.fromJsonNodeWithTypeMapAndFail(null);
     }
 
     @Test
@@ -864,7 +864,7 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     public void testFromJsonNodeWithTypeIncorrectTypePropertyFails() {
         this.fromJsonNodeWithTypeAndFail(JsonNode.object()
                         .set(JsonObjectNode.TYPE, JsonNode.number(123)),
-                IllegalArgumentException.class);
+                JsonNodeException.class);
     }
 
     @Test
