@@ -67,6 +67,7 @@ public final class UrlCredentialsTest implements ClassTesting2<UrlCredentials>,
         this.checkNotEquals(UrlCredentials.with(USER, "different"));
     }
 
+    @Test
     public void testToString() {
         this.toStringAndCheck(this.credentials(), USER + ":" + PASSWORD);
     }
