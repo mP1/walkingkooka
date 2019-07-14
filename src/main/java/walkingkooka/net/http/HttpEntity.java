@@ -353,9 +353,13 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
      */
     @Override
     public String toString() {
-        final ToStringBuilder b = ToStringBuilder.empty();
-        b.disable(ToStringBuilderOption.QUOTE);
-        b.disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE);
+        final int globalAndValueLength = 32 * 1024;
+
+        final ToStringBuilder b = ToStringBuilder.empty()
+                .disable(ToStringBuilderOption.QUOTE)
+                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .globalLength(globalAndValueLength)
+                .valueLength(globalAndValueLength);
 
         final String eol = LINE_ENDING.toString();
 
