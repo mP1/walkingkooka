@@ -1634,11 +1634,6 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     }
 
     @Test
-    public void testFromJsonNodeNullNodeFails() {
-        this.fromJsonNodeFails(JsonNode.nullNode(), JsonNodeException.class);
-    }
-
-    @Test
     public void testFromJsonNodeNumberFails() {
         this.fromJsonNodeFails(JsonNode.number(123), JsonNodeException.class);
     }

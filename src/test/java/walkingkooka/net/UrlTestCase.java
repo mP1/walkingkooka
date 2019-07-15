@@ -65,11 +65,6 @@ abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
     }
 
     @Test
-    public final void testFromJsonNodeNulFails() {
-        this.fromJsonNodeFails(JsonNode.nullNode(), JsonNodeException.class);
-    }
-
-    @Test
     public final void testFromJsonNodeNumberFails() {
         this.fromJsonNodeFails(JsonNode.number(1.25), JsonNodeException.class);
     }

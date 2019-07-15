@@ -180,7 +180,7 @@ final class RangeBoundExclusive<C extends Comparable<C>> extends RangeBoundExclu
 
     // Range.toJsonNode......................................................................
 
-    static RangeBound<?> fromJsonNode0(final JsonObjectNode node) {
+    static RangeBound<?> fromJsonNodeExclusive(final JsonObjectNode node) {
         return with(node.fromJsonNodeWithType());
     }
 

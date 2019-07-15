@@ -192,28 +192,28 @@ public abstract class Url implements HashCodeEqualsDefined,
     /**
      * Accepts a json string holding an {@link Url}.
      */
-    public static Url fromJsonNode(final JsonNode node) {
+    static Url fromJsonNode(final JsonNode node) {
         return fromJsonNode0(node, Url::parse);
     }
 
     /**
      * Accepts a json string holding an {@link AbsoluteUrl}.
      */
-    public static AbsoluteUrl fromJsonNodeAbsolute(final JsonNode node) {
+    static AbsoluteUrl fromJsonNodeAbsolute(final JsonNode node) {
         return fromJsonNode0(node, Url::parseAbsolute);
     }
 
     /**
      * Accepts a json string holding an {@link DataUrl}.
      */
-    public static DataUrl fromJsonNodeData(final JsonNode node) {
+    static DataUrl fromJsonNodeData(final JsonNode node) {
         return fromJsonNode0(node, Url::parseData);
     }
 
     /**
      * Accepts a json string holding an {@link RelativeUrl}.
      */
-    public static RelativeUrl fromJsonNodeRelative(final JsonNode node) {
+    static RelativeUrl fromJsonNodeRelative(final JsonNode node) {
         return fromJsonNode0(node, Url::parseRelative);
     }
 
