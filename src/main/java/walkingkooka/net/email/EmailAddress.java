@@ -133,7 +133,7 @@ final public class EmailAddress implements Value<String>,
     /**
      * Accepts a json string holding an email.
      */
-    public static EmailAddress fromJsonNode(final JsonNode node) {
+    static EmailAddress fromJsonNode(final JsonNode node) {
         Objects.requireNonNull(node, "node");
 
         try {
@@ -149,7 +149,9 @@ final public class EmailAddress implements Value<String>,
     }
 
     static {
-        HasJsonNode.register("email", EmailAddress::fromJsonNode, EmailAddress.class);
+        HasJsonNode.register("email",
+                EmailAddress::fromJsonNode,
+                EmailAddress.class);
     }
 
     // Object....................................................................................................

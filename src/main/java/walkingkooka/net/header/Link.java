@@ -161,7 +161,7 @@ final public class Link extends HeaderValueWithParameters2<Link,
     /**
      * Accepts a json object with a single required property href.
      */
-    public static Link fromJsonNode(final JsonNode node) {
+    static Link fromJsonNode(final JsonNode node) {
         Objects.requireNonNull(node, "node");
 
         try {
