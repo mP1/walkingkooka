@@ -31,6 +31,7 @@ import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.Arrays;
@@ -1625,36 +1626,36 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         return null != string ? string : "";
     }
 
-    // toJsonNode .......................................................................................
+    // toJsonNode ......................................................................................................
 
     @Test
     public void testFromJsonNodeBooleanFails() {
-        this.fromJsonNodeFails(JsonNode.booleanNode(true));
+        this.fromJsonNodeFails(JsonNode.booleanNode(true), JsonNodeException.class);
     }
 
     @Test
     public void testFromJsonNodeNullNodeFails() {
-        this.fromJsonNodeFails(JsonNode.nullNode());
+        this.fromJsonNodeFails(JsonNode.nullNode(), JsonNodeException.class);
     }
 
     @Test
     public void testFromJsonNodeNumberFails() {
-        this.fromJsonNodeFails(JsonNode.number(123));
+        this.fromJsonNodeFails(JsonNode.number(123), JsonNodeException.class);
     }
 
     @Test
     public void testFromJsonNodeArrayFails() {
-        this.fromJsonNodeFails(JsonNode.array());
+        this.fromJsonNodeFails(JsonNode.array(), JsonNodeException.class);
     }
 
     @Test
     public void testFromJsonNodeObjectFails() {
-        this.fromJsonNodeFails(JsonNode.object());
+        this.fromJsonNodeFails(JsonNode.object(), JsonNodeException.class);
     }
 
     @Test
     public void testFromJsonNodeInvalidEmailFails() {
-        this.fromJsonNodeFails(JsonNode.string("!"));
+        this.fromJsonNodeFails(JsonNode.string("!"), IllegalArgumentException.class);
     }
 
     @Test

@@ -27,6 +27,7 @@ import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.function.Predicate;
@@ -55,27 +56,27 @@ abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
 
     @Test
     public final void testFromJsonNodeArrayFails() {
-        this.fromJsonNodeFails(JsonNode.array());
+        this.fromJsonNodeFails(JsonNode.array(), JsonNodeException.class);
     }
 
     @Test
     public final void testFromJsonNodeBooleanFails() {
-        this.fromJsonNodeFails(JsonNode.booleanNode(true));
+        this.fromJsonNodeFails(JsonNode.booleanNode(true), JsonNodeException.class);
     }
 
     @Test
     public final void testFromJsonNodeNulFails() {
-        this.fromJsonNodeFails(JsonNode.nullNode());
+        this.fromJsonNodeFails(JsonNode.nullNode(), JsonNodeException.class);
     }
 
     @Test
     public final void testFromJsonNodeNumberFails() {
-        this.fromJsonNodeFails(JsonNode.number(1.25));
+        this.fromJsonNodeFails(JsonNode.number(1.25), JsonNodeException.class);
     }
 
     @Test
     public final void testFromJsonNodeObjectFails() {
-        this.fromJsonNodeFails(JsonNode.object());
+        this.fromJsonNodeFails(JsonNode.object(), JsonNodeException.class);
     }
 
     // ClassTesting.....................................................................................................

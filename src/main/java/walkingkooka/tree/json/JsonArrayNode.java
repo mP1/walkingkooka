@@ -253,12 +253,7 @@ public final class JsonArrayNode extends JsonParentNode<List<JsonNode>> {
         final Map<K, V> map = Maps.ordered();
 
         for (JsonNode entry : this.children()) {
-            JsonObjectNode entryObject;
-            try {
-                entryObject = entry.objectOrFail();
-            } catch (final JsonNodeException cause) {
-                throw new FromJsonNodeException(cause.getMessage(), this, cause);
-            }
+            final JsonObjectNode entryObject = entry.objectOrFail();
 
             map.put(keyMapper.fromJsonNode(entryObject.getOrFail(HasJsonNodeMapper.ENTRY_KEY)),
                     valueMapper.fromJsonNode(entryObject.getOrFail(HasJsonNodeMapper.ENTRY_VALUE)));
@@ -289,12 +284,7 @@ public final class JsonArrayNode extends JsonParentNode<List<JsonNode>> {
         final Map<K, V> map = Maps.ordered();
 
         for (JsonNode child : this.children()) {
-            JsonObjectNode childObject;
-            try {
-                childObject = child.objectOrFail();
-            } catch (final JsonNodeException cause) {
-                throw new FromJsonNodeException(cause.getMessage(), this, cause);
-            }
+            final JsonObjectNode childObject = child.objectOrFail();
 
             map.put(childObject.getOrFail(HasJsonNodeMapper.ENTRY_KEY).fromJsonNodeWithType(),
                     childObject.getOrFail(HasJsonNodeMapper.ENTRY_VALUE).fromJsonNodeWithType());

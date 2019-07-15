@@ -46,11 +46,7 @@ final class TestHasJsonNode extends TestHasJsonNodeAbstract {
     static TestHasJsonNode fromJsonNode(final JsonNode node) {
         Objects.requireNonNull(node, "node");
 
-        try {
-            return with(node.stringValueOrFail());
-        } catch (final JsonNodeException cause) {
-            throw new FromJsonNodeException(cause.getMessage(), node, cause);
-        }
+        return with(node.stringValueOrFail());
     }
 
     @Override

@@ -402,7 +402,7 @@ abstract class HasJsonNodeMapper<T> {
             return node.isNull() ?
                     this.fromJsonNodeNull() :
                     this.fromJsonNodeNonNull(node);
-        } catch (final FromJsonNodeException cause) {
+        } catch (final FromJsonNodeException | NullPointerException cause) {
             throw cause;
         } catch (final RuntimeException cause) {
             throw new FromJsonNodeException(cause.getMessage(), node, cause);

@@ -22,10 +22,8 @@ import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.tree.json.FromJsonNodeException;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeException;
 
 import java.util.Objects;
 
@@ -72,11 +70,7 @@ public final class ExpressionNodeName implements Name,
     static ExpressionNodeName fromJsonNode(final JsonNode node) {
         Objects.requireNonNull(node, "node");
 
-        try {
-            return with(node.stringValueOrFail());
-        } catch (final JsonNodeException cause) {
-            throw new FromJsonNodeException(cause.getMessage(), node, cause);
-        }
+        return with(node.stringValueOrFail());
     }
 
     @Override

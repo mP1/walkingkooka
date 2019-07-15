@@ -298,16 +298,9 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
      */
     @Override
     public <T> T fromJsonNodeWithType() {
-
-        try {
-            final String type = this.getOrFail(TYPE).stringValueOrFail();
-            return Cast.to(HasJsonNodeMapper.mapperOrFail(type)
-                    .fromJsonNode(this.getOrFail(VALUE)));
-        } catch (final FromJsonNodeException cause) {
-            throw cause;
-        } catch (final RuntimeException cause) {
-            throw new FromJsonNodeException(cause.getMessage(), this, cause);
-        }
+        final String type = this.getOrFail(TYPE).stringValueOrFail();
+        return Cast.to(HasJsonNodeMapper.mapperOrFail(type)
+                .fromJsonNode(this.getOrFail(VALUE)));
     }
 
     // @VisibleTesting
