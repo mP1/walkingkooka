@@ -25,8 +25,25 @@ import walkingkooka.test.ClassTesting;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HasJsonNodeTest implements ClassTesting<HasJsonNode> {
+
+    @Test
+    public void testRequiredMissingProperty() {
+        final FromJsonNodeException thrown = assertThrows(FromJsonNodeException.class, () -> {
+            HasJsonNode.requiredPropertyMissing(JsonNodeName.with("required-1a"), JsonNode.object());
+        });
+        assertEquals("Required property \"required-1a\" missing={}", thrown.getMessage());
+    }
+
+    @Test
+    public void testUnknownPropertyPresent() {
+        final FromJsonNodeException thrown = assertThrows(FromJsonNodeException.class, () -> {
+            HasJsonNode.unknownPropertyPresent(JsonNodeName.with("unknown-1a"), JsonNode.object());
+        });
+        assertEquals("Unknown property \"unknown-1a\" in {}", thrown.getMessage());
+    }
 
     @Test
     public void testToJsonNodeObject() {
