@@ -18,6 +18,7 @@
 package walkingkooka.tree.json;
 
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.ClassAttributes;
@@ -120,13 +121,10 @@ abstract class HasJsonNodeMapper<T> {
         Objects.requireNonNull(from, "from");
 
         Class<?> first = type;
-        Class<?>[] all;
+        List<Class<?>> all;
 
         if (0 == types.length) {
-            if (ClassAttributes.ABSTRACT.is(first)) {
-                throw new IllegalArgumentException("Class " + CharSequences.quoteAndEscape(first.getName()) + " must not be abstract");
-            }
-            all = new Class[]{type};
+            all = Lists.of(type);
         } else {
             if (false == ClassAttributes.ABSTRACT.is(first)) {
                 throw new IllegalArgumentException("Class " + CharSequences.quoteAndEscape(first.getName()) + " must be abstract");
@@ -138,7 +136,9 @@ abstract class HasJsonNodeMapper<T> {
             if (!notSubclasses.isEmpty()) {
                 throw new IllegalArgumentException("Several classes " + notSubclasses + " are not sub classes of " + CharSequences.quoteAndEscape(first.getName()));
             }
-            all = types;
+            all = Lists.array();
+            all.add(type);
+            Arrays.stream(types).forEach(all::add);
         }
 
         register1(typeName,
@@ -168,7 +168,7 @@ abstract class HasJsonNodeMapper<T> {
         final HasJsonNodeJsonNodeMapper<T> mapper = HasJsonNodeJsonNodeMapper.with(type, typeName);
         register1(mapper.typeName().value(),
                 mapper,
-                type);
+                Lists.of(type));
     }
 
     /**
@@ -176,7 +176,7 @@ abstract class HasJsonNodeMapper<T> {
      */
     private static <T> void register1(final String typeName,
                                       final HasJsonNodeMapper<T> mapper,
-                                      final Class<?>...types) {
+                                      final List<Class<?>> types) {
         register2(typeName, mapper);
 
         for (Class<?> type : types) {

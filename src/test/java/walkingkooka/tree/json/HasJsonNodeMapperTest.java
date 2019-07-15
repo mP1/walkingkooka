@@ -83,14 +83,17 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
     }
 
     @Test
-    public void testRegisterOnlyTypeAbstractFails() {
+    public void testRegisterOnlyTypeAbstract() {
         TestHasJsonNode.unregisterHasJsonNode();
 
-        assertThrows(IllegalArgumentException.class, () -> {
+        try {
             HasJsonNodeMapper.register(TestHasJsonNode.TYPE_NAME,
                     TestHasJsonNode::fromJsonNode,
                     TestHasJsonNodeAbstract.class);
-        });
+        } finally {
+            TestHasJsonNode.unregisterHasJsonNode();
+            TestHasJsonNode.registerHasJsonNode();
+        }
     }
 
     @Test
