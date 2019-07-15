@@ -164,7 +164,11 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesti
         this.textOffsetAndCheck(this.createNode(), 0);
     }
 
-    // HasJsonNode............................................................................................
+    // HasJsonNode.....................................................................................................
+
+    @Override
+    public void testStaticFromJsonNodeMethodsNonPublic() {
+    }
 
     private final Class<?> NULL_CLASS = null;
 
