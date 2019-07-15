@@ -19,7 +19,6 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -27,8 +26,7 @@ import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CharPredicatesTest implements ClassTesting2<CharPredicates>,
-        PublicStaticHelperTesting<CharPredicates> {
+public final class CharPredicatesTest implements PublicStaticHelperTesting<CharPredicates> {
 
     // failIfNullOrFalse .............................................................
 

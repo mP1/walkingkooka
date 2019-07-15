@@ -19,7 +19,6 @@ package walkingkooka.collect.set;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -30,8 +29,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class SetsTest implements ClassTesting2<Sets>,
-        PublicStaticHelperTesting<Sets> {
+final public class SetsTest implements PublicStaticHelperTesting<Sets> {
 
     // tests
 

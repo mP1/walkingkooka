@@ -17,14 +17,13 @@
 
 package walkingkooka.text.cursor.parser.ebnf;
 
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
 
-public final class EbnfParserContextsTest implements ClassTesting2<EbnfParserContexts>,
-        PublicStaticHelperTesting<EbnfParserContexts> {
+public final class EbnfParserContextsTest implements PublicStaticHelperTesting<EbnfParserContexts> {
+
     @Override
     public Class<EbnfParserContexts> type() {
         return EbnfParserContexts.class;

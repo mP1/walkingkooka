@@ -18,7 +18,6 @@
 package walkingkooka.tree.xml;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.JavaVisibility;
@@ -28,8 +27,7 @@ import java.lang.reflect.Method;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class XmlsTest implements ClassTesting2<Xmls>,
-        PublicStaticHelperTesting<Xmls> {
+final public class XmlsTest implements PublicStaticHelperTesting<Xmls> {
 
     // decode
 

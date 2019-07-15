@@ -17,14 +17,12 @@
 
 package walkingkooka.tree.json.parser;
 
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
 
-public final class JsonNodeParserContextsTest implements ClassTesting2<JsonNodeParserContexts>,
-        PublicStaticHelperTesting<JsonNodeParserContexts> {
+public final class JsonNodeParserContextsTest implements PublicStaticHelperTesting<JsonNodeParserContexts> {
 
     @Override
     public Class<JsonNodeParserContexts> type() {

@@ -18,7 +18,6 @@
 package walkingkooka.compare;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -26,8 +25,7 @@ import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-final public class ComparatorsTest implements ClassTesting2<Comparators>,
-        PublicStaticHelperTesting<Comparators> {
+final public class ComparatorsTest implements PublicStaticHelperTesting<Comparators> {
 
     @Test
     public void testNormalizeIntZero() {

@@ -19,15 +19,19 @@ package walkingkooka.tree.json.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.type.JavaVisibility;
 
-public final class JsonNodeParsersTest implements ParserTesting<Parser<JsonNodeParserContext>,
-        JsonNodeParserContext> {
+import java.lang.reflect.Method;
+
+public final class JsonNodeParsersTest implements PublicStaticHelperTesting<JsonNodeParsers>,
+        ParserTesting<Parser<JsonNodeParserContext>, JsonNodeParserContext> {
 
     @Test
     public void testBooleanFalse() {
@@ -419,5 +423,22 @@ public final class JsonNodeParsersTest implements ParserTesting<Parser<JsonNodeP
     @Override
     public String parserTokenTypeNamePrefix() {
         return JsonNode.class.getSimpleName();
+    }
+
+    // PublicStaticHelper...............................................................................................
+
+    @Override
+    public Class<JsonNodeParsers> type() {
+        return JsonNodeParsers.class;
+    }
+
+    @Override
+    public boolean canHavePublicTypes(final Method method) {
+        return false;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

@@ -23,7 +23,6 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.test.ResourceTesting;
 import walkingkooka.text.CharSequences;
@@ -66,8 +65,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public final class EbnfParserCombinatorsTest implements ClassTesting2<EbnfParserCombinators>,
-        ParserTesting<Parser<FakeParserContext>, FakeParserContext>,
+public final class EbnfParserCombinatorsTest implements ParserTesting<Parser<FakeParserContext>, FakeParserContext>,
         PublicStaticHelperTesting<EbnfParserCombinators>,
         ResourceTesting {
 

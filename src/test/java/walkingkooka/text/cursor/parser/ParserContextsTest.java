@@ -16,14 +16,12 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
 
-public final class ParserContextsTest implements ClassTesting2<ParserContexts>,
-        PublicStaticHelperTesting<ParserContexts> {
+public final class ParserContextsTest implements PublicStaticHelperTesting<ParserContexts> {
 
     @Override
     public Class<ParserContexts> type() {

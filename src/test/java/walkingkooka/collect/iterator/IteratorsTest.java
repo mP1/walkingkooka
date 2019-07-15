@@ -17,14 +17,12 @@
 
 package walkingkooka.collect.iterator;
 
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
 
-final public class IteratorsTest implements ClassTesting2<Iterators>,
-        PublicStaticHelperTesting<Iterators> {
+final public class IteratorsTest implements PublicStaticHelperTesting<Iterators> {
 
     @Override
     public Class<Iterators> type() {

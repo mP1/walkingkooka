@@ -17,14 +17,12 @@
 
 package walkingkooka.io.printer;
 
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
 
-final public class PrintersTest implements ClassTesting2<Printers>,
-        PublicStaticHelperTesting<Printers> {
+final public class PrintersTest implements PublicStaticHelperTesting<Printers> {
 
     @Override
     public Class<Printers> type() {

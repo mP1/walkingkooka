@@ -17,14 +17,12 @@
 
 package walkingkooka.io.printer;
 
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
 
-final public class IndentingPrintersTest implements ClassTesting2<IndentingPrinters>,
-        PublicStaticHelperTesting<IndentingPrinters> {
+final public class IndentingPrintersTest implements PublicStaticHelperTesting<IndentingPrinters> {
 
     @Override
     public Class<IndentingPrinters> type() {

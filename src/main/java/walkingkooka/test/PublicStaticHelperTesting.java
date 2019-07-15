@@ -37,7 +37,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Interface with default methods implementing tests and other test helpers.
  */
-public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends TestSuiteNameTesting<H> {
+public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends ClassTesting2<H>,
+        TestSuiteNameTesting<H> {
 
     @Test
     default void testClassIsFinal() {
