@@ -36,48 +36,104 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJsonNodeMapper<Void>, Void> {
 
-    // register..............................................................................
+    // register.........................................................................................................
 
     @Test
     public void testRegisterNullTypeNameFails() {
+        TestHasJsonNode.unregisterHasJsonNode();
+
         assertThrows(NullPointerException.class, () -> {
-            HasJsonNodeMapper.register(null, JsonNode::fromJsonNode, Object.class);
+            HasJsonNodeMapper.register(null,
+                    TestHasJsonNode::fromJsonNode,
+                    TestHasJsonNode.class);
         });
     }
 
     @Test
     public void testRegisterEmptyTypeNameFails() {
+        TestHasJsonNode.unregisterHasJsonNode();
+
         assertThrows(IllegalArgumentException.class, () -> {
-            HasJsonNodeMapper.register("", JsonNode::fromJsonNode, Object.class);
+            HasJsonNodeMapper.register("",
+                    TestHasJsonNode::fromJsonNode,
+                    TestHasJsonNode.class);
         });
     }
 
     @Test
-    public void testRegisterNullFactoryFails() {
+    public void testRegisterNullFromFunctionFails() {
+        TestHasJsonNode.unregisterHasJsonNode();
+
         assertThrows(NullPointerException.class, () -> {
-            HasJsonNodeMapper.register("!", null, Object.class);
+            HasJsonNodeMapper.register(TestHasJsonNode.TYPE_NAME,
+                    null,
+                    TestHasJsonNode.class);
         });
     }
 
     @Test
-    public void testRegisterNullClassesFails() {
+    public void testRegisterNullTypeFails() {
+        TestHasJsonNode.unregisterHasJsonNode();
+
         assertThrows(NullPointerException.class, () -> {
-            HasJsonNodeMapper.register("!", JsonNode::fromJsonNode, (Class[]) null);
+            HasJsonNodeMapper.register(TestHasJsonNode.TYPE_NAME,
+                    TestHasJsonNode::fromJsonNode,
+                    null);
         });
+    }
+
+    @Test
+    public void testRegisterOnlyTypeAbstractFails() {
+        TestHasJsonNode.unregisterHasJsonNode();
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            HasJsonNodeMapper.register(TestHasJsonNode.TYPE_NAME,
+                    TestHasJsonNode::fromJsonNode,
+                    TestHasJsonNodeAbstract.class);
+        });
+    }
+
+    @Test
+    public void testRegisterAbstractAndConcrete() {
+        TestHasJsonNode.unregisterHasJsonNode();
+
+        try {
+            HasJsonNodeMapper.register(TestHasJsonNode.TYPE_NAME,
+                    TestHasJsonNode::fromJsonNode,
+                    TestHasJsonNodeAbstract.class,
+                    TestHasJsonNode.class);
+        } finally {
+            TestHasJsonNode.unregisterHasJsonNode();
+            TestHasJsonNode.registerHasJsonNode();
+        }
+    }
+
+    @Test
+    public void testRegisterConcrete() {
+        TestHasJsonNode.unregisterHasJsonNode();
+
+        try {
+            HasJsonNodeMapper.register(TestHasJsonNode.TYPE_NAME,
+                    TestHasJsonNode::fromJsonNode,
+                    TestHasJsonNode.class);
+        } finally {
+            TestHasJsonNode.unregisterHasJsonNode();
+            TestHasJsonNode.registerHasJsonNode();
+        }
     }
 
     @Test
     public void testRegisterTwiceFails() {
-        final Class<?> type = this.getClass();
-        final String name = type.getName();
+        TestHasJsonNode.unregisterHasJsonNode();
 
         try {
-            HasJsonNodeMapper.register(name, JsonNode::fromJsonNode, type);
+            HasJsonNodeMapper.register(TestHasJsonNode.TYPE_NAME, TestHasJsonNode::fromJsonNode, TestHasJsonNode.class);
             assertThrows(IllegalArgumentException.class, () -> {
-                HasJsonNodeMapper.register(name, JsonNode::fromJsonNode, type);
+                HasJsonNodeMapper.register(TestHasJsonNode.TYPE_NAME, TestHasJsonNode::fromJsonNode, TestHasJsonNode.class);
             });
         } finally {
-            HasJsonNodeMapper.TYPENAME_TO_FACTORY.remove(name);
+            TestHasJsonNode.unregisterHasJsonNode();
+            TestHasJsonNode.registerHasJsonNode();
         }
     }
 
@@ -97,6 +153,8 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
     public void testRegisteredTypeUnknown() {
         assertEquals(Optional.empty(), HasJsonNodeMapper.registeredType(JsonNode.string("???")));
     }
+
+    // typeName..........................................................................................................
 
     @Test
     public void testTypeNameNullClassFails() {

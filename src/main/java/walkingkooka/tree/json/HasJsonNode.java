@@ -56,8 +56,9 @@ public interface HasJsonNode {
      */
     static <T extends HasJsonNode> void register(final String typeName,
                                                  final Function<JsonNode, T> from,
-                                                 final Class<?>... types) {
-        HasJsonNodeMapper.register(typeName, from, types);
+                                                 final Class<T> type,
+                                                 final Class<? extends T>... types) {
+        HasJsonNodeMapper.register(typeName, from, type, types);
     }
 
     // registeredType .................................................................................................
