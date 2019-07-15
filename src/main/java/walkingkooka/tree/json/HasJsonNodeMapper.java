@@ -20,12 +20,14 @@ package walkingkooka.tree.json;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.ClassAttributes;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -112,13 +114,36 @@ abstract class HasJsonNodeMapper<T> {
      */
     static synchronized <T extends HasJsonNode> void register(final String typeName,
                                                               final Function<JsonNode, T> from,
-                                                              final Class<?>... types) {
+                                                              final Class<T> type,
+                                                              final Class<? extends T>... types) {
         CharSequences.failIfNullOrEmpty(typeName, "typeName");
         Objects.requireNonNull(from, "from");
 
+        Class<?> first = type;
+        Class<?>[] all;
+
+        if (0 == types.length) {
+            if (ClassAttributes.ABSTRACT.is(first)) {
+                throw new IllegalArgumentException("Class " + CharSequences.quoteAndEscape(first.getName()) + " must not be abstract");
+            }
+            all = new Class[]{type};
+        } else {
+            if (false == ClassAttributes.ABSTRACT.is(first)) {
+                throw new IllegalArgumentException("Class " + CharSequences.quoteAndEscape(first.getName()) + " must be abstract");
+            }
+            final String notSubclasses = Arrays.stream(types)
+                    .filter(t -> !first.isAssignableFrom(t))
+                    .map(t -> CharSequences.quoteAndEscape(t.getName()))
+                    .collect(Collectors.joining(", "));
+            if (!notSubclasses.isEmpty()) {
+                throw new IllegalArgumentException("Several classes " + notSubclasses + " are not sub classes of " + CharSequences.quoteAndEscape(first.getName()));
+            }
+            all = types;
+        }
+
         register1(typeName,
-                HasJsonNodeHasJsonNodeMapper.with(typeName, from, Cast.to(types[0])),
-                types);
+                HasJsonNodeHasJsonNodeMapper.with(typeName, from, Cast.to(first)),
+                all);
     }
 
     /**
@@ -141,13 +166,17 @@ abstract class HasJsonNodeMapper<T> {
      */
     static <T extends JsonNode> void registerJsonNode(final Class<T> type, final String typeName) {
         final HasJsonNodeJsonNodeMapper<T> mapper = HasJsonNodeJsonNodeMapper.with(type, typeName);
-        register1(mapper.typeName().value(), mapper, type);
+        register1(mapper.typeName().value(),
+                mapper,
+                type);
     }
 
     /**
-     * Registers a mapper for a type name.
+     * Registers a {@link HasJsonNodeMapper} for a type name and given types.
      */
-    private static <T> void register1(final String typeName, final HasJsonNodeMapper<T> mapper, final Class<?>... types) {
+    private static <T> void register1(final String typeName,
+                                      final HasJsonNodeMapper<T> mapper,
+                                      final Class<?>...types) {
         register2(typeName, mapper);
 
         for (Class<?> type : types) {
@@ -161,13 +190,13 @@ abstract class HasJsonNodeMapper<T> {
     /**
      * Registers a mapper for a type name.
      */
-    private static <T> void register2(final String type, final HasJsonNodeMapper<T> mapper) {
-        final HasJsonNodeMapper<?> previous = TYPENAME_TO_FACTORY.get(type);
+    private static <T> void register2(final String typeName, final HasJsonNodeMapper<T> mapper) {
+        final HasJsonNodeMapper<?> previous = TYPENAME_TO_FACTORY.get(typeName);
         if (null != previous) {
-            throw new IllegalArgumentException("Type " + CharSequences.quote(type) + " already registered to " + previous + " all=" + TYPENAME_TO_FACTORY.keySet());
+            throw new IllegalArgumentException("Type " + CharSequences.quote(typeName) + " already registered to " + CharSequences.quoteAndEscape(previous.typeName().value) + " all=" + TYPENAME_TO_FACTORY.keySet());
         }
 
-        TYPENAME_TO_FACTORY.put(type, mapper);
+        TYPENAME_TO_FACTORY.put(typeName, mapper);
     }
 
     /**

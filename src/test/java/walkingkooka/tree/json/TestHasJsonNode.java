@@ -19,10 +19,15 @@ package walkingkooka.tree.json;
 
 import java.util.Objects;
 
-final class TestHasJsonNode implements HasJsonNode {
+final class TestHasJsonNode extends TestHasJsonNodeAbstract {
+
+    final static String TYPE_NAME = "test-HasJsonNode";
 
     static TestHasJsonNode with(final String value) {
         Objects.requireNonNull(value, "value");
+
+        registerHasJsonNode();
+
         return new TestHasJsonNode(value);
     }
 
@@ -54,7 +59,19 @@ final class TestHasJsonNode implements HasJsonNode {
     }
 
     static {
-        HasJsonNode.register("test-HasJsonNode", TestHasJsonNode::fromJsonNode, TestHasJsonNode.class);
+        registerHasJsonNode();
+    }
+
+    static void registerHasJsonNode() {
+        unregisterHasJsonNode();
+
+        HasJsonNode.register(TYPE_NAME, TestHasJsonNode::fromJsonNode, TestHasJsonNode.class);
+    }
+
+    static void unregisterHasJsonNode() {
+        HasJsonNodeMapper.TYPENAME_TO_FACTORY.remove(TYPE_NAME);
+        HasJsonNodeMapper.TYPENAME_TO_FACTORY.remove(TestHasJsonNode.class.getName());
+        HasJsonNodeMapper.TYPENAME_TO_FACTORY.remove(TestHasJsonNodeAbstract.class.getName());
     }
 
     // Object...........................................................................................................

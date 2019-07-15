@@ -17,19 +17,13 @@
 
 package walkingkooka.tree.json;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
 public final class HasJsonNodeHasJsonNodeMapperTest extends HasJsonNodeTypedMapperTestCase<HasJsonNodeHasJsonNodeMapper<TestHasJsonNode>, TestHasJsonNode> {
 
-    @Test
-    public final void testFromBooleanFails() {
-        this.fromJsonNodeFailed(JsonNode.booleanNode(true), JsonNodeException.class);
-    }
-
     @Override
     HasJsonNodeHasJsonNodeMapper<TestHasJsonNode> mapper() {
-        return HasJsonNodeHasJsonNodeMapper.with("test-HasJsonNode", TestHasJsonNode::fromJsonNode, TestHasJsonNode.class);
+        return HasJsonNodeHasJsonNodeMapper.with(TestHasJsonNode.TYPE_NAME, TestHasJsonNode::fromJsonNode, TestHasJsonNode.class);
     }
 
     @Override
@@ -49,7 +43,7 @@ public final class HasJsonNodeHasJsonNodeMapperTest extends HasJsonNodeTypedMapp
 
     @Override
     String typeName() {
-        return "test-HasJsonNode";
+        return TestHasJsonNode.TYPE_NAME;
     }
 
     @Override
