@@ -28,8 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final public class AsciiTest implements ClassTesting2<Ascii>,
-        PublicStaticHelperTesting<Ascii> {
+final public class AsciiTest implements PublicStaticHelperTesting<Ascii> {
 
     // isLetter
 

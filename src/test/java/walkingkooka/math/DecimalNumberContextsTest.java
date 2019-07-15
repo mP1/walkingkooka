@@ -16,14 +16,12 @@
  */
 package walkingkooka.math;
 
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
 
-public final class DecimalNumberContextsTest implements ClassTesting2<DecimalNumberContexts>,
-        PublicStaticHelperTesting<DecimalNumberContexts> {
+public final class DecimalNumberContextsTest implements PublicStaticHelperTesting<DecimalNumberContexts> {
 
     @Override
     public Class<DecimalNumberContexts> type() {

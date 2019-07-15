@@ -17,14 +17,12 @@
 
 package walkingkooka.text.cursor;
 
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
 
-final public class TextCursorLineInfosTest implements ClassTesting2<TextCursorLineInfos>,
-        PublicStaticHelperTesting<TextCursorLineInfos> {
+final public class TextCursorLineInfosTest implements PublicStaticHelperTesting<TextCursorLineInfos> {
 
     @Override
     public Class<TextCursorLineInfos> type() {

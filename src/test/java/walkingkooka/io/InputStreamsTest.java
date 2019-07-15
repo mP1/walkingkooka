@@ -18,7 +18,6 @@
 package walkingkooka.io;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -28,7 +27,7 @@ import java.lang.reflect.Method;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class InputStreamsTest implements ClassTesting2<InputStreams>, PublicStaticHelperTesting<InputStreams> {
+public final class InputStreamsTest implements PublicStaticHelperTesting<InputStreams> {
 
     @Test
     public void testReadAllBytesNullFails() throws Exception {

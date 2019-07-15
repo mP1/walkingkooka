@@ -23,8 +23,7 @@ import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
 
-public final class CastTest implements ClassTesting2<Cast>,
-        PublicStaticHelperTesting<Cast> {
+public final class CastTest implements PublicStaticHelperTesting<Cast> {
 
     @Override
     public boolean canHavePublicTypes(final Method method) {

@@ -18,7 +18,6 @@
 package walkingkooka.util;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -26,8 +25,7 @@ import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final public class WaiterTest implements ClassTesting2<Waiter>,
-        PublicStaticHelperTesting<Waiter> {
+final public class WaiterTest implements PublicStaticHelperTesting<Waiter> {
 
     @Test
     public void testOneMillisecond() {

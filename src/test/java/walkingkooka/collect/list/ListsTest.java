@@ -19,7 +19,6 @@ package walkingkooka.collect.list;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.iterator.IteratorTesting;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -34,9 +33,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class ListsTest implements ClassTesting2<Lists>,
-        IteratorTesting,
-        PublicStaticHelperTesting<Lists> {
+final public class ListsTest implements PublicStaticHelperTesting<Lists>,
+        IteratorTesting {
 
     @Test
     public void testArray() {

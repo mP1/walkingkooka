@@ -19,7 +19,6 @@ package walkingkooka.collect.iterable;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -29,8 +28,7 @@ import java.util.function.BiPredicate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class IterablesTest implements ClassTesting2<Iterables>,
-        PublicStaticHelperTesting<Iterables> {
+final public class IterablesTest implements PublicStaticHelperTesting<Iterables> {
 
     private final static BiPredicate<String, String> EQUIVALENCY = (first, other) -> first.equalsIgnoreCase(other);
     private final static String A = "a";

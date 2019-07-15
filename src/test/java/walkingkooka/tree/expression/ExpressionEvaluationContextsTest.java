@@ -17,14 +17,12 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
 
-public class ExpressionEvaluationContextsTest implements ClassTesting2<ExpressionEvaluationContexts>,
-        PublicStaticHelperTesting<ExpressionEvaluationContexts> {
+public class ExpressionEvaluationContextsTest implements PublicStaticHelperTesting<ExpressionEvaluationContexts> {
 
     @Override
     public Class<ExpressionEvaluationContexts> type() {

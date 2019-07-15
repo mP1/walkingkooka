@@ -19,7 +19,6 @@ package walkingkooka.collect.map;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.iterator.IteratorTesting;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -31,8 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-final public class MapsTest implements ClassTesting2<Maps>,
-        PublicStaticHelperTesting<Maps>,
+final public class MapsTest implements PublicStaticHelperTesting<Maps>,
         IteratorTesting {
 
     final static String KEY1 = "a1";

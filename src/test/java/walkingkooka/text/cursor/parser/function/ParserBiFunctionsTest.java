@@ -16,14 +16,12 @@
  */
 package walkingkooka.text.cursor.parser.function;
 
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
 
-public final class ParserBiFunctionsTest implements ClassTesting2<ParserBiFunctions>,
-        PublicStaticHelperTesting<ParserBiFunctions> {
+public final class ParserBiFunctionsTest implements PublicStaticHelperTesting<ParserBiFunctions> {
 
     @Override
     public Class<ParserBiFunctions> type() {

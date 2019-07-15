@@ -17,14 +17,12 @@
 
 package walkingkooka.naming;
 
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
 
-final public class NamesTest implements ClassTesting2<Names>,
-        PublicStaticHelperTesting<Names> {
+final public class NamesTest implements PublicStaticHelperTesting<Names> {
 
     @Override
     public Class<Names> type() {

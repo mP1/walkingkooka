@@ -17,14 +17,12 @@
 
 package walkingkooka.io.printer.line;
 
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
 
-final public class PrintedLineHandlersTest implements ClassTesting2<PrintedLineHandlers>,
-        PublicStaticHelperTesting<PrintedLineHandlers> {
+final public class PrintedLineHandlersTest implements PublicStaticHelperTesting<PrintedLineHandlers> {
 
     @Override
     public Class<PrintedLineHandlers> type() {

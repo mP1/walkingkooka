@@ -17,14 +17,12 @@
 
 package walkingkooka.collect.enumeration;
 
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
 
-final public class EnumerationsTest implements ClassTesting2<Enumerations>,
-        PublicStaticHelperTesting<Enumerations> {
+final public class EnumerationsTest implements PublicStaticHelperTesting<Enumerations> {
 
     @Override
     public Class<Enumerations> type() {
