@@ -57,11 +57,6 @@ public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
     }
 
     @Test
-    public void testFromJsonNodeNullNodeFails() {
-        this.fromJsonNodeFails(JsonNode.nullNode(), JsonNodeException.class);
-    }
-
-    @Test
     public void testFromJsonNodeString() {
         final String value = "property-1a";
         this.fromJsonNodeAndCheck(JsonNode.string(value), JsonNodeName.with(value));

@@ -155,11 +155,6 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
     }
 
     @Test
-    public void testFromJsonNodeNullNodeFails() {
-        this.fromJsonNodeFails(JsonNode.nullNode(), JsonNodeException.class);
-    }
-
-    @Test
     public void testFromJsonNodeNumberFails() {
         this.fromJsonNodeFails(JsonNode.number(123), JsonNodeException.class);
     }

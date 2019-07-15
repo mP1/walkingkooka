@@ -152,13 +152,13 @@ abstract public class RangeBound<C extends Comparable<C>> implements HashCodeEqu
             final JsonNodeName name = child.name();
             switch (name.value()) {
                 case ALL:
-                    bound = RangeBoundAll.fromJsonNode0(child.objectOrFail());
+                    bound = RangeBoundAll.fromJsonNodeAll(child.objectOrFail());
                     break;
                 case EXCLUSIVE:
-                    bound = RangeBoundExclusive.fromJsonNode0(child.objectOrFail());
+                    bound = RangeBoundExclusive.fromJsonNodeExclusive(child.objectOrFail());
                     break;
                 case INCLUSIVE:
-                    bound = RangeBoundInclusive.fromJsonNode0(child.objectOrFail());
+                    bound = RangeBoundInclusive.fromJsonNodeInclusive(child.objectOrFail());
                     break;
                 default:
                     HasJsonNode.unknownPropertyPresent(name, node);

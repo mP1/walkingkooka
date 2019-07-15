@@ -158,7 +158,7 @@ final class RangeBoundAll<C extends Comparable<C>> extends RangeBound<C> {
 
     // Range.toJsonNode......................................................................
 
-    static RangeBound<?> fromJsonNode0(final JsonObjectNode node) {
+    static RangeBound<?> fromJsonNodeAll(final JsonObjectNode node) {
         for (JsonNode child : node.objectOrFail().children()) {
             final JsonNodeName name = child.name();
             switch (name.value()) {
