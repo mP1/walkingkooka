@@ -19,7 +19,6 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.Value;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.tree.json.FromJsonNodeException;
 import walkingkooka.tree.json.JsonNode;
 
 import java.time.LocalDate;
@@ -192,13 +191,8 @@ abstract class ExpressionUnaryNode extends ExpressionParentFixedNode implements 
 
     static <N extends ExpressionUnaryNode> N fromJsonNode0(final JsonNode node,
                                                            final Function<ExpressionNode, N> factory) {
-        try {
-            return factory.apply(node.fromJsonNodeWithType());
-        } catch (final FromJsonNodeException cause) {
-            throw cause;
-        } catch (final RuntimeException cause) {
-            throw new FromJsonNodeException(cause.getMessage(), node, cause);
-        }
+
+        return factory.apply(node.fromJsonNodeWithType());
     }
 
     @Override

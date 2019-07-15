@@ -22,7 +22,6 @@ import walkingkooka.Value;
 import walkingkooka.net.HostAddress;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
-import walkingkooka.tree.json.FromJsonNodeException;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 
@@ -136,11 +135,7 @@ final public class EmailAddress implements Value<String>,
     static EmailAddress fromJsonNode(final JsonNode node) {
         Objects.requireNonNull(node, "node");
 
-        try {
-            return parse(node.stringValueOrFail());
-        } catch (final RuntimeException cause) {
-            throw new FromJsonNodeException(cause.getMessage(), node, cause);
-        }
+        return parse(node.stringValueOrFail());
     }
 
     @Override

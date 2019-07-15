@@ -48,17 +48,17 @@ public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
 
     @Test
     public void testFromJsonNodeBooleanFails() {
-        this.fromJsonNodeFails(JsonNode.booleanNode(true));
+        this.fromJsonNodeFails(JsonNode.booleanNode(true), JsonNodeException.class);
     }
 
     @Test
     public void testFromJsonNodeNumberFails() {
-        this.fromJsonNodeFails(JsonNode.number(12.5));
+        this.fromJsonNodeFails(JsonNode.number(12.5), JsonNodeException.class);
     }
 
     @Test
-    public void testFromJsonNodeNulFails() {
-        this.fromJsonNodeFails(JsonNode.nullNode());
+    public void testFromJsonNodeNullNodeFails() {
+        this.fromJsonNodeFails(JsonNode.nullNode(), JsonNodeException.class);
     }
 
     @Test
@@ -69,12 +69,12 @@ public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
 
     @Test
     public void testFromJsonNodeArrayFails() {
-        this.fromJsonNodeFails(JsonNode.array());
+        this.fromJsonNodeFails(JsonNode.array(), JsonNodeException.class);
     }
 
     @Test
     public void testFromJsonNodeObjectFails() {
-        this.fromJsonNodeFails(JsonNode.object());
+        this.fromJsonNodeFails(JsonNode.object(), JsonNodeException.class);
     }
 
     @Test

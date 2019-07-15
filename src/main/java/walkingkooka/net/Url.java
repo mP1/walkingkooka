@@ -24,7 +24,6 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharacterConstant;
-import walkingkooka.tree.json.FromJsonNodeException;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.Visitable;
@@ -222,13 +221,7 @@ public abstract class Url implements HashCodeEqualsDefined,
                                                    final Function<String, U> parse) {
         Objects.requireNonNull(node, "node");
 
-        try {
-            return parse.apply(node.stringValueOrFail());
-        } catch (final FromJsonNodeException cause) {
-            throw cause;
-        } catch (final RuntimeException cause) {
-            throw new FromJsonNodeException(cause.getMessage(), node, cause);
-        }
+        return parse.apply(node.stringValueOrFail());
     }
 
     @Override

@@ -164,32 +164,26 @@ final public class Link extends HeaderValueWithParameters2<Link,
     static Link fromJsonNode(final JsonNode node) {
         Objects.requireNonNull(node, "node");
 
-        try {
-            String href = null;
+        String href = null;
 
-            for (JsonNode child : node.objectOrFail().children()) {
-                final JsonNodeName name = child.name();
-                switch (name.value()) {
-                    case "href":
-                        if (!child.isString()) {
-                            throw new IllegalArgumentException("Property " + name + " is not a String=" + node);
-                        }
-                        href = JsonStringNode.class.cast(child).value();
-                        break;
-                    default:
-                        HasJsonNode.unknownPropertyPresent(name, node);
-                }
+        for (JsonNode child : node.objectOrFail().children()) {
+            final JsonNodeName name = child.name();
+            switch (name.value()) {
+                case "href":
+                    if (!child.isString()) {
+                        throw new FromJsonNodeException("Property " + name + " is not a String=" + node, node);
+                    }
+                    href = JsonStringNode.class.cast(child).value();
+                    break;
+                default:
+                    HasJsonNode.unknownPropertyPresent(name, node);
             }
-
-            if (null == href) {
-                HasJsonNode.requiredPropertyMissing(HREF_JSON_PROPERTY, node);
-            }
-            return Link.with(Url.parse(href));
-        } catch (final FromJsonNodeException cause) {
-            throw cause;
-        } catch (final RuntimeException cause) {
-            throw new FromJsonNodeException(cause.getMessage(), node, cause);
         }
+
+        if (null == href) {
+            HasJsonNode.requiredPropertyMissing(HREF_JSON_PROPERTY, node);
+        }
+        return Link.with(Url.parse(href));
     }
 
     /**

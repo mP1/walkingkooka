@@ -21,10 +21,8 @@ import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
-import walkingkooka.tree.json.FromJsonNodeException;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.visit.Visitable;
 
@@ -267,40 +265,31 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
     static <C extends Comparable<C>> Range<C> fromJsonNode(final JsonNode node) {
         Objects.requireNonNull(node, "node");
 
-        try {
-            RangeBound<?> lower = null;
-            RangeBound<?> upper = null;
-            try {
-                for (JsonNode child : node.objectOrFail().children()) {
-                    final JsonNodeName name = child.name();
-                    switch (name.value()) {
-                        case LOWER_BOUND:
-                            lower = RangeBound.fromJsonNode(child.objectOrFail());
-                            break;
-                        case UPPER_BOUND:
-                            upper = RangeBound.fromJsonNode(child.objectOrFail());
-                            break;
-                        default:
-                            HasJsonNode.unknownPropertyPresent(name, node);
-                    }
-                }
-            } catch (final JsonNodeException cause) {
-                throw new IllegalArgumentException(cause.getMessage(), cause);
-            }
+        RangeBound<?> lower = null;
+        RangeBound<?> upper = null;
 
-            if (null == lower) {
-                HasJsonNode.requiredPropertyMissing(LOWER_BOUND_PROPERTY, node);
+        for (JsonNode child : node.objectOrFail().children()) {
+            final JsonNodeName name = child.name();
+            switch (name.value()) {
+                case LOWER_BOUND:
+                    lower = RangeBound.fromJsonNode(child.objectOrFail());
+                    break;
+                case UPPER_BOUND:
+                    upper = RangeBound.fromJsonNode(child.objectOrFail());
+                    break;
+                default:
+                    HasJsonNode.unknownPropertyPresent(name, node);
             }
-            if (null == upper) {
-                HasJsonNode.requiredPropertyMissing(UPPER_BOUND_PROPERTY, node);
-            }
-
-            return new Range(lower, upper);
-        } catch (final FromJsonNodeException cause) {
-            throw cause;
-        } catch (final RuntimeException cause) {
-            throw new FromJsonNodeException(cause.getMessage(), node, cause);
         }
+
+        if (null == lower) {
+            HasJsonNode.requiredPropertyMissing(LOWER_BOUND_PROPERTY, node);
+        }
+        if (null == upper) {
+            HasJsonNode.requiredPropertyMissing(UPPER_BOUND_PROPERTY, node);
+        }
+
+        return new Range(lower, upper);
     }
 
     @Override

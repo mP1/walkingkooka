@@ -24,6 +24,7 @@ import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ParseStringTesting;
+import walkingkooka.tree.json.FromJsonNodeException;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.VisitableTesting;
@@ -999,7 +1000,8 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
                 "  \"upper-bound\": {\n" +
                 "    \"all\": {}\n" +
                 "  }\n" +
-                "}");
+                "}",
+                FromJsonNodeException.class);
     }
 
     @Test
@@ -1008,7 +1010,8 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
                 "  \"lower-bound\": {\n" +
                 "    \"all\": {}\n" +
                 "  }\n" +
-                "}");
+                "}",
+                FromJsonNodeException.class);
     }
 
     @Test
@@ -1017,7 +1020,8 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
                 "  \"lower-bound\": {\n" +
                 "    \"unknown\": {}\n" +
                 "  }\n" +
-                "}");
+                "}",
+                FromJsonNodeException.class);
     }
 
     @Test
@@ -1028,12 +1032,14 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
                 "       \"unknown\": 1\n" +
                 "    }\n" +
                 "  }\n" +
-                "}");
+                "}",
+                FromJsonNodeException.class);
     }
 
     @Test
     public void testFromJsonNodeUnknownPropertyFails() {
-        this.fromJsonNodeFails("{\"unknown\": true}");
+        this.fromJsonNodeFails("{\"unknown\": true}",
+                FromJsonNodeException.class);
     }
 
     @Test

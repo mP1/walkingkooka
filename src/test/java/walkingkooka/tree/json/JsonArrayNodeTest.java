@@ -584,8 +584,8 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
     // HasJsonNode.......................................................................................
 
     @Test
-    public void testFromJsonNodeWithType() {
-        this.fromJsonNodeWithTypeAndFail(null);
+    public void testFromJsonNodeWithTypeFails() {
+        this.fromJsonNodeWithTypeAndFail(null, NullPointerException.class);
     }
 
     @Test

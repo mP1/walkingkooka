@@ -54,12 +54,8 @@ final class HasJsonNodeLongMapper extends HasJsonNodeTypedMapper<Long> {
     }
 
     private Long fromJsonNodeString(final JsonNode node) {
-        try {
-            final String text = node.stringValueOrFail();
-            return Long.parseLong(text);
-        } catch (final NumberFormatException cause) {
-            throw new FromJsonNodeException(cause.getMessage(), node, cause);
-        }
+        final String text = node.stringValueOrFail();
+        return Long.parseLong(text);
     }
 
     @Override

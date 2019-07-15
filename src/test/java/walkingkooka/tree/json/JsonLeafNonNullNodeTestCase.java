@@ -27,31 +27,31 @@ public abstract class JsonLeafNonNullNodeTestCase<N extends JsonLeafNonNullNode<
 
     @Test
     public final void testFromJsonNodeListFails() {
-        this.fromJsonNodeListAndFail(Void.class, null);
+        this.fromJsonNodeListAndFail(Void.class, JsonNodeException.class);
     }
 
     @Test
     public final void testFromJsonNodeSetFails() {
-        this.fromJsonNodeSetAndFail(Void.class, null);
+        this.fromJsonNodeSetAndFail(Void.class, JsonNodeException.class);
     }
 
     @Test
     public final void testFromJsonNodeMapFails() {
-        this.fromJsonNodeMapAndFail(Void.class, Void.class, null);
+        this.fromJsonNodeMapAndFail(Void.class, Void.class, JsonNodeException.class);
     }
 
     @Test
     public final void testFromJsonNodeWithTypeListFails() {
-        this.fromJsonNodeWithTypeListAndFail(null);
+        this.fromJsonNodeWithTypeListAndFail(JsonNodeException.class);
     }
 
     @Test
     public final void testFromJsonNodeWithTypeSetFails() {
-        this.fromJsonNodeWithTypeSetAndFail(null);
+        this.fromJsonNodeWithTypeSetAndFail(JsonNodeException.class);
     }
 
     @Test
     public final void testFromJsonNodeWithTypeMapFails() {
-        this.fromJsonNodeWithTypeMapAndFail(null);
+        this.fromJsonNodeWithTypeMapAndFail(JsonNodeException.class);
     }
 }

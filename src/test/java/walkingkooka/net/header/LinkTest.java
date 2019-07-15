@@ -28,6 +28,7 @@ import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.xml.XmlNode;
 import walkingkooka.type.JavaVisibility;
@@ -146,46 +147,48 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
                 Link.with(Url.parse("http://example2.com")));
     }
 
-    // toJsonNode .......................................................................................
+    // toJsonNode .....................................................................................................
 
     @Test
     public void testFromJsonNodeBooleanFails() {
-        this.fromJsonNodeFails(JsonNode.booleanNode(true));
+        this.fromJsonNodeFails(JsonNode.booleanNode(true), JsonNodeException.class);
     }
 
     @Test
     public void testFromJsonNodeNullNodeFails() {
-        this.fromJsonNodeFails(JsonNode.nullNode());
+        this.fromJsonNodeFails(JsonNode.nullNode(), JsonNodeException.class);
     }
 
     @Test
     public void testFromJsonNodeNumberFails() {
-        this.fromJsonNodeFails(JsonNode.number(123));
+        this.fromJsonNodeFails(JsonNode.number(123), JsonNodeException.class);
     }
 
     @Test
     public void testFromJsonNodeStringFails() {
-        this.fromJsonNodeFails(JsonNode.string("fails!"));
+        this.fromJsonNodeFails(JsonNode.string("fails!"), JsonNodeException.class);
     }
 
     @Test
     public void testFromJsonNodeArrayFails() {
-        this.fromJsonNodeFails(JsonNode.array());
+        this.fromJsonNodeFails(JsonNode.array(), JsonNodeException.class);
     }
 
     @Test
     public void testFromJsonNodeObjectEmptyFails() {
-        this.fromJsonNodeFails(JsonNode.object());
+        this.fromJsonNodeFails(JsonNode.object(), JsonNodeException.class);
     }
 
     @Test
     public void testFromJsonNodeHrefNonStringFails() {
-        this.fromJsonNodeFails(JsonNode.object().set(Link.HREF_JSON_PROPERTY, JsonNode.number(123)));
+        this.fromJsonNodeFails(JsonNode.object().set(Link.HREF_JSON_PROPERTY, JsonNode.number(123)),
+                JsonNodeException.class);
     }
 
     @Test
     public void testFromJsonNodeUnknownPropertyFails() {
-        this.fromJsonNodeFails(JsonNode.object().set(JsonNodeName.with("unknown-property"), JsonNode.number(123)));
+        this.fromJsonNodeFails(JsonNode.object().set(JsonNodeName.with("unknown-property"), JsonNode.number(123)),
+                JsonNodeException.class);
     }
 
     @Test

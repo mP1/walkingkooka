@@ -119,14 +119,18 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
                 () -> "fromJsonNode failed " + from);
     }
 
-    default void fromJsonNodeFails(final String from) {
-        this.fromJsonNodeFails(JsonNode.parse(from));
+    default void fromJsonNodeFails(final String from, final Class<? extends Throwable> thrown) {
+        fromJsonNodeFails(JsonNode.parse(from), thrown);
     }
 
-    default void fromJsonNodeFails(final JsonNode from) {
-        assertThrows(FromJsonNodeException.class, () -> {
+    default void fromJsonNodeFails(final JsonNode from, final Class<? extends Throwable> thrown) {
+        assertThrows(thrown, () -> {
             this.fromJsonNode(from);
         });
+        assertThrows(FromJsonNodeException.class, () -> {
+            from.fromJsonNode(this.type());
+        });
+
     }
 
     @Test

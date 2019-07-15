@@ -815,32 +815,32 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
 
     @Test
     public void testFromJsonNodeListFails() {
-        this.fromJsonNodeListAndFail(Void.class, null);
+        this.fromJsonNodeListAndFail(Void.class, JsonNodeException.class);
     }
 
     @Test
     public void testFromJsonNodeSetFails() {
-        this.fromJsonNodeSetAndFail(Void.class, null);
+        this.fromJsonNodeSetAndFail(Void.class, JsonNodeException.class);
     }
 
     @Test
     public void testFromJsonNodeMapFails() {
-        this.fromJsonNodeMapAndFail(Void.class, Void.class, null);
+        this.fromJsonNodeMapAndFail(Void.class, Void.class, JsonNodeException.class);
     }
 
     @Test
     public void testFromJsonNodeListWithTypeFails() {
-        this.fromJsonNodeWithTypeListAndFail(null);
+        this.fromJsonNodeWithTypeListAndFail(JsonNodeException.class);
     }
 
     @Test
     public void testFromJsonNodeSetWithTypeFails() {
-        this.fromJsonNodeWithTypeSetAndFail(null);
+        this.fromJsonNodeWithTypeSetAndFail(JsonNodeException.class);
     }
 
     @Test
     public void testFromJsonNodeMapWithTypeFails() {
-        this.fromJsonNodeWithTypeMapAndFail(null);
+        this.fromJsonNodeWithTypeMapAndFail(JsonNodeException.class);
     }
 
     @Test

@@ -18,7 +18,6 @@
 package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.io.printer.IndentingPrinter;
@@ -316,7 +315,7 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesti
 
     final void fromJsonNodeWithTypeAndFail(final JsonNode node,
                                            final Class<? extends Throwable> thrown) {
-        fromJsonNodeAndFail(thrown, () -> {
+        assertThrows(thrown, () -> {
             node.fromJsonNodeWithType();
         });
     }
@@ -334,9 +333,10 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesti
 
     final void fromJsonNodeWithTypeListAndFail(final JsonNode node,
                                                final Class<? extends Throwable> thrown) {
-        fromJsonNodeAndFail(thrown, () -> {
+        assertThrows(thrown, () -> {
             node.fromJsonNodeWithTypeList();
         });
+
     }
 
     final <T> void fromJsonNodeWithTypeSetAndCheck(final JsonNode node,
@@ -352,7 +352,7 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesti
 
     final void fromJsonNodeWithTypeSetAndFail(final JsonNode node,
                                               final Class<? extends Throwable> thrown) {
-        fromJsonNodeAndFail(thrown, () -> {
+        assertThrows(thrown, () -> {
             node.fromJsonNodeWithTypeSet();
         });
     }
@@ -370,7 +370,7 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesti
 
     final void fromJsonNodeWithTypeMapAndFail(final JsonNode node,
                                               final Class<? extends Throwable> thrown) {
-        fromJsonNodeAndFail(thrown, () -> {
+        assertThrows(thrown, () -> {
             node.fromJsonNodeWithTypeMap();
         });
     }
@@ -393,7 +393,7 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesti
     final void fromJsonNodeAndFail(final JsonNode node,
                                    final Class<?> type,
                                    final Class<? extends Throwable> thrown) {
-        fromJsonNodeAndFail(thrown, () -> {
+        assertThrows(thrown, () -> {
             node.fromJsonNode(type);
         });
     }
@@ -414,7 +414,7 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesti
     final void fromJsonNodeListAndFail(final JsonNode node,
                                        final Class<?> elementType,
                                        final Class<? extends Throwable> thrown) {
-        fromJsonNodeAndFail(thrown, () -> {
+        assertThrows(thrown, () -> {
             node.fromJsonNodeList(elementType);
         });
     }
@@ -435,9 +435,10 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesti
     final void fromJsonNodeSetAndFail(final JsonNode node,
                                       final Class<?> elementType,
                                       final Class<? extends Throwable> thrown) {
-        fromJsonNodeAndFail(thrown, () -> {
+        assertThrows(thrown, () -> {
             node.fromJsonNodeSet(elementType);
         });
+
     }
 
     final <K, V> void fromJsonNodeMapAndCheck(final JsonNode node,
@@ -459,21 +460,8 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesti
                                       final Class<?> keyType,
                                       final Class<?> valueType,
                                       final Class<? extends Throwable> thrown) {
-        fromJsonNodeAndFail(thrown, () -> {
+        assertThrows(thrown, () -> {
             node.fromJsonNodeMap(keyType, valueType);
         });
-    }
-
-    private void fromJsonNodeAndFail(final Class<? extends Throwable> thrown,
-                                     final Executable run) {
-        final FromJsonNodeException from = assertThrows(FromJsonNodeException.class, run);
-        final Throwable cause = from.getCause();
-        if (null == thrown) {
-            assertEquals(null, cause, "cause");
-        } else {
-            if (thrown != cause.getClass()) {
-                assertEquals(thrown, from.getCause(), "Invalid thrown type");
-            }
-        }
     }
 }

@@ -28,12 +28,10 @@ import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.json.FromJsonNodeException;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorNodeName;
 import walkingkooka.tree.select.parser.NodeSelectorParserToken;
@@ -522,22 +520,9 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      * }
      * </pre>
      */
-    public static NodeSelector<?, ?, ?, ?> fromJsonNode(final JsonNode node) {
+    static NodeSelector<?, ?, ?, ?> fromJsonNode(final JsonNode node) {
         Objects.requireNonNull(node, "node");
 
-        try {
-            return fromJsonNode0(node.objectOrFail());
-        } catch (final FromJsonNodeException cause) {
-            throw cause;
-        } catch (final RuntimeException cause) {
-            throw new FromJsonNodeException(cause.getMessage(), node, cause);
-        }
-    }
-
-    /**
-     * Factory that creates a {@link NodeSelector} from JSON.
-     */
-    private static NodeSelector<?, ?, ?, ?> fromJsonNode0(final JsonObjectNode node) {
         JsonArrayNode components = null;
 
         for (JsonNode child : node.children()) {
@@ -559,7 +544,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
         }
 
         return NodeSelectorHasJsonNodeNodeSelectorVisitor.fromJsonNode(
-                NAME_TYPE_PROPERTY.fromJsonNodeWithTypeFactory(node, Name.class),
+                NAME_TYPE_PROPERTY.fromJsonNodeWithTypeFactory(node.objectOrFail(), Name.class),
                 components);
     }
 
