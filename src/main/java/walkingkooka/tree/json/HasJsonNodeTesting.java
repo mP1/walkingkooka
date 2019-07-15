@@ -33,6 +33,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public interface HasJsonNodeTesting<H extends HasJsonNode> {
 
@@ -72,10 +73,18 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
 
     @Test
     default void testTypeNameAndRegisteredType() {
+        this.createHasJsonNode(); // ensure static initializer is run...
+
         final Class<H> type = this.type();
-        final Optional<JsonStringNode> typeName = HasJsonNode.typeName(type);
-        assertNotEquals(Optional.empty(), typeName, () -> "typeName for " + type.getName() + " failed");
-        assertEquals(Optional.of(type), HasJsonNode.registeredType(typeName.get()), () -> "registeredType for " + typeName.get() + " failed");
+        final Optional<JsonStringNode> maybeTypeName = HasJsonNode.typeName(type);
+        assertNotEquals(Optional.empty(), maybeTypeName, () -> "typeName for " + type.getName() + " failed");
+
+        final JsonStringNode typeName = maybeTypeName.get();
+        final Optional<Class<?>> maybeRegisteredType = HasJsonNode.registeredType(typeName);
+        assertNotEquals(Optional.empty(), maybeRegisteredType, () -> "registeredType for " + type.getName() + " failed");
+
+        final Class<?> registeredType = maybeRegisteredType.get();
+        assertTrue(registeredType.isAssignableFrom(type), () -> "registeredType for " + registeredType.getName() + " failed " + registeredType + " " + type);
     }
 
     @Test
