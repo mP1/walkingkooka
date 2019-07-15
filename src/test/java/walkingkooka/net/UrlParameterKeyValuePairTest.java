@@ -27,7 +27,7 @@ public final class UrlParameterKeyValuePairTest implements ClassTesting2<UrlPara
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(UrlParameterKeyValuePair.nameAndValue(UrlParameterName.with("abc"), "value123"), "");
+        this.toStringAndCheck(UrlParameterKeyValuePair.nameAndValue(UrlParameterName.with("abc"), "value123"), "abc=value123");
     }
 
     @Override
