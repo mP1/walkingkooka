@@ -22,6 +22,8 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.type.JavaVisibility;
+import walkingkooka.type.MethodAttributes;
 
 import java.util.Arrays;
 import java.util.List;
@@ -88,7 +90,18 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
     }
 
     @Test
-    default void testFromJsonNullFails() {
+    default void testStaticFromJsonNodeMethodsNonPublic() {
+        assertEquals(Lists.empty(),
+                Arrays.stream(this.type().getDeclaredMethods())
+                        .filter(MethodAttributes.STATIC::is)
+                        .filter(m -> m.getName().startsWith("fromJsonNode"))
+                        .filter(JavaVisibility.PUBLIC::is)
+                        .collect(Collectors.toList()),
+                () -> "static fromJsonNode methods must not be public");
+    }
+
+    @Test
+    default void testFromJsonNodeNullFails() {
         assertThrows(NullPointerException.class, () -> {
             this.fromJsonNode(null);
         });

@@ -115,7 +115,7 @@ public final class JsonNodeName implements Name,
     /**
      * Accepts a json string holding a {@link JsonNodeName}
      */
-    public static JsonNodeName fromJsonNode(final JsonNode node) {
+    static JsonNodeName fromJsonNode(final JsonNode node) {
         Objects.requireNonNull(node, "node");
 
         try {

@@ -1633,7 +1633,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     }
 
     @Test
-    public void testFromJsonNodeNullFails() {
+    public void testFromJsonNodeNullNodeFails() {
         this.fromJsonNodeFails(JsonNode.nullNode());
     }
 

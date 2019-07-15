@@ -101,6 +101,8 @@ public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
 
     @Test
     public void testFromJsonNodeWithTypeFactory() {
+        TestHasJsonNode.registerHasJsonNode();
+
         final JsonNodeName typeNameProperty = JsonNodeName.with("typeName123");
         final Function<JsonNode, TestHasJsonNode> factory = typeNameProperty.fromJsonNodeWithTypeFactory(JsonNode.object()
                         .set(typeNameProperty, HasJsonNode.typeName(TestHasJsonNode.class).get()),
@@ -112,6 +114,8 @@ public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
 
     @Test
     public void testFromJsonNodeWithTypeFactoryFromArray() {
+        TestHasJsonNode.registerHasJsonNode();
+
         final JsonNodeName typeNameProperty = JsonNodeName.with("typeName123");
         final Function<JsonNode, TestHasJsonNode> factory = typeNameProperty.fromJsonNodeWithTypeFactory(JsonNode.object()
                         .set(typeNameProperty, HasJsonNode.typeName(TestHasJsonNode.class).get()),
