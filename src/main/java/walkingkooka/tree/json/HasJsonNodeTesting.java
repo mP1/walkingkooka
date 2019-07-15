@@ -26,6 +26,7 @@ import walkingkooka.collect.set.Sets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -67,6 +68,14 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
                     HasJsonNode.typeName(has.getClass()),
                     () -> has + " & " + node);
         }
+    }
+
+    @Test
+    default void testTypeNameAndRegisteredType() {
+        final Class<H> type = this.type();
+        final Optional<JsonStringNode> typeName = HasJsonNode.typeName(type);
+        assertNotEquals(Optional.empty(), typeName, () -> "typeName for " + type.getName() + " failed");
+        assertEquals(Optional.of(type), HasJsonNode.registeredType(typeName.get()), () -> "registeredType for " + typeName.get() + " failed");
     }
 
     @Test
