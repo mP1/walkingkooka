@@ -40,10 +40,13 @@ import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
+/**
+ * A {@link HttpServer} that uses an embedded JETTY servlet container.
+ */
 public final class JettyHttpServer implements HttpServer {
 
-    static JettyHttpServer with(final IpPort port,
-                                final BiConsumer<HttpRequest, HttpResponse> handler) {
+    public static JettyHttpServer with(final IpPort port,
+                                       final BiConsumer<HttpRequest, HttpResponse> handler) {
         Objects.requireNonNull(port, "port");
         Objects.requireNonNull(handler, "handler");
 
@@ -90,7 +93,7 @@ public final class JettyHttpServer implements HttpServer {
         final IpPort port = IpPort.with(Integer.parseInt(args[0]));
         System.out.println("Port: " + port);
 
-        final JettyHttpServer server = JettyHttpServer.with(port, JettyHttpServer.handler());
+        final JettyHttpServer server = JettyHttpServer.with(port, JettyHttpServer::handle);
 
         try {
             server.start();
@@ -102,51 +105,49 @@ public final class JettyHttpServer implements HttpServer {
         }
     }
 
-    private static BiConsumer<HttpRequest, HttpResponse> handler() {
-        return (req, res) -> {
-            if (UrlPath.parse("/dump.txt").equals(req.url().path())) {
-                res.setStatus(HttpStatusCode.OK.status());
+    private static void handle(final HttpRequest req, final HttpResponse res) {
+        if (UrlPath.parse("/dump.txt").equals(req.url().path())) {
+            res.setStatus(HttpStatusCode.OK.status());
 
-                final StringBuilder b = new StringBuilder();
+            final StringBuilder b = new StringBuilder();
 
-                b.append("headers\n");
+            b.append("headers\n");
 
-                req.headers()
-                        .entrySet()
-                        .forEach((kv) -> {
-                            final HttpHeaderName<?> header = kv.getKey();
-                            b.append("  ");
-                            b.append(header);
-                            b.append(": ");
-                            b.append(header.headerText(Cast.to(kv.getValue())));
-                            b.append('\n');
-                        });
-
-
-                b.append("parameters\n");
-
-                req.parameters()
-                        .entrySet()
-                        .forEach((kv) -> {
-                            b.append("  ");
-                            b.append(kv.getKey());
-                            b.append('=');
-                            b.append(kv.getValue().stream().collect(Collectors.joining(", ")));
-                            b.append('\n');
-                        });
+            req.headers()
+                    .entrySet()
+                    .forEach((kv) -> {
+                        final HttpHeaderName<?> header = kv.getKey();
+                        b.append("  ");
+                        b.append(header);
+                        b.append(": ");
+                        b.append(header.headerText(Cast.to(kv.getValue())));
+                        b.append('\n');
+                    });
 
 
-                final byte[] bytes = b.toString().getBytes(Charset.defaultCharset());
-                final Map<HttpHeaderName<?>, Object> headers = Maps.of(
-                        HttpHeaderName.SERVER, "JettyServer",
-                        HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8),
-                        HttpHeaderName.CONTENT_LENGTH, Long.valueOf(bytes.length));
+            b.append("parameters\n");
 
-                res.addEntity(HttpEntity.with(headers, Binary.with(bytes)));
+            req.parameters()
+                    .entrySet()
+                    .forEach((kv) -> {
+                        b.append("  ");
+                        b.append(kv.getKey());
+                        b.append('=');
+                        b.append(kv.getValue().stream().collect(Collectors.joining(", ")));
+                        b.append('\n');
+                    });
 
-            } else {
-                res.setStatus(HttpStatusCode.NOT_FOUND.status());
-            }
-        };
+
+            final byte[] bytes = b.toString().getBytes(Charset.defaultCharset());
+            final Map<HttpHeaderName<?>, Object> headers = Maps.of(
+                    HttpHeaderName.SERVER, "JettyServer",
+                    HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8),
+                    HttpHeaderName.CONTENT_LENGTH, Long.valueOf(bytes.length));
+
+            res.addEntity(HttpEntity.with(headers, Binary.with(bytes)));
+
+        } else {
+            res.setStatus(HttpStatusCode.NOT_FOUND.status());
+        }
     }
 }
