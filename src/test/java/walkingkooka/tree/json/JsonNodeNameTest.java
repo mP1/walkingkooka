@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
         NameTesting<JsonNodeName, JsonNodeName>,
-        HasJsonNodeTesting<JsonNodeName> {
+        HasJsonNodeStringTesting<JsonNodeName> {
 
     @Test
     public void testWithNegativeIndexFails() {
@@ -46,30 +46,12 @@ public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
         assertEquals("123", JsonNodeName.index(123).value());
     }
 
-    @Test
-    public void testFromJsonNodeBooleanFails() {
-        this.fromJsonNodeFails(JsonNode.booleanNode(true), JsonNodeException.class);
-    }
-
-    @Test
-    public void testFromJsonNodeNumberFails() {
-        this.fromJsonNodeFails(JsonNode.number(12.5), JsonNodeException.class);
-    }
+    // HasJsonNode......................................................................................................
 
     @Test
     public void testFromJsonNodeString() {
         final String value = "property-1a";
         this.fromJsonNodeAndCheck(JsonNode.string(value), JsonNodeName.with(value));
-    }
-
-    @Test
-    public void testFromJsonNodeArrayFails() {
-        this.fromJsonNodeFails(JsonNode.array(), JsonNodeException.class);
-    }
-
-    @Test
-    public void testFromJsonNodeObjectFails() {
-        this.fromJsonNodeFails(JsonNode.object(), JsonNodeException.class);
     }
 
     @Test

@@ -29,7 +29,7 @@ import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
-import walkingkooka.tree.json.HasJsonNodeTesting;
+import walkingkooka.tree.json.HasJsonNodeStringTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.type.JavaVisibility;
@@ -45,7 +45,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         ComparableTesting<EmailAddress>,
         HashCodeEqualsDefinedTesting<EmailAddress>,
-        HasJsonNodeTesting<EmailAddress>,
+        HasJsonNodeStringTesting<EmailAddress>,
         ParseStringTesting<EmailAddress>,
         SerializationTesting<EmailAddress>,
         ToStringTesting<EmailAddress> {
@@ -1627,26 +1627,6 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     }
 
     // toJsonNode ......................................................................................................
-
-    @Test
-    public void testFromJsonNodeBooleanFails() {
-        this.fromJsonNodeFails(JsonNode.booleanNode(true), JsonNodeException.class);
-    }
-
-    @Test
-    public void testFromJsonNodeNumberFails() {
-        this.fromJsonNodeFails(JsonNode.number(123), JsonNodeException.class);
-    }
-
-    @Test
-    public void testFromJsonNodeArrayFails() {
-        this.fromJsonNodeFails(JsonNode.array(), JsonNodeException.class);
-    }
-
-    @Test
-    public void testFromJsonNodeObjectFails() {
-        this.fromJsonNodeFails(JsonNode.object(), JsonNodeException.class);
-    }
 
     @Test
     public void testFromJsonNodeInvalidEmailFails() {

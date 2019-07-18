@@ -17,7 +17,6 @@
 
 package walkingkooka.net;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.IsMethodTesting;
@@ -25,9 +24,7 @@ import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.tree.json.HasJsonNodeTesting;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeException;
+import walkingkooka.tree.json.HasJsonNodeStringTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.function.Predicate;
@@ -37,7 +34,7 @@ import java.util.function.Predicate;
  */
 abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
         HashCodeEqualsDefinedTesting<U>,
-        HasJsonNodeTesting<U>,
+        HasJsonNodeStringTesting<U>,
         IsMethodTesting<U>,
         ParseStringTesting<U>,
         SerializationTesting<U>,
@@ -51,28 +48,6 @@ abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
     // factory
 
     abstract U createUrl();
-
-    // fromJsonNode......................................................................................................
-
-    @Test
-    public final void testFromJsonNodeArrayFails() {
-        this.fromJsonNodeFails(JsonNode.array(), JsonNodeException.class);
-    }
-
-    @Test
-    public final void testFromJsonNodeBooleanFails() {
-        this.fromJsonNodeFails(JsonNode.booleanNode(true), JsonNodeException.class);
-    }
-
-    @Test
-    public final void testFromJsonNodeNumberFails() {
-        this.fromJsonNodeFails(JsonNode.number(1.25), JsonNodeException.class);
-    }
-
-    @Test
-    public final void testFromJsonNodeObjectFails() {
-        this.fromJsonNodeFails(JsonNode.object(), JsonNodeException.class);
-    }
 
     // ClassTesting.....................................................................................................
 

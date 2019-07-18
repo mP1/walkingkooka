@@ -20,12 +20,12 @@ package walkingkooka.tree.expression;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.tree.json.HasJsonNodeTesting;
+import walkingkooka.tree.json.HasJsonNodeStringTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.JavaVisibility;
 
 public final class ExpressionNodeNameTest implements ClassTesting2<ExpressionNodeName>,
-        HasJsonNodeTesting<ExpressionNodeName>,
+        HasJsonNodeStringTesting<ExpressionNodeName>,
         NameTesting2<ExpressionNodeName, ExpressionNodeName> {
 
     @Override
