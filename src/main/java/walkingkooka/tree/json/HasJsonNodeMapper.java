@@ -31,6 +31,7 @@ import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
@@ -80,6 +81,7 @@ abstract class HasJsonNodeMapper<T> {
         register0(HasJsonNodeByteMapper.instance(), Byte.class);
         register0(HasJsonNodeShortMapper.instance(), Short.class);
         register0(HasJsonNodeIntegerMapper.instance(), Integer.class);
+        register0(HasJsonNodeLocaleMapper.instance(), Locale.class);
         register0(HasJsonNodeLongMapper.instance(), Long.class);
         register0(HasJsonNodeFloatMapper.instance(), Float.class);
         register0(HasJsonNodeDoubleMapper.instance(), Double.class);
