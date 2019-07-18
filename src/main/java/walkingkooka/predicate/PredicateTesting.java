@@ -17,65 +17,26 @@
 
 package walkingkooka.predicate;
 
-import org.junit.jupiter.api.Test;
-import walkingkooka.test.ToStringTesting;
-import walkingkooka.test.TypeNameTesting;
+import walkingkooka.text.CharSequences;
 
 import java.util.function.Predicate;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Base class for testing a {@link Predicate} with mostly parameter checking tests and various
- * utility methods toassert matching and non matching.
+ * Mixing that helps test a {@link Predicate} and an argument.
  */
-public interface PredicateTesting<P extends Predicate<T>, T>
-        extends ToStringTesting<P>,
-        TypeNameTesting<P> {
-
-    @Test
-    default void testTestNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.test(null);
-        });
-    }
-
-    P createPredicate();
-
-    default boolean test(final T value) {
-        return this.createPredicate().test(value);
-    }
-
-    default void testTrue(final T value) {
-        this.testTrue(this.createPredicate(), value);
-    }
+public interface PredicateTesting {
 
     default <TT> void testTrue(final Predicate<TT> predicate, final TT value) {
-        if (false == predicate.test(value)) {
-            fail(predicate + " did not match=" + value);
-        }
-    }
-
-    default void testFalse(final T value) {
-        this.testFalse(this.createPredicate(), value);
+        assertEquals(true,
+                predicate.test(value),
+                () -> predicate + " should match=" + CharSequences.quoteIfChars(value));
     }
 
     default <TT> void testFalse(final Predicate<TT> predicate, final TT value) {
-        if (predicate.test(value)) {
-            fail(predicate + " should not have matched=" + value);
-        }
-    }
-
-    // TypeNameTesting .........................................................................................
-
-    @Override
-    default String typeNamePrefix() {
-        return "";
-    }
-
-    @Override
-    default String typeNameSuffix() {
-        return Predicate.class.getSimpleName();
+        assertEquals(false,
+                predicate.test(value),
+                () -> predicate + " should not match=" + CharSequences.quoteIfChars(value));
     }
 }

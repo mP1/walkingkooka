@@ -18,7 +18,7 @@
 package walkingkooka.compare;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.predicate.PredicateTesting;
+import walkingkooka.predicate.PredicateTesting2;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.JavaVisibility;
 
@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class ComparisonRelationTest implements ClassTesting2<ComparisonRelation>,
-        PredicateTesting<ComparisonRelation, Integer> {
+        PredicateTesting2<ComparisonRelation, Integer> {
 
     @Override
     public void testTypeNaming() {

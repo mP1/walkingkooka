@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.predicate.PredicateTesting;
+import walkingkooka.predicate.PredicateTesting2;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class AcceptEncodingTest extends HeaderValue2TestCase<AcceptEncoding, List<Encoding>>
         implements ParseStringTesting<AcceptEncoding>,
-        PredicateTesting<AcceptEncoding, ContentEncoding> {
+        PredicateTesting2<AcceptEncoding, ContentEncoding> {
 
     @Test
     public void testWithNullFails() {
