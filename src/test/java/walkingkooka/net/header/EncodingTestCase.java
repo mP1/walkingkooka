@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.compare.ComparableTesting;
-import walkingkooka.predicate.PredicateTesting;
+import walkingkooka.predicate.PredicateTesting2;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 public abstract class EncodingTestCase<A extends Encoding> extends HeaderValueWithParametersTestCase<Encoding, EncodingParameterName<?>>
         implements ComparableTesting<Encoding>,
         ParseStringTesting<Encoding>,
-        PredicateTesting<Encoding, ContentEncoding> {
+        PredicateTesting2<Encoding, ContentEncoding> {
 
     EncodingTestCase() {
         super();
@@ -178,7 +178,7 @@ public abstract class EncodingTestCase<A extends Encoding> extends HeaderValueWi
         return Encoding.parse(text);
     }
 
-    // PredicateTesting...............................................................................................
+    // PredicateTesting2...............................................................................................
 
     @Override
     public final Encoding createPredicate() {

@@ -19,7 +19,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
-import walkingkooka.predicate.PredicateTesting;
+import walkingkooka.predicate.PredicateTesting2;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class ETagTestCase<E extends ETag> extends HeaderValueTestCase<E>
-        implements PredicateTesting<E, ETag> {
+        implements PredicateTesting2<E, ETag> {
 
     ETagTestCase() {
         super();

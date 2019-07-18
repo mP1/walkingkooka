@@ -19,7 +19,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.predicate.PredicateTesting;
+import walkingkooka.predicate.PredicateTesting2;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class LanguageTagTest extends HeaderValueWithParametersTestCase<LanguageTag,
         LanguageTagParameterName<?>>
         implements ParseStringTesting<LanguageTag>,
-        PredicateTesting<LanguageTag, LanguageTag> {
+        PredicateTesting2<LanguageTag, LanguageTag> {
 
     @Test
     public void testWithNullFails() {
@@ -269,7 +269,7 @@ public final class LanguageTagTest extends HeaderValueWithParametersTestCase<Lan
         return JavaVisibility.PUBLIC;
     }
 
-    // PredicateTesting................................................................................................
+    // PredicateTesting2................................................................................................
 
     @Override
     public LanguageTag createPredicate() {

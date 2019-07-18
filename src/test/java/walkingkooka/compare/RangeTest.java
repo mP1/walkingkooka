@@ -20,7 +20,7 @@ package walkingkooka.compare;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;
-import walkingkooka.predicate.PredicateTesting;
+import walkingkooka.predicate.PredicateTesting2;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ParseStringTesting;
@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class RangeTest implements ClassTesting2<Range<Integer>>,
         HasJsonNodeTesting<Range<Integer>>,
         ParseStringTesting<Range<Integer>>,
-        PredicateTesting<Range<Integer>, Integer>,
+        PredicateTesting2<Range<Integer>, Integer>,
         HashCodeEqualsDefinedTesting<Range<Integer>>,
         VisitableTesting<Range<Integer>> {
 

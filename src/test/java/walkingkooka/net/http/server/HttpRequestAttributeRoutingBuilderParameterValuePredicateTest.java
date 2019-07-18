@@ -19,7 +19,7 @@ package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.predicate.PredicateTesting;
+import walkingkooka.predicate.PredicateTesting2;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public final class HttpRequestAttributeRoutingBuilderParameterValuePredicateTest implements ClassTesting2<HttpRequestAttributeRoutingBuilderParameterValuePredicate>,
-        PredicateTesting<HttpRequestAttributeRoutingBuilderParameterValuePredicate, List<String>>,
+        PredicateTesting2<HttpRequestAttributeRoutingBuilderParameterValuePredicate, List<String>>,
         HashCodeEqualsDefinedTesting<HttpRequestAttributeRoutingBuilderParameterValuePredicate> {
 
     private final static String VALUE = "value123";

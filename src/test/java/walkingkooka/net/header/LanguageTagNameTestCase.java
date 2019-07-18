@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.NameTesting;
-import walkingkooka.predicate.PredicateTesting;
+import walkingkooka.predicate.PredicateTesting2;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CaseSensitivity;
@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class LanguageTagNameTestCase<L extends LanguageTagName> implements ClassTesting2<L>,
         NameTesting<L, LanguageTagName>,
-        PredicateTesting<L, LanguageTag>,
+        PredicateTesting2<L, LanguageTag>,
         TypeNameTesting<L> {
 
     LanguageTagNameTestCase() {
@@ -93,7 +93,7 @@ public abstract class LanguageTagNameTestCase<L extends LanguageTagName> impleme
         return "";
     }
 
-    // PredicateTesting ................................................................................................
+    // PredicateTesting2 ................................................................................................
 
     @Override
     public final L createPredicate() {
