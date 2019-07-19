@@ -18,12 +18,12 @@
 package walkingkooka.math;
 
 /**
- * Declares a {@link DecimalNumberContext} getter.
+ * Declares a {@link NumberContext} getter.
  */
-public interface HasDecimalNumberContext extends HasNumberContext {
+public interface HasNumberContext {
 
     /**
-     * The {@link DecimalNumberContext}
+     * The {@link NumberContext}
      */
-    DecimalNumberContext decimalNumberContext();
+    NumberContext numberContext();
 }
