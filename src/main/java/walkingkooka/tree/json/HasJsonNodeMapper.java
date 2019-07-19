@@ -88,6 +88,8 @@ abstract class HasJsonNodeMapper<T> {
         register0(HasJsonNodeStringMapper.instance(), String.class);
         register0(HasJsonNodeNumberMapper.instance(), Number.class);
 
+        register0(HasJsonNodeCharacterMapper.instance(), Character.class);
+
         register0(HasJsonNodeBigDecimalMapper.instance(), BigDecimal.class);
         register0(HasJsonNodeBigIntegerMapper.instance(), BigInteger.class);
 

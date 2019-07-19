@@ -47,7 +47,7 @@ public abstract class HasJsonNodeMapperTestCase2<M extends HasJsonNodeMapper<T>,
     }
 
     @Test
-    public final void testFromJsonNodeJsonNullNode() {
+    public void testFromJsonNodeJsonNullNode() {
         this.fromJsonNodeAndCheck(JsonNode.nullNode(), this.jsonNullNode());
     }
 
@@ -156,17 +156,23 @@ public abstract class HasJsonNodeMapperTestCase2<M extends HasJsonNodeMapper<T>,
     }
 
     final void fromJsonNodeFailed(final JsonNode node, final Class<? extends Throwable> wrapped) {
-        final FromJsonNodeException from = assertThrows(FromJsonNodeException.class, () -> {
-            this.mapper().fromJsonNode(node);
-        });
-        final Throwable cause = from.getCause();
-        if (null == wrapped) {
-            from.printStackTrace();
-            Assertions.assertEquals(null, cause, "Cause");
+        if (NullPointerException.class == wrapped) {
+            assertThrows(NullPointerException.class, () -> {
+                this.mapper().fromJsonNode(node);
+            });
         } else {
-            if (wrapped != cause.getClass()) {
+            final FromJsonNodeException from = assertThrows(FromJsonNodeException.class, () -> {
+                this.mapper().fromJsonNode(node);
+            });
+            final Throwable cause = from.getCause();
+            if (null == wrapped) {
                 from.printStackTrace();
-                Assertions.assertEquals(wrapped, cause, "Wrong cause type");
+                Assertions.assertEquals(null, cause, "Cause");
+            } else {
+                if (wrapped != cause.getClass()) {
+                    from.printStackTrace();
+                    Assertions.assertEquals(wrapped, cause, "Wrong cause type");
+                }
             }
         }
     }
