@@ -26,4 +26,12 @@ public interface HasDecimalNumberContext extends HasNumberContext {
      * The {@link DecimalNumberContext}
      */
     DecimalNumberContext decimalNumberContext();
+
+    /**
+     * Returns {@link #decimalNumberContext()}
+     */
+    @Override
+    default NumberContext numberContext() {
+        return this.decimalNumberContext();
+    }
 }
