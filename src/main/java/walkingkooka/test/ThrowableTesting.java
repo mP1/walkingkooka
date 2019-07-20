@@ -17,44 +17,14 @@
 
 package walkingkooka.test;
 
-import org.junit.jupiter.api.Test;
-import walkingkooka.type.JavaVisibility;
-
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * An interface with default methods which may be mixed into a test.
  */
-public interface ThrowableTesting<T extends Throwable> extends ClassTesting2<T> {
+public interface ThrowableTesting {
 
-    /**
-     * The no args ctor must be protected.
-     */
-    @Test
-    default void testNoDefaultArgumentProtected() {
-        Arrays.stream(this.type().getDeclaredConstructors())
-                .filter(c -> c.getParameterTypes().length == 0)
-                .forEach(c -> assertEquals(JavaVisibility.PROTECTED, JavaVisibility.get(c),
-                        () -> "ctor visibility incorrect " + c));
-    }
-
-    /**
-     * Checks that all ctors are protected.
-     */
-    @Test
-    default void testAllConstructorsVisibility() {
-        final Class<T> type = this.type();
-        Arrays.stream(type.getDeclaredConstructors())
-                .filter(c -> c.getParameterTypes().length != 0)
-                .forEach(c ->
-                        assertEquals(this.typeVisibility(),
-                                JavaVisibility.get(c),
-                                () -> "ctor visibility incorrect " + c));
-    }
-
-    default void check(final Throwable throwable, final String message, final Throwable cause) {
+    default void checkThrowable(final Throwable throwable, final String message, final Throwable cause) {
         this.checkMessage(throwable, message);
         this.checkCause(throwable, cause);
     }

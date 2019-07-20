@@ -20,6 +20,7 @@ package walkingkooka.util;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTesting2;
+import walkingkooka.test.ThrowableTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -31,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class OpenCheckerTest implements ClassTesting2<OpenChecker<Exception>>,
+        ThrowableTesting,
         ToStringTesting<OpenChecker<Exception>> {
 
     // constants
@@ -75,15 +77,6 @@ final public class OpenCheckerTest implements ClassTesting2<OpenChecker<Exceptio
         checker.check();
     }
 
-    // @Test public void testCreateAndCheck2() throws NeverError
-    //    {
-    //        final OpenChecker<Thrown> checker = OpenChecker.with(MESSAGE,
-    //                THROWABLE_FACTORY);
-    //        assertFalse(checker.isClosed());
-    //        checker.check(ThrowableFactories.<NeverError>fake());
-    //        checker.check(ThrowableFactories.<NeverError>fake());
-    //    }
-
     @Test
     public void testCloseThenCheck() throws Thrown {
         final OpenChecker<Thrown> checker = OpenChecker.with(MESSAGE, THROWABLE_FACTORY);
@@ -94,7 +87,7 @@ final public class OpenCheckerTest implements ClassTesting2<OpenChecker<Exceptio
         final Thrown expected = assertThrows(Thrown.class, () -> {
             checker.check();
         });
-        assertEquals(MESSAGE, expected.getMessage(), "message");
+        checkMessage(expected, MESSAGE);
     }
 
     @Test
@@ -107,7 +100,7 @@ final public class OpenCheckerTest implements ClassTesting2<OpenChecker<Exceptio
         final Thrown expected = assertThrows(Thrown.class, () -> {
             checker.check(THROWABLE_FACTORY);
         });
-        assertEquals(MESSAGE, expected.getMessage(), "message");
+        checkMessage(expected, MESSAGE);
     }
 
     @Test

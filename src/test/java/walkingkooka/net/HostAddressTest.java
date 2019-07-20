@@ -22,6 +22,7 @@ import walkingkooka.compare.ComparableTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.ThrowableTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.JavaVisibility;
@@ -41,6 +42,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         ComparableTesting<HostAddress>,
         HashCodeEqualsDefinedTesting<HostAddress>,
         SerializationTesting<HostAddress>,
+        ThrowableTesting,
         ToStringTesting<HostAddress> {
 
     private final static String HOST = "example.com";
@@ -110,7 +112,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
             HostAddress.with(address);
         });
         if (null != message) {
-            assertEquals(message, expected.getMessage(), "message");
+            checkMessage(expected, message);
         }
     }
 

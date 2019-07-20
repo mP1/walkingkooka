@@ -20,6 +20,7 @@ package walkingkooka.text.cursor.parser.ebnf;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ClassTesting2;
+import walkingkooka.test.ThrowableTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -29,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class EbnfGrammarParserTokenInvalidReferencesExceptionTest implements ClassTesting2<EbnfGrammarParserTokenInvalidReferencesException>,
+        ThrowableTesting,
         ToStringTesting<EbnfGrammarParserTokenInvalidReferencesException> {
 
     @Test
@@ -50,7 +52,7 @@ public final class EbnfGrammarParserTokenInvalidReferencesExceptionTest implemen
         final String message = "abc";
         final Set<EbnfIdentifierName> references = this.references();
         final EbnfGrammarParserTokenInvalidReferencesException exception = new EbnfGrammarParserTokenInvalidReferencesException(message, references);
-        assertEquals(message, exception.getMessage(), "message");
+        checkMessage(exception, message);
         assertEquals(references, exception.references(), "references");
     }
 

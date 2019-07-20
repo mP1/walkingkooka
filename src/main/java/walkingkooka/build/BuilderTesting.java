@@ -20,6 +20,7 @@ package walkingkooka.build;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.test.ThrowableTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.JavaVisibility;
@@ -33,7 +34,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Mixin interface for testing {@link Builder}
  */
-public interface BuilderTesting<B extends Builder<T>, T> extends ToStringTesting<B>,
+public interface BuilderTesting<B extends Builder<T>, T> extends ThrowableTesting,
+        ToStringTesting<B>,
         TypeNameTesting<B> {
 
     @Test
@@ -67,7 +69,7 @@ public interface BuilderTesting<B extends Builder<T>, T> extends ToStringTesting
             builder.build();
         });
         if (null != message) {
-            assertEquals("message", message, expected.getMessage());
+           this.checkMessage(expected, message);
         }
     }
 

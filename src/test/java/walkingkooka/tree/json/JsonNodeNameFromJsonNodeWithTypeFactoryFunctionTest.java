@@ -19,6 +19,7 @@ package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.test.ThrowableTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.util.FunctionTesting;
 
@@ -29,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class JsonNodeNameFromJsonNodeWithTypeFactoryFunctionTest implements FunctionTesting<JsonNodeNameFromJsonNodeWithTypeFactoryFunction<TestHasJsonNode>,
         JsonNode,
         TestHasJsonNode>,
+        ThrowableTesting,
         ToStringTesting<JsonNodeNameFromJsonNodeWithTypeFactoryFunction<TestHasJsonNode>> {
 
     @Test
@@ -84,7 +86,7 @@ public final class JsonNodeNameFromJsonNodeWithTypeFactoryFunctionTest implement
             this.createFunction(JsonNode.object())
                     .apply(this.value().toJsonNode());
         });
-        assertEquals("Unknown property \"typeNameProperty1\" in {}", thrown.getMessage(), "message");
+        checkMessage(thrown,"Unknown property \"typeNameProperty1\" in {}");
     }
 
     @Test

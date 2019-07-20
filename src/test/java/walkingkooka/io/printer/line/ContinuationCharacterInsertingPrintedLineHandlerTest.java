@@ -19,14 +19,15 @@ package walkingkooka.io.printer.line;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
+import walkingkooka.test.ThrowableTesting;
 import walkingkooka.text.LineEnding;
 import walkingkooka.type.JavaVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ContinuationCharacterInsertingPrintedLineHandlerTest implements ClassTesting2<ContinuationCharacterInsertingPrintedLineHandler>,
-        PrintedLineHandlerTesting<ContinuationCharacterInsertingPrintedLineHandler> {
+        PrintedLineHandlerTesting<ContinuationCharacterInsertingPrintedLineHandler>,
+        ThrowableTesting {
 
     // constants
 
@@ -48,10 +49,8 @@ final public class ContinuationCharacterInsertingPrintedLineHandlerTest implemen
         final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> {
             ContinuationCharacterInsertingPrintedLineHandler.with(WIDTH, '\r');
         });
-        assertEquals(
-                ContinuationCharacterInsertingPrintedLineHandler.mustNotBeEndOfLineCharacter('\r'),
-                expected.getMessage(),
-                "message");
+        checkMessage(expected,
+                ContinuationCharacterInsertingPrintedLineHandler.mustNotBeEndOfLineCharacter('\r'));
     }
 
     @Test
@@ -59,9 +58,8 @@ final public class ContinuationCharacterInsertingPrintedLineHandlerTest implemen
         final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> {
             ContinuationCharacterInsertingPrintedLineHandler.with(WIDTH, '\n');
         });
-        assertEquals(ContinuationCharacterInsertingPrintedLineHandler.mustNotBeEndOfLineCharacter('\n'),
-                expected.getMessage(),
-                "message");
+        checkMessage(expected,
+                ContinuationCharacterInsertingPrintedLineHandler.mustNotBeEndOfLineCharacter('\n'));
     }
 
     @Test

@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ClassTesting2;
+import walkingkooka.test.ThrowableTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -30,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class EbnfGrammarParserTokenDuplicateIdentifiersExceptionTest implements ClassTesting2<EbnfGrammarParserTokenDuplicateIdentifiersException>,
+        ThrowableTesting,
         ToStringTesting<EbnfGrammarParserTokenDuplicateIdentifiersException> {
 
     @Test
@@ -51,7 +53,7 @@ public final class EbnfGrammarParserTokenDuplicateIdentifiersExceptionTest imple
         final String message = "message 123";
         final Set<EbnfRuleParserToken> duplicates = this.duplicates();
         final EbnfGrammarParserTokenDuplicateIdentifiersException exception = new EbnfGrammarParserTokenDuplicateIdentifiersException(message, duplicates);
-        assertEquals(message, exception.getMessage(), "message");
+        checkMessage(exception, message);
         assertEquals(duplicates, exception.duplicates(), "duplicates");
     }
 

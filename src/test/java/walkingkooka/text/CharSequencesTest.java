@@ -20,6 +20,7 @@ package walkingkooka.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.test.ThrowableTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
@@ -29,7 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class CharSequencesTest implements PublicStaticHelperTesting<CharSequences> {
+final public class CharSequencesTest implements PublicStaticHelperTesting<CharSequences>,
+        ThrowableTesting {
 
     // bigEndianHexDigits....................................................................
 
@@ -966,9 +968,8 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
         final IndexOutOfBoundsException expected = assertThrows(IndexOutOfBoundsException.class, () -> {
             CharSequences.subSequence(string, from, to);
         });
-        assertEquals(CharSequences.toIndexBeforeFromIndex(from, to, string.length()),
-                expected.getMessage(),
-                "message");
+        checkMessage(expected,
+                CharSequences.toIndexBeforeFromIndex(from, to, string.length()));
     }
 
     @Test

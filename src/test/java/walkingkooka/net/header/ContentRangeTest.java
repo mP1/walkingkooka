@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.compare.Range;
 import walkingkooka.test.ParseStringTesting;
+import walkingkooka.test.ThrowableTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.JavaVisibility;
 
@@ -30,7 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> implements ParseStringTesting<ContentRange> {
+public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> implements ParseStringTesting<ContentRange>,
+        ThrowableTesting {
 
     private final static RangeHeaderValueUnit UNIT = RangeHeaderValueUnit.BYTES;
     private final static Optional<Long> SIZE = Optional.of(789L);
@@ -443,7 +445,7 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
         final HeaderValueException expected = assertThrows(HeaderValueException.class, () -> {
             ContentRange.parse(text);
         });
-        assertEquals(message, expected.getMessage(), "message");
+        checkMessage(expected, message);
     }
 
     private void parseAndCheck(final String headerValue,

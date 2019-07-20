@@ -18,13 +18,13 @@
 package walkingkooka;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ThrowableTesting;
+import walkingkooka.test.ThrowableTesting2;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class InvalidTextLengthExceptionTest implements ThrowableTesting<InvalidTextLengthException> {
+public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<InvalidTextLengthException> {
 
     private final static String LABEL = "label123";
     private final static String TEXT = "abc!456";
@@ -106,14 +106,14 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting<In
 
     @Test
     public void testGetMessage() {
-        assertEquals("Length 7 of \"label123\" not between 2..5 = \"abc!456\"",
-                this.create().getMessage());
+        checkMessage(this.create(),
+                "Length 7 of \"label123\" not between 2..5 = \"abc!456\"");
     }
 
     @Test
     public void testGetMessageEscapedCharacter() {
-        assertEquals("Length 6 of \"label123\" not between 2..5 = \"abc\'xy\"",
-                new InvalidTextLengthException(LABEL, "abc'xy", MIN, MAX).getMessage());
+        checkMessage(new InvalidTextLengthException(LABEL, "abc'xy", MIN, MAX),
+                "Length 6 of \"label123\" not between 2..5 = \"abc\'xy\"");
     }
 
     private InvalidTextLengthException create() {
