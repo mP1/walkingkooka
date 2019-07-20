@@ -24,7 +24,7 @@ import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class DateFormatSymbolsDateTimeContextTest implements DateTimeContextTesting<DateFormatSymbolsDateTimeContext> {
+public final class DateFormatSymbolsDateTimeContextTest implements DateTimeContextTesting2<DateFormatSymbolsDateTimeContext> {
 
     @Test
     public void testWithNullDateFormatSymbolsFails() {
