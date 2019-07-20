@@ -28,7 +28,7 @@ import java.util.Locale;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class DecimalFormatSymbolsDecimalNumberContextTest implements ClassTesting2<DecimalFormatSymbolsDecimalNumberContext>,
-        DecimalNumberContextTesting<DecimalFormatSymbolsDecimalNumberContext> {
+        DecimalNumberContextTesting2<DecimalFormatSymbolsDecimalNumberContext> {
 
     private final static MathContext MATH_CONTEXT = MathContext.DECIMAL32;
 

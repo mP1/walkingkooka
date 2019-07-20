@@ -19,7 +19,7 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ContextTesting;
-import walkingkooka.math.DecimalNumberContextTesting;
+import walkingkooka.math.DecimalNumberContextTesting2;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Mixing testing interface for {@link ExpressionEvaluationContext}
  */
-public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluationContext> extends DecimalNumberContextTesting<C>,
+public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluationContext> extends DecimalNumberContextTesting2<C>,
         ContextTesting<C> {
 
     @Test
