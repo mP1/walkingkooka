@@ -16,12 +16,12 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.math.DecimalNumberContextTesting;
+import walkingkooka.math.DecimalNumberContextTesting2;
 
 /**
  * Mixing testing interface for {@link ParserContext}
  */
-public interface ParserContextTesting<C extends ParserContext> extends DecimalNumberContextTesting<C> {
+public interface ParserContextTesting<C extends ParserContext> extends DecimalNumberContextTesting2<C> {
 
     @Override
     default String typeNameSuffix() {

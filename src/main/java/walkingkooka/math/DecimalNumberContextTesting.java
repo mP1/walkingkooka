@@ -16,9 +16,6 @@
  */
 package walkingkooka.math;
 
-import org.junit.jupiter.api.Test;
-import walkingkooka.ContextTesting;
-
 import java.math.MathContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,68 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Mixing testing interface for {@link DecimalNumberContext}
  */
-public interface DecimalNumberContextTesting<C extends DecimalNumberContext> extends ContextTesting<C> {
-
-    @Test
-    default void testCurrencySymbol() {
-        this.checkCurrencySymbol(this.createContext(), this.currencySymbol());
-    }
-
-    @Test
-    default void testDecimalPoint() {
-        this.checkDecimalPoint(this.createContext(), this.decimalPoint());
-    }
-
-    @Test
-    default void testExponentSymbol() {
-        this.checkExponentSymbol(this.createContext(), this.exponentSymbol());
-    }
-
-    @Test
-    default void testGroupingSeparator() {
-        this.checkGroupingSeparator(this.createContext(), this.groupingSeparator());
-    }
-
-    @Test
-    default void testMathContext() {
-        this.checkMathContext(this.createContext(), this.mathContext());
-    }
-
-    @Test
-    default void testMinusSign() {
-        this.checkMinusSign(this.createContext(), this.minusSign());
-    }
-
-    @Test
-    default void testPercentageSymbol() {
-        this.checkPercentageSymbol(this.createContext(), this.percentageSymbol());
-    }
-
-    @Test
-    default void testPlusSign() {
-        this.checkPlusSign(this.createContext(), this.plusSign());
-    }
-
-    String currencySymbol();
-
-    char decimalPoint();
-
-    char exponentSymbol();
-
-    char groupingSeparator();
-
-    MathContext mathContext();
-
-    char minusSign();
-
-    char percentageSymbol();
-
-    char plusSign();
-
-    @Override
-    default String typeNameSuffix() {
-        return DecimalNumberContext.class.getSimpleName();
-    }
+public interface DecimalNumberContextTesting {
 
     default void checkCurrencySymbol(final DecimalNumberContext context, final String currencySymbol) {
         assertEquals(currencySymbol, context.currencySymbol(), "currencySymbol");

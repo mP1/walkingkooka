@@ -26,7 +26,7 @@ import java.math.MathContext;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicDecimalNumberContextTest implements ClassTesting2<BasicDecimalNumberContext>,
-        DecimalNumberContextTesting<BasicDecimalNumberContext> {
+        DecimalNumberContextTesting2<BasicDecimalNumberContext> {
 
     private final static MathContext MATH_CONTEXT = MathContext.DECIMAL32;
 
