@@ -19,13 +19,15 @@ package walkingkooka.build;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
+import walkingkooka.test.ThrowableTesting;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
-        BuilderTesting<MissingBuilder, String> {
+        BuilderTesting<MissingBuilder, String>,
+        ThrowableTesting {
 
     // constants
 
@@ -242,9 +244,7 @@ final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
         final BuilderException expected = assertThrows(BuilderException.class, () -> {
             missing.failIfMissing(BEFORE);
         });
-        assertEquals(BEFORE + " 1, 2",
-                expected.getMessage(),
-                "message");
+        checkMessage(expected, BEFORE + " 1, 2");
     }
 
     private void check(final MissingBuilder missing, final String message, final int total,

@@ -22,12 +22,13 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ClassTesting;
+import walkingkooka.test.ThrowableTesting;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HasJsonNodeTest implements ClassTesting<HasJsonNode> {
+public final class HasJsonNodeTest implements ClassTesting<HasJsonNode>, ThrowableTesting {
 
     @Test
     public void testRequiredMissingProperty() {
@@ -42,7 +43,7 @@ public final class HasJsonNodeTest implements ClassTesting<HasJsonNode> {
         final FromJsonNodeException thrown = assertThrows(FromJsonNodeException.class, () -> {
             HasJsonNode.unknownPropertyPresent(JsonNodeName.with("unknown-1a"), JsonNode.object());
         });
-        assertEquals("Unknown property \"unknown-1a\" in {}", thrown.getMessage());
+        checkMessage(thrown, "Unknown property \"unknown-1a\" in {}");
     }
 
     @Test

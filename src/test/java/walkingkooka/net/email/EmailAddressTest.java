@@ -27,11 +27,11 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.ThrowableTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.HasJsonNodeStringTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.Arrays;
@@ -48,6 +48,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         HasJsonNodeStringTesting<EmailAddress>,
         ParseStringTesting<EmailAddress>,
         SerializationTesting<EmailAddress>,
+        ThrowableTesting,
         ToStringTesting<EmailAddress> {
 
     @Test
@@ -212,7 +213,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         expected.printStackTrace();
 
         if (null != message) {
-            assertEquals(message, expected.getMessage(), "message");
+            checkMessage(expected, message);
         }
     }
 

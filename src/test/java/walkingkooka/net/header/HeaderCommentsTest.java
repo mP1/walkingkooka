@@ -19,13 +19,15 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
+import walkingkooka.test.ThrowableTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HeaderCommentsTest implements ClassTesting2<HeaderComments> {
+public final class HeaderCommentsTest implements ClassTesting2<HeaderComments>,
+        ThrowableTesting {
 
     @Test
     public void testMissingClosingParensFails() {
@@ -285,7 +287,7 @@ public final class HeaderCommentsTest implements ClassTesting2<HeaderComments> {
             HeaderComments.consume(text, position);
         });
 
-        assertEquals(expected, thrown.getMessage(), "message");
+        checkMessage(thrown, expected);
     }
 
     @Override

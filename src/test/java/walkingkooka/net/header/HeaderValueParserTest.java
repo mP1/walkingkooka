@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.test.ThrowableTesting;
 import walkingkooka.text.CharSequences;
 
 import java.util.Optional;
@@ -28,7 +29,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HeaderValueParserTest extends HeaderValueParserTestCase<HeaderValueParser, Void> {
+public final class HeaderValueParserTest extends HeaderValueParserTestCase<HeaderValueParser, Void> implements ThrowableTesting {
 
     // whitespace......................................................................................
 
@@ -86,9 +87,8 @@ public final class HeaderValueParserTest extends HeaderValueParserTestCase<Heade
         final HeaderValueException expected = assertThrows(HeaderValueException.class, () -> {
             this.whitespace(text);
         });
-        assertEquals(new InvalidCharacterException(text, invalidCharacterPosition).getMessage(),
-                expected.getMessage(),
-                "message");
+        checkMessage(expected,
+                new InvalidCharacterException(text, invalidCharacterPosition).getMessage());
     }
 
     private HeaderValueParser whitespace(final String text) {
@@ -419,7 +419,7 @@ public final class HeaderValueParserTest extends HeaderValueParserTestCase<Heade
             final HeaderValueParser parser = new TestHeaderValueParser(text);
             parser.comment();
         });
-        assertEquals(HeaderValueParser.missingClosingParens(text), expected.getMessage());
+        checkMessage(expected, HeaderValueParser.missingClosingParens(text));
     }
 
     @Test

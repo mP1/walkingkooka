@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * An interface with default methods which may be mixed into a test.
  */
-public interface StandardThrowableTesting<T extends Throwable> extends ThrowableTesting<T> {
+public interface StandardThrowableTesting<T extends Throwable> extends ThrowableTesting2<T> {
 
     String MESSAGE = "message";
     Exception CAUSE = new Exception();
@@ -45,7 +45,7 @@ public interface StandardThrowableTesting<T extends Throwable> extends Throwable
 
     @Test
     default void testWithMessage() {
-        this.check(this.createThrowable(MESSAGE),
+        this.checkThrowable(this.createThrowable(MESSAGE),
                 MESSAGE,
                 null);
     }
@@ -80,7 +80,7 @@ public interface StandardThrowableTesting<T extends Throwable> extends Throwable
 
     @Test
     default void testWithMessageAndCause() {
-        this.check(this.createThrowable(MESSAGE, CAUSE),
+        this.checkThrowable(this.createThrowable(MESSAGE, CAUSE),
                 MESSAGE,
                 CAUSE);
     }

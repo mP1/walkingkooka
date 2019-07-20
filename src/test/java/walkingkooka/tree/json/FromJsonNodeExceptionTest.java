@@ -41,14 +41,14 @@ public final class FromJsonNodeExceptionTest implements StandardThrowableTesting
     @Test
     public void testWithMessageAndNode() {
         final FromJsonNodeException exception = this.createThrowable(MESSAGE);
-        check(exception, MESSAGE, null);
+        checkThrowable(exception, MESSAGE, null);
         checkNode(exception);
     }
 
     @Test
     public void testWithMessageAndNodeAndCause() {
         final FromJsonNodeException exception = this.createThrowable(MESSAGE, CAUSE);
-        check(exception, MESSAGE, CAUSE);
+        checkThrowable(exception, MESSAGE, CAUSE);
         checkNode(exception);
     }
 
@@ -65,14 +65,14 @@ public final class FromJsonNodeExceptionTest implements StandardThrowableTesting
     @Test
     public void testWithNullMessageNodeAndCause() {
         final FromJsonNodeException exception = new FromJsonNodeException(null, this.node(), CAUSE);
-        check(exception, FromJsonNodeException.DEFAULT_MESSAGE, CAUSE);
+        checkThrowable(exception, FromJsonNodeException.DEFAULT_MESSAGE, CAUSE);
         checkNode(exception);
     }
 
     @Test
     public void testWithEmptyMessageNodeAndCause() {
         final FromJsonNodeException exception = new FromJsonNodeException("", this.node(), CAUSE);
-        check(exception, FromJsonNodeException.DEFAULT_MESSAGE, CAUSE);
+        checkThrowable(exception, FromJsonNodeException.DEFAULT_MESSAGE, CAUSE);
         checkNode(exception);
     }
 

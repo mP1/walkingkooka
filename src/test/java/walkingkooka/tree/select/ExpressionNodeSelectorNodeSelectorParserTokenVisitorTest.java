@@ -21,6 +21,7 @@ package walkingkooka.tree.select;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.predicate.Predicates;
+import walkingkooka.test.ThrowableTesting;
 import walkingkooka.tree.select.parser.NodeSelectorFunctionName;
 import walkingkooka.tree.select.parser.NodeSelectorFunctionParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorParserToken;
@@ -29,10 +30,10 @@ import walkingkooka.type.JavaVisibility;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionNodeSelectorNodeSelectorParserTokenVisitorTest implements NodeSelectorParserTokenVisitorTesting<ExpressionNodeSelectorNodeSelectorParserTokenVisitor> {
+public final class ExpressionNodeSelectorNodeSelectorParserTokenVisitorTest implements NodeSelectorParserTokenVisitorTesting<ExpressionNodeSelectorNodeSelectorParserTokenVisitor>,
+        ThrowableTesting {
 
     @Test
     public void testUnknownFunctionFails() {
@@ -44,7 +45,7 @@ public final class ExpressionNodeSelectorNodeSelectorParserTokenVisitorTest impl
             new ExpressionNodeSelectorNodeSelectorParserTokenVisitor(Predicates.never())
                     .accept(token);
         });
-        assertEquals("Unknown function \"zyx\" in \"xyz\"", thrown.getMessage());
+        checkMessage(thrown, "Unknown function \"zyx\" in \"xyz\"");
     }
 
     @Override

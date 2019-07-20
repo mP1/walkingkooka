@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.ThrowableTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -31,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 final public class PathSeparatorTest implements ClassTesting2<PathSeparator>,
         HashCodeEqualsDefinedTesting<PathSeparator>,
         SerializationTesting<PathSeparator>,
+        ThrowableTesting,
         ToStringTesting<PathSeparator> {
 
     // constants
@@ -45,7 +47,7 @@ final public class PathSeparatorTest implements ClassTesting2<PathSeparator>,
         final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> {
             PathSeparator.requiredAtStart('\n');
         });
-        assertEquals(PathSeparator.invalidCharacter('\n'), expected.getMessage());
+        checkMessage(expected, PathSeparator.invalidCharacter('\n'));
     }
 
     @Test

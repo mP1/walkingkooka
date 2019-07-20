@@ -18,7 +18,7 @@
 package walkingkooka;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ThrowableTesting;
+import walkingkooka.test.ThrowableTesting2;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class InvalidCharacterExceptionTest implements ThrowableTesting<InvalidCharacterException> {
+public final class InvalidCharacterExceptionTest implements ThrowableTesting2<InvalidCharacterException> {
 
     private final static String TEXT = "abc!123";
     private final static int POSITION = 3;
@@ -140,22 +140,19 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting<Inv
 
     @Test
     public void testGetMessage() {
-        assertEquals("Invalid character \'!\' at 3 in \"abc!123\"",
-                this.create().getMessage());
+        checkMessage(this.create(), "Invalid character \'!\' at 3 in \"abc!123\"");
     }
 
     @Test
     public void testGetMessageEscapedCharacter() {
-        assertEquals("Invalid character \'\\\"\' at 3 in \"abc\"123\"",
-                new InvalidCharacterException("abc\"123", 3)
-                        .getMessage());
+        checkMessage(new InvalidCharacterException("abc\"123", 3),
+                "Invalid character \'\\\"\' at 3 in \"abc\"123\"");
     }
 
     @Test
     public void testGetMessageAfterSetTextAndPosition() {
-        assertEquals("Invalid character \'!\' at 5 in \"@@abc!123\"",
-                this.create().setTextAndPosition("@@" + TEXT, 2 + POSITION)
-                        .getMessage());
+        checkMessage(this.create().setTextAndPosition("@@" + TEXT, 2 + POSITION),
+                "Invalid character \'!\' at 5 in \"@@abc!123\"");
     }
 
     private InvalidCharacterException create() {

@@ -63,7 +63,7 @@ public final class NeverErrorTest implements StandardThrowableTesting<NeverError
             thrower.run();
         });
 
-        this.check(expected, message, cause);
+        this.checkThrowable(expected, message, cause);
     }
 
     enum TestEnum {

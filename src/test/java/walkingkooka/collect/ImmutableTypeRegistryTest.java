@@ -20,6 +20,7 @@ package walkingkooka.collect;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTesting2;
+import walkingkooka.test.ThrowableTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -34,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ImmutableTypeRegistryTest implements ClassTesting2<ImmutableTypeRegistry>,
+        ThrowableTesting,
         ToStringTesting<ImmutableTypeRegistry> {
 
     @Test
@@ -55,7 +57,7 @@ public final class ImmutableTypeRegistryTest implements ClassTesting2<ImmutableT
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
             this.registry().add(AbstractList.class);
         });
-        assertEquals("Type java.util.AbstractList is abstract", thrown.getMessage(), "message");
+        checkMessage(thrown, "Type java.util.AbstractList is abstract");
     }
 
     @Test
@@ -64,7 +66,7 @@ public final class ImmutableTypeRegistryTest implements ClassTesting2<ImmutableT
             this.registry().add(HashSet.class);
         });
 
-        assertEquals("Type java.util.HashSet is not a sub class of java.util.List", thrown.getMessage(), "message");
+        checkMessage(thrown, "Type java.util.HashSet is not a sub class of java.util.List");
     }
 
     @Test
