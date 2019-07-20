@@ -26,6 +26,7 @@ import walkingkooka.type.ClassAttributes;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -99,6 +100,8 @@ abstract class HasJsonNodeMapper<T> {
         register0(HasJsonNodeLocalTimeMapper.instance(), LocalTime.class);
 
         register0(HasJsonNodeMathContextMapper.instance(), MathContext.class);
+
+        register0(HasJsonNodeRoundingModeMapper.instance(), RoundingMode.class);
 
         registerListSetOrMap(HasJsonNodeListMapper.instance());
         registerListSetOrMap(HasJsonNodeSetMapper.instance());
