@@ -57,7 +57,7 @@ final public class ExpressionNodeSelectorTest extends
         final NodeSelector<TestNode, StringName, StringName, Object> selector = TestNode.relativeNodeSelector()
                 .children()
                 .expression(ExpressionNode.booleanNode(true));
-        this.checkEquals(TestNode.relativeNodeSelector()
+        this.checkEqualsAndHashCode(TestNode.relativeNodeSelector()
                 .children()
                 .setToString("child::*[true()]"),
                 selector);

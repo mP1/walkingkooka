@@ -51,7 +51,7 @@ public abstract class NodePointerTestCase2<N extends NodePointer<JsonNode, JsonN
     public final void testEqualsNext2() {
         final NodePointer<JsonNode, JsonNodeName> next = NodePointer.indexed(99, JsonNode.class);
 
-        this.checkEquals(this.createObject().appendToLast(next),
+        this.checkEqualsAndHashCode(this.createObject().appendToLast(next),
                 this.createObject().appendToLast(next));
     }
 }

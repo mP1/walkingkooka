@@ -105,7 +105,7 @@ public abstract class EncodingTestCase<A extends Encoding> extends HeaderValueWi
         final Map<EncodingParameterName<?>, Object> parameters = Maps.of(EncodingParameterName.Q_FACTOR, 0.5f);
         final A acceptEncoding = this.createHeaderValueWithParameters();
 
-        this.checkEquals(acceptEncoding.setParameters(parameters), acceptEncoding.setParameters(parameters));
+        this.checkEqualsAndHashCode(acceptEncoding.setParameters(parameters), acceptEncoding.setParameters(parameters));
     }
 
     @Test

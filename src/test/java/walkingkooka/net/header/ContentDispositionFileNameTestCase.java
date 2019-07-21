@@ -74,7 +74,7 @@ public abstract class ContentDispositionFileNameTestCase<F extends ContentDispos
 
     @Test
     public final void testWithoutPathCacheEqualsUnimportant() {
-        this.checkEquals(this.createHeaderValue().withoutPath(), this.createHeaderValue());
+        this.checkEqualsAndHashCode(this.createHeaderValue().withoutPath(), this.createHeaderValue());
     }
 
     @Override

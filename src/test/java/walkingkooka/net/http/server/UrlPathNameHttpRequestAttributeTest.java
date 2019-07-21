@@ -86,7 +86,7 @@ public final class UrlPathNameHttpRequestAttributeTest implements ClassTesting2<
     @Test
     public void testSameUncached() {
         final int index = UrlPathNameHttpRequestAttribute.CONSTANT_COUNT + 1;
-        this.checkEquals(
+        this.checkEqualsAndHashCode(
                 UrlPathNameHttpRequestAttribute.with(index),
                 UrlPathNameHttpRequestAttribute.with(index));
     }

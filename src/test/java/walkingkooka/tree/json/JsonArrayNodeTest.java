@@ -186,7 +186,7 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
         final JsonNode second = JsonNode.nullNode();
         final JsonNode third = this.value3();
 
-        this.checkEquals(JsonNode.array().appendChild(first).appendChild(second).appendChild(third),
+        this.checkEqualsAndHashCode(JsonNode.array().appendChild(first).appendChild(second).appendChild(third),
                 JsonNode.array().set(2, third));
     }
 
@@ -194,7 +194,7 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
     public void testSetExpands2() {
         final JsonNode first = this.value1();
 
-        this.checkEquals(JsonNode.array().appendChild(first),
+        this.checkEqualsAndHashCode(JsonNode.array().appendChild(first),
                 JsonNode.array().set(0, first));
     }
 
@@ -206,7 +206,7 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
 
         final JsonArrayNode array = JsonNode.array().appendChild(first);
 
-        this.checkEquals(JsonNode.array().appendChild(first).appendChild(second).appendChild(third),
+        this.checkEqualsAndHashCode(JsonNode.array().appendChild(first).appendChild(second).appendChild(third),
                 array.set(2, third));
     }
 
@@ -219,7 +219,7 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
 
         final JsonArrayNode array = JsonNode.array().appendChild(first);
 
-        this.checkEquals(JsonNode.array().appendChild(first).appendChild(second).appendChild(third).appendChild(fourth),
+        this.checkEqualsAndHashCode(JsonNode.array().appendChild(first).appendChild(second).appendChild(third).appendChild(fourth),
                 array.set(3, fourth));
     }
 
