@@ -502,7 +502,7 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
 
     @Test
     public void testMapWhenEmpty() {
-        this.checkEquals(Maps.empty(), JsonNode.object().asMap());
+        this.checkEqualsAndHashCode(Maps.empty(), JsonNode.object().asMap());
     }
 
     @Test

@@ -927,7 +927,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
     @Test
     public void testEqualsLessThan() {
         final Range<Integer> range = Range.lessThanEquals(VALUE);
-        this.checkEquals(range, range);
+        this.checkEqualsAndHashCode(range, range);
     }
 
     @Test
@@ -942,7 +942,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     @Test
     public void testEqualsLessThanLessThan() {
-        this.checkEquals(Range.lessThan(VALUE), Range.lessThan(VALUE));
+        this.checkEqualsAndHashCode(Range.lessThan(VALUE), Range.lessThan(VALUE));
     }
 
     @Test
@@ -979,7 +979,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     @Test
     public void testEqualsLessThanEqualsLessThanEquals() {
-        this.checkEquals(Range.lessThanEquals(VALUE), Range.lessThanEquals(VALUE));
+        this.checkEqualsAndHashCode(Range.lessThanEquals(VALUE), Range.lessThanEquals(VALUE));
     }
 
     @Test

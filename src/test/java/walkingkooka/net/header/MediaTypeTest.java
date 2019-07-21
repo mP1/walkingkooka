@@ -594,19 +594,19 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     @Test
     public void testEqualsTypeDifferentCase() {
-        this.checkEquals(MediaType.with("major", "minor"),
+        this.checkEqualsAndHashCode(MediaType.with("major", "minor"),
                 MediaType.with("MAJOR", "minor"));
     }
 
     @Test
     public void testEqualsSubTypeDifferentCase() {
-        this.checkEquals(MediaType.with("major", "MINOR"),
+        this.checkEqualsAndHashCode(MediaType.with("major", "MINOR"),
                 MediaType.parse("major/MINOR"));
     }
 
     @Test
     public void testEqualsParameterNameDifferentCase() {
-        this.checkEquals(MediaType.parse("type/subType; parameter123=value456"),
+        this.checkEqualsAndHashCode(MediaType.parse("type/subType; parameter123=value456"),
                 MediaType.parse("type/subType; PARAMETER123=value456"));
     }
 
@@ -640,12 +640,12 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     @Test
     public void testEqualsParsedAndBuild() {
-        checkEquals(MediaType.with("major", "minor"), MediaType.parse("major/minor"));
+        checkEqualsAndHashCode(MediaType.with("major", "minor"), MediaType.parse("major/minor"));
     }
 
     @Test
     public void testEqualsParameterOrderIrrelevant() {
-        checkEquals(MediaType.parse("type/subtype;a=1;b=2;c=3"), MediaType.parse("type/subtype;c=3;b=2;a=1"));
+        checkEqualsAndHashCode(MediaType.parse("type/subtype;a=1;b=2;c=3"), MediaType.parse("type/subtype;c=3;b=2;a=1"));
     }
 
     @Test
