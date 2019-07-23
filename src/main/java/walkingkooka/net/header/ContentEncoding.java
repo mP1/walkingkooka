@@ -19,7 +19,6 @@ package walkingkooka.net.header;
 
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.text.CaseSensitivity;
 
 import java.util.List;
 import java.util.Map;
@@ -48,11 +47,6 @@ import java.util.stream.Collectors;
  * </pre>
  */
 public final class ContentEncoding extends HeaderValue2<List<Encoding>> {
-
-    /**
-     * {@see CaseSensitivity}
-     */
-    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 
     /**
      * Holds all constants.
