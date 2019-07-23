@@ -101,12 +101,12 @@ final class LanguageNameNonWildcard extends LanguageName {
      * True if the languages are equal.
      */
     @Override
-    public boolean test(final Language languageTag) {
-        return this.equals(languageTag.value);
+    public boolean test(final Language language) {
+        return this.equals(language.value);
     }
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof LanguageNameWildcard;
+        return other instanceof LanguageNameNonWildcard;
     }
 }
