@@ -99,11 +99,11 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     }
 
     /**
-     * Creates and adds a new {@link ContentEncoding} to the cache being built that handles list of {@link ContentEncoding} header values.
+     * Creates and adds a new {@link ContentEncoding}.
      */
-    private static HttpHeaderName<List<ContentEncoding>> registerContentEncodingListConstant(final String header,
-                                                                                             final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueHandler.contentEncodingList());
+    private static HttpHeaderName<ContentEncoding> registerContentEncodingConstant(final String header,
+                                                                                   final HttpHeaderNameScope scope) {
+        return registerConstant(header, scope, HeaderValueHandler.contentEncoding());
     }
 
     /**
@@ -460,7 +460,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Content-Encoding: deflate, gzip
      * </pre>
      */
-    public final static HttpHeaderName<List<ContentEncoding>> CONTENT_ENCODING = registerContentEncodingListConstant("Content-Encoding",
+    public final static HttpHeaderName<ContentEncoding> CONTENT_ENCODING = registerContentEncodingConstant("Content-Encoding",
             HttpHeaderNameScope.RESPONSE);
 
     /**

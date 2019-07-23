@@ -18,9 +18,7 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.compare.ComparableTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -31,27 +29,12 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ContentEncodingTest extends HeaderValueTestCase<ContentEncoding>
-        implements ComparableTesting<ContentEncoding>,
-        ParseStringTesting<List<ContentEncoding>> {
+        implements ParseStringTesting<ContentEncoding> {
 
     @Test
     public void testWithNullValueFails() {
         assertThrows(NullPointerException.class, () -> {
             ContentEncoding.with(null);
-        });
-    }
-
-    @Test
-    public void testWithEmptyValueFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ContentEncoding.with("");
-        });
-    }
-
-    @Test
-    public void testWithInvalidCharacterFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            ContentEncoding.with("\u001f");
         });
     }
 
@@ -62,116 +45,95 @@ public final class ContentEncodingTest extends HeaderValueTestCase<ContentEncodi
 
     @Test
     public void testWith2() {
-        final String text = "unknown";
-        this.checkValue(ContentEncoding.with(text), text);
+        final List<Encoding> encodings = Lists.of(Encoding.with("unknown"));
+        this.checkValue(ContentEncoding.with(encodings), encodings);
     }
 
     private void checkValue(final ContentEncoding contentEncoding,
-                            final String value) {
-        assertEquals(value, contentEncoding.value(), "value");
+                            final List<Encoding> encodings) {
+        assertEquals(encodings, contentEncoding.value(), "value");
     }
 
-    // constants .........................................................................
+    // constants .......................................................................................................
 
     @Test
-    public void testWithExistingGzipConstant() {
+    public void testWithGzipConstant() {
         final ContentEncoding constant = ContentEncoding.GZIP;
-        assertSame(constant, ContentEncoding.with("gzip"));
+        assertSame(constant, ContentEncoding.parse("gzip"));
     }
 
     @Test
-    public void testWithExistingBrConstant() {
+    public void testWithBrConstant() {
         final ContentEncoding constant = ContentEncoding.BR;
-        assertSame(constant, ContentEncoding.with("BR"));
+        assertSame(constant, ContentEncoding.parse("BR"));
     }
 
     @Test
-    public void testWithExistingCompressConstantCaseInsignificant() {
+    public void testWithCompressConstantCaseInsignificant() {
         final ContentEncoding constant = ContentEncoding.COMPRESS;
-        assertSame(constant, ContentEncoding.with("compRESS"));
+        assertSame(constant, ContentEncoding.parse("compRESS"));
     }
 
     @Test
     public void testParse() {
         this.parseAndCheck("gzip, deflate, br",
-                Lists.of(ContentEncoding.with("gzip"),
-                        ContentEncoding.with("deflate"),
-                        ContentEncoding.with("br")));
+                this.createHeaderValue(Encoding.parse("gzip"),
+                        Encoding.parse("deflate"),
+                        Encoding.parse("br")));
     }
 
     @Test
     public void testParseExtraWhitespace() {
         this.parseAndCheck("gzip,  deflate,  br",
-                Lists.of(ContentEncoding.with("gzip"),
-                        ContentEncoding.with("deflate"),
-                        ContentEncoding.with("br")));
+                this.createHeaderValue(Encoding.parse("gzip"),
+                        Encoding.with("deflate"),
+                        Encoding.with("br")));
     }
 
     @Test
     public void testHeaderText() {
         final String text = "compress";
-        this.toHeaderTextAndCheck(ContentEncoding.with(text), text);
+        this.toHeaderTextAndCheck(ContentEncoding.parse(text), text);
     }
 
     @Test
     public void testHeaderText2() {
         final String text = "identity";
-        this.toHeaderTextAndCheck(ContentEncoding.with(text), text);
+        this.toHeaderTextAndCheck(ContentEncoding.with(Lists.of(Encoding.with(text))), text);
     }
 
     @Test
     public void testEqualsDifferentValue() {
-        this.checkNotEquals(ContentEncoding.with("different"));
-    }
-
-    @Test
-    public void testCompareLess() {
-        this.compareToAndCheckLess(ContentEncoding.with("deflate"), ContentEncoding.with("gzip"));
-    }
-
-    @Test
-    public void testCompareLessCaseInsignificant() {
-        this.compareToAndCheckLess(ContentEncoding.with("deflate"), ContentEncoding.with("GZIP"));
-    }
-
-    @Test
-    public void testCompareToArraySort() {
-        final ContentEncoding br = ContentEncoding.BR;
-        final ContentEncoding gzip = ContentEncoding.GZIP;
-        final ContentEncoding deflate = ContentEncoding.DEFLATE;
-        final ContentEncoding compress = ContentEncoding.COMPRESS;
-
-        this.compareToArraySortAndCheck(deflate, br, compress, gzip,
-                br, compress, deflate, gzip);
+        this.checkNotEquals(ContentEncoding.with(Lists.of(Encoding.with("different"))));
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createHeaderValue(), this.value());
+        this.toStringAndCheck(this.createHeaderValue(), HeaderValue.toHeaderTextList(this.value(), ContentEncoding.SEPARATOR));
     }
 
     @Test
     public void testToString2() {
         final String text = "compress";
-        this.toStringAndCheck(ContentEncoding.with(text), text);
+        this.toStringAndCheck(this.createHeaderValue(Encoding.with(text)), text);
     }
 
     @Override
     public ContentEncoding createHeaderValue() {
-        return this.createHeaderValue(this.value());
+        return ContentEncoding.with(this.value());
     }
 
-    private ContentEncoding createHeaderValue(final String value) {
-        return ContentEncoding.with(value);
+    private ContentEncoding createHeaderValue(final Encoding...encodings) {
+        return ContentEncoding.with(Lists.of(encodings));
     }
 
-    private String value() {
-        return "gzip";
+    private List<Encoding> value() {
+        return Lists.of(Encoding.GZIP);
     }
 
     @Override
     public boolean isMultipart() {
-        return true;
+        return false;
     }
 
     @Override
@@ -184,6 +146,8 @@ public final class ContentEncodingTest extends HeaderValueTestCase<ContentEncodi
         return true;
     }
 
+    // ClassTesting.....................................................................................................
+
     @Override
     public Class<ContentEncoding> type() {
         return ContentEncoding.class;
@@ -194,22 +158,10 @@ public final class ContentEncodingTest extends HeaderValueTestCase<ContentEncodi
         return JavaVisibility.PUBLIC;
     }
 
-    // ComparableTesting................................................................................................
-
-    @Override
-    public ContentEncoding createObject() {
-        return this.createComparable();
-    }
-
-    @Override
-    public ContentEncoding createComparable() {
-        return ContentEncoding.with(this.value());
-    }
-
     // ParseStringTesting...............................................................................................
 
     @Override
-    public List<ContentEncoding> parse(final String text) {
+    public ContentEncoding parse(final String text) {
         return ContentEncoding.parse(text);
     }
 }

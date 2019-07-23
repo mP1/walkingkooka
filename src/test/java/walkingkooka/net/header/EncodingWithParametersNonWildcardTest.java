@@ -91,13 +91,13 @@ public final class EncodingWithParametersNonWildcardTest extends EncodingWithPar
     @Test
     public void testTestContentEncodingDifferentCase() {
         this.testTrue(EncodingWithParametersNonWildcard.with("XYZ"),
-                ContentEncoding.with("xyz"));
+                ContentEncoding.parse("xyz"));
     }
 
     @Test
     public void testTestContentEncodingSameIgnoresParameters() {
         this.testTrue(EncodingWithParametersNonWildcard.with("XYZ").setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)),
-                ContentEncoding.with("XYZ"));
+                ContentEncoding.parse("XYZ"));
     }
 
     @Test

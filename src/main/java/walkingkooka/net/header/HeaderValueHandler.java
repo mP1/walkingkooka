@@ -66,10 +66,10 @@ abstract class HeaderValueHandler<T> {
     }
 
     /**
-     * {@see ContentEncodingListHeaderValueHandler}
+     * {@see ContentEncodingHeaderValueHandler}
      */
-    static HeaderValueHandler<List<ContentEncoding>> contentEncodingList() {
-        return ContentEncodingListHeaderValueHandler.INSTANCE;
+    static HeaderValueHandler<ContentEncoding> contentEncoding() {
+        return ContentEncodingHeaderValueHandler.INSTANCE;
     }
     
     /**

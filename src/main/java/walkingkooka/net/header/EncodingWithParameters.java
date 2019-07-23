@@ -181,13 +181,13 @@ public abstract class EncodingWithParameters extends HeaderValueWithParameters2<
     // Predicate .....................................................................................................
 
     @Override
-    public boolean test(final ContentEncoding contentEncoding) {
-        Objects.requireNonNull(contentEncoding, "contentEncoding");
+    public boolean test(final ContentEncoding encoding) {
+        Objects.requireNonNull(encoding, "encoding");
 
-        return this.test0(contentEncoding);
+        return this.test0(encoding);
     }
 
-    abstract boolean test0(final ContentEncoding contentEncoding);
+    abstract boolean test0(final ContentEncoding encoding);
 
     // Object..........................................................................................................
 

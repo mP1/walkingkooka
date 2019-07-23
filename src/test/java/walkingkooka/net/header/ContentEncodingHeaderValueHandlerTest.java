@@ -21,59 +21,57 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ContentEncodingListHeaderValueHandlerTest extends NonStringHeaderValueHandlerTestCase<ContentEncodingListHeaderValueHandler, List<ContentEncoding>> {
+public final class ContentEncodingHeaderValueHandlerTest extends NonStringHeaderValueHandlerTestCase<ContentEncodingHeaderValueHandler, ContentEncoding> {
 
     @Test
     public void testParse() {
         this.parseAndCheck2("gzip",
-                ContentEncoding.GZIP);
+                Encoding.GZIP);
     }
 
     @Test
     public void testParse2() {
         this.parseAndCheck2("GZIP",
-                ContentEncoding.GZIP);
+                Encoding.GZIP);
     }
 
     @Test
     public void testParseCommaSeparated() {
         this.parseAndCheck2("gzip,deflate",
-                ContentEncoding.GZIP,
-                ContentEncoding.DEFLATE);
+                Encoding.GZIP,
+                Encoding.DEFLATE);
     }
 
     @Test
     public void testParseWhitespaceCommaSeparated() {
         this.parseAndCheck2("gzip, deflate,  br",
-                ContentEncoding.GZIP,
-                ContentEncoding.DEFLATE,
-                ContentEncoding.BR);
+                Encoding.GZIP,
+                Encoding.DEFLATE,
+                Encoding.BR);
     }
 
-    private void parseAndCheck2(final String text, final ContentEncoding...encodings) {
-        this.parseAndCheck(text, Lists.of(encodings));
+    private void parseAndCheck2(final String text, final Encoding... encodings) {
+        this.parseAndCheck(text, ContentEncoding.with(Lists.of(encodings)));
     }
 
     @Test
     public void testCheckEmptyListFails() {
         assertThrows(HeaderValueException.class, () -> {
-            ContentEncodingListHeaderValueHandler.INSTANCE.check(Lists.empty(), HttpHeaderName.CONTENT_ENCODING);
+            ContentEncodingHeaderValueHandler.INSTANCE.check(Lists.empty(), HttpHeaderName.CONTENT_ENCODING);
         });
     }
 
     @Test
     public void testToText() {
-        this.toTextAndCheck(Lists.of(ContentEncoding.BR),
+        this.toTextAndCheck(ContentEncoding.with(Lists.of(Encoding.BR)),
                 "br");
     }
 
     @Test
     public void testToText2() {
-        this.toTextAndCheck(Lists.of(ContentEncoding.BR, ContentEncoding.GZIP),
+        this.toTextAndCheck(ContentEncoding.with(Lists.of(Encoding.BR, Encoding.GZIP)),
                 "br, gzip");
     }
 
@@ -93,18 +91,18 @@ public final class ContentEncodingListHeaderValueHandlerTest extends NonStringHe
     }
 
     @Override
-    ContentEncodingListHeaderValueHandler handler() {
-        return ContentEncodingListHeaderValueHandler.INSTANCE;
+    ContentEncodingHeaderValueHandler handler() {
+        return ContentEncodingHeaderValueHandler.INSTANCE;
     }
 
     @Override
-    List<ContentEncoding> value() {
-        return Lists.of(ContentEncoding.GZIP, ContentEncoding.DEFLATE);
+    ContentEncoding value() {
+        return ContentEncoding.with(Lists.of(Encoding.GZIP, Encoding.DEFLATE));
     }
 
     @Override
     String valueType() {
-        return this.listValueType(ContentEncoding.class);
+        return this.valueType(ContentEncoding.class);
     }
 
     @Override
@@ -113,7 +111,7 @@ public final class ContentEncodingListHeaderValueHandlerTest extends NonStringHe
     }
 
     @Override
-    public Class<ContentEncodingListHeaderValueHandler> type() {
-        return ContentEncodingListHeaderValueHandler.class;
+    public Class<ContentEncodingHeaderValueHandler> type() {
+        return ContentEncodingHeaderValueHandler.class;
     }
 }

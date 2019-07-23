@@ -106,7 +106,7 @@ public final class HttpHeaderScopeTest implements ClassTesting2<HttpHeaderScope>
     @Test
     public void testContentEncodingGzipValue() {
         this.checkScope(HttpHeaderName.CONTENT_ENCODING,
-                Lists.of(ContentEncoding.GZIP),
+                ContentEncoding.GZIP,
                 HttpHeaderScope.RESPONSE);
     }
 

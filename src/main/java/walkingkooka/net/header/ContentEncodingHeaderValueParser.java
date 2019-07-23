@@ -41,15 +41,15 @@ import java.util.List;
  * If multiple encodings have been applied to an entity, the content codings MUST be listed in the order in which they were applied. Additional information about the encoding parameters MAY be provided by other entity-header fields not defined by this specification.
  * </pre>
  */
-final class ContentEncodingListHeaderValueParser extends HeaderValueParser {
+final class ContentEncodingHeaderValueParser extends HeaderValueParser {
 
-    static List<ContentEncoding> parseContentEncodingList(final String text) {
-        final ContentEncodingListHeaderValueParser parser = new ContentEncodingListHeaderValueParser(text);
+    static ContentEncoding parseContentEncoding(final String text) {
+        final ContentEncodingHeaderValueParser parser = new ContentEncodingHeaderValueParser(text);
         parser.parse();
-        return Lists.readOnly(parser.contentEncodings);
+        return ContentEncoding.with(parser.encodings);
     }
 
-    private ContentEncodingListHeaderValueParser(final String text) {
+    private ContentEncodingHeaderValueParser(final String text) {
         super(text);
     }
 
@@ -95,12 +95,12 @@ final class ContentEncodingListHeaderValueParser extends HeaderValueParser {
 
     @Override
     void token() {
-        this.contentEncodings.add(ContentEncoding.with(this.token(RFC2045TOKEN)));
+        this.encodings.add(Encoding.with(this.token(RFC2045TOKEN)));
     }
 
     @Override
     void endOfText() {
-        if(this.contentEncodings.isEmpty()) {
+        if(this.encodings.isEmpty()) {
             this.missingValue();
         }
     }
@@ -110,5 +110,5 @@ final class ContentEncodingListHeaderValueParser extends HeaderValueParser {
         this.failMissingValue("Content-Encoding");
     }
 
-    private List<ContentEncoding> contentEncodings = Lists.array();
+    private List<Encoding> encodings = Lists.array();
 }

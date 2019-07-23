@@ -54,8 +54,14 @@ final class EncodingWithParametersNonWildcard extends EncodingWithParameters {
     // Predicate........................................................................................................
 
     @Override
-    boolean test0(final ContentEncoding contentEncoding) {
-        return CASE_SENSITIVITY.equals(this.value(), contentEncoding.value());
+    boolean test0(final ContentEncoding encoding) {
+        return encoding.value.stream()
+                .filter(this::filter)
+                .count() == 1;
+    }
+
+    private boolean filter(final Encoding encoding) {
+        return CASE_SENSITIVITY.equals(this.value(), encoding.value());
     }
 
     // Object..........................................................................................................

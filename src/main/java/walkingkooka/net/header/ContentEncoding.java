@@ -17,14 +17,14 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.Cast;
-import walkingkooka.Value;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 
 /**
@@ -47,9 +47,7 @@ import java.util.Map;
  * If multiple encodings have been applied to an entity, the content codings MUST be listed in the order in which they were applied. Additional information about the encoding parameters MAY be provided by other entity-header fields not defined by this specification.    
  * </pre>
  */
-public final class ContentEncoding implements Value<String>,
-        HeaderValue,
-        Comparable<ContentEncoding> {
+public final class ContentEncoding extends HeaderValue2<List<Encoding>> {
 
     /**
      * {@see CaseSensitivity}
@@ -59,136 +57,111 @@ public final class ContentEncoding implements Value<String>,
     /**
      * Holds all constants.
      */
-    private final static Map<String, ContentEncoding> CONSTANTS = Maps.sorted(CASE_SENSITIVITY.comparator());
+    private final static Map<Encoding, ContentEncoding> CONSTANTS = Maps.sorted();
 
     /**
      * Holds a {@link ContentEncoding} for br.
      */
-    public final static ContentEncoding BR = registerConstant("br");
+    public final static ContentEncoding BR = registerConstant(Encoding.BR);
 
     /**
      * Holds a {@link ContentEncoding} for deflate
      */
-    public final static ContentEncoding COMPRESS = registerConstant("compress");
+    public final static ContentEncoding COMPRESS = registerConstant(Encoding.COMPRESS);
 
     /**
      * Holds a {@link ContentEncoding} for deflate.
      */
-    public final static ContentEncoding DEFLATE = registerConstant("deflate");
+    public final static ContentEncoding DEFLATE = registerConstant(Encoding.DEFLATE);
 
     /**
      * Holds a {@link ContentEncoding} for gzip.
      */
-    public final static ContentEncoding GZIP = registerConstant("gzip");
+    public final static ContentEncoding GZIP = registerConstant(Encoding.GZIP);
 
     /**
      * Holds a {@link ContentEncoding} for identity.
      */
-    public final static ContentEncoding IDENTITY = registerConstant("identity");
+    public final static ContentEncoding IDENTITY = registerConstant(Encoding.IDENTITY);
 
     /**
-     * Creates and then registers the constant.
+     * Creates and then registers a constant.
      */
-    static private ContentEncoding registerConstant(final String text) {
-        final ContentEncoding contentType = with(text);
-        CONSTANTS.put(text, contentType);
-        return contentType;
-    }
-
-    /**
-     * Parses the text into a {@link List} of {@link ContentEncoding}.
-     */
-    public static List<ContentEncoding> parse(final String text) {
-        return ContentEncodingListHeaderValueHandler.INSTANCE.parse(text, HttpHeaderName.CONTENT_ENCODING);
+    static private ContentEncoding registerConstant(final Encoding encoding) {
+        final ContentEncoding contentEncoding = new ContentEncoding(Lists.of(encoding));
+        CONSTANTS.put(encoding, contentEncoding);
+        return contentEncoding;
     }
 
     /**
-     * Factory that creates a {@link ContentEncoding} after verifying the individual characters.
+     * Parses a header value that contains one or more encodings.
      */
-    public static ContentEncoding with(final String value) {
-        CharPredicates.failIfNullOrEmptyOrFalse(value, "value", ContentEncodingListHeaderValueParser.RFC2045TOKEN);
-
-        final ContentEncoding contentEncoding = CONSTANTS.get(value);
-        return null != contentEncoding ?
-                contentEncoding :
-                new ContentEncoding(value);
+    public static ContentEncoding parse(final String text) {
+        return ContentEncodingHeaderValueParser.parseContentEncoding(text);
     }
 
     /**
-     * Private ctor.
+     * Factory that creates a new {@link ContentEncoding}
      */
-    private ContentEncoding(final String value) {
-        super();
+    public static ContentEncoding with(final List<Encoding> encodings) {
+        Objects.requireNonNull(encodings, "encodings");
 
-        this.value = value;
+        final List<Encoding> copy = encodings.stream()
+                .map(v -> Objects.requireNonNull(v, "encodings includes null"))
+                .collect(Collectors.toList());
+
+        ContentEncoding contentEncoding;
+
+        if (copy.size() == 1) {
+            contentEncoding = CONSTANTS.get(copy.get(0));
+            if (null == contentEncoding) {
+                contentEncoding = new ContentEncoding(copy);
+            }
+        } else {
+            contentEncoding = new ContentEncoding(copy);
+        }
+
+        return contentEncoding;
     }
 
-    @Override
-    public final String value() {
-        return this.value;
+    /**
+     * Private ctor use factory
+     */
+    private ContentEncoding(final List<Encoding> values) {
+        super(Lists.immutable(values));
     }
 
-    private final String value;
-
-    // HasHeaderScope ....................................................................................................
-
-    @Override
-    public final boolean isMultipart() {
-        return true;
-    }
-
-    @Override
-    public final boolean isRequest() {
-        return false;
-    }
-
-    @Override
-    public final boolean isResponse() {
-        return true;
-    }
-
-    // headerText.............................................................................
+    // HeaderValue.....................................................................................................
 
     @Override
     public String toHeaderText() {
-        return this.value;
+        return HeaderValue.toHeaderTextList(value, SEPARATOR);
     }
+
+    final static String SEPARATOR = HeaderValue.SEPARATOR.string().concat(" ");
 
     @Override
     public boolean isWildcard() {
         return false;
     }
 
-    // Comparable....................................................................................................
-
     @Override
-    public final int compareTo(final ContentEncoding other) {
-        return CASE_SENSITIVITY.comparator().compare(this.value, other.value);
-    }
-
-    // Object.....................................................................................................
-
-    @Override
-    public int hashCode() {
-        return CASE_SENSITIVITY.hash(this.value);
+    public boolean isMultipart() {
+        return false;
     }
 
     @Override
-    public boolean equals(final Object other) {
-        return this == other ||
-                other instanceof ContentEncoding &&
-                        this.equals0(Cast.to(other));
+    public boolean isRequest() {
+        return false;
     }
 
-    private boolean equals0(final ContentEncoding other) {
-        return this.compareTo(other) == 0;
-    }
-
-    /**
-     * Returns the value in its raw form.
-     */
     @Override
-    public String toString() {
-        return this.value;
+    public boolean isResponse() {
+        return true;
+    }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof ContentEncoding;
     }
 }

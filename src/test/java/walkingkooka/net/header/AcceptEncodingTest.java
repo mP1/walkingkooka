@@ -48,32 +48,42 @@ public final class AcceptEncodingTest extends HeaderValue2TestCase<AcceptEncodin
 
     @Test
     public void testTestWildcard2() {
-        this.testTrue(acceptEncoding(EncodingWithParameters.WILDCARD_ENCODING), ContentEncoding.with("abc"));
+        this.testTrue(acceptEncoding(EncodingWithParameters.WILDCARD_ENCODING), ContentEncoding.parse("abc"));
     }
 
     @Test
     public void testTestDifferentWildcard() {
-        this.testTrue(acceptEncoding(EncodingWithParameters.with("different"), EncodingWithParameters.WILDCARD_ENCODING), ContentEncoding.with("abc"));
+        this.testTrue(acceptEncoding(EncodingWithParameters.with("different"), EncodingWithParameters.WILDCARD_ENCODING), ContentEncoding.parse("abc"));
     }
 
     @Test
     public void testTestDifferentNonWildcard() {
-        this.testFalse(acceptEncoding(EncodingWithParameters.with("different")), ContentEncoding.with("abc"));
+        this.testFalse(acceptEncoding(EncodingWithParameters.with("different")), ContentEncoding.parse("abc"));
     }
 
     @Test
     public void testTestNonWildcardDifferentCase() {
-        this.testTrue(acceptEncoding(EncodingWithParameters.with("ABC")), ContentEncoding.with("abc"));
+        this.testTrue(acceptEncoding(EncodingWithParameters.with("ABC")), ContentEncoding.parse("abc"));
     }
 
     @Test
     public void testTestNonWildcardSameCase() {
-        this.testTrue(acceptEncoding(EncodingWithParameters.with("xyz")), ContentEncoding.with("xyz"));
+        this.testTrue(acceptEncoding(EncodingWithParameters.with("xyz")), ContentEncoding.parse("xyz"));
+    }
+
+    @Test
+    public void testTestNonWildcardSameCaseMany() {
+        this.testTrue(acceptEncoding(EncodingWithParameters.with("xyz")), ContentEncoding.parse("xyz, abc"));
+    }
+
+    @Test
+    public void testTestNonWildcardSameCaseMany2() {
+        this.testTrue(acceptEncoding(EncodingWithParameters.with("xyz")), ContentEncoding.parse("abc, xyz"));
     }
 
     @Test
     public void testTestNonWildcardSameCase2() {
-        this.testTrue(acceptEncoding(EncodingWithParameters.with("different"), EncodingWithParameters.with("ABC")), ContentEncoding.with("ABC"));
+        this.testTrue(acceptEncoding(EncodingWithParameters.with("different"), EncodingWithParameters.with("ABC")), ContentEncoding.parse("ABC"));
     }
 
     // parse...........................................................................................................

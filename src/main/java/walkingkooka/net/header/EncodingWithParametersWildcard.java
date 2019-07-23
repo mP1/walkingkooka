@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import java.util.Map;
 
 /**
- * An accept-encoding wildcard.
+ * An encoding wildcard that may appear within accept-encoding header
  */
 final class EncodingWithParametersWildcard extends EncodingWithParameters {
 
@@ -49,8 +49,11 @@ final class EncodingWithParametersWildcard extends EncodingWithParameters {
 
     // Predicate........................................................................................................
 
+    /**
+     * Matches any {@link ContentEncoding}.
+     */
     @Override
-    boolean test0(final ContentEncoding contentEncoding) {
+    boolean test0(final ContentEncoding encoding) {
         return true;
     }
 
