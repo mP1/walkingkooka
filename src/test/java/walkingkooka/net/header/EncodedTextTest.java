@@ -125,6 +125,8 @@ public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
         this.toHeaderTextAndCheck(this.createHeaderValue(value), headerText);
     }
 
+    // equals...........................................................................................................
+
     @Test
     public void testEqualsDifferentCharset() {
         this.checkNotEquals(EncodedText.with(CharsetName.UTF_16,
@@ -152,6 +154,15 @@ public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
                 this.language(),
                 "different"));
     }
+
+    // toString.........................................................................................................
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(this.createHeaderValue(), "UTF-8 en \"abc123\"");
+    }
+
+    // helpers..........................................................................................................
 
     @Override
     public EncodedText createHeaderValue() {
