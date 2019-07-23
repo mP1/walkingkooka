@@ -50,10 +50,9 @@ public interface ParseStringTesting<T> extends Testing {
 
     default T parseAndCheck(final String text, final T value) {
         final T parsed = this.parse(text);
-        assertEquals(
-                value,
+        assertEquals(value,
                 parsed,
-                "Parsing of " + CharSequences.quoteAndEscape(text) + " failed"
+                () -> "Parsing of " + CharSequences.quoteAndEscape(text) + " failed"
         );
         return parsed;
     }
@@ -90,14 +89,13 @@ public interface ParseStringTesting<T> extends Testing {
      * Parsers the given text and verifies the expected {@link RuntimeException} was thrown and messages match.
      */
     default void parseFails(final String text, final RuntimeException expected) {
-
         final RuntimeException expected2 = this.parseFailedExpected(expected);
         final RuntimeException thrown = assertThrows(expected.getClass(), () -> {
             this.parse(text);
         });
         assertEquals(expected2.getMessage(),
                 thrown.getMessage(),
-                "Incorrect failure message for " + CharSequences.quoteAndEscape(text));
+                () -> "Incorrect failure message for " + CharSequences.quoteAndEscape(text));
     }
 
     /**
