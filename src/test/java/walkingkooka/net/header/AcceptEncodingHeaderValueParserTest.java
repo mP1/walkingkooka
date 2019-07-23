@@ -56,92 +56,92 @@ public final class AcceptEncodingHeaderValueParserTest extends HeaderValueParser
     @Test
     public void testToken() {
         this.parseAndCheck2("gzip",
-                Encoding.GZIP);
+                EncodingWithParameters.GZIP);
     }
 
     @Test
     public void testTokenWhitespace() {
         this.parseAndCheck2("gzip ",
-                Encoding.GZIP);
+                EncodingWithParameters.GZIP);
     }
 
     @Test
     public void testWhitespaceToken() {
         this.parseAndCheck2(" gzip",
-                Encoding.GZIP);
+                EncodingWithParameters.GZIP);
     }
 
     @Test
     public void testTokenParameter() {
         this.parseAndCheck2("gzip;q=0.5",
-                Encoding.GZIP.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)));
+                EncodingWithParameters.GZIP.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)));
     }
 
     @Test
     public void testTokenParameterSemiParameter() {
         this.parseAndCheck2("gzip;q=0.5;abc=xyz",
-                Encoding.GZIP.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f,
+                EncodingWithParameters.GZIP.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f,
                         EncodingParameterName.with("abc"), "xyz")));
     }
 
     @Test
     public void testWildcard() {
         this.parseAndCheck2("*",
-                Encoding.WILDCARD_ENCODING);
+                EncodingWithParameters.WILDCARD_ENCODING);
     }
 
     @Test
     public void testWildcardParameter() {
         this.parseAndCheck2("*;q=0.5",
-                Encoding.WILDCARD_ENCODING.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)));
+                EncodingWithParameters.WILDCARD_ENCODING.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)));
     }
 
     @Test
     public void testTokenCommaToken() {
         this.parseAndCheck2("gzip,deflate",
-                Encoding.GZIP,
-                Encoding.DEFLATE);
+                EncodingWithParameters.GZIP,
+                EncodingWithParameters.DEFLATE);
     }
 
     @Test
     public void testTokenCommaWildcard() {
         this.parseAndCheck2("gzip,*",
-                Encoding.GZIP,
-                Encoding.WILDCARD_ENCODING);
+                EncodingWithParameters.GZIP,
+                EncodingWithParameters.WILDCARD_ENCODING);
     }
 
     @Test
     public void testWildcardCommaToken() {
         this.parseAndCheck2("*,gzip",
-                Encoding.WILDCARD_ENCODING,
-                Encoding.GZIP);
+                EncodingWithParameters.WILDCARD_ENCODING,
+                EncodingWithParameters.GZIP);
     }
 
     @Test
     public void testTokenWhitespaceCommaWhitespaceTokenCommaWhitespaceToken() {
         this.parseAndCheck2("gzip, deflate,  br",
-                Encoding.GZIP,
-                Encoding.DEFLATE,
-                Encoding.BR);
+                EncodingWithParameters.GZIP,
+                EncodingWithParameters.DEFLATE,
+                EncodingWithParameters.BR);
     }
 
     @Test
     public void testSortedByQFactor() {
         this.parseAndCheck2("gzip;q=0.8, deflate, br;q=0.9",
-                Encoding.DEFLATE,
-                Encoding.BR.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.9f)),
-                Encoding.GZIP.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.8f)));
+                EncodingWithParameters.DEFLATE,
+                EncodingWithParameters.BR.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.9f)),
+                EncodingWithParameters.GZIP.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.8f)));
     }
 
     @Test
     public void testSortedByQFactor2() {
         this.parseAndCheck2("gzip;q=0.8, deflate;q=1.0",
-                Encoding.DEFLATE.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 1.0f)),
-                Encoding.GZIP.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.8f)));
+                EncodingWithParameters.DEFLATE.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 1.0f)),
+                EncodingWithParameters.GZIP.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.8f)));
     }
 
     private void parseAndCheck2(final String text,
-                                final Encoding... encodings) {
+                                final EncodingWithParameters... encodings) {
         this.parseAndCheck(text, AcceptEncoding.with(Lists.of(encodings)));
     }
 

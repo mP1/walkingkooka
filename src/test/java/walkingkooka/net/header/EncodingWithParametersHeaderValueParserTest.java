@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 
-public final class EncodingHeaderValueParserTest extends HeaderValueParserTestCase<EncodingHeaderValueParser, Encoding> {
+public final class EncodingWithParametersHeaderValueParserTest extends HeaderValueParserTestCase<EncodingWithParametersHeaderValueParser, EncodingWithParameters> {
 
     @Test
     public void testWhitespaceFails() {
@@ -55,44 +55,44 @@ public final class EncodingHeaderValueParserTest extends HeaderValueParserTestCa
     @Test
     public void testToken() {
         this.parseAndCheck("gzip",
-                Encoding.GZIP);
+                EncodingWithParameters.GZIP);
     }
 
     @Test
     public void testTokenWhitespace() {
         this.parseAndCheck("gzip ",
-                Encoding.GZIP);
+                EncodingWithParameters.GZIP);
     }
 
     @Test
     public void testWhitespaceToken() {
         this.parseAndCheck(" gzip",
-                Encoding.GZIP);
+                EncodingWithParameters.GZIP);
     }
 
     @Test
     public void testTokenParameter() {
         this.parseAndCheck("gzip;q=0.5",
-                Encoding.GZIP.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)));
+                EncodingWithParameters.GZIP.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)));
     }
 
     @Test
     public void testTokenParameterSemiParameter() {
         this.parseAndCheck("gzip;q=0.5;abc=xyz",
-                Encoding.GZIP.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f,
+                EncodingWithParameters.GZIP.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f,
                         EncodingParameterName.with("abc"), "xyz")));
     }
 
     @Test
     public void testWildcard() {
         this.parseAndCheck("*",
-                Encoding.WILDCARD_ENCODING);
+                EncodingWithParameters.WILDCARD_ENCODING);
     }
 
     @Test
     public void testWildcardParameter() {
         this.parseAndCheck("*;q=0.5",
-                Encoding.WILDCARD_ENCODING.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)));
+                EncodingWithParameters.WILDCARD_ENCODING.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)));
     }
 
     @Test
@@ -101,17 +101,17 @@ public final class EncodingHeaderValueParserTest extends HeaderValueParserTestCa
     }
 
     @Override
-    public Encoding parse(final String text) {
-        return EncodingHeaderValueParser.parseEncoding(text);
+    public EncodingWithParameters parse(final String text) {
+        return EncodingWithParametersHeaderValueParser.parseEncoding(text);
     }
 
     @Override
     String valueLabel() {
-        return "Encoding";
+        return "EncodingWithParameters";
     }
 
     @Override
-    public Class<EncodingHeaderValueParser> type() {
-        return EncodingHeaderValueParser.class;
+    public Class<EncodingWithParametersHeaderValueParser> type() {
+        return EncodingWithParametersHeaderValueParser.class;
     }
 }

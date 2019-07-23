@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
  * Accept-Encoding: deflate, gzip;q=1.0, *;q=0.5
  * </pre>
  */
-public final class AcceptEncoding extends HeaderValue2<List<Encoding>>
+public final class AcceptEncoding extends HeaderValue2<List<EncodingWithParameters>>
         implements Predicate<ContentEncoding> {
 
     /**
@@ -50,7 +50,7 @@ public final class AcceptEncoding extends HeaderValue2<List<Encoding>>
     /**
      * Factory that creates a new {@link AcceptEncoding}
      */
-    public static AcceptEncoding with(final List<Encoding> values) {
+    public static AcceptEncoding with(final List<EncodingWithParameters> values) {
         Objects.requireNonNull(values, "values");
 
         return new AcceptEncoding(values.stream()
@@ -61,7 +61,7 @@ public final class AcceptEncoding extends HeaderValue2<List<Encoding>>
     /**
      * Package private ctor use factory. Only called directly by factory or {@link AcceptEncodingHeaderValueParser}
      */
-    AcceptEncoding(final List<Encoding> values) {
+    AcceptEncoding(final List<EncodingWithParameters> values) {
         super(values);
     }
 

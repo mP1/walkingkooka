@@ -71,13 +71,13 @@ final public class EncodingParameterNameTest extends HeaderParameterNameTestCase
 
     @Test
     public void testParameterValueAbsent() {
-        this.parameterValueAndCheckAbsent(EncodingParameterName.Q_FACTOR, Encoding.BR);
+        this.parameterValueAndCheckAbsent(EncodingParameterName.Q_FACTOR, EncodingWithParameters.BR);
     }
 
     @Test
     public void testParameterValuePresent() {
         final EncodingParameterName<Float> parameter = EncodingParameterName.Q_FACTOR;
-        final Encoding encoding = Encoding.nonWildcard("xyz", Maps.of(parameter, 0.75f));
+        final EncodingWithParameters encoding = EncodingWithParameters.nonWildcard("xyz", Maps.of(parameter, 0.75f));
 
         this.parameterValueAndCheckPresent(parameter, encoding, 0.75f);
     }
@@ -86,7 +86,7 @@ final public class EncodingParameterNameTest extends HeaderParameterNameTestCase
     public void testParameterValuePresent2() {
         final EncodingParameterName<?> parameter = EncodingParameterName.with("abc");
         final String value = "parameter-value-xyz";
-        final Encoding encoding = Encoding.nonWildcard("xyz", Maps.of(parameter, value));
+        final EncodingWithParameters encoding = EncodingWithParameters.nonWildcard("xyz", Maps.of(parameter, value));
 
         this.parameterValueAndCheckPresent(parameter, encoding, Cast.to(value));
     }

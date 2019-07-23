@@ -30,12 +30,12 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
-public abstract class EncodingTestCase<A extends Encoding> extends HeaderValueWithParametersTestCase<Encoding, EncodingParameterName<?>>
-        implements ComparableTesting<Encoding>,
-        ParseStringTesting<Encoding>,
-        PredicateTesting2<Encoding, ContentEncoding> {
+public abstract class EncodingWithParametersTestCase<A extends EncodingWithParameters> extends HeaderValueWithParametersTestCase<EncodingWithParameters, EncodingParameterName<?>>
+        implements ComparableTesting<EncodingWithParameters>,
+        ParseStringTesting<EncodingWithParameters>,
+        PredicateTesting2<EncodingWithParameters, ContentEncoding> {
 
-    EncodingTestCase() {
+    EncodingWithParametersTestCase() {
         super();
     }
 
@@ -47,9 +47,9 @@ public abstract class EncodingTestCase<A extends Encoding> extends HeaderValueWi
     @Test
     public void testWith2() {
         final String text = "unknown";
-        this.checkValue(Encoding.with(text),
+        this.checkValue(EncodingWithParameters.with(text),
                 text,
-                Encoding.NO_PARAMETERS);
+                EncodingWithParameters.NO_PARAMETERS);
     }
 
     @Test
@@ -57,18 +57,18 @@ public abstract class EncodingTestCase<A extends Encoding> extends HeaderValueWi
         final A acceptEncoding = this.createHeaderValueWithParameters();
 
         final Map<EncodingParameterName<?>, Object> parameters = Maps.of(EncodingParameterName.Q_FACTOR, 0.5f);
-        final Encoding different = acceptEncoding.setParameters(parameters);
+        final EncodingWithParameters different = acceptEncoding.setParameters(parameters);
         assertNotSame(parameters, different);
 
         this.checkValue(different, acceptEncoding.value(), parameters);
         this.checkValue(acceptEncoding);
     }
 
-    final void checkValue(final Encoding encoding) {
-        this.checkValue(encoding, this.value(), Encoding.NO_PARAMETERS);
+    final void checkValue(final EncodingWithParameters encoding) {
+        this.checkValue(encoding, this.value(), EncodingWithParameters.NO_PARAMETERS);
     }
 
-    final void checkValue(final Encoding encoding,
+    final void checkValue(final EncodingWithParameters encoding,
                           final String value,
                           final Map<EncodingParameterName<?>, Object> parameters) {
         assertEquals(value, encoding.value(), "value");
@@ -78,13 +78,13 @@ public abstract class EncodingTestCase<A extends Encoding> extends HeaderValueWi
     @Test
     public final void testHeaderText() {
         final String text = this.value();
-        this.toHeaderTextAndCheck(Encoding.with(text), text);
+        this.toHeaderTextAndCheck(EncodingWithParameters.with(text), text);
     }
 
     @Test
     public final void testHeaderTextWithParameters() {
         final String text = this.value();
-        this.toHeaderTextAndCheck(Encoding.with(text).setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)),
+        this.toHeaderTextAndCheck(EncodingWithParameters.with(text).setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)),
                 text + "; q=0.5");
     }
 
@@ -92,7 +92,7 @@ public abstract class EncodingTestCase<A extends Encoding> extends HeaderValueWi
 
     @Test
     public final void testEqualsNonWildcardDifferentValue() {
-        this.checkNotEquals(Encoding.with("different"));
+        this.checkNotEquals(EncodingWithParameters.with("different"));
     }
 
     @Test
@@ -116,7 +116,7 @@ public abstract class EncodingTestCase<A extends Encoding> extends HeaderValueWi
     @Test
     public final void testToStringWithParameters() {
         final String value = this.value();
-        this.toStringAndCheck(Encoding.with(value).setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)),
+        this.toStringAndCheck(EncodingWithParameters.with(value).setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)),
                 value + "; q=0.5");
     }
 
@@ -152,7 +152,7 @@ public abstract class EncodingTestCase<A extends Encoding> extends HeaderValueWi
     }
 
     @Override
-    public final Class<Encoding> type() {
+    public final Class<EncodingWithParameters> type() {
         return Cast.to(this.encodingType());
     }
 
@@ -174,14 +174,14 @@ public abstract class EncodingTestCase<A extends Encoding> extends HeaderValueWi
     // ParsingStringTest................................................................................................
 
     @Override
-    public Encoding parse(final String text) {
-        return Encoding.parse(text);
+    public EncodingWithParameters parse(final String text) {
+        return EncodingWithParameters.parse(text);
     }
 
     // PredicateTesting2...............................................................................................
 
     @Override
-    public final Encoding createPredicate() {
+    public final EncodingWithParameters createPredicate() {
         return this.createHeaderValueWithParameters();
     }
 
@@ -189,7 +189,7 @@ public abstract class EncodingTestCase<A extends Encoding> extends HeaderValueWi
 
     @Override
     public final String typeNamePrefix() {
-        return Encoding.class.getSimpleName();
+        return EncodingWithParameters.class.getSimpleName();
     }
 
     @Override
