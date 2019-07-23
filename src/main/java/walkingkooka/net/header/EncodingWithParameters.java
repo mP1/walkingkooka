@@ -110,7 +110,7 @@ public abstract class EncodingWithParameters extends HeaderValueWithParameters2<
     private static String checkValue(final String value) {
         CharPredicates.failIfNullOrEmptyOrFalse(value,
                 "value",
-                AcceptEncodingHeaderValueParser.RFC2045TOKEN);
+                EncodingWithParametersHeaderValueParser.RFC2045TOKEN);
         return value;
     }
 
@@ -195,7 +195,6 @@ public abstract class EncodingWithParameters extends HeaderValueWithParameters2<
     final int hashCode0(final String value) {
         return CASE_SENSITIVITY.hash(value);
     }
-
 
     @Override
     final boolean equals1(final String value, final String otherValue) {
