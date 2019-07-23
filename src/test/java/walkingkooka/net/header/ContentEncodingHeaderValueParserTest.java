@@ -20,9 +20,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 
-import java.util.List;
-
-public final class ContentEncodingListHeaderValueParserTest extends HeaderValueParserTestCase<ContentEncodingListHeaderValueParser, List<ContentEncoding>> {
+public final class ContentEncodingHeaderValueParserTest extends HeaderValueParserTestCase<ContentEncodingHeaderValueParser, ContentEncoding> {
 
     @Test
     public void testWhitespaceFails() {
@@ -72,43 +70,43 @@ public final class ContentEncodingListHeaderValueParserTest extends HeaderValueP
     @Test
     public void testToken() {
         this.parseAndCheck2("gzip",
-                ContentEncoding.GZIP);
+                Encoding.GZIP);
     }
 
     @Test
     public void testTokenWhitespace() {
         this.parseAndCheck2("gzip ",
-                ContentEncoding.GZIP);
+                Encoding.GZIP);
     }
 
     @Test
     public void testWhitespaceToken() {
         this.parseAndCheck2(" gzip",
-                ContentEncoding.GZIP);
+                Encoding.GZIP);
     }
 
     @Test
     public void testTokenCommaToken() {
         this.parseAndCheck2("gzip,deflate",
-                ContentEncoding.GZIP,
-                ContentEncoding.with("deflate"));
+                Encoding.GZIP,
+                Encoding.DEFLATE);
     }
 
     @Test
     public void testTokenWhitespaceCommaWhitespaceTokenCommaWhitespaceToken() {
         this.parseAndCheck2("gzip, deflate,  br",
-                ContentEncoding.GZIP,
-                ContentEncoding.DEFLATE,
-                ContentEncoding.BR);
+                Encoding.GZIP,
+                Encoding.DEFLATE,
+                Encoding.BR);
     }
 
-    private void parseAndCheck2(final String text, final ContentEncoding...encodings) {
-        this.parseAndCheck(text, Lists.of(encodings));
+    private void parseAndCheck2(final String text, final Encoding...encodings) {
+        this.parseAndCheck(text, ContentEncoding.with(Lists.of(encodings)));
     }
 
     @Override
-    public List<ContentEncoding> parse(final String text) {
-        return ContentEncodingListHeaderValueParser.parseContentEncodingList(text);
+    public ContentEncoding parse(final String text) {
+        return ContentEncodingHeaderValueParser.parseContentEncoding(text);
     }
 
     @Override
@@ -117,7 +115,7 @@ public final class ContentEncodingListHeaderValueParserTest extends HeaderValueP
     }
 
     @Override
-    public Class<ContentEncodingListHeaderValueParser> type() {
-        return ContentEncodingListHeaderValueParser.class;
+    public Class<ContentEncodingHeaderValueParser> type() {
+        return ContentEncodingHeaderValueParser.class;
     }
 }

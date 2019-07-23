@@ -19,8 +19,6 @@ package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
 
-import java.util.List;
-
 /**
  * A {@link HeaderValueHandler} that handles content-encoding headers.<br>
  * <pre>
@@ -35,35 +33,33 @@ import java.util.List;
  * Content-Encoding: deflate, gzip
  * </pre>
  */
-final class ContentEncodingListHeaderValueHandler extends NonStringHeaderValueHandler<List<ContentEncoding>> {
+final class ContentEncodingHeaderValueHandler extends NonStringHeaderValueHandler<ContentEncoding> {
 
     /**
      * Singleton
      */
-    final static ContentEncodingListHeaderValueHandler INSTANCE = new ContentEncodingListHeaderValueHandler();
+    final static ContentEncodingHeaderValueHandler INSTANCE = new ContentEncodingHeaderValueHandler();
 
     /**
      * Private ctor use singleton.
      */
-    private ContentEncodingListHeaderValueHandler() {
+    private ContentEncodingHeaderValueHandler() {
         super();
     }
 
     @Override
-    List<ContentEncoding> parse0(final String text, final Name name) {
-        return ContentEncodingListHeaderValueParser.parseContentEncodingList(text);
+    ContentEncoding parse0(final String text, final Name name) {
+        return ContentEncodingHeaderValueParser.parseContentEncoding(text);
     }
 
     @Override
     void check0(final Object value, final Name name) {
-        if (this.checkListOfType(value, ContentEncoding.class, name).isEmpty()) {
-            throw new HeaderValueException("Content-Encoding list empty");
-        }
+        this.checkType(value, ContentEncoding.class, name);
     }
 
     @Override
-    String toText0(final List<ContentEncoding> contentEncoding, final Name name) {
-        return HeaderValue.toHeaderTextList(contentEncoding, SEPARATOR);
+    String toText0(final ContentEncoding contentEncoding, final Name name) {
+        return contentEncoding.toHeaderText();
     }
 
     @Override

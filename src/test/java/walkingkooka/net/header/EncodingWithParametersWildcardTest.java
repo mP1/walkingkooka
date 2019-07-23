@@ -64,7 +64,7 @@ public final class EncodingWithParametersWildcardTest extends EncodingWithParame
 
     @Test
     public void testTestContentEncoding() {
-        this.testTrue(ContentEncoding.with("xyz"));
+        this.testTrue(ContentEncoding.parse("xyz"));
     }
 
     // parse............................................................................................................

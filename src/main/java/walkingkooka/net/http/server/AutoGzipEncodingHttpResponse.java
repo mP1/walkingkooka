@@ -18,7 +18,6 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.Binary;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.AcceptEncoding;
 import walkingkooka.net.header.ContentEncoding;
 import walkingkooka.net.header.HttpHeaderName;
@@ -26,7 +25,6 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -73,10 +71,10 @@ final class AutoGzipEncodingHttpResponse extends WrapperHttpRequestHttpResponse 
 
         if(acceptEncodings.map(ae -> ae.test(ContentEncoding.GZIP)).orElse(Boolean.FALSE)) {
 
-            final Optional<List<ContentEncoding>> contentEncodings = HttpHeaderName.CONTENT_ENCODING.headerValue(add.headers());
+            final Optional<ContentEncoding> contentEncodings = HttpHeaderName.CONTENT_ENCODING.headerValue(add.headers());
             if(!contentEncodings.isPresent()) {
                 // content-encoding absent so gzip
-                add = add.addHeader(HttpHeaderName.CONTENT_ENCODING, GZIP);
+                add = add.addHeader(HttpHeaderName.CONTENT_ENCODING, ContentEncoding.GZIP);
                 add = add.setBody(gzip(add.body()));
             }
         }
@@ -95,6 +93,4 @@ final class AutoGzipEncodingHttpResponse extends WrapperHttpRequestHttpResponse 
             throw new HttpServerException("Failed to gzip compress bytes, " + cause, cause);
         }
     }
-
-    private final static List<ContentEncoding> GZIP = Lists.of(ContentEncoding.GZIP);
 }
