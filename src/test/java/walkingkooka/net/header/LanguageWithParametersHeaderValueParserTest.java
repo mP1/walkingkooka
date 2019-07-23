@@ -19,7 +19,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 
-public final class LanguageOneHeaderValueParserTest extends LanguageHeaderValueParserTestCase<LanguageOneHeaderValueParser, Language> {
+public final class LanguageWithParametersHeaderValueParserTest extends AcceptLanguageOrLanguageHeaderValueParserTestCase<LanguageWithParametersHeaderValueParser, LanguageWithParameters> {
 
     @Test
     public void testLanguageTagValueSeparatorFails() {
@@ -27,17 +27,17 @@ public final class LanguageOneHeaderValueParserTest extends LanguageHeaderValueP
     }
 
     @Override
-    void parseAndCheck2(final String text, final Language expected) {
+    void parseAndCheck2(final String text, final LanguageWithParameters expected) {
         this.parseAndCheck(text, expected);
     }
 
     @Override
-    public Language parse(final String text) {
-        return LanguageOneHeaderValueParser.parseOne(text);
+    public LanguageWithParameters parse(final String text) {
+        return LanguageWithParametersHeaderValueParser.parseLanguage(text);
     }
 
     @Override
-    public Class<LanguageOneHeaderValueParser> type() {
-        return LanguageOneHeaderValueParser.class;
+    public Class<LanguageWithParametersHeaderValueParser> type() {
+        return LanguageWithParametersHeaderValueParser.class;
     }
 }

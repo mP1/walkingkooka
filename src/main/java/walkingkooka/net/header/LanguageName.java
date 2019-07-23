@@ -23,14 +23,15 @@ import walkingkooka.text.CaseSensitivity;
 
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
- * Holds a LanguageName only when combined with parameters creates a {@link Language} header value.
+ * Holds a LanguageName only when combined with parameters creates a {@link LanguageWithParameters} header value.
  */
 public abstract class LanguageName extends HeaderNameValue implements Comparable<LanguageName>,
-        Predicate<Language> {
+        Predicate<LanguageName> {
 
     /**
      * No {@link Locale}.
@@ -63,10 +64,10 @@ public abstract class LanguageName extends HeaderNameValue implements Comparable
     }
 
     /**
-     * Factory that creates a {@link Language} with the given parameters.
+     * Factory that creates a {@link LanguageWithParameters} with the given parameters.
      */
-    public final Language setParameters(final Map<LanguageParameterName<?>, Object> parameters) {
-        return Language.with(this)
+    public final LanguageWithParameters setParameters(final Map<LanguageParameterName<?>, Object> parameters) {
+        return LanguageWithParameters.with(this)
                 .setParameters(parameters);
     }
 
@@ -92,6 +93,23 @@ public abstract class LanguageName extends HeaderNameValue implements Comparable
     public final String toHeaderText() {
         return this.name;
     }
+
+    // Predicate........................................................................................................
+
+    /**
+     * True if the languages are equal.
+     */
+    @Override
+    public boolean test(final LanguageName language) {
+        Objects.requireNonNull(language, "language");
+
+        language.testFailIfWildcard();
+        return this.test0(language);
+    }
+
+    abstract void testFailIfWildcard();
+
+    abstract boolean test0(final LanguageName language);
 
     // HeaderNameValue..............................................................................................
 

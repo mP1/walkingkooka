@@ -59,6 +59,13 @@ abstract class HeaderValueHandler<T> {
     }
 
     /**
+     * {@see AcceptLanguageHeaderValueHandler}
+     */
+    static HeaderValueHandler<AcceptLanguage> acceptLanguage() {
+        return AcceptLanguageHeaderValueHandler.INSTANCE;
+    }
+
+    /**
      * {@see CacheControlDirectiveListHeaderValueHandler}
      */
     static HeaderValueHandler<List<CacheControlDirective<?>>> cacheControlDirectiveList() {
@@ -100,6 +107,13 @@ abstract class HeaderValueHandler<T> {
         return ContentDispositionFileNameEncodedHeaderValueHandler.INSTANCE;
     }
 
+    /**
+     * {@see ContentLanguageHeaderValueHandler}
+     */
+    static HeaderValueHandler<ContentLanguage> contentLanguage() {
+        return ContentLanguageHeaderValueHandler.INSTANCE;
+    }
+    
     /**
      * {@see ContentRangeHeaderValueHandler}
      */
@@ -147,20 +161,6 @@ abstract class HeaderValueHandler<T> {
      */
     static HeaderValueHandler<IfRange<?>> ifRange() {
         return IfRangeHeaderValueHandler.INSTANCE;
-    }
-
-    /**
-     * {@see LanguageHeaderValueHandler}
-     */
-    static HeaderValueHandler<Language> language() {
-        return LanguageHeaderValueHandler.INSTANCE;
-    }
-
-    /**
-     * {@see LanguageListHeaderValueHandler}
-     */
-    static HeaderValueHandler<List<Language>> languageList() {
-        return LanguageListHeaderValueHandler.INSTANCE;
     }
 
     /**

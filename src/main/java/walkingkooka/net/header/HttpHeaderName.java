@@ -174,10 +174,9 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Accept-Language: fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<List<Language>> ACCEPT_LANGUAGE = registerConstant("Accept-Language",
+    public final static HttpHeaderName<AcceptLanguage> ACCEPT_LANGUAGE = registerConstant("Accept-Language",
             HttpHeaderNameScope.REQUEST,
-            HeaderValueHandler.languageList());
-
+            HeaderValueHandler.acceptLanguage());
 
     /**
      * A {@link HttpHeaderName} holding <code>Accept-Ranges</code>
@@ -290,9 +289,9 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Content-Language: de-DE, en-CA
      * </pre>
      */
-    public final static HttpHeaderName<Language> CONTENT_LANGUAGE = registerConstant("Content-Language",
+    public final static HttpHeaderName<ContentLanguage> CONTENT_LANGUAGE = registerConstant("Content-Language",
             HttpHeaderNameScope.RESPONSE,
-            HeaderValueHandler.language());
+            HeaderValueHandler.contentLanguage());
 
     /**
      * A {@link HttpHeaderName} holding <code>Content-Length</code>

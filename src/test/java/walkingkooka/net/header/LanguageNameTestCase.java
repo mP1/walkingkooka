@@ -32,10 +32,11 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class LanguageNameTestCase<L extends LanguageName> implements ClassTesting2<L>,
         NameTesting<L, LanguageName>,
-        PredicateTesting2<L, Language>,
+        PredicateTesting2<L, LanguageName>,
         TypeNameTesting<L> {
 
     LanguageNameTestCase() {
@@ -51,11 +52,17 @@ public abstract class LanguageNameTestCase<L extends LanguageName> implements Cl
     public final void testSetParameters() {
         final L name = this.createName(this.nameText());
         final Map<LanguageParameterName<?>, Object> parameters = Maps.of(LanguageParameterName.Q_FACTOR, 0.5f);
-        final Language language = name.setParameters(parameters);
+        final LanguageWithParameters language = name.setParameters(parameters);
         assertSame(name, language.value(), "value");
         assertEquals(parameters, language.parameters(), "parameters");
     }
 
+    @Test
+    public final void testWildcardFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createPredicate().test(LanguageName.WILDCARD);
+        });
+    }
 
     final void check(final LanguageName name,
                      final String value,

@@ -90,20 +90,28 @@ final class LanguageNameNonWildcard extends LanguageName {
 
     private final Optional<Locale> locale;
 
-    // isXXX........................................................................................................
+    // isXXX............................................................................................................
 
     @Override
     public boolean isWildcard() {
         return false;
     }
 
+    // Predicate........................................................................................................
+
     /**
      * True if the languages are equal.
      */
     @Override
-    public boolean test(final Language language) {
-        return this.equals(language.value);
+    boolean test0(final LanguageName language) {
+        return CASE_SENSITIVITY.equals(this.name, language.name);
     }
+
+    @Override
+    void testFailIfWildcard() {
+    }
+
+    // Object............................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

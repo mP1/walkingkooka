@@ -20,17 +20,16 @@ package walkingkooka.net.header;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.HasQFactorWeight;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
- * Holds a Language which is the value of a accept-language and similar headers.
+ * Holds a Language with parameters within a accept-language header.
  */
-public final class Language extends HeaderValueWithParameters2<Language, LanguageParameterName<?>, LanguageName>
-        implements Predicate<Language>,
+public final class LanguageWithParameters extends HeaderValueWithParameters2<LanguageWithParameters, LanguageParameterName<?>, LanguageName>
+        implements Predicate<LanguageName>,
         HasQFactorWeight {
 
     /**
@@ -39,60 +38,59 @@ public final class Language extends HeaderValueWithParameters2<Language, Languag
     public final static Map<LanguageParameterName<?>, Object> NO_PARAMETERS = Maps.empty();
 
     /**
-     * A {@link Language} wildcard without any parameters.
+     * A {@link LanguageWithParameters} wildcard without any parameters.
      */
-    public final static Language WILDCARD = new Language(LanguageName.WILDCARD, NO_PARAMETERS);
+    public final static LanguageWithParameters WILDCARD = new LanguageWithParameters(LanguageName.WILDCARD, NO_PARAMETERS);
 
     /**
-     * Factory that creates a new {@link Language}
+     * Factory that creates a new {@link LanguageWithParameters}
      */
-    public static Language with(final LanguageName value) {
+    public static LanguageWithParameters with(final LanguageName value) {
         checkValue(value);
 
         return value.isWildcard() ?
                 WILDCARD :
-                new Language(value, NO_PARAMETERS);
+                new LanguageWithParameters(value, NO_PARAMETERS);
     }
 
     /**
      * Parsers a header value holding a single tag.
      */
-    public static Language parse(final String text) {
-        return LanguageOneHeaderValueParser.parseOne(text);
-    }
-
-    /**
-     * Parsers a header value which may hold one or more tags.
-     */
-    public static List<Language> parseList(final String text) {
-        return LanguageListHeaderValueParser.parseList(text);
+    public static LanguageWithParameters parse(final String text) {
+        return LanguageWithParametersHeaderValueParser.parseLanguage(text);
     }
 
     /**
      * Private ctor use factory methods.
      */
-    private Language(final LanguageName value, final Map<LanguageParameterName<?>, Object> parameters) {
+    private LanguageWithParameters(final LanguageName value, final Map<LanguageParameterName<?>, Object> parameters) {
         super(value, parameters);
     }
 
     // Predicate.......................................................................................................
 
     /**
-     * Only returns true if languageTag is matched by the given languageTag. If this is a wildcard it matches any other languageTag.
-     * If the argument is a wildcard a false is always returned even if this is a wildcard.
+     * Only returns true if the {@link LanguageName} satisfies this {@link LanguageWithParameters}.
      */
     @Override
-    public boolean test(final Language languageTag) {
-        Objects.requireNonNull(languageTag, "languageTag");
-        return this.value.test(languageTag);
+    public boolean test(final LanguageName language) {
+        return this.value.test(language);
+    }
+
+    // AcceptLanguage.test
+    boolean testContentLanguage(final ContentLanguage contentLanguage) {
+        return contentLanguage.value.stream()
+                .filter(this.value)
+                .limit(1)
+                .count() == 1;
     }
 
     // value............................................................................................................
 
     /**
-     * Would be setter that returns a {@link Language} with the given value creating a new instance as necessary.
+     * Would be setter that returns a {@link LanguageWithParameters} with the given value creating a new instance as necessary.
      */
-    public Language setValue(final LanguageName value) {
+    public LanguageWithParameters setValue(final LanguageName value) {
         checkValue(value);
 
         return this.value.equals(value) ?
@@ -106,20 +104,20 @@ public final class Language extends HeaderValueWithParameters2<Language, Languag
 
     // replace ........................................................................................................
 
-    private Language replace(final LanguageName value) {
+    private LanguageWithParameters replace(final LanguageName value) {
         return this.replace0(value, this.parameters);
     }
 
     @Override
-    Language replace(final Map<LanguageParameterName<?>, Object> parameters) {
+    LanguageWithParameters replace(final Map<LanguageParameterName<?>, Object> parameters) {
         return this.replace0(this.value, parameters);
     }
 
-    private Language replace0(final LanguageName name,
-                              final Map<LanguageParameterName<?>, Object> parameters) {
+    private LanguageWithParameters replace0(final LanguageName name,
+                                            final Map<LanguageParameterName<?>, Object> parameters) {
         return name.isWildcard() && parameters.isEmpty() ?
                 WILDCARD :
-                new Language(name, parameters);
+                new LanguageWithParameters(name, parameters);
     }
 
     // headerValue........................................................................................................
@@ -176,7 +174,7 @@ public final class Language extends HeaderValueWithParameters2<Language, Languag
 
     @Override
     boolean canBeEquals(final Object other) {
-        return other instanceof Language;
+        return other instanceof LanguageWithParameters;
     }
 
     @Override

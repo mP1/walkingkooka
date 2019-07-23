@@ -21,24 +21,17 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class LanguageListHeaderValueHandlerTest extends
-        NonStringHeaderValueHandlerTestCase<LanguageListHeaderValueHandler, List<Language>> {
+public final class AcceptLanguageHeaderValueHandlerTest extends
+        NonStringHeaderValueHandlerTestCase<AcceptLanguageHeaderValueHandler, AcceptLanguage> {
 
     private final static String TEXT = "en; q=1.0, en-AU; q=0.5";
-
-    @Override
-    public String typeNamePrefix() {
-        return Language.class.getSimpleName();
-    }
 
     @Test
     public void testContentType() {
         this.parseAndToTextAndCheck(TEXT,
-                Lists.of(this.en_10(), this.en_au_05()));
+                AcceptLanguage.with(Lists.of(this.en_10(), this.en_au_05())));
     }
 
     @Test
@@ -55,23 +48,23 @@ public final class LanguageListHeaderValueHandlerTest extends
         });
     }
 
-    private Language en_10() {
-        return Language.with(LanguageName.with("en"))
+    private LanguageWithParameters en_10() {
+        return LanguageWithParameters.with(LanguageName.with("en"))
                 .setParameters(Maps.of(LanguageParameterName.Q_FACTOR, 1.0f));
     }
 
-    private Language en_au_05() {
-        return Language.with(LanguageName.with("en-au"))
+    private LanguageWithParameters en_au_05() {
+        return LanguageWithParameters.with(LanguageName.with("en-au"))
                 .setParameters(Maps.of(LanguageParameterName.Q_FACTOR, 0.5f));
     }
 
     @Override
-    LanguageListHeaderValueHandler handler() {
-        return LanguageListHeaderValueHandler.INSTANCE;
+    AcceptLanguageHeaderValueHandler handler() {
+        return AcceptLanguageHeaderValueHandler.INSTANCE;
     }
 
     @Override
-    HttpHeaderName<List<Language>> name() {
+    HttpHeaderName<AcceptLanguage> name() {
         return HttpHeaderName.ACCEPT_LANGUAGE;
     }
 
@@ -81,22 +74,31 @@ public final class LanguageListHeaderValueHandlerTest extends
     }
 
     @Override
-    List<Language> value() {
-        return Language.parseList(TEXT);
+    AcceptLanguage value() {
+        return AcceptLanguage.parse(TEXT);
     }
 
     @Override
     String valueType() {
-        return this.listValueType(Language.class);
+        return this.valueType(AcceptLanguage.class);
     }
 
     @Override
     String handlerToString() {
-        return "List<Language>";
+        return AcceptLanguage.class.getSimpleName();
     }
 
+    // ClassTesting.....................................................................................................
+
     @Override
-    public Class<LanguageListHeaderValueHandler> type() {
-        return LanguageListHeaderValueHandler.class;
+    public Class<AcceptLanguageHeaderValueHandler> type() {
+        return AcceptLanguageHeaderValueHandler.class;
+    }
+
+    // TypeNameTesting..................................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return "";
     }
 }
