@@ -28,7 +28,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class AcceptEncodingTest extends HeaderValue2TestCase<AcceptEncoding, List<Encoding>>
+public final class AcceptEncodingTest extends HeaderValue2TestCase<AcceptEncoding, List<EncodingWithParameters>>
         implements ParseStringTesting<AcceptEncoding>,
         PredicateTesting2<AcceptEncoding, ContentEncoding> {
 
@@ -43,37 +43,37 @@ public final class AcceptEncodingTest extends HeaderValue2TestCase<AcceptEncodin
 
     @Test
     public void testTestWildcard() {
-        this.testTrue(acceptEncoding(Encoding.WILDCARD_ENCODING), ContentEncoding.GZIP);
+        this.testTrue(acceptEncoding(EncodingWithParameters.WILDCARD_ENCODING), ContentEncoding.GZIP);
     }
 
     @Test
     public void testTestWildcard2() {
-        this.testTrue(acceptEncoding(Encoding.WILDCARD_ENCODING), ContentEncoding.with("abc"));
+        this.testTrue(acceptEncoding(EncodingWithParameters.WILDCARD_ENCODING), ContentEncoding.with("abc"));
     }
 
     @Test
     public void testTestDifferentWildcard() {
-        this.testTrue(acceptEncoding(Encoding.with("different"), Encoding.WILDCARD_ENCODING), ContentEncoding.with("abc"));
+        this.testTrue(acceptEncoding(EncodingWithParameters.with("different"), EncodingWithParameters.WILDCARD_ENCODING), ContentEncoding.with("abc"));
     }
 
     @Test
     public void testTestDifferentNonWildcard() {
-        this.testFalse(acceptEncoding(Encoding.with("different")), ContentEncoding.with("abc"));
+        this.testFalse(acceptEncoding(EncodingWithParameters.with("different")), ContentEncoding.with("abc"));
     }
 
     @Test
     public void testTestNonWildcardDifferentCase() {
-        this.testTrue(acceptEncoding(Encoding.with("ABC")), ContentEncoding.with("abc"));
+        this.testTrue(acceptEncoding(EncodingWithParameters.with("ABC")), ContentEncoding.with("abc"));
     }
 
     @Test
     public void testTestNonWildcardSameCase() {
-        this.testTrue(acceptEncoding(Encoding.with("xyz")), ContentEncoding.with("xyz"));
+        this.testTrue(acceptEncoding(EncodingWithParameters.with("xyz")), ContentEncoding.with("xyz"));
     }
 
     @Test
     public void testTestNonWildcardSameCase2() {
-        this.testTrue(acceptEncoding(Encoding.with("different"), Encoding.with("ABC")), ContentEncoding.with("ABC"));
+        this.testTrue(acceptEncoding(EncodingWithParameters.with("different"), EncodingWithParameters.with("ABC")), ContentEncoding.with("ABC"));
     }
 
     // parse...........................................................................................................
@@ -81,29 +81,29 @@ public final class AcceptEncodingTest extends HeaderValue2TestCase<AcceptEncodin
     @Test
     public void testParse() {
         this.parseAndCheck("gzip, *;q=0.5",
-                AcceptEncoding.with(Lists.of(Encoding.GZIP,
-                Encoding.WILDCARD_ENCODING.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)))));
+                AcceptEncoding.with(Lists.of(EncodingWithParameters.GZIP,
+                EncodingWithParameters.WILDCARD_ENCODING.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)))));
     }
 
     // helpers.......................................................................................................
 
     @Override
-    AcceptEncoding createHeaderValue(final List<Encoding> value) {
+    AcceptEncoding createHeaderValue(final List<EncodingWithParameters> value) {
         return AcceptEncoding.with(value);
     }
 
-    private AcceptEncoding acceptEncoding(final Encoding... value) {
+    private AcceptEncoding acceptEncoding(final EncodingWithParameters... value) {
         return this.createHeaderValue(Lists.of(value));
     }
 
     @Override
-    List<Encoding> value() {
-        return Lists.of(Encoding.BR, Encoding.GZIP);
+    List<EncodingWithParameters> value() {
+        return Lists.of(EncodingWithParameters.BR, EncodingWithParameters.GZIP);
     }
 
     @Override
-    List<Encoding> differentValue() {
-        return Lists.of(Encoding.GZIP);
+    List<EncodingWithParameters> differentValue() {
+        return Lists.of(EncodingWithParameters.GZIP);
     }
 
     @Override

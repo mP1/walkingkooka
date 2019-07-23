@@ -72,7 +72,7 @@ import java.util.List;
  *       work and are not permitted with x-gzip or x-compress.
  * </pre>
  */
-final class AcceptEncodingHeaderValueParser extends HeaderValueParserWithParameters<Encoding, EncodingParameterName<?>> {
+final class AcceptEncodingHeaderValueParser extends HeaderValueParserWithParameters<EncodingWithParameters, EncodingParameterName<?>> {
 
     static AcceptEncoding parseAcceptEncoding(final String text) {
         final AcceptEncodingHeaderValueParser parser = new AcceptEncodingHeaderValueParser(text);
@@ -91,14 +91,14 @@ final class AcceptEncodingHeaderValueParser extends HeaderValueParserWithParamet
     }
 
     @Override
-    Encoding wildcardValue() {
+    EncodingWithParameters wildcardValue() {
         this.position++; // consume star
-        return Encoding.WILDCARD_ENCODING;
+        return EncodingWithParameters.WILDCARD_ENCODING;
     }
 
     @Override
-    Encoding value() {
-        return Encoding.with(this.token(RFC2045TOKEN));
+    EncodingWithParameters value() {
+        return EncodingWithParameters.with(this.token(RFC2045TOKEN));
     }
 
     @Override
@@ -128,9 +128,9 @@ final class AcceptEncodingHeaderValueParser extends HeaderValueParserWithParamet
     final static CharPredicate UNQUOTED_PARAMETER_VALUE = RFC2045TOKEN;
 
     @Override
-    void valueComplete(final Encoding encoding) {
+    void valueComplete(final EncodingWithParameters encoding) {
         this.encodings.add(encoding);
     }
 
-    private final List<Encoding> encodings = Lists.array();
+    private final List<EncodingWithParameters> encodings = Lists.array();
 }

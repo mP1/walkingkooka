@@ -68,15 +68,15 @@ import walkingkooka.predicate.character.CharPredicate;
  *       work and are not permitted with x-gzip or x-compress.
  * </pre>
  */
-final class EncodingHeaderValueParser extends HeaderValueParserWithParameters<Encoding, EncodingParameterName<?>> {
+final class EncodingWithParametersHeaderValueParser extends HeaderValueParserWithParameters<EncodingWithParameters, EncodingParameterName<?>> {
 
-    static Encoding parseEncoding(final String text) {
-        final EncodingHeaderValueParser parser = new EncodingHeaderValueParser(text);
+    static EncodingWithParameters parseEncoding(final String text) {
+        final EncodingWithParametersHeaderValueParser parser = new EncodingWithParametersHeaderValueParser(text);
         parser.parse();
         return parser.encoding;
     }
 
-    private EncodingHeaderValueParser(final String text) {
+    private EncodingWithParametersHeaderValueParser(final String text) {
         super(text);
     }
 
@@ -86,19 +86,19 @@ final class EncodingHeaderValueParser extends HeaderValueParserWithParameters<En
     }
 
     @Override
-    Encoding wildcardValue() {
+    EncodingWithParameters wildcardValue() {
         this.position++; // consume star
-        return Encoding.WILDCARD_ENCODING;
+        return EncodingWithParameters.WILDCARD_ENCODING;
     }
 
     @Override
-    Encoding value() {
-        return Encoding.with(this.token(RFC2045TOKEN));
+    EncodingWithParameters value() {
+        return EncodingWithParameters.with(this.token(RFC2045TOKEN));
     }
 
     @Override
     void missingValue() {
-        this.failEmptyToken("Encoding");
+        this.failEmptyToken("EncodingWithParameters");
     }
 
     @Override
@@ -123,9 +123,9 @@ final class EncodingHeaderValueParser extends HeaderValueParserWithParameters<En
     final static CharPredicate UNQUOTED_PARAMETER_VALUE = RFC2045TOKEN;
 
     @Override
-    void valueComplete(final Encoding encoding) {
+    void valueComplete(final EncodingWithParameters encoding) {
         this.encoding = encoding;
     }
 
-    private Encoding encoding;
+    private EncodingWithParameters encoding;
 }

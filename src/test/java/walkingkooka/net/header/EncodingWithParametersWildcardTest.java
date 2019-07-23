@@ -22,26 +22,26 @@ import walkingkooka.InvalidCharacterException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class EncodingWildcardTest extends EncodingTestCase<EncodingWildcard> {
+public final class EncodingWithParametersWildcardTest extends EncodingWithParametersTestCase<EncodingWithParametersWildcard> {
 
     @Test
     public void testWithNullValueFails() {
         assertThrows(NullPointerException.class, () -> {
-            Encoding.with(null);
+            EncodingWithParameters.with(null);
         });
     }
 
     @Test
     public void testWithEmptyValueFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            Encoding.with("");
+            EncodingWithParameters.with("");
         });
     }
 
     @Test
     public void testWithInvalidCharacterFails() {
         assertThrows(InvalidCharacterException.class, () -> {
-            Encoding.with("\u001f");
+            EncodingWithParameters.with("\u001f");
         });
     }
 
@@ -72,18 +72,18 @@ public final class EncodingWildcardTest extends EncodingTestCase<EncodingWildcar
     @Test
     public void testParseWildcard() {
         this.parseAndCheck("*",
-                Encoding.WILDCARD_ENCODING);
+                EncodingWithParameters.WILDCARD_ENCODING);
     }
 
     @Test
     public void testParseWhitespaceTokenWhitespace() {
         this.parseAndCheck(" * ",
-                Encoding.WILDCARD_ENCODING);
+                EncodingWithParameters.WILDCARD_ENCODING);
     }
 
     @Override
-    public EncodingWildcard createHeaderValueWithParameters() {
-        return EncodingWildcard.INSTANCE;
+    public EncodingWithParametersWildcard createHeaderValueWithParameters() {
+        return EncodingWithParametersWildcard.INSTANCE;
     }
 
     @Override
@@ -92,7 +92,7 @@ public final class EncodingWildcardTest extends EncodingTestCase<EncodingWildcar
     }
 
     @Override
-    Class<EncodingWildcard> encodingType() {
-        return EncodingWildcard.class;
+    Class<EncodingWithParametersWildcard> encodingType() {
+        return EncodingWithParametersWildcard.class;
     }
 }

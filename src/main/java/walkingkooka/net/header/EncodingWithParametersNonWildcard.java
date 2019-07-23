@@ -20,24 +20,24 @@ package walkingkooka.net.header;
 import java.util.Map;
 
 /**
- * An accept-encoding with optional parameters.
+ * An accept-encoding encoding with optional parameters.
  */
-final class EncodingNonWildcard extends Encoding {
+final class EncodingWithParametersNonWildcard extends EncodingWithParameters {
 
-    static EncodingNonWildcard with(final String value, final Map<EncodingParameterName<?>, Object> parameters) {
+    static EncodingWithParametersNonWildcard with(final String value, final Map<EncodingParameterName<?>, Object> parameters) {
         return parameters.isEmpty() ?
                 maybeConstant(value) :
-                new EncodingNonWildcard(value, parameters);
+                new EncodingWithParametersNonWildcard(value, parameters);
     }
 
-    private static EncodingNonWildcard maybeConstant(final String value) {
-        final EncodingNonWildcard acceptEncodings = CONSTANTS.get(value);
+    private static EncodingWithParametersNonWildcard maybeConstant(final String value) {
+        final EncodingWithParametersNonWildcard acceptEncodings = CONSTANTS.get(value);
         return null != acceptEncodings ?
                 acceptEncodings :
-                new EncodingNonWildcard(value, NO_PARAMETERS);
+                new EncodingWithParametersNonWildcard(value, NO_PARAMETERS);
     }
 
-    private EncodingNonWildcard(final String value, final Map<EncodingParameterName<?>, Object> parameters) {
+    private EncodingWithParametersNonWildcard(final String value, final Map<EncodingParameterName<?>, Object> parameters) {
         super(value, parameters);
     }
 
@@ -47,8 +47,8 @@ final class EncodingNonWildcard extends Encoding {
     }
 
     @Override
-    EncodingNonWildcard replace(final Map<EncodingParameterName<?>, Object> parameters) {
-        return new EncodingNonWildcard(this.value, parameters);
+    EncodingWithParametersNonWildcard replace(final Map<EncodingParameterName<?>, Object> parameters) {
+        return new EncodingWithParametersNonWildcard(this.value, parameters);
     }
 
     // Predicate........................................................................................................
@@ -62,6 +62,6 @@ final class EncodingNonWildcard extends Encoding {
 
     @Override
     boolean canBeEquals(final Object other) {
-        return other instanceof EncodingNonWildcard;
+        return other instanceof EncodingWithParametersNonWildcard;
     }
 }
