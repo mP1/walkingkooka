@@ -226,7 +226,7 @@ public final class HeaderValueParserTest extends HeaderValueParserTestCase<Heade
     public void testEncodedText() {
         this.encodedTextAndCheck("utf-8'en'abc",
                 EncodedText.with(CharsetName.UTF_8,
-                        Optional.of(LanguageTagName.with("en")),
+                        Optional.of(LanguageName.with("en")),
                         "abc"));
     }
 
@@ -261,7 +261,7 @@ public final class HeaderValueParserTest extends HeaderValueParserTestCase<Heade
     private void encodedTextAndCheck2(final String text, final String value) {
         this.encodedTextAndCheck("utf-8'en'" + text,
                 EncodedText.with(CharsetName.UTF_8,
-                        Optional.of(LanguageTagName.with("en")),
+                        Optional.of(LanguageName.with("en")),
                         value));
     }
 
@@ -270,7 +270,7 @@ public final class HeaderValueParserTest extends HeaderValueParserTestCase<Heade
     public void testEncodedTextHeaderTextRoundtrip() {
         for (int i = 0x3f; i < 50000; i++) {
             final EncodedText encodedText = EncodedText.with(CharsetName.UTF_8,
-                    Optional.of(LanguageTagName.with("en")),
+                    Optional.of(LanguageName.with("en")),
                     Character.valueOf((char) i).toString());
             this.encodedTextAndCheck(encodedText.toHeaderText(), encodedText);
         }

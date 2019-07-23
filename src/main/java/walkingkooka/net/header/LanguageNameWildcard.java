@@ -21,19 +21,19 @@ import java.util.Locale;
 import java.util.Optional;
 
 /**
- * Holds a Wildcard language tag.
+ * Holds a Wildcard language.
  */
-final class LanguageTagNameWildcard extends LanguageTagName {
+final class LanguageNameWildcard extends LanguageName {
 
     /**
      * Wildcard with no parameters instance.
      */
-    final static LanguageTagNameWildcard INSTANCE = new LanguageTagNameWildcard();
+    final static LanguageNameWildcard INSTANCE = new LanguageNameWildcard();
 
     /**
      * Private ctor use factory
      */
-    private LanguageTagNameWildcard() {
+    private LanguageNameWildcard() {
         super(HeaderValue.WILDCARD.string());
     }
 
@@ -50,10 +50,10 @@ final class LanguageTagNameWildcard extends LanguageTagName {
     }
 
     /**
-     * True for all {@link LanguageTag} except for wildcards.
+     * True for all {@link Language} except for wildcards.
      */
     @Override
-    public boolean test(final LanguageTag languageTag) {
+    public boolean test(final Language languageTag) {
         if (languageTag.value.isWildcard()) {
             throw new IllegalArgumentException("Parameter is wildcard=" + languageTag);
         }
@@ -62,6 +62,6 @@ final class LanguageTagNameWildcard extends LanguageTagName {
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof LanguageTagNameNonWildcard;
+        return other instanceof LanguageNameNonWildcard;
     }
 }

@@ -23,20 +23,20 @@ import walkingkooka.net.HasQFactorWeight;
 import java.util.List;
 
 /**
- * A parser that knows how to parse either one or more wildcard or language tag with or without parameters.
+ * A parser that knows how to parse either one or more wildcard or language with or without parameters.
  */
-final class LanguageTagListHeaderValueParser extends LanguageTagHeaderValueParser {
+final class LanguageListHeaderValueParser extends LanguageHeaderValueParser {
 
-    static List<LanguageTag> parseList(final String text) {
-        final LanguageTagListHeaderValueParser parser = new LanguageTagListHeaderValueParser(text);
+    static List<Language> parseList(final String text) {
+        final LanguageListHeaderValueParser parser = new LanguageListHeaderValueParser(text);
         parser.parse();
 
-        final List<LanguageTag> languageTags = parser.languageTags;
+        final List<Language> languageTags = parser.languageTags;
         languageTags.sort(HasQFactorWeight.qFactorDescendingComparator());
         return Lists.readOnly(languageTags);
     }
 
-    private LanguageTagListHeaderValueParser(final String text) {
+    private LanguageListHeaderValueParser(final String text) {
         super(text);
     }
 
@@ -46,9 +46,9 @@ final class LanguageTagListHeaderValueParser extends LanguageTagHeaderValueParse
     }
 
     @Override
-    void valueComplete(final LanguageTag languageTag) {
+    void valueComplete(final Language languageTag) {
         this.languageTags.add(languageTag);
     }
 
-    private final List<LanguageTag> languageTags = Lists.array();
+    private final List<Language> languageTags = Lists.array();
 }

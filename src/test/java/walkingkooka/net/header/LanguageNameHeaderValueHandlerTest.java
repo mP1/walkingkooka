@@ -18,31 +18,28 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.map.Maps;
 
-public final class LanguageTagHeaderValueHandlerTest extends
-        NonStringHeaderValueHandlerTestCase<LanguageTagHeaderValueHandler, LanguageTag> {
+public final class LanguageNameHeaderValueHandlerTest extends
+        NonStringHeaderValueHandlerTestCase<LanguageNameHeaderValueHandler, LanguageName> {
 
     @Override
     public String typeNamePrefix() {
-        return LanguageTag.class.getSimpleName();
+        return LanguageName.class.getSimpleName();
     }
 
     @Test
     public void testRoundtrip() {
-        this.parseAndToTextAndCheck("en; q=0.5",
-                LanguageTag.with(LanguageTagName.with("en"))
-                        .setParameters(Maps.of(LanguageTagParameterName.Q_FACTOR, 0.5f)));
+        this.parseAndToTextAndCheck("en", LanguageName.with("en"));
     }
 
     @Override
-    LanguageTagHeaderValueHandler handler() {
-        return LanguageTagHeaderValueHandler.INSTANCE;
+    LanguageNameHeaderValueHandler handler() {
+        return LanguageNameHeaderValueHandler.INSTANCE;
     }
 
     @Override
-    HttpHeaderName<LanguageTag> name() {
-        return HttpHeaderName.CONTENT_LANGUAGE;
+    LinkParameterName<LanguageName> name() {
+        return LinkParameterName.HREFLANG;
     }
 
     @Override
@@ -51,22 +48,22 @@ public final class LanguageTagHeaderValueHandlerTest extends
     }
 
     @Override
-    LanguageTag value() {
-        return LanguageTag.parse("en; q=0.5");
+    LanguageName value() {
+        return LanguageName.with("en");
     }
 
     @Override
     String valueType() {
-        return this.valueType(LanguageTag.class);
+        return this.valueType(LanguageName.class);
     }
 
     @Override
     String handlerToString() {
-        return LanguageTag.class.getSimpleName();
+        return LanguageName.class.getSimpleName();
     }
 
     @Override
-    public Class<LanguageTagHeaderValueHandler> type() {
-        return LanguageTagHeaderValueHandler.class;
+    public Class<LanguageNameHeaderValueHandler> type() {
+        return LanguageNameHeaderValueHandler.class;
     }
 }

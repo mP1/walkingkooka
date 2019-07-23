@@ -57,7 +57,7 @@ final class ContentDispositionFileNameEncoded extends ContentDispositionFileName
     }
 
     @Override
-    public Optional<LanguageTagName> language() {
+    public Optional<LanguageName> language() {
         return this.encodedText.language();
     }
 

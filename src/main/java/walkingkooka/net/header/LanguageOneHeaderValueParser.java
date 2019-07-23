@@ -17,18 +17,30 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
+/**
+ * A parser that knows how to parse either a wildcard or language with or without parameters.
+ */
+final class LanguageOneHeaderValueParser extends LanguageHeaderValueParser {
 
-public final class LanguageTagNameTest implements ClassTesting2<LanguageTagName> {
+    static Language parseOne(final String text) {
+        final LanguageOneHeaderValueParser parser = new LanguageOneHeaderValueParser(text);
+        parser.parse();
+        return parser.languageTag;
+    }
 
-    @Override
-    public Class<LanguageTagName> type() {
-        return LanguageTagName.class;
+    private LanguageOneHeaderValueParser(final String text) {
+        super(text);
     }
 
     @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
+    boolean allowMultipleValues() {
+        return false;
     }
+
+    @Override
+    void valueComplete(final Language languageTag) {
+        this.languageTag = languageTag;
+    }
+
+    private Language languageTag;
 }

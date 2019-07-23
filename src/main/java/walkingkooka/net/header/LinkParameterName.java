@@ -61,7 +61,7 @@ final public class LinkParameterName<V> extends HeaderParameterName<V> implement
     /**
      * Holds the hreflang parameter name.
      */
-    public final static LinkParameterName<LanguageTagName> HREFLANG = CONSTANTS.register("hreflang", HeaderValueHandler.languageTagName());
+    public final static LinkParameterName<LanguageName> HREFLANG = CONSTANTS.register("hreflang", HeaderValueHandler.languageName());
 
     /**
      * The media type parameter.<br>

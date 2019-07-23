@@ -20,41 +20,41 @@ package walkingkooka.net.header;
 /**
  * The name of any parameter that accompanies a language-tag.
  */
-final public class LanguageTagParameterName<V> extends HeaderParameterName<V> implements Comparable<LanguageTagParameterName<?>> {
+final public class LanguageParameterName<V> extends HeaderParameterName<V> implements Comparable<LanguageParameterName<?>> {
 
-    private final static HeaderParameterNameConstants<LanguageTagParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
-            LanguageTagParameterName::new,
+    private final static HeaderParameterNameConstants<LanguageParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
+            LanguageParameterName::new,
             HeaderValueHandler.quotedUnquotedString(
-                    LanguageTagHeaderValueParser.QUOTED_PARAMETER_VALUE,
+                    LanguageHeaderValueParser.QUOTED_PARAMETER_VALUE,
                     true,
-                    LanguageTagHeaderValueParser.UNQUOTED_PARAMETER_VALUE)
+                    LanguageHeaderValueParser.UNQUOTED_PARAMETER_VALUE)
     );
 
     /**
      * The q factor weight parameter.
      */
-    public final static LanguageTagParameterName<Float> Q_FACTOR = CONSTANTS.register("q",
+    public final static LanguageParameterName<Float> Q_FACTOR = CONSTANTS.register("q",
             HeaderValueHandler.qWeight());
 
     /**
-     * Factory that creates a {@link LanguageTagParameterName}
+     * Factory that creates a {@link LanguageParameterName}
      */
-    public static LanguageTagParameterName<?> with(final String name) {
+    public static LanguageParameterName<?> with(final String name) {
         return CONSTANTS.lookup(name);
     }
 
     /**
      * Private ctor use factory.
      */
-    private LanguageTagParameterName(final String value,
-                                     final HeaderValueHandler<V> handler) {
+    private LanguageParameterName(final String value,
+                                  final HeaderValueHandler<V> handler) {
         super(value, handler);
     }
 
     // Comparable......................................................................................................
 
     @Override
-    public int compareTo(final LanguageTagParameterName<?> other) {
+    public int compareTo(final LanguageParameterName<?> other) {
         return this.compareTo0(other);
     }
 
@@ -62,6 +62,6 @@ final public class LanguageTagParameterName<V> extends HeaderParameterName<V> im
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof LanguageTagParameterName;
+        return other instanceof LanguageParameterName;
     }
 }

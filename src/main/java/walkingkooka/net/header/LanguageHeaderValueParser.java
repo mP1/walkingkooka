@@ -20,43 +20,43 @@ package walkingkooka.net.header;
 import walkingkooka.predicate.character.CharPredicate;
 
 /**
- * Base class for a parser of language tags.
+ * Base class for a parser of language.
  */
-abstract class LanguageTagHeaderValueParser extends HeaderValueParserWithParameters<LanguageTag, LanguageTagParameterName<?>> {
+abstract class LanguageHeaderValueParser extends HeaderValueParserWithParameters<Language, LanguageParameterName<?>> {
 
-    LanguageTagHeaderValueParser(final String text) {
+    LanguageHeaderValueParser(final String text) {
         super(text);
     }
 
     @Override
-    final LanguageTag wildcardValue() {
+    final Language wildcardValue() {
         this.position++;
-        return LanguageTag.WILDCARD;
+        return Language.WILDCARD;
     }
 
     @Override
-    final LanguageTag value() {
-        return LanguageTag.with(this.token(LANGUAGE_TAG, LanguageTagName::with));
+    final Language value() {
+        return Language.with(this.token(LANGUAGE_TAG, LanguageName::with));
     }
 
     private final static CharPredicate LANGUAGE_TAG = RFC2045TOKEN;
 
     @Override
-    final LanguageTagParameterName<?> parameterName() {
-        return this.parameterName(PARAMETER_NAME, LanguageTagParameterName::with);
+    final LanguageParameterName<?> parameterName() {
+        return this.parameterName(PARAMETER_NAME, LanguageParameterName::with);
     }
 
     private final static CharPredicate PARAMETER_NAME = RFC2045TOKEN;
 
     @Override
-    final String quotedParameterValue(final LanguageTagParameterName<?> parameterName) {
+    final String quotedParameterValue(final LanguageParameterName<?> parameterName) {
         return this.quotedText(QUOTED_PARAMETER_VALUE, ESCAPING_SUPPORTED);
     }
 
     final static CharPredicate QUOTED_PARAMETER_VALUE = ASCII;
 
     @Override
-    final String unquotedParameterValue(final LanguageTagParameterName<?> parameterName) {
+    final String unquotedParameterValue(final LanguageParameterName<?> parameterName) {
         return this.token(UNQUOTED_PARAMETER_VALUE);
     }
 

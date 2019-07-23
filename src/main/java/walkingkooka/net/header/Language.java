@@ -27,51 +27,51 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
- * Holds a LanguageTag which is the value of a accept-language and similar headers.
+ * Holds a Language which is the value of a accept-language and similar headers.
  */
-public final class LanguageTag extends HeaderValueWithParameters2<LanguageTag, LanguageTagParameterName<?>, LanguageTagName>
-        implements Predicate<LanguageTag>,
+public final class Language extends HeaderValueWithParameters2<Language, LanguageParameterName<?>, LanguageName>
+        implements Predicate<Language>,
         HasQFactorWeight {
 
     /**
      * No parameters constant.
      */
-    public final static Map<LanguageTagParameterName<?>, Object> NO_PARAMETERS = Maps.empty();
+    public final static Map<LanguageParameterName<?>, Object> NO_PARAMETERS = Maps.empty();
 
     /**
-     * A {@link LanguageTag} wildcard without any parameters.
+     * A {@link Language} wildcard without any parameters.
      */
-    public final static LanguageTag WILDCARD = new LanguageTag(LanguageTagName.WILDCARD, NO_PARAMETERS);
+    public final static Language WILDCARD = new Language(LanguageName.WILDCARD, NO_PARAMETERS);
 
     /**
-     * Factory that creates a new {@link LanguageTag}
+     * Factory that creates a new {@link Language}
      */
-    public static LanguageTag with(final LanguageTagName value) {
+    public static Language with(final LanguageName value) {
         checkValue(value);
 
         return value.isWildcard() ?
                 WILDCARD :
-                new LanguageTag(value, NO_PARAMETERS);
+                new Language(value, NO_PARAMETERS);
     }
 
     /**
      * Parsers a header value holding a single tag.
      */
-    public static LanguageTag parse(final String text) {
-        return LanguageTagOneHeaderValueParser.parseOne(text);
+    public static Language parse(final String text) {
+        return LanguageOneHeaderValueParser.parseOne(text);
     }
 
     /**
      * Parsers a header value which may hold one or more tags.
      */
-    public static List<LanguageTag> parseList(final String text) {
-        return LanguageTagListHeaderValueParser.parseList(text);
+    public static List<Language> parseList(final String text) {
+        return LanguageListHeaderValueParser.parseList(text);
     }
 
     /**
      * Private ctor use factory methods.
      */
-    private LanguageTag(final LanguageTagName value, final Map<LanguageTagParameterName<?>, Object> parameters) {
+    private Language(final LanguageName value, final Map<LanguageParameterName<?>, Object> parameters) {
         super(value, parameters);
     }
 
@@ -82,7 +82,7 @@ public final class LanguageTag extends HeaderValueWithParameters2<LanguageTag, L
      * If the argument is a wildcard a false is always returned even if this is a wildcard.
      */
     @Override
-    public boolean test(final LanguageTag languageTag) {
+    public boolean test(final Language languageTag) {
         Objects.requireNonNull(languageTag, "languageTag");
         return this.value.test(languageTag);
     }
@@ -90,9 +90,9 @@ public final class LanguageTag extends HeaderValueWithParameters2<LanguageTag, L
     // value............................................................................................................
 
     /**
-     * Would be setter that returns a {@link LanguageTag} with the given value creating a new instance as necessary.
+     * Would be setter that returns a {@link Language} with the given value creating a new instance as necessary.
      */
-    public LanguageTag setValue(final LanguageTagName value) {
+    public Language setValue(final LanguageName value) {
         checkValue(value);
 
         return this.value.equals(value) ?
@@ -100,26 +100,26 @@ public final class LanguageTag extends HeaderValueWithParameters2<LanguageTag, L
                 this.replace(value);
     }
 
-    private static void checkValue(final LanguageTagName value) {
+    private static void checkValue(final LanguageName value) {
         Objects.requireNonNull(value, "value");
     }
 
     // replace ........................................................................................................
 
-    private LanguageTag replace(final LanguageTagName value) {
+    private Language replace(final LanguageName value) {
         return this.replace0(value, this.parameters);
     }
 
     @Override
-    LanguageTag replace(final Map<LanguageTagParameterName<?>, Object> parameters) {
+    Language replace(final Map<LanguageParameterName<?>, Object> parameters) {
         return this.replace0(this.value, parameters);
     }
 
-    private LanguageTag replace0(final LanguageTagName name,
-                                 final Map<LanguageTagParameterName<?>, Object> parameters) {
+    private Language replace0(final LanguageName name,
+                              final Map<LanguageParameterName<?>, Object> parameters) {
         return name.isWildcard() && parameters.isEmpty() ?
                 WILDCARD :
-                new LanguageTag(name, parameters);
+                new Language(name, parameters);
     }
 
     // headerValue........................................................................................................
@@ -135,7 +135,7 @@ public final class LanguageTag extends HeaderValueWithParameters2<LanguageTag, L
     }
 
     /**
-     * Returns true if this LanguageTag is a wildcard.
+     * Returns true if this Language is a wildcard.
      */
     public boolean isWildcard() {
         return this.value.isWildcard();
@@ -147,7 +147,7 @@ public final class LanguageTag extends HeaderValueWithParameters2<LanguageTag, L
      * Retrieves the q-weight for this value.
      */
     public Optional<Float> qFactorWeight() {
-        return this.qFactorWeight(LanguageTagParameterName.Q_FACTOR);
+        return this.qFactorWeight(LanguageParameterName.Q_FACTOR);
     }
 
     // HasHeaderScope ....................................................................................................
@@ -170,17 +170,17 @@ public final class LanguageTag extends HeaderValueWithParameters2<LanguageTag, L
     // Object..........................................................................................................
 
     @Override
-    int hashCode0(final LanguageTagName value) {
+    int hashCode0(final LanguageName value) {
         return value.hashCode();
     }
 
     @Override
     boolean canBeEquals(final Object other) {
-        return other instanceof LanguageTag;
+        return other instanceof Language;
     }
 
     @Override
-    boolean equals1(final LanguageTagName value, final LanguageTagName otherValue) {
+    boolean equals1(final LanguageName value, final LanguageName otherValue) {
         return value.equals(otherValue);
     }
 }

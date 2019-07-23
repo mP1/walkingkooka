@@ -17,27 +17,18 @@
 
 package walkingkooka.net.header;
 
-import org.junit.jupiter.api.Test;
+import walkingkooka.test.ClassTesting2;
+import walkingkooka.type.JavaVisibility;
 
-public final class LanguageTagOneHeaderValueParserTest extends LanguageTagHeaderValueParserTestCase<LanguageTagOneHeaderValueParser, LanguageTag> {
+public final class LanguageNameTest implements ClassTesting2<LanguageName> {
 
-    @Test
-    public void testLanguageTagValueSeparatorFails() {
-        this.parseInvalidCharacterFails("en,");
+    @Override
+    public Class<LanguageName> type() {
+        return LanguageName.class;
     }
 
     @Override
-    void parseAndCheck2(final String text, final LanguageTag expected) {
-        this.parseAndCheck(text, expected);
-    }
-
-    @Override
-    public LanguageTag parse(final String text) {
-        return LanguageTagOneHeaderValueParser.parseOne(text);
-    }
-
-    @Override
-    public Class<LanguageTagOneHeaderValueParser> type() {
-        return LanguageTagOneHeaderValueParser.class;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

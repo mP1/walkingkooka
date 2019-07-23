@@ -20,39 +20,39 @@ package walkingkooka.net.header;
 import walkingkooka.naming.Name;
 
 /**
- * A {@link HeaderValueHandler} that converts a {@link String} into one {@link LanguageTag}.
+ * A {@link HeaderValueHandler} that converts a {@link String} into one {@link Language}.
  */
-final class LanguageTagHeaderValueHandler extends NonStringHeaderValueHandler<LanguageTag> {
+final class LanguageHeaderValueHandler extends NonStringHeaderValueHandler<Language> {
 
     /**
      * Singleton
      */
-    final static LanguageTagHeaderValueHandler INSTANCE = new LanguageTagHeaderValueHandler();
+    final static LanguageHeaderValueHandler INSTANCE = new LanguageHeaderValueHandler();
 
     /**
      * Private ctor use singleton.
      */
-    private LanguageTagHeaderValueHandler() {
+    private LanguageHeaderValueHandler() {
         super();
     }
 
     @Override
-    LanguageTag parse0(final String text, final Name name) {
-        return LanguageTag.parse(text);
+    Language parse0(final String text, final Name name) {
+        return Language.parse(text);
     }
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkType(value, LanguageTag.class, name);
+        this.checkType(value, Language.class, name);
     }
 
     @Override
-    String toText0(final LanguageTag value, final Name name) {
+    String toText0(final Language value, final Name name) {
         return value.toString();
     }
 
     @Override
     public String toString() {
-        return toStringType(LanguageTag.class);
+        return toStringType(Language.class);
     }
 }

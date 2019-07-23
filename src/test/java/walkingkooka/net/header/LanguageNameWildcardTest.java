@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class LanguageTagNameWildcardTest extends LanguageTagNameTestCase<LanguageTagNameWildcard> {
+public final class LanguageNameWildcardTest extends LanguageNameTestCase<LanguageNameWildcard> {
 
     @Override
     public void testNullFails() {
@@ -35,29 +35,29 @@ public final class LanguageTagNameWildcardTest extends LanguageTagNameTestCase<L
 
     @Test
     public void testWith() {
-        this.check(LanguageTagNameWildcard.INSTANCE,
+        this.check(LanguageNameWildcard.INSTANCE,
                 "*",
-                LanguageTagName.NO_LOCALE);
+                LanguageName.NO_LOCALE);
     }
 
     @Test
     public void testWithCached() {
-        assertSame(LanguageTagName.with("*"), LanguageTagName.with("*"));
+        assertSame(LanguageName.with("*"), LanguageName.with("*"));
     }
 
     @Test
     public void testTestEn() {
-        this.testTrue(LanguageTag.with(LanguageTagName.with("en")));
+        this.testTrue(Language.with(LanguageName.with("en")));
     }
 
     @Test
     public void testTestFr() {
-        this.testTrue(LanguageTag.with(LanguageTagName.with("fr")));
+        this.testTrue(Language.with(LanguageName.with("fr")));
     }
 
     @Test
     public void testNonWildcard() {
-        this.checkNotEquals(LanguageTagName.with("en"));
+        this.checkNotEquals(LanguageName.with("en"));
     }
 
     @Override
@@ -76,13 +76,13 @@ public final class LanguageTagNameWildcardTest extends LanguageTagNameTestCase<L
     }
 
     @Override
-    public LanguageTagNameWildcard createName(final String name) {
-        return LanguageTagNameWildcard.INSTANCE;
+    public LanguageNameWildcard createName(final String name) {
+        return LanguageNameWildcard.INSTANCE;
     }
 
     @Override
-    Class<LanguageTagNameWildcard> languageTagNameType() {
-        return LanguageTagNameWildcard.class;
+    Class<LanguageNameWildcard> languageTagNameType() {
+        return LanguageNameWildcard.class;
     }
 
     @Override

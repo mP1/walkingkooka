@@ -27,10 +27,10 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
- * Holds a LanguageTagName only when combined with parameters creates a {@link LanguageTag} header value.
+ * Holds a LanguageName only when combined with parameters creates a {@link Language} header value.
  */
-public abstract class LanguageTagName extends HeaderNameValue implements Comparable<LanguageTagName>,
-        Predicate<LanguageTag> {
+public abstract class LanguageName extends HeaderNameValue implements Comparable<LanguageName>,
+        Predicate<Language> {
 
     /**
      * No {@link Locale}.
@@ -38,19 +38,19 @@ public abstract class LanguageTagName extends HeaderNameValue implements Compara
     public final static Optional<Locale> NO_LOCALE = Optional.empty();
 
     /**
-     * Returns a wildcard {@link LanguageTagName}
+     * Returns a wildcard {@link LanguageName}
      */
-    public final static LanguageTagName WILDCARD = LanguageTagNameWildcard.INSTANCE;
+    public final static LanguageName WILDCARD = LanguageNameWildcard.INSTANCE;
 
     /**
-     * Factory that creates a new {@link LanguageTagName}
+     * Factory that creates a new {@link LanguageName}
      */
-    public static LanguageTagName with(final String value) {
+    public static LanguageName with(final String value) {
         CharPredicates.failIfNullOrEmptyOrFalse(value, "value", PREDICATE);
 
         return HeaderValue.WILDCARD.string().equals(value) ?
                 WILDCARD :
-                LanguageTagNameNonWildcard.nonWildcard(value);
+                LanguageNameNonWildcard.nonWildcard(value);
     }
 
     private final static CharPredicate PREDICATE = CharPredicates.asciiPrintable();
@@ -58,15 +58,15 @@ public abstract class LanguageTagName extends HeaderNameValue implements Compara
     /**
      * Package private to limit sub classing.
      */
-    LanguageTagName(final String value) {
+    LanguageName(final String value) {
         super(value);
     }
 
     /**
-     * Factory that creates a {@link LanguageTag} with the given parameters.
+     * Factory that creates a {@link Language} with the given parameters.
      */
-    public final LanguageTag setParameters(final Map<LanguageTagParameterName<?>, Object> parameters) {
-        return LanguageTag.with(this)
+    public final Language setParameters(final Map<LanguageParameterName<?>, Object> parameters) {
+        return Language.with(this)
                 .setParameters(parameters);
     }
 
@@ -80,7 +80,7 @@ public abstract class LanguageTagName extends HeaderNameValue implements Compara
     // isXXX........................................................................................................
 
     /**
-     * Returns true if this LanguageTagName is a wildcard.
+     * Returns true if this LanguageName is a wildcard.
      */
     public abstract boolean isWildcard();
 
@@ -97,13 +97,13 @@ public abstract class LanguageTagName extends HeaderNameValue implements Compara
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof LanguageTagName;
+        return other instanceof LanguageName;
     }
 
     // Comparable..........................................................................................................
 
     @Override
-    public int compareTo(final LanguageTagName other) {
+    public int compareTo(final LanguageName other) {
         return this.compareTo0(other);
     }
 

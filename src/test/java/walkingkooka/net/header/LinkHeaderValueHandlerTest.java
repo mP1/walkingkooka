@@ -57,7 +57,7 @@ public final class LinkHeaderValueHandlerTest extends
     @Test
     public void testParseLinkWithParameters2() {
         final Map<LinkParameterName<?>, Object> parameters = Maps.of(LinkParameterName.REL, LinkRelation.parse("previous"),
-                LinkParameterName.TITLE_STAR, EncodedText.with(CharsetName.UTF_8, Optional.of(LanguageTagName.with("de")), "letztes Kapitel"));
+                LinkParameterName.TITLE_STAR, EncodedText.with(CharsetName.UTF_8, Optional.of(LanguageName.with("de")), "letztes Kapitel"));
 
         this.parseAndToTextAndCheck2("</TheBook/chapter2>;rel=previous;title*=UTF-8'de'letztes%20Kapitel",
                 Link.with(Url.parse("/TheBook/chapter2")).setParameters(parameters));

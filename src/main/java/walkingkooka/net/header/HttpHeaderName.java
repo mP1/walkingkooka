@@ -155,19 +155,19 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     }
 
     /**
-     * Creates and adds a new {@link HttpHeaderName} to the cache that handles header values of type {@link LanguageTag}.
+     * Creates and adds a new {@link HttpHeaderName} to the cache that handles header values of type {@link Language}.
      */
-    private static HttpHeaderName<LanguageTag> registerLanguageTagConstant(final String header,
-                                                                           final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueHandler.languageTag());
+    private static HttpHeaderName<Language> registerLanguageTagConstant(final String header,
+                                                                        final HttpHeaderNameScope scope) {
+        return registerConstant(header, scope, HeaderValueHandler.language());
     }
 
     /**
-     * Creates and adds a new {@link HttpHeaderName} to the cache that handles header values that include a list of {@link LanguageTag}.
+     * Creates and adds a new {@link HttpHeaderName} to the cache that handles header values that include a list of {@link Language}.
      */
-    private static HttpHeaderName<List<LanguageTag>> registerLanguageTagListConstant(final String header,
-                                                                                     final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueHandler.languageTagList());
+    private static HttpHeaderName<List<Language>> registerLanguageTagListConstant(final String header,
+                                                                                  final HttpHeaderNameScope scope) {
+        return registerConstant(header, scope, HeaderValueHandler.languageList());
     }
 
     /**
@@ -360,7 +360,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Accept-Language: fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<List<LanguageTag>> ACCEPT_LANGUAGE = registerLanguageTagListConstant("Accept-Language",
+    public final static HttpHeaderName<List<Language>> ACCEPT_LANGUAGE = registerLanguageTagListConstant("Accept-Language",
             HttpHeaderNameScope.REQUEST);
 
 
@@ -471,7 +471,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Content-Language: de-DE, en-CA
      * </pre>
      */
-    public final static HttpHeaderName<LanguageTag> CONTENT_LANGUAGE = registerLanguageTagConstant("Content-Language",
+    public final static HttpHeaderName<Language> CONTENT_LANGUAGE = registerLanguageTagConstant("Content-Language",
             HttpHeaderNameScope.RESPONSE);
 
     /**

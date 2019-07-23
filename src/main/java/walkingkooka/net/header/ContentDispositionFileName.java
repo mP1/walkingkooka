@@ -31,7 +31,7 @@ abstract public class ContentDispositionFileName implements Name, HeaderValue {
 
     public final static Optional<CharsetName> NO_CHARSET = Optional.empty();
 
-    public final static Optional<LanguageTagName> NO_LANGUAGE = Optional.empty();
+    public final static Optional<LanguageName> NO_LANGUAGE = Optional.empty();
 
     /**
      * Factory that creates a {@link ContentDispositionFileName}.
@@ -56,7 +56,7 @@ abstract public class ContentDispositionFileName implements Name, HeaderValue {
 
     public abstract Optional<CharsetName> charsetName();
 
-    public abstract Optional<LanguageTagName> language();
+    public abstract Optional<LanguageName> language();
 
     /**
      * Returns a {@link ContentDispositionFileName} where the filename has no path.

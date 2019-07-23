@@ -56,7 +56,7 @@ public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
     @Test
     public void testWithEmptyText() {
         final CharsetName charset = this.charset();
-        final Optional<LanguageTagName> language = this.language();
+        final Optional<LanguageName> language = this.language();
         final String text = "";
 
         this.check(EncodedText.with(charset, language, text),
@@ -68,7 +68,7 @@ public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
     @Test
     public void testWithPath() {
         final CharsetName charset = this.charset();
-        final Optional<LanguageTagName> language = this.language();
+        final Optional<LanguageName> language = this.language();
         final String text = "/path/filename.txt";
 
         this.check(EncodedText.with(charset, language, text),
@@ -80,7 +80,7 @@ public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
     @Test
     public void testWithNoLanguage() {
         final CharsetName charset = this.charset();
-        final Optional<LanguageTagName> language = EncodedText.NO_LANGUAGE;
+        final Optional<LanguageName> language = EncodedText.NO_LANGUAGE;
         final String text = this.value();
 
         this.check(EncodedText.with(charset, language, text),
@@ -91,7 +91,7 @@ public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
 
     private void check(final EncodedText encodedText,
                        final CharsetName charset,
-                       final Optional<LanguageTagName> language,
+                       final Optional<LanguageName> language,
                        final String value) {
         assertEquals(charset, encodedText.charset(), "charset");
         assertEquals(language, encodedText.language(), "language");
@@ -135,7 +135,7 @@ public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
     @Test
     public void testEqualsDifferentLanguage() {
         this.checkNotEquals(EncodedText.with(this.charset(),
-                Optional.of(LanguageTagName.with("fr")),
+                Optional.of(LanguageName.with("fr")),
                 this.value()));
     }
 
@@ -166,8 +166,8 @@ public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
         return CharsetName.UTF_8;
     }
 
-    private Optional<LanguageTagName> language() {
-        return Optional.of(LanguageTagName.with("en"));
+    private Optional<LanguageName> language() {
+        return Optional.of(LanguageName.with("en"));
     }
 
     private String value() {

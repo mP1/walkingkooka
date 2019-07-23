@@ -22,15 +22,15 @@ import walkingkooka.collect.map.Maps;
 
 import java.util.Map;
 
-public abstract class LanguageTagHeaderValueParserTestCase<P extends LanguageTagHeaderValueParser, V> extends HeaderValueParserWithParametersTestCase<P, V> {
+public abstract class LanguageHeaderValueParserTestCase<P extends LanguageHeaderValueParser, V> extends HeaderValueParserWithParametersTestCase<P, V> {
 
-    LanguageTagHeaderValueParserTestCase() {
+    LanguageHeaderValueParserTestCase() {
         super();
     }
 
     @Test
     public final void testWildcard() {
-        this.parseAndCheck2("*", LanguageTag.WILDCARD);
+        this.parseAndCheck2("*", Language.WILDCARD);
     }
 
     @Test
@@ -62,32 +62,32 @@ public abstract class LanguageTagHeaderValueParserTestCase<P extends LanguageTag
     @Test
     public final void testWildcardWithQWeight() {
         this.parseAndCheck2("*; q=0.75",
-                LanguageTag.WILDCARD.setParameters(Maps.of(LanguageTagParameterName.Q_FACTOR, 0.75f)));
+                Language.WILDCARD.setParameters(Maps.of(LanguageParameterName.Q_FACTOR, 0.75f)));
     }
 
     @Test
     public final void testWildcardWithParameters() {
-        final Map<LanguageTagParameterName<?>, Object> parameters = Maps.of(LanguageTagParameterName.with("a"), "b",
-                LanguageTagParameterName.with("c"), "d");
+        final Map<LanguageParameterName<?>, Object> parameters = Maps.of(LanguageParameterName.with("a"), "b",
+                LanguageParameterName.with("c"), "d");
 
         this.parseAndCheck2("*; a=b; c=d",
-                LanguageTag.WILDCARD.setParameters(parameters));
+                Language.WILDCARD.setParameters(parameters));
     }
 
     @Test
     public final void testLanguage_en() {
-        this.parseAndCheck2("en", LanguageTag.with(LanguageTagName.with("en")));
+        this.parseAndCheck2("en", Language.with(LanguageName.with("en")));
     }
 
     @Test
     public final void testLanguage_de_CH() {
-        this.parseAndCheck2("de-CH", LanguageTag.with(LanguageTagName.with("de-CH")));
+        this.parseAndCheck2("de-CH", Language.with(LanguageName.with("de-CH")));
     }
 
-    abstract void parseAndCheck2(final String text, final LanguageTag expected);
+    abstract void parseAndCheck2(final String text, final Language expected);
 
     @Override
     final String valueLabel() {
-        return LanguageTagHeaderValueParser.LANGUAGE;
+        return LanguageHeaderValueParser.LANGUAGE;
     }
 }
