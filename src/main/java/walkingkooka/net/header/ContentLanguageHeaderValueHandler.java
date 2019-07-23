@@ -20,39 +20,44 @@ package walkingkooka.net.header;
 import walkingkooka.naming.Name;
 
 /**
- * A {@link HeaderValueHandler} that converts a {@link String} into one {@link Language}.
+ * A {@link HeaderValueHandler} that handles content-language headers.<br>
+ * <pre>
+ * Content-Language: de-DE
+ * Content-Language: en-US
+ * Content-Language: de-DE, en-CA
+ * </pre>
  */
-final class LanguageHeaderValueHandler extends NonStringHeaderValueHandler<Language> {
+final class ContentLanguageHeaderValueHandler extends NonStringHeaderValueHandler<ContentLanguage> {
 
     /**
      * Singleton
      */
-    final static LanguageHeaderValueHandler INSTANCE = new LanguageHeaderValueHandler();
+    final static ContentLanguageHeaderValueHandler INSTANCE = new ContentLanguageHeaderValueHandler();
 
     /**
      * Private ctor use singleton.
      */
-    private LanguageHeaderValueHandler() {
+    private ContentLanguageHeaderValueHandler() {
         super();
     }
 
     @Override
-    Language parse0(final String text, final Name name) {
-        return Language.parse(text);
+    ContentLanguage parse0(final String text, final Name name) {
+        return ContentLanguageHeaderValueParser.parseContentLanguage(text);
     }
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkType(value, Language.class, name);
+        this.checkType(value, ContentLanguage.class, name);
     }
 
     @Override
-    String toText0(final Language value, final Name name) {
-        return value.toString();
+    String toText0(final ContentLanguage contentLanguage, final Name name) {
+        return contentLanguage.toHeaderText();
     }
 
     @Override
     public String toString() {
-        return toStringType(Language.class);
+        return ContentLanguage.class.getSimpleName();
     }
 }

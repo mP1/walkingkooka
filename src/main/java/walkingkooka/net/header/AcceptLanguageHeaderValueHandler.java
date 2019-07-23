@@ -19,42 +19,47 @@ package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
 
-import java.util.List;
-
 /**
- * A {@link HeaderValueHandler} that converts a {@link String} into many {@link Language}.
+ * A {@link HeaderValueHandler} that handles parsing a quoted boundary string into its raw form.<br>
+ * <pre>
+ * Accept-Language: <language>
+ * Accept-Language: *
+ *
+ * // Multiple types, weighted with the quality value syntax:
+ * Accept-Language: fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5
+ * </pre>
  */
-final class LanguageListHeaderValueHandler extends NonStringHeaderValueHandler<List<Language>> {
+final class AcceptLanguageHeaderValueHandler extends NonStringHeaderValueHandler<AcceptLanguage> {
 
     /**
      * Singleton
      */
-    final static LanguageListHeaderValueHandler INSTANCE = new LanguageListHeaderValueHandler();
+    final static AcceptLanguageHeaderValueHandler INSTANCE = new AcceptLanguageHeaderValueHandler();
 
     /**
      * Private ctor use singleton.
      */
-    private LanguageListHeaderValueHandler() {
+    private AcceptLanguageHeaderValueHandler() {
         super();
     }
 
     @Override
-    List<Language> parse0(final String text, final Name name) {
-        return Language.parseList(text);
+    AcceptLanguage parse0(final String text, final Name name) {
+        return AcceptLanguageHeaderValueParser.parseAcceptLanguage(text);
     }
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkListOfType(value, Language.class, name);
+        this.checkType(value, AcceptLanguage.class, name);
     }
 
     @Override
-    String toText0(final List<Language> values, final Name name) {
-        return HeaderValue.toHeaderTextList(values, SEPARATOR);
+    String toText0(final AcceptLanguage acceptEncoding, final Name name) {
+        return acceptEncoding.toHeaderText();
     }
 
     @Override
     public String toString() {
-        return toStringListOf(Language.class);
+        return AcceptLanguage.class.getSimpleName();
     }
 }

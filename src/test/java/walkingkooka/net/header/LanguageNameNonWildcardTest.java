@@ -73,24 +73,18 @@ public final class LanguageNameNonWildcardTest extends LanguageNameTestCase<Lang
 
     @Test
     public void testTestSameTrue() {
-        this.testTrue(Language.with(LanguageName.with(this.nameText())));
+        this.testTrue(LanguageName.with(this.nameText()));
     }
 
     @Test
-    public void testTestSameTrueWithParameters() {
+    public void testTestSameTrueWithDifferentParameters() {
         this.testTrue(LanguageName.with(this.nameText()).setParameters(Maps.of(LanguageParameterName.Q_FACTOR, 0.5f)),
-                Language.with(LanguageName.with(this.nameText())));
+                LanguageName.with(this.nameText()));
     }
 
     @Test
     public void testTestDifferentFalse() {
-        this.testFalse(Language.with(LanguageName.with(this.differentNameText())));
-    }
-
-    @Test
-    public void testTestDifferentFalseWithParameters() {
-        this.testFalse(LanguageName.with(this.nameText()).setParameters(Maps.of(LanguageParameterName.Q_FACTOR, 0.5f)),
-                Language.with(LanguageName.with(this.differentNameText())));
+        this.testFalse(LanguageName.with(this.differentNameText()));
     }
 
     @Test

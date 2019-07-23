@@ -21,7 +21,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 /**
- * Holds a Wildcard language.
+ * Holds a Wildcard language which matches any {@link ContentLanguage}.
  */
 final class LanguageNameWildcard extends LanguageName {
 
@@ -42,23 +42,30 @@ final class LanguageNameWildcard extends LanguageName {
         return NO_LOCALE;
     }
 
-    // isXXX........................................................................................................
+    // isXXX............................................................................................................
 
     @Override
     public boolean isWildcard() {
         return true;
     }
 
+    // Predicate........................................................................................................
+
     /**
-     * True for all {@link Language} except for wildcards.
+     * Always matches all {@link ContentLanguage}.
      */
     @Override
-    public boolean test(final Language language) {
-        if (language.value.isWildcard()) {
-            throw new IllegalArgumentException("Parameter is wildcard=" + language);
-        }
+    boolean test0(final LanguageName language) {
+        language.testFailIfWildcard();
         return true;
     }
+
+    @Override
+    void testFailIfWildcard() {
+        throw new IllegalArgumentException("Cannot test another wildcard=" + this);
+    }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

@@ -25,9 +25,9 @@ final public class LanguageParameterName<V> extends HeaderParameterName<V> imple
     private final static HeaderParameterNameConstants<LanguageParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
             LanguageParameterName::new,
             HeaderValueHandler.quotedUnquotedString(
-                    LanguageHeaderValueParser.QUOTED_PARAMETER_VALUE,
+                    AcceptLanguageOrLanguageHeaderValueParser.QUOTED_PARAMETER_VALUE,
                     true,
-                    LanguageHeaderValueParser.UNQUOTED_PARAMETER_VALUE)
+                    AcceptLanguageOrLanguageHeaderValueParser.UNQUOTED_PARAMETER_VALUE)
     );
 
     /**

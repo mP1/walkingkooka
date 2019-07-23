@@ -21,10 +21,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 
-import java.util.List;
-
-public final class LanguageListHeaderValueParserTest extends LanguageHeaderValueParserTestCase<LanguageListHeaderValueParser,
-        List<Language>> {
+public final class AcceptLanguageHeaderValueParserTest extends AcceptLanguageOrLanguageHeaderValueParserTestCase<AcceptLanguageHeaderValueParser,
+        AcceptLanguage> {
 
     @Test
     public void testMultipleLanguages() {
@@ -41,31 +39,32 @@ public final class LanguageListHeaderValueParserTest extends LanguageHeaderValue
                 this.language("fr", 0.25f));
     }
 
-    private Language language(final String language, final float qFactor) {
+    private LanguageWithParameters language(final String language, final float qFactor) {
         return this.language(language)
                 .setParameters(Maps.of(LanguageParameterName.Q_FACTOR, qFactor));
     }
 
-    private Language language(final String language) {
-        return Language.with(LanguageName.with(language));
+    private LanguageWithParameters language(final String language) {
+        return LanguageWithParameters.with(LanguageName.with(language));
     }
 
-    private void parseAndCheck3(final String text, final Language... languages) {
-        this.parseAndCheck(text, Lists.of(languages));
+    private void parseAndCheck3(final String text,
+                                final LanguageWithParameters... languages) {
+        this.parseAndCheck(text, AcceptLanguage.with(Lists.of(languages)));
     }
 
     @Override
-    void parseAndCheck2(final String text, final Language language) {
+    void parseAndCheck2(final String text, final LanguageWithParameters language) {
         this.parseAndCheck3(text, language);
     }
 
     @Override
-    public List<Language> parse(final String text) {
-        return listReadOnlyCheck(LanguageListHeaderValueParser.parseList(text));
+    public AcceptLanguage parse(final String text) {
+        return AcceptLanguageHeaderValueParser.parseAcceptLanguage(text);
     }
 
     @Override
-    public Class<LanguageListHeaderValueParser> type() {
-        return LanguageListHeaderValueParser.class;
+    public Class<AcceptLanguageHeaderValueParser> type() {
+        return AcceptLanguageHeaderValueParser.class;
     }
 }

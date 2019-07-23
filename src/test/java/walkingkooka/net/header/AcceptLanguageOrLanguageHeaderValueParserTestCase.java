@@ -18,19 +18,20 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.map.Maps;
 
 import java.util.Map;
 
-public abstract class LanguageHeaderValueParserTestCase<P extends LanguageHeaderValueParser, V> extends HeaderValueParserWithParametersTestCase<P, V> {
+public abstract class AcceptLanguageOrLanguageHeaderValueParserTestCase<P extends AcceptLanguageOrLanguageHeaderValueParser, V> extends HeaderValueParserWithParametersTestCase<P, V> {
 
-    LanguageHeaderValueParserTestCase() {
+    AcceptLanguageOrLanguageHeaderValueParserTestCase() {
         super();
     }
 
     @Test
     public final void testWildcard() {
-        this.parseAndCheck2("*", Language.WILDCARD);
+        this.parseAndCheck2("*", LanguageWithParameters.WILDCARD);
     }
 
     @Test
@@ -62,7 +63,7 @@ public abstract class LanguageHeaderValueParserTestCase<P extends LanguageHeader
     @Test
     public final void testWildcardWithQWeight() {
         this.parseAndCheck2("*; q=0.75",
-                Language.WILDCARD.setParameters(Maps.of(LanguageParameterName.Q_FACTOR, 0.75f)));
+                LanguageWithParameters.WILDCARD.setParameters(Maps.of(LanguageParameterName.Q_FACTOR, 0.75f)));
     }
 
     @Test
@@ -71,23 +72,28 @@ public abstract class LanguageHeaderValueParserTestCase<P extends LanguageHeader
                 LanguageParameterName.with("c"), "d");
 
         this.parseAndCheck2("*; a=b; c=d",
-                Language.WILDCARD.setParameters(parameters));
+                LanguageWithParameters.WILDCARD.setParameters(parameters));
     }
 
     @Test
     public final void testLanguage_en() {
-        this.parseAndCheck2("en", Language.with(LanguageName.with("en")));
+        this.parseAndCheck2("en", LanguageWithParameters.with(LanguageName.with("en")));
     }
 
     @Test
     public final void testLanguage_de_CH() {
-        this.parseAndCheck2("de-CH", Language.with(LanguageName.with("de-CH")));
+        this.parseAndCheck2("de-CH", LanguageWithParameters.with(LanguageName.with("de-CH")));
     }
 
-    abstract void parseAndCheck2(final String text, final Language expected);
+    abstract void parseAndCheck2(final String text, final LanguageWithParameters expected);
+
+    @Test
+    public final void testQuotedFails() {
+        this.parseFails("\"quoted\"", InvalidCharacterException.class);
+    }
 
     @Override
     final String valueLabel() {
-        return LanguageHeaderValueParser.LANGUAGE;
+        return AcceptLanguageOrLanguageHeaderValueParser.LANGUAGE;
     }
 }

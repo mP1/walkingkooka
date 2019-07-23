@@ -47,12 +47,12 @@ public final class LanguageNameWildcardTest extends LanguageNameTestCase<Languag
 
     @Test
     public void testTestEn() {
-        this.testTrue(Language.with(LanguageName.with("en")));
+        this.testTrue(LanguageName.with("en"));
     }
 
     @Test
     public void testTestFr() {
-        this.testTrue(Language.with(LanguageName.with("fr")));
+        this.testTrue(LanguageName.with("fr"));
     }
 
     @Test
