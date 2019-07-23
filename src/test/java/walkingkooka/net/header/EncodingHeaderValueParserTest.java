@@ -37,6 +37,11 @@ public final class EncodingHeaderValueParserTest extends HeaderValueParserTestCa
     }
 
     @Test
+    public void testKeyValueSeparatorFails() {
+        this.parseInvalidCharacterFails("=", '=');
+    }
+
+    @Test
     public void testTokenCommentFails() {
         this.parseCommentFails("gzip(abc)", 4);
     }
