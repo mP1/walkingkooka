@@ -60,7 +60,7 @@ final class ContentDispositionFileNameNotEncoded extends ContentDispositionFileN
     }
 
     @Override
-    public Optional<LanguageTagName> language() {
+    public Optional<LanguageName> language() {
         return NO_LANGUAGE;
     }
 

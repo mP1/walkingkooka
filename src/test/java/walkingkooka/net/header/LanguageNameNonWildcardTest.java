@@ -28,8 +28,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class LanguageTagNameNonWildcardTest extends LanguageTagNameTestCase<LanguageTagNameNonWildcard>
-        implements NameTesting2<LanguageTagNameNonWildcard, LanguageTagName> {
+public final class LanguageNameNonWildcardTest extends LanguageNameTestCase<LanguageNameNonWildcard>
+        implements NameTesting2<LanguageNameNonWildcard, LanguageName> {
 
     private final static String VALUE = "en";
     private final static Optional<Locale> LOCALE = Optional.of(Locale.forLanguageTag("en"));
@@ -37,87 +37,87 @@ public final class LanguageTagNameNonWildcardTest extends LanguageTagNameTestCas
     @Test
     public void testWithNullFails() {
         assertThrows(NullPointerException.class, () -> {
-            LanguageTagNameNonWildcard.nonWildcard(null);
+            LanguageNameNonWildcard.nonWildcard(null);
         });
     }
 
     @Test
     public void testWithEmptyFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            LanguageTagNameNonWildcard.nonWildcard("");
+            LanguageNameNonWildcard.nonWildcard("");
         });
     }
 
     @Test
     public void testWithInvalidLanguageTagNameFails() {
         assertThrows(InvalidCharacterException.class, () -> {
-            LanguageTagNameNonWildcard.nonWildcard("\0xyz");
+            LanguageNameNonWildcard.nonWildcard("\0xyz");
         });
     }
 
     @Test
     public void testWith() {
-        final LanguageTagNameNonWildcard LanguageTagName = LanguageTagNameNonWildcard.nonWildcard(VALUE);
+        final LanguageNameNonWildcard LanguageTagName = LanguageNameNonWildcard.nonWildcard(VALUE);
         this.check(LanguageTagName);
     }
 
-    private void check(final LanguageTagName name) {
+    private void check(final LanguageName name) {
         this.check(name, VALUE, LOCALE);
     }
 
     @Test
     public void testConstant() {
-        assertSame(LanguageTagNameNonWildcard.nonWildcard("en"),
-                LanguageTagNameNonWildcard.nonWildcard("en"));
+        assertSame(LanguageNameNonWildcard.nonWildcard("en"),
+                LanguageNameNonWildcard.nonWildcard("en"));
     }
 
     @Test
     public void testTestSameTrue() {
-        this.testTrue(LanguageTag.with(LanguageTagName.with(this.nameText())));
+        this.testTrue(Language.with(LanguageName.with(this.nameText())));
     }
 
     @Test
     public void testTestSameTrueWithParameters() {
-        this.testTrue(LanguageTagName.with(this.nameText()).setParameters(Maps.of(LanguageTagParameterName.Q_FACTOR, 0.5f)),
-                LanguageTag.with(LanguageTagName.with(this.nameText())));
+        this.testTrue(LanguageName.with(this.nameText()).setParameters(Maps.of(LanguageParameterName.Q_FACTOR, 0.5f)),
+                Language.with(LanguageName.with(this.nameText())));
     }
 
     @Test
     public void testTestDifferentFalse() {
-        this.testFalse(LanguageTag.with(LanguageTagName.with(this.differentNameText())));
+        this.testFalse(Language.with(LanguageName.with(this.differentNameText())));
     }
 
     @Test
     public void testTestDifferentFalseWithParameters() {
-        this.testFalse(LanguageTagName.with(this.nameText()).setParameters(Maps.of(LanguageTagParameterName.Q_FACTOR, 0.5f)),
-                LanguageTag.with(LanguageTagName.with(this.differentNameText())));
+        this.testFalse(LanguageName.with(this.nameText()).setParameters(Maps.of(LanguageParameterName.Q_FACTOR, 0.5f)),
+                Language.with(LanguageName.with(this.differentNameText())));
     }
 
     @Test
     public void testEqualsWildcard() {
-        this.checkNotEquals(LanguageTagName.WILDCARD);
+        this.checkNotEquals(LanguageName.WILDCARD);
     }
 
     @Test
     public void testEqualsDifferentCase() {
-        this.checkEquals(LanguageTagNameNonWildcard.nonWildcard("EN"));
+        this.checkEquals(LanguageNameNonWildcard.nonWildcard("EN"));
     }
 
     @Test
     public void testCompareToArraySort() {
-        final LanguageTagName ar = LanguageTagName.with("ar");
-        final LanguageTagName br = LanguageTagName.with("br");
-        final LanguageTagName cz = LanguageTagName.with("cz");
-        final LanguageTagName de = LanguageTagName.with("de");
-        final LanguageTagName wildcard = LanguageTagName.WILDCARD;
+        final LanguageName ar = LanguageName.with("ar");
+        final LanguageName br = LanguageName.with("br");
+        final LanguageName cz = LanguageName.with("cz");
+        final LanguageName de = LanguageName.with("de");
+        final LanguageName wildcard = LanguageName.WILDCARD;
 
         this.compareToArraySortAndCheck(de, ar, cz, wildcard, br,
                 wildcard, ar, br, cz, de);
     }
 
     @Override
-    public LanguageTagNameNonWildcard createName(final String name) {
-        return LanguageTagNameNonWildcard.nonWildcard(name);
+    public LanguageNameNonWildcard createName(final String name) {
+        return LanguageNameNonWildcard.nonWildcard(name);
     }
 
     @Override
@@ -156,7 +156,7 @@ public final class LanguageTagNameNonWildcardTest extends LanguageTagNameTestCas
     }
 
     @Override
-    Class<LanguageTagNameNonWildcard> languageTagNameType() {
-        return LanguageTagNameNonWildcard.class;
+    Class<LanguageNameNonWildcard> languageTagNameType() {
+        return LanguageNameNonWildcard.class;
     }
 }

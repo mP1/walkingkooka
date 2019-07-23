@@ -25,14 +25,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class LanguageTagListHeaderValueHandlerTest extends
-        NonStringHeaderValueHandlerTestCase<LanguageTagListHeaderValueHandler, List<LanguageTag>> {
+public final class LanguageListHeaderValueHandlerTest extends
+        NonStringHeaderValueHandlerTestCase<LanguageListHeaderValueHandler, List<Language>> {
 
     private final static String TEXT = "en; q=1.0, en-AU; q=0.5";
 
     @Override
     public String typeNamePrefix() {
-        return LanguageTag.class.getSimpleName();
+        return Language.class.getSimpleName();
     }
 
     @Test
@@ -55,23 +55,23 @@ public final class LanguageTagListHeaderValueHandlerTest extends
         });
     }
 
-    private LanguageTag en_10() {
-        return LanguageTag.with(LanguageTagName.with("en"))
-                .setParameters(Maps.of(LanguageTagParameterName.Q_FACTOR, 1.0f));
+    private Language en_10() {
+        return Language.with(LanguageName.with("en"))
+                .setParameters(Maps.of(LanguageParameterName.Q_FACTOR, 1.0f));
     }
 
-    private LanguageTag en_au_05() {
-        return LanguageTag.with(LanguageTagName.with("en-au"))
-                .setParameters(Maps.of(LanguageTagParameterName.Q_FACTOR, 0.5f));
-    }
-
-    @Override
-    LanguageTagListHeaderValueHandler handler() {
-        return LanguageTagListHeaderValueHandler.INSTANCE;
+    private Language en_au_05() {
+        return Language.with(LanguageName.with("en-au"))
+                .setParameters(Maps.of(LanguageParameterName.Q_FACTOR, 0.5f));
     }
 
     @Override
-    HttpHeaderName<List<LanguageTag>> name() {
+    LanguageListHeaderValueHandler handler() {
+        return LanguageListHeaderValueHandler.INSTANCE;
+    }
+
+    @Override
+    HttpHeaderName<List<Language>> name() {
         return HttpHeaderName.ACCEPT_LANGUAGE;
     }
 
@@ -81,22 +81,22 @@ public final class LanguageTagListHeaderValueHandlerTest extends
     }
 
     @Override
-    List<LanguageTag> value() {
-        return LanguageTag.parseList(TEXT);
+    List<Language> value() {
+        return Language.parseList(TEXT);
     }
 
     @Override
     String valueType() {
-        return this.listValueType(LanguageTag.class);
+        return this.listValueType(Language.class);
     }
 
     @Override
     String handlerToString() {
-        return "List<LanguageTag>";
+        return "List<Language>";
     }
 
     @Override
-    public Class<LanguageTagListHeaderValueHandler> type() {
-        return LanguageTagListHeaderValueHandler.class;
+    public Class<LanguageListHeaderValueHandler> type() {
+        return LanguageListHeaderValueHandler.class;
     }
 }

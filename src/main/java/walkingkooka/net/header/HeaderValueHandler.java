@@ -150,24 +150,24 @@ abstract class HeaderValueHandler<T> {
     }
 
     /**
-     * {@see LanguageTagHeaderValueHandler}
+     * {@see LanguageHeaderValueHandler}
      */
-    static HeaderValueHandler<LanguageTag> languageTag() {
-        return LanguageTagHeaderValueHandler.INSTANCE;
+    static HeaderValueHandler<Language> language() {
+        return LanguageHeaderValueHandler.INSTANCE;
     }
 
     /**
-     * {@see LanguageTagListHeaderValueHandler}
+     * {@see LanguageListHeaderValueHandler}
      */
-    static HeaderValueHandler<List<LanguageTag>> languageTagList() {
-        return LanguageTagListHeaderValueHandler.INSTANCE;
+    static HeaderValueHandler<List<Language>> languageList() {
+        return LanguageListHeaderValueHandler.INSTANCE;
     }
 
     /**
-     * {@see LanguageTagNameHeaderValueHandler}
+     * {@see LanguageNameHeaderValueHandler}
      */
-    static HeaderValueHandler<LanguageTagName> languageTagName() {
-        return LanguageTagNameHeaderValueHandler.INSTANCE;
+    static HeaderValueHandler<LanguageName> languageName() {
+        return LanguageNameHeaderValueHandler.INSTANCE;
     }
 
     /**

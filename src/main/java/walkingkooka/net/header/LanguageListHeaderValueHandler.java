@@ -22,39 +22,39 @@ import walkingkooka.naming.Name;
 import java.util.List;
 
 /**
- * A {@link HeaderValueHandler} that converts a {@link String} into many {@link LanguageTag}.
+ * A {@link HeaderValueHandler} that converts a {@link String} into many {@link Language}.
  */
-final class LanguageTagListHeaderValueHandler extends NonStringHeaderValueHandler<List<LanguageTag>> {
+final class LanguageListHeaderValueHandler extends NonStringHeaderValueHandler<List<Language>> {
 
     /**
      * Singleton
      */
-    final static LanguageTagListHeaderValueHandler INSTANCE = new LanguageTagListHeaderValueHandler();
+    final static LanguageListHeaderValueHandler INSTANCE = new LanguageListHeaderValueHandler();
 
     /**
      * Private ctor use singleton.
      */
-    private LanguageTagListHeaderValueHandler() {
+    private LanguageListHeaderValueHandler() {
         super();
     }
 
     @Override
-    List<LanguageTag> parse0(final String text, final Name name) {
-        return LanguageTag.parseList(text);
+    List<Language> parse0(final String text, final Name name) {
+        return Language.parseList(text);
     }
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkListOfType(value, LanguageTag.class, name);
+        this.checkListOfType(value, Language.class, name);
     }
 
     @Override
-    String toText0(final List<LanguageTag> values, final Name name) {
+    String toText0(final List<Language> values, final Name name) {
         return HeaderValue.toHeaderTextList(values, SEPARATOR);
     }
 
     @Override
     public String toString() {
-        return toStringListOf(LanguageTag.class);
+        return toStringListOf(Language.class);
     }
 }

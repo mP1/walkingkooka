@@ -17,30 +17,27 @@
 
 package walkingkooka.net.header;
 
-/**
- * A parser that knows how to parse either a wildcard or language tag with or without parameters.
- */
-final class LanguageTagOneHeaderValueParser extends LanguageTagHeaderValueParser {
+import org.junit.jupiter.api.Test;
 
-    static LanguageTag parseOne(final String text) {
-        final LanguageTagOneHeaderValueParser parser = new LanguageTagOneHeaderValueParser(text);
-        parser.parse();
-        return parser.languageTag;
-    }
+public final class LanguageOneHeaderValueParserTest extends LanguageHeaderValueParserTestCase<LanguageOneHeaderValueParser, Language> {
 
-    private LanguageTagOneHeaderValueParser(final String text) {
-        super(text);
+    @Test
+    public void testLanguageTagValueSeparatorFails() {
+        this.parseInvalidCharacterFails("en,");
     }
 
     @Override
-    boolean allowMultipleValues() {
-        return false;
+    void parseAndCheck2(final String text, final Language expected) {
+        this.parseAndCheck(text, expected);
     }
 
     @Override
-    void valueComplete(final LanguageTag languageTag) {
-        this.languageTag = languageTag;
+    public Language parse(final String text) {
+        return LanguageOneHeaderValueParser.parseOne(text);
     }
 
-    private LanguageTag languageTag;
+    @Override
+    public Class<LanguageOneHeaderValueParser> type() {
+        return LanguageOneHeaderValueParser.class;
+    }
 }

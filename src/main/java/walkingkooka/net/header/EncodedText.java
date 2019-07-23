@@ -80,13 +80,13 @@ public final class EncodedText implements HashCodeEqualsDefined, Value<String>, 
      * matched case-insensitively (see [RFC2978], Section 2.3 and [RFC5646],
      * Section 2.1.1).
      */
-    final static Optional<LanguageTagName> NO_LANGUAGE = Optional.empty();
+    final static Optional<LanguageName> NO_LANGUAGE = Optional.empty();
 
     /**
      * Factory that creates a new {@link EncodedText}
      */
     public static EncodedText with(final CharsetName charset,
-                                   final Optional<LanguageTagName> language,
+                                   final Optional<LanguageName> language,
                                    final String value) {
         Objects.requireNonNull(charset, "charset");
         if (charset.isWildcard()) {
@@ -103,7 +103,7 @@ public final class EncodedText implements HashCodeEqualsDefined, Value<String>, 
      * Private ctor
      */
     private EncodedText(final CharsetName charset,
-                        final Optional<LanguageTagName> language,
+                        final Optional<LanguageName> language,
                         final String value) {
         this.charset = charset;
         this.language = language;
@@ -116,7 +116,7 @@ public final class EncodedText implements HashCodeEqualsDefined, Value<String>, 
 
     private final CharsetName charset;
 
-    Optional<LanguageTagName> language() {
+    Optional<LanguageName> language() {
         return this.language;
     }
 
@@ -126,7 +126,7 @@ public final class EncodedText implements HashCodeEqualsDefined, Value<String>, 
                 "";
     }
 
-    private final Optional<LanguageTagName> language;
+    private final Optional<LanguageName> language;
 
     // Value ............................................................................................
 

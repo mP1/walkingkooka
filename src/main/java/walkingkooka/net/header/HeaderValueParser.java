@@ -260,8 +260,8 @@ abstract class HeaderValueParser {
         }
         this.languageQuoteCharacter();
 
-        final Optional<LanguageTagName> languageTagName = this.tokenOptional(MIME_CHARSETC,
-                LanguageTagName::with);
+        final Optional<LanguageName> languageName = this.tokenOptional(MIME_CHARSETC,
+                LanguageName::with);
 
         this.languageQuoteCharacter();
 
@@ -367,7 +367,7 @@ abstract class HeaderValueParser {
         }
 
         return EncodedText.with(charset,
-                languageTagName,
+                languageName,
                 new String(bytes.toByteArray(), charset.charset().get()));
     }
 

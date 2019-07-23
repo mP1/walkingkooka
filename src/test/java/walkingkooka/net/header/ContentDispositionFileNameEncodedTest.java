@@ -104,11 +104,11 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
         return CharsetName.UTF_8;
     }
 
-    private Optional<LanguageTagName> language() {
+    private Optional<LanguageName> language() {
         return this.language("en");
     }
 
-    private Optional<LanguageTagName> language(final String language) {
-        return Optional.of(LanguageTagName.with(language));
+    private Optional<LanguageName> language(final String language) {
+        return Optional.of(LanguageName.with(language));
     }
 }

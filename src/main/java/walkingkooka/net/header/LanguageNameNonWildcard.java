@@ -27,48 +27,48 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Holds a language tag.<br>
+ * Holds a language.<br>
  * <a href="https://tools.ietf.org/html/bcp47"></a>
  */
-final class LanguageTagNameNonWildcard extends LanguageTagName {
+final class LanguageNameNonWildcard extends LanguageName {
 
-    private final static Map<String, LanguageTagNameNonWildcard> CONSTANTS = registerConstants();
+    private final static Map<String, LanguageNameNonWildcard> CONSTANTS = registerConstants();
 
     /**
      * Creates constants for all the available {@link Locale locales}
      */
-    private static Map<String, LanguageTagNameNonWildcard> registerConstants() {
-        final Map<String, LanguageTagNameNonWildcard> constants = Maps.sorted(CASE_SENSITIVITY.comparator());
+    private static Map<String, LanguageNameNonWildcard> registerConstants() {
+        final Map<String, LanguageNameNonWildcard> constants = Maps.sorted(CASE_SENSITIVITY.comparator());
 
         for (Locale locale : Locale.getAvailableLocales()) {
             final String languageTag = locale.toLanguageTag();
-            constants.put(languageTag, new LanguageTagNameNonWildcard(languageTag, Optional.of(locale)));
+            constants.put(languageTag, new LanguageNameNonWildcard(languageTag, Optional.of(locale)));
         }
 
         return constants;
     }
 
     /**
-     * Factory that creates a new {@link LanguageTagNameNonWildcard}
+     * Factory that creates a new {@link LanguageNameNonWildcard}
      */
-    static LanguageTagNameNonWildcard nonWildcard(final String value) {
-        final LanguageTagNameNonWildcard constant = CONSTANTS.get(value);
+    static LanguageNameNonWildcard nonWildcard(final String value) {
+        final LanguageNameNonWildcard constant = CONSTANTS.get(value);
         return null != constant ?
                 constant :
                 nonWildcard0(value);
     }
 
     /**
-     * Only allow printable ascii language tag names.
+     * Only allow printable ascii language names.
      */
-    private static LanguageTagNameNonWildcard nonWildcard0(final String value) {
-        CharPredicates.failIfNullOrEmptyOrFalse(value, "language tag", PREDICATE);
+    private static LanguageNameNonWildcard nonWildcard0(final String value) {
+        CharPredicates.failIfNullOrEmptyOrFalse(value, "language", PREDICATE);
 
         final Locale locale = Locale.forLanguageTag(value);
         if (locale.toString().isEmpty()) {
-            throw new InvalidTextLengthException("language tag", value, 0, Integer.MAX_VALUE);
+            throw new InvalidTextLengthException("language", value, 0, Integer.MAX_VALUE);
         }
-        return new LanguageTagNameNonWildcard(value, Optional.of(locale));
+        return new LanguageNameNonWildcard(value, Optional.of(locale));
     }
 
     private final static CharPredicate PREDICATE = CharPredicates.range('A', 'Z')
@@ -78,7 +78,7 @@ final class LanguageTagNameNonWildcard extends LanguageTagName {
     /**
      * Private ctor use factory
      */
-    private LanguageTagNameNonWildcard(final String value, final Optional<Locale> locale) {
+    private LanguageNameNonWildcard(final String value, final Optional<Locale> locale) {
         super(value);
         this.locale = locale;
     }
@@ -101,12 +101,12 @@ final class LanguageTagNameNonWildcard extends LanguageTagName {
      * True if the languages are equal.
      */
     @Override
-    public boolean test(final LanguageTag languageTag) {
+    public boolean test(final Language languageTag) {
         return this.equals(languageTag.value);
     }
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof LanguageTagNameWildcard;
+        return other instanceof LanguageNameWildcard;
     }
 }

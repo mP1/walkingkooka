@@ -33,12 +33,12 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public abstract class LanguageTagNameTestCase<L extends LanguageTagName> implements ClassTesting2<L>,
-        NameTesting<L, LanguageTagName>,
-        PredicateTesting2<L, LanguageTag>,
+public abstract class LanguageNameTestCase<L extends LanguageName> implements ClassTesting2<L>,
+        NameTesting<L, LanguageName>,
+        PredicateTesting2<L, Language>,
         TypeNameTesting<L> {
 
-    LanguageTagNameTestCase() {
+    LanguageNameTestCase() {
         super();
     }
 
@@ -50,14 +50,14 @@ public abstract class LanguageTagNameTestCase<L extends LanguageTagName> impleme
     @Test
     public final void testSetParameters() {
         final L name = this.createName(this.nameText());
-        final Map<LanguageTagParameterName<?>, Object> parameters = Maps.of(LanguageTagParameterName.Q_FACTOR, 0.5f);
-        final LanguageTag tag = name.setParameters(parameters);
-        assertSame(name, tag.value(), "value");
-        assertEquals(parameters, tag.parameters(), "parameters");
+        final Map<LanguageParameterName<?>, Object> parameters = Maps.of(LanguageParameterName.Q_FACTOR, 0.5f);
+        final Language language = name.setParameters(parameters);
+        assertSame(name, language.value(), "value");
+        assertEquals(parameters, language.parameters(), "parameters");
     }
 
 
-    final void check(final LanguageTagName name,
+    final void check(final LanguageName name,
                      final String value,
                      final Optional<Locale> locale) {
         assertEquals(value, name.value(), "value");
@@ -85,7 +85,7 @@ public abstract class LanguageTagNameTestCase<L extends LanguageTagName> impleme
 
     @Override
     public String typeNamePrefix() {
-        return LanguageTagName.class.getSimpleName();
+        return LanguageName.class.getSimpleName();
     }
 
     @Override

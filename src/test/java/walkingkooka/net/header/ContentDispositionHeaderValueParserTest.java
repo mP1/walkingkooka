@@ -463,7 +463,7 @@ public final class ContentDispositionHeaderValueParserTest extends HeaderValuePa
                 "filename*",
                 ContentDispositionFileName.encoded(
                         EncodedText.with(CharsetName.UTF_8,
-                                Optional.of(LanguageTagName.with("en")),
+                                Optional.of(LanguageName.with("en")),
                                 "abc 123.txt")));
     }
 
