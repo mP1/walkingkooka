@@ -24,12 +24,10 @@ import walkingkooka.net.header.AcceptEncoding;
 import walkingkooka.net.header.ContentEncoding;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
-import walkingkooka.test.Latch;
 
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHttpResponseTestCase<AutoGzipEncodingHttpResponse> {
 
@@ -119,7 +117,7 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
                                                             final String contentEncoding,
                                                             final Map<HttpHeaderName<?>, Object> expectedHeaders,
                                                             final byte[] expectedBody) {
-        final Latch set = Latch.create();
+        this.addEntity = 0;
         final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
         final HttpResponse response = this.createResponse(
                 acceptEncoding,
@@ -130,15 +128,17 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
                         assertEquals(HttpEntity.with(expectedHeaders, Binary.with(expectedBody)),
                                 e,
                                 "entity");
-                        set.set("addFirstEntity");
+                        addEntity++;
                     }
                 });
         if (null != contentEncoding) {
             headers.put(HttpHeaderName.CONTENT_ENCODING, ContentEncoding.parse(contentEncoding));
         }
         response.addEntity(HttpEntity.with(headers, Binary.with(body)));
-        assertTrue(set.value(), "wrapped response addFirstEntity(body) not called");
+        assertEquals(1, this.addEntity, "wrapped response addEntity(body) not called");
     }
+
+    private int addEntity;
 
     private AutoGzipEncodingHttpResponse createResponse(final String acceptEncoding, final HttpResponse response) {
         return AutoGzipEncodingHttpResponse.with(

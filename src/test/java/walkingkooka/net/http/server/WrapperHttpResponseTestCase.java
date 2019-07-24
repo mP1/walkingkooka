@@ -22,13 +22,12 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
-import walkingkooka.test.Latch;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse> extends HttpResponseTestCase2<R> {
 
@@ -45,17 +44,20 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
 
     @Test
     public void testSetStatus() {
-        final Latch set = Latch.create();
+        this.setStatus = 0;
+
         final HttpStatus status = HttpStatusCode.OK.status();
         this.createResponse(new FakeHttpResponse() {
             @Test
             public void setStatus(final HttpStatus s) {
                 assertSame(status, s);
-                set.set("Status set to " + s);
+                setStatus++;
             }
         }).setStatus(status);
-        assertTrue(set.value(), "wrapped response setStatus not called");
+        assertEquals(1, this.setStatus, "wrapped response setStatus not called");
     }
+
+    private int setStatus;
 
     @Test
     public final void testToString() {
