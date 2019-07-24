@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.io.printer.Printers;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.Latch;
 import walkingkooka.text.LineEnding;
 import walkingkooka.type.JavaVisibility;
 
@@ -353,45 +352,53 @@ final public class TeePrintStreamTest implements ClassTesting2<TeePrintStream>,
 
     @Test
     public void testFlush() {
-        final Latch flushed1 = Latch.create();
-        final Latch flushed2 = Latch.create();
+        this.flushed1 = 0;
+        this.flushed2 = 0;
+
         TeePrintStream.wrap(//
                 new FakePrintStream() {
                     @Override
                     public void flush() {
-                        flushed1.set("Already flushed");
+                        flushed1++;
                     }
                 }, //
                 new FakePrintStream() {
                     @Override
                     public void flush() {
-                        flushed2.set("Already flushed");
+                        flushed2++;
                     }
                 }).flush();
-        assertTrue(flushed1.value(), "First PrintStream was NOT flushed");
-        assertTrue(flushed1.value(), "Second PrintStream was NOT flushed");
+        assertEquals(1, flushed1, "First PrintStream was NOT flushed");
+        assertEquals(1, flushed2, "Second PrintStream was NOT flushed");
     }
+
+    private int flushed1;
+    private int flushed2;
 
     @Test
     public void testClose() {
-        final Latch closed1 = Latch.create();
-        final Latch closed2 = Latch.create();
+        this.closed1 = 0;
+        this.closed2 = 0;
+
         TeePrintStream.wrap(//
                 new FakePrintStream() {
                     @Override
                     public void flush() {
-                        closed1.set("Already closed");
+                        closed1++;
                     }
                 }, //
                 new FakePrintStream() {
                     @Override
                     public void flush() {
-                        closed2.set("Already closed");
+                        closed2++;
                     }
                 }).flush();
-        assertTrue(closed1.value(), "First PrintStream was NOT closed");
-        assertTrue(closed1.value(), "Second PrintStream was NOT closed");
+        assertEquals(1, closed1, "First PrintStream was NOT closed");
+        assertEquals(1, closed2, "Second PrintStream was NOT closed");
     }
+
+    private int closed1;
+    private int closed2;
 
     @Test
     public void testCheckError() {
