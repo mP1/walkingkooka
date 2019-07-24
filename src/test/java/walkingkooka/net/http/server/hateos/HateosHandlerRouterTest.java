@@ -547,6 +547,26 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                 this.httpEntity("", this.contentType()));
     }
 
+    @Test
+    public void testExtraPathIgnored() {
+        this.routeAndCheck(this.mapper().delete(new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+                    @Override
+                    public Optional<TestHateosResource> handle(final Optional<BigInteger> i,
+                                                               final Optional<TestHateosResource> r,
+                                                               final Map<HttpRequestAttribute<?>, Object> parameters) {
+                        assertEquals(Optional.of(ID), i);
+                        assertEquals(Optional.of(RESOURCE_IN), r);
+                        return Optional.empty();
+                    }
+                }),
+                HttpMethod.DELETE,
+                "/api/resource1/1f/self/extra-ignored-path",
+                this.contentType(),
+                RESOURCE_IN.toJsonNode().toString(),
+                HttpStatusCode.NO_CONTENT.setMessage("DELETE resource successful"),
+                this.httpEntity("", this.contentType()));
+    }
+
     private void routeGetAndCheck(final HateosHandler<BigInteger, TestHateosResource, TestHateosResource2> handler,
                                   final String url,
                                   final MediaType contentType,
