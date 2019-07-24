@@ -21,7 +21,6 @@ import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.text.CharSequences;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -53,13 +52,6 @@ import java.util.Optional;
  * </pre>
  */
 public final class CacheControlDirective<T> implements HeaderValue {
-
-    /**
-     * Parses a header value into its {@link List} of {@link CacheControlDirective} equivalent.
-     */
-    public static List<CacheControlDirective<?>> parse(final String text) {
-        return CacheControlDirectiveHeaderValueParser.parseCacheControlDirectiveList(text);
-    }
 
     // constants................................................................................................
 

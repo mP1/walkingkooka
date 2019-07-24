@@ -21,23 +21,22 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 
-import java.util.List;
 import java.util.Optional;
 
-public final class CacheControlDirectiveListHeaderValueHandlerTest extends
-        NonStringHeaderValueHandlerTestCase<CacheControlDirectiveListHeaderValueHandler, List<CacheControlDirective<?>>> {
+public final class CacheControlHeaderValueHandlerTest extends
+        NonStringHeaderValueHandlerTestCase<CacheControlHeaderValueHandler, CacheControl> {
 
     @Test
     public void testCacheControlRoundtrip() {
         this.parseAndToTextAndCheck("max-age=123, no-cache, no-store",
-                Lists.of(CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)),
+                CacheControl.with(Lists.of(CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)),
                         CacheControlDirective.NO_CACHE,
-                        CacheControlDirective.NO_STORE));
+                        CacheControlDirective.NO_STORE)));
     }
 
     @Override
     public String typeNamePrefix() {
-        return CacheControlDirective.class.getSimpleName() + List.class.getSimpleName();
+        return CacheControl.class.getSimpleName();
     }
 
     @Override
@@ -47,12 +46,12 @@ public final class CacheControlDirectiveListHeaderValueHandlerTest extends
 
     @Override
     String handlerToString() {
-        return "List<CacheControlDirective>";
+        return CacheControl.class.getSimpleName();
     }
 
     @Override
-    CacheControlDirectiveListHeaderValueHandler handler() {
-        return CacheControlDirectiveListHeaderValueHandler.INSTANCE;
+    CacheControlHeaderValueHandler handler() {
+        return CacheControlHeaderValueHandler.INSTANCE;
     }
 
     @Override
@@ -61,17 +60,17 @@ public final class CacheControlDirectiveListHeaderValueHandlerTest extends
     }
 
     @Override
-    List<CacheControlDirective<?>> value() {
-        return Lists.of(CacheControlDirective.NO_CACHE, CacheControlDirective.NO_STORE);
+    CacheControl value() {
+        return CacheControl.with(Lists.of(CacheControlDirective.NO_CACHE, CacheControlDirective.NO_STORE));
     }
 
     @Override
     String valueType() {
-        return this.listValueType(CacheControlDirective.class);
+        return this.valueType(CacheControl.class);
     }
 
     @Override
-    public Class<CacheControlDirectiveListHeaderValueHandler> type() {
-        return CacheControlDirectiveListHeaderValueHandler.class;
+    public Class<CacheControlHeaderValueHandler> type() {
+        return CacheControlHeaderValueHandler.class;
     }
 }

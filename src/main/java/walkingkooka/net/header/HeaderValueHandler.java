@@ -66,10 +66,10 @@ abstract class HeaderValueHandler<T> {
     }
 
     /**
-     * {@see CacheControlDirectiveListHeaderValueHandler}
+     * {@see CacheControlHeaderValueHandler}
      */
-    static HeaderValueHandler<List<CacheControlDirective<?>>> cacheControlDirectiveList() {
-        return CacheControlDirectiveListHeaderValueHandler.INSTANCE;
+    static HeaderValueHandler<CacheControl> cacheControl() {
+        return CacheControlHeaderValueHandler.INSTANCE;
     }
 
     /**

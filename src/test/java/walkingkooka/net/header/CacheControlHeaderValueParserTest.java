@@ -21,11 +21,10 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 
-import java.util.List;
 import java.util.Optional;
 
-public final class CacheControlDirectiveHeaderValueParserTest extends HeaderValueParserTestCase<CacheControlDirectiveHeaderValueParser,
-        List<CacheControlDirective<?>>> {
+public final class CacheControlHeaderValueParserTest extends HeaderValueParserTestCase<CacheControlHeaderValueParser,
+        CacheControl> {
 
     @Test
     public void testWildcardFails() {
@@ -559,34 +558,38 @@ public final class CacheControlDirectiveHeaderValueParserTest extends HeaderValu
                 CacheControlDirective.NO_TRANSFORM);
     }
 
-    // helpers ...........................................................................
+    // helpers .........................................................................................................
 
-    private void parseAndCheck2(final String text, final String directive) {
+    private void parseAndCheck2(final String text,
+                                final String directive) {
         this.parseAndCheck3(text,
                 CacheControlDirective.with(CacheControlDirectiveName.with(directive), Optional.empty()));
     }
 
-    private void parseAndCheck2(final String text, final String directive, final Object value) {
+    private void parseAndCheck2(final String text,
+                                final String directive,
+                                final Object value) {
         this.parseAndCheck3(text,
                 CacheControlDirective.with(Cast.to(CacheControlDirectiveName.with(directive)), Optional.of(value)));
     }
 
-    private void parseAndCheck3(final String text, final CacheControlDirective... directives) {
-        this.parseAndCheck(text, Lists.of(directives));
+    private void parseAndCheck3(final String text,
+                                final CacheControlDirective... directives) {
+        this.parseAndCheck(text, CacheControl.with(Lists.of(directives)));
     }
 
     @Override
-    public List<CacheControlDirective<?>> parse(final String text) {
-        return CacheControlDirectiveHeaderValueParser.parseCacheControlDirectiveList(text);
+    public CacheControl parse(final String text) {
+        return CacheControlHeaderValueParser.parseCacheControl(text);
     }
 
     @Override
     String valueLabel() {
-        return CacheControlDirectiveHeaderValueParser.DIRECTIVE;
+        return CacheControlHeaderValueParser.DIRECTIVE;
     }
 
     @Override
-    public Class<CacheControlDirectiveHeaderValueParser> type() {
-        return CacheControlDirectiveHeaderValueParser.class;
+    public Class<CacheControlHeaderValueParser> type() {
+        return CacheControlHeaderValueParser.class;
     }
 }

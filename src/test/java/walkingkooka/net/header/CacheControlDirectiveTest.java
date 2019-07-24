@@ -19,12 +19,8 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.collect.list.Lists;
-import walkingkooka.test.ParseStringTesting;
-import walkingkooka.text.CharSequences;
 import walkingkooka.type.JavaVisibility;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,10 +29,9 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheControlDirective<Long>>
-        implements ParseStringTesting<List<CacheControlDirective<?>>> {
+public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheControlDirective<?>> {
 
-    // with..........................................................................
+    // with.............................................................................................................
 
     @Test
     public void testWithNameNullFails() {
@@ -68,7 +63,7 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
                 parameter);
     }
 
-    // setParameter..........................................................................
+    // setParameter.....................................................................................................
 
     @Test
     public void testSetParameterNullFails() {
@@ -148,7 +143,7 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
         assertEquals(parameter, directive.parameter(), "parameter");
     }
 
-    // scope ...............................................................................
+    // scope ...........................................................................................................
 
     @Test
     public void testScopeMaxAge() {
@@ -177,26 +172,14 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
                 directive + " isResponse");
     }
 
-    // wildcard...........................................................................
+    // wildcard.........................................................................................................
 
     @Test
     public void testIsWildcard() {
         this.isWildcardAndCheck(false);
     }
 
-    // parse..........................................................................
-
-    @Test
-    public void testParse() {
-        final String text = "no-cache, no-store, max-age=123";
-        assertEquals(CacheControlDirective.parse(text),
-                Lists.of(CacheControlDirective.NO_CACHE,
-                        CacheControlDirective.NO_STORE,
-                        CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L))),
-                "parse " + CharSequences.quote(text) + " failed");
-    }
-
-    // toHeaderText ...............................................................
+    // toHeaderText ....................................................................................................
 
     @Test
     public void testToHeaderTextMaxAge() {
@@ -209,7 +192,7 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
         this.toHeaderTextAndCheck(CacheControlDirective.NO_CACHE, "no-cache");
     }
 
-    // toHeaderTextList..........................................................................
+    // toHeaderTextList.................................................................................................
 
     @Test
     public void testToHeaderTextListNoCache() {
@@ -231,7 +214,7 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
                 CacheControlDirective.NO_STORE);
     }
 
-    // equals ............................................................................
+    // equals ..........................................................................................................
 
     private final static Optional<Long> PARAMETER = Optional.of(123L);
 
@@ -270,19 +253,12 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
     }
 
     @Override
-    public Class<CacheControlDirective<Long>> type() {
+    public Class<CacheControlDirective<?>> type() {
         return Cast.to(CacheControlDirective.class);
     }
 
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
-    }
-
-    // ParseStringTesting ........................................................................................
-
-    @Override
-    public List<CacheControlDirective<?>> parse(final String text) {
-        return CacheControlDirective.parse(text);
     }
 }

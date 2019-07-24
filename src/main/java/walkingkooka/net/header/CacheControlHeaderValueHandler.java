@@ -19,42 +19,40 @@ package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
 
-import java.util.List;
-
 /**
- * A {@link HeaderValueHandler} that expects a list of {@link CacheControlDirective directives}.
+ * A {@link HeaderValueHandler} that parses the {@link CacheControl} header.
  */
-final class CacheControlDirectiveListHeaderValueHandler extends NonStringHeaderValueHandler<List<CacheControlDirective<?>>> {
+final class CacheControlHeaderValueHandler extends NonStringHeaderValueHandler<CacheControl> {
 
     /**
      * Singleton
      */
-    final static CacheControlDirectiveListHeaderValueHandler INSTANCE = new CacheControlDirectiveListHeaderValueHandler();
+    final static CacheControlHeaderValueHandler INSTANCE = new CacheControlHeaderValueHandler();
 
     /**
      * Private ctor use singleton.
      */
-    private CacheControlDirectiveListHeaderValueHandler() {
+    private CacheControlHeaderValueHandler() {
         super();
     }
 
     @Override
-    List<CacheControlDirective<?>> parse0(final String text, final Name name) {
-        return CacheControlDirective.parse(text);
+    CacheControl parse0(final String text, final Name name) {
+        return CacheControlHeaderValueParser.parseCacheControl(text);
     }
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkListOfType(value, CacheControlDirective.class, name);
+        this.checkType(value, CacheControl.class, name);
     }
 
     @Override
-    String toText0(final List<CacheControlDirective<?>> directives, final Name name) {
-        return HeaderValue.toHeaderTextList(directives, SEPARATOR);
+    String toText0(final CacheControl cacheControl, final Name name) {
+        return cacheControl.toHeaderText();
     }
 
     @Override
     public String toString() {
-        return this.toStringListOf(CacheControlDirective.class);
+        return this.toStringType(CacheControl.class);
     }
 }
