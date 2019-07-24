@@ -127,7 +127,7 @@ public final class HttpHeaderScopeTest implements ClassTesting2<HttpHeaderScope>
     private void checkScopeCacheControlScope(final CacheControlDirective<?> directive,
                                              final HttpHeaderScope... scopes) {
         this.checkScope(HttpHeaderName.CACHE_CONTROL,
-                Lists.of(directive),
+                CacheControl.with(Lists.of(directive)),
                 scopes);
     }
 
@@ -142,7 +142,7 @@ public final class HttpHeaderScopeTest implements ClassTesting2<HttpHeaderScope>
             } else {
                 try {
                     scope.check(header, value);
-                    Assertions.fail(header + " check " + CharSequences.quoteIfChars(value) + " should have failed");
+                    Assertions.fail("scope=" + scope + ", header: " + header + " check " + CharSequences.quoteIfChars(value) + " should have failed");
                 } catch (final NotAcceptableHeaderException cause) {
                     // ignore
                 }
@@ -161,7 +161,7 @@ public final class HttpHeaderScopeTest implements ClassTesting2<HttpHeaderScope>
             } else {
                 try {
                     scope.check(header);
-                    Assertions.fail(header + " checked should have failed");
+                    Assertions.fail("scope=" + scope + ", header: " + header + " checked should have failed");
                 } catch (final NotAcceptableHeaderException cause) {
                     // nop
                 }

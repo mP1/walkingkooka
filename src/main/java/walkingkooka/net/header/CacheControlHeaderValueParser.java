@@ -32,32 +32,37 @@ import java.util.Optional;
  * Cache-Control: no-cache, no-store, must-revalidate
  * </pre>
  */
-final class CacheControlDirectiveHeaderValueParser extends HeaderValueParser {
+final class CacheControlHeaderValueParser extends HeaderValueParser {
 
-    static List<CacheControlDirective<?>> parseCacheControlDirectiveList(final String text) {
-        final CacheControlDirectiveHeaderValueParser parser = new CacheControlDirectiveHeaderValueParser(text);
+    static CacheControl parseCacheControl(final String text) {
+        final CacheControlHeaderValueParser parser = new CacheControlHeaderValueParser(text);
         parser.parse();
-        return parser.directives;
+        return CacheControl.with(parser.directives);
     }
 
-    private CacheControlDirectiveHeaderValueParser(String text) {
+    private CacheControlHeaderValueParser(String text) {
         super(text);
     }
 
     @Override
-    void whitespace() {
-        if (!this.requireDirectiveName) {
-            this.failInvalidCharacter(); // whitespace after directives not allowed.
-        }
-        this.skipWhitespace();
+    void comment() {
+        this.skipComment(); // consume and ignore comment text itself.
     }
 
     @Override
-    void tokenSeparator() {
+    void endOfText() {
         if (this.requireDirectiveName) {
+            this.position--;
             this.failInvalidCharacter();
         }
-        this.addParameter();
+        if (this.expectsParameterValue) {
+            this.failMissingParameterValue();
+        }
+
+        CacheControlDirectiveName directiveName = this.directiveName;
+        if (null != directiveName) {
+            this.addParameter();
+        }
     }
 
     @Override
@@ -67,6 +72,13 @@ final class CacheControlDirectiveHeaderValueParser extends HeaderValueParser {
         }
         this.expectsParameterValue = true;
     }
+
+    @Override
+    void missingValue() {
+        this.failMissingValue(DIRECTIVE);
+    }
+
+    final static String DIRECTIVE = "directive";
 
     @Override
     void multiValueSeparator() {
@@ -84,16 +96,6 @@ final class CacheControlDirectiveHeaderValueParser extends HeaderValueParser {
     }
 
     @Override
-    void wildcard() {
-        this.failInvalidCharacter();
-    }
-
-    @Override
-    void slash() {
-        this.failInvalidCharacter();
-    }
-
-    @Override
     void quotedText() {
         // didnt expect this quoted text.
         if (this.requireDirectiveName || !this.expectsParameterValue) {
@@ -104,8 +106,8 @@ final class CacheControlDirectiveHeaderValueParser extends HeaderValueParser {
     }
 
     @Override
-    void comment() {
-        this.skipComment(); // consume and ignore comment text itself.
+    void slash() {
+        this.failInvalidCharacter();
     }
 
     @Override
@@ -133,19 +135,24 @@ final class CacheControlDirectiveHeaderValueParser extends HeaderValueParser {
     private final static CharPredicate DIGIT = CharPredicates.digit();
 
     @Override
-    void endOfText() {
+    void tokenSeparator() {
         if (this.requireDirectiveName) {
-            this.position--;
             this.failInvalidCharacter();
         }
-        if (this.expectsParameterValue) {
-            this.failMissingParameterValue();
-        }
+        this.addParameter();
+    }
 
-        CacheControlDirectiveName directiveName = this.directiveName;
-        if (null != directiveName) {
-            this.addParameter();
+    @Override
+    void whitespace() {
+        if (!this.requireDirectiveName) {
+            this.failInvalidCharacter(); // whitespace after directives not allowed.
         }
+        this.skipWhitespace();
+    }
+
+    @Override
+    void wildcard() {
+        this.failInvalidCharacter();
     }
 
     private void addParameter() {
@@ -191,11 +198,4 @@ final class CacheControlDirectiveHeaderValueParser extends HeaderValueParser {
      * Collects directives as they are encountered.
      */
     private final List<CacheControlDirective<?>> directives = Lists.array();
-
-    @Override
-    void missingValue() {
-        this.failMissingValue(DIRECTIVE);
-    }
-
-    final static String DIRECTIVE = "directive";
 }

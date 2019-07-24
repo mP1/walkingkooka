@@ -232,9 +232,9 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Cache-Control: s-maxage=<seconds>
      * </pre>
      */
-    public final static HttpHeaderName<List<CacheControlDirective<?>>> CACHE_CONTROL = registerConstant("Cache-Control",
+    public final static HttpHeaderName<CacheControl> CACHE_CONTROL = registerConstant("Cache-Control",
             HttpHeaderNameScope.REQUEST_RESPONSE,
-            HeaderValueHandler.cacheControlDirectiveList());
+            HeaderValueHandler.cacheControl());
 
     /**
      * A {@link HttpHeaderName} holding <code>Connection</code>
