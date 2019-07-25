@@ -16,12 +16,19 @@
  */
 package walkingkooka.text.cursor.parser.function;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
+import java.math.MathContext;
 
 public final class ParserBiFunctionsTest implements PublicStaticHelperTesting<ParserBiFunctions> {
+
+    @Test
+    public void testPublicStaticMethodsWithoutMathContextParameter() {
+        this.publicStaticMethodParametersTypeCheck(MathContext.class);
+    }
 
     @Override
     public Class<ParserBiFunctions> type() {
