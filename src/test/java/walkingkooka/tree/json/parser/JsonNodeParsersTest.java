@@ -29,6 +29,7 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
+import java.math.MathContext;
 
 public final class JsonNodeParsersTest implements PublicStaticHelperTesting<JsonNodeParsers>,
         ParserTesting<Parser<JsonNodeParserContext>, JsonNodeParserContext> {
@@ -329,6 +330,11 @@ public final class JsonNodeParsersTest implements PublicStaticHelperTesting<Json
     public void testInvalidArrayElementSeparatorReported() {
         // is complaining that the token 123 <space> <exclaimation point> abc is invalid rather than the missing separator
         this.parseThrows("[123 !ABC]", '1', 2, 1);
+    }
+
+    @Test
+    public void testPublicStaticMethodsWithoutMathContextParameter() {
+        this.publicStaticMethodParametersTypeCheck(MathContext.class);
     }
 
     @Override

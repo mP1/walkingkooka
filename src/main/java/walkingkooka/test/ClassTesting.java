@@ -18,7 +18,13 @@
 package walkingkooka.test;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.type.JavaVisibility;
+import walkingkooka.type.MethodAttributes;
+
+import java.util.Arrays;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -45,4 +51,24 @@ public interface ClassTesting<T> extends TestSuiteNameTesting<T> {
     }
 
     JavaVisibility typeVisibility();
+
+    /**
+     * Fail if any public static method includes any of the given invalid types.
+     */
+    default void publicStaticMethodParametersTypeCheck(final Class<?>... invalidTypes) {
+        final Class<T> type = this.type();
+
+        final Predicate<Class<?>> invalidTypeTester = (t) -> Arrays.stream(invalidTypes)
+                .filter(i -> i.isAssignableFrom(t))
+                .limit(1)
+                .count() == 1;
+
+        assertEquals(Lists.empty(),
+                Arrays.stream(type.getMethods())
+                        .filter(MethodAttributes.STATIC::is)
+                        .filter(m -> Arrays.stream(m.getParameterTypes()).filter(invalidTypeTester).limit(1).count() == 1)
+                        .collect(Collectors.toList()),
+                () -> type + " includes several methods with invalid parameter types " + invalidTypes);
+
+    }
 }

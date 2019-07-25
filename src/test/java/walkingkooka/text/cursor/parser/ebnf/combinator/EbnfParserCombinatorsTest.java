@@ -57,6 +57,7 @@ import walkingkooka.type.JavaVisibility;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
+import java.math.MathContext;
 import java.util.Map;
 import java.util.Optional;
 
@@ -334,6 +335,11 @@ public final class EbnfParserCombinatorsTest implements ParserTesting<Parser<Fak
         }
 
         this.parseFailAndCheck(parser, "D123");
+    }
+
+    @Test
+    public void testPublicStaticMethodsWithoutMathContextParameter() {
+        this.publicStaticMethodParametersTypeCheck(MathContext.class);
     }
 
     // HELPERS ............................................................................................................
