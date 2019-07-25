@@ -17,12 +17,20 @@
 
 package walkingkooka.tree.expression.function;
 
+import org.junit.jupiter.api.Test;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
+import java.math.MathContext;
 
 public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<ExpressionFunctions> {
+
+    @Test
+    public void testPublicMethodsWithoutMathContextParameter() {
+        this.publicMethodParametersTypesCheck(Sets.of(MathContext.class));
+    }
 
     @Override
     public Class<ExpressionFunctions> type() {

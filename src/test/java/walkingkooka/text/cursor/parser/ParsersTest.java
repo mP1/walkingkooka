@@ -16,12 +16,20 @@
  */
 package walkingkooka.text.cursor.parser;
 
+import org.junit.jupiter.api.Test;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
+import java.math.MathContext;
 
 public final class ParsersTest implements PublicStaticHelperTesting<Parsers> {
+
+    @Test
+    public void testPublicMethodsWithoutMathContextParameter() {
+        this.publicMethodParametersTypesCheck(Sets.of(MathContext.class));
+    }
 
     @Override
     public Class<Parsers> type() {

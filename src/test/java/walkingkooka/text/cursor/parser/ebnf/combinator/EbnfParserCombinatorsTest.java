@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.test.ResourceTesting;
@@ -57,6 +58,7 @@ import walkingkooka.type.JavaVisibility;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
+import java.math.MathContext;
 import java.util.Map;
 import java.util.Optional;
 
@@ -334,6 +336,11 @@ public final class EbnfParserCombinatorsTest implements ParserTesting<Parser<Fak
         }
 
         this.parseFailAndCheck(parser, "D123");
+    }
+
+    @Test
+    public void testPublicMethodsWithoutMathContextParameter() {
+        this.publicMethodParametersTypesCheck(Sets.of(MathContext.class));
     }
 
     // HELPERS ............................................................................................................

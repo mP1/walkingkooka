@@ -19,6 +19,7 @@ package walkingkooka.tree.json.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.Parser;
@@ -29,6 +30,7 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
+import java.math.MathContext;
 
 public final class JsonNodeParsersTest implements PublicStaticHelperTesting<JsonNodeParsers>,
         ParserTesting<Parser<JsonNodeParserContext>, JsonNodeParserContext> {
@@ -329,6 +331,11 @@ public final class JsonNodeParsersTest implements PublicStaticHelperTesting<Json
     public void testInvalidArrayElementSeparatorReported() {
         // is complaining that the token 123 <space> <exclaimation point> abc is invalid rather than the missing separator
         this.parseThrows("[123 !ABC]", '1', 2, 1);
+    }
+
+    @Test
+    public void testPublicMethodsWithoutMathContextParameter() {
+        this.publicMethodParametersTypesCheck(Sets.of(MathContext.class));
     }
 
     @Override

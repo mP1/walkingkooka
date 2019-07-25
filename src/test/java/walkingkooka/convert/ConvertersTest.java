@@ -17,12 +17,20 @@
 
 package walkingkooka.convert;
 
+import org.junit.jupiter.api.Test;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
+import java.math.MathContext;
 
 public final class ConvertersTest implements PublicStaticHelperTesting<Converters> {
+
+    @Test
+    public void testPublicMethodsWithoutMathContextParameter() {
+        this.publicMethodParametersTypesCheck(Sets.of(MathContext.class));
+    }
 
     @Override
     public Class<Converters> type() {
