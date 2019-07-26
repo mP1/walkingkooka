@@ -44,7 +44,7 @@ final public class ComparatorsTest implements PublicStaticHelperTesting<Comparat
 
     private void normalizeIntAndCheck(final int value, final int expected) {
         assertEquals(expected,
-                Comparables.normalize(value),
+                Comparators.normalize(value),
                 "Normalize (int)" + value);
     }
 
@@ -65,7 +65,7 @@ final public class ComparatorsTest implements PublicStaticHelperTesting<Comparat
 
     private void normalizeLongAndCheck(final long value, final long expected) {
         assertEquals(expected,
-                Comparables.normalize(value),
+                Comparators.normalize(value),
                 "Normalize (long)" + value);
     }
 

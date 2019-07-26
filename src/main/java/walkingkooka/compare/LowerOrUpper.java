@@ -30,7 +30,7 @@ public interface LowerOrUpper<T extends Comparable<T>> extends Comparable<T>, Ha
     default T lower(final T other) {
         Objects.requireNonNull(other, "other");
 
-        return this.compareTo(other) < Comparables.EQUAL ?
+        return this.compareTo(other) < Comparators.EQUAL ?
                 Cast.to(this) :
                 other;
     }
@@ -38,7 +38,7 @@ public interface LowerOrUpper<T extends Comparable<T>> extends Comparable<T>, Ha
     default T upper(final T other) {
         Objects.requireNonNull(other, "other");
 
-        return this.compareTo(other) > Comparables.EQUAL ?
+        return this.compareTo(other) > Comparators.EQUAL ?
                 Cast.to(this) :
                 other;
     }

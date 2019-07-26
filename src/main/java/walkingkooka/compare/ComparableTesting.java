@@ -61,27 +61,27 @@ public interface ComparableTesting<C extends Comparable<C> & HashCodeEqualsDefin
     C createComparable();
 
     default void compareToAndCheckLess(final C comparable) {
-        this.compareToAndCheck(comparable, Comparables.LESS);
+        this.compareToAndCheck(comparable, Comparators.LESS);
     }
 
     default void compareToAndCheckLess(final C comparable1, final C comparable2) {
-        this.compareToAndCheck(comparable1, comparable2, Comparables.LESS);
+        this.compareToAndCheck(comparable1, comparable2, Comparators.LESS);
     }
 
     default void compareToAndCheckEqual(final C comparable) {
-        this.compareToAndCheck(comparable, Comparables.EQUAL);
+        this.compareToAndCheck(comparable, Comparators.EQUAL);
     }
 
     default void compareToAndCheckEqual(final C comparable1, final C comparable2) {
-        this.compareToAndCheck(comparable1, comparable2, Comparables.EQUAL);
+        this.compareToAndCheck(comparable1, comparable2, Comparators.EQUAL);
     }
 
     default void compareToAndCheckMore(final C comparable) {
-        this.compareToAndCheck(comparable, Comparables.MORE);
+        this.compareToAndCheck(comparable, Comparators.MORE);
     }
 
     default void compareToAndCheckMore(final C comparable1, final C comparable2) {
-        this.compareToAndCheck(comparable1, comparable2, Comparables.MORE);
+        this.compareToAndCheck(comparable1, comparable2, Comparators.MORE);
     }
 
     default void compareToAndCheck(final C comparable, final int expected) {
@@ -94,7 +94,7 @@ public interface ComparableTesting<C extends Comparable<C> & HashCodeEqualsDefin
         compareResultCheck(comparable1 + " " + comparable2,
                 expected,
                 comparable1.compareTo(comparable2));
-        if (Comparables.EQUAL != expected) {
+        if (Comparators.EQUAL != expected) {
             compareResultCheck(
                     "Exchanging parameters and comparing did not return an inverted result.",
                     -expected,
@@ -130,7 +130,7 @@ public interface ComparableTesting<C extends Comparable<C> & HashCodeEqualsDefin
     }
 
     static void compareResultCheck(final String message, final int expected, final int actual) {
-        if (Comparables.normalize(expected) != Comparables.normalize(actual)) {
+        if (Comparators.normalize(expected) != Comparators.normalize(actual)) {
             assertEquals(expected, actual, message);
         }
     }
