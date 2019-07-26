@@ -62,6 +62,10 @@ public interface ConverterTesting<C extends Converter> {
         try {
             final Object result = converter.convert(value, type, context);
             fail("Expected " + converter + " with " + CharSequences.quoteIfChars(value) + " to " + type.getName() + " to fail but got " + CharSequences.quoteIfChars(result));
+
+        } catch (final FailedConversionException failed) {
+            assertEquals(value, failed.value(), () -> failed.getMessage());
+            assertEquals(type, failed.targetType(), () -> failed.getMessage());
         } catch (final ConversionException ignored) {
         }
     }
