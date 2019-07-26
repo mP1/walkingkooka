@@ -50,14 +50,6 @@ public interface BuilderTesting<B extends Builder<T>, T> extends ThrowableTestin
         assertEquals(product, builder.build(), builder.toString());
     }
 
-    default void buildAndCheck2(final Builder<?> builder, final String productToString) {
-        assertEquals(productToString, builder.build().toString(), () -> builder.toString());
-    }
-
-    default void buildFails() {
-        this.buildFails(this.createBuilder());
-    }
-
     default void buildFails(final Builder<?> builder) {
         this.buildFails(builder, null);
     }
@@ -71,15 +63,6 @@ public interface BuilderTesting<B extends Builder<T>, T> extends ThrowableTestin
         if (null != message) {
            this.checkMessage(expected, message);
         }
-    }
-
-    default void buildFails(final String message) {
-        this.buildFails(this.createBuilder(), message);
-    }
-
-    default void buildMissingFails(final String firstRequired,
-                                   final String... requireds) {
-        this.buildMissingFails(this.createBuilder(), firstRequired, requireds);
     }
 
     default void buildMissingFails(final Builder<?> builder,

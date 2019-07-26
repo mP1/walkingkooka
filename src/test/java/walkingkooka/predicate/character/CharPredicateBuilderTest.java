@@ -318,7 +318,7 @@ final public class CharPredicateBuilderTest implements ClassTesting2<CharPredica
 
     @Test
     public void testBuildWithoutAnything() {
-        this.buildFails();
+        this.buildFails(this.createBuilder());
     }
 
     // Copyable
