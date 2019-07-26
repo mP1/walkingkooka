@@ -82,6 +82,12 @@ public final class RangeVisitorTest implements VisitorTesting<RangeVisitor<Integ
     }
 
     @Test
+    public void testAll2() {
+        new RangeVisitor<Integer>() {
+        }.accept(Range.all());
+    }
+
+    @Test
     public void testStartVisitSingletonSkip() {
         final StringBuilder visited = new StringBuilder();
         final Range<Integer> range = Range.singleton(99);
@@ -130,6 +136,12 @@ public final class RangeVisitorTest implements VisitorTesting<RangeVisitor<Integ
         }.accept(range);
 
         assertEquals(visited.toString(), "123");
+    }
+
+    @Test
+    public void testSingleton2() {
+        new RangeVisitor<Integer>() {
+        }.accept(Range.singleton(99));
     }
 
     @Test
@@ -239,6 +251,12 @@ public final class RangeVisitorTest implements VisitorTesting<RangeVisitor<Integ
     }
 
     @Test
+    public void testGreaterThan2() {
+        new RangeVisitor<Integer>() {
+        }.accept(Range.greaterThan(LOWER));
+    }
+
+    @Test
     public void testGreaterThanEquals() {
         final StringBuilder visited = new StringBuilder();
         final Range<Integer> range = Range.greaterThanEquals(LOWER);
@@ -283,6 +301,12 @@ public final class RangeVisitorTest implements VisitorTesting<RangeVisitor<Integ
         }.accept(range);
 
         assertEquals(visited.toString(), "123456");
+    }
+
+    @Test
+    public void testGreaterThanEquals2() {
+        new RangeVisitor<Integer>() {
+        }.accept(Range.greaterThanEquals(LOWER));
     }
 
     @Test
@@ -333,6 +357,12 @@ public final class RangeVisitorTest implements VisitorTesting<RangeVisitor<Integ
     }
 
     @Test
+    public void testLessThan2() {
+        new RangeVisitor<Integer>() {
+        }.accept(Range.lessThan(UPPER));
+    }
+
+    @Test
     public void testLessThanEqual() {
         final StringBuilder visited = new StringBuilder();
         final Range<Integer> range = Range.lessThanEquals(UPPER);
@@ -377,6 +407,12 @@ public final class RangeVisitorTest implements VisitorTesting<RangeVisitor<Integ
         }.accept(range);
 
         assertEquals(visited.toString(), "123456");
+    }
+
+    @Test
+    public void testLessThanEquals2() {
+        new RangeVisitor<Integer>() {
+        }.accept(Range.lessThanEquals(UPPER));
     }
 
     @Test
@@ -428,6 +464,12 @@ public final class RangeVisitorTest implements VisitorTesting<RangeVisitor<Integ
     }
 
     @Test
+    public void testBetweenExclusiveExclusive2() {
+        new RangeVisitor<Integer>() {
+        }.accept(Range.greaterThanEquals(LOWER).and(Range.lessThanEquals(UPPER)));
+    }
+
+    @Test
     public void testBetweenInclusiveInclusive() {
         final StringBuilder visited = new StringBuilder();
         final Range<Integer> range = Range.greaterThan(LOWER).and(Range.lessThan(UPPER));
@@ -473,6 +515,12 @@ public final class RangeVisitorTest implements VisitorTesting<RangeVisitor<Integ
         }.accept(range);
 
         assertEquals(visited.toString(), "123456");
+    }
+
+    @Test
+    public void testBetweenInclusiveInclusive2() {
+        new RangeVisitor<Integer>() {
+        }.accept(Range.greaterThan(LOWER).and(Range.lessThan(UPPER)));
     }
 
     private void check(final Range<Integer> range,
