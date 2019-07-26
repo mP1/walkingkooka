@@ -41,7 +41,8 @@ final public class Equality implements PublicStaticHelper {
     /**
      * Tests if two floats are almost equal using the epsilon.
      */
-    public static boolean isAlmostEquals(final float value, final float otherValue,
+    public static boolean isAlmostEquals(final float value,
+                                         final float otherValue,
                                          final float epsilon) {
         return ((value - epsilon) <= otherValue) && ((value + epsilon) >= otherValue);
     }
@@ -49,7 +50,8 @@ final public class Equality implements PublicStaticHelper {
     /**
      * Tests if two doubles are almost equal using the epsilon.
      */
-    public static boolean isAlmostEquals(final double value, final double otherValue,
+    public static boolean isAlmostEquals(final double value,
+                                         final double otherValue,
                                          final double epsilon) {
         return ((value - epsilon) <= otherValue) && ((value + epsilon) >= otherValue);
     }
