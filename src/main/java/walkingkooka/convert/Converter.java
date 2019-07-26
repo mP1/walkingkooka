@@ -17,8 +17,6 @@
 
 package walkingkooka.convert;
 
-import walkingkooka.text.CharSequences;
-
 /**
  * Converts object instances to a requested target {@link Class type}.
  */
@@ -41,11 +39,11 @@ public interface Converter {
     }
 
     default <TT> TT failConversion(final Object value, final Class<TT> target) {
-        throw new ConversionException("Failed to convert " + value.getClass().getName() + "=" + CharSequences.quoteIfChars(value) + " to " + target.getName());
+        throw new FailedConversionException(value, target);
     }
 
     default <TT> TT failConversion(final Object value, final Class<TT> target, final Throwable cause) {
-        throw new ConversionException("Failed to convert " + value.getClass().getName() + "=" + CharSequences.quoteIfChars(value) + " to " + target.getName() + ", message: " + cause.getMessage(), cause);
+        throw new FailedConversionException(value, target, cause);
     }
 
     default Converter setToString(final String toString) {
