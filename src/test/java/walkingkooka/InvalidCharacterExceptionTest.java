@@ -66,6 +66,14 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
     }
 
     @Test
+    public void testWithCause() {
+        final Exception cause = new Exception();
+        final InvalidCharacterException thrown = this.create(cause);
+        check(thrown, TEXT, POSITION);
+        checkCause(thrown, cause);
+    }
+
+    @Test
     public void testSetTextAndPositionNullTextFails() {
         assertThrows(NullPointerException.class, () -> {
             this.create().setTextAndPosition(null, POSITION);
@@ -118,6 +126,20 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
     }
 
     @Test
+    public void testSetTextAndPositionDifferentTextWithCause() {
+        final Throwable cause = new Exception();
+
+        final InvalidCharacterException thrown = this.create(cause);
+        final String text = "different";
+        final InvalidCharacterException different = thrown.setTextAndPosition(text, POSITION);
+        assertNotSame(cause, different);
+        this.check(different, text, POSITION);
+        this.checkCause(different, cause);
+
+        this.check(thrown);
+    }
+
+    @Test
     public void testSetTextAndPositionDifferentPosition() {
         final InvalidCharacterException cause = this.create();
         final int position = 2;
@@ -157,6 +179,10 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
 
     private InvalidCharacterException create() {
         return new InvalidCharacterException(TEXT, POSITION);
+    }
+
+    private InvalidCharacterException create(final Throwable cause) {
+        return new InvalidCharacterException(TEXT, POSITION, cause);
     }
 
     private void check(final InvalidCharacterException exception) {
