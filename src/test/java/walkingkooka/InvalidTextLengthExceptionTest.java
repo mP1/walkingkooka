@@ -99,6 +99,14 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<I
     }
 
     @Test
+    public void testWithCause() {
+        final Throwable cause = new Exception();
+        final InvalidTextLengthException thrown = new InvalidTextLengthException(LABEL, "abc", 0, 4, cause);
+        check(thrown, "abc", 0, 4);
+        this.checkCause(thrown, cause);
+    }
+
+    @Test
     public void testWithMinEqualsMax() {
         final InvalidTextLengthException cause = new InvalidTextLengthException(LABEL, "abcd", 4, 4);
         check(cause, "abcd", 4, 4);
