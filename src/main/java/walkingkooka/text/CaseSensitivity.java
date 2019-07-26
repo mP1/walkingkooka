@@ -17,7 +17,6 @@
 
 package walkingkooka.text;
 
-import walkingkooka.compare.Comparables;
 import walkingkooka.compare.Comparators;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.text.cursor.parser.Parser;
@@ -257,7 +256,7 @@ public enum CaseSensitivity {
      * Tests the two characters for equality.
      */
     final public boolean isEqual(final char c, final char other) {
-        return Comparables.EQUAL == this.compare(c, other);
+        return Comparators.EQUAL == this.compare(c, other);
     }
 
     /**

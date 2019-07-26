@@ -52,7 +52,7 @@ public interface ComparatorTesting<C extends Comparator<T>, T>
     default void compareAndCheckLess(final Comparator<T> comparator,
                                      final T value1,
                                      final T value2) {
-        this.compareAndCheck(comparator, value1, value2, Comparables.LESS);
+        this.compareAndCheck(comparator, value1, value2, Comparators.LESS);
     }
 
     default void compareAndCheckEqual(final T value) {
@@ -72,7 +72,7 @@ public interface ComparatorTesting<C extends Comparator<T>, T>
     default void compareAndCheckEqual(final Comparator<T> comparator,
                                       final T value1,
                                       final T value2) {
-        this.compareAndCheck(comparator, value1, value2, Comparables.EQUAL);
+        this.compareAndCheck(comparator, value1, value2, Comparators.EQUAL);
     }
 
     default void compareAndCheckMore(final T value1,
@@ -83,7 +83,7 @@ public interface ComparatorTesting<C extends Comparator<T>, T>
     default void compareAndCheckMore(final Comparator<T> comparator,
                                      final T value1,
                                      final T value2) {
-        this.compareAndCheck(comparator, value1, value2, Comparables.MORE);
+        this.compareAndCheck(comparator, value1, value2, Comparators.MORE);
     }
 
     default void compareAndCheck(final Comparator<T> comparator,
@@ -121,7 +121,7 @@ public interface ComparatorTesting<C extends Comparator<T>, T>
 
     static boolean isEqual(final int expected,
                            final int actual) {
-        return Comparables.normalize(expected) == Comparables.normalize(actual);
+        return Comparators.normalize(expected) == Comparators.normalize(actual);
     }
 
     default void comparatorArraySortAndCheck(final T... values) {

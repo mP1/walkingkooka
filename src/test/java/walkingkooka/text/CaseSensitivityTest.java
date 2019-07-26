@@ -19,7 +19,7 @@ package walkingkooka.text;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import walkingkooka.compare.Comparables;
+import walkingkooka.compare.Comparators;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.JavaVisibility;
 import walkingkooka.util.systemproperty.SystemProperty;
@@ -47,48 +47,48 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
 
     @Test
     public void testCompareSensitiveDifferent() {
-        this.compareAndCheck(CaseSensitivity.SENSITIVE, 'a', 'b', Comparables.LESS);
+        this.compareAndCheck(CaseSensitivity.SENSITIVE, 'a', 'b', Comparators.LESS);
     }
 
     @Test
     public void testCompareSensitiveDifferent2() {
-        this.compareAndCheck(CaseSensitivity.SENSITIVE, 'b', 'a', Comparables.MORE);
+        this.compareAndCheck(CaseSensitivity.SENSITIVE, 'b', 'a', Comparators.MORE);
     }
 
     @Test
     public void testCompareSensitiveDifferentSameButDifferentCase() {
-        this.compareAndCheck(CaseSensitivity.SENSITIVE, 'a', 'A', Comparables.MORE);
+        this.compareAndCheck(CaseSensitivity.SENSITIVE, 'a', 'A', Comparators.MORE);
     }
 
     @Test
     public void testCompareSensitiveSame() {
-        this.compareAndCheck(CaseSensitivity.SENSITIVE, 'a', 'a', Comparables.EQUAL);
+        this.compareAndCheck(CaseSensitivity.SENSITIVE, 'a', 'a', Comparators.EQUAL);
     }
 
     @Test
     public void testCompareInsensitiveDifferent() {
-        this.compareAndCheck(CaseSensitivity.INSENSITIVE, 'a', 'b', Comparables.LESS);
+        this.compareAndCheck(CaseSensitivity.INSENSITIVE, 'a', 'b', Comparators.LESS);
     }
 
     @Test
     public void testCompareInsensitiveDifferent2() {
-        this.compareAndCheck(CaseSensitivity.INSENSITIVE, 'b', 'a', Comparables.MORE);
+        this.compareAndCheck(CaseSensitivity.INSENSITIVE, 'b', 'a', Comparators.MORE);
     }
 
     @Test
     public void testCompareInsensitiveDifferentSameButDifferentCase() {
-        this.compareAndCheck(CaseSensitivity.INSENSITIVE, 'a', 'A', Comparables.EQUAL);
+        this.compareAndCheck(CaseSensitivity.INSENSITIVE, 'a', 'A', Comparators.EQUAL);
     }
 
     @Test
     public void testCompareInsensitiveSame() {
-        this.compareAndCheck(CaseSensitivity.INSENSITIVE, 'a', 'a', Comparables.EQUAL);
+        this.compareAndCheck(CaseSensitivity.INSENSITIVE, 'a', 'a', Comparators.EQUAL);
     }
 
     private void compareAndCheck(final CaseSensitivity sensitivity, final char c, final char other,
                                  final int expected) {
         final int actual = sensitivity.compare(c, other);
-        if (Comparables.normalize(expected) != Comparables.normalize(actual)) {
+        if (Comparators.normalize(expected) != Comparators.normalize(actual)) {
             assertEquals(expected,
                     actual,
                     () -> sensitivity + " comparing " + CharSequences.quoteAndEscape(c) + "," + CharSequences.quoteAndEscape(other));
