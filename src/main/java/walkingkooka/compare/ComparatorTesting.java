@@ -99,29 +99,11 @@ public interface ComparatorTesting<C extends Comparator<T>, T>
                                        final TT value2,
                                        final int expected) {
         final int result = comparator.compare(value1, value2);
-        if (false == ComparatorTesting.isEqual(expected, result)) {
+        if (Comparators.normalize(expected) != Comparators.normalize(result)) {
             assertEquals(expected,
                     result,
                     () -> "comparing " + CharSequences.quoteIfChars(value1) + " with " + CharSequences.quoteIfChars(value2) + " returned wrong result using " + comparator);
         }
-    }
-
-    static void checkEquals(final int expected,
-                            final int actual) {
-        checkEquals(null, expected, actual);
-    }
-
-    static void checkEquals(final String message,
-                            final int expected,
-                            final int actual) {
-        if (false == ComparatorTesting.isEqual(expected, actual)) {
-            assertEquals(expected, actual, message);
-        }
-    }
-
-    static boolean isEqual(final int expected,
-                           final int actual) {
-        return Comparators.normalize(expected) == Comparators.normalize(actual);
     }
 
     default void comparatorArraySortAndCheck(final T... values) {
