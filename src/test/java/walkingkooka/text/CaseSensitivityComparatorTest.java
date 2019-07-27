@@ -38,7 +38,7 @@ final public class CaseSensitivityComparatorTest implements ClassTesting2<CaseSe
 
     @Test
     public void testSensitiveSame() {
-        this.compareAndCheckEqual(SENSITIVE, "apple", "apple");
+        this.compareAndCheckEquals(SENSITIVE, "apple", "apple");
     }
 
     @Test
@@ -90,12 +90,12 @@ final public class CaseSensitivityComparatorTest implements ClassTesting2<CaseSe
 
     @Test
     public void testInsensitiveSame() {
-        this.compareAndCheckEqual(INSENSITIVE, "apple", "apple");
+        this.compareAndCheckEquals(INSENSITIVE, "apple", "apple");
     }
 
     @Test
     public void testInsensitiveSameButDifferentCase() {
-        this.compareAndCheckEqual(INSENSITIVE, "apple", "APPLE");
+        this.compareAndCheckEquals(INSENSITIVE, "apple", "APPLE");
     }
 
     @Test
@@ -130,12 +130,12 @@ final public class CaseSensitivityComparatorTest implements ClassTesting2<CaseSe
 
     @Test
     public void testSameCharactersDifferentType() {
-        this.compareAndCheckEqual(INSENSITIVE, "apple", new StringBuilder("apple"));
+        this.compareAndCheckEquals(INSENSITIVE, "apple", new StringBuilder("apple"));
     }
 
     @Test
     public void testSameCharactersDifferentTypeDifferentCase() {
-        this.compareAndCheckEqual(INSENSITIVE, "apple", new StringBuilder("APPLE"));
+        this.compareAndCheckEquals(INSENSITIVE, "apple", new StringBuilder("APPLE"));
     }
 
     @Test
