@@ -19,7 +19,7 @@ package walkingkooka.tree.pointer;
 
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.visit.VisitorTesting;
+import walkingkooka.visit.VisitorTesting;
 
 public interface NodePointerVisitorTesting<V extends NodePointerVisitor<N, NAME>, N extends Node<N, NAME, ?, ?>, NAME extends Name> extends VisitorTesting<V, NodePointer<N, NAME>> {
 

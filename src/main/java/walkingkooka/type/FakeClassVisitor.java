@@ -17,7 +17,7 @@
 
 package walkingkooka.type;
 
-import walkingkooka.tree.visit.Visiting;
+import walkingkooka.visit.Visiting;
 
 public class FakeClassVisitor extends ClassVisitor {
 

@@ -27,9 +27,9 @@ import walkingkooka.test.ParseStringTesting;
 import walkingkooka.tree.json.FromJsonNodeException;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.visit.VisitableTesting;
-import walkingkooka.tree.visit.Visiting;
 import walkingkooka.type.JavaVisibility;
+import walkingkooka.visit.VisitableTesting;
+import walkingkooka.visit.Visiting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;

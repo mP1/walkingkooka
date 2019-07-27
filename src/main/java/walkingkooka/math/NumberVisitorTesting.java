@@ -17,7 +17,7 @@
 
 package walkingkooka.math;
 
-import walkingkooka.tree.visit.VisitorTesting;
+import walkingkooka.visit.VisitorTesting;
 
 public interface NumberVisitorTesting<V extends NumberVisitor> extends VisitorTesting<V, Number> {
 

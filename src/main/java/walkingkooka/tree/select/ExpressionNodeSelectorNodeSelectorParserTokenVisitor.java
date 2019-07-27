@@ -47,7 +47,7 @@ import walkingkooka.tree.select.parser.NodeSelectorParserTokenVisitor;
 import walkingkooka.tree.select.parser.NodeSelectorPredicateParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorQuotedTextParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorSubtractionParserToken;
-import walkingkooka.tree.visit.Visiting;
+import walkingkooka.visit.Visiting;
 
 import java.util.List;
 import java.util.function.BiFunction;

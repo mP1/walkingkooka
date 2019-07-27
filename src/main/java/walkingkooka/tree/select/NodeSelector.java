@@ -35,8 +35,8 @@ import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorNodeName;
 import walkingkooka.tree.select.parser.NodeSelectorParserToken;
-import walkingkooka.tree.visit.Visitable;
-import walkingkooka.tree.visit.Visiting;
+import walkingkooka.visit.Visitable;
+import walkingkooka.visit.Visiting;
 
 import java.util.Objects;
 import java.util.Optional;

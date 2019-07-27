@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.tree.visit;
+package walkingkooka.visit;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;

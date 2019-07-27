@@ -22,8 +22,8 @@ import walkingkooka.io.printer.Printers;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.visit.Visiting;
-import walkingkooka.tree.visit.VisitorPrettyPrinter;
+import walkingkooka.visit.Visiting;
+import walkingkooka.visit.VisitorPrettyPrinter;
 
 /**
  * Takes a {@link SearchNode} and pretty prints the nodes, making

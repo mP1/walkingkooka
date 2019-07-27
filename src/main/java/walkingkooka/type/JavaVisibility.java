@@ -17,7 +17,7 @@
 
 package walkingkooka.type;
 
-import walkingkooka.tree.visit.Visitable;
+import walkingkooka.visit.Visitable;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

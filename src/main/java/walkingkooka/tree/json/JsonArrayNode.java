@@ -24,7 +24,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.tree.search.SearchNode;
-import walkingkooka.tree.visit.Visiting;
+import walkingkooka.visit.Visiting;
 
 import java.util.Collection;
 import java.util.List;

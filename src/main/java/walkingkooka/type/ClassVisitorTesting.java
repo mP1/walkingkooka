@@ -17,7 +17,7 @@
 
 package walkingkooka.type;
 
-import walkingkooka.tree.visit.VisitorTesting;
+import walkingkooka.visit.VisitorTesting;
 
 public interface ClassVisitorTesting<V extends ClassVisitor> extends VisitorTesting<V, Class<?>> {
 

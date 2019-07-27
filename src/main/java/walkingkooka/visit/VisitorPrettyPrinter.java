@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.tree.visit;
+package walkingkooka.visit;
 
 import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.text.Indentation;

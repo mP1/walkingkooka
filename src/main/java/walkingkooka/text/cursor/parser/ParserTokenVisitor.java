@@ -17,8 +17,8 @@
 
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.tree.visit.Visiting;
-import walkingkooka.tree.visit.Visitor;
+import walkingkooka.visit.Visiting;
+import walkingkooka.visit.Visitor;
 
 import java.util.List;
 import java.util.Objects;

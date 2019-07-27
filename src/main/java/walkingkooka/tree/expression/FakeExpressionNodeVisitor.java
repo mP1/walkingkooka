@@ -18,7 +18,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.test.Fake;
-import walkingkooka.tree.visit.Visiting;
+import walkingkooka.visit.Visiting;
 
 public class FakeExpressionNodeVisitor extends ExpressionNodeVisitor implements Fake {
     public FakeExpressionNodeVisitor() {

@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.tree.visit;
+package walkingkooka.visit;
 
 import walkingkooka.test.ClassTesting;
 import walkingkooka.test.TypeNameTesting;

@@ -23,7 +23,7 @@ import walkingkooka.io.printer.IndentingPrinters;
 import walkingkooka.io.printer.Printers;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.visit.VisitorPrettyPrinter;
+import walkingkooka.visit.VisitorPrettyPrinter;
 
 import java.util.Optional;
 

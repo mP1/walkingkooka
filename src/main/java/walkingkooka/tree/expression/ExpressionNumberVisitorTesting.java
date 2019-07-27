@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.tree.visit.VisitorTesting;
+import walkingkooka.visit.VisitorTesting;
 
 public interface ExpressionNumberVisitorTesting<V extends ExpressionNumberVisitor> extends VisitorTesting<V, Number> {
 

@@ -19,7 +19,7 @@ package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.test.Fake;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.tree.visit.Visiting;
+import walkingkooka.visit.Visiting;
 
 abstract class FakeEbnfParserTokenVisitor extends EbnfParserTokenVisitor implements Fake {
 

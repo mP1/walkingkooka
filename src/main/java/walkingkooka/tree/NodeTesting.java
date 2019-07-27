@@ -25,8 +25,8 @@ import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.NodeSelectorTesting;
 import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
-import walkingkooka.tree.visit.VisitableTesting;
 import walkingkooka.type.MethodAttributes;
+import walkingkooka.visit.VisitableTesting;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;

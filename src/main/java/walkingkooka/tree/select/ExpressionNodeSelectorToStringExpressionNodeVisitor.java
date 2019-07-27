@@ -50,7 +50,7 @@ import walkingkooka.tree.expression.ExpressionReferenceNode;
 import walkingkooka.tree.expression.ExpressionSubtractionNode;
 import walkingkooka.tree.expression.ExpressionTextNode;
 import walkingkooka.tree.expression.ExpressionXorNode;
-import walkingkooka.tree.visit.Visiting;
+import walkingkooka.visit.Visiting;
 
 import java.util.Arrays;
 import java.util.List;

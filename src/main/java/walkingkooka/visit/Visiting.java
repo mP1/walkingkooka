@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.tree.visit;
+package walkingkooka.visit;
 
 /**
  * Returned by visit methods for objects that are not leafs allowing the visitor to control whether any descendants are

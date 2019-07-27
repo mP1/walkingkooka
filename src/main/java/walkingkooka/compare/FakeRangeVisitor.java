@@ -18,7 +18,7 @@
 package walkingkooka.compare;
 
 import walkingkooka.test.Fake;
-import walkingkooka.tree.visit.Visiting;
+import walkingkooka.visit.Visiting;
 
 public class FakeRangeVisitor<C extends Comparable<C>> extends RangeVisitor<C> implements Fake {
 

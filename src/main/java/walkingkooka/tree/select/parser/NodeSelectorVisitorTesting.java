@@ -21,7 +21,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.NodeSelectorVisitor;
-import walkingkooka.tree.visit.VisitorTesting;
+import walkingkooka.visit.VisitorTesting;
 
 public interface NodeSelectorVisitorTesting<V extends NodeSelectorVisitor<N, NAME, ANAME, AVALUE>,
         N extends Node<N, NAME, ANAME, AVALUE>,

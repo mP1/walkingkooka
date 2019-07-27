@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.tree.visit;
+package walkingkooka.visit;
 
 import walkingkooka.collect.list.Lists;
 import walkingkooka.type.JavaVisibility;

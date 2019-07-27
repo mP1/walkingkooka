@@ -40,7 +40,7 @@ import walkingkooka.tree.expression.ExpressionOrNode;
 import walkingkooka.tree.expression.ExpressionPowerNode;
 import walkingkooka.tree.expression.ExpressionSubtractionNode;
 import walkingkooka.tree.expression.ExpressionXorNode;
-import walkingkooka.tree.visit.Visiting;
+import walkingkooka.visit.Visiting;
 
 import java.util.function.Predicate;
 
