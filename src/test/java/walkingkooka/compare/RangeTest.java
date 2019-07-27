@@ -76,6 +76,11 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
         this.testTrue(LOWER_VALUE + 1);
     }
 
+    @Test
+    public void testAllToString() {
+        this.toStringAndCheck(Range.all(), "*");
+    }
+
     // singleton ....................................................................................................
 
     @Test
@@ -102,7 +107,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     @Test
     public void testSingletonToString() {
-        assertEquals("" + LOWER_VALUE, singleton().toString());
+        this.toStringAndCheck(singleton(), "" + LOWER_VALUE);
     }
 
     private static Range<Integer> singleton() {
@@ -141,7 +146,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     @Test
     public void testLessThanToString() {
-        assertEquals("<" + LOWER_VALUE, lessThan().toString());
+        this.toStringAndCheck(lessThan(), "<" + LOWER_VALUE);
     }
 
     private Range<Integer> lessThan() {
@@ -180,7 +185,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     @Test
     public void testLessThanEqualsToString() {
-        assertEquals("<=" + LOWER_VALUE, lessThanEquals().toString());
+        this.toStringAndCheck(lessThanEquals(), "<=" + LOWER_VALUE);
     }
 
     private static Range<Integer> lessThanEquals() {
@@ -219,7 +224,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     @Test
     public void testGreaterThanToString() {
-        assertEquals(">" + LOWER_VALUE, greaterThan().toString());
+        this.toStringAndCheck(greaterThan(), ">" + LOWER_VALUE);
     }
 
     private static Range<Integer> greaterThan() {
@@ -258,7 +263,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     @Test
     public void testGreaterThanEqualsToString() {
-        assertEquals(">=" + LOWER_VALUE, greaterThanEquals().toString());
+        this.toStringAndCheck(greaterThanEquals(), ">=" + LOWER_VALUE);
     }
 
     private static Range<Integer> greaterThanEquals() {
