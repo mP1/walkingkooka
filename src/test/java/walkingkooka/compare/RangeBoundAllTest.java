@@ -19,8 +19,13 @@ package walkingkooka.compare;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.tree.json.FromJsonNodeException;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeName;
 
 import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class RangeBoundAllTest extends RangeBoundTestCase2<RangeBoundAll<Integer>> {
 
@@ -47,6 +52,13 @@ public final class RangeBoundAllTest extends RangeBoundTestCase2<RangeBoundAll<I
     @Test
     public void testUpperInclusive() {
         this.maxAndCheck(RangeBound.inclusive(123), RangeBound.inclusive(123));
+    }
+
+    @Test
+    public void testFromJsonNodeAllInvalidProperty() {
+        assertThrows(FromJsonNodeException.class, () -> {
+            RangeBoundAll.fromJsonNodeAll(JsonNode.object().setChild(JsonNodeName.with("invalid"), JsonNode.booleanNode(true)));
+        });
     }
 
     @Override
