@@ -48,7 +48,7 @@ final public class NormalizingCharSequenceComparatorTest implements ClassTesting
 
     @Test
     public void testEqualWithoutMatching() {
-        this.compareAndCheckEqual("abc", "abc");
+        this.compareAndCheckEquals("abc", "abc");
     }
 
     @Test
@@ -79,19 +79,19 @@ final public class NormalizingCharSequenceComparatorTest implements ClassTesting
     @Test
     public void testEqualWithMatching() {
         final String text = "b a";
-        this.compareAndCheckEqual(text, text);
+        this.compareAndCheckEquals(text, text);
     }
 
     @Test
     public void testEqualWithMatching2() {
         final String text = " a";
-        this.compareAndCheckEqual(text, text);
+        this.compareAndCheckEquals(text, text);
     }
 
     @Test
     public void testEqualWithMatching3() {
         final String text = "b ";
-        this.compareAndCheckEqual(text, text);
+        this.compareAndCheckEquals(text, text);
     }
 
     @Test
@@ -106,22 +106,22 @@ final public class NormalizingCharSequenceComparatorTest implements ClassTesting
 
     @Test
     public void testEqualButDifferent() {
-        this.compareAndCheckEqual("b1a", "b456a");
+        this.compareAndCheckEquals("b1a", "b456a");
     }
 
     @Test
     public void testEqualButDifferent2() {
-        this.compareAndCheckEqual("b123a", "b4a");
+        this.compareAndCheckEquals("b123a", "b4a");
     }
 
     @Test
     public void testEqualButDifferent3() {
-        this.compareAndCheckEqual("123a", "4a");
+        this.compareAndCheckEquals("123a", "4a");
     }
 
     @Test
     public void testEqualButDifferent4() {
-        this.compareAndCheckEqual("b123", "b4");
+        this.compareAndCheckEquals("b123", "b4");
     }
 
     @Test

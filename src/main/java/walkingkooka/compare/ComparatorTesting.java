@@ -31,7 +31,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Mixin that inclues methods to help testing of a {@link Comparator}.
+ * Mixin that includes methods to help testing of a {@link Comparator}.
  */
 public interface ComparatorTesting<C extends Comparator<T>, T>
         extends ToStringTesting<C>,
@@ -55,23 +55,23 @@ public interface ComparatorTesting<C extends Comparator<T>, T>
         this.compareAndCheck(comparator, value1, value2, Comparators.LESS);
     }
 
-    default void compareAndCheckEqual(final T value) {
-        this.compareAndCheckEqual(this.createComparator(), value);
+    default void compareAndCheckEquals(final T value) {
+        this.compareAndCheckEquals(this.createComparator(), value);
     }
 
-    default <TT> void compareAndCheckEqual(final Comparator<TT> comparator,
-                                           final TT value) {
-        this.compareAndCheckEqual(comparator, value, value);
+    default <TT> void compareAndCheckEquals(final Comparator<TT> comparator,
+                                            final TT value) {
+        this.compareAndCheckEquals(comparator, value, value);
     }
 
-    default void compareAndCheckEqual(final T value1,
-                                      final T value2) {
-        this.compareAndCheckEqual(this.createComparator(), value1, value2);
+    default void compareAndCheckEquals(final T value1,
+                                       final T value2) {
+        this.compareAndCheckEquals(this.createComparator(), value1, value2);
     }
 
-    default <TT> void compareAndCheckEqual(final Comparator<TT> comparator,
-                                           final TT value1,
-                                           final TT value2) {
+    default <TT> void compareAndCheckEquals(final Comparator<TT> comparator,
+                                            final TT value1,
+                                            final TT value2) {
         this.compareAndCheck(comparator, value1, value2, Comparators.EQUAL);
     }
 
