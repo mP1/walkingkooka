@@ -2121,7 +2121,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     }
 
     private DecimalNumberContext decimalNumberContext() {
-        return DecimalNumberContexts.american(Locale.ENGLISH, MathContext.DECIMAL32);
+        return DecimalNumberContexts.american(MathContext.DECIMAL32);
     }
 
     private static StringName nameAbc123() {

@@ -24,7 +24,6 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.JavaVisibility;
 
 import java.math.MathContext;
-import java.util.Locale;
 
 public final class BasicEbnfParserContextTest implements ClassTesting2<BasicEbnfParserContext>,
         EbnfParserContextTesting<BasicEbnfParserContext> {
@@ -93,7 +92,7 @@ public final class BasicEbnfParserContextTest implements ClassTesting2<BasicEbnf
     }
 
     private DecimalNumberContext decimalNumberContext() {
-        return DecimalNumberContexts.american(Locale.ENGLISH, this.mathContext());
+        return DecimalNumberContexts.american(this.mathContext());
     }
 
     @Override
