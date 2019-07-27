@@ -20,6 +20,7 @@ import walkingkooka.type.PublicStaticHelper;
 
 import java.math.MathContext;
 import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 /**
  * A collection of factory methods to create {@link DecimalNumberContext}.
@@ -29,8 +30,9 @@ public final class DecimalNumberContexts implements PublicStaticHelper {
     /**
      * {@see AmericanDecimalNumberContext}
      */
-    public static DecimalNumberContext american(final MathContext mathContext) {
-        return AmericanDecimalNumberContext.with(mathContext);
+    public static DecimalNumberContext american(final Locale locale,
+                                                final MathContext mathContext) {
+        return AmericanDecimalNumberContext.with(locale, mathContext);
     }
 
     /**
@@ -43,6 +45,7 @@ public final class DecimalNumberContexts implements PublicStaticHelper {
                                              final char minusSign,
                                              final char percentageSymbol,
                                              final char plusSign,
+                                             final Locale locale,
                                              final MathContext mathContext) {
         return BasicDecimalNumberContext.with(currencySymbol,
                 decimalPoint,
@@ -51,6 +54,7 @@ public final class DecimalNumberContexts implements PublicStaticHelper {
                 minusSign,
                 percentageSymbol,
                 plusSign,
+                locale,
                 mathContext);
     }
 
@@ -60,10 +64,12 @@ public final class DecimalNumberContexts implements PublicStaticHelper {
     public static DecimalNumberContext decimalFormatSymbols(final DecimalFormatSymbols symbols,
                                                             final char exponentSymbol,
                                                             final char plusSign,
+                                                            final Locale locale,
                                                             final MathContext mathContext) {
         return DecimalFormatSymbolsDecimalNumberContext.with(symbols,
                 exponentSymbol,
                 plusSign,
+                locale,
                 mathContext);
     }
 

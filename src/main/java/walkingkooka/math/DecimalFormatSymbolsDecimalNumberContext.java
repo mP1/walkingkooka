@@ -22,6 +22,7 @@ import walkingkooka.text.CharSequences;
 
 import java.math.MathContext;
 import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -32,24 +33,32 @@ final class DecimalFormatSymbolsDecimalNumberContext implements DecimalNumberCon
     static DecimalFormatSymbolsDecimalNumberContext with(final DecimalFormatSymbols symbols,
                                                          final char exponentSymbol,
                                                          final char plusSign,
+                                                         final Locale locale,
                                                          final MathContext mathContext) {
         Objects.requireNonNull(symbols, "symbols");
+        Objects.requireNonNull(locale, "locale");
         Objects.requireNonNull(mathContext, "mathContext");
         if (exponentSymbol == plusSign) {
             throw new IllegalArgumentException("Exponent symbol == plus sign " + CharSequences.quoteIfChars(exponentSymbol));
         }
 
-        return new DecimalFormatSymbolsDecimalNumberContext(symbols, exponentSymbol, plusSign, mathContext);
+        return new DecimalFormatSymbolsDecimalNumberContext(symbols,
+                exponentSymbol,
+                plusSign,
+                locale,
+                mathContext);
     }
 
     private DecimalFormatSymbolsDecimalNumberContext(final DecimalFormatSymbols symbols,
                                                      final char exponentSymbol,
                                                      final char plusSign,
+                                                     final Locale locale,
                                                      final MathContext mathContext) {
         super();
         this.symbols = symbols;
         this.exponentSymbol = exponentSymbol;
         this.plusSign = plusSign;
+        this.locale = locale;
         this.mathContext = mathContext;
     }
 
@@ -95,6 +104,13 @@ final class DecimalFormatSymbolsDecimalNumberContext implements DecimalNumberCon
     private final char plusSign;
 
     @Override
+    public Locale locale() {
+        return this.locale;
+    }
+
+    private final Locale locale;
+
+    @Override
     public MathContext mathContext() {
         return this.mathContext;
     }
@@ -113,6 +129,7 @@ final class DecimalFormatSymbolsDecimalNumberContext implements DecimalNumberCon
                 .value(this.minusSign())
                 .value(this.percentageSymbol())
                 .value(this.plusSign())
+                .value(this.locale())
                 .value(this.mathContext())
                 .build();
     }

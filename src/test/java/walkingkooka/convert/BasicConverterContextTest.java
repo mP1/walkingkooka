@@ -23,6 +23,7 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.JavaVisibility;
 
 import java.math.MathContext;
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -36,6 +37,8 @@ public final class BasicConverterContextTest implements ClassTesting2<BasicConve
     private final static char MINUS = 'M';
     private final static char PERCENTAGE = 'R';
     private final static char PLUS = 'P';
+
+    private final static Locale LOCALE = Locale.ENGLISH;
     private final static MathContext MATH_CONTEXT = MathContext.DECIMAL32;
 
     @Test
@@ -43,6 +46,11 @@ public final class BasicConverterContextTest implements ClassTesting2<BasicConve
         assertThrows(NullPointerException.class, () -> {
             BasicConverterContext.with(null);
         });
+    }
+
+    @Test
+    public void testLocale() {
+        this.hasLocaleAndCheck(this.createContext(), LOCALE);
     }
 
     @Test
@@ -56,7 +64,15 @@ public final class BasicConverterContextTest implements ClassTesting2<BasicConve
     }
 
     private BasicConverterContext basic() {
-        return BasicConverterContext.with(DecimalNumberContexts.basic(CURRENCY, DECIMAL, EXPONENT, GROUPING, MINUS, PERCENTAGE, PLUS, MATH_CONTEXT));
+        return BasicConverterContext.with(DecimalNumberContexts.basic(CURRENCY,
+                DECIMAL,
+                EXPONENT,
+                GROUPING,
+                MINUS,
+                PERCENTAGE,
+                PLUS,
+                LOCALE,
+                MATH_CONTEXT));
     }
 
     @Override

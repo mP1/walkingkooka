@@ -20,6 +20,7 @@ package walkingkooka.tree.json.parser;
 import walkingkooka.ToStringBuilder;
 
 import java.math.MathContext;
+import java.util.Locale;
 
 /**
  * A {@link JsonNodeParserContext} without any functionality.
@@ -75,6 +76,11 @@ final class BasicJsonNodeParserContext implements JsonNodeParserContext {
     @Override
     public char plusSign() {
         return '+';
+    }
+
+    @Override
+    public Locale locale() {
+        throw new UnsupportedOperationException();
     }
 
     @Override

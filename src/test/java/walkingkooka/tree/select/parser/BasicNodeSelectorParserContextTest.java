@@ -24,6 +24,7 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.JavaVisibility;
 
 import java.math.MathContext;
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -57,7 +58,7 @@ public final class BasicNodeSelectorParserContextTest implements ClassTesting2<B
 
     @Override
     public BasicNodeSelectorParserContext createContext() {
-        return BasicNodeSelectorParserContext.with(DecimalNumberContexts.american(MathContext.DECIMAL32));
+        return BasicNodeSelectorParserContext.with(this.decimalNumberContext());
     }
 
     @Override
@@ -101,7 +102,7 @@ public final class BasicNodeSelectorParserContextTest implements ClassTesting2<B
     }
 
     private DecimalNumberContext decimalNumberContext() {
-        return DecimalNumberContexts.american(this.mathContext());
+        return DecimalNumberContexts.american(Locale.ENGLISH, this.mathContext());
     }
 
     @Override

@@ -31,6 +31,7 @@ import walkingkooka.type.JavaVisibility;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -315,6 +316,12 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
         final DecimalNumberContext decimalNumberContext = this.decimalNumberContext();
 
         return this.createContext(new FakeExpressionEvaluationContext() {
+
+            @Override
+            public Locale locale() {
+                return decimalNumberContext.locale();
+            }
+
             @Override
             public MathContext mathContext() {
                 return decimalNumberContext.mathContext();
@@ -358,7 +365,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     }
 
     private DecimalNumberContext decimalNumberContext() {
-        return DecimalNumberContexts.american(this.mathContext());
+        return DecimalNumberContexts.american(Locale.ENGLISH, this.mathContext());
     }
 
     private CycleDetectingExpressionEvaluationContext createContext(final ExpressionEvaluationContext context) {

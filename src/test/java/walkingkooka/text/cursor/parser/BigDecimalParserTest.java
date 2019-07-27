@@ -23,6 +23,7 @@ import walkingkooka.text.cursor.TextCursor;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.Locale;
 
 public final class BigDecimalParserTest extends Parser2TestCase<BigDecimalParser<ParserContext>, BigDecimalParserToken> {
 
@@ -398,7 +399,7 @@ public final class BigDecimalParserTest extends Parser2TestCase<BigDecimalParser
 
     private TextCursor parseAndCheck3(final String text, final BigDecimal value) {
         return this.parseAndCheck(this.createParser(),
-                ParserContexts.basic(DecimalNumberContexts.basic("C", 'D', 'X', 'G', 'M', 'R', 'P', MathContext.DECIMAL32)),
+                ParserContexts.basic(DecimalNumberContexts.basic("C", 'D', 'X', 'G', 'M', 'R', 'P', Locale.ENGLISH, MathContext.DECIMAL32)),
                 text,
                 ParserTokens.bigDecimal(value, text),
                 text,

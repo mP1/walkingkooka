@@ -17,12 +17,33 @@
 
 package walkingkooka.text.cursor.parser.ebnf;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.cursor.parser.ParserContextTesting;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Mixing testing interface for {@link EbnfParserContext}
  */
 public interface EbnfParserContextTesting<C extends EbnfParserContext> extends ParserContextTesting<C> {
+
+    @Test
+    default void testLocaleFails() {
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createContext().locale();
+        });
+    }
+
+    @Override
+    default void testMathContext() {
+    }
+
+    @Test
+    default void testMathContextFails() {
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createContext().mathContext();
+        });
+    }
 
     @Override
     default String typeNameSuffix() {

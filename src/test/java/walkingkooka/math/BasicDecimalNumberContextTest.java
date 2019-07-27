@@ -22,25 +22,58 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.JavaVisibility;
 
 import java.math.MathContext;
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicDecimalNumberContextTest implements ClassTesting2<BasicDecimalNumberContext>,
         DecimalNumberContextTesting2<BasicDecimalNumberContext> {
 
+    private final static Locale LOCALE = Locale.FRANCE;
     private final static MathContext MATH_CONTEXT = MathContext.DECIMAL32;
 
     @Test
     public void testWithNullCurrencySymbol() {
         assertThrows(NullPointerException.class, () -> {
-            BasicDecimalNumberContext.with(null, '.', 'E', ',', '-', '%', '+', MATH_CONTEXT);
+            BasicDecimalNumberContext.with(null,
+                    '.',
+                    'E',
+                    ',',
+                    '-',
+                    '%',
+                    '+',
+                    LOCALE,
+                    MATH_CONTEXT);
+        });
+    }
+
+    @Test
+    public void testWithNullLocale() {
+        assertThrows(NullPointerException.class, () -> {
+            BasicDecimalNumberContext.with("$",
+                    '.',
+                    'E',
+                    ',',
+                    '-',
+                    '%',
+                    '+',
+                    null,
+                    MATH_CONTEXT);
         });
     }
 
     @Test
     public void testWithNullMathContext() {
         assertThrows(NullPointerException.class, () -> {
-            BasicDecimalNumberContext.with("$", '.', 'E', ',', '-', '%', '+', null);
+            BasicDecimalNumberContext.with("$",
+                    '.',
+                    'E',
+                    ',',
+                    '-',
+                    '%',
+                    '+',
+                    LOCALE,
+                    null);
         });
     }
 
@@ -55,17 +88,26 @@ public final class BasicDecimalNumberContextTest implements ClassTesting2<BasicD
         this.checkPercentageSymbol(context, '%');
         this.checkPlusSign(context, '+');
 
+        this.hasLocaleAndCheck(context, LOCALE);
         this.hasMathContextAndCheck(context, MATH_CONTEXT);
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createContext(), "\"$\" '.' 'E' ',' '-' '%' '+' " + MATH_CONTEXT);
+        this.toStringAndCheck(this.createContext(), "\"$\" '.' 'E' ',' '-' '%' '+' " + LOCALE + " " + MATH_CONTEXT);
     }
 
     @Override
     public BasicDecimalNumberContext createContext() {
-        return BasicDecimalNumberContext.with("$", '.', 'E', ',', '-', '%', '+', MATH_CONTEXT);
+        return BasicDecimalNumberContext.with("$",
+                '.',
+                'E',
+                ',',
+                '-',
+                '%',
+                '+',
+                LOCALE,
+                MATH_CONTEXT);
     }
 
     @Override

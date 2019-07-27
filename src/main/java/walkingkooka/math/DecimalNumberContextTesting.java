@@ -16,12 +16,15 @@
  */
 package walkingkooka.math;
 
+import walkingkooka.locale.HasLocaleTesting;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Mixing testing interface for {@link DecimalNumberContext}
  */
-public interface DecimalNumberContextTesting extends HasMathContextTesting {
+public interface DecimalNumberContextTesting extends HasLocaleTesting,
+        HasMathContextTesting {
 
     default void checkCurrencySymbol(final DecimalNumberContext context, final String currencySymbol) {
         assertEquals(currencySymbol, context.currencySymbol(), "currencySymbol");

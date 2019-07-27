@@ -25,6 +25,7 @@ import walkingkooka.math.DecimalNumberContext;
 
 import java.math.MathContext;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -99,6 +100,11 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     @Override
     public char plusSign() {
         return this.decimalNumberContext.plusSign();
+    }
+
+    @Override
+    public Locale locale() {
+        return this.decimalNumberContext.locale();
     }
 
     @Override

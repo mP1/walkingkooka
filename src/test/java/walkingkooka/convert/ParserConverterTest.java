@@ -28,6 +28,7 @@ import walkingkooka.text.cursor.parser.Parsers;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.Locale;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -83,7 +84,7 @@ public final class ParserConverterTest extends FixedTypeConverterTestCase<Parser
 
     @Override
     public ConverterContext createContext() {
-        return ConverterContexts.basic(DecimalNumberContexts.american(MathContext.DECIMAL32));
+        return ConverterContexts.basic(DecimalNumberContexts.american(Locale.ENGLISH, MathContext.DECIMAL32));
     }
 
     private Parser<ParserContext> bigDecimalParser() {
