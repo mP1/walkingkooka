@@ -365,7 +365,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     }
 
     private DecimalNumberContext decimalNumberContext() {
-        return DecimalNumberContexts.american(Locale.ENGLISH, this.mathContext());
+        return DecimalNumberContexts.american(this.mathContext());
     }
 
     private CycleDetectingExpressionEvaluationContext createContext(final ExpressionEvaluationContext context) {

@@ -1813,7 +1813,7 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
 
     @Override
     public NodeSelectorParserContext createContext() {
-        return NodeSelectorParserContexts.basic(DecimalNumberContexts.american(Locale.ENGLISH, MathContext.DECIMAL32));
+        return NodeSelectorParserContexts.basic(DecimalNumberContexts.american(MathContext.DECIMAL32));
     }
 
     // helpers................................................................................................

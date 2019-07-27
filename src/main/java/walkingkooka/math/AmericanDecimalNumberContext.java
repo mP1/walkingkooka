@@ -25,32 +25,40 @@ import java.util.Objects;
 
 /**
  * A {@link DecimalNumberContext} with all values set to what can broadly be described as american.
- * This is useful for as many internet standards also use the same symbols.
+ * This is useful for as many internet standards also use the same symbols. Note the {@link #locale()} throws
+ * {@link UnsupportedOperationException}.
  */
 final class AmericanDecimalNumberContext implements DecimalNumberContext {
 
     /**
      * Factory that returns a constant if a {@link MathContext} constant is given.
      */
-    final static AmericanDecimalNumberContext with(final Locale locale,
-                                                   final MathContext mathContext) {
-        Objects.requireNonNull(locale, "locale");
+    final static AmericanDecimalNumberContext with(final MathContext mathContext) {
         Objects.requireNonNull(mathContext, "mathContext");
 
-        return new AmericanDecimalNumberContext(locale, mathContext);
+        return UNLIMITED.mathContext.equals(mathContext) ?
+                UNLIMITED :
+                DECIMAL32.mathContext.equals(mathContext) ?
+                        DECIMAL32 :
+                        DECIMAL64.mathContext.equals(mathContext) ?
+                                DECIMAL64 :
+                                DECIMAL128.mathContext.equals(mathContext) ?
+                                        DECIMAL128 :
+                                        new AmericanDecimalNumberContext(mathContext);
     }
+
+    private final static AmericanDecimalNumberContext UNLIMITED = new AmericanDecimalNumberContext(MathContext.UNLIMITED);
+    private final static AmericanDecimalNumberContext DECIMAL32 = new AmericanDecimalNumberContext(MathContext.DECIMAL32);
+    private final static AmericanDecimalNumberContext DECIMAL64 = new AmericanDecimalNumberContext(MathContext.DECIMAL64);
+    private final static AmericanDecimalNumberContext DECIMAL128 = new AmericanDecimalNumberContext(MathContext.DECIMAL128);
 
     /**
      * Private ctor use singleton.
      */
-    private AmericanDecimalNumberContext(final Locale locale,
-                                         final MathContext mathContext) {
+    private AmericanDecimalNumberContext(final MathContext mathContext) {
         super();
-        this.locale = locale;
         this.mathContext = mathContext;
     }
-
-    // DecimalNumberContext.............................................................................................
 
     @Override
     public String currencySymbol() {
@@ -88,22 +96,16 @@ final class AmericanDecimalNumberContext implements DecimalNumberContext {
     }
 
     @Override
+    public Locale locale() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public MathContext mathContext() {
         return this.mathContext;
     }
 
     private final MathContext mathContext;
-
-    // Locale........................................................................................................
-
-    @Override
-    public Locale locale() {
-        return this.locale;
-    }
-
-    private final Locale locale;
-
-    // Object...........................................................................................................
 
     @Override
     public String toString() {
@@ -115,8 +117,7 @@ final class AmericanDecimalNumberContext implements DecimalNumberContext {
                 .value(this.minusSign())
                 .value(this.percentageSymbol())
                 .value(this.plusSign())
-                .value(this.locale)
-                .value(this.mathContext)
+                .value(this.mathContext())
                 .build();
     }
 }

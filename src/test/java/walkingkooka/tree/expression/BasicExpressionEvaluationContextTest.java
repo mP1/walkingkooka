@@ -28,7 +28,6 @@ import walkingkooka.type.JavaVisibility;
 
 import java.math.MathContext;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -146,7 +145,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     private DecimalNumberContext decimalNumberContext() {
-        return DecimalNumberContexts.american(Locale.ENGLISH, this.mathContext());
+        return DecimalNumberContexts.american(this.mathContext());
     }
 
     @Override

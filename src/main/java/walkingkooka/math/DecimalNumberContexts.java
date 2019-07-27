@@ -30,9 +30,8 @@ public final class DecimalNumberContexts implements PublicStaticHelper {
     /**
      * {@see AmericanDecimalNumberContext}
      */
-    public static DecimalNumberContext american(final Locale locale,
-                                                final MathContext mathContext) {
-        return AmericanDecimalNumberContext.with(locale, mathContext);
+    public static DecimalNumberContext american(final MathContext mathContext) {
+        return AmericanDecimalNumberContext.with(mathContext);
     }
 
     /**
