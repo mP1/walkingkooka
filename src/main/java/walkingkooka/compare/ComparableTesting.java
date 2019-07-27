@@ -65,6 +65,10 @@ public interface ComparableTesting<C extends Comparable<C> & HashCodeEqualsDefin
 
     default void compareToAndCheckLess(final C comparable) {
         this.compareToAndCheck(comparable, Comparators.LESS);
+
+        if (this.compareAndEqualsMatch()) {
+            this.checkNotEquals(this.createComparable(), comparable);
+        }
     }
 
     default <CC extends Comparable<CC>> void compareToAndCheckLess(final CC comparable1, final CC comparable2) {
@@ -85,6 +89,10 @@ public interface ComparableTesting<C extends Comparable<C> & HashCodeEqualsDefin
 
     default void compareToAndCheckMore(final C comparable) {
         this.compareToAndCheck(comparable, Comparators.MORE);
+
+        if (this.compareAndEqualsMatch()) {
+            this.checkNotEquals(this.createComparable(), comparable);
+        }
     }
 
     default <CC extends Comparable<CC>> void compareToAndCheckMore(final CC comparable1, final CC comparable2) {
@@ -93,6 +101,10 @@ public interface ComparableTesting<C extends Comparable<C> & HashCodeEqualsDefin
 
     default void compareToAndCheck(final C comparable, final int expected) {
         this.compareToAndCheck(this.createComparable(), comparable, expected);
+
+        if (Comparators.EQUAL == expected && this.compareAndEqualsMatch()) {
+            this.checkEquals(this.createComparable(), comparable);
+        }
     }
 
     default <CC extends Comparable<CC>> void compareToAndCheck(final CC comparable1,
