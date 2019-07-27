@@ -33,6 +33,13 @@ public final class ComparatorTestingTest implements ComparatorTesting<Comparator
 
     private final static Comparator<String> COMPARATOR = String.CASE_INSENSITIVE_ORDER;
 
+    // compare..........................................................................................................
+
+    @Test
+    public void testCompare() {
+        assertEquals(COMPARATOR.compare(VALUE, MORE), this.compare(VALUE, MORE));
+    }
+
     // compareAndCheckLess..............................................................................................
 
     @Test
@@ -59,6 +66,11 @@ public final class ComparatorTestingTest implements ComparatorTesting<Comparator
 
     @Test
     public void testCompareAndCheckEquals() {
+        this.compareAndCheckEquals(VALUE);
+    }
+
+    @Test
+    public void testCompareAndCheckEquals2() {
         this.compareAndCheckEquals(VALUE, VALUE);
     }
 
@@ -69,6 +81,11 @@ public final class ComparatorTestingTest implements ComparatorTesting<Comparator
 
     @Test
     public void testComparatorCompareAndCheckEquals() {
+        this.compareAndCheckEquals(VALUE, VALUE);
+    }
+
+    @Test
+    public void testComparatorCompareAndCheckEquals2() {
         this.compareAndCheckEquals(COMPARATOR, VALUE, VALUE);
     }
 
@@ -113,6 +130,12 @@ public final class ComparatorTestingTest implements ComparatorTesting<Comparator
 
     @Test
     public void testComparatorArraySortAndCheck() {
+        this.comparatorArraySortAndCheck("A", "Z", "B", "D", "C",
+                "A", "B", "C", "D", "Z");
+    }
+
+    @Test
+    public void testComparatorArraySortAndCheckComparator() {
         this.comparatorArraySortAndCheck(COMPARATOR,
                 "A", "Z", "B", "D", "C",
                 "A", "B", "C", "D", "Z");
