@@ -64,6 +64,8 @@ public final class DecimalFormatSymbolsDecimalNumberContextTest implements Class
         this.checkMinusSign(context, '-');
         this.checkPercentageSymbol(context, '%');
         this.checkPlusSign(context, '+');
+
+        this.hasMathContextAndCheck(context, MATH_CONTEXT);
     }
 
     @Test

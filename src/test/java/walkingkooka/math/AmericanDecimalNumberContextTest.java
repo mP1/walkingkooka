@@ -82,7 +82,7 @@ public final class AmericanDecimalNumberContextTest implements ClassTesting2<Ame
         this.checkMinusSign(context, '-');
         this.checkPercentageSymbol(context, '%');
         this.checkPlusSign(context, '+');
-        this.checkMathContext(context, mathContext);
+        this.hasMathContextAndCheck(context, mathContext);
     }
 
     @Test
