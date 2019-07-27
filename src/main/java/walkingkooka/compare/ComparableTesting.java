@@ -47,11 +47,14 @@ public interface ComparableTesting<C extends Comparable<C> & HashCodeEqualsDefin
     @Test
     default void testCompareToSelfGivesZero() {
         final C comparable = this.createComparable();
-        this.compareToAndCheckEqual(comparable, comparable);
+        this.compareToAndCheckEquals(comparable, comparable);
+
+        if (this.compareAndEqualsMatch()) {
+            this.checkEquals(comparable, comparable);
+        }
     }
 
-    // helpers
-
+    // helpers..........................................................................................................
 
     @Override
     default C createObject() {
@@ -64,15 +67,19 @@ public interface ComparableTesting<C extends Comparable<C> & HashCodeEqualsDefin
         this.compareToAndCheck(comparable, Comparators.LESS);
     }
 
-    default void compareToAndCheckLess(final C comparable1, final C comparable2) {
+    default <CC extends Comparable<CC>> void compareToAndCheckLess(final CC comparable1, final CC comparable2) {
         this.compareToAndCheck(comparable1, comparable2, Comparators.LESS);
     }
 
-    default void compareToAndCheckEqual(final C comparable) {
+    default void compareToAndCheckEquals(final C comparable) {
         this.compareToAndCheck(comparable, Comparators.EQUAL);
+
+        if (this.compareAndEqualsMatch()) {
+            this.checkEquals(comparable, comparable);
+        }
     }
 
-    default void compareToAndCheckEqual(final C comparable1, final C comparable2) {
+    default <CC extends Comparable<CC>> void compareToAndCheckEquals(final CC comparable1, final CC comparable2) {
         this.compareToAndCheck(comparable1, comparable2, Comparators.EQUAL);
     }
 
@@ -80,7 +87,7 @@ public interface ComparableTesting<C extends Comparable<C> & HashCodeEqualsDefin
         this.compareToAndCheck(comparable, Comparators.MORE);
     }
 
-    default void compareToAndCheckMore(final C comparable1, final C comparable2) {
+    default <CC extends Comparable<CC>> void compareToAndCheckMore(final CC comparable1, final CC comparable2) {
         this.compareToAndCheck(comparable1, comparable2, Comparators.MORE);
     }
 
@@ -88,36 +95,28 @@ public interface ComparableTesting<C extends Comparable<C> & HashCodeEqualsDefin
         this.compareToAndCheck(this.createComparable(), comparable, expected);
     }
 
-    default void compareToAndCheck(final C comparable1,
-                                   final C comparable2,
-                                   final int expected) {
-        compareResultCheck(comparable1 + " " + comparable2,
+    default <CC extends Comparable<CC>> void compareToAndCheck(final CC comparable1,
+                                                               final CC comparable2,
+                                                               final int expected) {
+        this.compareResultCheck(comparable1 + " " + comparable2,
                 expected,
                 comparable1.compareTo(comparable2));
         if (Comparators.EQUAL != expected) {
-            compareResultCheck(
-                    "Exchanging parameters and comparing did not return an inverted result.",
+            this.compareResultCheck("Swapping parameters and comparing did not return an inverted result.",
                     -expected,
                     comparable2.compareTo(comparable1));
-            if (this.compareAndEqualsMatch()) {
-                this.checkNotEquals(comparable1, comparable2);
-            }
-        } else {
-            if (this.compareAndEqualsMatch()) {
-                this.checkEquals(comparable1, comparable2);
-            }
         }
     }
 
-    default void compareToArraySortAndCheck(final C... values) {
+    default <CC extends Comparable<CC>> void compareToArraySortAndCheck(final CC... values) {
         if (values.length % 2 != 0) {
             Assertions.fail("Expected even number of values " + Arrays.toString(values));
         }
 
-        final List<C> list = Lists.of(values);
+        final List<CC> list = Lists.of(values);
 
-        final List<C> unsorted = new ArrayList<>(list.subList(0, values.length / 2));
-        final List<C> sorted = list.subList(values.length / 2, values.length);
+        final List<CC> unsorted = new ArrayList<>(list.subList(0, values.length / 2));
+        final List<CC> sorted = list.subList(values.length / 2, values.length);
         unsorted.sort(Comparator.naturalOrder());
 
         assertEquals(sorted,
@@ -125,18 +124,14 @@ public interface ComparableTesting<C extends Comparable<C> & HashCodeEqualsDefin
                 () -> "sort " + unsorted);
     }
 
-    static void compareResultCheck(final int expected, final int actual) {
-        compareResultCheck(null, expected, actual);
-    }
-
-    static void compareResultCheck(final String message, final int expected, final int actual) {
+    default void compareResultCheck(final String message, final int expected, final int actual) {
         if (Comparators.normalize(expected) != Comparators.normalize(actual)) {
             assertEquals(expected, actual, message);
         }
     }
 
     /**
-     * When true indicates that comparison equality matches object equality.
+     * When true indicates that {@link Object#equals(Object)} and {@link Comparable#compareTo(Object)} == 0 must match.
      */
     default boolean compareAndEqualsMatch() {
         return true;
