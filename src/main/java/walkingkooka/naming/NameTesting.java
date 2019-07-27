@@ -84,7 +84,7 @@ public interface NameTesting<N extends Name, C extends Comparable<C> & HashCodeE
         final C upper = this.createComparable(value.toUpperCase());
 
         if (this.caseSensitivity() == CaseSensitivity.INSENSITIVE) {
-            this.compareToAndCheckEqual(
+            this.compareToAndCheckEquals(
                     lower,
                     upper);
         } else {
