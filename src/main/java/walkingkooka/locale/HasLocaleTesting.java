@@ -21,7 +21,7 @@ import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public interface HasLocaleTesting<H extends HasLocale> {
+public interface HasLocaleTesting {
 
     default void hasLocaleAndCheck(final HasLocale has, final Locale locale) {
         assertEquals(locale,
