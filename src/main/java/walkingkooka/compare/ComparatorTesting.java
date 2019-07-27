@@ -49,9 +49,9 @@ public interface ComparatorTesting<C extends Comparator<T>, T>
         this.compareAndCheckLess(this.createComparator(), value1, value2);
     }
 
-    default void compareAndCheckLess(final Comparator<T> comparator,
-                                     final T value1,
-                                     final T value2) {
+    default <TT> void compareAndCheckLess(final Comparator<TT> comparator,
+                                          final TT value1,
+                                          final TT value2) {
         this.compareAndCheck(comparator, value1, value2, Comparators.LESS);
     }
 
@@ -59,8 +59,8 @@ public interface ComparatorTesting<C extends Comparator<T>, T>
         this.compareAndCheckEqual(this.createComparator(), value);
     }
 
-    default void compareAndCheckEqual(final Comparator<T> comparator,
-                                      final T value) {
+    default <TT> void compareAndCheckEqual(final Comparator<TT> comparator,
+                                           final TT value) {
         this.compareAndCheckEqual(comparator, value, value);
     }
 
@@ -69,9 +69,9 @@ public interface ComparatorTesting<C extends Comparator<T>, T>
         this.compareAndCheckEqual(this.createComparator(), value1, value2);
     }
 
-    default void compareAndCheckEqual(final Comparator<T> comparator,
-                                      final T value1,
-                                      final T value2) {
+    default <TT> void compareAndCheckEqual(final Comparator<TT> comparator,
+                                           final TT value1,
+                                           final TT value2) {
         this.compareAndCheck(comparator, value1, value2, Comparators.EQUAL);
     }
 
@@ -80,24 +80,24 @@ public interface ComparatorTesting<C extends Comparator<T>, T>
         this.compareAndCheckMore(this.createComparator(), value1, value2);
     }
 
-    default void compareAndCheckMore(final Comparator<T> comparator,
-                                     final T value1,
-                                     final T value2) {
+    default <TT> void compareAndCheckMore(final Comparator<TT> comparator,
+                                          final TT value1,
+                                          final TT value2) {
         this.compareAndCheck(comparator, value1, value2, Comparators.MORE);
     }
 
-    default void compareAndCheck(final Comparator<T> comparator,
-                                 final T value1,
-                                 final T value2,
-                                 final int expected) {
+    default <TT> void compareAndCheck(final Comparator<TT> comparator,
+                                      final TT value1,
+                                      final TT value2,
+                                      final int expected) {
         this.compareAndCheck0(comparator, value1, value2, expected);
         this.compareAndCheck0(comparator, value2, value1, -expected);
     }
 
-    default void compareAndCheck0(final Comparator<T> comparator,
-                                  final T value1,
-                                  final T value2,
-                                  final int expected) {
+    default <TT> void compareAndCheck0(final Comparator<TT> comparator,
+                                       final TT value1,
+                                       final TT value2,
+                                       final int expected) {
         final int result = comparator.compare(value1, value2);
         if (false == ComparatorTesting.isEqual(expected, result)) {
             assertEquals(expected,
@@ -128,16 +128,16 @@ public interface ComparatorTesting<C extends Comparator<T>, T>
         this.comparatorArraySortAndCheck(this.createComparator(), values);
     }
 
-    default void comparatorArraySortAndCheck(final Comparator<T> comparator,
-                                             final T... values) {
+    default <TT> void comparatorArraySortAndCheck(final Comparator<TT> comparator,
+                                                  final TT... values) {
         if (values.length % 2 != 0) {
             Assertions.fail("Expected even number of values " + Arrays.toString(values));
         }
 
-        final List<T> list = Lists.of(values);
+        final List<TT> list = Lists.of(values);
 
-        final List<T> unsorted = new ArrayList<>(list.subList(0, values.length / 2));
-        final List<T> sorted = list.subList(values.length / 2, values.length);
+        final List<TT> unsorted = new ArrayList<>(list.subList(0, values.length / 2));
+        final List<TT> sorted = list.subList(values.length / 2, values.length);
         unsorted.sort(comparator);
 
         assertEquals(sorted,
