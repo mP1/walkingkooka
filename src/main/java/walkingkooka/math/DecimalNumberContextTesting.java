@@ -16,14 +16,12 @@
  */
 package walkingkooka.math;
 
-import java.math.MathContext;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Mixing testing interface for {@link DecimalNumberContext}
  */
-public interface DecimalNumberContextTesting {
+public interface DecimalNumberContextTesting extends HasMathContextTesting {
 
     default void checkCurrencySymbol(final DecimalNumberContext context, final String currencySymbol) {
         assertEquals(currencySymbol, context.currencySymbol(), "currencySymbol");
@@ -51,9 +49,5 @@ public interface DecimalNumberContextTesting {
 
     default void checkPlusSign(final DecimalNumberContext context, final char plusSign) {
         assertEquals(plusSign, context.plusSign(), "plusSign");
-    }
-
-    default void checkMathContext(final DecimalNumberContext context, final MathContext mathContext) {
-        assertEquals(mathContext, context.mathContext(), "mathContext");
     }
 }

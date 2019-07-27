@@ -49,7 +49,7 @@ public interface DecimalNumberContextTesting2<C extends DecimalNumberContext> ex
 
     @Test
     default void testMathContext() {
-        this.checkMathContext(this.createContext(), this.mathContext());
+        this.hasMathContextAndCheck(this.createContext(), this.mathContext());
     }
 
     @Test
