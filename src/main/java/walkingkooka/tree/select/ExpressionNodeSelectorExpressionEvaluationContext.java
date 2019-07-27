@@ -29,6 +29,7 @@ import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 
 import java.math.MathContext;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -110,6 +111,11 @@ final class ExpressionNodeSelectorExpressionEvaluationContext<N extends Node<N, 
     final Node<?, ?, ?, ?> node;
 
     private final static Optional<ExpressionNode> ABSENT = Optional.of(ExpressionNode.text(""));
+
+    @Override
+    public Locale locale() {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     public MathContext mathContext() {

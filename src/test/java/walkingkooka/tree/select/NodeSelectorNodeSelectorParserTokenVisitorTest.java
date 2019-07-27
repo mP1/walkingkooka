@@ -28,6 +28,7 @@ import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
@@ -52,6 +53,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -2092,7 +2094,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                         throw new ConversionException("Failed to convert " + CharSequences.quoteIfChars(value) + " to " + target.getSimpleName());
                     }
 
-                    private final ConverterContext converterContext = ConverterContexts.basic(DecimalNumberContexts.american(MathContext.DECIMAL32));
+                    private final ConverterContext converterContext = ConverterContexts.basic(decimalNumberContext());
                 });
 
         assertEquals(expected, names(selected), () -> expression + "\n" + selector.unwrapIfCustomToStringNodeSelector() + "\n" + root);
@@ -2113,9 +2115,13 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
         return NodeSelectorParsers.expression()
                 .orFailIfCursorNotEmpty(ParserReporters.basic())
                 .parse(TextCursors.charSequence(expression),
-                        NodeSelectorParserContexts.basic(DecimalNumberContexts.american(MathContext.DECIMAL32)))
+                        NodeSelectorParserContexts.basic(decimalNumberContext()))
                 .orElseThrow(() -> new UnsupportedOperationException(expression))
                 .cast();
+    }
+
+    private DecimalNumberContext decimalNumberContext() {
+        return DecimalNumberContexts.american(Locale.ENGLISH, MathContext.DECIMAL32);
     }
 
     private static StringName nameAbc123() {

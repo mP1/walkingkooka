@@ -22,6 +22,7 @@ import walkingkooka.ToStringBuilder;
 import walkingkooka.math.HasMathContext;
 
 import java.math.MathContext;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -76,6 +77,11 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext 
     @Override
     public char plusSign() {
         return '+';
+    }
+
+    @Override
+    public Locale locale() {
+        throw new UnsupportedOperationException();
     }
 
     @Override

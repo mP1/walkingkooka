@@ -17,12 +17,22 @@
 
 package walkingkooka.tree.select.parser;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.cursor.parser.ParserContextTesting;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Mixing testing interface for {@link NodeSelectorParserContext}
  */
 public interface NodeSelectorParserContextTesting<C extends NodeSelectorParserContext> extends ParserContextTesting<C> {
+
+    @Test
+    default void testLocaleFails() {
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createContext().locale();
+        });
+    }
 
     @Override
     default String typeNameSuffix() {

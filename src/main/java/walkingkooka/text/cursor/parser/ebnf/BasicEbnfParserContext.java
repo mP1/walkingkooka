@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringBuilder;
 
 import java.math.MathContext;
+import java.util.Locale;
 
 final class BasicEbnfParserContext implements EbnfParserContext {
 
@@ -66,6 +67,11 @@ final class BasicEbnfParserContext implements EbnfParserContext {
     @Override
     public char plusSign() {
         return '+';
+    }
+
+    @Override
+    public Locale locale() {
+        throw new UnsupportedOperationException();
     }
 
     @Override

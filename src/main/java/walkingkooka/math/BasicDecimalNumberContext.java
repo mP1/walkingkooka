@@ -20,6 +20,7 @@ package walkingkooka.math;
 import walkingkooka.ToStringBuilder;
 
 import java.math.MathContext;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -34,8 +35,10 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
                                           final char minusSign,
                                           final char percentageSymbol,
                                           final char plusSign,
+                                          final Locale locale,
                                           final MathContext mathContext) {
         Objects.requireNonNull(currencySymbol, "currencySymbol");
+        Objects.requireNonNull(locale, "locale");
         Objects.requireNonNull(mathContext, "mathContext");
 
         return new BasicDecimalNumberContext(currencySymbol,
@@ -45,6 +48,7 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
                 minusSign,
                 percentageSymbol,
                 plusSign,
+                locale,
                 mathContext);
     }
 
@@ -55,6 +59,7 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
                                       final char minusSign,
                                       final char percentageSymbol,
                                       final char plusSign,
+                                      final Locale locale,
                                       final MathContext mathContext) {
         super();
         this.currencySymbol = currencySymbol;
@@ -64,6 +69,9 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
         this.minusSign = minusSign;
         this.percentageSymbol = percentageSymbol;
         this.plusSign = plusSign;
+        
+        this.locale = locale;
+        
         this.mathContext = mathContext;
     }
 
@@ -117,6 +125,13 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
     private final char plusSign;
 
     @Override
+    public Locale locale() {
+        return this.locale;
+    }
+
+    private final Locale locale;
+    
+    @Override
     public MathContext mathContext() {
         return this.mathContext;
     }
@@ -133,6 +148,7 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
                 .value(this.minusSign)
                 .value(this.percentageSymbol)
                 .value(this.plusSign)
+                .value(this.locale)
                 .value(this.mathContext)
                 .build();
     }

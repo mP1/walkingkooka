@@ -33,6 +33,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -1812,7 +1813,7 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
 
     @Override
     public NodeSelectorParserContext createContext() {
-        return NodeSelectorParserContexts.basic(DecimalNumberContexts.american(MathContext.DECIMAL32));
+        return NodeSelectorParserContexts.basic(DecimalNumberContexts.american(Locale.ENGLISH, MathContext.DECIMAL32));
     }
 
     // helpers................................................................................................

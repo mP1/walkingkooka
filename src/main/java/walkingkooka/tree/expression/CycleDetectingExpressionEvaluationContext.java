@@ -21,6 +21,7 @@ import walkingkooka.collect.set.Sets;
 
 import java.math.MathContext;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -129,6 +130,11 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
      */
     private void reportCycle(final ExpressionReference reference) {
         throw new CycleDetectedExpressionEvaluationConversionException("Cycle detected to " + reference, reference);
+    }
+
+    @Override
+    public Locale locale() {
+        return this.context.locale();
     }
 
     @Override

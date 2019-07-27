@@ -30,26 +30,50 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class DecimalFormatSymbolsDecimalNumberContextTest implements ClassTesting2<DecimalFormatSymbolsDecimalNumberContext>,
         DecimalNumberContextTesting2<DecimalFormatSymbolsDecimalNumberContext> {
 
+    private final static Locale LOCALE = Locale.FRANCE;
     private final static MathContext MATH_CONTEXT = MathContext.DECIMAL32;
 
     @Test
     public void testWithNullSymbolFails() {
         assertThrows(NullPointerException.class, () -> {
-            DecimalFormatSymbolsDecimalNumberContext.with(null, 'E', '+', MATH_CONTEXT);
+            DecimalFormatSymbolsDecimalNumberContext.with(null,
+                    'E',
+                    '+',
+                    LOCALE,
+                    MATH_CONTEXT);
         });
     }
 
     @Test
     public void testWithExponentAndPlusSameFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            DecimalFormatSymbolsDecimalNumberContext.with(this.decimalFormatSymbols(), '?', '?', MATH_CONTEXT);
+            DecimalFormatSymbolsDecimalNumberContext.with(this.decimalFormatSymbols(),
+                    '?',
+                    '?',
+                    LOCALE,
+                    MATH_CONTEXT);
+        });
+    }
+
+    @Test
+    public void testWithNullLocaleFails() {
+        assertThrows(NullPointerException.class, () -> {
+            DecimalFormatSymbolsDecimalNumberContext.with(this.decimalFormatSymbols(),
+                    'E',
+                    '+',
+                    null,
+                    MATH_CONTEXT);
         });
     }
 
     @Test
     public void testWithNullMathContextFails() {
         assertThrows(NullPointerException.class, () -> {
-            DecimalFormatSymbolsDecimalNumberContext.with(this.decimalFormatSymbols(), 'E', '+', null);
+            DecimalFormatSymbolsDecimalNumberContext.with(this.decimalFormatSymbols(),
+                    'E',
+                    '+',
+                    LOCALE,
+                    null);
         });
     }
 
@@ -65,17 +89,22 @@ public final class DecimalFormatSymbolsDecimalNumberContextTest implements Class
         this.checkPercentageSymbol(context, '%');
         this.checkPlusSign(context, '+');
 
+        this.hasLocaleAndCheck(context, LOCALE);
         this.hasMathContextAndCheck(context, MATH_CONTEXT);
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createContext(), "\"¤\" '.' 'E' ',' '-' '%' '+' precision=7 roundingMode=HALF_EVEN");
+        this.toStringAndCheck(this.createContext(), "\"¤\" '.' 'E' ',' '-' '%' '+' fr_FR precision=7 roundingMode=HALF_EVEN");
     }
 
     @Override
     public DecimalFormatSymbolsDecimalNumberContext createContext() {
-        return DecimalFormatSymbolsDecimalNumberContext.with(this.decimalFormatSymbols(), 'E', '+', MATH_CONTEXT);
+        return DecimalFormatSymbolsDecimalNumberContext.with(this.decimalFormatSymbols(),
+                'E',
+                '+',
+                LOCALE,
+                MATH_CONTEXT);
     }
 
     private DecimalFormatSymbols decimalFormatSymbols() {

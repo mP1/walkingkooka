@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.time.LocalDate;
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -237,6 +238,7 @@ public final class DecimalFormatStringConverterTest extends FixedTypeConverterTe
                 minusSign,
                 percentageSymbol,
                 plusSign,
+                Locale.ENGLISH,
                 MathContext.DECIMAL32));
     }
 

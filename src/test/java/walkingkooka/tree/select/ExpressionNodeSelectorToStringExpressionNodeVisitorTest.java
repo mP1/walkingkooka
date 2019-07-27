@@ -39,6 +39,7 @@ import java.math.MathContext;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -258,7 +259,7 @@ public final class ExpressionNodeSelectorToStringExpressionNodeVisitorTest imple
         return NodeSelectorParsers.predicate()
                 .orReport(ParserReporters.basic())
                 .orFailIfCursorNotEmpty(ParserReporters.basic())
-                .parse(TextCursors.charSequence(expression), NodeSelectorParserContexts.basic(DecimalNumberContexts.american(MathContext.DECIMAL32)))
+                .parse(TextCursors.charSequence(expression), NodeSelectorParserContexts.basic(DecimalNumberContexts.american(Locale.ENGLISH, MathContext.DECIMAL32)))
                 .orElseThrow(() -> new ParserException("Failed to parse " + CharSequences.quoteAndEscape(expression)))
                 .cast();
     }

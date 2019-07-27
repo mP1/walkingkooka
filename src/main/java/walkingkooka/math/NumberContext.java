@@ -18,11 +18,12 @@
 package walkingkooka.math;
 
 import walkingkooka.Context;
+import walkingkooka.locale.HasLocale;
 
 /**
  * Context that typically accompanies another stateless component such as a number parser or formatter.
  */
-public interface NumberContext extends Context {
+public interface NumberContext extends Context, HasLocale {
 
     /**
      * Returns the minus sign.

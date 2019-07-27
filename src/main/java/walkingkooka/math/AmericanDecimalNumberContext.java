@@ -20,6 +20,7 @@ package walkingkooka.math;
 import walkingkooka.ToStringBuilder;
 
 import java.math.MathContext;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -31,32 +32,25 @@ final class AmericanDecimalNumberContext implements DecimalNumberContext {
     /**
      * Factory that returns a constant if a {@link MathContext} constant is given.
      */
-    final static AmericanDecimalNumberContext with(final MathContext mathContext) {
+    final static AmericanDecimalNumberContext with(final Locale locale,
+                                                   final MathContext mathContext) {
+        Objects.requireNonNull(locale, "locale");
         Objects.requireNonNull(mathContext, "mathContext");
 
-        return UNLIMITED.mathContext.equals(mathContext) ?
-                UNLIMITED :
-                DECIMAL32.mathContext.equals(mathContext) ?
-                        DECIMAL32 :
-                        DECIMAL64.mathContext.equals(mathContext) ?
-                                DECIMAL64 :
-                                DECIMAL128.mathContext.equals(mathContext) ?
-                                        DECIMAL128 :
-                                        new AmericanDecimalNumberContext(mathContext);
+        return new AmericanDecimalNumberContext(locale, mathContext);
     }
-
-    private final static AmericanDecimalNumberContext UNLIMITED = new AmericanDecimalNumberContext(MathContext.UNLIMITED);
-    private final static AmericanDecimalNumberContext DECIMAL32 = new AmericanDecimalNumberContext(MathContext.DECIMAL32);
-    private final static AmericanDecimalNumberContext DECIMAL64 = new AmericanDecimalNumberContext(MathContext.DECIMAL64);
-    private final static AmericanDecimalNumberContext DECIMAL128 = new AmericanDecimalNumberContext(MathContext.DECIMAL128);
 
     /**
      * Private ctor use singleton.
      */
-    private AmericanDecimalNumberContext(final MathContext mathContext) {
+    private AmericanDecimalNumberContext(final Locale locale,
+                                         final MathContext mathContext) {
         super();
+        this.locale = locale;
         this.mathContext = mathContext;
     }
+
+    // DecimalNumberContext.............................................................................................
 
     @Override
     public String currencySymbol() {
@@ -100,6 +94,17 @@ final class AmericanDecimalNumberContext implements DecimalNumberContext {
 
     private final MathContext mathContext;
 
+    // Locale........................................................................................................
+
+    @Override
+    public Locale locale() {
+        return this.locale;
+    }
+
+    private final Locale locale;
+
+    // Object...........................................................................................................
+
     @Override
     public String toString() {
         return ToStringBuilder.empty()
@@ -110,7 +115,8 @@ final class AmericanDecimalNumberContext implements DecimalNumberContext {
                 .value(this.minusSign())
                 .value(this.percentageSymbol())
                 .value(this.plusSign())
-                .value(this.mathContext())
+                .value(this.locale)
+                .value(this.mathContext)
                 .build();
     }
 }
