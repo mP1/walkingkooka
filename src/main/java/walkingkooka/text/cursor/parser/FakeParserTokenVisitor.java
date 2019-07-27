@@ -18,7 +18,7 @@
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.test.Fake;
-import walkingkooka.tree.visit.Visiting;
+import walkingkooka.visit.Visiting;
 
 public class FakeParserTokenVisitor extends ParserTokenVisitor implements Fake {
 

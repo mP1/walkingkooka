@@ -19,7 +19,7 @@ package walkingkooka.tree.json.parser;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.visit.Visiting;
+import walkingkooka.visit.Visiting;
 
 import java.util.List;
 

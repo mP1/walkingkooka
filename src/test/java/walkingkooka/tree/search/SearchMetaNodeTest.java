@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.tree.visit.Visiting;
+import walkingkooka.visit.Visiting;
 
 import java.util.List;
 import java.util.Map;

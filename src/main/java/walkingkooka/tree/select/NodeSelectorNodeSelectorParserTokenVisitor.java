@@ -41,7 +41,7 @@ import walkingkooka.tree.select.parser.NodeSelectorPredicateParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorSelfParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorSlashSeparatorSymbolParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorWildcardParserToken;
-import walkingkooka.tree.visit.Visiting;
+import walkingkooka.visit.Visiting;
 
 import java.util.Objects;
 import java.util.function.Function;

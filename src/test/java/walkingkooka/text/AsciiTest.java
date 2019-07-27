@@ -18,7 +18,6 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.JavaVisibility;
 

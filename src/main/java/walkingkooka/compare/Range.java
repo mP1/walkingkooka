@@ -24,7 +24,7 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.tree.visit.Visitable;
+import walkingkooka.visit.Visitable;
 
 import java.util.Objects;
 import java.util.function.Function;

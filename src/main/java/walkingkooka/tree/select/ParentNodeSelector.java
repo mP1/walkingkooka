@@ -20,7 +20,7 @@ package walkingkooka.tree.select;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.visit.Visiting;
+import walkingkooka.visit.Visiting;
 
 /**
  * A {@link NodeSelector} that selects any non <code>null</code> parent of any given {@link Node}.

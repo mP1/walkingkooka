@@ -19,7 +19,7 @@ package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.tree.visit.Visiting;
+import walkingkooka.visit.Visiting;
 
 import java.util.Map;
 import java.util.Set;

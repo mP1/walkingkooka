@@ -23,7 +23,7 @@ import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ebnf.combinator.EbnfParserCombinatorSyntaxTreeTransformer;
 import walkingkooka.text.cursor.parser.ebnf.combinator.EbnfParserCombinators;
-import walkingkooka.tree.visit.Visiting;
+import walkingkooka.visit.Visiting;
 
 import java.util.List;
 import java.util.Map;

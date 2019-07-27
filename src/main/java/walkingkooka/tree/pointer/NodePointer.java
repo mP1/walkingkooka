@@ -23,7 +23,7 @@ import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.visit.Visitable;
+import walkingkooka.visit.Visitable;
 
 import java.util.Objects;
 import java.util.Optional;

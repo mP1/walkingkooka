@@ -18,8 +18,8 @@
 package walkingkooka.compare;
 
 
-import walkingkooka.tree.visit.Visiting;
-import walkingkooka.tree.visit.Visitor;
+import walkingkooka.visit.Visiting;
+import walkingkooka.visit.Visitor;
 
 import java.util.Objects;
 

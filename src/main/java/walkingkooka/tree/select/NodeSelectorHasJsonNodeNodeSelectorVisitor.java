@@ -35,7 +35,7 @@ import walkingkooka.tree.select.parser.NodeSelectorParserContext;
 import walkingkooka.tree.select.parser.NodeSelectorParserContexts;
 import walkingkooka.tree.select.parser.NodeSelectorParsers;
 import walkingkooka.tree.select.parser.NodeSelectorPredicateParserToken;
-import walkingkooka.tree.visit.Visiting;
+import walkingkooka.visit.Visiting;
 
 import java.math.MathContext;
 import java.util.List;

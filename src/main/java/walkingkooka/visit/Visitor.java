@@ -15,10 +15,12 @@
  *
  */
 
-package walkingkooka.tree.visit;
+package walkingkooka.visit;
 
 /**
- * Tag interface for anything that is visitable.
+ * A visitor for an object that has a graph or tree like structure, following the visitor pattern.
  */
-public interface Visitable {
+public abstract class Visitor<T> {
+
+    abstract public void accept(T object);
 }

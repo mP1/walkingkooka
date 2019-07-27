@@ -19,7 +19,7 @@ package walkingkooka.tree.json.parser;
 
 import walkingkooka.test.Fake;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.tree.visit.Visiting;
+import walkingkooka.visit.Visiting;
 
 public class FakeJsonNodeParserTokenVisitor extends JsonNodeParserTokenVisitor implements Fake {
 

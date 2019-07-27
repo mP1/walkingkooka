@@ -19,8 +19,8 @@ package walkingkooka.tree.pointer;
 
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.visit.Visiting;
-import walkingkooka.tree.visit.Visitor;
+import walkingkooka.visit.Visiting;
+import walkingkooka.visit.Visitor;
 
 import java.util.Objects;
 

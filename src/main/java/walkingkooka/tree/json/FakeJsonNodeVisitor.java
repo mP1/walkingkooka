@@ -18,7 +18,7 @@
 package walkingkooka.tree.json;
 
 import walkingkooka.test.Fake;
-import walkingkooka.tree.visit.Visiting;
+import walkingkooka.visit.Visiting;
 
 public class FakeJsonNodeVisitor extends JsonNodeVisitor implements Fake {
 

@@ -20,7 +20,7 @@ package walkingkooka.tree.select;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.visit.Visiting;
+import walkingkooka.visit.Visiting;
 
 /**
  * A {@link NodeSelector} that selects all the direct children of a given {@link Node}.

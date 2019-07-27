@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.visit.Visiting;
+import walkingkooka.visit.Visiting;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -17,7 +17,7 @@
 
 package walkingkooka.compare;
 
-import walkingkooka.tree.visit.VisitorTesting;
+import walkingkooka.visit.VisitorTesting;
 
 public interface RangeVisitorTesting<V extends RangeVisitor<C>, C extends Comparable<C>> extends VisitorTesting<V, Range<C>> {
     @Override

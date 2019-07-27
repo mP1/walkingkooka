@@ -23,7 +23,7 @@ import walkingkooka.naming.HasName;
 import walkingkooka.naming.Name;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.tree.pointer.NodePointer;
-import walkingkooka.tree.visit.Visitable;
+import walkingkooka.visit.Visitable;
 
 import java.util.List;
 import java.util.Map;
