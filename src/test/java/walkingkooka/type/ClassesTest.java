@@ -21,111 +21,212 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class ClassesTest implements PublicStaticHelperTesting<Classes> {
 
+    // primitive........................................................................................................
+
     @Test
-    public void testIsPrimitiveOrWrapperBooleanPrimitive() {
-        assertTrue(Classes.isPrimitiveOrWrapper(Boolean.TYPE));
+    public void testPrimitiveBooleanType() {
+        this.primitiveAndCheck(Boolean.TYPE, null);
     }
 
     @Test
-    public void testIsPrimitiveOrWrapperBooleanWrapper() {
-        assertTrue(Classes.isPrimitiveOrWrapper(Boolean.class));
+    public void testPrimitiveBooleanWrapper() {
+        this.primitiveAndCheck(Boolean.class, Boolean.TYPE);
     }
 
     @Test
-    public void testIsPrimitiveOrWrapperBytePrimitive() {
-        assertTrue(Classes.isPrimitiveOrWrapper(Byte.TYPE));
+    public void testPrimitiveByteType() {
+        this.primitiveAndCheck(Byte.TYPE, null);
     }
 
     @Test
-    public void testIsPrimitiveOrWrapperByteWrapper() {
-        assertTrue(Classes.isPrimitiveOrWrapper(Byte.class));
+    public void testPrimitiveByteWrapper() {
+        this.primitiveAndCheck(Byte.class, Byte.TYPE);
     }
 
     @Test
-    public void testIsPrimitiveOrWrapperCharacterPrimitive() {
-        assertTrue(Classes.isPrimitiveOrWrapper(Character.TYPE));
+    public void testPrimitiveCharacterType() {
+        this.primitiveAndCheck(Character.TYPE, null);
     }
 
     @Test
-    public void testIsPrimitiveOrWrapperCharacterWrapper() {
-        assertTrue(Classes.isPrimitiveOrWrapper(Character.class));
+    public void testPrimitiveCharacterWrapper() {
+        this.primitiveAndCheck(Character.class, Character.TYPE);
     }
 
     @Test
-    public void testIsPrimitiveOrWrapperDoublePrimitive() {
-        assertTrue(Classes.isPrimitiveOrWrapper(Double.TYPE));
+    public void testPrimitiveDoubleType() {
+        this.primitiveAndCheck(Double.TYPE, null);
     }
 
     @Test
-    public void testIsPrimitiveOrWrapperDoubleWrapper() {
-        assertTrue(Classes.isPrimitiveOrWrapper(Double.class));
+    public void testPrimitiveDoubleWrapper() {
+        this.primitiveAndCheck(Double.class, Double.TYPE);
     }
 
     @Test
-    public void testIsPrimitiveOrWrapperFloatPrimitive() {
-        assertTrue(Classes.isPrimitiveOrWrapper(Float.TYPE));
+    public void testPrimitiveFloatType() {
+        this.primitiveAndCheck(Float.TYPE, null);
     }
 
     @Test
-    public void testIsPrimitiveOrWrapperFloatWrapper() {
-        assertTrue(Classes.isPrimitiveOrWrapper(Float.class));
+    public void testPrimitiveFloatWrapper() {
+        this.primitiveAndCheck(Float.class, Float.TYPE);
     }
 
     @Test
-    public void testIsPrimitiveOrWrapperIntegerPrimitive() {
-        assertTrue(Classes.isPrimitiveOrWrapper(Integer.TYPE));
+    public void testPrimitiveIntegerType() {
+        this.primitiveAndCheck(Integer.TYPE, null);
     }
 
     @Test
-    public void testIsPrimitiveOrWrapperIntegerWrapper() {
-        assertTrue(Classes.isPrimitiveOrWrapper(Integer.class));
+    public void testPrimitiveIntegerWrapper() {
+        this.primitiveAndCheck(Integer.class, Integer.TYPE);
     }
 
     @Test
-    public void testIsPrimitiveOrWrapperLongPrimitive() {
-        assertTrue(Classes.isPrimitiveOrWrapper(Long.TYPE));
+    public void testPrimitiveLongType() {
+        this.primitiveAndCheck(Long.TYPE, null);
     }
 
     @Test
-    public void testIsPrimitiveOrWrapperLongWrapper() {
-        assertTrue(Classes.isPrimitiveOrWrapper(Long.class));
+    public void testPrimitiveLongWrapper() {
+        this.primitiveAndCheck(Long.class, Long.TYPE);
     }
 
     @Test
-    public void testIsPrimitiveOrWrapperNumber() {
-        assertTrue(Classes.isPrimitiveOrWrapper(Number.class));
+    public void testPrimitiveObject() {
+        this.primitiveAndCheck(Object.class, null);
     }
 
     @Test
-    public void testIsPrimitiveOrWrapperShortPrimitive() {
-        assertTrue(Classes.isPrimitiveOrWrapper(Short.TYPE));
+    public void testPrimitiveObject2() {
+        this.primitiveAndCheck(this.getClass(), null);
     }
 
     @Test
-    public void testIsPrimitiveOrWrapperShortWrapper() {
-        assertTrue(Classes.isPrimitiveOrWrapper(Short.class));
+    public void testPrimitiveShortType() {
+        this.primitiveAndCheck(Short.TYPE, null);
     }
 
     @Test
-    public void testIsPrimitiveOrWrapperVoidPrimitive() {
-        assertTrue(Classes.isPrimitiveOrWrapper(Void.TYPE));
+    public void testPrimitiveShortWrapper() {
+        this.primitiveAndCheck(Short.class, Short.TYPE);
+    }
+
+    private void primitiveAndCheck(final Class<?> classs,
+                                   final Class<?> expected) {
+        assertEquals(Optional.ofNullable(expected),
+                Classes.primitive(classs),
+                () -> classs.getName());
+    }
+
+    // primitive........................................................................................................
+
+    @Test
+    public void testWrapperBooleanType() {
+        this.wrapperAndCheck(Boolean.TYPE, Boolean.class);
     }
 
     @Test
-    public void testIsPrimitiveOrWrapperVoidWrapper() {
-        assertTrue(Classes.isPrimitiveOrWrapper(Void.class));
+    public void testWrapperBooleanWrapper() {
+        this.wrapperAndCheck(Boolean.class, null);
     }
 
     @Test
-    public void testIsPrimitiveOrWrapperObject() {
-        assertFalse(Classes.isPrimitiveOrWrapper(Object.class));
+    public void testWrapperByteType() {
+        this.wrapperAndCheck(Byte.TYPE, Byte.class);
     }
+
+    @Test
+    public void testWrapperByteWrapper() {
+        this.wrapperAndCheck(Byte.class, null);
+    }
+
+    @Test
+    public void testWrapperCharacterType() {
+        this.wrapperAndCheck(Character.TYPE, Character.class);
+    }
+
+    @Test
+    public void testWrapperCharacterWrapper() {
+        this.wrapperAndCheck(Character.class, null);
+    }
+
+    @Test
+    public void testWrapperDoubleType() {
+        this.wrapperAndCheck(Double.TYPE, Double.class);
+    }
+
+    @Test
+    public void testWrapperDoubleWrapper() {
+        this.wrapperAndCheck(Double.class, null);
+    }
+
+    @Test
+    public void testWrapperFloatType() {
+        this.wrapperAndCheck(Float.TYPE, Float.class);
+    }
+
+    @Test
+    public void testWrapperFloatWrapper() {
+        this.wrapperAndCheck(Float.class, null);
+    }
+
+    @Test
+    public void testWrapperIntegerType() {
+        this.wrapperAndCheck(Integer.TYPE, Integer.class);
+    }
+
+    @Test
+    public void testWrapperIntegerWrapper() {
+        this.wrapperAndCheck(Integer.class, null);
+    }
+
+    @Test
+    public void testWrapperLongType() {
+        this.wrapperAndCheck(Long.TYPE, Long.class);
+    }
+
+    @Test
+    public void testWrapperLongWrapper() {
+        this.wrapperAndCheck(Long.class, null);
+    }
+
+    @Test
+    public void testWrapperObject() {
+        this.wrapperAndCheck(Object.class, null);
+    }
+
+    @Test
+    public void testWrapperObject2() {
+        this.wrapperAndCheck(this.getClass(), null);
+    }
+
+    @Test
+    public void testWrapperShortType() {
+        this.wrapperAndCheck(Short.TYPE, Short.class);
+    }
+
+    @Test
+    public void testWrapperShortWrapper() {
+        this.wrapperAndCheck(Short.class, null);
+    }
+
+    private void wrapperAndCheck(final Class<?> classs,
+                                 final Class<?> expected) {
+
+        assertEquals(Optional.ofNullable(expected),
+                Classes.wrapper(classs),
+                () -> classs.getName());
+    }
+
+    // ClassTesting.....................................................................................................
 
     @Override
     public Class<Classes> type() {
