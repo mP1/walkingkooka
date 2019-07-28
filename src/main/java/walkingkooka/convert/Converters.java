@@ -406,44 +406,23 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * {@see StringLocalDateDateTimeFormatterConverter}
+     * {@see StringLocalDateTimeLocaleDateTimeFormatterConverter}
      */
-    public static Converter stringLocalDate(final DateTimeFormatter formatter) {
-        return StringLocalDateDateTimeFormatterConverter.with(formatter);
+    public static Converter stringLocalDate(final List<DateTimeFormatter> formatters) {
+        return StringLocalDateTimeLocaleDateTimeFormatterConverter.with(formatters);
     }
 
     /**
      * {@see StringLocalDateTimeLocaleDateTimeFormatterConverter}
      */
-    public static Converter stringLocalDateLocales(final List<DateTimeFormatter> formatters) {
+    public static Converter stringLocalDateTime(final List<DateTimeFormatter> formatters) {
         return StringLocalDateTimeLocaleDateTimeFormatterConverter.with(formatters);
-    }
-
-    /**
-     * {@see StringLocalDateTimeDateTimeFormatterConverter}
-     */
-    public static Converter stringLocalDateTime(final DateTimeFormatter formatter) {
-        return StringLocalDateTimeDateTimeFormatterConverter.with(formatter);
-    }
-
-    /**
-     * {@see StringLocalDateTimeLocaleDateTimeFormatterConverter}
-     */
-    public static Converter stringLocalDateTimeLocales(final List<DateTimeFormatter> formatters) {
-        return StringLocalDateTimeLocaleDateTimeFormatterConverter.with(formatters);
-    }
-
-    /**
-     * {@see StringLocalTimeDateTimeFormatterConverter}
-     */
-    public static Converter stringLocalTime(final DateTimeFormatter formatter) {
-        return StringLocalTimeDateTimeFormatterConverter.with(formatter);
     }
 
     /**
      * {@see StringLocalTimeLocaleDateTimeFormatterConverter}
      */
-    public static Converter stringLocalLocales(final List<DateTimeFormatter> formatters) {
+    public static Converter stringLocalTime(final List<DateTimeFormatter> formatters) {
         return StringLocalTimeLocaleDateTimeFormatterConverter.with(formatters);
     }
 
