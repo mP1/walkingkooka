@@ -32,11 +32,11 @@ import java.util.function.Function;
  * A {@link Converter} that only accepts {@link String strings} and attempts to parse them and return the result from a {@link ParserToken} that has a {@link Value}.
  * If the parser fails then a {@link #failConversion(Object, Class)} happens.
  */
-final class ParserConverter<V, PT extends ParserToken & Value<V>, PC extends ParserContext> implements Converter {
+final class ParserConverter<V, PC extends ParserContext> implements Converter {
 
-    static <V, PT extends ParserToken & Value<V>, PC extends ParserContext> ParserConverter<V, PT, PC> with(final Class<V> type,
-                                                                                                            final Parser<PC> parser,
-                                                                                                            final Function<ConverterContext, PC> context) {
+    static <V, C extends ParserContext> ParserConverter<V, C> with(final Class<V> type,
+                                                                   final Parser<C> parser,
+                                                                   final Function<ConverterContext, C> context) {
         Objects.requireNonNull(type, "type");
         Objects.requireNonNull(parser, "parser");
         Objects.requireNonNull(context, "context");

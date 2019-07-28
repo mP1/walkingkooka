@@ -20,7 +20,6 @@ package walkingkooka.convert;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.math.DecimalNumberContexts;
-import walkingkooka.text.cursor.parser.BigDecimalParserToken;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserContexts;
@@ -32,7 +31,7 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ParserConverterTest extends FixedTypeConverterTestCase<ParserConverter<BigDecimal, BigDecimalParserToken, ParserContext>, BigDecimal> {
+public final class ParserConverterTest extends FixedTypeConverterTestCase<ParserConverter<BigDecimal, ParserContext>, BigDecimal> {
 
     @Test
     public void testWithNullTypeFails() {
@@ -56,7 +55,7 @@ public final class ParserConverterTest extends FixedTypeConverterTestCase<Parser
     }
 
     @Test
-    public void testParserSuceeds() {
+    public void testParserConverts() {
         this.convertAndCheck("1.23", BigDecimal.valueOf(1.23));
     }
 
@@ -71,7 +70,7 @@ public final class ParserConverterTest extends FixedTypeConverterTestCase<Parser
     }
 
     @Override
-    public ParserConverter<BigDecimal, BigDecimalParserToken, ParserContext> createConverter() {
+    public ParserConverter<BigDecimal, ParserContext> createConverter() {
         return ParserConverter.with(BigDecimal.class,
                 this.bigDecimalParser(),
                 parserContextAdapter());
@@ -96,7 +95,7 @@ public final class ParserConverterTest extends FixedTypeConverterTestCase<Parser
     }
 
     @Override
-    public Class<ParserConverter<BigDecimal, BigDecimalParserToken, ParserContext>> type() {
+    public Class<ParserConverter<BigDecimal, ParserContext>> type() {
         return Cast.to(ParserConverter.class);
     }
 }
