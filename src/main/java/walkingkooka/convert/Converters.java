@@ -17,10 +17,8 @@
 
 package walkingkooka.convert;
 
-import walkingkooka.Value;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
-import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.time.LocalDate;
@@ -385,9 +383,9 @@ public final class Converters implements PublicStaticHelper {
     /**
      * {@see ParserConverter}
      */
-    public static <V, PT extends ParserToken & Value<V>, PC extends ParserContext> Converter parser(final Class<V> type,
-                                                                                                    final Parser<PC> parser,
-                                                                                                    final Function<ConverterContext, PC> context) {
+    public static <V, C extends ParserContext> Converter parser(final Class<V> type,
+                                                                final Parser<C> parser,
+                                                                final Function<ConverterContext, C> context) {
         return ParserConverter.with(type, parser, context);
     }
 
