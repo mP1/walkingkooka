@@ -17,18 +17,19 @@
 
 package walkingkooka.convert;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
+import java.time.format.DateTimeFormatter;
 
-public final class StringDateTimeFormatterConverterTest implements ClassTesting2<StringDateTimeFormatterConverter> {
+/**
+ * A {@link Converter} which formats a date/time type by calling its format method.
+ */
+abstract class LocalDateLocalDateTimeLocaleTimeStringDateTimeFormatterConverter<T> extends DateTimeFormatterConverter<T, String> {
 
-    @Override
-    public Class<StringDateTimeFormatterConverter> type() {
-        return StringDateTimeFormatterConverter.class;
+    LocalDateLocalDateTimeLocaleTimeStringDateTimeFormatterConverter(final DateTimeFormatter formatter) {
+        super(formatter);
     }
 
     @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+    final Class<String> targetType() {
+        return String.class;
     }
 }

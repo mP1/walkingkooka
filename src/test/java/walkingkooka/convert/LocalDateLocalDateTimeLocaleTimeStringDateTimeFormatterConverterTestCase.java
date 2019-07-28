@@ -17,19 +17,10 @@
 
 package walkingkooka.convert;
 
-import java.time.format.DateTimeFormatter;
-
-/**
- * A {@link Converter} which formats a date/time type by calling its format method.
- */
-abstract class StringDateTimeFormatterConverter<T> extends DateTimeFormatterConverter<T, String> {
-
-    StringDateTimeFormatterConverter(final DateTimeFormatter formatter) {
-        super(formatter);
-    }
+public abstract class LocalDateLocalDateTimeLocaleTimeStringDateTimeFormatterConverterTestCase<C extends FixedSourceTypeTargetTypeConverter<T, String>, T> extends DateTimeFormatterConverterTestCase<C, T, String> {
 
     @Override
-    final Class<String> targetType() {
+    protected Class<String> onlySupportedType() {
         return String.class;
     }
 }

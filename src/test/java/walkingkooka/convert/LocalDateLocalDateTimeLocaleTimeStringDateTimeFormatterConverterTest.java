@@ -17,10 +17,18 @@
 
 package walkingkooka.convert;
 
-public abstract class StringDateTimeFormatterConverterTestCase<C extends FixedSourceTypeTargetTypeConverter<T, String>, T> extends DateTimeFormatterConverterTestCase<C, T, String> {
+import walkingkooka.test.ClassTesting2;
+import walkingkooka.type.JavaVisibility;
+
+public final class LocalDateLocalDateTimeLocaleTimeStringDateTimeFormatterConverterTest implements ClassTesting2<LocalDateLocalDateTimeLocaleTimeStringDateTimeFormatterConverter> {
 
     @Override
-    protected Class<String> onlySupportedType() {
-        return String.class;
+    public Class<LocalDateLocalDateTimeLocaleTimeStringDateTimeFormatterConverter> type() {
+        return LocalDateLocalDateTimeLocaleTimeStringDateTimeFormatterConverter.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

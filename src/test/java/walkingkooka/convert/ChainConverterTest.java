@@ -18,11 +18,13 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.text.cursor.parser.ParserContexts;
+import walkingkooka.text.cursor.parser.Parsers;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.math.MathContext;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -31,21 +33,21 @@ public final class ChainConverterTest extends ConverterTestCase2<ChainConverter>
     @Test
     public void testWithNullFirstConverterFails() {
         assertThrows(NullPointerException.class, () -> {
-            ChainConverter.with(null, this.intermediateTargetType(), this.localDateToBigDecimal());
+            ChainConverter.with(null, this.intermediateTargetType(), this.doubleToBigDecimal());
         });
     }
 
     @Test
     public void testWithNullIntermediateTargetTypeFails() {
         assertThrows(NullPointerException.class, () -> {
-            ChainConverter.with(this.stringToLocalDate(), null, this.localDateToBigDecimal());
+            ChainConverter.with(this.stringToDouble(), null, this.doubleToBigDecimal());
         });
     }
 
     @Test
     public void testWithNullLastConverterFails() {
         assertThrows(NullPointerException.class, () -> {
-            ChainConverter.with(this.stringToLocalDate(), this.intermediateTargetType(), null);
+            ChainConverter.with(this.stringToDouble(), this.intermediateTargetType(), null);
         });
     }
 
@@ -62,42 +64,42 @@ public final class ChainConverterTest extends ConverterTestCase2<ChainConverter>
 
     @Test
     public void testSuccessful() {
-        this.convertAndCheck("2000-12-31", BigDecimal.class, BigDecimal.valueOf(11322));
+        this.convertAndCheck("123.5", BigDecimal.class, BigDecimal.valueOf(123.5));
     }
 
     @Test
     public void testThenSuccessful() {
-        this.convertAndCheck(this.stringToLocalDate().then(this.intermediateTargetType(), this.localDateToBigDecimal()),
-                "2000-12-31",
+        this.convertAndCheck(this.stringToDouble().then(this.intermediateTargetType(), this.doubleToBigDecimal()),
+                "123.5",
                 BigDecimal.class,
-                BigDecimal.valueOf(11322));
+                BigDecimal.valueOf(123.5));
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createConverter(), this.stringToLocalDate() + "->" + this.localDateToBigDecimal());
+        this.toStringAndCheck(this.createConverter(), this.stringToDouble() + "->" + this.doubleToBigDecimal());
     }
 
     @Override
     public ChainConverter createConverter() {
-        return ChainConverter.with(this.stringToLocalDate(), this.intermediateTargetType(), this.localDateToBigDecimal());
+        return ChainConverter.with(this.stringToDouble(), this.intermediateTargetType(), this.doubleToBigDecimal());
     }
 
     @Override
     public ConverterContext createContext() {
-        return ConverterContexts.fake();
+        return ConverterContexts.basic(DecimalNumberContexts.american(MathContext.DECIMAL32));
     }
 
-    private Converter stringToLocalDate() {
-        return Converters.stringLocalDate(DateTimeFormatter.ISO_LOCAL_DATE);
+    private Converter stringToDouble() {
+        return Converters.parser(Double.class, Parsers.doubleParser(), (c) -> ParserContexts.basic(c));
     }
 
     private Class<?> intermediateTargetType() {
-        return LocalDate.class;
+        return Double.class;
     }
 
-    private Converter localDateToBigDecimal() {
-        return Converters.localDateBigDecimal(Converters.JAVA_EPOCH_OFFSET);
+    private Converter doubleToBigDecimal() {
+        return Converters.numberBigDecimal();
     }
 
     @Override
