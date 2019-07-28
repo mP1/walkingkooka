@@ -17,17 +17,9 @@
 
 package walkingkooka.convert;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
-
-public final class LocalDateOrLocalDateTimeNumberConverterTest implements ClassTesting2<LocalDateOrLocalDateTimeNumberConverter> {
+public final class LocalDateOrLocalDateTimeNumberConverterTest extends ConverterTestCase3<LocalDateOrLocalDateTimeNumberConverter> {
     @Override
     public Class<LocalDateOrLocalDateTimeNumberConverter> type() {
         return LocalDateOrLocalDateTimeNumberConverter.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

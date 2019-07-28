@@ -17,17 +17,9 @@
 
 package walkingkooka.convert;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
-
-public final class NumberConverterTest implements ClassTesting2<NumberConverter> {
+public final class NumberConverterTest extends ConverterTestCase3<NumberConverter> {
     @Override
     public Class<NumberConverter> type() {
         return NumberConverter.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -19,7 +19,7 @@ package walkingkooka.convert;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public abstract class FixedTypeConverterTestCase<C extends Converter, T> extends ConverterTestCase<C> {
+public abstract class FixedTypeConverterTestCase<C extends Converter, T> extends ConverterTestCase2<C> {
 
     FixedTypeConverterTestCase() {
         super();

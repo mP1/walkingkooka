@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-public final class TruthyNumberBooleanConverterTest extends ConverterTestCase<TruthyNumberBooleanConverter> {
+public final class TruthyNumberBooleanConverterTest extends ConverterTestCase2<TruthyNumberBooleanConverter> {
 
     // BigDecimal..................................................
 
