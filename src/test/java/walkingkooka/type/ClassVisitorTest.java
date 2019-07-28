@@ -83,30 +83,45 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
                 b.toString());
     }
 
+    @Test
+    public void testJavaLangObject3() {
+        new ClassVisitor() {
+        }.accept(Object.class);
+    }
+
     // extends super....................................................................................................
 
     @Test
     public void testSuperClass() {
+        final StringBuilder b = new StringBuilder();
+
         new ClassVisitor() {
 
             @Override
             protected Visiting startVisitClass(final Class<?> classs) {
+                b.append(",start: " + name(classs));
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisitClass(final Class<?> classs) {
+                b.append(",end: " + name(classs));
             }
 
             @Override
             protected Visiting startVisitSuperClass(final Class<?> classs) {
+                b.append(",start super: " + name(classs));
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisitSuperClass(final Class<?> classs) {
+                b.append(",end super: " + name(classs));
             }
         }.accept(TestSub.class);
+
+        assertEquals(",start: Sub,start super: Object,start: Object,end: Object,end super: Object,end: Sub",
+                b.toString());
     }
 
     @Test
@@ -178,6 +193,12 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
                 b.toString());
     }
 
+    @Test
+    public void testSuperClass4() {
+        new ClassVisitor() {
+        }.accept(TestSub2.class);
+    }
+
     class TestSub2 extends TestSub {
     }
 
@@ -185,35 +206,46 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
 
     @Test
     public void testImplementsInterface() {
+        final StringBuilder b = new StringBuilder();
+
         new ClassVisitor() {
 
             @Override
             protected Visiting startVisitClass(final Class<?> classs) {
+                b.append(",start class:" + name(classs));
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisitClass(final Class<?> classs) {
+                b.append(",end class:" + name(classs));
             }
 
             @Override
             protected Visiting startVisitSuperClass(final Class<?> classs) {
+                b.append(",start super:" + name(classs));
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisitSuperClass(final Class<?> classs) {
+                b.append(",end super:" + name(classs));
             }
 
             @Override
             protected Visiting startVisitImplementedInterface(final Class<?> classs) {
+                b.append(",start impl:" + name(classs));
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisitImplementedInterface(final Class<?> classs) {
+                b.append(",end impl:" + name(classs));
             }
         }.accept(TestImplIntf.class);
+
+        assertEquals(",start class:ImplIntf,start super:Object,start class:Object,end class:Object,end super:Object,start impl:Intf,start class:Intf,end class:Intf,end impl:Intf,end class:ImplIntf",
+                b.toString());
     }
 
     @Test
@@ -260,6 +292,12 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
                 b.toString());
     }
 
+    @Test
+    public void testImplementsInterface3() {
+        new ClassVisitor() {
+        }.accept(TestImplIntf.class);
+    }
+
     class TestImplIntf implements TestIntf {
     }
 
@@ -267,7 +305,7 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
     }
 
     @Test
-    public void testImplementsInterface3() {
+    public void testImplementsInterface4() {
         final StringBuilder b = new StringBuilder();
 
         new FakeClassVisitor() {
@@ -371,6 +409,12 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
 
         assertEquals(",start class:Object[],start super:Object,start class:Object,end class:Object,end super:Object,start intf:Cloneable,start class:Cloneable,end class:Cloneable,end intf:Cloneable,start intf:Serializable,start class:Serializable,end class:Serializable,end intf:Serializable,start array-comp:Object,start class:Object,end class:Object,end array-comp:Object,end class:Object[]",
                 b.toString());
+    }
+
+    @Test
+    public void testArray2() {
+        new ClassVisitor() {
+        }.accept(Object[].class);
     }
 
     // ToString.........................................................................................................
