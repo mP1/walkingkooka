@@ -20,6 +20,8 @@ package walkingkooka.type;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public final class JavaVisibilityVisitorTest implements ClassTesting2<JavaVisibilityVisitor> {
 
     @Override
@@ -30,87 +32,122 @@ public final class JavaVisibilityVisitorTest implements ClassTesting2<JavaVisibi
 
     @Test
     public void testVisitorPublic() {
-        new JavaVisibilityVisitor() {
+        this.visitAndCheck(JavaVisibility.PUBLIC,
+                new JavaVisibilityVisitor() {
 
-            @Override
-            protected void visitProtected() {
-                throw new UnsupportedOperationException();
-            }
+                    @Override
+                    protected void visitPublic() {
+                        visited = true;
+                    }
 
-            @Override
-            protected void visitPackagePrivate() {
-                throw new UnsupportedOperationException();
-            }
+                    @Override
+                    protected void visitProtected() {
+                        throw new UnsupportedOperationException();
+                    }
 
-            @Override
-            protected void visitPrivate() {
-                throw new UnsupportedOperationException();
-            }
-        }.accept(JavaVisibility.PUBLIC);
+                    @Override
+                    protected void visitPackagePrivate() {
+                        throw new UnsupportedOperationException();
+                    }
+
+                    @Override
+                    protected void visitPrivate() {
+                        throw new UnsupportedOperationException();
+                    }
+                });
     }
 
     @Test
     protected void testVisitorProtected() {
-        new JavaVisibilityVisitor() {
+        this.visitAndCheck(JavaVisibility.PROTECTED,
+                new JavaVisibilityVisitor() {
 
-            @Override
-            protected void visitPublic() {
-                throw new UnsupportedOperationException();
-            }
+                    @Override
+                    protected void visitPublic() {
+                        throw new UnsupportedOperationException();
+                    }
 
-            @Override
-            protected void visitPackagePrivate() {
-                throw new UnsupportedOperationException();
-            }
+                    @Override
+                    protected void visitProtected() {
+                        visited = true;
+                    }
 
-            @Override
-            protected void visitPrivate() {
-                throw new UnsupportedOperationException();
-            }
-        }.accept(JavaVisibility.PROTECTED);
+                    @Override
+                    protected void visitPackagePrivate() {
+                        throw new UnsupportedOperationException();
+                    }
+
+                    @Override
+                    protected void visitPrivate() {
+                        throw new UnsupportedOperationException();
+                    }
+                });
     }
 
     @Test
     public void testVisitorPackagePrivate() {
-        new JavaVisibilityVisitor() {
+        this.visitAndCheck(JavaVisibility.PACKAGE_PRIVATE,
+                new JavaVisibilityVisitor() {
 
-            @Override
-            protected void visitPublic() {
-                throw new UnsupportedOperationException();
-            }
+                    @Override
+                    protected void visitPublic() {
+                        throw new UnsupportedOperationException();
+                    }
 
-            @Override
-            protected void visitProtected() {
-                throw new UnsupportedOperationException();
-            }
+                    @Override
+                    protected void visitProtected() {
+                        throw new UnsupportedOperationException();
+                    }
 
-            @Override
-            protected void visitPrivate() {
-                throw new UnsupportedOperationException();
-            }
-        }.accept(JavaVisibility.PACKAGE_PRIVATE);
+                    @Override
+                    protected void visitPackagePrivate() {
+                        visited = true;
+                    }
+
+                    @Override
+                    protected void visitPrivate() {
+                        throw new UnsupportedOperationException();
+                    }
+                });
     }
 
     @Test
     public void testVisitorPrivate() {
-        new JavaVisibilityVisitor() {
+        this.visitAndCheck(JavaVisibility.PRIVATE,
+                new JavaVisibilityVisitor() {
 
-            @Override
-            protected void visitPublic() {
-                throw new UnsupportedOperationException();
-            }
+                    @Override
+                    protected void visitPublic() {
+                        throw new UnsupportedOperationException();
+                    }
 
-            @Override
-            protected void visitProtected() {
-                throw new UnsupportedOperationException();
-            }
+                    @Override
+                    protected void visitProtected() {
+                        throw new UnsupportedOperationException();
+                    }
 
-            @Override
-            protected void visitPackagePrivate() {
-                throw new UnsupportedOperationException();
-            }
-        }.accept(JavaVisibility.PRIVATE);
+                    @Override
+                    protected void visitPackagePrivate() {
+                        throw new UnsupportedOperationException();
+                    }
+
+                    @Override
+                    protected void visitPrivate() {
+                        visited = true;
+                    }
+                });
     }
+
+    private void visitAndCheck(final JavaVisibility visibility,
+                               final JavaVisibilityVisitor visitor) {
+        this.visited = false;
+        visitor.accept(visibility);
+        assertEquals(true, this.visited, () -> "" + visibility);
+
+        new JavaVisibilityVisitor().accept(visibility);
+    }
+
+    private boolean visited;
 
     // ClassTesting.....................................................................................................
 
