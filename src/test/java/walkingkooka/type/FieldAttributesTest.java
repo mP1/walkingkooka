@@ -22,6 +22,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ClassTesting2;
 
 import java.lang.reflect.Field;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -69,9 +70,18 @@ public final class FieldAttributesTest implements ClassTesting2<FieldAttributes>
 
     private volatile Object volatileField = null;
 
-    private void fieldAndCheck(final String name, final FieldAttributes... attributes) throws Exception {
+    private void fieldAndCheck(final String name,
+                               final FieldAttributes... attributes) throws Exception {
         final Field field = this.getClass().getDeclaredField(name);
-        assertEquals(Sets.of(attributes), FieldAttributes.get(field));
+
+        final Set<FieldAttributes> set = Sets.of(attributes);
+        assertEquals(set, FieldAttributes.get(field));
+
+        for (FieldAttributes possible : FieldAttributes.values()) {
+            assertEquals(set.contains(possible),
+                    possible.is(field),
+                    () -> field.toGenericString());
+        }
     }
 
     @Override
