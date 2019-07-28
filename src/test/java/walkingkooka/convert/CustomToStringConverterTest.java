@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CustomToStringConverterTest extends ConverterTestCase<CustomToStringConverter>
+public final class CustomToStringConverterTest extends ConverterTestCase2<CustomToStringConverter>
         implements HashCodeEqualsDefinedTesting<CustomToStringConverter> {
 
     private final static Converter WRAPPED = Converters.string();

@@ -24,7 +24,7 @@ import walkingkooka.collect.list.Lists;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ConverterCollectionTest extends ConverterTestCase<ConverterCollection> {
+public final class ConverterCollectionTest extends ConverterTestCase2<ConverterCollection> {
 
     @Override
     public void testTypeNaming() {

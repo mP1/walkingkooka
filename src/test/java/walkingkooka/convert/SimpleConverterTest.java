@@ -19,7 +19,7 @@ package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
 
-public final class SimpleConverterTest extends ConverterTestCase<SimpleConverter> {
+public final class SimpleConverterTest extends ConverterTestCase2<SimpleConverter> {
 
     @Test
     public void testSameType() {

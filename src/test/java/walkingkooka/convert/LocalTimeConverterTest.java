@@ -17,9 +17,9 @@
 
 package walkingkooka.convert;
 
-public final class FixedSourceTypeTargetTypeConverterTest extends ConverterTestCase3<FixedSourceTypeTargetTypeConverter> {
+public final class LocalTimeConverterTest extends ConverterTestCase3<LocalTimeConverter> {
     @Override
-    public Class<FixedSourceTypeTargetTypeConverter> type() {
-        return FixedSourceTypeTargetTypeConverter.class;
+    public Class<LocalTimeConverter> type() {
+        return LocalTimeConverter.class;
     }
 }

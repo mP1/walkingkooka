@@ -17,17 +17,9 @@
 
 package walkingkooka.convert;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
-
-public final class FixedTargetTypeConverterTest implements ClassTesting2<FixedTargetTypeConverter> {
+public final class FixedTargetTypeConverterTest extends ConverterTestCase3<FixedTargetTypeConverter> {
     @Override
     public Class<FixedTargetTypeConverter> type() {
         return FixedTargetTypeConverter.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

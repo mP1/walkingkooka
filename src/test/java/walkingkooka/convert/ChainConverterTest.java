@@ -26,7 +26,7 @@ import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ChainConverterTest extends ConverterTestCase<ChainConverter> {
+public final class ChainConverterTest extends ConverterTestCase2<ChainConverter> {
 
     @Test
     public void testWithNullFirstConverterFails() {

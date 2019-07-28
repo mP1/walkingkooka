@@ -22,7 +22,7 @@ import walkingkooka.Cast;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class FailConverterTest extends ConverterTestCase<FailConverter<String, Integer>> {
+public final class FailConverterTest extends ConverterTestCase2<FailConverter<String, Integer>> {
 
     @Test
     public void testWithNullSourceTypeFails() {

@@ -17,9 +17,21 @@
 
 package walkingkooka.convert;
 
-public final class FixedSourceTypeTargetTypeConverterTest extends ConverterTestCase3<FixedSourceTypeTargetTypeConverter> {
+public abstract class ConverterTestCase3<C> extends ConverterTestCase<C> {
+
+    ConverterTestCase3() {
+        super();
+    }
+
+    // TypeNameTesting..................................................................................................
+
     @Override
-    public Class<FixedSourceTypeTargetTypeConverter> type() {
-        return FixedSourceTypeTargetTypeConverter.class;
+    public final String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return Converter.class.getSimpleName();
     }
 }
