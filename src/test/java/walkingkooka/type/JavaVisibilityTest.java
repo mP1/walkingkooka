@@ -20,151 +20,149 @@ package walkingkooka.type;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.visit.Visiting;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
         ToStringTesting<JavaVisibility> {
 
+    // get(Class).......................................................................................................
+
     @Test
     public void testClassPublic() {
-        check(JavaVisibility.PUBLIC, this.getClass());
+        checkClass(this.getClass(), JavaVisibility.PUBLIC);
     }
 
     @Test
     public void testClassProtected() {
-        check(JavaVisibility.PROTECTED, ProtectedClass.class);
+        checkClass(ProtectedClass.class, JavaVisibility.PROTECTED);
     }
 
     @Test
     public void testClassPackagePrivate() {
-        check(JavaVisibility.PACKAGE_PRIVATE, PackagePrivateClass.class);
+        checkClass(PackagePrivateClass.class, JavaVisibility.PACKAGE_PRIVATE);
     }
 
-    private void check(final JavaVisibility visibility, final Class<?> klass) {
+    private void checkClass(final Class<?> klass,
+                            final JavaVisibility visibility) {
         assertEquals(visibility, JavaVisibility.get(klass), klass.getName());
     }
 
-    protected class ProtectedClass {
+    static protected class ProtectedClass {
+        protected ProtectedClass() {
+        }
     }
 
-    class PackagePrivateClass {
+    static class PackagePrivateClass {
+        PackagePrivateClass() {
+        }
     }
 
-    // JavaVisibilityVisitor............................................................................................
+    // get(Constructor)..................................................................................................
 
     @Test
-    public void testVisitorPublic() {
-        final StringBuilder b = new StringBuilder();
-
-        final JavaVisibility visibility = JavaVisibility.PUBLIC;
-        new FakeJavaVisibilityVisitor() {
-            @Override
-            protected Visiting startVisit(final JavaVisibility v) {
-                assertSame(visibility, v, "visibility");
-                b.append("1");
-                return Visiting.CONTINUE;
-            }
-
-            @Override
-            protected void endVisit(final JavaVisibility v) {
-                assertSame(visibility, v, "visibility");
-                b.append("2");
-            }
-
-            @Override
-            protected void visitPublic() {
-                b.append("3");
-            }
-        }.accept(visibility);
-
-        assertEquals("132", b.toString());
+    public void testConstructorPublic() throws Exception {
+        checkConstructor(JavaVisibilityTest.class, JavaVisibility.PUBLIC);
     }
 
     @Test
-    public void testVisitorProtected() {
-        final StringBuilder b = new StringBuilder();
-
-        final JavaVisibility visibility = JavaVisibility.PROTECTED;
-        new FakeJavaVisibilityVisitor() {
-            @Override
-            protected Visiting startVisit(final JavaVisibility v) {
-                assertSame(visibility, v, "visibility");
-                b.append("1");
-                return Visiting.CONTINUE;
-            }
-
-            @Override
-            protected void endVisit(final JavaVisibility v) {
-                assertSame(visibility, v, "visibility");
-                b.append("2");
-            }
-
-            @Override
-            protected void visitProtected() {
-                b.append("3");
-            }
-        }.accept(visibility);
-
-        assertEquals("132", b.toString());
+    public void testConstructorProtected() throws Exception {
+        checkConstructor(ProtectedClass.class, JavaVisibility.PROTECTED);
     }
 
     @Test
-    public void testVisitorPackagePrivate() {
-        final StringBuilder b = new StringBuilder();
+    public void testConstructorPackagePrivate() throws Exception {
+        checkConstructor(PackagePrivateClass.class, JavaVisibility.PACKAGE_PRIVATE);
+    }
 
-        final JavaVisibility visibility = JavaVisibility.PACKAGE_PRIVATE;
-        new FakeJavaVisibilityVisitor() {
-            @Override
-            protected Visiting startVisit(final JavaVisibility v) {
-                assertSame(visibility, v, "visibility");
-                b.append("1");
-                return Visiting.CONTINUE;
-            }
+    private void checkConstructor(final Class<?> classs,
+                                  final JavaVisibility visibility) throws Exception {
+        final Constructor<?> constructor = classs.getDeclaredConstructor();
+        assertEquals(visibility,
+                JavaVisibility.get(constructor),
+                () -> constructor.toGenericString());
+    }
 
-            @Override
-            protected void endVisit(final JavaVisibility v) {
-                assertSame(visibility, v, "visibility");
-                b.append("2");
-            }
+    // get(Method)......................................................................................................
 
-            @Override
-            protected void visitPackagePrivate() {
-                b.append("3");
-            }
-        }.accept(visibility);
+    @Test
+    public void testMethodPublic() throws Exception {
+        checkMethod("publicMethod", JavaVisibility.PUBLIC);
+    }
 
-        assertEquals("132", b.toString());
+    public void publicMethod() {
     }
 
     @Test
-    public void testVisitorPrivate() {
-        final StringBuilder b = new StringBuilder();
+    public void testMethodProtected() throws Exception {
+        checkMethod("protectedMethod", JavaVisibility.PROTECTED);
+    }
 
-        final JavaVisibility visibility = JavaVisibility.PRIVATE;
-        new FakeJavaVisibilityVisitor() {
-            @Override
-            protected Visiting startVisit(final JavaVisibility v) {
-                assertSame(visibility, v, "visibility");
-                b.append("1");
-                return Visiting.CONTINUE;
-            }
+    protected void protectedMethod() {
+    }
 
-            @Override
-            protected void endVisit(final JavaVisibility v) {
-                assertSame(visibility, v, "visibility");
-                b.append("2");
-            }
+    @Test
+    public void testMethodPackagePrivate() throws Exception {
+        checkMethod("packagePrivateMethod", JavaVisibility.PACKAGE_PRIVATE);
+    }
 
-            @Override
-            protected void visitPrivate() {
-                b.append("3");
-            }
-        }.accept(visibility);
+    void packagePrivateMethod() {
+    }
 
-        assertEquals("132", b.toString());
+    @Test
+    public void testMethodPrivate() throws Exception {
+        checkMethod(("privateMethod"), JavaVisibility.PACKAGE_PRIVATE);
+    }
+
+    private void privateMethod() {
+    }
+
+    private void checkMethod(final String methodName,
+                             final JavaVisibility visibility) throws Exception {
+        final Method method = JavaVisibilityTest.class.getDeclaredMethod(methodName);
+        assertEquals(visibility,
+                JavaVisibility.get(method),
+                () -> method.toGenericString());
+    }
+
+    // get(Field)......................................................................................................
+
+    @Test
+    public void testFieldPublic() throws Exception {
+        checkField("publicField", JavaVisibility.PUBLIC);
+    }
+
+    public Object publicField;
+
+    @Test
+    public void testFieldProtected() throws Exception {
+        checkField("protectedField", JavaVisibility.PROTECTED);
+    }
+
+    protected Object protectedField;
+
+    @Test
+    public void testFieldPackagePrivate() throws Exception {
+        checkField("packagePrivateField", JavaVisibility.PACKAGE_PRIVATE);
+    }
+
+    Object packagePrivateField;
+
+    @Test
+    public void testFieldPrivate() throws Exception {
+        checkField("privateField", JavaVisibility.PACKAGE_PRIVATE);
+    }
+
+    private Object privateField;
+
+    private void checkField(final String field,
+                            final JavaVisibility visibility) throws Exception {
+        assertEquals(visibility,
+                JavaVisibility.get(JavaVisibilityTest.class.getDeclaredField(field)),
+                field);
     }
 
     // ClassTesting.....................................................................................................
