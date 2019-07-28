@@ -413,6 +413,13 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
+     * {@see StringLocalDateTimeLocaleDateTimeFormatterConverter}
+     */
+    public static Converter stringLocalDateLocales(final List<DateTimeFormatter> formatters) {
+        return StringLocalDateTimeLocaleDateTimeFormatterConverter.with(formatters);
+    }
+
+    /**
      * {@see StringLocalDateTimeDateTimeFormatterConverter}
      */
     public static Converter stringLocalDateTime(final DateTimeFormatter formatter) {
@@ -420,10 +427,24 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
+     * {@see StringLocalDateTimeLocaleDateTimeFormatterConverter}
+     */
+    public static Converter stringLocalDateTimeLocales(final List<DateTimeFormatter> formatters) {
+        return StringLocalDateTimeLocaleDateTimeFormatterConverter.with(formatters);
+    }
+
+    /**
      * {@see StringLocalTimeDateTimeFormatterConverter}
      */
     public static Converter stringLocalTime(final DateTimeFormatter formatter) {
         return StringLocalTimeDateTimeFormatterConverter.with(formatter);
+    }
+
+    /**
+     * {@see StringLocalTimeLocaleDateTimeFormatterConverter}
+     */
+    public static Converter stringLocalLocales(final List<DateTimeFormatter> formatters) {
+        return StringLocalTimeLocaleDateTimeFormatterConverter.with(formatters);
     }
 
     /**
