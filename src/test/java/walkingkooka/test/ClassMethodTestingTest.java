@@ -72,13 +72,62 @@ public final class ClassMethodTestingTest implements ClassTesting<ClassMethodTes
     }
 
     @Test
-    public void testAllMethodsVisibilityPublicStaticMethod() {
+    public void testAllMethodsVisibilityPublicStaticMethodIgnoreMethodNameFilter() {
         ClassMethodTesting.testAllMethodsVisibility(TestAllMethodsVisibilityPublicStaticMethodFails.class, "publicStaticMethod");
+    }
+
+    @Test
+    public void testAllMethodsVisibilityPublicStaticMethodIgnoreMethodNameFilterWildcard() {
+        ClassMethodTesting.testAllMethodsVisibility(TestAllMethodsVisibilityPublicStaticMethodFails.class, "publicStatic*");
     }
 
     static class TestAllMethodsVisibilityPublicStaticMethodFails {
 
         static public void publicStaticMethod(final Object param1) {
+        }
+    }
+
+    @Test
+    public void testAllMethodsVisibilityPublicStaticMethodIgnoreMethodNameFilterWildcard2() {
+        ClassMethodTesting.testAllMethodsVisibility(TestAllMethodsVisibilityPublicStaticMethodIgnoreMethodNameFilterWildcard2.class, "publicStaticMethod*");
+    }
+
+    static class TestAllMethodsVisibilityPublicStaticMethodIgnoreMethodNameFilterWildcard2 {
+
+        static public void publicStaticMethod1(final Object param1) {
+        }
+
+        static public void publicStaticMethod2(final Object param1) {
+        }
+    }
+
+    @Test
+    public void testAllMethodsVisibilityPublicStaticMethodIgnoreMethodNameFilterWildcard3() {
+        ClassMethodTesting.testAllMethodsVisibility(TestAllMethodsVisibilityPublicStaticMethodIgnoreMethodNameFilterWildcard3.class, "visit*");
+    }
+
+    // for Visitors ensure visit* matches visit methods themselves and other methods with names starting with visit
+    static class TestAllMethodsVisibilityPublicStaticMethodIgnoreMethodNameFilterWildcard3 {
+
+        static public void visit(final Object param1) {
+        }
+    }
+
+    @Test
+    public void testAllMethodsVisibilityPublicStaticMethodIgnoreMethodNameFilterWildcardFails() {
+        this.mustFail(() -> ClassMethodTesting.testAllMethodsVisibility(TestAllMethodsVisibilityPublicStaticMethodIgnoreMethodNameFilterWildcardFails.class, "public*"));
+    }
+
+    static class TestAllMethodsVisibilityPublicStaticMethodIgnoreMethodNameFilterWildcardFails {
+
+        static public void publicStaticMethod1(final Object param1) {
+        }
+
+        static public void publicStaticMethod2(final Object param1) {
+        }
+
+        // filter doesnt match this method, this method should fail because its protected.
+        static public void protectedStaticMethod3(final Object param1) {
         }
     }
 
@@ -199,6 +248,38 @@ public final class ClassMethodTestingTest implements ClassTesting<ClassMethodTes
     static class TestAllMethodsVisibilityProtectedInstanceMethodFails {
 
         protected void protectedInstanceMethod(final Object param1) {
+        }
+    }
+
+    @Test
+    protected void testAllMethodsVisibilityProtectedInstanceMethodFiltered() {
+        ClassMethodTesting.testAllMethodsVisibility(testAllMethodsVisibilityProtectedInstanceMethodFiltered.class,
+                "startVisit*",
+                "endVisit*",
+                "visit*");
+    }
+
+    static class testAllMethodsVisibilityProtectedInstanceMethodFiltered {
+
+        protected void startVisit(final Object param1) {
+        }
+
+        protected void startVisit2(final Object param1) {
+        }
+
+        protected void endVisit(final Object param1) {
+        }
+
+        protected void endVisit2(final Object param1) {
+        }
+
+        protected void visit(final Object param1) {
+        }
+
+        protected void visit1(final Object param1) {
+        }
+
+        protected void visit2(final Object param1) {
         }
     }
 

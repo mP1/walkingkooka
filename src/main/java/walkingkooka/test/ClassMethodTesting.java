@@ -17,6 +17,7 @@
 
 package walkingkooka.test;
 
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.type.JavaVisibility;
 import walkingkooka.type.MethodAttributes;
@@ -25,6 +26,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -36,17 +38,35 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 final class ClassMethodTesting {
 
     /**
-     * If a method is not overridden it should be package private or private.
+     * If a method is not overridden it should be package private or private. Method names may include a trailing wildcard
      */
     static void testAllMethodsVisibility(final Class<?> type,
                                          final String...ignoreMethodNames) {
         if (JavaVisibility.PACKAGE_PRIVATE.is(type)) {
 
-            final Set<String> ignoreMethodNamesSet = Sets.of(ignoreMethodNames);
+            final Set<String> ignoreMethodNamesSet = Sets.ordered();
+            final List<String> prefixes = Lists.array();
+
+            Arrays.stream(ignoreMethodNames)
+                    .forEach(methodName -> {
+                        if (methodName.endsWith("*")) {
+                            prefixes.add(methodName.substring(0, methodName.length() - 1));
+                        } else {
+                            ignoreMethodNamesSet.add(methodName);
+                        }
+                    });
+
             final Set<Method> overridable = overridableMethods(type);
 
             for (final Method method : type.getDeclaredMethods()) {
-                if(ignoreMethodNamesSet.contains(method.getName())) {
+                final String methodName = method.getName();
+                if(ignoreMethodNamesSet.contains(methodName)) {
+                    continue;
+                }
+                if (prefixes.stream()
+                        .filter(methodName::startsWith)
+                        .findFirst()
+                        .isPresent()) {
                     continue;
                 }
 
