@@ -19,6 +19,7 @@ package walkingkooka.tree.select.parser;
 
 import walkingkooka.NeverError;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserReporters;
@@ -37,107 +38,64 @@ import walkingkooka.text.cursor.parser.ebnf.EbnfTerminalParserToken;
 import walkingkooka.text.cursor.parser.ebnf.combinator.EbnfParserCombinatorSyntaxTreeTransformer;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.BiFunction;
 
 final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements EbnfParserCombinatorSyntaxTreeTransformer {
 
-    @Override
-    public Parser<ParserContext> alternatives(final EbnfAlternativeParserToken token, final Parser<ParserContext> parser) {
-        return parser;
-    }
-
-    @Override
-    public Parser<ParserContext> concatenation(final EbnfConcatenationParserToken token, Parser<ParserContext> parser) {
-        return parser.transform(this::concatenation);
-    }
-
-    /**
-     * Special case for binary operators and operator priorities.
-     */
-    private ParserToken concatenation(final ParserToken token, final ParserContext context) {
-        return SequenceParserToken.class.cast(token)
-                .transform(NodeSelectorEbnfParserCombinatorSyntaxTreeTransformerBinaryOperatorTransformer.INSTANCE);
-    }
-
-    @Override
-    public Parser<ParserContext> exception(final EbnfExceptionParserToken token, final Parser<ParserContext> parser) {
-        throw new UnsupportedOperationException(token.text()); // there are no exception tokens.
-    }
-
-    @Override
-    public Parser<ParserContext> group(final EbnfGroupParserToken token, final Parser<ParserContext> parser) {
-        return parser; //leave group definitions as they are.
-    }
-
-    @Override
-    public Parser<ParserContext> identifier(final EbnfIdentifierParserToken token, final Parser<ParserContext> parser) {
-        final EbnfIdentifierName name = token.value();
-        return name.equals(ATTRIBUTE_IDENTIFIER) ?
-                parser.transform(this::attribute) :
-
-                name.equals(NodeSelectorParsers.EXPRESSION_IDENTIFIER) ?
-                        parser.transform(this::expression) :
-
-                        name.equals(FUNCTION_IDENTIFIER) ?
-                                parser.transform(this::function) :
-
-                                name.equals(GROUP_IDENTIFIER) ?
-                                        parser.transform(this::group) :
-
-                                        name.equals(NEGATIVE_IDENTIFIER) ?
-                                                parser.transform(this::negative) :
-
-                                                name.equals(PREDICATE_IDENTIFIER) ?
-                                                        parser.transform(this::predicate) :
-
-                                                        requiredCheck(name, parser);
-    }
-
-    private ParserToken attribute(final ParserToken token, final ParserContext context) {
+    private static ParserToken attribute(final ParserToken token, final ParserContext context) {
         return parent(token, NodeSelectorParserToken::attribute);
     }
 
     static final EbnfIdentifierName ATTRIBUTE_IDENTIFIER = EbnfIdentifierName.with("ATTRIBUTE");
 
-    private ParserToken expression(final ParserToken token, final ParserContext context) {
+    private static ParserToken expression(final ParserToken token, final ParserContext context) {
         return parent(token, NodeSelectorParserToken::expression);
     }
 
-    private ParserToken function(final ParserToken token, final ParserContext context) {
+    private static ParserToken function(final ParserToken token, final ParserContext context) {
         return parent(token, NodeSelectorParserToken::function);
     }
 
     private static final EbnfIdentifierName FUNCTION_IDENTIFIER = EbnfIdentifierName.with("FUNCTION");
 
-    private ParserToken group(final ParserToken token, final ParserContext context) {
-        return NodeSelectorParserToken.group(this.clean(token.cast()), token.text());
+    private static ParserToken group(final ParserToken token, final ParserContext context) {
+        return NodeSelectorParserToken.group(clean(token.cast()), token.text());
     }
 
     private static final EbnfIdentifierName GROUP_IDENTIFIER = EbnfIdentifierName.with("GROUP");
 
-    private List<ParserToken> clean(final SequenceParserToken token) {
+    private static List<ParserToken> clean(final SequenceParserToken token) {
         return token.flat()
                 .value();
     }
 
-    private ParserToken negative(final ParserToken token, final ParserContext context) {
-        return NodeSelectorParserToken.negative(this.clean(token.cast()), token.text());
+    private static ParserToken negative(final ParserToken token, final ParserContext context) {
+        return NodeSelectorParserToken.negative(clean(token.cast()), token.text());
     }
 
     private static final EbnfIdentifierName NEGATIVE_IDENTIFIER = EbnfIdentifierName.with("NEGATIVE");
 
-    // predicate .....................................................................................................
+    private static ParserToken parent(final ParserToken token,
+                                      final BiFunction<List<ParserToken>, String, ? extends NodeSelectorParentParserToken> factory) {
+        return factory.apply(token instanceof SequenceParserToken ?
+                        SequenceParserToken.class.cast(token).value() :
+                        Lists.of(token),
+                token.text());
+    }
 
-    private ParserToken predicate(final ParserToken token, final ParserContext context) {
+    // predicate .......................................................................................................
+
+    private static ParserToken predicate(final ParserToken token, final ParserContext context) {
         return token instanceof SequenceParserToken ?
-                this.predicate0(SequenceParserToken.class.cast(token), context) :
-                this.parent(token, NodeSelectorParserToken::predicate);
+                predicate0(SequenceParserToken.class.cast(token), context) :
+                parent(token, NodeSelectorParserToken::predicate);
     }
 
     /**
      * Handles grouping of AND and OR sub expressions before creating the enclosing {@link NodeSelectorPredicateParserToken}.
      */
-    private ParserToken predicate0(final SequenceParserToken sequenceParserToken, final ParserContext context) {
+    private static ParserToken predicate0(final SequenceParserToken sequenceParserToken, final ParserContext context) {
         final List<ParserToken> all = Lists.array();
         final List<ParserToken> tokens = Lists.array();
 
@@ -216,14 +174,63 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
 
     private static final EbnfIdentifierName PREDICATE_IDENTIFIER = EbnfIdentifierName.with("PREDICATE");
 
-    // parent .....................................................................................................
+    /**
+     * Singleton
+     */
+    final static NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer INSTANCE = new NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer();
+    
+    private NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer() {
+        super();
 
-    private ParserToken parent(final ParserToken token, final BiFunction<List<ParserToken>, String, ? extends NodeSelectorParentParserToken> factory) {
-        return factory.apply(token instanceof SequenceParserToken ?
-                        SequenceParserToken.class.cast(token).value() :
-                        Lists.of(token),
-                token.text());
+        final Map<EbnfIdentifierName, BiFunction<ParserToken, ParserContext, ParserToken>> identiferToTransform = Maps.sorted();
+        identiferToTransform.put(ATTRIBUTE_IDENTIFIER, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer::attribute);
+        identiferToTransform.put(NodeSelectorParsers.EXPRESSION_IDENTIFIER, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer::expression);
+        identiferToTransform.put(FUNCTION_IDENTIFIER, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer::function);
+        identiferToTransform.put(GROUP_IDENTIFIER, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer::group);
+        identiferToTransform.put(NEGATIVE_IDENTIFIER, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer::negative);
+        identiferToTransform.put(PREDICATE_IDENTIFIER, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer::predicate);
+
+        this.identiferToTransform = identiferToTransform;
     }
+    
+    @Override
+    public Parser<ParserContext> alternatives(final EbnfAlternativeParserToken token, final Parser<ParserContext> parser) {
+        return parser;
+    }
+
+    @Override
+    public Parser<ParserContext> concatenation(final EbnfConcatenationParserToken token, Parser<ParserContext> parser) {
+        return parser.transform(this::concatenation);
+    }
+
+    /**
+     * Special case for binary operators and operator priorities.
+     */
+    private ParserToken concatenation(final ParserToken token, final ParserContext context) {
+        return SequenceParserToken.class.cast(token)
+                .transform(NodeSelectorEbnfParserCombinatorSyntaxTreeTransformerBinaryOperatorTransformer.INSTANCE);
+    }
+
+    @Override
+    public Parser<ParserContext> exception(final EbnfExceptionParserToken token, final Parser<ParserContext> parser) {
+        throw new UnsupportedOperationException(token.text()); // there are no exception tokens.
+    }
+
+    @Override
+    public Parser<ParserContext> group(final EbnfGroupParserToken token, final Parser<ParserContext> parser) {
+        return parser; //leave group definitions as they are.
+    }
+
+    @Override
+    public Parser<ParserContext> identifier(final EbnfIdentifierParserToken token, final Parser<ParserContext> parser) {
+        final EbnfIdentifierName name = token.value();
+        final BiFunction<ParserToken, ParserContext, ParserToken> transform = this.identiferToTransform.get(name);
+        return null != transform ?
+                parser.transform(transform) :
+                this.requiredCheck(name, parser);
+    }
+
+    private final Map<EbnfIdentifierName, BiFunction<ParserToken, ParserContext, ParserToken>> identiferToTransform;
 
     private Parser<ParserContext> requiredCheck(final EbnfIdentifierName name, final Parser<ParserContext> parser) {
         return name.value().endsWith("REQUIRED") ?
@@ -237,7 +244,7 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
     }
 
     @Override
-    public Parser<ParserContext> range(final EbnfRangeParserToken token, final Parser<ParserContext> parserd) {
+    public Parser<ParserContext> range(final EbnfRangeParserToken token, final Parser<ParserContext> parser) {
         throw new UnsupportedOperationException(token.toString());
     }
 
