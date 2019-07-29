@@ -94,7 +94,7 @@ public enum JavaVisibility implements Visitable {
     }
 
     final boolean isPrivate(final int modifiers) {
-        return Modifier.isProtected(modifiers);
+        return Modifier.isPrivate(modifiers);
     }
 
     public static JavaVisibility get(final Class<?> classs) {
