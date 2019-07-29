@@ -17,10 +17,18 @@
 
 package walkingkooka.tree.expression;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.JavaVisibility;
 
 public final class ExpressionBinaryNodeTest implements ClassTesting2<ExpressionBinaryNode> {
+
+    @Test
+    @Override
+    public void testAllMethodsVisibility() {
+        this.allMethodsVisibilityCheck("left", "right");
+    }
+
     @Override
     public Class<ExpressionBinaryNode> type() {
         return ExpressionBinaryNode.class;

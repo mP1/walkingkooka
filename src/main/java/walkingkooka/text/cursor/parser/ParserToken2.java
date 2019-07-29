@@ -20,8 +20,6 @@ package walkingkooka.text.cursor.parser;
 import walkingkooka.Cast;
 import walkingkooka.Value;
 
-import java.util.Optional;
-
 /**
  * Represents a result of a parser attempt to consume a {@link walkingkooka.text.cursor.TextCursor}
  */
@@ -50,10 +48,6 @@ abstract class ParserToken2<V> implements ParserToken, Value<V> {
     }
 
     private final String text;
-
-    public final Optional<ParserToken> success() {
-        return Optional.of(this);
-    }
 
     /**
      * Sub classes have a value, so cant be symbols.

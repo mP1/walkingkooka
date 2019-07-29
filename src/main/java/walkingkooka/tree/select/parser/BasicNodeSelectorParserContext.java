@@ -17,7 +17,6 @@
 
 package walkingkooka.tree.select.parser;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.math.HasMathContext;
 
@@ -91,7 +90,7 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext 
 
     private final HasMathContext hasMathContext;
 
-    @Test
+    @Override
     public String toString() {
         return ToStringBuilder.empty()
                 .label("decimalPoint").value(this.decimalPoint())

@@ -56,9 +56,7 @@ final class RepeatedParser<C extends ParserContext> extends Parser2<C> {
 
         return tokens.isEmpty() ?
                 this.fail() :
-                RepeatedParserToken.with(tokens,
-                        start.textBetween().toString())
-                        .success();
+                Optional.of(RepeatedParserToken.with(tokens, start.textBetween().toString()));
     }
 
     private final Parser<C> parser;

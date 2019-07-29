@@ -17,10 +17,17 @@
 
 package walkingkooka.tree.xml;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.JavaVisibility;
 
 public final class XmlTextNodeTest implements ClassTesting2<XmlTextNode> {
+
+    @Test
+    @Override
+    public void testAllMethodsVisibility() {
+        this.allMethodsVisibilityCheck("setText");
+    }
 
     @Override
     public Class<XmlTextNode> type() {

@@ -17,11 +17,19 @@
 
 package walkingkooka.tree.select.parser;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.JavaVisibility;
 
 public final class NodeSelectorBinaryParserTokenTest implements ClassTesting2<NodeSelectorBinaryParserToken<?>> {
+
+    @Test
+    @Override
+    public void testAllMethodsVisibility() {
+        this.allMethodsVisibilityCheck("left", "right");
+    }
+
     @Override
     public Class<NodeSelectorBinaryParserToken<?>> type() {
         return Cast.to(NodeSelectorBinaryParserToken.class);

@@ -49,7 +49,7 @@ final class CharacterCharPredicateParser<C extends ParserContext> extends Parser
     private final CharPredicate predicate;
 
     private Optional<ParserToken> makeSuccessfulResultAndAdvance(final char c, final TextCursor cursor) {
-        final Optional<ParserToken> token = CharacterParserToken.with(c, String.valueOf(c)).success();
+        final Optional<ParserToken> token = Optional.of(CharacterParserToken.with(c, String.valueOf(c)));
         cursor.next();
         return token;
     }

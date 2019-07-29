@@ -56,9 +56,7 @@ final class SequenceParser<C extends ParserContext> extends Parser2<C> implement
         }
 
         if (!tokens.isEmpty()) {
-            result = SequenceParserToken.with(tokens,
-                    start.textBetween().toString())
-                    .success();
+            result = Optional.of(SequenceParserToken.with(tokens, start.textBetween().toString()));
         }
         return result;
     }

@@ -100,9 +100,7 @@ abstract class QuotedParser<C extends ParserContext> extends Parser2<C> {
             // closing quote found...
             if (quote == c) {
                 cursor.next();
-                result = this.token(raw.toString(),
-                        start.textBetween().toString())
-                        .success();
+                result = Optional.of(this.token(raw.toString(), start.textBetween().toString()));
                 break;
             }
 

@@ -75,7 +75,7 @@ final class StringCharPredicateParser<C extends ParserContext> extends Parser2<C
 
     private static Optional<ParserToken> stringParserToken(final TextCursorSavePoint start) {
         final String text = start.textBetween().toString();
-        return StringParserToken.with(text, text).success();
+        return Optional.of(StringParserToken.with(text, text));
     }
 
     @Override
