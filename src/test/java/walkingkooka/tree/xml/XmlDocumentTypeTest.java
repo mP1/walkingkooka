@@ -22,7 +22,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.test.BeanPropertiesTesting;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchNodeName;
 
@@ -128,7 +127,7 @@ public final class XmlDocumentTypeTest extends XmlLeafNodeTestCase<XmlDocumentTy
 
     @Test
     public void testPropertiesNeverReturnNull() throws Exception {
-        BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(this.createNode(), this::propertiesNeverReturnNull);
+        this.allPropertiesNeverReturnNullCheck(this.createNode(), this::propertiesNeverReturnNull);
     }
 
     private boolean propertiesNeverReturnNull(final Method method) {

@@ -29,17 +29,25 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
- * Contains non public methods to assist the testing of a type with for static factory methods.
+ * Mixing interface that provides helpers to test bean properties.
  */
-public final class BeanPropertiesTesting {
+public interface BeanPropertiesTesting {
 
     /**
      * Checks that all properties do not return null.
      */
-    public static void allPropertiesNeverReturnNullCheck(final Object object,
-                                                         final Predicate<Method> skip) throws Exception {
+    default void allPropertiesNeverReturnNullCheck(final Object object,
+                                                   final Predicate<Method> skip) throws Exception {
+        final Predicate<Method> filter = (method) -> {
+            return !MethodAttributes.STATIC.is(method) &&
+                    method.getReturnType() != Void.class &&
+                    method.getParameterTypes().length == 0 &&
+                    method.getDeclaringClass() != Object.class &&
+                    !skip.test(method);
+        };
+
         final List<Method> properties = Arrays.stream(object.getClass().getMethods())
-                .filter((m) -> propertiesNeverReturnNullCheckFilter(m, skip))
+                .filter(filter)
                 .collect(Collectors.toList());
         assertNotEquals(0,
                 properties.size(),
@@ -49,24 +57,5 @@ public final class BeanPropertiesTesting {
             assertNotNull(method.invoke(object),
                     () -> "null should not have been returned by " + method + " for " + object);
         }
-    }
-
-    /**
-     * Keep instance methods, that return something, take no parameters, arent a Object member.
-     */
-    private static boolean propertiesNeverReturnNullCheckFilter(final Method method,
-                                                                final Predicate<Method> skip) {
-        return !MethodAttributes.STATIC.is(method) &&
-                method.getReturnType() != Void.class &&
-                method.getParameterTypes().length == 0 &&
-                method.getDeclaringClass() != Object.class &&
-                !skip.test(method);
-    }
-
-    /**
-     * Stop creation.
-     */
-    private BeanPropertiesTesting() {
-        throw new UnsupportedOperationException();
     }
 }

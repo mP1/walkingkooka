@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
  * A mixin interface that contains tests and helpers to assist testing of {@link Traversable} implementations..
  */
 public interface TraversableTesting<T extends Traversable<T> & HashCodeEqualsDefined>
-        extends
+        extends BeanPropertiesTesting,
         HashCodeEqualsDefinedTesting<T>,
         ToStringTesting<T>,
         TypeNameTesting<T> {
@@ -94,7 +94,7 @@ public interface TraversableTesting<T extends Traversable<T> & HashCodeEqualsDef
 
     @Test
     default void testPropertiesNeverReturnNull() throws Exception {
-        BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(this.createTraversable(),
+        this.allPropertiesNeverReturnNullCheck(this.createTraversable(),
                 (m) -> m.getName().equals("parentOrFail"));
     }
 
