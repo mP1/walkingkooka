@@ -25,6 +25,29 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public final class TypeNameTestingTest {
 
     @Test
+    public void testNonEmptyPrefixSuffix() {
+        new TestNonEmptyPrefixSuffix().testTypeNaming();
+    }
+
+    private static class TestNonEmptyPrefixSuffix implements TypeNameTesting<TestNonEmptyPrefixSuffix> {
+
+        @Override
+        public Class<TestNonEmptyPrefixSuffix> type() {
+            return TestNonEmptyPrefixSuffix.class;
+        }
+
+        @Override
+        public String typeNamePrefix() {
+            return "TestNonE";
+        }
+
+        @Override
+        public String typeNameSuffix() {
+            return "mptyPrefixSuffix";
+        }
+    }
+    
+    @Test
     public void testEmptyPrefixSuffixFails() {
         this.mustFail(() -> new TestEmptyPrefixSuffix().testTypeNaming());
     }
