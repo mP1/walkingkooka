@@ -45,7 +45,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesting2<JsonNode>,
+public abstract class JsonNodeTestCase<N extends JsonNode> implements BeanPropertiesTesting,
+        ClassTesting2<JsonNode>,
         HasJsonNodeTesting<JsonNode>,
         HasSearchNodeTesting<N>,
         HasTextOffsetTesting,
@@ -124,7 +125,7 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesti
 
     @Test
     public final void testPropertiesNeverReturnNull() throws Exception {
-        BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(this.createJsonNode(),
+        this.allPropertiesNeverReturnNullCheck(this.createJsonNode(),
                 (m) -> this.propertiesNeverReturnNullSkipProperties().contains(m.getName()));
     }
 

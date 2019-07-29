@@ -44,7 +44,8 @@ import static org.junit.jupiter.api.Assertions.fail;
  *
  * @param <T>
  */
-public interface ParserTokenTesting<T extends ParserToken> extends ToStringTesting<T>,
+public interface ParserTokenTesting<T extends ParserToken> extends BeanPropertiesTesting,
+        ToStringTesting<T>,
         TypeNameTesting<T> {
 
     @Test
@@ -208,7 +209,7 @@ public interface ParserTokenTesting<T extends ParserToken> extends ToStringTesti
 
     @Test
     default void testPropertiesNeverReturnNull() throws Exception {
-        BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(this.createToken(), Predicates.never());
+        this.allPropertiesNeverReturnNullCheck(this.createToken(), Predicates.never());
     }
 
     @Test

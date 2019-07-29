@@ -17,7 +17,6 @@
 package walkingkooka.tree.json.parser;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.BeanPropertiesTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNullNode;
@@ -30,7 +29,7 @@ public final class JsonNodeNullParserTokenTest extends JsonNodeLeafParserTokenTe
 
     @Test
     public void testPropertiesNeverReturnNull() throws Exception {
-        BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(this.createToken(),
+        this.allPropertiesNeverReturnNullCheck(this.createToken(),
                 (m) -> m.getName().equals("value"));
     }
 
