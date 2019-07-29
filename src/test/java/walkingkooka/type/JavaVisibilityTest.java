@@ -114,7 +114,7 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
 
     @Test
     public void testMethodPrivate() throws Exception {
-        checkMethod(("privateMethod"), JavaVisibility.PACKAGE_PRIVATE);
+        checkMethod(("privateMethod"), JavaVisibility.PRIVATE);
     }
 
     private void privateMethod() {
@@ -153,7 +153,7 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
 
     @Test
     public void testFieldPrivate() throws Exception {
-        checkField("privateField", JavaVisibility.PACKAGE_PRIVATE);
+        checkField("privateField", JavaVisibility.PRIVATE);
     }
 
     private Object privateField;

@@ -44,7 +44,7 @@ import java.util.stream.Collectors;
  * A basic {@link Node} with some simplifications. Note that all node names must be unique and that children have their
  * parent and index properties modified when they get adopted. These considerations should be acocunted for in tests.
  */
-public class TestNode implements Node<TestNode, StringName, StringName, Object> {
+public final class TestNode implements Node<TestNode, StringName, StringName, Object> {
 
     /**
      * Should be called before each and every test.
