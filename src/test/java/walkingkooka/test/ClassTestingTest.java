@@ -49,13 +49,7 @@ public final class ClassTestingTest {
 
     @Test
     public void testWithInvalidType() {
-        boolean failed = false;
-        try {
-            new TestWithInvalidType().publicStaticMethodParametersTypeCheck(Void.class, MathContext.class);
-        } catch (final AssertionError expected) {
-            failed = true;
-        }
-        assertEquals(true, failed);
+        this.mustFail(() -> new TestWithInvalidType().publicStaticMethodParametersTypeCheck(Void.class, MathContext.class));
     }
 
     static class TestWithInvalidType extends ClassTestingTestTest<TestWithInvalidType> {
