@@ -74,8 +74,7 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
             misc(predefined);
 
             final Map<EbnfIdentifierName, Parser<ParserContext>> result = grammar.get()
-                    .combinator(predefined,
-                            new NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer());
+                    .combinator(predefined, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer.INSTANCE);
 
             return result.get(parserName)
                     .cast();
