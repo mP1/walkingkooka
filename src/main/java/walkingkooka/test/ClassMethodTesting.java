@@ -17,6 +17,7 @@
 
 package walkingkooka.test;
 
+import walkingkooka.collect.set.Sets;
 import walkingkooka.type.JavaVisibility;
 import walkingkooka.type.MethodAttributes;
 
@@ -27,30 +28,35 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Mixin that contains a variety of helpers that test class methods.
  */
-final class ClassMethodTesting<T> {
+final class ClassMethodTesting {
 
     /**
      * If a method is not overridden it should be package private or private.
      */
-    static void testAllMethodsVisibility(final Class<?> type) {
+    static void testAllMethodsVisibility(final Class<?> type,
+                                         final String...ignoreMethodNames) {
         if (JavaVisibility.PACKAGE_PRIVATE.is(type)) {
 
+            final Set<String> ignoreMethodNamesSet = Sets.of(ignoreMethodNames);
             final Set<Method> overridable = overridableMethods(type);
 
             for (final Method method : type.getDeclaredMethods()) {
+                if(ignoreMethodNamesSet.contains(method.getName())) {
+                    continue;
+                }
+
                 if (MethodAttributes.STATIC.is(method)) {
                     if (isMainMethod(method) || isEnumMethod(method)) {
                         continue;
                     }
-                    if (JavaVisibility.PUBLIC.is(method) || JavaVisibility.PROTECTED.is(method)) {
-                        fail("Static methods should be package private="
-                                + method.toGenericString());
-                    }
+                    assertEquals(true,
+                            JavaVisibility.PACKAGE_PRIVATE.is(method) || JavaVisibility.PRIVATE.is(method),
+                            () -> "Static methods should be private/package private " + method.toGenericString());
                 }
                 if (overridable.contains(method)) {
                     continue;
@@ -58,13 +64,10 @@ final class ClassMethodTesting<T> {
                 if (MethodAttributes.BRIDGE.is(method) || MethodAttributes.SYNTHETIC.is(method) || isGeneric(method)) {
                     continue;
                 }
-                if (JavaVisibility.PUBLIC.is(method) || JavaVisibility.PROTECTED.is(method)) {
-                    fail(
-                            "Method must be package private/private of it does not override a public/protected method="
-                                    + method.toGenericString());
-                }
+                assertEquals(true,
+                        JavaVisibility.PACKAGE_PRIVATE.is(method) || JavaVisibility.PRIVATE.is(method),
+                        () -> "Instance methods not overriding public/protected methods should be private/package private " + method.toGenericString());
             }
-
         }
     }
 
@@ -96,7 +99,7 @@ final class ClassMethodTesting<T> {
     }
 
     private static boolean isGeneric(final Method method) {
-        return Arrays.equals(method.getGenericParameterTypes(), method.getParameterTypes());
+        return false == Arrays.equals(method.getGenericParameterTypes(), method.getParameterTypes());
     }
 
     private static Set<Method> overridableMethods(final Class<?> type) {
@@ -131,13 +134,15 @@ final class ClassMethodTesting<T> {
                 return value;
             }
         });
-        processClassAndImplementedInterfaces(type, alreadyVisited, methods);
+        processImplementedInterfaces(type, alreadyVisited, methods);
+        processClassAndImplementedInterfaces(type.getSuperclass(), alreadyVisited, methods);
         return methods;
     }
 
     private static void processClassAndImplementedInterfaces(final Class<?> type,
-                                                             final Set<Class<?>> alreadyVisited, final Set<Method> methods) {
-        if ((null != type) && (type != Object.class) && alreadyVisited.add(type)) {
+                                                             final Set<Class<?>> alreadyVisited,
+                                                             final Set<Method> methods) {
+        if (null != type && alreadyVisited.add(type)) {
             addMethods(type, methods);
             processClassAndImplementedInterfaces(type.getSuperclass(),
                     alreadyVisited,
@@ -158,9 +163,10 @@ final class ClassMethodTesting<T> {
     private static void processImplementedInterfaces(final Class<?> type,
                                                      final Set<Class<?>> alreadyVisited, final Set<Method> methods) {
         for (final Class<?> interfaceClass : type.getInterfaces()) {
+
             if (alreadyVisited.add(interfaceClass)) {
                 addMethods(interfaceClass, methods);
-                processClassAndImplementedInterfaces(interfaceClass.getSuperclass(),
+                processImplementedInterfaces(interfaceClass,
                         alreadyVisited,
                         methods);
             }

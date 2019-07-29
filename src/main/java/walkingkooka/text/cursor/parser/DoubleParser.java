@@ -333,9 +333,7 @@ final class DoubleParser<C extends ParserContext> extends Parser2<C> {
     }
 
     private static Optional<ParserToken> token(final double value, final TextCursorSavePoint save) {
-        return DoubleParserToken.with(value,
-                save.textBetween().toString())
-                .success();
+        return Optional.of(DoubleParserToken.with(value, save.textBetween().toString()));
     }
 
     @Override

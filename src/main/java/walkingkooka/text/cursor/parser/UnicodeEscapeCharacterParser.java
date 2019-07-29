@@ -78,8 +78,7 @@ final class UnicodeEscapeCharacterParser<C extends ParserContext> extends Parser
         }
 
         if (null == result) {
-            result = ParserTokens.character((char) value, save.textBetween().toString())
-                    .success();
+            result = Optional.of(ParserTokens.character((char) value, save.textBetween().toString()));
         }
 
         return result;

@@ -19,7 +19,6 @@ package walkingkooka.tree.json.parser;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Base class for all JsonNode symbol parser tokens.
@@ -28,10 +27,6 @@ abstract class JsonNodeSymbolParserToken extends JsonNodeLeafParserToken<String>
 
     JsonNodeSymbolParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    public final Optional<JsonNodeParserToken> withoutSymbols() {
-        return Optional.empty();
     }
 
     @Override
