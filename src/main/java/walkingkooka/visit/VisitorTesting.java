@@ -52,6 +52,12 @@ public interface VisitorTesting<V extends Visitor<T>, T>
     }
 
     @Test
+    @Override
+    default void testAllMethodsVisibility() {
+        this.allMethodsVisibilityCheck("visit*");
+    }
+
+    @Test
     default void testAcceptNullFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createVisitor().accept(null);
