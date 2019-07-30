@@ -35,6 +35,14 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
         SerializationTesting<Indentation>,
         ToStringTesting<Indentation> {
 
+    @Override
+    public void testAllConstructorsVisibility() {
+    }
+
+    @Override
+    public void testIfClassIsFinalIfAllConstructorsArePrivate() {
+    }
+
     @Test
     public void testCarriageReturnRepeatingCharFails() {
         assertThrows(IllegalArgumentException.class, () -> {

@@ -40,9 +40,9 @@ final class TerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     private final static TerminalNodeSelector INSTANCE = new TerminalNodeSelector();
 
     /**
-     * Package private constructor use type safe getter
+     * Private constructor use type safe getter
      */
-    TerminalNodeSelector() {
+    private TerminalNodeSelector() {
         super();
     }
 

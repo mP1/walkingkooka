@@ -47,7 +47,7 @@ final class ReaderConsumingCharSequence implements CharSequence, HashCodeEqualsD
 
     private final char[] buffer;
 
-    ReaderConsumingCharSequence(final Reader reader, final int bufferSize) {
+    private ReaderConsumingCharSequence(final Reader reader, final int bufferSize) {
         this.reader = reader;
         this.buffer = new char[bufferSize];
     }

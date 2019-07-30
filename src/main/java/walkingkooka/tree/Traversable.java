@@ -155,6 +155,6 @@ public interface Traversable<T extends Traversable<T>> extends HashCodeEqualsDef
      * An {@link Iterator} that walks starting at this {@link Traversable} depth first.
      */
     default Iterator<T> traversableIterator() {
-        return new TraversableIterator<>(Cast.to(this));
+        return TraversableIterator.with(Cast.to(this));
     }
 }

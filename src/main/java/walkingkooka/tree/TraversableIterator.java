@@ -29,9 +29,13 @@ import java.util.NoSuchElementException;
 final class TraversableIterator<T extends Traversable<T>> implements Iterator<T> {
 
     /**
-     * Package private ctor only called by default method {@link Traversable#traversableIterator()}
+     * Package private factory only called by default method {@link Traversable#traversableIterator()}
      */
-    TraversableIterator(final T traversable) {
+    static <T extends Traversable<T>> TraversableIterator<T> with(final T traversable) {
+        return new TraversableIterator<>(traversable);
+    }
+
+    private TraversableIterator(final T traversable) {
         final Stack<T> unprocessed = Stacks.arrayList();
         this.unprocessed = unprocessed;
 

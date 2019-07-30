@@ -38,7 +38,7 @@ final public class EbnfRangeParserToken extends EbnfParentParserToken<EbnfRangeP
         super(tokens, text);
         this.checkOnlyTwoTokens();
 
-        final EbnfRangeParserTokenConsumer checker = new EbnfRangeParserTokenConsumer();
+        final EbnfRangeParserTokenConsumer checker = EbnfRangeParserTokenConsumer.with();
         tokens.stream()
                 .filter(t -> t instanceof EbnfParserToken)
                 .map(t -> EbnfParserToken.class.cast(t))

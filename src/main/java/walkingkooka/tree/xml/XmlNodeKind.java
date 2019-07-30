@@ -137,7 +137,7 @@ enum XmlNodeKind {
         @Override
         XmlName name(final XmlNode node) {
             final DocumentType documentType = Cast.to(node.node);
-            return new XmlName(documentType.getName(), this);
+            return XmlName.with(documentType.getName(), this);
         }
 
         @Override
@@ -168,7 +168,7 @@ enum XmlNodeKind {
         @Override
         XmlName name(final XmlNode node) {
             final Element element = Cast.to(node.node);
-            return new XmlName(element.getTagName(), this);
+            return XmlName.with(element.getTagName(), this);
         }
 
         @Override
@@ -229,7 +229,7 @@ enum XmlNodeKind {
 
         @Override
         XmlName name(final XmlNode node) {
-            return new XmlName(node.node.getNodeName(), this);
+            return XmlName.with(node.node.getNodeName(), this);
         }
 
         @Override
@@ -259,7 +259,7 @@ enum XmlNodeKind {
 
         @Override
         XmlName name(final XmlNode node) {
-            return new XmlName(node.node.getNodeName(), this);
+            return XmlName.with(node.node.getNodeName(), this);
         }
 
         @Override
@@ -290,7 +290,7 @@ enum XmlNodeKind {
         @Override
         XmlName name(final XmlNode node) {
             final ProcessingInstruction pi = Cast.to(node.node);
-            return new XmlName(pi.getTarget(), this);
+            return XmlName.with(pi.getTarget(), this);
         }
 
         @Override
@@ -331,7 +331,7 @@ enum XmlNodeKind {
     final XmlName with(final String name) {
         CharSequences.failIfNullOrEmpty(name, "name");
         check(name);
-        return new XmlName(name, this);
+        return XmlName.with(name, this);
     }
 
     abstract void check(final String name);

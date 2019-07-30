@@ -185,7 +185,7 @@ public final class TraversableIteratorTest implements ClassTesting2<TraversableI
     }
 
     private TraversableIterator<TestNode> createIterator() {
-        return new TraversableIterator<>(TestNode.with("root"));
+        return TraversableIterator.with(TestNode.with("root"));
     }
 
     @Override

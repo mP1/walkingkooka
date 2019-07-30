@@ -33,7 +33,7 @@ final class StringLocalTimeDateTimeFormatterConverter extends DateTimeFormatterC
     /**
      * Private ctor use static factory
      */
-    StringLocalTimeDateTimeFormatterConverter(final DateTimeFormatter formatter) {
+    private StringLocalTimeDateTimeFormatterConverter(final DateTimeFormatter formatter) {
         super(formatter);
     }
 

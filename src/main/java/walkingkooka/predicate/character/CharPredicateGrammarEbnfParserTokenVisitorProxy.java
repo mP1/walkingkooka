@@ -24,7 +24,11 @@ import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
  */
 final class CharPredicateGrammarEbnfParserTokenVisitorProxy implements CharPredicate {
 
-    CharPredicateGrammarEbnfParserTokenVisitorProxy(final EbnfIdentifierName name) {
+    static CharPredicateGrammarEbnfParserTokenVisitorProxy with(final EbnfIdentifierName name) {
+        return new CharPredicateGrammarEbnfParserTokenVisitorProxy(name);
+    }
+
+    private CharPredicateGrammarEbnfParserTokenVisitorProxy(final EbnfIdentifierName name) {
         this.name = name;
     }
 

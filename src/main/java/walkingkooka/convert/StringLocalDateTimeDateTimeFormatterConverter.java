@@ -34,7 +34,7 @@ final class StringLocalDateTimeDateTimeFormatterConverter extends DateTimeFormat
     /**
      * Private ctor use static factory
      */
-    StringLocalDateTimeDateTimeFormatterConverter(final DateTimeFormatter formatter) {
+    private StringLocalDateTimeDateTimeFormatterConverter(final DateTimeFormatter formatter) {
         super(formatter);
     }
 

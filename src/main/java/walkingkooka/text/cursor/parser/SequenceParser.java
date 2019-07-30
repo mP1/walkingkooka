@@ -33,7 +33,12 @@ final class SequenceParser<C extends ParserContext> extends Parser2<C> implement
     /**
      * Factory method only called by {@link SequenceParserBuilder#build()}
      */
-    SequenceParser(final List<SequenceParserComponent<C>> components) {
+    static <C extends ParserContext> SequenceParser<C> with(final List<SequenceParserComponent<C>> components) {
+        return new SequenceParser<>(components);
+    }
+
+    private SequenceParser(final List<SequenceParserComponent<C>> components) {
+        super();
         this.components = components;
     }
 

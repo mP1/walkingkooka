@@ -84,7 +84,7 @@ final class CharPredicateGrammarEbnfParserTokenVisitor extends EbnfParserTokenVi
     private void ruleIdentifier(final EbnfRuleParserToken rule) {
         final EbnfIdentifierName identifier = rule.identifier().value();
         this.identifierToRule.put(identifier, rule);
-        this.identifierToCharPredicate.put(identifier, new CharPredicateGrammarEbnfParserTokenVisitorProxy(identifier));
+        this.identifierToCharPredicate.put(identifier, CharPredicateGrammarEbnfParserTokenVisitorProxy.with(identifier));
     }
 
     // RULE ........................................................................................................

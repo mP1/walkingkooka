@@ -25,7 +25,11 @@ import java.util.Optional;
  */
 final class SequenceParserOptionalComponent<C extends ParserContext> extends SequenceParserComponent<C> {
 
-    SequenceParserOptionalComponent(final Parser<C> parser) {
+    static <C extends ParserContext> SequenceParserOptionalComponent<C> with(final Parser<C> parser) {
+        return new SequenceParserOptionalComponent<>(parser);
+    }
+
+    private SequenceParserOptionalComponent(final Parser<C> parser) {
         super(parser);
     }
 

@@ -20,6 +20,14 @@ import java.util.function.Consumer;
 
 final class EbnfRangeParserTokenConsumer implements Consumer<EbnfParserToken> {
 
+    static EbnfRangeParserTokenConsumer with() {
+        return new EbnfRangeParserTokenConsumer();
+    }
+
+    private EbnfRangeParserTokenConsumer() {
+        super();
+    }
+
     @Override
     public void accept(final EbnfParserToken token) {
         if (!token.isNoise()) {
