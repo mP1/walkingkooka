@@ -47,7 +47,7 @@ public interface VisitorTesting<V extends Visitor<T>, T>
     default void testAllConstructorsVisibility() throws Exception {
         assertEquals(Lists.empty(),
                 Arrays.stream(this.type().getConstructors())
-                        .filter(c -> !JavaVisibility.PROTECTED.is(c))
+                        .filter(c -> JavaVisibility.PROTECTED != JavaVisibility.of(c))
                         .collect(Collectors.toList()));
     }
 

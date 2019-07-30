@@ -41,7 +41,7 @@ public interface ClassTesting2<T> extends ClassTesting<T> {
             if (!ClassAttributes.ABSTRACT.is(type)) {
                 boolean mustBeFinal = true;
                 for (final Constructor<?> constructor : type.getDeclaredConstructors()) {
-                    if (false == JavaVisibility.PRIVATE.is(constructor)) {
+                    if (JavaVisibility.PRIVATE != JavaVisibility.of(constructor)) {
                         mustBeFinal = false;
                         break;
                     }
@@ -71,7 +71,7 @@ public interface ClassTesting2<T> extends ClassTesting<T> {
                         JavaVisibility.PACKAGE_PRIVATE;
         assertEquals(Lists.empty(),
                 Arrays.stream(this.type().getConstructors())
-                        .filter(c -> false == visibility.is(c))
+                        .filter(c -> visibility != JavaVisibility.of(c))
                         .collect(Collectors.toList()),
                 () -> "Found several constructors that are not " + visibility + " for type " + type.getName());
     }

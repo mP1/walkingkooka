@@ -42,7 +42,7 @@ final class ClassMethodTesting {
      */
     static void testAllMethodsVisibility(final Class<?> type,
                                          final String...ignoreMethodNames) {
-        if (JavaVisibility.PACKAGE_PRIVATE.is(type)) {
+        if (JavaVisibility.PACKAGE_PRIVATE == JavaVisibility.of(type)) {
 
             final Set<String> ignoreMethodNamesSet = Sets.ordered();
             final List<String> prefixes = Lists.array();
@@ -75,7 +75,7 @@ final class ClassMethodTesting {
                         continue;
                     }
                     assertEquals(true,
-                            JavaVisibility.PACKAGE_PRIVATE.is(method) || JavaVisibility.PRIVATE.is(method),
+                            JavaVisibility.of(method).isOrLess(JavaVisibility.PACKAGE_PRIVATE),
                             () -> "Static methods should be private/package private " + method.toGenericString());
                 }
                 if (overridable.contains(method)) {
@@ -84,8 +84,9 @@ final class ClassMethodTesting {
                 if (MethodAttributes.BRIDGE.is(method) || MethodAttributes.SYNTHETIC.is(method) || isGeneric(method)) {
                     continue;
                 }
+
                 assertEquals(true,
-                        JavaVisibility.PACKAGE_PRIVATE.is(method) || JavaVisibility.PRIVATE.is(method),
+                        JavaVisibility.of(method).isOrLess(JavaVisibility.PACKAGE_PRIVATE),
                         () -> "Instance methods not overriding public/protected methods should be private/package private " + method.toGenericString());
             }
         }

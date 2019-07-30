@@ -54,7 +54,7 @@ public interface ConstantsTesting<T> extends Testing {
         final Field field2 = field;
         assertEquals(fieldType, field.getType(), "The field " + name + " is wrong the type");
         assertTrue(FieldAttributes.STATIC.is(field), () -> "The field " + name + " must be static =" + field2);
-        assertSame(JavaVisibility.PUBLIC, JavaVisibility.get(field), () -> "The field " + name + " must be public =" + field2);
+        assertSame(JavaVisibility.PUBLIC, JavaVisibility.of(field), () -> "The field " + name + " must be public =" + field2);
         assertTrue(FieldAttributes.FINAL.is(field), () -> "The field " + name + " must be final=" + field2);
     }
 
@@ -73,7 +73,7 @@ public interface ConstantsTesting<T> extends Testing {
                 continue;
             }
             assertSame(JavaVisibility.PUBLIC,
-                    JavaVisibility.get(constant),
+                    JavaVisibility.of(constant),
                     "Constant must be public");
             if (false == FieldAttributes.STATIC.is(constant)) {
                 fail("Constant is not static=" + constant.getName());

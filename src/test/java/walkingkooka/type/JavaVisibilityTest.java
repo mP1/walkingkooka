@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
         ToStringTesting<JavaVisibility> {
 
-    // get(Class).......................................................................................................
+    // of(Class).......................................................................................................
 
     @Test
     public void testClassPublic() {
@@ -48,7 +48,7 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
 
     private void checkClass(final Class<?> klass,
                             final JavaVisibility visibility) {
-        assertEquals(visibility, JavaVisibility.get(klass), klass.getName());
+        assertEquals(visibility, JavaVisibility.of(klass), klass.getName());
     }
 
     static protected class ProtectedClass {
@@ -61,7 +61,7 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
         }
     }
 
-    // get(Constructor)..................................................................................................
+    // of(Constructor)..................................................................................................
 
     @Test
     public void testConstructorPublic() throws Exception {
@@ -82,11 +82,11 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
                                   final JavaVisibility visibility) throws Exception {
         final Constructor<?> constructor = classs.getDeclaredConstructor();
         assertEquals(visibility,
-                JavaVisibility.get(constructor),
+                JavaVisibility.of(constructor),
                 () -> constructor.toGenericString());
     }
 
-    // get(Method)......................................................................................................
+    // of(Method)......................................................................................................
 
     @Test
     public void testMethodPublic() throws Exception {
@@ -124,11 +124,11 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
                              final JavaVisibility visibility) throws Exception {
         final Method method = JavaVisibilityTest.class.getDeclaredMethod(methodName);
         assertEquals(visibility,
-                JavaVisibility.get(method),
+                JavaVisibility.of(method),
                 () -> method.toGenericString());
     }
 
-    // get(Field)......................................................................................................
+    // of(Field)......................................................................................................
 
     @Test
     public void testFieldPublic() throws Exception {
@@ -161,8 +161,98 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
     private void checkField(final String field,
                             final JavaVisibility visibility) throws Exception {
         assertEquals(visibility,
-                JavaVisibility.get(JavaVisibilityTest.class.getDeclaredField(field)),
+                JavaVisibility.of(JavaVisibilityTest.class.getDeclaredField(field)),
                 field);
+    }
+
+    // isOrLess.........................................................................................................
+
+    @Test
+    public void testIsOrLessPublicPublic() throws Exception {
+        this.isOrLessCheck(JavaVisibility.PUBLIC, JavaVisibility.PUBLIC, true);
+    }
+
+    @Test
+    public void testIsOrLessPublicProtected() throws Exception {
+        this.isOrLessCheck(JavaVisibility.PUBLIC, JavaVisibility.PROTECTED, false);
+    }
+
+    @Test
+    public void testIsOrLessPublicPackagePrivate() throws Exception {
+        this.isOrLessCheck(JavaVisibility.PUBLIC, JavaVisibility.PACKAGE_PRIVATE, false);
+    }
+
+    @Test
+    public void testIsOrLessPublicPrivate() throws Exception {
+        this.isOrLessCheck(JavaVisibility.PUBLIC, JavaVisibility.PRIVATE, false);
+    }
+
+    @Test
+    public void testIsOrLessProtectedPublic() throws Exception {
+        this.isOrLessCheck(JavaVisibility.PROTECTED, JavaVisibility.PUBLIC, true);
+    }
+
+    @Test
+    public void testIsOrLessProtectedProtected() throws Exception {
+        this.isOrLessCheck(JavaVisibility.PROTECTED, JavaVisibility.PROTECTED, true);
+    }
+
+    @Test
+    public void testIsOrLessProtectedPackagePrivate() throws Exception {
+        this.isOrLessCheck(JavaVisibility.PROTECTED, JavaVisibility.PACKAGE_PRIVATE, false);
+    }
+
+    @Test
+    public void testIsOrLessProtectedPrivate() throws Exception {
+        this.isOrLessCheck(JavaVisibility.PROTECTED, JavaVisibility.PRIVATE, false);
+    }
+
+    @Test
+    public void testIsOrLessPackagePrivatePublic() throws Exception {
+        this.isOrLessCheck(JavaVisibility.PACKAGE_PRIVATE, JavaVisibility.PUBLIC, true);
+    }
+
+    @Test
+    public void testIsOrLessPackagePrivateProtected() throws Exception {
+        this.isOrLessCheck(JavaVisibility.PACKAGE_PRIVATE, JavaVisibility.PROTECTED, true);
+    }
+
+    @Test
+    public void testIsOrLessPackagePrivatePackagePrivate() throws Exception {
+        this.isOrLessCheck(JavaVisibility.PACKAGE_PRIVATE, JavaVisibility.PACKAGE_PRIVATE, true);
+    }
+
+    @Test
+    public void testIsOrLessPackagePrivatePrivate() throws Exception {
+        this.isOrLessCheck(JavaVisibility.PACKAGE_PRIVATE, JavaVisibility.PRIVATE, false);
+    }
+
+    @Test
+    public void testIsOrLessPrivatePublic() throws Exception {
+        this.isOrLessCheck(JavaVisibility.PRIVATE, JavaVisibility.PUBLIC, true);
+    }
+
+    @Test
+    public void testIsOrLessPrivateProtected() throws Exception {
+        this.isOrLessCheck(JavaVisibility.PRIVATE, JavaVisibility.PROTECTED, true);
+    }
+
+    @Test
+    public void testIsOrLessPrivatePackagePrivate() throws Exception {
+        this.isOrLessCheck(JavaVisibility.PRIVATE, JavaVisibility.PACKAGE_PRIVATE, true);
+    }
+
+    @Test
+    public void testIsOrLessPrivatePrivate() throws Exception {
+        this.isOrLessCheck(JavaVisibility.PRIVATE, JavaVisibility.PRIVATE, true);
+    }
+
+    private void isOrLessCheck(final JavaVisibility visibility,
+                               final JavaVisibility other,
+                               final boolean expected) throws Exception {
+        assertEquals(expected,
+                visibility.isOrLess(other),
+                () -> visibility + " is less than " + other);
     }
 
     // ClassTesting.....................................................................................................

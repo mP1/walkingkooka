@@ -51,7 +51,7 @@ public final class PublicStaticFactoryTesting {
         final String factoryMethodName = factoryMethodNameSpecialFixup(without, suffix);
 
         final List<Method> publicStaticMethods = Arrays.stream(base.getMethods())
-                .filter(m -> MethodAttributes.STATIC.is(m) && JavaVisibility.PUBLIC.is(m))
+                .filter(m -> MethodAttributes.STATIC.is(m) && JavaVisibility.PUBLIC == JavaVisibility.of(m))
                 .collect(Collectors.toList());
 
         final List<Method> factoryMethods = publicStaticMethods.stream()

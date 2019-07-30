@@ -37,7 +37,7 @@ public interface ThrowableTesting2<T extends Throwable> extends ThrowableTesting
     default void testNoDefaultArgumentProtected() {
         Arrays.stream(this.type().getDeclaredConstructors())
                 .filter(c -> c.getParameterTypes().length == 0)
-                .forEach(c -> assertEquals(JavaVisibility.PROTECTED, JavaVisibility.get(c),
+                .forEach(c -> assertEquals(JavaVisibility.PROTECTED, JavaVisibility.of(c),
                         () -> "ctor visibility incorrect " + c));
     }
 
@@ -51,7 +51,7 @@ public interface ThrowableTesting2<T extends Throwable> extends ThrowableTesting
                 .filter(c -> c.getParameterTypes().length != 0)
                 .forEach(c ->
                         assertEquals(this.typeVisibility(),
-                                JavaVisibility.get(c),
+                                JavaVisibility.of(c),
                                 () -> "ctor visibility incorrect " + c));
     }
 }
