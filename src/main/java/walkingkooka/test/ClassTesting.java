@@ -41,7 +41,7 @@ public interface ClassTesting<T> extends TestSuiteNameTesting<T> {
                 this.typeVisibility();
 
         assertEquals(visibility,
-                JavaVisibility.get(type),
+                JavaVisibility.of(type),
                 () -> type.getName() + " visibility");
     }
 

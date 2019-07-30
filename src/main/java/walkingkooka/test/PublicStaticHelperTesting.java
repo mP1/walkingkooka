@@ -79,7 +79,7 @@ public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends
     @Test
     default void testCheckVisibilityOfAllStaticMethods() {
         PublicStaticHelperTesting2.methodFilterAndCheckNone(this.type(),
-                m -> JavaVisibility.PROTECTED.is(m),
+                m -> JavaVisibility.PROTECTED == JavaVisibility.of(m),
                 "All methods must be public or package private");
     }
 
@@ -89,9 +89,9 @@ public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends
     @Test
     default void testPublicStaticMethodsParameterAndReturnTypesArePublic() {
         final Predicate<Method> publicReturnTypeAndParameters = (m) -> {
-            return !JavaVisibility.PUBLIC.is(m.getReturnType()) ||
+            return JavaVisibility.PUBLIC != JavaVisibility.of(m.getReturnType()) ||
                     Arrays.stream(m.getParameterTypes())
-                            .anyMatch(t -> !JavaVisibility.PUBLIC.is(t));
+                            .anyMatch(t -> JavaVisibility.PUBLIC != JavaVisibility.of(t));
         };
         PublicStaticHelperTesting2.methodFilterAndCheckNone(this.type(),
                 publicReturnTypeAndParameters,

@@ -30,7 +30,7 @@ import java.util.Objects;
  * The visibility of a {@link Class}, {@link Constructor}, {@link Method} or {@link Field}.
  */
 public enum JavaVisibility implements Visitable {
-    PUBLIC {
+    PUBLIC(4) {
         boolean testModifiers(final int modifiers) {
             return this.isPublic(modifiers);
         }
@@ -40,7 +40,7 @@ public enum JavaVisibility implements Visitable {
             visitor.visitPublic();
         }
     },
-    PROTECTED {
+    PROTECTED(3) {
         boolean testModifiers(final int modifiers) {
             return this.isProtected(modifiers);
         }
@@ -50,7 +50,7 @@ public enum JavaVisibility implements Visitable {
             visitor.visitProtected();
         }
     },
-    PACKAGE_PRIVATE {
+    PACKAGE_PRIVATE(2) {
         boolean testModifiers(final int modifiers) {
             return !(this.isPublic(modifiers) ||
                     this.isProtected(modifiers) ||
@@ -62,7 +62,7 @@ public enum JavaVisibility implements Visitable {
             visitor.visitPackagePrivate();
         }
     },
-    PRIVATE {
+    PRIVATE(1) {
         boolean testModifiers(final int modifiers) {
             return this.isPrivate(modifiers);
         }
@@ -73,48 +73,31 @@ public enum JavaVisibility implements Visitable {
         }
     };
 
-    public final boolean is(final Class<?> type) {
+    JavaVisibility(final int priority) {
+        this.priority = priority;
+    }
+
+    private final int priority;
+
+    // type.............................................................................................................
+
+    /**
+     * Returns true if the {@link Class} visibility is the same or less.
+     */
+    public final boolean isOrLess(final JavaVisibility other) {
+        return this.priority <= other.priority;
+    }
+
+    // factory..........................................................................................................
+
+    public static JavaVisibility of(final Class<?> type) {
         Objects.requireNonNull(type, "type");
-        return this.testModifiers(type.getModifiers());
+        return get0(type.getModifiers());
     }
 
-    public final boolean is(final Member member) {
+    public static JavaVisibility of(final Member member) {
         Objects.requireNonNull(member, "member");
-        return this.testModifiers(member.getModifiers());
-    }
-
-    abstract boolean testModifiers(final int modifiers);
-
-    final boolean isPublic(final int modifiers) {
-        return Modifier.isPublic(modifiers);
-    }
-
-    final boolean isProtected(final int modifiers) {
-        return Modifier.isProtected(modifiers);
-    }
-
-    final boolean isPrivate(final int modifiers) {
-        return Modifier.isPrivate(modifiers);
-    }
-
-    public static JavaVisibility get(final Class<?> classs) {
-        Objects.requireNonNull(classs, "class");
-        return get0(classs.getModifiers());
-    }
-
-    public static JavaVisibility get(final Constructor<?> constructor) {
-        Objects.requireNonNull(constructor, "constructor");
-        return get0(constructor.getModifiers());
-    }
-
-    public static JavaVisibility get(final Field field) {
-        Objects.requireNonNull(field, "field");
-        return get0(field.getModifiers());
-    }
-
-    public static JavaVisibility get(final Method method) {
-        Objects.requireNonNull(method, "method");
-        return get0(method.getModifiers());
+        return get0(member.getModifiers());
     }
 
     private static JavaVisibility get0(final int modifiers) {
@@ -128,6 +111,22 @@ public enum JavaVisibility implements Visitable {
         }
 
         return result;
+    }
+
+    // helper...........................................................................................................
+
+    abstract boolean testModifiers(final int modifiers);
+
+    final boolean isPublic(final int modifiers) {
+        return Modifier.isPublic(modifiers);
+    }
+
+    final boolean isProtected(final int modifiers) {
+        return Modifier.isProtected(modifiers);
+    }
+
+    final boolean isPrivate(final int modifiers) {
+        return Modifier.isPrivate(modifiers);
     }
 
     // JavaVisibilityVisitor............................................................................................

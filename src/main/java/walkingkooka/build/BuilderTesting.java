@@ -42,7 +42,7 @@ public interface BuilderTesting<B extends Builder<T>, T> extends ThrowableTestin
     default void testBuilderProductTypePublic() {
         final Class<T> type = this.builderProductType();
         assertEquals(JavaVisibility.PUBLIC,
-                JavaVisibility.get(type),
+                JavaVisibility.of(type),
                 "Builder product type " + type.getName() + " is not public");
     }
 
