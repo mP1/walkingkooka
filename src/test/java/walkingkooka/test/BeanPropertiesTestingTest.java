@@ -23,7 +23,8 @@ import walkingkooka.predicate.Predicates;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class BeanPropertiesTestingTest implements BeanPropertiesTesting {
+public final class BeanPropertiesTestingTest extends TestingTestCase
+        implements BeanPropertiesTesting {
 
     @Test
     public void testAllPropertiesNeverReturnNullCheck() throws Exception {
@@ -57,14 +58,8 @@ public final class BeanPropertiesTestingTest implements BeanPropertiesTesting {
 
     @Test
     public void testAllPropertiesNeverReturnNullCheckFails() throws Exception {
-        boolean fail = false;
-        try {
-            this.allPropertiesNeverReturnNullCheck(new TestAllPropertiesNeverReturnNullCheckFails(),
-                    Predicates.never());
-        } catch (final AssertionFailedError expected) {
-            fail = true;
-        }
-        assertEquals(true, fail);
+        this.mustFail(() -> this.allPropertiesNeverReturnNullCheck(new TestAllPropertiesNeverReturnNullCheckFails(),
+                    Predicates.never()));
     }
 
     static class TestAllPropertiesNeverReturnNullCheckFails {

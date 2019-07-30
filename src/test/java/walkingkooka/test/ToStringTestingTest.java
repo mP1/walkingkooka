@@ -18,11 +18,9 @@
 package walkingkooka.test;
 
 import org.junit.jupiter.api.Test;
-import org.opentest4j.AssertionFailedError;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-public final class ToStringTestingTest implements ToStringTesting<StringBuilder> {
+public final class ToStringTestingTest extends TestingTestCase
+        implements ToStringTesting<StringBuilder> {
 
     @Test
     public void testCheckToStringOverriddenMissing() {
@@ -75,16 +73,6 @@ public final class ToStringTestingTest implements ToStringTesting<StringBuilder>
         this.mustFail(() ->
                 this.toStringContainsCheck(new StringBuilder().append("123456"), "1", "2", "missing")
         );
-    }
-
-    private void mustFail(final Runnable runnable) {
-        boolean failed = false;
-        try {
-            runnable.run();
-        } catch (final AssertionFailedError expected) {
-            failed = true;
-        }
-        assertEquals(true, failed);
     }
 
     @Override

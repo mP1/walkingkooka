@@ -18,16 +18,13 @@
 package walkingkooka.test;
 
 import org.junit.jupiter.api.Test;
-import org.opentest4j.AssertionFailedError;
 import walkingkooka.type.JavaVisibility;
 
 import java.math.MathContext;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-public final class ClassTestingTest {
+public final class ClassTestingTest extends TestingTestCase {
 
     // publicStaticMethodParametersTypeCheck............................................................................
 
@@ -117,15 +114,5 @@ public final class ClassTestingTest {
         public JavaVisibility typeVisibility() {
             throw new UnsupportedOperationException();
         }
-    }
-
-    private void mustFail(final Runnable runnable) {
-        boolean failed = false;
-        try {
-            runnable.run();
-        } catch (final AssertionFailedError expected) {
-            failed = true;
-        }
-        assertEquals(true, failed);
     }
 }
