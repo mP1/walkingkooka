@@ -18,15 +18,12 @@
 package walkingkooka.test;
 
 import org.junit.jupiter.api.Test;
-import org.opentest4j.AssertionFailedError;
 import walkingkooka.type.JavaVisibility;
 
 import java.math.RoundingMode;
 import java.util.Comparator;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-public final class ClassMethodTestingTest implements ClassTesting<ClassMethodTesting> {
+public final class ClassMethodTestingTest extends TestingTestCase implements ClassTesting<ClassMethodTesting> {
 
     // testAllMethodsVisibility..............................................................................................
 
@@ -292,16 +289,6 @@ public final class ClassMethodTestingTest implements ClassTesting<ClassMethodTes
 
         private void privateInstanceMethod(final Object param1) {
         }
-    }
-
-    private void mustFail(final Runnable runnable) {
-        boolean failed = false;
-        try {
-            runnable.run();
-        } catch (final AssertionFailedError expected) {
-            failed = true;
-        }
-        assertEquals(true, failed);
     }
 
     @Override

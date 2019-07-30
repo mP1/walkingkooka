@@ -18,11 +18,10 @@
 package walkingkooka.test;
 
 import org.junit.jupiter.api.Test;
-import org.opentest4j.AssertionFailedError;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class TypeNameTestingTest {
+public final class TypeNameTestingTest extends TestingTestCase {
 
     @Test
     public void testNonEmptyPrefixSuffix() {
@@ -235,15 +234,5 @@ public final class TypeNameTestingTest {
         public String typeNameSuffix() {
             return "Suffix";
         }
-    }
-
-    private void mustFail(final Runnable runnable) {
-        boolean failed = false;
-        try {
-            runnable.run();
-        } catch (final AssertionFailedError expected) {
-            failed = true;
-        }
-        assertEquals(true, failed);
     }
 }
