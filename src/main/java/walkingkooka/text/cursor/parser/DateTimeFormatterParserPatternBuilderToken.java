@@ -31,7 +31,11 @@ import java.time.format.DateTimeFormatter;
  */
 final class DateTimeFormatterParserPatternBuilderToken {
 
-    DateTimeFormatterParserPatternBuilderToken(final int pattern) {
+    static DateTimeFormatterParserPatternBuilderToken with(final int pattern) {
+        return new DateTimeFormatterParserPatternBuilderToken(pattern);
+    }
+
+    private DateTimeFormatterParserPatternBuilderToken(final int pattern) {
         this.pattern = pattern;
         this.count = 1;
     }

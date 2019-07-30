@@ -70,7 +70,11 @@ public final class XmlName implements Name,
         return name;
     }
 
-    XmlName(final String name, final XmlNodeKind kind) {
+    static XmlName with(final String name, final XmlNodeKind kind) {
+        return new XmlName(name, kind);
+    }
+
+    private XmlName(final String name, final XmlNodeKind kind) {
         super();
         this.name = name;
         this.kind = kind;

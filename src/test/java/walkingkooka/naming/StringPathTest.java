@@ -32,6 +32,14 @@ final public class StringPathTest extends PathTestCase<StringPath, StringName>
         implements ParseStringTesting<StringPath>,
         SerializationTesting<StringPath> {
 
+    @Override
+    public void testAllConstructorsVisibility() {
+    }
+
+    @Override
+    public void testIfClassIsFinalIfAllConstructorsArePrivate() {
+    }
+
     @Test
     public void testParseMissingRequiredLeadingSlashFails() {
         this.parseFails("without-leading-slash", IllegalArgumentException.class);

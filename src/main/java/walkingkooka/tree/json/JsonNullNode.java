@@ -31,9 +31,15 @@ public final class JsonNullNode extends JsonLeafNode<Void> {
 
     private final static JsonNodeName NAME = JsonNodeName.fromClass(JsonNullNode.class);
 
+    /**
+     * Singleton
+     */
     final static JsonNullNode INSTANCE = new JsonNullNode(NAME, NO_INDEX, null);
 
-    JsonNullNode(final JsonNodeName name, final int index, final Void value) {
+    /**
+     * Private ctor use singleton
+     */
+    private JsonNullNode(final JsonNodeName name, final int index, final Void value) {
         super(name, index, value);
     }
 

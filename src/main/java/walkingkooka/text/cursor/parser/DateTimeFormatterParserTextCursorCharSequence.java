@@ -24,7 +24,11 @@ import walkingkooka.text.cursor.TextCursor;
  */
 final class DateTimeFormatterParserTextCursorCharSequence implements CharSequence {
 
-    DateTimeFormatterParserTextCursorCharSequence(final TextCursor cursor, final int length) {
+    static DateTimeFormatterParserTextCursorCharSequence with(final TextCursor cursor, final int length) {
+        return new DateTimeFormatterParserTextCursorCharSequence(cursor, length);
+    }
+
+    private DateTimeFormatterParserTextCursorCharSequence(final TextCursor cursor, final int length) {
         this.cursor = cursor;
         this.length = length;
     }

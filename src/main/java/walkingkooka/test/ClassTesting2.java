@@ -18,7 +18,6 @@
 package walkingkooka.test;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.type.ClassAttributes;
 import walkingkooka.type.JavaVisibility;
 
@@ -27,7 +26,6 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Mixin with additional tests for {@link ClassTesting}
@@ -38,21 +36,13 @@ public interface ClassTesting2<T> extends ClassTesting<T> {
     default void testIfClassIsFinalIfAllConstructorsArePrivate() {
         final Class<T> type = this.type();
         if (!Fake.class.isAssignableFrom(type)) {
-            if (!ClassAttributes.ABSTRACT.is(type)) {
-                boolean mustBeFinal = true;
-                for (final Constructor<?> constructor : type.getDeclaredConstructors()) {
-                    if (JavaVisibility.PRIVATE != JavaVisibility.of(constructor)) {
-                        mustBeFinal = false;
-                        break;
-                    }
-                }
-
-                if (mustBeFinal) {
-                    if (false == ClassAttributes.FINAL.is(type)) {
-                        fail("All constructors are private so class should be final="
-                                + type.getName());
-                    }
-                }
+            if (!ClassAttributes.ABSTRACT.is(type) && ClassAttributes.FINAL.is(type)) {
+                assertEquals("",
+                        Arrays.stream(type.getDeclaredConstructors())
+                                .filter(c -> JavaVisibility.PRIVATE != JavaVisibility.of(c))
+                                .map(Constructor::toGenericString)
+                                .collect(Collectors.joining(",")),
+                        () -> "All ctors must be private when class " + type.getName() + " is not abstract");
             }
         }
     }
@@ -64,15 +54,16 @@ public interface ClassTesting2<T> extends ClassTesting<T> {
     default void testAllConstructorsVisibility() {
         final Class<T> type = this.type();
 
-        final JavaVisibility visibility = Fake.class.isAssignableFrom(type) ?
+        final JavaVisibility sameOrLess = Fake.class.isAssignableFrom(type) ?
                 JavaVisibility.PUBLIC :
                 ClassAttributes.FINAL.is(type) ?
                         JavaVisibility.PRIVATE :
                         JavaVisibility.PACKAGE_PRIVATE;
-        assertEquals(Lists.empty(),
-                Arrays.stream(this.type().getConstructors())
-                        .filter(c -> visibility != JavaVisibility.of(c))
-                        .collect(Collectors.toList()),
-                () -> "Found several constructors that are not " + visibility + " for type " + type.getName());
+        assertEquals("",
+                Arrays.stream(this.type().getDeclaredConstructors())
+                        .filter(c -> false == JavaVisibility.of(c).isOrLess(sameOrLess))
+                        .map(Constructor::toGenericString)
+                        .collect(Collectors.joining(", ")),
+                () -> "Found several constructors that are not " + sameOrLess + " for type " + type.getName());
     }
 }

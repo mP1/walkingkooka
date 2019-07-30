@@ -66,7 +66,7 @@ abstract class DateTimeFormatterParser<C extends ParserContext> extends Parser2<
         this.formatter = formatter;
         this.pattern = pattern;
 
-        final DateTimeFormatterParserPatternBuilder patterns = new DateTimeFormatterParserPatternBuilder();
+        final DateTimeFormatterParserPatternBuilder patterns =  DateTimeFormatterParserPatternBuilder.empty();
         char previous = 0;
         boolean insideQuotes = false;
 
@@ -457,7 +457,7 @@ abstract class DateTimeFormatterParser<C extends ParserContext> extends Parser2<
 
     private Optional<ParserToken> createParserToken(final int textLength, final TextCursor cursor, final TextCursorSavePoint save) {
         save.restore();
-        final TemporalAccessor parsed = this.formatter.parse(new DateTimeFormatterParserTextCursorCharSequence(cursor, textLength));
+        final TemporalAccessor parsed = this.formatter.parse(DateTimeFormatterParserTextCursorCharSequence.with(cursor, textLength));
         return Optional.of(this.createParserToken(parsed,
                 save.textBetween().toString()));
     }

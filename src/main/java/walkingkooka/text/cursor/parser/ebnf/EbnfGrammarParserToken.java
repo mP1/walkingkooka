@@ -67,7 +67,7 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken<EbnfGram
     public void checkIdentifiers(final Set<EbnfIdentifierName> external) {
         Objects.requireNonNull(external, "external");
 
-        final EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor visitor = new EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor();
+        final EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor visitor = EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor.with();
         visitor.accept(this);
 
         final Map<EbnfIdentifierName, Set<EbnfRuleParserToken>> identifiers = visitor.ruleIdentifiers;

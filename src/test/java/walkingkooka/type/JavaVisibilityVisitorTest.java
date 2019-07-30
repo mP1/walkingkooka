@@ -18,17 +18,14 @@
 package walkingkooka.type;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.visit.Visiting;
+import walkingkooka.visit.Visitor;
+import walkingkooka.visit.VisitorTesting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class JavaVisibilityVisitorTest implements ClassTesting2<JavaVisibilityVisitor> {
-
-    @Override
-    public void testIfClassIsFinalIfAllConstructorsArePrivate() {
-    }
+public final class JavaVisibilityVisitorTest implements VisitorTesting<JavaVisibilityVisitor, JavaVisibility> {
 
     // JavaVisibilityVisitor............................................................................................
 
@@ -264,7 +261,26 @@ public final class JavaVisibilityVisitorTest implements ClassTesting2<JavaVisibi
 
     private boolean visited;
 
+    @Override
+    public void testCheckToStringOverridden() {
+    }
+
     // ClassTesting.....................................................................................................
+
+    @Override
+    public JavaVisibilityVisitor createVisitor() {
+        return new JavaVisibilityVisitor();
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return JavaVisibility.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return Visitor.class.getSimpleName();
+    }
 
     @Override
     public Class<JavaVisibilityVisitor> type() {

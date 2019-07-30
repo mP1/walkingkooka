@@ -29,6 +29,10 @@ import java.util.Set;
  */
 final class EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor extends EbnfParserTokenVisitor {
 
+    static EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor with() {
+        return new EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor();
+    }
+
     EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor() {
         super();
     }

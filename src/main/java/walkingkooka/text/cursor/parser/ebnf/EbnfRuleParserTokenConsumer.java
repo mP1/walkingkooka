@@ -20,6 +20,14 @@ import java.util.function.Consumer;
 
 final class EbnfRuleParserTokenConsumer implements Consumer<EbnfParserToken> {
 
+    static EbnfRuleParserTokenConsumer with() {
+        return new EbnfRuleParserTokenConsumer();
+    }
+
+    private EbnfRuleParserTokenConsumer() {
+        super();
+    }
+
     @Override
     public void accept(final EbnfParserToken token) {
         if (!token.isNoise()) {

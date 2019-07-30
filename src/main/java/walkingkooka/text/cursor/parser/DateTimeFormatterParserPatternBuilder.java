@@ -28,7 +28,11 @@ import java.util.stream.Collectors;
  */
 final class DateTimeFormatterParserPatternBuilder {
 
-    DateTimeFormatterParserPatternBuilder() {
+    static DateTimeFormatterParserPatternBuilder empty() {
+        return new DateTimeFormatterParserPatternBuilder();
+    }
+
+    private DateTimeFormatterParserPatternBuilder() {
         super();
     }
 
@@ -90,7 +94,7 @@ final class DateTimeFormatterParserPatternBuilder {
     }
 
     private void add(final int pattern) {
-        this.patterns.add(new DateTimeFormatterParserPatternBuilderToken(pattern));
+        this.patterns.add(DateTimeFormatterParserPatternBuilderToken.with(pattern));
     }
 
     private final List<DateTimeFormatterParserPatternBuilderToken> patterns = Lists.array();

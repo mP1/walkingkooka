@@ -18,23 +18,18 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTesting2;
+import walkingkooka.test.ClassTesting;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CycleDetectedExpressionEvaluationConversionExceptionTest implements ClassTesting2<CycleDetectedExpressionEvaluationConversionException> {
+public final class CycleDetectedExpressionEvaluationConversionExceptionTest implements ClassTesting<CycleDetectedExpressionEvaluationConversionException> {
 
     @Test
     public void testCreateNullReferenceFails() {
         assertThrows(NullPointerException.class, () -> {
             new CycleDetectedExpressionEvaluationConversionException("message123", null);
         });
-    }
-
-    @Override
-    public void testAllConstructorsVisibility() {
-        throw new UnsupportedOperationException();
     }
 
     @Override
