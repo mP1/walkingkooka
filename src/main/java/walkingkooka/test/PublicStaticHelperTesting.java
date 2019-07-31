@@ -18,19 +18,20 @@
 package walkingkooka.test;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.type.FieldAttributes;
 import walkingkooka.type.JavaVisibility;
 import walkingkooka.type.MethodAttributes;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -105,36 +106,16 @@ public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends
      */
     boolean canHavePublicTypes(Method method);
 
-    /**
-     * Verifies that at least of public static field or method is present.
-     */
     @Test
-    default void testContainsPublicStaticMethodsOrField() {
+    default void testContainsZeroInstanceFields() {
         final Class<H> type = this.type();
 
-        if (Modifier.isPublic(type.getModifiers())) {
-            int count = 0;
-            for (final Method method : type.getDeclaredMethods()) {
-                final int modifiers = method.getModifiers();
-                if (false == Modifier.isStatic(modifiers)) {
-                    continue;
-                }
-                if (Modifier.isPublic(modifiers)) {
-                    count++;
-                }
-            }
-            for (final Field method : type.getDeclaredFields()) {
-                final int modifiers = method.getModifiers();
-                if (false == Modifier.isStatic(modifiers)) {
-                    continue;
-                }
-                if (Modifier.isPublic(modifiers)) {
-                    count++;
-                }
-            }
-
-            assertNotEquals(0, count, "No public static fields/methods found");
-        }
+        assertEquals("",
+                Arrays.stream(type.getDeclaredFields())
+                        .filter(f -> false == f.getName().contains("jacoco"))
+                        .filter(f -> false == FieldAttributes.get(f).contains(FieldAttributes.STATIC))
+                        .map(f -> f.toGenericString())
+                        .collect(Collectors.joining(",")));
     }
 
     /**
