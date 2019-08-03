@@ -18,13 +18,11 @@
 package walkingkooka.test;
 
 import org.junit.jupiter.api.Test;
-import org.opentest4j.AssertionFailedError;
 import walkingkooka.predicate.Predicates;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BeanPropertiesTestingTest extends TestingTestCase
-        implements BeanPropertiesTesting {
+public final class BeanPropertiesTestingTest implements BeanPropertiesTesting {
 
     @Test
     public void testAllPropertiesNeverReturnNullCheck() throws Exception {
@@ -58,8 +56,9 @@ public final class BeanPropertiesTestingTest extends TestingTestCase
 
     @Test
     public void testAllPropertiesNeverReturnNullCheckFails() throws Exception {
-        this.mustFail(() -> this.allPropertiesNeverReturnNullCheck(new TestAllPropertiesNeverReturnNullCheckFails(),
-                    Predicates.never()));
+        assertThrows(AssertionError.class,
+                () -> this.allPropertiesNeverReturnNullCheck(new TestAllPropertiesNeverReturnNullCheckFails(),
+                        Predicates.never()));
     }
 
     static class TestAllPropertiesNeverReturnNullCheckFails {

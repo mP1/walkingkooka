@@ -24,7 +24,9 @@ import java.math.MathContext;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class ClassTestingTest extends TestingTestCase {
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+public final class ClassTestingTest {
 
     // publicStaticMethodParametersTypeCheck............................................................................
 
@@ -46,7 +48,7 @@ public final class ClassTestingTest extends TestingTestCase {
 
     @Test
     public void testWithInvalidType() {
-        this.mustFail(() -> new TestWithInvalidType().publicStaticMethodParametersTypeCheck(Void.class, MathContext.class));
+        assertThrows(AssertionError.class, () -> new TestWithInvalidType().publicStaticMethodParametersTypeCheck(Void.class, MathContext.class));
     }
 
     static class TestWithInvalidType extends ClassTestingTestTest<TestWithInvalidType> {
@@ -62,7 +64,7 @@ public final class ClassTestingTest extends TestingTestCase {
 
     @Test
     public void testWithSubClassParameter() {
-        this.mustFail(() -> new TestWithSubClassParameter().publicStaticMethodParametersTypeCheck(Void.class, Map.class));
+        assertThrows(AssertionError.class, () -> new TestWithSubClassParameter().publicStaticMethodParametersTypeCheck(Void.class, Map.class));
     }
 
     static class TestWithSubClassParameter extends ClassTestingTestTest<TestWithSubClassParameter> {

@@ -33,7 +33,7 @@ import java.util.function.Predicate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class IsMethodTestingTest extends TestingTestCase {
+public final class IsMethodTestingTest {
 
     @Test
     public void testIsMethod() throws Exception {
@@ -167,7 +167,7 @@ public final class IsMethodTestingTest extends TestingTestCase {
     @Test
     public void testIsMethodFalse() {
         call = 0;
-        this.mustFail(() -> new TestIsMethodFalse().testIsMethods());
+        assertThrows(AssertionError.class, () -> new TestIsMethodFalse().testIsMethods());
         this.checkCall(1);
     }
 
@@ -205,7 +205,7 @@ public final class IsMethodTestingTest extends TestingTestCase {
     @Test
     public void testIsMethodMultipleTrue() {
         call = 0;
-        this.mustFail(() -> new TestIsMethodMultipleTrue().testIsMethods());
+        assertThrows(AssertionError.class, () -> new TestIsMethodMultipleTrue().testIsMethods());
         this.checkCall(2);
     }
 
@@ -248,7 +248,7 @@ public final class IsMethodTestingTest extends TestingTestCase {
     @Test
     public void testIsMethodThrows() {
         call = 0;
-        this.mustFail(() -> new TestIsMethodFalse().testIsMethods());
+        assertThrows(AssertionError.class, () -> new TestIsMethodFalse().testIsMethods());
         this.checkCall(1);
     }
 
@@ -286,7 +286,7 @@ public final class IsMethodTestingTest extends TestingTestCase {
     @Test
     public void testIsMethodFilter() {
         call = 0;
-        this.mustFail(() -> new TestIsMethodFilter().testIsMethods());
+        assertThrows(AssertionError.class, () -> new TestIsMethodFilter().testIsMethods());
         this.checkCall(1);
     }
 
@@ -372,7 +372,7 @@ public final class IsMethodTestingTest extends TestingTestCase {
     }
 
     private void checkCall(final int expected) {
-        assertEquals(expected, this.call, "not all is methods called");
+        assertEquals(expected, call, "not all is methods called");
     }
 
     static int call = 0;

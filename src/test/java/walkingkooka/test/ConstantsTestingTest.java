@@ -23,7 +23,9 @@ import walkingkooka.collect.set.Sets;
 
 import java.util.Set;
 
-public final class ConstantsTestingTest extends TestingTestCase implements ConstantsTesting<ConstantsTestingTest> {
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+public final class ConstantsTestingTest implements ConstantsTesting<ConstantsTestingTest> {
 
     // fieldPublicStaticCheck...........................................................................................
 
@@ -36,14 +38,14 @@ public final class ConstantsTestingTest extends TestingTestCase implements Const
 
     @Test
     public void testFieldPublicStaticUnknownFieldFails() {
-        this.mustFail(() -> this.fieldPublicStaticCheck(ConstantsTestingTest.class, "unknownField", Object.class));
+        assertThrows(AssertionError.class, () -> this.fieldPublicStaticCheck(ConstantsTestingTest.class, "unknownField", Object.class));
     }
 
     // testConstantsAreUnique...........................................................................................
 
     @Test
     public void testConstantsAreUniqueNotStaticFails() throws Exception {
-        this.mustFail(() -> new testConstantsAreUniqueNotStaticFails("").testConstantsAreUnique());
+        assertThrows(AssertionError.class, () -> new testConstantsAreUniqueNotStaticFails("").testConstantsAreUnique());
     }
 
     static class testConstantsAreUniqueNotStaticFails extends TestConstantsTestingTest<testConstantsAreUniqueNotStaticFails> {
@@ -82,7 +84,7 @@ public final class ConstantsTestingTest extends TestingTestCase implements Const
 
     @Test
     public void testConstantsAreUniqueNotFails() {
-        this.mustFail(() -> new TestConstantsAreUniqueNotFails("").testConstantsAreUnique());
+        assertThrows(AssertionError.class, () -> new TestConstantsAreUniqueNotFails("").testConstantsAreUnique());
     }
 
     static class TestConstantsAreUniqueNotFails extends TestConstantsTestingTest<TestConstantsAreUniqueNotFails> {
@@ -124,7 +126,7 @@ public final class ConstantsTestingTest extends TestingTestCase implements Const
 
     @Test
     public void testConstantsAreUniqueFilterAndNotFails() {
-        this.mustFail(() -> new TestConstantsAreUniqueFilterAndNotFails("").testConstantsAreUnique());
+        assertThrows(AssertionError.class, () -> new TestConstantsAreUniqueFilterAndNotFails("").testConstantsAreUnique());
     }
 
     static class TestConstantsAreUniqueFilterAndNotFails extends TestConstantsTestingTest<TestConstantsAreUniqueFilterAndNotFails> {

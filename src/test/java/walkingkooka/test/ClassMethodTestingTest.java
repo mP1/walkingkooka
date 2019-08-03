@@ -23,7 +23,9 @@ import walkingkooka.type.JavaVisibility;
 import java.math.RoundingMode;
 import java.util.Comparator;
 
-public final class ClassMethodTestingTest extends TestingTestCase implements ClassTesting<ClassMethodTesting> {
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+public final class ClassMethodTestingTest implements ClassTesting<ClassMethodTesting> {
 
     // testAllMethodsVisibility..............................................................................................
 
@@ -38,7 +40,7 @@ public final class ClassMethodTestingTest extends TestingTestCase implements Cla
     }
 
     enum TestAllMethodsVisibilityPackagePrivateEnum {
-        ONLY;
+        ONLY
     }
 
     @Test
@@ -65,7 +67,7 @@ public final class ClassMethodTestingTest extends TestingTestCase implements Cla
 
     @Test
     public void testAllMethodsVisibilityPublicStaticMethodFails() {
-        this.mustFail(() -> ClassMethodTesting.testAllMethodsVisibility(TestAllMethodsVisibilityPublicStaticMethodFails.class));
+        assertThrows(AssertionError.class, () -> ClassMethodTesting.testAllMethodsVisibility(TestAllMethodsVisibilityPublicStaticMethodFails.class));
     }
 
     @Test
@@ -112,7 +114,7 @@ public final class ClassMethodTestingTest extends TestingTestCase implements Cla
 
     @Test
     public void testAllMethodsVisibilityPublicStaticMethodIgnoreMethodNameFilterWildcardFails() {
-        this.mustFail(() -> ClassMethodTesting.testAllMethodsVisibility(TestAllMethodsVisibilityPublicStaticMethodIgnoreMethodNameFilterWildcardFails.class, "public*"));
+        assertThrows(AssertionError.class, () -> ClassMethodTesting.testAllMethodsVisibility(TestAllMethodsVisibilityPublicStaticMethodIgnoreMethodNameFilterWildcardFails.class, "public*"));
     }
 
     static class TestAllMethodsVisibilityPublicStaticMethodIgnoreMethodNameFilterWildcardFails {
@@ -130,7 +132,7 @@ public final class ClassMethodTestingTest extends TestingTestCase implements Cla
 
     @Test
     protected void testAllMethodsVisibilityProtectedStaticMethodFails() {
-        this.mustFail(() -> ClassMethodTesting.testAllMethodsVisibility(TestAllMethodsVisibilityProtectedStaticMethodFails.class));
+        assertThrows(AssertionError.class, () -> ClassMethodTesting.testAllMethodsVisibility(TestAllMethodsVisibilityProtectedStaticMethodFails.class));
     }
 
     static class TestAllMethodsVisibilityProtectedStaticMethodFails {
@@ -163,7 +165,7 @@ public final class ClassMethodTestingTest extends TestingTestCase implements Cla
 
     @Test
     public void testAllMethodsVisibilityPublicInstanceMethodFails() {
-        this.mustFail(() -> ClassMethodTesting.testAllMethodsVisibility(TestAllMethodsVisibilityPublicInstanceMethodFails.class));
+        assertThrows(AssertionError.class, () -> ClassMethodTesting.testAllMethodsVisibility(TestAllMethodsVisibilityPublicInstanceMethodFails.class));
     }
 
     static class TestAllMethodsVisibilityPublicInstanceMethodFails {
@@ -239,7 +241,7 @@ public final class ClassMethodTestingTest extends TestingTestCase implements Cla
 
     @Test
     protected void testAllMethodsVisibilityProtectedInstanceMethodFails() {
-        this.mustFail(() -> ClassMethodTesting.testAllMethodsVisibility(TestAllMethodsVisibilityProtectedInstanceMethodFails.class));
+        assertThrows(AssertionError.class, () -> ClassMethodTesting.testAllMethodsVisibility(TestAllMethodsVisibilityProtectedInstanceMethodFails.class));
     }
 
     static class TestAllMethodsVisibilityProtectedInstanceMethodFails {

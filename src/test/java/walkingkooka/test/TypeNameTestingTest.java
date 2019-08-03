@@ -20,8 +20,9 @@ package walkingkooka.test;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class TypeNameTestingTest extends TestingTestCase {
+public final class TypeNameTestingTest {
 
     @Test
     public void testNonEmptyPrefixSuffix() {
@@ -45,10 +46,10 @@ public final class TypeNameTestingTest extends TestingTestCase {
             return "mptyPrefixSuffix";
         }
     }
-    
+
     @Test
     public void testEmptyPrefixSuffixFails() {
-        this.mustFail(() -> new TestEmptyPrefixSuffix().testTypeNaming());
+        assertThrows(AssertionError.class, () -> new TestEmptyPrefixSuffix().testTypeNaming());
     }
 
     private static class TestEmptyPrefixSuffix implements TypeNameTesting<TestEmptyPrefixSuffix> {
@@ -71,7 +72,7 @@ public final class TypeNameTestingTest extends TestingTestCase {
 
     @Test
     public void testIncorrectPrefixFails() {
-        this.mustFail(() -> new TestIncorrectPrefix().testTypeNaming());
+        assertThrows(AssertionError.class, () -> new TestIncorrectPrefix().testTypeNaming());
     }
 
     private static class TestIncorrectPrefix implements TypeNameTesting<TestIncorrectPrefix> {
@@ -94,7 +95,7 @@ public final class TypeNameTestingTest extends TestingTestCase {
 
     @Test
     public void testIncorrectSuffixFails() {
-        this.mustFail(() -> new TestIncorrectSuffix().testTypeNaming());
+        assertThrows(AssertionError.class, () -> new TestIncorrectSuffix().testTypeNaming());
     }
 
     private static class TestIncorrectSuffix implements TypeNameTesting<TestIncorrectSuffix> {
@@ -119,7 +120,7 @@ public final class TypeNameTestingTest extends TestingTestCase {
 
     @Test
     public void testSubtractPrefixFails() {
-        this.mustFail(() -> new TestSubtractPrefixFails().subtractTypeNamePrefix());
+        assertThrows(AssertionError.class, () -> new TestSubtractPrefixFails().subtractTypeNamePrefix());
     }
 
     private static class TestSubtractPrefixFails implements TypeNameTesting<TestIncorrectSuffix> {
@@ -167,7 +168,7 @@ public final class TypeNameTestingTest extends TestingTestCase {
 
     @Test
     public void testSubtractSuffixFails() {
-        this.mustFail(() -> new TestSubtractSuffixFails().subtractTypeNameSuffix());
+        assertThrows(AssertionError.class, () -> new TestSubtractSuffixFails().subtractTypeNameSuffix());
     }
 
     private static class TestSubtractSuffixFails implements TypeNameTesting<TestSubtractSuffixFails> {
