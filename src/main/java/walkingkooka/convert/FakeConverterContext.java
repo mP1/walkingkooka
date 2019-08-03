@@ -24,4 +24,28 @@ import walkingkooka.test.Fake;
  * A {@link ConverterContext} where all methods throw {@link UnsupportedOperationException}.
  */
 public class FakeConverterContext extends FakeDecimalNumberContext implements ConverterContext, Fake {
+    @Override
+    public String ampm(final int hourOfDay) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String monthName(final int month) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String monthNameAbbreviation(final int month) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String weekDayName(final int day) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String weekDayNameAbbreviation(final int day) {
+        throw new UnsupportedOperationException();
+    }
 }

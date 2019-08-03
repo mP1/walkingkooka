@@ -18,11 +18,15 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.datetime.DateTimeContext;
+import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.JavaVisibility;
 
 import java.math.MathContext;
+import java.text.DateFormatSymbols;
 import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -42,9 +46,16 @@ public final class BasicConverterContextTest implements ClassTesting2<BasicConve
     private final static MathContext MATH_CONTEXT = MathContext.DECIMAL32;
 
     @Test
-    public void testWithNullBasicFails() {
+    public void testWithNullDateTimeContextFails() {
         assertThrows(NullPointerException.class, () -> {
-            BasicConverterContext.with(null);
+            BasicConverterContext.with(null, this.decimalNumberContext());
+        });
+    }
+
+    @Test
+    public void testWithNullDecimalNumberContextFails() {
+        assertThrows(NullPointerException.class, () -> {
+            BasicConverterContext.with(this.dateTimeContext(), null);
         });
     }
 
@@ -55,16 +66,21 @@ public final class BasicConverterContextTest implements ClassTesting2<BasicConve
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createContext(), this.basic().toString());
+        this.toStringAndCheck(this.createContext(),
+                this.dateTimeContext() + " " + decimalNumberContext());
     }
 
     @Override
     public BasicConverterContext createContext() {
-        return BasicConverterContext.with(this.basic());
+        return BasicConverterContext.with(this.dateTimeContext(), decimalNumberContext());
     }
 
-    private BasicConverterContext basic() {
-        return BasicConverterContext.with(DecimalNumberContexts.basic(CURRENCY,
+    private DateTimeContext dateTimeContext() {
+        return DateTimeContexts.dateFormatSymbols(new DateFormatSymbols(Locale.FRANCE));
+    }
+
+    private DecimalNumberContext decimalNumberContext() {
+        return DecimalNumberContexts.basic(CURRENCY,
                 DECIMAL,
                 EXPONENT,
                 GROUPING,
@@ -72,7 +88,7 @@ public final class BasicConverterContextTest implements ClassTesting2<BasicConve
                 PERCENTAGE,
                 PLUS,
                 LOCALE,
-                MATH_CONTEXT));
+                MATH_CONTEXT);
     }
 
     @Override

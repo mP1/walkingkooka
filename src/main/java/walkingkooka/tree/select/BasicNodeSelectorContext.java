@@ -19,8 +19,7 @@ package walkingkooka.tree.select;
 
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterContexts;
-import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.convert.ConverterContext;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionException;
@@ -50,14 +49,14 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
                                                                           final Function<N, N> mapper,
                                                                           final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
                                                                           final Converter converter,
-                                                                          final DecimalNumberContext decimalNumberContext,
+                                                                          final ConverterContext converterContext,
                                                                           final Class<N> nodeType) {
         Objects.requireNonNull(finisher, "finisher");
         Objects.requireNonNull(filter, "filter");
         Objects.requireNonNull(mapper, "mapper");
         Objects.requireNonNull(functions, "functions");
         Objects.requireNonNull(converter, "converter");
-        Objects.requireNonNull(decimalNumberContext, "decimalNumberContext");
+        Objects.requireNonNull(converterContext, "converterContext");
         Objects.requireNonNull(nodeType, "nodeType");
 
         return new BasicNodeSelectorContext<>(finisher,
@@ -65,7 +64,7 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
                 mapper,
                 functions,
                 converter,
-                decimalNumberContext);
+                converterContext);
     }
 
     private BasicNodeSelectorContext(final BooleanSupplier finisher,
@@ -73,13 +72,13 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
                                      final Function<N, N> mapper,
                                      final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
                                      final Converter converter,
-                                     final DecimalNumberContext decimalNumberContext) {
+                                     final ConverterContext converterContext) {
         this.finisher = finisher;
         this.filter = filter;
         this.mapper = mapper;
         this.functions = functions;
         this.converter = converter;
-        this.decimalNumberContext = decimalNumberContext;
+        this.converterContext = converterContext;
     }
 
     @Override
@@ -120,12 +119,12 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
 
     @Override
     public <T> T convert(final Object value, final Class<T> target) {
-        return this.converter.convert(value, target, ConverterContexts.basic(this.decimalNumberContext));
+        return this.converter.convert(value, target, this.converterContext);
     }
 
     private final Converter converter;
 
-    private final DecimalNumberContext decimalNumberContext;
+    private final ConverterContext converterContext;
 
     @Override
     public Object function(final ExpressionNodeName name, final List<Object> parameters) {
@@ -161,7 +160,7 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
 
     @Override
     public MathContext mathContext() {
-        return this.decimalNumberContext.mathContext();
+        return this.converterContext.mathContext();
     }
 
     /**
@@ -176,6 +175,6 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
                 this.mapper + " " +
                 this.functions + " " +
                 this.converter + " " +
-                this.decimalNumberContext;
+                this.converterContext;
     }
 }

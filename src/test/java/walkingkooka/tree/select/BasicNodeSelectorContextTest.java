@@ -20,9 +20,9 @@ package walkingkooka.tree.select;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.convert.Converter;
+import walkingkooka.convert.ConverterContext;
+import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
-import walkingkooka.math.DecimalNumberContext;
-import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.test.ClassTesting2;
@@ -54,7 +54,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                     this.mapper(),
                     this.functions(),
                     this.converter(),
-                    this.decimalNumberContext(),
+                    this.converterContext(),
                     this.nodeType());
         });
     }
@@ -67,7 +67,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                     this.mapper(),
                     this.functions(),
                     this.converter(),
-                    this.decimalNumberContext(),
+                    this.converterContext(),
                     this.nodeType());
         });
     }
@@ -80,7 +80,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                     null,
                     this.functions(),
                     this.converter(),
-                    this.decimalNumberContext(),
+                    this.converterContext(),
                     this.nodeType());
         });
     }
@@ -93,7 +93,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                     this.mapper(),
                     null,
                     this.converter(),
-                    this.decimalNumberContext(),
+                    this.converterContext(),
                     this.nodeType());
         });
     }
@@ -106,13 +106,13 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                     this.mapper(),
                     this.functions(),
                     null,
-                    this.decimalNumberContext(),
+                    this.converterContext(),
                     this.nodeType());
         });
     }
 
     @Test
-    public void testWithNullDecimalNumberContextFails() {
+    public void testWithNullConverterContextFails() {
         assertThrows(NullPointerException.class, () -> {
             BasicNodeSelectorContext.with(this.finisher(),
                     this.predicate(),
@@ -132,7 +132,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                     this.mapper(),
                     this.functions(),
                     this.converter(),
-                    this.decimalNumberContext(),
+                    this.converterContext(),
                     null);
         });
     }
@@ -172,15 +172,15 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         final Function<TestNode, TestNode> mapper = this.mapper();
         final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions = this.functions();
         final Converter converter = this.converter();
-        final DecimalNumberContext decimalNumberContext = this.decimalNumberContext();
+        final ConverterContext converterContext = this.converterContext();
         this.toStringAndCheck(BasicNodeSelectorContext.with(finisher,
                 filter,
                 mapper,
                 functions,
                 converter,
-                decimalNumberContext,
+                converterContext,
                 this.nodeType()),
-                finisher + " " + filter + " " + mapper + " " + functions + " " + converter + " " + decimalNumberContext);
+                finisher + " " + filter + " " + mapper + " " + functions + " " + converter + " " + converterContext);
     }
 
     @Override
@@ -195,7 +195,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                 this.mapper(),
                 this.functions(),
                 this.converter(),
-                this.decimalNumberContext(),
+                this.converterContext(),
                 this.nodeType());
     }
 
@@ -219,8 +219,8 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         return Converters.fake();
     }
 
-    private DecimalNumberContext decimalNumberContext() {
-        return DecimalNumberContexts.fake();
+    private ConverterContext converterContext() {
+        return ConverterContexts.fake();
     }
 
     private Class<TestNode> nodeType() {

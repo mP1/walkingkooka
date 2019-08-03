@@ -18,6 +18,7 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
@@ -87,7 +88,7 @@ public final class ChainConverterTest extends ConverterTestCase2<ChainConverter>
 
     @Override
     public ConverterContext createContext() {
-        return ConverterContexts.basic(DecimalNumberContexts.american(MathContext.DECIMAL32));
+        return ConverterContexts.basic(DateTimeContexts.fake(), DecimalNumberContexts.american(MathContext.DECIMAL32));
     }
 
     private Converter stringToDouble() {

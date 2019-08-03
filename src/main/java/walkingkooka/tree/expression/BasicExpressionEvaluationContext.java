@@ -20,8 +20,6 @@ package walkingkooka.tree.expression;
 import walkingkooka.convert.ConversionException;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
-import walkingkooka.convert.ConverterContexts;
-import walkingkooka.math.DecimalNumberContext;
 
 import java.math.MathContext;
 import java.util.List;
@@ -42,13 +40,16 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     static BasicExpressionEvaluationContext with(final BiFunction<ExpressionNodeName, List<Object>, Object> functions,
                                                  final Function<ExpressionReference, Optional<ExpressionNode>> references,
                                                  final Converter converter,
-                                                 final DecimalNumberContext context) {
+                                                 final ConverterContext converterContext) {
         Objects.requireNonNull(functions, "functions");
         Objects.requireNonNull(references, "references");
         Objects.requireNonNull(converter, "converter");
-        Objects.requireNonNull(context, "context");
+        Objects.requireNonNull(converterContext, "converterContext");
 
-        return new BasicExpressionEvaluationContext(functions, references, converter, context);
+        return new BasicExpressionEvaluationContext(functions,
+                references,
+                converter,
+                converterContext);
     }
 
     /**
@@ -57,62 +58,58 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     private BasicExpressionEvaluationContext(final BiFunction<ExpressionNodeName, List<Object>, Object> functions,
                                              final Function<ExpressionReference, Optional<ExpressionNode>> references,
                                              final Converter converter,
-                                             final DecimalNumberContext context) {
+                                             final ConverterContext converterContext) {
         super();
         this.functions = functions;
         this.references = references;
         this.converter = converter;
-        this.decimalNumberContext = context;
-
-        this.converterContext = ConverterContexts.basic(context);
+        this.converterContext = converterContext;
     }
 
     @Override
     public String currencySymbol() {
-        return this.decimalNumberContext.currencySymbol();
+        return this.converterContext.currencySymbol();
     }
 
     @Override
     public char decimalPoint() {
-        return this.decimalNumberContext.decimalPoint();
+        return this.converterContext.decimalPoint();
     }
 
     @Override
     public char exponentSymbol() {
-        return this.decimalNumberContext.exponentSymbol();
+        return this.converterContext.exponentSymbol();
     }
 
     @Override
     public char groupingSeparator() {
-        return this.decimalNumberContext.groupingSeparator();
+        return this.converterContext.groupingSeparator();
     }
 
     @Override
     public char minusSign() {
-        return this.decimalNumberContext.minusSign();
+        return this.converterContext.minusSign();
     }
 
     @Override
     public char percentageSymbol() {
-        return this.decimalNumberContext.percentageSymbol();
+        return this.converterContext.percentageSymbol();
     }
 
     @Override
     public char plusSign() {
-        return this.decimalNumberContext.plusSign();
+        return this.converterContext.plusSign();
     }
 
     @Override
     public Locale locale() {
-        return this.decimalNumberContext.locale();
+        return this.converterContext.locale();
     }
 
     @Override
     public MathContext mathContext() {
-        return this.decimalNumberContext.mathContext();
+        return this.converterContext.mathContext();
     }
-
-    private final DecimalNumberContext decimalNumberContext;
 
     @Override
     public Object function(final ExpressionNodeName name, final List<Object> parameters) {
@@ -146,6 +143,6 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
 
     @Override
     public String toString() {
-        return this.decimalNumberContext + " " + this.functions + " " + this.references + " " + this.converter;
+        return this.converterContext + " " + this.functions + " " + this.references + " " + this.converter;
     }
 }

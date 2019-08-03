@@ -21,9 +21,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.convert.Converter;
+import walkingkooka.convert.ConverterContext;
+import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
-import walkingkooka.math.DecimalNumberContext;
-import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.test.ToStringTesting;
@@ -31,7 +31,6 @@ import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
-import java.math.MathContext;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -53,7 +52,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
                     this.selector(),
                     this.functions(),
                     this.converter(),
-                    this.decimalNumberContext(),
+                    this.converterContext(),
                     this.nodeType());
         });
     }
@@ -67,7 +66,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
                     this.selector(),
                     null,
                     this.converter(),
-                    this.decimalNumberContext(),
+                    this.converterContext(),
                     this.nodeType());
         });
     }
@@ -79,13 +78,13 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
                     this.selector(),
                     this.functions(),
                     null,
-                    this.decimalNumberContext(),
+                    this.converterContext(),
                     this.nodeType());
         });
     }
 
     @Test
-    public void testWithNullDecimalNumberContextFails() {
+    public void testWithNullConverterContextFails() {
         assertThrows(NullPointerException.class, () -> {
             NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
                     this.selector(),
@@ -103,7 +102,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
                     this.selector(),
                     this.functions(),
                     this.converter(),
-                    this.decimalNumberContext(),
+                    this.converterContext(),
                     null);
         });
     }
@@ -116,7 +115,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
                 selector,
                 this.functions(),
                 this.converter(),
-                this.decimalNumberContext(),
+                this.converterContext(),
                 this.nodeType()),
                 selector.toString());
     }
@@ -135,12 +134,8 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
         return Converters.fake();
     }
 
-    private DecimalNumberContext decimalNumberContext() {
-        return DecimalNumberContexts.fake();
-    }
-
-    private MathContext mathContext() {
-        return MathContext.DECIMAL32;
+    private ConverterContext converterContext() {
+        return ConverterContexts.fake();
     }
 
     private Class<TestNode> nodeType() {

@@ -18,6 +18,7 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContexts;
 
 import java.math.BigDecimal;
@@ -231,15 +232,16 @@ public final class DecimalFormatStringConverterTest extends FixedTypeConverterTe
                                            final char minusSign,
                                            final char percentageSymbol,
                                            final char plusSign) {
-        return ConverterContexts.basic(DecimalNumberContexts.basic(currencySymbol,
-                decimalPoint,
-                exponentSymbol,
-                groupingSeparator,
-                minusSign,
-                percentageSymbol,
-                plusSign,
-                Locale.ENGLISH,
-                MathContext.DECIMAL32));
+        return ConverterContexts.basic(DateTimeContexts.fake(),
+                DecimalNumberContexts.basic(currencySymbol,
+                        decimalPoint,
+                        exponentSymbol,
+                        groupingSeparator,
+                        minusSign,
+                        percentageSymbol,
+                        plusSign,
+                        Locale.ENGLISH,
+                        MathContext.DECIMAL32));
     }
 
     @Override

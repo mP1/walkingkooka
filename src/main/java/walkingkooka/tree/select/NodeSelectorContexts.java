@@ -17,7 +17,7 @@
 package walkingkooka.tree.select;
 
 import walkingkooka.convert.Converter;
-import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.convert.ConverterContext;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionNodeName;
@@ -45,14 +45,14 @@ public final class NodeSelectorContexts implements PublicStaticHelper {
                                                                       final Function<N, N> mapper,
                                                                       final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
                                                                       final Converter converter,
-                                                                      final DecimalNumberContext decimalNumberContext,
+                                                                      final ConverterContext converterContext,
                                                                       final Class<N> nodeType) {
         return BasicNodeSelectorContext.with(finisher,
                 filter,
                 mapper,
                 functions,
                 converter,
-                decimalNumberContext,
+                converterContext,
                 nodeType);
     }
 
