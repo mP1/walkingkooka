@@ -18,13 +18,14 @@
 package walkingkooka.convert;
 
 import walkingkooka.Cast;
+import walkingkooka.test.Testing;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public interface ConverterTesting<C extends Converter> {
+public interface ConverterTesting<C extends Converter> extends Testing {
 
     default Object convertAndCheck(final Converter converter,
                                    final Object value,
