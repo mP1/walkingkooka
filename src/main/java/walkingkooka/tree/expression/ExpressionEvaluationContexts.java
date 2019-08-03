@@ -18,7 +18,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.convert.Converter;
-import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.convert.ConverterContext;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.util.List;
@@ -34,7 +34,7 @@ public final class ExpressionEvaluationContexts implements PublicStaticHelper {
     public static ExpressionEvaluationContext basic(final BiFunction<ExpressionNodeName, List<Object>, Object> functions,
                                                     final Function<ExpressionReference, Optional<ExpressionNode>> references,
                                                     final Converter converter,
-                                                    final DecimalNumberContext context) {
+                                                    final ConverterContext context) {
         return BasicExpressionEvaluationContext.with(functions, references, converter, context);
     }
 

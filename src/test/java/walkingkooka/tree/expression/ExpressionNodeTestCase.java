@@ -25,6 +25,7 @@ import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.naming.Name;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.IsMethodTesting;
@@ -465,7 +466,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
                             value instanceof String)) {
                         fail("Cannot convert expects only Boolean | LocalDate | LocalDateTime, LocalTime | Number | String " + value.getClass().getName() + "=" + value);
                     }
-                    return converters.convert(value, target, ConverterContexts.basic(this));
+                    return converters.convert(value, target, ConverterContexts.basic(DateTimeContexts.fake(),this));
                 } catch (final ConversionException fail) {
                     throw new ExpressionEvaluationConversionException(fail.getMessage(), fail);
                 }

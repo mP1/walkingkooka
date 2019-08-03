@@ -114,7 +114,7 @@ public final class ExpressionNodeSelectorNodeSelectorContext2Test extends NodeSe
                 return Converters.collection(Lists.of(
                         Converters.numberInteger(),
                         Converters.function(String.class, Integer.class, Integer::parseInt)))
-                        .convert(value, target, ConverterContexts.basic(DecimalNumberContexts.american(MathContext.DECIMAL32)));
+                        .convert(value, target, ConverterContexts.basic(ConverterContexts.fake(), DecimalNumberContexts.american(MathContext.DECIMAL32)));
             }
         });
         context.position = INDEX;

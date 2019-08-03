@@ -19,7 +19,7 @@ package walkingkooka.tree.select;
 
 import walkingkooka.NeverError;
 import walkingkooka.convert.Converter;
-import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.convert.ConverterContext;
 import walkingkooka.naming.Name;
 import walkingkooka.stream.push.PushableStreamConsumer;
 import walkingkooka.test.HashCodeEqualsDefined;
@@ -444,14 +444,14 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     public final Stream<N> stream(final N node,
                                   final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
                                   final Converter converter,
-                                  final DecimalNumberContext decimalNumberContext,
+                                  final ConverterContext converterContext,
                                   final Class<N> nodeType) {
         return PushableStreamConsumer.stream(
                 NodeSelectorStreamConsumerPushableStreamConsumer.with(node,
                         this,
                         functions,
                         converter,
-                        decimalNumberContext,
+                        converterContext,
                         nodeType));
     }
 

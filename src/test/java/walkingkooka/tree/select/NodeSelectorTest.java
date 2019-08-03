@@ -21,8 +21,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
-import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.stream.StreamTesting;
@@ -202,7 +202,7 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
         return selector.stream(node,
                 NodeSelectorContexts.basicFunctions(),
                 Converters.fake(),
-                DecimalNumberContexts.fake(),
+                ConverterContexts.fake(),
                 TestNode.class);
     }
 

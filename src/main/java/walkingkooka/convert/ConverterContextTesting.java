@@ -16,12 +16,14 @@
  */
 package walkingkooka.convert;
 
+import walkingkooka.datetime.DateTimeContextTesting2;
 import walkingkooka.math.DecimalNumberContextTesting2;
 
 /**
  * Mixing testing interface for {@link ConverterContext}
  */
-public interface ConverterContextTesting<C extends ConverterContext> extends DecimalNumberContextTesting2<C> {
+public interface ConverterContextTesting<C extends ConverterContext> extends DateTimeContextTesting2<C>,
+        DecimalNumberContextTesting2<C> {
 
     @Override
     default String typeNameSuffix() {

@@ -20,7 +20,10 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.Converter;
+import walkingkooka.convert.ConverterContext;
+import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.ClassTesting2;
@@ -47,7 +50,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             BasicExpressionEvaluationContext.with(null,
                     this.references(),
                     this.converter(),
-                    this.decimalNumberContext());
+                    this.converterContext());
         });
     }
 
@@ -57,7 +60,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             BasicExpressionEvaluationContext.with(this.functions(),
                     null,
                     this.converter(),
-                    this.decimalNumberContext());
+                    this.converterContext());
         });
     }
 
@@ -67,18 +70,17 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             BasicExpressionEvaluationContext.with(this.functions(),
                     this.references(),
                     null,
-                    this.decimalNumberContext());
+                    this.converterContext());
         });
     }
 
     @Test
-    public void testWithNullDecimalNumberContextFails() {
+    public void testWithNullConverterContextFails() {
         assertThrows(NullPointerException.class, () -> {
             BasicExpressionEvaluationContext.with(this.functions(),
                     this.references(),
                     this.converter(),
                     null);
-
         });
     }
 
@@ -102,7 +104,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         return BasicExpressionEvaluationContext.with(this.functions(),
                 this.references(),
                 this.converter(),
-                this.decimalNumberContext());
+                this.converterContext());
     }
 
     private BiFunction<ExpressionNodeName, List<Object>, Object> functions() {
@@ -142,6 +144,10 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     private Converter converter() {
         return Converters.numberLong();
+    }
+
+    private ConverterContext converterContext() {
+        return ConverterContexts.basic(DateTimeContexts.fake(), this.decimalNumberContext());
     }
 
     private DecimalNumberContext decimalNumberContext() {

@@ -24,8 +24,8 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
+import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
-import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
@@ -383,7 +383,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                 mapper,
                 this.functions(),
                 this.converter(),
-                DecimalNumberContexts.fake(),
+                ConverterContexts.fake(),
                 TestNode.class);
 
         return new NodeSelectorContext<TestNode, StringName, StringName, Object>() {

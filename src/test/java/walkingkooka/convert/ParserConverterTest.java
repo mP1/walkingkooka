@@ -19,6 +19,7 @@ package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
@@ -82,7 +83,7 @@ public final class ParserConverterTest extends FixedTypeConverterTestCase<Parser
 
     @Override
     public ConverterContext createContext() {
-        return ConverterContexts.basic(DecimalNumberContexts.american(MathContext.DECIMAL32));
+        return ConverterContexts.basic(DateTimeContexts.fake(), DecimalNumberContexts.american(MathContext.DECIMAL32));
     }
 
     private Parser<ParserContext> bigDecimalParser() {

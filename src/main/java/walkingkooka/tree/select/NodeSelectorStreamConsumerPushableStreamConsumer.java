@@ -18,7 +18,7 @@
 package walkingkooka.tree.select;
 
 import walkingkooka.convert.Converter;
-import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.convert.ConverterContext;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.stream.push.PushableStreamConsumer;
@@ -50,7 +50,7 @@ final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, N
                                                                                                   final NodeSelector<N, NAME, ANAME, AVALUE> selector,
                                                                                                   final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
                                                                                                   final Converter converter,
-                                                                                                  final DecimalNumberContext decimalNumberContext,
+                                                                                                  final ConverterContext converterContext,
                                                                                                   final Class<N> nodeType) {
         Objects.requireNonNull(node, "node");
 
@@ -58,7 +58,7 @@ final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, N
                 selector,
                 functions,
                 converter,
-                decimalNumberContext,
+                converterContext,
                 nodeType);
     }
 
@@ -69,7 +69,7 @@ final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, N
                                                              final NodeSelector<N, NAME, ANAME, AVALUE> selector,
                                                              final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
                                                              final Converter converter,
-                                                             final DecimalNumberContext decimalNumberContext,
+                                                             final ConverterContext converterContext,
                                                              final Class<N> nodeType) {
         super();
         this.selector = selector;
@@ -80,7 +80,7 @@ final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, N
                 this::mapper,
                 functions,
                 converter,
-                decimalNumberContext,
+                converterContext,
                 nodeType);
     }
 

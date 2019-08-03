@@ -18,10 +18,12 @@
 package walkingkooka.convert;
 
 import walkingkooka.Context;
+import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.math.DecimalNumberContext;
 
 /**
  * {@link Context} that accompanies a {@link Converter} and is intended to carry values that may be locale or user aware.
  */
-public interface ConverterContext extends Context, DecimalNumberContext {
+public interface ConverterContext extends DateTimeContext,
+        DecimalNumberContext {
 }

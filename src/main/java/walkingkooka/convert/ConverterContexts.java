@@ -17,6 +17,7 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.type.PublicStaticHelper;
 
@@ -28,8 +29,10 @@ public final class ConverterContexts implements PublicStaticHelper {
     /**
      * {@see BasicConverterContext}
      */
-    public static ConverterContext basic(final DecimalNumberContext context) {
-        return BasicConverterContext.with(context);
+    public static ConverterContext basic(final DateTimeContext dateTimeContext,
+                                         final DecimalNumberContext decimalNumberContext) {
+        return BasicConverterContext.with(dateTimeContext,
+                decimalNumberContext);
     }
 
     /**

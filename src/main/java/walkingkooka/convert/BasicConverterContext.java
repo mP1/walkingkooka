@@ -17,6 +17,7 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.math.DecimalNumberContext;
 
 import java.math.MathContext;
@@ -31,68 +32,103 @@ final class BasicConverterContext implements ConverterContext {
     /**
      * Creates a new {@link BasicConverterContext}.
      */
-    static BasicConverterContext with(final DecimalNumberContext context) {
-        Objects.requireNonNull(context, "context");
-        return new BasicConverterContext(context);
+    static BasicConverterContext with(final DateTimeContext dateTimeContext,
+                                      final DecimalNumberContext decimalNumberContext) {
+        Objects.requireNonNull(dateTimeContext, "dateTimeContext");
+        Objects.requireNonNull(decimalNumberContext, "decimalNumberContext");
+
+        return new BasicConverterContext(dateTimeContext, decimalNumberContext);
     }
 
     /**
      * Private ctor use factory
      */
-    private BasicConverterContext(final DecimalNumberContext context) {
+    private BasicConverterContext(final DateTimeContext dateTimeContext,
+                                  final DecimalNumberContext decimalNumberContext) {
         super();
-        this.context = context;
+
+        this.dateTimeContext = dateTimeContext;
+        this.decimalNumberContext = decimalNumberContext;
     }
 
     @Override
+    public String ampm(final int hourOfDay) {
+        return this.dateTimeContext.ampm(hourOfDay);
+    }
+
+    @Override
+    public String monthName(final int month) {
+        return this.dateTimeContext.monthName(month);
+    }
+
+    @Override
+    public String monthNameAbbreviation(final int month) {
+        return this.dateTimeContext.monthNameAbbreviation(month);
+    }
+
+    @Override
+    public String weekDayName(final int day) {
+        return this.dateTimeContext.weekDayName(day);
+    }
+
+    @Override
+    public String weekDayNameAbbreviation(final int day) {
+        return this.dateTimeContext.weekDayNameAbbreviation(day);
+    }
+
+    private final DateTimeContext dateTimeContext;
+
+    // DecimalNumberContext.............................................................................................
+
+    @Override
     public String currencySymbol() {
-        return this.context.currencySymbol();
+        return this.decimalNumberContext.currencySymbol();
     }
 
     @Override
     public char decimalPoint() {
-        return this.context.decimalPoint();
+        return this.decimalNumberContext.decimalPoint();
     }
 
     @Override
     public char exponentSymbol() {
-        return this.context.exponentSymbol();
+        return this.decimalNumberContext.exponentSymbol();
     }
 
     @Override
     public char groupingSeparator() {
-        return this.context.groupingSeparator();
+        return this.decimalNumberContext.groupingSeparator();
     }
 
     @Override
     public char minusSign() {
-        return this.context.minusSign();
+        return this.decimalNumberContext.minusSign();
     }
 
     @Override
     public char percentageSymbol() {
-        return this.context.percentageSymbol();
+        return this.decimalNumberContext.percentageSymbol();
     }
 
     @Override
     public char plusSign() {
-        return this.context.plusSign();
+        return this.decimalNumberContext.plusSign();
     }
 
     @Override
     public Locale locale() {
-        return this.context.locale();
+        return this.decimalNumberContext.locale();
     }
 
     @Override
     public MathContext mathContext() {
-        return this.context.mathContext();
+        return this.decimalNumberContext.mathContext();
     }
 
-    private final DecimalNumberContext context;
+    private final DecimalNumberContext decimalNumberContext;
 
     @Override
     public String toString() {
-        return this.context.toString();
+        return this.dateTimeContext + " " + this.decimalNumberContext;
     }
 }
