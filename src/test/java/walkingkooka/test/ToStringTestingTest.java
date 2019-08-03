@@ -19,12 +19,13 @@ package walkingkooka.test;
 
 import org.junit.jupiter.api.Test;
 
-public final class ToStringTestingTest extends TestingTestCase
-        implements ToStringTesting<StringBuilder> {
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+public final class ToStringTestingTest implements ToStringTesting<StringBuilder> {
 
     @Test
     public void testCheckToStringOverriddenMissing() {
-        this.mustFail(() -> new TestToStringMissing().testCheckToStringOverridden());
+        assertThrows(AssertionError.class, () -> new TestToStringMissing().testCheckToStringOverridden());
     }
 
     private static class TestToStringMissing implements ToStringTesting<TestToStringMissing> {
@@ -59,7 +60,7 @@ public final class ToStringTestingTest extends TestingTestCase
 
     @Test
     public void testToStringCheckFails() {
-        this.mustFail(() ->
+        assertThrows(AssertionError.class, () ->
                 this.toStringAndCheck(new StringBuilder().append("123"), "different"));
     }
 
@@ -70,7 +71,7 @@ public final class ToStringTestingTest extends TestingTestCase
 
     @Test
     public void testToStringContainsCheckFails() {
-        this.mustFail(() ->
+        assertThrows(AssertionError.class, () ->
                 this.toStringContainsCheck(new StringBuilder().append("123456"), "1", "2", "missing")
         );
     }

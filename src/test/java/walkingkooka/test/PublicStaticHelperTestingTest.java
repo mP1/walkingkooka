@@ -25,8 +25,9 @@ import walkingkooka.type.PublicStaticHelper;
 import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class PublicStaticHelperTestingTest extends TestingTestCase implements PublicStaticHelperTesting<TestPublicStaticHelperTesting> {
+public final class PublicStaticHelperTestingTest implements PublicStaticHelperTesting<TestPublicStaticHelperTesting> {
 
     public final static Object PUBLIC = 1;
 
@@ -34,7 +35,7 @@ public final class PublicStaticHelperTestingTest extends TestingTestCase impleme
 
     @Test
     public final void testClassIsFinalFail() {
-        this.mustFail(() -> new TestClassIsFinalFail().testClassIsFinal());
+        assertThrows(AssertionError.class, () -> new TestClassIsFinalFail().testClassIsFinal());
     }
 
     public static final class TestClassIsFinalFail extends TestPublicStaticHelperTestingTest<TestClassNotFinal> {
@@ -61,7 +62,7 @@ public final class PublicStaticHelperTestingTest extends TestingTestCase impleme
 
     @Test
     public final void testOnlyConstructorIsPrivateFail() {
-        this.mustFail(() -> new TestOnlyConstructorIsPrivateFail().testOnlyConstructorIsPrivate());
+        assertThrows(AssertionError.class, () -> new TestOnlyConstructorIsPrivateFail().testOnlyConstructorIsPrivate());
     }
 
     public static final class TestOnlyConstructorIsPrivateFail extends TestPublicStaticHelperTestingTest<TestOnlyConstructorNotPrivate> {
@@ -88,7 +89,7 @@ public final class PublicStaticHelperTestingTest extends TestingTestCase impleme
 
     @Test
     public final void testDefaultConstructorThrowsUnsupportedOperationExceptionFail() {
-        this.mustFail(() -> new TestDefaultConstructorThrowsUnsupportedOperationExceptionFail().testDefaultConstructorThrowsUnsupportedOperationException());
+        assertThrows(AssertionError.class, () -> new TestDefaultConstructorThrowsUnsupportedOperationExceptionFail().testDefaultConstructorThrowsUnsupportedOperationException());
     }
 
     public static final class TestDefaultConstructorThrowsUnsupportedOperationExceptionFail extends TestPublicStaticHelperTestingTest<TestCtorDoesntThrowUOE> {
@@ -114,7 +115,7 @@ public final class PublicStaticHelperTestingTest extends TestingTestCase impleme
 
     @Test
     public final void testAllMethodsAreStaticFail() {
-        this.mustFail(() -> new TestAllMethodsAreStaticFail().testAllMethodsAreStatic());
+        assertThrows(AssertionError.class, () -> new TestAllMethodsAreStaticFail().testAllMethodsAreStatic());
     }
 
     public static final class TestAllMethodsAreStaticFail extends TestPublicStaticHelperTestingTest<TestHasNonStaticMethods> {
@@ -140,7 +141,7 @@ public final class PublicStaticHelperTestingTest extends TestingTestCase impleme
 
     @Test
     public final void testCheckVisibilityOfAllStaticMethodsFail() {
-        this.mustFail(() -> new TestCheckVisibilityOfAllStaticMethodsFail().testCheckVisibilityOfAllStaticMethods());
+        assertThrows(AssertionError.class, () -> new TestCheckVisibilityOfAllStaticMethodsFail().testCheckVisibilityOfAllStaticMethods());
     }
 
     public static final class TestCheckVisibilityOfAllStaticMethodsFail extends TestPublicStaticHelperTestingTest<TestProtectedStaticMethods> {
@@ -192,7 +193,7 @@ public final class PublicStaticHelperTestingTest extends TestingTestCase impleme
     public final void testPublicStaticMethodsParameterAndReturnTypesArePublicFail() {
         assertEquals(JavaVisibility.PACKAGE_PRIVATE, JavaVisibility.of(TestNonPublic.class));
 
-        this.mustFail(() -> new TestPublicStaticMethodsParameterAndReturnTypesArePublicFail().testPublicStaticMethodsParameterAndReturnTypesArePublic());
+        assertThrows(AssertionError.class, () -> new TestPublicStaticMethodsParameterAndReturnTypesArePublicFail().testPublicStaticMethodsParameterAndReturnTypesArePublic());
     }
 
     public static final class TestPublicStaticMethodsParameterAndReturnTypesArePublicFail extends TestPublicStaticHelperTestingTest<TestHasNonPublicReturnType> {
@@ -219,7 +220,7 @@ public final class PublicStaticHelperTestingTest extends TestingTestCase impleme
     public final void testPublicStaticMethodsParameterAndReturnTypesArePublicFail2() {
         assertEquals(JavaVisibility.PACKAGE_PRIVATE, JavaVisibility.of(TestNonPublic.class));
 
-        this.mustFail(() -> new TestPublicStaticMethodsParameterAndReturnTypesArePublicFail2().testPublicStaticMethodsParameterAndReturnTypesArePublic());
+        assertThrows(AssertionError.class, () -> new TestPublicStaticMethodsParameterAndReturnTypesArePublicFail2().testPublicStaticMethodsParameterAndReturnTypesArePublic());
     }
 
     public static final class TestPublicStaticMethodsParameterAndReturnTypesArePublicFail2 extends TestPublicStaticHelperTestingTest<TestHasNonPublicParameterType> {
@@ -252,7 +253,7 @@ public final class PublicStaticHelperTestingTest extends TestingTestCase impleme
 
     @Test
     public final void testContainsZeroInstanceFields() {
-        this.mustFail(() -> new TestContainsZeroInstanceFields().testContainsZeroInstanceFields());
+        assertThrows(AssertionError.class, () -> new TestContainsZeroInstanceFields().testContainsZeroInstanceFields());
     }
 
     public static final class TestContainsZeroInstanceFields extends TestPublicStaticHelperTestingTest<TestHasInstanceField> {

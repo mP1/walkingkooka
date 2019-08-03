@@ -21,7 +21,7 @@ import walkingkooka.SystemException;
 import walkingkooka.test.StandardThrowableTestingTest.TestRuntimeException;
 import walkingkooka.type.JavaVisibility;
 
-public final class StandardThrowableTestingTest extends TestingTestCase implements StandardThrowableTesting<TestRuntimeException> {
+public final class StandardThrowableTestingTest implements StandardThrowableTesting<TestRuntimeException> {
 
     @Override
     public void testTestNaming() {

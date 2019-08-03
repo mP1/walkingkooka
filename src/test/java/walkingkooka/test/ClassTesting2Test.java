@@ -22,13 +22,15 @@ import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Constructor;
 
-public final class ClassTesting2Test extends TestingTestCase {
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+public final class ClassTesting2Test {
 
     // testIfClassIsFinalIfAllConstructorsArePrivate....................................................................
 
     @Test
     public void testIfClassIsFinalIfAllConstructorsArePublic() {
-        this.mustFail(() -> new FinalClassPublicConstructor().testIfClassIsFinalIfAllConstructorsArePrivate());
+        assertThrows(AssertionError.class, () -> new FinalClassPublicConstructor().testIfClassIsFinalIfAllConstructorsArePrivate());
     }
 
     static final class FinalClassPublicConstructor extends ClassTesting2TestTest<FinalClassPublicConstructor> {
@@ -44,7 +46,7 @@ public final class ClassTesting2Test extends TestingTestCase {
 
     @Test
     public void testIfClassIsFinalIfAllConstructorsAreProtected() {
-        this.mustFail(() -> new FinalClassProtectedConstructor().testIfClassIsFinalIfAllConstructorsArePrivate());
+        assertThrows(AssertionError.class, () -> new FinalClassProtectedConstructor().testIfClassIsFinalIfAllConstructorsArePrivate());
     }
 
     static final class FinalClassProtectedConstructor extends ClassTesting2TestTest<FinalClassProtectedConstructor> {
@@ -60,7 +62,7 @@ public final class ClassTesting2Test extends TestingTestCase {
 
     @Test
     public void testIfClassIsFinalIfAllConstructorsArePackagePrivate() {
-        this.mustFail(() -> new FinalClassPackagePrivateConstructor().testIfClassIsFinalIfAllConstructorsArePrivate());
+        assertThrows(AssertionError.class, () -> new FinalClassPackagePrivateConstructor().testIfClassIsFinalIfAllConstructorsArePrivate());
     }
 
     static final class FinalClassPackagePrivateConstructor extends ClassTesting2TestTest<FinalClassPackagePrivateConstructor> {
@@ -99,17 +101,17 @@ public final class ClassTesting2Test extends TestingTestCase {
 
     @Test
     public void testAllConstructorsVisibilityFinalPublic() {
-        this.mustFail(() -> new FinalClassPublicConstructor().testAllConstructorsVisibility());
+        assertThrows(AssertionError.class, () -> new FinalClassPublicConstructor().testAllConstructorsVisibility());
     }
 
     @Test
     public void testAllConstructorsVisibilityFinalProtected() {
-        this.mustFail(() -> new FinalClassProtectedConstructor().testIfClassIsFinalIfAllConstructorsArePrivate());
+        assertThrows(AssertionError.class, () -> new FinalClassProtectedConstructor().testIfClassIsFinalIfAllConstructorsArePrivate());
     }
 
     @Test
     public void testAllConstructorsVisibilityFinalPackagePrivate() {
-        this.mustFail(() -> new FinalClassPackagePrivateConstructor().testIfClassIsFinalIfAllConstructorsArePrivate());
+        assertThrows(AssertionError.class, () -> new FinalClassPackagePrivateConstructor().testIfClassIsFinalIfAllConstructorsArePrivate());
     }
 
     @Test
@@ -124,7 +126,7 @@ public final class ClassTesting2Test extends TestingTestCase {
 
     @Test
     public void testAllConstructorsVisibilityNonFinalPublic() {
-        this.mustFail(() -> new NonFinalClassPublicConstructor().testAllConstructorsVisibility());
+        assertThrows(AssertionError.class, () -> new NonFinalClassPublicConstructor().testAllConstructorsVisibility());
     }
 
     static class NonFinalClassPublicConstructor extends ClassTesting2TestTest<NonFinalClassPublicConstructor> {
@@ -140,7 +142,7 @@ public final class ClassTesting2Test extends TestingTestCase {
 
     @Test
     public void testAllConstructorsVisibilityNonFinalProtected() {
-        this.mustFail(() -> new NonFinalClassProtectedConstructor().testAllConstructorsVisibility());
+        assertThrows(AssertionError.class, () -> new NonFinalClassProtectedConstructor().testAllConstructorsVisibility());
     }
 
     static class NonFinalClassProtectedConstructor extends ClassTesting2TestTest<NonFinalClassProtectedConstructor> {
@@ -153,7 +155,7 @@ public final class ClassTesting2Test extends TestingTestCase {
             return NonFinalClassProtectedConstructor.class;
         }
     }
-    
+
     @Test
     public void testAllConstructorsVisibilityNonFinalPackagePrivate() {
         new NonFinalClassPackagePrivateConstructor().testAllConstructorsVisibility();
