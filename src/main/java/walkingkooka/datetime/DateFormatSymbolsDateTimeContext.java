@@ -17,6 +17,8 @@
 
 package walkingkooka.datetime;
 
+import walkingkooka.ToStringBuilder;
+
 import java.text.DateFormatSymbols;
 import java.util.Objects;
 
@@ -84,6 +86,12 @@ final class DateFormatSymbolsDateTimeContext implements DateTimeContext {
 
     @Override
     public String toString() {
-        return this.symbols.toString();
+        return ToStringBuilder.empty()
+                .label("ampm").value(this.symbols.getAmPmStrings())
+                .label("month").value(this.symbols.getMonths())
+                .label("shortMonths").value(this.symbols.getShortMonths())
+                .label("weekDays").value(this.symbols.getWeekdays())
+                .label("shortWeekdays").value(this.symbols.getShortWeekdays())
+                .build();
     }
 }
