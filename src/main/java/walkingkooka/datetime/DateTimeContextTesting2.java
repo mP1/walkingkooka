@@ -18,7 +18,9 @@ package walkingkooka.datetime;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ContextTesting;
+import walkingkooka.collect.list.Lists;
 
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
@@ -26,6 +28,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public interface DateTimeContextTesting2<C extends DateTimeContext> extends ContextTesting<C>,
         DateTimeContextTesting {
+
+    @Test
+    default void testAmpms() {
+        assertNotEquals(Lists.empty(), this.createContext().ampms());
+    }
 
     @Test
     default void testAmpmNegativeFails() {
@@ -39,6 +46,16 @@ public interface DateTimeContextTesting2<C extends DateTimeContext> extends Cont
         assertThrows(IllegalArgumentException.class, () -> {
             this.createContext().ampm(24);
         });
+    }
+
+    @Test
+    default void testMonthNames() {
+        assertNotEquals(Lists.empty(), this.createContext().monthNames());
+    }
+
+    @Test
+    default void testMonthNames2() {
+        this.monthNamesCheck(this.createContext());
     }
 
     @Test
@@ -56,6 +73,16 @@ public interface DateTimeContextTesting2<C extends DateTimeContext> extends Cont
     }
 
     @Test
+    default void testMonthNameAbbreviations() {
+        assertNotEquals(Lists.empty(), this.createContext().monthNameAbbreviations());
+    }
+
+    @Test
+    default void testMonthNamesAbbreviation2() {
+        this.monthNameAbbreviationsCheck(this.createContext());
+    }
+
+    @Test
     default void testMonthNameAbbrevationNegativeFails() {
         assertThrows(IllegalArgumentException.class, () -> {
             this.createContext().monthNameAbbreviation(-1);
@@ -70,16 +97,19 @@ public interface DateTimeContextTesting2<C extends DateTimeContext> extends Cont
     }
 
     @Test
-    default void testWeekDayNameNegativeFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createContext().weekDayName(-1);
-        });
+    default void testWeekDayNames() {
+        assertNotEquals(Lists.empty(), this.createContext().weekDayNames());
     }
 
     @Test
-    default void testWeekDayNameZeroFails() {
+    default void testWeekDayNames2() {
+        this.weekDayNamesCheck(this.createContext());
+    }
+
+    @Test
+    default void testWeekDayNameNegativeFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            this.createContext().weekDayName(0);
+            this.createContext().weekDayName(-1);
         });
     }
 
@@ -91,16 +121,19 @@ public interface DateTimeContextTesting2<C extends DateTimeContext> extends Cont
     }
 
     @Test
-    default void testWeekDayNameAbbrevationNegativeFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createContext().weekDayNameAbbreviation(-1);
-        });
+    default void testWeekDayNameAbbreviations() {
+        assertNotEquals(Lists.empty(), this.createContext().weekDayNameAbbreviations());
     }
 
     @Test
-    default void testWeekDayNameAbbrevationZeroFails() {
+    default void testWeekDayNameAbbreviations2() {
+        this.weekDayNameAbbreviationCheck(this.createContext());
+    }
+
+    @Test
+    default void testWeekDayNameAbbrevationNegativeFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            this.createContext().weekDayNameAbbreviation(0);
+            this.createContext().weekDayNameAbbreviation(-1);
         });
     }
 

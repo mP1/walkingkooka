@@ -18,8 +18,12 @@
 package walkingkooka.datetime;
 
 import walkingkooka.ToStringBuilder;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.text.CharSequences;
 
 import java.text.DateFormatSymbols;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -36,62 +40,80 @@ final class DateFormatSymbolsDateTimeContext implements DateTimeContext {
     private DateFormatSymbolsDateTimeContext(final DateFormatSymbols symbols) {
         super();
 
-        this.symbols = symbols;
+        this.ampms = Lists.of(symbols.getAmPmStrings());
+
+        this.monthNames = monthNames(symbols.getMonths());
+        this.monthNameAbbreviations = monthNames(symbols.getShortMonths());
+
+        this.weekDayNames = dayNames(symbols.getWeekdays());
+        this.weekDayNameAbbreviations = dayNames(symbols.getShortWeekdays());
+    }
+
+    /**
+     * {@link DateFormatSymbols} returns arrays of 13 with null occupying the 13th slot for month systems with only 12.
+     */
+    private static List<String> monthNames(final String[] names) {
+        final int last = names.length - 1;
+
+        return CharSequences.isNullOrEmpty(names[last]) ?
+                Lists.of(Arrays.copyOfRange(names, 0, last)) :
+                Lists.of(names);
+    }
+
+    /**
+     * {@link DateFormatSymbols} removes the initial empty string lot in a list of day names, so 0 = Sunday.
+     */
+    private static List<String> dayNames(final String[] names) {
+        return Lists.of(Arrays.copyOfRange(names, 0, names.length));
     }
 
     // DateTimeContext..................................................................................................
 
     @Override
-    public String ampm(final int hourOfDay) {
-        if (hourOfDay < 0 || hourOfDay >= 24) {
-            throw new IllegalArgumentException("Invalid hourOfDay " + hourOfDay + " not between 0 and 24");
-        }
-        return this.symbols.getAmPmStrings()[hourOfDay / 12];
+    public List<String> ampms() {
+        return this.ampms;
     }
+
+    private final List<String> ampms;
 
     @Override
-    public String monthName(final int month) {
-        return this.get(this.symbols.getMonths(), month, 0, 12, "month");
+    public List<String> monthNames() {
+        return this.monthNames;
     }
+
+    private final List<String> monthNames;
 
     @Override
-    public String monthNameAbbreviation(final int month) {
-        return this.get(this.symbols.getShortMonths(), month, 0, 12, "month");
+    public List<String> monthNameAbbreviations() {
+        return this.monthNameAbbreviations;
     }
+
+    private final List<String> monthNameAbbreviations;
 
     @Override
-    public String weekDayName(final int day) {
-        return this.get(this.symbols.getWeekdays(), day, 1, 8, "day");
+    public List<String> weekDayNames() {
+        return this.weekDayNames;
     }
+
+    private final List<String> weekDayNames;
 
     @Override
-    public String weekDayNameAbbreviation(final int day) {
-        return this.get(this.symbols.getShortWeekdays(), day, 1, 8, "day");
+    public List<String> weekDayNameAbbreviations() {
+        return this.weekDayNameAbbreviations;
     }
 
-    private String get(final String[] values,
-                       final int index,
-                       final int lower,
-                       final int upper,
-                       final String label) {
-        if (index < lower || index >= upper) {
-            throw new IllegalArgumentException("Invalid " + label + " " + index + " not between " + lower + " and " + upper);
-        }
-        return values[index];
-    }
-
-    private final DateFormatSymbols symbols;
+    private final List<String> weekDayNameAbbreviations;
 
     // Object...........................................................................................................
 
     @Override
     public String toString() {
         return ToStringBuilder.empty()
-                .label("ampm").value(this.symbols.getAmPmStrings())
-                .label("month").value(this.symbols.getMonths())
-                .label("shortMonths").value(this.symbols.getShortMonths())
-                .label("weekDays").value(this.symbols.getWeekdays())
-                .label("shortWeekdays").value(this.symbols.getShortWeekdays())
+                .label("ampm").value(this.ampms)
+                .label("month").value(this.monthNames)
+                .label("monthsAbbreviations").value(this.monthNameAbbreviations)
+                .label("weekDays").value(this.weekDayNames)
+                .label("weeDayNameAbbreviations").value(this.weekDayNameAbbreviations)
                 .build();
     }
 }

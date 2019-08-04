@@ -20,12 +20,24 @@ package walkingkooka.convert;
 import walkingkooka.math.FakeDecimalNumberContext;
 import walkingkooka.test.Fake;
 
+import java.util.List;
+
 /**
  * A {@link ConverterContext} where all methods throw {@link UnsupportedOperationException}.
  */
 public class FakeConverterContext extends FakeDecimalNumberContext implements ConverterContext, Fake {
     @Override
+    public List<String> ampms() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public String ampm(final int hourOfDay) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<String> monthNames() {
         throw new UnsupportedOperationException();
     }
 
@@ -35,12 +47,27 @@ public class FakeConverterContext extends FakeDecimalNumberContext implements Co
     }
 
     @Override
+    public List<String> monthNameAbbreviations() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public String monthNameAbbreviation(final int month) {
         throw new UnsupportedOperationException();
     }
 
     @Override
+    public List<String> weekDayNames() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public String weekDayName(final int day) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<String> weekDayNameAbbreviations() {
         throw new UnsupportedOperationException();
     }
 

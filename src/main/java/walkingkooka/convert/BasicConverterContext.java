@@ -21,6 +21,7 @@ import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.math.DecimalNumberContext;
 
 import java.math.MathContext;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -52,28 +53,28 @@ final class BasicConverterContext implements ConverterContext {
     }
 
     @Override
-    public String ampm(final int hourOfDay) {
-        return this.dateTimeContext.ampm(hourOfDay);
+    public List<String> ampms() {
+        return this.dateTimeContext.ampms();
     }
 
     @Override
-    public String monthName(final int month) {
-        return this.dateTimeContext.monthName(month);
+    public List<String> monthNames() {
+        return this.dateTimeContext.monthNames();
     }
 
     @Override
-    public String monthNameAbbreviation(final int month) {
-        return this.dateTimeContext.monthNameAbbreviation(month);
+    public List<String> monthNameAbbreviations() {
+        return this.dateTimeContext.monthNameAbbreviations();
     }
 
     @Override
-    public String weekDayName(final int day) {
-        return this.dateTimeContext.weekDayName(day);
+    public List<String> weekDayNames() {
+        return this.dateTimeContext.weekDayNames();
     }
 
     @Override
-    public String weekDayNameAbbreviation(final int day) {
-        return this.dateTimeContext.weekDayNameAbbreviation(day);
+    public List<String> weekDayNameAbbreviations() {
+        return this.dateTimeContext.weekDayNameAbbreviations();
     }
 
     private final DateTimeContext dateTimeContext;
