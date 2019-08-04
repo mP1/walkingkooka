@@ -52,6 +52,11 @@ public class FakeDateTimeContext implements DateTimeContext {
     }
 
     @Override
+    public int twoDigitYear() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public List<String> weekDayNames() {
         throw new UnsupportedOperationException();
     }

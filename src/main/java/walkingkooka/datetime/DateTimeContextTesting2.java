@@ -97,6 +97,12 @@ public interface DateTimeContextTesting2<C extends DateTimeContext> extends Cont
     }
 
     @Test
+    default void testTwoDigitYear() {
+        final C context = this.createContext();
+        this.twoDigitYearAndCheck(context, context.twoDigitYear());
+    }
+
+    @Test
     default void testWeekDayNames() {
         assertNotEquals(Lists.empty(), this.createContext().weekDayNames());
     }

@@ -28,8 +28,9 @@ public final class DateTimeContexts implements PublicStaticHelper {
     /**
      * {@see DateFormatSymbolsDateTimeContext}
      */
-    public static DateTimeContext dateFormatSymbols(final DateFormatSymbols symbols) {
-        return DateFormatSymbolsDateTimeContext.with(symbols);
+    public static DateTimeContext dateFormatSymbols(final DateFormatSymbols symbols,
+                                                    final int twoDigitYear) {
+        return DateFormatSymbolsDateTimeContext.with(symbols, twoDigitYear);
     }
 
     /**

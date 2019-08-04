@@ -76,7 +76,7 @@ public final class BasicConverterContextTest implements ClassTesting2<BasicConve
     }
 
     private DateTimeContext dateTimeContext() {
-        return DateTimeContexts.dateFormatSymbols(new DateFormatSymbols(Locale.FRANCE));
+        return DateTimeContexts.dateFormatSymbols(new DateFormatSymbols(Locale.FRANCE), 20);
     }
 
     private DecimalNumberContext decimalNumberContext() {

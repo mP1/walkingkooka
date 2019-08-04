@@ -57,6 +57,11 @@ public class FakeConverterContext extends FakeDecimalNumberContext implements Co
     }
 
     @Override
+    public int twoDigitYear() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public List<String> weekDayNames() {
         throw new UnsupportedOperationException();
     }
