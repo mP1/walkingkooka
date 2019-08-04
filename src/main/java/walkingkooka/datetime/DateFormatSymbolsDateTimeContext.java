@@ -31,19 +31,26 @@ import java.util.Objects;
  */
 final class DateFormatSymbolsDateTimeContext implements DateTimeContext {
 
-    static DateFormatSymbolsDateTimeContext with(final DateFormatSymbols symbols) {
+    static DateFormatSymbolsDateTimeContext with(final DateFormatSymbols symbols,
+                                                 final int twoDigitYear) {
         Objects.requireNonNull(symbols, "symbols");
+        if (twoDigitYear < 0 || twoDigitYear >= 100) {
+            throw new IllegalArgumentException("Invalid twoDigitYear " + twoDigitYear + " not between 0 and 100");
+        }
 
-        return new DateFormatSymbolsDateTimeContext(symbols);
+        return new DateFormatSymbolsDateTimeContext(symbols, twoDigitYear);
     }
 
-    private DateFormatSymbolsDateTimeContext(final DateFormatSymbols symbols) {
+    private DateFormatSymbolsDateTimeContext(final DateFormatSymbols symbols,
+                                             final int twoDigitYear) {
         super();
 
         this.ampms = Lists.of(symbols.getAmPmStrings());
 
         this.monthNames = monthNames(symbols.getMonths());
         this.monthNameAbbreviations = monthNames(symbols.getShortMonths());
+
+        this.twoDigitYear = twoDigitYear;
 
         this.weekDayNames = dayNames(symbols.getWeekdays());
         this.weekDayNameAbbreviations = dayNames(symbols.getShortWeekdays());
@@ -91,6 +98,13 @@ final class DateFormatSymbolsDateTimeContext implements DateTimeContext {
     private final List<String> monthNameAbbreviations;
 
     @Override
+    public int twoDigitYear() {
+        return this.twoDigitYear;
+    }
+
+    private final int twoDigitYear;
+
+    @Override
     public List<String> weekDayNames() {
         return this.weekDayNames;
     }
@@ -112,6 +126,7 @@ final class DateFormatSymbolsDateTimeContext implements DateTimeContext {
                 .label("ampm").value(this.ampms)
                 .label("month").value(this.monthNames)
                 .label("monthsAbbreviations").value(this.monthNameAbbreviations)
+                .label("twoDigitYear").value(this.twoDigitYear)
                 .label("weekDays").value(this.weekDayNames)
                 .label("weeDayNameAbbreviations").value(this.weekDayNameAbbreviations)
                 .build();

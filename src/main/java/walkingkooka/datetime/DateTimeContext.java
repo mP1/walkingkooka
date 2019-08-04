@@ -66,6 +66,11 @@ public interface DateTimeContext extends Context {
     }
 
     /**
+     * Returns a two digit value, values under should be 2000 years, while those under should be 1900s.
+     */
+    int twoDigitYear();
+
+    /**
      * Returns all the week day names in long form.
      */
     List<String> weekDayNames();

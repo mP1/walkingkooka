@@ -68,6 +68,11 @@ final class BasicConverterContext implements ConverterContext {
     }
 
     @Override
+    public int twoDigitYear() {
+        return this.dateTimeContext.twoDigitYear();
+    }
+
+    @Override
     public List<String> weekDayNames() {
         return this.dateTimeContext.weekDayNames();
     }

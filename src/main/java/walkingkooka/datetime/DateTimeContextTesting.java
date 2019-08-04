@@ -60,6 +60,13 @@ public interface DateTimeContextTesting {
                 });
     }
 
+    default void twoDigitYearAndCheck(final DateTimeContext context,
+                                      final int twoDigitYear) {
+        assertEquals(true,
+                twoDigitYear >= 0 || twoDigitYear <= 100,
+                () -> "twoDigitYear " + twoDigitYear + " " + context);
+    }
+
     default void weekDayNameAndCheck(final DateTimeContext context,
                                      final int day,
                                      final String dayName) {
