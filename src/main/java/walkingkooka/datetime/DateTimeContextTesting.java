@@ -16,6 +16,9 @@
  */
 package walkingkooka.datetime;
 
+import java.util.List;
+import java.util.stream.IntStream;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -23,23 +26,65 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public interface DateTimeContextTesting {
 
-    default void amPmAndCheck(final DateTimeContext context, final int hourOfDay, final String ampm) {
+    default void amPmAndCheck(final DateTimeContext context,
+                              final int hourOfDay,
+                              final String ampm) {
         assertEquals(ampm, context.ampm(hourOfDay), () -> "ampm hourOfDay=" + hourOfDay);
     }
 
-    default void monthNameAndCheck(final DateTimeContext context, final int month, final String monthName) {
+    default void monthNameAndCheck(final DateTimeContext context,
+                                   final int month,
+                                   final String monthName) {
         assertEquals(monthName, context.monthName(month), () -> "monthName month=" + month);
     }
 
-    default void monthNameAbbreviationAndCheck(final DateTimeContext context, final int month, final String monthName) {
+    default void monthNamesCheck(final DateTimeContext context) {
+        final List<String> names = context.monthNames();
+        IntStream.range(0, names.size())
+                .forEach(i -> {
+                    this.monthNameAndCheck(context, i, names.get(i));
+                });
+    }
+
+    default void monthNameAbbreviationAndCheck(final DateTimeContext context,
+                                               final int month,
+                                               final String monthName) {
         assertEquals(monthName, context.monthNameAbbreviation(month), () -> "monthNameAbbreviation month=" + month);
     }
 
-    default void weekDayNameAndCheck(final DateTimeContext context, final int day, final String dayName) {
+    default void monthNameAbbreviationsCheck(final DateTimeContext context) {
+        final List<String> names = context.monthNameAbbreviations();
+        IntStream.range(0, names.size())
+                .forEach(i -> {
+                    this.monthNameAbbreviationAndCheck(context, i, names.get(i));
+                });
+    }
+
+    default void weekDayNameAndCheck(final DateTimeContext context,
+                                     final int day,
+                                     final String dayName) {
         assertEquals(dayName, context.weekDayName(day), () -> "weekDayName day=" + day);
     }
 
-    default void weekDayNameAbbreviationAndCheck(final DateTimeContext context, final int day, final String dayName) {
+    default void weekDayNamesCheck(final DateTimeContext context) {
+        final List<String> names = context.weekDayNames();
+        IntStream.range(0, names.size())
+                .forEach(i -> {
+                    this.weekDayNameAndCheck(context, i, names.get(i));
+                });
+    }
+
+    default void weekDayNameAbbreviationAndCheck(final DateTimeContext context,
+                                                 final int day,
+                                                 final String dayName) {
         assertEquals(dayName, context.weekDayNameAbbreviation(day), () -> "weekDayNameAbbreviation day=" + day);
+    }
+
+    default void weekDayNameAbbreviationCheck(final DateTimeContext context) {
+        final List<String> names = context.weekDayNameAbbreviations();
+        IntStream.range(0, names.size())
+                .forEach(i -> {
+                    this.weekDayNameAbbreviationAndCheck(context, i, names.get(i));
+                });
     }
 }

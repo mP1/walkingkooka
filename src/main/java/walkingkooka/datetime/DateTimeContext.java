@@ -19,33 +19,73 @@ package walkingkooka.datetime;
 
 import walkingkooka.Context;
 
+import java.util.List;
+
 /**
  * Context that typically accompanies another stateless component such as a number parser or formatter that involves decimals.
  */
 public interface DateTimeContext extends Context {
 
     /**
-     * Returns the selected AM or PM given the hour of the day (24 hour time).
+     * Returns all the AM/PM strings.
      */
-    String ampm(int hourOfDay);
+    List<String> ampms();
 
     /**
-     * Returns the requested month in full. The month is zero index.
+     * Returns the selected AM or PM given the hour of the day (24 hour time).
      */
-    String monthName(int month);
+    default String ampm(final int hourOfDay) {
+        if (hourOfDay < 0 || hourOfDay >= 24) {
+            throw new IllegalArgumentException("Invalid hourOrDay " + hourOfDay + " not between 0 and 24");
+        }
+        return this.ampms().get(hourOfDay / 12);
+    }
+
+    /**
+     * Returns all the month names in long form.
+     */
+    List<String> monthNames();
+
+    /**
+     * Returns the requested month in full. The first month like January is zero index.
+     */
+    default String monthName(final int month) {
+        return DateTimeContextGetter.get(month, this.monthNames(), "month");
+    }
+
+    /**
+     * Returns all the month names in short form.
+     */
+    List<String> monthNameAbbreviations();
 
     /**
      * Returns the requested month in abbreviated form. The month is zero index.
      */
-    String monthNameAbbreviation(int month);
+    default String monthNameAbbreviation(final int month) {
+        return DateTimeContextGetter.get(month, this.monthNameAbbreviations(), "month");
+    }
+
+    /**
+     * Returns all the week day names in long form.
+     */
+    List<String> weekDayNames();
 
     /**
      * Returns the requested week day in full. Sunday is 0.
      */
-    String weekDayName(int day);
+    default String weekDayName(final int day) {
+        return DateTimeContextGetter.get(day, this.weekDayNames(), "day");
+    }
+
+    /**
+     * Returns all the week day names in short form.
+     */
+    List<String> weekDayNameAbbreviations();
 
     /**
      * Returns the requested week day in abbreviated form. Sunday is 0.
      */
-    String weekDayNameAbbreviation(int day);
+    default String weekDayNameAbbreviation(final int day) {
+        return DateTimeContextGetter.get(day, this.weekDayNameAbbreviations(), "day");
+    }
 }
