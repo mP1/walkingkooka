@@ -23,7 +23,7 @@ import walkingkooka.Cast;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 
-public final class DateTimeFormatterParserOffsetDateTimeTest extends DateTimeFormatterParserOffsetTestCase<DateTimeFormatterParserOffsetDateTime<FakeParserContext>, OffsetDateTimeParserToken> {
+public final class DateTimeFormatterParserOffsetDateTimeTest extends DateTimeFormatterParserOffsetTestCase<DateTimeFormatterParserOffsetDateTime<ParserContext>, OffsetDateTimeParserToken> {
 
     // YearMonthDayHoursMinutes...............................................................................
 
@@ -162,7 +162,7 @@ public final class DateTimeFormatterParserOffsetDateTimeTest extends DateTimeFor
     }
 
     @Override
-    protected DateTimeFormatterParserOffsetDateTime<FakeParserContext> createParser(final DateTimeFormatter formatter, final String pattern) {
+    protected DateTimeFormatterParserOffsetDateTime<ParserContext> createParser(final DateTimeFormatter formatter, final String pattern) {
         return DateTimeFormatterParserOffsetDateTime.with(formatter, pattern);
     }
 
@@ -182,7 +182,7 @@ public final class DateTimeFormatterParserOffsetDateTimeTest extends DateTimeFor
     }
 
     @Override
-    public Class<DateTimeFormatterParserOffsetDateTime<FakeParserContext>> type() {
+    public Class<DateTimeFormatterParserOffsetDateTime<ParserContext>> type() {
         return Cast.to(DateTimeFormatterParserOffsetDateTime.class);
     }
 

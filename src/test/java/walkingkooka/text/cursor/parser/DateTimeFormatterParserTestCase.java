@@ -18,6 +18,8 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.TypeNameTesting;
@@ -25,14 +27,18 @@ import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.type.JavaVisibility;
 
+import java.math.MathContext;
+import java.text.DateFormatSymbols;
+import java.text.DecimalFormatSymbols;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class DateTimeFormatterParserTestCase<P extends DateTimeFormatterParser<FakeParserContext>, T extends ParserToken>
+public abstract class DateTimeFormatterParserTestCase<P extends DateTimeFormatterParser<ParserContext>, T extends ParserToken>
         implements ClassTesting2<P>,
         HashCodeEqualsDefinedTesting<P>,
-        ParserTesting<P, FakeParserContext>,
+        ParserTesting<P, ParserContext>,
         TypeNameTesting<P> {
 
     DateTimeFormatterParserTestCase() {
@@ -70,7 +76,7 @@ public abstract class DateTimeFormatterParserTestCase<P extends DateTimeFormatte
     }
 
     final P createParser(final String pattern) {
-        return this.createParser(DateTimeFormatter.ofPattern(pattern), pattern);
+        return this.createParser(DateTimeFormatter.ofPattern(pattern).withLocale(Locale.JAPAN), pattern);
     }
 
     abstract P createParser(final DateTimeFormatter formatter, final String pattern);
@@ -87,8 +93,10 @@ public abstract class DateTimeFormatterParserTestCase<P extends DateTimeFormatte
     abstract String differentPattern();
 
     @Override
-    public FakeParserContext createContext() {
-        return new FakeParserContext();
+    public ParserContext createContext() {
+        final Locale english = Locale.ENGLISH;
+        return ParserContexts.basic(DateTimeContexts.dateFormatSymbols(new DateFormatSymbols(english), 50),
+                DecimalNumberContexts.decimalFormatSymbols(new DecimalFormatSymbols(english), '^', '+', english, MathContext.UNLIMITED));
     }
 
     final void parseAndCheck2(final String text) {
