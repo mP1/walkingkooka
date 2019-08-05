@@ -101,24 +101,27 @@ public final class Parsers implements PublicStaticHelper {
     }
 
     /**
-     * {@see LocalDateDateTimeFormatterParser}
+     * {@see DateTimeFormatterParserLocalDate}
      */
-    public static <C extends ParserContext> Parser<C> localDate(final DateTimeFormatter formatter, final String pattern) {
-        return LocalDateDateTimeFormatterParser.with(formatter, pattern);
+    public static <C extends ParserContext> Parser<C> localDate(final DateTimeFormatter formatter,
+                                                                final String pattern) {
+        return DateTimeFormatterParserLocalDate.with(formatter, pattern);
     }
 
     /**
-     * {@see LocalDateTimeDateTimeFormatterParser}
+     * {@see DateTimeFormatterParserLocalDateTime}
      */
-    public static <C extends ParserContext> Parser<C> localDateTime(final DateTimeFormatter formatter, final String pattern) {
-        return LocalDateTimeDateTimeFormatterParser.with(formatter, pattern);
+    public static <C extends ParserContext> Parser<C> localDateTime(final DateTimeFormatter formatter,
+                                                                    final String pattern) {
+        return DateTimeFormatterParserLocalDateTime.with(formatter, pattern);
     }
 
     /**
-     * {@see LocalTimeDateTimeFormatterParser}
+     * {@see DateTimeFormatterParserLocalTime}
      */
-    public static <C extends ParserContext> Parser<C> localTime(final DateTimeFormatter formatter, final String pattern) {
-        return LocalTimeDateTimeFormatterParser.with(formatter, pattern);
+    public static <C extends ParserContext> Parser<C> localTime(final DateTimeFormatter formatter,
+                                                                final String pattern) {
+        return DateTimeFormatterParserLocalTime.with(formatter, pattern);
     }
 
     /**
@@ -129,17 +132,19 @@ public final class Parsers implements PublicStaticHelper {
     }
 
     /**
-     * {@see OffsetDateTimeDateTimeFormatterParser}
+     * {@see DateTimeFormatterParserOffsetDateTime}
      */
-    public static <C extends ParserContext> Parser<C> offsetDateTime(final DateTimeFormatter formatter, final String pattern) {
-        return OffsetDateTimeDateTimeFormatterParser.with(formatter, pattern);
+    public static <C extends ParserContext> Parser<C> offsetDateTime(final DateTimeFormatter formatter,
+                                                                     final String pattern) {
+        return DateTimeFormatterParserOffsetDateTime.with(formatter, pattern);
     }
 
     /**
-     * {@see OffsetTimeDateTimeFormatterParser}
+     * {@see DateTimeFormatterParserOffsetTime}
      */
-    public static <C extends ParserContext> Parser<C> offsetTime(final DateTimeFormatter formatter, final String pattern) {
-        return OffsetTimeDateTimeFormatterParser.with(formatter, pattern);
+    public static <C extends ParserContext> Parser<C> offsetTime(final DateTimeFormatter formatter,
+                                                                 final String pattern) {
+        return DateTimeFormatterParserOffsetTime.with(formatter, pattern);
     }
 
     /**
@@ -222,10 +227,11 @@ public final class Parsers implements PublicStaticHelper {
     }
 
     /**
-     * {@see ZonedDateTimeDateTimeFormatterParser}
+     * {@see DateTimeFormatterParserZonedDateTime}
      */
-    public static <C extends ParserContext> Parser<C> zonedDateTime(final DateTimeFormatter formatter, final String pattern) {
-        return ZonedDateTimeDateTimeFormatterParser.with(formatter, pattern);
+    public static <C extends ParserContext> Parser<C> zonedDateTime(final DateTimeFormatter formatter,
+                                                                    final String pattern) {
+        return DateTimeFormatterParserZonedDateTime.with(formatter, pattern);
     }
 
     /**

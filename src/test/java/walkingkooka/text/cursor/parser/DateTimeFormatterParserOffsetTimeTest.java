@@ -23,7 +23,7 @@ import walkingkooka.Cast;
 import java.time.OffsetTime;
 import java.time.format.DateTimeFormatter;
 
-public final class OffsetTimeDateTimeFormatterParserTest extends OffsetDateTimeFormatterParserTestCase<OffsetTimeDateTimeFormatterParser<FakeParserContext>, OffsetTimeParserToken> {
+public final class DateTimeFormatterParserOffsetTimeTest extends DateTimeFormatterParserOffsetTestCase<DateTimeFormatterParserOffsetTime<FakeParserContext>, OffsetTimeParserToken> {
 
 //    The ISO date formatter that formats or parses a date without an
 //     * offset, such as '12:58:59.123-10:00'
@@ -138,8 +138,8 @@ public final class OffsetTimeDateTimeFormatterParserTest extends OffsetDateTimeF
     }
 
     @Override
-    protected OffsetTimeDateTimeFormatterParser<FakeParserContext> createParser(final DateTimeFormatter formatter, final String pattern) {
-        return OffsetTimeDateTimeFormatterParser.with(formatter, pattern);
+    protected DateTimeFormatterParserOffsetTime<FakeParserContext> createParser(final DateTimeFormatter formatter, final String pattern) {
+        return DateTimeFormatterParserOffsetTime.with(formatter, pattern);
     }
 
     @Override
@@ -158,7 +158,14 @@ public final class OffsetTimeDateTimeFormatterParserTest extends OffsetDateTimeF
     }
 
     @Override
-    public Class<OffsetTimeDateTimeFormatterParser<FakeParserContext>> type() {
-        return Cast.to(OffsetTimeDateTimeFormatterParser.class);
+    public Class<DateTimeFormatterParserOffsetTime<FakeParserContext>> type() {
+        return Cast.to(DateTimeFormatterParserOffsetTime.class);
+    }
+
+    // TypeNameTesting..................................................................................................
+
+    @Override
+    public final String typeNameSuffix() {
+        return OffsetTime.class.getSimpleName();
     }
 }

@@ -23,7 +23,7 @@ import walkingkooka.Cast;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public final class LocalTimeDateTimeFormatterParserTest extends LocalDateTimeFormatterParserTestCase<LocalTimeDateTimeFormatterParser<FakeParserContext>, LocalTimeParserToken> {
+public final class DateTimeFormatterParserLocalTimeTest extends DateTimeFormatterParserLocalTestCase<DateTimeFormatterParserLocalTime<FakeParserContext>, LocalTimeParserToken> {
 
 //    The ISO date formatter that formats or parses a date without an
 //     * offset, such as '2011-12-03'
@@ -109,8 +109,8 @@ public final class LocalTimeDateTimeFormatterParserTest extends LocalDateTimeFor
     }
 
     @Override
-    protected LocalTimeDateTimeFormatterParser<FakeParserContext> createParser(final DateTimeFormatter formatter, final String pattern) {
-        return LocalTimeDateTimeFormatterParser.with(formatter, pattern);
+    protected DateTimeFormatterParserLocalTime<FakeParserContext> createParser(final DateTimeFormatter formatter, final String pattern) {
+        return DateTimeFormatterParserLocalTime.with(formatter, pattern);
     }
 
     @Override
@@ -129,7 +129,14 @@ public final class LocalTimeDateTimeFormatterParserTest extends LocalDateTimeFor
     }
 
     @Override
-    public Class<LocalTimeDateTimeFormatterParser<FakeParserContext>> type() {
-        return Cast.to(LocalTimeDateTimeFormatterParser.class);
+    public Class<DateTimeFormatterParserLocalTime<FakeParserContext>> type() {
+        return Cast.to(DateTimeFormatterParserLocalTime.class);
+    }
+
+    // TypeNameTesting..................................................................................................
+
+    @Override
+    public final String typeNameSuffix() {
+        return LocalTime.class.getSimpleName();
     }
 }

@@ -23,7 +23,7 @@ import walkingkooka.Cast;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-public final class ZonedDateTimeDateTimeFormatterParserTest extends DateTimeFormatterParserTestCase<ZonedDateTimeDateTimeFormatterParser<FakeParserContext>, ZonedDateTimeParserToken> {
+public final class DateTimeFormatterParserZonedDateTimeTest extends DateTimeFormatterParserTestCase<DateTimeFormatterParserZonedDateTime<FakeParserContext>, ZonedDateTimeParserToken> {
 
     // YearMonthDayHoursMinutes...............................................................................
 
@@ -202,8 +202,8 @@ public final class ZonedDateTimeDateTimeFormatterParserTest extends DateTimeForm
     }
 
     @Override
-    protected ZonedDateTimeDateTimeFormatterParser<FakeParserContext> createParser(final DateTimeFormatter formatter, final String pattern) {
-        return ZonedDateTimeDateTimeFormatterParser.with(formatter, pattern);
+    protected DateTimeFormatterParserZonedDateTime<FakeParserContext> createParser(final DateTimeFormatter formatter, final String pattern) {
+        return DateTimeFormatterParserZonedDateTime.with(formatter, pattern);
     }
 
     @Override
@@ -222,14 +222,14 @@ public final class ZonedDateTimeDateTimeFormatterParserTest extends DateTimeForm
     }
 
     @Override
-    public Class<ZonedDateTimeDateTimeFormatterParser<FakeParserContext>> type() {
-        return Cast.to(ZonedDateTimeDateTimeFormatterParser.class);
+    public Class<DateTimeFormatterParserZonedDateTime<FakeParserContext>> type() {
+        return Cast.to(DateTimeFormatterParserZonedDateTime.class);
     }
 
-    // TypeNameTesting...........................................................................
+    // TypeNameTesting..................................................................................................
 
     @Override
-    public final String typeNamePrefix() {
-        return "Zoned";
+    public final String typeNameSuffix() {
+        return ZonedDateTime.class.getSimpleName();
     }
 }

@@ -20,10 +20,10 @@ package walkingkooka.text.cursor.parser;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.JavaVisibility;
 
-public final class OffsetDateTimeFormatterParserTest implements ClassTesting2<OffsetDateTimeFormatterParser> {
+public final class DateTimeFormatterParserOffsetTest implements ClassTesting2<DateTimeFormatterParserOffset> {
     @Override
-    public Class<OffsetDateTimeFormatterParser> type() {
-        return OffsetDateTimeFormatterParser.class;
+    public Class<DateTimeFormatterParserOffset> type() {
+        return DateTimeFormatterParserOffset.class;
     }
 
     @Override

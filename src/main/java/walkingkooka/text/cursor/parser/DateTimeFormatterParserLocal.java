@@ -23,9 +23,9 @@ import java.time.format.DateTimeFormatter;
  * Base class for all parsers that handle local dates, times, date/times.
  * It contains the shared logic to complain/fail if the pattern contains a timezone or offset of some sort.
  */
-abstract class LocalDateTimeFormatterParser<C extends ParserContext> extends DateTimeFormatterParser<C> {
+abstract class DateTimeFormatterParserLocal<C extends ParserContext> extends DateTimeFormatterParser<C> {
 
-    LocalDateTimeFormatterParser(final DateTimeFormatter formatter, final String pattern) {
+    DateTimeFormatterParserLocal(final DateTimeFormatter formatter, final String pattern) {
         super(formatter, pattern);
     }
 

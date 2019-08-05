@@ -21,11 +21,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class OffsetDateTimeFormatterParserTestCase<P extends DateTimeFormatterParser<FakeParserContext>,
+public abstract class DateTimeFormatterParserLocalTestCase<P extends DateTimeFormatterParser<FakeParserContext>,
         T extends ParserToken>
         extends DateTimeFormatterParserTestCase<P, T> {
 
-    OffsetDateTimeFormatterParserTestCase() {
+    DateTimeFormatterParserLocalTestCase() {
         super();
     }
 
@@ -43,10 +43,31 @@ public abstract class OffsetDateTimeFormatterParserTestCase<P extends DateTimeFo
         });
     }
 
-    // TypeNameTesting...........................................................................
+    @Test
+    public final void testWithLocalizedZoneOffsetFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createParser(this.pattern() + "O");
+        });
+    }
 
-    @Override
-    public final String typeNamePrefix() {
-        return "Offset";
+    @Test
+    public final void testWithZoneOffsetBigXFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createParser(this.pattern() + "X");
+        });
+    }
+
+    @Test
+    public final void testWithZoneOffsetLittleXFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createParser(this.pattern() + "x");
+        });
+    }
+
+    @Test
+    public final void testWithZoneOffsetZFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createParser(this.pattern() + "Z");
+        });
     }
 }

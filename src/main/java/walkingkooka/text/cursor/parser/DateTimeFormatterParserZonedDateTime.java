@@ -24,13 +24,13 @@ import java.time.temporal.TemporalAccessor;
 /**
  * A {@link Parser} that uses a {@link DateTimeFormatter} to parse a {@link ZonedDateTime}.
  */
-final class ZonedDateTimeDateTimeFormatterParser<C extends ParserContext> extends DateTimeFormatterParser<C> {
+final class DateTimeFormatterParserZonedDateTime<C extends ParserContext> extends DateTimeFormatterParser<C> {
 
-    static <C extends ParserContext> ZonedDateTimeDateTimeFormatterParser<C> with(final DateTimeFormatter formatter, final String pattern) {
-        return new ZonedDateTimeDateTimeFormatterParser<>(formatter, pattern);
+    static <C extends ParserContext> DateTimeFormatterParserZonedDateTime<C> with(final DateTimeFormatter formatter, final String pattern) {
+        return new DateTimeFormatterParserZonedDateTime<>(formatter, pattern);
     }
 
-    private ZonedDateTimeDateTimeFormatterParser(DateTimeFormatter formatter, final String pattern) {
+    private DateTimeFormatterParserZonedDateTime(DateTimeFormatter formatter, final String pattern) {
         super(formatter, pattern);
     }
 
@@ -76,6 +76,6 @@ final class ZonedDateTimeDateTimeFormatterParser<C extends ParserContext> extend
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof ZonedDateTimeDateTimeFormatterParser;
+        return other instanceof DateTimeFormatterParserZonedDateTime;
     }
 }
