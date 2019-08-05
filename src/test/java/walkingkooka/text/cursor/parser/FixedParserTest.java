@@ -18,6 +18,7 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.text.cursor.TextCursors;
 
 import java.util.Optional;
@@ -77,7 +78,7 @@ public final class FixedParserTest extends ParserTestCase<FixedParser<ParserCont
 
     @Override
     public ParserContext createContext() {
-        return ParserContexts.basic(this.decimalNumberContext());
+        return ParserContexts.basic(DateTimeContexts.fake(), this.decimalNumberContext());
     }
 
     @Override

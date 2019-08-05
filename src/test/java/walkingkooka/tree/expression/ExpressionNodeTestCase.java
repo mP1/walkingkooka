@@ -322,7 +322,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
     }
 
     static ExpressionEvaluationContext context() {
-        final Function<ConverterContext, ParserContext> parserContext = (c) -> ParserContexts.basic(c);
+        final Function<ConverterContext, ParserContext> parserContext = (c) -> ParserContexts.basic(c, c);
 
         final Converter stringBigDecimal = Converters.parser(BigDecimal.class,
                 Parsers.bigDecimal(),

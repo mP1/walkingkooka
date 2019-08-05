@@ -18,6 +18,7 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.FakeDecimalNumberContext;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
@@ -157,17 +158,19 @@ public class BigIntegerParserTest extends Parser2TestCase<BigIntegerParser<Parse
 
     private TextCursor parseAndCheck3(final String text, final int value) {
         return this.parseAndCheck(this.createParser(),
-                ParserContexts.basic(new FakeDecimalNumberContext() {
-                    @Override
-                    public char minusSign() {
-                        return 'M';
-                    }
+                ParserContexts.basic(
+                        DateTimeContexts.fake(),
+                        new FakeDecimalNumberContext() {
+                            @Override
+                            public char minusSign() {
+                                return 'M';
+                            }
 
-                    @Override
-                    public char plusSign() {
-                        return 'P';
-                    }
-                }),
+                            @Override
+                            public char plusSign() {
+                                return 'P';
+                            }
+                        }),
                 text,
                 ParserTokens.bigInteger(BigInteger.valueOf(value), text),
                 text,
@@ -191,7 +194,7 @@ public class BigIntegerParserTest extends Parser2TestCase<BigIntegerParser<Parse
 
     @Override
     public ParserContext createContext() {
-        return ParserContexts.basic(this.decimalNumberContext());
+        return ParserContexts.basic(DateTimeContexts.fake(), this.decimalNumberContext());
     }
 
     private TextCursor parseAndCheck2(final String in, final long value, final String text, final String textAfter) {

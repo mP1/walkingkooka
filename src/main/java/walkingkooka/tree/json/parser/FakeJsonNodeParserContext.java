@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.json.parser;
 
-import walkingkooka.math.FakeDecimalNumberContext;
+import walkingkooka.text.cursor.parser.FakeParserContext;
 
-public class FakeJsonNodeParserContext extends FakeDecimalNumberContext implements JsonNodeParserContext {
+public class FakeJsonNodeParserContext extends FakeParserContext implements JsonNodeParserContext {
 }

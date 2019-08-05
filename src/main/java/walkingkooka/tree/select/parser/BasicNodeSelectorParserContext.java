@@ -21,6 +21,7 @@ import walkingkooka.ToStringBuilder;
 import walkingkooka.math.HasMathContext;
 
 import java.math.MathContext;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -44,6 +45,11 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext 
     }
 
     @Override
+    public List<String> ampms() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public String currencySymbol() {
         throw new UnsupportedOperationException();
     }
@@ -64,8 +70,30 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext 
     }
 
     @Override
+    public Locale locale() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public MathContext mathContext() {
+        return this.hasMathContext.mathContext();
+    }
+
+    private final HasMathContext hasMathContext;
+
+    @Override
     public char minusSign() {
         return '-';
+    }
+
+    @Override
+    public List<String> monthNames() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<String> monthNameAbbreviations() {
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -79,16 +107,19 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext 
     }
 
     @Override
-    public Locale locale() {
+    public int twoDigitYear() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public MathContext mathContext() {
-        return this.hasMathContext.mathContext();
+    public List<String> weekDayNames() {
+        throw new UnsupportedOperationException();
     }
 
-    private final HasMathContext hasMathContext;
+    @Override
+    public List<String> weekDayNameAbbreviations() {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     public String toString() {

@@ -18,6 +18,7 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.FakeDecimalNumberContext;
 import walkingkooka.text.cursor.TextCursor;
 
@@ -460,27 +461,29 @@ public final class DoubleParserTest extends Parser2TestCase<DoubleParser<ParserC
 
     private TextCursor parseAndCheck3(final String text, final double value) {
         return this.parseAndCheck(this.createParser(),
-                ParserContexts.basic(new FakeDecimalNumberContext() {
-                    @Override
-                    public char decimalPoint() {
-                        return '!';
-                    }
+                ParserContexts.basic(
+                        DateTimeContexts.fake(),
+                        new FakeDecimalNumberContext() {
+                            @Override
+                            public char decimalPoint() {
+                                return '!';
+                            }
 
-                    @Override
-                    public char exponentSymbol() {
-                        return 'X';
-                    }
+                            @Override
+                            public char exponentSymbol() {
+                                return 'X';
+                            }
 
-                    @Override
-                    public char minusSign() {
-                        return 'M';
-                    }
+                            @Override
+                            public char minusSign() {
+                                return 'M';
+                            }
 
-                    @Override
-                    public char plusSign() {
-                        return 'P';
-                    }
-                }),
+                            @Override
+                            public char plusSign() {
+                                return 'P';
+                            }
+                        }),
                 text,
                 ParserTokens.doubleParserToken(value, text),
                 text,
@@ -494,7 +497,7 @@ public final class DoubleParserTest extends Parser2TestCase<DoubleParser<ParserC
 
     @Override
     public ParserContext createContext() {
-        return ParserContexts.basic(this.decimalNumberContext());
+        return ParserContexts.basic(this.dateTimeContext(), this.decimalNumberContext());
     }
 
     private TextCursor parseAndCheck2(final String in, final double value) {

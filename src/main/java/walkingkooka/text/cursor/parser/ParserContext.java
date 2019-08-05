@@ -16,11 +16,12 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.Context;
+import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.math.DecimalNumberContext;
 
 /**
- * A context that accompanies a parser invocation. This may be used to hold state that is used during parsing.
+ * A {@link Context} that accompanies a parser invocation. This may be used to hold state that is used during parsing.
  */
-public interface ParserContext extends Context, DecimalNumberContext {
+public interface ParserContext extends DateTimeContext,
+        DecimalNumberContext {
 }

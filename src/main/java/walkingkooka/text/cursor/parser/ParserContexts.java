@@ -16,6 +16,7 @@
  */
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.type.PublicStaticHelper;
 
@@ -27,8 +28,9 @@ public final class ParserContexts implements PublicStaticHelper {
     /**
      * {@see BasicParserContext}
      */
-    public static ParserContext basic(final DecimalNumberContext context) {
-        return BasicParserContext.with(context);
+    public static ParserContext basic(final DateTimeContext dateTimeContext,
+                                      final DecimalNumberContext decimalNumberContext) {
+        return BasicParserContext.with(dateTimeContext, decimalNumberContext);
     }
 
     /**

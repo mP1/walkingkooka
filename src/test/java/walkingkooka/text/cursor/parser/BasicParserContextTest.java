@@ -18,11 +18,15 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.datetime.DateTimeContext;
+import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.JavaVisibility;
 
 import java.math.MathContext;
+import java.text.DateFormatSymbols;
 import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -42,9 +46,16 @@ public final class BasicParserContextTest implements ClassTesting2<BasicParserCo
     private final static MathContext MATH_CONTEXT = MathContext.DECIMAL32;
 
     @Test
-    public void testWithNullBasicFails() {
+    public void testWithNullDateTimeContextFails() {
         assertThrows(NullPointerException.class, () -> {
-            BasicParserContext.with(null);
+            BasicParserContext.with(null, DecimalNumberContexts.fake());
+        });
+    }
+
+    @Test
+    public void testWithNullDecimalNumberContextFails() {
+        assertThrows(NullPointerException.class, () -> {
+            BasicParserContext.with(DateTimeContexts.fake(), null);
         });
     }
 
@@ -60,16 +71,22 @@ public final class BasicParserContextTest implements ClassTesting2<BasicParserCo
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createContext(), this.basic().toString());
+        this.toStringAndCheck(this.createContext(), this.dateTimeContext() + " " + this.decimalNumberContext());
     }
 
     @Override
     public BasicParserContext createContext() {
-        return BasicParserContext.with(this.basic());
+        return BasicParserContext.with(
+                this.dateTimeContext(),
+                this.decimalNumberContext());
     }
 
-    private BasicParserContext basic() {
-        return BasicParserContext.with(DecimalNumberContexts.basic(CURRENCY,
+    private DateTimeContext dateTimeContext() {
+        return DateTimeContexts.dateFormatSymbols(new DateFormatSymbols(Locale.ENGLISH), 50);
+    }
+
+    private DecimalNumberContext decimalNumberContext() {
+        return DecimalNumberContexts.basic(CURRENCY,
                 DECIMAL,
                 EXPONENT,
                 GROUPING,
@@ -77,7 +94,7 @@ public final class BasicParserContextTest implements ClassTesting2<BasicParserCo
                 PERCENTAGE,
                 PLUS,
                 LOCALE,
-                MATH_CONTEXT));
+                MATH_CONTEXT);
     }
 
     @Override
