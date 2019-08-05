@@ -26,15 +26,16 @@ import java.io.Serializable;
  * Template {@link CharSequence} that includes templated handling the boring bits of {@link
  * #charAt(int)} and {@link #subSequence(int, int)} .
  */
-abstract class CharSequenceTemplate<C extends CharSequenceTemplate<C>>
-        implements CharSequence, HashCodeEqualsDefined, Serializable {
+abstract class CharSequence2<C extends CharSequence2<C>> implements CharSequence,
+        HashCodeEqualsDefined,
+        Serializable {
 
     private static final long serialVersionUID = 4222295145637915231L;
 
     /**
      * Package private to limit sub classing.
      */
-    CharSequenceTemplate() {
+    CharSequence2() {
         super();
     }
 
@@ -73,7 +74,7 @@ abstract class CharSequenceTemplate<C extends CharSequenceTemplate<C>>
                 result = "";
                 break;
             }
-            result = this.doSubSequence(start, end);
+            result = this.subSequence0(start, end);
             break;
         }
 
@@ -83,7 +84,7 @@ abstract class CharSequenceTemplate<C extends CharSequenceTemplate<C>>
     /**
      * Called after start and end have been verified to be different and valid.
      */
-    abstract CharSequence doSubSequence(int start, int end);
+    abstract CharSequence subSequence0(int start, int end);
 
     // HashCodeEqualsDefined
 
@@ -111,12 +112,12 @@ abstract class CharSequenceTemplate<C extends CharSequenceTemplate<C>>
 
     /**
      * Performs some simple checks for nullness, identity and type using {@link #canBeEqual(Object)}
-     * before invoking {@link #doEquals(C)} if types are compatible but different
+     * before invoking {@link #equals0(C)} if types are compatible but different
      * instances.
      */
     @Override
-    final public boolean equals(final Object object) {
-        return this == object || this.canBeEqual(object) && this.doEquals(Cast.to(object));
+    final public boolean equals(final Object other) {
+        return this == other || this.canBeEqual(other) && this.equals0(Cast.to(other));
     }
 
     /**
@@ -128,7 +129,7 @@ abstract class CharSequenceTemplate<C extends CharSequenceTemplate<C>>
     /**
      * This method is invoked only if the both objects are the same type and not null.
      */
-    abstract boolean doEquals(C object);
+    abstract boolean equals0(C object);
 
     /**
      * Checks a cached field and if null calls {@link #buildToString()}
@@ -144,10 +145,7 @@ abstract class CharSequenceTemplate<C extends CharSequenceTemplate<C>>
     /**
      * May be overridden but probably should not be necessary.
      */
-    String buildToString() {
-        // intentional to avoid StackOverflowError
-        return new StringBuilder(this).toString();
-    }
+    abstract String buildToString();
 
     /**
      * A transient cache of {@link #toString()} result built by {@link #buildToString()}.
