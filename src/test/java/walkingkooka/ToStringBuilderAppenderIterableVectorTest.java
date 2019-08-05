@@ -18,26 +18,23 @@
 package walkingkooka;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.enumeration.Enumerations;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 
-import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.Optional;
 
-public final class ToStringBuilderAppenderIteratorVectorTest extends ToStringBuilderAppenderVectorTestCase<ToStringBuilderAppenderIteratorVector, Iterator<?>> {
+public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBuilderAppenderVectorTestCase<ToStringBuilderAppenderIterableVector, Iterable<?>> {
 
     private final static Object VALUE = "xyz123";
 
-    // Iterator.........................................................................................................
+    // Iterable.........................................................................................................
 
     @Test
     public final void testLabelValueIncludesDefault() {
         final ToStringBuilder b = this.builder();
         b.label(LABEL1);
-        b.value(this.iterator(false, (byte) 0, (short) 0, 0, 0L, 0.0f, 0.0, ""));
+        b.value(this.iterable(false, (byte) 0, (short) 0, 0, 0L, 0.0f, 0.0, ""));
 
         this.buildAndCheck(b,
                 LABEL1 + LABEL_SEPARATOR + false + VALUE_SEPARATOR +
@@ -54,51 +51,27 @@ public final class ToStringBuilderAppenderIteratorVectorTest extends ToStringBui
     public final void testQuotesValueCharSequence() {
         final ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.QUOTE);
-        b.value(this.iterator("ABC", 'z'));
+        b.value(this.iterable("ABC", 'z'));
 
         this.buildAndCheck(b, "\"ABC\"" + VALUE_SEPARATOR + "\'z\'");
     }
 
     @Test
-    public final void testLabelEmptyIteratorLabelIterator() {
+    public final void testLabelEmptyIterableLabelIterable() {
         final ToStringBuilder b = this.builder();
 
         b.label(LABEL1);
-        b.value(this.iterator(1, 2, 3));
+        b.value(this.iterable(1, 2, 3));
 
         b.label(LABEL2);
-        b.value(this.iterator());
+        b.value(this.iterable());
 
         b.label(LABEL3);
-        b.value(this.iterator(7, 8, 9));
+        b.value(this.iterable(7, 8, 9));
 
         this.buildAndCheck(b,
                 LABEL1 + LABEL_SEPARATOR + 1 + VALUE_SEPARATOR + 2 + VALUE_SEPARATOR + 3 + SEPARATOR +
                         LABEL3 + LABEL_SEPARATOR + 7 + VALUE_SEPARATOR + 8 + VALUE_SEPARATOR + 9);
-    }
-
-    // Enumeration......................................................................................................
-
-    @Test
-    public final void testLabelEmptyEnumerationLabelEnumeration() {
-        final ToStringBuilder b = this.builder();
-
-        b.label(LABEL1);
-        b.value(this.enumeration(1, 2, 3));
-
-        b.label(LABEL2);
-        b.value(this.enumeration());
-
-        b.label(LABEL3);
-        b.value(this.enumeration(7, 8, 9));
-
-        this.buildAndCheck(b,
-                LABEL1 + LABEL_SEPARATOR + 1 + VALUE_SEPARATOR + 2 + VALUE_SEPARATOR + 3 + SEPARATOR +
-                        LABEL3 + LABEL_SEPARATOR + 7 + VALUE_SEPARATOR + 8 + VALUE_SEPARATOR + 9);
-    }
-
-    private Enumeration<?> enumeration(final Object... values) {
-        return Enumerations.iterator(iterator(values));
     }
 
     // List..............................................................................................................
@@ -408,33 +381,37 @@ public final class ToStringBuilderAppenderIteratorVectorTest extends ToStringBui
         this.buildAndCheck(b, "((" + 0.0 + VALUE_SEPARATOR + 1.25 + "))");
     }
 
-    @Override final Iterator<?> defaultValue() {
+    @Override
+    final Iterable<?> defaultValue() {
         return null;
     }
 
-    @Override final String defaultValueToString(final Iterator<?> value) {
+    @Override
+    final String defaultValueToString(final Iterable<?> value) {
         return "null";
     }
 
-    @Override final Iterator<?> value1() {
-        return this.iterator(1);
-    }
-
-    @Override final Iterator<?> value2() {
-        return this.iterator(1, 22, "3abc");
-    }
-
-    private Iterator<?> iterator(final Object... values) {
-        return Lists.of(values).iterator();
+    @Override
+    final Iterable<?> value1() {
+        return this.iterable(1);
     }
 
     @Override
-    void append(final ToStringBuilder builder, final Iterator<?> value) {
+    final Iterable<?> value2() {
+        return this.iterable(1, 22, "3abc");
+    }
+
+    private Iterable<?> iterable(final Object... values) {
+        return Lists.of(values);
+    }
+
+    @Override
+    void append(final ToStringBuilder builder, final Iterable<?> value) {
         builder.append(value);
     }
 
     @Override
-    void value(final ToStringBuilder builder, final Iterator<?> value) {
+    void value(final ToStringBuilder builder, final Iterable<?> value) {
         builder.value(value);
     }
 
@@ -449,7 +426,7 @@ public final class ToStringBuilderAppenderIteratorVectorTest extends ToStringBui
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<ToStringBuilderAppenderIteratorVector> type() {
-        return ToStringBuilderAppenderIteratorVector.class;
+    public Class<ToStringBuilderAppenderIterableVector> type() {
+        return ToStringBuilderAppenderIterableVector.class;
     }
 }
