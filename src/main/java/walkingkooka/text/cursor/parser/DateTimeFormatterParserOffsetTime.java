@@ -17,26 +17,26 @@
 
 package walkingkooka.text.cursor.parser;
 
-import java.time.LocalDateTime;
+import java.time.OffsetTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 
 /**
- * A {@link Parser} that uses a {@link DateTimeFormatter} to parse a {@link LocalDateTime}.
+ * A {@link Parser} that uses a {@link DateTimeFormatter} to parse a {@link OffsetTime}.
  */
-final class LocalDateTimeDateTimeFormatterParser<C extends ParserContext> extends LocalDateTimeFormatterParser<C> {
+final class DateTimeFormatterParserOffsetTime<C extends ParserContext> extends DateTimeFormatterParserOffset<C> {
 
-    static <C extends ParserContext> LocalDateTimeDateTimeFormatterParser<C> with(final DateTimeFormatter formatter, final String pattern) {
-        return new LocalDateTimeDateTimeFormatterParser<>(formatter, pattern);
+    static <C extends ParserContext> DateTimeFormatterParserOffsetTime<C> with(final DateTimeFormatter formatter, final String pattern) {
+        return new DateTimeFormatterParserOffsetTime<>(formatter, pattern);
     }
 
-    private LocalDateTimeDateTimeFormatterParser(DateTimeFormatter formatter, final String pattern) {
+    private DateTimeFormatterParserOffsetTime(DateTimeFormatter formatter, final String pattern) {
         super(formatter, pattern);
     }
 
     @Override
     void date(final char c, final String pattern) {
-        // ok
+        this.failInvalidPattern(c, pattern);
     }
 
     @Override
@@ -45,12 +45,12 @@ final class LocalDateTimeDateTimeFormatterParser<C extends ParserContext> extend
     }
 
     @Override
-    LocalDateTimeParserToken createParserToken(final TemporalAccessor value, final String text) {
-        return ParserTokens.localDateTime(LocalDateTime.from(value), text);
+    OffsetTimeParserToken createParserToken(final TemporalAccessor value, final String text) {
+        return ParserTokens.offsetTime(OffsetTime.from(value), text);
     }
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof LocalDateTimeDateTimeFormatterParser;
+        return other instanceof DateTimeFormatterParserOffsetTime;
     }
 }

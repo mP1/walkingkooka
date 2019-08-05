@@ -23,7 +23,7 @@ import walkingkooka.Cast;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 
-public final class OffsetDateTimeDateTimeFormatterParserTest extends OffsetDateTimeFormatterParserTestCase<OffsetDateTimeDateTimeFormatterParser<FakeParserContext>, OffsetDateTimeParserToken> {
+public final class DateTimeFormatterParserOffsetDateTimeTest extends DateTimeFormatterParserOffsetTestCase<DateTimeFormatterParserOffsetDateTime<FakeParserContext>, OffsetDateTimeParserToken> {
 
     // YearMonthDayHoursMinutes...............................................................................
 
@@ -162,8 +162,8 @@ public final class OffsetDateTimeDateTimeFormatterParserTest extends OffsetDateT
     }
 
     @Override
-    protected OffsetDateTimeDateTimeFormatterParser<FakeParserContext> createParser(final DateTimeFormatter formatter, final String pattern) {
-        return OffsetDateTimeDateTimeFormatterParser.with(formatter, pattern);
+    protected DateTimeFormatterParserOffsetDateTime<FakeParserContext> createParser(final DateTimeFormatter formatter, final String pattern) {
+        return DateTimeFormatterParserOffsetDateTime.with(formatter, pattern);
     }
 
     @Override
@@ -182,7 +182,14 @@ public final class OffsetDateTimeDateTimeFormatterParserTest extends OffsetDateT
     }
 
     @Override
-    public Class<OffsetDateTimeDateTimeFormatterParser<FakeParserContext>> type() {
-        return Cast.to(OffsetDateTimeDateTimeFormatterParser.class);
+    public Class<DateTimeFormatterParserOffsetDateTime<FakeParserContext>> type() {
+        return Cast.to(DateTimeFormatterParserOffsetDateTime.class);
+    }
+
+    // TypeNameTesting..................................................................................................
+
+    @Override
+    public final String typeNameSuffix() {
+        return OffsetDateTime.class.getSimpleName();
     }
 }

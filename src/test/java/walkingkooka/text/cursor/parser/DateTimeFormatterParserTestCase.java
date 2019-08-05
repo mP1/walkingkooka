@@ -141,7 +141,7 @@ public abstract class DateTimeFormatterParserTestCase<P extends DateTimeFormatte
     // TypeNameTesting ..................................................................................................
 
     @Override
-    public final String typeNameSuffix() {
+    public final String typeNamePrefix() {
         return DateTimeFormatterParser.class.getSimpleName();
     }
 }

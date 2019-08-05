@@ -17,26 +17,26 @@
 
 package walkingkooka.text.cursor.parser;
 
-import java.time.OffsetTime;
+import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 
 /**
- * A {@link Parser} that uses a {@link DateTimeFormatter} to parse a {@link OffsetTime}.
+ * A {@link Parser} that uses a {@link DateTimeFormatter} to parse a {@link OffsetDateTime}.
  */
-final class OffsetTimeDateTimeFormatterParser<C extends ParserContext> extends OffsetDateTimeFormatterParser<C> {
+final class DateTimeFormatterParserOffsetDateTime<C extends ParserContext> extends DateTimeFormatterParserOffset<C> {
 
-    static <C extends ParserContext> OffsetTimeDateTimeFormatterParser<C> with(final DateTimeFormatter formatter, final String pattern) {
-        return new OffsetTimeDateTimeFormatterParser<>(formatter, pattern);
+    static <C extends ParserContext> DateTimeFormatterParserOffsetDateTime<C> with(final DateTimeFormatter formatter, final String pattern) {
+        return new DateTimeFormatterParserOffsetDateTime<>(formatter, pattern);
     }
 
-    private OffsetTimeDateTimeFormatterParser(DateTimeFormatter formatter, final String pattern) {
+    private DateTimeFormatterParserOffsetDateTime(DateTimeFormatter formatter, final String pattern) {
         super(formatter, pattern);
     }
 
     @Override
     void date(final char c, final String pattern) {
-        this.failInvalidPattern(c, pattern);
+        // ok!
     }
 
     @Override
@@ -45,12 +45,12 @@ final class OffsetTimeDateTimeFormatterParser<C extends ParserContext> extends O
     }
 
     @Override
-    OffsetTimeParserToken createParserToken(final TemporalAccessor value, final String text) {
-        return ParserTokens.offsetTime(OffsetTime.from(value), text);
+    OffsetDateTimeParserToken createParserToken(final TemporalAccessor value, final String text) {
+        return ParserTokens.offsetDateTime(OffsetDateTime.from(value), text);
     }
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof OffsetTimeDateTimeFormatterParser;
+        return other instanceof DateTimeFormatterParserOffsetDateTime;
     }
 }

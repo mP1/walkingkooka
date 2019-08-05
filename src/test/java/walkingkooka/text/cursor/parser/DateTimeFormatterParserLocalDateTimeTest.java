@@ -20,10 +20,10 @@ package walkingkooka.text.cursor.parser;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public final class LocalDateDateTimeFormatterParserTest extends LocalDateTimeFormatterParserTestCase<LocalDateDateTimeFormatterParser<FakeParserContext>, LocalDateParserToken> {
+public final class DateTimeFormatterParserLocalDateTimeTest extends DateTimeFormatterParserLocalTestCase<DateTimeFormatterParserLocalDateTime<FakeParserContext>, LocalDateTimeParserToken> {
 
 //    The ISO date formatter that formats or parses a date without an
 //     * offset, such as '2011-12-03'
@@ -79,53 +79,54 @@ public final class LocalDateDateTimeFormatterParserTest extends LocalDateTimeFor
     }
 
     @Test
-    public void testYearSeparatorMonthSeparatorDay() {
-        LocalDate.parse("2001-12-31", this.formatter());
-        this.parseAndCheck2("2001-12-31");
+    public void testYearSeparatorMonthSeparatorDaySeparatorHoursSeparatorMinutes() {
+        this.parseAndCheck2("2001-12-31T12:58:59.987");
     }
 
     @Test
-    public void testYearMonthDay() {
-        this.parseAndCheck2("yyyyMMdd", "20011231", "");
+    public void testYearMonthDayHoursMinutes() {
+        this.parseAndCheck2("yyyyMMddHHmm", "200112311259", "");
     }
 
     @Test
-    public void testYearSeparatorMonthSeparatorDayWhitespace() {
-        this.parseAndCheck2("yyyy-MM-dd", "2001-12-31", "  ");
+    public void testYearSeparatorMonthSeparatorDaySeparatorHoursSeparatorMinutesWhitespace() {
+        this.parseAndCheck2("yyyy-MM-dd'T'HH:mm", "2001-12-31T12:59", "  ");
     }
 
     @Test
-    public void testYearSeparatorMonthSeparatorDayLetters() {
-        this.parseAndCheck2("yyyy-MM-dd", "2001-12-31", "ZZ");
-    }
-
-    @Test
-    public void testYearSeparatorMonthNameSeparatorDayLetters() {
-        this.parseAndCheck2("yyyy-MMMM-dd", "2001-December-31", "ZZ");
+    public void testYearSeparatorMonthSeparatorDaySeparatorHoursSeparatorMinutesLetters() {
+        this.parseAndCheck2("yyyy-MM-dd'T'HH:mm", "2001-12-31T12:59", "ZZ");
     }
 
     @Override
-    protected LocalDateDateTimeFormatterParser<FakeParserContext> createParser(final DateTimeFormatter formatter, final String pattern) {
-        return LocalDateDateTimeFormatterParser.with(formatter, pattern);
+    protected DateTimeFormatterParserLocalDateTime<FakeParserContext> createParser(final DateTimeFormatter formatter, final String pattern) {
+        return DateTimeFormatterParserLocalDateTime.with(formatter, pattern);
     }
 
     @Override
     String pattern() {
-        return "yyyy-MM-dd";
+        return "yyyy-MM-dd'T'HH:mm:ss.SSS";
     }
 
     @Override
     String differentPattern() {
-        return "dd-MM-yyyy";
+        return "dd-MM-yyyy'T'HH:mm:ss.SSS";
     }
 
     @Override
-    LocalDateParserToken createParserToken(final DateTimeFormatter formatter, final String text) {
-        return LocalDateParserToken.with(LocalDate.parse(text, formatter), text);
+    LocalDateTimeParserToken createParserToken(final DateTimeFormatter formatter, final String text) {
+        return LocalDateTimeParserToken.with(LocalDateTime.parse(text, formatter), text);
     }
 
     @Override
-    public Class<LocalDateDateTimeFormatterParser<FakeParserContext>> type() {
-        return Cast.to(LocalDateDateTimeFormatterParser.class);
+    public Class<DateTimeFormatterParserLocalDateTime<FakeParserContext>> type() {
+        return Cast.to(DateTimeFormatterParserLocalDateTime.class);
+    }
+
+    // TypeNameTesting..................................................................................................
+
+    @Override
+    public final String typeNameSuffix() {
+        return LocalDateTime.class.getSimpleName();
     }
 }
