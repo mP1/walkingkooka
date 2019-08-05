@@ -18,6 +18,8 @@
 package walkingkooka.text.cursor.parser;
 
 import org.opentest4j.AssertionFailedError;
+import walkingkooka.datetime.DateTimeContext;
+import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.Testing;
@@ -27,6 +29,8 @@ import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.text.cursor.TextCursors;
 
 import java.math.MathContext;
+import java.text.DateFormatSymbols;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -287,6 +291,10 @@ public interface ParserTesting<P extends Parser<C>,
         final Optional<ParserToken> result = parser.parse(cursor, context);
         assertNotNull(result, () -> "parser " + parser + " returned null result");
         return result;
+    }
+
+    default DateTimeContext dateTimeContext() {
+        return DateTimeContexts.dateFormatSymbols(new DateFormatSymbols(Locale.ENGLISH), 20);
     }
 
     default DecimalNumberContext decimalNumberContext() {

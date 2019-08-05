@@ -2063,7 +2063,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                         final Converter converter = value instanceof Boolean ?
                                 Converters.booleanConverter(Boolean.class, Boolean.TRUE, BigDecimal.class, BigDecimal.ONE, BigDecimal.ZERO) :
                                 value instanceof String ?
-                                        Converters.parser(BigDecimal.class, Parsers.bigDecimal(), (c) -> ParserContexts.basic(c)) :
+                                        Converters.parser(BigDecimal.class, Parsers.bigDecimal(), (c) -> ParserContexts.basic(c, c)) :
                                         Converters.numberBigDecimal();
                         return converter.convert(value, BigDecimal.class, this.converterContext);
                     }

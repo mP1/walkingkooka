@@ -19,5 +19,62 @@ package walkingkooka.text.cursor.parser;
 
 import walkingkooka.math.FakeDecimalNumberContext;
 
+import java.util.List;
+
 public class FakeParserContext extends FakeDecimalNumberContext implements ParserContext {
+
+    @Override
+    public List<String> ampms() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String ampm(final int hourOfDay) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<String> monthNames() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String monthName(final int month) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<String> monthNameAbbreviations() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String monthNameAbbreviation(final int month) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int twoDigitYear() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<String> weekDayNames() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String weekDayName(final int day) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<String> weekDayNameAbbreviations() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String weekDayNameAbbreviation(final int day) {
+        throw new UnsupportedOperationException();
+    }
 }

@@ -305,7 +305,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
 
             @Override
             public <T> T convert(final Object value, final Class<T> target) {
-                return Converters.parser(BigInteger.class, Parsers.bigInteger(10), (c) -> ParserContexts.basic(c))
+                return Converters.parser(BigInteger.class, Parsers.bigInteger(10), (c) -> ParserContexts.basic(c, c))
                         .convert(value, target, ConverterContexts.basic(DateTimeContexts.fake(), this));
             }
         });

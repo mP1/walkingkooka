@@ -78,7 +78,7 @@ public final class ParserConverterTest extends FixedTypeConverterTestCase<Parser
     }
 
     private Function<ConverterContext, ParserContext> parserContextAdapter() {
-        return (c) -> ParserContexts.basic(c);
+        return (c) -> ParserContexts.basic(c, c);
     }
 
     @Override

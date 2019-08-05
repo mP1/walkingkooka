@@ -20,6 +20,7 @@ package walkingkooka.tree.json.parser;
 import walkingkooka.ToStringBuilder;
 
 import java.math.MathContext;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -44,6 +45,11 @@ final class BasicJsonNodeParserContext implements JsonNodeParserContext {
     }
 
     @Override
+    public List<String> ampms() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public String currencySymbol() {
         throw new UnsupportedOperationException();
     }
@@ -64,8 +70,28 @@ final class BasicJsonNodeParserContext implements JsonNodeParserContext {
     }
 
     @Override
+    public Locale locale() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public MathContext mathContext() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public char minusSign() {
         return '-';
+    }
+
+    @Override
+    public List<String> monthNames() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<String> monthNameAbbreviations() {
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -79,12 +105,17 @@ final class BasicJsonNodeParserContext implements JsonNodeParserContext {
     }
 
     @Override
-    public Locale locale() {
+    public int twoDigitYear() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public MathContext mathContext() {
+    public List<String> weekDayNames() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<String> weekDayNameAbbreviations() {
         throw new UnsupportedOperationException();
     }
 

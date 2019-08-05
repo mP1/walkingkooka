@@ -92,7 +92,7 @@ public final class ChainConverterTest extends ConverterTestCase2<ChainConverter>
     }
 
     private Converter stringToDouble() {
-        return Converters.parser(Double.class, Parsers.doubleParser(), (c) -> ParserContexts.basic(c));
+        return Converters.parser(Double.class, Parsers.doubleParser(), (c) -> ParserContexts.basic(c, c));
     }
 
     private Class<?> intermediateTargetType() {
