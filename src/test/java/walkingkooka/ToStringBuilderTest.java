@@ -19,12 +19,16 @@ package walkingkooka;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.build.BuilderTesting;
+import walkingkooka.collect.enumeration.Enumerations;
+import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
+import java.util.Enumeration;
+import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -473,13 +477,29 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
                 .value("1234567"), "12345abcde12345");
     }
 
-    // misc
+    // special cases etc................................................................................................
 
     @Test
     public void testValueBigDecimal() {
         this.buildAndCheck(this.builder()//
                         .value(BigDecimal.valueOf(123.5)),
                 "123.5");
+    }
+
+    @Test
+    public void testValueEnumerationNotConsumed() {
+        final Enumeration<String> enumeration = Enumerations.fake();
+        this.buildAndCheck(this.builder()//
+                        .value(enumeration),
+                enumeration.toString());
+    }
+
+    @Test
+    public void testValueIteratorNotConsumed() {
+        final Iterator<String> iterator = Iterators.fake();
+        this.buildAndCheck(this.builder()//
+                        .value(iterator),
+                iterator.toString());
     }
 
     // buildFrom

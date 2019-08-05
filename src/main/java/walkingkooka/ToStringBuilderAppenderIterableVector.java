@@ -19,14 +19,15 @@ package walkingkooka;
 
 import java.util.Iterator;
 
-final class ToStringBuilderAppenderIteratorVector extends ToStringBuilderAppenderVector<Iterator<?>> {
+final class ToStringBuilderAppenderIterableVector extends ToStringBuilderAppenderVector<Iterable<?>> {
 
-    static ToStringBuilderAppenderIteratorVector with(final Iterator<?> value) {
-        return new ToStringBuilderAppenderIteratorVector(value);
+    static ToStringBuilderAppenderIterableVector with(final Iterable<?> value) {
+        return new ToStringBuilderAppenderIterableVector(value);
     }
 
-    private ToStringBuilderAppenderIteratorVector(final Iterator<?> value) {
+    private ToStringBuilderAppenderIterableVector(final Iterable<?> value) {
         super(value);
+        this.iterator = value.iterator();
     }
 
     @Override
@@ -36,12 +37,12 @@ final class ToStringBuilderAppenderIteratorVector extends ToStringBuilderAppende
 
     @Override
     boolean isEmpty() {
-        return null == this.value || !this.value.hasNext();
+        return null == this.value || !this.iterator.hasNext();
     }
 
     @Override
     void value(final ToStringBuilder builder) {
-        final Iterator<?> from = this.value;
+        final Iterator<?> from = this.iterator;
         boolean first = true;
 
         while (from.hasNext()) {
@@ -54,4 +55,6 @@ final class ToStringBuilderAppenderIteratorVector extends ToStringBuilderAppende
             first = false;
         }
     }
+
+    private final Iterator<?> iterator;
 }

@@ -21,8 +21,6 @@ import walkingkooka.build.Builder;
 import walkingkooka.text.CharSequences;
 
 import java.util.EnumSet;
-import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -36,6 +34,9 @@ import java.util.Set;
  * <li>{@link ToStringBuilderOption#INLINE_ELEMENTS}</li>
  * <li>{@link ToStringBuilderOption#SKIP_IF_DEFAULT_VALUE}</li>
  * </ul>
+ * <br>
+ * Types that by definition are stateful such as {@link java.util.Iterator} and {@link java.util.Enumeration} do not have their
+ * elements consumed but rather the default {@link Object#toString()} or {@link UsesToStringBuilder#buildToString(ToStringBuilder)} is used.
  */
 final public class ToStringBuilder implements Builder<String> {
 
@@ -88,16 +89,14 @@ final public class ToStringBuilder implements Builder<String> {
     public static final String SEPARATOR = " ";
 
     /**
-     * The default value which surrounds values charSequence an {@link Iterable iterable}, {@link Iterator},
-     * {@link Map} and arrays except for char[] which is nothing. New or different values may be set
-     * using {@link #surroundValues(String, String)}.
+     * The default value which surrounds values charSequence an {@link Iterable iterable}, {@link Map} and arrays
+     * except for char[] which is nothing. New or different values may be set using {@link #surroundValues(String, String)}.
      */
     public static final String DEFAULT_BEFORE_VALUES = "";
 
     /**
-     * The default value which surrounds values charSequence an {@link Iterable iterable}, {@link Iterator},
-     * {@link Map} and arrays except for char[] which is nothing. New or different values may be set
-     * using {@link #surroundValues(String, String)}.
+     * The default value which surrounds values charSequence an {@link Iterable iterable}, {@link Map} and arrays
+     * except for char[] which is nothing. New or different values may be set using {@link #surroundValues(String, String)}.
      */
     public static final String DEFAULT_AFTER_VALUES = "";
 
@@ -284,9 +283,8 @@ final public class ToStringBuilder implements Builder<String> {
     String valueSeparator;
 
     /**
-     * Sets two surround {@link String} values that surround zero or more values. This only affects
-     * {@link Enumeration}, {@link Iterator iterators}, {@link Iterable iterable}, {@link Map maps} and arrays except for
-     * char[].
+     * Sets two surround {@link String} values that surround zero or more values. This only affects {@link Iterable iterable},
+     * {@link Map maps} and arrays except for char[].
      *
      * <pre>
      * create()<br>

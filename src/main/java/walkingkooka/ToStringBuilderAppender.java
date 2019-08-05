@@ -17,11 +17,7 @@
 
 package walkingkooka;
 
-import walkingkooka.collect.iterator.Iterators;
-
 import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -137,10 +133,10 @@ abstract class ToStringBuilderAppender<V> {
     }
 
     /**
-     * {@see ToStringBuilderAppenderIteratorVector}
+     * {@see ToStringBuilderAppenderIterableVector}
      */
-    static ToStringBuilderAppender<?> iterator(final Iterator<?> value) {
-        return ToStringBuilderAppenderIteratorVector.with(value);
+    static ToStringBuilderAppender<?> iterable(final Iterable<?> value) {
+        return ToStringBuilderAppenderIterableVector.with(value);
     }
 
     /**
@@ -216,7 +212,7 @@ abstract class ToStringBuilderAppender<V> {
             }
             if (value instanceof Map) {
                 final Map<?, ?> map = Cast.to(value);
-                appender = iterator(map.entrySet().iterator());
+                appender = iterable(map.entrySet());
                 break;
             }
             if (value instanceof Map.Entry) {
@@ -224,18 +220,7 @@ abstract class ToStringBuilderAppender<V> {
                 break;
             }
             if (value instanceof Iterable) {
-                final Iterable<?> iterable = Cast.to(value);
-                appender = iterator(iterable.iterator());
-                break;
-            }
-            if (value instanceof Iterator) {
-                final Iterator<?> iterator = Cast.to(value);
-                appender = iterator(iterator);
-                break;
-            }
-            if (value instanceof Enumeration) {
-                final Iterator<?> iterator = Iterators.enumeration(Cast.to(value));
-                appender = iterator(iterator);
+                appender = iterable(Cast.to(value));
                 break;
             }
             if (value instanceof boolean[]) {
@@ -282,10 +267,10 @@ abstract class ToStringBuilderAppender<V> {
     }
 
     /**
-     * Wraps the object array which must be non null, and creates a {@link #iterator(Iterator)}.
+     * Wraps the object array which must be non null, and creates a {@link #iterable(Iterable)}.
      */
     static ToStringBuilderAppender<?> objectArray(final Object[] value) {
-        return iterator(Arrays.asList(value).iterator());
+        return iterable(Arrays.asList(value));
     }
 
     /**
