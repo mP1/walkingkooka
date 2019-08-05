@@ -18,6 +18,8 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.FakeDecimalNumberContext;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.JavaVisibility;
@@ -31,12 +33,31 @@ public final class DateTimeFormatterParserTest implements ClassTesting2<DateTime
 
     @Test
     public void testIsZoneId() {
-        this.checkAllZoneIds((c) -> DateTimeFormatterParser.isZoneId(c, '+', '-'));
+        this.checkAllZoneIds((c) -> DateTimeFormatterParser.isZoneId(c, decimalNumberContext()));
     }
 
     @Test
     public void testIsZoneName() {
-        this.checkAllZoneIds((c) -> DateTimeFormatterParser.isZoneName(c, '+', '-'));
+        this.checkAllZoneIds((c) -> DateTimeFormatterParser.isZoneName(c, decimalNumberContext()));
+    }
+
+    private DecimalNumberContext decimalNumberContext() {
+        return new FakeDecimalNumberContext() {
+            @Override
+            public char decimalPoint() {
+                return '.';
+            }
+
+            @Override
+            public char minusSign() {
+                return '-';
+            }
+
+            @Override
+            public char plusSign() {
+                return '+';
+            }
+        };
     }
 
     private void checkAllZoneIds(final Predicate<Character> predicate) {
