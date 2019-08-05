@@ -22,7 +22,6 @@ import walkingkooka.type.PublicStaticHelper;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.BiFunction;
 
 /**
@@ -91,13 +90,6 @@ public final class Parsers implements PublicStaticHelper {
      */
     public static <T extends ParserToken, C extends ParserContext> Parser<C> fake() {
         return FakeParser.create();
-    }
-
-    /**
-     * {@see FixedParser}
-     */
-    public static <C extends ParserContext> Parser<C> fixed(final Optional<ParserToken> result) {
-        return FixedParser.with(result);
     }
 
     /**

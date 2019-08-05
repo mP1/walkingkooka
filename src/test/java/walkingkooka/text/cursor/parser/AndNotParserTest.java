@@ -20,6 +20,7 @@ package walkingkooka.text.cursor.parser;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.cursor.TextCursor;
 
 import java.util.Optional;
 
@@ -51,7 +52,7 @@ public final class AndNotParserTest extends ParserTestCase<AndNotParser<ParserCo
 
     @Test
     public void testLeftMissingFailed() {
-        this.parseFailAndCheck(AndNotParser.with(this.missing(), Parsers.fake()), "A");
+        this.parseFailAndCheck(AndNotParser.with(this::missing, Parsers.fake()), "A");
     }
 
     @Test
@@ -72,7 +73,7 @@ public final class AndNotParserTest extends ParserTestCase<AndNotParser<ParserCo
 
     @Test
     public void testLeftMatchRightMissing() {
-        this.parseAndCheck(this.createParser(this.left(), this.missing()),
+        this.parseAndCheck(this.createParser(this.left(), this::missing),
                 LEFT,
                 this.leftToken(),
                 LEFT);
@@ -111,8 +112,8 @@ public final class AndNotParserTest extends ParserTestCase<AndNotParser<ParserCo
         return string(RIGHT);
     }
 
-    private <T extends ParserToken> Parser<ParserContext> missing() {
-        return Parsers.fixed(Optional.empty());
+    private Optional<ParserToken> missing(final TextCursor cursor, final ParserContext context) {
+        return Optional.empty();
     }
 
     private Parser<ParserContext> string(final String string) {
