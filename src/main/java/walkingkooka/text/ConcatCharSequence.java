@@ -22,7 +22,7 @@ import java.util.Objects;
 /**
  * A {@link CharSequence} that combines two char sequences into a single unit.
  */
-final class ConcatCharSequence extends CharSequenceTemplate<ConcatCharSequence> {
+final class ConcatCharSequence extends CharSequence2<ConcatCharSequence> {
 
     private static final long serialVersionUID = 1L;
 
@@ -76,7 +76,7 @@ final class ConcatCharSequence extends CharSequenceTemplate<ConcatCharSequence> 
      * Depending on the indices could return either of the properties or a new {@link ConcatCharSequence}
      */
     @Override
-    CharSequence doSubSequence(final int start, final int end) {
+    CharSequence subSequence0(final int start, final int end) {
         final CharSequence first = this.first;
         final int firstEnd = first.length();
 
@@ -98,7 +98,7 @@ final class ConcatCharSequence extends CharSequenceTemplate<ConcatCharSequence> 
     }
 
     @Override
-    boolean doEquals(final ConcatCharSequence other) {
+    boolean equals0(final ConcatCharSequence other) {
         boolean equals = false;
 
         final int length = this.first.length() + this.second.length();

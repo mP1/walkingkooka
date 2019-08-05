@@ -22,7 +22,7 @@ import java.util.Arrays;
 /**
  * A {@link CharSequence} that is filled with a single character. Note it may be empty.
  */
-final class RepeatingCharSequence extends CharSequenceTemplate<RepeatingCharSequence> {
+final class RepeatingCharSequence extends CharSequence2<RepeatingCharSequence> {
 
     private static final long serialVersionUID = 220307732204512861L;
 
@@ -61,7 +61,7 @@ final class RepeatingCharSequence extends CharSequenceTemplate<RepeatingCharSequ
      * character.
      */
     @Override
-    CharSequence doSubSequence(final int start, final int end) {
+    CharSequence subSequence0(final int start, final int end) {
         return RepeatingCharSequence.with(this.c, end - start);
     }
 
@@ -76,7 +76,7 @@ final class RepeatingCharSequence extends CharSequenceTemplate<RepeatingCharSequ
     }
 
     @Override
-    boolean doEquals(final RepeatingCharSequence repeating) {
+    boolean equals0(final RepeatingCharSequence repeating) {
         return (this.c == repeating.c) && (this.length == repeating.length);
     }
 
