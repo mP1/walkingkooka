@@ -22,6 +22,7 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.JavaVisibility;
 
 import java.math.MathContext;
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -86,10 +87,8 @@ public final class AmericanDecimalNumberContextTest implements ClassTesting2<Ame
     }
 
     @Test
-    public void testLocaleFails() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            this.createContext().locale();
-        });
+    public void testLocale() {
+        this.hasLocaleAndCheck(this.createContext(), Locale.US);
     }
 
     @Test

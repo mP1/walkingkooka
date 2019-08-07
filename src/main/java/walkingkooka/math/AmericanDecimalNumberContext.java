@@ -97,7 +97,7 @@ final class AmericanDecimalNumberContext implements DecimalNumberContext {
 
     @Override
     public Locale locale() {
-        throw new UnsupportedOperationException();
+        return Locale.US;
     }
 
     @Override
