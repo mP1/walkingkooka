@@ -21,8 +21,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
- * A {@link Converter} for various {@link Number} sub classes that returns false for zeros, and true for all other values,
- * following the truthy convention.
+ * A {@link Converter} that handles converting any {@link Number} to a {@link BigDecimal}, following truth conventions,
+ * where zero becomes false and all other values are true.
  */
 final class TruthyNumberBooleanConverter extends NumberConverter<Boolean> {
 

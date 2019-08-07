@@ -21,8 +21,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
- * Handles converting one of {@link BigDecimal}, {@link BigInteger}, {@link Double} or {@link Long} to {@link BigDecimal}
- * without any loss.
+ * A {@link Converter} that handles converting any {@link Number} to a {@link BigDecimal}.
  */
 final class NumberBigDecimalConverter extends NumberConverter<BigDecimal> {
 

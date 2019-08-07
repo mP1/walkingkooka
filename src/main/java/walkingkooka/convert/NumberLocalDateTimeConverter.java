@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 /**
- * A {@link Converter} that takes a {@link Number} and converts it to a {@link LocalDateTime}.
+ * A {@link Converter} that handles converting any {@link Number} to a {@link LocalDateTime}.
  * The integer value becomes the days, and the fraction is a value of a whole day.
  */
 final class NumberLocalDateTimeConverter extends NumberConverter<LocalDateTime> {

@@ -22,7 +22,7 @@ import java.math.BigInteger;
 import java.time.LocalTime;
 
 /**
- * A {@link Converter} that takes a {@link Number} and converts it to a {@link LocalTime}.
+ * A {@link Converter} that handles converting any {@link Number} to a {@link LocalTime}.
  * The value is the number of seconds in a day.
  */
 final class NumberLocalTimeConverter extends NumberConverter<LocalTime> {
