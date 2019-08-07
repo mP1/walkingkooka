@@ -34,11 +34,14 @@ abstract class FixedSourceTypeTargetTypeConverter<S, T> extends FixedTargetTypeC
     abstract Class<S> sourceType();
 
     @Override
-    final T convert0(final Object value, final Class<T> type, final ConverterContext context) {
-        return this.convert1(this.sourceType().cast(value));
+    final T convert0(final Object value,
+                     final Class<T> type,
+                     final ConverterContext context) {
+        return this.convert1(this.sourceType().cast(value),
+                context);
     }
 
-    abstract T convert1(final S value);
+    abstract T convert1(final S value, final ConverterContext context);
 
     @Override
     public final String toString() {
