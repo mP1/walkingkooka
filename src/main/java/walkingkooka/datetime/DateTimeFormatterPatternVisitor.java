@@ -228,7 +228,7 @@ public abstract class DateTimeFormatterPatternVisitor extends Visitor<String> {
                 this.visitStandaloneLocalizedDayOfWeek(width, kind);
                 break;
             default:
-                this.visitIllegal('c', width);
+                this.visitIllegal(DateTimeFormatterPatternVisitor.STANDALONE_LOCALIZED_DAY_OF_WEEK, width);
                 break;
         }
     }
@@ -243,7 +243,7 @@ public abstract class DateTimeFormatterPatternVisitor extends Visitor<String> {
                 this.visitWeekOfMonthF(width);
                 break;
             default:
-                this.visitIllegal('f', width);
+                this.visitIllegal(DateTimeFormatterPatternVisitor.STANDALONE_LOCALIZED_DAY_OF_WEEK, width);
                 break;
         }
     }
@@ -359,7 +359,7 @@ public abstract class DateTimeFormatterPatternVisitor extends Visitor<String> {
                 this.visitTimeZoneId(width);
                 break;
             default:
-                this.visitIllegal('V', width);
+                this.visitIllegal(DateTimeFormatterPatternVisitor.TIMEZONE_ID, width);
         }
     }
 
@@ -416,7 +416,7 @@ public abstract class DateTimeFormatterPatternVisitor extends Visitor<String> {
                 this.visitLocalizedZoneOffset(width, kind);
                 break;
             default:
-                this.visitIllegal('O', width);
+                this.visitIllegal(DateTimeFormatterPatternVisitor.LOCALIZED_ZONE_OFFSET, width);
         }
     }
 
@@ -481,7 +481,7 @@ public abstract class DateTimeFormatterPatternVisitor extends Visitor<String> {
                 escape = true;
                 continue;
             }
-            if ('\'' == c) {
+            if (DateTimeFormatterPatternVisitor.ESCAPE == c) {
                 break;
             }
         }
@@ -489,13 +489,15 @@ public abstract class DateTimeFormatterPatternVisitor extends Visitor<String> {
         final String escaped = pattern.substring(position, end);
         if (Visiting.CONTINUE == this.startVisitComponent(position, escaped)) {
             this.visitLiteral(escaped.length() == 2 ?
-                    "" + ESCAPE :
-                    CharSequences.unescape(pattern.substring(position+1, end-1)).toString()
+                    ESCAPE_STRING :
+                    CharSequences.unescape(pattern.substring(position + 1, end - 1)).toString()
             );
         }
         this.endVisitComponent(position, escaped);
         return end;
     }
+
+    private final static String ESCAPE_STRING = "" + DateTimeFormatterPatternVisitor.ESCAPE;
 
     protected void visitLiteral(final String text) {
     }
