@@ -17,35 +17,36 @@
 
 package walkingkooka.convert;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * Creates a {@link Double} from a {@link LocalDateTime}
+ * Creates a {@link BigDecimal} from a {@link LocalDateTime}
  */
-final class LocalDateTimeDoubleConverter extends LocalDateTimeConverter2<Double> {
+final class LocalDateTimeConverterBigDecimal extends LocalDateTimeConverter<BigDecimal> {
 
     /**
      * Creates a new instance with the given date offset.
      * A value of zero = 1/1/1970.
      */
-    static LocalDateTimeDoubleConverter with(final long offset) {
-        return new LocalDateTimeDoubleConverter(offset);
+    static LocalDateTimeConverterBigDecimal with(final long offset) {
+        return new LocalDateTimeConverterBigDecimal(offset);
     }
 
     /**
      * Private ctor use factory
      */
-    private LocalDateTimeDoubleConverter(final long offset) {
+    private LocalDateTimeConverterBigDecimal(final long offset) {
         super(offset);
     }
 
     @Override
-    Double convert3(final long days, final double time, final LocalDateTime localDateTime) {
-        return Double.valueOf(days + time);
+    BigDecimal convert3(final long days, final double time, final LocalDateTime localDateTime) {
+        return BigDecimal.valueOf(days + time);
     }
 
     @Override
-    Class<Double> targetType() {
-        return Double.class;
+    Class<BigDecimal> targetType() {
+        return BigDecimal.class;
     }
 }

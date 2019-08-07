@@ -23,7 +23,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public final class LocalDateTimeLocalDateConverterTest extends FixedTypeConverterTestCase<LocalDateTimeLocalDateConverter, LocalDate> {
+public final class LocalDateTimeConverterLocalDateTest extends FixedTypeConverterTestCase<LocalDateTimeConverterLocalDate, LocalDate> {
 
     @Test
     public void testConvert() {
@@ -37,8 +37,8 @@ public final class LocalDateTimeLocalDateConverterTest extends FixedTypeConverte
     }
 
     @Override
-    public LocalDateTimeLocalDateConverter createConverter() {
-        return LocalDateTimeLocalDateConverter.INSTANCE;
+    public LocalDateTimeConverterLocalDate createConverter() {
+        return LocalDateTimeConverterLocalDate.INSTANCE;
     }
 
     @Override
@@ -52,7 +52,19 @@ public final class LocalDateTimeLocalDateConverterTest extends FixedTypeConverte
     }
 
     @Override
-    public Class<LocalDateTimeLocalDateConverter> type() {
-        return LocalDateTimeLocalDateConverter.class;
+    public Class<LocalDateTimeConverterLocalDate> type() {
+        return LocalDateTimeConverterLocalDate.class;
+    }
+
+    // TypeNameTesting..................................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return LocalDateTime.class.getSimpleName() + Converter.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return this.onlySupportedType().getSimpleName();
     }
 }

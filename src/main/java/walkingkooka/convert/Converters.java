@@ -202,38 +202,38 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * {@see LocalDateTimeBigDecimalConverter}
+     * {@see LocalDateTimeConverterBigDecimal}
      */
     public static Converter localDateTimeBigDecimal(final long offset) {
-        return LocalDateTimeBigDecimalConverter.with(offset);
+        return LocalDateTimeConverterBigDecimal.with(offset);
     }
 
     /**
-     * {@see LocalDateTimeBigIntegerConverter}
+     * {@see LocalDateTimeConverterBigInteger}
      */
     public static Converter localDateTimeBigInteger(final long offset) {
-        return LocalDateTimeBigIntegerConverter.with(offset);
+        return LocalDateTimeConverterBigInteger.with(offset);
     }
 
     /**
-     * {@see LocalDateTimeDoubleConverter}
+     * {@see LocalDateTimeConverterDouble}
      */
     public static Converter localDateTimeDouble(final long offset) {
-        return LocalDateTimeDoubleConverter.with(offset);
+        return LocalDateTimeConverterDouble.with(offset);
     }
 
     /**
-     * {@see LocalDateTimeLocalDateConverter}
+     * {@see LocalDateTimeConverterLocalDate}
      */
     public static Converter localDateTimeLocalDate() {
-        return LocalDateTimeLocalDateConverter.INSTANCE;
+        return LocalDateTimeConverterLocalDate.INSTANCE;
     }
 
     /**
-     * {@see LocalDateTimeLongConverter}
+     * {@see LocalDateTimeConverterLong}
      */
     public static Converter localDateTimeLong(final long offset) {
-        return LocalDateTimeLongConverter.with(offset);
+        return LocalDateTimeConverterLong.with(offset);
     }
 
     /**
@@ -244,10 +244,10 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * {@see LocalDateTimeNumberConverter}
+     * {@see LocalDateTimeConverterNumber}
      */
     public static Converter localDateTimeNumber(final long offset) {
-        return LocalDateTimeNumberConverter.with(offset);
+        return LocalDateTimeConverterNumber.with(offset);
     }
 
     /**

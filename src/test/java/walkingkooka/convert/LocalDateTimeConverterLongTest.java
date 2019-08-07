@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-public final class LocalDateTimeLongConverterTest extends LocalDateTimeConverterTestCase2<LocalDateTimeLongConverter, Long> {
+public final class LocalDateTimeConverterLongTest extends LocalDateTimeConverterTestCase<LocalDateTimeConverterLong, Long> {
 
     @Test
     public void testLocalDateTimeNonMidnightTimeFails() {
@@ -29,8 +29,8 @@ public final class LocalDateTimeLongConverterTest extends LocalDateTimeConverter
     }
 
     @Override
-    LocalDateTimeLongConverter createConverter(final long offset) {
-        return LocalDateTimeLongConverter.with(offset);
+    LocalDateTimeConverterLong createConverter(final long offset) {
+        return LocalDateTimeConverterLong.with(offset);
     }
 
     @Override
@@ -44,7 +44,7 @@ public final class LocalDateTimeLongConverterTest extends LocalDateTimeConverter
     }
 
     @Override
-    public Class<LocalDateTimeLongConverter> type() {
-        return LocalDateTimeLongConverter.class;
+    public Class<LocalDateTimeConverterLong> type() {
+        return LocalDateTimeConverterLong.class;
     }
 }
