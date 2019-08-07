@@ -131,6 +131,19 @@ public final class DateTimeFormatterPatternVisitorTest extends DateTimeFormatter
     }
 
     @Test
+    public void testModifiedJulianDay() {
+        this.visitAndCheck(new TestDateTimeFormatterPatternVisitor() {
+                               @Override
+                               protected void visitModifiedJulianDay(final int width) {
+                                   check(width);
+                                   this.add(width);
+                               }
+                           },
+                'g'
+        );
+    }
+
+    @Test
     public void testQuarterOfYear() {
         this.visitAndCheck(new TestDateTimeFormatterPatternVisitor() {
                                @Override
@@ -401,6 +414,20 @@ public final class DateTimeFormatterPatternVisitorTest extends DateTimeFormatter
                                }
                            },
                 'V'
+        );
+    }
+
+    @Test
+    public void testGenericTimeZoneName() {
+        this.visitAndCheck(new TestDateTimeFormatterPatternVisitor() {
+                               @Override
+                               protected void visitGenericTimeZoneName(final int width,
+                                                                       final DateTimeFormatterPatternComponentKind kind) {
+                                   checkText(width, kind);
+                                   this.add(width, kind);
+                               }
+                           },
+                'v'
         );
     }
 
