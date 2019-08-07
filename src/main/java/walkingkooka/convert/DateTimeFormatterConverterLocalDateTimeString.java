@@ -18,25 +18,25 @@
 package walkingkooka.convert;
 
 import java.time.DateTimeException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * A {@link Converter} that formats a {@link LocalDate} into a {@link String}
+ * A {@link Converter} that formats a {@link LocalDateTime} into a {@link String}
  */
-final class LocalDateStringDateTimeFormatterConverter extends DateTimeFormatterConverter<LocalDate, String> {
+final class DateTimeFormatterConverterLocalDateTimeString extends DateTimeFormatterConverter<LocalDateTime, String> {
 
-    static LocalDateStringDateTimeFormatterConverter with(final DateTimeFormatter formatter) {
-        return new LocalDateStringDateTimeFormatterConverter(formatter);
+    static DateTimeFormatterConverterLocalDateTimeString with(final DateTimeFormatter formatter) {
+        return new DateTimeFormatterConverterLocalDateTimeString(formatter);
     }
 
-    private LocalDateStringDateTimeFormatterConverter(final DateTimeFormatter formatter) {
+    private DateTimeFormatterConverterLocalDateTimeString(final DateTimeFormatter formatter) {
         super(formatter);
     }
 
     @Override
-    Class<LocalDate> sourceType() {
-        return LocalDate.class;
+    Class<LocalDateTime> sourceType() {
+        return LocalDateTime.class;
     }
 
     @Override
@@ -45,7 +45,7 @@ final class LocalDateStringDateTimeFormatterConverter extends DateTimeFormatterC
     }
 
     @Override
-    String convert2(final LocalDate value) throws DateTimeException {
+    String convert2(final LocalDateTime value) throws DateTimeException {
         return value.format(this.formatter);
     }
 }

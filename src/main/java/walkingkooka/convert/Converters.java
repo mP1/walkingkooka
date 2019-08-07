@@ -195,10 +195,10 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * {@see LocalDateStringDateTimeFormatterConverter}
+     * {@see DateTimeFormatterConverterLocalDateString}
      */
     public static Converter localDateString(final DateTimeFormatter formatter) {
-        return LocalDateStringDateTimeFormatterConverter.with(formatter);
+        return DateTimeFormatterConverterLocalDateString.with(formatter);
     }
 
     /**
@@ -251,10 +251,10 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * {@see LocalDateTimeStringDateTimeFormatterConverter}
+     * {@see DateTimeFormatterConverterLocalDateTimeString}
      */
     public static Converter localDateTimeString(final DateTimeFormatter formatter) {
-        return LocalDateTimeStringDateTimeFormatterConverter.with(formatter);
+        return DateTimeFormatterConverterLocalDateTimeString.with(formatter);
     }
 
 
@@ -301,10 +301,10 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * {@see LocalTimeStringDateTimeFormatterConverter}
+     * {@see DateTimeFormatterConverterLocalTimeString}
      */
     public static Converter localTimeString(final DateTimeFormatter formatter) {
-        return LocalTimeStringDateTimeFormatterConverter.with(formatter);
+        return DateTimeFormatterConverterLocalTimeString.with(formatter);
     }
 
     /**
@@ -397,24 +397,24 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * {@see StringLocalDateDateTimeFormatterConverter}
+     * {@see DateTimeFormatterConverterStringLocalDate}
      */
     public static Converter stringLocalDate(final DateTimeFormatter formatter) {
-        return StringLocalDateDateTimeFormatterConverter.with(formatter);
+        return DateTimeFormatterConverterStringLocalDate.with(formatter);
     }
 
     /**
-     * {@see StringLocalDateTimeDateTimeFormatterConverter}
+     * {@see DateTimeFormatterConverterStringLocalDateTime}
      */
     public static Converter stringLocalDateTime(final DateTimeFormatter formatter) {
-        return StringLocalDateTimeDateTimeFormatterConverter.with(formatter);
+        return DateTimeFormatterConverterStringLocalDateTime.with(formatter);
     }
 
     /**
-     * {@see StringLocalTimeDateTimeFormatterConverter}
+     * {@see DateTimeFormatterConverterStringLocalTime}
      */
     public static Converter stringLocalTime(final DateTimeFormatter formatter) {
-        return StringLocalTimeDateTimeFormatterConverter.with(formatter);
+        return DateTimeFormatterConverterStringLocalTime.with(formatter);
     }
 
     /**

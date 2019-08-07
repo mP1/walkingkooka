@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public final class StringLocalDateTimeDateTimeFormatterConverterTest extends DateTimeFormatterConverterTestCase<StringLocalDateTimeDateTimeFormatterConverter, String, LocalDateTime> {
+public final class DateTimeFormatterConverterStringLocalDateTimeTest extends DateTimeFormatterConverterTestCase<DateTimeFormatterConverterStringLocalDateTime, String, LocalDateTime> {
 
     @Test
     public void testConvert() {
@@ -33,15 +33,15 @@ public final class StringLocalDateTimeDateTimeFormatterConverterTest extends Dat
 
     @Test
     public void testConvert2() {
-        this.convertAndCheck(StringLocalDateTimeDateTimeFormatterConverter.with(DateTimeFormatter.ofPattern("yyyy MM dd HH mm ss")),
+        this.convertAndCheck(DateTimeFormatterConverterStringLocalDateTime.with(DateTimeFormatter.ofPattern("yyyy MM dd HH mm ss")),
                 "2000 01 31 12 58 59",
                 LocalDateTime.class,
                 LocalDateTime.of(LocalDate.of(2000, 1, 31), LocalTime.of(12, 58, 59)));
     }
 
     @Override
-    protected StringLocalDateTimeDateTimeFormatterConverter createConverter(final DateTimeFormatter formatter) {
-        return StringLocalDateTimeDateTimeFormatterConverter.with(formatter);
+    protected DateTimeFormatterConverterStringLocalDateTime createConverter(final DateTimeFormatter formatter) {
+        return DateTimeFormatterConverterStringLocalDateTime.with(formatter);
     }
 
     @Override
@@ -55,7 +55,7 @@ public final class StringLocalDateTimeDateTimeFormatterConverterTest extends Dat
     }
 
     @Override
-    public Class<StringLocalDateTimeDateTimeFormatterConverter> type() {
-        return StringLocalDateTimeDateTimeFormatterConverter.class;
+    public Class<DateTimeFormatterConverterStringLocalDateTime> type() {
+        return DateTimeFormatterConverterStringLocalDateTime.class;
     }
 }

@@ -17,35 +17,35 @@
 
 package walkingkooka.convert;
 
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
+import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-/**
- * A {@link Converter} that formats a {@link LocalDateTime} into a {@link String}
- */
-final class LocalDateTimeStringDateTimeFormatterConverter extends DateTimeFormatterConverter<LocalDateTime, String> {
+public final class DateTimeFormatterConverterLocalDateStringTest extends DateTimeFormatterConverterTestCase<DateTimeFormatterConverterLocalDateString, LocalDate, String> {
 
-    static LocalDateTimeStringDateTimeFormatterConverter with(final DateTimeFormatter formatter) {
-        return new LocalDateTimeStringDateTimeFormatterConverter(formatter);
-    }
-
-    private LocalDateTimeStringDateTimeFormatterConverter(final DateTimeFormatter formatter) {
-        super(formatter);
+    @Test
+    public void testConvert() {
+        this.convertAndCheck(LocalDate.of(2000, 1, 31), "2000-01-31");
     }
 
     @Override
-    Class<LocalDateTime> sourceType() {
-        return LocalDateTime.class;
+    protected DateTimeFormatterConverterLocalDateString createConverter(final DateTimeFormatter formatter) {
+        return DateTimeFormatterConverterLocalDateString.with(formatter);
     }
 
     @Override
-    Class<String> targetType() {
+    DateTimeFormatter formatter() {
+        return DateTimeFormatter.ISO_LOCAL_DATE;
+    }
+
+    @Override
+    Class onlySupportedType() {
         return String.class;
     }
 
     @Override
-    String convert2(final LocalDateTime value) throws DateTimeException {
-        return value.format(this.formatter);
+    public Class<DateTimeFormatterConverterLocalDateString> type() {
+        return DateTimeFormatterConverterLocalDateString.class;
     }
 }
