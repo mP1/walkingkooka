@@ -23,11 +23,11 @@ import java.math.BigInteger;
 /**
  * A {@link Converter} that handles converting any {@link Number} to a {@link Double}.
  */
-final class NumberDoubleConverter extends NumberConverter<Double> {
+final class NumberConverterDouble extends NumberConverter<Double> {
 
-    final static NumberDoubleConverter INSTANCE = new NumberDoubleConverter();
+    final static NumberConverterDouble INSTANCE = new NumberConverterDouble();
 
-    private NumberDoubleConverter() {
+    private NumberConverterDouble() {
         super();
     }
 

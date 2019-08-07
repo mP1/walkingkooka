@@ -308,59 +308,59 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * [@see NumberBigDecimalConverter}
+     * [@see NumberConverterBigDecimal}
      */
     public static Converter numberBigDecimal() {
-        return NumberBigDecimalConverter.INSTANCE;
+        return NumberConverterBigDecimal.INSTANCE;
     }
 
     /**
-     * [@see NumberBigIntegerConverter}
+     * [@see NumberConverterBigInteger}
      */
     public static Converter numberBigInteger() {
-        return NumberBigIntegerConverter.INSTANCE;
+        return NumberConverterBigInteger.INSTANCE;
     }
 
     /**
-     * [@see NumberDoubleConverter}
+     * [@see NumberConverterDouble}
      */
     public static Converter numberDouble() {
-        return NumberDoubleConverter.INSTANCE;
+        return NumberConverterDouble.INSTANCE;
     }
 
     /**
-     * {@see NumberLocalDateConverter}
+     * {@see NumberConverterLocalDate}
      */
     public static Converter numberLocalDate(final long offset) {
-        return NumberLocalDateConverter.with(offset);
+        return NumberConverterLocalDate.with(offset);
     }
 
     /**
-     * {@see NumberLocalDateTimeConverter}
+     * {@see NumberConverterLocalDateTime}
      */
     public static Converter numberLocalDateTime(final long offset) {
-        return NumberLocalDateTimeConverter.with(offset);
+        return NumberConverterLocalDateTime.with(offset);
     }
 
     /**
-     * {@see NumberLocalTimeConverter}
+     * {@see NumberConverterLocalTime}
      */
     public static Converter numberLocalTime() {
-        return NumberLocalTimeConverter.INSTANCE;
+        return NumberConverterLocalTime.INSTANCE;
     }
 
     /**
-     * {@see NumberIntegerConverter}
+     * {@see NumberConverterInteger}
      */
     public static Converter numberInteger() {
-        return NumberIntegerConverter.INSTANCE;
+        return NumberConverterInteger.INSTANCE;
     }
 
     /**
-     * {@see NumberLongConverter}
+     * {@see NumberConverterLong}
      */
     public static Converter numberLong() {
-        return NumberLongConverter.INSTANCE;
+        return NumberConverterLong.INSTANCE;
     }
 
     /**
@@ -418,10 +418,10 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * {@see TruthyNumberBooleanConverter}
+     * {@see NumberConverterBoolean}
      */
     public static Converter truthyNumberBoolean() {
-        return TruthyNumberBooleanConverter.INSTANCE;
+        return NumberConverterBoolean.INSTANCE;
     }
 
     /**

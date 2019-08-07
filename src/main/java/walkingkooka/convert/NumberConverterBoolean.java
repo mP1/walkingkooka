@@ -24,17 +24,17 @@ import java.math.BigInteger;
  * A {@link Converter} that handles converting any {@link Number} to a {@link BigDecimal}, following truth conventions,
  * where zero becomes false and all other values are true.
  */
-final class TruthyNumberBooleanConverter extends NumberConverter<Boolean> {
+final class NumberConverterBoolean extends NumberConverter<Boolean> {
 
     /**
      * Singleton
      */
-    final static TruthyNumberBooleanConverter INSTANCE = new TruthyNumberBooleanConverter();
+    final static NumberConverterBoolean INSTANCE = new NumberConverterBoolean();
 
     /**
      * Private ctor use singleton
      */
-    private TruthyNumberBooleanConverter() {
+    private NumberConverterBoolean() {
         super();
     }
 
@@ -55,7 +55,7 @@ final class TruthyNumberBooleanConverter extends NumberConverter<Boolean> {
 
     @Override
     Boolean doubleValue(final Double value) {
-        return 0 != value.doubleValue();
+        return !value.isInfinite() && !value.isNaN() && 0 != value.doubleValue();
     }
 
     @Override

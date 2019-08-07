@@ -21,43 +21,39 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
- * A {@link Converter} that handles converting any {@link Number} to a {@link Long}.
+ * A {@link Converter} that handles converting any {@link Number} to a {@link BigInteger}.
  */
-final class NumberLongConverter extends NumberConverter<Long> {
+final class NumberConverterBigInteger extends NumberConverter<BigInteger> {
 
-    final static NumberLongConverter INSTANCE = new NumberLongConverter();
+    final static NumberConverterBigInteger INSTANCE = new NumberConverterBigInteger();
 
-    private NumberLongConverter() {
+    private NumberConverterBigInteger() {
         super();
     }
 
     @Override
-    Long bigDecimal(final BigDecimal value) {
-        return value.longValueExact();
+    BigInteger bigDecimal(final BigDecimal value) {
+        return value.toBigIntegerExact();
     }
 
     @Override
-    Long bigInteger(final BigInteger value) {
-        return value.longValueExact();
-    }
-
-    @Override
-    Long doubleValue(final Double value) {
-        final long longValue = value.longValue();
-        if (longValue != value) {
-            this.failConversion(value);
-        }
-        return longValue;
-    }
-
-    @Override
-    Long longValue(final Long value) {
+    BigInteger bigInteger(final BigInteger value) {
         return value;
     }
 
     @Override
-    Class<Long> targetType() {
-        return Long.class;
+    BigInteger doubleValue(final Double value) {
+        return this.bigDecimal(new BigDecimal(value));
+    }
+
+    @Override
+    BigInteger longValue(final Long value) {
+        return BigInteger.valueOf(value);
+    }
+
+    @Override
+    Class<BigInteger> targetType() {
+        return BigInteger.class;
     }
 
     @Override

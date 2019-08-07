@@ -50,4 +50,16 @@ public abstract class NumberConverterTestCase<C extends NumberConverter<T>, T> e
     public final ConverterContext createContext() {
         return ConverterContexts.fake();
     }
+
+    // TypeNameTesting..................................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return Number.class.getSimpleName() + Converter.class.getSimpleName();
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return this.onlySupportedType().getSimpleName();
+    }
 }

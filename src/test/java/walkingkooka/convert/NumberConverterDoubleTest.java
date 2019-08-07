@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-public final class NumberDoubleConverterTest extends NumberConverterTestCase<NumberDoubleConverter, Double> {
+public final class NumberConverterDoubleTest extends NumberConverterTestCase<NumberConverterDouble, Double> {
 
     @Test
     public void testBigDecimal() {
@@ -145,8 +145,8 @@ public final class NumberDoubleConverterTest extends NumberConverterTestCase<Num
     }
 
     @Override
-    public NumberDoubleConverter createConverter() {
-        return NumberDoubleConverter.INSTANCE;
+    public NumberConverterDouble createConverter() {
+        return NumberConverterDouble.INSTANCE;
     }
 
     @Override
@@ -155,7 +155,7 @@ public final class NumberDoubleConverterTest extends NumberConverterTestCase<Num
     }
 
     @Override
-    public Class<NumberDoubleConverter> type() {
-        return NumberDoubleConverter.class;
+    public Class<NumberConverterDouble> type() {
+        return NumberConverterDouble.class;
     }
 }
