@@ -22,7 +22,7 @@ import walkingkooka.Cast;
 import java.util.Objects;
 
 /**
- * A base {@link Converter} that only accepts one target type.
+ * A base {@link Converter} that only accepts one target type and includes numerous helpers for sub classes.
  */
 abstract class FixedTargetTypeConverter<T> implements Converter {
 
@@ -43,16 +43,12 @@ abstract class FixedTargetTypeConverter<T> implements Converter {
             failConversion(value, type);
         }
 
-        return this.convert0(value, type, context);
+        return type.cast(this.convert0(value, Cast.to(type), context));
     }
 
-    final <TT> TT convert0(final Object value, final Class<TT> type, final ConverterContext context) {
-        return Cast.to(this.targetType() == value.getClass() ?
-                value :
-                this.convert1(value, Cast.to(type), context));
-    }
-
-    abstract T convert1(final Object value, final Class<T> type, final ConverterContext context);
+    abstract T convert0(final Object value,
+                        final Class<T> type,
+                        final ConverterContext context);
 
     final T failConversion(final Object value) {
         return this.failConversion(value, this.targetType());

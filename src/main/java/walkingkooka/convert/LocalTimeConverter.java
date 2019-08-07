@@ -36,7 +36,7 @@ abstract class LocalTimeConverter<T> extends FixedSourceTypeTargetTypeConverter<
     }
 
     @Override
-    T convert2(final LocalTime value) {
+    T convert1(final LocalTime value) {
         return this.convert3(value.toSecondOfDay(), value.getNano(), value);
     }
 

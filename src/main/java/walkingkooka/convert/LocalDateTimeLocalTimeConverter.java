@@ -48,7 +48,7 @@ final class LocalDateTimeLocalTimeConverter extends FixedSourceTypeTargetTypeCon
     }
 
     @Override
-    LocalTime convert2(final LocalDateTime value) {
+    LocalTime convert1(final LocalDateTime value) {
         return value.toLocalTime();
     }
 

@@ -65,7 +65,7 @@ final class FunctionConverter<S, D> extends FixedSourceTypeTargetTypeConverter<S
     private final Class<D> targetType;
 
     @Override
-    D convert2(final S value) {
+    D convert1(final S value) {
         return this.converter.apply(value);
     }
 

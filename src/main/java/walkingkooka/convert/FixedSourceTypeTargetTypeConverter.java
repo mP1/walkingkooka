@@ -34,20 +34,18 @@ abstract class FixedSourceTypeTargetTypeConverter<S, T> extends FixedTargetTypeC
     abstract Class<S> sourceType();
 
     @Override
-    final T convert1(final Object value, final Class<T> type, final ConverterContext context) {
-        return this.convert2(this.sourceType().cast(value));
+    final T convert0(final Object value, final Class<T> type, final ConverterContext context) {
+        return this.convert1(this.sourceType().cast(value));
     }
 
-    abstract T convert2(final S value);
+    abstract T convert1(final S value);
 
     @Override
     public final String toString() {
-
-        String b = this.sourceType().getSimpleName() +
+        return this.sourceType().getSimpleName() +
                 "->" +
                 this.targetType().getSimpleName() +
                 this.toStringSuffix();
-        return b;
     }
 
     abstract String toStringSuffix();

@@ -38,7 +38,7 @@ final class LocalTimeLocalDateTimeConverter extends LocalDateTimeConverter<Local
     }
 
     @Override
-    LocalDateTime convert2(final LocalTime time) {
+    LocalDateTime convert1(final LocalTime time) {
         return LocalDateTime.of(DATE, time);
     }
 

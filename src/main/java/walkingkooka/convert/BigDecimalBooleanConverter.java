@@ -44,7 +44,7 @@ final class BigDecimalBooleanConverter extends FixedTargetTypeConverter<Boolean>
     }
 
     @Override
-    Boolean convert1(final Object value, final Class<Boolean> type, final ConverterContext context) {
+    Boolean convert0(final Object value, final Class<Boolean> type, final ConverterContext context) {
         return BigDecimal.class.cast(value).signum() != 0;
     }
 
