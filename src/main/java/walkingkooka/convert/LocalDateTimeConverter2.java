@@ -37,7 +37,7 @@ abstract class LocalDateTimeConverter2<T> extends LocalDateOrLocalDateTimeNumber
     }
 
     @Override
-    T convert2(final LocalDateTime value) {
+    T convert1(final LocalDateTime value) {
         return this.convert3(value.toLocalDate().toEpochDay() + this.offset,
                 (double) value.toLocalTime().toNanoOfDay() / Converters.NANOS_PER_DAY,
                 value);

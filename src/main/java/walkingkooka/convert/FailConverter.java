@@ -51,7 +51,7 @@ final class FailConverter<S, T> extends FixedSourceTypeTargetTypeConverter<S, T>
     private final Class<T> target;
 
     @Override
-    T convert2(final S value) {
+    T convert1(final S value) {
         return this.failConversion(value);
     }
 

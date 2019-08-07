@@ -40,7 +40,7 @@ abstract class NumberConverter<T> extends FixedTargetTypeConverter<T> {
      * call one of four abstract methods.
      */
     @Override
-    final T convert1(final Object value, final Class<T> type, final ConverterContext context) {
+    final T convert0(final Object value, final Class<T> type, final ConverterContext context) {
         try {
             return NumberConverterNumberVisitor.convert(this,
                     Number.class.cast(value),
