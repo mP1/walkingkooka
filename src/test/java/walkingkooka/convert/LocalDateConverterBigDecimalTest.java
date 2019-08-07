@@ -19,33 +19,25 @@ package walkingkooka.convert;
 
 import java.math.BigDecimal;
 
-/**
- * Converts {@link java.time.LocalDate} to {@link BigDecimal}
- */
-final class LocalDateBigDecimalConverter extends LocalDateConverter<BigDecimal> {
+public final class LocalDateConverterBigDecimalTest extends LocalDateConverterTestCase<LocalDateConverterBigDecimal, BigDecimal> {
 
-    /**
-     * Factory that creates an instance with the given date offset.
-     * A value of zero = 1/1/1970,.
-     */
-    static LocalDateBigDecimalConverter with(final long offset) {
-        return new LocalDateBigDecimalConverter(offset);
-    }
-
-    /**
-     * Private ctor use factory
-     */
-    private LocalDateBigDecimalConverter(final long offset) {
-        super(offset);
+    @Override
+    LocalDateConverterBigDecimal createConverter(final long offset) {
+        return LocalDateConverterBigDecimal.with(offset);
     }
 
     @Override
-    Class<BigDecimal> targetType() {
+    protected Class<BigDecimal> onlySupportedType() {
         return BigDecimal.class;
     }
 
     @Override
-    BigDecimal convert3(final long value) {
+    final BigDecimal value(final long value) {
         return BigDecimal.valueOf(value);
+    }
+
+    @Override
+    public Class<LocalDateConverterBigDecimal> type() {
+        return LocalDateConverterBigDecimal.class;
     }
 }

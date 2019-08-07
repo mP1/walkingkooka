@@ -153,24 +153,24 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * {@see LocalDateBigDecimalConverter}
+     * {@see LocalDateConverterBigDecimal}
      */
     public static Converter localDateBigDecimal(final long offset) {
-        return LocalDateBigDecimalConverter.with(offset);
+        return LocalDateConverterBigDecimal.with(offset);
     }
 
     /**
-     * {@see LocalDateBigIntegerConverter}
+     * {@see LocalDateConverterBigInteger}
      */
     public static Converter localDateBigInteger(final long offset) {
-        return LocalDateBigIntegerConverter.with(offset);
+        return LocalDateConverterBigInteger.with(offset);
     }
 
     /**
-     * {@see LocalDateDoubleConverter}
+     * {@see LocalDateConverterDouble}
      */
     public static Converter localDateDouble(final long offset) {
-        return LocalDateDoubleConverter.with(offset);
+        return LocalDateConverterDouble.with(offset);
     }
 
     /**
@@ -181,17 +181,17 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * {@see LocalDateLongConverter}
+     * {@see LocalDateConverterLong}
      */
     public static Converter localDateLong(final long offset) {
-        return LocalDateLongConverter.with(offset);
+        return LocalDateConverterLong.with(offset);
     }
 
     /**
-     * {@see LocalDateNumberConverter}
+     * {@see LocalDateConverterNumber}
      */
     public static Converter localDateNumber(final long offset) {
-        return LocalDateNumberConverter.with(offset);
+        return LocalDateConverterNumber.with(offset);
     }
 
     /**

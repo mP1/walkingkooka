@@ -18,28 +18,28 @@
 package walkingkooka.convert;
 
 /**
- * Converts {@link java.time.LocalDate} to {@link Long}
+ * Converts {@link java.time.LocalDate} to {@link Number}
  */
-final class LocalDateLongConverter extends LocalDateConverter<Long> {
+final class LocalDateConverterNumber extends LocalDateConverter<Number> {
 
     /**
      * Factory that creates a new instance with the given date offset.
      * A value of zero = 1/1/1970.
      */
-    static LocalDateLongConverter with(final long offset) {
-        return new LocalDateLongConverter(offset);
+    static LocalDateConverterNumber with(final long offset) {
+        return new LocalDateConverterNumber(offset);
     }
 
     /**
      * Private ctor use factory
      */
-    private LocalDateLongConverter(final long offset) {
+    private LocalDateConverterNumber(final long offset) {
         super(offset);
     }
 
     @Override
-    Class<Long> targetType() {
-        return Long.class;
+    Class<Number> targetType() {
+        return Number.class;
     }
 
     @Override

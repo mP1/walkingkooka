@@ -23,6 +23,10 @@ import java.time.LocalDate;
 
 public abstract class LocalDateConverterTestCase<C extends FixedSourceTypeTargetTypeConverter<LocalDate, T>, T> extends FixedTypeConverterTestCase<C, T> {
 
+    LocalDateConverterTestCase() {
+        super();
+    }
+
     @Test
     public final void testLocalDateZeroOffset() {
         final int value = 123;
@@ -67,7 +71,7 @@ public abstract class LocalDateConverterTestCase<C extends FixedSourceTypeTarget
     }
 
     @Override
-    public C createConverter() {
+    public final C createConverter() {
         return this.createConverter(Converters.JAVA_EPOCH_OFFSET);
     }
 
@@ -79,4 +83,16 @@ public abstract class LocalDateConverterTestCase<C extends FixedSourceTypeTarget
     }
 
     abstract T value(long value);
+
+    // TypeNameTesting..................................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return LocalDate.class.getSimpleName() + Converter.class.getSimpleName();
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return this.onlySupportedType().getSimpleName();
+    }
 }
