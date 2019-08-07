@@ -22,9 +22,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 /**
- * A {@link Converter} that makes a {@link LocalDateTime} from a {@link LocalTime}.
+ * A {@link Converter} that converts {@link LocalTime} into {@link LocalDateTime}.
  */
-final class LocalTimeLocalDateTimeConverter extends LocalDateTimeConverter<LocalTime> {
+final class LocalTimeLocalDateTimeConverter extends FixedSourceTypeTargetTypeConverter<LocalTime, LocalDateTime> {
 
     final static LocalTimeLocalDateTimeConverter INSTANCE = new LocalTimeLocalDateTimeConverter();
 
@@ -38,9 +38,19 @@ final class LocalTimeLocalDateTimeConverter extends LocalDateTimeConverter<Local
     }
 
     @Override
+    Class<LocalDateTime> targetType() {
+        return LocalDateTime.class;
+    }
+
+    @Override
     LocalDateTime convert1(final LocalTime time, final ConverterContext context) {
         return LocalDateTime.of(DATE, time);
     }
 
     private final static LocalDate DATE = LocalDate.ofEpochDay(0);
+
+    @Override
+    String toStringSuffix() {
+        return "";
+    }
 }

@@ -22,7 +22,12 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public final class LocalTimeLocalDateTimeConverterTest extends LocalDateTimeConverterTestCase<LocalTimeLocalDateTimeConverter, LocalTime> {
+public final class LocalTimeLocalDateTimeConverterTest extends FixedTypeConverterTestCase<LocalTimeLocalDateTimeConverter, LocalDateTime> {
+
+    @Test
+    public void testLocalDateTimeFails() {
+        this.convertFails(LocalDateTime.now());
+    }
 
     @Test
     public void testLocalTime() {
@@ -32,6 +37,16 @@ public final class LocalTimeLocalDateTimeConverterTest extends LocalDateTimeConv
     @Override
     public LocalTimeLocalDateTimeConverter createConverter() {
         return LocalTimeLocalDateTimeConverter.INSTANCE;
+    }
+
+    @Override
+    public ConverterContext createContext() {
+        return ConverterContexts.fake();
+    }
+
+    @Override
+    protected Class<LocalDateTime> onlySupportedType() {
+        return LocalDateTime.class;
     }
 
     @Override
