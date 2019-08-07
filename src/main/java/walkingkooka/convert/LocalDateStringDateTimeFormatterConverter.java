@@ -40,7 +40,7 @@ final class LocalDateStringDateTimeFormatterConverter extends LocalDateLocalDate
     }
 
     @Override
-    String convert3(final LocalDate value) throws DateTimeException {
+    String convert2(final LocalDate value) throws DateTimeException {
         return value.format(this.formatter);
     }
 }

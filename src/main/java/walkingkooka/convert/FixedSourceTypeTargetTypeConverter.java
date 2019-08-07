@@ -18,7 +18,7 @@
 package walkingkooka.convert;
 
 /**
- * A {@link Converter} which only accepts a single source type and a single target type.
+ * A {@link Converter} which only accepts a single source type and a target type.
  */
 abstract class FixedSourceTypeTargetTypeConverter<S, T> extends FixedTargetTypeConverter<T> {
 

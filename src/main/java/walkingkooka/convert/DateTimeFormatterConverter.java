@@ -34,19 +34,18 @@ abstract class DateTimeFormatterConverter<S, T> extends FixedSourceTypeTargetTyp
     final DateTimeFormatter formatter;
 
     /**
-     * Wraps the attempt to convert in {@link #convert3(Object)},
-     * capturing any exceptions thrown by the formatter.
+     * Calls {@link #convert2(Object)} and wraps any thrown {@link DateTimeException}
      */
     @Override
     final T convert1(final S value) {
         try {
-            return this.convert3(value);
+            return this.convert2(value);
         } catch (final DateTimeException cause) {
             return this.failConversion(value, cause);
         }
     }
 
-    abstract T convert3(final S value) throws DateTimeException;
+    abstract T convert2(final S value) throws DateTimeException;
 
     @Override
     String toStringSuffix() {
