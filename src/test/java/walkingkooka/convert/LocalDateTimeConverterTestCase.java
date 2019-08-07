@@ -23,12 +23,16 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public abstract class LocalDateTimeConverterTestCase2<C extends FixedSourceTypeTargetTypeConverter<LocalDateTime, T>, T> extends FixedTypeConverterTestCase<C, T> {
+public abstract class LocalDateTimeConverterTestCase<C extends FixedSourceTypeTargetTypeConverter<LocalDateTime, T>, T> extends FixedTypeConverterTestCase<C, T> {
 
     final static int VALUE = 123;
     final static LocalDate DAY = LocalDate.ofEpochDay(VALUE);
     final static LocalTime MIDNIGHT = LocalTime.ofSecondOfDay(0);
     final static LocalTime QUARTER_DAY = LocalTime.of(6, 0);
+
+    LocalDateTimeConverterTestCase() {
+        super();
+    }
 
     @Test
     public final void testLocalDateTime() {
@@ -92,4 +96,16 @@ public abstract class LocalDateTimeConverterTestCase2<C extends FixedSourceTypeT
     }
 
     abstract T value(final long value);
+
+    // TypeNameTesting..................................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return LocalDateTime.class.getSimpleName() + Converter.class.getSimpleName();
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return this.onlySupportedType().getSimpleName();
+    }
 }

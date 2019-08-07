@@ -20,35 +20,32 @@ package walkingkooka.convert;
 import java.time.LocalDateTime;
 
 /**
- * Creates a {@link Long} from a {@link LocalDateTime}
+ * Creates a {@link Double} from a {@link LocalDateTime}
  */
-final class LocalDateTimeLongConverter extends LocalDateTimeConverter2<Long> {
+final class LocalDateTimeConverterDouble extends LocalDateTimeConverter<Double> {
 
     /**
      * Creates a new instance with the given date offset.
      * A value of zero = 1/1/1970.
      */
-    static LocalDateTimeLongConverter with(final long offset) {
-        return new LocalDateTimeLongConverter(offset);
+    static LocalDateTimeConverterDouble with(final long offset) {
+        return new LocalDateTimeConverterDouble(offset);
     }
 
     /**
      * Private ctor use factory
      */
-    private LocalDateTimeLongConverter(final long offset) {
+    private LocalDateTimeConverterDouble(final long offset) {
         super(offset);
     }
 
     @Override
-    Long convert3(final long days, final double time, final LocalDateTime localDateTime) {
-        if (time != 0) {
-            this.failConversion(localDateTime);
-        }
-        return Long.valueOf(days);
+    Double convert3(final long days, final double time, final LocalDateTime localDateTime) {
+        return Double.valueOf(days + time);
     }
 
     @Override
-    Class<Long> targetType() {
-        return Long.class;
+    Class<Double> targetType() {
+        return Double.class;
     }
 }

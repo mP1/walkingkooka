@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public final class LocalDateTimeNumberConverterTest extends LocalDateTimeConverterTestCase2<LocalDateTimeNumberConverter, Number> {
+public final class LocalDateTimeConverterNumberTest extends LocalDateTimeConverterTestCase<LocalDateTimeConverterNumber, Number> {
 
     @Test
     public void testLocalDateTimeWithNonMidnightTime() {
@@ -40,8 +40,8 @@ public final class LocalDateTimeNumberConverterTest extends LocalDateTimeConvert
     }
 
     @Override
-    final LocalDateTimeNumberConverter createConverter(final long offset) {
-        return LocalDateTimeNumberConverter.with(offset);
+    final LocalDateTimeConverterNumber createConverter(final long offset) {
+        return LocalDateTimeConverterNumber.with(offset);
     }
 
     @Override
@@ -55,7 +55,7 @@ public final class LocalDateTimeNumberConverterTest extends LocalDateTimeConvert
     }
 
     @Override
-    public Class<LocalDateTimeNumberConverter> type() {
-        return LocalDateTimeNumberConverter.class;
+    public Class<LocalDateTimeConverterNumber> type() {
+        return LocalDateTimeConverterNumber.class;
     }
 }

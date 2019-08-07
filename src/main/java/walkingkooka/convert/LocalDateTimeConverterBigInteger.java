@@ -17,36 +17,39 @@
 
 package walkingkooka.convert;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 /**
- * Creates a {@link BigDecimal} from a {@link LocalDateTime}
+ * Creates a {@link BigInteger} from a {@link LocalDateTime}
  */
-final class LocalDateTimeBigDecimalConverter extends LocalDateTimeConverter2<BigDecimal> {
+final class LocalDateTimeConverterBigInteger extends LocalDateTimeConverter<BigInteger> {
 
     /**
      * Creates a new instance with the given date offset.
      * A value of zero = 1/1/1970.
      */
-    static LocalDateTimeBigDecimalConverter with(final long offset) {
-        return new LocalDateTimeBigDecimalConverter(offset);
+    static LocalDateTimeConverterBigInteger with(final long offset) {
+        return new LocalDateTimeConverterBigInteger(offset);
     }
 
     /**
      * Private ctor use factory
      */
-    private LocalDateTimeBigDecimalConverter(final long offset) {
+    private LocalDateTimeConverterBigInteger(final long offset) {
         super(offset);
     }
 
     @Override
-    BigDecimal convert3(final long days, final double time, final LocalDateTime localDateTime) {
-        return BigDecimal.valueOf(days + time);
+    BigInteger convert3(final long days, final double time, final LocalDateTime localDateTime) {
+        if (time != 0) {
+            this.failConversion(localDateTime);
+        }
+        return BigInteger.valueOf(days);
     }
 
     @Override
-    Class<BigDecimal> targetType() {
-        return BigDecimal.class;
+    Class<BigInteger> targetType() {
+        return BigInteger.class;
     }
 }
