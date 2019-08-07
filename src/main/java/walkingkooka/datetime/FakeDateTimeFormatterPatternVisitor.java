@@ -94,7 +94,7 @@ public class FakeDateTimeFormatterPatternVisitor extends DateTimeFormatterPatter
     }
 
     @Override
-    protected void visitWeekOfMonthW(int length) {
+    protected void visitWeekOfMonthW(int width) {
         throw new UnsupportedOperationException();
     }
 

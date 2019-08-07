@@ -501,7 +501,7 @@ enum DateTimeFormatterPatternComponent {
             case DateTimeFormatterPatternVisitor.MONTH_OF_YEAR:
                 component = MONTH_OF_YEAR;
                 break;
-            case DateTimeFormatterPatternVisitor.MONTH_OF_YEAR_STANDALONE:
+            case DateTimeFormatterPatternVisitor.STANDALONE_MONTH_OF_YEAR:
                 component = MONTH_OF_YEAR_STANDALONE;
                 break;
             case DateTimeFormatterPatternVisitor.DAY_OF_MONTH:

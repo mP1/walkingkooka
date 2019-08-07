@@ -35,7 +35,7 @@ public abstract class DateTimeFormatterPatternVisitor extends Visitor<String> {
     final static char YEAR_OF_ERA = 'y';
     final static char DAY_OF_YEAR = 'D';
     final static char MONTH_OF_YEAR = 'M';
-    final static char MONTH_OF_YEAR_STANDALONE = 'L';
+    final static char STANDALONE_MONTH_OF_YEAR = 'L';
     final static char DAY_OF_MONTH = 'd';
     final static char QUARTER_OF_YEAR = 'Q';
     final static char STANDALONE_QUARTER_OF_YEAR = 'q';
@@ -175,7 +175,7 @@ public abstract class DateTimeFormatterPatternVisitor extends Visitor<String> {
      * W       week-of-month               number            4
      * </pre>
      */
-    protected void visitWeekOfMonthW(final int length) {
+    protected void visitWeekOfMonthW(final int width) {
     }
 
     /**
