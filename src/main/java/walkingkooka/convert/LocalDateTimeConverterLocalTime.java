@@ -21,25 +21,20 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 /**
- * Accepts {@link LocalDateTime} and returns the {@link LocalTime} component
+ * Converters {@link LocalDateTime} into {@link LocalTime} by simply returning the {@link LocalTime} component.
  */
-final class LocalDateTimeLocalTimeConverter extends FixedSourceTypeTargetTypeConverter<LocalDateTime, LocalTime> {
+final class LocalDateTimeConverterLocalTime extends LocalDateTimeConverter<LocalTime> {
 
     /**
      * Singleton
      */
-    final static LocalDateTimeLocalTimeConverter INSTANCE = new LocalDateTimeLocalTimeConverter();
+    final static LocalDateTimeConverterLocalTime INSTANCE = new LocalDateTimeConverterLocalTime();
 
     /**
      * Private ctor use singleton
      */
-    private LocalDateTimeLocalTimeConverter() {
-        super();
-    }
-
-    @Override
-    Class<LocalDateTime> sourceType() {
-        return LocalDateTime.class;
+    private LocalDateTimeConverterLocalTime() {
+        super(0);
     }
 
     @Override
@@ -48,8 +43,10 @@ final class LocalDateTimeLocalTimeConverter extends FixedSourceTypeTargetTypeCon
     }
 
     @Override
-    LocalTime convert1(final LocalDateTime value, final ConverterContext context) {
-        return value.toLocalTime();
+    LocalTime convert3(final long days,
+                       final double time,
+                       final LocalDateTime localDateTime) {
+        return localDateTime.toLocalTime();
     }
 
     @Override

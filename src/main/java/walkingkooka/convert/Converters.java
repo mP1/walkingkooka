@@ -237,10 +237,10 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * {@see LocalDateTimeLocalTimeConverter}
+     * {@see LocalDateTimeConverterLocalTime}
      */
     public static Converter localDateTimeLocalTime() {
-        return LocalDateTimeLocalTimeConverter.INSTANCE;
+        return LocalDateTimeConverterLocalTime.INSTANCE;
     }
 
     /**
