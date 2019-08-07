@@ -17,11 +17,11 @@
 
 package walkingkooka.convert;
 
-public final class LocalDateNumberConverterTest extends LocalDateConverterTestCase<LocalDateNumberConverter, Number> {
+public final class LocalDateConverterNumberTest extends LocalDateConverterTestCase<LocalDateConverterNumber, Number> {
 
     @Override
-    final LocalDateNumberConverter createConverter(final long offset) {
-        return LocalDateNumberConverter.with(offset);
+    final LocalDateConverterNumber createConverter(final long offset) {
+        return LocalDateConverterNumber.with(offset);
     }
 
     @Override
@@ -34,7 +34,7 @@ public final class LocalDateNumberConverterTest extends LocalDateConverterTestCa
     }
 
     @Override
-    public Class<LocalDateNumberConverter> type() {
-        return LocalDateNumberConverter.class;
+    public Class<LocalDateConverterNumber> type() {
+        return LocalDateConverterNumber.class;
     }
 }

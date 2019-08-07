@@ -17,25 +17,27 @@
 
 package walkingkooka.convert;
 
-public final class LocalDateLongConverterTest extends LocalDateConverterTestCase<LocalDateLongConverter, Long> {
+import java.math.BigInteger;
+
+public final class LocalDateConverterBigIntegerTest extends LocalDateConverterTestCase<LocalDateConverterBigInteger, BigInteger> {
 
     @Override
-    final LocalDateLongConverter createConverter(final long offset) {
-        return LocalDateLongConverter.with(offset);
+    final LocalDateConverterBigInteger createConverter(final long offset) {
+        return LocalDateConverterBigInteger.with(offset);
     }
 
     @Override
-    protected Class<Long> onlySupportedType() {
-        return Long.class;
+    protected Class<BigInteger> onlySupportedType() {
+        return BigInteger.class;
     }
 
     @Override
-    final Long value(final long value) {
-        return Long.valueOf(value);
+    final BigInteger value(final long value) {
+        return BigInteger.valueOf(value);
     }
 
     @Override
-    public Class<LocalDateLongConverter> type() {
-        return LocalDateLongConverter.class;
+    public Class<LocalDateConverterBigInteger> type() {
+        return LocalDateConverterBigInteger.class;
     }
 }

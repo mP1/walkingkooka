@@ -18,36 +18,32 @@
 package walkingkooka.convert;
 
 /**
- * Converts {@link java.time.LocalDate} to {@link Double}
+ * Converts {@link java.time.LocalDate} to {@link Long}
  */
-final class LocalDateDoubleConverter extends LocalDateConverter<Double> {
+final class LocalDateConverterLong extends LocalDateConverter<Long> {
 
     /**
      * Factory that creates a new instance with the given date offset.
      * A value of zero = 1/1/1970.
      */
-    static LocalDateDoubleConverter with(final long offset) {
-        return new LocalDateDoubleConverter(offset);
+    static LocalDateConverterLong with(final long offset) {
+        return new LocalDateConverterLong(offset);
     }
 
     /**
      * Private ctor use factory
      */
-    private LocalDateDoubleConverter(final long offset) {
+    private LocalDateConverterLong(final long offset) {
         super(offset);
     }
 
     @Override
-    Class<Double> targetType() {
-        return Double.class;
+    Class<Long> targetType() {
+        return Long.class;
     }
 
     @Override
-    Double convert3(final long value) {
-        final double doubleValue = (double) value;
-        if (value != doubleValue) {
-            this.failConversion(value);
-        }
-        return Double.valueOf(value);
+    Long convert3(final long value) {
+        return Long.valueOf(value);
     }
 }
