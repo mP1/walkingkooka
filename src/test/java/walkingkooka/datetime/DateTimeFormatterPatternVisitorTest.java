@@ -678,6 +678,48 @@ public final class DateTimeFormatterPatternVisitorTest extends DateTimeFormatter
         );
     }
 
+    @Test
+    public void testPad2() {
+        this.visitAndCheck(new TestDateTimeFormatterPatternVisitor() {
+
+                               @Override
+                               protected void visitHourOfDay23(final int width) {
+                                   check(width);
+                                   this.add(width);
+                               }
+
+                               @Override
+                               protected void visitPad(final int width) {
+                                   check(width);
+                                   this.add(width);
+                               }
+                           },
+                "ppH",
+                "s0 pp,2,e0 pp,s2 H,1,e2 H"
+        );
+    }
+
+    @Test
+    public void testPad3() {
+        this.visitAndCheck(new TestDateTimeFormatterPatternVisitor() {
+
+                               @Override
+                               protected void visitHourOfDay23(final int width) {
+                                   check(width);
+                                   this.add(width);
+                               }
+
+                               @Override
+                               protected void visitPad(final int width) {
+                                   check(width);
+                                   this.add(width);
+                               }
+                           },
+                "pppH",
+                "s0 ppp,3,e0 ppp,s3 H,1,e3 H"
+        );
+    }
+
     // symbols become literal...
 
     @Test
