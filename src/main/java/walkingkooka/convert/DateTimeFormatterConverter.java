@@ -37,7 +37,7 @@ abstract class DateTimeFormatterConverter<S, T> extends FixedSourceTypeTargetTyp
      * Calls {@link #convert2(Object)} and wraps any thrown {@link DateTimeException}
      */
     @Override
-    final T convert1(final S value) {
+    final T convert1(final S value, final ConverterContext context) {
         try {
             return this.convert2(value);
         } catch (final DateTimeException cause) {
