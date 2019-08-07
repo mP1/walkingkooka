@@ -486,124 +486,124 @@ enum DateTimeFormatterPatternComponent {
         DateTimeFormatterPatternComponent component;
 
         switch (c) {
-            case 'G':
+            case DateTimeFormatterPatternVisitor.ERA:
                 component = ERA;
                 break;
-            case 'u':
+            case DateTimeFormatterPatternVisitor.YEAR:
                 component = YEAR;
                 break;
-            case 'y':
+            case DateTimeFormatterPatternVisitor.YEAR_OF_ERA:
                 component = YEAR_OF_ERA;
                 break;
-            case 'D':
+            case DateTimeFormatterPatternVisitor.DAY_OF_YEAR:
                 component = DAY_OF_YEAR;
                 break;
-            case 'M':
+            case DateTimeFormatterPatternVisitor.MONTH_OF_YEAR:
                 component = MONTH_OF_YEAR;
                 break;
-            case 'L':
+            case DateTimeFormatterPatternVisitor.MONTH_OF_YEAR_STANDALONE:
                 component = MONTH_OF_YEAR_STANDALONE;
                 break;
-            case 'd':
+            case DateTimeFormatterPatternVisitor.DAY_OF_MONTH:
                 component = DAY_OF_MONTH;
                 break;
-            case 'Q':
+            case DateTimeFormatterPatternVisitor.QUARTER_OF_YEAR:
                 component = QUARTER_OF_YEAR;
                 break;
-            case 'q':
+            case DateTimeFormatterPatternVisitor.STANDALONE_QUARTER_OF_YEAR:
                 component = STANDALONE_QUARTER_OF_YEAR;
                 break;
-            case 'Y':
+            case DateTimeFormatterPatternVisitor.WEEK_BASED_YEAR:
                 component = WEEK_BASED_YEAR;
                 break;
-            case 'w':
+            case DateTimeFormatterPatternVisitor.WEEK_OF_WEEK_BASED_YEAR:
                 component = WEEK_OF_WEEK_BASED_YEAR;
                 break;
-            case 'W':
+            case DateTimeFormatterPatternVisitor.WEEK_OF_MONTH:
                 component = WEEK_OF_MONTH;
                 break;
-            case 'E':
+            case DateTimeFormatterPatternVisitor.DAY_OF_WEEK:
                 component = DAY_OF_WEEK;
                 break;
-            case 'e':
+            case DateTimeFormatterPatternVisitor.LOCALIZED_DAY_OF_WEEK:
                 component = LOCALIZED_DAY_OF_WEEK;
                 break;
-            case 'c':
+            case DateTimeFormatterPatternVisitor.STANDALONE_LOCALIZED_DAY_OF_WEEK:
                 component = STANDALONE_LOCALIZED_DAY_OF_WEEK;
                 break;
-            case 'F':
+            case DateTimeFormatterPatternVisitor.WEEK_OF_MONTH_F:
                 component = WEEK_OF_MONTH_F;
                 break;
-            case 'a':
+            case DateTimeFormatterPatternVisitor.AMPM_OF_DAY:
                 component = AMPM_OF_DAY;
                 break;
-            case 'h':
+            case DateTimeFormatterPatternVisitor.CLOCK_HOUR_OF_AMPM12:
                 component = CLOCK_HOUR_OF_AMPM12;
                 break;
-            case 'K':
+            case DateTimeFormatterPatternVisitor.HOUR_OF_AMPM11:
                 component = HOUR_OF_AMPM11;
                 break;
-            case 'k':
+            case DateTimeFormatterPatternVisitor.CLOCK_HOUR_OF_AMPM24:
                 component = CLOCK_HOUR_OF_AMPM24;
                 break;
-            case 'H':
+            case DateTimeFormatterPatternVisitor.HOUR_OF_DAY:
                 component = HOUR_OF_DAY;
                 break;
-            case 'm':
+            case DateTimeFormatterPatternVisitor.MINUTE_OF_HOUR:
                 component = MINUTE_OF_HOUR;
                 break;
-            case 's':
+            case DateTimeFormatterPatternVisitor.SECOND_OF_MINUTE:
                 component = SECOND_OF_MINUTE;
                 break;
-            case 'S':
+            case DateTimeFormatterPatternVisitor.FRACTION_OF_SECOND:
                 component = FRACTION_OF_SECOND;
                 break;
-            case 'A':
+            case DateTimeFormatterPatternVisitor.MILLI_OF_DAY:
                 component = MILLI_OF_DAY;
                 break;
-            case 'n':
+            case DateTimeFormatterPatternVisitor.NANO_OF_SECOND:
                 component = NANO_OF_SECOND;
                 break;
-            case 'N':
+            case DateTimeFormatterPatternVisitor.NANO_OF_DAY:
                 component = NANO_OF_DAY;
                 break;
-            case 'V':
+            case DateTimeFormatterPatternVisitor.TIMEZONE_ID:
                 component = TIMEZONE_ID;
                 break;
-            case 'z':
+            case DateTimeFormatterPatternVisitor.TIMEZONE_NAME:
                 component = TIMEZONE_NAME;
                 break;
-            case 'O':
+            case DateTimeFormatterPatternVisitor.LOCALIZED_ZONE_OFFSET:
                 component = LOCALIZED_ZONE_OFFSET;
                 break;
-            case 'X':
+            case DateTimeFormatterPatternVisitor.ZONE_OFFSET_BIGX:
                 component = ZONE_OFFSET_BIGX;
                 break;
-            case 'x':
+            case DateTimeFormatterPatternVisitor.ZONE_OFFSET_SMALLX:
                 component = ZONE_OFFSET_SMALLX;
                 break;
-            case 'Z':
+            case DateTimeFormatterPatternVisitor.ZONE_OFFSET_Z:
                 component = ZONE_OFFSET_Z;
                 break;
-            case 'p':
+            case DateTimeFormatterPatternVisitor.PAD:
                 component = PAD;
                 break;
-            case '\'':
+            case DateTimeFormatterPatternVisitor.ESCAPE:
                 component = ESCAPE;
                 break;
-            case '[':
+            case DateTimeFormatterPatternVisitor.OPTIONAL_START:
                 component = OPTIONAL_START;
                 break;
-            case ']':
+            case DateTimeFormatterPatternVisitor.OPTIONAL_END:
                 component = OPTIONAL_END;
                 break;
-            case '#':
+            case DateTimeFormatterPatternVisitor.RESERVED_HASH:
                 component = RESERVED_HASH;
                 break;
-            case '{':
+            case DateTimeFormatterPatternVisitor.RESERVED_BRACE_OPEN:
                 component = RESERVED_BRACE_OPEN;
                 break;
-            case '}':
+            case DateTimeFormatterPatternVisitor.RESERVED_BRACE_CLOSE:
                 component = RESERVED_BRACE_CLOSE;
                 break;
             case 'B':
