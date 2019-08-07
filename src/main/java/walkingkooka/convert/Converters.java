@@ -130,13 +130,6 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * {@see FailConverter}
-     */
-    public static <S, T> Converter fail(final Class<S> source, final Class<T> target) {
-        return FailConverter.with(source, target);
-    }
-
-    /**
      * {@see FakeConverter}
      */
     public static Converter fake() {
