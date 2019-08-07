@@ -18,22 +18,29 @@
 package walkingkooka.convert;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.List;
 
 /**
- * A {@link Converter} that attempts to parse a {@link String} into a {@link LocalDate} using ALL the given {@link DateTimeFormatter formatter}
- * until success or fails.
+ * A {@link Converter} that parses a {@link String} into a {@link LocalTime}.
  */
-final class StringLocalDateLocaleDateTimeFormatterConverter extends StringLocalDateLocaleDateTimeLocalTimeLocaleDateTimeFormatterConverter<LocalDate> {
+final class StringLocalDateDateTimeFormatterConverter extends DateTimeFormatterConverter<String, LocalDate> {
 
-    static StringLocalDateLocaleDateTimeFormatterConverter with(final List<DateTimeFormatter> formatters) {
-        return new StringLocalDateLocaleDateTimeFormatterConverter(checkFormatters(formatters));
+    static StringLocalDateDateTimeFormatterConverter with(final DateTimeFormatter formatter) {
+        return new StringLocalDateDateTimeFormatterConverter(formatter);
     }
 
-    private StringLocalDateLocaleDateTimeFormatterConverter(final List<DateTimeFormatter> formatters) {
-        super(formatters);
+    /**
+     * Private ctor use static factory
+     */
+    private StringLocalDateDateTimeFormatterConverter(final DateTimeFormatter formatter) {
+        super(formatter);
+    }
+
+    @Override
+    Class<String> sourceType() {
+        return String.class;
     }
 
     @Override
@@ -42,7 +49,7 @@ final class StringLocalDateLocaleDateTimeFormatterConverter extends StringLocalD
     }
 
     @Override
-    LocalDate parse(final String value, final DateTimeFormatter formatter) throws DateTimeParseException {
-        return LocalDate.parse(value, formatter);
+    LocalDate convert2(final String value) throws DateTimeParseException {
+        return LocalDate.parse(value, this.formatter);
     }
 }

@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public final class LocalDateTimeStringDateTimeFormatterConverterTest extends LocalDateLocalDateTimeLocaleTimeStringDateTimeFormatterConverterTestCase<LocalDateTimeStringDateTimeFormatterConverter, LocalDateTime> {
+public final class LocalDateTimeStringDateTimeFormatterConverterTest extends DateTimeFormatterConverterTestCase<LocalDateTimeStringDateTimeFormatterConverter, LocalDateTime, String> {
 
     @Test
     public void testConvert() {
@@ -39,6 +39,11 @@ public final class LocalDateTimeStringDateTimeFormatterConverterTest extends Loc
     @Override
     DateTimeFormatter formatter() {
         return DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    }
+
+    @Override
+    Class onlySupportedType() {
+        return String.class;
     }
 
     @Override
