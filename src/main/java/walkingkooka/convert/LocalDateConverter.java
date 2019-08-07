@@ -38,8 +38,8 @@ abstract class LocalDateConverter<T> extends LocalDateOrLocalDateTimeNumberConve
 
     @Override
     T convert1(final LocalDate value, final ConverterContext context) {
-        return this.convert3(value.toEpochDay() + this.offset);
+        return this.fromLongValue(value.toEpochDay() + this.offset);
     }
 
-    abstract T convert3(final long value);
+    abstract T fromLongValue(final long value);
 }

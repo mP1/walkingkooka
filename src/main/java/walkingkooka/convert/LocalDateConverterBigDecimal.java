@@ -45,7 +45,7 @@ final class LocalDateConverterBigDecimal extends LocalDateConverter<BigDecimal> 
     }
 
     @Override
-    BigDecimal convert3(final long value) {
+    BigDecimal fromLongValue(final long value) {
         return BigDecimal.valueOf(value);
     }
 }

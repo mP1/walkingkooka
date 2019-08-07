@@ -45,7 +45,7 @@ final class LocalDateConverterBigInteger extends LocalDateConverter<BigInteger> 
     }
 
     @Override
-    BigInteger convert3(final long value) {
+    BigInteger fromLongValue(final long value) {
         return BigInteger.valueOf(value);
     }
 }

@@ -43,7 +43,7 @@ final class LocalDateConverterNumber extends LocalDateConverter<Number> {
     }
 
     @Override
-    Long convert3(final long value) {
+    Long fromLongValue(final long value) {
         return Long.valueOf(value);
     }
 }
