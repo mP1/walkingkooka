@@ -404,24 +404,24 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * {@see StringLocalDateTimeLocaleDateTimeFormatterConverter}
+     * {@see StringLocalDateDateTimeFormatterConverter}
      */
-    public static Converter stringLocalDate(final List<DateTimeFormatter> formatters) {
-        return StringLocalDateTimeLocaleDateTimeFormatterConverter.with(formatters);
+    public static Converter stringLocalDate(final DateTimeFormatter formatter) {
+        return StringLocalDateDateTimeFormatterConverter.with(formatter);
     }
 
     /**
-     * {@see StringLocalDateTimeLocaleDateTimeFormatterConverter}
+     * {@see StringLocalDateTimeDateTimeFormatterConverter}
      */
-    public static Converter stringLocalDateTime(final List<DateTimeFormatter> formatters) {
-        return StringLocalDateTimeLocaleDateTimeFormatterConverter.with(formatters);
+    public static Converter stringLocalDateTime(final DateTimeFormatter formatter) {
+        return StringLocalDateTimeDateTimeFormatterConverter.with(formatter);
     }
 
     /**
-     * {@see StringLocalTimeLocaleDateTimeFormatterConverter}
+     * {@see StringLocalTimeDateTimeFormatterConverter}
      */
-    public static Converter stringLocalTime(final List<DateTimeFormatter> formatters) {
-        return StringLocalTimeLocaleDateTimeFormatterConverter.with(formatters);
+    public static Converter stringLocalTime(final DateTimeFormatter formatter) {
+        return StringLocalTimeDateTimeFormatterConverter.with(formatter);
     }
 
     /**
