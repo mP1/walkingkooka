@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import java.math.BigInteger;
 import java.time.LocalTime;
 
-public final class LocalTimeBigIntegerConverterTest extends LocalTimeConverterTestCase<LocalTimeBigIntegerConverter, BigInteger> {
+public final class LocalTimeConverterBigIntegerTest extends LocalTimeConverterTestCase<LocalTimeConverterBigInteger, BigInteger> {
 
     private final static int VALUE = 123;
 
@@ -44,8 +44,8 @@ public final class LocalTimeBigIntegerConverterTest extends LocalTimeConverterTe
     }
 
     @Override
-    public LocalTimeBigIntegerConverter createConverter() {
-        return LocalTimeBigIntegerConverter.INSTANCE;
+    public LocalTimeConverterBigInteger createConverter() {
+        return LocalTimeConverterBigInteger.INSTANCE;
     }
 
     @Override
@@ -54,7 +54,7 @@ public final class LocalTimeBigIntegerConverterTest extends LocalTimeConverterTe
     }
 
     @Override
-    public Class<LocalTimeBigIntegerConverter> type() {
-        return LocalTimeBigIntegerConverter.class;
+    public Class<LocalTimeConverterBigInteger> type() {
+        return LocalTimeConverterBigInteger.class;
     }
 }

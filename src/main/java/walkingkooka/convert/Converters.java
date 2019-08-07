@@ -259,24 +259,24 @@ public final class Converters implements PublicStaticHelper {
 
 
     /**
-     * {@see LocalTimeBigDecimalConverter}
+     * {@see LocalTimeConverterBigDecimal}
      */
     public static Converter localTimeBigDecimal() {
-        return LocalTimeBigDecimalConverter.INSTANCE;
+        return LocalTimeConverterBigDecimal.INSTANCE;
     }
 
     /**
-     * {@see LocalTimeBigIntegerConverter}
+     * {@see LocalTimeConverterBigInteger}
      */
     public static Converter localTimeBigInteger() {
-        return LocalTimeBigIntegerConverter.INSTANCE;
+        return LocalTimeConverterBigInteger.INSTANCE;
     }
 
     /**
-     * {@see LocalTimeDoubleConverter}
+     * {@see LocalTimeConverterDouble}
      */
     public static Converter localTimeDouble() {
-        return LocalTimeDoubleConverter.INSTANCE;
+        return LocalTimeConverterDouble.INSTANCE;
     }
 
     /**
@@ -287,17 +287,17 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * {@see LocalTimeLongConverter}
+     * {@see LocalTimeConverterLong}
      */
     public static Converter localTimeLong() {
-        return LocalTimeLongConverter.INSTANCE;
+        return LocalTimeConverterLong.INSTANCE;
     }
 
     /**
-     * {@see LocalTimeNumberConverter}
+     * {@see LocalTimeConverterNumber}
      */
     public static Converter localTimeNumber() {
-        return LocalTimeNumberConverter.INSTANCE;
+        return LocalTimeConverterNumber.INSTANCE;
     }
 
     /**

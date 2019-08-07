@@ -19,49 +19,55 @@ package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.time.LocalTime;
 
-public final class LocalTimeDoubleConverterTest extends LocalTimeConverterTestCase<LocalTimeDoubleConverter, Double> {
+public final class LocalTimeConverterBigDecimalTest extends LocalTimeConverterTestCase<LocalTimeConverterBigDecimal, BigDecimal> {
 
     private final static int VALUE = 123;
 
     @Test
     public void testLocalTime() {
-        this.convertAndCheck(LocalTime.ofSecondOfDay(VALUE), Double.valueOf(VALUE));
+        this.convertAndCheck(LocalTime.ofSecondOfDay(VALUE), BigDecimal.valueOf(VALUE));
+    }
+
+    @Test
+    public void testLocalTimeWithNanos() {
+        this.convertAndCheck(LocalTime.ofSecondOfDay(VALUE).plusNanos(Converters.NANOS_PER_SECOND / 2), BigDecimal.valueOf(VALUE + 0.5));
     }
 
     @Test
     public void testConverterRoundTrip() {
         final LocalTime localTime = LocalTime.ofSecondOfDay(VALUE);
-        final Double doubleValue = this.convertAndCheck(localTime, Double.valueOf(VALUE));
-        this.convertAndCheck(Converters.numberLocalTime(), doubleValue, LocalTime.class, localTime);
+        final BigDecimal bigDecimal = this.convertAndCheck(localTime, BigDecimal.valueOf(VALUE));
+        this.convertAndCheck(Converters.numberLocalTime(), bigDecimal, LocalTime.class, localTime);
     }
 
     @Test
     public void testConverterRoundTripWithNanos() {
         final LocalTime localTime = LocalTime.ofSecondOfDay(VALUE)
                 .plusNanos(Converters.NANOS_PER_SECOND / 2);
-        final Double doubleValue = this.convertAndCheck(localTime, Double.valueOf(VALUE + 0.5));
-        this.convertAndCheck(Converters.numberLocalTime(), doubleValue, LocalTime.class, localTime);
+        final BigDecimal bigDecimal = this.convertAndCheck(localTime, BigDecimal.valueOf(VALUE + 0.5));
+        this.convertAndCheck(Converters.numberLocalTime(), bigDecimal, LocalTime.class, localTime);
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createConverter(), "LocalTime->Double");
+        this.toStringAndCheck(this.createConverter(), "LocalTime->BigDecimal");
     }
 
     @Override
-    public LocalTimeDoubleConverter createConverter() {
-        return LocalTimeDoubleConverter.INSTANCE;
+    public LocalTimeConverterBigDecimal createConverter() {
+        return LocalTimeConverterBigDecimal.INSTANCE;
     }
 
     @Override
-    protected Class<Double> onlySupportedType() {
-        return Double.class;
+    protected Class<BigDecimal> onlySupportedType() {
+        return BigDecimal.class;
     }
 
     @Override
-    public Class<LocalTimeDoubleConverter> type() {
-        return LocalTimeDoubleConverter.class;
+    public Class<LocalTimeConverterBigDecimal> type() {
+        return LocalTimeConverterBigDecimal.class;
     }
 }

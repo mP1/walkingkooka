@@ -23,21 +23,21 @@ import java.time.LocalTime;
 /**
  * Converts a {@link java.time.LocalTime} into a {@link BigInteger}.
  */
-final class LocalTimeBigIntegerConverter extends LocalTimeConverter<BigInteger> {
+final class LocalTimeConverterBigInteger extends LocalTimeConverter<BigInteger> {
 
     /**
      * Singleton
      */
-    final static LocalTimeBigIntegerConverter INSTANCE = new LocalTimeBigIntegerConverter();
+    final static LocalTimeConverterBigInteger INSTANCE = new LocalTimeConverterBigInteger();
 
     /**
      * Private ctor use singleton
      */
-    private LocalTimeBigIntegerConverter() {
+    private LocalTimeConverterBigInteger() {
     }
 
     @Override
-    BigInteger convert3(final long seconds, final long nano, final LocalTime localTime) {
+    BigInteger convert2(final long seconds, final long nano, final LocalTime localTime) {
         if (0 != nano) {
             this.failConversion(localTime);
         }
