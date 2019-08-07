@@ -21,8 +21,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
- * A {@link Converter} that knows how to convert {@link String} to {@link BigDecimal}.
- * Requests for all other types will fail.
+ * A {@link Converter} that handles converting {@link Number} to another {@link Number} type.
  */
 abstract class NumberConverter<T> extends FixedTargetTypeConverter<T> {
 
@@ -46,7 +45,7 @@ abstract class NumberConverter<T> extends FixedTargetTypeConverter<T> {
                     Number.class.cast(value),
                     type);
         } catch (final ArithmeticException | NumberFormatException fail) {
-            return this.failConversion(value, type);
+            return this.failConversion(value, type, fail);
         }
     }
 

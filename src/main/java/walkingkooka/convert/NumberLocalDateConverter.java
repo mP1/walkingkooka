@@ -22,7 +22,7 @@ import java.math.BigInteger;
 import java.time.LocalDate;
 
 /**
- * A {@link Converter} that takes a {@link Number} and converts it to a {@link LocalDate}
+ * A {@link Converter} that handles converting any {@link Number} to a {@link LocalDate}.
  */
 final class NumberLocalDateConverter extends NumberConverter<LocalDate> {
 
