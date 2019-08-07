@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-public final class TruthyNumberBooleanConverterTest extends ConverterTestCase2<TruthyNumberBooleanConverter> {
+public final class NumberConverterBooleanTest extends NumberConverterTestCase<NumberConverterBoolean, Boolean> {
 
     // BigDecimal..................................................
 
@@ -59,6 +59,51 @@ public final class TruthyNumberBooleanConverterTest extends ConverterTestCase2<T
     }
 
     // Double..............................................................................
+
+    @Override
+    public void testDoubleNanFails() {
+    }
+
+    @Override
+    public void testDoublePositiveInfinityFails() {
+    }
+
+    @Test
+    public void testDoubleNegativeInfinityFails() {
+    }
+
+    @Override
+    public void testDoubleMaxFails() {
+    }
+
+    @Override
+    public void testDoubleMinFails() {
+    }
+
+    @Test
+    public void testDoubleNan() {
+        this.convertAndCheckFalse(Double.NaN);
+    }
+
+    @Test
+    public void testDoublePositiveInfinity() {
+        this.convertAndCheckFalse(Double.POSITIVE_INFINITY);
+    }
+
+    @Test
+    public void testDoubleNegativeInfinity() {
+        this.convertAndCheckFalse(Double.NEGATIVE_INFINITY);
+    }
+
+    @Test
+    public void testDoubleMax() {
+        this.convertAndCheckTrue(Double.MAX_VALUE);
+    }
+
+    @Test
+    public void testDoubleMin() {
+        this.convertAndCheckTrue(Double.MIN_VALUE);
+    }
 
     @Test
     public void testDoubleNumberNonZero() {
@@ -114,17 +159,17 @@ public final class TruthyNumberBooleanConverterTest extends ConverterTestCase2<T
     }
 
     @Override
-    public TruthyNumberBooleanConverter createConverter() {
-        return TruthyNumberBooleanConverter.INSTANCE;
+    public NumberConverterBoolean createConverter() {
+        return NumberConverterBoolean.INSTANCE;
     }
 
     @Override
-    public ConverterContext createContext() {
-        return ConverterContexts.fake();
+    protected Class<Boolean> onlySupportedType() {
+        return Boolean.class;
     }
 
     @Override
-    public Class<TruthyNumberBooleanConverter> type() {
-        return TruthyNumberBooleanConverter.class;
+    public Class<NumberConverterBoolean> type() {
+        return NumberConverterBoolean.class;
     }
 }

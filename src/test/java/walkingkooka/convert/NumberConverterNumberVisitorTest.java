@@ -70,8 +70,8 @@ public final class NumberConverterNumberVisitorTest implements NumberVisitorTest
         return new NumberConverterNumberVisitor<BigDecimal>(this.converter(), BigDecimal.class);
     }
 
-    private NumberBigDecimalConverter converter() {
-        return NumberBigDecimalConverter.INSTANCE;
+    private NumberConverterBigDecimal converter() {
+        return NumberConverterBigDecimal.INSTANCE;
     }
 
     @Override

@@ -22,13 +22,11 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-public final class NumberLongConverterTest extends NumberConverterTestCase<NumberLongConverter, Long> {
-
-    private final static byte VALUE = 123;
+public final class NumberConverterBigIntegerTest extends NumberConverterTestCase<NumberConverterBigInteger, BigInteger> {
 
     @Test
     public void testBigDecimal() {
-        this.convertAndCheck(BigDecimal.valueOf(123), 123L);
+        this.convertAndCheck(BigDecimal.valueOf(123), BigInteger.valueOf(123));
     }
 
     @Test
@@ -37,28 +35,18 @@ public final class NumberLongConverterTest extends NumberConverterTestCase<Numbe
     }
 
     @Test
-    public void testBigDecimalPrecisionLoss() {
-        this.convertFails(new BigDecimal("123456789012345678901234567890123456789012345678901234567890"));
-    }
-
-    @Test
-    public void testBigDecimalPrecisionLoss2() {
-        this.convertFails(new BigDecimal("1.23456789012345678901234567890123456789012345678901234567890"));
-    }
-
-    @Test
     public void testBigInteger() {
-        this.convertAndCheck(BigInteger.valueOf(123), 123L);
+        this.convertAndCheck(BigInteger.valueOf(123));
     }
 
     @Test
     public void testFloat() {
-        this.convertAndCheck2((float) VALUE);
+        this.convertAndCheck(123f, BigInteger.valueOf(123));
     }
 
     @Test
     public void testDouble() {
-        this.convertAndCheck2((double) VALUE);
+        this.convertAndCheck(123.0, BigInteger.valueOf(123));
     }
 
     @Test
@@ -66,47 +54,43 @@ public final class NumberLongConverterTest extends NumberConverterTestCase<Numbe
         this.convertFails(Double.valueOf(123.75));
     }
 
-    @Test
-    public void testDoubleWithFraction2() {
-        this.convertFails(Double.valueOf(0.000001));
+    @Override
+    public void testDoubleMaxFails() {
+        throw new UnsupportedOperationException();
     }
 
     @Test
     public void testByte() {
-        this.convertAndCheck2((byte) VALUE);
+        this.convertAndCheck((byte) 123, BigInteger.valueOf(123));
     }
 
     @Test
     public void testShort() {
-        this.convertAndCheck2((short) VALUE);
+        this.convertAndCheck((short) 123, BigInteger.valueOf(123));
     }
 
     @Test
     public void testInteger() {
-        this.convertAndCheck2((int) VALUE);
+        this.convertAndCheck(123, BigInteger.valueOf(123));
     }
 
     @Test
     public void testLong() {
-        this.convertAndCheck2((long) VALUE);
-    }
-
-    private void convertAndCheck2(final Object value) {
-        this.convertAndCheck(value, (long) VALUE);
+        this.convertAndCheck(123L, BigInteger.valueOf(123));
     }
 
     @Override
-    public NumberLongConverter createConverter() {
-        return NumberLongConverter.INSTANCE;
+    public NumberConverterBigInteger createConverter() {
+        return NumberConverterBigInteger.INSTANCE;
     }
 
     @Override
-    protected Class<Long> onlySupportedType() {
-        return Long.class;
+    protected Class<BigInteger> onlySupportedType() {
+        return BigInteger.class;
     }
 
     @Override
-    public Class<NumberLongConverter> type() {
-        return NumberLongConverter.class;
+    public Class<NumberConverterBigInteger> type() {
+        return NumberConverterBigInteger.class;
     }
 }

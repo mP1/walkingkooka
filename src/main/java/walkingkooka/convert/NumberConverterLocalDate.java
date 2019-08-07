@@ -24,20 +24,20 @@ import java.time.LocalDate;
 /**
  * A {@link Converter} that handles converting any {@link Number} to a {@link LocalDate}.
  */
-final class NumberLocalDateConverter extends NumberConverter<LocalDate> {
+final class NumberConverterLocalDate extends NumberConverter<LocalDate> {
 
     /**
      * Creates a new instance with the given date offset.
      * A value of zero is 1/1/1970.
      */
-    static NumberLocalDateConverter with(final long offset) {
-        return new NumberLocalDateConverter(offset);
+    static NumberConverterLocalDate with(final long offset) {
+        return new NumberConverterLocalDate(offset);
     }
 
     /**
      * Private ctor
      */
-    private NumberLocalDateConverter(final long offset) {
+    private NumberConverterLocalDate(final long offset) {
         super();
         this.offset = offset;
     }
