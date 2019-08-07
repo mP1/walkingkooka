@@ -18,23 +18,23 @@
 package walkingkooka.convert;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * A {@link Converter} that parses a {@link String} into a {@link LocalDate}.
+ * A {@link Converter} that parses a {@link String} into a {@link LocalTime}.
  */
-final class StringLocalDateTimeDateTimeFormatterConverter extends DateTimeFormatterConverter<String, LocalDateTime> {
+final class DateTimeFormatterConverterStringLocalDate extends DateTimeFormatterConverter<String, LocalDate> {
 
-    static StringLocalDateTimeDateTimeFormatterConverter with(final DateTimeFormatter formatter) {
-        return new StringLocalDateTimeDateTimeFormatterConverter(formatter);
+    static DateTimeFormatterConverterStringLocalDate with(final DateTimeFormatter formatter) {
+        return new DateTimeFormatterConverterStringLocalDate(formatter);
     }
 
     /**
      * Private ctor use static factory
      */
-    private StringLocalDateTimeDateTimeFormatterConverter(final DateTimeFormatter formatter) {
+    private DateTimeFormatterConverterStringLocalDate(final DateTimeFormatter formatter) {
         super(formatter);
     }
 
@@ -44,12 +44,12 @@ final class StringLocalDateTimeDateTimeFormatterConverter extends DateTimeFormat
     }
 
     @Override
-    Class<LocalDateTime> targetType() {
-        return LocalDateTime.class;
+    Class<LocalDate> targetType() {
+        return LocalDate.class;
     }
 
     @Override
-    LocalDateTime convert2(final String value) throws DateTimeParseException {
-        return LocalDateTime.parse(value, this.formatter);
+    LocalDate convert2(final String value) throws DateTimeParseException {
+        return LocalDate.parse(value, this.formatter);
     }
 }

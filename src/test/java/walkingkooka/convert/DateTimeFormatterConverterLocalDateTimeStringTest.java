@@ -19,24 +19,26 @@ package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public final class LocalTimeStringDateTimeFormatterConverterTest extends DateTimeFormatterConverterTestCase<LocalTimeStringDateTimeFormatterConverter, LocalTime, String> {
+public final class DateTimeFormatterConverterLocalDateTimeStringTest extends DateTimeFormatterConverterTestCase<DateTimeFormatterConverterLocalDateTimeString, LocalDateTime, String> {
 
     @Test
     public void testConvert() {
-        this.convertAndCheck(LocalTime.of(12, 58, 59), "12:58:59");
+        this.convertAndCheck(LocalDateTime.of(LocalDate.of(2000, 1, 31), LocalTime.of(12, 58, 59)), "2000-01-31T12:58:59");
     }
 
     @Override
-    protected LocalTimeStringDateTimeFormatterConverter createConverter(final DateTimeFormatter formatter) {
-        return LocalTimeStringDateTimeFormatterConverter.with(formatter);
+    protected DateTimeFormatterConverterLocalDateTimeString createConverter(final DateTimeFormatter formatter) {
+        return DateTimeFormatterConverterLocalDateTimeString.with(formatter);
     }
 
     @Override
     DateTimeFormatter formatter() {
-        return DateTimeFormatter.ISO_LOCAL_TIME;
+        return DateTimeFormatter.ISO_LOCAL_DATE_TIME;
     }
 
     @Override
@@ -45,7 +47,7 @@ public final class LocalTimeStringDateTimeFormatterConverterTest extends DateTim
     }
 
     @Override
-    public Class<LocalTimeStringDateTimeFormatterConverter> type() {
-        return LocalTimeStringDateTimeFormatterConverter.class;
+    public Class<DateTimeFormatterConverterLocalDateTimeString> type() {
+        return DateTimeFormatterConverterLocalDateTimeString.class;
     }
 }

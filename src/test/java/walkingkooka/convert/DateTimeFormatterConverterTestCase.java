@@ -33,7 +33,7 @@ public abstract class DateTimeFormatterConverterTestCase<C extends FixedSourceTy
     }
 
     @Override
-    public C createConverter() {
+    public final C createConverter() {
         return this.createConverter(this.formatter());
     }
 
@@ -45,4 +45,14 @@ public abstract class DateTimeFormatterConverterTestCase<C extends FixedSourceTy
     }
 
     abstract DateTimeFormatter formatter();
+
+    @Override
+    public final String typeNamePrefix() {
+        return DateTimeFormatter.class.getSimpleName() + Converter.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return this.onlySupportedType().getSimpleName();
+    }
 }
