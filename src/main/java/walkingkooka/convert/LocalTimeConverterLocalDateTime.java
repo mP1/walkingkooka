@@ -24,17 +24,12 @@ import java.time.LocalTime;
 /**
  * A {@link Converter} that converts {@link LocalTime} into {@link LocalDateTime}.
  */
-final class LocalTimeLocalDateTimeConverter extends FixedSourceTypeTargetTypeConverter<LocalTime, LocalDateTime> {
+final class LocalTimeConverterLocalDateTime extends LocalTimeConverter<LocalDateTime> {
 
-    final static LocalTimeLocalDateTimeConverter INSTANCE = new LocalTimeLocalDateTimeConverter();
+    final static LocalTimeConverterLocalDateTime INSTANCE = new LocalTimeConverterLocalDateTime();
 
-    private LocalTimeLocalDateTimeConverter() {
+    private LocalTimeConverterLocalDateTime() {
         super();
-    }
-
-    @Override
-    Class<LocalTime> sourceType() {
-        return LocalTime.class;
     }
 
     @Override
@@ -43,7 +38,9 @@ final class LocalTimeLocalDateTimeConverter extends FixedSourceTypeTargetTypeCon
     }
 
     @Override
-    LocalDateTime convert1(final LocalTime time, final ConverterContext context) {
+    LocalDateTime convert2(final long seconds,
+                           final long nano,
+                           final LocalTime time) {
         return LocalDateTime.of(DATE, time);
     }
 
