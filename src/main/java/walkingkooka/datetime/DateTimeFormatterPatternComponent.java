@@ -206,7 +206,7 @@ enum DateTimeFormatterPatternComponent {
             return visitor.traverseNumber(pattern,
                     position,
                     MAX_WEEK_OF_MONTH,
-                    visitor::traverseWeekOfMonthF);
+                    visitor::visitWeekOfMonthF);
         }
     },
     AMPM_OF_DAY {
