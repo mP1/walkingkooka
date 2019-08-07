@@ -30,6 +30,47 @@ import java.util.function.IntConsumer;
  */
 public abstract class DateTimeFormatterPatternVisitor extends Visitor<String> {
 
+    final static char ERA = 'G';
+    final static char YEAR = 'u';
+    final static char YEAR_OF_ERA = 'y';
+    final static char DAY_OF_YEAR = 'D';
+    final static char MONTH_OF_YEAR = 'M';
+    final static char MONTH_OF_YEAR_STANDALONE = 'L';
+    final static char DAY_OF_MONTH = 'd';
+    final static char QUARTER_OF_YEAR = 'Q';
+    final static char STANDALONE_QUARTER_OF_YEAR = 'q';
+    final static char RESERVED_BRACE_CLOSE = '}';
+    final static char RESERVED_BRACE_OPEN = '{';
+    final static char RESERVED_HASH = '#';
+    final static char OPTIONAL_END = ']';
+    final static char OPTIONAL_START = '[';
+    final static char ESCAPE = '\'';
+    final static char PAD = 'p';
+    final static char ZONE_OFFSET_Z = 'Z';
+    final static char ZONE_OFFSET_SMALLX = 'x';
+    final static char ZONE_OFFSET_BIGX = 'X';
+    final static char LOCALIZED_ZONE_OFFSET = 'O';
+    final static char TIMEZONE_NAME = 'z';
+    final static char TIMEZONE_ID = 'V';
+    final static char NANO_OF_DAY = 'N';
+    final static char NANO_OF_SECOND = 'n';
+    final static char MILLI_OF_DAY = 'A';
+    final static char FRACTION_OF_SECOND = 'S';
+    final static char SECOND_OF_MINUTE = 's';
+    final static char MINUTE_OF_HOUR = 'm';
+    final static char HOUR_OF_DAY = 'H';
+    final static char CLOCK_HOUR_OF_AMPM24 = 'k';
+    final static char HOUR_OF_AMPM11 = 'K';
+    final static char CLOCK_HOUR_OF_AMPM12 = 'h';
+    final static char AMPM_OF_DAY = 'a';
+    final static char WEEK_OF_MONTH_F = 'F';
+    final static char STANDALONE_LOCALIZED_DAY_OF_WEEK = 'c';
+    final static char LOCALIZED_DAY_OF_WEEK = 'e';
+    final static char DAY_OF_WEEK = 'E';
+    final static char WEEK_OF_MONTH = 'W';
+    final static char WEEK_OF_WEEK_BASED_YEAR = 'w';
+    final static char WEEK_BASED_YEAR = 'Y';
+
     protected DateTimeFormatterPatternVisitor() {
         super();
     }
@@ -411,7 +452,7 @@ public abstract class DateTimeFormatterPatternVisitor extends Visitor<String> {
         final String escaped = pattern.substring(position, end);
         if (Visiting.CONTINUE == this.startVisitComponent(position, escaped)) {
             this.visitLiteral(escaped.length() == 2 ?
-                    "'" :
+                    "" + ESCAPE :
                     CharSequences.unescape(pattern.substring(position+1, end-1)).toString()
             );
         }
