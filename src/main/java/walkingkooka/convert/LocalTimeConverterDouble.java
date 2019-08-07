@@ -22,21 +22,21 @@ import java.time.LocalTime;
 /**
  * Converts a {@link LocalTime} into a {@link Double}.
  */
-final class LocalTimeDoubleConverter extends LocalTimeConverter<Double> {
+final class LocalTimeConverterDouble extends LocalTimeConverter<Double> {
 
     /**
      * Singleton
      */
-    final static LocalTimeDoubleConverter INSTANCE = new LocalTimeDoubleConverter();
+    final static LocalTimeConverterDouble INSTANCE = new LocalTimeConverterDouble();
 
     /**
      * Private ctor use singleton
      */
-    private LocalTimeDoubleConverter() {
+    private LocalTimeConverterDouble() {
     }
 
     @Override
-    Double convert3(final long seconds, final long nano, final LocalTime localTime) {
+    Double convert2(final long seconds, final long nano, final LocalTime localTime) {
         return Double.valueOf((double) seconds + (double) nano / Converters.NANOS_PER_SECOND);
     }
 

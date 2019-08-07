@@ -17,32 +17,34 @@
 
 package walkingkooka.convert;
 
-import java.math.BigDecimal;
 import java.time.LocalTime;
 
 /**
- * Converts a {@link java.time.LocalTime} into a {@link BigDecimal}.
+ * Converts a {@link LocalTime} into a {@link Long}.
  */
-final class LocalTimeBigDecimalConverter extends LocalTimeConverter<BigDecimal> {
+final class LocalTimeConverterLong extends LocalTimeConverter<Long> {
 
     /**
      * Singleton
      */
-    final static LocalTimeBigDecimalConverter INSTANCE = new LocalTimeBigDecimalConverter();
+    final static LocalTimeConverterLong INSTANCE = new LocalTimeConverterLong();
 
     /**
      * Private ctor use singleton
      */
-    private LocalTimeBigDecimalConverter() {
+    private LocalTimeConverterLong() {
     }
 
     @Override
-    BigDecimal convert3(final long seconds, final long nano, final LocalTime localTime) {
-        return BigDecimal.valueOf((double) seconds + (double) nano / Converters.NANOS_PER_SECOND);
+    Long convert2(final long seconds, final long nano, final LocalTime localTime) {
+        if (0 != nano) {
+            this.failConversion(localTime);
+        }
+        return Long.valueOf(seconds);
     }
 
     @Override
-    Class<BigDecimal> targetType() {
-        return BigDecimal.class;
+    Class<Long> targetType() {
+        return Long.class;
     }
 }

@@ -20,7 +20,7 @@ package walkingkooka.convert;
 import java.time.LocalTime;
 
 /**
- * Converts an object from a {@link LocalTime}
+ * Converts a {@link LocalTime} to a given type.
  */
 abstract class LocalTimeConverter<T> extends FixedSourceTypeTargetTypeConverter<LocalTime, T> {
 
@@ -37,10 +37,10 @@ abstract class LocalTimeConverter<T> extends FixedSourceTypeTargetTypeConverter<
 
     @Override
     T convert1(final LocalTime value, final ConverterContext context) {
-        return this.convert3(value.toSecondOfDay(), value.getNano(), value);
+        return this.convert2(value.toSecondOfDay(), value.getNano(), value);
     }
 
-    abstract T convert3(final long seconds, final long nano, final LocalTime localTime);
+    abstract T convert2(final long seconds, final long nano, final LocalTime localTime);
 
     @Override
     String toStringSuffix() {

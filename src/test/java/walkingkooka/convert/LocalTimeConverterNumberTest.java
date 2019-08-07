@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalTime;
 
-public final class LocalTimeLongConverterTest extends LocalTimeConverterTestCase<LocalTimeLongConverter, Long> {
+public final class LocalTimeConverterNumberTest extends LocalTimeConverterTestCase<LocalTimeConverterNumber, Number> {
 
     private final static int VALUE = 123;
 
@@ -33,27 +33,27 @@ public final class LocalTimeLongConverterTest extends LocalTimeConverterTestCase
     @Test
     public void testConverterRoundTripWithNanos() {
         final LocalTime localTime = LocalTime.ofSecondOfDay(VALUE);
-        final Long longValue = this.convertAndCheck(localTime, Long.valueOf(VALUE));
+        final Number longValue = this.convertAndCheck(localTime, Long.valueOf(VALUE));
         this.convertAndCheck(Converters.numberLocalTime(), longValue, LocalTime.class, localTime);
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createConverter(), "LocalTime->Long");
+        this.toStringAndCheck(this.createConverter(), "LocalTime->Number");
     }
 
     @Override
-    public LocalTimeLongConverter createConverter() {
-        return LocalTimeLongConverter.INSTANCE;
+    public LocalTimeConverterNumber createConverter() {
+        return LocalTimeConverterNumber.INSTANCE;
     }
 
     @Override
-    protected Class<Long> onlySupportedType() {
-        return Long.class;
+    protected Class<Number> onlySupportedType() {
+        return Number.class;
     }
 
     @Override
-    public Class<LocalTimeLongConverter> type() {
-        return LocalTimeLongConverter.class;
+    public Class<LocalTimeConverterNumber> type() {
+        return LocalTimeConverterNumber.class;
     }
 }

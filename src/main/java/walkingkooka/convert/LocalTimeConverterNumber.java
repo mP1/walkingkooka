@@ -22,21 +22,21 @@ import java.time.LocalTime;
 /**
  * Converts a {@link LocalTime} into a {@link Number}, actually a {@link Long}.
  */
-final class LocalTimeNumberConverter extends LocalTimeConverter<Number> {
+final class LocalTimeConverterNumber extends LocalTimeConverter<Number> {
 
     /**
      * Singleton
      */
-    final static LocalTimeNumberConverter INSTANCE = new LocalTimeNumberConverter();
+    final static LocalTimeConverterNumber INSTANCE = new LocalTimeConverterNumber();
 
     /**
      * Private ctor use singleton
      */
-    private LocalTimeNumberConverter() {
+    private LocalTimeConverterNumber() {
     }
 
     @Override
-    Number convert3(final long seconds, final long nano, final LocalTime localTime) {
+    Number convert2(final long seconds, final long nano, final LocalTime localTime) {
         if (0 != nano) {
             this.failConversion(localTime);
         }
