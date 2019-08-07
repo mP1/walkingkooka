@@ -37,6 +37,7 @@ public abstract class DateTimeFormatterPatternVisitor extends Visitor<String> {
     final static char MONTH_OF_YEAR = 'M';
     final static char STANDALONE_MONTH_OF_YEAR = 'L';
     final static char DAY_OF_MONTH = 'd';
+    final static char MODIFIED_JULIAN_DAY = 'g';
 
     final static char QUARTER_OF_YEAR = 'Q';
     final static char STANDALONE_QUARTER_OF_YEAR = 'q';
@@ -62,6 +63,7 @@ public abstract class DateTimeFormatterPatternVisitor extends Visitor<String> {
     final static char NANO_OF_SECOND = 'n';
 
     final static char TIMEZONE_ID = 'V';
+    final static char GENERIC_TIMEZONE_NAME = 'v';
     final static char TIMEZONE_NAME = 'z';
     final static char LOCALIZED_ZONE_OFFSET = 'O';
     final static char ZONE_OFFSET_BIGX = 'X';
@@ -145,6 +147,14 @@ public abstract class DateTimeFormatterPatternVisitor extends Visitor<String> {
      * </pre>
      */
     protected void visitDayOfMonth(final int width) {
+    }
+
+    /**
+     * <pre>
+     * g       modified-julian-day         number            2451334
+     * </pre>
+     */
+    protected void visitModifiedJulianDay(final int width) {
     }
 
     /**
@@ -354,6 +364,27 @@ public abstract class DateTimeFormatterPatternVisitor extends Visitor<String> {
     }
 
     protected void visitTimeZoneId(final int width) {
+    }
+
+    /**
+     * <pre>
+     * v       generic time-zone name      zone-name         Pacific Time; PT
+     * </pre>
+     */
+    final void traverseGenericTimeZoneName(final int width,
+                                           final DateTimeFormatterPatternComponentKind kind) {
+        switch (width) {
+            case 1:
+            case 4:
+                this.visitGenericTimeZoneName(width, kind);
+                break;
+            default:
+                this.visitIllegal(DateTimeFormatterPatternVisitor.GENERIC_TIMEZONE_NAME, width);
+        }
+    }
+
+    protected void visitGenericTimeZoneName(final int width,
+                                            final DateTimeFormatterPatternComponentKind kind) {
     }
 
     /**

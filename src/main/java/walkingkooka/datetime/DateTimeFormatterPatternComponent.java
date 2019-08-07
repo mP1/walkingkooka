@@ -99,6 +99,17 @@ enum DateTimeFormatterPatternComponent {
                     visitor::visitDayOfMonth);
         }
     },
+    MODIFIED_JULIAN_DAY {
+        @Override
+        int traverse(final String pattern,
+                     final int position,
+                     final DateTimeFormatterPatternVisitor visitor) {
+            return visitor.traverseNumber(pattern,
+                    position,
+                    MAX_JULIAN_DAY,
+                    visitor::visitModifiedJulianDay);
+        }
+    },
     QUARTER_OF_YEAR {
         @Override
         int traverse(final String pattern,
@@ -347,6 +358,17 @@ enum DateTimeFormatterPatternComponent {
                     visitor::visitTimeZoneName);
         }
     },
+    GENERIC_TIMEZONE_NAME {
+        @Override
+        int traverse(final String pattern,
+                     final int position,
+                     final DateTimeFormatterPatternVisitor visitor) {
+            return visitor.traverseText(pattern,
+                    position,
+                    Integer.MAX_VALUE,
+                    visitor::traverseGenericTimeZoneName);
+        }
+    },
     LOCALIZED_ZONE_OFFSET {
         @Override
         int traverse(final String pattern,
@@ -507,6 +529,9 @@ enum DateTimeFormatterPatternComponent {
             case DateTimeFormatterPatternVisitor.DAY_OF_MONTH:
                 component = DAY_OF_MONTH;
                 break;
+            case DateTimeFormatterPatternVisitor.MODIFIED_JULIAN_DAY:
+                component = MODIFIED_JULIAN_DAY;
+                break;
             case DateTimeFormatterPatternVisitor.QUARTER_OF_YEAR:
                 component = QUARTER_OF_YEAR;
                 break;
@@ -570,6 +595,9 @@ enum DateTimeFormatterPatternComponent {
             case DateTimeFormatterPatternVisitor.TIMEZONE_ID:
                 component = TIMEZONE_ID;
                 break;
+            case DateTimeFormatterPatternVisitor.GENERIC_TIMEZONE_NAME:
+                component = GENERIC_TIMEZONE_NAME;
+                break;
             case DateTimeFormatterPatternVisitor.TIMEZONE_NAME:
                 component = TIMEZONE_NAME;
                 break;
@@ -616,14 +644,12 @@ enum DateTimeFormatterPatternComponent {
             case 'U':
             case 'b':
             case 'f':
-            case 'g':
             case 'i':
             case 'j':
             case 'l':
             case 'o':
             case 'r':
             case 't':
-            case 'v':
                 component = ILLEGAL;
                 break;
             default:
@@ -667,4 +693,11 @@ enum DateTimeFormatterPatternComponent {
      * </pre>
      */
     final static int MAX_TIMEZONE_NAME = 4;
+
+    /**
+     * <pre>
+     *  g       modified-julian-day         number            2451334
+     * </pre>
+     */
+    final static int MAX_JULIAN_DAY = Integer.MAX_VALUE;
 }

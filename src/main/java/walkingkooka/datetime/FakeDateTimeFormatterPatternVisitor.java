@@ -72,6 +72,11 @@ public class FakeDateTimeFormatterPatternVisitor extends DateTimeFormatterPatter
     }
 
     @Override
+    protected void visitModifiedJulianDay(final int width) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected void visitQuarterOfYear(final int width,
                                       final DateTimeFormatterPatternComponentKind kind) {
         throw new UnsupportedOperationException();
@@ -179,6 +184,12 @@ public class FakeDateTimeFormatterPatternVisitor extends DateTimeFormatterPatter
 
     @Override
     protected void visitTimeZoneId(final int width) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visitGenericTimeZoneName(final int width,
+                                            final DateTimeFormatterPatternComponentKind kind) {
         throw new UnsupportedOperationException();
     }
 
