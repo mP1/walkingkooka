@@ -237,17 +237,6 @@ public abstract class DateTimeFormatterPatternVisitor extends Visitor<String> {
                                                      final DateTimeFormatterPatternComponentKind kind) {
     }
 
-    final void traverseWeekOfMonthF(final int width) {
-        switch (width) {
-            case 1:
-                this.visitWeekOfMonthF(width);
-                break;
-            default:
-                this.visitIllegal(DateTimeFormatterPatternVisitor.STANDALONE_LOCALIZED_DAY_OF_WEEK, width);
-                break;
-        }
-    }
-
     /**
      * <pre>
      * F       week-of-month               number            3
