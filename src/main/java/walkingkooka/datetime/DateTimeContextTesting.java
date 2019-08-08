@@ -16,6 +16,8 @@
  */
 package walkingkooka.datetime;
 
+import walkingkooka.locale.HasLocaleTesting;
+
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -24,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Mixing interface that provides methods to test a {@link DateTimeContext}
  */
-public interface DateTimeContextTesting {
+public interface DateTimeContextTesting extends HasLocaleTesting {
 
     default void amPmAndCheck(final DateTimeContext context,
                               final int hourOfDay,

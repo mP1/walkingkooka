@@ -28,7 +28,6 @@ import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.type.JavaVisibility;
 
 import java.math.MathContext;
-import java.text.DateFormatSymbols;
 import java.text.DecimalFormatSymbols;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -95,7 +94,7 @@ public abstract class DateTimeFormatterParserTestCase<P extends DateTimeFormatte
     @Override
     public ParserContext createContext() {
         final Locale english = Locale.ENGLISH;
-        return ParserContexts.basic(DateTimeContexts.dateFormatSymbols(new DateFormatSymbols(english), 50),
+        return ParserContexts.basic(DateTimeContexts.locale(english, 50),
                 DecimalNumberContexts.decimalFormatSymbols(new DecimalFormatSymbols(english), '^', '+', english, MathContext.UNLIMITED));
     }
 

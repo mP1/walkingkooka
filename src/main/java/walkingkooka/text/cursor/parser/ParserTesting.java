@@ -29,7 +29,6 @@ import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.text.cursor.TextCursors;
 
 import java.math.MathContext;
-import java.text.DateFormatSymbols;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -294,7 +293,7 @@ public interface ParserTesting<P extends Parser<C>,
     }
 
     default DateTimeContext dateTimeContext() {
-        return DateTimeContexts.dateFormatSymbols(new DateFormatSymbols(Locale.ENGLISH), 20);
+        return DateTimeContexts.locale(Locale.ENGLISH, 20);
     }
 
     default DecimalNumberContext decimalNumberContext() {
