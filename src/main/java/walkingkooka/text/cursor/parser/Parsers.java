@@ -16,6 +16,7 @@
  */
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.PublicStaticHelper;
@@ -23,6 +24,7 @@ import walkingkooka.type.PublicStaticHelper;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 
 /**
  * A collection of factory methods to create parsers.
@@ -95,25 +97,22 @@ public final class Parsers implements PublicStaticHelper {
     /**
      * {@see DateTimeFormatterParserLocalDate}
      */
-    public static <C extends ParserContext> Parser<C> localDate(final DateTimeFormatter formatter,
-                                                                final String pattern) {
-        return DateTimeFormatterParserLocalDate.with(formatter, pattern);
+    public static <C extends ParserContext> Parser<C> localDate(final Function<DateTimeContext, DateTimeFormatter> formatter) {
+        return DateTimeFormatterParserLocalDate.with(formatter);
     }
 
     /**
      * {@see DateTimeFormatterParserLocalDateTime}
      */
-    public static <C extends ParserContext> Parser<C> localDateTime(final DateTimeFormatter formatter,
-                                                                    final String pattern) {
-        return DateTimeFormatterParserLocalDateTime.with(formatter, pattern);
+    public static <C extends ParserContext> Parser<C> localDateTime(final Function<DateTimeContext, DateTimeFormatter> formatter) {
+        return DateTimeFormatterParserLocalDateTime.with(formatter);
     }
 
     /**
      * {@see DateTimeFormatterParserLocalTime}
      */
-    public static <C extends ParserContext> Parser<C> localTime(final DateTimeFormatter formatter,
-                                                                final String pattern) {
-        return DateTimeFormatterParserLocalTime.with(formatter, pattern);
+    public static <C extends ParserContext> Parser<C> localTime(final Function<DateTimeContext, DateTimeFormatter> formatter) {
+        return DateTimeFormatterParserLocalTime.with(formatter);
     }
 
     /**
@@ -126,17 +125,15 @@ public final class Parsers implements PublicStaticHelper {
     /**
      * {@see DateTimeFormatterParserOffsetDateTime}
      */
-    public static <C extends ParserContext> Parser<C> offsetDateTime(final DateTimeFormatter formatter,
-                                                                     final String pattern) {
-        return DateTimeFormatterParserOffsetDateTime.with(formatter, pattern);
+    public static <C extends ParserContext> Parser<C> offsetDateTime(final Function<DateTimeContext, DateTimeFormatter> formatter) {
+        return DateTimeFormatterParserOffsetDateTime.with(formatter);
     }
 
     /**
      * {@see DateTimeFormatterParserOffsetTime}
      */
-    public static <C extends ParserContext> Parser<C> offsetTime(final DateTimeFormatter formatter,
-                                                                 final String pattern) {
-        return DateTimeFormatterParserOffsetTime.with(formatter, pattern);
+    public static <C extends ParserContext> Parser<C> offsetTime(final Function<DateTimeContext, DateTimeFormatter> formatter) {
+        return DateTimeFormatterParserOffsetTime.with(formatter);
     }
 
     /**
@@ -221,9 +218,8 @@ public final class Parsers implements PublicStaticHelper {
     /**
      * {@see DateTimeFormatterParserZonedDateTime}
      */
-    public static <C extends ParserContext> Parser<C> zonedDateTime(final DateTimeFormatter formatter,
-                                                                    final String pattern) {
-        return DateTimeFormatterParserZonedDateTime.with(formatter, pattern);
+    public static <C extends ParserContext> Parser<C> zonedDateTime(final Function<DateTimeContext, DateTimeFormatter> formatter) {
+        return DateTimeFormatterParserZonedDateTime.with(formatter);
     }
 
     /**

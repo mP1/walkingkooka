@@ -19,55 +19,21 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public abstract class DateTimeFormatterParserLocalTestCase<P extends DateTimeFormatterParser<ParserContext>,
         T extends ParserToken>
-        extends DateTimeFormatterParserTestCase<P, T> {
+        extends DateTimeFormatterParserTestCase2<P, T> {
 
     DateTimeFormatterParserLocalTestCase() {
         super();
     }
 
     @Test
-    public final void testWithTimeZoneIdFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createParser(this.pattern() + "VV");
-        });
+    public final void testParseTextFails() {
+        this.parseFailAndCheck("A123");
     }
 
     @Test
-    public final void testWithTimeZoneNameFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createParser(this.pattern() + "z");
-        });
-    }
-
-    @Test
-    public final void testWithLocalizedZoneOffsetFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createParser(this.pattern() + "O");
-        });
-    }
-
-    @Test
-    public final void testWithZoneOffsetBigXFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createParser(this.pattern() + "X");
-        });
-    }
-
-    @Test
-    public final void testWithZoneOffsetLittleXFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createParser(this.pattern() + "x");
-        });
-    }
-
-    @Test
-    public final void testWithZoneOffsetZFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createParser(this.pattern() + "Z");
-        });
+    public final void testParseTextFails2() {
+        this.parseFailAndCheck("1");
     }
 }

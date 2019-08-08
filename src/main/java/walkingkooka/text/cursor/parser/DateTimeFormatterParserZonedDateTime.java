@@ -17,65 +17,44 @@
 
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.datetime.DateTimeContext;
+
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
+import java.util.function.Function;
 
 /**
  * A {@link Parser} that uses a {@link DateTimeFormatter} to parse a {@link ZonedDateTime}.
  */
 final class DateTimeFormatterParserZonedDateTime<C extends ParserContext> extends DateTimeFormatterParser<C> {
 
-    static <C extends ParserContext> DateTimeFormatterParserZonedDateTime<C> with(final DateTimeFormatter formatter, final String pattern) {
-        return new DateTimeFormatterParserZonedDateTime<>(formatter, pattern);
+    static <C extends ParserContext> DateTimeFormatterParserZonedDateTime<C> with(final Function<DateTimeContext, DateTimeFormatter> formatter) {
+        return new DateTimeFormatterParserZonedDateTime<>(formatter);
     }
 
-    private DateTimeFormatterParserZonedDateTime(DateTimeFormatter formatter, final String pattern) {
-        super(formatter, pattern);
-    }
-
-    @Override
-    void date(final char c, final String pattern) {
-        // ok!
+    private DateTimeFormatterParserZonedDateTime(final Function<DateTimeContext, DateTimeFormatter> formatter) {
+        super(formatter);
     }
 
     @Override
-    void time(final char c, final String pattern) {
-        // ok!
+    void date(final DateTimeFormatterParserDateTimeFormatterPatternVisitor visitor) {
     }
 
     @Override
-    void zoneId(final char c, final String pattern) {
-        // ok!
+    void time(final DateTimeFormatterParserDateTimeFormatterPatternVisitor visitor) {
     }
 
     @Override
-    void zoneName(final char c, final String pattern) {
-        // ok!
+    void timeZone(final DateTimeFormatterParserDateTimeFormatterPatternVisitor visitor) {
     }
 
     @Override
-    void localisedZoneOffset(final char c, final String pattern) {
-        // ok!
-    }
-
-    @Override
-    void zoneOffset(final char c, final String pattern) {
-        // ok!
-    }
-
-    @Override
-    void zOrZoneOffset(final char c, final String pattern) {
-        // ok!
+    void timeZoneOffset(final DateTimeFormatterParserDateTimeFormatterPatternVisitor visitor) {
     }
 
     @Override
     ZonedDateTimeParserToken createParserToken(final TemporalAccessor value, final String text) {
         return ParserTokens.zonedDateTime(ZonedDateTime.from(value), text);
-    }
-
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof DateTimeFormatterParserZonedDateTime;
     }
 }

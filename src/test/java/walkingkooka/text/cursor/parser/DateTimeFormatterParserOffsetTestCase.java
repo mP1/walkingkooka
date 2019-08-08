@@ -17,29 +17,11 @@
 
 package walkingkooka.text.cursor.parser;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public abstract class DateTimeFormatterParserOffsetTestCase<P extends DateTimeFormatterParser<ParserContext>,
         T extends ParserToken>
-        extends DateTimeFormatterParserTestCase<P, T> {
+        extends DateTimeFormatterParserTestCase2<P, T> {
 
     DateTimeFormatterParserOffsetTestCase() {
         super();
-    }
-
-    @Test
-    public final void testWithTimeZoneIdFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createParser(this.pattern() + "VV");
-        });
-    }
-
-    @Test
-    public final void testWithTimeZoneNameFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createParser(this.pattern() + "z");
-        });
     }
 }

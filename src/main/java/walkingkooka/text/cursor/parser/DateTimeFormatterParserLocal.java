@@ -17,7 +17,10 @@
 
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.datetime.DateTimeContext;
+
 import java.time.format.DateTimeFormatter;
+import java.util.function.Function;
 
 /**
  * Base class for all parsers that handle local dates, times, date/times.
@@ -25,32 +28,17 @@ import java.time.format.DateTimeFormatter;
  */
 abstract class DateTimeFormatterParserLocal<C extends ParserContext> extends DateTimeFormatterParser<C> {
 
-    DateTimeFormatterParserLocal(final DateTimeFormatter formatter, final String pattern) {
-        super(formatter, pattern);
+    DateTimeFormatterParserLocal(final Function<DateTimeContext, DateTimeFormatter> formatter) {
+        super(formatter);
     }
 
     @Override
-    void zoneId(final char c, final String pattern) {
-        this.failInvalidPattern(c, pattern);
+    final void timeZone(final DateTimeFormatterParserDateTimeFormatterPatternVisitor visitor) {
+        visitor.invalidPatternLetter();
     }
 
     @Override
-    void zoneName(final char c, final String pattern) {
-        this.failInvalidPattern(c, pattern);
-    }
-
-    @Override
-    void localisedZoneOffset(final char c, final String pattern) {
-        this.failInvalidPattern(c, pattern);
-    }
-
-    @Override
-    void zoneOffset(final char c, final String pattern) {
-        this.failInvalidPattern(c, pattern);
-    }
-
-    @Override
-    void zOrZoneOffset(final char c, final String pattern) {
-        this.failInvalidPattern(c, pattern);
+    final void timeZoneOffset(final DateTimeFormatterParserDateTimeFormatterPatternVisitor visitor) {
+        visitor.invalidPatternLetter();
     }
 }

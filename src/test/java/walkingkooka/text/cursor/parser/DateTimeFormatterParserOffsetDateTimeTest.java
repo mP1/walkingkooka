@@ -19,161 +19,182 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.datetime.DateTimeContext;
 
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.function.Function;
 
 public final class DateTimeFormatterParserOffsetDateTimeTest extends DateTimeFormatterParserOffsetTestCase<DateTimeFormatterParserOffsetDateTime<ParserContext>, OffsetDateTimeParserToken> {
 
-    // YearMonthDayHoursMinutes...............................................................................
+    // year.............................................................................................................
 
     @Test
-    public void testYearInvalidFails() {
-        this.parseFailAndCheck2("yyyy-MM-dd HH:mmx", "20Q");
+    public void testYearFails() {
+        this.parseFailAndCheck2("uuuu-MM-dd", "200A");
     }
 
     @Test
-    public void testYearSeparatorInvalidFails() {
-        this.parseFailAndCheck2("yyyy-MM-dd HH:mmx", "2001Q");
+    public void testYearFails2() {
+        this.parseFailAndCheck2("uuuu-MM-dd", "200A");
+    }
+
+    // month............................................................................................................
+
+    @Test
+    public void testYearSeparatorMonthFails() {
+        this.parseFailAndCheck2("uuuu-MM", "2001-AB");
     }
 
     @Test
-    public void testYearSeparatorMonthInvalidFails() {
-        this.parseThrows2("yyyy-MM-dd HH:mmx", "2001-1Q");
+    public void testYearSeparatorMonthFails2() {
+        this.parseFailAndCheck2("uuuu-MM-dd HH:mmx", "2001-1Z");
+    }
+
+    // day..............................................................................................................
+
+    @Test
+    public void testYearSeparatorMonthSeparatorDayFails() {
+        this.parseFailAndCheck2("uuuu-MM-dd", "2001-12-Q");
     }
 
     @Test
-    public void testYearSeparatorMonthSeparatorDayInvalidFails() {
-        this.parseThrows2("yyyy-MM-dd HH:mmx", "2001-12-Q");
-    }
-
-    // YearMonthDayHoursMinutes...............................................................................
-
-    @Test
-    public void testYearSeparatorMonthSeparatorDayWhitespaceHourInvalidFails() {
-        this.parseThrows2("yyyy-MM-dd HH:mmx", "2001-12-31 AB:59");
+    public void testYearSeparatorMonthSeparatorDayFails2() {
+        this.parseFailAndCheck2("uuuu-MM-dd", "2001-12-1Q");
     }
 
     @Test
-    public void testYearSeparatorMonthSeparatorDayWhitespaceHourSeparatorIncompleteFails() {
-        this.parseThrows2("yyyy-MM-dd HH:mmx", "2001-12-31 12:");
+    public void testYearSeparatorMonthSeparatorInvalidDayThrows() {
+        this.parseThrows2("uuuu-MM-dd", "2001-12-99");
     }
 
     @Test
-    public void testYearSeparatorMonthSeparatorDayWhitespaceHourSeparatorInvalidFails() {
-        this.parseThrows2("yyyy-MM-dd HH:mmx", "2001-12-31 12A59");
+    public void testYearSeparatorMonthSeparatorInvalidDayThrows2() {
+        this.parseThrows2("uuuu-MM-dd", "2001-12-99Q");
+    }
+
+    // hour.............................................................................................................
+
+    @Test
+    public void testYearSeparatorHoursFails() {
+        this.parseFailAndCheck2("uuuu-HH", "2001-A");
     }
 
     @Test
-    public void testYearSeparatorMonthSeparatorDayWhitespaceHourSeparatorMinuteOffset() {
-        this.parseAndCheck2("yyyy-MM-dd HH:mmx", "2001-12-31 12:59+10", "");
+    public void testYearSeparatorHoursFails2() {
+        this.parseFailAndCheck2("uuuu-HH", "2001-AB");
     }
 
     @Test
-    public void testYearSeparatorMonthSeparatorDayWhitespaceHourSeparatorMinuteOffset2() {
-        this.parseAndCheck2("yyyy-MM-dd HH:mmx", "2001-12-31 12:59+1000", "");
+    public void testYearSeparatorHoursInvalidFails() {
+        this.parseThrows2("uuuu-HH", "2001-99");
+    }
+
+    // minutes..........................................................................................................
+
+    @Test
+    public void testYearSeparatorMinutesFails() {
+        this.parseFailAndCheck2("uuuu-mm", "2001-A");
     }
 
     @Test
-    public void testYearSeparatorMonthSeparatorDayWhitespaceHourSeparatorMinuteOffset3() {
-        this.parseAndCheck2("yyyy-MM-dd HH:mmx", "2001-12-31 12:59-1000", "");
+    public void testYearSeparatorMinutesFails2() {
+        this.parseFailAndCheck2("uuuu-mm", "2001-AB");
     }
 
     @Test
-    public void testYearSeparatorMonthSeparatorDayWhitespaceHourSeparatorMinuteOffsetAfter() {
-        this.parseAndCheck2("yyyy-MM-dd HH:mmx", "2001-12-31 12:59-1000", "   ");
+    public void testYearSeparatorMinutesInvalidFails() {
+        this.parseThrows2("uuuu-mm", "2001-99");
+    }
+
+    // seconds..........................................................................................................
+
+    @Test
+    public void testYearSeparatorSecondsFails() {
+        this.parseFailAndCheck2("uuuu-ss", "2001-A");
     }
 
     @Test
-    public void testYearSeparatorMonthSeparatorDayWhitespaceHourSeparatorMinuteOffsetAfter2() {
-        this.parseAndCheck2("yyyy-MM-dd HH:mmx", "2001-12-31 12:59-1234", "qqq");
+    public void testYearSeparatorSecondsFails2() {
+        this.parseFailAndCheck2("uuuu-ss", "2001-AB");
     }
 
     @Test
-    public void testYearSeparatorMonthSeparatorDayWhitespaceHourSeparatorMinuteOffsetWithoutSeparator() {
-        this.parseAndCheck2("yyyy-MM-dd Hmmx", "2001-12-31 1259-1000", "qqq");
+    public void testYearSeparatorSecondsInvalidFails() {
+        this.parseThrows2("uuuu-ss", "2001-99");
     }
 
-    // YearMonthDayHoursMinutesSeconds................................................................................
+    // secondsMillis....................................................................................................
 
     @Test
-    public void testYearSeparatorMonthSeparatorDayWhitespaceHourSeparatorMinuteSeparatorInvalid() {
-        this.parseThrows2("yyyy-MM-dd HH:mm:ssO", "2001-12-31 12:59A");
-    }
-
-    @Test
-    public void testYearSeparatorMonthSeparatorDayWhitespaceHoursSeparatorMinutesSeparatorSecondsInvalidFails() {
-        this.parseThrows2("yyyy-MM-dd HH:mm:ssO", "2001-12-31 12:59:AA");
+    public void testYearSeparatorSecondsMillisFails() {
+        this.parseFailAndCheck2("uuuu-ss.SS", "2001-A");
     }
 
     @Test
-    public void testYearSeparatorMonthSeparatorDayWhitespaceHourSeparatorMinuteIncompleteFail() {
-        this.parseThrows2("yyyy-MM-dd HH:mm:ssO", "2001-12-31 12:59");
+    public void testYearSeparatorSecondsMillisFails2() {
+        this.parseFailAndCheck2("uuuu-ss.SS", "2001-AB");
     }
 
     @Test
-    public void testYearSeparatorMonthSeparatorDayWhitespaceHourSeparatorMinuteSeparatorIncomplete() {
-        this.parseThrows2("yyyy-MM-dd HH:mm:ssx", "2001-12-31 12:59:");
+    public void testYearSeparatorSecondsMillisInvalidFails() {
+        this.parseThrows2("uuuu-ss.SS", "2001-98.7Q");
     }
 
     @Test
-    public void testYearSeparatorMonthSeparatorDayWhitespaceHoursSeparatorMinutesIncompleteFails() {
-        this.parseThrows2("yyyy-MM-dd HH:mm:ssx", "2001-12-31 12:59");
+    public void testYearSeparatorSecondsMillisInvalidFails2() {
+        this.parseThrows2("uuuu-ss.SS", "2001-98.76Q");
     }
 
     @Test
-    public void testYearSeparatorMonthSeparatorDayWhitespaceHoursSeparatorMinutesSeparatorSecondsOffset() {
-        this.parseAndCheck2("yyyy-MM-dd HH:mm:ssX", "2001-12-31 12:58:59+10", "");
+    public void testYearSeparatorSecondsMillisInvalidFails3() {
+        this.parseThrows2("uuuu-ss.SS", "2001-98.76QQ");
+    }
+
+    // offset...........................................................................................................
+
+    @Test
+    public void testYearSeparatorOffsetFails() {
+        this.parseFailAndCheck2("uuuu x", "2001 #");
+    }
+
+    // pass.............................................................................................................
+
+    @Test
+    public void testYearSeparatorMonthSeparatorDaySeparatorHourSeparatorMinutesSeparatorSecondsOffset() {
+        this.parseAndCheck2("uuuu-MM-dd HH:mm:ss x", "2001-12-31 12:58:59 +10");
     }
 
     @Test
-    public void testYearSeparatorMonthSeparatorDayWhitespaceHoursSeparatorMinutesSeparatorSecondsOffset2() {
-        this.parseAndCheck2("yyyy-MM-dd HH:mm:ssx", "2001-12-31 12:58:59+1000", "");
+    public void testYearSeparatorMonthSeparatorDaySeparatorHourSeparatorMinutesSeparatorSecondsOffset2() {
+        this.parseAndCheck2("uuuu-MM-dd HH:mm:ss x", "2001-12-31 12:58:59 +10", " ");
     }
 
     @Test
-    public void testYearSeparatorMonthSeparatorDayWhitespaceHoursSeparatorMinutesSeparatorSecondsOffset3() {
-        this.parseAndCheck2("yyyy-MM-dd HH:mm:ssx", "2001-12-31 12:58:59-1000", "");
+    public void testYearSeparatorMonthSeparatorDaySeparatorHourSeparatorMinutesSeparatorSecondsMillisOffset() {
+        this.parseAndCheck2("uuuu-MM-dd HH:mm:ss.SSS x", "2001-12-31 12:58:59.123 +10");
     }
 
     @Test
-    public void testYearSeparatorMonthSeparatorDayWhitespaceHoursSeparatorMinutesSeparatorSecondsOffsetAfter() {
-        this.parseAndCheck2("yyyy-MM-dd HH:mm:ssx", "2001-12-31 12:58:59-1000", "   ");
+    public void testYearSeparatorMonthSeparatorDaySeparatorHourSeparatorMinutesSeparatorSecondsMillisOffset2() {
+        this.parseAndCheck2("uuuu-MM-dd HH:mm:ss.SSS x", "2001-12-31 12:58:59.123 +10", " ");
     }
 
     @Test
-    public void testYearSeparatorMonthSeparatorDayWhitespaceHoursSeparatorMinutesSeparatorSecondsOffsetAfter2() {
-        this.parseAndCheck2("yyyy-MM-dd HH:mm:ssx", "2001-12-31 12:58:59-1000", "zzz");
+    public void testHourSeparatorMinutesSeparatorSecondsMillisSeparatorYearSeparatorMonthSeparatorDayOffset() {
+        this.parseAndCheck2("HH:mm:ss.SSS uuuu-MM-dd x", "12:58:59.123 2001-12-31 +10", " ");
     }
 
-    @Test
-    public void testYearSeparatorMonthSeparatorDayWhitespaceHoursMinutesSecondsW() {
-        this.parseAndCheck2("yyyy-MM-dd Hmmssx", "2001-12-31 125859-1000", "zzz");
-    }
-
-    @Test
-    public void testYearSeparatorMonthSeparatorDayWhitespaceHoursLiteralMinutesLiteralSecondsW() {
-        this.parseAndCheck2("yyyy-MM-dd H':'mm':'ssx", "2001-12-31 12:58:59-1000", "zzz");
-    }
-
-    @Test
-    public void testYearSeparatorMonthNameSeparatorDayWhitespaceHoursSeparatorMinutesSeparatorSecondsOffset() {
-        this.parseAndCheck2("yyyy-MMMM-dd HH:mm:ssX", "2001-December-31 12:58:59+10", "");
-    }
+    // helpers..........................................................................................................
 
     @Override
-    protected DateTimeFormatterParserOffsetDateTime<ParserContext> createParser(final DateTimeFormatter formatter, final String pattern) {
-        return DateTimeFormatterParserOffsetDateTime.with(formatter, pattern);
+    DateTimeFormatterParserOffsetDateTime<ParserContext> createParser(final Function<DateTimeContext, DateTimeFormatter> formatter) {
+        return DateTimeFormatterParserOffsetDateTime.with(formatter);
     }
 
     @Override
     String pattern() {
-        return "yyyy-MM-dd HH:mm:ss.SSS";
-    }
-
-    @Override
-    String differentPattern() {
-        return "dd-MM-yyyy HH:mm:ss.SSS";
+        return "uuuu-MM-dd HH:mm:ss.SSS";
     }
 
     @Override

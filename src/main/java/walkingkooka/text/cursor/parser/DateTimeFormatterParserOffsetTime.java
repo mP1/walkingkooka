@@ -17,40 +17,33 @@
 
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.datetime.DateTimeContext;
+
 import java.time.OffsetTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
+import java.util.function.Function;
 
 /**
  * A {@link Parser} that uses a {@link DateTimeFormatter} to parse a {@link OffsetTime}.
  */
 final class DateTimeFormatterParserOffsetTime<C extends ParserContext> extends DateTimeFormatterParserOffset<C> {
 
-    static <C extends ParserContext> DateTimeFormatterParserOffsetTime<C> with(final DateTimeFormatter formatter, final String pattern) {
-        return new DateTimeFormatterParserOffsetTime<>(formatter, pattern);
+    static <C extends ParserContext> DateTimeFormatterParserOffsetTime<C> with(final Function<DateTimeContext, DateTimeFormatter> formatter) {
+        return new DateTimeFormatterParserOffsetTime<>(formatter);
     }
 
-    private DateTimeFormatterParserOffsetTime(DateTimeFormatter formatter, final String pattern) {
-        super(formatter, pattern);
-    }
-
-    @Override
-    void date(final char c, final String pattern) {
-        this.failInvalidPattern(c, pattern);
+    private DateTimeFormatterParserOffsetTime(final Function<DateTimeContext, DateTimeFormatter> formatter) {
+        super(formatter);
     }
 
     @Override
-    void time(final char c, final String pattern) {
-        // ok!
+    void date(final DateTimeFormatterParserDateTimeFormatterPatternVisitor visitor) {
+        visitor.invalidPatternLetter();
     }
 
     @Override
     OffsetTimeParserToken createParserToken(final TemporalAccessor value, final String text) {
         return ParserTokens.offsetTime(OffsetTime.from(value), text);
-    }
-
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof DateTimeFormatterParserOffsetTime;
     }
 }

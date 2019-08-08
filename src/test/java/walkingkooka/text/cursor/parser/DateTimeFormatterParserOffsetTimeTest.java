@@ -19,137 +19,113 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.datetime.DateTimeContext;
 
 import java.time.OffsetTime;
 import java.time.format.DateTimeFormatter;
+import java.util.function.Function;
 
 public final class DateTimeFormatterParserOffsetTimeTest extends DateTimeFormatterParserOffsetTestCase<DateTimeFormatterParserOffsetTime<ParserContext>, OffsetTimeParserToken> {
 
 //    The ISO date formatter that formats or parses a date without an
 //     * offset, such as '12:58:59.123-10:00'
 
-    // Hours seconds...............................................................................................
+
+    // hours............................................................................................................
 
     @Test
-    public void testHourInvalidFails() {
-        this.parseFailAndCheck2("HH:mmx", "AB:59");
+    public void testHoursFails() {
+        this.parseFailAndCheck2("HH:mm x","A");
     }
 
     @Test
-    public void testHourSeparatorIncompleteFails() {
-        this.parseFailAndCheck2("HH:mmx", "12:");
+    public void testHoursFails2() {
+        this.parseFailAndCheck2("HH:mm x","9A");
     }
 
     @Test
-    public void testHourSeparatorInvalidFails() {
-        this.parseFailAndCheck2("HH:mmx", "12A59");
+    public void testOffsetHoursFails() {
+        this.parseFailAndCheck2("x HH:mm x","+10 Q");
+    }
+
+    // minutes..........................................................................................................
+
+    @Test
+    public void testOffsetSeparatorMinutesFails() {
+        this.parseFailAndCheck2( "x mm", "+10 Q");
     }
 
     @Test
-    public void testHourSeparatorMinuteOffset() {
-        this.parseAndCheck2("HH:mmx", "12:59+10", "");
+    public void testOffsetSeparatorMinutesFails2() {
+        this.parseFailAndCheck2( "x mm", "+10 1Q");
+    }
+
+    // seconds...........................................................................................................
+
+    @Test
+    public void testOffsetSeparatorSecondsFails() {
+        this.parseFailAndCheck2("x ss","+10 Q");
     }
 
     @Test
-    public void testHourSeparatorMinuteOffset2() {
-        this.parseAndCheck2("HH:mmx", "12:59+1000", "");
+    public void testOffsetSeparatorSecondsFails2() {
+        this.parseFailAndCheck2("x ss","+10 Q9 ");
+    }
+
+    // secondsMillis....................................................................................................
+
+    @Test
+    public void testOffsetSeparatorSecondsMillisFails() {
+        this.parseFailAndCheck2("x ss.SSS","+10 12.Q");
     }
 
     @Test
-    public void testHourSeparatorMinuteOffset3() {
-        this.parseAndCheck2("HH:mmx", "12:59-1000", "");
+    public void testOffsetSeparatorSecondsMillisFails2() {
+        this.parseFailAndCheck2("x ss.SSS","+10 12.3Q");
+    }
+
+    // pass.............................................................................................................
+
+    @Test
+    public void testHoursSeparatorMinutesOffset() {
+        this.parseAndCheck2("HH:mm x", "12:58 +10", "");
     }
 
     @Test
-    public void testHourSeparatorMinuteOffsetAfter() {
-        this.parseAndCheck2("HH:mmx", "12:59-1000", "   ");
+    public void testHoursSeparatorMinutesSeparatorAmpmOffset() {
+        this.parseAndCheck2("hh:mm a x", "12:58 AM +10", "");
     }
 
     @Test
-    public void testHourSeparatorMinuteOffsetAfter2() {
-        this.parseAndCheck2("HH:mmx", "12:59-1234", "qqq");
+    public void testHoursSeparatorMinutesSeparatorSecondsSeparatorAmpmOffset() {
+        this.parseAndCheck2("hh:mm:ss a x", "12:58:59 AM +10", "");
     }
 
     @Test
-    public void testHourSeparatorMinuteOffsetWithoutSeparator() {
-        this.parseAndCheck2("HHmmx", "1259-1000", "qqq");
-    }
-
-    // HoursMinutesSeconds................................................................................................
-
-    @Test
-    public void testHourSeparatorMinuteSeparatorInvalid() {
-        this.parseThrows2("HH:mm:ssO", "12:59A");
+    public void testHoursSeparatorMinutesSeparatorSecondsSeparatorAmpmOffset2() {
+        this.parseAndCheck2("hh:mm:ss a x", "12:58:59 PM +10", " ");
     }
 
     @Test
-    public void testHoursSeparatorMinutesSeparatorSecondsInvalidFails() {
-        this.parseThrows2("HH:mm:ssO", "12:59:AA");
+    public void testSecondsSeparatorNanoOfSecondSeparatorMinutesSeparatorHourOffset() {
+        this.parseAndCheck2("nnn ss:mm:HH x", "123 59:58:12 +10", "");
     }
 
     @Test
-    public void testHourSeparatorMinuteIncompleteFail() {
-        this.parseThrows2("HH:mm:ssO", "12:59");
+    public void testHoursSeparatorMinutesSeparatorSecondsSeparatorNanoOfSecondOffset() {
+        this.parseAndCheck2("HH:mm:ss nnn x", "12:58:59 123 +10", "");
     }
 
-    @Test
-    public void testHourSeparatorMinuteSeparatorIncomplete() {
-        this.parseThrows2("HH:mm:ssx", "12:59:");
-    }
-
-    @Test
-    public void testHoursSeparatorMinutesIncompleteFails() {
-        this.parseThrows2("HH:mm:ssx", "12:59");
-    }
-
-    @Test
-    public void testHoursSeparatorMinutesSeparatorSecondsOffset() {
-        this.parseAndCheck2("HH:mm:ssX", "12:58:59+10", "");
-    }
-
-    @Test
-    public void testHoursSeparatorMinutesSeparatorSecondsOffset2() {
-        this.parseAndCheck2("HH:mm:ssx", "12:58:59+1000", "");
-    }
-
-    @Test
-    public void testHoursSeparatorMinutesSeparatorSecondsOffset3() {
-        this.parseAndCheck2("HH:mm:ssx", "12:58:59-1000", "");
-    }
-
-    @Test
-    public void testHoursSeparatorMinutesSeparatorSecondsOffsetAfter() {
-        this.parseAndCheck2("HH:mm:ssx", "12:58:59-1000", "   ");
-    }
-
-    @Test
-    public void testHoursSeparatorMinutesSeparatorSecondsOffsetAfter2() {
-        this.parseAndCheck2("HH:mm:ssx", "12:58:59-1000", "zzz");
-    }
-
-    @Test
-    public void testHoursMinutesSecondsW() {
-        this.parseAndCheck2("HHmmssx", "125859-1000", "zzz");
-    }
-
-    @Test
-    public void testHoursLiteralMinutesLiteralSecondsW() {
-        this.parseAndCheck2("HH':'mm':'ssx", "12:58:59-1000", "zzz");
-    }
+    // helper...........................................................................................................
 
     @Override
-    protected DateTimeFormatterParserOffsetTime<ParserContext> createParser(final DateTimeFormatter formatter, final String pattern) {
-        return DateTimeFormatterParserOffsetTime.with(formatter, pattern);
+    DateTimeFormatterParserOffsetTime<ParserContext> createParser(final Function<DateTimeContext, DateTimeFormatter> formatter) {
+        return DateTimeFormatterParserOffsetTime.with(formatter);
     }
 
     @Override
     String pattern() {
-        return "HH:mm:ss.SSSx";
-    }
-
-    @Override
-    String differentPattern() {
-        return "x SSS ss mm HH";
+        return "HH:mm:ss.SSS x";
     }
 
     @Override

@@ -17,118 +17,16 @@
 
 package walkingkooka.text.cursor.parser;
 
-import org.junit.jupiter.api.Test;
-import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.text.cursor.TextCursor;
-import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.type.JavaVisibility;
 
-import java.math.MathContext;
-import java.text.DecimalFormatSymbols;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-public abstract class DateTimeFormatterParserTestCase<P extends DateTimeFormatterParser<ParserContext>, T extends ParserToken>
-        implements ClassTesting2<P>,
-        HashCodeEqualsDefinedTesting<P>,
-        ParserTesting<P, ParserContext>,
-        TypeNameTesting<P> {
+public abstract class DateTimeFormatterParserTestCase<T>
+        implements ClassTesting2<T>,
+        TypeNameTesting<T> {
 
     DateTimeFormatterParserTestCase() {
         super();
-    }
-
-    @Test
-    public final void testWithNullFormatterFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createParser(null, this.pattern());
-        });
-    }
-
-    @Test
-    public final void testWithNullPatternFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createParser(this.formatter(), null);
-        });
-    }
-
-    @Test
-    public final void testWithEmptyPatternFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createParser(this.formatter(), "");
-        });
-    }
-
-    @Test
-    public final void testDifferentPattern() {
-        this.checkNotEquals(this.createParser(this.differentPattern()));
-    }
-
-    public final P createParser() {
-        return this.createParser(this.pattern());
-    }
-
-    final P createParser(final String pattern) {
-        return this.createParser(DateTimeFormatter.ofPattern(pattern).withLocale(Locale.JAPAN), pattern);
-    }
-
-    abstract P createParser(final DateTimeFormatter formatter, final String pattern);
-
-    abstract T createParserToken(final DateTimeFormatter formatter, final String text);
-
-
-    final DateTimeFormatter formatter() {
-        return DateTimeFormatter.ofPattern(this.pattern());
-    }
-
-    abstract String pattern();
-
-    abstract String differentPattern();
-
-    @Override
-    public ParserContext createContext() {
-        final Locale english = Locale.ENGLISH;
-        return ParserContexts.basic(DateTimeContexts.locale(english, 50),
-                DecimalNumberContexts.decimalFormatSymbols(new DecimalFormatSymbols(english), '^', '+', english, MathContext.UNLIMITED));
-    }
-
-    final void parseAndCheck2(final String text) {
-        this.parseAndCheck2(text, "");
-    }
-
-    final void parseAndCheck2(final String text, final String after) {
-        this.parseAndCheck2(this.pattern(), text, after);
-    }
-
-    final void parseAndCheck2(final String pattern, final String text, final String after) {
-        this.parseAndCheck2(DateTimeFormatter.ofPattern(pattern), pattern, text, after);
-    }
-
-    final void parseAndCheck2(final DateTimeFormatter formatter, final String pattern, final String text, final String after) {
-        this.parseAndCheck(this.createParser(formatter, pattern),
-                text + after,
-                this.createParserToken(formatter, text),
-                text,
-                after);
-    }
-
-    final TextCursor parseFailAndCheck2(final String pattern, final String cursorText) {
-        return this.parseFailAndCheck(this.createParser(pattern), cursorText);
-    }
-
-    final void parseThrows2(final String pattern, final String text) {
-        this.parseThrows(this.createParser(pattern), this.createContext(), TextCursors.charSequence(text), "");
-    }
-
-    @Override
-    public String parserTokenTypeNamePrefix() {
-        return "";
     }
 
     // ClassTesting......................................................................................................
@@ -136,13 +34,6 @@ public abstract class DateTimeFormatterParserTestCase<P extends DateTimeFormatte
     @Override
     public final JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
-    }
-
-    // HashCodeEqualsDefinedTesting ....................................................................................
-
-    @Override
-    public P createObject() {
-        return this.createParser();
     }
 
     // TypeNameTesting ..................................................................................................

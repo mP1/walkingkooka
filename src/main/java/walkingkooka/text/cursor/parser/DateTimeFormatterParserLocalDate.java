@@ -17,40 +17,37 @@
 
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.datetime.DateTimeContext;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
+import java.util.function.Function;
 
 /**
  * A {@link Parser} that uses a {@link DateTimeFormatter} to parse a {@link LocalDate}.
  */
 final class DateTimeFormatterParserLocalDate<C extends ParserContext> extends DateTimeFormatterParserLocal<C> {
 
-    static <C extends ParserContext> DateTimeFormatterParserLocalDate<C> with(final DateTimeFormatter formatter, final String pattern) {
-        return new DateTimeFormatterParserLocalDate<>(formatter, pattern);
+    static <C extends ParserContext> DateTimeFormatterParserLocalDate<C> with(final Function<DateTimeContext, DateTimeFormatter> formatter) {
+        return new DateTimeFormatterParserLocalDate<>(formatter);
     }
 
-    private DateTimeFormatterParserLocalDate(final DateTimeFormatter formatter, final String pattern) {
-        super(formatter, pattern);
-    }
-
-    @Override
-    void date(final char c, final String pattern) {
-        // ok!
+    private DateTimeFormatterParserLocalDate(final Function<DateTimeContext, DateTimeFormatter> formatter) {
+        super(formatter);
     }
 
     @Override
-    void time(final char c, final String pattern) {
-        this.failInvalidPattern(c, pattern);
+    void date(final DateTimeFormatterParserDateTimeFormatterPatternVisitor visitor) {
+    }
+
+    @Override
+    void time(final DateTimeFormatterParserDateTimeFormatterPatternVisitor visitor) {
+        visitor.invalidPatternLetter();
     }
 
     @Override
     LocalDateParserToken createParserToken(final TemporalAccessor value, final String text) {
         return ParserTokens.localDate(LocalDate.from(value), text);
-    }
-
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof DateTimeFormatterParserLocalDate;
     }
 }

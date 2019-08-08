@@ -19,108 +19,192 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.datetime.DateTimeContext;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.function.Function;
 
 public final class DateTimeFormatterParserLocalTimeTest extends DateTimeFormatterParserLocalTestCase<DateTimeFormatterParserLocalTime<ParserContext>, LocalTimeParserToken> {
 
 //    The ISO date formatter that formats or parses a date without an
 //     * offset, such as '2011-12-03'
 
+    // hours............................................................................................................
+
     @Test
-    public void testHourInvalidFails() {
-        this.parseFailAndCheck("AB:59");
+    public void testHoursFails() {
+        this.parseFailAndCheck2("HH:mm","A");
     }
 
     @Test
-    public void testHourMinuteSeparatorInvalid() {
-        this.parseFailAndCheck("12A59");
+    public void testHoursFails2() {
+        this.parseFailAndCheck2("HH:mm","9A");
     }
 
     @Test
-    public void testHourSeparatorMinuteInvalidFails() {
-        this.parseThrows("12:5X");
+    public void testHoursFails3() {
+        this.parseFailAndCheck2("HH:mm","AB:59");
     }
 
     @Test
-    public void testHourSeparatorMinuteSeparatorInvalid() {
-        this.parseThrows("12:59A");
+    public void testHoursInvalidFails() {
+        this.parseFailAndCheck2("HH:mm", "12:AB");
+    }
+
+    // minutes..........................................................................................................
+
+    @Test
+    public void testHoursSeparatorMinutesFails() {
+        this.parseFailAndCheck2( "HH:mm", "12:A9");
     }
 
     @Test
-    public void testHourSeparatorMinuteSeparatorSecondsInvalidFails() {
-        this.parseThrows("12:59:AA");
+    public void testHoursSeparatorMinutesFails2() {
+        this.parseFailAndCheck2("HH:mm", "12:9A");
     }
 
     @Test
-    public void testHourSeparatorMinuteSeparatorSecondsFractionThrows() {
-        this.parseThrows("12:59:58.78A");
+    public void testHoursSeparatorMinutesInvalidFails() {
+        this.parseThrows2("HH:mm", "12:99");
     }
 
     @Test
-    public void tesHourSeparatortIncompleteFail() {
-        this.parseFailAndCheck("12:");
+    public void testHoursSeparatorMinutesInvalidFails2() {
+        this.parseThrows2("HH:mm", "12:99 ");
     }
 
     @Test
-    public void testHourSeparatorMinuteIncompleteFail() {
-        this.parseThrows("12:59");
+    public void testHoursSeparatorMinutesInvalidFails3() {
+        this.parseThrows2("HH:mm", "12:99Q");
+    }
+
+    // seconds...........................................................................................................
+
+    @Test
+    public void testHoursSeparatorSecondsFails() {
+        this.parseFailAndCheck2("HH:ss","12:A9");
     }
 
     @Test
-    public void testHourSeparatorMinuteSeparatorIncomplete() {
-        this.parseThrows("12:59:58.");
+    public void testHoursSeparatorSecondsFails2() {
+        this.parseFailAndCheck2("HH:ss","12:9A");
     }
+
+    @Test
+    public void testHoursSeparatorSecondsInvalidFails() {
+        this.parseThrows2("HH:ss", "12:99");
+    }
+
+    @Test
+    public void testHoursSeparatorSecondsInvalidFails2() {
+        this.parseThrows2("HH:ss", "12:99 ");
+    }
+
+    @Test
+    public void testHoursSeparatorSecondsInvalidFails3() {
+        this.parseThrows2("HH:ss", "12:99Q");
+    }
+
+    // secondsMillis....................................................................................................
+
+    @Test
+    public void testHoursSeparatorSecondsMillisFails() {
+        this.parseFailAndCheck2("HH:ss.SSS", "12:59.");
+    }
+
+    @Test
+    public void testHoursSeparatorSecondsMillisFails2() {
+        this.parseFailAndCheck2("HH:ss.SSS","12:59.Q");
+    }
+
+    @Test
+    public void testHoursSeparatorSecondsMillisInvalidFails() {
+        this.parseThrows2("HH:ss", "12:99");
+    }
+
+    @Test
+    public void testHoursSeparatorSecondsMillisInvalidFails2() {
+        this.parseThrows2("HH:ss", "12:99 ");
+    }
+
+    @Test
+    public void testHoursSeparatorSecondsMillisInvalidFails3() {
+        this.parseThrows2("HH:ss", "12:99Q");
+    }
+
+    // pass.............................................................................................................
 
     @Test
     public void testHoursSeparatorMinutes() {
-        this.parseAndCheck2("HH:mm", "12:59", "");
+        this.parseAndCheck2("HH:mm", "12:58", "");
+    }
+
+    @Test
+    public void testHoursSeparatorMinutesSeparatorAmpm() {
+        this.parseAndCheck2("hh:mm a", "12:58 AM", "");
+    }
+
+    @Test
+    public void testHoursSeparatorMinutesSeparatorSecondsSeparatorAmpm() {
+        this.parseAndCheck2("hh:mm:ss a", "12:58:59 AM", "");
+    }
+
+    @Test
+    public void testHoursSeparatorMinutesSeparatorSecondsSeparatorAmpm2() {
+        this.parseAndCheck2("hh:mm:ss a", "12:58:59 PM", "");
     }
 
     @Test
     public void testHoursSeparatorMinutesSeparatorSeconds() {
-        this.parseAndCheck2("HH:mm:ss", "12:59:58", "");
+        this.parseAndCheck2("HH:mm:ss", "12:58:59", "");
     }
 
     @Test
-    public void testHoursSeparatorMinutesSeparatorSecondsDecimalFraction() {
-        this.parseAndCheck2("HH:mm:ss.SSS", "12:59:58.123", "");
+    public void testHoursSeparatorMinutesSeparatorSecondsMillis() {
+        this.parseAndCheck2("HH:mm:ss.SSS", "12:58:59.123", "");
     }
 
     @Test
-    public void testHoursSeparatorMinutesSeparatorSecondsLiteralFraction() {
-        this.parseAndCheck2("HH:mm:ss'.'SSS", "12:59:58.123", "");
+    public void testHoursSeparatorMinutesSeparatorSecondsMillis2() {
+        this.parseAndCheck2("HH:mm:ss.SSS", "12:58:59.123", " ");
     }
 
     @Test
-    public void testHoursSeparatorMinutesSeparatorSecondsFraction() {
-        this.parseAndCheck2("HHmmssSSS", "125958123", "");
+    public void testHoursSeparatorMinutesSeparatorSecondsMillis3() {
+        this.parseAndCheck2("HH:mm:ss.SSS", "12:58:59.123", "!");
     }
 
     @Test
-    public void testHourSeparatorMinuteSeparatorSecondWhitespace() {
-        this.parseAndCheck2("12:59:58.123", "  ");
+    public void testAmpmSeparatorHoursSeparatorMinutesSeparatorSeconds() {
+        this.parseAndCheck2("a hh:mm:ss", "AM 12:58:59", "");
     }
 
     @Test
-    public void testHourSeparatorMinuteSeparatorSecondLetters() {
-        this.parseAndCheck2("12:59:58.123", "ZZ");
+    public void testHoursSeparatorAmpmSeparatorMinutesSeparatorSeconds() {
+        this.parseAndCheck2("hh a mm:ss", "12 AM 58:59", "");
     }
+
+    @Test
+    public void testSecondsSeparatorNanoOfSecondSeparatorMinutesSeparatorHour() {
+        this.parseAndCheck2("nnn ss:mm:HH", "123 59:58:12", "");
+    }
+
+    @Test
+    public void testHoursSeparatorMinutesSeparatorSecondsSeparatorNanoOfSecond() {
+        this.parseAndCheck2("HH:mm:ss nnn", "12:58:59 123", "");
+    }
+
+    // helpers..........................................................................................................
 
     @Override
-    protected DateTimeFormatterParserLocalTime<ParserContext> createParser(final DateTimeFormatter formatter, final String pattern) {
-        return DateTimeFormatterParserLocalTime.with(formatter, pattern);
+    DateTimeFormatterParserLocalTime<ParserContext> createParser(final Function<DateTimeContext, DateTimeFormatter> formatter) {
+        return DateTimeFormatterParserLocalTime.with(formatter);
     }
 
     @Override
     String pattern() {
         return "HH:mm:ss.SSS";
-    }
-
-    @Override
-    String differentPattern() {
-        return "SSS ss mm HH";
     }
 
     @Override
