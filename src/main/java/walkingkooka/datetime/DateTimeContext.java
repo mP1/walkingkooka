@@ -18,13 +18,14 @@
 package walkingkooka.datetime;
 
 import walkingkooka.Context;
+import walkingkooka.locale.HasLocale;
 
 import java.util.List;
 
 /**
  * Context that typically accompanies another stateless component such as a number parser or formatter that involves decimals.
  */
-public interface DateTimeContext extends Context {
+public interface DateTimeContext extends Context, HasLocale {
 
     /**
      * Returns all the AM/PM strings.

@@ -18,7 +18,7 @@ package walkingkooka.datetime;
 
 import walkingkooka.type.PublicStaticHelper;
 
-import java.text.DateFormatSymbols;
+import java.util.Locale;
 
 /**
  * A collection of factory methods to create {@link DateTimeContext}.
@@ -26,11 +26,11 @@ import java.text.DateFormatSymbols;
 public final class DateTimeContexts implements PublicStaticHelper {
 
     /**
-     * {@see DateFormatSymbolsDateTimeContext}
+     * {@see LocaleDateTimeContext}
      */
-    public static DateTimeContext dateFormatSymbols(final DateFormatSymbols symbols,
-                                                    final int twoDigitYear) {
-        return DateFormatSymbolsDateTimeContext.with(symbols, twoDigitYear);
+    public static DateTimeContext locale(final Locale locale,
+                                         final int twoDigitYear) {
+        return LocaleDateTimeContext.with(locale, twoDigitYear);
     }
 
     /**

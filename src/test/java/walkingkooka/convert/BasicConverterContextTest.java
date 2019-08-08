@@ -26,7 +26,6 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.JavaVisibility;
 
 import java.math.MathContext;
-import java.text.DateFormatSymbols;
 import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -76,7 +75,7 @@ public final class BasicConverterContextTest implements ClassTesting2<BasicConve
     }
 
     private DateTimeContext dateTimeContext() {
-        return DateTimeContexts.dateFormatSymbols(new DateFormatSymbols(Locale.FRANCE), 20);
+        return DateTimeContexts.locale(Locale.FRANCE, 20);
     }
 
     private DecimalNumberContext decimalNumberContext() {

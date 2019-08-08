@@ -24,27 +24,31 @@ import walkingkooka.text.CharSequences;
 import java.text.DateFormatSymbols;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
- * A {@link DateTimeContext} that sources its responses from a {@link DateFormatSymbols}.
+ * A {@link DateTimeContext} that sources its responses from a {@link DateFormatSymbols} taken from a {@link Locale}.
  */
-final class DateFormatSymbolsDateTimeContext implements DateTimeContext {
+final class LocaleDateTimeContext implements DateTimeContext {
 
-    static DateFormatSymbolsDateTimeContext with(final DateFormatSymbols symbols,
-                                                 final int twoDigitYear) {
-        Objects.requireNonNull(symbols, "symbols");
+    static LocaleDateTimeContext with(final Locale locale,
+                                      final int twoDigitYear) {
+        Objects.requireNonNull(locale, "locale");
         if (twoDigitYear < 0 || twoDigitYear >= 100) {
             throw new IllegalArgumentException("Invalid twoDigitYear " + twoDigitYear + " not between 0 and 100");
         }
 
-        return new DateFormatSymbolsDateTimeContext(symbols, twoDigitYear);
+        return new LocaleDateTimeContext(locale, twoDigitYear);
     }
 
-    private DateFormatSymbolsDateTimeContext(final DateFormatSymbols symbols,
-                                             final int twoDigitYear) {
+    private LocaleDateTimeContext(final Locale locale,
+                                  final int twoDigitYear) {
         super();
 
+        this.locale = locale;
+
+        final DateFormatSymbols symbols = new DateFormatSymbols(locale);
         this.ampms = Lists.of(symbols.getAmPmStrings());
 
         this.monthNames = monthNames(symbols.getMonths());
@@ -82,6 +86,13 @@ final class DateFormatSymbolsDateTimeContext implements DateTimeContext {
     }
 
     private final List<String> ampms;
+
+    @Override
+    public Locale locale() {
+        return this.locale;
+    }
+
+    private Locale locale;
 
     @Override
     public List<String> monthNames() {
@@ -123,12 +134,8 @@ final class DateFormatSymbolsDateTimeContext implements DateTimeContext {
     @Override
     public String toString() {
         return ToStringBuilder.empty()
-                .label("ampm").value(this.ampms)
-                .label("month").value(this.monthNames)
-                .label("monthsAbbreviations").value(this.monthNameAbbreviations)
+                .label("locale").value(this.locale.toLanguageTag())
                 .label("twoDigitYear").value(this.twoDigitYear)
-                .label("weekDays").value(this.weekDayNames)
-                .label("weeDayNameAbbreviations").value(this.weekDayNameAbbreviations)
                 .build();
     }
 }

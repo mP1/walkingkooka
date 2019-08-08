@@ -18,6 +18,7 @@
 package walkingkooka.datetime;
 
 import java.util.List;
+import java.util.Locale;
 
 public class FakeDateTimeContext implements DateTimeContext {
 
@@ -28,6 +29,11 @@ public class FakeDateTimeContext implements DateTimeContext {
 
     @Override
     public String ampm(final int hourOfDay) {
+        throw new UnsupportedOperationException();
+    }
+    
+    @Override
+    public Locale locale() {
         throw new UnsupportedOperationException();
     }
 

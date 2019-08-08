@@ -19,31 +19,30 @@ package walkingkooka.datetime;
 
 import org.junit.jupiter.api.Test;
 
-import java.text.DateFormatSymbols;
 import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class DateFormatSymbolsDateTimeContextTest implements DateTimeContextTesting2<DateFormatSymbolsDateTimeContext> {
+public final class LocaleDateTimeContextTest implements DateTimeContextTesting2<LocaleDateTimeContext> {
 
     @Test
-    public void testWithNullDateFormatSymbolsFails() {
+    public void testWithNullLocaleFails() {
         assertThrows(NullPointerException.class, () -> {
-            DateFormatSymbolsDateTimeContext.with(null, 50);
+            LocaleDateTimeContext.with(null, 50);
         });
     }
 
     @Test
     public void testWithInvalidTwoDigitYearFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            DateFormatSymbolsDateTimeContext.with(this.dateFormatSymbols(), -1);
+            LocaleDateTimeContext.with(this.locale(), -1);
         });
     }
 
     @Test
     public void testWithInvalidTwoDigitYearFails2() {
         assertThrows(IllegalArgumentException.class, () -> {
-            DateFormatSymbolsDateTimeContext.with(this.dateFormatSymbols(), 100);
+            LocaleDateTimeContext.with(this.locale(), 100);
         });
     }
 
@@ -67,6 +66,13 @@ public final class DateFormatSymbolsDateTimeContextTest implements DateTimeConte
     @Test
     public void testAmpm1800() {
         this.amPmAndCheck(18, "PM");
+    }
+
+    // locale...........................................................................................................
+
+    @Test
+    public void testLocale() {
+        this.hasLocaleAndCheck(this.createContext(), this.locale());
     }
 
     // monthName........................................................................................................
@@ -141,21 +147,20 @@ public final class DateFormatSymbolsDateTimeContextTest implements DateTimeConte
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createContext(),
-                "ampm=\"AM\", \"PM\" month=\"January\", \"February\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\" monthsAbbreviations=\"Jan\", \"Feb\", \"Mar\", \"Apr\", \"May\", \"Jun\", \"Jul\", \"Aug\", \"Sep\", \"Oct\", \"Nov\", \"Dec\" twoDigitYear=1 weekDays=\"\", \"Sunday\", \"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\", \"Saturday\" weeDayNameAbbreviations=\"\", \"Sun\", \"Mon\", \"Tue\", \"Wed\", \"Thu\", \"Fri\", \"Sat\"");
+        this.toStringAndCheck(this.createContext(), "locale=\"en\" twoDigitYear=1");
     }
 
     @Override
-    public DateFormatSymbolsDateTimeContext createContext() {
-        return DateFormatSymbolsDateTimeContext.with(this.dateFormatSymbols(), 1);
+    public LocaleDateTimeContext createContext() {
+        return LocaleDateTimeContext.with(this.locale(), 1);
     }
 
-    private DateFormatSymbols dateFormatSymbols() {
-        return DateFormatSymbols.getInstance(Locale.ENGLISH);
+    private Locale locale() {
+        return Locale.ENGLISH;
     }
 
     @Override
-    public Class<DateFormatSymbolsDateTimeContext> type() {
-        return DateFormatSymbolsDateTimeContext.class;
+    public Class<LocaleDateTimeContext> type() {
+        return LocaleDateTimeContext.class;
     }
 }
