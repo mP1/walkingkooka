@@ -138,13 +138,6 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * {@see ForwardingConverter}
-     */
-    public static <S, T> Converter forward(final Converter converter, final Class<S> sourceType, final Class<T> targetType) {
-        return ForwardingConverter.with(converter, sourceType, targetType);
-    }
-
-    /**
      * [@see FunctionConverter}
      */
     public static <S, D> Converter function(final Class<S> sourceType,
