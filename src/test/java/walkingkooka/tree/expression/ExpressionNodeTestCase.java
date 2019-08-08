@@ -360,7 +360,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
                 Converters.localDateDouble(Converters.JAVA_EPOCH_OFFSET),
                 Converters.localDateLocalDateTime(),
                 Converters.localDateLong(Converters.JAVA_EPOCH_OFFSET),
-                Converters.forward(Converters.localDateLong(Converters.JAVA_EPOCH_OFFSET), Number.class, Long.class).setToString("LocalDate->Long"),
+                Converters.localDateLong(Converters.JAVA_EPOCH_OFFSET),
                 Converters.localDateString((c) -> DateTimeFormatter.ISO_LOCAL_DATE),
                 // localDateTime ->
                 toBoolean(LocalDateTime.class, LocalDateTime.ofEpochSecond(0, 0, ZoneOffset.UTC)),
@@ -370,7 +370,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
                 Converters.localDateTimeLocalDate(),
                 Converters.localDateTimeLocalTime(),
                 Converters.localDateTimeLong(Converters.JAVA_EPOCH_OFFSET),
-                Converters.forward(Converters.localDateTimeDouble(Converters.JAVA_EPOCH_OFFSET), Number.class, Double.class).setToString("LocalDateTime->Number"),
+                Converters.localDateTimeDouble(Converters.JAVA_EPOCH_OFFSET),
                 Converters.localDateTimeString((c) -> DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                 // localTime
                 toBoolean(LocalTime.class, LocalTime.ofNanoOfDay(0)),
@@ -379,7 +379,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
                 Converters.localTimeDouble(),
                 Converters.localTimeLocalDateTime(),
                 Converters.localTimeLong(),
-                Converters.forward(Converters.localTimeLong(), Number.class, Long.class).setToString("LocalTime->Long"),
+                Converters.localTimeLong(),
                 Converters.localTimeString((c) -> DateTimeFormatter.ISO_LOCAL_TIME),
                 // number ->
                 Converters.numberBigDecimal(),
