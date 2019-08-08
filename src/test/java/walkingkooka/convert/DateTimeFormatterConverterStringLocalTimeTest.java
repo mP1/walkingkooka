@@ -18,38 +18,60 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.datetime.DateTimeContext;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.function.Function;
 
-public final class DateTimeFormatterConverterStringLocalTimeTest extends DateTimeFormatterConverterTestCase<DateTimeFormatterConverterStringLocalTime, String, LocalTime> {
-
-    @Test
-    public void testConvert() {
-        this.convertAndCheck("59 58 12", LocalTime.of(12, 58, 59));
-    }
+public final class DateTimeFormatterConverterStringLocalTimeTest extends DateTimeFormatterConverterTestCase2<DateTimeFormatterConverterStringLocalTime, String, LocalTime> {
 
     @Test
     public void testConvert2() {
-        this.convertAndCheck(DateTimeFormatterConverterStringLocalTime.with(DateTimeFormatter.ofPattern("ss HH mm")),
+        this.convertAndCheck(this.createConverter(DateTimeFormatter.ofPattern("ss HH mm")),
                 "59 12 58",
                 LocalTime.class,
                 LocalTime.of(12, 58, 59));
     }
 
+    @Test
+    public void testLocaleChange() {
+        final DateTimeFormatterConverterStringLocalTime converter = this.createConverter();
+
+        this.convertAndCheck2(converter,
+                this.source(),
+                this.createContext(),
+                this.converted());
+
+        this.convertAndCheck2(converter,
+                "nachm. 59 58 12",
+                this.createContext2(),
+                this.converted());
+    }
+
     @Override
-    protected DateTimeFormatterConverterStringLocalTime createConverter(final DateTimeFormatter formatter) {
+    protected DateTimeFormatterConverterStringLocalTime createConverter(final Function<DateTimeContext, DateTimeFormatter> formatter) {
         return DateTimeFormatterConverterStringLocalTime.with(formatter);
     }
 
     @Override
     DateTimeFormatter formatter() {
-        return DateTimeFormatter.ofPattern("ss mm HH");
+        return DateTimeFormatter.ofPattern("a ss mm HH");
     }
 
     @Override
     protected Class<LocalTime> onlySupportedType() {
         return LocalTime.class;
+    }
+
+    @Override
+    String source() {
+        return "PM 59 58 12";
+    }
+
+    @Override
+    LocalTime converted() {
+        return LocalTime.of(12, 58, 59);
     }
 
     @Override

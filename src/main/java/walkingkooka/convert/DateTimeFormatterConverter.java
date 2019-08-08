@@ -17,38 +17,77 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.datetime.DateTimeContext;
+
 import java.time.DateTimeException;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * A {@link Converter} which uses a {@link DateTimeFormatter}.
  */
 abstract class DateTimeFormatterConverter<S, T> extends FixedSourceTypeTargetTypeConverter<S, T> {
 
-    DateTimeFormatterConverter(final DateTimeFormatter formatter) {
+    /**
+     * Package private to limit sub classing.
+     */
+    DateTimeFormatterConverter(final Function<DateTimeContext, DateTimeFormatter> formatter) {
         Objects.requireNonNull(formatter, "formatter");
         this.formatter = formatter;
     }
 
-    final DateTimeFormatter formatter;
+    /**
+     * A factory which returns a {@link DateTimeFormatter} on demand using the {@link DateTimeContext}.
+     */
+    final Function<DateTimeContext, DateTimeFormatter> formatter;
 
     /**
-     * Calls {@link #convert2(Object)} and wraps any thrown {@link DateTimeException}
+     * Uses the {@link Locale} and {@link ConverterContext#twoDigitYear()} creating a {@link DateTimeFormatter}
+     * if necessary and then calls {@link #parseOrFormat(Object, DateTimeFormatter)} wrapping any thrown {@link DateTimeException}
      */
     @Override
     final T convert1(final S value, final ConverterContext context) {
+        final Locale locale = context.locale();
+        final int twoDigitYear = context.twoDigitYear();
+
+        DateTimeFormatterConverterCache cache = this.cache;
+        DateTimeFormatter dateTimeFormatter;
+        if (null == cache) {
+            dateTimeFormatter = this.formatter.apply(context);
+            this.cache = DateTimeFormatterConverterCache.with(locale,
+                    twoDigitYear,
+                    dateTimeFormatter);
+        } else {
+            if (false == cache.locale.equals(locale) || cache.twoDigitYear != twoDigitYear) {
+                dateTimeFormatter = this.formatter.apply(context);
+                cache = DateTimeFormatterConverterCache.with(locale,
+                        twoDigitYear,
+                        dateTimeFormatter);
+                this.cache = cache;
+            }
+
+            dateTimeFormatter = cache.formatter;
+        }
+
         try {
-            return this.convert2(value);
-        } catch (final DateTimeException cause) {
+            return this.parseOrFormat(value, dateTimeFormatter);
+        } catch (final Exception cause) {
             return this.failConversion(value, cause);
         }
     }
 
-    abstract T convert2(final S value) throws DateTimeException;
+    private transient DateTimeFormatterConverterCache cache;
+
+    /**
+     * Sub classes should parse or format the value using the {@link DateTimeContext} aware {@link DateTimeFormatter}.
+     */
+    abstract T parseOrFormat(final S value,
+                             final DateTimeFormatter formatter) throws IllegalArgumentException, DateTimeException;
 
     @Override
-    String toStringSuffix() {
+    final String toStringSuffix() {
         return "";
     }
 }

@@ -17,9 +17,15 @@
 
 package walkingkooka.convert;
 
-public final class DateTimeFormatterConverterTest extends ConverterTestCase3<DateTimeFormatterConverter> {
+public final class DateTimeFormatterConverterTest extends DateTimeFormatterConverterTestCase<DateTimeFormatterConverter> {
+
     @Override
     public Class<DateTimeFormatterConverter> type() {
         return DateTimeFormatterConverter.class;
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return "";
     }
 }

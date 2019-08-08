@@ -26,6 +26,7 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Name;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.IsMethodTesting;
@@ -46,6 +47,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -318,10 +320,10 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
     }
 
     private ConverterContext converterContext() {
-        return ConverterContexts.fake();
+        return ConverterContexts.basic(DateTimeContexts.locale(Locale.ENGLISH, 20), DecimalNumberContexts.american(MathContext.DECIMAL32));
     }
 
-    static ExpressionEvaluationContext context() {
+    ExpressionEvaluationContext context() {
         final Function<ConverterContext, ParserContext> parserContext = (c) -> ParserContexts.basic(c, c);
 
         final Converter stringBigDecimal = Converters.parser(BigDecimal.class,
@@ -359,7 +361,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
                 Converters.localDateLocalDateTime(),
                 Converters.localDateLong(Converters.JAVA_EPOCH_OFFSET),
                 Converters.forward(Converters.localDateLong(Converters.JAVA_EPOCH_OFFSET), Number.class, Long.class).setToString("LocalDate->Long"),
-                Converters.localDateString(DateTimeFormatter.ISO_LOCAL_DATE),
+                Converters.localDateString((c) -> DateTimeFormatter.ISO_LOCAL_DATE),
                 // localDateTime ->
                 toBoolean(LocalDateTime.class, LocalDateTime.ofEpochSecond(0, 0, ZoneOffset.UTC)),
                 Converters.localDateTimeBigDecimal(Converters.JAVA_EPOCH_OFFSET),
@@ -369,7 +371,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
                 Converters.localDateTimeLocalTime(),
                 Converters.localDateTimeLong(Converters.JAVA_EPOCH_OFFSET),
                 Converters.forward(Converters.localDateTimeDouble(Converters.JAVA_EPOCH_OFFSET), Number.class, Double.class).setToString("LocalDateTime->Number"),
-                Converters.localDateTimeString(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+                Converters.localDateTimeString((c) -> DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                 // localTime
                 toBoolean(LocalTime.class, LocalTime.ofNanoOfDay(0)),
                 Converters.localTimeBigDecimal(),
@@ -378,7 +380,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
                 Converters.localTimeLocalDateTime(),
                 Converters.localTimeLong(),
                 Converters.forward(Converters.localTimeLong(), Number.class, Long.class).setToString("LocalTime->Long"),
-                Converters.localTimeString(DateTimeFormatter.ISO_LOCAL_TIME),
+                Converters.localTimeString((c) -> DateTimeFormatter.ISO_LOCAL_TIME),
                 // number ->
                 Converters.numberBigDecimal(),
                 Converters.numberBigInteger(),
@@ -464,7 +466,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
                             value instanceof String)) {
                         fail("Cannot convert expects only Boolean | LocalDate | LocalDateTime, LocalTime | Number | String " + value.getClass().getName() + "=" + value);
                     }
-                    return converters.convert(value, target, ConverterContexts.basic(DateTimeContexts.fake(),this));
+                    return converters.convert(value, target, ExpressionNodeTestCase.this.converterContext());
                 } catch (final ConversionException fail) {
                     throw new ExpressionEvaluationConversionException(fail.getMessage(), fail);
                 }

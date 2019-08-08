@@ -17,6 +17,7 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.type.PublicStaticHelper;
@@ -197,7 +198,7 @@ public final class Converters implements PublicStaticHelper {
     /**
      * {@see DateTimeFormatterConverterLocalDateString}
      */
-    public static Converter localDateString(final DateTimeFormatter formatter) {
+    public static Converter localDateString(final Function<DateTimeContext, DateTimeFormatter> formatter) {
         return DateTimeFormatterConverterLocalDateString.with(formatter);
     }
 
@@ -253,7 +254,7 @@ public final class Converters implements PublicStaticHelper {
     /**
      * {@see DateTimeFormatterConverterLocalDateTimeString}
      */
-    public static Converter localDateTimeString(final DateTimeFormatter formatter) {
+    public static Converter localDateTimeString(final Function<DateTimeContext, DateTimeFormatter> formatter) {
         return DateTimeFormatterConverterLocalDateTimeString.with(formatter);
     }
 
@@ -303,7 +304,7 @@ public final class Converters implements PublicStaticHelper {
     /**
      * {@see DateTimeFormatterConverterLocalTimeString}
      */
-    public static Converter localTimeString(final DateTimeFormatter formatter) {
+    public static Converter localTimeString(final Function<DateTimeContext, DateTimeFormatter> formatter) {
         return DateTimeFormatterConverterLocalTimeString.with(formatter);
     }
 
@@ -399,21 +400,21 @@ public final class Converters implements PublicStaticHelper {
     /**
      * {@see DateTimeFormatterConverterStringLocalDate}
      */
-    public static Converter stringLocalDate(final DateTimeFormatter formatter) {
+    public static Converter stringLocalDate(final Function<DateTimeContext, DateTimeFormatter> formatter) {
         return DateTimeFormatterConverterStringLocalDate.with(formatter);
     }
 
     /**
      * {@see DateTimeFormatterConverterStringLocalDateTime}
      */
-    public static Converter stringLocalDateTime(final DateTimeFormatter formatter) {
+    public static Converter stringLocalDateTime(final Function<DateTimeContext, DateTimeFormatter> formatter) {
         return DateTimeFormatterConverterStringLocalDateTime.with(formatter);
     }
 
     /**
      * {@see DateTimeFormatterConverterStringLocalTime}
      */
-    public static Converter stringLocalTime(final DateTimeFormatter formatter) {
+    public static Converter stringLocalTime(final Function<DateTimeContext, DateTimeFormatter> formatter) {
         return DateTimeFormatterConverterStringLocalTime.with(formatter);
     }
 
