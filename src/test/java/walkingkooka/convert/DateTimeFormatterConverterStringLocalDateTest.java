@@ -18,38 +18,60 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.datetime.DateTimeContext;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.function.Function;
 
-public final class DateTimeFormatterConverterStringLocalDateTest extends DateTimeFormatterConverterTestCase<DateTimeFormatterConverterStringLocalDate, String, LocalDate> {
-
-    @Test
-    public void testConvert() {
-        this.convertAndCheck("31 12 2000", LocalDate.of(2000, 12, 31));
-    }
+public final class DateTimeFormatterConverterStringLocalDateTest extends DateTimeFormatterConverterTestCase2<DateTimeFormatterConverterStringLocalDate, String, LocalDate> {
 
     @Test
     public void testConvert2() {
-        this.convertAndCheck(DateTimeFormatterConverterStringLocalDate.with(DateTimeFormatter.ofPattern("yyyy MM dd")),
+        this.convertAndCheck(this.createConverter(DateTimeFormatter.ofPattern("yyyy MM dd")),
                 "2000 12 31",
                 LocalDate.class,
                 LocalDate.of(2000, 12, 31));
     }
 
+    @Test
+    public void testLocaleChange() {
+        final DateTimeFormatterConverterStringLocalDate converter = this.createConverter();
+
+        this.convertAndCheck2(converter,
+                this.source(),
+                this.createContext(),
+                this.converted());
+
+        this.convertAndCheck2(converter,
+                "31 Dezember 2000",
+                this.createContext2(),
+                this.converted());
+    }
+
     @Override
-    protected DateTimeFormatterConverterStringLocalDate createConverter(final DateTimeFormatter formatter) {
+    protected DateTimeFormatterConverterStringLocalDate createConverter(final Function<DateTimeContext, DateTimeFormatter> formatter) {
         return DateTimeFormatterConverterStringLocalDate.with(formatter);
     }
 
     @Override
     DateTimeFormatter formatter() {
-        return DateTimeFormatter.ofPattern("dd MM yyyy");
+        return DateTimeFormatter.ofPattern("dd MMMM yyyy");
     }
 
     @Override
     protected Class<LocalDate> onlySupportedType() {
         return LocalDate.class;
+    }
+
+    @Override
+    String source() {
+        return "31 December 2000";
+    }
+
+    @Override
+    LocalDate converted() {
+        return LocalDate.of(2000, 12, 31);
     }
 
     @Override

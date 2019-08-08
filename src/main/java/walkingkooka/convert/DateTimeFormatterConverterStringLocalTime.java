@@ -17,23 +17,26 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.datetime.DateTimeContext;
+
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.function.Function;
 
 /**
  * A {@link Converter} that parses a {@link String} into a {@link LocalTime}.
  */
 final class DateTimeFormatterConverterStringLocalTime extends DateTimeFormatterConverter<String, LocalTime> {
 
-    static DateTimeFormatterConverterStringLocalTime with(final DateTimeFormatter formatter) {
+    static DateTimeFormatterConverterStringLocalTime with(final Function<DateTimeContext, DateTimeFormatter> formatter) {
         return new DateTimeFormatterConverterStringLocalTime(formatter);
     }
 
     /**
      * Private ctor use static factory
      */
-    private DateTimeFormatterConverterStringLocalTime(final DateTimeFormatter formatter) {
+    private DateTimeFormatterConverterStringLocalTime(final Function<DateTimeContext, DateTimeFormatter> formatter) {
         super(formatter);
     }
 
@@ -48,7 +51,8 @@ final class DateTimeFormatterConverterStringLocalTime extends DateTimeFormatterC
     }
 
     @Override
-    LocalTime convert2(final String value) throws DateTimeParseException {
-        return LocalTime.parse(value, this.formatter);
+    LocalTime parseOrFormat(final String text,
+                            final DateTimeFormatter formatter) throws DateTimeParseException {
+        return LocalTime.parse(text, formatter);
     }
 }

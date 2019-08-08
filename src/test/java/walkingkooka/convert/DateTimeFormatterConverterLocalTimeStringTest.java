@@ -18,30 +18,53 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.datetime.DateTimeContext;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.function.Function;
 
-public final class DateTimeFormatterConverterLocalTimeStringTest extends DateTimeFormatterConverterTestCase<DateTimeFormatterConverterLocalTimeString, LocalTime, String> {
+public final class DateTimeFormatterConverterLocalTimeStringTest extends DateTimeFormatterConverterTestCase2<DateTimeFormatterConverterLocalTimeString, LocalTime, String> {
 
     @Test
-    public void testConvert() {
-        this.convertAndCheck(LocalTime.of(12, 58, 59), "12:58:59");
+    public void testLocaleChange() {
+        final DateTimeFormatterConverterLocalTimeString converter = this.createConverter();
+        final LocalTime source = this.source();
+
+        this.convertAndCheck2(converter,
+                source,
+                this.createContext(),
+                this.converted());
+
+        this.convertAndCheck2(converter,
+                source,
+                this.createContext2(),
+                "12:58:59 nachm.");
     }
 
     @Override
-    protected DateTimeFormatterConverterLocalTimeString createConverter(final DateTimeFormatter formatter) {
+    protected DateTimeFormatterConverterLocalTimeString createConverter(final Function<DateTimeContext, DateTimeFormatter> formatter) {
         return DateTimeFormatterConverterLocalTimeString.with(formatter);
     }
 
     @Override
     DateTimeFormatter formatter() {
-        return DateTimeFormatter.ISO_LOCAL_TIME;
+        return DateTimeFormatter.ofPattern("hh:mm:ss a");
     }
 
     @Override
     Class onlySupportedType() {
         return String.class;
+    }
+
+    @Override
+    LocalTime source() {
+        return LocalTime.of(12, 58, 59);
+    }
+
+    @Override
+    String converted() {
+        return "12:58:59 PM";
     }
 
     @Override

@@ -17,42 +17,29 @@
 
 package walkingkooka.convert;
 
-import org.junit.jupiter.api.Test;
+import walkingkooka.test.ClassTesting2;
+import walkingkooka.test.TypeNameTesting;
+import walkingkooka.type.JavaVisibility;
 
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+public abstract class DateTimeFormatterConverterTestCase<T> implements ClassTesting2<T>, TypeNameTesting<T> {
 
-public abstract class DateTimeFormatterConverterTestCase<C extends FixedSourceTypeTargetTypeConverter<S, T>, S, T> extends FixedTypeConverterTestCase<C, T> {
-
-    @Test
-    public final void testWithNullFormatterFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createConverter(null);
-        });
+    DateTimeFormatterConverterTestCase() {
+        super();
     }
+
+    // ClassTesting.....................................................................................................
 
     @Override
-    public final C createConverter() {
-        return this.createConverter(this.formatter());
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
-    abstract C createConverter(final DateTimeFormatter formatter);
-
-    @Override
-    public final ConverterContext createContext() {
-        return ConverterContexts.fake();
-    }
-
-    abstract DateTimeFormatter formatter();
+    // TypeNameTesting..................................................................................................
 
     @Override
     public final String typeNamePrefix() {
         return DateTimeFormatter.class.getSimpleName() + Converter.class.getSimpleName();
-    }
-
-    @Override
-    public String typeNameSuffix() {
-        return this.onlySupportedType().getSimpleName();
     }
 }

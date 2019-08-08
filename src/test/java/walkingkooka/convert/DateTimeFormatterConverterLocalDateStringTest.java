@@ -18,30 +18,53 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.datetime.DateTimeContext;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.function.Function;
 
-public final class DateTimeFormatterConverterLocalDateStringTest extends DateTimeFormatterConverterTestCase<DateTimeFormatterConverterLocalDateString, LocalDate, String> {
+public final class DateTimeFormatterConverterLocalDateStringTest extends DateTimeFormatterConverterTestCase2<DateTimeFormatterConverterLocalDateString, LocalDate, String> {
 
     @Test
-    public void testConvert() {
-        this.convertAndCheck(LocalDate.of(2000, 1, 31), "2000-01-31");
+    public void testLocaleChange() {
+        final DateTimeFormatterConverterLocalDateString converter = this.createConverter();
+        final LocalDate source = this.source();
+
+        this.convertAndCheck2(converter,
+                source,
+                this.createContext(),
+                this.converted());
+
+        this.convertAndCheck2(converter,
+                source,
+                this.createContext2(),
+                "2000-Januar-31");
     }
 
     @Override
-    protected DateTimeFormatterConverterLocalDateString createConverter(final DateTimeFormatter formatter) {
+    protected DateTimeFormatterConverterLocalDateString createConverter(final Function<DateTimeContext, DateTimeFormatter> formatter) {
         return DateTimeFormatterConverterLocalDateString.with(formatter);
     }
 
     @Override
     DateTimeFormatter formatter() {
-        return DateTimeFormatter.ISO_LOCAL_DATE;
+        return DateTimeFormatter.ofPattern("yyyy-MMMM-dd");
     }
 
     @Override
     Class onlySupportedType() {
         return String.class;
+    }
+
+    @Override
+    LocalDate source() {
+        return LocalDate.of(2000, 1, 31);
+    }
+
+    @Override
+    String converted() {
+        return "2000-January-31";
     }
 
     @Override
