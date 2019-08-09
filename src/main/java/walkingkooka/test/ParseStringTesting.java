@@ -30,26 +30,26 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public interface ParseStringTesting<T> extends Testing {
 
     @Test
-    default void testParseNullFails() {
+    default void testParseStringNullFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.parse(null);
+            this.parseString(null);
         });
     }
 
     @Test
-    default void testParseEmptyFails() {
-        assertThrows(this.parseFailedExpected(IllegalArgumentException.class), () -> {
-            this.parse("");
+    default void testParseStringEmptyFails() {
+        assertThrows(this.parseStringFailedExpected(IllegalArgumentException.class), () -> {
+            this.parseString("");
         });
     }
 
     /**
      * Implementing tests should call the static parse method.
      */
-    T parse(String text);
+    T parseString(final String text);
 
-    default T parseAndCheck(final String text, final T value) {
-        final T parsed = this.parse(text);
+    default T parseStringAndCheck(final String text, final T value) {
+        final T parsed = this.parseString(text);
         assertEquals(value,
                 parsed,
                 () -> "Parsing of " + CharSequences.quoteAndEscape(text) + " failed"
@@ -57,41 +57,45 @@ public interface ParseStringTesting<T> extends Testing {
         return parsed;
     }
 
-    default void parseInvalidCharacterFails(final String text) {
-        this.parseInvalidCharacterFails(text, text.length() - 1);
+    default void parseStringInvalidCharacterFails(final String text) {
+        this.parseStringInvalidCharacterFails(text, text.length() - 1);
     }
 
-    default void parseInvalidCharacterFails(final String text, final char c) {
-        this.parseInvalidCharacterFails(text, text.indexOf(c));
+    default void parseStringInvalidCharacterFails(final String text,
+                                                  final char c) {
+        this.parseStringInvalidCharacterFails(text, text.indexOf(c));
     }
 
-    default void parseInvalidCharacterFails(final String text, final int pos) {
-        this.parseFails(text, this.parseFailedExpected(new InvalidCharacterException(text, pos)));
+    default void parseStringInvalidCharacterFails(final String text,
+                                                  final int pos) {
+        this.parseStringFails(text, this.parseStringFailedExpected(new InvalidCharacterException(text, pos)));
     }
 
     /**
      * Parsers the given text and verifies the expected {@link RuntimeException} was thrown
      */
-    default void parseFails(final String text, final Class<? extends RuntimeException> expected) {
+    default void parseStringFails(final String text,
+                                  final Class<? extends RuntimeException> expected) {
 
-        final Class<? extends RuntimeException> expected2 = this.parseFailedExpected(expected);
+        final Class<? extends RuntimeException> expected2 = this.parseStringFailedExpected(expected);
         assertThrows(expected2, () -> {
-            this.parse(text);
+            this.parseString(text);
         });
     }
 
     /**
      * Some APIs wrap the original exception inside another.
      */
-    Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected);
+    Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected);
 
     /**
      * Parsers the given text and verifies the expected {@link RuntimeException} was thrown and messages match.
      */
-    default void parseFails(final String text, final RuntimeException expected) {
-        final RuntimeException expected2 = this.parseFailedExpected(expected);
+    default void parseStringFails(final String text,
+                                  final RuntimeException expected) {
+        final RuntimeException expected2 = this.parseStringFailedExpected(expected);
         final RuntimeException thrown = assertThrows(expected.getClass(), () -> {
-            this.parse(text);
+            this.parseString(text);
         });
         assertEquals(expected2.getMessage(),
                 thrown.getMessage(),
@@ -101,5 +105,5 @@ public interface ParseStringTesting<T> extends Testing {
     /**
      * Some APIs wrap the original exception inside another.
      */
-    RuntimeException parseFailedExpected(final RuntimeException expected);
+    RuntimeException parseStringFailedExpected(final RuntimeException expected);
 }

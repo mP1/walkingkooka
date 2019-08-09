@@ -30,36 +30,36 @@ public final class JsonNodeTest implements ClassTesting2<JsonNode>,
 
     @Test
     public void testParseIncompleteObjectFails() {
-        this.parseFails("{\"", ParserException.class);
+        this.parseStringFails("{\"", ParserException.class);
     }
 
     @Test
     public void testParseBoolean() {
-        this.parseAndCheck("true",
+        this.parseStringAndCheck("true",
                 JsonNode.booleanNode(true));
     }
 
     @Test
     public void testParseNull() {
-        this.parseAndCheck("null",
+        this.parseStringAndCheck("null",
                 JsonNode.nullNode());
     }
 
     @Test
     public void testParseNumber() {
-        this.parseAndCheck("123.5",
+        this.parseStringAndCheck("123.5",
                 JsonNode.number(123.5));
     }
 
     @Test
     public void testParseString() {
-        this.parseAndCheck("\"abc123\"",
+        this.parseStringAndCheck("\"abc123\"",
                 JsonNode.string("abc123"));
     }
 
     @Test
     public void testParseArray() {
-        this.parseAndCheck("[\"abc123\", true]",
+        this.parseStringAndCheck("[\"abc123\", true]",
                 JsonNode.array()
                         .appendChild(JsonNode.string("abc123"))
                         .appendChild(JsonNode.booleanNode(true)));
@@ -67,13 +67,13 @@ public final class JsonNodeTest implements ClassTesting2<JsonNode>,
 
     @Test
     public void testParseObject() {
-        this.parseAndCheck("{\"prop1\": \"value1\"}",
+        this.parseStringAndCheck("{\"prop1\": \"value1\"}",
                 JsonNode.object().set(JsonNodeName.with("prop1"), JsonNode.string("value1")));
     }
 
     @Test
     public void testParseObjectManyProperties() {
-        this.parseAndCheck("{\"prop1\": \"value1\", \"prop2\": \"value2\"}",
+        this.parseStringAndCheck("{\"prop1\": \"value1\", \"prop2\": \"value2\"}",
                 JsonNode.object()
                         .set(JsonNodeName.with("prop1"), JsonNode.string("value1"))
                         .set(JsonNodeName.with("prop2"), JsonNode.string("value2")));
@@ -81,7 +81,7 @@ public final class JsonNodeTest implements ClassTesting2<JsonNode>,
 
     @Test
     public void testParseObjectOrderUnimportant() {
-        this.parseAndCheck("{\"prop1\": \"value1\", \"prop2\": \"value2\"}",
+        this.parseStringAndCheck("{\"prop1\": \"value1\", \"prop2\": \"value2\"}",
                 JsonNode.object()
                         .set(JsonNodeName.with("prop2"), JsonNode.string("value2"))
                         .set(JsonNodeName.with("prop1"), JsonNode.string("value1")));
@@ -136,17 +136,17 @@ public final class JsonNodeTest implements ClassTesting2<JsonNode>,
     // ParseStringTesting ........................................................................................
 
     @Override
-    public JsonNode parse(final String text) {
+    public JsonNode parseString(final String text) {
         return JsonNode.parse(text);
     }
 
     @Override
-    public RuntimeException parseFailedExpected(final RuntimeException expected) {
+    public RuntimeException parseStringFailedExpected(final RuntimeException expected) {
         return expected;
     }
 
     @Override
-    public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
         return ParserException.class;
     }
 }

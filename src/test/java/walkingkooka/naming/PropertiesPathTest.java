@@ -35,7 +35,7 @@ final public class PropertiesPathTest extends PathTestCase<PropertiesPath, Prope
 
     @Test
     public void testParseEmptyComponent() {
-        this.parseFails("before..after", IllegalArgumentException.class);
+        this.parseStringFails("before..after", IllegalArgumentException.class);
     }
 
     @Test
@@ -139,17 +139,17 @@ final public class PropertiesPathTest extends PathTestCase<PropertiesPath, Prope
     // ParseStringTesting ........................................................................................
 
     @Override
-    public PropertiesPath parse(final String text) {
+    public PropertiesPath parseString(final String text) {
         return PropertiesPath.parse(text);
     }
 
     @Override
-    public RuntimeException parseFailedExpected(final RuntimeException expected) {
+    public RuntimeException parseStringFailedExpected(final RuntimeException expected) {
         return expected;
     }
 
     @Override
-    public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
         return expected;
     }
 }
