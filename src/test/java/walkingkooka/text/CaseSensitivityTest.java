@@ -20,14 +20,18 @@ package walkingkooka.text;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.compare.Comparators;
+import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.JavaVisibility;
 import walkingkooka.util.systemproperty.SystemProperty;
 
+import java.util.function.Predicate;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity> {
+final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>,
+        PredicateTesting {
 
     @Test
     public void testInvertSensitive() {
@@ -1065,7 +1069,193 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
         return null == chars ? null : CharSequences.quote(chars);
     }
 
-    // fileSystem..........................................................................................
+    // predicate SENSITIVE...............................................................................................
+
+    @Test
+    public void testPredicateSensitiveTrue() {
+        this.testTrue(predicate(), PREDICATE_TEXT);
+    }
+
+    @Test
+    public void testPredicateSensitiveDifferentCaseFalse() {
+        this.testFalse(predicate(), PREDICATE_TEXT.toString().toUpperCase());
+    }
+
+    @Test
+    public void testPredicateSensitiveFalse() {
+        this.testFalse(predicate(), "qrst");
+    }
+
+    private Predicate<CharSequence> predicate() {
+        return CaseSensitivity.SENSITIVE.predicate(PREDICATE_TEXT);
+    }
+
+    // predicate INSENSITIVE............................................................................................
+
+    @Test
+    public void testPredicateInsensitiveTrue() {
+        this.testTrue(predicateInsensitive(), PREDICATE_TEXT);
+    }
+
+    @Test
+    public void testPredicateInsensitiveDifferentCaseFalse() {
+        this.testTrue(predicateInsensitive(), PREDICATE_TEXT.toString().toUpperCase());
+    }
+
+    @Test
+    public void testPredicateInsensitiveDifferentFalse() {
+        this.testFalse(predicateInsensitive(), "qrst");
+    }
+
+    private Predicate<CharSequence> predicateInsensitive() {
+        return CaseSensitivity.INSENSITIVE.predicate(PREDICATE_TEXT);
+    }
+
+    private final static CharSequence PREDICATE_TEXT = "abcXYZ";
+
+    // predicateContains SENSITIVE......................................................................................
+
+    @Test
+    public void testPredicateContainsSensitiveTrue() {
+        this.testTrue(predicateContains(), "<" + PREDICATE_CONTAINS_TEXT);
+    }
+
+    @Test
+    public void testPredicateContainsSensitiveDifferentCaseFalse() {
+        this.testFalse(predicateContains(), "<" + PREDICATE_CONTAINS_TEXT.toString().toUpperCase());
+    }
+
+    @Test
+    public void testPredicateContainsSensitiveFalse() {
+        this.testFalse(predicateContains(), "qrst");
+    }
+
+    private Predicate<CharSequence> predicateContains() {
+        return CaseSensitivity.SENSITIVE.predicateContains(PREDICATE_CONTAINS_TEXT);
+    }
+
+    // predicateContains INSENSITIVE....................................................................................
+
+    @Test
+    public void testPredicateContainsInsensitiveTrue() {
+        this.testTrue(predicateContainsInsensitive(), "<" + PREDICATE_CONTAINS_TEXT);
+    }
+
+    @Test
+    public void testPredicateContainsInsensitiveDifferentCaseFalse() {
+        this.testTrue(predicateContainsInsensitive(), "<" + PREDICATE_CONTAINS_TEXT.toString().toUpperCase());
+    }
+
+    @Test
+    public void testPredicateContainsInsensitiveDifferentFalse() {
+        this.testFalse(predicateContainsInsensitive(), "qrst");
+    }
+
+    private Predicate<CharSequence> predicateContainsInsensitive() {
+        return CaseSensitivity.INSENSITIVE.predicateContains(PREDICATE_CONTAINS_TEXT);
+    }
+
+    private final static CharSequence PREDICATE_CONTAINS_TEXT = "abcXYZ";
+
+    // predicateEndsWith SENSITIVE......................................................................................
+
+    @Test
+    public void testPredicateEndsWithSensitiveTrue() {
+        this.testTrue(predicateEndsWith(), "<" + PREDICATE_ENDS_WITH_TEXT);
+    }
+
+    @Test
+    public void testPredicateEndsWithSensitiveDifferentCaseFalse() {
+        this.testFalse(predicateEndsWith(), "<" + PREDICATE_ENDS_WITH_TEXT.toString().toUpperCase());
+    }
+
+    @Test
+    public void testPredicateEndsWithSensitiveFalse() {
+        this.testFalse(predicateEndsWith(), "qrst");
+    }
+
+    private Predicate<CharSequence> predicateEndsWith() {
+        return CaseSensitivity.SENSITIVE.predicateEndsWith(PREDICATE_ENDS_WITH_TEXT);
+    }
+
+    // predicateEndsWith INSENSITIVE.....................................................................................
+
+    @Test
+    public void testPredicateEndsWithInsensitiveTrue() {
+        this.testTrue(predicateEndsWithInsensitive(), "<" + PREDICATE_ENDS_WITH_TEXT);
+    }
+
+    @Test
+    public void testPredicateEndsWithInsensitiveDifferentCaseFalse() {
+        this.testTrue(predicateEndsWithInsensitive(), "<" + PREDICATE_ENDS_WITH_TEXT.toString().toUpperCase());
+    }
+
+    @Test
+    public void testPredicateEndsWithInsensitiveDifferentFalse() {
+        this.testFalse(predicateEndsWithInsensitive(), "qrst");
+    }
+
+    private Predicate<CharSequence> predicateEndsWithInsensitive() {
+        return CaseSensitivity.INSENSITIVE.predicateEndsWith(PREDICATE_ENDS_WITH_TEXT);
+    }
+
+    private final static CharSequence PREDICATE_ENDS_WITH_TEXT = "abcXYZ";
+
+    // predicateStartsWith SENSITIVE....................................................................................
+
+    @Test
+    public void testPredicateStartsWithSensitiveTrue() {
+        this.testTrue(predicateStartsWith(), PREDICATE_STARTS_WITH_TEXT + ">");
+    }
+
+    @Test
+    public void testPredicateStartsWithSensitiveDifferentCaseFalse() {
+        this.testFalse(predicateStartsWith(), PREDICATE_STARTS_WITH_TEXT.toString().toUpperCase() + ">");
+    }
+
+    @Test
+    public void testPredicateStartsWithSensitiveFalse() {
+        this.testFalse(predicateStartsWith(), "qrst");
+    }
+
+    @Test
+    public void testPredicateStartsWithSensitiveEndsWithFalse() {
+        this.testFalse(predicateStartsWith(), "<" + PREDICATE_STARTS_WITH_TEXT);
+    }
+
+    private Predicate<CharSequence> predicateStartsWith() {
+        return CaseSensitivity.SENSITIVE.predicateStartsWith(PREDICATE_STARTS_WITH_TEXT);
+    }
+
+    // predicateStartsWith INSENSITIVE..................................................................................
+
+    @Test
+    public void testPredicateStartsWithInsensitiveTrue() {
+        this.testTrue(predicateStartsWithInsensitive(),  PREDICATE_STARTS_WITH_TEXT + ">");
+    }
+
+    @Test
+    public void testPredicateStartsWithInsensitiveDifferentCaseFalse() {
+        this.testTrue(predicateStartsWithInsensitive(), PREDICATE_STARTS_WITH_TEXT.toString().toUpperCase() + ">");
+    }
+
+    @Test
+    public void testPredicateStartsWithInsensitiveDifferentFalse() {
+        this.testFalse(predicateStartsWithInsensitive(), "qrst");
+    }
+
+    @Test
+    public void testPredicateStartsWithInsensitiveEndsWithFalse() {
+        this.testFalse(predicateStartsWithInsensitive(), "<" + PREDICATE_STARTS_WITH_TEXT);
+    }
+
+    private Predicate<CharSequence> predicateStartsWithInsensitive() {
+        return CaseSensitivity.INSENSITIVE.predicateStartsWith(PREDICATE_STARTS_WITH_TEXT);
+    }
+
+    private final static CharSequence PREDICATE_STARTS_WITH_TEXT = "abcXYZ";
+
+    // fileSystem.......................................................................................................
 
     @Test
     public void testSystemPropertyTrue() {
