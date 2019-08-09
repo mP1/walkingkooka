@@ -39,7 +39,7 @@ public final class Parsers implements PublicStaticHelper {
     /**
      * {@see AndNotParser}
      */
-    static <T extends ParserToken, C extends ParserContext> Parser<C> andNot(final Parser<C> left, final Parser<C> right) {
+    static <C extends ParserContext> Parser<C> andNot(final Parser<C> left, final Parser<C> right) {
         return AndNotParser.with(left, right);
     }
 
@@ -67,7 +67,7 @@ public final class Parsers implements PublicStaticHelper {
     /**
      * {@see CustomToStringParser}
      */
-    public static <T extends ParserToken, C extends ParserContext> Parser<C> customToString(final Parser<C> parser, final String toString) {
+    public static <C extends ParserContext> Parser<C> customToString(final Parser<C> parser, final String toString) {
         return CustomToStringParser.wrap(parser, toString);
     }
 
@@ -88,7 +88,7 @@ public final class Parsers implements PublicStaticHelper {
     /**
      * {@see FakeParser}
      */
-    public static <T extends ParserToken, C extends ParserContext> Parser<C> fake() {
+    public static <C extends ParserContext> Parser<C> fake() {
         return FakeParser.create();
     }
 
@@ -149,9 +149,9 @@ public final class Parsers implements PublicStaticHelper {
     /**
      * {@see ReportingParser}
      */
-    public static <T extends ParserToken, C extends ParserContext> Parser<C> report(final ParserReporterCondition condition,
-                                                                                    final ParserReporter<C> reporter,
-                                                                                    final Parser<C> parser) {
+    public static <C extends ParserContext> Parser<C> report(final ParserReporterCondition condition,
+                                                             final ParserReporter<C> reporter,
+                                                             final Parser<C> parser) {
         return ReportingParser.with(condition, reporter, parser);
     }
 
