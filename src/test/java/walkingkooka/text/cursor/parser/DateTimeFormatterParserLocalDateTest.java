@@ -19,69 +19,85 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.datetime.DateTimeContext;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.function.Function;
 
 public final class DateTimeFormatterParserLocalDateTest extends DateTimeFormatterParserLocalTestCase<DateTimeFormatterParserLocalDate<ParserContext>, LocalDateParserToken> {
 
-//    The ISO date formatter that formats or parses a date without an
-//     * offset, such as '2011-12-03'
+    // fail/incomplete...................................................................................................
 
     @Test
-    public void testYearInvalidFail() {
-        this.parseFailAndCheck("200X-12-31");
+    public void testYearInvalidFails() {
+        this.parseFailAndCheck2("yyyy-MM-dd", "200X-12-31");
     }
 
     @Test
-    public void testYearSeparatorInvalidFail() {
-        this.parseFailAndCheck("2001/12-31");
+    public void testMonthInvalidFails() {
+        this.parseFailAndCheck2("MM-dd-yyyy", "0X-31-2000");
     }
 
     @Test
-    public void testYearSeparatorMonthInvalidFail() {
-        this.parseThrows("2001-XY-31");
+    public void testYearMonthInvalidFails() {
+        this.parseFailAndCheck2("uuuu-MM-dd", "2000-0X-31");
     }
 
     @Test
-    public void testYearSeparatorMonthSeparatorInvalidFail() {
-        this.parseThrows("2001-12/31");
+    public void testDayInvalidFails() {
+        this.parseFailAndCheck2("dd-MM-yyyy", "0X-12-2000");
     }
 
     @Test
-    public void testYearSeparatorMonthSeparatorDayInvalidFail() {
-        this.parseThrows("2001-12-XY");
+    public void testMonthDayInvalidFails() {
+        this.parseFailAndCheck2("MM-dd-yyyy", "12-3X-2000");
     }
 
     @Test
-    public void testYearIncompleteFail() {
-        this.parseFailAndCheck("2001");
+    public void testDayMonthYearMissingFails() {
+        this.parseFailAndCheck2("dd-MM-yyyy", "31-12");
     }
 
     @Test
-    public void testYearSeparatorMonthIncompleteFail() {
-        this.parseFailAndCheck("2001-");
+    public void testDayMonthYearMissingFails2() {
+        this.parseFailAndCheck2("dd-MM-yyyy", "31-12 ");
+    }
+
+    // invalid.............................................................................................................
+
+    @Test
+    public void testYearMonthDayInvalidMonthThrows() {
+        this.parseThrows2("yyyy-MM-dd", "2001-99-11");
     }
 
     @Test
-    public void testYearSeparatorMonthSeparatorMissingFail() {
-        this.parseThrows("2001-12");
+    public void testYearMonthDayInvalidMonthThrows2() {
+        this.parseThrows2("yyyy-MM-dd", "2001-99-11!");
     }
 
     @Test
-    public void testYearSeparatorMonthSeparatorIncompleteFail() {
-        this.parseThrows("2001-12-");
+    public void testYearMonthDayInvalidDayThrows() {
+        this.parseThrows2("yyyy-MM-dd", "2001-12-99");
     }
 
     @Test
-    public void testYearSeparatorMonthSeparatorDayIncompleteFail() {
-        this.parseThrows("2001-12-3");
+    public void testYearSeparatorMonthNameSeparatorDayInvalidDaysFails() {
+        this.parseThrows2("yyyy-MMMM-dd", "2001-December-99");
     }
+
+    @Test
+    public void testYearSeparatorMonthNameSeparatorDayInvalidDaysFails2() {
+        this.parseThrows2("yyyy-MMMM-dd", "2001-December-99X");
+    }
+
+    // pass.............................................................................................................
 
     @Test
     public void testYearSeparatorMonthSeparatorDay() {
         LocalDate.parse("2001-12-31", this.formatter());
-        this.parseAndCheck2("2001-12-31");
+
+        this.parseAndCheck2("yyyy-MM-dd", "2000-12-31");
     }
 
     @Test
@@ -104,19 +120,16 @@ public final class DateTimeFormatterParserLocalDateTest extends DateTimeFormatte
         this.parseAndCheck2("yyyy-MMMM-dd", "2001-December-31", "ZZ");
     }
 
+    // helper...........................................................................................................
+
     @Override
-    protected DateTimeFormatterParserLocalDate<ParserContext> createParser(final DateTimeFormatter formatter, final String pattern) {
-        return DateTimeFormatterParserLocalDate.with(formatter, pattern);
+    DateTimeFormatterParserLocalDate<ParserContext> createParser(final Function<DateTimeContext, DateTimeFormatter> formatter) {
+        return DateTimeFormatterParserLocalDate.with(formatter);
     }
 
     @Override
     String pattern() {
         return "yyyy-MM-dd";
-    }
-
-    @Override
-    String differentPattern() {
-        return "dd-MM-yyyy";
     }
 
     @Override

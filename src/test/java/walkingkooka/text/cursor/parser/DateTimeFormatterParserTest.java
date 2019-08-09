@@ -17,57 +17,10 @@
 
 package walkingkooka.text.cursor.parser;
 
-import org.junit.jupiter.api.Test;
-import walkingkooka.math.DecimalNumberContext;
-import walkingkooka.math.FakeDecimalNumberContext;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.text.CharSequences;
 import walkingkooka.type.JavaVisibility;
 
-import java.time.ZoneId;
-import java.util.function.Predicate;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 public final class DateTimeFormatterParserTest implements ClassTesting2<DateTimeFormatterParser> {
-
-    @Test
-    public void testIsZoneId() {
-        this.checkAllZoneIds((c) -> DateTimeFormatterParser.isZoneId(c, decimalNumberContext()));
-    }
-
-    @Test
-    public void testIsZoneName() {
-        this.checkAllZoneIds((c) -> DateTimeFormatterParser.isZoneName(c, decimalNumberContext()));
-    }
-
-    private DecimalNumberContext decimalNumberContext() {
-        return new FakeDecimalNumberContext() {
-            @Override
-            public char decimalPoint() {
-                return '.';
-            }
-
-            @Override
-            public char minusSign() {
-                return '-';
-            }
-
-            @Override
-            public char plusSign() {
-                return '+';
-            }
-        };
-    }
-
-    private void checkAllZoneIds(final Predicate<Character> predicate) {
-        for (String zoneId : ZoneId.getAvailableZoneIds()) {
-            for (char c : zoneId.toCharArray()) {
-                assertTrue(predicate.test(c),
-                        () -> "Chars " + CharSequences.quoteAndEscape(c) + " of zoneId " + CharSequences.quote(zoneId) + " failed");
-            }
-        }
-    }
 
     @Override
     public Class<DateTimeFormatterParser> type() {
