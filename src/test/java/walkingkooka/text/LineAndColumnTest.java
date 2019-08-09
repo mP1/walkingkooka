@@ -19,6 +19,7 @@ package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -26,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class LineAndColumnTest implements ClassTesting2<LineAndColumn>,
+        HashCodeEqualsDefinedTesting<LineAndColumn>,
         ToStringTesting<LineAndColumn> {
 
     private final static int LINE_NUMBER = 1;
@@ -261,6 +263,30 @@ public class LineAndColumnTest implements ClassTesting2<LineAndColumn>,
         return LineAndColumn.with(LINE_NUMBER, COLUMN_NUMBER, LINE);
     }
 
+    // HashcodeEquality.................................................................................................
+
+    @Test
+    public void testDifferentLineNumber() {
+        this.checkNotEquals(LineAndColumn.with(99 + LINE_NUMBER, COLUMN_NUMBER, LINE));
+    }
+
+    @Test
+    public void testDifferentColumnNumber() {
+        this.checkNotEquals(LineAndColumn.with(LINE_NUMBER, 1 + COLUMN_NUMBER, LINE));
+    }
+
+    @Test
+    public void testDifferentLine() {
+        this.checkNotEquals(LineAndColumn.with(LINE_NUMBER, COLUMN_NUMBER, "differentdifferentdifferentdifferent"));
+    }
+
+    @Test
+    public void testDifferentCase() {
+        this.checkNotEquals(LineAndColumn.with(1, 2, "abc"), LineAndColumn.with(1, 2, "ABC"));
+    }
+
+    // ClassTesting.....................................................................................................
+
     @Override
     public Class<LineAndColumn> type() {
         return LineAndColumn.class;
@@ -269,5 +295,12 @@ public class LineAndColumnTest implements ClassTesting2<LineAndColumn>,
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
+    }
+
+    // HashcodeEquality.................................................................................................
+
+    @Override
+    public LineAndColumn createObject() {
+        return LineAndColumn.with(LINE_NUMBER, COLUMN_NUMBER, LINE);
     }
 }
