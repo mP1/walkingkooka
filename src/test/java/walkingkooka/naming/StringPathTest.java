@@ -42,12 +42,12 @@ final public class StringPathTest extends PathTestCase<StringPath, StringName>
 
     @Test
     public void testParseMissingRequiredLeadingSlashFails() {
-        this.parseFails("without-leading-slash", IllegalArgumentException.class);
+        this.parseStringFails("without-leading-slash", IllegalArgumentException.class);
     }
 
     @Test
     public void testParseEmptyComponentFails() {
-        this.parseFails("/before//after", IllegalArgumentException.class);
+        this.parseStringFails("/before//after", IllegalArgumentException.class);
     }
 
     @Test
@@ -163,17 +163,17 @@ final public class StringPathTest extends PathTestCase<StringPath, StringName>
     // ParseStringTesting ........................................................................................
 
     @Override
-    public StringPath parse(final String text) {
+    public StringPath parseString(final String text) {
         return StringPath.parse(text);
     }
 
     @Override
-    public RuntimeException parseFailedExpected(final RuntimeException expected) {
+    public RuntimeException parseStringFailedExpected(final RuntimeException expected) {
         return expected;
     }
 
     @Override
-    public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
         return expected;
     }
 

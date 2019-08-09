@@ -835,12 +835,12 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     @Test
     public void testParseNullTextFails() {
-        this.parseFails(null, NullPointerException.class);
+        this.parseStringFails(null, NullPointerException.class);
     }
 
     @Test
     public void testParseEmptyTextFails() {
-        this.parseFails("", IllegalArgumentException.class);
+        this.parseStringFails("", IllegalArgumentException.class);
     }
 
     @Test
@@ -864,32 +864,32 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     @Test
     public void testParseMissingSeparatorFails() {
-        this.parseFails("1", new IllegalArgumentException("Missing separator \':\' in \"1\""));
+        this.parseStringFails("1", new IllegalArgumentException("Missing separator \':\' in \"1\""));
     }
 
     @Test
     public void testParseEmptyLowerRangeFails() {
-        this.parseFails(":1", new IllegalArgumentException("Empty lower range in \":1\""));
+        this.parseStringFails(":1", new IllegalArgumentException("Empty lower range in \":1\""));
     }
 
     @Test
     public void testParseEmptyUpperRangeFails() {
-        this.parseFails("1:", new IllegalArgumentException("Empty upper range in \"1:\""));
+        this.parseStringFails("1:", new IllegalArgumentException("Empty upper range in \"1:\""));
     }
 
     @Test
     public void testParseInvalidLowerRangeFails() {
-        this.parseFails("1A:2", new IllegalArgumentException("java.lang.NumberFormatException: For input string: \"1A\""));
+        this.parseStringFails("1A:2", new IllegalArgumentException("java.lang.NumberFormatException: For input string: \"1A\""));
     }
 
     @Test
     public void testParseInvalidUpperRangeFails() {
-        this.parseFails("1:2B", new IllegalArgumentException("java.lang.NumberFormatException: For input string: \"2B\""));
+        this.parseStringFails("1:2B", new IllegalArgumentException("java.lang.NumberFormatException: For input string: \"2B\""));
     }
 
     @Test
     public void testParseLowerAndUpper() {
-        this.parseAndCheck("123:456", Range.greaterThanEquals(123).and(Range.lessThanEquals(456)));
+        this.parseStringAndCheck("123:456", Range.greaterThanEquals(123).and(Range.lessThanEquals(456)));
     }
 
     @Test
@@ -1297,17 +1297,17 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     // Parse ........................................................................................................
 
-    public Range<Integer> parse(final String text) {
+    public Range<Integer> parseString(final String text) {
         return Range.parse(text, ':', Integer::valueOf);
     }
 
     @Override
-    public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
         return expected;
     }
 
     @Override
-    public RuntimeException parseFailedExpected(final RuntimeException expected) {
+    public RuntimeException parseStringFailedExpected(final RuntimeException expected) {
         return expected;
     }
 

@@ -442,7 +442,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
     // parse.............................................................................................................
 
     @Override
-    public void testParseEmptyFails() {
+    public void testParseStringEmptyFails() {
         throw new UnsupportedOperationException();
     }
 
@@ -483,12 +483,12 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
 
     @Test
     public void testParseAppendWithNextFails() {
-        this.parseFails("/-/1", UnsupportedOperationException.class);
+        this.parseStringFails("/-/1", UnsupportedOperationException.class);
     }
 
     @Test
     public void testParseThenTraverseElements() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = parse("/0/1");
+        final NodePointer<JsonNode, JsonNodeName> pointer = parseString("/0/1");
 
         final JsonNode def = JsonNode.string(TEXT);
         final JsonNode root = JsonNode.array()
@@ -498,7 +498,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
 
     @Test
     public void testParseThenTraverseNamed() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = parse("/abc/def");
+        final NodePointer<JsonNode, JsonNodeName> pointer = parseString("/abc/def");
 
         final JsonNode def = JsonNode.string(TEXT);
 
@@ -509,7 +509,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
 
     @Test
     public void testParseThenTraverseNamedAndIndex() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = parse("/abc/0/def");
+        final NodePointer<JsonNode, JsonNodeName> pointer = parseString("/abc/0/def");
 
         final JsonNode def = JsonNode.string(TEXT);
 
@@ -522,7 +522,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
 
     @Test
     public void testParseThenTraverseAppend() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = parse("/abc/-");
+        final NodePointer<JsonNode, JsonNodeName> pointer = parseString("/abc/-");
 
         final JsonNode def = JsonNode.string(TEXT);
 
@@ -533,7 +533,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
 
     @Test
     public void testParseThenTraverseAppend2() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = parse("/abc/def/-");
+        final NodePointer<JsonNode, JsonNodeName> pointer = parseString("/abc/def/-");
 
         final JsonNode def = JsonNode.string(TEXT);
 
@@ -544,7 +544,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
 
     @Test
     public void testParseTilde() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = parse("/tilde~0");
+        final NodePointer<JsonNode, JsonNodeName> pointer = parseString("/tilde~0");
 
         final JsonNode text = JsonNode.string(TEXT);
 
@@ -555,7 +555,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
 
     @Test
     public void testParseSlash() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = parse("/slash~1");
+        final NodePointer<JsonNode, JsonNodeName> pointer = parseString("/slash~1");
 
         final JsonNode text = JsonNode.string(TEXT);
 
@@ -599,7 +599,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
     // ParseStringTesting ........................................................................................
 
     @Override
-    public NodePointer<JsonNode, JsonNodeName> parse(final String pointer) {
+    public NodePointer<JsonNode, JsonNodeName> parseString(final String pointer) {
         final NodePointer<JsonNode, JsonNodeName> parsed = NodePointer.parse(pointer, NAME_FACTORY, JsonNode.class);
         assertEquals(pointer,
                 parsed.toString(),
@@ -608,12 +608,12 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
     }
 
     @Override
-    public RuntimeException parseFailedExpected(final RuntimeException expected) {
+    public RuntimeException parseStringFailedExpected(final RuntimeException expected) {
         return expected;
     }
 
     @Override
-    public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
         return expected;
     }
 }
