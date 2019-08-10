@@ -18,6 +18,7 @@
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.Cast;
+import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.HasText;
 import walkingkooka.tree.search.HasSearchNode;
 
@@ -28,7 +29,9 @@ import java.util.stream.Collectors;
 /**
  * Represents a result of a parser attempt to consume a {@link walkingkooka.text.cursor.TextCursor}
  */
-public interface ParserToken extends HasText, HasSearchNode {
+public interface ParserToken extends HashCodeEqualsDefined,
+        HasText,
+        HasSearchNode {
 
     /**
      * Concatenates the text from all given tokens into a single string.
