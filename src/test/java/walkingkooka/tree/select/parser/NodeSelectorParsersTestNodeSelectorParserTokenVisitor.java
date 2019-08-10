@@ -202,7 +202,18 @@ final class NodeSelectorParsersTestNodeSelectorParserTokenVisitor extends NodeSe
     protected void endVisit(final NodeSelectorMultiplicationParserToken token) {
         this.exit(NodeSelectorParserToken::multiplication);
     }
-    
+
+    @Override
+    protected Visiting startVisit(final NodeSelectorNegativeParserToken token) {
+        this.enter();
+        return super.startVisit(token);
+    }
+
+    @Override
+    protected void endVisit(final NodeSelectorNegativeParserToken token) {
+        this.exit(NodeSelectorParserToken::negative);
+    }
+
     @Override
     protected void endVisit(final NodeSelectorNotEqualsParserToken token) {
         this.exit(NodeSelectorParserToken::notEquals);

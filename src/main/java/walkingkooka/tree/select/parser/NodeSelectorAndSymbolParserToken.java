@@ -107,7 +107,7 @@ public final class NodeSelectorAndSymbolParserToken extends NodeSelectorBinaryOp
 
     @Override
     int operatorPriority() {
-        return LOWEST_PRIORITY;
+        return AND_PRIORITY;
     }
 
     @Override

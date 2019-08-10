@@ -59,11 +59,4 @@ abstract class NodeSelectorComparisonSymbolParserToken extends NodeSelectorBinar
     public final boolean isPlusSymbol() {
         return false;
     }
-
-    // operator priority..................................................................................................
-
-    @Override
-    final int operatorPriority() {
-        return COMPARISON_PRIORITY;
-    }
 }

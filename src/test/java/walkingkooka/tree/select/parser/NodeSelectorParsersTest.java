@@ -866,37 +866,13 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
                 nodeName(),
                 bracketOpen(),
                 predicate(
-                        multiplication(
-                                number(),
-                                multiplySymbol(),
-                                addition(
-                                        number2(),
-                                        plusSymbol(),
-                                        number3()
-                                )
-                        )
-                ),
-                bracketClose());
-    }
-
-    @Test
-    public void testAbsoluteNodeNameBracketOpenNumberMultiplyNumberAddNumberSubtractNumberBracketClose() {
-        this.parseAndCheck2(absolute(),
-                nodeName(),
-                bracketOpen(),
-                predicate(
-                        multiplication(
-                                number(),
-                                multiplySymbol(),
-                                addition(
-                                        number2(),
-                                        plusSymbol(),
-                                        subtraction(
-                                                number3(),
-                                                minusSymbol(),
-                                                number4()
-                                        )
-                                )
+                        addition(
+                                multiplication(
+                                        number(),
+                                        multiplySymbol(),
+                                        number2()),
+                                plusSymbol(),
+                                number3()
                         )
                 ),
                 bracketClose());
@@ -1376,38 +1352,21 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
     }
 
     @Test
-    public void testAbsoluteWildcardBracketOpenFunctionAndWhitespaceNumberWhitespaceAndWhitespaceQuotedTextBracketClose() {
-        this.parseAndCheck2(absolute(),
-                wildcard(),
-                bracketOpen(),
-                predicate(
-                        and(
-                                and(functionWithoutArguments(),
-                                        whitespace(),
-                                        andSymbol(),
-                                        whitespace(),
-                                        number(),
-                                        whitespace()),
-                                andSymbol(),
-                                whitespace(),
-                                quotedText())),
-                bracketClose());
-    }
-
-    @Test
     public void testAbsoluteWildcardBracketOpenWhitespaceFunctionWhitespaceAndWhitespaceFunctionWhitespaceBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
                 bracketOpen(),
                 predicate(
+                        whitespace(),
                         and(
-                                whitespace(),
                                 functionWithoutArguments(),
                                 whitespace(),
                                 andSymbol(),
                                 whitespace(),
-                                functionWithArguments(),
-                                whitespace())),
+                                functionWithArguments()
+                        ),
+                        whitespace()
+                ),
                 bracketClose());
     }
 
@@ -1508,14 +1467,16 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
                 wildcard(),
                 bracketOpen(),
                 predicate(
+                        whitespace(),
                         or(
-                                whitespace(),
                                 functionWithoutArguments(),
                                 whitespace(),
                                 orSymbol(),
                                 whitespace(),
-                                functionWithArguments(),
-                                whitespace())),
+                                functionWithArguments()
+                        ),
+                        whitespace()
+                ),
                 bracketClose());
     }
 
@@ -1544,16 +1505,18 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
                 wildcard(),
                 bracketOpen(),
                 predicate(
-                        and(
-                                or(
-                                        and(
-                                                number(1),
-                                                andSymbol(),
-                                                number(2)),
-                                        orSymbol(),
-                                        number(3)),
-                                andSymbol(),
-                                number(4))),
+                        or(
+                                and(
+                                        number(1),
+                                        andSymbol(),
+                                        number(2)),
+                                orSymbol(),
+                                and(
+                                        number(3),
+                                        andSymbol(),
+                                        number(4))
+                        )
+                ),
                 bracketClose());
     }
 
@@ -1563,91 +1526,19 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
                 wildcard(),
                 bracketOpen(),
                 predicate(
-                        and(
-                                or(
-                                        and(
-                                                functionWithoutArguments(),
-                                                andSymbol(),
-                                                functionWithArguments()),
-                                        orSymbol(),
-                                        functionWithoutArguments()),
-                                andSymbol(),
-                                functionWithoutArguments())
-                ),
-                bracketClose());
-    }
-
-    // and or and or...............................................................................................
-
-    @Test
-    public void testAbsoluteWildcardBracketOpenNumberAndNumberOrNumberAndNumberOrNumberBracketClose() {
-        this.parseAndCheck2(absolute(),
-                wildcard(),
-                bracketOpen(),
-                predicate(
                         or(
                                 and(
-                                        or(
-                                                and(
-                                                        number(1),
-                                                        andSymbol(),
-                                                        number(2)),
-                                                orSymbol(),
-                                                number(3)),
-                                        andSymbol(),
-                                        number(4)),
-                                orSymbol(),
-                                number(5))),
-                bracketClose());
-    }
-
-    @Test
-    public void testAbsoluteWildcardBracketOpenFunctionAndFunctionOrFunctionAndFunctionOrFunctionBracketClose() {
-        this.parseAndCheck2(absolute(),
-                wildcard(),
-                bracketOpen(),
-                predicate(
-                        or(
-                                and(
-                                        or(
-                                                and(
-                                                        functionWithoutArguments(),
-                                                        andSymbol(),
-                                                        functionWithArguments()),
-                                                orSymbol(),
-                                                functionWithoutArguments()),
-                                        andSymbol(),
-                                        functionWithoutArguments()),
-                                orSymbol(),
-                                functionWithoutArguments())
-                ),
-                bracketClose());
-    }
-
-    @Test
-    public void testAbsoluteWildcardBracketOpenFunctionWhitespaceAndFunctionWhitespaceOrFunctionWhitespaceAndFunctionWhitespaceOrFunctionWhitespaceBracketClose() {
-        this.parseAndCheck2(absolute(),
-                wildcard(),
-                bracketOpen(),
-                predicate(
-                        or(
-                                and(
-                                        or(
-                                                and(
-                                                        functionWithoutArguments(),
-                                                        whitespace(),
-                                                        andSymbol(),
-                                                        functionWithArguments(),
-                                                        whitespace()),
-                                                orSymbol(),
-                                                functionWithoutArguments(),
-                                                whitespace()),
-                                        andSymbol(),
                                         functionWithoutArguments(),
-                                        whitespace()),
+                                        andSymbol(),
+                                        functionWithArguments()),
                                 orSymbol(),
-                                functionWithoutArguments(),
-                                whitespace())),
+                                and(
+                                        functionWithoutArguments(),
+                                        andSymbol(),
+                                        functionWithoutArguments()
+                                )
+                        )
+                ),
                 bracketClose());
     }
 
@@ -1956,7 +1847,7 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
     }
 
     final NodeSelectorParserToken divideSymbol() {
-        return NodeSelectorParserToken.divideSymbol(" div ", " div ");
+        return NodeSelectorParserToken.divideSymbol("div", "div");
     }
 
     final NodeSelectorParserToken division(final NodeSelectorParserToken... tokens) {
@@ -2056,7 +1947,7 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
     }
 
     final NodeSelectorParserToken moduloSymbol() {
-        return NodeSelectorParserToken.moduloSymbol(" mod ", " mod ");
+        return NodeSelectorParserToken.moduloSymbol("mod", "mod");
     }
 
     final NodeSelectorParserToken multiplication(final NodeSelectorParserToken... tokens) {
