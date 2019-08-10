@@ -36,7 +36,7 @@ public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode<V>, V> ext
     public final void testCreate() {
         final N node = this.createSearchNode();
         assertEquals(Lists.empty(), node.children(), "children");
-        this.checkWithoutParent(node);
+        this.parentMissingCheck(node);
         this.checkValue(node, this.value());
         this.textAndCheck(node, this.text());
     }
@@ -66,7 +66,7 @@ public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode<V>, V> ext
         final N different = node.setValue(differentValue).cast();
         assertNotSame(node, different);
         this.checkValue(different, differentValue);
-        this.checkWithoutParent(different);
+        this.parentMissingCheck(different);
 
         this.checkValue(node, this.value());
     }

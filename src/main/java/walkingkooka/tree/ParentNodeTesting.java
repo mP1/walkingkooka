@@ -30,9 +30,9 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
- * A mixin interface that contains tests and helpers to assist testing of {@link Node} implementations..
+ * A mixin interface that contains tests and helpers to assist testing of {@link Node} with children implementations..
  */
-public interface NodeTesting2<N extends Node<N, NAME, ANAME, AVALUE>,
+public interface ParentNodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
         AVALUE>
@@ -41,7 +41,7 @@ public interface NodeTesting2<N extends Node<N, NAME, ANAME, AVALUE>,
 
     @Test
     default void testParentWithoutRoot() {
-        this.parentWithoutAndCheck(this.createNode().root());
+        this.parentMissingCheck(this.createNode().root());
     }
 
     @Test
@@ -50,8 +50,8 @@ public interface NodeTesting2<N extends Node<N, NAME, ANAME, AVALUE>,
         final List<N> children = parent.children();
         assertNotEquals(Lists.empty(), children, "expected at least 1 child");
 
-        this.parentWithoutAndCheck(children.get(0), parent.removeChild(0));
-        this.checkWithoutParent(this.createNode());
+        this.parentMissingCheck(children.get(0), parent.removeChild(0));
+        this.parentMissingCheck(this.createNode());
     }
 
     @Test

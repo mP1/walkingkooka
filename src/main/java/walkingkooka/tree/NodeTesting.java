@@ -20,7 +20,6 @@ package walkingkooka.tree;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
-import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.NodeSelectorTesting;
 import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
@@ -49,8 +48,7 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         extends
         NodeSelectorTesting<N, NAME, ANAME, AVALUE>,
         TraversableTesting<N>,
-        VisitableTesting<N>,
-        TypeNameTesting<N> {
+        VisitableTesting<N> {
 
     @Test
     default void testPublicStaticMethodAbsoluteNodeSelector() throws Exception {
@@ -105,8 +103,8 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         final List<N> children = parent.children();
         assertNotEquals(Lists.empty(), children, "expected at least 1 child");
 
-        this.parentWithoutAndCheck(children.get(0), parent.removeChild(0));
-        this.checkWithoutParent(this.createNode());
+        this.parentMissingCheck(children.get(0), parent.removeChild(0));
+        this.parentMissingCheck(this.createNode());
     }
 
     @Test
@@ -158,6 +156,13 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
                 (m) -> m.getName().equals("parentOrFail") || m.getName().equals("removeParent"));
     }
 
+    @Test
+    default void testSetSameAttributes() {
+        final N node = this.createNode();
+        assertSame(node, node.setAttributes(node.attributes()));
+    }
+
+
     N createNode();
 
     @Override
@@ -165,9 +170,25 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         return this.createNode();
     }
 
+    default void parentMissingCheck(final N node) {
+        assertEquals(Optional.empty(), node.parent(), "parent");
+        assertEquals(true, node.isRoot(), "root");
+        assertEquals(Optional.empty(), node.parentWithout(), () -> "parent without " + node);
+
+        assertThrows(NodeException.class, () -> {
+            node.parentOrFail();
+        });
+    }
+
+    default void parentMissingCheck(final N node, final N parentWithout) {
+        assertEquals(Optional.of(parentWithout), node.parentWithout(), () -> "node parentWithout " + node);
+
+        assertNotEquals(null, node.parentOrFail(), () -> "parent of node: " + node);
+    }
+
     default void removeParentAndCheck(final N node) {
         final N without = node.removeParent();
-        this.checkWithoutParent(without);
+        this.parentMissingCheck(without);
 
         if (node.isRoot()) {
             assertSame(node, without);
@@ -175,32 +196,6 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
             assertNotSame(node, without);
             assertNotEquals(node, without, "node.removeParent result should not be equal to node");
         }
-    }
-
-    default void checkWithoutParent(final N node) {
-        assertEquals(Optional.empty(), node.parent(), "parent");
-        assertEquals(true, node.isRoot(), "root");
-        assertEquals(Optional.empty(), node.parentWithout(), () -> "parent without " + node);
-    }
-
-    @Test
-    default void testSetSameAttributes() {
-        final N node = this.createNode();
-        assertSame(node, node.setAttributes(node.attributes()));
-    }
-
-    default void parentWithoutAndCheck(final N node) {
-        assertEquals(Optional.empty(), node.parentWithout(), () -> "node parentWithout " + node);
-
-        assertThrows(NodeException.class, () -> {
-            node.parentOrFail();
-        });
-    }
-
-    default void parentWithoutAndCheck(final N node, final N parentWithout) {
-        assertEquals(Optional.of(parentWithout), node.parentWithout(), () -> "node parentWithout " + node);
-
-        assertNotEquals(null, node.parentOrFail(), () -> "parent of node: " + node);
     }
 
     default void replaceAndCheck(final N node, final N replaceWith) {
@@ -224,7 +219,7 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
 
         this.childrenParentCheck(newParent);
 
-        this.checkWithoutParent(child);
+        this.parentMissingCheck(child);
 
         return newParent;
     }
@@ -251,7 +246,7 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         return newParent;
     }
 
-    // TypeNameTesting............................................................................................
+    // TypeNameTesting..................................................................................................
 
     @Override
     default String typeNameSuffix() {

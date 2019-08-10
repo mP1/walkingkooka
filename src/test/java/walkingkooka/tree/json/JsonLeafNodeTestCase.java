@@ -35,7 +35,7 @@ public abstract class JsonLeafNodeTestCase<N extends JsonLeafNode<V>, V> extends
     public final void testCreate() {
         final N node = this.createJsonNode();
         assertEquals(Lists.empty(), node.children(), "children");
-        this.checkWithoutParent(node);
+        this.parentMissingCheck(node);
         this.checkValue(node, this.value());
         this.textAndCheck(node, String.valueOf(this.value()));
     }
@@ -69,7 +69,7 @@ public abstract class JsonLeafNodeTestCase<N extends JsonLeafNode<V>, V> extends
         final N different = this.setValue(node, differentValue);
         assertNotSame(node, different);
         this.checkValue(different, differentValue);
-        this.checkWithoutParent(different);
+        this.parentMissingCheck(different);
 
         this.checkValue(node, this.value());
     }
