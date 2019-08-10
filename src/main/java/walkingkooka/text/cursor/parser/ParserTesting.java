@@ -95,7 +95,7 @@ public interface ParserTesting extends Testing {
         cursor.end();
 
         final String textRemaining = after.textBetween().toString();
-        if (false == token.toString().equals(result.toString())) {
+        if (false == token.equals(result)) {
             assertEquals(ParserTestingPrettyDumper.dump(token),
                     ParserTestingPrettyDumper.dump(result),
                     () -> "text:\n" + CharSequences.quoteAndEscape(consumed.length() == 0 ?

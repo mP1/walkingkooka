@@ -71,7 +71,12 @@ public final class NodeSelectorEqualsSymbolParserToken extends NodeSelectorCompa
     // operator priority................................................................................................
 
     @Override
-    final NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    int operatorPriority() {
+        return EQUALS_NOT_EQUALS_PRIORITY;
+    }
+
+    @Override
+    NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         return equalsParserToken(tokens, text);
     }
 

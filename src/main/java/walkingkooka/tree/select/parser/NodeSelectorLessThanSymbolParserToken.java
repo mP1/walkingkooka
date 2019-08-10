@@ -71,7 +71,12 @@ public final class NodeSelectorLessThanSymbolParserToken extends NodeSelectorCom
     // operator priority................................................................................................
 
     @Override
-    final NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    int operatorPriority() {
+        return LESS_GREATER_PRIORITY;
+    }
+
+    @Override
+    NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         return lessThan(tokens, text);
     }
 
