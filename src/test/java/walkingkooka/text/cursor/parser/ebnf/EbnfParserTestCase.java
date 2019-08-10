@@ -18,9 +18,9 @@ package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.Parser;
-import walkingkooka.text.cursor.parser.ParserTesting;
+import walkingkooka.text.cursor.parser.ParserTesting2;
 
-public abstract class EbnfParserTestCase<T extends EbnfParserToken> implements ParserTesting<Parser<EbnfParserContext>, EbnfParserContext> {
+public abstract class EbnfParserTestCase<T extends EbnfParserToken> implements ParserTesting2<Parser<EbnfParserContext>, EbnfParserContext> {
 
     final static String COMMENT1 = "(*comment-1*)";
     final static String COMMENT2 = "(*comment-2*)";

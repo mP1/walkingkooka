@@ -24,7 +24,7 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporters;
-import walkingkooka.text.cursor.parser.ParserTesting;
+import walkingkooka.text.cursor.parser.ParserTesting2;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.visit.Visiting;
@@ -33,12 +33,11 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeSelectorParserContext>,
+public final class NodeSelectorParsersTest implements ParserTesting2<Parser<NodeSelectorParserContext>,
         NodeSelectorParserContext> {
 
     // descendant ...........................................................................................

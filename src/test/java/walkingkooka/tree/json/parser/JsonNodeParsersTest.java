@@ -23,7 +23,7 @@ import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporters;
-import walkingkooka.text.cursor.parser.ParserTesting;
+import walkingkooka.text.cursor.parser.ParserTesting2;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.JavaVisibility;
@@ -32,7 +32,7 @@ import java.lang.reflect.Method;
 import java.math.MathContext;
 
 public final class JsonNodeParsersTest implements PublicStaticHelperTesting<JsonNodeParsers>,
-        ParserTesting<Parser<JsonNodeParserContext>, JsonNodeParserContext> {
+        ParserTesting2<Parser<JsonNodeParserContext>, JsonNodeParserContext> {
 
     @Test
     public void testBooleanFalse() {
