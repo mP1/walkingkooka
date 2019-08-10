@@ -38,22 +38,6 @@ final class DateTimeFormatterParserZonedDateTime<C extends ParserContext> extend
     }
 
     @Override
-    void date(final DateTimeFormatterParserDateTimeFormatterPatternVisitor visitor) {
-    }
-
-    @Override
-    void time(final DateTimeFormatterParserDateTimeFormatterPatternVisitor visitor) {
-    }
-
-    @Override
-    void timeZone(final DateTimeFormatterParserDateTimeFormatterPatternVisitor visitor) {
-    }
-
-    @Override
-    void timeZoneOffset(final DateTimeFormatterParserDateTimeFormatterPatternVisitor visitor) {
-    }
-
-    @Override
     ZonedDateTimeParserToken createParserToken(final TemporalAccessor value, final String text) {
         return ParserTokens.zonedDateTime(ZonedDateTime.from(value), text);
     }
