@@ -27,7 +27,7 @@ import java.util.function.Function;
 /**
  * A {@link Parser} that uses a {@link DateTimeFormatter} to parse a {@link LocalTime}.
  */
-final class DateTimeFormatterParserLocalTime<C extends ParserContext> extends DateTimeFormatterParserLocal<C> {
+final class DateTimeFormatterParserLocalTime<C extends ParserContext> extends DateTimeFormatterParser<C> {
 
     static <C extends ParserContext> DateTimeFormatterParserLocalTime<C> with(final Function<DateTimeContext, DateTimeFormatter> formatter) {
         return new DateTimeFormatterParserLocalTime<>(formatter);
@@ -35,16 +35,6 @@ final class DateTimeFormatterParserLocalTime<C extends ParserContext> extends Da
 
     private DateTimeFormatterParserLocalTime(final Function<DateTimeContext, DateTimeFormatter> formatter) {
         super(formatter);
-    }
-
-    @Override
-    void date(final DateTimeFormatterParserDateTimeFormatterPatternVisitor visitor) {
-        visitor.invalidPatternLetter();
-    }
-
-    @Override
-    void time(final DateTimeFormatterParserDateTimeFormatterPatternVisitor visitor) {
-
     }
 
     @Override

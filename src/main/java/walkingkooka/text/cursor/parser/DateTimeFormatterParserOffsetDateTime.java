@@ -27,7 +27,7 @@ import java.util.function.Function;
 /**
  * A {@link Parser} that uses a {@link DateTimeFormatter} to parse a {@link OffsetDateTime}.
  */
-final class DateTimeFormatterParserOffsetDateTime<C extends ParserContext> extends DateTimeFormatterParserOffset<C> {
+final class DateTimeFormatterParserOffsetDateTime<C extends ParserContext> extends DateTimeFormatterParser<C> {
 
     static <C extends ParserContext> DateTimeFormatterParserOffsetDateTime<C> with(final Function<DateTimeContext, DateTimeFormatter> formatter) {
         return new DateTimeFormatterParserOffsetDateTime<>(formatter);
@@ -35,10 +35,6 @@ final class DateTimeFormatterParserOffsetDateTime<C extends ParserContext> exten
 
     private DateTimeFormatterParserOffsetDateTime(final Function<DateTimeContext, DateTimeFormatter> formatter) {
         super(formatter);
-    }
-
-    @Override
-    void date(final DateTimeFormatterParserDateTimeFormatterPatternVisitor visitor) {
     }
 
     @Override

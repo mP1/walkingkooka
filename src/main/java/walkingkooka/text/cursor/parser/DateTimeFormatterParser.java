@@ -52,16 +52,6 @@ abstract class DateTimeFormatterParser<C extends ParserContext> extends Parser2<
         this.formatter = formatter;
     }
 
-    // callbacks from DateTimeFormatterParserDateTimeFormatterPatternVisitor allowing sub classes to report invalid letters.
-
-    abstract void date(final DateTimeFormatterParserDateTimeFormatterPatternVisitor visitor);
-
-    abstract void time(final DateTimeFormatterParserDateTimeFormatterPatternVisitor visitor);
-
-    abstract void timeZone(final DateTimeFormatterParserDateTimeFormatterPatternVisitor visitor);
-
-    abstract void timeZoneOffset(final DateTimeFormatterParserDateTimeFormatterPatternVisitor visitor);
-
     final static int INITIAL_LENGTH_GUESS = 20;
 
     @Override
