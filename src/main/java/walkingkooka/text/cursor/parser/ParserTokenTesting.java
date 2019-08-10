@@ -137,7 +137,7 @@ public interface ParserTokenTesting<T extends ParserToken & HashCodeEqualsDefine
 
     @Test
     default void testText() {
-        assertEquals(this.text(), this.createToken().text());
+        this.textAndCheck(this.createToken(), this.text());
     }
 
     @Test
@@ -218,7 +218,7 @@ public interface ParserTokenTesting<T extends ParserToken & HashCodeEqualsDefine
 
     @Test
     default void testToString() {
-        assertEquals(this.text(), this.createToken().toString());
+        this.toStringAndCheck(this.createToken(), this.text());
     }
 
     default T createToken() {
