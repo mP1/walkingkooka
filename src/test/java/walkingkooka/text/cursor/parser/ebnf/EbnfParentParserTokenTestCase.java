@@ -59,7 +59,7 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
         final List<ParserToken> tokens = this.tokens();
         final String text = this.text();
         final T token = this.createToken(text, tokens);
-        this.checkText(token, text);
+        this.textAndCheck(token, text);
         this.checkValue(token, tokens);
         assertEquals(tokens, token.value(), "tokens");
     }
