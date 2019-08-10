@@ -21,6 +21,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.test.BeanPropertiesTesting;
+import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
@@ -33,7 +35,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -44,7 +45,8 @@ import static org.junit.jupiter.api.Assertions.fail;
  *
  * @param <T>
  */
-public interface ParserTokenTesting<T extends ParserToken> extends BeanPropertiesTesting,
+public interface ParserTokenTesting<T extends ParserToken & HashCodeEqualsDefined> extends BeanPropertiesTesting,
+        HashCodeEqualsDefinedTesting<T>,
         ToStringTesting<T>,
         TypeNameTesting<T> {
 
@@ -217,32 +219,6 @@ public interface ParserTokenTesting<T extends ParserToken> extends BeanPropertie
         assertEquals(this.text(), this.createToken().toString());
     }
 
-    @Test
-    default void testEqualsNull() {
-        assertNotEquals(this.createToken(), null);
-    }
-
-    @Test
-    default void testEqualsObject() {
-        assertNotEquals(this.createToken(), new Object());
-    }
-
-    @Test
-    default void testEqualsSame() {
-        final T token = this.createToken();
-        assertEquals(token, token);
-    }
-
-    @Test
-    default void testEqualsEqual() {
-        assertEquals(this.createToken(), this.createToken());
-    }
-
-    @Test
-    default void testEqualsDifferent() {
-        assertNotEquals(this.createToken(), this.createDifferentToken());
-    }
-
     default T createToken() {
         return this.createToken(this.text());
     }
@@ -257,7 +233,14 @@ public interface ParserTokenTesting<T extends ParserToken> extends BeanPropertie
         assertEquals(text, token.text(), "text of " + token);
     }
 
-    // TypeNameTesting .........................................................................................
+    // HashCodeEqualityTesting..........................................................................................
+
+    @Override
+    default T createObject() {
+        return this.createToken();
+    }
+
+    // TypeNameTesting .................................................................................................
 
     @Override
     default String typeNamePrefix() {
