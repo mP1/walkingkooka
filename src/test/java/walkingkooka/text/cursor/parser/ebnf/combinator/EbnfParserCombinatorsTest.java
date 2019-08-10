@@ -33,7 +33,7 @@ import walkingkooka.text.cursor.parser.BigIntegerParserToken;
 import walkingkooka.text.cursor.parser.FakeParserContext;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
-import walkingkooka.text.cursor.parser.ParserTesting;
+import walkingkooka.text.cursor.parser.ParserTesting2;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokens;
 import walkingkooka.text.cursor.parser.Parsers;
@@ -66,7 +66,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public final class EbnfParserCombinatorsTest implements ParserTesting<Parser<FakeParserContext>, FakeParserContext>,
+public final class EbnfParserCombinatorsTest implements ParserTesting2<Parser<FakeParserContext>, FakeParserContext>,
         PublicStaticHelperTesting<EbnfParserCombinators>,
         ResourceTesting {
 

@@ -28,7 +28,7 @@ import walkingkooka.visit.VisitorPrettyPrinter;
 import java.util.Optional;
 
 /**
- * Used by {@link ParserTesting} to create an indented tree like value of {@link ParserToken tokens} in a tree.
+ * Used by {@link ParserTesting2} to create an indented tree like value of {@link ParserToken tokens} in a tree.
  */
 final class ParserTestingPrettyDumper {
 

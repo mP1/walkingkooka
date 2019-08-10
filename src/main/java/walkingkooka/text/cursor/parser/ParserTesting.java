@@ -40,101 +40,50 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Mixin that includes numerous helpers to assist parsing and verifying the outcome for success and failures.
  */
-public interface ParserTesting<P extends Parser<C>,
-        C extends ParserContext>
-        extends Testing {
+public interface ParserTesting extends Testing {
 
-    /**
-     * Provides or creates the {@link Parser} being tested.
-     */
-    P createParser();
+    // parseAndCheck....................................................................................................
 
-    /**
-     * Provides the required {@link ParserContext} used by the {@link Parser}
-     */
-    C createContext();
-
-    default TextCursor parseAndCheck(final String cursorText,
-                                     final ParserToken token,
-                                     final String text) {
-        return this.parseAndCheck(cursorText, token, text, "");
-    }
-
-    default TextCursor parseAndCheck(final String cursorText,
-                                     final ParserToken token,
-                                     final String text,
-                                     final String textAfter) {
-        return this.parseAndCheck(TextCursors.charSequence(cursorText), token, text, textAfter);
-    }
-
-    default TextCursor parseAndCheck(final TextCursor cursor,
-                                     final ParserToken token,
-                                     final String text) {
-        return this.parseAndCheck(cursor, token, text, "");
-    }
-
-    default TextCursor parseAndCheck(final TextCursor cursor,
-                                     final ParserToken token,
-                                     final String text,
-                                     final String textAfter) {
-        return this.parseAndCheck(this.createParser(), this.createContext(), cursor, token, text, textAfter);
-    }
-
-    default TextCursor parseAndCheck(final Parser<C> parser,
-                                     final String cursorText,
-                                     final ParserToken token,
-                                     final String text) {
-        return this.parseAndCheck(parser, cursorText, token, text, "");
-    }
-
-    default TextCursor parseAndCheck(final Parser<C> parser,
-                                     final String cursorText,
-                                     final ParserToken token,
-                                     final String text,
-                                     final String textAfter) {
-        return this.parseAndCheck(parser, this.createContext(), cursorText, token, text, textAfter);
-    }
-
-    default TextCursor parseAndCheck(final Parser<C> parser,
-                                     final C context,
-                                     final String cursorText,
-                                     final ParserToken token,
-                                     final String text) {
+    default <CC extends ParserContext> TextCursor parseAndCheck(final Parser<CC> parser,
+                                                                final CC context,
+                                                                final String cursorText,
+                                                                final ParserToken token,
+                                                                final String text) {
         return this.parseAndCheck(parser, context, cursorText, token, text, "");
     }
 
-    default TextCursor parseAndCheck(final Parser<C> parser,
-                                     final C context,
-                                     final String cursorText,
-                                     final ParserToken token,
-                                     final String text,
-                                     final String textAfter) {
+    default <CC extends ParserContext> TextCursor parseAndCheck(final Parser<CC> parser,
+                                                                final CC context,
+                                                                final String cursorText,
+                                                                final ParserToken token,
+                                                                final String text,
+                                                                final String textAfter) {
         return this.parseAndCheck(parser, context, TextCursors.charSequence(cursorText), token, text, textAfter);
     }
 
-    default TextCursor parseAndCheck(final Parser<C> parser,
-                                     final C context,
-                                     final TextCursor cursor,
-                                     final ParserToken token,
-                                     final String text) {
+    default <CC extends ParserContext> TextCursor parseAndCheck(final Parser<CC> parser,
+                                                                final CC context,
+                                                                final TextCursor cursor,
+                                                                final ParserToken token,
+                                                                final String text) {
         return this.parseAndCheck(parser, context, cursor, Optional.of(token), text, "");
     }
 
-    default TextCursor parseAndCheck(final Parser<C> parser,
-                                     final C context,
-                                     final TextCursor cursor,
-                                     final ParserToken token,
-                                     final String text,
-                                     final String textAfter) {
+    default <CC extends ParserContext> TextCursor parseAndCheck(final Parser<CC> parser,
+                                                                final CC context,
+                                                                final TextCursor cursor,
+                                                                final ParserToken token,
+                                                                final String text,
+                                                                final String textAfter) {
         return this.parseAndCheck(parser, context, cursor, Optional.of(token), text, textAfter);
     }
 
-    default TextCursor parseAndCheck(final Parser<C> parser,
-                                     final C context,
-                                     final TextCursor cursor,
-                                     final Optional<ParserToken> token,
-                                     final String text,
-                                     final String textAfter) {
+    default <CC extends ParserContext> TextCursor parseAndCheck(final Parser<CC> parser,
+                                                                final CC context,
+                                                                final TextCursor cursor,
+                                                                final Optional<ParserToken> token,
+                                                                final String text,
+                                                                final String textAfter) {
         Objects.requireNonNull(token, "token");
         Objects.requireNonNull(text, "text");
 
@@ -167,29 +116,17 @@ public interface ParserTesting<P extends Parser<C>,
     }
 
     String parserTokenTypeNamePrefix();
+    // parseFailAndCheck................................................................................................
 
-    default TextCursor parseFailAndCheck(final String cursorText) {
-        return this.parseFailAndCheck(TextCursors.charSequence(cursorText));
-    }
-
-    default TextCursor parseFailAndCheck(final TextCursor cursor) {
-        return this.parseFailAndCheck(this.createParser(), this.createContext(), cursor);
-    }
-
-    default TextCursor parseFailAndCheck(final Parser<C> parser,
-                                         final String cursorText) {
-        return this.parseFailAndCheck(parser, this.createContext(), cursorText);
-    }
-
-    default TextCursor parseFailAndCheck(final Parser<C> parser,
-                                         final C context,
-                                         final String cursorText) {
+    default <CC extends ParserContext> TextCursor parseFailAndCheck(final Parser<CC> parser,
+                                                                    final CC context,
+                                                                    final String cursorText) {
         return this.parseFailAndCheck(parser, context, TextCursors.charSequence(cursorText));
     }
 
-    default TextCursor parseFailAndCheck(final Parser<C> parser,
-                                         final C context,
-                                         final TextCursor cursor) {
+    default <CC extends ParserContext> TextCursor parseFailAndCheck(final Parser<CC> parser,
+                                                                    final CC context,
+                                                                    final TextCursor cursor) {
         final TextCursorSavePoint before = cursor.save();
         final Optional<ParserToken> result = this.parse(parser, cursor, context);
         assertEquals(Optional.<ParserToken>empty(),
@@ -198,82 +135,23 @@ public interface ParserTesting<P extends Parser<C>,
         return cursor;
     }
 
-    default void parseThrows(final String cursorText) {
-        this.parseThrows(cursorText, "");
-    }
+    // parseThrowsEndOfText.............................................................................................
 
-    default void parseThrows(final String cursorText,
-                             final char c,
-                             final String column,
-                             final int row) {
-        this.parseThrows(cursorText, c, column.length(), row);
-    }
-
-    default void parseThrows(final String cursorText,
-                             final char c,
-                             final int column,
-                             final int row) {
-        // Message format from BasicParserReporter
-        this.parseThrows(cursorText, "Unrecognized character " + CharSequences.quoteAndEscape(c) + " at (" + column + "," + row + ")");
-    }
-
-    default void parseThrowsEndOfText(final String cursorText) {
-        this.parseThrowsEndOfText(cursorText, cursorText.length() + 1, 1);
-    }
-
-    default void parseThrowsEndOfText(final String cursorText,
-                                      final int column,
-                                      final int row) {
-        // Message format from BasicParserReporter
-        this.parseThrows(cursorText, endOfText(column, row));
-    }
-
-    default void parseThrowsEndOfText(final Parser<C> parser,
-                                      final String cursorText,
-                                      final int column,
-                                      final int row) {
-        this.parseThrowsEndOfText(parser, this.createContext(), cursorText, column, row);
-    }
-
-    default void parseThrowsEndOfText(final Parser<C> parser,
-                                      final C context,
-                                      final String cursorText,
-                                      final int column,
-                                      final int row) {
+    default <CC extends ParserContext> void parseThrowsEndOfText(final Parser<CC> parser,
+                                                                 final CC context,
+                                                                 final String cursorText,
+                                                                 final int column,
+                                                                 final int row) {
         final TextCursor cursor = TextCursors.charSequence(cursorText);
         cursor.end();
 
         this.parseThrows(parser, context, cursor, endOfText(column, row));
     }
 
-    default String endOfText(final int column, final int row) {
-        return "End of text at (" + column + "," + row + ")";
-    }
-
-    default void parseThrows(final String cursorText, final String messagePart) {
-        this.parseThrows(TextCursors.charSequence(cursorText), messagePart);
-    }
-
-    default void parseThrows(final TextCursor cursor, final String messagePart) {
-        this.parseThrows(this.createParser(), this.createContext(), cursor, messagePart);
-    }
-
-    default void parseThrows(final Parser<C> parser, final String cursor) {
-        this.parseThrows(parser, cursor, "");
-    }
-
-    default void parseThrows(final Parser<C> parser, final String cursor, final String messagePart) {
-        this.parseThrows(parser, TextCursors.charSequence(cursor), messagePart);
-    }
-
-    default void parseThrows(final Parser<C> parser, final TextCursor cursor, final String messagePart) {
-        this.parseThrows(parser, this.createContext(), cursor, messagePart);
-    }
-
-    default void parseThrows(final Parser<C> parser,
-                             final C context,
-                             final TextCursor cursor,
-                             final String messagePart) {
+    default <CC extends ParserContext> void parseThrows(final Parser<CC> parser,
+                                                        final CC context,
+                                                        final TextCursor cursor,
+                                                        final String messagePart) {
         final ParserException expected = assertThrows(ParserException.class, () -> {
             this.parse(parser, cursor, context);
         });
@@ -282,7 +160,11 @@ public interface ParserTesting<P extends Parser<C>,
         assertEquals(true, message.contains(messagePart), () -> "Message: " + message + " missing " + messagePart);
     }
 
-    default Optional<ParserToken> parse(final Parser<C> parser, final TextCursor cursor, final C context) {
+    // parse............................................................................................................
+
+    default <CC extends ParserContext> Optional<ParserToken> parse(final Parser<CC> parser,
+                                                                   final TextCursor cursor,
+                                                                   final CC context) {
         Objects.requireNonNull(parser, "parser");
         Objects.requireNonNull(context, "context");
         Objects.requireNonNull(cursor, "cursor");
@@ -298,5 +180,9 @@ public interface ParserTesting<P extends Parser<C>,
 
     default DecimalNumberContext decimalNumberContext() {
         return DecimalNumberContexts.american(MathContext.DECIMAL32);
+    }
+
+    default String endOfText(final int column, final int row) {
+        return "End of text at (" + column + "," + row + ")";
     }
 }
