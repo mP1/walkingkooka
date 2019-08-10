@@ -52,7 +52,7 @@ public abstract class JsonNodeParentParserTokenTestCase<T extends JsonNodeParent
         final List<ParserToken> tokens = this.tokens();
         final String text = this.text();
         final T token = this.createToken(text, tokens);
-        this.checkText(token, text);
+        this.textAndCheck(token, text);
         assertEquals(tokens, token.value(), "tokens");
         assertEquals(tokens, token.value(), "tokens");
     }

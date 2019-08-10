@@ -26,6 +26,7 @@ import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.HasTextTesting;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchSequenceNode;
 import walkingkooka.visit.Visiting;
@@ -47,6 +48,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  */
 public interface ParserTokenTesting<T extends ParserToken & HashCodeEqualsDefined> extends BeanPropertiesTesting,
         HashCodeEqualsDefinedTesting<T>,
+        HasTextTesting,
         ToStringTesting<T>,
         TypeNameTesting<T> {
 
@@ -228,10 +230,6 @@ public interface ParserTokenTesting<T extends ParserToken & HashCodeEqualsDefine
     T createToken(final String text);
 
     T createDifferentToken();
-
-    default void checkText(final ParserToken token, final String text) {
-        assertEquals(text, token.text(), "text of " + token);
-    }
 
     // HashCodeEqualityTesting..........................................................................................
 
