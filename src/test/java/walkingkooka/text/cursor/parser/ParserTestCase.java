@@ -73,11 +73,6 @@ public abstract class ParserTestCase<P extends Parser<ParserContext>> implements
         return this.parseFailAndCheck(parser, this.createContext(), cursor);
     }
 
-    @Override
-    public String parserTokenTypeNamePrefix() {
-        return "";
-    }
-
     // TypeNameTesting ........................................................................
 
     @Override

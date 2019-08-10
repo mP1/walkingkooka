@@ -25,7 +25,6 @@ import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserTesting2;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
@@ -424,11 +423,6 @@ public final class JsonNodeParsersTest implements PublicStaticHelperTesting<Json
 
     private static String text(final JsonNodeParserToken... tokens) {
         return ParserToken.text(Lists.of(tokens));
-    }
-
-    @Override
-    public String parserTokenTypeNamePrefix() {
-        return JsonNode.class.getSimpleName();
     }
 
     // PublicStaticHelper...............................................................................................

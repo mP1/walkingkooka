@@ -26,7 +26,6 @@ import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserTesting2;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.visit.Visiting;
 
 import java.math.BigDecimal;
@@ -2196,8 +2195,4 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
         return ParserToken.text(Lists.of(tokens));
     }
 
-    @Override
-    public String parserTokenTypeNamePrefix() {
-        return NodeSelector.class.getSimpleName();
-    }
 }

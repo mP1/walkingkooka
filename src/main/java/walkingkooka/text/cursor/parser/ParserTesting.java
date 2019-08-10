@@ -17,7 +17,6 @@
 
 package walkingkooka.text.cursor.parser;
 
-import org.opentest4j.AssertionFailedError;
 import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContext;
@@ -95,27 +94,23 @@ public interface ParserTesting extends Testing {
         final TextCursorSavePoint after = cursor.save();
         cursor.end();
 
-        CharSequence all = consumed;
-        if (all.length() == 0) {
-            all = after.textBetween();
-        }
-
         final String textRemaining = after.textBetween().toString();
-        if (!token.toString().equals(result.toString())) {
-            throw new AssertionFailedError("Incorrect result returned by parser: " + parser + "\ntext:\n" + CharSequences.quoteAndEscape(all) + "\nunconsumed text:\n" + textRemaining,
-                    ParserTestingPrettyDumper.dump(token, this.parserTokenTypeNamePrefix()),
-                    ParserTestingPrettyDumper.dump(result, this.parserTokenTypeNamePrefix()));
+        if (false == token.toString().equals(result.toString())) {
+            assertEquals(ParserTestingPrettyDumper.dump(token),
+                    ParserTestingPrettyDumper.dump(result),
+                    () -> "text:\n" + CharSequences.quoteAndEscape(consumed.length() == 0 ?
+                            after.textBetween() :
+                            consumed) + "\nunconsumed text:\n" + textRemaining);
         }
 
         assertEquals(text, consumed, "incorrect consumed text");
-        assertEquals(text, result.isPresent() ? result.get().text() : "", "token consume text is incorrect");
+        assertEquals(text, result.map(ParserToken::text).orElse(""), "token consume text is incorrect");
         assertEquals(textAfter, textRemaining, "Incorrect text after match");
 
         after.restore();
         return cursor;
     }
 
-    String parserTokenTypeNamePrefix();
     // parseFailAndCheck................................................................................................
 
     default <CC extends ParserContext> TextCursor parseFailAndCheck(final Parser<CC> parser,
