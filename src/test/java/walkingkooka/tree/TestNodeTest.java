@@ -41,7 +41,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestNodeTest implements ClassTesting2<TestNode>,
-        NodeTesting2<TestNode, StringName, StringName, Object>,
+        ParentNodeTesting<TestNode, StringName, StringName, Object>,
         ResourceTesting {
 
     @BeforeEach
@@ -144,7 +144,7 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
 
     @Test
     public void testParentWithoutRoot() {
-        this.parentWithoutAndCheck(TestNode.with("root"));
+        this.parentMissingCheck(TestNode.with("root"));
     }
 
     @Test
@@ -153,7 +153,7 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
         final TestNode child2 = TestNode.with("child2");
         final TestNode root = TestNode.with("root", child1, child2);
 
-        this.parentWithoutAndCheck(root);
+        this.parentMissingCheck(root);
     }
 
     @Test
@@ -165,7 +165,7 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
 
         TestNode.clear();
 
-        this.parentWithoutAndCheck(parent.child(0), TestNode.with("parent", child2));
+        this.parentMissingCheck(parent.child(0), TestNode.with("parent", child2));
     }
 
     @Test
@@ -318,7 +318,7 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
                         .setChild(1, child5)
                         .root());
 
-        this.checkWithoutParent(child5);
+        this.parentMissingCheck(child5);
     }
 
     @Test
@@ -476,7 +476,7 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
 
     private void parentWithoutAndCheck2(final TestNode... nodes) {
         Arrays.stream(nodes)
-                .forEach(this::parentWithoutAndCheck);
+                .forEach(this::parentMissingCheck);
     }
 
     @Override

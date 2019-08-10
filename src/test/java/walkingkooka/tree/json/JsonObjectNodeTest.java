@@ -159,7 +159,7 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         this.getAndCheck(object, key1, VALUE1);
 
         // verify originals were not mutated.
-        this.checkWithoutParent(value1);
+        this.parentMissingCheck(value1);
 
         this.childCountCheck(empty, 0);
     }
@@ -223,8 +223,8 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         this.getAndCheck(object, key2, VALUE2);
 
         // verify originals were not mutated.
-        this.checkWithoutParent(value1);
-        this.checkWithoutParent(value2);
+        this.parentMissingCheck(value1);
+        this.parentMissingCheck(value2);
 
         this.childCountCheck(empty, 0);
     }
@@ -250,8 +250,8 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         this.getAndCheck(object, key2, VALUE2);
 
         // verify originals were not mutated.
-        this.checkWithoutParent(value1);
-        this.checkWithoutParent(value2);
+        this.parentMissingCheck(value1);
+        this.parentMissingCheck(value2);
 
         this.childCountCheck(empty, 0);
     }
@@ -277,8 +277,8 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         this.getAndCheck(object, key2, VALUE3);
 
         // verify originals were not mutated.
-        this.checkWithoutParent(value1);
-        this.checkWithoutParent(value2);
+        this.parentMissingCheck(value1);
+        this.parentMissingCheck(value2);
 
         this.childCountCheck(empty, 0);
     }
@@ -310,10 +310,10 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         this.getAndCheck(object, key3, VALUE4);
 
         // verify originals were not mutated.
-        this.checkWithoutParent(value1);
-        this.checkWithoutParent(value2);
-        this.checkWithoutParent(value3);
-        this.checkWithoutParent(value4);
+        this.parentMissingCheck(value1);
+        this.parentMissingCheck(value2);
+        this.parentMissingCheck(value3);
+        this.parentMissingCheck(value4);
 
         this.childCountCheck(empty, 0);
     }
@@ -381,8 +381,8 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         this.getAndCheck(object, key2, VALUE2);
 
         // verify originals were not mutated.
-        this.checkWithoutParent(value1);
-        this.checkWithoutParent(value2);
+        this.parentMissingCheck(value1);
+        this.parentMissingCheck(value2);
 
         this.childCountCheck(empty, 0);
     }
@@ -405,8 +405,8 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         this.childCountCheck(object, 0);
 
         // verify originals were not mutated.
-        this.checkWithoutParent(value1);
-        this.checkWithoutParent(value2);
+        this.parentMissingCheck(value1);
+        this.parentMissingCheck(value2);
 
         this.childCountCheck(empty, 0);
     }

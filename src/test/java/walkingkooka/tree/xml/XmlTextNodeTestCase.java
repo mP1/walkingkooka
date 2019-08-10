@@ -81,7 +81,7 @@ public abstract class XmlTextNodeTestCase<N extends XmlTextNode> extends XmlLeaf
 
         this.checkText(different, differentText);
 
-        this.checkWithParent(node);
+        this.parentPresentCheck(node);
     }
 
     // equals..........................................................................................................

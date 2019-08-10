@@ -74,7 +74,7 @@ public abstract class XmlNodeTestCase<N extends XmlNode> implements ClassTesting
 
     @Test
     public void testParentWithout() {
-        this.checkWithoutParent(this.createNode());
+        this.parentMissingCheck(this.createNode());
     }
 
     @Test
@@ -87,7 +87,7 @@ public abstract class XmlNodeTestCase<N extends XmlNode> implements ClassTesting
         parent.appendChild(child.node);
         child.parent = null;
 
-        this.checkWithParent(child);
+        this.parentPresentCheck(child);
     }
 
     @Override

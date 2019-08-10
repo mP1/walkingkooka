@@ -53,7 +53,7 @@ public interface TraversableTesting<T extends Traversable<T> & HashCodeEqualsDef
         final List<T> children = parent.children();
         assertNotEquals(Lists.empty(), children, "expected at least 1 child");
 
-        this.checkWithoutParent(this.createTraversable());
+        this.parentMissingCheck(this.createTraversable());
     }
 
     @Test
@@ -100,11 +100,6 @@ public interface TraversableTesting<T extends Traversable<T> & HashCodeEqualsDef
 
     T createTraversable();
 
-    @Override
-    default T createObject() {
-        return this.createTraversable();
-    }
-
     default <TT> void checkCached(final T traversable,
                                   final String property,
                                   final TT value,
@@ -112,12 +107,12 @@ public interface TraversableTesting<T extends Traversable<T> & HashCodeEqualsDef
         assertSame(value, value2, () -> traversable + " did not cache " + property);
     }
 
-    default void checkWithoutParent(final T traversable) {
+    default void parentMissingCheck(final T traversable) {
         assertEquals(Optional.empty(), traversable.parent(), "parent");
         assertEquals(true, traversable.isRoot(), "root");
     }
 
-    default void checkWithParent(final T traversable) {
+    default void parentPresentCheck(final T traversable) {
         assertNotEquals(Optional.empty(), traversable.parent(), "parent");
         assertEquals(false, traversable.isRoot(), "root");
     }
@@ -139,7 +134,6 @@ public interface TraversableTesting<T extends Traversable<T> & HashCodeEqualsDef
     default void childrenParentCheck(final T parent) {
         int i = 0;
         for (T child : parent.children()) {
-            final int j = i;
             assertSame(parent, child.parentOrFail(), () -> "parent of child[" + i + "]=" + child);
         }
     }
@@ -151,5 +145,12 @@ public interface TraversableTesting<T extends Traversable<T> & HashCodeEqualsDef
     default void childCountCheck(final T parent, final int count) {
         assertEquals(parent.children().size(), count, "children of parent");
         this.childrenParentCheck(parent);
+    }
+
+    // HashcodeAndEqualityTesting.......................................................................................
+
+    @Override
+    default T createObject() {
+        return this.createTraversable();
     }
 }

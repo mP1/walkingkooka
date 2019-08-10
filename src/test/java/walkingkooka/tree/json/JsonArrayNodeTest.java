@@ -84,8 +84,8 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
         }
 
         // verify originals were not mutated.
-        this.checkWithoutParent(first);
-        this.checkWithoutParent(second);
+        this.parentMissingCheck(first);
+        this.parentMissingCheck(second);
     }
 
     @Test
@@ -151,9 +151,9 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
         assertEquals(VALUE2, JsonStringNode.class.cast(different.children().get(1)).value(), "child[1].value");
 
         // verify originals were not mutated.
-        this.checkWithoutParent(value1);
-        this.checkWithoutParent(value2);
-        this.checkWithoutParent(differentChild);
+        this.parentMissingCheck(value1);
+        this.parentMissingCheck(value2);
+        this.parentMissingCheck(differentChild);
     }
 
     @Test
@@ -175,9 +175,9 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
         assertEquals(differentValue, JsonStringNode.class.cast(different.children().get(1)).value(), "child[1].value");
 
         // verify originals were not mutated.
-        this.checkWithoutParent(value1);
-        this.checkWithoutParent(value2);
-        this.checkWithoutParent(differentChild);
+        this.parentMissingCheck(value1);
+        this.parentMissingCheck(value2);
+        this.parentMissingCheck(differentChild);
     }
 
     @Test
@@ -254,8 +254,8 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
         assertEquals(VALUE2, JsonStringNode.class.cast(removed.children().get(0)).value(), "child[0].value");
 
         // verify originals were not mutated.
-        this.checkWithoutParent(first);
-        this.checkWithoutParent(second);
+        this.parentMissingCheck(first);
+        this.parentMissingCheck(second);
     }
 
     @Test
@@ -1136,7 +1136,7 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
         return JsonArrayNode.class;
     }
 
-    // NodeTesting2................................................................................................
+    // ParentNodeTesting................................................................................................
 
     @Override
     public JsonArrayNode appendChildAndCheck(final JsonNode parent,
@@ -1151,7 +1151,7 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
         assertEquals(JsonNodeName.index(lastIndex), children.get(lastIndex).name(), "last child must be the added child");
 
         this.childrenParentCheck(newParent);
-        this.checkWithoutParent(child);
+        this.parentMissingCheck(child);
 
         return newParent;
     }

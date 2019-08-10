@@ -35,7 +35,7 @@ public abstract class ExpressionLeafNodeTestCase<N extends ExpressionLeafNode<V>
     public final void testCreate() {
         final N node = this.createExpressionNode();
         assertEquals(Lists.empty(), node.children(), "children");
-        this.checkWithoutParent(node);
+        this.parentMissingCheck(node);
         this.checkValue(node, this.value());
     }
 
@@ -53,7 +53,7 @@ public abstract class ExpressionLeafNodeTestCase<N extends ExpressionLeafNode<V>
         final N different = node.setValue0(differentValue).cast();
         assertNotSame(node, different);
         this.checkValue(different, differentValue);
-        this.checkWithoutParent(different);
+        this.parentMissingCheck(different);
 
         this.checkValue(node, this.value());
     }
@@ -66,7 +66,7 @@ public abstract class ExpressionLeafNodeTestCase<N extends ExpressionLeafNode<V>
     @Test
     @Override
     public void testParentWithoutChild() {
-        this.parentWithoutAndCheck(this.createNode());
+        this.parentMissingCheck(this.createNode());
     }
 
     @Test
