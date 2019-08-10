@@ -28,24 +28,22 @@ import walkingkooka.visit.VisitorPrettyPrinter;
 import java.util.Optional;
 
 /**
- * Used by {@link ParserTesting2} to create an indented tree like value of {@link ParserToken tokens} in a tree.
+ * Used by {@link ParserTesting} to create an indented tree like value of {@link ParserToken tokens} in a tree.
  */
 final class ParserTestingPrettyDumper {
 
-    static String dump(final Optional<ParserToken> token,
-                       final String prefix) {
-        return token.map(t -> dump0(t, prefix))
+    static String dump(final Optional<ParserToken> token) {
+        return token.map(t -> dump0(t))
                 .orElse(null);
     }
 
-    private static String dump0(final ParserToken token,
-                                final String prefix) {
+    private static String dump0(final ParserToken token) {
         final StringBuilder b = new StringBuilder();
 
         try (final IndentingPrinter printer = IndentingPrinters.printer(Printers.stringBuilder(b, LineEnding.NL))) {
             dump(token, VisitorPrettyPrinter.with(printer,
                     Indentation.with("  "),
-                    (t) -> VisitorPrettyPrinter.computeFromClassSimpleName(t, prefix, ParserToken.class.getSimpleName())));
+                    (t) -> VisitorPrettyPrinter.computeFromClassSimpleName(t, "", ParserToken.class.getSimpleName())));
             printer.flush();
         }
 

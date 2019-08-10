@@ -54,7 +54,7 @@ public final class ParserTestingPrettyDumperTest implements ClassTesting2<Parser
     private void dumpAndCheck(final ParserToken token,
                               final String expected) {
         assertEquals(expected,
-                ParserTestingPrettyDumper.dump(Optional.of(token), ""),
+                ParserTestingPrettyDumper.dump(Optional.of(token)),
                 () -> "" + token);
     }
 

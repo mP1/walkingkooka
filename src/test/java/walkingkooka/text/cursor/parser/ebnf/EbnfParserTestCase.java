@@ -165,8 +165,4 @@ public abstract class EbnfParserTestCase<T extends EbnfParserToken> implements P
         return symbol(CLOSE_REPEAT);
     }
 
-    @Override
-    public final String parserTokenTypeNamePrefix() {
-        return "Ebnf";
-    }
 }
