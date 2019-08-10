@@ -47,7 +47,7 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         AVALUE>
         extends
         NodeSelectorTesting<N, NAME, ANAME, AVALUE>,
-        TraversableTesting<N>,
+        TraversableTesting2<N>,
         VisitableTesting<N> {
 
     @Test

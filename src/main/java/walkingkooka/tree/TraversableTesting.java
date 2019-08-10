@@ -17,15 +17,6 @@
 
 package walkingkooka.tree;
 
-import org.junit.jupiter.api.Test;
-import walkingkooka.collect.list.Lists;
-import walkingkooka.test.BeanPropertiesTesting;
-import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
-import walkingkooka.test.ToStringTesting;
-import walkingkooka.test.TypeNameTesting;
-
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -35,84 +26,14 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 /**
  * A mixin interface that contains tests and helpers to assist testing of {@link Traversable} implementations..
  */
-public interface TraversableTesting<T extends Traversable<T> & HashCodeEqualsDefined>
-        extends BeanPropertiesTesting,
-        HashCodeEqualsDefinedTesting<T>,
-        ToStringTesting<T>,
-        TypeNameTesting<T> {
+public interface TraversableTesting {
 
-    @Test
-    default void testParentCached() {
-        final T node = this.createTraversable();
-        this.checkCached(node, "parent", node.parent(), node.parent());
-    }
-
-    @Test
-    default void testParentWithoutChild() {
-        final T parent = this.createTraversable();
-        final List<T> children = parent.children();
-        assertNotEquals(Lists.empty(), children, "expected at least 1 child");
-
-        this.parentMissingCheck(this.createTraversable());
-    }
-
-    @Test
-    default void testRootWithoutParent() {
-        final T node = this.createTraversable();
-        assertEquals(Optional.empty(), node.parent(), "node must have no parent");
-        assertSame(node, node.root());
-    }
-
-    @Test
-    default void testChildrenIndices() {
-        this.childrenCheck(this.createTraversable());
-    }
-
-    @Test
-    default void testFirstChild() {
-        final T node = this.createTraversable();
-        final List<T> children = node.children();
-        final Optional<T> first = node.firstChild();
-        if (children.isEmpty()) {
-            assertEquals(Optional.empty(), first, "childless node must not have a first child.");
-        } else {
-            assertEquals(Optional.of(children.get(0)), first, "node with children must have a first child.");
-        }
-    }
-
-    @Test
-    default void testLastChild() {
-        final T node = this.createTraversable();
-        final List<T> children = node.children();
-        final Optional<T> last = node.lastChild();
-        if (children.isEmpty()) {
-            assertEquals(Optional.empty(), last, "childless node must not have a last child.");
-        } else {
-            assertEquals(Optional.of(children.get(children.size() - 1)), last, "node with children must have a last child.");
-        }
-    }
-
-    @Test
-    default void testPropertiesNeverReturnNull() throws Exception {
-        this.allPropertiesNeverReturnNullCheck(this.createTraversable(),
-                (m) -> m.getName().equals("parentOrFail"));
-    }
-
-    T createTraversable();
-
-    default <TT> void checkCached(final T traversable,
-                                  final String property,
-                                  final TT value,
-                                  final TT value2) {
-        assertSame(value, value2, () -> traversable + " did not cache " + property);
-    }
-
-    default void parentMissingCheck(final T traversable) {
+    default void parentMissingCheck(final Traversable<?> traversable) {
         assertEquals(Optional.empty(), traversable.parent(), "parent");
         assertEquals(true, traversable.isRoot(), "root");
     }
 
-    default void parentPresentCheck(final T traversable) {
+    default void parentPresentCheck(final Traversable<?> traversable) {
         assertNotEquals(Optional.empty(), traversable.parent(), "parent");
         assertEquals(false, traversable.isRoot(), "root");
     }
@@ -131,26 +52,19 @@ public interface TraversableTesting<T extends Traversable<T> & HashCodeEqualsDef
         }
     }
 
-    default void childrenParentCheck(final T parent) {
+    default void childrenParentCheck(final Traversable<?> parent) {
         int i = 0;
-        for (T child : parent.children()) {
+        for (Traversable<?> child : parent.children()) {
             assertSame(parent, child.parentOrFail(), () -> "parent of child[" + i + "]=" + child);
         }
     }
 
-    default void childCountCheck(final T parent, final T... children) {
+    default <TT extends Traversable<TT>> void childCountCheck(final TT parent, final TT... children) {
         this.childCountCheck(parent, children.length);
     }
 
-    default void childCountCheck(final T parent, final int count) {
+    default void childCountCheck(final Traversable<?> parent, final int count) {
         assertEquals(parent.children().size(), count, "children of parent");
         this.childrenParentCheck(parent);
-    }
-
-    // HashcodeAndEqualityTesting.......................................................................................
-
-    @Override
-    default T createObject() {
-        return this.createTraversable();
     }
 }
