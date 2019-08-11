@@ -35,9 +35,6 @@ final class LocaleDateTimeContext implements DateTimeContext {
     static LocaleDateTimeContext with(final Locale locale,
                                       final int twoDigitYear) {
         Objects.requireNonNull(locale, "locale");
-        if (twoDigitYear < 0 || twoDigitYear >= 100) {
-            throw new IllegalArgumentException("Invalid twoDigitYear " + twoDigitYear + " not between 0 and 100");
-        }
 
         return new LocaleDateTimeContext(locale, twoDigitYear);
     }
