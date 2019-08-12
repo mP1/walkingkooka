@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.datetime.DateTimeContext;
 
 import java.time.format.DateTimeFormatter;
+import java.time.format.DecimalStyle;
 import java.util.Locale;
 import java.util.function.Function;
 
@@ -106,7 +107,25 @@ public abstract class DateTimeFormatterConverterTestCase2<C extends FixedSourceT
     }
 
     final ConverterContext createContext(final Locale locale, final int twoDigitYears) {
+        final DecimalStyle decimalStyle = DecimalStyle.of(locale);
+
         return new FakeConverterContext() {
+
+            @Override
+            public char decimalPoint() {
+                return decimalStyle.getDecimalSeparator();
+            }
+
+            @Override
+            public char minusSign() {
+                return decimalStyle.getNegativeSign();
+            }
+
+            @Override
+            public char plusSign() {
+                return decimalStyle.getPositiveSign();
+            }
+
             @Override
             public Locale locale() {
                 return locale;
