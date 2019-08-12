@@ -21,6 +21,7 @@ import walkingkooka.datetime.DateTimeContext;
 
 import java.time.DateTimeException;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DecimalStyle;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.function.Function;
@@ -61,7 +62,11 @@ abstract class DateTimeFormatterConverter<S, T> extends FixedSourceTypeTargetTyp
                     dateTimeFormatter);
         } else {
             if (false == cache.locale.equals(locale) || cache.twoDigitYear != twoDigitYear) {
-                dateTimeFormatter = this.formatter.apply(context);
+                dateTimeFormatter = this.formatter.apply(context)
+                        .withDecimalStyle(DecimalStyle.of(locale)
+                                .withPositiveSign(context.plusSign())
+                                .withNegativeSign(context.minusSign())
+                                .withDecimalSeparator(context.decimalPoint()));
                 cache = DateTimeFormatterConverterCache.with(locale,
                         twoDigitYear,
                         dateTimeFormatter);
