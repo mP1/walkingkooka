@@ -379,7 +379,7 @@ public final class BigDecimalParserTest extends Parser2TestCase<BigDecimalParser
     }
 
     @Test
-    public void testDifferentDecimalPoint() {
+    public void testDifferentDecimalSeparator() {
         this.parseAndCheck3("1D25", BigDecimal.valueOf(1.25));
     }
 

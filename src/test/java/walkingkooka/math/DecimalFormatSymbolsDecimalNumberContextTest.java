@@ -82,7 +82,7 @@ public final class DecimalFormatSymbolsDecimalNumberContextTest implements Class
         final DecimalFormatSymbolsDecimalNumberContext context = this.createContext();
 
         this.checkCurrencySymbol(context, "¤");
-        this.checkDecimalPoint(context, '.');
+        this.checkDecimalSeparator(context, '.');
         this.checkExponentSymbol(context, 'E');
         this.checkGroupingSeparator(context, ',');
         this.checkNegativeSign(context, '-');
@@ -117,7 +117,7 @@ public final class DecimalFormatSymbolsDecimalNumberContextTest implements Class
     }
 
     @Override
-    public char decimalPoint() {
+    public char decimalSeparator() {
         return '.';
     }
 

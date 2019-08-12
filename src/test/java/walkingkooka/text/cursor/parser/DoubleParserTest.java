@@ -440,7 +440,7 @@ public final class DoubleParserTest extends Parser2TestCase<DoubleParser<ParserC
     }
 
     @Test
-    public void testDifferentDecimalPoint() {
+    public void testDifferentDecimalSeparator() {
         this.parseAndCheck3("1!25", 1.25);
     }
 
@@ -465,7 +465,7 @@ public final class DoubleParserTest extends Parser2TestCase<DoubleParser<ParserC
                         DateTimeContexts.fake(),
                         new FakeDecimalNumberContext() {
                             @Override
-                            public char decimalPoint() {
+                            public char decimalSeparator() {
                                 return '!';
                             }
 

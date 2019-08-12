@@ -102,7 +102,7 @@ public final class BasicParserContextTest implements ClassTesting2<BasicParserCo
     }
 
     @Override
-    public char decimalPoint() {
+    public char decimalSeparator() {
         return DECIMAL;
     }
 

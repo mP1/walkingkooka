@@ -30,8 +30,8 @@ public interface DecimalNumberContextTesting extends HasLocaleTesting,
         assertEquals(currencySymbol, context.currencySymbol(), "currencySymbol");
     }
 
-    default void checkDecimalPoint(final DecimalNumberContext context, final char decimalPoint) {
-        assertEquals(decimalPoint, context.decimalPoint(), "decimalPoint");
+    default void checkDecimalSeparator(final DecimalNumberContext context, final char decimalSeparator) {
+        assertEquals(decimalSeparator, context.decimalSeparator(), "decimalSeparator");
     }
 
     default void checkExponentSymbol(final DecimalNumberContext context, final char exponentSymbol) {

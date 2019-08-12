@@ -77,7 +77,7 @@ public final class AmericanDecimalNumberContextTest implements ClassTesting2<Ame
     private void withAndCheck(final MathContext mathContext) {
         final AmericanDecimalNumberContext context = AmericanDecimalNumberContext.with(mathContext);
         this.checkCurrencySymbol(context, "$");
-        this.checkDecimalPoint(context, '.');
+        this.checkDecimalSeparator(context, '.');
         this.checkExponentSymbol(context, 'E');
         this.checkGroupingSeparator(context, ',');
         this.checkNegativeSign(context, '-');
@@ -107,7 +107,7 @@ public final class AmericanDecimalNumberContextTest implements ClassTesting2<Ame
     }
 
     @Override
-    public char decimalPoint() {
+    public char decimalSeparator() {
         return '.';
     }
 

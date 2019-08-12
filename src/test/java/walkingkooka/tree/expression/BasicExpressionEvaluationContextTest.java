@@ -160,8 +160,8 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     @Override
-    public char decimalPoint() {
-        return this.decimalNumberContext().decimalPoint();
+    public char decimalSeparator() {
+        return this.decimalNumberContext().decimalSeparator();
     }
 
     @Override

@@ -66,7 +66,7 @@ final class AmericanDecimalNumberContext implements DecimalNumberContext {
     }
 
     @Override
-    public char decimalPoint() {
+    public char decimalSeparator() {
         return '.';
     }
 
@@ -111,7 +111,7 @@ final class AmericanDecimalNumberContext implements DecimalNumberContext {
     public String toString() {
         return ToStringBuilder.empty()
                 .value(this.currencySymbol())
-                .value(this.decimalPoint())
+                .value(this.decimalSeparator())
                 .value(this.exponentSymbol())
                 .value(this.groupingSeparator())
                 .value(this.negativeSign())

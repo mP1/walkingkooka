@@ -46,7 +46,7 @@ final class BasicEbnfParserContext implements EbnfParserContext {
     }
 
     @Override
-    public char decimalPoint() {
+    public char decimalSeparator() {
         return '.';
     }
 
@@ -113,7 +113,7 @@ final class BasicEbnfParserContext implements EbnfParserContext {
     @Test
     public String toString() {
         return ToStringBuilder.empty()
-                .label("decimalPoint").value(this.decimalPoint())
+                .label("decimalSeparator").value(this.decimalSeparator())
                 .label("exponentSymbol").value(this.exponentSymbol())
                 .label("negativeSign").value(this.negativeSign())
                 .label("positiveSign").value(this.positiveSign())

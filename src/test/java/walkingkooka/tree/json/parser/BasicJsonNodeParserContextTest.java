@@ -43,7 +43,7 @@ public final class BasicJsonNodeParserContextTest implements ClassTesting2<Basic
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createContext(),
-                "decimalPoint='.' exponentSymbol='E' negativeSign='-' percentageSymbol='%' positiveSign='+'");
+                "decimalSeparator='.' exponentSymbol='E' negativeSign='-' percentageSymbol='%' positiveSign='+'");
     }
 
     @Override
@@ -57,8 +57,8 @@ public final class BasicJsonNodeParserContextTest implements ClassTesting2<Basic
     }
 
     @Override
-    public char decimalPoint() {
-        return this.decimalNumberContext().decimalPoint();
+    public char decimalSeparator() {
+        return this.decimalNumberContext().decimalSeparator();
     }
 
     @Override

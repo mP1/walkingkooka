@@ -28,7 +28,7 @@ public class FakeDecimalNumberContext implements DecimalNumberContext {
     }
 
     @Override
-    public char decimalPoint() {
+    public char decimalSeparator() {
         throw new UnsupportedOperationException();
     }
 

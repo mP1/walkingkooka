@@ -96,7 +96,7 @@ public final class BasicConverterContextTest implements ClassTesting2<BasicConve
     }
 
     @Override
-    public char decimalPoint() {
+    public char decimalSeparator() {
         return DECIMAL;
     }
 

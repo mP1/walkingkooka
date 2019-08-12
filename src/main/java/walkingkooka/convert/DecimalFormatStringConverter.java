@@ -67,7 +67,7 @@ final class DecimalFormatStringConverter extends FixedTargetTypeConverter<String
 
         final DecimalFormatStringConverterSymbols symbols = DecimalFormatStringConverterSymbols.with(
                 context.currencySymbol(),
-                context.decimalPoint(),
+                context.decimalSeparator(),
                 context.exponentSymbol(),
                 context.groupingSeparator(),
                 context.negativeSign(),

@@ -66,7 +66,7 @@ abstract class DateTimeFormatterConverter<S, T> extends FixedSourceTypeTargetTyp
                         .withDecimalStyle(DecimalStyle.of(locale)
                                 .withPositiveSign(context.positiveSign())
                                 .withNegativeSign(context.negativeSign())
-                                .withDecimalSeparator(context.decimalPoint()));
+                                .withDecimalSeparator(context.decimalSeparator()));
                 cache = DateTimeFormatterConverterCache.with(locale,
                         twoDigitYear,
                         dateTimeFormatter);
