@@ -117,12 +117,12 @@ public abstract class DateTimeFormatterConverterTestCase2<C extends FixedSourceT
             }
 
             @Override
-            public char minusSign() {
+            public char negativeSign() {
                 return decimalStyle.getNegativeSign();
             }
 
             @Override
-            public char plusSign() {
+            public char positiveSign() {
                 return decimalStyle.getPositiveSign();
             }
 
