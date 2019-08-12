@@ -434,7 +434,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
             }
 
             @Override
-            public char minusSign() {
+            public char negativeSign() {
                 return '-';
             }
 
@@ -444,7 +444,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
             }
 
             @Override
-            public char plusSign() {
+            public char positiveSign() {
                 return '+';
             }
 

@@ -80,9 +80,9 @@ public final class AmericanDecimalNumberContextTest implements ClassTesting2<Ame
         this.checkDecimalPoint(context, '.');
         this.checkExponentSymbol(context, 'E');
         this.checkGroupingSeparator(context, ',');
-        this.checkMinusSign(context, '-');
+        this.checkNegativeSign(context, '-');
         this.checkPercentageSymbol(context, '%');
-        this.checkPlusSign(context, '+');
+        this.checkPositiveSign(context, '+');
         this.hasMathContextAndCheck(context, mathContext);
     }
 
@@ -127,7 +127,7 @@ public final class AmericanDecimalNumberContextTest implements ClassTesting2<Ame
     }
 
     @Override
-    public char minusSign() {
+    public char negativeSign() {
         return '-';
     }
 
@@ -137,7 +137,7 @@ public final class AmericanDecimalNumberContextTest implements ClassTesting2<Ame
     }
 
     @Override
-    public char plusSign() {
+    public char positiveSign() {
         return '+';
     }
 

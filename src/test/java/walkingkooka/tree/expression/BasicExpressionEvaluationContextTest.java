@@ -180,8 +180,8 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     @Override
-    public char minusSign() {
-        return this.decimalNumberContext().minusSign();
+    public char negativeSign() {
+        return this.decimalNumberContext().negativeSign();
     }
 
     @Override
@@ -190,8 +190,8 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     @Override
-    public char plusSign() {
-        return this.decimalNumberContext().plusSign();
+    public char positiveSign() {
+        return this.decimalNumberContext().positiveSign();
     }
 
     // ClassTesting.....................................................................................................

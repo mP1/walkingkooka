@@ -36,33 +36,33 @@ final class DecimalFormatStringConverterSymbols implements HashCodeEqualsDefined
                                                     final char decimalPoint,
                                                     final char exponentSymbol,
                                                     final char groupingSeparator,
-                                                    final char minusSign,
+                                                    final char negativeSign,
                                                     final char percentageSymbol,
-                                                    final char plusSign) {
+                                                    final char positiveSign) {
         return new DecimalFormatStringConverterSymbols(currencySymbol,
                 decimalPoint,
                 exponentSymbol,
                 groupingSeparator,
-                minusSign,
+                negativeSign,
                 percentageSymbol,
-                plusSign);
+                positiveSign);
     }
 
     private DecimalFormatStringConverterSymbols(final String currencySymbol,
                                                 final char decimalPoint,
                                                 final char exponentSymbol,
                                                 final char groupingSeparator,
-                                                final char minusSign,
+                                                final char negativeSign,
                                                 final char percentageSymbol,
-                                                final char plusSign) {
+                                                final char positiveSign) {
         super();
         this.currencySymbol = currencySymbol;
         this.decimalPoint = decimalPoint;
         this.exponentSymbol = exponentSymbol;
         this.groupingSeparator = groupingSeparator;
-        this.minusSign = minusSign;
+        this.negativeSign = negativeSign;
         this.percentageSymbol = percentageSymbol;
-        this.plusSign = plusSign;
+        this.positiveSign = positiveSign;
     }
 
     DecimalFormatSymbols decimalFormatSymbols() {
@@ -72,7 +72,7 @@ final class DecimalFormatStringConverterSymbols implements HashCodeEqualsDefined
         symbols.setDecimalSeparator(this.decimalPoint);
         symbols.setExponentSeparator(String.valueOf(this.exponentSymbol));
         symbols.setGroupingSeparator(this.groupingSeparator);
-        symbols.setMinusSign(this.minusSign);
+        symbols.setMinusSign(this.negativeSign);
         symbols.setPercent(this.percentageSymbol);
 
         return symbols;
@@ -84,9 +84,9 @@ final class DecimalFormatStringConverterSymbols implements HashCodeEqualsDefined
                 this.decimalPoint,
                 this.exponentSymbol,
                 this.groupingSeparator,
-                this.minusSign,
+                this.negativeSign,
                 this.percentageSymbol,
-                this.plusSign);
+                this.positiveSign);
     }
 
     @Override
@@ -101,9 +101,9 @@ final class DecimalFormatStringConverterSymbols implements HashCodeEqualsDefined
                 this.decimalPoint == other.decimalPoint &&
                 this.exponentSymbol == other.exponentSymbol &&
                 this.groupingSeparator == other.groupingSeparator &&
-                this.minusSign == other.minusSign &&
+                this.negativeSign == other.negativeSign &&
                 this.percentageSymbol == other.percentageSymbol &&
-                this.plusSign == other.plusSign;
+                this.positiveSign == other.positiveSign;
     }
 
     private final String currencySymbol;
@@ -114,11 +114,11 @@ final class DecimalFormatStringConverterSymbols implements HashCodeEqualsDefined
 
     private final char groupingSeparator;
 
-    private final char minusSign;
+    private final char negativeSign;
 
     private final char percentageSymbol;
 
-    private final char plusSign;
+    private final char positiveSign;
 
     @Override
     public String toString() {
@@ -127,9 +127,9 @@ final class DecimalFormatStringConverterSymbols implements HashCodeEqualsDefined
                 .value(this.decimalPoint)
                 .value(this.exponentSymbol)
                 .value(this.groupingSeparator)
-                .value(this.minusSign)
+                .value(this.negativeSign)
                 .value(this.percentageSymbol)
-                .value(this.plusSign)
+                .value(this.positiveSign)
                 .build();
     }
 }

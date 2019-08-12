@@ -81,8 +81,8 @@ final class DoubleParser<C extends ParserContext> extends Parser2<C> {
     @Override
     Optional<ParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint save) {
         final char decimalPoint = context.decimalPoint();
-        final char minusSign = context.minusSign();
-        final char plusSign = context.plusSign();
+        final char negativeSign = context.negativeSign();
+        final char positiveSign = context.positiveSign();
         final char littleE = Character.toLowerCase(context.exponentSymbol());
         final char bigE = Character.toUpperCase(littleE);
 
@@ -138,12 +138,12 @@ final class DoubleParser<C extends ParserContext> extends Parser2<C> {
                     break;
                 }
                 if ((NUMBER_SIGN & mode) != 0) {
-                    if (plusSign == c) {
+                    if (positiveSign == c) {
                         cursor.next();
                         mode = INFINITY_I | NUMBER_ZERO | NUMBER_DIGIT;
                         break;
                     }
-                    if (minusSign == c) {
+                    if (negativeSign == c) {
                         cursor.next();
                         numberNegative = true;
                         mode = INFINITY_I | NUMBER_ZERO | NUMBER_DIGIT;
@@ -199,12 +199,12 @@ final class DoubleParser<C extends ParserContext> extends Parser2<C> {
                     }
                 }
                 if ((EXPONENT_SIGN & mode) != 0) {
-                    if (plusSign == c) {
+                    if (positiveSign == c) {
                         cursor.next();
                         mode = EXPONENT_DIGIT;
                         break;
                     }
-                    if (minusSign == c) {
+                    if (negativeSign == c) {
                         cursor.next();
                         exponentNegative = true;
                         mode = EXPONENT_DIGIT;

@@ -80,7 +80,7 @@ final class BasicJsonNodeParserContext implements JsonNodeParserContext {
     }
 
     @Override
-    public char minusSign() {
+    public char negativeSign() {
         return '-';
     }
 
@@ -100,7 +100,7 @@ final class BasicJsonNodeParserContext implements JsonNodeParserContext {
     }
 
     @Override
-    public char plusSign() {
+    public char positiveSign() {
         return '+';
     }
 
@@ -124,9 +124,9 @@ final class BasicJsonNodeParserContext implements JsonNodeParserContext {
         return ToStringBuilder.empty()
                 .label("decimalPoint").value(this.decimalPoint())
                 .label("exponentSymbol").value(this.exponentSymbol())
-                .label("minusSign").value(this.minusSign())
+                .label("negativeSign").value(this.negativeSign())
                 .label("percentageSymbol").value(this.percentageSymbol())
-                .label("plusSign").value(this.plusSign())
+                .label("positiveSign").value(this.positiveSign())
                 .build();
     }
 }

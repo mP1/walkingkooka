@@ -122,7 +122,7 @@ public final class BasicParserContextTest implements ClassTesting2<BasicParserCo
     }
 
     @Override
-    public char minusSign() {
+    public char negativeSign() {
         return MINUS;
     }
 
@@ -132,7 +132,7 @@ public final class BasicParserContextTest implements ClassTesting2<BasicParserCo
     }
 
     @Override
-    public char plusSign() {
+    public char positiveSign() {
         return PLUS;
     }
 

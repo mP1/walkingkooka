@@ -70,9 +70,9 @@ final class DecimalFormatStringConverter extends FixedTargetTypeConverter<String
                 context.decimalPoint(),
                 context.exponentSymbol(),
                 context.groupingSeparator(),
-                context.minusSign(),
+                context.negativeSign(),
                 context.percentageSymbol(),
-                context.plusSign());
+                context.positiveSign());
         DecimalFormat format = map.get(symbols);
         if (null == format) {
             format = new DecimalFormat(this.pattern, symbols.decimalFormatSymbols());

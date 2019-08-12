@@ -294,12 +294,12 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
         final CycleDetectingExpressionEvaluationContext context = this.createContext(new FakeExpressionEvaluationContext() {
 
             @Override
-            public char minusSign() {
+            public char negativeSign() {
                 return '-';
             }
 
             @Override
-            public char plusSign() {
+            public char positiveSign() {
                 return '+';
             }
 
@@ -349,8 +349,8 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
             }
 
             @Override
-            public char minusSign() {
-                return decimalNumberContext.minusSign();
+            public char negativeSign() {
+                return decimalNumberContext.negativeSign();
             }
 
             @Override
@@ -359,8 +359,8 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
             }
 
             @Override
-            public char plusSign() {
-                return decimalNumberContext.plusSign();
+            public char positiveSign() {
+                return decimalNumberContext.positiveSign();
             }
         });
     }
@@ -403,8 +403,8 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     }
 
     @Override
-    public char minusSign() {
-        return this.decimalNumberContext().minusSign();
+    public char negativeSign() {
+        return this.decimalNumberContext().negativeSign();
     }
 
     @Override
@@ -413,8 +413,8 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     }
 
     @Override
-    public char plusSign() {
-        return this.decimalNumberContext().plusSign();
+    public char positiveSign() {
+        return this.decimalNumberContext().positiveSign();
     }
 
     // ClassTesting.....................................................................................................

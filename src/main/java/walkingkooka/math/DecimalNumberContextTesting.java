@@ -42,15 +42,15 @@ public interface DecimalNumberContextTesting extends HasLocaleTesting,
         assertEquals(groupingSeparator, context.groupingSeparator(), "groupingSeparator");
     }
 
-    default void checkMinusSign(final DecimalNumberContext context, final char minusSign) {
-        assertEquals(minusSign, context.minusSign(), "minusSign");
+    default void checkNegativeSign(final DecimalNumberContext context, final char negativeSign) {
+        assertEquals(negativeSign, context.negativeSign(), "negativeSign");
     }
 
     default void checkPercentageSymbol(final DecimalNumberContext context, final char percentageSymbol) {
         assertEquals(percentageSymbol, context.percentageSymbol(), "percentageSymbol");
     }
 
-    default void checkPlusSign(final DecimalNumberContext context, final char plusSign) {
-        assertEquals(plusSign, context.plusSign(), "plusSign");
+    default void checkPositiveSign(final DecimalNumberContext context, final char positiveSign) {
+        assertEquals(positiveSign, context.positiveSign(), "positiveSign");
     }
 }

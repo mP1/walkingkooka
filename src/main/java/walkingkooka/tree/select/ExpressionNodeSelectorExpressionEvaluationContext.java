@@ -155,12 +155,12 @@ final class ExpressionNodeSelectorExpressionEvaluationContext<N extends Node<N, 
     }
 
     @Override
-    public char minusSign() {
+    public char negativeSign() {
         return '-';
     }
 
     @Override
-    public char plusSign() {
+    public char positiveSign() {
         return '+';
     }
 

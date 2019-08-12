@@ -53,8 +53,8 @@ public interface DecimalNumberContextTesting2<C extends DecimalNumberContext> ex
     }
 
     @Test
-    default void testMinusSign() {
-        this.checkMinusSign(this.createContext(), this.minusSign());
+    default void testNegativeSign() {
+        this.checkNegativeSign(this.createContext(), this.negativeSign());
     }
 
     @Test
@@ -63,8 +63,8 @@ public interface DecimalNumberContextTesting2<C extends DecimalNumberContext> ex
     }
 
     @Test
-    default void testPlusSign() {
-        this.checkPlusSign(this.createContext(), this.plusSign());
+    default void testPositiveSign() {
+        this.checkPositiveSign(this.createContext(), this.positiveSign());
     }
 
     String currencySymbol();
@@ -77,11 +77,11 @@ public interface DecimalNumberContextTesting2<C extends DecimalNumberContext> ex
 
     MathContext mathContext();
 
-    char minusSign();
+    char negativeSign();
 
     char percentageSymbol();
 
-    char plusSign();
+    char positiveSign();
 
     @Override
     default String typeNameSuffix() {

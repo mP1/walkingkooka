@@ -32,9 +32,9 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
                                           final char decimalPoint,
                                           final char exponentSymbol,
                                           final char groupingSeparator,
-                                          final char minusSign,
+                                          final char negativeSign,
                                           final char percentageSymbol,
-                                          final char plusSign,
+                                          final char positiveSign,
                                           final Locale locale,
                                           final MathContext mathContext) {
         Objects.requireNonNull(currencySymbol, "currencySymbol");
@@ -45,9 +45,9 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
                 decimalPoint,
                 exponentSymbol,
                 groupingSeparator,
-                minusSign,
+                negativeSign,
                 percentageSymbol,
-                plusSign,
+                positiveSign,
                 locale,
                 mathContext);
     }
@@ -56,9 +56,9 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
                                       final char decimalPoint,
                                       final char exponentSymbol,
                                       final char groupingSeparator,
-                                      final char minusSign,
+                                      final char negativeSign,
                                       final char percentageSymbol,
-                                      final char plusSign,
+                                      final char positiveSign,
                                       final Locale locale,
                                       final MathContext mathContext) {
         super();
@@ -66,9 +66,9 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
         this.decimalPoint = decimalPoint;
         this.exponentSymbol = exponentSymbol;
         this.groupingSeparator = groupingSeparator;
-        this.minusSign = minusSign;
+        this.negativeSign = negativeSign;
         this.percentageSymbol = percentageSymbol;
-        this.plusSign = plusSign;
+        this.positiveSign = positiveSign;
         
         this.locale = locale;
         
@@ -104,11 +104,11 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
     private final char groupingSeparator;
 
     @Override
-    public char minusSign() {
-        return this.minusSign;
+    public char negativeSign() {
+        return this.negativeSign;
     }
 
-    private final char minusSign;
+    private final char negativeSign;
 
     @Override
     public char percentageSymbol() {
@@ -118,11 +118,11 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
     private final char percentageSymbol;
 
     @Override
-    public char plusSign() {
-        return this.plusSign;
+    public char positiveSign() {
+        return this.positiveSign;
     }
 
-    private final char plusSign;
+    private final char positiveSign;
 
     @Override
     public Locale locale() {
@@ -145,9 +145,9 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
                 .value(this.decimalPoint)
                 .value(this.exponentSymbol)
                 .value(this.groupingSeparator)
-                .value(this.minusSign)
+                .value(this.negativeSign)
                 .value(this.percentageSymbol)
-                .value(this.plusSign)
+                .value(this.positiveSign)
                 .value(this.locale)
                 .value(this.mathContext)
                 .build();

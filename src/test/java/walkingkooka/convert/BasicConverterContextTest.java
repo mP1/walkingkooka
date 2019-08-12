@@ -116,7 +116,7 @@ public final class BasicConverterContextTest implements ClassTesting2<BasicConve
     }
 
     @Override
-    public char minusSign() {
+    public char negativeSign() {
         return MINUS;
     }
 
@@ -126,7 +126,7 @@ public final class BasicConverterContextTest implements ClassTesting2<BasicConve
     }
 
     @Override
-    public char plusSign() {
+    public char positiveSign() {
         return PLUS;
     }
 
