@@ -135,7 +135,7 @@ final class ExpressionNodeSelectorExpressionEvaluationContext<N extends Node<N, 
     }
 
     @Override
-    public char decimalPoint() {
+    public char decimalSeparator() {
         return '.';
     }
 

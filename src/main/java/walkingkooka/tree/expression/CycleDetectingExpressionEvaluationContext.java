@@ -56,8 +56,8 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     }
 
     @Override
-    public char decimalPoint() {
-        return this.context.decimalPoint();
+    public char decimalSeparator() {
+        return this.context.decimalSeparator();
     }
 
     @Override

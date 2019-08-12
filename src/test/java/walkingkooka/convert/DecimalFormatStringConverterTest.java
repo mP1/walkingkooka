@@ -226,7 +226,7 @@ public final class DecimalFormatStringConverterTest extends FixedTypeConverterTe
     }
 
     private ConverterContext createContext(final String currencySymbol,
-                                           final char decimalPoint,
+                                           final char decimalSeparator,
                                            final char exponentSymbol,
                                            final char groupingSeparator,
                                            final char negativeSign,
@@ -234,7 +234,7 @@ public final class DecimalFormatStringConverterTest extends FixedTypeConverterTe
                                            final char positiveSign) {
         return ConverterContexts.basic(DateTimeContexts.fake(),
                 DecimalNumberContexts.basic(currencySymbol,
-                        decimalPoint,
+                        decimalSeparator,
                         exponentSymbol,
                         groupingSeparator,
                         negativeSign,

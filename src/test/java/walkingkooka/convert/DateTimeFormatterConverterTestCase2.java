@@ -112,7 +112,7 @@ public abstract class DateTimeFormatterConverterTestCase2<C extends FixedSourceT
         return new FakeConverterContext() {
 
             @Override
-            public char decimalPoint() {
+            public char decimalSeparator() {
                 return decimalStyle.getDecimalSeparator();
             }
 

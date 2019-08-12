@@ -29,7 +29,7 @@ import java.util.Objects;
 final class BasicDecimalNumberContext implements DecimalNumberContext {
 
     static BasicDecimalNumberContext with(final String currencySymbol,
-                                          final char decimalPoint,
+                                          final char decimalSeparator,
                                           final char exponentSymbol,
                                           final char groupingSeparator,
                                           final char negativeSign,
@@ -42,7 +42,7 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
         Objects.requireNonNull(mathContext, "mathContext");
 
         return new BasicDecimalNumberContext(currencySymbol,
-                decimalPoint,
+                decimalSeparator,
                 exponentSymbol,
                 groupingSeparator,
                 negativeSign,
@@ -53,7 +53,7 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
     }
 
     private BasicDecimalNumberContext(final String currencySymbol,
-                                      final char decimalPoint,
+                                      final char decimalSeparator,
                                       final char exponentSymbol,
                                       final char groupingSeparator,
                                       final char negativeSign,
@@ -63,7 +63,7 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
                                       final MathContext mathContext) {
         super();
         this.currencySymbol = currencySymbol;
-        this.decimalPoint = decimalPoint;
+        this.decimalSeparator = decimalSeparator;
         this.exponentSymbol = exponentSymbol;
         this.groupingSeparator = groupingSeparator;
         this.negativeSign = negativeSign;
@@ -83,11 +83,11 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
     private final String currencySymbol;
 
     @Override
-    public char decimalPoint() {
-        return this.decimalPoint;
+    public char decimalSeparator() {
+        return this.decimalSeparator;
     }
 
-    private final char decimalPoint;
+    private final char decimalSeparator;
 
     @Override
     public char exponentSymbol() {
@@ -142,7 +142,7 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
     public String toString() {
         return ToStringBuilder.empty()
                 .value(this.currencySymbol)
-                .value(this.decimalPoint)
+                .value(this.decimalSeparator)
                 .value(this.exponentSymbol)
                 .value(this.groupingSeparator)
                 .value(this.negativeSign)

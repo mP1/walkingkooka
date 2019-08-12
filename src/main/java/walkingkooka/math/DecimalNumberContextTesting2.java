@@ -33,8 +33,8 @@ public interface DecimalNumberContextTesting2<C extends DecimalNumberContext> ex
     }
 
     @Test
-    default void testDecimalPoint() {
-        this.checkDecimalPoint(this.createContext(), this.decimalPoint());
+    default void testDecimalSeparator() {
+        this.checkDecimalSeparator(this.createContext(), this.decimalSeparator());
     }
 
     @Test
@@ -69,7 +69,7 @@ public interface DecimalNumberContextTesting2<C extends DecimalNumberContext> ex
 
     String currencySymbol();
 
-    char decimalPoint();
+    char decimalSeparator();
 
     char exponentSymbol();
 

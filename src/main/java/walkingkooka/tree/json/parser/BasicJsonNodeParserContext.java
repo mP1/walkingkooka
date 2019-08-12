@@ -55,7 +55,7 @@ final class BasicJsonNodeParserContext implements JsonNodeParserContext {
     }
 
     @Override
-    public char decimalPoint() {
+    public char decimalSeparator() {
         return '.';
     }
 
@@ -122,7 +122,7 @@ final class BasicJsonNodeParserContext implements JsonNodeParserContext {
     @Override
     public String toString() {
         return ToStringBuilder.empty()
-                .label("decimalPoint").value(this.decimalPoint())
+                .label("decimalSeparator").value(this.decimalSeparator())
                 .label("exponentSymbol").value(this.exponentSymbol())
                 .label("negativeSign").value(this.negativeSign())
                 .label("percentageSymbol").value(this.percentageSymbol())

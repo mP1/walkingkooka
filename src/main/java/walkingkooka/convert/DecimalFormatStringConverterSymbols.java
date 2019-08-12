@@ -33,14 +33,14 @@ final class DecimalFormatStringConverterSymbols implements HashCodeEqualsDefined
      * Factory only called by {@link DecimalFormatStringConverter}
      */
     static DecimalFormatStringConverterSymbols with(final String currencySymbol,
-                                                    final char decimalPoint,
+                                                    final char decimalSeparator,
                                                     final char exponentSymbol,
                                                     final char groupingSeparator,
                                                     final char negativeSign,
                                                     final char percentageSymbol,
                                                     final char positiveSign) {
         return new DecimalFormatStringConverterSymbols(currencySymbol,
-                decimalPoint,
+                decimalSeparator,
                 exponentSymbol,
                 groupingSeparator,
                 negativeSign,
@@ -49,7 +49,7 @@ final class DecimalFormatStringConverterSymbols implements HashCodeEqualsDefined
     }
 
     private DecimalFormatStringConverterSymbols(final String currencySymbol,
-                                                final char decimalPoint,
+                                                final char decimalSeparator,
                                                 final char exponentSymbol,
                                                 final char groupingSeparator,
                                                 final char negativeSign,
@@ -57,7 +57,7 @@ final class DecimalFormatStringConverterSymbols implements HashCodeEqualsDefined
                                                 final char positiveSign) {
         super();
         this.currencySymbol = currencySymbol;
-        this.decimalPoint = decimalPoint;
+        this.decimalSeparator = decimalSeparator;
         this.exponentSymbol = exponentSymbol;
         this.groupingSeparator = groupingSeparator;
         this.negativeSign = negativeSign;
@@ -69,7 +69,7 @@ final class DecimalFormatStringConverterSymbols implements HashCodeEqualsDefined
         final DecimalFormatSymbols symbols = new DecimalFormatSymbols();
 
         symbols.setCurrencySymbol(this.currencySymbol);
-        symbols.setDecimalSeparator(this.decimalPoint);
+        symbols.setDecimalSeparator(this.decimalSeparator);
         symbols.setExponentSeparator(String.valueOf(this.exponentSymbol));
         symbols.setGroupingSeparator(this.groupingSeparator);
         symbols.setMinusSign(this.negativeSign);
@@ -81,7 +81,7 @@ final class DecimalFormatStringConverterSymbols implements HashCodeEqualsDefined
     @Override
     public int hashCode() {
         return Objects.hash(this.currencySymbol,
-                this.decimalPoint,
+                this.decimalSeparator,
                 this.exponentSymbol,
                 this.groupingSeparator,
                 this.negativeSign,
@@ -98,7 +98,7 @@ final class DecimalFormatStringConverterSymbols implements HashCodeEqualsDefined
 
     private boolean equals0(final DecimalFormatStringConverterSymbols other) {
         return this.currencySymbol.equals(other.currencySymbol) &&
-                this.decimalPoint == other.decimalPoint &&
+                this.decimalSeparator == other.decimalSeparator &&
                 this.exponentSymbol == other.exponentSymbol &&
                 this.groupingSeparator == other.groupingSeparator &&
                 this.negativeSign == other.negativeSign &&
@@ -108,7 +108,7 @@ final class DecimalFormatStringConverterSymbols implements HashCodeEqualsDefined
 
     private final String currencySymbol;
 
-    private final char decimalPoint;
+    private final char decimalSeparator;
 
     private final char exponentSymbol;
 
@@ -124,7 +124,7 @@ final class DecimalFormatStringConverterSymbols implements HashCodeEqualsDefined
     public String toString() {
         return ToStringBuilder.empty()
                 .value(this.currencySymbol)
-                .value(this.decimalPoint)
+                .value(this.decimalSeparator)
                 .value(this.exponentSymbol)
                 .value(this.groupingSeparator)
                 .value(this.negativeSign)

@@ -72,8 +72,8 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     }
 
     @Override
-    public char decimalPoint() {
-        return this.converterContext.decimalPoint();
+    public char decimalSeparator() {
+        return this.converterContext.decimalSeparator();
     }
 
     @Override

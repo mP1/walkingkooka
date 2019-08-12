@@ -68,7 +68,7 @@ final class DecimalFormatSymbolsDecimalNumberContext implements DecimalNumberCon
     }
 
     @Override
-    public char decimalPoint() {
+    public char decimalSeparator() {
         return this.symbols.getDecimalSeparator();
     }
 
@@ -123,7 +123,7 @@ final class DecimalFormatSymbolsDecimalNumberContext implements DecimalNumberCon
     public String toString() {
         return ToStringBuilder.empty()
                 .value(this.currencySymbol())
-                .value(this.decimalPoint())
+                .value(this.decimalSeparator())
                 .value(this.exponentSymbol())
                 .value(this.groupingSeparator())
                 .value(this.negativeSign())

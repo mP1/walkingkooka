@@ -28,9 +28,9 @@ public interface DecimalNumberContext extends NumberContext, HasMathContext{
     String currencySymbol();
 
     /**
-     * Returns the decimal point character
+     * Returns the decimal separator character
      */
-    char decimalPoint();
+    char decimalSeparator();
 
     /**
      * The exponentDigitSymbolCount

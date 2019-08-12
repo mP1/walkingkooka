@@ -38,7 +38,7 @@ public final class DecimalNumberContexts implements PublicStaticHelper {
      * {@see BasicDecimalNumberContext}
      */
     public static DecimalNumberContext basic(final String currencySymbol,
-                                             final char decimalPoint,
+                                             final char decimalSeparator,
                                              final char exponentSymbol,
                                              final char groupingSeparator,
                                              final char negativeSign,
@@ -47,7 +47,7 @@ public final class DecimalNumberContexts implements PublicStaticHelper {
                                              final Locale locale,
                                              final MathContext mathContext) {
         return BasicDecimalNumberContext.with(currencySymbol,
-                decimalPoint,
+                decimalSeparator,
                 exponentSymbol,
                 groupingSeparator,
                 negativeSign,

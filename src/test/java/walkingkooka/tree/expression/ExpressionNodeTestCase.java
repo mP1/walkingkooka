@@ -419,7 +419,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
             }
 
             @Override
-            public char decimalPoint() {
+            public char decimalSeparator() {
                 return '.';
             }
 
