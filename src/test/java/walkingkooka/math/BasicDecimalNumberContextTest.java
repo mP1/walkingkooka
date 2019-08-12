@@ -84,9 +84,9 @@ public final class BasicDecimalNumberContextTest implements ClassTesting2<BasicD
         this.checkDecimalPoint(context, '.');
         this.checkExponentSymbol(context, 'E');
         this.checkGroupingSeparator(context, ',');
-        this.checkMinusSign(context, '-');
+        this.checkNegativeSign(context, '-');
         this.checkPercentageSymbol(context, '%');
-        this.checkPlusSign(context, '+');
+        this.checkPositiveSign(context, '+');
 
         this.hasLocaleAndCheck(context, LOCALE);
         this.hasMathContextAndCheck(context, MATH_CONTEXT);
@@ -136,7 +136,7 @@ public final class BasicDecimalNumberContextTest implements ClassTesting2<BasicD
     }
 
     @Override
-    public char minusSign() {
+    public char negativeSign() {
         return '-';
     }
 
@@ -146,7 +146,7 @@ public final class BasicDecimalNumberContextTest implements ClassTesting2<BasicD
     }
 
     @Override
-    public char plusSign() {
+    public char positiveSign() {
         return '+';
     }
 

@@ -229,17 +229,17 @@ public final class DecimalFormatStringConverterTest extends FixedTypeConverterTe
                                            final char decimalPoint,
                                            final char exponentSymbol,
                                            final char groupingSeparator,
-                                           final char minusSign,
+                                           final char negativeSign,
                                            final char percentageSymbol,
-                                           final char plusSign) {
+                                           final char positiveSign) {
         return ConverterContexts.basic(DateTimeContexts.fake(),
                 DecimalNumberContexts.basic(currencySymbol,
                         decimalPoint,
                         exponentSymbol,
                         groupingSeparator,
-                        minusSign,
+                        negativeSign,
                         percentageSymbol,
-                        plusSign,
+                        positiveSign,
                         Locale.ENGLISH,
                         MathContext.DECIMAL32));
     }

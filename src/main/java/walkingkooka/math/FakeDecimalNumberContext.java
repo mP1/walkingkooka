@@ -43,7 +43,7 @@ public class FakeDecimalNumberContext implements DecimalNumberContext {
     }
 
     @Override
-    public char minusSign() {
+    public char negativeSign() {
         throw new UnsupportedOperationException();
     }
 
@@ -53,7 +53,7 @@ public class FakeDecimalNumberContext implements DecimalNumberContext {
     }
 
     @Override
-    public char plusSign() {
+    public char positiveSign() {
         throw new UnsupportedOperationException();
     }
 

@@ -68,8 +68,8 @@ final class BigDecimalParser<C extends ParserContext> extends Parser2<C> {
     @Override
     Optional<ParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint save) {
         final char decimalPoint = context.decimalPoint();
-        final int minusSign = context.minusSign();
-        final int plusSign = context.plusSign();
+        final int negativeSign = context.negativeSign();
+        final int positiveSign = context.positiveSign();
         final char littleE = Character.toLowerCase(context.exponentSymbol());
         final char bigE = Character.toUpperCase(littleE);
 
@@ -99,12 +99,12 @@ final class BigDecimalParser<C extends ParserContext> extends Parser2<C> {
 
             for (; ; ) {
                 if ((NUMBER_SIGN & mode) != 0) {
-                    if (plusSign == c) {
+                    if (positiveSign == c) {
                         cursor.next();
                         mode = NUMBER_ZERO | NUMBER_DIGIT;
                         break;
                     }
-                    if (minusSign == c) {
+                    if (negativeSign == c) {
                         cursor.next();
                         numberNegative = true;
                         mode = NUMBER_ZERO | NUMBER_DIGIT;
@@ -160,12 +160,12 @@ final class BigDecimalParser<C extends ParserContext> extends Parser2<C> {
                     }
                 }
                 if ((EXPONENT_SIGN & mode) != 0) {
-                    if (plusSign == c) {
+                    if (positiveSign == c) {
                         cursor.next();
                         mode = EXPONENT_DIGIT;
                         break;
                     }
-                    if (minusSign == c) {
+                    if (negativeSign == c) {
                         cursor.next();
                         exponentNegative = true;
                         mode = EXPONENT_DIGIT;

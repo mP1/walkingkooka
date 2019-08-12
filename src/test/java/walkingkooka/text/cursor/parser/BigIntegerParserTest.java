@@ -162,12 +162,12 @@ public class BigIntegerParserTest extends Parser2TestCase<BigIntegerParser<Parse
                         DateTimeContexts.fake(),
                         new FakeDecimalNumberContext() {
                             @Override
-                            public char minusSign() {
+                            public char negativeSign() {
                                 return 'M';
                             }
 
                             @Override
-                            public char plusSign() {
+                            public char positiveSign() {
                                 return 'P';
                             }
                         }),

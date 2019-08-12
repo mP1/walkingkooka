@@ -31,43 +31,43 @@ public final class DecimalFormatStringConverterSymbolsTest implements ClassTesti
     private final static char DECIMAL = 'D';
     private final static char EXPONENT = 'E';
     private final static char GROUPING = 'G';
-    private final static char MINUS = 'M';
+    private final static char NEGATIVE = 'M';
     private final static char PERCENTAGE = 'R';
-    private final static char PLUS = 'P';
+    private final static char POSITIVE = 'P';
 
     @Test
     public void testEqualsDifferentCurrency() {
-        this.checkNotEquals(DecimalFormatStringConverterSymbols.with("!", DECIMAL, EXPONENT, GROUPING, MINUS, PERCENTAGE, PLUS));
+        this.checkNotEquals(DecimalFormatStringConverterSymbols.with("!", DECIMAL, EXPONENT, GROUPING, NEGATIVE, PERCENTAGE, POSITIVE));
     }
 
     @Test
     public void testEqualsDifferentDecimal() {
-        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(CURRENCY, '!', EXPONENT, GROUPING, MINUS, PERCENTAGE, PLUS));
+        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(CURRENCY, '!', EXPONENT, GROUPING, NEGATIVE, PERCENTAGE, POSITIVE));
     }
 
     @Test
     public void testEqualsDifferentExponent() {
-        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(CURRENCY, DECIMAL, '!', GROUPING, MINUS, PERCENTAGE, PLUS));
+        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(CURRENCY, DECIMAL, '!', GROUPING, NEGATIVE, PERCENTAGE, POSITIVE));
     }
 
     @Test
     public void testEqualsDifferentGroupingSeparator() {
-        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(CURRENCY, DECIMAL, EXPONENT, '!', MINUS, PERCENTAGE, PLUS));
+        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(CURRENCY, DECIMAL, EXPONENT, '!', NEGATIVE, PERCENTAGE, POSITIVE));
     }
 
     @Test
-    public void testEqualsDifferentMinus() {
-        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(CURRENCY, DECIMAL, EXPONENT, GROUPING, '!', PERCENTAGE, PLUS));
+    public void testEqualsDifferentNegative() {
+        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(CURRENCY, DECIMAL, EXPONENT, GROUPING, '!', PERCENTAGE, POSITIVE));
     }
 
     @Test
     public void testEqualsDifferentPercentage() {
-        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(CURRENCY, DECIMAL, EXPONENT, GROUPING, MINUS, '!', PLUS));
+        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(CURRENCY, DECIMAL, EXPONENT, GROUPING, NEGATIVE, '!', POSITIVE));
     }
 
     @Test
-    public void testEqualsDifferentPlus() {
-        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(CURRENCY, DECIMAL, EXPONENT, GROUPING, MINUS, PERCENTAGE, '!'));
+    public void testEqualsDifferentPositive() {
+        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(CURRENCY, DECIMAL, EXPONENT, GROUPING, NEGATIVE, PERCENTAGE, '!'));
     }
 
     @Test
@@ -88,6 +88,6 @@ public final class DecimalFormatStringConverterSymbolsTest implements ClassTesti
 
     @Override
     public DecimalFormatStringConverterSymbols createObject() {
-        return DecimalFormatStringConverterSymbols.with(CURRENCY, DECIMAL, EXPONENT, GROUPING, MINUS, PERCENTAGE, PLUS);
+        return DecimalFormatStringConverterSymbols.with(CURRENCY, DECIMAL, EXPONENT, GROUPING, NEGATIVE, PERCENTAGE, POSITIVE);
     }
 }

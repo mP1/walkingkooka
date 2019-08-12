@@ -26,12 +26,12 @@ import walkingkooka.locale.HasLocale;
 public interface NumberContext extends Context, HasLocale {
 
     /**
-     * Returns the minus sign.
+     * Returns the negative sign.
      */
-    char minusSign();
+    char negativeSign();
 
     /**
-     * Returns the plus sign.
+     * Returns the positive sign.
      */
-    char plusSign();
+    char positiveSign();
 }

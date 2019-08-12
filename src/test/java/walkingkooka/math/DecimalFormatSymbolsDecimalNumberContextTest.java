@@ -45,7 +45,7 @@ public final class DecimalFormatSymbolsDecimalNumberContextTest implements Class
     }
 
     @Test
-    public void testWithExponentAndPlusSameFails() {
+    public void testWithExponentAndPositiveSameFails() {
         assertThrows(IllegalArgumentException.class, () -> {
             DecimalFormatSymbolsDecimalNumberContext.with(this.decimalFormatSymbols(),
                     '?',
@@ -85,9 +85,9 @@ public final class DecimalFormatSymbolsDecimalNumberContextTest implements Class
         this.checkDecimalPoint(context, '.');
         this.checkExponentSymbol(context, 'E');
         this.checkGroupingSeparator(context, ',');
-        this.checkMinusSign(context, '-');
+        this.checkNegativeSign(context, '-');
         this.checkPercentageSymbol(context, '%');
-        this.checkPlusSign(context, '+');
+        this.checkPositiveSign(context, '+');
 
         this.hasLocaleAndCheck(context, LOCALE);
         this.hasMathContextAndCheck(context, MATH_CONTEXT);
@@ -137,7 +137,7 @@ public final class DecimalFormatSymbolsDecimalNumberContextTest implements Class
     }
 
     @Override
-    public char minusSign() {
+    public char negativeSign() {
         return '-';
     }
 
@@ -147,7 +147,7 @@ public final class DecimalFormatSymbolsDecimalNumberContextTest implements Class
     }
 
     @Override
-    public char plusSign() {
+    public char positiveSign() {
         return '+';
     }
 

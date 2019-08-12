@@ -475,12 +475,12 @@ public final class DoubleParserTest extends Parser2TestCase<DoubleParser<ParserC
                             }
 
                             @Override
-                            public char minusSign() {
+                            public char negativeSign() {
                                 return 'M';
                             }
 
                             @Override
-                            public char plusSign() {
+                            public char positiveSign() {
                                 return 'P';
                             }
                         }),

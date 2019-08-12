@@ -71,7 +71,7 @@ final class BasicEbnfParserContext implements EbnfParserContext {
     }
 
     @Override
-    public char minusSign() {
+    public char negativeSign() {
         return '-';
     }
 
@@ -91,7 +91,7 @@ final class BasicEbnfParserContext implements EbnfParserContext {
     }
 
     @Override
-    public char plusSign() {
+    public char positiveSign() {
         return '+';
     }
 
@@ -115,8 +115,8 @@ final class BasicEbnfParserContext implements EbnfParserContext {
         return ToStringBuilder.empty()
                 .label("decimalPoint").value(this.decimalPoint())
                 .label("exponentSymbol").value(this.exponentSymbol())
-                .label("minusSign").value(this.minusSign())
-                .label("plusSign").value(this.plusSign())
+                .label("negativeSign").value(this.negativeSign())
+                .label("positiveSign").value(this.positiveSign())
                 .build();
     }
 }

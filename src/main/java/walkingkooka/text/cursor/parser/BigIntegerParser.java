@@ -52,8 +52,8 @@ final class BigIntegerParser<C extends ParserContext> extends Parser2<C> {
      */
     @Override
     Optional<ParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint save) {
-        final char minusSign = context.minusSign();
-        final char plusSign = context.plusSign();
+        final char negativeSign = context.negativeSign();
+        final char positiveSign = context.positiveSign();
 
         BigIntegerParserToken token;
 
@@ -72,12 +72,12 @@ final class BigIntegerParser<C extends ParserContext> extends Parser2<C> {
 
             char c = cursor.at();
             if (empty && 10 == this.radix) {
-                if (minusSign == c) {
+                if (negativeSign == c) {
                     signed = true;
                     cursor.next();
                     continue;
                 }
-                if (plusSign == c) {
+                if (positiveSign == c) {
                     signed = false;
                     cursor.next();
                     continue;

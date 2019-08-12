@@ -81,7 +81,7 @@ final class AmericanDecimalNumberContext implements DecimalNumberContext {
     }
 
     @Override
-    public char minusSign() {
+    public char negativeSign() {
         return '-';
     }
 
@@ -91,7 +91,7 @@ final class AmericanDecimalNumberContext implements DecimalNumberContext {
     }
 
     @Override
-    public char plusSign() {
+    public char positiveSign() {
         return '+';
     }
 
@@ -114,9 +114,9 @@ final class AmericanDecimalNumberContext implements DecimalNumberContext {
                 .value(this.decimalPoint())
                 .value(this.exponentSymbol())
                 .value(this.groupingSeparator())
-                .value(this.minusSign())
+                .value(this.negativeSign())
                 .value(this.percentageSymbol())
-                .value(this.plusSign())
+                .value(this.positiveSign())
                 .value(this.mathContext())
                 .build();
     }

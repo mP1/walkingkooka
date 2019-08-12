@@ -32,32 +32,32 @@ final class DecimalFormatSymbolsDecimalNumberContext implements DecimalNumberCon
 
     static DecimalFormatSymbolsDecimalNumberContext with(final DecimalFormatSymbols symbols,
                                                          final char exponentSymbol,
-                                                         final char plusSign,
+                                                         final char positiveSign,
                                                          final Locale locale,
                                                          final MathContext mathContext) {
         Objects.requireNonNull(symbols, "symbols");
         Objects.requireNonNull(locale, "locale");
         Objects.requireNonNull(mathContext, "mathContext");
-        if (exponentSymbol == plusSign) {
-            throw new IllegalArgumentException("Exponent symbol == plus sign " + CharSequences.quoteIfChars(exponentSymbol));
+        if (exponentSymbol == positiveSign) {
+            throw new IllegalArgumentException("Exponent symbol == positive sign " + CharSequences.quoteIfChars(exponentSymbol));
         }
 
         return new DecimalFormatSymbolsDecimalNumberContext(symbols,
                 exponentSymbol,
-                plusSign,
+                positiveSign,
                 locale,
                 mathContext);
     }
 
     private DecimalFormatSymbolsDecimalNumberContext(final DecimalFormatSymbols symbols,
                                                      final char exponentSymbol,
-                                                     final char plusSign,
+                                                     final char positiveSign,
                                                      final Locale locale,
                                                      final MathContext mathContext) {
         super();
         this.symbols = symbols;
         this.exponentSymbol = exponentSymbol;
-        this.plusSign = plusSign;
+        this.positiveSign = positiveSign;
         this.locale = locale;
         this.mathContext = mathContext;
     }
@@ -90,18 +90,18 @@ final class DecimalFormatSymbolsDecimalNumberContext implements DecimalNumberCon
     }
 
     @Override
-    public char minusSign() {
+    public char negativeSign() {
         return this.symbols.getMinusSign();
     }
 
     private final DecimalFormatSymbols symbols;
 
     @Override
-    public char plusSign() {
-        return this.plusSign;
+    public char positiveSign() {
+        return this.positiveSign;
     }
 
-    private final char plusSign;
+    private final char positiveSign;
 
     @Override
     public Locale locale() {
@@ -126,9 +126,9 @@ final class DecimalFormatSymbolsDecimalNumberContext implements DecimalNumberCon
                 .value(this.decimalPoint())
                 .value(this.exponentSymbol())
                 .value(this.groupingSeparator())
-                .value(this.minusSign())
+                .value(this.negativeSign())
                 .value(this.percentageSymbol())
-                .value(this.plusSign())
+                .value(this.positiveSign())
                 .value(this.locale())
                 .value(this.mathContext())
                 .build();

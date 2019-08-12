@@ -41,18 +41,18 @@ public final class DecimalNumberContexts implements PublicStaticHelper {
                                              final char decimalPoint,
                                              final char exponentSymbol,
                                              final char groupingSeparator,
-                                             final char minusSign,
+                                             final char negativeSign,
                                              final char percentageSymbol,
-                                             final char plusSign,
+                                             final char positiveSign,
                                              final Locale locale,
                                              final MathContext mathContext) {
         return BasicDecimalNumberContext.with(currencySymbol,
                 decimalPoint,
                 exponentSymbol,
                 groupingSeparator,
-                minusSign,
+                negativeSign,
                 percentageSymbol,
-                plusSign,
+                positiveSign,
                 locale,
                 mathContext);
     }
@@ -62,12 +62,12 @@ public final class DecimalNumberContexts implements PublicStaticHelper {
      */
     public static DecimalNumberContext decimalFormatSymbols(final DecimalFormatSymbols symbols,
                                                             final char exponentSymbol,
-                                                            final char plusSign,
+                                                            final char positiveSign,
                                                             final Locale locale,
                                                             final MathContext mathContext) {
         return DecimalFormatSymbolsDecimalNumberContext.with(symbols,
                 exponentSymbol,
-                plusSign,
+                positiveSign,
                 locale,
                 mathContext);
     }
