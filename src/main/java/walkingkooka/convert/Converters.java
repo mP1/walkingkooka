@@ -412,6 +412,13 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
+     * {@see TryConverter}
+     */
+    public static Converter tryConverter(final List<Converter> converters) {
+        return TryConverter.with(converters);
+    }
+
+    /**
      * {@see NumberConverterBoolean}
      */
     public static Converter truthyNumberBoolean() {
