@@ -382,14 +382,11 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
                 Converters.localTimeLong(),
                 Converters.localTimeString((c) -> DateTimeFormatter.ISO_LOCAL_TIME),
                 // number ->
-                Converters.numberBigDecimal(),
-                Converters.numberBigInteger(),
+                Converters.numberNumber(),
                 Converters.truthyNumberBoolean(),
-                Converters.numberDouble(),
                 Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET),
                 Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET),
                 Converters.numberLocalTime(),
-                Converters.numberLong(),
                 Converters.decimalFormatString("#.###"),
                 // string ->
                 stringBigDecimal,
@@ -403,13 +400,13 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
                 stringNumber,
                 Converters.string(),
                 // boolean ->
-                fromBoolean(BigDecimal.class, Converters.numberBigDecimal()),
-                fromBoolean(BigInteger.class, Converters.numberBigInteger()),
-                fromBoolean(Double.class, Converters.numberDouble()),
+                fromBoolean(BigDecimal.class, Converters.numberNumber()),
+                fromBoolean(BigInteger.class, Converters.numberNumber()),
+                fromBoolean(Double.class, Converters.numberNumber()),
                 fromBoolean(LocalDate.class, Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)),
                 fromBoolean(LocalDateTime.class, Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
                 fromBoolean(LocalTime.class, Converters.numberLocalTime()),
-                fromBoolean(Long.class, Converters.numberLong())));
+                fromBoolean(Long.class, Converters.numberNumber())));
 
         return new FakeExpressionEvaluationContext() {
 

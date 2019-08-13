@@ -17,6 +17,8 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Cast;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Objects;
@@ -26,54 +28,61 @@ import java.util.Objects;
  */
 final class NumberNumberConverter implements Converter {
 
-    static NumberNumberConverter with(final Converter bigDecimal,
-                                      final Converter bigInteger,
-                                      final Converter doubleConverter,
-                                      final Converter longConverter) {
-        Objects.requireNonNull(bigDecimal, "bigDecimal");
-        Objects.requireNonNull(bigInteger, "bigInteger");
-        Objects.requireNonNull(doubleConverter, "doubleConverter");
-        Objects.requireNonNull(longConverter, "longConverter");
+    /**
+     * Singleton
+     */
+    final static NumberNumberConverter INSTANCE = new NumberNumberConverter();
 
-        return new NumberNumberConverter(bigDecimal, bigInteger, doubleConverter, longConverter);
-    }
-
-    private NumberNumberConverter(Converter bigDecimal, Converter bigInteger, Converter doubleConverter, Converter longConverter) {
-        this.bigDecimal = bigDecimal;
-        this.bigInteger = bigInteger;
-        this.doubleConverter = doubleConverter;
-        this.longConverter = longConverter;
+    private NumberNumberConverter() {
+        super();
     }
 
     @Override
     public boolean canConvert(final Object value, final Class<?> type, final ConverterContext context) {
+        Objects.requireNonNull(value, "value");
+        Objects.requireNonNull(type, "type");
+        Objects.requireNonNull(context, "context");
+
         return value instanceof Number && (
                 type == BigDecimal.class ||
                         type == BigInteger.class ||
+                        type == Byte.class ||
+                        type == Float.class ||
                         type == Double.class ||
+                        type == Integer.class ||
                         type == Long.class ||
-                        type == Number.class);
+                        type == Number.class ||
+                        type == Short.class);
     }
 
     @Override
-    public <T> T convert(final Object value, final Class<T> type, final ConverterContext context) {
-        return type == Number.class && value instanceof Number ?
-                type.cast(value) :
-                type == BigDecimal.class ?
-                        this.bigDecimal.convert(value, type, context) :
-                        type == BigInteger.class ?
-                                this.bigInteger.convert(value, type, context) :
-                                type == Double.class ?
-                                        this.doubleConverter.convert(value, type, context) :
-                                        type == Long.class ?
-                                                this.longConverter.convert(value, type, context) :
-                                                this.failConversion(value, type);
+    public <T> T convert(final Object value,
+                         final Class<T> type,
+                         final ConverterContext context) {
+        Objects.requireNonNull(value, "value");
+        Objects.requireNonNull(type, "type");
+        Objects.requireNonNull(context, "context");
+
+        try {
+            return type == Number.class ?
+                    type.cast(value) :
+                    this.convertNonNumber(value, type);
+        } catch (final ConversionException rethrow) {
+            throw rethrow;
+        } catch (final RuntimeException cause) {
+            this.failConversion(value, type, cause);
+            return null;
+        }
     }
 
-    private final Converter bigDecimal;
-    private final Converter bigInteger;
-    private final Converter doubleConverter;
-    private final Converter longConverter;
+    private <T> T convertNonNumber(final Object value,
+                                   final Class<T> type) {
+        final NumberNumberConverterNumberTypeVisitorNumberVisitor<?> visitor = NumberNumberConverterNumberTypeVisitor.visitor(type);
+        if (null == visitor) {
+            this.failConversion(value, type);
+        }
+        return type.cast(visitor.convert(Cast.to(value)));
+    }
 
     @Override
     public String toString() {

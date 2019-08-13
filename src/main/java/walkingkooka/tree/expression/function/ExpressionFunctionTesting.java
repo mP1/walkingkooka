@@ -25,7 +25,6 @@ import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.util.BiFunctionTesting;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.function.Function;
 
@@ -78,18 +77,14 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V>, V>
         if (target == String.class) {
             return Cast.to(value.toString());
         }
+        if (value instanceof String && (target == Integer.class || target == Number.class)) {
+            return Cast.to(Integer.parseInt(value.toString()));
+        }
         if (target == Boolean.class) {
             return Cast.to(Boolean.parseBoolean(value.toString()));
         }
-        if (BigDecimal.class == target) {
-            return target.cast(Converters.numberBigDecimal().convert(value,
-                    BigDecimal.class,
-                    ConverterContexts.fake()));
-        }
-        if (Number.class.isAssignableFrom(target)) {
-            return Cast.to(Integer.parseInt(value.toString()));
-        }
-        throw new UnsupportedOperationException("Unable to convert " + value.getClass().getName() + "=" + CharSequences.quoteIfChars(value) + " to " + target.getName());
+
+        return Converters.numberNumber().convert(value, target, ConverterContexts.fake());
     }
 
     default List<Object> parameters(final Object... values) {

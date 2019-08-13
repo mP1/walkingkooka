@@ -21,6 +21,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -52,16 +54,16 @@ public final class TryConverterTest extends ConverterTestCase2<TryConverter> {
 
     @Test
     public void testFirst() {
-        this.convertAndCheck(Byte.MAX_VALUE,
-                Long.class,
-                Long.valueOf(Byte.MAX_VALUE));
+        this.convertAndCheck(BigDecimal.TEN,
+                Boolean.class,
+                true);
     }
 
     @Test
     public void testLast() {
-        this.convertAndCheck(1L,
-                Double.class,
-                1.0);
+        this.convertAndCheck(Byte.MAX_VALUE,
+                Long.class,
+                Long.valueOf(Byte.MAX_VALUE));
     }
 
     @Test
@@ -71,12 +73,20 @@ public final class TryConverterTest extends ConverterTestCase2<TryConverter> {
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createConverter(), Converters.numberLong() + ", " + Converters.numberDouble());
+        this.toStringAndCheck(this.createConverter(), "BigDecimal->Boolean, Number->Number");
     }
 
     @Override
     public TryConverter createConverter() {
-        return Cast.to(TryConverter.with(Lists.of(Converters.numberLong(), Converters.numberDouble())));
+        return Cast.to(TryConverter.with(Lists.of(this.firstConverter(), this.secondConverter())));
+    }
+
+    private Converter firstConverter() {
+        return Converters.bigDecimalBoolean();
+    }
+
+    private Converter secondConverter() {
+        return Converters.numberNumber();
     }
 
     @Override

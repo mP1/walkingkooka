@@ -100,7 +100,7 @@ public final class ChainConverterTest extends ConverterTestCase2<ChainConverter>
     }
 
     private Converter doubleToBigDecimal() {
-        return Converters.numberBigDecimal();
+        return Converters.numberNumber();
     }
 
     @Override

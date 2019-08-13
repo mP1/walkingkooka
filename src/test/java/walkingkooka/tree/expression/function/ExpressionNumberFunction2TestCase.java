@@ -30,7 +30,7 @@ public abstract class ExpressionNumberFunction2TestCase<F extends ExpressionNumb
 
     @Test
     public final void testZeroArgumentsFails() {
-        this.applyAndFail(this);
+        this.applyAndFail();
     }
 
     @Test
