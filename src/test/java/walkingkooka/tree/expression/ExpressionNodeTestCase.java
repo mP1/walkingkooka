@@ -374,12 +374,8 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
                 Converters.localDateTimeString((c) -> DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                 // localTime
                 toBoolean(LocalTime.class, LocalTime.ofNanoOfDay(0)),
-                Converters.localTimeBigDecimal(),
-                Converters.localTimeBigInteger(),
-                Converters.localTimeDouble(),
                 Converters.localTimeLocalDateTime(),
-                Converters.localTimeLong(),
-                Converters.localTimeLong(),
+                Converters.localTimeNumber(),
                 Converters.localTimeString((c) -> DateTimeFormatter.ISO_LOCAL_TIME),
                 // number ->
                 Converters.numberNumber(),

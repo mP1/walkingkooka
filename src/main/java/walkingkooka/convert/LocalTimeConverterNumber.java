@@ -17,12 +17,14 @@
 
 package walkingkooka.convert;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalTime;
 
 /**
- * Converts a {@link LocalTime} into a {@link Number}, actually a {@link Long}.
+ * Converts a {@link LocalTime} into the requested {@link Number} type.
  */
-final class LocalTimeConverterNumber extends LocalTimeConverter<Number> {
+final class LocalTimeConverterNumber extends LocalTimeConverter {
 
     /**
      * Singleton
@@ -36,15 +38,41 @@ final class LocalTimeConverterNumber extends LocalTimeConverter<Number> {
     }
 
     @Override
-    Number convert2(final long seconds, final long nano, final LocalTime localTime) {
-        if (0 != nano) {
-            this.failConversion(localTime);
-        }
-        return Long.valueOf(seconds);
+    boolean isTargetType(final Class<?> type) {
+        return BigDecimal.class == type ||
+                BigInteger.class == type ||
+                Byte.class == type ||
+                Double.class == type ||
+                Float.class == type ||
+                Integer.class == type ||
+                Long.class == type ||
+                Number.class == type ||
+                Short.class == type;
     }
 
+    @Override <T>
+    T convertFromLocalTime(final long seconds,
+                           final long nano,
+                           final LocalTime localTime,
+                           final Class<T> type,
+                           final ConverterContext context) {
+        try {
+            return BIGDECIMAL_TO_NUMBER.convert(BigDecimal.valueOf(seconds).add(BigDecimal.valueOf(1.0 * nano / Converters.NANOS_PER_SECOND)),
+                    type,
+                    context);
+        } catch (final FailedConversionException cause) {
+            // necessary so the exception has the correct value and type.
+            throw new FailedConversionException(localTime, type, cause);
+        }
+    }
+
+    /**
+     * Used to perform the final conversion part.
+     */
+    private final static Converter BIGDECIMAL_TO_NUMBER = Converters.numberNumber();
+
     @Override
-    Class<Number> targetType() {
-        return Number.class;
+    String toStringSuffix() {
+        return Number.class.getSimpleName();
     }
 }

@@ -19,22 +19,83 @@ package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalTime;
 
-public final class LocalTimeConverterNumberTest extends LocalTimeConverterTestCase<LocalTimeConverterNumber, Number> {
+public final class LocalTimeConverterNumberTest extends LocalTimeConverterTestCase<LocalTimeConverterNumber> {
 
-    private final static int VALUE = 123;
+    private final static byte VALUE = 123;
+    private final static double WITH_NANOS = 123.5;
 
     @Test
-    public void testLocalTime() {
-        this.convertAndCheck(LocalTime.ofSecondOfDay(VALUE), Long.valueOf(VALUE));
+    public void testLocalTimeToBigDecimal() {
+        this.convertAndCheck2(BigDecimal.valueOf(VALUE));
     }
 
     @Test
-    public void testConverterRoundTripWithNanos() {
-        final LocalTime localTime = LocalTime.ofSecondOfDay(VALUE);
-        final Number longValue = this.convertAndCheck(localTime, Long.valueOf(VALUE));
-        this.convertAndCheck(Converters.numberLocalTime(), longValue, LocalTime.class, localTime);
+    public void testLocalTimeToBigDecimal2() {
+        this.convertAndCheck3(BigDecimal.valueOf(WITH_NANOS));
+    }
+
+    @Test
+    public void testLocalTimeToBigInteger() {
+        this.convertAndCheck2(BigInteger.valueOf(VALUE));
+    }
+
+    @Test
+    public void testLocalTimeWithNanosToBigIntegerFails() {
+        this.convertFails2(BigInteger.class);
+    }
+
+    @Test
+    public void testLocalTimeToByte() {
+        this.convertAndCheck2(VALUE);
+    }
+
+    @Test
+    public void testLocalTimeWithNanosToByteFails() {
+        this.convertFails2(Byte.class);
+    }
+
+    @Test
+    public void testLocalTimeToShort() {
+        this.convertAndCheck2((short) VALUE);
+    }
+
+    @Test
+    public void testLocalTimeWithNanosToShortFails() {
+        this.convertFails2(Short.class);
+    }
+
+    @Test
+    public void testLocalTimeToInteger() {
+        this.convertAndCheck2((int) VALUE);
+    }
+
+    @Test
+    public void testLocalTimeWithNanosToIntegerFails() {
+        this.convertFails2(Integer.class);
+    }
+
+    @Test
+    public void testLocalTimeToLong() {
+        this.convertAndCheck2((long) VALUE);
+    }
+
+    @Test
+    public void testLocalTimeWithNanosToLongFails() {
+        this.convertFails2(Long.class);
+    }
+
+    @Test
+    public void testLocalTimeToFloat() {
+        this.convertAndCheck2((float) VALUE);
+    }
+
+    @Test
+    public void testLocalTimeToDouble() {
+        this.convertAndCheck2((double) VALUE);
     }
 
     @Test
@@ -47,9 +108,24 @@ public final class LocalTimeConverterNumberTest extends LocalTimeConverterTestCa
         return LocalTimeConverterNumber.INSTANCE;
     }
 
-    @Override
-    protected Class<Number> onlySupportedType() {
-        return Number.class;
+    private void convertAndCheck2(final Number expected) {
+        this.convertAndCheck(LocalTime.ofSecondOfDay(VALUE),
+                expected.getClass(),
+                expected);
+    }
+
+    private void convertAndCheck3(final Number expected) {
+        this.convertAndCheck(this.withNanos(),
+                expected.getClass(),
+                expected);
+    }
+
+    private void convertFails2(final Class<?> target) {
+        this.convertFails(this.withNanos(), target);
+    }
+
+    private LocalTime withNanos() {
+        return LocalTime.ofSecondOfDay(VALUE).plusNanos(500000000);
     }
 
     @Override

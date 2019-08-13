@@ -17,31 +17,10 @@
 
 package walkingkooka.convert;
 
-import java.time.LocalTime;
-
-/**
- * Converts a {@link LocalTime} into a {@link Double}.
- */
-final class LocalTimeConverterDouble extends LocalTimeConverter<Double> {
-
-    /**
-     * Singleton
-     */
-    final static LocalTimeConverterDouble INSTANCE = new LocalTimeConverterDouble();
-
-    /**
-     * Private ctor use singleton
-     */
-    private LocalTimeConverterDouble() {
-    }
+public final class FixedSourceTypeConverterTest extends ConverterTestCase3<FixedSourceTypeConverter> {
 
     @Override
-    Double convert2(final long seconds, final long nano, final LocalTime localTime) {
-        return Double.valueOf((double) seconds + (double) nano / Converters.NANOS_PER_SECOND);
-    }
-
-    @Override
-    Class<Double> targetType() {
-        return Double.class;
+    public Class<FixedSourceTypeConverter> type() {
+        return FixedSourceTypeConverter.class;
     }
 }
