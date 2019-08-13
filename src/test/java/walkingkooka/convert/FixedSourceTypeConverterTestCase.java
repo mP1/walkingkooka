@@ -17,32 +17,29 @@
 
 package walkingkooka.convert;
 
-import java.math.BigDecimal;
-import java.time.LocalTime;
+public abstract class FixedSourceTypeConverterTestCase<C extends FixedSourceTypeConverter<T>, T> extends ConverterTestCase<C>
+        implements ConverterTesting2<C> {
 
-/**
- * Converts a {@link java.time.LocalTime} into a {@link BigDecimal}.
- */
-final class LocalTimeConverterBigDecimal extends LocalTimeConverter<BigDecimal> {
-
-    /**
-     * Singleton
-     */
-    final static LocalTimeConverterBigDecimal INSTANCE = new LocalTimeConverterBigDecimal();
-
-    /**
-     * Private ctor use singleton
-     */
-    private LocalTimeConverterBigDecimal() {
+    FixedSourceTypeConverterTestCase() {
+        super();
     }
 
     @Override
-    BigDecimal convert2(final long seconds, final long nano, final LocalTime localTime) {
-        return BigDecimal.valueOf((double) seconds + (double) nano / Converters.NANOS_PER_SECOND);
+    public final ConverterContext createContext() {
+        return ConverterContexts.fake();
     }
 
+    // TypeNameTesting..................................................................................................
+
     @Override
-    Class<BigDecimal> targetType() {
-        return BigDecimal.class;
+    public final String typeNamePrefix() {
+        return this.sourceType().getSimpleName() + Converter.class.getSimpleName();
+    }
+
+    abstract Class<T> sourceType();
+
+    @Override
+    public final String typeNameSuffix() {
+        return "";
     }
 }

@@ -24,8 +24,11 @@ import java.time.LocalTime;
 /**
  * A {@link Converter} that converts {@link LocalTime} into {@link LocalDateTime}.
  */
-final class LocalTimeConverterLocalDateTime extends LocalTimeConverter<LocalDateTime> {
+final class LocalTimeConverterLocalDateTime extends LocalTimeConverter {
 
+    /**
+     * Singleton
+     */
     final static LocalTimeConverterLocalDateTime INSTANCE = new LocalTimeConverterLocalDateTime();
 
     private LocalTimeConverterLocalDateTime() {
@@ -33,21 +36,23 @@ final class LocalTimeConverterLocalDateTime extends LocalTimeConverter<LocalDate
     }
 
     @Override
-    Class<LocalDateTime> targetType() {
-        return LocalDateTime.class;
+    boolean isTargetType(final Class<?> type) {
+        return LocalDateTime.class == type;
     }
 
     @Override
-    LocalDateTime convert2(final long seconds,
-                           final long nano,
-                           final LocalTime time) {
-        return LocalDateTime.of(DATE, time);
+    <T> T convertFromLocalTime(final long seconds,
+                               final long nano,
+                               final LocalTime localTime,
+                               final Class<T> type,
+                               final ConverterContext context) {
+        return type.cast(LocalDateTime.of(DATE, localTime));
     }
 
-    private final static LocalDate DATE = LocalDate.ofEpochDay(0);
+    private final static LocalDate DATE = LocalDate.EPOCH;
 
     @Override
     String toStringSuffix() {
-        return "";
+        return LocalDateTime.class.getSimpleName();
     }
 }

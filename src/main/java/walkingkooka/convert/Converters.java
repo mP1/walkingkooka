@@ -251,41 +251,12 @@ public final class Converters implements PublicStaticHelper {
         return DateTimeFormatterConverterLocalDateTimeString.with(formatter);
     }
 
-
-    /**
-     * {@see LocalTimeConverterBigDecimal}
-     */
-    public static Converter localTimeBigDecimal() {
-        return LocalTimeConverterBigDecimal.INSTANCE;
-    }
-
-    /**
-     * {@see LocalTimeConverterBigInteger}
-     */
-    public static Converter localTimeBigInteger() {
-        return LocalTimeConverterBigInteger.INSTANCE;
-    }
-
-    /**
-     * {@see LocalTimeConverterDouble}
-     */
-    public static Converter localTimeDouble() {
-        return LocalTimeConverterDouble.INSTANCE;
-    }
-
     /**
      * {@see LocalTimeConverterLocalDateTime}
      */
     public static Converter localTimeLocalDateTime() {
         return LocalTimeConverterLocalDateTime.INSTANCE;
-    }
-
-    /**
-     * {@see LocalTimeConverterLong}
-     */
-    public static Converter localTimeLong() {
-        return LocalTimeConverterLong.INSTANCE;
-    }
+    }   
 
     /**
      * {@see LocalTimeConverterNumber}

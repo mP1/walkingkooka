@@ -34,7 +34,7 @@ public final class ExpressionLocalTimeNodeTest extends ExpressionLeafNodeTestCas
 
     private final static String TIME_STRING = "12:59:00";
     private final static String DIFFERENT_TIME_STRING = "06:00";
-    private final static long VALUE = Converters.localTimeLong().convert(LocalTime.parse(TIME_STRING),
+    private final static long VALUE = Converters.localTimeNumber().convert(LocalTime.parse(TIME_STRING),
             Long.class,
             ConverterContexts.fake());
 

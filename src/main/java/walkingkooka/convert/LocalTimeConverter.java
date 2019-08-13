@@ -22,7 +22,7 @@ import java.time.LocalTime;
 /**
  * Converts a {@link LocalTime} to a given type.
  */
-abstract class LocalTimeConverter<T> extends FixedSourceTypeTargetTypeConverter<LocalTime, T> {
+abstract class LocalTimeConverter extends FixedSourceTypeConverter<LocalTime> {
 
     /**
      * Package private to limit sub classing.
@@ -36,14 +36,19 @@ abstract class LocalTimeConverter<T> extends FixedSourceTypeTargetTypeConverter<
     }
 
     @Override
-    final T convert1(final LocalTime value, final ConverterContext context) {
-        return this.convert2(value.toSecondOfDay(), value.getNano(), value);
+    final <T> T convert0(final LocalTime value,
+                         final Class<T> type,
+                         final ConverterContext context) {
+        return this.convertFromLocalTime(value.toSecondOfDay(),
+                value.getNano(),
+                value,
+                type,
+                context);
     }
 
-    abstract T convert2(final long seconds, final long nano, final LocalTime localTime);
-
-    @Override
-    String toStringSuffix() {
-        return "";
-    }
+    abstract <T> T convertFromLocalTime(final long seconds,
+                                        final long nano,
+                                        final LocalTime localTime,
+                                        final Class<T> type,
+                                        final ConverterContext context);
 }
