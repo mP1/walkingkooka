@@ -25,7 +25,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public interface ConverterTesting<C extends Converter> extends Testing {
+/**
+ * A mixin interface with helpers to assist testing {@link Converter} converts or the conversion fails.
+ */
+public interface ConverterTesting extends Testing {
 
     default Object convertAndCheck(final Converter converter,
                                    final Object value,
@@ -44,22 +47,19 @@ public interface ConverterTesting<C extends Converter> extends Testing {
     default void checkEquals(final String message, final Object expected, final Object actual) {
         if (expected instanceof Comparable && expected.getClass().isInstance(actual)) {
             final Comparable expectedComparable = Cast.to(expected);
-            checkEquals0(message, Cast.to(expectedComparable), Cast.to(actual));
+            final Comparable actualComparable = Cast.to(expected);
+            if (expectedComparable.compareTo(actualComparable) != 0) {
+                assertEquals(expected, actual, message);
+            }
         } else {
             assertEquals(expected, actual, message);
         }
     }
 
-    static <C extends Comparable<C>> void checkEquals0(final String message, final C expected, final C actual) {
-        if (expected.compareTo(actual) != 0) {
-            assertEquals(expected, actual, message);
-        }
-    }
-
-    default <T> void convertFails(final Converter converter,
-                                  final Object value,
-                                  final Class<?> type,
-                                  final ConverterContext context) {
+    default void convertFails(final Converter converter,
+                              final Object value,
+                              final Class<?> type,
+                              final ConverterContext context) {
         try {
             final Object result = converter.convert(value, type, context);
             fail("Expected " + converter + " with " + CharSequences.quoteIfChars(value) + " to " + type.getName() + " to fail but got " + CharSequences.quoteIfChars(result));
