@@ -23,36 +23,36 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public final class LocalDateTimeConverterLocalDateTest extends LocalDateTimeConverterTestCase<LocalDateTimeConverterLocalDate, LocalDate> {
+public final class LocalDateConverterLocalDateTimeTest extends LocalDateConverterTestCase<LocalDateConverterLocalDateTime> {
 
     @Test
-    public void testMidnightTime() {
+    public void testLocalDate() {
         final LocalDate date = LocalDate.of(2000, 1, 31);
-        this.convertAndCheck2(LocalDateTime.of(date, LocalTime.MIDNIGHT), date);
+        this.convertAndCheck2(date, LocalDateTime.of(date, LocalTime.MIDNIGHT));
     }
 
     @Test
-    public void testNonMidnightTimeLost() {
-        final LocalDate date = LocalDate.of(2000, 1, 31);
-        this.convertAndCheck2(LocalDateTime.of(date, LocalTime.of(12, 58, 59)), date);
+    public void testLocalDate2() {
+        final LocalDate date = LocalDate.of(1999, 12, 31);
+        this.convertAndCheck2(date, LocalDateTime.of(date, LocalTime.MIDNIGHT));
     }
 
     // toString.........................................................................................................
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createConverter(), "LocalDateTime->LocalDate");
+        this.toStringAndCheck(this.createConverter(), "LocalDate->LocalDateTime");
     }
 
     // ConverterTesting.................................................................................................
 
     @Override
-    public LocalDateTimeConverterLocalDate createConverter() {
-        return LocalDateTimeConverterLocalDate.INSTANCE;
+    public LocalDateConverterLocalDateTime createConverter() {
+        return LocalDateConverterLocalDateTime.INSTANCE;
     }
 
     @Override
-    public Class<LocalDateTimeConverterLocalDate> type() {
-        return LocalDateTimeConverterLocalDate.class;
+    public Class<LocalDateConverterLocalDateTime> type() {
+        return LocalDateConverterLocalDateTime.class;
     }
 }

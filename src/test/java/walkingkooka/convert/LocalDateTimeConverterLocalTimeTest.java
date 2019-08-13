@@ -23,18 +23,32 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public final class LocalDateTimeConverterLocalTimeTest extends FixedTypeConverterTestCase<LocalDateTimeConverterLocalTime, LocalTime> {
+public final class LocalDateTimeConverterLocalTimeTest extends LocalDateTimeConverterTestCase<LocalDateTimeConverterLocalTime, LocalTime> {
 
     @Test
-    public void testConvert() {
-        final LocalTime time = LocalTime.of(12, 59);
-        this.convertAndCheck(LocalDateTime.of(LocalDate.of(2000, 1, 31), time), time);
+    public void testMidnightTime() {
+        final LocalTime time = LocalTime.MIDNIGHT;
+        this.convertAndCheck2(LocalDateTime.of(date(), time), time);
     }
+
+    @Test
+    public void testNonMidnightTime2() {
+        final LocalTime time = LocalTime.of(12, 58, 59);
+        this.convertAndCheck2(LocalDateTime.of(date(), time), time);
+    }
+
+    private LocalDate date() {
+        return LocalDate.of(2000, 1, 31);
+    }
+
+    // toString.........................................................................................................
 
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createConverter(), "LocalDateTime->LocalTime");
     }
+
+    // ConverterTesting.................................................................................................
 
     @Override
     public LocalDateTimeConverterLocalTime createConverter() {
@@ -42,29 +56,7 @@ public final class LocalDateTimeConverterLocalTimeTest extends FixedTypeConverte
     }
 
     @Override
-    protected Class<LocalTime> onlySupportedType() {
-        return LocalTime.class;
-    }
-
-    @Override
-    public ConverterContext createContext() {
-        return ConverterContexts.fake();
-    }
-
-    @Override
     public Class<LocalDateTimeConverterLocalTime> type() {
         return LocalDateTimeConverterLocalTime.class;
-    }
-
-    // TypeNameTesting..................................................................................................
-
-    @Override
-    public String typeNamePrefix() {
-        return LocalDateTime.class.getSimpleName() + Converter.class.getSimpleName();
-    }
-
-    @Override
-    public String typeNameSuffix() {
-        return this.onlySupportedType().getSimpleName();
     }
 }

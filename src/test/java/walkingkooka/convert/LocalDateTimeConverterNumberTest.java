@@ -20,38 +20,176 @@ package walkingkooka.convert;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public final class LocalDateTimeConverterNumberTest extends LocalDateTimeConverterTestCase<LocalDateTimeConverterNumber, Number> {
 
-    @Test
-    public void testLocalDateTimeWithNonMidnightTime() {
-        this.convertAndCheck(LocalDateTime.of(DAY, QUARTER_DAY), BigDecimal.valueOf(VALUE + 0.25));
-    }
+    // fail(overflow)....................................................................................................
 
     @Test
-    public void testConverterRoundTripWithNonMidnightTime() {
-        final LocalDateTime localDateTime = LocalDateTime.of(DAY, QUARTER_DAY);
-        final Number bigDecimal = this.convertAndCheck(localDateTime, BigDecimal.valueOf(VALUE + 0.25));
-        this.convertAndCheck(Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET),
-                bigDecimal,
-                LocalDateTime.class,
-                localDateTime);
+    public void testToByteOverflowFails() {
+        this.convertFails3(Byte.class);
     }
 
-    @Override
-    final LocalDateTimeConverterNumber createConverter(final long offset) {
-        return LocalDateTimeConverterNumber.with(offset);
+    @Test
+    public void testToShortOverflowFails() {
+        this.convertFails3(Byte.class);
     }
 
-    @Override
-    protected Class<Number> onlySupportedType() {
-        return Number.class;
+    private void convertFails3(final Class<? extends Number> type) {
+        this.convertFails(LocalDateTime.MAX, type);
     }
 
+    // pass.............................................................................................................
+
+    private final static byte BYTE_VALUE = 12;
+
+    @Test
+    public void testToBigDecimal() {
+        this.convertAndCheck3(BigDecimal.valueOf(BYTE_VALUE));
+    }
+
+    @Test
+    public void testToBigDecimalQuarter() {
+        this.convertAndCheck4(BigDecimal.valueOf(BYTE_VALUE).add(BigDecimal.valueOf(0.25)));
+    }
+
+    @Test
+    public void testToBigInteger() {
+        this.convertAndCheck3(BigInteger.valueOf(BYTE_VALUE));
+    }
+
+    @Test
+    public void testToByte() {
+        this.convertAndCheck3(BYTE_VALUE);
+    }
+
+    @Test
+    public void testToShort() {
+        this.convertAndCheck3(Short.valueOf(BYTE_VALUE));
+    }
+
+    @Test
+    public void testToInteger() {
+        this.convertAndCheck3(Integer.valueOf(BYTE_VALUE));
+    }
+
+    @Test
+    public void testToLong() {
+        this.convertAndCheck3(Long.valueOf(BYTE_VALUE));
+    }
+
+    @Test
+    public void testToFloat() {
+        this.convertAndCheck3(Float.valueOf(BYTE_VALUE));
+    }
+
+    @Test
+    public void testToFloatQuarter() {
+        this.convertAndCheck4(Float.valueOf(BYTE_VALUE + 0.25f));
+    }
+
+    @Test
+    public void testToDouble() {
+        this.convertAndCheck3(Double.valueOf(BYTE_VALUE));
+    }
+
+    @Test
+    public void testToDoubleQuarter() {
+        this.convertAndCheck4(Double.valueOf(BYTE_VALUE + 0.25));
+    }
+
+    private void convertAndCheck3(final Number expected) {
+        this.convertAndCheck2(LocalDateTime.of(LocalDate.ofEpochDay(BYTE_VALUE), LocalTime.MIDNIGHT),
+                expected);
+    }
+
+    private void convertAndCheck4(final Number expected) {
+        this.convertAndCheck2(LocalDateTime.of(LocalDate.ofEpochDay(BYTE_VALUE), LocalTime.of(12, 0)),
+                expected);
+    }
+
+    @Test
+    public void testToNumber() {
+        this.convertAndCheck(LocalDateTime.of(LocalDate.ofEpochDay(BYTE_VALUE), LocalTime.MIDNIGHT),
+                Number.class,
+                Double.valueOf(BYTE_VALUE));
+    }
+
+    // withOffset.......................................................................................................
+
+    private final static int OFFSET = 100;
+
+    @Test
+    public void testWithOffsetToBigDecimal() {
+        this.convertWithOffsetAndCheck3(BigDecimal.valueOf(BYTE_VALUE));
+    }
+
+    @Test
+    public void testWithOffsetToBigInteger() {
+        this.convertWithOffsetAndCheck3(BigInteger.valueOf(BYTE_VALUE));
+    }
+
+    @Test
+    public void testWithOffsetToByte() {
+        this.convertWithOffsetAndCheck3(BYTE_VALUE);
+    }
+
+    @Test
+    public void testWithOffsetToShort() {
+        this.convertWithOffsetAndCheck3(Short.valueOf(BYTE_VALUE));
+    }
+
+    @Test
+    public void testWithOffsetToInteger() {
+        this.convertWithOffsetAndCheck3(Integer.valueOf(BYTE_VALUE));
+    }
+
+    @Test
+    public void testWithOffsetToLong() {
+        this.convertWithOffsetAndCheck3(Long.valueOf(BYTE_VALUE));
+    }
+
+    @Test
+    public void testWithOffsetToFloat() {
+        this.convertWithOffsetAndCheck3(Float.valueOf(BYTE_VALUE));
+    }
+
+    @Test
+    public void testWithOffsetToDouble() {
+        this.convertWithOffsetAndCheck3(Double.valueOf(BYTE_VALUE));
+    }
+
+    private void convertWithOffsetAndCheck3(final Number expected) {
+        this.convertAndCheck(LocalDateTimeConverterNumber.with(OFFSET),
+                LocalDateTime.of(LocalDate.ofEpochDay(BYTE_VALUE), LocalTime.MIDNIGHT),
+                expected.getClass(),
+                expected);
+    }
+
+    @Test
+    public void testWithOffsetToNumber() {
+        this.convertAndCheck(LocalDateTimeConverterNumber.with(OFFSET),
+                LocalDateTime.of(LocalDate.ofEpochDay(BYTE_VALUE), LocalTime.MIDNIGHT),
+                Number.class,
+                Double.valueOf(BYTE_VALUE + OFFSET));
+    }
+
+    // toString.........................................................................................................
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(this.createConverter(), "LocalDateTime->Number");
+    }
+
+    // ConverterTesting.................................................................................................
+
     @Override
-    final BigDecimal value(final long value) {
-        return BigDecimal.valueOf(value);
+    public LocalDateTimeConverterNumber createConverter() {
+        return LocalDateTimeConverterNumber.with(Converters.JAVA_EPOCH_OFFSET);
     }
 
     @Override

@@ -18,6 +18,7 @@
 package walkingkooka.convert;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 /**
@@ -41,8 +42,28 @@ final class LocalDateTimeConverterNumber extends LocalDateTimeConverter<Number> 
     }
 
     @Override
-    BigDecimal convert3(final long days, final double time, final LocalDateTime localDateTime) {
-        return BigDecimal.valueOf(days + time);
+    boolean isTargetType(final Class<?> type) {
+        return BigDecimal.class == type ||
+                BigInteger.class == type ||
+                Byte.class == type ||
+                Double.class == type ||
+                Float.class == type ||
+                Integer.class == type ||
+                Long.class == type ||
+                Number.class == type ||
+                Short.class == type;
+    }
+
+    @Override
+    <T> T convertFromLocalDateTime(final long days,
+                                   final double time,
+                                   final LocalDateTime localDateTime,
+                                   final Class<T> type,
+                                   final ConverterContext context) {
+        return this.convertFromNumber(days + time,
+                localDateTime,
+                type,
+                context);
     }
 
     @Override

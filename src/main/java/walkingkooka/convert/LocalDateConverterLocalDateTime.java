@@ -24,33 +24,33 @@ import java.time.LocalTime;
 /**
  * A {@link Converter} that converts {@link LocalDate} into {@link LocalDateTime}.
  */
-final class LocalDateLocalDateTimeConverter extends FixedSourceTypeTargetTypeConverter<LocalDate, LocalDateTime> {
+final class LocalDateConverterLocalDateTime extends LocalDateConverter<LocalDateTime> {
 
-    final static LocalDateLocalDateTimeConverter INSTANCE = new LocalDateLocalDateTimeConverter();
+    /**
+     * Singleton
+     */
+    final static LocalDateConverterLocalDateTime INSTANCE = new LocalDateConverterLocalDateTime();
 
-    private LocalDateLocalDateTimeConverter() {
-        super();
+    private LocalDateConverterLocalDateTime() {
+        super(0);
     }
 
     @Override
-    Class<LocalDate> sourceType() {
-        return LocalDate.class;
+    boolean isTargetType(final Class<?> type) {
+        return LocalDateTime.class == type;
     }
+
+    @Override
+    <T> T convert0(final LocalDate date,
+                   final Class<T> type,
+                   final ConverterContext context) {
+        return type.cast(LocalDateTime.of(date, TIME));
+    }
+
+    private final static LocalTime TIME = LocalTime.MIDNIGHT;
 
     @Override
     Class<LocalDateTime> targetType() {
         return LocalDateTime.class;
-    }
-
-    @Override
-    LocalDateTime convert1(final LocalDate date, final ConverterContext context) {
-        return LocalDateTime.of(date, TIME);
-    }
-
-    private final static LocalTime TIME = LocalTime.ofSecondOfDay(0);
-
-    @Override
-    String toStringSuffix() {
-        return "";
     }
 }

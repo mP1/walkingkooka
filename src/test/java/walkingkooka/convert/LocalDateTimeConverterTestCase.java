@@ -17,13 +17,11 @@
 
 package walkingkooka.convert;
 
-import org.junit.jupiter.api.Test;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public abstract class LocalDateTimeConverterTestCase<C extends FixedSourceTypeTargetTypeConverter<LocalDateTime, T>, T> extends FixedTypeConverterTestCase<C, T> {
+public abstract class LocalDateTimeConverterTestCase<C extends LocalDateTimeConverter<T>, T> extends FixedSourceTypeConverterTestCase<C, LocalDateTime> {
 
     final static int VALUE = 123;
     final static LocalDate DAY = LocalDate.ofEpochDay(VALUE);
@@ -34,78 +32,12 @@ public abstract class LocalDateTimeConverterTestCase<C extends FixedSourceTypeTa
         super();
     }
 
-    @Test
-    public final void testLocalDateTime() {
-        this.convertAndCheck(LocalDateTime.of(DAY, MIDNIGHT), this.value(VALUE));
-    }
-
-    public final void testLocalDateTimeExcelOffset() {
-        this.convertAndCheck(this.createConverter(Converters.EXCEL_OFFSET),
-                LocalDateTime.of(DAY, MIDNIGHT),
-                LocalDateTime.class,
-                this.value(VALUE));
-    }
-
-    public final void testLocalDateTimeExcelOffset2() {
-        final int value = 123;
-        this.convertAndCheck(this.createConverter(value + Converters.EXCEL_OFFSET),
-                LocalDateTime.of(DAY, MIDNIGHT),
-                LocalDateTime.class,
-                this.value(value));
-    }
-
-    @Test
-    public final void testConverterRoundTrip() {
-        final LocalDateTime localDateTime = LocalDateTime.of(DAY, MIDNIGHT);
-        final Object value = this.convertAndCheck(localDateTime, this.value(VALUE));
-        this.convertAndCheck(Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET),
-                value,
-                LocalDateTime.class,
-                localDateTime);
-    }
-
-    @Test
-    public final void testToString() {
-        this.toStringAndCheck(this.createConverter(), this.defaultToString());
-    }
-
-    @Test
-    public final void testToStringNegativeOffset() {
-        this.toStringAndCheck(this.createConverter(-123), this.defaultToString() + "(-123)");
-    }
-
-    @Test
-    public final void testToStringPositiveOffset() {
-        this.toStringAndCheck(this.createConverter(+123), this.defaultToString() + "(+123)");
-    }
-
-    private String defaultToString() {
-        return "LocalDateTime->" + this.onlySupportedType().getSimpleName();
-    }
-
     @Override
-    public final C createConverter() {
-        return this.createConverter(Converters.JAVA_EPOCH_OFFSET);
+    final Class<LocalDateTime> sourceType() {
+        return LocalDateTime.class;
     }
 
-    abstract C createConverter(final long offset);
-
-    @Override
-    public final ConverterContext createContext() {
-        return ConverterContexts.fake();
-    }
-
-    abstract T value(final long value);
-
-    // TypeNameTesting..................................................................................................
-
-    @Override
-    public final String typeNamePrefix() {
-        return LocalDateTime.class.getSimpleName() + Converter.class.getSimpleName();
-    }
-
-    @Override
-    public final String typeNameSuffix() {
-        return this.onlySupportedType().getSimpleName();
+    final void convertAndCheck2(final Object value, final Object expected) {
+        this.convertAndCheck(value, expected.getClass(), expected);
     }
 }
