@@ -301,27 +301,6 @@ public final class Converters implements PublicStaticHelper {
         return DateTimeFormatterConverterLocalTimeString.with(formatter);
     }
 
-//    /**
-//     * [@see NumberConverterBigDecimal}
-//     */
-//    public static Converter numberBigDecimal() {
-//        return NumberConverterBigDecimal.INSTANCE;
-//    }
-//
-//    /**
-//     * [@see NumberConverterBigInteger}
-//     */
-//    public static Converter numberBigInteger() {
-//        return NumberConverterBigInteger.INSTANCE;
-//    }
-//
-//    /**
-//     * [@see NumberConverterDouble}
-//     */
-//    public static Converter numberDouble() {
-//        return NumberConverterDouble.INSTANCE;
-//    }
-
     /**
      * {@see NumberConverterLocalDate}
      */
@@ -342,20 +321,6 @@ public final class Converters implements PublicStaticHelper {
     public static Converter numberLocalTime() {
         return NumberConverterLocalTime.INSTANCE;
     }
-
-//    /**
-//     * {@see NumberConverterInteger}
-//     */
-//    public static Converter numberInteger() {
-//        return NumberConverterInteger.INSTANCE;
-//    }
-//
-//    /**
-//     * {@see NumberConverterLong}
-//     */
-//    public static Converter numberLong() {
-//        return NumberConverterLong.INSTANCE;
-//    }
 
     /**
      * {@see NumberNumberConverter}
