@@ -67,11 +67,11 @@ public final class NumberConverterNumberVisitorTest implements NumberVisitorTest
 
     @Override
     public NumberConverterNumberVisitor<BigDecimal> createVisitor() {
-        return new NumberConverterNumberVisitor<BigDecimal>(this.converter(), BigDecimal.class);
+        return new NumberConverterNumberVisitor<>(this.converter(), BigDecimal.class);
     }
 
-    private NumberConverterBigDecimal converter() {
-        return NumberConverterBigDecimal.INSTANCE;
+    private NumberConverter converter() {
+        return NumberConverterBoolean.INSTANCE;
     }
 
     @Override

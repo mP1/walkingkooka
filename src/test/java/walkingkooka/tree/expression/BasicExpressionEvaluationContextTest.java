@@ -143,7 +143,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     private Converter converter() {
-        return Converters.numberLong();
+        return Converters.numberNumber();
     }
 
     private ConverterContext converterContext() {

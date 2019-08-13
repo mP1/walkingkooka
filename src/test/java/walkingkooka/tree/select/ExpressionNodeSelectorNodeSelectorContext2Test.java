@@ -112,7 +112,7 @@ public final class ExpressionNodeSelectorNodeSelectorContext2Test extends NodeSe
                 assertEquals(Integer.class, target, "target");
 
                 return Converters.collection(Lists.of(
-                        Converters.numberInteger(),
+                        Converters.numberNumber(),
                         Converters.function(String.class, Integer.class, Integer::parseInt)))
                         .convert(value, target, ConverterContexts.basic(ConverterContexts.fake(), DecimalNumberContexts.american(MathContext.DECIMAL32)));
             }

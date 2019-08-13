@@ -61,12 +61,12 @@ public final class ConverterCollectionTest extends ConverterTestCase2<ConverterC
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createConverter(), "String->Boolean | BigDecimal|BigInteger|Byte|Short|Integer|Long|Float|Double->Long");
+        this.toStringAndCheck(this.createConverter(), "String->Boolean | Number->Number");
     }
 
     @Override
     public ConverterCollection createConverter() {
-        return Cast.to(ConverterCollection.with(Lists.of(Converters.function(String.class, Boolean.class, Boolean::valueOf), Converters.numberLong())));
+        return Cast.to(ConverterCollection.with(Lists.of(Converters.function(String.class, Boolean.class, Boolean::valueOf), Converters.numberNumber())));
     }
 
     @Override
