@@ -22,7 +22,7 @@ import walkingkooka.test.TypeNameTesting;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public interface ConverterTesting2<C extends Converter> extends ConverterTesting<C>,
+public interface ConverterTesting2<C extends Converter> extends ConverterTesting,
         ToStringTesting<C>,
         TypeNameTesting<C> {
 
