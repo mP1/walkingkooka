@@ -55,13 +55,13 @@ final class LocalDateConverterNumber extends LocalDateConverter<Number> {
     }
 
     @Override
-    <T> T convert0(final LocalDate date,
+    <T> T convert1(final LocalDate date,
                    final Class<T> type,
                    final ConverterContext context) {
-        return this.convertFromNumber(Long.valueOf(date.toEpochDay() + this.offset),
-                date,
+        return this.convertToNumber(Long.valueOf(date.toEpochDay() + this.offset),
                 type,
-                context);
+                context,
+                date);
     }
 
     @Override

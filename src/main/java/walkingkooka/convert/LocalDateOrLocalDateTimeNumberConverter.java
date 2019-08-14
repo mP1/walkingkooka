@@ -30,25 +30,6 @@ abstract class LocalDateOrLocalDateTimeNumberConverter<S, T> extends FixedSource
 
     final long offset;
 
-    final <T> T convertFromNumber(final Number number,
-                                  final S value,
-                                  final Class<T> type,
-                                  final ConverterContext context) {
-        try {
-            return BIGDECIMAL_TO_NUMBER.convert(number,
-                    type,
-                    context);
-        } catch (final FailedConversionException cause) {
-            // necessary so the exception has the correct value and type.
-            throw new FailedConversionException(value, type, cause);
-        }
-    }
-
-    /**
-     * Used to perform the final conversion part.
-     */
-    private final static Converter BIGDECIMAL_TO_NUMBER = Converters.numberNumber();
-
     @Override
     final String toStringSuffix() {
         return this.targetType().getSimpleName() + toStringOffset(this.offset);
