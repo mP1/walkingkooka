@@ -42,6 +42,7 @@ import walkingkooka.type.JavaVisibility;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -375,7 +376,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
                 Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET),
                 Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET),
                 Converters.numberLocalTime(),
-                Converters.decimalFormatString("#.###"),
+                Converters.numberString((c) -> new DecimalFormat("#.###")),
                 // string ->
                 stringBigDecimal,
                 stringBigInteger,
