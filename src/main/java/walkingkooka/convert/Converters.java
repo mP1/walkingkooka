@@ -18,10 +18,12 @@
 package walkingkooka.convert;
 
 import walkingkooka.datetime.DateTimeContext;
+import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.type.PublicStaticHelper;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -121,13 +123,6 @@ public final class Converters implements PublicStaticHelper {
      */
     public static Converter customToString(final Converter converter, final String toString) {
         return CustomToStringConverter.wrap(converter, toString);
-    }
-
-    /**
-     * {@see DecimalFormatStringConverter}
-     */
-    public static Converter decimalFormatString(final String pattern) {
-        return DecimalFormatStringConverter.with(pattern);
     }
 
     /**
@@ -245,6 +240,13 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
+     * {@see DecimalFormatConverterNumberString}
+     */
+    public static Converter numberString(final Function<DecimalNumberContext, DecimalFormat> decimalFormat) {
+        return DecimalFormatConverterNumberString.with(decimalFormat);
+    }
+
+    /**
      * {@see ParserConverter}
      */
     public static <V, C extends ParserContext> Converter parser(final Class<V> type,
@@ -286,6 +288,13 @@ public final class Converters implements PublicStaticHelper {
      */
     public static Converter stringLocalTime(final Function<DateTimeContext, DateTimeFormatter> formatter) {
         return DateTimeFormatterConverterStringLocalTime.with(formatter);
+    }
+
+    /**
+     * {@see DecimalFormatConverterStringNumber}
+     */
+    public static Converter stringNumber(final Function<DecimalNumberContext, DecimalFormat> decimalFormat) {
+        return DecimalFormatConverterStringNumber.with(decimalFormat);
     }
 
     /**
