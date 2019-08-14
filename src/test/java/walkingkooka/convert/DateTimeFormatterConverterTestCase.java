@@ -17,23 +17,12 @@
 
 package walkingkooka.convert;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.JavaVisibility;
-
 import java.time.format.DateTimeFormatter;
 
-public abstract class DateTimeFormatterConverterTestCase<T> implements ClassTesting2<T>, TypeNameTesting<T> {
+public abstract class DateTimeFormatterConverterTestCase<T> extends ConverterTestCase<T> {
 
     DateTimeFormatterConverterTestCase() {
         super();
-    }
-
-    // ClassTesting.....................................................................................................
-
-    @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     // TypeNameTesting..................................................................................................
