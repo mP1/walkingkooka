@@ -22,7 +22,6 @@ import walkingkooka.test.Testing;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
@@ -35,11 +34,12 @@ public interface ConverterTesting extends Testing {
                                    final Class<?> target,
                                    final ConverterContext context,
                                    final Object expected) {
-        assertTrue(converter.canConvert(value, target, context),
-                converter + " can convert(" + value.getClass().getName() + "," + target.getName() + ") returned false for " + value);
+        assertEquals(true,
+                converter.canConvert(value, target, context),
+                converter + " can convert(" + CharSequences.quoteIfChars(value) + "(" + value.getClass().getName() + ")," + target.getName() + ")");
 
         final Object result = converter.convert(value, target, context);
-        checkEquals("Failed to convert " + value.getClass().getName() + "=" + value + " to " + target.getName(), expected, result);
+        checkEquals("Failed to convert " + CharSequences.quoteIfChars(value) + " (" + value.getClass().getName() + ")= to " + target.getName(), expected, result);
 
         return result;
     }
@@ -62,7 +62,7 @@ public interface ConverterTesting extends Testing {
                               final ConverterContext context) {
         try {
             final Object result = converter.convert(value, type, context);
-            fail("Expected " + converter + " with " + CharSequences.quoteIfChars(value) + " to " + type.getName() + " to fail but got " + CharSequences.quoteIfChars(result));
+            fail("Expected " + converter + " convert " + CharSequences.quoteIfChars(value) + "(" + value.getClass().getName() + ") to " + type.getName() + " to fail but got " + CharSequences.quoteIfChars(result));
 
         } catch (final FailedConversionException failed) {
             assertEquals(value, failed.value(), () -> failed.getMessage());
