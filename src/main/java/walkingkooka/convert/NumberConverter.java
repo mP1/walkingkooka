@@ -30,7 +30,7 @@ abstract class NumberConverter<T> extends FixedTargetTypeConverter<T> {
     }
 
     @Override
-    public boolean canConvert(final Object value, final Class<?> type, final ConverterContext context) {
+    public final boolean canConvert(final Object value, final Class<?> type, final ConverterContext context) {
         return value instanceof Number && this.targetType() == type;
     }
 
