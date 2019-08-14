@@ -17,12 +17,10 @@
 
 package walkingkooka.convert;
 
-import java.util.Objects;
-
 /**
  * A base {@link Converter} that assumes a single source value type.
  */
-abstract class FixedSourceTypeConverter<S> implements Converter {
+abstract class FixedSourceTypeConverter<S> extends Converter2 {
 
     /**
      * Package private to limit sub classing.
@@ -43,23 +41,15 @@ abstract class FixedSourceTypeConverter<S> implements Converter {
     abstract boolean isTargetType(final Class<?> type);
 
     @Override
-    public final <T> T convert(final Object value,
-                               final Class<T> type,
-                               final ConverterContext context) {
-        Objects.requireNonNull(value, "value");
-        Objects.requireNonNull(type, "type");
-        Objects.requireNonNull(context, "context");
-
-        if (!this.canConvert(value, type, context)) {
-            failConversion(value, type);
-        }
-
-        return type.cast(this.convert0(this.sourceType().cast(value),
+    final <T> T convert0(final Object value,
+                         final Class<T> type,
+                         final ConverterContext context) {
+        return this.convert1(this.sourceType().cast(value),
                 type,
-                context));
+                context);
     }
 
-    abstract <T> T convert0(final S value,
+    abstract <T> T convert1(final S value,
                             final Class<T> type,
                             final ConverterContext context);
 

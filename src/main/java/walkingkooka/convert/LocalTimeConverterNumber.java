@@ -17,6 +17,8 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Cast;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalTime;
@@ -50,20 +52,14 @@ final class LocalTimeConverterNumber extends LocalTimeConverter {
                 Short.class == type;
     }
 
-    @Override <T>
-    T convertFromLocalTime(final long seconds,
-                           final long nano,
-                           final LocalTime localTime,
-                           final Class<T> type,
-                           final ConverterContext context) {
-        try {
-            return BIGDECIMAL_TO_NUMBER.convert(BigDecimal.valueOf(seconds).add(BigDecimal.valueOf(1.0 * nano / Converters.NANOS_PER_SECOND)),
-                    type,
-                    context);
-        } catch (final FailedConversionException cause) {
-            // necessary so the exception has the correct value and type.
-            throw new FailedConversionException(localTime, type, cause);
-        }
+    @Override
+    <T> T convertFromLocalTime(final long seconds,
+                               final long nano,
+                               final LocalTime localTime,
+                               final Class<T> type,
+                               final ConverterContext context) {
+        return this.convertToNumber(BigDecimal.valueOf(seconds).add(BigDecimal.valueOf(1.0 * nano / Converters.NANOS_PER_SECOND)), Cast.to(type), context, localTime
+        );
     }
 
     /**

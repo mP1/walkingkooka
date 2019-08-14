@@ -36,7 +36,7 @@ abstract class LocalTimeConverter extends FixedSourceTypeConverter<LocalTime> {
     }
 
     @Override
-    final <T> T convert0(final LocalTime value,
+    final <T> T convert1(final LocalTime value,
                          final Class<T> type,
                          final ConverterContext context) {
         return this.convertFromLocalTime(value.toSecondOfDay(),

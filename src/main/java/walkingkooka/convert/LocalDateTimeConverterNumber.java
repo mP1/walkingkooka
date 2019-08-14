@@ -57,13 +57,13 @@ final class LocalDateTimeConverterNumber extends LocalDateTimeConverter<Number> 
     @Override
     <T> T convertFromLocalDateTime(final long days,
                                    final double time,
-                                   final LocalDateTime localDateTime,
+                                   final LocalDateTime dateTime,
                                    final Class<T> type,
                                    final ConverterContext context) {
-        return this.convertFromNumber(days + time,
-                localDateTime,
+        return this.convertToNumber(days + time,
                 type,
-                context);
+                context,
+                dateTime);
     }
 
     @Override

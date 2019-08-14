@@ -26,7 +26,7 @@ import java.util.Objects;
 /**
  * A {@link Converter} which handles converting {@link Number} to other number types or nothing at all if the target is number.
  */
-final class NumberNumberConverter implements Converter {
+final class NumberNumberConverter extends Converter2 {
 
     /**
      * Singleton
@@ -56,13 +56,9 @@ final class NumberNumberConverter implements Converter {
     }
 
     @Override
-    public <T> T convert(final Object value,
-                         final Class<T> type,
-                         final ConverterContext context) {
-        Objects.requireNonNull(value, "value");
-        Objects.requireNonNull(type, "type");
-        Objects.requireNonNull(context, "context");
-
+    <T> T convert0(final Object value,
+                   final Class<T> type,
+                   final ConverterContext context) {
         try {
             return type == Number.class ?
                     type.cast(value) :

@@ -37,7 +37,7 @@ abstract class LocalDateTimeConverter<T> extends LocalDateOrLocalDateTimeNumberC
     }
 
     @Override
-    final <T> T convert0(final LocalDateTime value,
+    final <T> T convert1(final LocalDateTime value,
                          final Class<T> type,
                          final ConverterContext context) {
         return this.convertFromLocalDateTime(value.toLocalDate().toEpochDay() + this.offset,

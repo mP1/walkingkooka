@@ -37,7 +37,7 @@ final class StringConverter extends FixedTargetTypeConverter<String> {
     }
 
     @Override
-    String convert0(final Object value, final Class<String> type, final ConverterContext context) {
+    String convert1(final Object value, final Class<String> type, final ConverterContext context) {
         return value.toString();
     }
 

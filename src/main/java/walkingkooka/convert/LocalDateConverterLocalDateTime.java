@@ -41,7 +41,7 @@ final class LocalDateConverterLocalDateTime extends LocalDateConverter<LocalDate
     }
 
     @Override
-    <T> T convert0(final LocalDate date,
+    <T> T convert1(final LocalDate date,
                    final Class<T> type,
                    final ConverterContext context) {
         return type.cast(LocalDateTime.of(date, TIME));
