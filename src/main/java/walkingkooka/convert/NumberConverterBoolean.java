@@ -39,11 +39,6 @@ final class NumberConverterBoolean extends NumberConverter<Boolean> {
     }
 
     @Override
-    public boolean canConvert(final Object value, final Class<?> type, ConverterContext context) {
-        return value instanceof Number && Boolean.class == type;
-    }
-
-    @Override
     Boolean bigDecimal(final BigDecimal value) {
         return value.signum() != 0;
     }

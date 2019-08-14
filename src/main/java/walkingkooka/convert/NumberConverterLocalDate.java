@@ -43,11 +43,6 @@ final class NumberConverterLocalDate extends NumberConverter<LocalDate> {
     }
 
     @Override
-    public boolean canConvert(final Object value, final Class<?> type, ConverterContext context) {
-        return value instanceof Number && LocalDate.class == type;
-    }
-
-    @Override
     LocalDate bigDecimal(final BigDecimal value) {
         return this.localDate(value.longValueExact());
     }

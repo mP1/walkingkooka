@@ -46,11 +46,6 @@ final class NumberConverterLocalDateTime extends NumberConverter<LocalDateTime> 
     }
 
     @Override
-    public boolean canConvert(final Object value, final Class<?> type, ConverterContext context) {
-        return value instanceof Number && LocalDateTime.class == type;
-    }
-
-    @Override
     LocalDateTime bigDecimal(final BigDecimal value) {
         final double doubleValue = value.doubleValue();
         if (0 != BigDecimal.valueOf(doubleValue).compareTo(value)) {
