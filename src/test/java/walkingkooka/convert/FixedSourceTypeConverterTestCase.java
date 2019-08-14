@@ -17,7 +17,7 @@
 
 package walkingkooka.convert;
 
-public abstract class FixedSourceTypeConverterTestCase<C extends FixedSourceTypeConverter<T>, T> extends ConverterTestCase<C>
+public abstract class FixedSourceTypeConverterTestCase<C extends FixedSourceTypeConverter<S>, S> extends ConverterTestCase<C>
         implements ConverterTesting2<C> {
 
     FixedSourceTypeConverterTestCase() {
@@ -36,7 +36,7 @@ public abstract class FixedSourceTypeConverterTestCase<C extends FixedSourceType
         return this.sourceType().getSimpleName() + Converter.class.getSimpleName();
     }
 
-    abstract Class<T> sourceType();
+    abstract Class<S> sourceType();
 
     @Override
     public final String typeNameSuffix() {

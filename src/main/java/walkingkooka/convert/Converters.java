@@ -147,38 +147,10 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * {@see LocalDateConverterBigDecimal}
-     */
-    public static Converter localDateBigDecimal(final long offset) {
-        return LocalDateConverterBigDecimal.with(offset);
-    }
-
-    /**
-     * {@see LocalDateConverterBigInteger}
-     */
-    public static Converter localDateBigInteger(final long offset) {
-        return LocalDateConverterBigInteger.with(offset);
-    }
-
-    /**
-     * {@see LocalDateConverterDouble}
-     */
-    public static Converter localDateDouble(final long offset) {
-        return LocalDateConverterDouble.with(offset);
-    }
-
-    /**
      * {@see LocalDateLocalDateTimeConverter}
      */
     public static Converter localDateLocalDateTime() {
-        return LocalDateLocalDateTimeConverter.INSTANCE;
-    }
-
-    /**
-     * {@see LocalDateConverterLong}
-     */
-    public static Converter localDateLong(final long offset) {
-        return LocalDateConverterLong.with(offset);
+        return LocalDateConverterLocalDateTime.INSTANCE;
     }
 
     /**
@@ -196,38 +168,10 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * {@see LocalDateTimeConverterBigDecimal}
-     */
-    public static Converter localDateTimeBigDecimal(final long offset) {
-        return LocalDateTimeConverterBigDecimal.with(offset);
-    }
-
-    /**
-     * {@see LocalDateTimeConverterBigInteger}
-     */
-    public static Converter localDateTimeBigInteger(final long offset) {
-        return LocalDateTimeConverterBigInteger.with(offset);
-    }
-
-    /**
-     * {@see LocalDateTimeConverterDouble}
-     */
-    public static Converter localDateTimeDouble(final long offset) {
-        return LocalDateTimeConverterDouble.with(offset);
-    }
-
-    /**
      * {@see LocalDateTimeConverterLocalDate}
      */
     public static Converter localDateTimeLocalDate() {
         return LocalDateTimeConverterLocalDate.INSTANCE;
-    }
-
-    /**
-     * {@see LocalDateTimeConverterLong}
-     */
-    public static Converter localDateTimeLong(final long offset) {
-        return LocalDateTimeConverterLong.with(offset);
     }
 
     /**

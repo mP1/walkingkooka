@@ -20,7 +20,7 @@ package walkingkooka.convert;
 import java.time.LocalDate;
 
 /**
- * Converts an object into a {@link LocalDate}
+ * Converts a {@link LocalDate} into another type.
  */
 abstract class LocalDateConverter<T> extends LocalDateOrLocalDateTimeNumberConverter<LocalDate, T> {
 
@@ -32,14 +32,7 @@ abstract class LocalDateConverter<T> extends LocalDateOrLocalDateTimeNumberConve
     }
 
     @Override
-    Class<LocalDate> sourceType() {
+    final Class<LocalDate> sourceType() {
         return LocalDate.class;
     }
-
-    @Override
-    T convert1(final LocalDate value, final ConverterContext context) {
-        return this.fromLongValue(value.toEpochDay() + this.offset);
-    }
-
-    abstract T fromLongValue(final long value);
 }

@@ -38,17 +38,21 @@ final class LocalDateTimeConverterLocalDate extends LocalDateTimeConverter<Local
     }
 
     @Override
+    boolean isTargetType(final Class<?> type) {
+        return LocalDate.class == type;
+    }
+
+    @Override
+    <T> T convertFromLocalDateTime(final long days,
+                                   final double time,
+                                   final LocalDateTime localDateTime,
+                                   final Class<T> type,
+                                   final ConverterContext context) {
+        return type.cast(localDateTime.toLocalDate());
+    }
+
+    @Override
     Class<LocalDate> targetType() {
         return LocalDate.class;
-    }
-
-    @Override
-    LocalDate convert3(final long days, final double time, final LocalDateTime localDateTime) {
-        return localDateTime.toLocalDate();
-    }
-
-    @Override
-    String toStringSuffix() {
-        return "";
     }
 }

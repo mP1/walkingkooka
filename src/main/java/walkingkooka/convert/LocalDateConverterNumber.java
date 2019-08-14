@@ -17,6 +17,10 @@
 
 package walkingkooka.convert;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.time.LocalDate;
+
 /**
  * Converts {@link java.time.LocalDate} to {@link Number}
  */
@@ -38,12 +42,30 @@ final class LocalDateConverterNumber extends LocalDateConverter<Number> {
     }
 
     @Override
-    Class<Number> targetType() {
-        return Number.class;
+    boolean isTargetType(final Class<?> type) {
+        return BigDecimal.class == type ||
+                BigInteger.class == type ||
+                Byte.class == type ||
+                Double.class == type ||
+                Float.class == type ||
+                Integer.class == type ||
+                Long.class == type ||
+                Number.class == type ||
+                Short.class == type;
     }
 
     @Override
-    Long fromLongValue(final long value) {
-        return Long.valueOf(value);
+    <T> T convert0(final LocalDate date,
+                   final Class<T> type,
+                   final ConverterContext context) {
+        return this.convertFromNumber(Long.valueOf(date.toEpochDay() + this.offset),
+                date,
+                type,
+                context);
+    }
+
+    @Override
+    Class<Number> targetType() {
+        return Number.class;
     }
 }

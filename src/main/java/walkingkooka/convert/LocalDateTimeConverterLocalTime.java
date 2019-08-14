@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 /**
- * Converters {@link LocalDateTime} into {@link LocalTime} by simply returning the {@link LocalTime} component.
+ * Converts {@link LocalDateTime} into {@link LocalTime} by simply returning the {@link LocalTime} component.
  */
 final class LocalDateTimeConverterLocalTime extends LocalDateTimeConverter<LocalTime> {
 
@@ -38,19 +38,21 @@ final class LocalDateTimeConverterLocalTime extends LocalDateTimeConverter<Local
     }
 
     @Override
+    boolean isTargetType(final Class<?> type) {
+        return LocalTime.class == type;
+    }
+
+    @Override
+    <T> T convertFromLocalDateTime(final long days,
+                                   final double time,
+                                   final LocalDateTime localDateTime,
+                                   final Class<T> type,
+                                   final ConverterContext context) {
+        return type.cast(localDateTime.toLocalTime());
+    }
+
+    @Override
     Class<LocalTime> targetType() {
         return LocalTime.class;
-    }
-
-    @Override
-    LocalTime convert3(final long days,
-                       final double time,
-                       final LocalDateTime localDateTime) {
-        return localDateTime.toLocalTime();
-    }
-
-    @Override
-    String toStringSuffix() {
-        return "";
     }
 }
