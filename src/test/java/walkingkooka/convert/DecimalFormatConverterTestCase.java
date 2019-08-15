@@ -18,8 +18,11 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContexts;
 
+import java.math.MathContext;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
@@ -75,17 +78,12 @@ public abstract class DecimalFormatConverterTestCase<C extends DecimalFormatConv
     }
 
     final ConverterContext createContext(final Locale locale) {
-        return new FakeConverterContext() {
-            @Override
-            public Locale locale() {
-                return locale;
-            }
-
-            @Override
-            public String toString() {
-                return this.locale().toLanguageTag();
-            }
-        };
+        return ConverterContexts.basic(DateTimeContexts.fake(),
+                DecimalNumberContexts.decimalFormatSymbols(new DecimalFormatSymbols(locale),
+                        'E',
+                        '+',
+                        locale,
+                        MathContext.DECIMAL32));
     }
 
     final void convertAndCheck2(final String pattern,

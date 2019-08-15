@@ -21,6 +21,7 @@ import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.text.CharSequences;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Currency;
 import java.util.HashMap;
 import java.util.Locale;
@@ -68,6 +69,17 @@ abstract class DecimalFormatConverter extends Converter2 {
             } catch (final IllegalArgumentException cause) {
                 throw new ConversionException("Unable to set currency, probably an invalid locale " + CharSequences.quoteAndEscape(locale.toLanguageTag()));
             }
+
+            final DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
+            symbols.setCurrencySymbol(context.currencySymbol());
+            symbols.setDecimalSeparator(context.decimalSeparator());
+            symbols.setExponentSeparator(String.valueOf(context.exponentSymbol()));
+            symbols.setGroupingSeparator(context.groupingSeparator());
+            symbols.setMinusSign(context.negativeSign());
+            symbols.setPercent(context.percentageSymbol());
+
+            format.setDecimalFormatSymbols(symbols);
+
             map.put(context, format);
         }
 
