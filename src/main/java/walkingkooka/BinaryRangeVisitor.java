@@ -32,26 +32,18 @@ final class BinaryRangeVisitor extends RangeVisitor<Long> {
     static Binary extract(final Binary binary, final Range<Long> range) {
         Objects.requireNonNull(range, "range");
 
-        final BinaryRangeVisitor visitor = new BinaryRangeVisitor();
-        return visitor.acceptAndExtract(binary, range);
+        final BinaryRangeVisitor visitor = new BinaryRangeVisitor(range);
+        visitor.binary = binary;
+        visitor.accept(range);
+        return visitor.binary;
     }
 
     // @Testing
-    BinaryRangeVisitor() {
+    BinaryRangeVisitor(final Range range) {
         super();
-    }
-
-    final Binary acceptAndExtract(final Binary binary,
-                                  final Range<Long> range) {
-        this.binary = binary;
         this.range = range;
-
         this.lower = 0;
         this.upper = 0;
-
-        this.accept(range);
-
-        return this.binary;
     }
 
     @Override
