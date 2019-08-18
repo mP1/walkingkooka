@@ -17,13 +17,85 @@
 
 package walkingkooka;
 
+import org.junit.jupiter.api.Test;
+import walkingkooka.compare.Range;
 import walkingkooka.compare.RangeVisitorTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.JavaVisibility;
 
-public final class BinaryRangeVisitorTest implements RangeVisitorTesting<BinaryRangeVisitor, Long> {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public final class BinaryRangeVisitorTest implements RangeVisitorTesting<BinaryRangeVisitor, Long>,
+        ToStringTesting<BinaryRangeVisitor> {
+
+    @Test
+    public void testExtractAll() {
+        final Binary binary = Binary.with(new byte[]{0, 1, 2, 3});
+        this.extractAndCheck(binary, Range.all(), binary);
+    }
+
+    @Test
+    public void testExtractSingleton() {
+        this.extractAndCheck(Binary.with(new byte[]{0, 1, 2, 3}),
+                Range.singleton(2L),
+                Binary.with(new byte[]{2}));
+    }
+
+    @Test
+    public void testExtractBeforeEquals() {
+        this.extractAndCheck(Binary.with(new byte[]{0, 1, 2, 3}),
+                Range.lessThanEquals(2L),
+                Binary.with(new byte[]{0, 1, 2}));
+    }
+
+    @Test
+    public void testExtractBefore() {
+        this.extractAndCheck(Binary.with(new byte[]{0, 1, 2, 3}),
+                Range.lessThan(2L),
+                Binary.with(new byte[]{0, 1}));
+    }
+
+    @Test
+    public void testExtractAfterEquals() {
+        this.extractAndCheck(Binary.with(new byte[]{0, 1, 2, 3, 4}),
+                Range.greaterThanEquals(2L),
+                Binary.with(new byte[]{2, 3, 4}));
+    }
+
+    @Test
+    public void testExtractAfter() {
+        this.extractAndCheck(Binary.with(new byte[]{0, 1, 2, 3, 4}),
+                Range.greaterThan(2L),
+                Binary.with(new byte[]{3, 4}));
+    }
+
+    @Test
+    public void testExtractRange() {
+        this.extractAndCheck(Binary.with(new byte[]{0, 1, 2, 3, 4, 5}),
+                Range.greaterThanEquals(2L).and(Range.lessThanEquals(4L)),
+                Binary.with(new byte[]{2, 3, 4}));
+    }
+
+    private void extractAndCheck(final Binary binary,
+                                 final Range<Long> range,
+                                 final Binary expected) {
+        assertEquals(expected,
+                BinaryRangeVisitor.extract(binary, range),
+                () -> binary + " range: " + range);
+    }
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(this.createVisitor(), this.range().toString());
+    }
+
     @Override
     public BinaryRangeVisitor createVisitor() {
-        return new BinaryRangeVisitor();
+        return new BinaryRangeVisitor(this.range());
+    }
+
+    private Range<Integer> range() {
+        return Range.greaterThanEquals(12).and(Range.lessThanEquals(34));
     }
 
     @Override
