@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Base class for any condition token, which includes the left side, condition symbol and right side argument.
  */
-abstract public class NodeSelectorComparisonParserToken<T extends NodeSelectorComparisonParserToken> extends NodeSelectorBinaryParserToken<T> {
+abstract public class NodeSelectorComparisonParserToken<T extends NodeSelectorComparisonParserToken<T>> extends NodeSelectorBinaryParserToken<T> {
 
     /**
      * Package private to limit sub classing.

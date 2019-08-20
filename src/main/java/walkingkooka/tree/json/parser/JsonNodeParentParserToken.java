@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Base class for a token that contain another child token, with the class knowing the cardinality.
  */
-abstract class JsonNodeParentParserToken<T extends JsonNodeParentParserToken> extends JsonNodeParserToken implements ParentParserToken<T> {
+abstract class JsonNodeParentParserToken<T extends JsonNodeParentParserToken<T>> extends JsonNodeParserToken implements ParentParserToken<T> {
 
     JsonNodeParentParserToken(final List<ParserToken> value, final String text) {
         super(text);

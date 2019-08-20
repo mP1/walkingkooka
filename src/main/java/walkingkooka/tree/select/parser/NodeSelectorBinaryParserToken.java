@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Base class token that includes two parameters or values.
  */
-abstract class NodeSelectorBinaryParserToken<T extends NodeSelectorBinaryParserToken> extends NodeSelectorParentParserToken<T> {
+abstract class NodeSelectorBinaryParserToken<T extends NodeSelectorBinaryParserToken<T>> extends NodeSelectorParentParserToken<T> {
 
     /**
      * Package private to limit sub classing.

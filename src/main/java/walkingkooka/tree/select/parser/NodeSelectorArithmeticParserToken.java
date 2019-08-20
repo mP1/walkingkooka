@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Base class for any arithmetic token, addition etc.
  */
-abstract public class NodeSelectorArithmeticParserToken<T extends NodeSelectorArithmeticParserToken> extends NodeSelectorBinaryParserToken<T> {
+abstract public class NodeSelectorArithmeticParserToken<T extends NodeSelectorArithmeticParserToken<T>> extends NodeSelectorBinaryParserToken<T> {
 
     /**
      * Package private to limit sub classing.
