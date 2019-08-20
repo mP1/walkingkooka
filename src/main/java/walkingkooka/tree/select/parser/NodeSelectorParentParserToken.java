@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Base class for a token that contain another child token, with the class knowing the cardinality.
  */
-abstract class NodeSelectorParentParserToken<T extends NodeSelectorParentParserToken> extends NodeSelectorParserToken
+abstract class NodeSelectorParentParserToken<T extends NodeSelectorParentParserToken<T>> extends NodeSelectorParserToken
         implements ParentParserToken<T> {
 
     NodeSelectorParentParserToken(final List<ParserToken> value,

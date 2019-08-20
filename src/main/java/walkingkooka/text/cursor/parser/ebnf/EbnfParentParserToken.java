@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Base class for a token that contain another child token, with the class knowing the cardinality.
  */
-abstract class EbnfParentParserToken<T extends EbnfParentParserToken> extends EbnfParserToken implements ParentParserToken<T> {
+abstract class EbnfParentParserToken<T extends EbnfParentParserToken<T>> extends EbnfParserToken implements ParentParserToken<T> {
 
     EbnfParentParserToken(final List<ParserToken> value, final String text) {
         super(text);
