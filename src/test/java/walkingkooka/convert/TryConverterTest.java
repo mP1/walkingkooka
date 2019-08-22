@@ -30,9 +30,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class TryConverterTest extends ConverterTestCase2<TryConverter> {
 
     @Test
-    public void testWithZeroFails() {
+    public void testWithEmptyFails() {
         assertThrows(NullPointerException.class, () -> {
             TryConverter.with(null);
+        });
+    }
+
+    @Test
+    public void testWithZeroFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            TryConverter.with(Lists.empty());
         });
     }
 
