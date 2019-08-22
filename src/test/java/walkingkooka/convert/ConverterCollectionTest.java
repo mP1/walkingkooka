@@ -32,9 +32,16 @@ public final class ConverterCollectionTest extends ConverterTestCase2<ConverterC
     }
 
     @Test
-    public void testWithZeroConvertersFails() {
+    public void testWithNullConvertersFails() {
         assertThrows(NullPointerException.class, () -> {
             ConverterCollection.with(null);
+        });
+    }
+
+    @Test
+    public void testWithZeroConvertersFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            ConverterCollection.with(Lists.empty());
         });
     }
 
