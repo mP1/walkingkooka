@@ -61,6 +61,11 @@ public final class ParserConverterTest extends FixedTypeConverterTestCase<Parser
     }
 
     @Test
+    public void testParserNonStringFails() {
+        this.convertFails(Integer.MAX_VALUE);
+    }
+
+    @Test
     public void testParserFails() {
         this.convertFails("FAILS");
     }
