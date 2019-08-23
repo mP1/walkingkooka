@@ -19,6 +19,7 @@ package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.visit.Visiting;
 
@@ -44,26 +45,6 @@ public final class JsonStringNodeTest extends JsonLeafNonNullNodeTestCase<JsonSt
     @Test
     public void testSameValueDifferentCase() {
         this.checkNotEquals(JsonNode.string("ABC123"));
-    }
-
-    // fromJsonNodeWithType.........................................................................................
-
-    @Test
-    public void testFromJsonNodeWithType() {
-        final String string = "abc123";
-        this.fromJsonNodeWithTypeAndCheck(JsonNode.string(string), string);
-    }
-
-    // fromJsonNodeWithType.........................................................................................
-
-    @Test
-    public void testFromJsonNodeBooleanClassFails() {
-        this.fromJsonNodeAndFail(Boolean.class, JsonNodeException.class);
-    }
-
-    @Test
-    public void testFromJsonNodeNumberClassFails() {
-        this.fromJsonNodeAndFail(Number.class, JsonNodeException.class);
     }
 
     // toSearchNode...............................................................................................
@@ -157,10 +138,11 @@ public final class JsonStringNodeTest extends JsonLeafNonNullNodeTestCase<JsonSt
                 PARENT_OR_FAIL);
     }
 
-    // HasJsonNodeTesting..................................................................
+    // JsonNodeMappingTesting...............................................................................................
 
     @Override
-    public final JsonStringNode fromJsonNode(final JsonNode from) {
-        return JsonStringNode.fromJsonNode(from).cast();
+    public final JsonStringNode fromJsonNode(final JsonNode from,
+                                             final FromJsonNodeContext context) {
+        return from.cast();
     }
 }

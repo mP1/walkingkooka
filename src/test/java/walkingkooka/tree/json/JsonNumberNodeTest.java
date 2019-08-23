@@ -19,6 +19,7 @@ package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.visit.Visiting;
 
@@ -39,80 +40,6 @@ public final class JsonNumberNodeTest extends JsonLeafNonNullNodeTestCase<JsonNu
     public void testNumberValueOrFail2() {
         assertEquals(2.0,
                 JsonNumberNode.with(2).numberValueOrFail());
-    }
-
-    // fromJsonNodeWithType.........................................................................................
-
-    @Test
-    public void testFromJsonNodeWithType() {
-        final double value = 123.5;
-        this.fromJsonNodeWithTypeAndCheck(JsonNode.number(value), value);
-    }
-
-    // fromJsonNodeWithType.........................................................................................
-
-    @Test
-    public void testFromJsonNodeBooleanClassFails() {
-        this.fromJsonNodeAndFail(Boolean.class, JsonNodeException.class);
-    }
-
-    @Test
-    public void testFromJsonNodeStringClassFails() {
-        this.fromJsonNodeAndFail(String.class, JsonNodeException.class);
-    }
-
-    // fromJsonNode.........................................................................................
-
-    @Test
-    public void testFromJsonNodeBooleanFails() {
-        this.fromJsonNodeAndFail(Boolean.class, JsonNodeException.class);
-    }
-
-    @Test
-    public void testFromJsonNodeByte() {
-        this.fromJsonNodeNumberAndCheck((byte) 1);
-    }
-
-    @Test
-    public void testFromJsonNodeShort() {
-        this.fromJsonNodeNumberAndCheck((short) 1);
-    }
-
-    @Test
-    public void testFromJsonNodeInteger() {
-        this.fromJsonNodeNumberAndCheck(1);
-    }
-
-    @Test
-    public void testFromJsonNodeLong() {
-        this.fromJsonNodeNumberAndCheck(1L);
-    }
-
-    @Test
-    public void testFromJsonNodeFloat() {
-        this.fromJsonNodeNumberAndCheck(1.5f);
-    }
-
-    @Test
-    public void testFromJsonNodeDouble() {
-        this.fromJsonNodeNumberAndCheck(1.5);
-    }
-
-    private void fromJsonNodeNumberAndCheck(final Number number) {
-        final JsonNode json = JsonNode.number(number.doubleValue());
-        assertEquals(number,
-                json.fromJsonNode(number.getClass()),
-                () -> "fromJsonNode " + json);
-    }
-
-    @Test
-    public void testFromJsonNodeStringFails() {
-        this.fromJsonNodeAndFail(String.class, JsonNodeException.class);
-    }
-
-    @Test
-    public void testFromJsonNodeHasJsonNodeFails() {
-        this.fromJsonNodeAndFail(TestHasJsonNode.class, JsonNodeException.class);
     }
 
     // toSearchNode.........................................................................................
@@ -203,10 +130,11 @@ public final class JsonNumberNodeTest extends JsonLeafNonNullNodeTestCase<JsonNu
                 STRING_VALUE_OR_FAIL);
     }
 
-    // HasJsonNodeTesting..................................................................
+    // JsonNodeMappingTesting..................................................................
 
     @Override
-    public final JsonNumberNode fromJsonNode(final JsonNode from) {
-        return JsonNumberNode.fromJsonNode(from).cast();
+    public final JsonNumberNode fromJsonNode(final JsonNode from,
+                                             final FromJsonNodeContext context) {
+        return from.cast();
     }
 }

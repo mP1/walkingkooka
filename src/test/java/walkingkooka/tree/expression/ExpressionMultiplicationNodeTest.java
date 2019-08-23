@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
@@ -241,10 +242,11 @@ public final class ExpressionMultiplicationNodeTest extends ExpressionArithmetic
         return ExpressionMultiplicationNode.class;
     }
 
-    // HasJsonNodeTesting...........................................................................................
+    // JsonNodeMappingTesting...............................................................................................
 
     @Override
-    public ExpressionMultiplicationNode fromJsonNode(final JsonNode from) {
-        return ExpressionMultiplicationNode.fromJsonNode(from);
+    public ExpressionMultiplicationNode fromJsonNode(final JsonNode from,
+                                                     final FromJsonNodeContext context) {
+        return ExpressionMultiplicationNode.fromJsonNode(from, context);
     }
 }

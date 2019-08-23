@@ -19,10 +19,11 @@ package walkingkooka.compare;
 
 import walkingkooka.Value;
 import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -145,29 +146,30 @@ abstract public class RangeBound<C extends Comparable<C>> implements HashCodeEqu
 
     // Range.toJsonNode................................................................................
 
-    static RangeBound<?> fromJsonNode(final JsonObjectNode node) {
+    static RangeBound<?> fromJsonNode(final JsonNode node,
+                                      final FromJsonNodeContext context) {
         RangeBound<?> bound = null;
 
-        for (JsonNode child : node.objectOrFail().children()) {
+        for (JsonNode child : node.children()) {
             final JsonNodeName name = child.name();
             switch (name.value()) {
                 case ALL:
-                    bound = RangeBoundAll.fromJsonNodeAll(child.objectOrFail());
+                    bound = RangeBoundAll.fromJsonNodeAll(child, context);
                     break;
                 case EXCLUSIVE:
-                    bound = RangeBoundExclusive.fromJsonNodeExclusive(child.objectOrFail());
+                    bound = RangeBoundExclusive.fromJsonNodeExclusive(child, context);
                     break;
                 case INCLUSIVE:
-                    bound = RangeBoundInclusive.fromJsonNodeInclusive(child.objectOrFail());
+                    bound = RangeBoundInclusive.fromJsonNodeInclusive(child, context);
                     break;
                 default:
-                    HasJsonNode.unknownPropertyPresent(name, node);
+                    FromJsonNodeContext.unknownPropertyPresent(name, node);
             }
         }
         return bound;
     }
 
-    abstract JsonObjectNode toJsonNode();
+    abstract JsonObjectNode toJsonNode(final ToJsonNodeContext context);
 
     final static String ALL = "all";
     final static String EXCLUSIVE = "exclusive";

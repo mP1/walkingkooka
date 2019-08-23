@@ -17,8 +17,8 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -91,10 +91,9 @@ abstract class ExpressionValueNode<V> extends ExpressionLeafNode<V> {
         return this.value();
     }
 
-    // HasJsonNode....................................................................................................
+    // JsonNodeContext..................................................................................................
 
-    @Override
-    public final JsonNode toJsonNode() {
-        return HasJsonNode.toJsonNodeObject(this.value());
+    final JsonNode toJsonNode(final ToJsonNodeContext context) {
+        return context.toJsonNode(this.value());
     }
 }

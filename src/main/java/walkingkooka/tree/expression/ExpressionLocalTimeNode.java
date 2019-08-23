@@ -19,6 +19,7 @@ package walkingkooka.tree.expression;
 
 
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
 
 import java.time.LocalTime;
 import java.util.Objects;
@@ -109,15 +110,19 @@ public final class ExpressionLocalTimeNode extends ExpressionValueNode<LocalTime
         visitor.visit(this);
     }
 
-    // HasJsonNode....................................................................................................
+    // JsonNodeContext..................................................................................................
 
     // @VisibleForTesting
-    static ExpressionLocalTimeNode fromJsonNode(final JsonNode node) {
-        return ExpressionLocalTimeNode.with(node.fromJsonNode(LocalTime.class));
+    static ExpressionLocalTimeNode fromJsonNode(final JsonNode node,
+                                                final FromJsonNodeContext context) {
+        return ExpressionLocalTimeNode.with(context.fromJsonNode(node, LocalTime.class));
     }
 
     static {
-        register("-local-time", ExpressionLocalTimeNode::fromJsonNode, ExpressionLocalTimeNode.class);
+        register("-local-time",
+                ExpressionLocalTimeNode::fromJsonNode,
+                ExpressionLocalTimeNode::toJsonNode,
+                ExpressionLocalTimeNode.class);
     }
 
     // Object ....................................................................................................

@@ -34,8 +34,9 @@ import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.JsonNodeMappingTesting;
 
 import java.math.MathContext;
 import java.util.Arrays;
@@ -58,7 +59,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, StringName, StringName, Object>> extends NodeSelectorTestCase3<S>
         implements HashCodeEqualsDefinedTesting<S>,
-        HasJsonNodeTesting<S>,
+        JsonNodeMappingTesting<S>,
         ToStringTesting<S> {
 
     NodeSelectorTestCase4() {
@@ -470,8 +471,8 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
     // HasJsonTesting...................................................................................................
 
     @Override
-    public S fromJsonNode(final JsonNode from) {
-        return Cast.to(NodeSelector.fromJsonNode(from));
+    public S fromJsonNode(final JsonNode from, final FromJsonNodeContext context) {
+        return Cast.to(NodeSelector.fromJsonNode(from, context));
     }
 
     @Override

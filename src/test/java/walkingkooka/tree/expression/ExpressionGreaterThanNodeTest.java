@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
@@ -503,10 +504,11 @@ public final class ExpressionGreaterThanNodeTest extends ExpressionComparisonBin
         return ExpressionGreaterThanNode.class;
     }
 
-    // HasJsonNodeTesting...........................................................................................
+    // JsonNodeMappingTesting...........................................................................................
 
     @Override
-    public ExpressionGreaterThanNode fromJsonNode(final JsonNode from) {
-        return ExpressionGreaterThanNode.fromJsonNode(from);
+    public ExpressionGreaterThanNode fromJsonNode(final JsonNode from,
+                                                  final FromJsonNodeContext context) {
+        return ExpressionGreaterThanNode.fromJsonNode(from, context);
     }
 }

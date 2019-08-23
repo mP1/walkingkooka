@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
 import walkingkooka.visit.Visiting;
 
 import java.math.BigDecimal;
@@ -131,15 +132,21 @@ public final class ExpressionSubtractionNode extends ExpressionArithmeticBinaryN
         return left - right;
     }
 
-    // HasJsonNode....................................................................................................
+    // JsonNodeContext..................................................................................................
 
     // @VisibleForTesting
-    static ExpressionSubtractionNode fromJsonNode(final JsonNode node) {
-        return fromJsonNode0(node, ExpressionSubtractionNode::with);
+    static ExpressionSubtractionNode fromJsonNode(final JsonNode node,
+                                                  final FromJsonNodeContext context) {
+        return fromJsonNode0(node,
+                ExpressionSubtractionNode::with,
+                context);
     }
 
     static {
-        register(SYMBOL, ExpressionSubtractionNode::fromJsonNode, ExpressionSubtractionNode.class);
+        register(SYMBOL,
+                ExpressionSubtractionNode::fromJsonNode,
+                ExpressionSubtractionNode::toJsonNode,
+                ExpressionSubtractionNode.class);
     }
 
     // Object .........................................................................................................

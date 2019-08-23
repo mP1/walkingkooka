@@ -19,6 +19,7 @@ package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.visit.Visiting;
 
@@ -28,55 +29,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class JsonNullNodeTest extends JsonLeafNodeTestCase<JsonNullNode, Void> {
-
-    // fromJsonNodeWithType..............................................................................
-
-    @Test
-    public final void testFromJsonNodeWithType() {
-        this.fromJsonNodeWithTypeAndCheck(this.createNode(), null);
-    }
-
-    @Test
-    public final void testFromJsonNodeWithTypeList() {
-        this.fromJsonNodeWithTypeListAndCheck(this.createNode(), null);
-    }
-
-    @Test
-    public final void testFromJsonNodeWithTypeSet() {
-        this.fromJsonNodeWithTypeSetAndCheck(this.createNode(), null);
-    }
-
-    @Test
-    public final void testFromJsonNodeWithTypeMap() {
-        this.fromJsonNodeWithTypeMapAndCheck(this.createNode(), null);
-    }
-
-    // fromJsonNode..................................................................................
-
-    @Test
-    public final void testFromJsonNode() {
-        this.fromJsonNodeAndCheck(this.createNode(), JsonNode.nullNode());
-    }
-
-    @Test
-    public final void testFromJsonNodeClass() {
-        this.fromJsonNodeAndCheck(this.createNode(), JsonNullNode.class, null);
-    }
-
-    @Test
-    public final void testFromJsonNodeList() {
-        this.fromJsonNodeListAndCheck(this.createNode(), Void.class, null);
-    }
-
-    @Test
-    public final void testFromJsonNodeSetFails() {
-        this.fromJsonNodeSetAndCheck(this.createNode(), Void.class, null);
-    }
-
-    @Test
-    public final void testFromJsonNodeMapFails() {
-        this.fromJsonNodeMapAndCheck(this.createNode(), Void.class, Void.class, null);
-    }
 
     @Override
     String nodeTypeName() {
@@ -173,10 +125,11 @@ public final class JsonNullNodeTest extends JsonLeafNodeTestCase<JsonNullNode, V
                 VALUE);
     }
 
-    // HasJsonNodeTesting..................................................................
+    // JsonNodeMappingTesting...............................................................................................
 
     @Override
-    public final JsonNullNode fromJsonNode(final JsonNode from) {
-        return JsonNullNode.fromJsonNode(from).cast();
+    public final JsonNullNode fromJsonNode(final JsonNode from,
+                                           final FromJsonNodeContext context) {
+        return from.cast();
     }
 }

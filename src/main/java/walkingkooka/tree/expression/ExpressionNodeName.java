@@ -22,17 +22,16 @@ import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
-
-import java.util.Objects;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.JsonNodeContext;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 
 /**
  * The name of an expression node.
  */
 public final class ExpressionNodeName implements Name,
-        Comparable<ExpressionNodeName>,
-        HasJsonNode {
+        Comparable<ExpressionNodeName> {
 
     public static ExpressionNodeName with(final String name) {
         CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name,
@@ -62,27 +61,28 @@ public final class ExpressionNodeName implements Name,
 
     private final String name;
 
-    // HasJsonNode...............................................................................
+    // JsonNodeContext..................................................................................................
 
     /**
      * Accepts a json string holding the name.
      */
-    static ExpressionNodeName fromJsonNode(final JsonNode node) {
-        Objects.requireNonNull(node, "node");
-
+    static ExpressionNodeName fromJsonNode(final JsonNode node,
+                                           final FromJsonNodeContext context) {
         return with(node.stringValueOrFail());
     }
 
-    @Override
-    public JsonNode toJsonNode() {
+    JsonNode toJsonNode(final ToJsonNodeContext context) {
         return JsonNode.string(this.toString());
     }
 
     static {
-        HasJsonNode.register("expression-node-name", ExpressionNodeName::fromJsonNode, ExpressionNodeName.class);
+        JsonNodeContext.register("expression-node-name",
+                ExpressionNodeName::fromJsonNode,
+                ExpressionNodeName::toJsonNode,
+                ExpressionNodeName.class);
     }
 
-    // Object..................................................................................................
+    // Object...........................................................................................................
 
     @Override
     public final int hashCode() {

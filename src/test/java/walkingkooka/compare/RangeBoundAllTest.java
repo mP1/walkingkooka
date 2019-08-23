@@ -19,9 +19,10 @@ package walkingkooka.compare;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.tree.json.FromJsonNodeException;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.FromJsonNodeException;
 
 import java.util.Optional;
 
@@ -57,7 +58,8 @@ public final class RangeBoundAllTest extends RangeBoundTestCase2<RangeBoundAll<I
     @Test
     public void testFromJsonNodeAllInvalidProperty() {
         assertThrows(FromJsonNodeException.class, () -> {
-            RangeBoundAll.fromJsonNodeAll(JsonNode.object().setChild(JsonNodeName.with("invalid"), JsonNode.booleanNode(true)));
+            RangeBoundAll.fromJsonNodeAll(JsonNode.object().setChild(JsonNodeName.with("invalid"), JsonNode.booleanNode(true)),
+                    FromJsonNodeContext.basic());
         });
     }
 

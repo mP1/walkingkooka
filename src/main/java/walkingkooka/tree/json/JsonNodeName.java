@@ -21,17 +21,17 @@ import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 import walkingkooka.tree.search.SearchNodeName;
 
-import java.util.Objects;
-import java.util.function.Function;
+import java.util.function.BiFunction;
 
 /**
  * The name of any property of object key.
  */
 public final class JsonNodeName implements Name,
-        Comparable<JsonNodeName>,
-        HasJsonNode {
+        Comparable<JsonNodeName> {
 
     /**
      * The size of a cache for {@link JsonNodeName} by index
@@ -90,18 +90,20 @@ public final class JsonNodeName implements Name,
 
     private final String name;
 
-    // JsonNodeNameFromJsonNodeWithTypeFactoryFunction.....................................................................
+    // JsonNodeNameFromJsonNodeWithTypeFactoryBiFunction................................................................
 
     /**
      * When the returned factory is invoked, this property name is used to retrieve a type name
      * from the given {@link JsonObjectNode object} and then used to convert the factory parameter to an {@link Object}.
      */
-    public <T> Function<JsonNode, T> fromJsonNodeWithTypeFactory(final JsonObjectNode source,
-                                                                 final Class<T> superType) {
-        return JsonNodeNameFromJsonNodeWithTypeFactoryFunction.with(this, source, superType);
+    public <T> BiFunction<JsonNode, FromJsonNodeContext, T> fromJsonNodeWithTypeFactory(final JsonObjectNode source,
+                                                                                        final Class<T> superType) {
+        return JsonNodeNameFromJsonNodeWithTypeFactoryBiFunction.with(this,
+                source,
+                superType);
     }
 
-    // HasSearchNode.................................................................................................
+    // HasSearchNode....................................................................................................
 
     /**
      * Creates the {@link SearchNodeName} for this node name. Only used by {@link JsonObjectNode#toSearchNode()}.
@@ -110,23 +112,17 @@ public final class JsonNodeName implements Name,
         return SearchNodeName.with(this.name);
     }
 
-    // HasJsonNode..................................................................................................
+    // JsonNodeContext..................................................................................................
 
     /**
      * Accepts a json string holding a {@link JsonNodeName}
      */
-    static JsonNodeName fromJsonNode(final JsonNode node) {
-        Objects.requireNonNull(node, "node");
-
-        try {
-            return with(node.stringValueOrFail());
-        } catch (final RuntimeException cause) {
-            throw new FromJsonNodeException(cause.getMessage(), node, cause);
-        }
+    static JsonNodeName fromJsonNode(final JsonNode node,
+                                     final FromJsonNodeContext context) {
+        return with(node.stringValueOrFail());
     }
 
-    @Override
-    public JsonNode toJsonNode() {
+    JsonNode toJsonNode(final ToJsonNodeContext context) {
         return JsonNode.string(this.name);
     }
 

@@ -33,12 +33,11 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.tree.HasTextOffsetTesting;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.NodeTesting;
+import walkingkooka.tree.json.map.JsonNodeMappingTesting;
 import walkingkooka.tree.search.HasSearchNodeTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -47,7 +46,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class JsonNodeTestCase<N extends JsonNode> implements BeanPropertiesTesting,
         ClassTesting2<JsonNode>,
-        HasJsonNodeTesting<JsonNode>,
+        JsonNodeMappingTesting<JsonNode>,
         HasSearchNodeTesting<N>,
         HasTextOffsetTesting,
         HasTextTesting,
@@ -165,64 +164,10 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements BeanProper
         this.textOffsetAndCheck(this.createNode(), 0);
     }
 
-    // HasJsonNode.....................................................................................................
+    // JsonNodeContext.................................................................................................
 
     @Override
     public void testStaticFromJsonNodeMethodsNonPublic() {
-    }
-
-    private final Class<?> NULL_CLASS = null;
-
-    @Test
-    public final void testFromJsonNodeNullTypeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createJsonNode().fromJsonNode(NULL_CLASS);
-        });
-    }
-
-    @Test
-    public final void testFromJsonNodeListNullTypeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createJsonNode().fromJsonNodeList(NULL_CLASS);
-        });
-    }
-
-    @Test
-    public final void testFromJsonNodeSetNullTypeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createJsonNode().fromJsonNodeSet(NULL_CLASS);
-        });
-    }
-
-    @Test
-    public final void testFromJsonNodeMapNullKeyTypeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createJsonNode().fromJsonNodeMap(NULL_CLASS, Object.class);
-        });
-    }
-
-    @Test
-    public final void testFromJsonNodeMapNullValueTypeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createJsonNode().fromJsonNodeMap(Object.class, NULL_CLASS);
-        });
-    }
-
-    // ToJsonNodeTesting...............................................................................................
-
-    @Test
-    public final void testToJsonNode() {
-        final N node = this.createJsonNode();
-        assertSame(node, node.toJsonNode());
-    }
-
-    @Test
-    public final void testToJsonNodeWithType() {
-        final N node = this.createJsonNode();
-        assertEquals(JsonNode.object()
-                        .set(JsonObjectNode.TYPE, JsonNode.string(this.nodeTypeName()))
-                        .set(JsonObjectNode.VALUE, node),
-                node.toJsonNodeWithType());
     }
 
     abstract String nodeTypeName();
@@ -300,173 +245,10 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements BeanProper
         return JavaVisibility.PUBLIC;
     }
 
-    // HasJsonNode.........................................................................................
+    // JsonNodeContext..................................................................................................
 
     @Override
     public final N createHasJsonNode() {
         return this.createJsonNode();
-    }
-
-    final <T> void fromJsonNodeWithTypeAndCheck(final JsonNode node,
-                                                final T value) {
-        assertEquals(value,
-                node.fromJsonNodeWithType(),
-                () -> "JsonNode.fromNodeWithType " + node);
-    }
-
-    final void fromJsonNodeWithTypeAndFail(final Class<? extends Throwable> thrown) {
-        this.fromJsonNodeWithTypeAndFail(this.createJsonNode(), thrown);
-    }
-
-    final void fromJsonNodeWithTypeAndFail(final JsonNode node,
-                                           final Class<? extends Throwable> thrown) {
-        assertThrows(thrown, () -> {
-            node.fromJsonNodeWithType();
-        });
-    }
-
-    final <T> void fromJsonNodeWithTypeListAndCheck(final JsonNode node,
-                                                    final T value) {
-        assertEquals(value,
-                node.fromJsonNodeWithTypeList(),
-                () -> "JsonNode.fromNodeWithTypeList " + node);
-    }
-
-    final void fromJsonNodeWithTypeListAndFail(final Class<? extends Throwable> thrown) {
-        this.fromJsonNodeWithTypeListAndFail(this.createNode(), thrown);
-    }
-
-    final void fromJsonNodeWithTypeListAndFail(final JsonNode node,
-                                               final Class<? extends Throwable> thrown) {
-        assertThrows(thrown, () -> {
-            node.fromJsonNodeWithTypeList();
-        });
-
-    }
-
-    final <T> void fromJsonNodeWithTypeSetAndCheck(final JsonNode node,
-                                                   final T value) {
-        assertEquals(value,
-                node.fromJsonNodeWithTypeSet(),
-                () -> "JsonNode.fromNodeWithTypeSet " + node);
-    }
-
-    final void fromJsonNodeWithTypeSetAndFail(final Class<? extends Throwable> thrown) {
-        this.fromJsonNodeWithTypeSetAndFail(this.createNode(), thrown);
-    }
-
-    final void fromJsonNodeWithTypeSetAndFail(final JsonNode node,
-                                              final Class<? extends Throwable> thrown) {
-        assertThrows(thrown, () -> {
-            node.fromJsonNodeWithTypeSet();
-        });
-    }
-
-    final void fromJsonNodeWithTypeMapAndCheck(final JsonNode node,
-                                               final Map<?, ?> value) {
-        assertEquals(value,
-                node.fromJsonNodeWithTypeMap(),
-                () -> "JsonNode.fromNodeWithTypeMap " + node);
-    }
-
-    final void fromJsonNodeWithTypeMapAndFail(final Class<? extends Throwable> thrown) {
-        this.fromJsonNodeWithTypeMapAndFail(this.createNode(), thrown);
-    }
-
-    final void fromJsonNodeWithTypeMapAndFail(final JsonNode node,
-                                              final Class<? extends Throwable> thrown) {
-        assertThrows(thrown, () -> {
-            node.fromJsonNodeWithTypeMap();
-        });
-    }
-
-    final <T> void fromJsonNodeAndCheck(final JsonNode node,
-                                        final Class<T> type,
-                                        final T value) {
-        assertEquals(value,
-                node.fromJsonNode(type),
-                () -> "JsonNode.fromJsonNode " + node + " " + type.getName());
-    }
-
-    final void fromJsonNodeAndFail(final Class<?> type,
-                                   final Class<? extends Throwable> thrown) {
-        this.fromJsonNodeAndFail(this.createJsonNode(),
-                type,
-                thrown);
-    }
-
-    final void fromJsonNodeAndFail(final JsonNode node,
-                                   final Class<?> type,
-                                   final Class<? extends Throwable> thrown) {
-        assertThrows(thrown, () -> {
-            node.fromJsonNode(type);
-        });
-    }
-
-    final <T> void fromJsonNodeListAndCheck(final JsonNode node,
-                                            final Class<T> elementType,
-                                            final List<T> value) {
-        assertEquals(value,
-                node.fromJsonNodeList(elementType),
-                () -> "JsonNode.fromNodeList " + node + " elementType: " + elementType.getName());
-    }
-
-    final void fromJsonNodeListAndFail(final Class<?> elementType,
-                                       final Class<? extends Throwable> thrown) {
-        this.fromJsonNodeListAndFail(this.createNode(), elementType, thrown);
-    }
-
-    final void fromJsonNodeListAndFail(final JsonNode node,
-                                       final Class<?> elementType,
-                                       final Class<? extends Throwable> thrown) {
-        assertThrows(thrown, () -> {
-            node.fromJsonNodeList(elementType);
-        });
-    }
-
-    final <T> void fromJsonNodeSetAndCheck(final JsonNode node,
-                                           final Class<T> elementType,
-                                           final Set<T> value) {
-        assertEquals(value,
-                node.fromJsonNodeSet(elementType),
-                () -> "JsonNode.fromNodeSet " + node + " elementType: " + elementType.getName());
-    }
-
-    final void fromJsonNodeSetAndFail(final Class<?> elementType,
-                                      final Class<? extends Throwable> thrown) {
-        this.fromJsonNodeSetAndFail(this.createNode(), elementType, thrown);
-    }
-
-    final void fromJsonNodeSetAndFail(final JsonNode node,
-                                      final Class<?> elementType,
-                                      final Class<? extends Throwable> thrown) {
-        assertThrows(thrown, () -> {
-            node.fromJsonNodeSet(elementType);
-        });
-
-    }
-
-    final <K, V> void fromJsonNodeMapAndCheck(final JsonNode node,
-                                              final Class<K> keyType,
-                                              final Class<V> valueType,
-                                              final Map<K, V> value) {
-        assertEquals(value,
-                node.fromJsonNodeMap(keyType, valueType),
-                () -> "JsonNode.fromNodeMap " + node + ", keyType: " + keyType.getName() + ", valueType: " + valueType.getName());
-    }
-
-    final void fromJsonNodeMapAndFail(final Class<?> keyType,
-                                      final Class<?> valueType,
-                                      final Class<? extends Throwable> thrown) {
-        this.fromJsonNodeMapAndFail(this.createNode(), keyType, valueType, thrown);
-    }
-
-    final void fromJsonNodeMapAndFail(final JsonNode node,
-                                      final Class<?> keyType,
-                                      final Class<?> valueType,
-                                      final Class<? extends Throwable> thrown) {
-        assertThrows(thrown, () -> {
-            node.fromJsonNodeMap(keyType, valueType);
-        });
     }
 }

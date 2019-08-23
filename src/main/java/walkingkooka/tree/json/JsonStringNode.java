@@ -62,8 +62,6 @@ public final class JsonStringNode extends JsonLeafNonNullNode<String> {
         return this.removeParent0().cast();
     }
 
-    // HasJsonNode...............................................................................................
-
     @Override
     JsonNodeName defaultName() {
         return NAME;

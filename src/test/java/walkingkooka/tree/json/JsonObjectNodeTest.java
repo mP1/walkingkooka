@@ -27,6 +27,7 @@ import walkingkooka.io.printer.Printers;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchNodeName;
 import walkingkooka.visit.Visiting;
@@ -814,67 +815,6 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     }
 
     @Test
-    public void testFromJsonNodeListFails() {
-        this.fromJsonNodeListAndFail(Void.class, JsonNodeException.class);
-    }
-
-    @Test
-    public void testFromJsonNodeSetFails() {
-        this.fromJsonNodeSetAndFail(Void.class, JsonNodeException.class);
-    }
-
-    @Test
-    public void testFromJsonNodeMapFails() {
-        this.fromJsonNodeMapAndFail(Void.class, Void.class, JsonNodeException.class);
-    }
-
-    @Test
-    public void testFromJsonNodeListWithTypeFails() {
-        this.fromJsonNodeWithTypeListAndFail(JsonNodeException.class);
-    }
-
-    @Test
-    public void testFromJsonNodeSetWithTypeFails() {
-        this.fromJsonNodeWithTypeSetAndFail(JsonNodeException.class);
-    }
-
-    @Test
-    public void testFromJsonNodeMapWithTypeFails() {
-        this.fromJsonNodeWithTypeMapAndFail(JsonNodeException.class);
-    }
-
-    @Test
-    public void testFromJsonNodeWithType() {
-        final String value = "abc123";
-
-        this.fromJsonNodeWithTypeAndCheck(JsonNode.object()
-                        .set(JsonObjectNode.TYPE, JsonNode.string("string"))
-                        .set(JsonObjectNode.VALUE, JsonNode.string(value)),
-                value);
-    }
-
-    @Test
-    public void testFromJsonNodeWithTypeMissingTypePropertyFails() {
-        this.fromJsonNodeWithTypeAndFail(JsonNode.object()
-                        .set(JsonObjectNode.VALUE, JsonNode.string("abc")),
-                IllegalArgumentException.class);
-    }
-
-    @Test
-    public void testFromJsonNodeWithTypeIncorrectTypePropertyFails() {
-        this.fromJsonNodeWithTypeAndFail(JsonNode.object()
-                        .set(JsonObjectNode.TYPE, JsonNode.number(123)),
-                JsonNodeException.class);
-    }
-
-    @Test
-    public void testFromJsonNodeWithTypeMissingValuePropertyFails() {
-        this.fromJsonNodeWithTypeAndFail(JsonNode.object()
-                        .set(JsonObjectNode.TYPE, JsonNode.string("string")),
-                IllegalArgumentException.class);
-    }
-
-    @Test
     public void testToSearchNode() {
         final JsonBooleanNode booleanNode = JsonNode.booleanNode(true);
         final JsonNumberNode number = JsonNode.number(2);
@@ -963,11 +903,12 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         return "json-object";
     }
 
-    // HasJsonNodeTesting..................................................................
+    // JsonNodeMappingTesting...............................................................................................
 
     @Override
-    public final JsonObjectNode fromJsonNode(final JsonNode from) {
-        return JsonObjectNode.fromJsonNode(from).cast();
+    public final JsonObjectNode fromJsonNode(final JsonNode from,
+                                             final FromJsonNodeContext context) {
+        return from.cast();
     }
 
     @Override

@@ -20,10 +20,6 @@ package walkingkooka.tree.json;
 import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.tree.search.SearchNode;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 /**
  * Represents a json null.
  */
@@ -67,58 +63,6 @@ public final class JsonNullNode extends JsonLeafNode<Void> {
     @Override
     JsonNullNode replace0(final JsonNodeName name, final int index, final Void value) {
         return new JsonNullNode(name, index, value);
-    }
-
-    // HasJsonNode...............................................................................................
-
-    @Override
-    <T> T fromJsonNode0(final Class<T> type) {
-        return null;
-    }
-
-    @Override
-    <T> List<T> fromJsonNodeList0(final Class<T> elementType) {
-        return null;
-    }
-
-    @Override
-    <T> Set<T> fromJsonNodeSet0(final Class<T> elementType) {
-        return null;
-    }
-
-    @Override
-    <K, V> Map<K, V> fromJsonNodeMap0(final Class<K> keyType, final Class<V> valueType) {
-        return null;
-    }
-
-    /**
-     * Returns null
-     */
-    @Override
-    public <T> T fromJsonNodeWithType() {
-        return null;
-    }
-
-    /**
-     * Returns null
-     */
-    @Override
-    public <T> List<T> fromJsonNodeWithTypeList() {
-        return null;
-    }
-
-    /**
-     * Returns null
-     */
-    public <T> Set<T> fromJsonNodeWithTypeSet() {
-        return null;
-    }
-
-    /**
-     * Returns null
-     */
-    public <K, V> Map<K, V> fromJsonNodeWithTypeMap() {
-        return null;
     }
 
     @Override

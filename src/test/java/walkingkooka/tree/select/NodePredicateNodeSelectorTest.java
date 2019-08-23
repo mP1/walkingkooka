@@ -202,7 +202,7 @@ final public class NodePredicateNodeSelectorTest extends
                 "visited");
     }
 
-    // HasJsonNode.......................................................................................................
+    // JsonNodeContext...................................................................................................
 
     @Test
     public void testToJsonNode() {

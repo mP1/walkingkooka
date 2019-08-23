@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
@@ -106,15 +107,21 @@ public final class ExpressionLessThanEqualsNode extends ExpressionComparisonBina
         return comparisonResult <= 0;
     }
 
-    // HasJsonNode....................................................................................................
+    // JsonNodeContext..................................................................................................
 
     // @VisibleForTesting
-    static ExpressionLessThanEqualsNode fromJsonNode(final JsonNode node) {
-        return fromJsonNode0(node, ExpressionLessThanEqualsNode::with);
+    static ExpressionLessThanEqualsNode fromJsonNode(final JsonNode node,
+                                                     final FromJsonNodeContext context) {
+        return fromJsonNode0(node,
+                ExpressionLessThanEqualsNode::with,
+                context);
     }
 
     static {
-        register(SYMBOL, ExpressionLessThanEqualsNode::fromJsonNode, ExpressionLessThanEqualsNode.class);
+        register(SYMBOL,
+                ExpressionLessThanEqualsNode::fromJsonNode,
+                ExpressionLessThanEqualsNode::toJsonNode,
+                ExpressionLessThanEqualsNode.class);
     }
 
     // Object .........................................................................................................
