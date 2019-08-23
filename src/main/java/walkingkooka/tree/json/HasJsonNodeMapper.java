@@ -233,17 +233,7 @@ abstract class HasJsonNodeMapper<T> {
      * Unwraps a wrapper holding a type and json form of a java instance.
      */
     static <T> T fromJsonNodeWithType(final JsonNode node) {
-        Objects.requireNonNull(node, "node");
-
-        return node.isNull() ?
-                null :
-                Cast.to(node.isBoolean() ?
-                        node.booleanValueOrFail() :
-                        node.isNumber() ?
-                                node.numberValueOrFail() :
-                                node.isString() ?
-                                        node.stringValueOrFail() :
-                                        node.fromJsonNodeWithType());
+        return Cast.to(HasJsonNodeMapperJsonNodeVisitor.value(node));
     }
 
     // toJsonNode.........................................................................................................
