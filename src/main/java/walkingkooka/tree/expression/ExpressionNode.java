@@ -63,45 +63,26 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     public static ExpressionNode valueOrFail(final Object value) {
         Objects.requireNonNull(value, "value");
 
-        return value instanceof BigDecimal ?
-                bigDecimal(Cast.to(value)) :
-                value instanceof BigInteger ?
-                        bigInteger(Cast.to(value)) :
-                        value instanceof Boolean ?
-                                booleanNode(Cast.to(value)) :
-                                value instanceof Byte | value instanceof Short | value instanceof Integer | value instanceof Long ?
-                                        valueOrFailLongNode(Cast.to(value)) :
-                                        value instanceof Float || value instanceof Double ?
-                                                valueOrFailDoubleNode(Cast.to(value)) :
-                                                value instanceof LocalDate ?
-                                                        localDate(Cast.to(value)) :
-                                                        value instanceof LocalDateTime ?
-                                                                localDateTime(Cast.to(value)) :
-                                                                value instanceof LocalTime ?
-                                                                        localTime(Cast.to(value)) :
-                                                                        value instanceof String ?
-                                                                                text(Cast.to(value)) :
-                                                                                valueOrFailFail(value);
-    }
 
-    /**
-     * Expects float or double and creates a {@link ExpressionDoubleNode}
-     */
-    private static ExpressionNode valueOrFailDoubleNode(final Number value) {
-        return doubleNode(value.doubleValue());
-    }
-
-    /**
-     * Expects any of the primitive numeric types except for float or double.
-     */
-    private static ExpressionNode valueOrFailLongNode(final Number value) {
-        return longNode(value.longValue());
+        return value instanceof Number ?
+                ExpressionNodeNumberVisitor.expressionNode(Number.class.cast(value)) :
+                value instanceof Boolean ?
+                        booleanNode(Cast.to(value)) :
+                        value instanceof LocalDate ?
+                                localDate(Cast.to(value)) :
+                                value instanceof LocalDateTime ?
+                                        localDateTime(Cast.to(value)) :
+                                        value instanceof LocalTime ?
+                                                localTime(Cast.to(value)) :
+                                                value instanceof String ?
+                                                        text(Cast.to(value)) :
+                                                        valueOrFailFail(value);
     }
 
     /**
      * Reports an unknown value type given to {@link #valueOrFail}
      */
-    private static ExpressionNode valueOrFailFail(final Object value) {
+    static ExpressionNode valueOrFailFail(final Object value) {
         throw new IllegalArgumentException("Unknown value " + CharSequences.quoteIfChars(value));
     }
 
