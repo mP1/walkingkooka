@@ -28,7 +28,6 @@ public final class NodeSelectorGroupParserToken extends NodeSelectorParentParser
 
     static NodeSelectorGroupParserToken with(final List<ParserToken> value,
                                              final String text) {
-        System.out.println("GROUP " + value.size() + " " + value);
         return new NodeSelectorGroupParserToken(copyAndCheckTokens(value),
                 checkTextNullOrWhitespace(text));
     }
