@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
@@ -405,10 +406,11 @@ public final class ExpressionNotEqualsNodeTest extends ExpressionComparisonBinar
         return ExpressionNotEqualsNode.class;
     }
 
-    // HasJsonNodeTesting...........................................................................................
+    // JsonNodeMappingTesting...........................................................................................
 
     @Override
-    public ExpressionNotEqualsNode fromJsonNode(final JsonNode from) {
-        return ExpressionNotEqualsNode.fromJsonNode(from);
+    public ExpressionNotEqualsNode fromJsonNode(final JsonNode from,
+                                                final FromJsonNodeContext context) {
+        return ExpressionNotEqualsNode.fromJsonNode(from, context);
     }
 }

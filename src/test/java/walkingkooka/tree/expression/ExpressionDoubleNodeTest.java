@@ -19,6 +19,7 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
 import walkingkooka.visit.Visiting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -132,10 +133,11 @@ public final class ExpressionDoubleNodeTest extends ExpressionLeafNodeTestCase<E
         return ExpressionDoubleNode.class;
     }
 
-    // HasJsonNodeTesting...........................................................................................
+    // JsonNodeMappingTesting...............................................................................................
 
     @Override
-    public ExpressionDoubleNode fromJsonNode(final JsonNode from) {
-        return ExpressionDoubleNode.fromJsonNode(from);
+    public ExpressionDoubleNode fromJsonNode(final JsonNode from,
+                                             final FromJsonNodeContext context) {
+        return ExpressionDoubleNode.fromJsonNode(from, context);
     }
 }

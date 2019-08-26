@@ -18,10 +18,10 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.collect.list.Lists;
-import walkingkooka.tree.json.FromJsonNodeException;
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -192,29 +192,23 @@ abstract class ExpressionBinaryNode extends ExpressionParentFixedNode {
         return value instanceof Float || value instanceof Double;
     }
 
-    // HasJsonNode....................................................................................................
+    // JsonNodeContext..................................................................................................
 
     static <N extends ExpressionBinaryNode> N fromJsonNode0(final JsonNode node,
-                                                            final BiFunction<ExpressionNode, ExpressionNode, N> factory) {
-        try {
-            final JsonArrayNode array = node.arrayOrFail();
+                                                            final BiFunction<ExpressionNode, ExpressionNode, N> factory,
+                                                            final FromJsonNodeContext context) {
+        final JsonArrayNode array = node.arrayOrFail();
 
-            return factory.apply(
-                    array.get(0).fromJsonNodeWithType(),
-                    array.get(1).fromJsonNodeWithType());
-        } catch (final FromJsonNodeException cause) {
-            throw cause;
-        } catch (final RuntimeException cause) {
-            throw new FromJsonNodeException(cause.getMessage(), node, cause);
-        }
+        return factory.apply(
+                context.fromJsonNodeWithType(array.get(0)),
+                context.fromJsonNodeWithType(array.get(1)));
     }
 
     /**
      * Converts both left and right into a {@link walkingkooka.tree.json.JsonArrayNode}.
      */
-    @Override
-    public final JsonNode toJsonNode() {
-        return HasJsonNode.toJsonNodeWithTypeList(this.children());
+    final JsonNode toJsonNode(final ToJsonNodeContext context) {
+        return context.toJsonNodeWithTypeList(this.children());
     }
 
     // Object........................................................................................................

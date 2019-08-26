@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
 import walkingkooka.visit.Visiting;
 
 import java.math.BigInteger;
@@ -161,10 +162,11 @@ public final class ExpressionNotNodeTest extends ExpressionUnaryNodeTestCase<Exp
         return ExpressionNotNode.class;
     }
 
-    // HasJsonNodeTesting...........................................................................................
+    // JsonNodeMappingTesting...............................................................................................
 
     @Override
-    public ExpressionNotNode fromJsonNode(final JsonNode from) {
-        return ExpressionNotNode.fromJsonNode(from);
+    public ExpressionNotNode fromJsonNode(final JsonNode from,
+                                          final FromJsonNodeContext context) {
+        return ExpressionNotNode.fromJsonNode(from, context);
     }
 }

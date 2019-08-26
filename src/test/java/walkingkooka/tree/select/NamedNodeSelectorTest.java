@@ -23,7 +23,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.visit.Visiting;
 
@@ -275,13 +274,13 @@ final public class NamedNodeSelectorTest extends
                 "visited");
     }
 
-    // HasJsonNode...................................................................................................
+    // JsonNodeContext..................................................................................................
 
     @Test
     public void testToJsonNode() {
         Names.string("123");
 
-        assertEquals(Optional.of(JsonNode.string("string-name")), HasJsonNode.typeName(StringName.class));
+        assertEquals(Optional.of(JsonNode.string("string-name")), this.toJsonNodeContext().typeName(StringName.class));
 
         this.toJsonNodeAndCheck(this.createSelector(),
                 "{\n" +
@@ -294,7 +293,7 @@ final public class NamedNodeSelectorTest extends
     public void testFromJsonNode() {
         Names.string("123");
 
-        assertEquals(Optional.of(JsonNode.string("string-name")), HasJsonNode.typeName(StringName.class));
+        assertEquals(Optional.of(JsonNode.string("string-name")), toJsonNodeContext().typeName(StringName.class));
 
         this.fromJsonNodeAndCheck("{\n" +
                         "  \"name-type\": \"string-name\",\n" +

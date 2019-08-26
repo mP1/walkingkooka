@@ -34,6 +34,7 @@ import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TraversableHasTextOffset;
 import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.json.map.FromJsonNodeException;
 import walkingkooka.tree.json.parser.JsonNodeParserContext;
 import walkingkooka.tree.json.parser.JsonNodeParserContexts;
 import walkingkooka.tree.json.parser.JsonNodeParserToken;
@@ -42,11 +43,9 @@ import walkingkooka.tree.search.HasSearchNode;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.Predicate;
 
 /**
@@ -56,17 +55,8 @@ import java.util.function.Predicate;
 public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Object>,
         HasSearchNode,
         HasText,
-        HasJsonNode,
         HashCodeEqualsDefined,
         TraversableHasTextOffset<JsonNode> {
-
-    /**
-     * Simply returns the given {@link JsonNode}.
-     */
-    public static JsonNode fromJsonNode(final JsonNode node) {
-        Objects.requireNonNull(node, "node");
-        return node;
-    }
 
     /**
      * Parsers the given json and returns its {@link JsonNode} equivalent.
@@ -116,6 +106,7 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
      * Package private ctor to limit sub classing.
      */
     JsonNode(final JsonNodeName name, final int index) {
+        super();
         this.name = name;
         this.parent = NO_PARENT;
         this.index = index;
@@ -138,10 +129,12 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     }
 
     final JsonNode setName0(final JsonNodeName name) {
+        if(null==this.name) {
+            System.err.println("@@" + name + " -> " + this.value());
+        }
         return this.name.equals(name) ?
                 this :
                 this.replaceName(name);
-
     }
 
     final JsonNodeName name;
@@ -351,89 +344,31 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
 
     abstract void accept(final JsonNodeVisitor visitor);
 
-    // HasJsonNode .......................................................................................................
+    // JsonNodeMapper...................................................................................................
 
-    /**
-     * Attempts to convert this node to the requested {@link Class type}.
-     */
-    public final <T> T fromJsonNode(final Class<T> type) {
-        Objects.requireNonNull(type, "type");
-
-        return this.fromJsonNode0(type);
-    }
-
-    abstract <T> T fromJsonNode0(final Class<T> type);
-
-    /**
-     * Assumes this json object is an array holding elements that will be converted to the requested element type, returning
-     * a {@link Set} of them.
-     */
-    public final <T> List<T> fromJsonNodeList(final Class<T> elementType) {
-        Objects.requireNonNull(elementType, "elementType");
-
-        return this.fromJsonNodeList0(elementType);
-    }
-
-    abstract <T> List<T> fromJsonNodeList0(final Class<T> elementType);
-
-    /**
-     * Assumes this json object is an array holding elements that will be converted to the requested element type, returning
-     * a {@link Set} of them.
-     */
-    public final <T> Set<T> fromJsonNodeSet(final Class<T> elementType) {
-        Objects.requireNonNull(elementType, "elementType");
-
-        return this.fromJsonNodeSet0(elementType);
-    }
-
-    abstract <T> Set<T> fromJsonNodeSet0(final Class<T> elementType);
-
-    /**
-     * Assumes this json object is an array holding elements holding elements of the requested element type, returning
-     * a {@link Map} of them.
-     */
-    public final <K, V> Map<K, V> fromJsonNodeMap(final Class<K> keyType, final Class<V> valueType) {
-        Objects.requireNonNull(keyType, "keyType");
-        Objects.requireNonNull(valueType, "valueType");
-
-        return this.fromJsonNodeMap0(keyType, valueType);
-    }
-
-    abstract <K, V> Map<K, V> fromJsonNodeMap0(final Class<K> keyType, final Class<V> valueType);
-
-    // fromJsonNodeWithType.......................................................................................................
-
-    /**
-     * Assumes a {@link JsonArrayNode} holding objects tagged with type and values.
-     */
-    public abstract <T> List<T> fromJsonNodeWithTypeList();
-
-    /**
-     * Assumes a {@link JsonArrayNode} holding objects tagged with type and values.
-     */
-    public abstract <T> Set<T> fromJsonNodeWithTypeSet();
-
-    /**
-     * Assumes a {@link JsonArrayNode} holding entries of the {@link Map} tagged with type and values.
-     */
-    public abstract <K, V> Map<K, V> fromJsonNodeWithTypeMap();
-
-    /**
-     * Assumes a wrapper object with the type and value, basically the inverse of {@link HasJsonNode#toJsonNodeWithType()}.
-     */
-    public abstract <T> T fromJsonNodeWithType();
-
-    // toJsonNode.......................................................................................................
-
-    /**
-     * Already a {@link JsonNode} remove the parent if necessary.
-     */
-    @Override
-    public final JsonNode toJsonNode() {
-        return this.isRoot() ?
-                this :
-                this.setParent(NO_PARENT, this.defaultName(), NO_INDEX);
-    }
+//    static {
+//        JsonNodeContext.register("json-node",
+//                JsonNode::fromJsonNode,
+//                JsonNode::toJsonNode,
+//                JsonNode.class,
+//                JsonArrayNode.class,
+//                JsonBooleanNode.class,
+//                JsonNumberNode.class,
+//                JsonObjectNode.class,
+//                JsonStringNode.class);
+//    }
+//
+//    static JsonNode fromJsonNode(final JsonNode node,
+//                                 final FromJsonNodeContext context) {
+//        return node.removeParent();
+//    }
+//
+//    /**
+//     * Already a {@link JsonNode} remove the parent if necessary.
+//     */
+//    final JsonNode toJsonNode(final ToJsonNodeContext context) {
+//        return this.removeParent();
+//    }
 
     /**
      * Returns the default name for this type. This is used to assign a default name for a {@link Node} when it has no

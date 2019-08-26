@@ -17,41 +17,9 @@
 
 package walkingkooka.tree.json;
 
-import org.junit.jupiter.api.Test;
-
 public abstract class JsonLeafNonNullNodeTestCase<N extends JsonLeafNonNullNode<V>, V> extends JsonLeafNodeTestCase<N, V> {
 
     JsonLeafNonNullNodeTestCase() {
         super();
-    }
-
-    @Test
-    public final void testFromJsonNodeListFails() {
-        this.fromJsonNodeListAndFail(Void.class, JsonNodeException.class);
-    }
-
-    @Test
-    public final void testFromJsonNodeSetFails() {
-        this.fromJsonNodeSetAndFail(Void.class, JsonNodeException.class);
-    }
-
-    @Test
-    public final void testFromJsonNodeMapFails() {
-        this.fromJsonNodeMapAndFail(Void.class, Void.class, JsonNodeException.class);
-    }
-
-    @Test
-    public final void testFromJsonNodeWithTypeListFails() {
-        this.fromJsonNodeWithTypeListAndFail(JsonNodeException.class);
-    }
-
-    @Test
-    public final void testFromJsonNodeWithTypeSetFails() {
-        this.fromJsonNodeWithTypeSetAndFail(JsonNodeException.class);
-    }
-
-    @Test
-    public final void testFromJsonNodeWithTypeMapFails() {
-        this.fromJsonNodeWithTypeMapAndFail(JsonNodeException.class);
     }
 }

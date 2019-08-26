@@ -17,10 +17,7 @@
 
 package walkingkooka.tree.json;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * Base type for all the leaf json nodes that are not {@link JsonNullNode}
@@ -29,64 +26,6 @@ abstract class JsonLeafNonNullNode<V> extends JsonLeafNode<V> {
 
     JsonLeafNonNullNode(final JsonNodeName name, final int index, final V value) {
         super(name, index, value);
-    }
-
-    @Override
-    <T> T fromJsonNode0(final Class<T> type) {
-        return HasJsonNodeMapper.mapperOrFail(type)
-                .fromJsonNode(this);
-    }
-
-    /**
-     * Not an array of elements therefore cant be a list.
-     */
-    final <T> List<T> fromJsonNodeList0(final Class<T> elementType) {
-        return this.reportInvalidNodeObject();
-    }
-
-    /**
-     * Not an array of elements therefore cant be a set.
-     */
-    final <T> Set<T> fromJsonNodeSet0(final Class<T> elementType) {
-        return this.reportInvalidNodeObject();
-    }
-
-    /**
-     * Not an array of entries therefore cant be a map.
-     */
-    final <KK, VV> Map<KK, VV> fromJsonNodeMap0(final Class<KK> keyType,
-                                                final Class<VV> valueType) {
-        return this.reportInvalidNodeObject();
-    }
-
-    /**
-     * {@see HasJsonNodeMapMapper#fromJsonNodeWithType}
-     */
-    @Override
-    public final <T> T fromJsonNodeWithType() {
-        return HasJsonNodeMapMapper.fromJsonNodeWithType(this);
-    }
-
-    /**
-     * Not a null or object therefore fail.
-     */
-    @Override
-    public final <T> List<T> fromJsonNodeWithTypeList() {
-        return this.reportInvalidNodeArray();
-    }
-
-    /**
-     * Not a null or object therefore fail.
-     */
-    public <T> Set<T> fromJsonNodeWithTypeSet() {
-        return this.reportInvalidNodeArray();
-    }
-
-    /**
-     * Not a null or object therefore fail.
-     */
-    public <KK, VV> Map<KK, VV> fromJsonNodeWithTypeMap() {
-        return this.reportInvalidNodeArray();
     }
 
     // isXXX..................................................................................................

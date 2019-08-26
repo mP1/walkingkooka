@@ -18,9 +18,9 @@
 package walkingkooka.compare;
 
 import walkingkooka.Cast;
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 
 import java.util.Optional;
 
@@ -53,16 +53,16 @@ abstract class RangeBoundExclusiveInclusive<C extends Comparable<C>> extends Ran
         return Optional.of(this.value);
     }
 
-    // Range.toJsonNode......................................................................
+    // Range.toJsonNode.................................................................................................
 
-    @Override final JsonObjectNode toJsonNode() {
+    final JsonObjectNode toJsonNode(final ToJsonNodeContext context) {
         return JsonObjectNode.object()
-                .set(this.property(), HasJsonNode.toJsonNodeWithType(this.value));
+                .set(this.property(), context.toJsonNodeWithType(this.value));
     }
 
     abstract JsonNodeName property();
 
-    // Object....................................................................
+    // Object...........................................................................................................
 
     @Override
     public final int hashCode() {

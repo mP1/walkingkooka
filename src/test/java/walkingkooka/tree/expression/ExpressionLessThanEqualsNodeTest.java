@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
@@ -503,10 +504,11 @@ public final class ExpressionLessThanEqualsNodeTest extends ExpressionComparison
         return ExpressionLessThanEqualsNode.class;
     }
 
-    // HasJsonNodeTesting...........................................................................................
+    // JsonNodeMappingTesting...........................................................................................
 
     @Override
-    public ExpressionLessThanEqualsNode fromJsonNode(final JsonNode from) {
-        return ExpressionLessThanEqualsNode.fromJsonNode(from);
+    public ExpressionLessThanEqualsNode fromJsonNode(final JsonNode from,
+                                                     final FromJsonNodeContext context) {
+        return ExpressionLessThanEqualsNode.fromJsonNode(from, context);
     }
 }

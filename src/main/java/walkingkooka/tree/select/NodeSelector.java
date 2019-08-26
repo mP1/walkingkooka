@@ -28,10 +28,12 @@ import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.JsonNodeContext;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorNodeName;
 import walkingkooka.tree.select.parser.NodeSelectorParserToken;
@@ -52,7 +54,6 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
         AVALUE> implements HashCodeEqualsDefined,
-        HasJsonNode,
         Visitable {
 
     /**
@@ -481,14 +482,15 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      */
     abstract NodeSelector<N, NAME, ANAME, AVALUE> unwrapIfCustomToStringNodeSelector();
 
-    // HasJsonNode....................................................................................................
+    // JsonNodeContext..................................................................................................
 
     /*
      * Register all concrete sub classes of {@link NodeSelector} and the public {@link NodeSelector} itself.
      */
     static {
-        HasJsonNode.register("nodeSelector",
+        JsonNodeContext.register("nodeSelector",
                 NodeSelector::fromJsonNode,
+                NodeSelector::toJsonNode,
                 NodeSelector.class,
                 CustomToStringNodeSelector.class,
                 AbsoluteNodeSelector.class,
@@ -520,9 +522,8 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      * }
      * </pre>
      */
-    static NodeSelector<?, ?, ?, ?> fromJsonNode(final JsonNode node) {
-        Objects.requireNonNull(node, "node");
-
+    static NodeSelector<?, ?, ?, ?> fromJsonNode(final JsonNode node,
+                                                 final FromJsonNodeContext context) {
         JsonArrayNode components = null;
 
         for (JsonNode child : node.children()) {
@@ -540,21 +541,21 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
         }
 
         if (null == components) {
-            HasJsonNode.requiredPropertyMissing(COMPONENTS_PROPERTY, node);
+            FromJsonNodeContext.requiredPropertyMissing(COMPONENTS_PROPERTY, node);
         }
 
-        return NodeSelectorHasJsonNodeNodeSelectorVisitor.fromJsonNode(
+        return NodeSelectorJsonNodeNodeSelectorVisitor.fromJsonNode(
                 NAME_TYPE_PROPERTY.fromJsonNodeWithTypeFactory(node.objectOrFail(), Name.class),
-                components);
+                components,
+                context);
     }
 
     /**
      * The JSON representation of a {@link NodeSelector} is the selector expression as a {@link walkingkooka.tree.json.JsonStringNode}
      * enclosed within an object which may have the node name type.
      */
-    @Override
-    public final JsonNode toJsonNode() {
-        return NodeSelectorHasJsonNodeNodeSelectorVisitor.acceptAndToJsonNode(this);
+    final JsonNode toJsonNode(final ToJsonNodeContext context) {
+        return NodeSelectorJsonNodeNodeSelectorVisitor.acceptAndToJsonNode(this, context);
     }
 
     final static String NAME_TYPE = "name-type";

@@ -17,9 +17,10 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 import walkingkooka.visit.Visiting;
 
 import java.math.BigDecimal;
@@ -261,29 +262,32 @@ public final class ExpressionFunctionNode extends ExpressionVariableNode {
                         .collect(Collectors.toList()));
     }
 
-    // HasJsonNode....................................................................................................
+    // JsonNodeContext..................................................................................................
 
     // @VisibleForTesting
-    static ExpressionFunctionNode fromJsonNode(final JsonNode node) {
+    static ExpressionFunctionNode fromJsonNode(final JsonNode node,
+                                               final FromJsonNodeContext context) {
         final JsonArrayNode array = node.arrayOrFail();
 
         return ExpressionFunctionNode.with(
-                ExpressionNodeName.fromJsonNode(array.get(0)),
-                array.get(1).fromJsonNodeWithTypeList());
+                context.fromJsonNode(array.get(0), ExpressionNodeName.class),
+                context.fromJsonNodeWithTypeList(array.get(1)));
     }
 
     /**
      * Converts all children into a {@link walkingkooka.tree.json.JsonArrayNode} with their types.
      */
-    @Override
-    public final JsonNode toJsonNode() {
+    final JsonNode toJsonNode(final ToJsonNodeContext context) {
         return JsonNode.array()
-                .appendChild(this.name.toJsonNode())
-                .appendChild(HasJsonNode.toJsonNodeWithTypeList(this.children()));
+                .appendChild(context.toJsonNode(this.name))
+                .appendChild(context.toJsonNodeWithTypeList(this.children()));
     }
 
     static {
-        register("-fn", ExpressionFunctionNode::fromJsonNode, ExpressionFunctionNode.class);
+        register("-fn",
+                ExpressionFunctionNode::fromJsonNode,
+                ExpressionFunctionNode::toJsonNode,
+                ExpressionFunctionNode.class);
     }
 
     // Object.........................................................................................................

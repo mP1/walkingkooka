@@ -23,8 +23,10 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.JsonNodeContext;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
 
@@ -37,19 +39,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Function;
+import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
-public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionNodeName, Name, Object>,
-        HasJsonNode {
+public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionNodeName, Name, Object> {
 
     /**
      * Sub classes register themselves
      */
     static <N extends ExpressionNode> void register(final String suffix,
-                                                    final Function<JsonNode, N> factory,
+                                                    final BiFunction<JsonNode, FromJsonNodeContext, N> from,
+                                                    final BiFunction<N, ToJsonNodeContext, JsonNode> to,
                                                     final Class<N> type) {
-        HasJsonNode.register("expression" + suffix, factory, type);
+        JsonNodeContext.register("expression" + suffix,
+                from,
+                to,
+                type);
     }
 
     /**

@@ -21,15 +21,16 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.tree.json.HasJsonNodeStringTesting;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.JsonNodeMappingTesting;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class StringNameTest implements ClassTesting2<StringName>,
         NameTesting<StringName, StringName>,
-        HasJsonNodeStringTesting<StringName>,
+        JsonNodeMappingTesting<StringName>,
         SerializationTesting<StringName> {
 
     private final static String TEXT = "bcd123";
@@ -119,8 +120,9 @@ final public class StringNameTest implements ClassTesting2<StringName>,
     // HasJsonesting...................................................................................................
 
     @Override
-    public StringName fromJsonNode(final JsonNode from) {
-        return StringName.fromJsonNode(from);
+    public StringName fromJsonNode(final JsonNode from,
+                                   final FromJsonNodeContext context) {
+        return StringName.fromJsonNode(from, context);
     }
 
     @Override

@@ -101,8 +101,6 @@ public final class JsonBooleanNode extends JsonLeafNonNullNode<Boolean> {
         return false;
     }
 
-    // HasJsonNode.................................................................................................
-
     @Override
     JsonNodeName defaultName() {
         return NAME;

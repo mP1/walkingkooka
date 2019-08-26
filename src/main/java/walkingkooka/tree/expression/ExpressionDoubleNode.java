@@ -19,6 +19,7 @@ package walkingkooka.tree.expression;
 
 
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
 
 /**
  * A {@link Double} number value.
@@ -105,15 +106,19 @@ public final class ExpressionDoubleNode extends ExpressionValueNode<Double> {
         visitor.visit(this);
     }
 
-    // HasJsonNode....................................................................................................
+    // JsonNodeContext..................................................................................................
 
     // @VisibleForTesting
-    static ExpressionDoubleNode fromJsonNode(final JsonNode node) {
-        return ExpressionDoubleNode.with(node.fromJsonNode(Double.class));
+    static ExpressionDoubleNode fromJsonNode(final JsonNode node,
+                                             final FromJsonNodeContext context) {
+        return ExpressionDoubleNode.with(context.fromJsonNode(node, Double.class));
     }
 
     static {
-        register("-double", ExpressionDoubleNode::fromJsonNode, ExpressionDoubleNode.class);
+        register("-double",
+                ExpressionDoubleNode::fromJsonNode,
+                ExpressionDoubleNode::toJsonNode,
+                ExpressionDoubleNode.class);
     }
 
     // Object ....................................................................................................

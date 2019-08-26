@@ -19,6 +19,7 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
 
 import java.util.Objects;
 
@@ -108,15 +109,19 @@ public final class ExpressionTextNode extends ExpressionValueNode<String> {
         visitor.visit(this);
     }
 
-    // HasJsonNode....................................................................................................
+    // JsonNodeContext..................................................................................................
 
     // @VisibleForTesting
-    static ExpressionTextNode fromJsonNode(final JsonNode node) {
-        return ExpressionTextNode.with(node.fromJsonNode(String.class));
+    static ExpressionTextNode fromJsonNode(final JsonNode node,
+                                           final FromJsonNodeContext context) {
+        return ExpressionTextNode.with(context.fromJsonNode(node, String.class));
     }
 
     static {
-        register("-text", ExpressionTextNode::fromJsonNode, ExpressionTextNode.class);
+        register("-text",
+                ExpressionTextNode::fromJsonNode,
+                ExpressionTextNode::toJsonNode,
+                ExpressionTextNode.class);
     }
 
     // Object ....................................................................................................

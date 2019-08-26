@@ -59,8 +59,6 @@ public final class JsonNumberNode extends JsonLeafNonNullNode<Double> {
         return this.removeParent0().cast();
     }
 
-    // HasJsonNode...............................................................................................
-
     @Override
     JsonNodeName defaultName() {
         return NAME;

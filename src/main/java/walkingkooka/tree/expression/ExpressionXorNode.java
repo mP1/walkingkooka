@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
 import walkingkooka.visit.Visiting;
 
 import java.math.BigInteger;
@@ -105,15 +106,21 @@ public final class ExpressionXorNode extends ExpressionLogicalBinaryNode {
         return ExpressionNode.longNode(left ^ right);
     }
 
-    // HasJsonNode....................................................................................................
+    // JsonNodeContext..................................................................................................
 
     // @VisibleForTesting
-    static ExpressionXorNode fromJsonNode(final JsonNode node) {
-        return fromJsonNode0(node, ExpressionXorNode::with);
+    static ExpressionXorNode fromJsonNode(final JsonNode node,
+                                          final FromJsonNodeContext context) {
+        return fromJsonNode0(node,
+                ExpressionXorNode::with,
+                context);
     }
 
     static {
-        register(SYMBOL, ExpressionXorNode::fromJsonNode, ExpressionXorNode.class);
+        register(SYMBOL,
+                ExpressionXorNode::fromJsonNode,
+                ExpressionXorNode::toJsonNode,
+                ExpressionXorNode.class);
     }
 
     // Object ........................................................................................................

@@ -30,6 +30,8 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 import walkingkooka.type.JavaVisibility;
 
 import java.math.BigDecimal;
@@ -48,79 +50,72 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
 
     @Test
     public void testAbsoluteChildrenNamedChildrenNamedJsonRoundtrip() {
-        final NodeSelector<TestNode, StringName, StringName, Object> selector = TestNode.absoluteNodeSelector()
+        this.jsonRoundtripAndCheck(TestNode.absoluteNodeSelector()
                 .children()
                 .named(Names.string("ABC123"))
                 .children()
-                .named(Names.string("DEF456"));
-        final JsonNode json = selector.toJsonNode();
-        assertEquals(selector, NodeSelector.fromJsonNode(json), () -> json.toString());
+                .named(Names.string("DEF456")));
     }
 
     @Test
     public void testAbsoluteNamedChildrenExpressionJsonRoundtrip() {
-        final NodeSelector<TestNode, StringName, StringName, Object> selector = TestNode.absoluteNodeSelector()
+        this.jsonRoundtripAndCheck(TestNode.absoluteNodeSelector()
                 .children()
                 .named(Names.string("ABC123"))
-                .expression(ExpressionNode.addition(ExpressionNode.bigDecimal(BigDecimal.valueOf(1)), ExpressionNode.text("bcd234")));
-        final JsonNode json = selector.toJsonNode();
-        assertEquals(selector, NodeSelector.fromJsonNode(json), () -> json.toString());
+                .expression(ExpressionNode.addition(ExpressionNode.bigDecimal(BigDecimal.valueOf(1)), ExpressionNode.text("bcd234"))));
     }
 
     @Test
     public void testAbsoluteAncestorAncestorOrSelfChildrenDescendantDescendantOrSelfJsonRoundtrip() {
-        final NodeSelector<TestNode, StringName, StringName, Object> selector = TestNode.absoluteNodeSelector()
+        this.jsonRoundtripAndCheck(TestNode.absoluteNodeSelector()
                 .ancestor()
                 .ancestorOrSelf()
                 .children()
                 .descendant()
-                .descendantOrSelf();
-        final JsonNode json = selector.toJsonNode();
-        assertEquals(selector, NodeSelector.fromJsonNode(json), () -> json.toString());
+                .descendantOrSelf());
     }
 
     @Test
     public void testFirstChildFollowingFollowingSiblingLastChildJsonRoundtrip() {
-        final NodeSelector<TestNode, StringName, StringName, Object> selector = TestNode.absoluteNodeSelector()
+        this.jsonRoundtripAndCheck(TestNode.absoluteNodeSelector()
                 .firstChild()
                 .following()
                 .followingSibling()
-                .lastChild();
-        final JsonNode json = selector.toJsonNode();
-        assertEquals(selector, NodeSelector.fromJsonNode(json), () -> json.toString());
+                .lastChild());
     }
 
     @Test
     public void testParentPrecedingPrecedingSiblingSelfJsonRoundtrip() {
-        final NodeSelector<TestNode, StringName, StringName, Object> selector = TestNode.absoluteNodeSelector()
+        this.jsonRoundtripAndCheck(TestNode.absoluteNodeSelector()
                 .firstChild()
                 .preceding()
                 .precedingSibling()
-                .self();
-        final JsonNode json = selector.toJsonNode();
-        assertEquals(selector, NodeSelector.fromJsonNode(json), () -> json.toString());
+                .self());
     }
 
     @Test
     public void testChildrenCustomToStringChildrenCustomToStringJsonRoundtrip() {
-        final NodeSelector<TestNode, StringName, StringName, Object> selector = TestNode.relativeNodeSelector()
+        this.jsonRoundtripAndCheck(TestNode.relativeNodeSelector()
                 .children()
                 .setToString("Custom1a")
                 .children()
-                .setToString("Custom2b");
-        final JsonNode json = selector.toJsonNode();
-        assertEquals(selector, NodeSelector.fromJsonNode(json), () -> json.toString());
+                .setToString("Custom2b"));
     }
 
     @Test
     public void testCustomToStringChildrenCustomToStringChildrenJsonRoundtrip() {
-        final NodeSelector<TestNode, StringName, StringName, Object> selector = TestNode.relativeNodeSelector()
+        this.jsonRoundtripAndCheck(TestNode.relativeNodeSelector()
                 .setToString("Custom1a")
                 .children()
                 .setToString("Custom2b")
-                .children();
-        final JsonNode json = selector.toJsonNode();
-        assertEquals(selector, NodeSelector.fromJsonNode(json), () -> json.toString());
+                .children());
+    }
+
+    private void jsonRoundtripAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector) {
+        final JsonNode json = selector.toJsonNode(ToJsonNodeContext.basic());
+        assertEquals(selector,
+                NodeSelector.fromJsonNode(json, FromJsonNodeContext.basic()),
+                () -> json.toString());
     }
 
     // Stream..........................................................................................................

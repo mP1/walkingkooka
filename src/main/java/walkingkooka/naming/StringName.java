@@ -22,19 +22,19 @@ import walkingkooka.Cast;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.JsonNodeContext;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * A simple {@link Name} that accepts a {@link String} composed of any character.
  */
 final public class StringName implements Name,
         Comparable<StringName>,
-        Serializable,
-        HasJsonNode {
+        Serializable {
 
     private final static long serialVersionUID = 1L;
 
@@ -115,22 +115,21 @@ final public class StringName implements Name,
 
     private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 
-    // HasJsonNode...................................................................................................
+    // JsonNodeContext..................................................................................................
 
     static {
-        HasJsonNode.register("string-name",
+        JsonNodeContext.register("string-name",
                 StringName::fromJsonNode,
+                StringName::toJsonNode,
                 StringName.class);
     }
 
-    static StringName fromJsonNode(final JsonNode node) {
-        Objects.requireNonNull(node, "node");
-
+    static StringName fromJsonNode(final JsonNode node,
+                                   final FromJsonNodeContext context) {
         return with(node.stringValueOrFail());
     }
 
-    @Override
-    public JsonNode toJsonNode() {
+    JsonNode toJsonNode(final ToJsonNodeContext context) {
         return JsonNode.string(this.value());
     }
 }

@@ -19,6 +19,7 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
 import walkingkooka.visit.Visiting;
 
 import java.math.MathContext;
@@ -208,10 +209,11 @@ public final class ExpressionReferenceNodeTest extends ExpressionLeafNodeTestCas
         return ExpressionReferenceNode.class;
     }
 
-    // HasJsonNodeTesting...........................................................................................
+    // JsonNodeMappingTesting...............................................................................................
 
     @Override
-    public ExpressionReferenceNode fromJsonNode(final JsonNode from) {
-        return ExpressionReferenceNode.fromJsonNode(from);
+    public ExpressionReferenceNode fromJsonNode(final JsonNode from,
+                                                final FromJsonNodeContext context) {
+        return ExpressionReferenceNode.fromJsonNode(from, context);
     }
 }
