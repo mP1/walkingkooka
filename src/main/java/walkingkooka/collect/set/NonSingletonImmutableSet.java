@@ -30,7 +30,7 @@ final class NonSingletonImmutableSet<T> extends ImmutableSet<T> {
     /**
      * Returns a {@link Set} which is immutable including copying elements if necessary.
      */
-    static <T> NonSingletonImmutableSet<T> with(final Set<T> notCopied) {
+    static <T> NonSingletonImmutableSet<T> withNonSingleton(final Set<T> notCopied) {
         return new NonSingletonImmutableSet<>(notCopied);
     }
 

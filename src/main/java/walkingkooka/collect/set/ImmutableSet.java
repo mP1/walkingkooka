@@ -19,6 +19,7 @@ package walkingkooka.collect.set;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.ImmutableTypeRegistry;
+import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.AbstractSet;
 import java.util.Collections;
@@ -29,7 +30,7 @@ import java.util.SortedSet;
 /**
  * A {@link Set} known to be immutable and holds a copy of any {@link Set} given to it.
  */
-abstract class ImmutableSet<T> extends AbstractSet<T> {
+abstract class ImmutableSet<T> extends AbstractSet<T> implements HashCodeEqualsDefined {
 
     /**
      * Special case checking for empty {@link Set} created by {@link Collections#emptySet()}.
@@ -93,14 +94,14 @@ abstract class ImmutableSet<T> extends AbstractSet<T> {
      * {@see SingletonImmutableSet}.
      */
     static <T> Set<T> singleton(final T element) {
-        return SingletonImmutableSet.with(element);
+        return SingletonImmutableSet.withSingleton(element);
     }
 
     /**
      * Creates a {@link NonSingletonImmutableSet} with the given {@link Set} which is not defensively copied.
      */
     static <T> ImmutableSet<T> wrap(final Set<T> wrap) {
-        return NonSingletonImmutableSet.with(wrap);
+        return NonSingletonImmutableSet.withNonSingleton(wrap);
     }
 
     /**

@@ -27,6 +27,19 @@ public final class SingletonImmutableSetTest extends ImmutableSetTestCase2<Singl
     private final static String ELEMENT = "*element*";
 
     @Test
+    public void testWithNull() {
+        this.checkEquals(SingletonImmutableSet.withSingleton(null),
+                Collections.singleton(null));
+    }
+
+    @Test
+    public void testWithNonNull() {
+        final String value = "abc123";
+        this.checkEquals(SingletonImmutableSet.withSingleton(value),
+                Collections.singleton(value));
+    }
+
+    @Test
     public void testAddFails() {
         this.addFails(this.createSet(), "fails!!!");
     }
@@ -63,7 +76,7 @@ public final class SingletonImmutableSetTest extends ImmutableSetTestCase2<Singl
 
     @Override
     public SingletonImmutableSet<String> createSet() {
-        return SingletonImmutableSet.with(ELEMENT);
+        return SingletonImmutableSet.withSingleton(ELEMENT);
     }
 
     // ClassTesting.....................................................................................................

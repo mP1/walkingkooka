@@ -17,10 +17,10 @@
 
 package walkingkooka.collect.set;
 
+import walkingkooka.Equality;
 import walkingkooka.collect.iterator.Iterators;
 
 import java.util.Iterator;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -31,9 +31,7 @@ final class SingletonImmutableSet<T> extends ImmutableSet<T> {
     /**
      * Returns a {@link Set} which is immutable including copying elements if necessary.
      */
-    static <T> SingletonImmutableSet<T> with(final T element) {
-        Objects.requireNonNull(element, "element");
-
+    static <T> SingletonImmutableSet<T> withSingleton(final T element) {
         return new SingletonImmutableSet<>(element);
     }
 
@@ -47,7 +45,7 @@ final class SingletonImmutableSet<T> extends ImmutableSet<T> {
 
     @Override
     public boolean contains(final Object other) {
-        return this.element.equals(other);
+        return Equality.safeEquals(this.element, other);
     }
 
     @Override

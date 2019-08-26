@@ -19,6 +19,7 @@ package walkingkooka.collect.set;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.iterator.IteratorTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 
 import java.util.Iterator;
 
@@ -26,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class ImmutableSetTestCase2<S extends ImmutableSet<String>> extends ImmutableSetTestCase<S>
         implements SetTesting<S, String>,
+        HashCodeEqualsDefinedTesting<S>,
         IteratorTesting {
 
     ImmutableSetTestCase2() {
@@ -44,5 +46,10 @@ public abstract class ImmutableSetTestCase2<S extends ImmutableSet<String>> exte
         assertThrows(UnsupportedOperationException.class, () -> {
             iterator.remove();
         });
+    }
+
+    @Override
+    public final S createObject() {
+        return this.createSet();
     }
 }
