@@ -67,7 +67,7 @@ public final class NonSingletonImmutableSetTest extends ImmutableSetTestCase2<No
 
     @Override
     public NonSingletonImmutableSet<String> createSet() {
-        return NonSingletonImmutableSet.with(this.elements());
+        return NonSingletonImmutableSet.withNonSingleton(this.elements());
     }
 
     private Set<String> elements() {
