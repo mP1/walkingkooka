@@ -100,7 +100,7 @@ abstract class BasicMapper<T> {
     }
 
     /**
-     * Registers a factory for a type that implements {@link HasJsonNode}.
+     * Registers the mapping for the given types.
      */
     static synchronized <T> Runnable register(final String typeName,
                                               final BiFunction<JsonNode, FromJsonNodeContext, T> from,
