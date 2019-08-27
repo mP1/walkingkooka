@@ -58,7 +58,7 @@ final class BasicMapperTypedJsonNode extends BasicMapperTyped<JsonNode> {
 
     @Override
     String typeName() {
-        return "json-node";
+        return "json";
     }
 
     @Override

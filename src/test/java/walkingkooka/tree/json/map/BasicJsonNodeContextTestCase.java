@@ -62,7 +62,7 @@ public abstract class BasicJsonNodeContextTestCase<C extends JsonNodeContext> ex
                 "java.util.Map",
                 "java.util.Optional",
                 "java.util.Set",
-                "json-node",
+                "json",
                 "json-property-name",
                 "list",
                 "local-date",
