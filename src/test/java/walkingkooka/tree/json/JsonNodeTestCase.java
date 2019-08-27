@@ -248,7 +248,7 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements BeanProper
     // JsonNodeContext..................................................................................................
 
     @Override
-    public final N createHasJsonNode() {
+    public final N createJsonNodeMappingValue() {
         return this.createJsonNode();
     }
 }

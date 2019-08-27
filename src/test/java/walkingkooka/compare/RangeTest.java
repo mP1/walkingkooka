@@ -1345,10 +1345,10 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
         return JavaVisibility.PUBLIC;
     }
 
-    // HasJsonTesting...................................................................................................
+    // JsonNodeMapTesting...............................................................................................
 
     @Override
-    public Range<Integer> createHasJsonNode() {
+    public Range<Integer> createJsonNodeMappingValue() {
         return this.createPredicate();
     }
 

@@ -117,7 +117,7 @@ final public class StringNameTest implements ClassTesting2<StringName>,
         return false;
     }
 
-    // HasJsonesting...................................................................................................
+    // JsonNodeMapTesting...............................................................................................
 
     @Override
     public StringName fromJsonNode(final JsonNode from,
@@ -126,7 +126,7 @@ final public class StringNameTest implements ClassTesting2<StringName>,
     }
 
     @Override
-    public StringName createHasJsonNode() {
+    public StringName createJsonNodeMappingValue() {
         return this.createName(this.nameText());
     }
 

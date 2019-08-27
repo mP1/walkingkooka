@@ -468,7 +468,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
         return this.createSelector();
     }
 
-    // HasJsonTesting...................................................................................................
+    // JsonNodeMapTesting...............................................................................................
 
     @Override
     public S fromJsonNode(final JsonNode from, final FromJsonNodeContext context) {
@@ -476,7 +476,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
     }
 
     @Override
-    public final S createHasJsonNode() {
+    public final S createJsonNodeMappingValue() {
         return this.createSelector();
     }
 }

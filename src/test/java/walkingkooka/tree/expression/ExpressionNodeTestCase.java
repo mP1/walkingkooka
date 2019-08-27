@@ -514,7 +514,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
     // JsonNodeMappingTesting...........................................................................................
 
     @Override
-    public final ExpressionNode createHasJsonNode() {
+    public final ExpressionNode createJsonNodeMappingValue() {
         return this.createExpressionNode();
     }
 }

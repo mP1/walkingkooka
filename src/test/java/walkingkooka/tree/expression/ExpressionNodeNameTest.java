@@ -95,7 +95,7 @@ public final class ExpressionNodeNameTest implements ClassTesting2<ExpressionNod
     }
 
     @Override
-    public ExpressionNodeName createHasJsonNode() {
+    public ExpressionNodeName createJsonNodeMappingValue() {
         return this.createName("sum");
     }
 }
