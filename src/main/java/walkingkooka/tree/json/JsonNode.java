@@ -344,32 +344,6 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
 
     abstract void accept(final JsonNodeVisitor visitor);
 
-    // JsonNodeMapper...................................................................................................
-
-//    static {
-//        JsonNodeContext.register("json-node",
-//                JsonNode::fromJsonNode,
-//                JsonNode::toJsonNode,
-//                JsonNode.class,
-//                JsonArrayNode.class,
-//                JsonBooleanNode.class,
-//                JsonNumberNode.class,
-//                JsonObjectNode.class,
-//                JsonStringNode.class);
-//    }
-//
-//    static JsonNode fromJsonNode(final JsonNode node,
-//                                 final FromJsonNodeContext context) {
-//        return node.removeParent();
-//    }
-//
-//    /**
-//     * Already a {@link JsonNode} remove the parent if necessary.
-//     */
-//    final JsonNode toJsonNode(final ToJsonNodeContext context) {
-//        return this.removeParent();
-//    }
-
     /**
      * Returns the default name for this type. This is used to assign a default name for a {@link Node} when it has no
      * parent.
