@@ -22,6 +22,8 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.test.Testing;
+import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonStringNode;
 import walkingkooka.type.MethodAttributes;
@@ -38,7 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public interface JsonNodeMappingTesting<V> {
+public interface JsonNodeMappingTesting<V> extends Testing {
 
     @Test
     default void testRegistered() throws Exception {
@@ -65,15 +67,15 @@ public interface JsonNodeMappingTesting<V> {
 
     @Test
     default void testTypeNameFromClass() {
-        final V has = this.createJsonNodeMappingValue();
+        final V value = this.createJsonNodeMappingValue();
 
         final ToJsonNodeContext context = this.toJsonNodeContext();
 
-        final JsonNode node = context.toJsonNodeWithType(has);
+        final JsonNode node = context.toJsonNodeWithType(value);
         if (node.isObject()) {
             assertEquals(node.objectOrFail().get(BasicJsonNodeContext.TYPE).map(n -> n.removeParent()),
-                    context.typeName(has.getClass()),
-                    () -> has + " & " + node);
+                    context.typeName(value.getClass()),
+                    () -> value + " & " + node);
         }
     }
 
@@ -113,18 +115,19 @@ public interface JsonNodeMappingTesting<V> {
     }
 
     default void fromJsonNodeAndCheck(final String from,
-                                      final Object has) {
-        this.fromJsonNodeAndCheck(JsonNode.parse(from), has);
+                                      final Object value) {
+        this.fromJsonNodeAndCheck(JsonNode.parse(from), value);
     }
 
     default void fromJsonNodeAndCheck(final JsonNode from,
-                                      final Object has) {
-        assertEquals(has,
+                                      final Object value) {
+        assertEquals(value,
                 this.fromJsonNode(from),
                 () -> "fromJsonNode failed " + from);
     }
 
-    default void fromJsonNodeFails(final String from, final Class<? extends Throwable> thrown) {
+    default void fromJsonNodeFails(final String from,
+                                   final Class<? extends Throwable> thrown) {
         fromJsonNodeFails(JsonNode.parse(from), thrown);
     }
 
@@ -138,9 +141,6 @@ public interface JsonNodeMappingTesting<V> {
     default void fromJsonNodeFails(final JsonNode from,
                                    final Class<? extends Throwable> thrown,
                                    final FromJsonNodeContext context) {
-        assertThrows(thrown, () -> {
-            context.fromJsonNodeWithType(from);
-        });
         assertThrows(FromJsonNodeException.class, () -> {
             context.fromJsonNode(from, this.type());
         });
@@ -193,63 +193,63 @@ public interface JsonNodeMappingTesting<V> {
     V fromJsonNode(final JsonNode from,
                    final FromJsonNodeContext context);
 
-    default void toJsonNodeAndCheck(final Object has,
+    default void toJsonNodeAndCheck(final Object value,
                                     final String json) {
-        toJsonNodeAndCheck(has, JsonNode.parse(json));
+        toJsonNodeAndCheck(value, JsonNode.parse(json));
     }
 
-    default void toJsonNodeAndCheck(final Object has,
+    default void toJsonNodeAndCheck(final Object value,
                                     final JsonNode json) {
-        this.toJsonNodeAndCheck(has,
+        this.toJsonNodeAndCheck(value,
                 json,
                 this.toJsonNodeContext());
     }
 
-    default void toJsonNodeAndCheck(final Object has,
+    default void toJsonNodeAndCheck(final Object value,
                                     final JsonNode json,
                                     final ToJsonNodeContext context) {
         assertEquals(json,
-                context.toJsonNode(has),
-                () -> "toJsonNode doesnt match=" + has);
+                context.toJsonNode(value),
+                () -> "toJsonNode doesnt match=" + value);
     }
 
-    default void toJsonNodeRoundTripTwiceAndCheck(final Object has) {
-        this.toJsonNodeRoundTripTwiceAndCheck(has, this.toJsonNodeContext());
+    default void toJsonNodeRoundTripTwiceAndCheck(final Object value) {
+        this.toJsonNodeRoundTripTwiceAndCheck(value, this.toJsonNodeContext());
     }
 
-    default void toJsonNodeRoundTripTwiceAndCheck(final Object has,
+    default void toJsonNodeRoundTripTwiceAndCheck(final Object value,
                                                   final ToJsonNodeContext context) {
-        final JsonNode jsonNode = context.toJsonNode(has);
+        final JsonNode jsonNode = context.toJsonNode(value);
 
-        final Object has2 = this.fromJsonNode(jsonNode);
-        final JsonNode jsonNode2 = context.toJsonNode(has2);
+        final Object fromValue = this.fromJsonNode(jsonNode);
+        final JsonNode jsonNode2 = context.toJsonNode(fromValue);
 
-        assertEquals(has2,
+        assertEquals(fromValue,
                 this.fromJsonNode(jsonNode2),
-                () -> "Roundtrip to -> from -> to failed has=" + has);
+                () -> "Roundtrip to -> from -> to failed value=" + CharSequences.quoteIfChars(value));
     }
 
-    default void toJsonNodeWithTypeRoundTripTwiceAndCheck(final Object has) {
-        this.toJsonNodeWithTypeRoundTripTwiceAndCheck(has,
+    default void toJsonNodeWithTypeRoundTripTwiceAndCheck(final Object value) {
+        this.toJsonNodeWithTypeRoundTripTwiceAndCheck(value,
                 this.fromJsonNodeContext(),
                 this.toJsonNodeContext());
     }
 
-    default void toJsonNodeWithTypeRoundTripTwiceAndCheck(final Object has,
+    default void toJsonNodeWithTypeRoundTripTwiceAndCheck(final Object value,
                                                           final FromJsonNodeContext fromContext,
                                                           final ToJsonNodeContext toContext) {
-        final JsonNode jsonNode = toContext.toJsonNodeWithType(has);
+        final JsonNode jsonNode = toContext.toJsonNodeWithType(value);
 
-        final Object has2 = fromContext.fromJsonNodeWithType(jsonNode);
-        final JsonNode jsonNode2 = toContext.toJsonNodeWithType(has2);
+        final Object from = fromContext.fromJsonNodeWithType(jsonNode);
+        final JsonNode jsonNode2 = toContext.toJsonNodeWithType(from);
 
-        assertEquals(has2,
+        assertEquals(from,
                 fromContext.fromJsonNodeWithType(jsonNode2),
-                () -> "Roundtrip to -> from -> to failed has=" + has);
+                () -> "BasicMapper roundtrip to -> from -> to failed =" + CharSequences.quoteIfChars(value));
 
-        assertEquals(has2,
+        assertEquals(from,
                 fromContext.fromJsonNodeWithType(jsonNode2),
-                () -> "BasicMapper roundtrip to -> from -> to failed has=" + has);
+                () -> "BasicMapper roundtrip to -> from -> to failed =" + CharSequences.quoteIfChars(value));
     }
 
     V createJsonNodeMappingValue();
