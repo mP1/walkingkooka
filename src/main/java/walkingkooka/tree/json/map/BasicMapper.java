@@ -38,7 +38,7 @@ import java.util.function.BiFunction;
 abstract class BasicMapper<T> {
 
     /**
-     * All factory registrations for all {@link HasJsonNode}.
+     * All factory registrations for all {@link BasicMapper mappings}.
      */
     // @VisibleForTesting
     final static Map<String, BasicMapper<?>> TYPENAME_TO_FACTORY = Maps.concurrent();
@@ -103,10 +103,10 @@ abstract class BasicMapper<T> {
      * Registers a factory for a type that implements {@link HasJsonNode}.
      */
     static synchronized <T> Runnable register(final String typeName,
-                                                              final BiFunction<JsonNode, FromJsonNodeContext, T> from,
-                                                              final BiFunction<T, ToJsonNodeContext, JsonNode> to,
-                                                              final Class<T> type,
-                                                              final Class<? extends T>... types) {
+                                              final BiFunction<JsonNode, FromJsonNodeContext, T> from,
+                                              final BiFunction<T, ToJsonNodeContext, JsonNode> to,
+                                              final Class<T> type,
+                                              final Class<? extends T>... types) {
         return BasicMapperTypedGeneric.with(typeName, from, to, type, types)
                 .registerGeneric();
     }

@@ -38,13 +38,13 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public interface JsonNodeMappingTesting<H> {
+public interface JsonNodeMappingTesting<V> {
 
     @Test
-    default void testHasJsonNodeFactoryRegistered() throws Exception {
-        this.createHasJsonNode();
+    default void testRegistered() throws Exception {
+        this.createJsonNodeMappingValue();
 
-        final Class<H> type = this.type();
+        final Class<V> type = this.type();
         final String typeName = this.type().getName();
 
         if (type.isEnum()) {
@@ -53,19 +53,19 @@ public interface JsonNodeMappingTesting<H> {
                     Arrays.stream(values)
                             .filter(e -> BasicMapper.TYPENAME_TO_FACTORY.get(e.getClass().getName()) == null)
                             .collect(Collectors.toList()),
-                    () -> "Not all enum: " + typeName + " value types not registered -> HasJsonNode.register()=" + BasicMapper.TYPENAME_TO_FACTORY);
+                    () -> "Not all enum: " + typeName + " value types not registered -> JsonNodeContext.register()=" + BasicMapper.TYPENAME_TO_FACTORY);
 
         } else {
             assertNotEquals(
                     null,
                     BasicMapper.TYPENAME_TO_FACTORY.get(typeName),
-                    () -> "Type: " + typeName + " factory not registered -> HasJsonNode.register()=" + BasicMapper.TYPENAME_TO_FACTORY);
+                    () -> "Type: " + typeName + " factory not registered -> JsonNodeContext.register()=" + BasicMapper.TYPENAME_TO_FACTORY);
         }
     }
 
     @Test
     default void testTypeNameFromClass() {
-        final H has = this.createHasJsonNode();
+        final V has = this.createJsonNodeMappingValue();
 
         final ToJsonNodeContext context = this.toJsonNodeContext();
 
@@ -79,11 +79,11 @@ public interface JsonNodeMappingTesting<H> {
 
     @Test
     default void testTypeNameAndRegisteredType() {
-        this.createHasJsonNode(); // ensure static initializer is run...
+        this.createJsonNodeMappingValue(); // ensure static initializer is run...
 
         final ToJsonNodeContext context = this.toJsonNodeContext();
 
-        final Class<H> type = this.type();
+        final Class<V> type = this.type();
         final Optional<JsonStringNode> maybeTypeName = context.typeName(type);
         assertNotEquals(Optional.empty(), maybeTypeName, () -> "typeName for " + type.getName() + " failed");
 
@@ -148,17 +148,17 @@ public interface JsonNodeMappingTesting<H> {
 
     @Test
     default void testToJsonNodeRoundtripTwice() {
-        this.toJsonNodeRoundTripTwiceAndCheck(this.createHasJsonNode());
+        this.toJsonNodeRoundTripTwiceAndCheck(this.createJsonNodeMappingValue());
     }
 
     @Test
     default void testToJsonNodeWithTypeRoundtripTwice() {
-        this.toJsonNodeWithTypeRoundTripTwiceAndCheck(this.createHasJsonNode());
+        this.toJsonNodeWithTypeRoundTripTwiceAndCheck(this.createJsonNodeMappingValue());
     }
 
     @Test
     default void testToJsonNodeRoundtripList() {
-        final List<Object> list = Lists.of(this.createHasJsonNode());
+        final List<Object> list = Lists.of(this.createJsonNodeMappingValue());
 
         assertEquals(list,
                 this.fromJsonNodeContext().fromJsonNodeWithTypeList(this.toJsonNodeContext().toJsonNodeWithTypeList(list)),
@@ -167,7 +167,7 @@ public interface JsonNodeMappingTesting<H> {
 
     @Test
     default void testToJsonNodeRoundtripSet() {
-        final Set<Object> set = Sets.of(this.createHasJsonNode());
+        final Set<Object> set = Sets.of(this.createJsonNodeMappingValue());
 
         assertEquals(set,
                 this.fromJsonNodeContext().fromJsonNodeWithTypeSet(this.toJsonNodeContext().toJsonNodeWithTypeSet(set)),
@@ -176,21 +176,21 @@ public interface JsonNodeMappingTesting<H> {
 
     @Test
     default void testToJsonNodeRoundtripMap() {
-        final Map<String, Object> map = Maps.of("key123", this.createHasJsonNode());
+        final Map<String, Object> map = Maps.of("key123", this.createJsonNodeMappingValue());
 
         assertEquals(map,
                 this.fromJsonNodeContext().fromJsonNodeWithTypeMap(this.toJsonNodeContext().toJsonNodeWithTypeMap(map)),
                 () -> "Roundtrip to -> from -> to failed map=" + map);
     }
 
-    default H fromJsonNode(final JsonNode from) {
+    default V fromJsonNode(final JsonNode from) {
         return this.fromJsonNode(from, FromJsonNodeContext.basic());
     }
 
     /**
-     * Typically calls a static method that accepts a {@link JsonNode} and creates a {@link H object}.
+     * Typically calls a static method that accepts a {@link JsonNode} and creates a {@link V object}.
      */
-    H fromJsonNode(final JsonNode from,
+    V fromJsonNode(final JsonNode from,
                    final FromJsonNodeContext context);
 
     default void toJsonNodeAndCheck(final Object has,
@@ -252,7 +252,7 @@ public interface JsonNodeMappingTesting<H> {
                 () -> "BasicMapper roundtrip to -> from -> to failed has=" + has);
     }
 
-    H createHasJsonNode();
+    V createJsonNodeMappingValue();
 
     default FromJsonNodeContext fromJsonNodeContext() {
         return FromJsonNodeContext.basic();
@@ -262,5 +262,5 @@ public interface JsonNodeMappingTesting<H> {
         return ToJsonNodeContext.basic();
     }
 
-    Class<H> type();
+    Class<V> type();
 }

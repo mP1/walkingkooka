@@ -90,7 +90,7 @@ public final class JsonNodeNameFromJsonNodeWithTypeFactoryBiFunctionTest impleme
                 this.fromJsonNodeContext(),
                 has1);
 
-        final TestJsonNodeMap has2 = TestJsonNodeMap.with("test-HasJsonNode-b2");
+        final TestJsonNodeMap has2 = TestJsonNodeMap.with("test-JsonNodeMap-b2");
         this.applyAndCheck(function,
                 has2.toJsonNode(context),
                 this.fromJsonNodeContext(),
@@ -134,7 +134,7 @@ public final class JsonNodeNameFromJsonNodeWithTypeFactoryBiFunctionTest impleme
     }
 
     private TestJsonNodeMap value() {
-        return TestJsonNodeMap.with("test-HasJsonNode-a1");
+        return TestJsonNodeMap.with("test-JsonNodeMap-a1");
     }
 
     private Class<TestJsonNodeMap> valueType() {

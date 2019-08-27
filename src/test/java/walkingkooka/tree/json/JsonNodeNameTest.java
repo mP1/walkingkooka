@@ -101,7 +101,7 @@ public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
                         .set(typeNameProperty, fromContext.typeName(TestJsonNodeMap.class).get()),
                 TestJsonNodeMap.class);
 
-        final TestJsonNodeMap has = TestJsonNodeMap.with("test-HasJsonNode-a1");
+        final TestJsonNodeMap has = TestJsonNodeMap.with("test-JsonNodeMap-a1");
         final ToJsonNodeContext toContext = this.toJsonNodeContext();
         assertEquals(has, factory.apply(toContext.toJsonNode(has), fromContext));
     }
@@ -115,9 +115,9 @@ public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
                         .set(typeNameProperty, fromContext.typeName(TestJsonNodeMap.class).get()),
                 TestJsonNodeMap.class);
 
-        final TestJsonNodeMap has1 = TestJsonNodeMap.with("test-HasJsonNode-a1");
-        final TestJsonNodeMap has2 = TestJsonNodeMap.with("test-HasJsonNode-b2");
-        final TestJsonNodeMap has3 = TestJsonNodeMap.with("test-HasJsonNode-c3");
+        final TestJsonNodeMap has1 = TestJsonNodeMap.with("test-JsonNodeMap-a1");
+        final TestJsonNodeMap has2 = TestJsonNodeMap.with("test-JsonNodeMap-b2");
+        final TestJsonNodeMap has3 = TestJsonNodeMap.with("test-JsonNodeMap-c3");
 
         assertEquals(Lists.of(has1, has2, has3),
                 Lists.of(has1, has2, has3).stream()
@@ -181,7 +181,7 @@ public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
     }
 
     @Override
-    public JsonNodeName createHasJsonNode() {
+    public JsonNodeName createJsonNodeMappingValue() {
         return JsonNodeName.with("property-1a");
     }
 }

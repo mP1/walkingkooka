@@ -174,7 +174,7 @@ public final class BasicMapperTypedOptionalTest extends BasicMapperTypedTestCase
     }
 
     @Test
-    public void testRoundtripTestHasJsonNode() {
+    public void testRoundtripTestJsonNodeMap() {
         this.roundtripAndCheck(Optional.of(TestJsonNodeMap.with("Test123")));
     }
 
