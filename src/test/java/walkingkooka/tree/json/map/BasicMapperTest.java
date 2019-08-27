@@ -149,7 +149,7 @@ public final class BasicMapperTest extends BasicMapperTestCase<BasicMapper<Void>
     @Test
     public void testTypeNameJsonObjectNode() {
         this.typeNameAndCheck(JsonObjectNode.class,
-                Optional.of(JsonNode.string("json-node")));
+                Optional.of(JsonNode.string("json")));
     }
 
     private void typeNameAndCheck(final Class<?> type,

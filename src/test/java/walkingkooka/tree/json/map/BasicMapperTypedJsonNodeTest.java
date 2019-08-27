@@ -43,7 +43,7 @@ public final class BasicMapperTypedJsonNodeTest extends BasicMapperTypedTestCase
 
     @Override
     String typeName() {
-        return "json-node";
+        return "json";
     }
 
     @Override
