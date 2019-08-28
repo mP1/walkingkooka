@@ -30,8 +30,8 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.map.FromJsonNodeContext;
-import walkingkooka.tree.json.map.ToJsonNodeContext;
+import walkingkooka.tree.json.marshall.FromJsonNodeContext;
+import walkingkooka.tree.json.marshall.ToJsonNodeContext;
 import walkingkooka.type.JavaVisibility;
 
 import java.math.BigDecimal;

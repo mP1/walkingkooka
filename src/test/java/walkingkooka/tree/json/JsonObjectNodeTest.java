@@ -27,7 +27,7 @@ import walkingkooka.io.printer.Printers;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchNodeName;
 import walkingkooka.visit.Visiting;

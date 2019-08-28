@@ -34,7 +34,7 @@ import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TraversableHasTextOffset;
 import walkingkooka.tree.expression.ExpressionNodeName;
-import walkingkooka.tree.json.map.FromJsonNodeException;
+import walkingkooka.tree.json.marshall.FromJsonNodeException;
 import walkingkooka.tree.json.parser.JsonNodeParserContext;
 import walkingkooka.tree.json.parser.JsonNodeParserContexts;
 import walkingkooka.tree.json.parser.JsonNodeParserToken;

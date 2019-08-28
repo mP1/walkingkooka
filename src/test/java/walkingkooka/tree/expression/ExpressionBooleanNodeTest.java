@@ -19,7 +19,7 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 import walkingkooka.visit.Visiting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -24,10 +24,10 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.tree.json.map.FromJsonNodeContext;
-import walkingkooka.tree.json.map.JsonNodeMappingTesting;
-import walkingkooka.tree.json.map.TestJsonNodeMap;
-import walkingkooka.tree.json.map.ToJsonNodeContext;
+import walkingkooka.tree.json.marshall.FromJsonNodeContext;
+import walkingkooka.tree.json.marshall.JsonNodeMappingTesting;
+import walkingkooka.tree.json.marshall.TestJsonNodeMap;
+import walkingkooka.tree.json.marshall.ToJsonNodeContext;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.function.BiFunction;

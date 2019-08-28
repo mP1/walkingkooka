@@ -24,7 +24,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.tree.TestNode;
-import walkingkooka.tree.json.map.JsonNodeMappingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeMappingTesting;
 
 import java.util.List;
 import java.util.Set;

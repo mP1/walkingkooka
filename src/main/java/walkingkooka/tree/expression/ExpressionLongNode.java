@@ -18,7 +18,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 
 /**
  * A long number value.
