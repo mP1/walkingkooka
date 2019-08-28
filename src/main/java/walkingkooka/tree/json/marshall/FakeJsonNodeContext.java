@@ -17,31 +17,25 @@
 
 package walkingkooka.tree.json.marshall;
 
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.test.Fake;
+import walkingkooka.tree.json.JsonStringNode;
+
+import java.util.Objects;
+import java.util.Optional;
 
 /**
- * Collection of static factory methods for numerous {@link ToJsonNodeContext}.
+ * A fake {@link JsonNodeContext }
  */
-public final class ToJsonNodeContexts implements PublicStaticHelper {
-
-    /**
-     * {@see BasicToJsonNodeContext}
-     */
-    public static ToJsonNodeContext basic() {
-        return BasicToJsonNodeContext.INSTANCE;
+public class FakeJsonNodeContext implements JsonNodeContext, Fake {
+    @Override
+    public Optional<Class<?>> registeredType(final JsonStringNode name) {
+        Objects.requireNonNull(name, "name");
+        return Optional.empty();
     }
 
-    /**
-     * {@see FakeToJsonNodeContext}
-     */
-    public static ToJsonNodeContext fake() {
-        return new FakeToJsonNodeContext();
-    }
-
-    /**
-     * Stops creation
-     */
-    private ToJsonNodeContexts() {
-        throw new UnsupportedOperationException();
+    @Override
+    public Optional<JsonStringNode> typeName(final Class<?> type) {
+        Objects.requireNonNull(type, "type");
+        return Optional.empty();
     }
 }

@@ -32,6 +32,13 @@ public final class FromJsonNodeContexts implements PublicStaticHelper {
     }
 
     /**
+     * {@see FakeFromJsonNodeContext}
+     */
+    public static FromJsonNodeContext fake() {
+        return new FakeFromJsonNodeContext();
+    }
+
+    /**
      * Stops creation
      */
     private FromJsonNodeContexts() {
