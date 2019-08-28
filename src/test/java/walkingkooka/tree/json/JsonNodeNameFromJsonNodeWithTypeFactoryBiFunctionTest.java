@@ -24,9 +24,11 @@ import walkingkooka.Cast;
 import walkingkooka.test.ThrowableTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.json.marshall.FromJsonNodeContext;
+import walkingkooka.tree.json.marshall.FromJsonNodeContexts;
 import walkingkooka.tree.json.marshall.FromJsonNodeException;
 import walkingkooka.tree.json.marshall.TestJsonNodeMap;
 import walkingkooka.tree.json.marshall.ToJsonNodeContext;
+import walkingkooka.tree.json.marshall.ToJsonNodeContexts;
 import walkingkooka.util.BiFunctionTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -142,11 +144,11 @@ public final class JsonNodeNameFromJsonNodeWithTypeFactoryBiFunctionTest impleme
     }
 
     private FromJsonNodeContext fromJsonNodeContext() {
-        return FromJsonNodeContext.basic();
+        return FromJsonNodeContexts.basic();
     }
 
     private ToJsonNodeContext toJsonNodeContext() {
-        return ToJsonNodeContext.basic();
+        return ToJsonNodeContexts.basic();
     }
 
     @Override

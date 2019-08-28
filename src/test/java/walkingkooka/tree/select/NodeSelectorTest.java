@@ -30,8 +30,8 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
-import walkingkooka.tree.json.marshall.ToJsonNodeContext;
+import walkingkooka.tree.json.marshall.FromJsonNodeContexts;
+import walkingkooka.tree.json.marshall.ToJsonNodeContexts;
 import walkingkooka.type.JavaVisibility;
 
 import java.math.BigDecimal;
@@ -112,9 +112,9 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
     }
 
     private void jsonRoundtripAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector) {
-        final JsonNode json = selector.toJsonNode(ToJsonNodeContext.basic());
+        final JsonNode json = selector.toJsonNode(ToJsonNodeContexts.basic());
         assertEquals(selector,
-                NodeSelector.fromJsonNode(json, FromJsonNodeContext.basic()),
+                NodeSelector.fromJsonNode(json, FromJsonNodeContexts.basic()),
                 () -> json.toString());
     }
 

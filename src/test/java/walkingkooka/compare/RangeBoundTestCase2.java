@@ -22,7 +22,7 @@ import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
+import walkingkooka.tree.json.marshall.FromJsonNodeContexts;
 import walkingkooka.tree.json.marshall.FromJsonNodeException;
 
 import java.util.Optional;
@@ -63,7 +63,7 @@ public abstract class RangeBoundTestCase2<B extends RangeBound<Integer>> extends
         assertThrows(FromJsonNodeException.class, () -> {
             RangeBound.fromJsonNode(JsonNode.object()
                     .setChild(JsonNodeName.with("invalid"), JsonNode.booleanNode(true)),
-                    FromJsonNodeContext.basic());
+                    FromJsonNodeContexts.basic());
         });
     }
 

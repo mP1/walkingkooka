@@ -29,10 +29,6 @@ import java.util.Set;
  */
 public interface ToJsonNodeContext extends JsonNodeContext {
 
-    static ToJsonNodeContext basic() {
-        return BasicToJsonNodeContext.INSTANCE;
-    }
-
     // toJsonNode.......................................................................................................
 
     /**
