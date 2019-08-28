@@ -26,19 +26,19 @@ import java.util.Set;
 /**
  * A {@link Set} known to be immutable and holds a copy of any {@link Set} given to it.
  */
-final class SingletonImmutableSet<T> extends ImmutableSet<T> {
+final class ImmutableSetSingleton<T> extends ImmutableSet<T> {
 
     /**
      * Returns a {@link Set} which is immutable including copying elements if necessary.
      */
-    static <T> SingletonImmutableSet<T> withSingleton(final T element) {
-        return new SingletonImmutableSet<>(element);
+    static <T> ImmutableSetSingleton<T> withSingleton(final T element) {
+        return new ImmutableSetSingleton<>(element);
     }
 
     /**
      * Private ctor use factory
      */
-    private SingletonImmutableSet(final T element) {
+    private ImmutableSetSingleton(final T element) {
         super();
         this.element = element;
     }

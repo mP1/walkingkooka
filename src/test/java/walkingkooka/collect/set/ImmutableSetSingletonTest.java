@@ -22,20 +22,20 @@ import walkingkooka.Cast;
 
 import java.util.Collections;
 
-public final class SingletonImmutableSetTest extends ImmutableSetTestCase2<SingletonImmutableSet<String>> {
+public final class ImmutableSetSingletonTest extends ImmutableSetTestCase2<ImmutableSetSingleton<String>> {
 
     private final static String ELEMENT = "*element*";
 
     @Test
     public void testWithNull() {
-        this.checkEquals(SingletonImmutableSet.withSingleton(null),
+        this.checkEquals(ImmutableSetSingleton.withSingleton(null),
                 Collections.singleton(null));
     }
 
     @Test
     public void testWithNonNull() {
         final String value = "abc123";
-        this.checkEquals(SingletonImmutableSet.withSingleton(value),
+        this.checkEquals(ImmutableSetSingleton.withSingleton(value),
                 Collections.singleton(value));
     }
 
@@ -75,14 +75,14 @@ public final class SingletonImmutableSetTest extends ImmutableSetTestCase2<Singl
     }
 
     @Override
-    public SingletonImmutableSet<String> createSet() {
-        return SingletonImmutableSet.withSingleton(ELEMENT);
+    public ImmutableSetSingleton<String> createSet() {
+        return ImmutableSetSingleton.withSingleton(ELEMENT);
     }
 
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<SingletonImmutableSet<String>> type() {
-        return Cast.to(SingletonImmutableSet.class);
+    public Class<ImmutableSetSingleton<String>> type() {
+        return Cast.to(ImmutableSetSingleton.class);
     }
 }

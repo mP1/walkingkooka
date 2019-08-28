@@ -41,11 +41,11 @@ public abstract class ImmutableSetTestCase<T> implements ClassTesting2<T>,
 
     @Override
     public final String typeNamePrefix() {
-        return "";
+        return "Immutable" + Set.class.getSimpleName();
     }
-
+    
     @Override
     public final String typeNameSuffix() {
-        return "Immutable" + Set.class.getSimpleName();
+        return "";
     }
 }

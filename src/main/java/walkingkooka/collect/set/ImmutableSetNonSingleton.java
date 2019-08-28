@@ -25,16 +25,16 @@ import java.util.Set;
 /**
  * A {@link Set} presents a read only view of a defensively copied {@link Set} given to it.
  */
-final class NonSingletonImmutableSet<T> extends ImmutableSet<T> {
+final class ImmutableSetNonSingleton<T> extends ImmutableSet<T> {
 
     /**
      * Returns a {@link Set} which is immutable including copying elements if necessary.
      */
-    static <T> NonSingletonImmutableSet<T> withNonSingleton(final Set<T> notCopied) {
-        return new NonSingletonImmutableSet<>(notCopied);
+    static <T> ImmutableSetNonSingleton<T> withNonSingleton(final Set<T> notCopied) {
+        return new ImmutableSetNonSingleton<>(notCopied);
     }
 
-    private NonSingletonImmutableSet(final Set<T> set) {
+    private ImmutableSetNonSingleton(final Set<T> set) {
         super();
         this.set = set;
     }

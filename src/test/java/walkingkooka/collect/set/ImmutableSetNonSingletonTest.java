@@ -23,7 +23,7 @@ import walkingkooka.Cast;
 import java.util.Iterator;
 import java.util.Set;
 
-public final class NonSingletonImmutableSetTest extends ImmutableSetTestCase2<NonSingletonImmutableSet<String>> {
+public final class ImmutableSetNonSingletonTest extends ImmutableSetTestCase2<ImmutableSetNonSingleton<String>> {
 
     private final static String ELEMENT1 = "1a";
     private final static String ELEMENT2 = "2b";
@@ -66,8 +66,8 @@ public final class NonSingletonImmutableSetTest extends ImmutableSetTestCase2<No
     }
 
     @Override
-    public NonSingletonImmutableSet<String> createSet() {
-        return NonSingletonImmutableSet.withNonSingleton(this.elements());
+    public ImmutableSetNonSingleton<String> createSet() {
+        return ImmutableSetNonSingleton.withNonSingleton(this.elements());
     }
 
     private Set<String> elements() {
@@ -80,7 +80,7 @@ public final class NonSingletonImmutableSetTest extends ImmutableSetTestCase2<No
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<NonSingletonImmutableSet<String>> type() {
-        return Cast.to(NonSingletonImmutableSet.class);
+    public Class<ImmutableSetNonSingleton<String>> type() {
+        return Cast.to(ImmutableSetNonSingleton.class);
     }
 }
