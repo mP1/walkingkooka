@@ -91,17 +91,17 @@ abstract class ImmutableSet<T> extends AbstractSet<T> implements HashCodeEqualsD
     }
 
     /**
-     * {@see SingletonImmutableSet}.
+     * {@see ImmutableSetSingleton}.
      */
     static <T> Set<T> singleton(final T element) {
-        return SingletonImmutableSet.withSingleton(element);
+        return ImmutableSetSingleton.withSingleton(element);
     }
 
     /**
-     * Creates a {@link NonSingletonImmutableSet} with the given {@link Set} which is not defensively copied.
+     * Creates a {@link ImmutableSetNonSingleton} with the given {@link Set} which is not defensively copied.
      */
     static <T> ImmutableSet<T> wrap(final Set<T> wrap) {
-        return NonSingletonImmutableSet.withNonSingleton(wrap);
+        return ImmutableSetNonSingleton.withNonSingleton(wrap);
     }
 
     /**
