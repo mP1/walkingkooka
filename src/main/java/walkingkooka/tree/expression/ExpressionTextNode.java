@@ -19,7 +19,7 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 
 import java.util.Objects;
 

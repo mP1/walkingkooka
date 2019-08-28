@@ -36,7 +36,7 @@ import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.NodeTesting;
-import walkingkooka.tree.json.map.JsonNodeMappingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeMappingTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.math.BigDecimal;

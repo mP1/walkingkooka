@@ -19,7 +19,7 @@ package walkingkooka.compare;
 
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 
 /**
  * Represents a exclusive value within a {@link Range}

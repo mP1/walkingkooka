@@ -21,8 +21,8 @@ import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
-import walkingkooka.tree.json.map.FromJsonNodeContext;
-import walkingkooka.tree.json.map.ToJsonNodeContext;
+import walkingkooka.tree.json.marshall.FromJsonNodeContext;
+import walkingkooka.tree.json.marshall.ToJsonNodeContext;
 import walkingkooka.tree.search.SearchNodeName;
 
 import java.util.function.BiFunction;

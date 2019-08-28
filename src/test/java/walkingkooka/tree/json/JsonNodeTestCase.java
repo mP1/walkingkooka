@@ -33,7 +33,7 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.tree.HasTextOffsetTesting;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.NodeTesting;
-import walkingkooka.tree.json.map.JsonNodeMappingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeMappingTesting;
 import walkingkooka.tree.search.HasSearchNodeTesting;
 import walkingkooka.type.JavaVisibility;
 

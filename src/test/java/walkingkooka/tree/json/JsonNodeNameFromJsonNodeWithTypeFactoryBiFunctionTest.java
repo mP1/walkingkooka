@@ -23,10 +23,10 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ThrowableTesting;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.tree.json.map.FromJsonNodeContext;
-import walkingkooka.tree.json.map.FromJsonNodeException;
-import walkingkooka.tree.json.map.TestJsonNodeMap;
-import walkingkooka.tree.json.map.ToJsonNodeContext;
+import walkingkooka.tree.json.marshall.FromJsonNodeContext;
+import walkingkooka.tree.json.marshall.FromJsonNodeException;
+import walkingkooka.tree.json.marshall.TestJsonNodeMap;
+import walkingkooka.tree.json.marshall.ToJsonNodeContext;
 import walkingkooka.util.BiFunctionTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;

@@ -20,7 +20,7 @@ package walkingkooka.compare;
 import walkingkooka.Cast;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.JsonObjectNode;
-import walkingkooka.tree.json.map.ToJsonNodeContext;
+import walkingkooka.tree.json.marshall.ToJsonNodeContext;
 
 import java.util.Optional;
 

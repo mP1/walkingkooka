@@ -21,8 +21,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.tree.json.map.FromJsonNodeContext;
-import walkingkooka.tree.json.map.FromJsonNodeException;
+import walkingkooka.tree.json.marshall.FromJsonNodeContext;
+import walkingkooka.tree.json.marshall.FromJsonNodeException;
 
 import java.util.Optional;
 
