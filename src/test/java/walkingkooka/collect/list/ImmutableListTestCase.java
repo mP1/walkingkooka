@@ -41,11 +41,11 @@ public abstract class ImmutableListTestCase<T> implements ClassTesting2<T>,
 
     @Override
     public final String typeNamePrefix() {
-        return "";
+        return "Immutable" + List.class.getSimpleName();
     }
 
     @Override
     public final String typeNameSuffix() {
-        return "Immutable" + List.class.getSimpleName();
+        return "";
     }
 }

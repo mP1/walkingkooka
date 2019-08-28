@@ -25,16 +25,16 @@ import java.util.List;
 /**
  * A {@link List} presents a read only view of a defensively copied {@link List} given to it.
  */
-final class NonSingletonImmutableList<T> extends ImmutableList<T> {
+final class ImmutableListNonSingleton<T> extends ImmutableList<T> {
 
     /**
      * Returns a {@link List} which is immutable but does not make a copy of the given list which assumed to already be copied.
      */
-    static <T> NonSingletonImmutableList<T> with(final List<T> notCopied) {
-        return new NonSingletonImmutableList<>(notCopied);
+    static <T> ImmutableListNonSingleton<T> with(final List<T> notCopied) {
+        return new ImmutableListNonSingleton<>(notCopied);
     }
 
-    private NonSingletonImmutableList(final List<T> list) {
+    private ImmutableListNonSingleton(final List<T> list) {
         super();
         this.list = list;
     }

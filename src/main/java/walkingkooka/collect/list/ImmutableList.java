@@ -81,16 +81,16 @@ abstract class ImmutableList<T> extends AbstractList<T> {
 
 
     /**
-     * {@see SingletonImmutableList}.
+     * {@see ImmutableListSingleton}.
      */
     static <T> List<T> singleton(final T element) {
-        return SingletonImmutableList.with(element);
+        return ImmutableListSingleton.with(element);
     }
 
     /**
-     * Creates a {@link NonSingletonImmutableList} with the given {@link List} which is not defensively copied.
+     * Creates a {@link ImmutableListNonSingleton} with the given {@link List} which is not defensively copied.
      */
     static <T> ImmutableList<T> wrap(final List<T> wrap) {
-        return NonSingletonImmutableList.with(wrap);
+        return ImmutableListNonSingleton.with(wrap);
     }
 }
