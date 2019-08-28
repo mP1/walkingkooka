@@ -23,7 +23,7 @@ import walkingkooka.Cast;
 import java.util.Iterator;
 import java.util.List;
 
-public final class NonSingletonImmutableListTest extends ImmutableListTestCase2<NonSingletonImmutableList<String>> {
+public final class ImmutableListNonSingletonTest extends ImmutableListTestCase2<ImmutableListNonSingleton<String>> {
 
     private final static String ELEMENT1 = "1a";
     private final static String ELEMENT2 = "2b";
@@ -45,7 +45,7 @@ public final class NonSingletonImmutableListTest extends ImmutableListTestCase2<
 
     @Test
     public void testGetNull() {
-        this.getAndCheck(NonSingletonImmutableList.with(Lists.of(null, ELEMENT2)),0,  null);
+        this.getAndCheck(ImmutableListNonSingleton.with(Lists.of(null, ELEMENT2)),0,  null);
     }
 
     @Test
@@ -76,8 +76,8 @@ public final class NonSingletonImmutableListTest extends ImmutableListTestCase2<
     }
 
     @Override
-    public NonSingletonImmutableList<String> createList() {
-        return NonSingletonImmutableList.with(this.elements());
+    public ImmutableListNonSingleton<String> createList() {
+        return ImmutableListNonSingleton.with(this.elements());
     }
 
     private List<String> elements() {
@@ -90,7 +90,7 @@ public final class NonSingletonImmutableListTest extends ImmutableListTestCase2<
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<NonSingletonImmutableList<String>> type() {
-        return Cast.to(NonSingletonImmutableList.class);
+    public Class<ImmutableListNonSingleton<String>> type() {
+        return Cast.to(ImmutableListNonSingleton.class);
     }
 }

@@ -22,18 +22,18 @@ import walkingkooka.Cast;
 
 import java.util.Collections;
 
-public final class SingletonImmutableListTest extends ImmutableListTestCase2<SingletonImmutableList<String>> {
+public final class ImmutableListSingletonTest extends ImmutableListTestCase2<ImmutableListSingleton<String>> {
 
     private final static String ELEMENT = "*element*";
 
     @Test
     public void testWithNonNull() {
-        SingletonImmutableList.singleton(ELEMENT);
+        ImmutableListSingleton.singleton(ELEMENT);
     }
 
     @Test
     public void testWithNull() {
-        SingletonImmutableList.singleton(null);
+        ImmutableListSingleton.singleton(null);
     }
 
     @Test
@@ -53,7 +53,7 @@ public final class SingletonImmutableListTest extends ImmutableListTestCase2<Sin
 
     @Test
     public void testGetNull() {
-        this.getAndCheck(SingletonImmutableList.singleton(null),0,  null);
+        this.getAndCheck(ImmutableListSingleton.singleton(null),0,  null);
     }
 
     @Test
@@ -82,14 +82,14 @@ public final class SingletonImmutableListTest extends ImmutableListTestCase2<Sin
     }
 
     @Override
-    public SingletonImmutableList<String> createList() {
-        return SingletonImmutableList.with(ELEMENT);
+    public ImmutableListSingleton<String> createList() {
+        return ImmutableListSingleton.with(ELEMENT);
     }
 
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<SingletonImmutableList<String>> type() {
-        return Cast.to(SingletonImmutableList.class);
+    public Class<ImmutableListSingleton<String>> type() {
+        return Cast.to(ImmutableListSingleton.class);
     }
 }
