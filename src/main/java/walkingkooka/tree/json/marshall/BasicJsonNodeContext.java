@@ -40,6 +40,7 @@ abstract class BasicJsonNodeContext implements JsonNodeContext {
     /**
      * Returns one of possibly many registered {@link Class types} for the given type name.
      */
+    @Override
     public final Optional<Class<?>> registeredType(final JsonStringNode name) {
         return BasicMarshaller.registeredType(name);
     }
@@ -49,6 +50,7 @@ abstract class BasicJsonNodeContext implements JsonNodeContext {
     /**
      * Returns the type name identifying the given {@link Class} providing it is registered.
      */
+    @Override
     public final Optional<JsonStringNode> typeName(final Class<?> type) {
         return BasicMarshaller.typeName(type);
     }
