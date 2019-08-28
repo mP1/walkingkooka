@@ -24,13 +24,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 // ImmutableSet
-final class NonSingletonMapImmutableMapEntrySet<K, V> extends ImmutableMapEntrySet<Entry<K, V>> {
+final class ImmutableMapNonSingletonMapEntrySet<K, V> extends ImmutableMapEntrySet<Entry<K, V>> {
 
-    static <K, V> NonSingletonMapImmutableMapEntrySet<K, V> with(final Map<K, V> map) {
-        return new NonSingletonMapImmutableMapEntrySet<>(map);
+    static <K, V> ImmutableMapNonSingletonMapEntrySet<K, V> with(final Map<K, V> map) {
+        return new ImmutableMapNonSingletonMapEntrySet<>(map);
     }
 
-    private NonSingletonMapImmutableMapEntrySet(final Map<K, V> map) {
+    private ImmutableMapNonSingletonMapEntrySet(final Map<K, V> map) {
         super();
         this.map = map;
     }

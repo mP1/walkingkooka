@@ -51,22 +51,22 @@ final public class MapsTest implements PublicStaticHelperTesting<Maps>,
 
     @Test
     public void testOfKeyValue() {
-        this.checkType(Maps.of(KEY1, VALUE1), SingletonImmutableMap.class);
+        this.checkType(Maps.of(KEY1, VALUE1), ImmutableMapSingleton.class);
     }
 
     @Test
     public void testOfKeyValue2() {
-        this.checkType(Maps.of(KEY1, VALUE1, KEY2, VALUE2), NonSingletonArrayImmutableMap.class);
+        this.checkType(Maps.of(KEY1, VALUE1, KEY2, VALUE2), ImmutableMapNonSingletonArray.class);
     }
 
     @Test
     public void testOfKeyValue3() {
-        this.checkType(Maps.of(KEY1, VALUE1, KEY2, VALUE2, KEY3, VALUE3), NonSingletonArrayImmutableMap.class);
+        this.checkType(Maps.of(KEY1, VALUE1, KEY2, VALUE2, KEY3, VALUE3), ImmutableMapNonSingletonArray.class);
     }
 
     @Test
     public void testOfKeyValue4() {
-        this.checkType(Maps.of(KEY1, VALUE1, KEY2, VALUE2, KEY3, VALUE3, KEY4, VALUE4), NonSingletonArrayImmutableMap.class);
+        this.checkType(Maps.of(KEY1, VALUE1, KEY2, VALUE2, KEY3, VALUE3, KEY4, VALUE4), ImmutableMapNonSingletonArray.class);
     }
 
     @Test
@@ -79,7 +79,7 @@ final public class MapsTest implements PublicStaticHelperTesting<Maps>,
     public void testImmutableMap1() {
         final Map<String, Integer> map = Maps.ordered();
         map.put(KEY1, VALUE1);
-        this.checkType(Maps.immutable(map), SingletonImmutableMap.class);
+        this.checkType(Maps.immutable(map), ImmutableMapSingleton.class);
     }
 
     @Test
@@ -87,7 +87,7 @@ final public class MapsTest implements PublicStaticHelperTesting<Maps>,
         final Map<String, Integer> map = Maps.ordered();
         map.put(KEY1, VALUE1);
         map.put(KEY2, VALUE2);
-        this.checkType(Maps.immutable(map), NonSingletonArrayImmutableMap.class);
+        this.checkType(Maps.immutable(map), ImmutableMapNonSingletonArray.class);
     }
 
     @Test
@@ -96,7 +96,7 @@ final public class MapsTest implements PublicStaticHelperTesting<Maps>,
         map.put(KEY1, VALUE1);
         map.put(KEY2, VALUE2);
         map.put(KEY3, VALUE3);
-        this.checkType(Maps.immutable(map), NonSingletonArrayImmutableMap.class);
+        this.checkType(Maps.immutable(map), ImmutableMapNonSingletonArray.class);
     }
 
     @Test
@@ -106,7 +106,7 @@ final public class MapsTest implements PublicStaticHelperTesting<Maps>,
         map.put(KEY2, VALUE2);
         map.put(KEY3, VALUE3);
         map.put(KEY4, VALUE4);
-        this.checkType(Maps.immutable(map), NonSingletonArrayImmutableMap.class);
+        this.checkType(Maps.immutable(map), ImmutableMapNonSingletonArray.class);
     }
 
     @Test
@@ -117,7 +117,7 @@ final public class MapsTest implements PublicStaticHelperTesting<Maps>,
         map.put(KEY3, VALUE3);
         map.put(KEY4, VALUE4);
         map.put(KEY5, VALUE5);
-        this.checkType(Maps.immutable(map), NonSingletonMapImmutableMap.class);
+        this.checkType(Maps.immutable(map), ImmutableMapNonSingletonMap.class);
     }
 
     @Test
@@ -130,7 +130,7 @@ final public class MapsTest implements PublicStaticHelperTesting<Maps>,
         map.put(KEY5, VALUE5);
 
         final Map<String, Integer> immutable = Maps.immutable(map);
-        this.checkType(immutable, NonSingletonMapImmutableMap.class);
+        this.checkType(immutable, ImmutableMapNonSingletonMap.class);
 
         this.iterateAndCheck(immutable.keySet().iterator(), KEY4, KEY5, KEY1, KEY2, KEY3);
     }
@@ -145,7 +145,7 @@ final public class MapsTest implements PublicStaticHelperTesting<Maps>,
         map.put("e5", VALUE5);
 
         final Map<String, Integer> immutable = Maps.immutable(map);
-        this.checkType(immutable, NonSingletonMapImmutableMap.class);
+        this.checkType(immutable, ImmutableMapNonSingletonMap.class);
 
         this.iterateAndCheck(immutable.keySet().iterator(), "a1", "B2", "c3", "D4", "e5");
     }

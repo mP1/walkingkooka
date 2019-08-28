@@ -21,20 +21,20 @@ import walkingkooka.Cast;
 
 import java.util.Map;
 
-public final class NonSingletonMapImmutableMapEntrySetTest extends ImmutableMapEntrySetTestCase2<NonSingletonMapImmutableMapEntrySet<String, Integer>> {
+public final class ImmutableMapNonSingletonMapEntrySetTest extends ImmutableMapEntrySetTestCase2<ImmutableMapNonSingletonMapEntrySet<String, Integer>> {
     @Override
-    NonSingletonMapImmutableMapEntrySet<String, Integer> createSet(final String key0,
+    ImmutableMapNonSingletonMapEntrySet<String, Integer> createSet(final String key0,
                                                                    final Integer value0,
                                                                    final String key1,
                                                                    final Integer value1) {
         final Map<String, Integer> map = Maps.ordered();
         map.put(KEY1, VALUE1);
         map.put(KEY2, VALUE2);
-        return NonSingletonMapImmutableMapEntrySet.with(map);
+        return ImmutableMapNonSingletonMapEntrySet.with(map);
     }
 
     @Override
-    public Class<NonSingletonMapImmutableMapEntrySet<String, Integer>> type() {
-        return Cast.to(NonSingletonMapImmutableMapEntrySet.class);
+    public Class<ImmutableMapNonSingletonMapEntrySet<String, Integer>> type() {
+        return Cast.to(ImmutableMapNonSingletonMapEntrySet.class);
     }
 }

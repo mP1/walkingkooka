@@ -24,14 +24,14 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class NonSingletonMapImmutableMapTest extends ImmutableMapTestCase3<NonSingletonMapImmutableMap<String, Integer>> {
+public final class ImmutableMapNonSingletonMapTest extends ImmutableMapTestCase3<ImmutableMapNonSingletonMap<String, Integer>> {
 
     @Test
     public void testNotCopied() {
         final Map<String, Integer> ordered = Maps.ordered();
         ordered.put(KEY1, VALUE1);
         ordered.put(KEY2, VALUE2);
-        final NonSingletonMapImmutableMap immutable = NonSingletonMapImmutableMap.with(ordered);
+        final ImmutableMapNonSingletonMap immutable = ImmutableMapNonSingletonMap.with(ordered);
 
         ordered.clear();
         assertEquals(ordered, immutable);
@@ -40,18 +40,18 @@ public final class NonSingletonMapImmutableMapTest extends ImmutableMapTestCase3
     }
 
     @Override
-    NonSingletonMapImmutableMap<String, Integer> createMap(final String key0,
+    ImmutableMapNonSingletonMap<String, Integer> createMap(final String key0,
                                                            final Integer value0,
                                                            final String key1,
                                                            final Integer value1) {
         final Map<String, Integer> ordered = Maps.ordered();
         ordered.put(key0, value0);
         ordered.put(key1, value1);
-        return NonSingletonMapImmutableMap.with(ordered);
+        return ImmutableMapNonSingletonMap.with(ordered);
     }
 
     @Override
-    public Class<NonSingletonMapImmutableMap<String, Integer>> type() {
-        return Cast.to(NonSingletonMapImmutableMap.class);
+    public Class<ImmutableMapNonSingletonMap<String, Integer>> type() {
+        return Cast.to(ImmutableMapNonSingletonMap.class);
     }
 }

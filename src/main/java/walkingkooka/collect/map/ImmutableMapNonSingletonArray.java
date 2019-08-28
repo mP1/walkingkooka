@@ -24,15 +24,15 @@ import java.util.Set;
 /**
  * An immutable {@link Map} with an array of at least 2 entries.
  */
-final class NonSingletonArrayImmutableMap<K, V> extends ImmutableMap<K, V> {
+final class ImmutableMapNonSingletonArray<K, V> extends ImmutableMap<K, V> {
 
-    static <K, V> NonSingletonArrayImmutableMap<K, V> with(final Entry<K, V>... notCopied) {
-        return new NonSingletonArrayImmutableMap<>(notCopied);
+    static <K, V> ImmutableMapNonSingletonArray<K, V> with(final Entry<K, V>... notCopied) {
+        return new ImmutableMapNonSingletonArray<>(notCopied);
     }
 
-    private NonSingletonArrayImmutableMap(final Entry<K, V>... entries) {
+    private ImmutableMapNonSingletonArray(final Entry<K, V>... entries) {
         super();
-        this.entrySet = NonSingletonArrayImmutableMapEntrySet.with(entries);
+        this.entrySet = ImmutableMapNonSingletonArrayEntrySet.with(entries);
     }
 
     @Override
@@ -87,5 +87,5 @@ final class NonSingletonArrayImmutableMap<K, V> extends ImmutableMap<K, V> {
         return this.entrySet.entries.length;
     }
 
-    private final NonSingletonArrayImmutableMapEntrySet entrySet;
+    private final ImmutableMapNonSingletonArrayEntrySet entrySet;
 }

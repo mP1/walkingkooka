@@ -22,7 +22,7 @@ import walkingkooka.Cast;
 
 import java.util.Map;
 
-public final class SingletonImmutableMapTest extends ImmutableMapTestCase2<SingletonImmutableMap<String, Integer>> {
+public final class ImmutableMapSingletonTest extends ImmutableMapTestCase2<ImmutableMapSingleton<String, Integer>> {
 
     private final static String KEY = "a1";
     private final static Integer VALUE = 999;
@@ -66,12 +66,12 @@ public final class SingletonImmutableMapTest extends ImmutableMapTestCase2<Singl
     }
 
     @Override
-    public SingletonImmutableMap<String, Integer> createMap() {
-        return SingletonImmutableMap.with(Maps.entry(KEY, VALUE));
+    public ImmutableMapSingleton<String, Integer> createMap() {
+        return ImmutableMapSingleton.with(Maps.entry(KEY, VALUE));
     }
 
     @Override
-    public Class<SingletonImmutableMap<String, Integer>> type() {
-        return Cast.to(SingletonImmutableMap.class);
+    public Class<ImmutableMapSingleton<String, Integer>> type() {
+        return Cast.to(ImmutableMapSingleton.class);
     }
 }

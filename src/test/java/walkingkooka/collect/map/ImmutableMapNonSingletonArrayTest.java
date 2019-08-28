@@ -22,14 +22,14 @@ import walkingkooka.Cast;
 
 import java.util.Map.Entry;
 
-public final class NonSingletonArrayImmutableMapTest extends ImmutableMapTestCase3<NonSingletonArrayImmutableMap<String, Integer>> {
+public final class ImmutableMapNonSingletonArrayTest extends ImmutableMapTestCase3<ImmutableMapNonSingletonArray<String, Integer>> {
 
     @Test
     public void testNotCopied() {
         final Entry<String, Integer>[] array = new Entry[2];
         array[0] = Maps.entry(KEY1, VALUE1);
         array[1] = Maps.entry(KEY2, VALUE2);
-        final NonSingletonArrayImmutableMap immutable = NonSingletonArrayImmutableMap.with(array);
+        final ImmutableMapNonSingletonArray immutable = ImmutableMapNonSingletonArray.with(array);
 
         array[1] = Maps.entry(KEY2, 666);
 
@@ -39,15 +39,15 @@ public final class NonSingletonArrayImmutableMapTest extends ImmutableMapTestCas
     }
 
     @Override
-    NonSingletonArrayImmutableMap<String, Integer> createMap(final String key0,
+    ImmutableMapNonSingletonArray<String, Integer> createMap(final String key0,
                                                              final Integer value0,
                                                              final String key1,
                                                              final Integer value1) {
-        return NonSingletonArrayImmutableMap.with(Maps.entry(key0, value0), Maps.entry(key1, value1));
+        return ImmutableMapNonSingletonArray.with(Maps.entry(key0, value0), Maps.entry(key1, value1));
     }
 
     @Override
-    public Class<NonSingletonArrayImmutableMap<String, Integer>> type() {
-        return Cast.to(NonSingletonArrayImmutableMap.class);
+    public Class<ImmutableMapNonSingletonArray<String, Integer>> type() {
+        return Cast.to(ImmutableMapNonSingletonArray.class);
     }
 }

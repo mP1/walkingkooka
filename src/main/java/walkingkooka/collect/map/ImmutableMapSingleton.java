@@ -25,13 +25,13 @@ import java.util.Set;
 /**
  * An immutable {@link Map} with a single entry.
  */
-final class SingletonImmutableMap<K, V> extends ImmutableMap<K, V> {
+final class ImmutableMapSingleton<K, V> extends ImmutableMap<K, V> {
 
-    static <K, V> SingletonImmutableMap<K, V> with(final Entry<K, V> entry) {
-        return new SingletonImmutableMap<>(entry);
+    static <K, V> ImmutableMapSingleton<K, V> with(final Entry<K, V> entry) {
+        return new ImmutableMapSingleton<>(entry);
     }
 
-    private SingletonImmutableMap(final Entry<K, V> entry) {
+    private ImmutableMapSingleton(final Entry<K, V> entry) {
         super();
         this.entry = entry;
     }

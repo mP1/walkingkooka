@@ -63,11 +63,11 @@ public abstract class ImmutableMapTestCase2<M extends ImmutableMap<String, Integ
 
     @Override
     public final String typeNamePrefix() {
-        return "";
+        return "Immutable" + Map.class.getSimpleName();
     }
 
     @Override
     public final String typeNameSuffix() {
-        return Map.class.getSimpleName();
+        return "";
     }
 }

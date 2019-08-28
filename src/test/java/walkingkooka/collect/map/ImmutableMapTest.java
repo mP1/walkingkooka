@@ -43,7 +43,7 @@ public final class ImmutableMapTest extends ImmutableMapTestCase<ImmutableMap<St
 
     @Test
     public void testIsImmutableSingletonImmutable() {
-        this.immutableAndCheck(SingletonImmutableMap.with(Maps.entry(KEY1, VALUE1)), true);
+        this.immutableAndCheck(ImmutableMapSingleton.with(Maps.entry(KEY1, VALUE1)), true);
     }
 
     @Test
