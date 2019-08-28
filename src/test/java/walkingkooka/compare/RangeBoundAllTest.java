@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
+import walkingkooka.tree.json.marshall.FromJsonNodeContexts;
 import walkingkooka.tree.json.marshall.FromJsonNodeException;
 
 import java.util.Optional;
@@ -59,7 +59,7 @@ public final class RangeBoundAllTest extends RangeBoundTestCase2<RangeBoundAll<I
     public void testFromJsonNodeAllInvalidProperty() {
         assertThrows(FromJsonNodeException.class, () -> {
             RangeBoundAll.fromJsonNodeAll(JsonNode.object().setChild(JsonNodeName.with("invalid"), JsonNode.booleanNode(true)),
-                    FromJsonNodeContext.basic());
+                    FromJsonNodeContexts.basic());
         });
     }
 

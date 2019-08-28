@@ -73,7 +73,7 @@ public final class BasicFromJsonNodeContextJsonNodeVisitorTest implements JsonNo
         TestJsonNodeMap.register();
 
         final TestJsonNodeMap object = TestJsonNodeMap.with("abc123");
-        this.valueAndCheck(ToJsonNodeContext.basic().toJsonNodeWithType(object), object);
+        this.valueAndCheck(ToJsonNodeContexts.basic().toJsonNodeWithType(object), object);
     }
 
     @Test

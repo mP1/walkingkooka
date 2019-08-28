@@ -32,10 +32,6 @@ import java.util.Set;
  */
 public interface FromJsonNodeContext extends JsonNodeContext {
 
-    static FromJsonNodeContext basic() {
-        return BasicFromJsonNodeContext.INSTANCE;
-    }
-
     /**
      * Shared function used to report a required property is missing within a static fromJsonNode.
      */
