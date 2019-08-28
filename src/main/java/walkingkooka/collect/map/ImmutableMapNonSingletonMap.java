@@ -23,15 +23,15 @@ import java.util.Set;
 /**
  * An immutable {@link Map} with an {@link Map} holding a defensive copy. The map must not be empty.
  */
-final class NonSingletonMapImmutableMap<K, V> extends ImmutableMap<K, V> {
+final class ImmutableMapNonSingletonMap<K, V> extends ImmutableMap<K, V> {
 
-    static <K, V> NonSingletonMapImmutableMap<K, V> with(final Map<K, V> notCopied) {
-        return new NonSingletonMapImmutableMap<>(notCopied);
+    static <K, V> ImmutableMapNonSingletonMap<K, V> with(final Map<K, V> notCopied) {
+        return new ImmutableMapNonSingletonMap<>(notCopied);
     }
 
-    private NonSingletonMapImmutableMap(final Map<K, V> map) {
+    private ImmutableMapNonSingletonMap(final Map<K, V> map) {
         super();
-        this.entrySet = NonSingletonMapImmutableMapEntrySet.with(map);
+        this.entrySet = ImmutableMapNonSingletonMapEntrySet.with(map);
     }
 
     @Override
@@ -64,5 +64,5 @@ final class NonSingletonMapImmutableMap<K, V> extends ImmutableMap<K, V> {
         return this.entrySet.size();
     }
 
-    private final NonSingletonMapImmutableMapEntrySet<K, V> entrySet;
+    private final ImmutableMapNonSingletonMapEntrySet<K, V> entrySet;
 }

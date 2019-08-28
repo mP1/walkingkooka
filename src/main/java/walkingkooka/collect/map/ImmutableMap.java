@@ -43,24 +43,24 @@ abstract class ImmutableMap<K, V> extends AbstractMap<K, V> implements HashCodeE
     }
 
     /**
-     * {@see NonSingletonArrayImmutableMap}
+     * {@see ImmutableMapNonSingletonArray}
      */
     static <K, V> Map<K, V> array(final Entry<K, V>... entries) {
-        return NonSingletonArrayImmutableMap.with(entries);
+        return ImmutableMapNonSingletonArray.with(entries);
     }
 
     /**
-     * {@see NonSingletonMapImmutableMap}
+     * {@see ImmutableMapNonSingletonMap}
      */
     static <K, V> Map<K, V> map(final Map<K, V> map) {
-        return NonSingletonMapImmutableMap.with(map);
+        return ImmutableMapNonSingletonMap.with(map);
     }
 
     /**
-     * {@see SingletonImmutableMap}
+     * {@see ImmutableMapSingleton}
      */
     static <K, V> Map<K, V> singleton(final Entry<K, V> entry) {
-        return SingletonImmutableMap.with(entry);
+        return ImmutableMapSingleton.with(entry);
     }
 
     /**

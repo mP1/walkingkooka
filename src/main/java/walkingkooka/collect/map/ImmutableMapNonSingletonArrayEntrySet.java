@@ -23,13 +23,13 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 
 // ImmutableSet
-final class NonSingletonArrayImmutableMapEntrySet<K, V> extends ImmutableMapEntrySet<Entry<K, V>> {
+final class ImmutableMapNonSingletonArrayEntrySet<K, V> extends ImmutableMapEntrySet<Entry<K, V>> {
 
-    static <K, V> NonSingletonArrayImmutableMapEntrySet<K, V> with(final Entry<K, V>[] entries) {
-        return new NonSingletonArrayImmutableMapEntrySet<>(entries);
+    static <K, V> ImmutableMapNonSingletonArrayEntrySet<K, V> with(final Entry<K, V>[] entries) {
+        return new ImmutableMapNonSingletonArrayEntrySet<>(entries);
     }
 
-    private NonSingletonArrayImmutableMapEntrySet(final Entry<K, V>[] entries) {
+    private ImmutableMapNonSingletonArrayEntrySet(final Entry<K, V>[] entries) {
         super();
         this.entries = entries;
     }
