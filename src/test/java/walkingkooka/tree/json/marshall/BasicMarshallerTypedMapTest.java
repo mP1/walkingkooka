@@ -30,12 +30,12 @@ public final class BasicMarshallerTypedMapTest extends BasicMarshallerTypedTestC
 
     @BeforeAll
     public static void beforeAll() {
-        TestJsonNodeMap.register();
+        TestJsonNodeValue.register();
     }
 
     @AfterAll
     public static void afterAll() {
-        TestJsonNodeMap.unregister();
+        TestJsonNodeValue.unregister();
     }
 
     @Test
@@ -77,7 +77,7 @@ public final class BasicMarshallerTypedMapTest extends BasicMarshallerTypedTestC
     Map<?, ?> value() {
         return Maps.of(Boolean.TRUE, null,
                 123.5, "abc123",
-                TestJsonNodeMap.with("test-has-json-node-a1"), Boolean.FALSE);
+                TestJsonNodeValue.with("test-has-json-node-a1"), Boolean.FALSE);
     }
 
     @Override
@@ -85,7 +85,7 @@ public final class BasicMarshallerTypedMapTest extends BasicMarshallerTypedTestC
         return JsonNode.array()
                 .appendChild(entry(JsonNode.booleanNode(Boolean.TRUE), JsonNode.nullNode()))
                 .appendChild(entry(JsonNode.number(123.5), JsonNode.string("abc123")))
-                .appendChild(entry(this.toJsonNodeContext().toJsonNodeWithType(TestJsonNodeMap.with("test-has-json-node-a1")), JsonNode.booleanNode(Boolean.FALSE)));
+                .appendChild(entry(this.toJsonNodeContext().toJsonNodeWithType(TestJsonNodeValue.with("test-has-json-node-a1")), JsonNode.booleanNode(Boolean.FALSE)));
     }
 
     private JsonNode entry(final JsonNode key, final JsonNode value) {

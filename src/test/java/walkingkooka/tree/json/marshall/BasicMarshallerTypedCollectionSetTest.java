@@ -30,12 +30,12 @@ public final class BasicMarshallerTypedCollectionSetTest extends BasicMarshaller
 
     @BeforeAll
     public static void beforeAll() {
-        TestJsonNodeMap.register();
+        TestJsonNodeValue.register();
     }
 
     @AfterAll
     public static void afterAll() {
-        TestJsonNodeMap.unregister();
+        TestJsonNodeValue.unregister();
     }
 
     @Test
@@ -75,7 +75,7 @@ public final class BasicMarshallerTypedCollectionSetTest extends BasicMarshaller
 
     @Override
     Set<?> value() {
-        return Sets.of(null, true, 123.5, "abc123", TestJsonNodeMap.with("test-TestJsonNodeMap-a1"));
+        return Sets.of(null, true, 123.5, "abc123", TestJsonNodeValue.with("test-TestJsonNodeValue-a1"));
     }
 
     @Override
@@ -85,7 +85,7 @@ public final class BasicMarshallerTypedCollectionSetTest extends BasicMarshaller
                 .appendChild(JsonNode.booleanNode(true))
                 .appendChild(JsonNode.number(123.5))
                 .appendChild(JsonNode.string("abc123"))
-                .appendChild(this.toJsonNodeContext().toJsonNodeWithType(TestJsonNodeMap.with("test-TestJsonNodeMap-a1")));
+                .appendChild(this.toJsonNodeContext().toJsonNodeWithType(TestJsonNodeValue.with("test-TestJsonNodeValue-a1")));
     }
 
     @Override
