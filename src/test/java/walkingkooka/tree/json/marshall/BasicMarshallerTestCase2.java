@@ -301,6 +301,10 @@ public abstract class BasicMarshallerTestCase2<M extends BasicMarshaller<T>, T> 
     }
 
     final ToJsonNodeContext toJsonNodeContext() {
-        return BasicToJsonNodeContext.INSTANCE;
+        return BasicToJsonNodeContext.with(this::postObjectProcessor);
+    }
+
+    private JsonObjectNode postObjectProcessor(final Object value, final JsonObjectNode object) {
+        return object;
     }
 }

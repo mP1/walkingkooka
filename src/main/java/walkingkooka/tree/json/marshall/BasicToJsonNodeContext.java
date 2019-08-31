@@ -26,7 +26,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
+import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 /**
@@ -38,13 +40,18 @@ final class BasicToJsonNodeContext extends BasicJsonNodeContext implements ToJso
     /**
      * Singleton
      */
-    final static BasicToJsonNodeContext INSTANCE = new BasicToJsonNodeContext();
+    final static BasicToJsonNodeContext with(final BiFunction<Object, JsonObjectNode, JsonObjectNode> objectPostProcessor) {
+        Objects.requireNonNull(objectPostProcessor, "objectPostProcessor");
+
+        return new BasicToJsonNodeContext(objectPostProcessor);
+    }
 
     /**
      * Private ctor
      */
-    private BasicToJsonNodeContext() {
+    private BasicToJsonNodeContext(final BiFunction<Object, JsonObjectNode, JsonObjectNode> objectPostProcessor) {
         super();
+        this.objectPostProcessor = objectPostProcessor;
     }
 
     // toJsonNode. .....................................................................................................
@@ -56,9 +63,18 @@ final class BasicToJsonNodeContext extends BasicJsonNodeContext implements ToJso
     public JsonNode toJsonNode(final Object value) {
         return null == value ?
                 JsonNode.nullNode() :
-                BasicMarshaller.marshaller(value.getClass())
-                        .toJsonNode(Cast.to(value), this);
+                this.toJsonNodeNonNull(value);
     }
+
+    private JsonNode toJsonNodeNonNull(final Object value) {
+        final JsonNode json = BasicMarshaller.marshaller(value.getClass())
+                .toJsonNode(Cast.to(value), this);
+        return json.isObject() ?
+                this.objectPostProcessor.apply(value, json.objectOrFail()) :
+                json;
+    }
+
+    private final BiFunction<Object, JsonObjectNode, JsonObjectNode> objectPostProcessor;
 
     /**
      * Accepts a {@link List} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}.

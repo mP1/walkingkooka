@@ -21,6 +21,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeVisitorTesting;
+import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -73,7 +74,11 @@ public final class BasicFromJsonNodeContextJsonNodeVisitorTest implements JsonNo
         TestJsonNodeValue.register();
 
         final TestJsonNodeValue object = TestJsonNodeValue.with("abc123");
-        this.valueAndCheck(ToJsonNodeContexts.basic().toJsonNodeWithType(object), object);
+        this.valueAndCheck(ToJsonNodeContexts.basic(this::postObjectProcessor).toJsonNodeWithType(object), object);
+    }
+
+    private JsonObjectNode postObjectProcessor(final Object value, final JsonObjectNode object) {
+        return object;
     }
 
     @Test

@@ -43,7 +43,7 @@ abstract class BasicMarshallerTyped<T> extends BasicMarshaller<T> {
     final JsonNode toJsonNodeWithTypeNonNull(final T value,
                                              final ToJsonNodeContext context) {
         return this.objectWithType()
-                .set(BasicJsonNodeContext.VALUE, this.toJsonNodeNonNull(value, context));
+                .set(BasicJsonNodeContext.VALUE, context.toJsonNode(value));
     }
 
     /**
