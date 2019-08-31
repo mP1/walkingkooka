@@ -17,17 +17,43 @@
 
 package walkingkooka.tree.json.marshall;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonObjectNode;
 
 import java.util.Locale;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class BasicToJsonNodeContextTest extends BasicJsonNodeContextTestCase<BasicToJsonNodeContext>
         implements ToJsonNodeContextTesting<BasicToJsonNodeContext> {
+
+    @BeforeAll
+    public static void beforeAll() {
+        TestJsonNodeValue.register();
+    }
+
+    @AfterAll
+    public static void afterAll() {
+        TestJsonNodeValue.unregister();
+        ;
+    }
+
+    // with.............................................................................................................
+
+    @Test
+    public void testWithNullFails() {
+        assertThrows(NullPointerException.class, () -> {
+            BasicToJsonNodeContext.with(null);
+        });
+    }
 
     // toJsonNode.....................................................................................................
 
@@ -61,6 +87,14 @@ public final class BasicToJsonNodeContextTest extends BasicJsonNodeContextTestCa
         final String value = "abc123";
         this.toJsonNodeAndCheck(value,
                 JsonNode.string(value));
+    }
+
+    @Test
+    public void testToJsonNodeWithObjectPostProcessor() {
+        final TestJsonNodeValue value = TestJsonNodeValue.with("abc123");
+        this.toJsonNodeAndCheck(this.createContext2(),
+                value,
+                value.toJsonNode(ToJsonNodeContexts.fake()).set(POST, POST_VALUE));
     }
 
     // toJsonNodeList...................................................................................................
@@ -101,6 +135,14 @@ public final class BasicToJsonNodeContextTest extends BasicJsonNodeContextTestCa
         final String value = "abc123";
         this.toJsonNodeListAndCheck(Lists.of(value),
                 list(JsonNode.string(value)));
+    }
+
+    @Test
+    public void testToJsonNodeListWithObjectPostProcessor() {
+        final TestJsonNodeValue value = TestJsonNodeValue.with("abc123");
+        this.toJsonNodeListAndCheck(this.createContext2(),
+                Lists.of(value),
+                list(value.toJsonNode(ToJsonNodeContexts.fake()).set(POST, POST_VALUE)));
     }
 
     private JsonArrayNode list(final JsonNode element) {
@@ -145,6 +187,14 @@ public final class BasicToJsonNodeContextTest extends BasicJsonNodeContextTestCa
         final String value = "abc123";
         this.toJsonNodeSetAndCheck(Sets.of(value),
                 set(JsonNode.string(value)));
+    }
+
+    @Test
+    public void testToJsonNodeSetWithObjectPostProcessor() {
+        final TestJsonNodeValue value = TestJsonNodeValue.with("abc123");
+        this.toJsonNodeSetAndCheck(this.createContext2(),
+                Sets.of(value),
+                set(value.toJsonNode(ToJsonNodeContexts.fake()).set(POST, POST_VALUE)));
     }
 
     private JsonArrayNode set(final JsonNode element) {
@@ -196,11 +246,24 @@ public final class BasicToJsonNodeContextTest extends BasicJsonNodeContextTestCa
         final String KEY = "key1";
 
         this.toJsonNodeMapAndCheck(Maps.of(KEY, value),
-                JsonNode.array()
-                        .appendChild(JsonNode.object()
-                                .set(BasicMarshallerTypedMap.ENTRY_KEY, JsonNode.string(KEY))
-                                .set(BasicMarshallerTypedMap.ENTRY_VALUE, expected))
+                this.map(KEY, expected)
         );
+    }
+
+    @Test
+    public void testToJsonNodeMapWithObjectPostProcessor() {
+        final String key = "key-123";
+        final TestJsonNodeValue value = TestJsonNodeValue.with(key);
+        this.toJsonNodeMapAndCheck(this.createContext2(),
+                Maps.of(key, value),
+                this.map(key, value.toJsonNode(ToJsonNodeContexts.fake()).set(POST, POST_VALUE)));
+    }
+
+    private JsonNode map(final String key, final JsonNode value) {
+        return JsonNode.array()
+                .appendChild(JsonNode.object()
+                        .set(BasicMarshallerTypedMap.ENTRY_KEY, JsonNode.string(key))
+                        .set(BasicMarshallerTypedMap.ENTRY_VALUE, value));
     }
 
     // toJsonNodeWithType...............................................................................................
@@ -272,6 +335,15 @@ public final class BasicToJsonNodeContextTest extends BasicJsonNodeContextTestCa
     public void testToJsonNodeWithTypeString() {
         final String value = "abc123";
         this.toJsonNodeWithTypeAndCheck(value, JsonNode.string(value));
+    }
+
+    @Test
+    public void testToJsonNodeWithTypeObjectPostProcessor() {
+        final String string = "abc123";
+        final TestJsonNodeValue value = TestJsonNodeValue.with(string);
+        this.toJsonNodeWithTypeAndCheck(this.createContext2(),
+                value,
+                this.typeAndValue(TestJsonNodeValue.TYPE_NAME, value.toJsonNode(ToJsonNodeContexts.fake()).set(POST, POST_VALUE)));
     }
 
     // toJsonNodeWithTypeList...........................................................................................
@@ -355,6 +427,16 @@ public final class BasicToJsonNodeContextTest extends BasicJsonNodeContextTestCa
                 this.list(JsonNode.string(value)));
     }
 
+    @Test
+    public void testToJsonNodeWithTypeListWithObjectPostProcessor() {
+        final String string = "abc123";
+        final TestJsonNodeValue value = TestJsonNodeValue.with(string);
+
+        this.toJsonNodeWithTypeListAndCheck(this.createContext2(),
+                Lists.of(value),
+                this.list(this.typeAndValue(TestJsonNodeValue.TYPE_NAME, value.toJsonNode(ToJsonNodeContexts.fake()).set(POST, POST_VALUE))));
+    }
+
     // toJsonNodeWithTypeSet............................................................................................
 
     @Test
@@ -436,6 +518,16 @@ public final class BasicToJsonNodeContextTest extends BasicJsonNodeContextTestCa
                 this.set(JsonNode.string(value)));
     }
 
+    @Test
+    public void testToJsonNodeWithTypeSetWithObjectPostProcessor() {
+        final String string = "abc123";
+        final TestJsonNodeValue value = TestJsonNodeValue.with(string);
+
+        this.toJsonNodeWithTypeSetAndCheck(this.createContext2(),
+                Sets.of(value),
+                this.set(this.typeAndValue(TestJsonNodeValue.TYPE_NAME, value.toJsonNode(ToJsonNodeContexts.fake()).set(POST, POST_VALUE))));
+    }
+
     // toJsonNodeWithTypeMap...........................................................................................
 
     @Test
@@ -486,12 +578,40 @@ public final class BasicToJsonNodeContextTest extends BasicJsonNodeContextTestCa
                                 .set(BasicMarshallerTypedMap.ENTRY_VALUE, value)));
     }
 
+    @Test
+    public void testToJsonNodeWithTypeMapWithObjectPostProcessor() {
+        final String key = "abc123";
+        final TestJsonNodeValue value = TestJsonNodeValue.with(key);
+
+        this.toJsonNodeWithTypeMapAndCheck(this.createContext2(),
+                Maps.of(key, value),
+                JsonNode.array()
+                        .appendChild(JsonNode.object()
+                                .set(BasicMarshallerTypedMap.ENTRY_KEY, JsonNode.string(key))
+                                .set(BasicMarshallerTypedMap.ENTRY_VALUE, this.typeAndValue(TestJsonNodeValue.TYPE_NAME, value.toJsonNode(ToJsonNodeContexts.fake()).set(POST, POST_VALUE)))));
+    }
+
     // ToJsonNodeContext................................................................................................
 
     @Override
     public BasicToJsonNodeContext createContext() {
-        return BasicToJsonNodeContext.INSTANCE;
+        return BasicToJsonNodeContext.with(this::objectPostProcessor);
     }
+
+    private JsonObjectNode objectPostProcessor(final Object value, JsonObjectNode object) {
+        return object;
+    }
+
+    private BasicToJsonNodeContext createContext2() {
+        return BasicToJsonNodeContext.with(this::objectPostProcessor2);
+    }
+
+    private JsonObjectNode objectPostProcessor2(final Object value, JsonObjectNode object) {
+        return object.set(POST, POST_VALUE);
+    }
+
+    private final static JsonNodeName POST = JsonNodeName.with("post");
+    private final static JsonNode POST_VALUE = JsonNode.booleanNode(true);
 
     @Override
     public Class<BasicToJsonNodeContext> type() {

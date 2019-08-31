@@ -18,12 +18,14 @@
 package walkingkooka.tree.json.marshall;
 
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonObjectNode;
 
 import java.util.Objects;
 
 public final class TestJsonNodeValue extends TestJsonNodeValueAbstract {
 
-    public final static String TYPE_NAME = "test-JsonNodeMap";
+    public final static String TYPE_NAME = "test-JsonNodeValue";
 
     public static TestJsonNodeValue with(final String value) {
         Objects.requireNonNull(value, "value");
@@ -45,19 +47,21 @@ public final class TestJsonNodeValue extends TestJsonNodeValueAbstract {
      */
     public static TestJsonNodeValue fromJsonNode(final JsonNode node,
                                                  final FromJsonNodeContext context) {
-        return with(node.stringValueOrFail());
+        return with(node.objectOrFail().getOrFail(KEY).stringValueOrFail());
     }
 
-    public JsonNode toJsonNode(final ToJsonNodeContext context) {
-        return JsonNode.string(this.value);
+    public JsonObjectNode toJsonNode(final ToJsonNodeContext context) {
+        return JsonNode.object()
+                .set(KEY, JsonNode.string(this.value));
     }
+
+    private final static JsonNodeName KEY = JsonNodeName.with("string");
 
     public static void register() {
         remover = JsonNodeContext.register(TYPE_NAME,
                 TestJsonNodeValue::fromJsonNode,
                 TestJsonNodeValue::toJsonNode,
                 TestJsonNodeValue.class);
-        System.out.println("remover:"+ remover);
     }
 
     public static void unregister() {
