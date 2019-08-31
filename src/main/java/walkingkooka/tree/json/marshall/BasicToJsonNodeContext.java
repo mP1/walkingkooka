@@ -91,11 +91,13 @@ final class BasicToJsonNodeContext extends BasicJsonNodeContext implements ToJso
      */
     @Override
     public JsonNode toJsonNodeMap(final Map<?, ?> map) {
-        return JsonObjectNode.array()
-                .setChildren(map.entrySet()
-                        .stream()
-                        .map(this::entry)
-                        .collect(Collectors.toList()));
+        return null == map ?
+                JsonNode.nullNode() :
+                JsonObjectNode.array()
+                        .setChildren(map.entrySet()
+                                .stream()
+                                .map(this::entry)
+                                .collect(Collectors.toList()));
     }
 
     private JsonNode entry(final Entry<?, ?> entry) {
