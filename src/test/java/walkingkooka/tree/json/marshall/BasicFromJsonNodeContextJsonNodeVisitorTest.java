@@ -30,7 +30,7 @@ public final class BasicFromJsonNodeContextJsonNodeVisitorTest implements JsonNo
 
     @AfterEach
     public void afterEach() {
-        TestJsonNodeMap.unregister();
+        TestJsonNodeValue.unregister();
     }
 
     @Test
@@ -70,9 +70,9 @@ public final class BasicFromJsonNodeContextJsonNodeVisitorTest implements JsonNo
 
     @Test
     public void testObject() {
-        TestJsonNodeMap.register();
+        TestJsonNodeValue.register();
 
-        final TestJsonNodeMap object = TestJsonNodeMap.with("abc123");
+        final TestJsonNodeValue object = TestJsonNodeValue.with("abc123");
         this.valueAndCheck(ToJsonNodeContexts.basic().toJsonNodeWithType(object), object);
     }
 

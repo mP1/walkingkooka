@@ -17,8 +17,8 @@
 
 package walkingkooka.tree.json.marshall;
 
-public abstract class TestJsonNodeMapAbstract {
-    TestJsonNodeMapAbstract() {
+public abstract class TestJsonNodeValueAbstract {
+    TestJsonNodeValueAbstract() {
         super();
     }
 }

@@ -30,12 +30,12 @@ public final class BasicMarshallerTypedCollectionListTest extends BasicMarshalle
 
     @BeforeAll
     public static void beforeAll() {
-        TestJsonNodeMap.register();
+        TestJsonNodeValue.register();
     }
 
     @AfterAll
     public static void afterAll() {
-        TestJsonNodeMap.unregister();
+        TestJsonNodeValue.unregister();
     }
 
     @Test
@@ -70,7 +70,7 @@ public final class BasicMarshallerTypedCollectionListTest extends BasicMarshalle
 
     @Override
     List<?> value() {
-        return Lists.of(null, true, 123.5, "abc123", TestJsonNodeMap.with("test-has-json-node"));
+        return Lists.of(null, true, 123.5, "abc123", TestJsonNodeValue.with("test-has-json-node"));
     }
 
     @Override
@@ -80,7 +80,7 @@ public final class BasicMarshallerTypedCollectionListTest extends BasicMarshalle
                 .appendChild(JsonNode.booleanNode(true))
                 .appendChild(JsonNode.number(123.5))
                 .appendChild(JsonNode.string("abc123"))
-                .appendChild(this.toJsonNodeContext().toJsonNodeWithType(TestJsonNodeMap.with("test-has-json-node")));
+                .appendChild(this.toJsonNodeContext().toJsonNodeWithType(TestJsonNodeValue.with("test-has-json-node")));
     }
 
     @Override

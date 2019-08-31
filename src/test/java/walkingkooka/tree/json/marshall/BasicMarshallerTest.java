@@ -36,7 +36,7 @@ public final class BasicMarshallerTest extends BasicMarshallerTestCase<BasicMars
 
     @AfterEach
     public void afterEach() {
-        TestJsonNodeMap.unregister();
+        TestJsonNodeValue.unregister();
     }
 
     // register.........................................................................................................
@@ -45,9 +45,9 @@ public final class BasicMarshallerTest extends BasicMarshallerTestCase<BasicMars
     public void testRegisterNullTypeNameFails() {
         assertThrows(NullPointerException.class, () -> {
             BasicMarshaller.register(null,
-                    TestJsonNodeMap::fromJsonNode,
-                    TestJsonNodeMap::toJsonNode,
-                    TestJsonNodeMap.class);
+                    TestJsonNodeValue::fromJsonNode,
+                    TestJsonNodeValue::toJsonNode,
+                    TestJsonNodeValue.class);
         });
     }
 
@@ -55,56 +55,56 @@ public final class BasicMarshallerTest extends BasicMarshallerTestCase<BasicMars
     public void testRegisterEmptyTypeNameFails() {
         assertThrows(IllegalArgumentException.class, () -> {
             BasicMarshaller.register("",
-                    TestJsonNodeMap::fromJsonNode,
-                    TestJsonNodeMap::toJsonNode,
-                    TestJsonNodeMap.class);
+                    TestJsonNodeValue::fromJsonNode,
+                    TestJsonNodeValue::toJsonNode,
+                    TestJsonNodeValue.class);
         });
     }
 
     @Test
     public void testRegisterNullFromFunctionFails() {
         assertThrows(NullPointerException.class, () -> {
-            BasicMarshaller.register(TestJsonNodeMap.TYPE_NAME,
+            BasicMarshaller.register(TestJsonNodeValue.TYPE_NAME,
                     null,
-                    TestJsonNodeMap::toJsonNode,
-                    TestJsonNodeMap.class);
+                    TestJsonNodeValue::toJsonNode,
+                    TestJsonNodeValue.class);
         });
     }
 
     @Test
     public void testRegisterNullToFunctionFails() {
         assertThrows(NullPointerException.class, () -> {
-            BasicMarshaller.register(TestJsonNodeMap.TYPE_NAME,
-                    TestJsonNodeMap::fromJsonNode,
+            BasicMarshaller.register(TestJsonNodeValue.TYPE_NAME,
+                    TestJsonNodeValue::fromJsonNode,
                     null,
-                    TestJsonNodeMap.class);
+                    TestJsonNodeValue.class);
         });
     }
 
     @Test
     public void testRegisterNullTypeFails() {
         assertThrows(NullPointerException.class, () -> {
-            BasicMarshaller.register(TestJsonNodeMap.TYPE_NAME,
-                    TestJsonNodeMap::fromJsonNode,
-                    TestJsonNodeMap::toJsonNode,
+            BasicMarshaller.register(TestJsonNodeValue.TYPE_NAME,
+                    TestJsonNodeValue::fromJsonNode,
+                    TestJsonNodeValue::toJsonNode,
                     null);
         });
     }
 
     @Test
     public void testRegisterConcrete() {
-        TestJsonNodeMap.register();
+        TestJsonNodeValue.register();
     }
 
     @Test
     public void testRegisterTwiceFails() {
-        TestJsonNodeMap.register();
+        TestJsonNodeValue.register();
 
         assertThrows(IllegalArgumentException.class, () -> {
-            BasicMarshaller.register(TestJsonNodeMap.TYPE_NAME,
-                    TestJsonNodeMap::fromJsonNode,
-                    TestJsonNodeMap::toJsonNode,
-                    TestJsonNodeMap.class);
+            BasicMarshaller.register(TestJsonNodeValue.TYPE_NAME,
+                    TestJsonNodeValue::fromJsonNode,
+                    TestJsonNodeValue::toJsonNode,
+                    TestJsonNodeValue.class);
         });
     }
 

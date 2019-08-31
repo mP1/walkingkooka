@@ -26,28 +26,28 @@ import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 import walkingkooka.tree.json.marshall.FromJsonNodeContexts;
 import walkingkooka.tree.json.marshall.FromJsonNodeException;
-import walkingkooka.tree.json.marshall.TestJsonNodeMap;
+import walkingkooka.tree.json.marshall.TestJsonNodeValue;
 import walkingkooka.tree.json.marshall.ToJsonNodeContext;
 import walkingkooka.tree.json.marshall.ToJsonNodeContexts;
 import walkingkooka.util.BiFunctionTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class JsonNodeNameFromJsonNodeWithTypeFactoryBiFunctionTest implements BiFunctionTesting<JsonNodeNameFromJsonNodeWithTypeFactoryBiFunction<TestJsonNodeMap>,
+public final class JsonNodeNameFromJsonNodeWithTypeFactoryBiFunctionTest implements BiFunctionTesting<JsonNodeNameFromJsonNodeWithTypeFactoryBiFunction<TestJsonNodeValue>,
         JsonNode,
         FromJsonNodeContext,
-        TestJsonNodeMap>,
+        TestJsonNodeValue>,
         ThrowableTesting,
-        ToStringTesting<JsonNodeNameFromJsonNodeWithTypeFactoryBiFunction<TestJsonNodeMap>> {
+        ToStringTesting<JsonNodeNameFromJsonNodeWithTypeFactoryBiFunction<TestJsonNodeValue>> {
 
     @BeforeAll
     public static void beforeAll() {
-        TestJsonNodeMap.register();
+        TestJsonNodeValue.register();
     }
 
     @AfterAll
     public static void afterAll() {
-        TestJsonNodeMap.unregister();
+        TestJsonNodeValue.unregister();
     }
 
     @Test
@@ -66,37 +66,37 @@ public final class JsonNodeNameFromJsonNodeWithTypeFactoryBiFunctionTest impleme
 
     @Test
     public void testWith() {
-        final JsonNodeNameFromJsonNodeWithTypeFactoryBiFunction<TestJsonNodeMap> function = this.createBiFunction();
+        final JsonNodeNameFromJsonNodeWithTypeFactoryBiFunction<TestJsonNodeValue> function = this.createBiFunction();
     }
 
     @Test
     public void testApply() {
-        final TestJsonNodeMap has = this.value();
-        final JsonNodeNameFromJsonNodeWithTypeFactoryBiFunction<TestJsonNodeMap> function = this.createBiFunction();
+        final TestJsonNodeValue value = this.value();
+        final JsonNodeNameFromJsonNodeWithTypeFactoryBiFunction<TestJsonNodeValue> function = this.createBiFunction();
 
         this.applyAndCheck(function,
-                has.toJsonNode(this.toJsonNodeContext()),
+                value.toJsonNode(this.toJsonNodeContext()),
                 this.fromJsonNodeContext(),
-                has);
+                value);
     }
 
     @Test
     public void testApplyTwice() {
-        final TestJsonNodeMap has1 = this.value();
-        final JsonNodeNameFromJsonNodeWithTypeFactoryBiFunction<TestJsonNodeMap> function = this.createBiFunction();
+        final TestJsonNodeValue value1 = this.value();
+        final JsonNodeNameFromJsonNodeWithTypeFactoryBiFunction<TestJsonNodeValue> function = this.createBiFunction();
 
         final ToJsonNodeContext context = this.toJsonNodeContext();
 
         this.applyAndCheck(function,
-                has1.toJsonNode(context),
+                value1.toJsonNode(context),
                 this.fromJsonNodeContext(),
-                has1);
+                value1);
 
-        final TestJsonNodeMap has2 = TestJsonNodeMap.with("test-JsonNodeMap-b2");
+        final TestJsonNodeValue value2 = TestJsonNodeValue.with("test-JsonNodeMap-b2");
         this.applyAndCheck(function,
-                has2.toJsonNode(context),
+                value2.toJsonNode(context),
                 this.fromJsonNodeContext(),
-                has2);
+                value2);
     }
 
     @Test
@@ -110,17 +110,17 @@ public final class JsonNodeNameFromJsonNodeWithTypeFactoryBiFunctionTest impleme
 
     @Test
     public void testToString() {
-        final JsonObjectNode object = this.objectWithType(TestJsonNodeMap.class);
+        final JsonObjectNode object = this.objectWithType(TestJsonNodeValue.class);
         this.toStringAndCheck(this.createBiFunction(object), this.typeNameProperty() + " in " + object);
     }
 
     @Override
-    public JsonNodeNameFromJsonNodeWithTypeFactoryBiFunction<TestJsonNodeMap> createBiFunction() {
-        return this.createBiFunction(this.objectWithType(TestJsonNodeMap.class));
+    public JsonNodeNameFromJsonNodeWithTypeFactoryBiFunction<TestJsonNodeValue> createBiFunction() {
+        return this.createBiFunction(this.objectWithType(TestJsonNodeValue.class));
     }
 
-    public JsonNodeNameFromJsonNodeWithTypeFactoryBiFunction<TestJsonNodeMap> createBiFunction(final JsonObjectNode objectWithType) {
-        final Class<TestJsonNodeMap> type = this.valueType();
+    public JsonNodeNameFromJsonNodeWithTypeFactoryBiFunction<TestJsonNodeValue> createBiFunction(final JsonObjectNode objectWithType) {
+        final Class<TestJsonNodeValue> type = this.valueType();
 
         return Cast.to(this.typeNameProperty()
                 .fromJsonNodeWithTypeFactory(objectWithType, type));
@@ -135,12 +135,12 @@ public final class JsonNodeNameFromJsonNodeWithTypeFactoryBiFunctionTest impleme
                 .set(typeNameProperty(), this.toJsonNodeContext().typeName(type).get());
     }
 
-    private TestJsonNodeMap value() {
-        return TestJsonNodeMap.with("test-JsonNodeMap-a1");
+    private TestJsonNodeValue value() {
+        return TestJsonNodeValue.with("test-JsonNodeMap-a1");
     }
 
-    private Class<TestJsonNodeMap> valueType() {
-        return TestJsonNodeMap.class;
+    private Class<TestJsonNodeValue> valueType() {
+        return TestJsonNodeValue.class;
     }
 
     private FromJsonNodeContext fromJsonNodeContext() {
@@ -152,7 +152,7 @@ public final class JsonNodeNameFromJsonNodeWithTypeFactoryBiFunctionTest impleme
     }
 
     @Override
-    public Class<JsonNodeNameFromJsonNodeWithTypeFactoryBiFunction<TestJsonNodeMap>> type() {
+    public Class<JsonNodeNameFromJsonNodeWithTypeFactoryBiFunction<TestJsonNodeValue>> type() {
         return Cast.to(JsonNodeNameFromJsonNodeWithTypeFactoryBiFunction.class);
     }
 }

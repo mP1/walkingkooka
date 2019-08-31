@@ -21,17 +21,17 @@ import walkingkooka.tree.json.JsonNode;
 
 import java.util.Objects;
 
-public final class TestJsonNodeMap extends TestJsonNodeMapAbstract {
+public final class TestJsonNodeValue extends TestJsonNodeValueAbstract {
 
     public final static String TYPE_NAME = "test-JsonNodeMap";
 
-    public static TestJsonNodeMap with(final String value) {
+    public static TestJsonNodeValue with(final String value) {
         Objects.requireNonNull(value, "value");
 
-        return new TestJsonNodeMap(value);
+        return new TestJsonNodeValue(value);
     }
 
-    private TestJsonNodeMap(final String value) {
+    private TestJsonNodeValue(final String value) {
         super();
         this.value = value;
     }
@@ -41,10 +41,10 @@ public final class TestJsonNodeMap extends TestJsonNodeMapAbstract {
     // JsonNodeContext...................................................................................................
 
     /**
-     * Accepts a json string creating a {@link TestJsonNodeMap}
+     * Accepts a json string creating a {@link TestJsonNodeValue}
      */
-    public static TestJsonNodeMap fromJsonNode(final JsonNode node,
-                                               final FromJsonNodeContext context) {
+    public static TestJsonNodeValue fromJsonNode(final JsonNode node,
+                                                 final FromJsonNodeContext context) {
         return with(node.stringValueOrFail());
     }
 
@@ -54,9 +54,9 @@ public final class TestJsonNodeMap extends TestJsonNodeMapAbstract {
 
     public static void register() {
         remover = JsonNodeContext.register(TYPE_NAME,
-                TestJsonNodeMap::fromJsonNode,
-                TestJsonNodeMap::toJsonNode,
-                TestJsonNodeMap.class);
+                TestJsonNodeValue::fromJsonNode,
+                TestJsonNodeValue::toJsonNode,
+                TestJsonNodeValue.class);
         System.out.println("remover:"+ remover);
     }
 
@@ -78,7 +78,7 @@ public final class TestJsonNodeMap extends TestJsonNodeMapAbstract {
 
     @Override
     public boolean equals(final Object other) {
-        return this == other || other instanceof TestJsonNodeMap && other.toString().equals(this.value);
+        return this == other || other instanceof TestJsonNodeValue && other.toString().equals(this.value);
     }
 
     @Override

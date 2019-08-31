@@ -26,7 +26,7 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeMappingTesting;
-import walkingkooka.tree.json.marshall.TestJsonNodeMap;
+import walkingkooka.tree.json.marshall.TestJsonNodeValue;
 import walkingkooka.tree.json.marshall.ToJsonNodeContext;
 import walkingkooka.type.JavaVisibility;
 
@@ -42,12 +42,12 @@ public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
 
     @BeforeAll
     public static void beforeAll() {
-        TestJsonNodeMap.register();
+        TestJsonNodeValue.register();
     }
 
     @AfterAll
     public static void afterAll() {
-        TestJsonNodeMap.unregister();
+        TestJsonNodeValue.unregister();
     }
 
     @Test
@@ -97,13 +97,13 @@ public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
         final JsonNodeName typeNameProperty = JsonNodeName.with("typeName123");
         final FromJsonNodeContext fromContext = this.fromJsonNodeContext();
 
-        final BiFunction<JsonNode, FromJsonNodeContext, TestJsonNodeMap> factory = typeNameProperty.fromJsonNodeWithTypeFactory(JsonNode.object()
-                        .set(typeNameProperty, fromContext.typeName(TestJsonNodeMap.class).get()),
-                TestJsonNodeMap.class);
+        final BiFunction<JsonNode, FromJsonNodeContext, TestJsonNodeValue> factory = typeNameProperty.fromJsonNodeWithTypeFactory(JsonNode.object()
+                        .set(typeNameProperty, fromContext.typeName(TestJsonNodeValue.class).get()),
+                TestJsonNodeValue.class);
 
-        final TestJsonNodeMap has = TestJsonNodeMap.with("test-JsonNodeMap-a1");
+        final TestJsonNodeValue value = TestJsonNodeValue.with("test-JsonNodeMap-a1");
         final ToJsonNodeContext toContext = this.toJsonNodeContext();
-        assertEquals(has, factory.apply(toContext.toJsonNode(has), fromContext));
+        assertEquals(value, factory.apply(toContext.toJsonNode(value), fromContext));
     }
 
     @Test
@@ -111,16 +111,16 @@ public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
         final JsonNodeName typeNameProperty = JsonNodeName.with("typeName123");
         final FromJsonNodeContext fromContext = this.fromJsonNodeContext();
 
-        final BiFunction<JsonNode, FromJsonNodeContext, TestJsonNodeMap> factory = typeNameProperty.fromJsonNodeWithTypeFactory(JsonNode.object()
-                        .set(typeNameProperty, fromContext.typeName(TestJsonNodeMap.class).get()),
-                TestJsonNodeMap.class);
+        final BiFunction<JsonNode, FromJsonNodeContext, TestJsonNodeValue> factory = typeNameProperty.fromJsonNodeWithTypeFactory(JsonNode.object()
+                        .set(typeNameProperty, fromContext.typeName(TestJsonNodeValue.class).get()),
+                TestJsonNodeValue.class);
 
-        final TestJsonNodeMap has1 = TestJsonNodeMap.with("test-JsonNodeMap-a1");
-        final TestJsonNodeMap has2 = TestJsonNodeMap.with("test-JsonNodeMap-b2");
-        final TestJsonNodeMap has3 = TestJsonNodeMap.with("test-JsonNodeMap-c3");
+        final TestJsonNodeValue value1 = TestJsonNodeValue.with("test-JsonNodeMap-a1");
+        final TestJsonNodeValue value2 = TestJsonNodeValue.with("test-JsonNodeMap-b2");
+        final TestJsonNodeValue value3 = TestJsonNodeValue.with("test-JsonNodeMap-c3");
 
-        assertEquals(Lists.of(has1, has2, has3),
-                Lists.of(has1, has2, has3).stream()
+        assertEquals(Lists.of(value1, value2, value3),
+                Lists.of(value1, value2, value3).stream()
                         .map(e -> e.toJsonNode(this.toJsonNodeContext()))
                         .map(n -> factory.apply(n, fromContext))
                         .collect(Collectors.toList()));

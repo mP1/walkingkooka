@@ -35,12 +35,12 @@ public final class BasicMarshallerTypedOptionalTest extends BasicMarshallerTyped
 
     @BeforeAll
     public static void beforeAll() {
-        TestJsonNodeMap.register();
+        TestJsonNodeValue.register();
     }
 
     @AfterAll
     public static void afterAll() {
-        TestJsonNodeMap.unregister();
+        TestJsonNodeValue.unregister();
     }
 
     @Test
@@ -175,7 +175,7 @@ public final class BasicMarshallerTypedOptionalTest extends BasicMarshallerTyped
 
     @Test
     public void testRoundtripTestJsonNodeMap() {
-        this.roundtripAndCheck(Optional.of(TestJsonNodeMap.with("Test123")));
+        this.roundtripAndCheck(Optional.of(TestJsonNodeValue.with("Test123")));
     }
 
     private void roundtripAndCheck(final Optional<?> value) {

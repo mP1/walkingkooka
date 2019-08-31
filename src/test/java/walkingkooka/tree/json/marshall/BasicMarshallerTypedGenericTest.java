@@ -22,29 +22,29 @@ import org.junit.jupiter.api.BeforeAll;
 import walkingkooka.Cast;
 import walkingkooka.tree.json.JsonNode;
 
-public final class BasicMarshallerTypedGenericTest extends BasicMarshallerTypedTestCase<BasicMarshallerTypedGeneric<TestJsonNodeMap>, TestJsonNodeMap> {
+public final class BasicMarshallerTypedGenericTest extends BasicMarshallerTypedTestCase<BasicMarshallerTypedGeneric<TestJsonNodeValue>, TestJsonNodeValue> {
 
     @BeforeAll
     public static void beforeAll() {
-        TestJsonNodeMap.register();
+        TestJsonNodeValue.register();
     }
 
     @AfterAll
     public static void afterAll() {
-        TestJsonNodeMap.unregister();
+        TestJsonNodeValue.unregister();
     }
 
     @Override
-    BasicMarshallerTypedGeneric<TestJsonNodeMap> marshaller() {
-        return BasicMarshallerTypedGeneric.with(TestJsonNodeMap.TYPE_NAME,
-                TestJsonNodeMap::fromJsonNode,
-                TestJsonNodeMap::toJsonNode,
-                TestJsonNodeMap.class);
+    BasicMarshallerTypedGeneric<TestJsonNodeValue> marshaller() {
+        return BasicMarshallerTypedGeneric.with(TestJsonNodeValue.TYPE_NAME,
+                TestJsonNodeValue::fromJsonNode,
+                TestJsonNodeValue::toJsonNode,
+                TestJsonNodeValue.class);
     }
 
     @Override
-    TestJsonNodeMap value() {
-        return TestJsonNodeMap.with("a1");
+    TestJsonNodeValue value() {
+        return TestJsonNodeValue.with("a1");
     }
 
     @Override
@@ -53,22 +53,22 @@ public final class BasicMarshallerTypedGenericTest extends BasicMarshallerTypedT
     }
 
     @Override
-    TestJsonNodeMap jsonNullNode() {
+    TestJsonNodeValue jsonNullNode() {
         return null;
     }
 
     @Override
     String typeName() {
-        return TestJsonNodeMap.TYPE_NAME;
+        return TestJsonNodeValue.TYPE_NAME;
     }
 
     @Override
-    Class<TestJsonNodeMap> marshallerType() {
-        return TestJsonNodeMap.class;
+    Class<TestJsonNodeValue> marshallerType() {
+        return TestJsonNodeValue.class;
     }
 
     @Override
-    public Class<BasicMarshallerTypedGeneric<TestJsonNodeMap>> type() {
+    public Class<BasicMarshallerTypedGeneric<TestJsonNodeValue>> type() {
         return Cast.to(BasicMarshallerTypedGeneric.class);
     }
 }
