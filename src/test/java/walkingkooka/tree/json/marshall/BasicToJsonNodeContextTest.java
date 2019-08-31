@@ -142,6 +142,12 @@ public final class BasicToJsonNodeContextTest extends BasicJsonNodeContextTestCa
     // toJsonNodeMap..................................................................................................
 
     @Test
+    public void testToJsonNodeNullMap() {
+        this.toJsonNodeMapAndCheck(null,
+                JsonNode.nullNode());
+    }
+
+    @Test
     public void testToJsonNodeMapBooleanTrue() {
         this.toJsonNodeMapAndCheck2(true,
                 JsonNode.booleanNode(true));
