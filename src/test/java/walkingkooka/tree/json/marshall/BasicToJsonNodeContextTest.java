@@ -63,7 +63,13 @@ public final class BasicToJsonNodeContextTest extends BasicJsonNodeContextTestCa
                 JsonNode.string(value));
     }
 
-    // toJsonNodeList.................................................................................................
+    // toJsonNodeList...................................................................................................
+
+    @Test
+    public void testToJsonNodeListNullList() {
+        this.toJsonNodeListAndCheck(null,
+                JsonNode.nullNode());
+    }
 
     @Test
     public void testToJsonNodeListBooleanTrue() {
@@ -101,7 +107,13 @@ public final class BasicToJsonNodeContextTest extends BasicJsonNodeContextTestCa
         return JsonNode.array().appendChild(element);
     }
 
-    // toJsonNodeSet..................................................................................................
+    // toJsonNodeSet....................................................................................................
+
+    @Test
+    public void testToJsonNodeSetNullSet() {
+        this.toJsonNodeSetAndCheck(null,
+                JsonNode.nullNode());
+    }
 
     @Test
     public void testToJsonNodeSetBooleanTrue() {
@@ -116,7 +128,7 @@ public final class BasicToJsonNodeContextTest extends BasicJsonNodeContextTestCa
     }
 
     @Test
-    public void testToJsonNodeSetNull() {
+    public void testToJsonNodeSetNullElement() {
         this.toJsonNodeSetAndCheck(Sets.of((Object) null),
                 set(JsonNode.nullNode()));
     }
@@ -139,10 +151,10 @@ public final class BasicToJsonNodeContextTest extends BasicJsonNodeContextTestCa
         return JsonNode.array().appendChild(element);
     }
 
-    // toJsonNodeMap..................................................................................................
+    // toJsonNodeMap....................................................................................................
 
     @Test
-    public void testToJsonNodeNullMap() {
+    public void testToJsonNodeMapNullMap() {
         this.toJsonNodeMapAndCheck(null,
                 JsonNode.nullNode());
     }
@@ -160,7 +172,7 @@ public final class BasicToJsonNodeContextTest extends BasicJsonNodeContextTestCa
     }
 
     @Test
-    public void testToJsonNodeMapNull() {
+    public void testToJsonNodeMapNullValue() {
         this.toJsonNodeMapAndCheck2(null,
                 JsonNode.nullNode());
     }
@@ -265,6 +277,11 @@ public final class BasicToJsonNodeContextTest extends BasicJsonNodeContextTestCa
     // toJsonNodeWithTypeList...........................................................................................
 
     @Test
+    public void testToJsonNodeWithTypeListNullList() {
+        this.toJsonNodeWithTypeListAndCheck(null, JsonNode.nullNode());
+    }
+
+    @Test
     public void testToJsonNodeWithTypeListBooleanTrue() {
         this.toJsonNodeWithTypeListAndCheck(Lists.of(true),
                 this.list(JsonNode.booleanNode(true)));
@@ -277,7 +294,7 @@ public final class BasicToJsonNodeContextTest extends BasicJsonNodeContextTestCa
     }
 
     @Test
-    public void testToJsonNodeWithTypeListNull() {
+    public void testToJsonNodeWithTypeListNullElement() {
         this.toJsonNodeWithTypeListAndCheck(Lists.of((Object)null),
                 this.list(JsonNode.nullNode()));
     }
@@ -341,6 +358,11 @@ public final class BasicToJsonNodeContextTest extends BasicJsonNodeContextTestCa
     // toJsonNodeWithTypeSet............................................................................................
 
     @Test
+    public void testToJsonNodeWithTypeSetNullSet() {
+        this.toJsonNodeWithTypeSetAndCheck(null, JsonNode.nullNode());
+    }
+
+    @Test
     public void testToJsonNodeWithTypeSetBooleanTrue() {
         this.toJsonNodeWithTypeSetAndCheck(Sets.of(true),
                 this.set(JsonNode.booleanNode(true)));
@@ -353,7 +375,7 @@ public final class BasicToJsonNodeContextTest extends BasicJsonNodeContextTestCa
     }
 
     @Test
-    public void testToJsonNodeWithTypeSetNull() {
+    public void testToJsonNodeWithTypeSetNullElement() {
         this.toJsonNodeWithTypeSetAndCheck(Sets.of((Object)null),
                 this.set(JsonNode.nullNode()));
     }
@@ -417,6 +439,11 @@ public final class BasicToJsonNodeContextTest extends BasicJsonNodeContextTestCa
     // toJsonNodeWithTypeMap...........................................................................................
 
     @Test
+    public void testToJsonNodeWithTypeMapNullMap() {
+        this.toJsonNodeWithTypeMapAndCheck(null, JsonNode.nullNode());
+    }
+
+    @Test
     public void testToJsonNodeWithTypeMapBooleanTrue() {
         this.toJsonNodeWithTypeMapAndCheck3(JsonNode.booleanNode(true),
                 true);
@@ -429,7 +456,7 @@ public final class BasicToJsonNodeContextTest extends BasicJsonNodeContextTestCa
     }
 
     @Test
-    public void testToJsonNodeWithTypeMapNull() {
+    public void testToJsonNodeWithTypeMapNullValue() {
         this.toJsonNodeWithTypeMapAndCheck3(JsonNode.nullNode(),
                 null);
     }
