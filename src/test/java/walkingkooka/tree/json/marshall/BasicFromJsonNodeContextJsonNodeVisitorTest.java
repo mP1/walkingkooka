@@ -107,7 +107,11 @@ public final class BasicFromJsonNodeContextJsonNodeVisitorTest implements JsonNo
     }
 
     private FromJsonNodeContext context() {
-        return BasicFromJsonNodeContext.INSTANCE;
+        return BasicFromJsonNodeContext.with(this::objectPreProcessor);
+    }
+
+    private JsonObjectNode objectPreProcessor(final JsonObjectNode object, final Class<?> type) {
+        return object;
     }
 
     @Override
