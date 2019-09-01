@@ -17,7 +17,10 @@
 
 package walkingkooka.tree.json.marshall;
 
+import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.type.PublicStaticHelper;
+
+import java.util.function.BiFunction;
 
 /**
  * Collection of static factory methods for numerous {@link FromJsonNodeContext}.
@@ -27,8 +30,8 @@ public final class FromJsonNodeContexts implements PublicStaticHelper {
     /**
      * {@see BasicFromJsonNodeContext}
      */
-    public static FromJsonNodeContext basic() {
-        return BasicFromJsonNodeContext.INSTANCE;
+    public static FromJsonNodeContext basic(final BiFunction<JsonObjectNode, Class<?>, JsonObjectNode> objectPreProcessor) {
+        return BasicFromJsonNodeContext.with(objectPreProcessor);
     }
 
     /**

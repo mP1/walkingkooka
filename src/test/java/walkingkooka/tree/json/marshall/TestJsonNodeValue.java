@@ -47,7 +47,17 @@ public final class TestJsonNodeValue extends TestJsonNodeValueAbstract {
      */
     public static TestJsonNodeValue fromJsonNode(final JsonNode node,
                                                  final FromJsonNodeContext context) {
-        return with(node.objectOrFail().getOrFail(KEY).stringValueOrFail());
+        String value = null;
+        for (JsonNode child : node.objectOrFail().children()) {
+            final JsonNodeName property = child.name();
+            if (KEY.equals(property)) {
+                value = child.stringValueOrFail();
+                continue;
+            }
+            FromJsonNodeContext.unknownPropertyPresent(property, node);
+        }
+
+        return with(value);
     }
 
     public JsonObjectNode toJsonNode(final ToJsonNodeContext context) {
@@ -55,7 +65,7 @@ public final class TestJsonNodeValue extends TestJsonNodeValueAbstract {
                 .set(KEY, JsonNode.string(this.value));
     }
 
-    private final static JsonNodeName KEY = JsonNodeName.with("string");
+    final static JsonNodeName KEY = JsonNodeName.with("string");
 
     public static void register() {
         remover = JsonNodeContext.register(TYPE_NAME,

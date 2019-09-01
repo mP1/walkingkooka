@@ -17,6 +17,8 @@
 
 package walkingkooka.tree.json.marshall;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ContextTesting;
 import walkingkooka.test.ToStringTesting;
@@ -27,6 +29,16 @@ public abstract class BasicJsonNodeContextTestCase<C extends JsonNodeContext> ex
 
     BasicJsonNodeContextTestCase() {
         super();
+    }
+
+    @BeforeAll
+    public static void beforeAll() {
+        TestJsonNodeValue.register();
+    }
+
+    @AfterAll
+    public static void afterAll() {
+        TestJsonNodeValue.unregister();
     }
 
     @Test

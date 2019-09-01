@@ -26,7 +26,9 @@ import walkingkooka.tree.json.JsonObjectNode;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -34,15 +36,22 @@ import java.util.stream.Collectors;
 final class BasicFromJsonNodeContext extends BasicJsonNodeContext implements FromJsonNodeContext {
 
     /**
-     * Singleton
+     * Creates new {@link BasicFromJsonNodeContext}.
      */
-    final static BasicFromJsonNodeContext INSTANCE = new BasicFromJsonNodeContext();
+    final static BasicFromJsonNodeContext with(final BiFunction<JsonObjectNode, Class<?>, JsonObjectNode> objectPreProcessor) {
+        Objects.requireNonNull(objectPreProcessor, "objectPreProcessor");
+
+        return new BasicFromJsonNodeContext(objectPreProcessor);
+    }
+
+    ;
 
     /**
      * Private ctor
      */
-    private BasicFromJsonNodeContext() {
+    private BasicFromJsonNodeContext(final BiFunction<JsonObjectNode, Class<?>, JsonObjectNode> objectPreProcessor) {
         super();
+        this.objectPreProcessor = objectPreProcessor;
     }
 
     // from.............................................................................................................
@@ -53,7 +62,7 @@ final class BasicFromJsonNodeContext extends BasicJsonNodeContext implements Fro
     @Override
     public <T> T fromJsonNode(final JsonNode node,
                               final Class<T> type) {
-        return type.cast(BasicMarshaller.marshaller(type).fromJsonNode(node, this));
+        return type.cast(BasicMarshaller.marshaller(type).fromJsonNode(this.preProcess(node, type), this));
     }
 
     /**
@@ -64,7 +73,6 @@ final class BasicFromJsonNodeContext extends BasicJsonNodeContext implements Fro
     public <T> List<T> fromJsonNodeList(final JsonNode node,
                                         final Class<T> elementType) {
         return this.fromJsonNodeCollection(node,
-                List.class,
                 elementType,
                 Collectors.toList());
     }
@@ -77,19 +85,17 @@ final class BasicFromJsonNodeContext extends BasicJsonNodeContext implements Fro
     public <T> Set<T> fromJsonNodeSet(final JsonNode node,
                                       final Class<T> elementType) {
         return this.fromJsonNodeCollection(node,
-                Set.class,
                 elementType,
                 Collectors.toCollection(Sets::ordered));
     }
 
     private <C extends Collection<T>, T> C fromJsonNodeCollection(final JsonNode from,
-                                                                  final Class<?> label,
                                                                   final Class<T> elementType,
                                                                   final Collector<T, ?, C> collector) {
         final BasicMarshaller<T> marshaller = BasicMarshaller.marshaller(elementType);
         return from.children()
                 .stream()
-                .map(c -> marshaller.fromJsonNode(c, this))
+                .map(c -> marshaller.fromJsonNode(this.preProcess(c, elementType), this))
                 .collect(collector);
     }
 
@@ -112,8 +118,8 @@ final class BasicFromJsonNodeContext extends BasicJsonNodeContext implements Fro
             for (JsonNode entry : node.children()) {
                 final JsonObjectNode entryObject = entry.objectOrFail();
 
-                map.put(keyMapper.fromJsonNode(entryObject.getOrFail(BasicMarshallerTypedMap.ENTRY_KEY), this),
-                        valueMapper.fromJsonNode(entryObject.getOrFail(BasicMarshallerTypedMap.ENTRY_VALUE), this));
+                map.put(keyMapper.fromJsonNode(this.preProcess(entryObject.getOrFail(BasicMarshallerTypedMap.ENTRY_KEY), keyType), this),
+                        valueMapper.fromJsonNode(this.preProcess(entryObject.getOrFail(BasicMarshallerTypedMap.ENTRY_VALUE), valueType), this));
             }
             return map;
 
@@ -205,4 +211,16 @@ final class BasicFromJsonNodeContext extends BasicJsonNodeContext implements Fro
                 .map(element)
                 .collect(collector);
     }
+
+    /**
+     * If the {@link JsonNode} is an object executes the {@link #objectPreProcessor}.
+     */
+    private JsonNode preProcess(final JsonNode node,
+                                final Class<?> type) {
+        return node.isObject() ?
+                this.objectPreProcessor.apply(node.objectOrFail(), type) :
+                node;
+    }
+
+    private final BiFunction<JsonObjectNode, Class<?>, JsonObjectNode> objectPreProcessor;
 }
