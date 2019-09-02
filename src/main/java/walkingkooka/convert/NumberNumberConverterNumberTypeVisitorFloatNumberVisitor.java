@@ -75,7 +75,7 @@ final class NumberNumberConverterNumberTypeVisitorFloatNumberVisitor extends Num
     @Override 
     protected void visit(final Long number) {
         final float converted = number.floatValue();
-        if (converted != number) {
+        if (Float.valueOf(converted).longValue() != number.longValue()) {
             this.failConversion(number);
         }
         this.save(converted);

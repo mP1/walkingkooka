@@ -89,7 +89,7 @@ public final class DecimalFormatConverterNumberStringTest extends DecimalFormatC
                 1234.5,
                 String.class,
                 this.createContext(Locale.GERMANY),
-                "$ 1.234,50");
+                "$ 1234,50");
     }
 
     // ConverterTesting..................................................................................................

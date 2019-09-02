@@ -400,11 +400,6 @@ public final class NumberNumberConverterTest extends ConverterTestCase2<NumberNu
     }
 
     @Test
-    public void testLongToFloatFails() {
-        this.convertToFloatAndCheck(Long.MAX_VALUE);
-    }
-
-    @Test
     public void testShortToFloat() {
         this.convertToFloatAndCheck(this.shortValue());
     }
