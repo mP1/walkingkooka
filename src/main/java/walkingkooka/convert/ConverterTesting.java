@@ -47,7 +47,7 @@ public interface ConverterTesting extends Testing {
     default void checkEquals(final String message, final Object expected, final Object actual) {
         if (expected instanceof Comparable && expected.getClass().isInstance(actual)) {
             final Comparable expectedComparable = Cast.to(expected);
-            final Comparable actualComparable = Cast.to(expected);
+            final Comparable actualComparable = Cast.to(actual);
             if (expectedComparable.compareTo(actualComparable) != 0) {
                 assertEquals(expected, actual, message);
             }

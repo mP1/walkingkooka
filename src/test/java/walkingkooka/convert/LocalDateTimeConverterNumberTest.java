@@ -108,7 +108,7 @@ public final class LocalDateTimeConverterNumberTest extends LocalDateTimeConvert
     }
 
     private void convertAndCheck4(final Number expected) {
-        this.convertAndCheck2(LocalDateTime.of(LocalDate.ofEpochDay(BYTE_VALUE), LocalTime.of(12, 0)),
+        this.convertAndCheck2(LocalDateTime.of(LocalDate.ofEpochDay(BYTE_VALUE), LocalTime.of(6, 0)),
                 expected);
     }
 
@@ -125,42 +125,42 @@ public final class LocalDateTimeConverterNumberTest extends LocalDateTimeConvert
 
     @Test
     public void testWithOffsetToBigDecimal() {
-        this.convertWithOffsetAndCheck3(BigDecimal.valueOf(BYTE_VALUE));
+        this.convertWithOffsetAndCheck3(BigDecimal.valueOf(OFFSET + BYTE_VALUE));
     }
 
     @Test
     public void testWithOffsetToBigInteger() {
-        this.convertWithOffsetAndCheck3(BigInteger.valueOf(BYTE_VALUE));
+        this.convertWithOffsetAndCheck3(BigInteger.valueOf(OFFSET + BYTE_VALUE));
     }
 
     @Test
     public void testWithOffsetToByte() {
-        this.convertWithOffsetAndCheck3(BYTE_VALUE);
+        this.convertWithOffsetAndCheck3((byte) (OFFSET + BYTE_VALUE));
     }
 
     @Test
     public void testWithOffsetToShort() {
-        this.convertWithOffsetAndCheck3(Short.valueOf(BYTE_VALUE));
+        this.convertWithOffsetAndCheck3(Short.valueOf((byte) (OFFSET + BYTE_VALUE)));
     }
 
     @Test
     public void testWithOffsetToInteger() {
-        this.convertWithOffsetAndCheck3(Integer.valueOf(BYTE_VALUE));
+        this.convertWithOffsetAndCheck3(Integer.valueOf(OFFSET + BYTE_VALUE));
     }
 
     @Test
     public void testWithOffsetToLong() {
-        this.convertWithOffsetAndCheck3(Long.valueOf(BYTE_VALUE));
+        this.convertWithOffsetAndCheck3(Long.valueOf(OFFSET + BYTE_VALUE));
     }
 
     @Test
     public void testWithOffsetToFloat() {
-        this.convertWithOffsetAndCheck3(Float.valueOf(BYTE_VALUE));
+        this.convertWithOffsetAndCheck3(Float.valueOf(OFFSET + BYTE_VALUE));
     }
 
     @Test
     public void testWithOffsetToDouble() {
-        this.convertWithOffsetAndCheck3(Double.valueOf(BYTE_VALUE));
+        this.convertWithOffsetAndCheck3(Double.valueOf(OFFSET + BYTE_VALUE));
     }
 
     private void convertWithOffsetAndCheck3(final Number expected) {
