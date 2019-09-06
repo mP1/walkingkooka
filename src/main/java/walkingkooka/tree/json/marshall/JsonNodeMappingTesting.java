@@ -255,7 +255,7 @@ public interface JsonNodeMappingTesting<V> extends Testing {
     V createJsonNodeMappingValue();
 
     default FromJsonNodeContext fromJsonNodeContext() {
-        return FromJsonNodeContexts.basic((o, t) -> o);
+        return FromJsonNodeContexts.basic();
     }
 
     default ToJsonNodeContext toJsonNodeContext() {

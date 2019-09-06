@@ -19,16 +19,47 @@ package walkingkooka.tree.json.marshall;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonObjectNode;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.BiFunction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface FromJsonNodeContextTesting<C extends FromJsonNodeContext> extends JsonNodeContextTesting<C> {
 
+    // setObjectPreProcessor............................................................................................
+
+    @Test
+    default void testSetObjectPreProcessorNullFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createContext().setObjectPreProcessor(null);
+        });
+    }
+
+    @Test
+    default void testSetObjectPreProcessor() {
+        final FromJsonNodeContext context = this.createContext();
+        final BiFunction<JsonObjectNode, Class<?>, JsonObjectNode> processor = (jsonObject, type) -> jsonObject;
+
+        final FromJsonNodeContext with = context.setObjectPreProcessor(processor);
+        assertNotSame(context, with);
+    }
+
+    @Test
+    default void testSetObjectPreProcessorSame() {
+        final FromJsonNodeContext context = this.createContext();
+        final BiFunction<JsonObjectNode, Class<?>, JsonObjectNode> processor = (jsonObject, type) -> jsonObject;
+
+        final FromJsonNodeContext with = context.setObjectPreProcessor(processor);
+        assertSame(with, with.setObjectPreProcessor(processor));
+    }
+    
     // fromJsonNode.....................................................................................................
 
     @Test

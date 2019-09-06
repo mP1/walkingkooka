@@ -22,15 +22,22 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonObjectNode;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.BiFunction;
 
 /**
  * A {@link Context} that accompanies transforming {@link JsonNode} into an object.
  */
 public interface FromJsonNodeContext extends JsonNodeContext {
+
+    /**
+     * A {@link BiFunction processor} that simply returns the given object ignoring the value.
+     */
+    BiFunction<JsonObjectNode, Class<?>, JsonObjectNode> OBJECT_PRE_PROCESSOR = (jsonObject, type) -> jsonObject;
 
     /**
      * Shared function used to report a required property is missing within a static fromJsonNode.
@@ -49,6 +56,11 @@ public interface FromJsonNodeContext extends JsonNodeContext {
         throw new FromJsonNodeException("Unknown property " + CharSequences.quoteAndEscape(property.value()) + " in " + node,
                 node);
     }
+
+    /**
+     * Sets or replaces the {@link BiFunction object pre processor} creating a new instance as necessary.
+     */
+    FromJsonNodeContext setObjectPreProcessor(final BiFunction<JsonObjectNode, Class<?>, JsonObjectNode> processor);
 
     // from.............................................................................................................
 

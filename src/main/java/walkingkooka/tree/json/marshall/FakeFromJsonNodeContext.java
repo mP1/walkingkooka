@@ -18,15 +18,23 @@
 package walkingkooka.tree.json.marshall;
 
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonObjectNode;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.BiFunction;
 
 /**
  * A fake {@link FromJsonNodeContext}
  */
 public class FakeFromJsonNodeContext extends FakeJsonNodeContext implements FromJsonNodeContext {
+
+    @Override
+    public FromJsonNodeContext setObjectPreProcessor(final BiFunction<JsonObjectNode, Class<?>, JsonObjectNode> processor) {
+        throw new UnsupportedOperationException();
+    }
+
     @Override
     public <T> T fromJsonNode(final JsonNode node,
                               final Class<T> type) {

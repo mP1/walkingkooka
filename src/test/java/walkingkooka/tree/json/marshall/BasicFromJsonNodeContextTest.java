@@ -28,19 +28,8 @@ import walkingkooka.tree.json.JsonObjectNode;
 
 import java.util.Locale;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public final class BasicFromJsonNodeContextTest extends BasicJsonNodeContextTestCase<BasicFromJsonNodeContext>
         implements FromJsonNodeContextTesting<BasicFromJsonNodeContext> {
-
-    // with.............................................................................................................
-
-    @Test
-    public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            BasicFromJsonNodeContext.with(null);
-        });
-    }
 
     // fromJsonNode.....................................................................................................
 
@@ -90,7 +79,7 @@ public final class BasicFromJsonNodeContextTest extends BasicJsonNodeContextTest
 
     @Test
     public void testFromJsonNodeObjectWithObjectPreProcessor() {
-        this.fromJsonNodeAndCheck(this.createContext2(),
+        this.fromJsonNodeAndCheck(this.contextWithProcessor(),
                 this.jsonNode2(),
                 TestJsonNodeValue.class,
                 this.value());
@@ -144,7 +133,7 @@ public final class BasicFromJsonNodeContextTest extends BasicJsonNodeContextTest
 
     @Test
     public void testFromJsonNodeListObjectWithObjectPreProcessor() {
-        this.fromJsonNodeListAndCheck(this.createContext2(),
+        this.fromJsonNodeListAndCheck(this.contextWithProcessor(),
                 this.list(this.jsonNode2()),
                 TestJsonNodeValue.class,
                 Lists.of(this.value()));
@@ -202,7 +191,7 @@ public final class BasicFromJsonNodeContextTest extends BasicJsonNodeContextTest
 
     @Test
     public void testFromJsonNodeSetObjectWithObjectPreProcessor() {
-        this.fromJsonNodeSetAndCheck(this.createContext2(),
+        this.fromJsonNodeSetAndCheck(this.contextWithProcessor(),
                 this.set(this.jsonNode2()),
                 TestJsonNodeValue.class,
                 Sets.of(this.value()));
@@ -260,7 +249,7 @@ public final class BasicFromJsonNodeContextTest extends BasicJsonNodeContextTest
 
     @Test
     public void testFromJsonNodeMapObjectWithObjectPreProcessor() {
-        this.fromJsonNodeMapAndCheck2(this.createContext2(),
+        this.fromJsonNodeMapAndCheck2(this.contextWithProcessor(),
                 this.jsonNode2(),
                 TestJsonNodeValue.class,
                 this.value());
@@ -367,7 +356,7 @@ public final class BasicFromJsonNodeContextTest extends BasicJsonNodeContextTest
 
     @Test
     public void testFromJsonNodeWithTypeObjectWithObjectPreProcessor() {
-        this.fromJsonNodeWithTypeAndCheck(this.createContext2(),
+        this.fromJsonNodeWithTypeAndCheck(this.contextWithProcessor(),
                 this.typeAndValue(TestJsonNodeValue.TYPE_NAME, this.jsonNode2()),
                 this.value());
     }
@@ -450,7 +439,7 @@ public final class BasicFromJsonNodeContextTest extends BasicJsonNodeContextTest
 
     @Test
     public void testFromJsonNodeWithTypeListObjectWithObjectPreProcessor() {
-        this.fromJsonNodeWithTypeListAndCheck(this.createContext2(),
+        this.fromJsonNodeWithTypeListAndCheck(this.contextWithProcessor(),
                 this.listWithType(TestJsonNodeValue.TYPE_NAME, this.jsonNode2()),
                 Lists.of(this.value()));
     }
@@ -538,7 +527,7 @@ public final class BasicFromJsonNodeContextTest extends BasicJsonNodeContextTest
 
     @Test
     public void testFromJsonNodeWithTypeSetObjectWithObjectPreProcessor() {
-        this.fromJsonNodeWithTypeSetAndCheck(this.createContext2(),
+        this.fromJsonNodeWithTypeSetAndCheck(this.contextWithProcessor(),
                 this.setWithType(TestJsonNodeValue.TYPE_NAME, this.jsonNode2()),
                 Sets.of(this.value()));
     }
@@ -591,7 +580,7 @@ public final class BasicFromJsonNodeContextTest extends BasicJsonNodeContextTest
 
     @Test
     public void testFromJsonNodeWithTypeMapStringObjectWithObjectPreProcessor() {
-        this.fromJsonNodeWithTypeMapAndCheck3(this.createContext2(),
+        this.fromJsonNodeWithTypeMapAndCheck3(this.contextWithProcessor(),
                 this.typeAndValue(TestJsonNodeValue.TYPE_NAME, this.jsonNode2()),
                 this.value());
     }
@@ -603,7 +592,7 @@ public final class BasicFromJsonNodeContextTest extends BasicJsonNodeContextTest
                 javaValue);
     }
 
-    private <VV> void fromJsonNodeWithTypeMapAndCheck3(final BasicFromJsonNodeContext context,
+    private <VV> void fromJsonNodeWithTypeMapAndCheck3(final FromJsonNodeContext context,
                                                        final JsonNode jsonValue,
                                                        final VV javaValue) {
         this.fromJsonNodeMapWithTypeAndCheck(context,
@@ -618,15 +607,11 @@ public final class BasicFromJsonNodeContextTest extends BasicJsonNodeContextTest
 
     @Override
     public BasicFromJsonNodeContext createContext() {
-        return BasicFromJsonNodeContext.with(this::objectPreProcessor);
+        return BasicFromJsonNodeContext.INSTANCE;
     }
 
-    private JsonObjectNode objectPreProcessor(final JsonObjectNode object, final Class<?> type) {
-        return object;
-    }
-
-    private BasicFromJsonNodeContext createContext2() {
-        return BasicFromJsonNodeContext.with(this::objectPreProcessor2);
+    private FromJsonNodeContext contextWithProcessor() {
+        return BasicFromJsonNodeContext.INSTANCE.setObjectPreProcessor(this::objectPreProcessor2);
     }
 
     private JsonObjectNode objectPreProcessor2(final JsonObjectNode object, final Class<?> type) {

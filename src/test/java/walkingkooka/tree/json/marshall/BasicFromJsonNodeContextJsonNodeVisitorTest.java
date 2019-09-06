@@ -21,7 +21,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeVisitorTesting;
-import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -103,11 +102,7 @@ public final class BasicFromJsonNodeContextJsonNodeVisitorTest implements JsonNo
     }
 
     private FromJsonNodeContext context() {
-        return BasicFromJsonNodeContext.with(this::objectPreProcessor);
-    }
-
-    private JsonObjectNode objectPreProcessor(final JsonObjectNode object, final Class<?> type) {
-        return object;
+        return BasicFromJsonNodeContext.INSTANCE;
     }
 
     @Override
