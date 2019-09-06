@@ -113,17 +113,13 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
     }
 
     private void jsonRoundtripAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector) {
-        final JsonNode json = selector.toJsonNode(ToJsonNodeContexts.basic(this::objectPostProcessor));
+        final JsonNode json = selector.toJsonNode(ToJsonNodeContexts.basic());
         assertEquals(selector,
                 NodeSelector.fromJsonNode(json, FromJsonNodeContexts.basic(this::objectPreProcessor)),
                 () -> json.toString());
     }
 
     private JsonObjectNode objectPreProcessor(final JsonObjectNode object, final Class<?> type) {
-        return object;
-    }
-
-    private JsonObjectNode objectPostProcessor(final Object value, final JsonObjectNode object) {
         return object;
     }
 
