@@ -144,11 +144,7 @@ public final class JsonNodeNameFromJsonNodeWithTypeFactoryBiFunctionTest impleme
     }
 
     private FromJsonNodeContext fromJsonNodeContext() {
-        return FromJsonNodeContexts.basic(this::objectPreProcessor);
-    }
-
-    private JsonObjectNode objectPreProcessor(final JsonObjectNode object, final Class<?> type) {
-        return object;
+        return FromJsonNodeContexts.basic();
     }
 
     private ToJsonNodeContext toJsonNodeContext() {

@@ -36,22 +36,25 @@ import java.util.stream.Collectors;
 final class BasicFromJsonNodeContext extends BasicJsonNodeContext implements FromJsonNodeContext {
 
     /**
-     * Creates new {@link BasicFromJsonNodeContext}.
+     * Singleton
      */
-    final static BasicFromJsonNodeContext with(final BiFunction<JsonObjectNode, Class<?>, JsonObjectNode> objectPreProcessor) {
-        Objects.requireNonNull(objectPreProcessor, "objectPreProcessor");
-
-        return new BasicFromJsonNodeContext(objectPreProcessor);
-    }
-
-    ;
+    final static BasicFromJsonNodeContext INSTANCE = new BasicFromJsonNodeContext(FromJsonNodeContext.OBJECT_PRE_PROCESSOR);
 
     /**
      * Private ctor
      */
-    private BasicFromJsonNodeContext(final BiFunction<JsonObjectNode, Class<?>, JsonObjectNode> objectPreProcessor) {
+    private BasicFromJsonNodeContext(final BiFunction<JsonObjectNode, Class<?>, JsonObjectNode> processor) {
         super();
-        this.objectPreProcessor = objectPreProcessor;
+        this.processor = processor;
+    }
+
+    @Override
+    public FromJsonNodeContext setObjectPreProcessor(final BiFunction<JsonObjectNode, Class<?>, JsonObjectNode> processor) {
+        Objects.requireNonNull(processor, "processor");
+
+        return this.processor.equals(processor) ?
+                this :
+                new BasicFromJsonNodeContext(processor);
     }
 
     // from.............................................................................................................
@@ -213,14 +216,14 @@ final class BasicFromJsonNodeContext extends BasicJsonNodeContext implements Fro
     }
 
     /**
-     * If the {@link JsonNode} is an object executes the {@link #objectPreProcessor}.
+     * If the {@link JsonNode} is an object executes the {@link #processor}.
      */
     private JsonNode preProcess(final JsonNode node,
                                 final Class<?> type) {
         return node.isObject() ?
-                this.objectPreProcessor.apply(node.objectOrFail(), type) :
+                this.processor.apply(node.objectOrFail(), type) :
                 node;
     }
 
-    private final BiFunction<JsonObjectNode, Class<?>, JsonObjectNode> objectPreProcessor;
+    private final BiFunction<JsonObjectNode, Class<?>, JsonObjectNode> processor;
 }

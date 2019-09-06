@@ -297,11 +297,7 @@ public abstract class BasicMarshallerTestCase2<M extends BasicMarshaller<T>, T> 
     }
 
     final FromJsonNodeContext fromJsonNodeContext() {
-        return BasicFromJsonNodeContext.with(this::objectPreProcessor);
-    }
-
-    private JsonObjectNode objectPreProcessor(final JsonObjectNode object, final Class<?> type) {
-        return object;
+        return BasicFromJsonNodeContext.INSTANCE;
     }
 
     final ToJsonNodeContext toJsonNodeContext() {
