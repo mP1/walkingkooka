@@ -40,18 +40,24 @@ final class BasicToJsonNodeContext extends BasicJsonNodeContext implements ToJso
     /**
      * Singleton
      */
-    final static BasicToJsonNodeContext with(final BiFunction<Object, JsonObjectNode, JsonObjectNode> objectPostProcessor) {
-        Objects.requireNonNull(objectPostProcessor, "objectPostProcessor");
-
-        return new BasicToJsonNodeContext(objectPostProcessor);
-    }
+    final static BasicToJsonNodeContext INSTANCE = new BasicToJsonNodeContext(ToJsonNodeContext.OBJECT_PRE_PROCESSOR);
 
     /**
      * Private ctor
      */
-    private BasicToJsonNodeContext(final BiFunction<Object, JsonObjectNode, JsonObjectNode> objectPostProcessor) {
+    private BasicToJsonNodeContext(final BiFunction<Object, JsonObjectNode, JsonObjectNode> processor) {
         super();
-        this.objectPostProcessor = objectPostProcessor;
+        this.processor = processor;
+    }
+
+    // toJsonNode. .....................................................................................................
+
+    public ToJsonNodeContext setObjectPostProcessor(final BiFunction<Object, JsonObjectNode, JsonObjectNode> processor) {
+        Objects.requireNonNull(processor, "processor");
+
+        return this.processor.equals(processor) ?
+                this :
+                new BasicToJsonNodeContext(processor);
     }
 
     // toJsonNode. .....................................................................................................
@@ -70,11 +76,11 @@ final class BasicToJsonNodeContext extends BasicJsonNodeContext implements ToJso
         final JsonNode json = BasicMarshaller.marshaller(value.getClass())
                 .toJsonNode(Cast.to(value), this);
         return json.isObject() ?
-                this.objectPostProcessor.apply(value, json.objectOrFail()) :
+                this.processor.apply(value, json.objectOrFail()) :
                 json;
     }
 
-    private final BiFunction<Object, JsonObjectNode, JsonObjectNode> objectPostProcessor;
+    private final BiFunction<Object, JsonObjectNode, JsonObjectNode> processor;
 
     /**
      * Accepts a {@link List} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}.

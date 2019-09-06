@@ -74,11 +74,7 @@ public final class BasicFromJsonNodeContextJsonNodeVisitorTest implements JsonNo
         TestJsonNodeValue.register();
 
         final TestJsonNodeValue object = TestJsonNodeValue.with("abc123");
-        this.valueAndCheck(ToJsonNodeContexts.basic(this::postObjectProcessor).toJsonNodeWithType(object), object);
-    }
-
-    private JsonObjectNode postObjectProcessor(final Object value, final JsonObjectNode object) {
-        return object;
+        this.valueAndCheck(ToJsonNodeContexts.basic().toJsonNodeWithType(object), object);
     }
 
     @Test

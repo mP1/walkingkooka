@@ -19,14 +19,44 @@ package walkingkooka.tree.json.marshall;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonObjectNode;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.BiFunction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface ToJsonNodeContextTesting<C extends ToJsonNodeContext> extends JsonNodeContextTesting<C> {
+
+    @Test
+    default void testSetObjectPostProcessorNullFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createContext().setObjectPostProcessor(null);
+        });
+    }
+
+    @Test
+    default void testSetObjectPostProcessor() {
+        final ToJsonNodeContext context = this.createContext();
+        final BiFunction<Object, JsonObjectNode, JsonObjectNode> processor = (value, jsonObject) -> jsonObject;
+
+        final ToJsonNodeContext with = context.setObjectPostProcessor(processor);
+        assertNotSame(context, with);
+    }
+
+    @Test
+    default void testSetObjectPostProcessorSame() {
+        final ToJsonNodeContext context = this.createContext();
+        final BiFunction<Object, JsonObjectNode, JsonObjectNode> processor = (value, jsonObject) -> jsonObject;
+
+        final ToJsonNodeContext with = context.setObjectPostProcessor(processor);
+        assertSame(with, with.setObjectPostProcessor(processor));
+    }
 
     @Test
     default void testToJsonNodeNull() {

@@ -152,11 +152,7 @@ public final class JsonNodeNameFromJsonNodeWithTypeFactoryBiFunctionTest impleme
     }
 
     private ToJsonNodeContext toJsonNodeContext() {
-        return ToJsonNodeContexts.basic(this::objectPostProcessor);
-    }
-
-    private JsonObjectNode objectPostProcessor(final Object value, final JsonObjectNode object) {
-        return object;
+        return ToJsonNodeContexts.basic();
     }
 
     @Override
