@@ -339,6 +339,30 @@ final public class CharSequences implements PublicStaticHelper {
         }
     }
 
+    // hash.............................................................................................................
+
+    /**
+     * Computes the hashcode for the given {@link CharSequence} iterating over the characters producing a value
+     * equal to {@link String#hashCode()} for the same characters.
+     */
+    public static int hash(final CharSequence chars) {
+        return null == chars ?
+                0 :
+                hash0(chars);
+    }
+
+    private static int hash0(final CharSequence chars) {
+        final int length = chars.length();
+
+        int hash = 0;
+        for (int i = 0; i < length; i++) {
+            hash = 31 * hash + chars.charAt(i);
+        }
+        return hash;
+    }
+
+    // indexOf..........................................................................................................
+
     /**
      * Attempts to find the {@link CharSequence searchFor} within the {@link CharSequence}
      */

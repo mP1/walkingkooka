@@ -342,7 +342,20 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
                 () -> "unescape " + CharSequences.quote(chars));
     }
 
-    // indexOf....................................................................
+    // hash.............................................................................................................
+
+    @Test
+    public void testHashNull() {
+        assertEquals(0, CharSequences.hash(null));
+    }
+
+    @Test
+    public void testHashNonNull() {
+        final String text = "abc123";
+        assertEquals(text.hashCode(), CharSequences.hash(text));
+    }
+
+    // indexOf..........................................................................................................
 
     @Test
     public void testIndexOfNullCharsFails() {
