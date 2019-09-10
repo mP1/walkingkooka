@@ -19,7 +19,6 @@ package walkingkooka.stream.push;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.collect.set.Sets;
 
 import java.util.List;
 import java.util.stream.Collector;
@@ -37,18 +36,13 @@ public final class CollectorPushableStreamStreamTerminalPushableStreamConsumerTe
     }
 
     @Test
-    public void testDifferentCollector() {
-        this.checkNotEquals(CollectorPushableStreamStreamTerminalPushableStreamConsumer.with(Collectors.toCollection(Sets::ordered), this.closeables));
-    }
-
-    @Test
     public void testToString() {
-        this.toStringAndCheck(this.createObject(), "collect " + this.collector + " closeables: " + this.closeables);
+        this.toStringAndCheck(this.createPushableStreamConsumer(), "collect " + this.collector + " closeables: " + this.closeables);
     }
 
     @Test
     public void testToStringContainerNotEmpty() {
-        final CollectorPushableStreamStreamTerminalPushableStreamConsumer<String, List<String>, List<String>> collector = this.createObject();
+        final CollectorPushableStreamStreamTerminalPushableStreamConsumer<String, List<String>, List<String>> collector = this.createPushableStreamConsumer();
         collector.container.add("1a");
         collector.container.add("2b");
         collector.container.add("3c");

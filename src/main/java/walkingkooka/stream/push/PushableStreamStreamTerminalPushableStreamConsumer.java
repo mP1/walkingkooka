@@ -17,7 +17,6 @@
 
 package walkingkooka.stream.push;
 
-import walkingkooka.Cast;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.UsesToStringBuilder;
 
@@ -46,20 +45,6 @@ abstract class PushableStreamStreamTerminalPushableStreamConsumer<T, R> extends 
     }
 
     final CloseableCollection closeables;
-
-    // Object..........................................................................................................
-
-    @Override
-    final boolean equals0(final PushableStreamStreamPushableStreamConsumer<?> other) {
-        return this.equals1(Cast.to(other));
-    }
-
-    private boolean equals1(final PushableStreamStreamTerminalPushableStreamConsumer<?, ?> other) {
-        return this.closeables.equals(other.closeables) &&
-                this.equals2(other);
-    }
-
-    abstract boolean equals2(final PushableStreamStreamTerminalPushableStreamConsumer<?, ?> other);
 
     @Override
     final void buildToString0(final ToStringBuilder builder) {

@@ -58,11 +58,6 @@ final class ReduceInitialAccumulatorPushableStreamStreamTerminalPushableStreamCo
     }
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof ReduceInitialAccumulatorPushableStreamStreamTerminalPushableStreamConsumer;
-    }
-
-    @Override
     boolean isValuePresent() {
         return true; // always
     }

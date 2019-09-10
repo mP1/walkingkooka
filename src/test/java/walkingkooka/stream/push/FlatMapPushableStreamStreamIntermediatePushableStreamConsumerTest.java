@@ -26,13 +26,8 @@ import java.util.stream.Stream;
 public final class FlatMapPushableStreamStreamIntermediatePushableStreamConsumerTest extends NonLimitOrSkipPushableStreamStreamIntermediatePushableStreamConsumerTestCase<FlatMapPushableStreamStreamIntermediatePushableStreamConsumer<String, Long>> {
 
     @Test
-    public void testDifferentMapper() {
-        this.checkNotEquals(FlatMapPushableStreamStreamIntermediatePushableStreamConsumer.with((s) -> Stream.of(Long.parseLong(s)), NEXT));
-    }
-
-    @Test
     public void testToString() {
-        this.toStringAndCheck(this.createObject(), "flatmap " + this.mapper + " " + NEXT_TOSTRING);
+        this.toStringAndCheck(this.createPushableStreamConsumer(), "flatmap " + this.mapper + " " + NEXT_TOSTRING);
     }
 
     @Override

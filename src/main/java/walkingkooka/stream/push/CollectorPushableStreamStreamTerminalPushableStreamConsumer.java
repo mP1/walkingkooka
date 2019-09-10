@@ -80,20 +80,6 @@ final class CollectorPushableStreamStreamTerminalPushableStreamConsumer<T, A, R>
     final A container;
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof CollectorPushableStreamStreamTerminalPushableStreamConsumer;
-    }
-
-    @Override
-    boolean equals2(final PushableStreamStreamTerminalPushableStreamConsumer<?, ?> other) {
-        return this.equals3(Cast.to(other));
-    }
-
-    private boolean equals3(final CollectorPushableStreamStreamTerminalPushableStreamConsumer<?, ?, ?> other) {
-        return this.collector.equals(other.collector);
-    }
-
-    @Override
     void buildToString1(final ToStringBuilder builder) {
         builder.disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE);
 

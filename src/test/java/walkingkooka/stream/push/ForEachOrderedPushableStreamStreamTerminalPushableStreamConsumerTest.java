@@ -25,14 +25,8 @@ import java.util.function.Consumer;
 public final class ForEachOrderedPushableStreamStreamTerminalPushableStreamConsumerTest extends PushableStreamStreamTerminalPushableStreamConsumerTestCase<ForEachOrderedPushableStreamStreamTerminalPushableStreamConsumer<String>, Void> {
 
     @Test
-    public void testDifferentAction() {
-        this.checkNotEquals(ForEachOrderedPushableStreamStreamTerminalPushableStreamConsumer.with((ignored) -> {
-        }, this.closeables));
-    }
-
-    @Test
     public void testToString() {
-        this.toStringAndCheck(this.createObject(), "forEachOrdered " + this.action + " closeables: " + this.closeables);
+        this.toStringAndCheck(this.createPushableStreamConsumer(), "forEachOrdered " + this.action + " closeables: " + this.closeables);
     }
 
     @Override

@@ -53,7 +53,7 @@ public final class ReduceInitialAccumulatorPushableStreamStreamTerminalPushableS
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createObject(), "reduce " + REDUCER + " \"a1\" closeables: " + this.closeables);
+        this.toStringAndCheck(this.createPushableStreamConsumer(), "reduce " + REDUCER + " \"a1\" closeables: " + this.closeables);
     }
 
     @Override

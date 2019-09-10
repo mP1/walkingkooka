@@ -17,7 +17,6 @@
 
 package walkingkooka.stream.push;
 
-import walkingkooka.Cast;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.ToStringBuilderOption;
 
@@ -55,18 +54,6 @@ abstract class ReducePushableStreamStreamTerminalPushableStreamConsumer<T, R> ex
     final BiFunction<T, ? super T, T> reducer;
 
     T value;
-
-
-    @Override
-    final boolean equals2(final PushableStreamStreamTerminalPushableStreamConsumer<?, ?> other) {
-        return this.equals3(Cast.to(other));
-    }
-
-    private boolean equals3(final ReducePushableStreamStreamTerminalPushableStreamConsumer<?, ?> other) {
-        return this.isValuePresent() == other.isValuePresent() &&
-                this.reducer.equals(other.reducer) &&
-                Objects.equals(this.value, other.value);
-    }
 
     @Override
     final void buildToString1(final ToStringBuilder builder) {

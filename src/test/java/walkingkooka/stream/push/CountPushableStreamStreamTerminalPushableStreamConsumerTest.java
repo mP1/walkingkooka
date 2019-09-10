@@ -24,7 +24,7 @@ public final class CountPushableStreamStreamTerminalPushableStreamConsumerTest e
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createObject(), "count closeables: " + this.closeables);
+        this.toStringAndCheck(this.createPushableStreamConsumer(), "count closeables: " + this.closeables);
     }
 
     @Override

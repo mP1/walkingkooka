@@ -49,11 +49,6 @@ final class MinPushableStreamStreamTerminalPushableStreamConsumer<T> extends Max
     }
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof MinPushableStreamStreamTerminalPushableStreamConsumer;
-    }
-
-    @Override
     String label() {
         return "min";
     }

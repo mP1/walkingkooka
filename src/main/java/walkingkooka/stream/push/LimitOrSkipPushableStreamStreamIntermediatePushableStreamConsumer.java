@@ -17,10 +17,7 @@
 
 package walkingkooka.stream.push;
 
-import walkingkooka.Cast;
 import walkingkooka.ToStringBuilder;
-
-import java.util.Objects;
 
 /**
  * Base class for both LIMIT or SKIP.
@@ -43,22 +40,7 @@ abstract class LimitOrSkipPushableStreamStreamIntermediatePushableStreamConsumer
      */
     final long limitOrSkip;
 
-    // Object............................................................................................................
-
-    @Override
-    public final int hashCode() {
-        return Objects.hash(this.counter, this.limitOrSkip);
-    }
-
-    @Override
-    final boolean equals2(final PushableStreamStreamIntermediatePushableStreamConsumer<?> other) {
-        return this.equals3(Cast.to(other));
-    }
-
-    private boolean equals3(final LimitOrSkipPushableStreamStreamIntermediatePushableStreamConsumer other) {
-        return this.counter == other.counter &&
-                this.limitOrSkip == other.limitOrSkip;
-    }
+    // Object...........................................................................................................
 
     @Override
     final void buildToString1(final ToStringBuilder builder) {

@@ -21,29 +21,13 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.Predicates;
 
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 public final class FilterPushableStreamStreamIntermediatePushableStreamConsumerTest extends NonLimitOrSkipPushableStreamStreamIntermediatePushableStreamConsumerTestCase<FilterPushableStreamStreamIntermediatePushableStreamConsumer<String>> {
 
     @Test
-    public void testDifferentPredicate() {
-        this.checkNotEquals(FilterPushableStreamStreamIntermediatePushableStreamConsumer.with(Predicates.fake(), NEXT));
-    }
-
-    @Test
-    public void testDifferentMap() {
-        this.checkNotEquals(MapPushableStreamStreamIntermediate.with(Function.identity()));
-    }
-
-    @Test
-    public void testDifferentPeek() {
-        this.checkNotEquals(PeekPushableStreamStreamIntermediate.with((a) -> {}));
-    }
-
-    @Test
     public void testToString() {
-        this.toStringAndCheck(this.createObject(), "filter " + this.filter + " " + NEXT_TOSTRING);
+        this.toStringAndCheck(this.createPushableStreamConsumer(), "filter " + this.filter + " " + NEXT_TOSTRING);
     }
 
     @Override

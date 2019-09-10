@@ -35,11 +35,6 @@ public abstract class LimitOrSkipPushableStreamStreamIntermediatePushableStreamC
     final static long VALUE = 2;
 
     @Test
-    public final void testDifferentLimitOrSkip() {
-        this.checkNotEquals(NEXT, 99);
-    }
-
-    @Test
     public final void testToStringExhausted() {
         final P consumer = this.createPushableStreamConsumer();
         consumer.counter = 999;

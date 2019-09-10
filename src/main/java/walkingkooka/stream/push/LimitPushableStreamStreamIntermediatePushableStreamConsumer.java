@@ -43,11 +43,6 @@ final class LimitPushableStreamStreamIntermediatePushableStreamConsumer<T> exten
     // Object...........................................................................................................
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof LimitPushableStreamStreamIntermediatePushableStreamConsumer;
-    }
-
-    @Override
     final String label() {
         return "limit";
     }

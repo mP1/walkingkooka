@@ -17,7 +17,6 @@
 
 package walkingkooka.stream.push;
 
-import walkingkooka.Cast;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.ToStringBuilderOption;
 
@@ -51,15 +50,6 @@ abstract class PredicatePushableStreamStreamTerminalPushableStreamConsumer<T> ex
     final Predicate<? super T> predicate;
 
     boolean result;
-
-    @Override
-    final boolean equals2(final PushableStreamStreamTerminalPushableStreamConsumer<?, ?> other) {
-        return this.equals3(Cast.to(other));
-    }
-
-    private boolean equals3(final PredicatePushableStreamStreamTerminalPushableStreamConsumer<?> other) {
-        return this.predicate.equals(other.predicate);
-    }
 
     @Override
     final void buildToString1(final ToStringBuilder builder) {

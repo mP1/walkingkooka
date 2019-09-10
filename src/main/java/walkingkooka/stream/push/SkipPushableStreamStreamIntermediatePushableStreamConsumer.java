@@ -44,11 +44,6 @@ final class SkipPushableStreamStreamIntermediatePushableStreamConsumer<T> extend
     // Object...........................................................................................................
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof SkipPushableStreamStreamIntermediatePushableStreamConsumer;
-    }
-
-    @Override
     final String label() {
         return "skip";
     }

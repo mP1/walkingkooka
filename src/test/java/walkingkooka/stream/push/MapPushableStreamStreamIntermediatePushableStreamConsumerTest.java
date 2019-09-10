@@ -25,13 +25,8 @@ import java.util.function.Function;
 public final class MapPushableStreamStreamIntermediatePushableStreamConsumerTest extends NonLimitOrSkipPushableStreamStreamIntermediatePushableStreamConsumerTestCase<MapPushableStreamStreamIntermediatePushableStreamConsumer<String>> {
 
     @Test
-    public void testDifferentMapper() {
-        this.checkNotEquals(MapPushableStreamStreamIntermediatePushableStreamConsumer.with((s) -> s + " different", NEXT));
-    }
-
-    @Test
     public void testToString() {
-        this.toStringAndCheck(this.createObject(), "map " + this.mapper + " " + NEXT_TOSTRING);
+        this.toStringAndCheck(this.createPushableStreamConsumer(), "map " + this.mapper + " " + NEXT_TOSTRING);
     }
 
     @Override

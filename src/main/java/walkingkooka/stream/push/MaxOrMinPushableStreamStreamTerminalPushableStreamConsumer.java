@@ -17,7 +17,6 @@
 
 package walkingkooka.stream.push;
 
-import walkingkooka.Cast;
 import walkingkooka.ToStringBuilder;
 
 import java.util.Comparator;
@@ -80,16 +79,6 @@ abstract class MaxOrMinPushableStreamStreamTerminalPushableStreamConsumer<T> ext
     }
 
     private T value;
-
-    @Override
-    final boolean equals2(final PushableStreamStreamTerminalPushableStreamConsumer<?, ?> other) {
-        return this.equals3(Cast.to(other));
-    }
-
-    private boolean equals3(final MaxOrMinPushableStreamStreamTerminalPushableStreamConsumer<?> other) {
-        return this.comparator.equals(other.comparator) &&
-                Objects.equals(this.value, other.value);
-    }
 
     @Override
     final void buildToString1(final ToStringBuilder builder) {

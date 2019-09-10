@@ -17,13 +17,12 @@
 
 package walkingkooka.stream.push;
 
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 
 public abstract class PushableStreamStreamIntermediateTestCase<I extends PushableStreamStreamIntermediate> extends PushTestCase<I>
-implements HashCodeEqualsDefinedTesting,
+implements HashCodeEqualsDefinedTesting<I>,
         ToStringTesting<I>,
         TypeNameTesting<I> {
 
@@ -34,7 +33,7 @@ implements HashCodeEqualsDefinedTesting,
     abstract I createPushableStreamStreamIntermediate();
 
     @Override
-    public final HashCodeEqualsDefined createObject() {
+    public final I createObject() {
         return this.createPushableStreamStreamIntermediate();
     }
 
