@@ -114,7 +114,7 @@ final class EmptyArrayStack<T> implements Stack<T>, HashCodeEqualsDefined, Seria
 
     @Override
     public int hashCode() {
-        return 0;
+        return 1;
     }
 
     /**

@@ -20,6 +20,7 @@ package walkingkooka.collect.stack;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -84,6 +85,24 @@ final public class UnreadableStackTest extends StackTestCase<UnreadableStack<Obj
         final UnreadableStack<Object> unreadable2 = unreadable.push(pushed);
         assertSame(unreadable, unreadable2);
         assertSame(pushed, stack.peek());
+    }
+
+    @Override
+    public void testHashCodeAgainstJavaUtilStack() {
+    }
+
+    @Test
+    public void testHashCode() {
+        final UnreadableStack<Object> stack = UnreadableStack.wrap(new FakeStack<Object>() {
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public int hashCode() {
+                return 123;
+            }
+        });
+        assertEquals(123, stack.hashCode());
     }
 
     @Test

@@ -110,12 +110,22 @@ final class ArrayListStack<T> implements Stack<T>, HashCodeEqualsDefined {
         return this.items.iterator();
     }
 
-    // BasicObject
+    // Object...........................................................................................................
 
     @Override
     public int hashCode() {
-        return this.items.hashCode();
+        int hash = this.hash;
+        if (0 == hash) {
+            hash = 1;
+            for (T element : this.items) {
+                hash = 31 * hash + Objects.hashCode(element);
+            }
+            this.hash = hash;
+        }
+        return hash;
     }
+
+    private int hash = 0;
 
     @Override
     public boolean equals(final Object object) {
