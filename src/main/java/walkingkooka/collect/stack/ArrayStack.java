@@ -168,8 +168,10 @@ final class ArrayStack<T> implements Stack<T>, HashCodeEqualsDefined, Serializab
         if (0 == hash) {
             final Object[] array = this.array;
             final int last = this.last;
+
+            hash = 1;
             for (int i = 0; i < last; i++) {
-                hash = Objects.hash(array[i]);
+                hash = 31 * hash + Objects.hashCode(array[i]);
             }
             this.hash = hash;
         }

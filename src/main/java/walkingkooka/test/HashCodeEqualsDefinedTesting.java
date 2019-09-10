@@ -99,6 +99,12 @@ public interface HashCodeEqualsDefinedTesting<T extends HashCodeEqualsDefined> e
         }
     }
 
+    default void checkHashCode(final Object expected, final Object actual) {
+        assertEquals(expected.hashCode(),
+                actual.hashCode(),
+                () -> expected + "\n" + actual);
+    }
+
     default void checkNotEquals(final Object actual) {
         checkNotEquals(this.createObject(), actual);
     }
