@@ -19,7 +19,7 @@ package walkingkooka.io.file;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
-import walkingkooka.compare.ComparableTesting;
+import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 
@@ -28,7 +28,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class FileExtensionTest implements ComparableTesting<FileExtension>,
+public final class FileExtensionTest implements ComparableTesting2<FileExtension>,
         ToStringTesting<FileExtension> {
 
     @Test

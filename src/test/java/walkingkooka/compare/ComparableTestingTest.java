@@ -19,24 +19,13 @@ package walkingkooka.compare;
 
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
-import walkingkooka.compare.ComparableTestingTest.TestComparable;
 import walkingkooka.test.HashCodeEqualsDefined;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class ComparableTestingTest implements ComparableTesting<TestComparable> {
+public final class ComparableTestingTest implements ComparableTesting {
 
     // compareToAndCheckLess............................................................................................
-
-    @Test
-    public void testCompareToAndCheckLess() {
-        this.compareToAndCheckLess(this.more());
-    }
-
-    @Test
-    public void testCompareToAndCheckLessFails() {
-        this.mustFail(() -> this.compareToAndCheckLess(this.less()));
-    }
 
     @Test
     public void testCompareToAndCheckLess2() {
@@ -51,16 +40,6 @@ public final class ComparableTestingTest implements ComparableTesting<TestCompar
     // compareToAndCheckEquals...........................................................................................
 
     @Test
-    public void testCompareToAndCheckEquals() {
-        this.compareToAndCheckEquals(this.createComparable());
-    }
-
-    @Test
-    public void testCompareToAndCheckEqualsFails() {
-        this.mustFail(() -> this.compareToAndCheckEquals(this.more()));
-    }
-
-    @Test
     public void testCompareToAndCheckEquals2() {
         this.compareToAndCheckEquals("abc", "abc");
     }
@@ -71,16 +50,6 @@ public final class ComparableTestingTest implements ComparableTesting<TestCompar
     }
 
     // compareToAndCheckMore............................................................................................
-
-    @Test
-    public void testCompareToAndCheckMore() {
-        this.compareToAndCheckMore(this.less());
-    }
-
-    @Test
-    public void testCompareToAndCheckMoreFails() {
-        this.mustFail(() -> this.compareToAndCheckMore(this.more()));
-    }
 
     @Test
     public void testCompareToAndCheckMore2() {
@@ -175,11 +144,6 @@ public final class ComparableTestingTest implements ComparableTesting<TestCompar
 
     // helpers..........................................................................................................
 
-    @Override
-    public TestComparable createComparable() {
-        return new TestComparable("jkl456");
-    }
-
     public TestComparable less() {
         return new TestComparable("abc123");
     }
@@ -210,7 +174,7 @@ public final class ComparableTestingTest implements ComparableTesting<TestCompar
         }
 
         public boolean equals(final Object other) {
-            return this == other || other instanceof TestComparable && equals0(TestComparable.class.cast(other));
+            return this == other || other instanceof TestComparable && equals0((TestComparable) other);
         }
 
         private boolean equals0(final TestComparable other) {

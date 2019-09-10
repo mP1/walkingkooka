@@ -19,7 +19,7 @@ package walkingkooka.naming;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.compare.ComparableTesting;
+import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Base class for testing a {@link Name} with mostly helpers to assert construction failure.
  */
 public interface NameTesting<N extends Name, C extends Comparable<C> & HashCodeEqualsDefined>
-        extends ComparableTesting<C>,
+        extends ComparableTesting2<C>,
         ToStringTesting<N>,
         TypeNameTesting<N> {
 

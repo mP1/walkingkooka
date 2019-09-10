@@ -20,7 +20,7 @@ package walkingkooka.naming;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.iterable.Iterables;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.compare.ComparableTesting;
+import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.test.ConstantsTesting;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.test.ToStringTesting;
@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Base class for testing a {@link Path} with mostly parameter checking tests.
  */
-public interface PathTesting<P extends Path<P, N> & HashCodeEqualsDefined & Comparable<P>, N extends Name> extends ComparableTesting<P>,
+public interface PathTesting<P extends Path<P, N> & HashCodeEqualsDefined & Comparable<P>, N extends Name> extends ComparableTesting2<P>,
         ConstantsTesting<P>,
         ToStringTesting<P>,
         TypeNameTesting<P> {
@@ -270,7 +270,7 @@ public interface PathTesting<P extends Path<P, N> & HashCodeEqualsDefined & Comp
         assertSame(name, path.name(), "parent");
     }
 
-    // ComparableTesting .........................................................................................
+    // ComparableTesting2 .........................................................................................
 
     default P createObject() {
         return this.createPath();
