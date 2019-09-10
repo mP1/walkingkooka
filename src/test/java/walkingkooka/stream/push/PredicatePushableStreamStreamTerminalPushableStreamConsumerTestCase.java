@@ -42,11 +42,6 @@ public abstract class PredicatePushableStreamStreamTerminalPushableStreamConsume
     }
 
     @Test
-    public final void testDifferentPredicate() {
-        this.checkNotEquals(this.createPushableStreamStreamPushableStreamConsumer(Predicates.fake(), this.closeables));
-    }
-
-    @Test
     public final void testToStringFalse() {
         final P consumer = this.createPushableStreamConsumer();
         consumer.result = false;

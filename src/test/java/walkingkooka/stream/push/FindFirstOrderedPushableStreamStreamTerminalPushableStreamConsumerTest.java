@@ -56,7 +56,7 @@ public final class FindFirstOrderedPushableStreamStreamTerminalPushableStreamCon
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createObject(), "findFirstOrdered closeables: " + this.closeables);
+        this.toStringAndCheck(this.createPushableStreamConsumer(), "findFirstOrdered closeables: " + this.closeables);
     }
 
     @Override

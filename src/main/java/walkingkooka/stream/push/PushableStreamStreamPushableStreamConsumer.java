@@ -17,11 +17,9 @@
 
 package walkingkooka.stream.push;
 
-import walkingkooka.Cast;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.ToStringBuilderOption;
 import walkingkooka.UsesToStringBuilder;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Comparator;
 import java.util.function.BiFunction;
@@ -35,7 +33,6 @@ import java.util.stream.Stream;
  * Base class for all {@link PushableStreamConsumer} including those returned by {@link PushableStreamStreamIntermediate#createWithNext(PushableStreamConsumer)}.
  */
 abstract class PushableStreamStreamPushableStreamConsumer<T> implements PushableStreamConsumer<T>,
-        HashCodeEqualsDefined,
         UsesToStringBuilder {
 
     /**
@@ -180,18 +177,7 @@ abstract class PushableStreamStreamPushableStreamConsumer<T> implements Pushable
         super();
     }
 
-    // Object..........................................................................................................
-
-    @Override
-    public final boolean equals(final Object other) {
-        return this == other ||
-                this.canBeEqual(other) &&
-                        this.equals0(Cast.to(other));
-    }
-
-    abstract boolean canBeEqual(final Object other);
-
-    abstract boolean equals0(final PushableStreamStreamPushableStreamConsumer<?> other);
+    // Object...........................................................................................................
 
     @Override
     public final String toString() {

@@ -65,20 +65,6 @@ final class ForEachOrderedPushableStreamStreamTerminalPushableStreamConsumer<T> 
     }
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof ForEachOrderedPushableStreamStreamTerminalPushableStreamConsumer;
-    }
-
-    @Override
-    boolean equals2(final PushableStreamStreamTerminalPushableStreamConsumer<?, ?> other) {
-        return this.equals3(Cast.to(other));
-    }
-
-    private boolean equals3(final ForEachOrderedPushableStreamStreamTerminalPushableStreamConsumer<?> other) {
-        return this.action.equals(other.action);
-    }
-
-    @Override
     final void buildToString1(final ToStringBuilder builder) {
         builder.label("forEachOrdered");
         builder.value(this.action);

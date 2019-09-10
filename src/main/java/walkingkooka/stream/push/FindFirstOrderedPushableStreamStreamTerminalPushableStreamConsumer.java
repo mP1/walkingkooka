@@ -70,20 +70,6 @@ final class FindFirstOrderedPushableStreamStreamTerminalPushableStreamConsumer<T
     private T first;
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof FindFirstOrderedPushableStreamStreamTerminalPushableStreamConsumer;
-    }
-
-    @Override
-    boolean equals2(final PushableStreamStreamTerminalPushableStreamConsumer<?, ?> other) {
-        return this.equals3(Cast.to(other));
-    }
-
-    private boolean equals3(final FindFirstOrderedPushableStreamStreamTerminalPushableStreamConsumer<?> other) {
-        return Objects.equals(this.first, other.first);
-    }
-
-    @Override
     void buildToString1(final ToStringBuilder builder) {
         builder.value("findFirstOrdered");
     }

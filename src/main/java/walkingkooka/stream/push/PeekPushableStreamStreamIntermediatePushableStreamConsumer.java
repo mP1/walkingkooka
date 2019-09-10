@@ -17,7 +17,6 @@
 
 package walkingkooka.stream.push;
 
-import walkingkooka.Cast;
 import walkingkooka.ToStringBuilder;
 
 import java.util.function.Consumer;
@@ -48,21 +47,7 @@ final class PeekPushableStreamStreamIntermediatePushableStreamConsumer<T> extend
 
     private final Consumer<T> action;
 
-    // Object............................................................................................................
-
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof PeekPushableStreamStreamIntermediatePushableStreamConsumer;
-    }
-
-    @Override
-    boolean equals2(final PushableStreamStreamIntermediatePushableStreamConsumer<?> other) {
-        return this.equals3(Cast.to(other));
-    }
-
-    private boolean equals3(final PeekPushableStreamStreamIntermediatePushableStreamConsumer<?> other) {
-        return this.action.equals(other.action);
-    }
+    // Object...........................................................................................................
 
     @Override
     final void buildToString1(final ToStringBuilder builder) {

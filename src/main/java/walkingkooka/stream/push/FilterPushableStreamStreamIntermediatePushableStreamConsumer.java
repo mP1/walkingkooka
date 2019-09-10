@@ -17,7 +17,6 @@
 
 package walkingkooka.stream.push;
 
-import walkingkooka.Cast;
 import walkingkooka.ToStringBuilder;
 
 import java.util.function.Predicate;
@@ -49,21 +48,7 @@ final class FilterPushableStreamStreamIntermediatePushableStreamConsumer<T> exte
 
     private final Predicate<T> predicate;
 
-    // Object............................................................................................................
-
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof FilterPushableStreamStreamIntermediatePushableStreamConsumer;
-    }
-
-    @Override
-    boolean equals2(final PushableStreamStreamIntermediatePushableStreamConsumer<?> other) {
-        return this.equals3(Cast.to(other));
-    }
-
-    private boolean equals3(final FilterPushableStreamStreamIntermediatePushableStreamConsumer<?> other) {
-        return this.predicate.equals(other.predicate);
-    }
+    // Object...........................................................................................................
 
     @Override
     final void buildToString1(final ToStringBuilder builder) {

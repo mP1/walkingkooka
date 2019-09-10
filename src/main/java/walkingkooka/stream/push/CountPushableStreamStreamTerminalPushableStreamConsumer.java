@@ -61,20 +61,6 @@ final class CountPushableStreamStreamTerminalPushableStreamConsumer<T> extends P
     private long counter;
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof CountPushableStreamStreamTerminalPushableStreamConsumer;
-    }
-
-    @Override
-    boolean equals2(final PushableStreamStreamTerminalPushableStreamConsumer<?, ?> other) {
-        return this.equals3(Cast.to(other));
-    }
-
-    private boolean equals3(final CountPushableStreamStreamTerminalPushableStreamConsumer<?> other) {
-        return this.counter == other.counter;
-    }
-
-    @Override
     void buildToString1(final ToStringBuilder builder) {
         builder.value("count");
     }

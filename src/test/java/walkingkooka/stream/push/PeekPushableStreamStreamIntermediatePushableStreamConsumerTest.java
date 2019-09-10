@@ -25,13 +25,8 @@ import java.util.function.Consumer;
 public final class PeekPushableStreamStreamIntermediatePushableStreamConsumerTest extends NonLimitOrSkipPushableStreamStreamIntermediatePushableStreamConsumerTestCase<PeekPushableStreamStreamIntermediatePushableStreamConsumer<String>> {
 
     @Test
-    public void testDifferentPredicate() {
-        this.checkNotEquals(PeekPushableStreamStreamIntermediatePushableStreamConsumer.with((ignored) -> {}, NEXT));
-    }
-
-    @Test
     public void testToString() {
-        this.toStringAndCheck(this.createObject(), "peek " + action + " " + NEXT_TOSTRING);
+        this.toStringAndCheck(this.createPushableStreamConsumer(), "peek " + action + " " + NEXT_TOSTRING);
     }
 
     @Override

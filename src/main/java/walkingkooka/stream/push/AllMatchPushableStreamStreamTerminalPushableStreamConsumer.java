@@ -58,11 +58,6 @@ final class AllMatchPushableStreamStreamTerminalPushableStreamConsumer<T> extend
     }
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof AllMatchPushableStreamStreamTerminalPushableStreamConsumer;
-    }
-
-    @Override
     String label() {
         return "allMatch";
     }

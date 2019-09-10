@@ -18,24 +18,17 @@
 package walkingkooka.stream.push;
 
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
 
 import java.util.List;
 
 public abstract class PushableStreamStreamPushableStreamConsumerTestCase2<P extends PushableStreamStreamPushableStreamConsumer<String>>
         extends PushableStreamStreamPushableStreamConsumerTestCase<P>
-        implements HashCodeEqualsDefinedTesting<P>,
-        PushableStreamConsumerTesting<P, String>,
+        implements PushableStreamConsumerTesting<P, String>,
         ToStringTesting<P> {
 
     PushableStreamStreamPushableStreamConsumerTestCase2() {
         super();
-    }
-
-    @Override
-    public final P createObject() {
-        return this.createPushableStreamConsumer();
     }
 
     final List<String> commaSeparated(final String source) {

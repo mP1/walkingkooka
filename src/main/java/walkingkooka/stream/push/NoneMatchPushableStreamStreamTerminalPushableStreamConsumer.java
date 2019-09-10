@@ -58,11 +58,6 @@ final class NoneMatchPushableStreamStreamTerminalPushableStreamConsumer<T> exten
     }
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof NoneMatchPushableStreamStreamTerminalPushableStreamConsumer;
-    }
-
-    @Override
     String label() {
         return "noneMatch";
     }

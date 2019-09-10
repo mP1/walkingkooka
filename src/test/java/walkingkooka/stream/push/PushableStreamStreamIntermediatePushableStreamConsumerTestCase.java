@@ -17,7 +17,6 @@
 
 package walkingkooka.stream.push;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringBuilder;
 
 public abstract class PushableStreamStreamIntermediatePushableStreamConsumerTestCase<P extends PushableStreamStreamIntermediatePushableStreamConsumer<String>>
@@ -25,11 +24,6 @@ extends PushableStreamStreamPushableStreamConsumerTestCase2<P> {
 
     PushableStreamStreamIntermediatePushableStreamConsumerTestCase() {
         super();
-    }
-
-    @Test
-    public final void testDifferentNext() {
-        this.checkNotEquals(DIFFERENT);
     }
 
     @Override
@@ -57,51 +51,8 @@ extends PushableStreamStreamPushableStreamConsumerTestCase2<P> {
         }
 
         @Override
-        boolean canBeEqual(final Object other) {
-            return other == this;
-        }
-
-        @Override
-        boolean equals0(final PushableStreamStreamPushableStreamConsumer<?> other) {
-            return true;
-        }
-
-        @Override
         void buildToString0(final ToStringBuilder builder) {
             builder.value(NEXT_TOSTRING);
-        }
-    };
-
-    private static PushableStreamStreamPushableStreamConsumer<String> DIFFERENT = new PushableStreamStreamPushableStreamConsumer<String>() {
-
-        @Override
-        public boolean isFinished() {
-            return false;
-        }
-
-        @Override
-        public void accept(final String value) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public void close() {
-
-        }
-
-        @Override
-        boolean canBeEqual(final Object other) {
-            return other == this;
-        }
-
-        @Override
-        boolean equals0(final PushableStreamStreamPushableStreamConsumer<?> other) {
-            return true;
-        }
-
-        @Override
-        void buildToString0(final ToStringBuilder builder) {
-            builder.value("different");
         }
     };
 

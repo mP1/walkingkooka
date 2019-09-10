@@ -23,7 +23,8 @@ import walkingkooka.test.HashCodeEqualsDefinedTesting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class NonEmptyCloseableCollectionTest extends CloseableCollectionTestCase<NonEmptyCloseableCollection> implements HashCodeEqualsDefinedTesting<NonEmptyCloseableCollection> {
+public final class NonEmptyCloseableCollectionTest extends CloseableCollectionTestCase<NonEmptyCloseableCollection>
+        implements HashCodeEqualsDefinedTesting<NonEmptyCloseableCollection> {
 
     @Test
     public void testAdd() {

@@ -46,7 +46,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class PushableStreamStreamTest implements HashCodeEqualsDefinedTesting,
+public final class PushableStreamStreamTest implements HashCodeEqualsDefinedTesting<PushableStreamStream<String>>,
         StreamTesting<PushableStreamStream<String>, String>,
         ToStringTesting<PushableStreamStream<String>>,
         IteratorTesting {
