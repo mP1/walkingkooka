@@ -19,7 +19,7 @@ package walkingkooka.math;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.JavaVisibility;
@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class FractionTest implements ClassTesting2<Fraction>,
-        HashCodeEqualsDefinedTesting<Fraction>,
+        HashCodeEqualsDefinedTesting2<Fraction>,
         SerializationTesting<Fraction>,
         ToStringTesting<Fraction> {
 

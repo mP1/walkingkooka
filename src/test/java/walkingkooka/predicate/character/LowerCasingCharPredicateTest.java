@@ -19,7 +19,7 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.SerializationTesting;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class LowerCasingCharPredicateTest
         implements CharPredicateTesting<LowerCasingCharPredicate>,
-        HashCodeEqualsDefinedTesting<LowerCasingCharPredicate>,
+        HashCodeEqualsDefinedTesting2<LowerCasingCharPredicate>,
         SerializationTesting<LowerCasingCharPredicate> {
 
     @Test

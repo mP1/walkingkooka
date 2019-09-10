@@ -22,7 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.predicate.PredicateTesting2;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.FromJsonNodeContext;
@@ -40,7 +40,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
         JsonNodeMappingTesting<Range<Integer>>,
         ParseStringTesting<Range<Integer>>,
         PredicateTesting2<Range<Integer>, Integer>,
-        HashCodeEqualsDefinedTesting<Range<Integer>>,
+        HashCodeEqualsDefinedTesting2<Range<Integer>>,
         VisitableTesting<Range<Integer>> {
 
     private final static Integer BELOW_LOWER_VALUE = 1000;

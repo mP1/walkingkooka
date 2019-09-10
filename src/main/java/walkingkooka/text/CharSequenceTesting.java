@@ -19,7 +19,7 @@ package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 
@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 /**
  * Base class for testing any {@link CharSequence} with most tests testing parameter validation.
  */
-public interface CharSequenceTesting<C extends CharSequence & HashCodeEqualsDefined> extends HashCodeEqualsDefinedTesting<C>,
+public interface CharSequenceTesting<C extends CharSequence & HashCodeEqualsDefined> extends HashCodeEqualsDefinedTesting2<C>,
         ToStringTesting<C>,
         TypeNameTesting<C> {
 

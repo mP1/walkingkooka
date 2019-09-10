@@ -438,8 +438,12 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
      */
     public abstract void accept(final SearchNodeVisitor visitor);
 
-    // Object .......................................................................................................
+    // Object ..........................................................................................................
 
+    @Override
+    public abstract int hashCode();
+
+    @Override
     public final boolean equals(final Object other) {
         return this == other ||
                 this.canBeEqual(other) &&

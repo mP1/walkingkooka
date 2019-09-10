@@ -20,7 +20,7 @@ package walkingkooka.util;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.JavaVisibility;
@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class PairTest implements ClassTesting2<Pair<?, ?>>,
-        HashCodeEqualsDefinedTesting<Pair<?, ?>>,
+        HashCodeEqualsDefinedTesting2<Pair<?, ?>>,
         SerializationTesting<Pair<?, ?>>,
         ToStringTesting<Pair<?, ?>> {
 

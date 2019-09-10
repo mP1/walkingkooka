@@ -20,7 +20,7 @@ package walkingkooka.predicate;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CharSequences;
 
@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class CharPredicateCharSequencePredicateTest
         extends PredicateTestCase<CharPredicateCharSequencePredicate, CharSequence>
-        implements HashCodeEqualsDefinedTesting<CharPredicateCharSequencePredicate>, SerializationTesting<CharPredicateCharSequencePredicate> {
+        implements HashCodeEqualsDefinedTesting2<CharPredicateCharSequencePredicate>, SerializationTesting<CharPredicateCharSequencePredicate> {
 
     // constants
 

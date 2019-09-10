@@ -19,7 +19,7 @@ package walkingkooka.naming;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ThrowableTesting;
 import walkingkooka.test.ToStringTesting;
@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class PathSeparatorTest implements ClassTesting2<PathSeparator>,
-        HashCodeEqualsDefinedTesting<PathSeparator>,
+        HashCodeEqualsDefinedTesting2<PathSeparator>,
         SerializationTesting<PathSeparator>,
         ThrowableTesting,
         ToStringTesting<PathSeparator> {

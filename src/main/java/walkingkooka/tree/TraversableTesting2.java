@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.BeanPropertiesTesting;
 import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 
@@ -37,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
  */
 public interface TraversableTesting2<T extends Traversable<T> & HashCodeEqualsDefined>
         extends BeanPropertiesTesting,
-        HashCodeEqualsDefinedTesting<T>,
+        HashCodeEqualsDefinedTesting2<T>,
         ToStringTesting<T>,
         TraversableTesting,
         TypeNameTesting<T> {

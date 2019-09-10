@@ -18,14 +18,14 @@ package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CustomToStringConverterTest extends ConverterTestCase2<CustomToStringConverter>
-        implements HashCodeEqualsDefinedTesting<CustomToStringConverter> {
+        implements HashCodeEqualsDefinedTesting2<CustomToStringConverter> {
 
     private final static Converter WRAPPED = Converters.string();
     private final static String CUSTOM_TO_STRING = "!!custom-to-string!!";

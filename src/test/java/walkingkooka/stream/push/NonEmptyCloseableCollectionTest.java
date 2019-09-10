@@ -19,12 +19,12 @@ package walkingkooka.stream.push;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class NonEmptyCloseableCollectionTest extends CloseableCollectionTestCase<NonEmptyCloseableCollection>
-        implements HashCodeEqualsDefinedTesting<NonEmptyCloseableCollection> {
+        implements HashCodeEqualsDefinedTesting2<NonEmptyCloseableCollection> {
 
     @Test
     public void testAdd() {

@@ -155,6 +155,11 @@ abstract class SearchParentNode extends SearchNode {
     }
 
     @Override
+    public final int hashCode() {
+        return this.children().hashCode();
+    }
+
+    @Override
     final boolean equalsDescendants0(final SearchNode other) {
         return this.equalsDescendants1(other.children());
     }

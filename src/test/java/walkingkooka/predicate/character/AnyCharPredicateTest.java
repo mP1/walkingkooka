@@ -19,7 +19,7 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.SerializationTesting;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class AnyCharPredicateTest implements CharPredicateTesting<AnyCharPredicate>,
-        HashCodeEqualsDefinedTesting<AnyCharPredicate>,
+        HashCodeEqualsDefinedTesting2<AnyCharPredicate>,
         SerializationTesting<AnyCharPredicate> {
 
     // constants

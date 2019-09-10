@@ -19,7 +19,7 @@ package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class LineAndColumnTest implements ClassTesting2<LineAndColumn>,
-        HashCodeEqualsDefinedTesting<LineAndColumn>,
+        HashCodeEqualsDefinedTesting2<LineAndColumn>,
         ToStringTesting<LineAndColumn> {
 
     private final static int LINE_NUMBER = 1;

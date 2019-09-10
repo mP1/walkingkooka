@@ -19,14 +19,14 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.SerializationTesting;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ToStringCharPredicateTest implements CharPredicateTesting<ToStringCharPredicate>,
-        HashCodeEqualsDefinedTesting<ToStringCharPredicate>,
+        HashCodeEqualsDefinedTesting2<ToStringCharPredicate>,
         SerializationTesting<ToStringCharPredicate> {
 
     // constants

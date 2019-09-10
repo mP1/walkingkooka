@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ConstantsTesting;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.JavaVisibility;
@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class SystemPropertyTest implements ClassTesting2<SystemProperty>,
         ConstantsTesting<SystemProperty>,
-        HashCodeEqualsDefinedTesting<SystemProperty>,
+        HashCodeEqualsDefinedTesting2<SystemProperty>,
         ToStringTesting<SystemProperty> {
 
     @Test

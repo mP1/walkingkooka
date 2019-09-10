@@ -19,7 +19,7 @@ package walkingkooka.predicate;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 
 import java.util.function.Predicate;
 
@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class NotPredicateTest extends PredicateTestCase<NotPredicate<String>, String>
-        implements HashCodeEqualsDefinedTesting<NotPredicate<String>> {
+        implements HashCodeEqualsDefinedTesting2<NotPredicate<String>> {
 
     // constants
 

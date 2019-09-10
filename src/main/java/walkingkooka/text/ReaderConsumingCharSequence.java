@@ -122,7 +122,7 @@ final class ReaderConsumingCharSequence implements CharSequence, HashCodeEqualsD
 
     @Override
     public int hashCode() {
-        return this.content.hashCode();
+        return CharSequences.hash(this.content);
     }
 
     @Override

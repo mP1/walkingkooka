@@ -19,12 +19,12 @@ package walkingkooka.collect.map;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.iterator.IteratorTesting;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 
 import java.util.Map;
 
 public abstract class ImmutableMapTestCase3<M extends ImmutableMap<String, Integer>> extends ImmutableMapTestCase2<M>
-        implements HashCodeEqualsDefinedTesting<M>,
+        implements HashCodeEqualsDefinedTesting2<M>,
         IteratorTesting {
 
     ImmutableMapTestCase3() {

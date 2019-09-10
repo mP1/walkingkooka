@@ -19,7 +19,7 @@ package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.JavaVisibility;
@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class IndentationTest implements ClassTesting2<Indentation>,
-        HashCodeEqualsDefinedTesting<Indentation>,
+        HashCodeEqualsDefinedTesting2<Indentation>,
         SerializationTesting<Indentation>,
         ToStringTesting<Indentation> {
 

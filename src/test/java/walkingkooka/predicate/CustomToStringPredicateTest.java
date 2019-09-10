@@ -18,7 +18,7 @@ package walkingkooka.predicate;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.SerializationTesting;
 
 import java.util.function.Predicate;
@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CustomToStringPredicateTest extends PredicateTestCase<CustomToStringPredicate<String>, String>
-        implements HashCodeEqualsDefinedTesting<CustomToStringPredicate<String>>,
+        implements HashCodeEqualsDefinedTesting2<CustomToStringPredicate<String>>,
         SerializationTesting<CustomToStringPredicate<String>> {
 
     private final static String STRING = "abc";

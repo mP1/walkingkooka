@@ -18,14 +18,14 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StringParserTest extends Parser2TestCase<StringParser<ParserContext>, StringParserToken>
-        implements HashCodeEqualsDefinedTesting<StringParser<ParserContext>> {
+        implements HashCodeEqualsDefinedTesting2<StringParser<ParserContext>> {
 
     private final static String STRING = "abcd";
     private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;

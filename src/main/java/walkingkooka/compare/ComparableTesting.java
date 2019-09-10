@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * An interface for testing {@link Comparable comparables}. Many compareTo methods are
  * available that compare andassert the result.
  */
-public interface ComparableTesting<C extends Comparable<C> & HashCodeEqualsDefined> extends HashCodeEqualsDefinedTesting<C> {
+public interface ComparableTesting<C extends Comparable<C> & HashCodeEqualsDefined> extends HashCodeEqualsDefinedTesting2<C> {
 
     @Test
     default void testCompareToNullFails() {
