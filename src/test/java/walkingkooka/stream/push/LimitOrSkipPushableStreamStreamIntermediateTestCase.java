@@ -17,23 +17,15 @@
 
 package walkingkooka.stream.push;
 
-import org.junit.jupiter.api.Test;
-
 public abstract class LimitOrSkipPushableStreamStreamIntermediateTestCase<I extends LimitOrSkipPushableStreamStreamIntermediate> extends PushableStreamStreamIntermediateTestCase<I> {
 
     LimitOrSkipPushableStreamStreamIntermediateTestCase() {
         super();
     }
 
-    final static long VALUE = 2;
-
-    @Test
-    public final void testDifferentValue() {
-        this.checkNotEquals(this.createPushableStreamStreamIntermediate(999));
-    }
-
+    @Override
     final I createPushableStreamStreamIntermediate() {
-        return this.createPushableStreamStreamIntermediate(VALUE);
+        return this.createPushableStreamStreamIntermediate(2);
     }
 
     abstract I createPushableStreamStreamIntermediate(final long skipOrLimitValue);
