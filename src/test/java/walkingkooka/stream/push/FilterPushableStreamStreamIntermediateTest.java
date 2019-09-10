@@ -34,13 +34,8 @@ public final class FilterPushableStreamStreamIntermediateTest extends NonLimitOr
     }
 
     @Test
-    public void testDifferentPredicate() {
-        this.checkNotEquals(FilterPushableStreamStreamIntermediate.with(Predicates.fake()));
-    }
-
-    @Test
     public void testToString() {
-        this.checkNotEquals(this.createPushableStreamStreamIntermediate(), "filter: " + PREDICATE);
+        this.toStringAndCheck(this.createPushableStreamStreamIntermediate(), "filter " + PREDICATE);
     }
 
     @Override

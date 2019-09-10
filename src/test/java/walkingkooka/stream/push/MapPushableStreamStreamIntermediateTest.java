@@ -33,11 +33,6 @@ public final class MapPushableStreamStreamIntermediateTest extends NonLimitOrSki
     }
 
     @Test
-    public void testDifferentFunction() {
-        this.checkNotEquals(MapPushableStreamStreamIntermediate.with((i) -> i));
-    }
-
-    @Test
     public void testToString() {
         this.toStringAndCheck(this.createPushableStreamStreamIntermediate(), "map " + MAPPER);
     }

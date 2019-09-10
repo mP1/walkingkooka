@@ -34,11 +34,6 @@ public final class FlatMapPushableStreamStreamIntermediateTest extends NonLimitO
     }
 
     @Test
-    public void testDifferentMapper() {
-        this.checkNotEquals(FlatMapPushableStreamStreamIntermediate.with((i) -> Stream.of(i)));
-    }
-
-    @Test
     public void testToString() {
         this.toStringAndCheck(this.createPushableStreamStreamIntermediate(), "flatmap " + MAPPER);
     }
