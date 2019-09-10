@@ -19,11 +19,11 @@ package walkingkooka.text.cursor.parser;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.text.CaseSensitivity;
 
 public final class SequenceParserTest extends Parser2TestCase<SequenceParser<ParserContext>, SequenceParserToken>
-        implements HashCodeEqualsDefinedTesting<SequenceParser<ParserContext>> {
+        implements HashCodeEqualsDefinedTesting2<SequenceParser<ParserContext>> {
 
     private final static String TEXT1 = "abc";
     private final static String TEXT2 = "xyz";

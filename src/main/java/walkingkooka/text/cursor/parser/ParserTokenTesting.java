@@ -22,7 +22,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.test.BeanPropertiesTesting;
 import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
@@ -47,7 +47,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  * @param <T>
  */
 public interface ParserTokenTesting<T extends ParserToken & HashCodeEqualsDefined> extends BeanPropertiesTesting,
-        HashCodeEqualsDefinedTesting<T>,
+        HashCodeEqualsDefinedTesting2<T>,
         HasTextTesting,
         ToStringTesting<T>,
         TypeNameTesting<T> {

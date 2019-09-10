@@ -17,8 +17,6 @@
 
 package walkingkooka.test;
 
-import org.junit.jupiter.api.Test;
-
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,49 +24,9 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
- * Base class for testing a {@link HashCodeEqualsDefined} with mostly parameter checking tests.
+ * A mixin that contains helpers for testing two objects {@link Object#equals(Object)} and {@link Object#hashCode()}}
  */
-public interface HashCodeEqualsDefinedTesting<T extends HashCodeEqualsDefined> extends Testing {
-
-    @Test
-    default void testHashCode() {
-        final Object object = this.createObject();
-        assertEquals(object.hashCode(),
-                object.hashCode(),
-                () -> "repeated calls to hashCode should return same value: " + object);
-    }
-
-    @Test
-    default void testEqualsNullIsFalse() {
-        final T object = this.createObject();
-        if (object.equals(null)) {
-            assertEquals(object, null);
-        }
-    }
-
-    @Test
-    default void testEqualsDifferentType() {
-        checkNotEquals(this.createObject(), new Object());
-    }
-
-    @Test
-    default void testEqualsSelf() {
-        final Object object = this.createObject();
-        checkEqualsAndHashCode(object, object);
-    }
-
-    @Test
-    default void testEquals() {
-        final Object object1 = this.createObject();
-        final Object object2 = this.createObject();
-        checkEqualsAndHashCode(object1, object2);
-    }
-
-    T createObject();
-
-    default void checkEquals(final Object actual) {
-        checkEquals(this.createObject(), actual);
-    }
+public interface HashCodeEqualsDefinedTesting extends Testing {
 
     default void checkEquals(final Object expected, final Object actual) {
         assertNotNull(expected, "Expected is null");
@@ -82,31 +40,18 @@ public interface HashCodeEqualsDefinedTesting<T extends HashCodeEqualsDefined> e
         }
     }
 
-    default void checkEqualsAndHashCode(final Object actual) {
-        checkEqualsAndHashCode(this.createObject(), actual);
-    }
-
     default void checkEqualsAndHashCode(final Object expected, final Object actual) {
         checkEquals(expected, actual);
 
-        final int expectedHashCode = expected.hashCode();
-        final int actualHashCode = expected.hashCode();
-
-        if (expectedHashCode != actualHashCode) {
-            assertEquals("Hashcode not equal",
-                    expectedHashCode + "=" + expected,
-                    actualHashCode + "=" + actual);
-        }
+        assertEquals(expected.hashCode(),
+                actual.hashCode(),
+                () -> "objects that are equal should have equal hashcodes");
     }
 
     default void checkHashCode(final Object expected, final Object actual) {
         assertEquals(expected.hashCode(),
                 actual.hashCode(),
                 () -> expected + "\n" + actual);
-    }
-
-    default void checkNotEquals(final Object actual) {
-        checkNotEquals(this.createObject(), actual);
     }
 
     default void checkNotEquals(final Object expected, final Object actual) {

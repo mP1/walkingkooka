@@ -19,7 +19,7 @@ package walkingkooka.collect.stack;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Mixin interface for testing a {@link Stack}.
  */
-public interface StackTesting<S extends Stack<T> & HashCodeEqualsDefined, T> extends HashCodeEqualsDefinedTesting<S>,
+public interface StackTesting<S extends Stack<T> & HashCodeEqualsDefined, T> extends HashCodeEqualsDefinedTesting2<S>,
         SerializationTesting<S>,
         ToStringTesting<S>,
         TypeNameTesting<S> {

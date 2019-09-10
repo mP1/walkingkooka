@@ -18,14 +18,14 @@
 package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.SerializationTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class LogicalCharPredicateTestCase<P extends LogicalCharPredicate>
         implements CharPredicateTesting<P>,
-        HashCodeEqualsDefinedTesting<P>,
+        HashCodeEqualsDefinedTesting2<P>,
         SerializationTesting<P> {
 
     LogicalCharPredicateTestCase() {

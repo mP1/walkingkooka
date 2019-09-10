@@ -21,14 +21,14 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.SerializationTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class InitialAndPartCharPredicateCharSequencePredicateTest
         extends PredicateTestCase<InitialAndPartCharPredicateCharSequencePredicate, CharSequence>
-        implements HashCodeEqualsDefinedTesting<InitialAndPartCharPredicateCharSequencePredicate>,
+        implements HashCodeEqualsDefinedTesting2<InitialAndPartCharPredicateCharSequencePredicate>,
         SerializationTesting<InitialAndPartCharPredicateCharSequencePredicate> {
 
     // tests

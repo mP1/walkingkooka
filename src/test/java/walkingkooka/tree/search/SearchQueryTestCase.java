@@ -20,7 +20,7 @@ package walkingkooka.tree.search;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class SearchQueryTestCase<Q extends SearchQuery> implements ClassTesting2<Q>,
-        HashCodeEqualsDefinedTesting<Q>,
+        HashCodeEqualsDefinedTesting2<Q>,
         TypeNameTesting<Q> {
 
     static final String DATE = "2000-01-31";

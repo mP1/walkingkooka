@@ -23,7 +23,6 @@ import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.stream.StreamTesting;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 
@@ -46,8 +45,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class PushableStreamStreamTest implements HashCodeEqualsDefinedTesting<PushableStreamStream<String>>,
-        StreamTesting<PushableStreamStream<String>, String>,
+public final class PushableStreamStreamTest implements StreamTesting<PushableStreamStream<String>, String>,
         ToStringTesting<PushableStreamStream<String>>,
         IteratorTesting {
 
@@ -925,11 +923,6 @@ public final class PushableStreamStreamTest implements HashCodeEqualsDefinedTest
 
     private PushableStreamStream<String> createStream(final String...values) {
         return PushableStreamStream.with(this.starter(values));
-    }
-
-    @Override
-    public PushableStreamStream<String> createObject() {
-        return this.createStream();
     }
 
     private Consumer<PushableStreamConsumer<String>> starter = this.starter(this.values());

@@ -20,14 +20,14 @@ package walkingkooka.collect.map;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class MapsEntryTest implements ClassTesting2<MapsEntry<String, Integer>>,
         EntryTesting<MapsEntry<String, Integer>, String, Integer>,
-        HashCodeEqualsDefinedTesting<MapsEntry<String, Integer>> {
+        HashCodeEqualsDefinedTesting2<MapsEntry<String, Integer>> {
 
     private final static String KEY = "Key123";
     private final static Integer VALUE = 123;
