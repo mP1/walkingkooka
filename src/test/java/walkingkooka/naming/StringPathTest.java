@@ -51,6 +51,16 @@ final public class StringPathTest extends PathTestCase<StringPath, StringName>
     }
 
     @Test
+    public void testParseSlash() {
+        final String value = "/";
+        final StringPath path = StringPath.parse(value);
+        this.valueCheck(path, value);
+        this.rootCheck(path);
+        this.nameCheck(path, StringName.ROOT);
+        this.parentAbsentCheck(path);
+    }
+
+    @Test
     public void testParseFlat() {
         final String value = "/path to";
         final StringPath path = StringPath.parse(value);
