@@ -251,15 +251,15 @@ public interface PathTesting<P extends Path<P, N> & HashCodeEqualsDefined & Comp
     }
 
     default void parentCheck(final P path, final P parent) {
-        assertEquals(parentCheck(path), parent, () -> "parent of " + path);
+        assertEquals(parent, parentCheck(path), () -> "parent of " + path);
     }
 
     default void parentCheck(final P path, final String value) {
-        assertEquals(parentCheck(path).value(), value, () -> "parent of " + path);
+        assertEquals(value, parentCheck(path).value(), () -> "parent of " + path);
     }
 
     default void parentSame(final P path, final P parent) {
-        assertSame(parentCheck(path), parent, () -> "parent of " + path);
+        assertSame(parent, parentCheck(path), () -> "parent of " + path);
     }
 
     default void parentAbsentCheck(final Path<?, ?> path) {
