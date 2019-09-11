@@ -20,9 +20,6 @@ package walkingkooka.naming;
 
 import walkingkooka.Cast;
 import walkingkooka.Value;
-import walkingkooka.collect.iterator.Iterators;
-import walkingkooka.collect.stack.Stack;
-import walkingkooka.collect.stack.Stacks;
 
 import java.util.Iterator;
 import java.util.Objects;
@@ -70,18 +67,7 @@ public interface Path<P extends Path<P, N>, N extends Name> extends Value<String
      */
     @Override
     default Iterator<N> iterator() {
-        final Stack<N> components = Stacks.arrayList();
-        visitParent(Cast.to(this), components);
-        return Iterators.readOnly(components.iterator());
-    }
-
-    static <PP extends Path<PP, NN>, NN extends Name> void visitParent(final PP path, final Stack<NN> components) {
-        final Optional<PP> maybeParent = path.parent();
-        if (maybeParent.isPresent()) {
-            final PP parent = maybeParent.get();
-            visitParent(parent, components);
-        }
-        components.push(path.name());
+        return PathIterator.with(this);
     }
 
     /**
