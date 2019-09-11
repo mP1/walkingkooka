@@ -51,8 +51,11 @@ final public class StringPath
 
         try {
             StringPath result = ROOT;
-            for (String component : path.substring(1).split(SEPARATOR.string())) {
-                result = result.append(StringName.with(component));
+
+            if(path.length() > 1) {
+                for (String component : path.substring(1).split(SEPARATOR.string())) {
+                    result = result.append(StringName.with(component));
+                }
             }
             return result;
         } catch (final IllegalArgumentException cause) {
