@@ -63,10 +63,10 @@ public interface PathTesting<P extends Path<P, N> & HashCodeEqualsDefined & Comp
         final N appended = this.createName(0);
         final P child = parent.append(appended);
 
-        parentCheck(child, parent);
-        rootNotCheck(child);
-        nameCheck(child, appended);
-        valueCheck(child);
+        this.parentCheck(child, parent);
+        this.rootNotCheck(child);
+        this.nameCheck(child, appended);
+        this.valueCheck(child);
     }
 
     @Test
@@ -80,10 +80,10 @@ public interface PathTesting<P extends Path<P, N> & HashCodeEqualsDefined & Comp
         final N appended1 = this.createName(1);
         final P child1 = child0.append(appended1);
 
-        parentCheck(child1, child0);
-        rootNotCheck(child1);
-        nameCheck(child1, appended1);
-        valueCheck(child1);
+        this.parentCheck(child1, child0);
+        this.rootNotCheck(child1);
+        this.nameCheck(child1, appended1);
+        this.valueCheck(child1);
     }
 
     @SuppressWarnings("unchecked")
@@ -156,7 +156,7 @@ public interface PathTesting<P extends Path<P, N> & HashCodeEqualsDefined & Comp
             actualNames.add(name);
         }
 
-        assertEquals(names, actualNames, "names returned by iterator");
+        assertEquals(names, actualNames, () -> "names returned by iterator for " + path);
     }
 
     @Test
@@ -232,30 +232,30 @@ public interface PathTesting<P extends Path<P, N> & HashCodeEqualsDefined & Comp
     }
 
     default void valueCheck(final P path, final String value) {
-        assertEquals(value, path.value(), "path");
+        assertEquals(value, path.value(), "value of " + path);
     }
 
     default void nameCheck(final P path, final N name) {
-        assertEquals(path.name(), name, "name");
+        assertEquals(name, path.name(), () -> "name of " + path);
         this.nameCheck(path, name.value());
     }
 
     default void nameCheck(final P path, final String value) {
-        assertEquals(path.name().value(), value, "name");
+        assertEquals(value, path.name().value(), () -> "name of " + path);
     }
 
     default P parentCheck(final P path) {
         final Optional<P> parent = path.parent();
-        assertNotEquals(Optional.empty(), parent, "parent missing");
+        assertNotEquals(Optional.empty(), parent, () -> "parent of " + path);
         return parent.get();
     }
 
     default void parentCheck(final P path, final P parent) {
-        assertEquals(parentCheck(path), parent, "parent");
+        assertEquals(parentCheck(path), parent, () -> "parent of " + path);
     }
 
     default void parentCheck(final P path, final String value) {
-        assertEquals(parentCheck(path).value(), value, "parent");
+        assertEquals(parentCheck(path).value(), value, () -> "parent of " + path);
     }
 
     default void parentSame(final P path, final P parent) {
@@ -263,20 +263,20 @@ public interface PathTesting<P extends Path<P, N> & HashCodeEqualsDefined & Comp
     }
 
     default void parentAbsentCheck(final Path<?, ?> path) {
-        assertEquals(Optional.empty(), path.parent(), "parent");
+        assertEquals(Optional.empty(), path.parent(), () -> "parent of " + path);
     }
 
     default void nameSameCheck(final Path<?, ?> path, final Name name) {
-        assertSame(name, path.name(), "parent");
+        assertSame(name, path.name(), "name of " + path);
     }
 
-    // ComparableTesting2 .........................................................................................
+    // ComparableTesting2 ..............................................................................................
 
     default P createObject() {
         return this.createPath();
     }
 
-    // TypeNameTesting .........................................................................................
+    // TypeNameTesting .................................................................................................
 
     @Override
     default String typeNamePrefix() {
