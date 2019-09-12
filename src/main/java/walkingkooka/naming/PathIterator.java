@@ -17,9 +17,14 @@
 
 package walkingkooka.naming;
 
+import walkingkooka.collect.list.Lists;
+
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * An {@link Iterator} that walks starting at the given {@link Path} to the root.
@@ -32,39 +37,63 @@ final class PathIterator<P extends Path<P, N>, N extends Name> implements Iterat
 
     private PathIterator(final Path<P, N> path) {
         super();
-        this.path = path;
+
+        final List<N> components = Lists.array();
+        this.components = components;
+
+        this.visitParent(path);
+
+        this.cursor = 0;
+        this.separator = path.separator();
+    }
+
+    private void visitParent(final Path<P, N> path) {
+        final Optional<P> parent = path.parent();
+        if (parent.isPresent()) {
+            this.visitParent(parent.get());
+        }
+        this.components.add(path.name());
     }
 
     @Override
     public boolean hasNext() {
-        return false == this.consumed;
+        return this.cursor < this.components.size();
     }
 
     @Override
     public N next() {
-        if (this.consumed) {
+        final int cursor = this.cursor;
+        final List<N> components = this.components;
+        if (cursor >= components.size()) {
             throw new NoSuchElementException();
         }
-
-        final Path<P, N> path = this.path;
-        final Optional<P> parent = path.parent();
-        this.consumed = !parent.isPresent();
-
-        if (false == this.consumed) {
-            this.path = parent.get();
-        }
-
-        return path.name();
+        this.cursor = cursor + 1;
+        return components.get(cursor);
     }
 
     /**
-     * The current path.
+     * All components in first to last path order, where first is the root and last is the deepest.
      */
-    private Path<P, N> path;
-    private boolean consumed = false;
+    private final List<N> components;
 
+    /**
+     * Pointer to the current path component, counting forwards through the elements in {@link #components}.
+     */
+    private int cursor;
+
+    /**
+     * Returns a view of the remaining path components, an empty {@link String} will be returned when the iterator is exhausted.
+     */
     @Override
     public String toString() {
-        return this.hasNext() ? this.path.toString() : "";
+        return IntStream.range(this.cursor, this.components.size())
+                .mapToObj(this::element)
+                .collect(Collectors.joining(this.separator.string()));
     }
+
+    private String element(final int i) {
+        return this.components.get(i).value();
+    }
+
+    private final PathSeparator separator;
 }

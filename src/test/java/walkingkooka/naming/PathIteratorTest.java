@@ -37,26 +37,26 @@ public final class PathIteratorTest implements IteratorTesting, ClassTesting2<Pa
     @Test
     public void testNonRoot() {
         this.iterateAndCheck(Paths.string("/a1").iterator(),
-                Names.string("a1"),
-                StringName.ROOT);
+                StringName.ROOT,
+                Names.string("a1"));
     }
 
     @Test
     public void testNonRoot2() {
         this.iterateAndCheck(Paths.string("/a1/b2/c3").iterator(),
-                Names.string("c3"),
-                Names.string("b2"),
+                StringName.ROOT,
                 Names.string("a1"),
-                StringName.ROOT);
+                Names.string("b2"),
+                Names.string("c3"));
     }
 
     @Test
     public void testNonRootUsingHasNext() {
         this.iterateUsingHasNextAndCheck(Paths.string("/a1/b2/c3").iterator(),
-                Names.string("c3"),
-                Names.string("b2"),
+                StringName.ROOT,
                 Names.string("a1"),
-                StringName.ROOT);
+                Names.string("b2"),
+                Names.string("c3"));
     }
 
     @Test
@@ -70,10 +70,18 @@ public final class PathIteratorTest implements IteratorTesting, ClassTesting2<Pa
     }
 
     @Test
+    public void testToString2() {
+        final Iterator<StringName> iterator = Paths.string("/a1").iterator();
+        iterator.next();
+
+        this.toStringAndCheck(iterator, "a1");
+    }
+
+    @Test
     public void testToStringConsumed() {
         final Iterator<?> iterator = Paths.string("/a1").iterator();
-        iterator.next();
-        iterator.next();
+        iterator.next(); // root
+        iterator.next(); // a1
 
         this.toStringAndCheck(iterator, "");
     }
