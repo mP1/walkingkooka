@@ -1,0 +1,155 @@
+/*
+ * Copyright 2019 Miroslav Pokorny (github.com/mP1)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+package walkingkooka;
+
+import org.junit.jupiter.api.Test;
+import walkingkooka.predicate.Predicates;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
+import walkingkooka.test.IsMethodTesting;
+import walkingkooka.test.ToStringTesting;
+import walkingkooka.type.JavaVisibility;
+
+import java.util.function.Predicate;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+public abstract class EitherTestCase2<E extends Either<L, R>, L, R> extends EitherTestCase<E, L, R>
+        implements HashCodeEqualsDefinedTesting2<E>,
+        IsMethodTesting<E>,
+        ToStringTesting<E> {
+
+    EitherTestCase2() {
+        super();
+    }
+
+    // setValue.........................................................................................................
+
+    @Test
+    public final void testSetLeftValueNullFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createEither().setLeftValue(null);
+        });
+    }
+
+    @Test
+    public final void testSetRightValueNullFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createEither().setRightValue(null);
+        });
+    }
+
+    // orElseGet.........................................................................................................
+
+    @Test
+    public final void testOrElseLeftGetNullSupplierFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createEither().orElseLeftGet(null);
+        });
+    }
+
+    @Test
+    public final void testOrElseRightGetNullSupplierFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createEither().orElseRightGet(null);
+        });
+    }
+
+    // orElseThrows.....................................................................................................
+
+    @Test
+    public final void testOrElseLeftThrowsNullSupplierFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createEither().orElseLeftThrow(null);
+        });
+    }
+
+    @Test
+    public final void testOrElseRightThrowsNullSupplierFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createEither().orElseRightThrow(null);
+        });
+    }
+
+    // map..............................................................................................................
+
+    @Test
+    public final void testMapLeftNullMapperFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createEither().mapLeft(null);
+        });
+    }
+
+    @Test
+    public final void testMapRightNullMapperFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createEither().mapRight(null);
+        });
+    }
+
+    // ifPresnt.........................................................................................................
+
+    @Test
+    public final void testIfPresentLeftNullConsumerFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createEither().ifLeftPresent(null);
+        });
+    }
+
+    @Test
+    public final void testIfPresentRightNullConsumerFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createEither().ifRightPresent(null);
+        });
+    }
+
+    // ClassTesting.....................................................................................................
+
+    @Override
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
+    }
+
+    // HashCodeAndEqualsDefined..........................................................................................
+
+    @Override
+    public E createObject() {
+        return this.createEither();
+    }
+
+    // IsMethodTesting...................................................................................................
+
+    @Override
+    public E createIsMethodObject() {
+        return this.createEither();
+    }
+
+    @Override
+    public String isMethodTypeNamePrefix() {
+        return Either.class.getSimpleName();
+    }
+
+    @Override
+    public String isMethodTypeNameSuffix() {
+        return "";
+    }
+
+    @Override
+    public Predicate<String> isMethodIgnoreMethodFilter() {
+        return Predicates.never();
+    }
+}
