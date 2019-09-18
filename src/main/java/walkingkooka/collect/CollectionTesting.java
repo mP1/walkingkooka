@@ -17,46 +17,19 @@
 
 package walkingkooka.collect;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public interface CollectionTesting<C extends Collection<E>, E> extends ToStringTesting<C> {
+public interface CollectionTesting {
 
-    @Test
-    default void testIteratorContainsAndCollection() {
-        int size = 0;
-        final C collection = this.createCollection();
-        final Iterator<E> iterator = collection.iterator();
-
-        while (iterator.hasNext()) {
-            final E element = iterator.next();
-            containsAndCheck(collection, element);
-            size++;
-        }
-
-        sizeAndCheck(collection, size);
-    }
-
-    @Test
-    default void testIsEmptyAndSize() {
-        final C collection = this.createCollection();
-        final int size = collection.size();
-        this.isEmptyAndCheck(collection, 0 == size);
-    }
-
-    C createCollection();
-
-    default void addFails(final Collection<E> collection,
-                          final E add) {
+    default <E> void addFails(final Collection<E> collection,
+                              final E add) {
         final List<E> before = Lists.array();
         before.addAll(collection);
 
@@ -69,15 +42,15 @@ public interface CollectionTesting<C extends Collection<E>, E> extends ToStringT
         assertEquals(before, after, () -> "add modified collection " + collection);
     }
 
-    default void containsAndCheck(final Collection<E> collection,
-                                  final E element) {
+    default <E> void containsAndCheck(final Collection<E> collection,
+                                      final E element) {
         assertEquals(true, collection.contains(element), () -> collection + " should contain " + CharSequences.quoteIfChars(element));
         assertEquals(true, collection.containsAll(Lists.of(element)),
                 () -> collection + " should NOT contain Collection of " + CharSequences.quoteIfChars(element));
     }
 
-    default void containsAndCheckAbsent(final Collection<E> collection,
-                                        final E element) {
+    default void containsAndCheckAbsent(final Collection<?> collection,
+                                        final Object element) {
         assertEquals(false, collection.contains(element), () -> collection + " should contain " + CharSequences.quoteIfChars(element));
         assertEquals(false, collection.containsAll(Lists.of(element)),
                 () -> collection + " should NOT contain Collection of " + CharSequences.quoteIfChars(element));
@@ -87,8 +60,8 @@ public interface CollectionTesting<C extends Collection<E>, E> extends ToStringT
         assertEquals(empty, collection.isEmpty(), () -> "isEmpty of " + collection);
     }
 
-    default void removeFails(final Collection<E> collection,
-                             final E remove) {
+    default <E> void removeFails(final Collection<E> collection,
+                                 final E remove) {
         final List<E> before = Lists.array();
         before.addAll(collection);
 

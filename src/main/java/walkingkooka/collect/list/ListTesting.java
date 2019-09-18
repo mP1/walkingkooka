@@ -17,61 +17,27 @@
 
 package walkingkooka.collect.list;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.collect.CollectionTesting;
-import walkingkooka.test.TypeNameTesting;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public interface ListTesting<L extends List<E>, E> extends CollectionTesting<L, E>,
-        TypeNameTesting<L> {
+public interface ListTesting extends CollectionTesting {
 
-    @Test
-    default void testGetNegativeIndexFails() {
-        this.getFails(this.createList(), -1);
+    default <E> void getAndCheck(final List<E> list,
+                                 final int index,
+                                 final E element) {
+        assertEquals(element,
+                list.get(index),
+                () -> "get " + index + " from " + list);
     }
 
-    @Test
-    default void testGetAndIterator() {
-        final L list = this.createList();
-        int i = 0;
-
-        for (E element : list) {
-            this.getAndCheck(list, i, element);
-            i++;
-        }
-
-        this.sizeAndCheck(list, i);
-    }
-
-    default L createCollection() {
-        return this.createList();
-    }
-
-    L createList();
-
-    default void getAndCheck(final List<E> list, final int index, final E element) {
-        assertEquals(element, list.get(index), () -> "get " + index + " from " + list);
-    }
-
-    default void getFails(final List<E> list, final int index) {
+    default <E> void getFails(final List<E> list,
+                              final int index) {
         assertThrows(IndexOutOfBoundsException.class, () -> {
             list.get(index);
         });
-    }
-
-    // TypeNameTesting .........................................................................................
-
-    @Override
-    default String typeNamePrefix() {
-        return "";
-    }
-
-    @Override
-    default String typeNameSuffix() {
-        return List.class.getSimpleName();
     }
 }

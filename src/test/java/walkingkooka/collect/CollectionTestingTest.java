@@ -18,7 +18,6 @@
 package walkingkooka.collect;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 
 import java.util.Collections;
@@ -26,7 +25,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CollectionTestingTest implements CollectionTesting<List<String>, String> {
+public final class CollectionTestingTest implements CollectionTesting {
 
     private final static String ELEMENT1 = "a1";
     private final static String ELEMENT2 = "b2";
@@ -80,17 +79,7 @@ public final class CollectionTestingTest implements CollectionTesting<List<Strin
         this.removeFails(this.createCollection(), ELEMENT1);
     }
 
-    @Override
-    public void testCheckToStringOverridden() {
-    }
-
-    @Override
-    public List<String> createCollection() {
+    private List<String> createCollection() {
         return Lists.of(ELEMENT1, ELEMENT2);
-    }
-
-    @Override
-    public Class<List<String>> type() {
-        return Cast.to(List.class);
     }
 }
