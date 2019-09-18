@@ -17,7 +17,28 @@
 
 package walkingkooka.collect.set;
 
-import walkingkooka.collect.CollectionTesting;
+import walkingkooka.collect.CollectionTesting2;
+import walkingkooka.test.TypeNameTesting;
 
-public interface SetTesting extends CollectionTesting {
+import java.util.Set;
+
+public interface SetTesting2<S extends Set<E>, E> extends CollectionTesting2<S, E>, TypeNameTesting<S> {
+
+    default S createCollection() {
+        return this.createSet();
+    }
+
+    S createSet();
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    default String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    default String typeNameSuffix() {
+        return Set.class.getSimpleName();
+    }
 }

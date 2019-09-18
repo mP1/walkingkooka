@@ -20,7 +20,7 @@ package walkingkooka.tree.xml;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import walkingkooka.Cast;
-import walkingkooka.collect.set.SetTesting;
+import walkingkooka.collect.set.SetTesting2;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.JavaVisibility;
 
@@ -29,7 +29,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.util.Map.Entry;
 
 public final class XmlMapEntrySetTest implements ClassTesting2<XmlMapEntrySet<XmlAttributeName, String>>,
-        SetTesting<XmlMapEntrySet<XmlAttributeName, String>, Entry<XmlAttributeName, String>> {
+        SetTesting2<XmlMapEntrySet<XmlAttributeName, String>, Entry<XmlAttributeName, String>> {
 
     @Override
     public XmlMapEntrySet<XmlAttributeName, String> createSet() {

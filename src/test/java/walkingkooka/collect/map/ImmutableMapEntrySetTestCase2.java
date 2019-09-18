@@ -19,14 +19,14 @@ package walkingkooka.collect.map;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.iterator.IteratorTesting;
-import walkingkooka.collect.set.SetTesting;
+import walkingkooka.collect.set.SetTesting2;
 import walkingkooka.test.ToStringTesting;
 
 import java.util.Map;
 import java.util.Map.Entry;
 
 public abstract class ImmutableMapEntrySetTestCase2<S extends ImmutableMapEntrySet<Entry<String, Integer>>> extends ImmutableMapEntrySetTestCase<S>
-        implements SetTesting<S, Entry<String, Integer>>,
+        implements SetTesting2<S, Entry<String, Integer>>,
         IteratorTesting,
         ToStringTesting<S> {
 
