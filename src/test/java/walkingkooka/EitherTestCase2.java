@@ -120,10 +120,25 @@ public abstract class EitherTestCase2<E extends Either<L, R>, L, R> extends Eith
     // accept...........................................................................................................
 
     @Test
-    public final void testAcceptNullBiConsumerFails() {
+    public final void testAcceptNullLeftConsumerFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.createEither().accept(null);
+            this.createEither().accept(null, this::acceptRight);
         });
+    }
+
+    @Test
+    public final void testAcceptNullRightConsumerFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createEither().accept(this::acceptLeft, null);
+        });
+    }
+
+    final void acceptLeft(final L left) {
+        throw new UnsupportedOperationException();
+    }
+
+    final void acceptRight(final R right) {
+        throw new UnsupportedOperationException();
     }
 
     // ClassTesting.....................................................................................................
