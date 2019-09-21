@@ -169,10 +169,20 @@ public final class EitherRightTest extends EitherTestCase2<EitherRight<String, I
 
     @Test
     public void testIfPresentRight() {
-        this.createEither().ifRightPresent((v) -> {
-            this.consumed = v;
-        });
+        this.createEither().ifRightPresent(this::consumeRight);
         assertEquals(VALUE, this.consumed, VALUE);
+    }
+
+    // accept............................................................................................................
+
+    @Test
+    public void testAcceptLeft() {
+        this.createEither().accept(this::acceptLeft, this::consumeRight);
+        assertEquals(VALUE, this.consumed, "value");
+    }
+
+    private void consumeRight(final Integer right) {
+        this.consumed = right;
     }
 
     private Integer consumed;

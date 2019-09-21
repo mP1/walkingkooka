@@ -215,6 +215,22 @@ public abstract class Either<L, R> implements HashCodeEqualsDefined {
         Objects.requireNonNull(consumer, "consumer");
     }
 
+    // accept...........................................................................................................
+
+    /**
+     * Calls the matching {@link Consumer with either the left or right value.
+     */
+    public final void accept(final Consumer<? super L> left,
+                             final Consumer<? super R> right) {
+        Objects.requireNonNull(left, "left");
+        Objects.requireNonNull(right, "right");
+
+        this.accept0(left, right);
+    }
+
+    abstract void accept0(final Consumer<? super L> left,
+                          final Consumer<? super R> right);
+
     // Object...........................................................................................................
 
     @Override

@@ -135,6 +135,13 @@ final class EitherRight<L, R> extends Either<L, R> {
         consumer.accept(this.value);
     }
 
+    // accept...........................................................................................................
+
+    @Override
+    void accept0(final Consumer<? super L> left, final Consumer<? super R> right) {
+        right.accept(this.value);
+    }
+
     final R value;
 
     // Object...........................................................................................................

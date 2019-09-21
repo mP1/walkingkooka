@@ -152,13 +152,9 @@ public final class EitherLeftTest extends EitherTestCase2<EitherLeft<String, Int
 
     @Test
     public void testIfPresentLeft() {
-        this.createEither().ifLeftPresent((v) -> {
-            this.consumed = v;
-        });
+        this.createEither().ifLeftPresent(this::consumeLeft);
         assertEquals(VALUE, this.consumed, "value");
     }
-
-    private String consumed;
 
     @Test
     public void testIfPresentRight() {
@@ -166,6 +162,20 @@ public final class EitherLeftTest extends EitherTestCase2<EitherLeft<String, Int
             throw new UnsupportedOperationException();
         });
     }
+
+    // accept............................................................................................................
+
+    @Test
+    public void testAcceptLeft() {
+        this.createEither().accept(this::consumeLeft, this::acceptRight);
+        assertEquals(VALUE, this.consumed, "value");
+    }
+
+    private void consumeLeft(final String left) {
+        this.consumed = left;
+    }
+
+    private String consumed;
 
     // equality.........................................................................................................
 
