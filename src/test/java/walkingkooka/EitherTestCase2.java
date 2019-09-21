@@ -101,7 +101,7 @@ public abstract class EitherTestCase2<E extends Either<L, R>, L, R> extends Eith
         });
     }
 
-    // ifPresnt.........................................................................................................
+    // ifPresent.........................................................................................................
 
     @Test
     public final void testIfPresentLeftNullConsumerFails() {
@@ -114,6 +114,15 @@ public abstract class EitherTestCase2<E extends Either<L, R>, L, R> extends Eith
     public final void testIfPresentRightNullConsumerFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createEither().ifRightPresent(null);
+        });
+    }
+
+    // accept...........................................................................................................
+
+    @Test
+    public final void testAcceptNullBiConsumerFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createEither().accept(null);
         });
     }
 
