@@ -18,11 +18,11 @@
 package walkingkooka.tree.json;
 
 import walkingkooka.collect.map.Maps;
-import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.visit.Visiting;
 

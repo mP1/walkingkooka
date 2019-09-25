@@ -18,11 +18,11 @@
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.Cast;
-import walkingkooka.io.printer.IndentingPrinter;
-import walkingkooka.io.printer.IndentingPrinters;
-import walkingkooka.io.printer.Printers;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.printer.IndentingPrinter;
+import walkingkooka.text.printer.IndentingPrinters;
+import walkingkooka.text.printer.Printers;
 import walkingkooka.visit.VisitorPrettyPrinter;
 
 import java.util.Optional;

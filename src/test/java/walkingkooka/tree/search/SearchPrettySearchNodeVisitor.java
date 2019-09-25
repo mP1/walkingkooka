@@ -17,10 +17,10 @@
 
 package walkingkooka.tree.search;
 
-import walkingkooka.io.printer.IndentingPrinters;
-import walkingkooka.io.printer.Printers;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.printer.IndentingPrinters;
+import walkingkooka.text.printer.Printers;
 import walkingkooka.tree.Node;
 import walkingkooka.visit.Visiting;
 import walkingkooka.visit.VisitorPrettyPrinter;

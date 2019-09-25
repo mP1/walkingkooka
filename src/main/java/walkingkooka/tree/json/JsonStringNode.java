@@ -17,8 +17,8 @@
 
 package walkingkooka.tree.json;
 
-import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.tree.search.SearchNode;
 
 import java.util.Objects;
