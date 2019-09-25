@@ -29,7 +29,7 @@ public interface PushableStreamConsumer<T> extends Consumer<T>, AutoCloseable {
      * Factory that creates a {@link Stream} from the given {@link PushableStreamConsumer}.
      */
     static <T> Stream<T> stream(final Consumer<PushableStreamConsumer<T>> starter) {
-        return PushableStreamStream.with(starter);
+        return PushableStreamConsumerStream.with(starter);
     }
 
     /**
