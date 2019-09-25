@@ -17,7 +17,7 @@
 
 package walkingkooka.naming;
 
-import walkingkooka.io.serialize.SerializationProxy;
+import walkingkooka.io.SerializationProxy;
 
 class StringPathRootSerializationProxy implements SerializationProxy {
 

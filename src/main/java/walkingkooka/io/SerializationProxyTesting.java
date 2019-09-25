@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.io.serialize;
+package walkingkooka.io;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ToStringTesting;
