@@ -17,8 +17,8 @@
 
 package walkingkooka.visit;
 
-import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.text.Indentation;
+import walkingkooka.text.printer.IndentingPrinter;
 
 import java.util.Objects;
 import java.util.function.Function;

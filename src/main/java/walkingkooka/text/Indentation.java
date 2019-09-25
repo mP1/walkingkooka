@@ -18,9 +18,9 @@
 package walkingkooka.text;
 
 import walkingkooka.Value;
-import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.io.SerializationProxy;
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.text.printer.IndentingPrinter;
 
 import java.io.Serializable;
 import java.util.Arrays;

@@ -19,14 +19,14 @@ package walkingkooka.visit;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.io.printer.IndentingPrinter;
-import walkingkooka.io.printer.IndentingPrinters;
-import walkingkooka.io.printer.Printers;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.printer.IndentingPrinter;
+import walkingkooka.text.printer.IndentingPrinters;
+import walkingkooka.text.printer.Printers;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.function.Function;

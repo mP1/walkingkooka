@@ -18,8 +18,8 @@
 package walkingkooka.tree.json;
 
 import walkingkooka.collect.list.Lists;
-import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.text.CharacterConstant;
+import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.visit.Visiting;
 
