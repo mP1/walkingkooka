@@ -17,7 +17,6 @@
 
 package walkingkooka.io.printer;
 
-import walkingkooka.io.printstream.HasPrintStream;
 import walkingkooka.text.LineEnding;
 
 import java.io.PrintStream;
@@ -26,7 +25,7 @@ import java.util.Objects;
 /**
  * A {@link Printer} that is an adaptor for a {@link PrintStream}.
  */
-final class PrintStreamPrinter implements Printer, HasPrintStream {
+final class PrintStreamPrinter implements Printer {
 
     /**
      * Factory with special cases when the given {@link PrintStream} is {@link System#out} or {@link
@@ -83,7 +82,8 @@ final class PrintStreamPrinter implements Printer, HasPrintStream {
     /**
      * Private constructor
      */
-    private PrintStreamPrinter(final String label, final PrintStream printStream,
+    private PrintStreamPrinter(final String label,
+                               final PrintStream printStream,
                                final LineEnding lineEnding) {
         super();
 
@@ -123,11 +123,6 @@ final class PrintStreamPrinter implements Printer, HasPrintStream {
      * The wrapped {@link PrintStream}.
      */
     private final PrintStream printStream;
-
-    @Override
-    public PrintStream printStream() {
-        return this.printStream;
-    }
 
     /**
      * A label that is used by {@link #toString()}
