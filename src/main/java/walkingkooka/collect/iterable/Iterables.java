@@ -19,19 +19,11 @@ package walkingkooka.collect.iterable;
 
 import walkingkooka.type.PublicStaticHelper;
 
-import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.function.BiPredicate;
 
 final public class Iterables implements PublicStaticHelper {
-
-    /**
-     * {@see EnumerationIterable}
-     */
-    public static <T> Iterable<T> enumeration(final Enumeration<T> enumeration) {
-        return EnumerationIterable.with(enumeration);
-    }
 
     /**
      * Tests if the elements belonging to the two {@link Iterables} are all equal in the order given.
