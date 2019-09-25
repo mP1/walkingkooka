@@ -18,8 +18,6 @@
 package walkingkooka.io.printer;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.io.printstream.HasPrintStream;
-import walkingkooka.io.printstream.PrintStreams;
 import walkingkooka.text.LineEnding;
 
 import java.io.ByteArrayOutputStream;
@@ -28,7 +26,6 @@ import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class PrintStreamPrinterTest extends PrinterTestCase<PrintStreamPrinter> {
 
@@ -55,17 +52,8 @@ final public class PrintStreamPrinterTest extends PrinterTestCase<PrintStreamPri
     @Test
     public void testWithNullLineEndingFails() {
         assertThrows(NullPointerException.class, () -> {
-            PrintStreamPrinter.with(PrintStreams.fake(), null);
+            PrintStreamPrinter.with(System.out, null);
         });
-    }
-
-    @Test
-    public void testHasPrintStream() {
-        final PrintStream stream = System.out;
-        final PrintStreamPrinter printer = PrintStreamPrinter.with(stream,
-                LINE_ENDING);
-        assertTrue(printer instanceof HasPrintStream, printer + " does not implement HasPrintStream");
-        assertSame(stream, printer.printStream(), "printStream getter");
     }
 
     @Override
