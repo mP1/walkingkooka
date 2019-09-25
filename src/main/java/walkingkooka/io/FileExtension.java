@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.io.file;
+package walkingkooka.io;
 
 import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;

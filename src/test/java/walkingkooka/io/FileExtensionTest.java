@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.io.file;
+package walkingkooka.io;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
