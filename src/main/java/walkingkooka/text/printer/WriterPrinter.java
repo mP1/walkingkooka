@@ -17,7 +17,6 @@
 
 package walkingkooka.text.printer;
 
-import walkingkooka.Throwables;
 import walkingkooka.text.LineEnding;
 
 import java.io.IOException;
@@ -54,7 +53,7 @@ final class WriterPrinter implements Printer {
         try {
             this.writer.write(chars.toString());
         } catch (final IOException cause) {
-            throw new PrinterException(Throwables.message("printing", cause), cause);
+            throw new PrinterException("Print failed", cause);
         }
     }
 
@@ -73,7 +72,7 @@ final class WriterPrinter implements Printer {
         try {
             this.writer.flush();
         } catch (final IOException cause) {
-            throw new PrinterException(Throwables.message("flush", cause), cause);
+            throw new PrinterException("Flush failed", cause);
         }
     }
 
@@ -82,7 +81,7 @@ final class WriterPrinter implements Printer {
         try {
             this.writer.close();
         } catch (final IOException cause) {
-            throw new PrinterException(Throwables.message("close", cause), cause);
+            throw new PrinterException("Close failed", cause);
         }
     }
 
