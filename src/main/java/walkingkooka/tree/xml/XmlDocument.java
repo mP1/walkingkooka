@@ -23,7 +23,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import walkingkooka.Cast;
-import walkingkooka.Throwables;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.ToStringBuilderOption;
 import walkingkooka.text.LineEnding;
@@ -502,7 +501,7 @@ public final class XmlDocument extends XmlParentNode {
 
             return this.wrap0(replacedDocument);
         } catch (final DOMException cause) {
-            throw new XmlException(Throwables.message("Failed to replace children", cause));
+            throw new XmlException("Failed to replace children", cause);
         }
     }
 
