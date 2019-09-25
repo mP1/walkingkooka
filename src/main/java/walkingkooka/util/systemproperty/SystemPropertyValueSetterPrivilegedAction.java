@@ -17,8 +17,6 @@
 
 package walkingkooka.util.systemproperty;
 
-import walkingkooka.util.Pair;
-
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 
@@ -33,44 +31,29 @@ final class SystemPropertyValueSetterPrivilegedAction implements PrivilegedActio
      * block.
      */
     static String set(final SystemProperty property, final String value) {
-        final ThreadLocal<Pair<SystemProperty, String>> nameAndValue
-                = SystemPropertyValueSetterPrivilegedAction.nameAndValue;
-        nameAndValue.set(Pair.with(property, value));
-        try {
-            return AccessController.doPrivileged(SystemPropertyValueSetterPrivilegedAction.INSTANCE);
-        } finally {
-            nameAndValue.set(null);
-        }
+        return AccessController.doPrivileged(new SystemPropertyValueSetterPrivilegedAction(property, value));
     }
-
-    /**
-     * Singleton
-     */
-    private final static SystemPropertyValueSetterPrivilegedAction INSTANCE
-            = new SystemPropertyValueSetterPrivilegedAction();
-
-    /**
-     * Thread local used to temporarily hold the system property being set.
-     */
-    final static ThreadLocal<Pair<SystemProperty, String>> nameAndValue
-            = new ThreadLocal<Pair<SystemProperty, String>>();
 
     /**
      * Private constructor
      */
-    private SystemPropertyValueSetterPrivilegedAction() {
+    private SystemPropertyValueSetterPrivilegedAction(final SystemProperty property,
+                                                      final String value) {
         super();
+        this.property = property;
+        this.value = value;
     }
 
     @Override
     public String run() {
-        final Pair<SystemProperty, String> setting
-                = SystemPropertyValueSetterPrivilegedAction.nameAndValue.get();
-        return System.setProperty(setting.first().value(), setting.second());
+        return System.setProperty(this.property.propertyValue(), this.value);
     }
+
+    private final SystemProperty property;
+    private final String value;
 
     @Override
     public String toString() {
-        return SystemPropertyValueSetterPrivilegedAction.nameAndValue.get().toString();
+        return this.property + "=" + this.value;
     }
 }
