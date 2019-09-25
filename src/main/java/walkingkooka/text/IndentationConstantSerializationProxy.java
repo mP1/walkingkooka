@@ -17,7 +17,7 @@
 
 package walkingkooka.text;
 
-import walkingkooka.io.serialize.SerializationProxy;
+import walkingkooka.io.SerializationProxy;
 
 /**
  * A {@link SerializationProxy} for any of the {@link Indentation#CONSTANTS} storing only the

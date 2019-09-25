@@ -17,7 +17,7 @@
 
 package walkingkooka.naming;
 
-import walkingkooka.io.serialize.SerializationProxy;
+import walkingkooka.io.SerializationProxy;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 

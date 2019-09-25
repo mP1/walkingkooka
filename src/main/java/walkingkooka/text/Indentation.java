@@ -19,7 +19,7 @@ package walkingkooka.text;
 
 import walkingkooka.Value;
 import walkingkooka.io.printer.IndentingPrinter;
-import walkingkooka.io.serialize.SerializationProxy;
+import walkingkooka.io.SerializationProxy;
 import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.io.Serializable;

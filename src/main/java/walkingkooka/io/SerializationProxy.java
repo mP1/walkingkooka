@@ -15,4 +15,12 @@
  *
  */
 
-package walkingkooka.io.serialize;
+package walkingkooka.io;
+
+import java.io.Serializable;
+
+/**
+ * Tag interface for any serialization proxy.
+ */
+public interface SerializationProxy extends Serializable {
+}

@@ -18,7 +18,7 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.io.serialize.SerializationProxyTesting;
+import walkingkooka.io.SerializationProxyTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.JavaVisibility;
 
