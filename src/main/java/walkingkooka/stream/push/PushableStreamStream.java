@@ -23,7 +23,6 @@ import walkingkooka.ToStringBuilder;
 import walkingkooka.UsesToStringBuilder;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Comparator;
 import java.util.Iterator;
@@ -55,7 +54,6 @@ import java.util.stream.Stream;
  * It feeds a {@link PushableStreamConsumer} to interact with a source which will push values.
  */
 final class PushableStreamStream<T> implements Stream<T>,
-        HashCodeEqualsDefined,
         UsesToStringBuilder {
 
     /**
@@ -555,23 +553,6 @@ final class PushableStreamStream<T> implements Stream<T>,
     }
 
     // Object...........................................................................................................
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.starter, this.intermediates, this.closeables);
-    }
-
-    @Override
-    public boolean equals(final Object other) {
-        return this == other ||
-                other instanceof PushableStreamStream && this.equals0(Cast.to(other));
-    }
-
-    private boolean equals0(final PushableStreamStream<?> other) {
-        return this.starter.equals(other.starter) &&
-                this.intermediates.equals(other.intermediates) &&
-                this.closeables.equals(other.closeables);
-    }
 
     @Override
     public String toString() {

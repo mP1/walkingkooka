@@ -236,6 +236,29 @@ public final class PushableStreamStreamTest implements StreamTesting<PushableStr
                 PushableStreamStreamIntermediate.skip(skip1 + skip2));
     }
 
+    @Test
+    public void testStreamSkipCollect() {
+        final long skip1 = 1;
+
+        final Consumer<PushableStreamConsumer<String>> starter = this.starter("1a", "2b", "3c");
+        final PushableStreamStream<String> stream = PushableStreamStream.with(starter);
+        final Stream<String> stream2 = stream.skip(skip1);
+
+        assertNotSame(stream, stream2);
+
+        this.collectAndCheck(stream2, "2b", "3c");
+    }
+
+    @Test
+    public void testStreamSkipSkipCollect() {
+        final Consumer<PushableStreamConsumer<String>> starter = this.starter("1a", "2b", "3c", "4d", "5e");
+        final PushableStreamStream<String> stream = PushableStreamStream.with(starter);
+        final Stream<String> stream2 = stream.skip(1)
+                .skip(2);
+
+        this.collectAndCheck(stream2, "4d", "5e");
+    }
+
     // filter..........................................................................................................
 
     @Test
@@ -252,6 +275,15 @@ public final class PushableStreamStreamTest implements StreamTesting<PushableStr
                 starter,
                 CloseableCollection.empty(),
                 PushableStreamStreamIntermediate.filter(filter));
+    }
+
+    @Test
+    public void testStreamFilterCollect() {
+        final Consumer<PushableStreamConsumer<String>> starter = this.starter("1a", "2b!", "3c", "4d!");
+        final PushableStreamStream<String> stream = PushableStreamStream.with(starter);
+        final Stream<String> stream2 = stream.filter((s)-> s.contains("!"));
+
+        this.collectAndCheck(stream2,"2b!", "4d!");
     }
 
     @Test
@@ -334,6 +366,16 @@ public final class PushableStreamStreamTest implements StreamTesting<PushableStr
     }
 
     @Test
+    public void testStreamMapMapPushCollect() {
+        final Consumer<PushableStreamConsumer<String>> starter = this.starter("1", "2", "3");
+        final PushableStreamStream<String> stream = PushableStreamStream.with(starter);
+        final Stream<String> stream2 = stream.map((s) -> s + "!")
+                .map((s) -> s + "@");
+
+        this.collectAndCheck(stream2, "1!@", "2!@", "3!@");
+    }
+
+    @Test
     public void testStreamMapLimit() {
         final Function<String, String> mapper = Function.identity();
 
@@ -352,6 +394,16 @@ public final class PushableStreamStreamTest implements StreamTesting<PushableStr
                 CloseableCollection.empty(),
                 PushableStreamStreamIntermediate.map(mapper),
                 PushableStreamStreamIntermediate.limit(limit));
+    }
+
+    @Test
+    public void testStreamMapLimitCollect() {
+        final Consumer<PushableStreamConsumer<String>> starter = this.starter("1a", "2b", "3c", "4f");
+        final PushableStreamStream<String> stream = PushableStreamStream.with(starter);
+        final Stream<String> stream2 = stream.map((s) -> s + "!")
+                .limit(3);
+
+        this.collectAndCheck(stream2, "1a!", "2b!", "3c!");
     }
 
     // mapToInt.........................................................................................................
@@ -443,6 +495,16 @@ public final class PushableStreamStreamTest implements StreamTesting<PushableStr
                 .flatMap(mapper);
 
         this.collectAndCheck(stream2, "a1", "b2", "c3");
+    }
+
+    @Test
+    public void testStreamFlatMapToArray() {
+        final Function<String, Stream<String>> mapper = (s) -> Stream.of(s);
+
+        final Stream<String> stream2 = this.createStream("a1", "b2", "c3")
+                .flatMap(mapper);
+
+        this.toArrayAndCheck(stream2, "a1", "b2", "c3");
     }
 
     @Test
