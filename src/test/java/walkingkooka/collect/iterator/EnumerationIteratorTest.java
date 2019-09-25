@@ -19,7 +19,6 @@ package walkingkooka.collect.iterator;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.collect.enumeration.Enumerations;
 import walkingkooka.collect.list.Lists;
 
 import java.util.Enumeration;
@@ -62,14 +61,25 @@ final public class EnumerationIteratorTest
 
     @Test
     public void testToString() {
-        final Enumeration<Object> enumeration = Enumerations.fake();
-        this.toStringAndCheck(EnumerationIterator.adapt(enumeration), enumeration.toString());
+        this.toStringAndCheck(EnumerationIterator.adapt(ENUMERATION), ENUMERATION.toString());
     }
 
     @Override
     public EnumerationIterator<Integer> createIterator() {
-        return EnumerationIterator.adapt(Enumerations.fake());
+        return EnumerationIterator.adapt(ENUMERATION);
     }
+
+    private static Enumeration<Integer> ENUMERATION = new Enumeration<Integer>() {
+        @Override
+        public boolean hasMoreElements() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Integer nextElement() {
+            throw new UnsupportedOperationException();
+        }
+    };
 
     @Override
     public Class<EnumerationIterator<Integer>> type() {

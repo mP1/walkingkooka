@@ -19,7 +19,6 @@ package walkingkooka;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.build.BuilderTesting;
-import walkingkooka.collect.enumeration.Enumerations;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CharSequences;
@@ -488,7 +487,22 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
 
     @Test
     public void testValueEnumerationNotConsumed() {
-        final Enumeration<String> enumeration = Enumerations.fake();
+        final Enumeration<String> enumeration = new Enumeration<String>() {
+            @Override
+            public boolean hasMoreElements() {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public String nextElement() {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public String toString() {
+                return "Enumeration123";
+            }
+        };
         this.buildAndCheck(this.builder()//
                         .value(enumeration),
                 enumeration.toString());
