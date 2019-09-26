@@ -19,7 +19,6 @@ package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
@@ -34,9 +33,6 @@ import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
-import walkingkooka.tree.json.marshall.JsonNodeMappingTesting;
 
 import java.math.MathContext;
 import java.util.Arrays;
@@ -59,7 +55,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, StringName, StringName, Object>> extends NodeSelectorTestCase3<S>
         implements HashCodeEqualsDefinedTesting2<S>,
-        JsonNodeMappingTesting<S>,
         ToStringTesting<S> {
 
     NodeSelectorTestCase4() {
@@ -465,18 +460,6 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
 
     @Override
     public final S createObject() {
-        return this.createSelector();
-    }
-
-    // JsonNodeMapTesting...............................................................................................
-
-    @Override
-    public S fromJsonNode(final JsonNode from, final FromJsonNodeContext context) {
-        return Cast.to(NodeSelector.fromJsonNode(from, context));
-    }
-
-    @Override
-    public final S createJsonNodeMappingValue() {
         return this.createSelector();
     }
 }

@@ -23,11 +23,9 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
-import walkingkooka.tree.json.JsonNode;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -273,36 +271,6 @@ final public class NamedNodeSelectorTest extends
                 visited,
                 "visited");
     }
-
-    // JsonNodeContext..................................................................................................
-
-    @Test
-    public void testToJsonNode() {
-        Names.string("123");
-
-        assertEquals(Optional.of(JsonNode.string("string-name")), this.toJsonNodeContext().typeName(StringName.class));
-
-        this.toJsonNodeAndCheck(this.createSelector(),
-                "{\n" +
-                        "  \"name-type\": \"string-name\",\n" +
-                        "  \"components\": [\"named:ABC123\"]\n" +
-                        "}");
-    }
-
-    @Test
-    public void testFromJsonNode() {
-        Names.string("123");
-
-        assertEquals(Optional.of(JsonNode.string("string-name")), toJsonNodeContext().typeName(StringName.class));
-
-        this.fromJsonNodeAndCheck("{\n" +
-                        "  \"name-type\": \"string-name\",\n" +
-                        "  \"components\": [\"named:ABC123\"]\n" +
-                        "}",
-                this.createSelector());
-    }
-
-    // Object.......................................................................................................
 
     @Test
     public void testEqualsDifferentName() {

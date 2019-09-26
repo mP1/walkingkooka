@@ -24,7 +24,6 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.tree.TestNode;
-import walkingkooka.tree.json.marshall.JsonNodeMappingTesting;
 
 import java.util.List;
 import java.util.Set;
@@ -34,8 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class NonTerminalNodeSelectorTestCase<S extends NodeSelector<TestNode, StringName, StringName, Object>>
-        extends NodeSelectorTestCase4<S>
-        implements JsonNodeMappingTesting<S> {
+        extends NodeSelectorTestCase4<S> {
 
     NonTerminalNodeSelectorTestCase() {
         super();
