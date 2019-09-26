@@ -23,8 +23,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
-import walkingkooka.tree.json.marshall.JsonNodeMappingTesting;
 import walkingkooka.tree.json.marshall.TestJsonNodeValue;
 import walkingkooka.type.JavaVisibility;
 
@@ -32,8 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
-        NameTesting<JsonNodeName, JsonNodeName>,
-        JsonNodeMappingTesting<JsonNodeName> {
+        NameTesting<JsonNodeName, JsonNodeName> {
 
     @BeforeAll
     public static void beforeAll() {
@@ -55,36 +52,6 @@ public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
     @Test
     public void testIndex() {
         assertEquals("123", JsonNodeName.index(123).value());
-    }
-
-    // JsonNodeContext..................................................................................................
-
-    @Test
-    public void testFromJsonNodeString() {
-        final String value = "property-1a";
-        this.fromJsonNodeAndCheck(JsonNode.string(value), JsonNodeName.with(value));
-    }
-
-    @Test
-    public void testToJsonNode() {
-        final String value = "property-1a";
-        this.toJsonNodeAndCheck(JsonNodeName.with(value), JsonNode.string(value));
-    }
-
-    @Test
-    public void testToJsonNodeIndex() {
-        final JsonNodeName name = JsonNodeName.index(1);
-        this.toJsonNodeAndCheck(name, JsonNode.string("1"));
-    }
-
-    @Test
-    public void testToJsonNodeRoundtripIndex() {
-        this.toJsonNodeRoundTripTwiceAndCheck(JsonNodeName.index(1));
-    }
-
-    @Test
-    public void testToJsonNodeRoundtripIndex2() {
-        this.toJsonNodeRoundTripTwiceAndCheck(JsonNodeName.index(JsonNodeName.INDEX_CACHE_SIZE + 1));
     }
 
     @Test
@@ -131,18 +98,5 @@ public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
-    }
-
-    // JsonNodeMappingTesting.....................................................................
-
-    @Override
-    public JsonNodeName fromJsonNode(final JsonNode from,
-                                     final FromJsonNodeContext context) {
-        return JsonNodeName.fromJsonNode(from, context);
-    }
-
-    @Override
-    public JsonNodeName createJsonNodeMappingValue() {
-        return JsonNodeName.with("property-1a");
     }
 }

@@ -21,8 +21,6 @@ import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
-import walkingkooka.tree.json.marshall.ToJsonNodeContext;
 import walkingkooka.tree.search.SearchNodeName;
 
 /**
@@ -95,20 +93,6 @@ public final class JsonNodeName implements Name,
      */
     final SearchNodeName toSearchNodeName() {
         return SearchNodeName.with(this.name);
-    }
-
-    // JsonNodeContext..................................................................................................
-
-    /**
-     * Accepts a json string holding a {@link JsonNodeName}
-     */
-    static JsonNodeName fromJsonNode(final JsonNode node,
-                                     final FromJsonNodeContext context) {
-        return with(node.stringValueOrFail());
-    }
-
-    JsonNode toJsonNode(final ToJsonNodeContext context) {
-        return JsonNode.string(this.name);
     }
 
     // Object..........................................................................................................
