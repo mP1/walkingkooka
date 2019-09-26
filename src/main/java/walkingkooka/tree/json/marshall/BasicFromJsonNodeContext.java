@@ -65,7 +65,7 @@ final class BasicFromJsonNodeContext extends BasicJsonNodeContext implements Fro
     @Override
     public <T> T fromJsonNode(final JsonNode node,
                               final Class<T> type) {
-        return type.cast(BasicMarshaller.marshaller(type).fromJsonNode(this.preProcess(node, type), this));
+        return type.cast(BasicJsonMarshaller.marshaller(type).fromJsonNode(this.preProcess(node, type), this));
     }
 
     /**
@@ -95,7 +95,7 @@ final class BasicFromJsonNodeContext extends BasicJsonNodeContext implements Fro
     private <C extends Collection<T>, T> C fromJsonNodeCollection(final JsonNode from,
                                                                   final Class<T> elementType,
                                                                   final Collector<T, ?, C> collector) {
-        final BasicMarshaller<T> marshaller = BasicMarshaller.marshaller(elementType);
+        final BasicJsonMarshaller<T> marshaller = BasicJsonMarshaller.marshaller(elementType);
         return from.children()
                 .stream()
                 .map(c -> marshaller.fromJsonNode(this.preProcess(c, elementType), this))
@@ -112,8 +112,8 @@ final class BasicFromJsonNodeContext extends BasicJsonNodeContext implements Fro
                                             final Class<V> valueType) {
         fromArrayCheck(node, Map.class);
 
-        final BasicMarshaller<K> keyMapper = BasicMarshaller.marshaller(keyType);
-        final BasicMarshaller<V> valueMapper = BasicMarshaller.marshaller(valueType);
+        final BasicJsonMarshaller<K> keyMapper = BasicJsonMarshaller.marshaller(keyType);
+        final BasicJsonMarshaller<V> valueMapper = BasicJsonMarshaller.marshaller(valueType);
 
         final Map<K, V> map = Maps.ordered();
 
@@ -121,8 +121,8 @@ final class BasicFromJsonNodeContext extends BasicJsonNodeContext implements Fro
             for (JsonNode entry : node.children()) {
                 final JsonObjectNode entryObject = entry.objectOrFail();
 
-                map.put(keyMapper.fromJsonNode(this.preProcess(entryObject.getOrFail(BasicMarshallerTypedMap.ENTRY_KEY), keyType), this),
-                        valueMapper.fromJsonNode(this.preProcess(entryObject.getOrFail(BasicMarshallerTypedMap.ENTRY_VALUE), valueType), this));
+                map.put(keyMapper.fromJsonNode(this.preProcess(entryObject.getOrFail(BasicJsonMarshallerTypedMap.ENTRY_KEY), keyType), this),
+                        valueMapper.fromJsonNode(this.preProcess(entryObject.getOrFail(BasicJsonMarshallerTypedMap.ENTRY_VALUE), valueType), this));
             }
             return map;
 
@@ -184,8 +184,8 @@ final class BasicFromJsonNodeContext extends BasicJsonNodeContext implements Fro
         for (JsonNode child : node.children()) {
             final JsonObjectNode childObject = child.objectOrFail();
 
-            map.put(this.fromJsonNodeWithType(childObject.getOrFail(BasicMarshallerTypedMap.ENTRY_KEY)),
-                    this.fromJsonNodeWithType(childObject.getOrFail(BasicMarshallerTypedMap.ENTRY_VALUE)));
+            map.put(this.fromJsonNodeWithType(childObject.getOrFail(BasicJsonMarshallerTypedMap.ENTRY_KEY)),
+                    this.fromJsonNodeWithType(childObject.getOrFail(BasicJsonMarshallerTypedMap.ENTRY_VALUE)));
         }
 
         return map;

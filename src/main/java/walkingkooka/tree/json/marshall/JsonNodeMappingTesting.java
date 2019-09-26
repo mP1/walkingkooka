@@ -53,15 +53,15 @@ public interface JsonNodeMappingTesting<V> extends Testing {
             final Object[] values = Cast.to(type.getMethod("values").invoke(null));
             assertEquals(Lists.empty(),
                     Arrays.stream(values)
-                            .filter(e -> BasicMarshaller.TYPENAME_TO_MARSHALLER.get(e.getClass().getName()) == null)
+                            .filter(e -> BasicJsonMarshaller.TYPENAME_TO_MARSHALLER.get(e.getClass().getName()) == null)
                             .collect(Collectors.toList()),
-                    () -> "Not all enum: " + typeName + " value types not registered -> JsonNodeContext.register()=" + BasicMarshaller.TYPENAME_TO_MARSHALLER);
+                    () -> "Not all enum: " + typeName + " value types not registered -> JsonNodeContext.register()=" + BasicJsonMarshaller.TYPENAME_TO_MARSHALLER);
 
         } else {
             assertNotEquals(
                     null,
-                    BasicMarshaller.TYPENAME_TO_MARSHALLER.get(typeName),
-                    () -> "Type: " + typeName + " factory not registered -> JsonNodeContext.register()=" + BasicMarshaller.TYPENAME_TO_MARSHALLER);
+                    BasicJsonMarshaller.TYPENAME_TO_MARSHALLER.get(typeName),
+                    () -> "Type: " + typeName + " factory not registered -> JsonNodeContext.register()=" + BasicJsonMarshaller.TYPENAME_TO_MARSHALLER);
         }
     }
 
@@ -245,11 +245,11 @@ public interface JsonNodeMappingTesting<V> extends Testing {
 
         assertEquals(from,
                 fromContext.fromJsonNodeWithType(jsonNode2),
-                () -> "BasicMarshaller roundtrip to -> from -> to failed =" + CharSequences.quoteIfChars(value));
+                () -> "BasicJsonMarshaller roundtrip to -> from -> to failed =" + CharSequences.quoteIfChars(value));
 
         assertEquals(from,
                 fromContext.fromJsonNodeWithType(jsonNode2),
-                () -> "BasicMarshaller roundtrip to -> from -> to failed =" + CharSequences.quoteIfChars(value));
+                () -> "BasicJsonMarshaller roundtrip to -> from -> to failed =" + CharSequences.quoteIfChars(value));
     }
 
     V createJsonNodeMappingValue();
