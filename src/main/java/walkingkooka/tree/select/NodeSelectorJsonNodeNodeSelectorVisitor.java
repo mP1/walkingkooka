@@ -172,7 +172,7 @@ final class NodeSelectorJsonNodeNodeSelectorVisitor<N extends Node<N, NAME, ANAM
                 .get()
                 .cast();
 
-        return ExpressionNodeSelectorNodeSelectorParserTokenVisitor.toExpressionNode(token, Predicates.always());
+        return token.toExpressionNode(Predicates.always());
     }
 
     private static MathContext hasMathContext() {

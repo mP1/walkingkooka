@@ -246,8 +246,7 @@ public final class ExpressionNodeSelectorToStringExpressionNodeVisitorTest imple
     private void parseAndStringExpressionCheck(final String expression) {
         final NodeSelectorPredicateParserToken parsed = parseOrFail(expression);
 
-        final ExpressionNode expressionNode = ExpressionNodeSelectorNodeSelectorParserTokenVisitor.toExpressionNode(parsed,
-                Predicates.always());
+        final ExpressionNode expressionNode = parsed.toExpressionNode(Predicates.always());
 
         assertEquals(expression,
                 ExpressionNodeSelectorToStringExpressionNodeVisitor.toString(expressionNode),

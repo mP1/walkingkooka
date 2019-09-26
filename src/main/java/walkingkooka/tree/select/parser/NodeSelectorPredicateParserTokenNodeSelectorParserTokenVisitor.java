@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.tree.select;
+package walkingkooka.tree.select.parser;
 
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.stack.Stack;
@@ -24,29 +24,7 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.ExpressionReference;
-import walkingkooka.tree.select.parser.NodeSelectorAdditionParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorAndParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorAttributeNameParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorDivisionParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorEqualsParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorFunctionNameParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorFunctionParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorGreaterThanEqualsParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorGreaterThanParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorGroupParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorLessThanEqualsParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorLessThanParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorModuloParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorMultiplicationParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorNegativeParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorNotEqualsParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorNumberParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorOrParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorParserTokenVisitor;
-import walkingkooka.tree.select.parser.NodeSelectorPredicateParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorQuotedTextParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorSubtractionParserToken;
+import walkingkooka.tree.select.NodeSelectorException;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
@@ -57,14 +35,14 @@ import java.util.function.Predicate;
  * This {@link NodeSelectorParserTokenVisitor} translates a {@link NodeSelectorPredicateParserToken} into a {@link walkingkooka.tree.expression.ExpressionNode} equivalent.
  * A support {@link walkingkooka.tree.expression.ExpressionEvaluationContext} will provide function to definition and attribute to value lookups.
  */
-final class ExpressionNodeSelectorNodeSelectorParserTokenVisitor extends NodeSelectorParserTokenVisitor {
+final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor extends NodeSelectorParserTokenVisitor {
 
     /**
      * Converts the contents of a predicate into a {@link ExpressionNode}.
      */
     static ExpressionNode toExpressionNode(final NodeSelectorPredicateParserToken token,
                                            final Predicate<ExpressionNodeName> functions) {
-        final ExpressionNodeSelectorNodeSelectorParserTokenVisitor visitor = new ExpressionNodeSelectorNodeSelectorParserTokenVisitor(functions);
+        final NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor visitor = new NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor(functions);
         token.accept(visitor);
 
         final List<ExpressionNode> nodes = visitor.children;
@@ -80,7 +58,7 @@ final class ExpressionNodeSelectorNodeSelectorParserTokenVisitor extends NodeSel
      * Private ctor use static method.
      */
     // @VisibleForTesting
-    ExpressionNodeSelectorNodeSelectorParserTokenVisitor(final Predicate<ExpressionNodeName> functions) {
+    NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor(final Predicate<ExpressionNodeName> functions) {
         super();
         this.functions = functions;
     }
