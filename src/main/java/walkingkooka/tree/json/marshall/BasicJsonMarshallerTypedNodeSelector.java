@@ -117,7 +117,7 @@ final class BasicJsonMarshallerTypedNodeSelector extends BasicJsonMarshallerType
         }
 
         return fromJsonNodeNonNull0(
-                NAME_TYPE_PROPERTY.fromJsonNodeWithTypeFactory(node.objectOrFail(), Name.class),
+                context.fromJsonNodeWithType(NAME_TYPE_PROPERTY, node.objectOrFail(), Name.class),
                 components,
                 context);
     }

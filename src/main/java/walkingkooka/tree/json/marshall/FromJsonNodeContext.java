@@ -110,4 +110,13 @@ public interface FromJsonNodeContext extends JsonNodeContext {
      * Assumes a {@link JsonArrayNode} holding entries of the {@link Map} tagged with type and values.
      */
     <K, V> Map<K, V> fromJsonNodeWithTypeMap(final JsonNode node);
+
+    /**
+     * {@see FromJsonNodeWithTypePropertyBiFunction}
+     */
+    default <T> BiFunction<JsonNode, FromJsonNodeContext, T> fromJsonNodeWithType(final JsonNodeName property,
+                                                                                  final JsonObjectNode propertySource,
+                                                                                  final Class<T> superType) {
+        return FromJsonNodeWithTypePropertyBiFunction.with(property, propertySource, superType);
+    }
 }
