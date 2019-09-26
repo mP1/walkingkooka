@@ -238,8 +238,8 @@ public final class BasicToJsonNodeContextTest extends BasicJsonNodeContextTestCa
     private JsonNode map(final String key, final JsonNode value) {
         return JsonNode.array()
                 .appendChild(JsonNode.object()
-                        .set(BasicMarshallerTypedMap.ENTRY_KEY, JsonNode.string(key))
-                        .set(BasicMarshallerTypedMap.ENTRY_VALUE, value));
+                        .set(BasicJsonMarshallerTypedMap.ENTRY_KEY, JsonNode.string(key))
+                        .set(BasicJsonMarshallerTypedMap.ENTRY_VALUE, value));
     }
 
     // toJsonNodeWithType...............................................................................................
@@ -550,8 +550,8 @@ public final class BasicToJsonNodeContextTest extends BasicJsonNodeContextTestCa
         this.toJsonNodeWithTypeMapAndCheck(Maps.of(KEY, javaValue),
                 JsonNode.array()
                         .appendChild(JsonNode.object()
-                                .set(BasicMarshallerTypedMap.ENTRY_KEY, JsonNode.string(KEY))
-                                .set(BasicMarshallerTypedMap.ENTRY_VALUE, value)));
+                                .set(BasicJsonMarshallerTypedMap.ENTRY_KEY, JsonNode.string(KEY))
+                                .set(BasicJsonMarshallerTypedMap.ENTRY_VALUE, value)));
     }
 
     @Test
@@ -563,8 +563,8 @@ public final class BasicToJsonNodeContextTest extends BasicJsonNodeContextTestCa
                 Maps.of(key, value),
                 JsonNode.array()
                         .appendChild(JsonNode.object()
-                                .set(BasicMarshallerTypedMap.ENTRY_KEY, JsonNode.string(key))
-                                .set(BasicMarshallerTypedMap.ENTRY_VALUE, this.typeAndValue(TestJsonNodeValue.TYPE_NAME, value.toJsonNode(ToJsonNodeContexts.fake()).set(POST, POST_VALUE)))));
+                                .set(BasicJsonMarshallerTypedMap.ENTRY_KEY, JsonNode.string(key))
+                                .set(BasicJsonMarshallerTypedMap.ENTRY_VALUE, this.typeAndValue(TestJsonNodeValue.TYPE_NAME, value.toJsonNode(ToJsonNodeContexts.fake()).set(POST, POST_VALUE)))));
     }
 
     // ToJsonNodeContext................................................................................................

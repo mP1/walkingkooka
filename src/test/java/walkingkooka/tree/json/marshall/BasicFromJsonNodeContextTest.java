@@ -271,8 +271,8 @@ public final class BasicFromJsonNodeContextTest extends BasicJsonNodeContextTest
         this.fromJsonNodeMapAndCheck(context,
                 JsonNode.array()
                         .appendChild(JsonNode.object()
-                                .set(BasicMarshallerTypedMap.ENTRY_KEY, JsonNode.string(KEY))
-                                .set(BasicMarshallerTypedMap.ENTRY_VALUE, value)),
+                                .set(BasicJsonMarshallerTypedMap.ENTRY_KEY, JsonNode.string(KEY))
+                                .set(BasicJsonMarshallerTypedMap.ENTRY_VALUE, value)),
                 String.class,
                 valueType,
                 Maps.of(KEY, javaValue));
@@ -598,8 +598,8 @@ public final class BasicFromJsonNodeContextTest extends BasicJsonNodeContextTest
         this.fromJsonNodeMapWithTypeAndCheck(context,
                 JsonNode.array()
                         .appendChild(JsonNode.object()
-                                .set(BasicMarshallerTypedMap.ENTRY_KEY, JsonNode.string(KEY))
-                                .set(BasicMarshallerTypedMap.ENTRY_VALUE, jsonValue)),
+                                .set(BasicJsonMarshallerTypedMap.ENTRY_KEY, JsonNode.string(KEY))
+                                .set(BasicJsonMarshallerTypedMap.ENTRY_VALUE, jsonValue)),
                 Maps.of(KEY, javaValue));
     }
 

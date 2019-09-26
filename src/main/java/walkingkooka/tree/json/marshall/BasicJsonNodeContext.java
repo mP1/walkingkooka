@@ -42,7 +42,7 @@ abstract class BasicJsonNodeContext implements JsonNodeContext {
      */
     @Override
     public final Optional<Class<?>> registeredType(final JsonStringNode name) {
-        return BasicMarshaller.registeredType(name);
+        return BasicJsonMarshaller.registeredType(name);
     }
 
     // typeName ........................................................................................................
@@ -52,7 +52,7 @@ abstract class BasicJsonNodeContext implements JsonNodeContext {
      */
     @Override
     public final Optional<JsonStringNode> typeName(final Class<?> type) {
-        return BasicMarshaller.typeName(type);
+        return BasicJsonMarshaller.typeName(type);
     }
 
     // toString ........................................................................................................
@@ -63,7 +63,7 @@ abstract class BasicJsonNodeContext implements JsonNodeContext {
     @Override
     public final String toString() {
         final Set<String> sorted = Sets.sorted();
-        sorted.addAll(BasicMarshaller.TYPENAME_TO_MARSHALLER.keySet());
+        sorted.addAll(BasicJsonMarshaller.TYPENAME_TO_MARSHALLER.keySet());
         return sorted.toString();
     }
 }

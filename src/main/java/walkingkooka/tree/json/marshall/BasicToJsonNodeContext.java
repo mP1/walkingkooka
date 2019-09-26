@@ -73,7 +73,7 @@ final class BasicToJsonNodeContext extends BasicJsonNodeContext implements ToJso
     }
 
     private JsonNode toJsonNodeNonNull(final Object value) {
-        final JsonNode json = BasicMarshaller.marshaller(value.getClass())
+        final JsonNode json = BasicJsonMarshaller.marshaller(value.getClass())
                 .toJsonNode(Cast.to(value), this);
         return json.isObject() ?
                 this.processor.apply(value, json.objectOrFail()) :
@@ -124,8 +124,8 @@ final class BasicToJsonNodeContext extends BasicJsonNodeContext implements ToJso
 
     private JsonNode entry(final Entry<?, ?> entry) {
         return JsonNode.object()
-                .set(BasicMarshallerTypedMap.ENTRY_KEY, this.toJsonNode(entry.getKey()))
-                .set(BasicMarshallerTypedMap.ENTRY_VALUE, this.toJsonNode(entry.getValue()));
+                .set(BasicJsonMarshallerTypedMap.ENTRY_KEY, this.toJsonNode(entry.getKey()))
+                .set(BasicJsonMarshallerTypedMap.ENTRY_VALUE, this.toJsonNode(entry.getValue()));
     }
 
     // toJsonNodeWithType...............................................................................................
@@ -137,7 +137,7 @@ final class BasicToJsonNodeContext extends BasicJsonNodeContext implements ToJso
     public JsonNode toJsonNodeWithType(final Object value) {
         return null == value ?
                 JsonNode.nullNode() :
-                BasicMarshaller.marshaller(value.getClass())
+                BasicJsonMarshaller.marshaller(value.getClass())
                         .toJsonNodeWithType(Cast.to(value), this);
     }
 
@@ -146,7 +146,7 @@ final class BasicToJsonNodeContext extends BasicJsonNodeContext implements ToJso
      */
     @Override
     public JsonNode toJsonNodeWithTypeList(final List<?> list) {
-        return BasicMarshallerTypedCollectionList.instance().toJsonNode(list, this);
+        return BasicJsonMarshallerTypedCollectionList.instance().toJsonNode(list, this);
     }
 
     /**
@@ -154,7 +154,7 @@ final class BasicToJsonNodeContext extends BasicJsonNodeContext implements ToJso
      */
     @Override
     public JsonNode toJsonNodeWithTypeSet(final Set<?> set) {
-        return BasicMarshallerTypedCollectionSet.instance().toJsonNode(set, this);
+        return BasicJsonMarshallerTypedCollectionSet.instance().toJsonNode(set, this);
     }
 
     /**
@@ -162,6 +162,6 @@ final class BasicToJsonNodeContext extends BasicJsonNodeContext implements ToJso
      */
     @Override
     public JsonNode toJsonNodeWithTypeMap(final Map<?, ?> map) {
-        return BasicMarshallerTypedMap.instance().toJsonNode(map, this);
+        return BasicJsonMarshallerTypedMap.instance().toJsonNode(map, this);
     }
 }
