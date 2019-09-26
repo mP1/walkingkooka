@@ -28,17 +28,10 @@ import walkingkooka.naming.StringName;
 import walkingkooka.stream.StreamTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.TestNode;
-import walkingkooka.tree.expression.ExpressionNode;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContexts;
-import walkingkooka.tree.json.marshall.ToJsonNodeContexts;
 import walkingkooka.type.JavaVisibility;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNode, StringName, StringName, Object>>,
         StreamTesting<Stream<TestNode>, TestNode> {
@@ -46,76 +39,6 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
     @BeforeEach
     public void beforeEachTest() {
         TestNode.clear();
-    }
-
-    @Test
-    public void testAbsoluteChildrenNamedChildrenNamedJsonRoundtrip() {
-        this.jsonRoundtripAndCheck(TestNode.absoluteNodeSelector()
-                .children()
-                .named(Names.string("ABC123"))
-                .children()
-                .named(Names.string("DEF456")));
-    }
-
-    @Test
-    public void testAbsoluteNamedChildrenExpressionJsonRoundtrip() {
-        this.jsonRoundtripAndCheck(TestNode.absoluteNodeSelector()
-                .children()
-                .named(Names.string("ABC123"))
-                .expression(ExpressionNode.addition(ExpressionNode.bigDecimal(BigDecimal.valueOf(1)), ExpressionNode.text("bcd234"))));
-    }
-
-    @Test
-    public void testAbsoluteAncestorAncestorOrSelfChildrenDescendantDescendantOrSelfJsonRoundtrip() {
-        this.jsonRoundtripAndCheck(TestNode.absoluteNodeSelector()
-                .ancestor()
-                .ancestorOrSelf()
-                .children()
-                .descendant()
-                .descendantOrSelf());
-    }
-
-    @Test
-    public void testFirstChildFollowingFollowingSiblingLastChildJsonRoundtrip() {
-        this.jsonRoundtripAndCheck(TestNode.absoluteNodeSelector()
-                .firstChild()
-                .following()
-                .followingSibling()
-                .lastChild());
-    }
-
-    @Test
-    public void testParentPrecedingPrecedingSiblingSelfJsonRoundtrip() {
-        this.jsonRoundtripAndCheck(TestNode.absoluteNodeSelector()
-                .firstChild()
-                .preceding()
-                .precedingSibling()
-                .self());
-    }
-
-    @Test
-    public void testChildrenCustomToStringChildrenCustomToStringJsonRoundtrip() {
-        this.jsonRoundtripAndCheck(TestNode.relativeNodeSelector()
-                .children()
-                .setToString("Custom1a")
-                .children()
-                .setToString("Custom2b"));
-    }
-
-    @Test
-    public void testCustomToStringChildrenCustomToStringChildrenJsonRoundtrip() {
-        this.jsonRoundtripAndCheck(TestNode.relativeNodeSelector()
-                .setToString("Custom1a")
-                .children()
-                .setToString("Custom2b")
-                .children());
-    }
-
-    private void jsonRoundtripAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector) {
-        final JsonNode json = selector.toJsonNode(ToJsonNodeContexts.basic());
-        assertEquals(selector,
-                NodeSelector.fromJsonNode(json, FromJsonNodeContexts.basic()),
-                () -> json.toString());
     }
 
     // Stream..........................................................................................................

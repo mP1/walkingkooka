@@ -21,14 +21,12 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
-import walkingkooka.tree.json.marshall.JsonNodeMappingTesting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class CustomToStringNodeSelectorTest extends NodeSelectorTestCase4<CustomToStringNodeSelector<TestNode, StringName, StringName, Object>>
-        implements JsonNodeMappingTesting<CustomToStringNodeSelector<TestNode, StringName, StringName, Object>> {
+final public class CustomToStringNodeSelectorTest extends NodeSelectorTestCase4<CustomToStringNodeSelector<TestNode, StringName, StringName, Object>> {
 
     private final static String TOSTRING = "!CustomToString123";
 
@@ -132,13 +130,6 @@ final public class CustomToStringNodeSelectorTest extends NodeSelectorTestCase4<
         this.toStringAndCheck(TestNode.relativeNodeSelector()
                 .parent()
                 .append(TestNode.relativeNodeSelector().self().setToString(toString)), "../" + toString);
-    }
-
-    // JsonNodeContext..................................................................................................
-
-    @Test
-    public void testToJson() {
-        this.toJsonNodeAndCheck(this.createSelector(), "{\"components\": [\"custom:!CustomToString123\"]}");
     }
 
     // Object..........................................................................................................

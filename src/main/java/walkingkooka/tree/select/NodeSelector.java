@@ -17,7 +17,6 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.NeverError;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.naming.Name;
@@ -28,12 +27,6 @@ import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.json.JsonArrayNode;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
-import walkingkooka.tree.json.marshall.JsonNodeContext;
-import walkingkooka.tree.json.marshall.ToJsonNodeContext;
 import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorNodeName;
 import walkingkooka.tree.select.parser.NodeSelectorParserToken;
@@ -481,86 +474,4 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      * All sub classes except for {@link CustomToStringNodeSelector} return this.
      */
     abstract NodeSelector<N, NAME, ANAME, AVALUE> unwrapIfCustomToStringNodeSelector();
-
-    // JsonNodeContext..................................................................................................
-
-    /*
-     * Register all concrete sub classes of {@link NodeSelector} and the public {@link NodeSelector} itself.
-     */
-    static {
-        JsonNodeContext.register("nodeSelector",
-                NodeSelector::fromJsonNode,
-                NodeSelector::toJsonNode,
-                NodeSelector.class,
-                CustomToStringNodeSelector.class,
-                AbsoluteNodeSelector.class,
-                AncestorNodeSelector.class,
-                AncestorOrSelfNodeSelector.class,
-                ChildrenNodeSelector.class,
-                DescendantNodeSelector.class,
-                DescendantOrSelfNodeSelector.class,
-                ExpressionNodeSelector.class,
-                FirstChildNodeSelector.class,
-                FollowingNodeSelector.class,
-                FollowingSiblingNodeSelector.class,
-                LastChildNodeSelector.class,
-                NamedNodeSelector.class,
-                NodePredicateNodeSelector.class,
-                ParentNodeSelector.class,
-                PrecedingNodeSelector.class,
-                PrecedingSiblingNodeSelector.class,
-                SelfNodeSelector.class,
-                TerminalNodeSelector.class);
-    }
-
-    /**
-     * Creates a {@link NodeSelector} from a {@link JsonNode}.
-     * <pre>
-     * {
-     *     "name-type": "expression-node-name",
-     *     "components": ["descendant-or-self", "named:table"]
-     * }
-     * </pre>
-     */
-    static NodeSelector<?, ?, ?, ?> fromJsonNode(final JsonNode node,
-                                                 final FromJsonNodeContext context) {
-        JsonArrayNode components = null;
-
-        for (JsonNode child : node.children()) {
-            final JsonNodeName name = child.name();
-            switch (name.value()) {
-                case NAME_TYPE:
-                    child.stringValueOrFail();
-                    break;
-                case COMPONENTS:
-                    components = child.arrayOrFail();
-                    break;
-                default:
-                    NeverError.unhandledCase(name, NAME_TYPE, COMPONENTS);
-            }
-        }
-
-        if (null == components) {
-            FromJsonNodeContext.requiredPropertyMissing(COMPONENTS_PROPERTY, node);
-        }
-
-        return NodeSelectorJsonNodeNodeSelectorVisitor.fromJsonNode(
-                NAME_TYPE_PROPERTY.fromJsonNodeWithTypeFactory(node.objectOrFail(), Name.class),
-                components,
-                context);
-    }
-
-    /**
-     * The JSON representation of a {@link NodeSelector} is the selector expression as a {@link walkingkooka.tree.json.JsonStringNode}
-     * enclosed within an object which may have the node name type.
-     */
-    final JsonNode toJsonNode(final ToJsonNodeContext context) {
-        return NodeSelectorJsonNodeNodeSelectorVisitor.acceptAndToJsonNode(this, context);
-    }
-
-    final static String NAME_TYPE = "name-type";
-    final static String COMPONENTS = "components";
-
-    final static JsonNodeName NAME_TYPE_PROPERTY = JsonNodeName.with(NAME_TYPE);
-    final static JsonNodeName COMPONENTS_PROPERTY = JsonNodeName.with(COMPONENTS);
 }

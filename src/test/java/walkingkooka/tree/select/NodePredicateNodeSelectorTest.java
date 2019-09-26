@@ -202,28 +202,6 @@ final public class NodePredicateNodeSelectorTest extends
                 "visited");
     }
 
-    // JsonNodeContext...................................................................................................
-
-    @Test
-    public void testToJsonNode() {
-        this.toJsonNodeAndCheck(TestNode.relativeNodeSelector().attributeValueStartsWith(Names.string("ABC123"), "startsWith456"),
-                "{\n" +
-                        "  \"components\": [\"predicate:starts-with(@ABC123,\\\"startsWith456\\\")\"]\n" +
-                        "}");
-    }
-
-    @Override
-    public void testToJsonNodeRoundtripList() {
-    }
-
-    @Override
-    public void testToJsonNodeRoundtripSet() {
-    }
-
-    @Override
-    public void testToJsonNodeRoundtripMap() {
-    }
-
     // Object.......................................................................................................
 
     @Test
