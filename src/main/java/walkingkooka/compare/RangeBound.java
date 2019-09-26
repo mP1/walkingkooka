@@ -19,11 +19,6 @@ package walkingkooka.compare;
 
 import walkingkooka.Value;
 import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.tree.json.JsonObjectNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
-import walkingkooka.tree.json.marshall.ToJsonNodeContext;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -36,21 +31,25 @@ abstract public class RangeBound<C extends Comparable<C>> implements HashCodeEqu
     /**
      * {@see RangeBoundAll}
      */
-    static <C extends Comparable<C>> RangeBoundAll<C> all() {
+    public static <C extends Comparable<C>> RangeBoundAll<C> all() {
         return RangeBoundAll.instance();
     }
 
     /**
      * {@see RangeBoundExclusive}
      */
-    static <C extends Comparable<C>> RangeBoundExclusive<C> exclusive(final C value) {
+    public static <C extends Comparable<C>> RangeBoundExclusive<C> exclusive(final C value) {
+        checkValue(value);
+
         return RangeBoundExclusive.with(value);
     }
 
     /**
      * {@see RangeBoundInclusive}
      */
-    static <C extends Comparable<C>> RangeBoundInclusive<C> inclusive(final C value) {
+    public static <C extends Comparable<C>> RangeBoundInclusive<C> inclusive(final C value) {
+        checkValue(value);
+
         return RangeBoundInclusive.with(value);
     }
 
@@ -144,38 +143,7 @@ abstract public class RangeBound<C extends Comparable<C>> implements HashCodeEqu
 
     abstract void traverseUpperBound(final RangeVisitor<C> visitor);
 
-    // Range.toJsonNode................................................................................
-
-    static RangeBound<?> fromJsonNode(final JsonNode node,
-                                      final FromJsonNodeContext context) {
-        RangeBound<?> bound = null;
-
-        for (JsonNode child : node.children()) {
-            final JsonNodeName name = child.name();
-            switch (name.value()) {
-                case ALL:
-                    bound = RangeBoundAll.fromJsonNodeAll(child, context);
-                    break;
-                case EXCLUSIVE:
-                    bound = RangeBoundExclusive.fromJsonNodeExclusive(child, context);
-                    break;
-                case INCLUSIVE:
-                    bound = RangeBoundInclusive.fromJsonNodeInclusive(child, context);
-                    break;
-                default:
-                    FromJsonNodeContext.unknownPropertyPresent(name, node);
-            }
-        }
-        return bound;
-    }
-
-    abstract JsonObjectNode toJsonNode(final ToJsonNodeContext context);
-
-    final static String ALL = "all";
-    final static String EXCLUSIVE = "exclusive";
-    final static String INCLUSIVE = "inclusive";
-
-    // toString...............................................
+    // toString.........................................................................................................
 
     final static String BETWEEN = "..";
 
