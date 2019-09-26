@@ -25,8 +25,6 @@ import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 import walkingkooka.tree.json.marshall.ToJsonNodeContext;
 import walkingkooka.tree.search.SearchNodeName;
 
-import java.util.function.BiFunction;
-
 /**
  * The name of any property of object key.
  */
@@ -89,19 +87,6 @@ public final class JsonNodeName implements Name,
     }
 
     private final String name;
-
-    // JsonNodeNameFromJsonNodeWithTypeFactoryBiFunction................................................................
-
-    /**
-     * When the returned factory is invoked, this property name is used to retrieve a type name
-     * from the given {@link JsonObjectNode object} and then used to convert the factory parameter to an {@link Object}.
-     */
-    public <T> BiFunction<JsonNode, FromJsonNodeContext, T> fromJsonNodeWithTypeFactory(final JsonObjectNode source,
-                                                                                        final Class<T> superType) {
-        return JsonNodeNameFromJsonNodeWithTypeFactoryBiFunction.with(this,
-                source,
-                superType);
-    }
 
     // HasSearchNode....................................................................................................
 

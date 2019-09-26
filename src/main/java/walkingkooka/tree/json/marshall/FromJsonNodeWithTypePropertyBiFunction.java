@@ -15,35 +15,37 @@
  *
  */
 
-package walkingkooka.tree.json;
+package walkingkooka.tree.json.marshall;
 
 import walkingkooka.Cast;
 import walkingkooka.text.CharSequences;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
-import walkingkooka.tree.json.marshall.FromJsonNodeException;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.JsonStringNode;
 
 import java.util.Objects;
 import java.util.function.BiFunction;
 
 /**
- * A factory that lazily retrieves the type for a {@link JsonNode} to return a java object.
+ * A factory that lazily retrieves the type of a given {@link JsonNode} from a given property on another object.
  */
-final class JsonNodeNameFromJsonNodeWithTypeFactoryBiFunction<T> implements BiFunction<JsonNode, FromJsonNodeContext, T> {
+final class FromJsonNodeWithTypePropertyBiFunction<T> implements BiFunction<JsonNode, FromJsonNodeContext, T> {
 
     /**
-     * Factory called only by {@link JsonNodeName#fromJsonNodeWithTypeFactory}
+     * Factory called only by {@link FromJsonNodeContext#fromJsonNodeWithType(JsonNodeName, JsonObjectNode, Class)}
      */
-    static <T> JsonNodeNameFromJsonNodeWithTypeFactoryBiFunction<T> with(final JsonNodeName property,
-                                                                         final JsonObjectNode source,
-                                                                         final Class<T> superType) {
+    static <T> FromJsonNodeWithTypePropertyBiFunction<T> with(final JsonNodeName property,
+                                                              final JsonObjectNode source,
+                                                              final Class<T> superType) {
         Objects.requireNonNull(source, "source");
         Objects.requireNonNull(superType, "superType");
 
-        return new JsonNodeNameFromJsonNodeWithTypeFactoryBiFunction<>(property, source);
+        return new FromJsonNodeWithTypePropertyBiFunction<>(property, source);
     }
 
-    private JsonNodeNameFromJsonNodeWithTypeFactoryBiFunction(final JsonNodeName property,
-                                                              final JsonObjectNode source) {
+    private FromJsonNodeWithTypePropertyBiFunction(final JsonNodeName property,
+                                                   final JsonObjectNode source) {
         super();
         this.property = property;
         this.source = source;
