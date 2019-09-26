@@ -95,6 +95,7 @@ abstract class BasicJsonMarshaller<T> {
                 BasicJsonMarshallerTypedNumberLong.instance(),
                 BasicJsonMarshallerTypedNumberFloat.instance(),
                 BasicJsonMarshallerTypedOptional.instance(),
+                BasicJsonMarshallerTypedRange.instance(),
                 BasicJsonMarshallerTypedRoundingMode.instance(),
                 BasicJsonMarshallerTypedStringName.instance(),
                 BasicJsonMarshallerTypedCollectionSet.instance()

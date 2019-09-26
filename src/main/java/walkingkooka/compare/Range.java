@@ -21,11 +21,6 @@ import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
-import walkingkooka.tree.json.marshall.JsonNodeContext;
-import walkingkooka.tree.json.marshall.ToJsonNodeContext;
 import walkingkooka.visit.Visitable;
 
 import java.util.Objects;
@@ -136,6 +131,17 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
     }
 
     /**
+     * Creates a new {@link Range} with the given {@link RangeBound}.
+     */
+    public static <C extends Comparable<C>> Range<C> with(final RangeBound<C> lower,
+                                                          final RangeBound<C> upper) {
+        Objects.requireNonNull(lower, "lower");
+        Objects.requireNonNull(upper, "upper");
+
+        return new Range<>(lower, upper);
+    }
+
+    /**
      * Private ctor use factory
      */
     private Range(final RangeBound<C> lower, final RangeBound<C> upper) {
@@ -240,75 +246,6 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
         Objects.requireNonNull(visitor, "visitor");
 
         visitor.traverse(this);
-    }
-
-    // JsonNodeContext..................................................................................................
-
-    /**
-     * Accepts a json string holding a range definition.
-     * <pre>
-     *  {
-     * 	lowerBound {
-     * 		Exclusive {
-     * 			type=big
-     * 			value=123
-     *                }* 	},
-     * 	upperBound {
-     * 		Inclusive {
-     * 			type=big
-     * 			value=123
-     *        }
-     *    }
-     * }
-     * </pre>
-     */
-    @SuppressWarnings("unchecked")
-    static <C extends Comparable<C>> Range<C> fromJsonNode(final JsonNode node,
-                                                           final FromJsonNodeContext context) {
-        RangeBound<?> lower = null;
-        RangeBound<?> upper = null;
-
-        for (JsonNode child : node.objectOrFail().children()) {
-            final JsonNodeName name = child.name();
-            switch (name.value()) {
-                case LOWER_BOUND:
-                    lower = RangeBound.fromJsonNode(child, context);
-                    break;
-                case UPPER_BOUND:
-                    upper = RangeBound.fromJsonNode(child, context);
-                    break;
-                default:
-                    FromJsonNodeContext.unknownPropertyPresent(name, node);
-            }
-        }
-
-        if (null == lower) {
-            FromJsonNodeContext.requiredPropertyMissing(LOWER_BOUND_PROPERTY, node);
-        }
-        if (null == upper) {
-            FromJsonNodeContext.requiredPropertyMissing(UPPER_BOUND_PROPERTY, node);
-        }
-
-        return new Range(lower, upper);
-    }
-
-    JsonNode toJsonNode(final ToJsonNodeContext context) {
-        return JsonNode.object()
-                .set(LOWER_BOUND_PROPERTY, this.lower.toJsonNode(context))
-                .set(UPPER_BOUND_PROPERTY, this.upper.toJsonNode(context));
-    }
-
-    final static String LOWER_BOUND = "lower-bound";
-    final static String UPPER_BOUND = "upper-bound";
-
-    final static JsonNodeName LOWER_BOUND_PROPERTY = JsonNodeName.with(LOWER_BOUND);
-    final static JsonNodeName UPPER_BOUND_PROPERTY = JsonNodeName.with(UPPER_BOUND);
-
-    static {
-        JsonNodeContext.register("range",
-                Range::fromJsonNode,
-                Range::toJsonNode,
-                Range.class);
     }
 
     // Object..........................................................................................................

@@ -18,11 +18,6 @@
 package walkingkooka.compare;
 
 import walkingkooka.Cast;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.tree.json.JsonObjectNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
-import walkingkooka.tree.json.marshall.ToJsonNodeContext;
 
 import java.util.Optional;
 
@@ -156,29 +151,6 @@ final class RangeBoundAll<C extends Comparable<C>> extends RangeBound<C> {
     void traverseUpperBound(final RangeVisitor<C> visitor) {
         visitor.upperBoundAll();
     }
-
-    // Range.toJsonNode......................................................................
-
-    static RangeBound<?> fromJsonNodeAll(final JsonNode node,
-                                         final FromJsonNodeContext context) {
-        for (JsonNode child : node.children()) {
-            final JsonNodeName name = child.name();
-            switch (name.value()) {
-                default:
-                    FromJsonNodeContext.unknownPropertyPresent(name, node);
-            }
-        }
-        return all();
-    }
-
-    @Override
-    JsonObjectNode toJsonNode(final ToJsonNodeContext context) {
-        return ALL_JSON;
-    }
-
-    final static JsonNodeName ALL_PROPERTY = JsonNodeName.with(ALL);
-    final static JsonObjectNode ALL_JSON = JsonObjectNode.object()
-            .set(ALL_PROPERTY, JsonNode.object());
 
     // Range.toString...............................................................................................
 

@@ -24,10 +24,6 @@ import walkingkooka.predicate.PredicateTesting2;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
-import walkingkooka.tree.json.marshall.FromJsonNodeException;
-import walkingkooka.tree.json.marshall.JsonNodeMappingTesting;
 import walkingkooka.type.JavaVisibility;
 import walkingkooka.visit.VisitableTesting;
 import walkingkooka.visit.Visiting;
@@ -37,7 +33,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class RangeTest implements ClassTesting2<Range<Integer>>,
-        JsonNodeMappingTesting<Range<Integer>>,
         ParseStringTesting<Range<Integer>>,
         PredicateTesting2<Range<Integer>, Integer>,
         HashCodeEqualsDefinedTesting2<Range<Integer>>,
@@ -51,7 +46,33 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
     private final static Integer UPPER_VALUE = 5000;
     private final static Integer ABOVE_UPPER_VALUE = 6000;
 
-    // parameter checks................................................
+    // with.............................................................................................................
+
+    @Test
+    public void testWithNullLowerFails() {
+        assertThrows(NullPointerException.class, () -> {
+            Range.with(null, RangeBound.<Integer>all());
+        });
+    }
+
+    @Test
+    public void testWithNullUpperFails() {
+        assertThrows(NullPointerException.class, () -> {
+            Range.with(RangeBound.<Integer>all(), null);
+        });
+    }
+
+    @Test
+    public void testWith() {
+        final RangeBound<Integer> lower = RangeBound.inclusive(1);
+        final RangeBound<Integer> upper = RangeBound.inclusive(2);
+
+        final Range<Integer> range = Range.with(lower, upper);
+        assertSame(lower, range.lowerBound(), "lowerBounds");
+        assertSame(upper, range.upperBound(), "upperBounds");
+    }
+
+    // parameter checks.................................................................................................
 
     @Test
     public void testAndNullFails() {
@@ -998,252 +1019,6 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
         this.checkNotEquals(Range.lessThanEquals(VALUE), Range.greaterThanEquals(VALUE));
     }
 
-    // JsonNodeContext..................................................................................................
-
-    @Test
-    public void testFromJsonNodeMissingLowerBoundFails() {
-        this.fromJsonNodeFails("{\n" +
-                "  \"upper-bound\": {\n" +
-                "    \"all\": {}\n" +
-                "  }\n" +
-                "}",
-                FromJsonNodeException.class);
-    }
-
-    @Test
-    public void testFromJsonNodeMissingUpperBoundFails() {
-        this.fromJsonNodeFails("{\n" +
-                "  \"lower-bound\": {\n" +
-                "    \"all\": {}\n" +
-                "  }\n" +
-                "}",
-                FromJsonNodeException.class);
-    }
-
-    @Test
-    public void testFromJsonNodeLowerBoundUnknownPropertyFails() {
-        this.fromJsonNodeFails("{\n" +
-                "  \"lower-bound\": {\n" +
-                "    \"unknown\": {}\n" +
-                "  }\n" +
-                "}",
-                FromJsonNodeException.class);
-    }
-
-    @Test
-    public void testFromJsonNodeAllUnknownPropertyFails() {
-        this.fromJsonNodeFails("{\n" +
-                "  \"lower-bound\": {\n" +
-                "    \"all\": {\n" +
-                "       \"unknown\": 1\n" +
-                "    }\n" +
-                "  }\n" +
-                "}",
-                FromJsonNodeException.class);
-    }
-
-    @Test
-    public void testFromJsonNodeUnknownPropertyFails() {
-        this.fromJsonNodeFails("{\"unknown\": true}",
-                FromJsonNodeException.class);
-    }
-
-    @Test
-    public void testFromJsonNodeAll() {
-        this.fromJsonNodeAndCheck("{\n" +
-                        "  \"lower-bound\": {\n" +
-                        "    \"all\": {}\n" +
-                        "  },\n" +
-                        "  \"upper-bound\": {\n" +
-                        "    \"all\": {}\n" +
-                        "  }\n" +
-                        "}",
-                Range.all());
-    }
-
-    @Test
-    public void testToJsonNodeAll() {
-        this.toJsonNodeAndCheck(Range.all(),
-                "{\n" +
-                        "  \"lower-bound\": {\n" +
-                        "    \"all\": {}\n" +
-                        "  },\n" +
-                        "  \"upper-bound\": {\n" +
-                        "    \"all\": {}\n" +
-                        "  }\n" +
-                        "}");
-    }
-
-    @Test
-    public void testFromJsonNodeLowerInclusive() {
-        this.fromJsonNodeAndCheck("{\n" +
-                        "  \"lower-bound\": {\n" +
-                        "    \"inclusive\": {\n" +
-                        "      \"type\": \"int\",\n" +
-                        "      \"value\": 1\n" +
-                        "    }\n" +
-                        "  },\n" +
-                        "  \"upper-bound\": {\n" +
-                        "    \"all\": {}\n" +
-                        "  }\n" +
-                        "}",
-                Range.greaterThanEquals(1));
-    }
-
-    @Test
-    public void testToJsonNodeLowerInclusive() {
-        this.toJsonNodeAndCheck(Range.greaterThanEquals(1),
-                "{\n" +
-                        "  \"lower-bound\": {\n" +
-                        "    \"inclusive\": {\n" +
-                        "      \"type\": \"int\",\n" +
-                        "      \"value\": 1\n" +
-                        "    }\n" +
-                        "  },\n" +
-                        "  \"upper-bound\": {\n" +
-                        "    \"all\": {}\n" +
-                        "  }\n" +
-                        "}");
-    }
-
-    @Test
-    public void testFromJsonNodeUpperInclusive() {
-        this.fromJsonNodeAndCheck("{\n" +
-                        "  \"lower-bound\": {\n" +
-                        "    \"all\": {}\n" +
-                        "  },\n" +
-                        "  \"upper-bound\": {\n" +
-                        "    \"exclusive\": {\n" +
-                        "      \"type\": \"int\",\n" +
-                        "      \"value\": 1\n" +
-                        "    }\n" +
-                        "  }\n" +
-                        "}",
-                Range.lessThan(1));
-    }
-
-    @Test
-    public void testToJsonNodeUpperInclusive() {
-        this.toJsonNodeAndCheck(Range.lessThan(1),
-                "{\n" +
-                        "  \"lower-bound\": {\n" +
-                        "    \"all\": {}\n" +
-                        "  },\n" +
-                        "  \"upper-bound\": {\n" +
-                        "    \"exclusive\": {\n" +
-                        "      \"type\": \"int\",\n" +
-                        "      \"value\": 1\n" +
-                        "    }\n" +
-                        "  }\n" +
-                        "}");
-    }
-
-    @Test
-    public void testFromJsonNodeLowerInclusiveAndUpperInclusive() {
-        this.fromJsonNodeAndCheck("{\n" +
-                        "  \"lower-bound\": {\n" +
-                        "    \"inclusive\": {\n" +
-                        "      \"type\": \"int\",\n" +
-                        "      \"value\": 1\n" +
-                        "    }\n" +
-                        "  },\n" +
-                        "  \"upper-bound\": {\n" +
-                        "    \"inclusive\": {\n" +
-                        "      \"type\": \"int\",\n" +
-                        "      \"value\": 22\n" +
-                        "    }\n" +
-                        "  }\n" +
-                        "}",
-                Range.greaterThanEquals(1).and(Range.lessThanEquals(22)));
-    }
-
-    @Test
-    public void testToJsonNodeLowerInclusiveAndUpperInclusive() {
-        this.toJsonNodeAndCheck(Range.greaterThanEquals(1).and(Range.lessThanEquals(22)),
-                "{\n" +
-                        "  \"lower-bound\": {\n" +
-                        "    \"inclusive\": {\n" +
-                        "      \"type\": \"int\",\n" +
-                        "      \"value\": 1\n" +
-                        "    }\n" +
-                        "  },\n" +
-                        "  \"upper-bound\": {\n" +
-                        "    \"inclusive\": {\n" +
-                        "      \"type\": \"int\",\n" +
-                        "      \"value\": 22\n" +
-                        "    }\n" +
-                        "  }\n" +
-                        "}");
-    }
-
-    @Test
-    public void testFromJsonNodeLowerExclusiveAndUpperExclusive() {
-        this.fromJsonNodeAndCheck("{\n" +
-                        "  \"lower-bound\": {\n" +
-                        "    \"exclusive\": {\n" +
-                        "      \"type\": \"int\",\n" +
-                        "      \"value\": 1\n" +
-                        "    }\n" +
-                        "  },\n" +
-                        "  \"upper-bound\": {\n" +
-                        "    \"exclusive\": {\n" +
-                        "      \"type\": \"int\",\n" +
-                        "      \"value\": 22\n" +
-                        "    }\n" +
-                        "  }\n" +
-                        "}",
-                Range.greaterThan(1).and(Range.lessThan(22)));
-    }
-
-    @Test
-    public void testToJsonNodeLowerExclusiveAndUpperExclusive() {
-        this.toJsonNodeAndCheck(Range.greaterThan(1).and(Range.lessThan(22)),
-                "{\n" +
-                        "  \"lower-bound\": {\n" +
-                        "    \"exclusive\": {\n" +
-                        "      \"type\": \"int\",\n" +
-                        "      \"value\": 1\n" +
-                        "    }\n" +
-                        "  },\n" +
-                        "  \"upper-bound\": {\n" +
-                        "    \"exclusive\": {\n" +
-                        "      \"type\": \"int\",\n" +
-                        "      \"value\": 22\n" +
-                        "    }\n" +
-                        "  }\n" +
-                        "}");
-    }
-
-    @Test
-    public void testToJsonNodeRoundtripAll() {
-        this.toJsonNodeRoundTripTwiceAndCheck(Range.all());
-    }
-
-    @Test
-    public void testToJsonNodeRoundtripSingleton() {
-        this.toJsonNodeRoundTripTwiceAndCheck(Range.singleton(123));
-    }
-
-    @Test
-    public void testToJsonNodeRoundtripExclusiveExclusive() {
-        this.toJsonNodeRoundTripTwiceAndCheck(Range.greaterThan(123).and(Range.greaterThan(456)));
-    }
-
-    @Test
-    public void testToJsonNodeRoundtripExclusiveInclusive() {
-        this.toJsonNodeRoundTripTwiceAndCheck(Range.greaterThan(123).and(Range.greaterThanEquals(456)));
-    }
-
-    @Test
-    public void testToJsonNodeRoundtripInclusiveExclusive() {
-        this.toJsonNodeRoundTripTwiceAndCheck(Range.greaterThanEquals(123).and(Range.greaterThan(456)));
-    }
-
-    @Test
-    public void testToJsonNodeRoundtripInclusiveInclusive() {
-        this.toJsonNodeRoundTripTwiceAndCheck(Range.greaterThanEquals(123).and(Range.greaterThanEquals(456)));
-    }
-
     // RangeVisitor....................................................................................................
 
     @Test
@@ -1343,18 +1118,5 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
-    }
-
-    // JsonNodeMapTesting...............................................................................................
-
-    @Override
-    public Range<Integer> createJsonNodeMappingValue() {
-        return this.createPredicate();
-    }
-
-    @Override
-    public Range<Integer> fromJsonNode(final JsonNode from,
-                                       final FromJsonNodeContext context) {
-        return Range.fromJsonNode(from, context);
     }
 }
