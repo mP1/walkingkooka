@@ -15,24 +15,21 @@
  *
  */
 
-package walkingkooka.tree.select;
+package walkingkooka.tree.select.parser;
 
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.test.ThrowableTesting;
-import walkingkooka.tree.select.parser.NodeSelectorFunctionName;
-import walkingkooka.tree.select.parser.NodeSelectorFunctionParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorParserTokenVisitorTesting;
+import walkingkooka.tree.select.NodeSelectorException;
 import walkingkooka.type.JavaVisibility;
 
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionNodeSelectorNodeSelectorParserTokenVisitorTest implements NodeSelectorParserTokenVisitorTesting<ExpressionNodeSelectorNodeSelectorParserTokenVisitor>,
+public final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitorTest implements NodeSelectorParserTokenVisitorTesting<NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor>,
         ThrowableTesting {
 
     @Test
@@ -42,25 +39,25 @@ public final class ExpressionNodeSelectorNodeSelectorParserTokenVisitorTest impl
                 "xyz");
 
         final NodeSelectorException thrown = assertThrows(NodeSelectorException.class, () -> {
-            new ExpressionNodeSelectorNodeSelectorParserTokenVisitor(Predicates.never())
+            new NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor(Predicates.never())
                     .accept(token);
         });
         checkMessage(thrown, "Unknown function \"zyx\" in \"xyz\"");
     }
 
     @Override
-    public ExpressionNodeSelectorNodeSelectorParserTokenVisitor createVisitor() {
-        return new ExpressionNodeSelectorNodeSelectorParserTokenVisitor(null);
+    public NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor createVisitor() {
+        return new NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor(null);
     }
 
     @Override
     public String typeNamePrefix() {
-        return ExpressionNodeSelector.class.getSimpleName();
+        return  NodeSelectorPredicateParserToken.class.getSimpleName();
     }
 
     @Override
-    public Class<ExpressionNodeSelectorNodeSelectorParserTokenVisitor> type() {
-        return ExpressionNodeSelectorNodeSelectorParserTokenVisitor.class;
+    public Class<NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor> type() {
+        return NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor.class;
     }
 
     @Override

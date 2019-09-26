@@ -96,7 +96,7 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
     @Override
     protected Visiting startVisit(final NodeSelectorPredicateParserToken token) {
         this.childrenIfAxis();
-        this.test(this.selector.expression(ExpressionNodeSelectorNodeSelectorParserTokenVisitor.toExpressionNode(token, this.functions)));
+        this.test(this.selector.expression(token.toExpressionNode(this.functions)));
         return Visiting.SKIP;
     }
 
