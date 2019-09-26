@@ -21,16 +21,12 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
-import walkingkooka.tree.json.marshall.JsonNodeMappingTesting;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class StringNameTest implements ClassTesting2<StringName>,
         NameTesting<StringName, StringName>,
-        JsonNodeMappingTesting<StringName>,
         SerializationTesting<StringName> {
 
     private final static String TEXT = "bcd123";
@@ -45,16 +41,6 @@ final public class StringNameTest implements ClassTesting2<StringName>,
     @Test
     public void testSerializeRootIsSingleton() throws Exception {
         this.serializeSingletonAndCheck(StringName.ROOT);
-    }
-
-    @Test
-    public void testToJsonNode() {
-        this.toJsonNodeAndCheck(StringName.with(TEXT), JsonNode.string(TEXT));
-    }
-
-    @Test
-    public void testFromJsonNode() {
-        this.fromJsonNodeAndCheck(JsonNode.string(TEXT), StringName.with(TEXT));
     }
 
     @Test
@@ -116,18 +102,4 @@ final public class StringNameTest implements ClassTesting2<StringName>,
     public boolean serializableInstanceIsSingleton() {
         return false;
     }
-
-    // JsonNodeMapTesting...............................................................................................
-
-    @Override
-    public StringName fromJsonNode(final JsonNode from,
-                                   final FromJsonNodeContext context) {
-        return StringName.fromJsonNode(from, context);
-    }
-
-    @Override
-    public StringName createJsonNodeMappingValue() {
-        return this.createName(this.nameText());
-    }
-
 }

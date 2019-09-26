@@ -96,7 +96,9 @@ abstract class BasicMarshaller<T> {
                 BasicMarshallerTypedNumberFloat.instance(),
                 BasicMarshallerTypedOptional.instance(),
                 BasicMarshallerTypedRoundingMode.instance(),
-                BasicMarshallerTypedCollectionSet.instance()).forEach(BasicMarshaller::register);
+                BasicMarshallerTypedStringName.instance(),
+                BasicMarshallerTypedCollectionSet.instance()
+        ).forEach(BasicMarshaller::register);
     }
 
     /**
