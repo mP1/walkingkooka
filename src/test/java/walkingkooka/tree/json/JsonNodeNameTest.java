@@ -17,13 +17,10 @@
 
 package walkingkooka.tree.json;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.tree.json.marshall.TestJsonNodeValue;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,16 +28,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
         NameTesting<JsonNodeName, JsonNodeName> {
-
-    @BeforeAll
-    public static void beforeAll() {
-        TestJsonNodeValue.register();
-    }
-
-    @AfterAll
-    public static void afterAll() {
-        TestJsonNodeValue.unregister();
-    }
 
     @Test
     public void testWithNegativeIndexFails() {
