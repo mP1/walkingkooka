@@ -22,10 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
-import walkingkooka.tree.json.marshall.JsonNodeContext;
-import walkingkooka.tree.json.marshall.ToJsonNodeContext;
 
 import java.io.Serializable;
 
@@ -114,22 +110,4 @@ final public class StringName implements Name,
     }
 
     private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
-
-    // JsonNodeContext..................................................................................................
-
-    static {
-        JsonNodeContext.register("string-name",
-                StringName::fromJsonNode,
-                StringName::toJsonNode,
-                StringName.class);
-    }
-
-    static StringName fromJsonNode(final JsonNode node,
-                                   final FromJsonNodeContext context) {
-        return with(node.stringValueOrFail());
-    }
-
-    JsonNode toJsonNode(final ToJsonNodeContext context) {
-        return JsonNode.string(this.value());
-    }
 }
