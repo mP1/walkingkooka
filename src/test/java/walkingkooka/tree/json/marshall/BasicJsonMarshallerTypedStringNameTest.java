@@ -54,11 +54,6 @@ public final class BasicJsonMarshallerTypedStringNameTest extends BasicJsonMarsh
     }
 
     @Override
-    Class<? extends RuntimeException> fromFailsCauseType() {
-        return NumberFormatException.class;
-    }
-
-    @Override
     public Class<BasicJsonMarshallerTypedStringName> type() {
         return BasicJsonMarshallerTypedStringName.class;
     }

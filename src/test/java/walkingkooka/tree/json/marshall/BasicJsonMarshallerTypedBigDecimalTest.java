@@ -54,11 +54,6 @@ public final class BasicJsonMarshallerTypedBigDecimalTest extends BasicJsonMarsh
     }
 
     @Override
-    Class<? extends RuntimeException> fromFailsCauseType() {
-        return NumberFormatException.class;
-    }
-
-    @Override
     public Class<BasicJsonMarshallerTypedBigDecimal> type() {
         return BasicJsonMarshallerTypedBigDecimal.class;
     }

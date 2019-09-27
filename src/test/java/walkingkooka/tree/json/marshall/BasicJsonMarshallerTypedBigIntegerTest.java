@@ -54,11 +54,6 @@ public final class BasicJsonMarshallerTypedBigIntegerTest extends BasicJsonMarsh
     }
 
     @Override
-    Class<? extends RuntimeException> fromFailsCauseType() {
-        return NumberFormatException.class;
-    }
-
-    @Override
     public Class<BasicJsonMarshallerTypedBigInteger> type() {
         return BasicJsonMarshallerTypedBigInteger.class;
     }

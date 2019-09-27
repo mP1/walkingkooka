@@ -41,6 +41,4 @@ public abstract class BasicJsonMarshallerTypedTestCase2<M extends BasicJsonMarsh
     public final void testFromNumberFails() {
         this.fromJsonNodeFailed(JsonNode.number(123), JsonNodeException.class);
     }
-
-    abstract Class<? extends RuntimeException> fromFailsCauseType();
 }
