@@ -136,7 +136,7 @@ final class BasicJsonNodeUnmarshallContext extends BasicJsonNodeContext implemen
     // unmarshallWithType.............................................................................................
 
     /**
-     * Assumes a wrapper object with the type and value, basically the inverse of {@link ToJsonNodeContext#toJsonNodeWithType(Object)}.
+     * Assumes a wrapper object with the type and value, basically the inverse of {@link JsonNodeMarshallContext#marshallWithType(Object)}.
      */
     @Override
     public <T> T unmarshallWithType(final JsonNode node) {

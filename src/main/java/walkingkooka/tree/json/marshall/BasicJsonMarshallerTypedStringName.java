@@ -58,8 +58,8 @@ final class BasicJsonMarshallerTypedStringName extends BasicJsonMarshallerTyped<
     }
 
     @Override
-    JsonNode toJsonNodeNonNull(final StringName value,
-                               final ToJsonNodeContext context) {
+    JsonNode marshallNonNull(final StringName value,
+                               final JsonNodeMarshallContext context) {
         return JsonNode.string(value.toString());
     }
 }

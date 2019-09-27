@@ -67,11 +67,11 @@ public final class BasicJsonMarshallerTypedExpressionNodeFunctionTest extends Ba
 
     @Override
     JsonNode node() {
-        final ToJsonNodeContext context = this.toJsonNodeContext();
+        final JsonNodeMarshallContext context = this.marshallContext();
 
         return JsonNode.array()
                 .appendChild(JsonNode.string(FUNCTION_NAME))
-                .appendChild(context.toJsonNodeWithTypeList(this.parameters()));
+                .appendChild(context.marshallWithTypeList(this.parameters()));
     }
 
     @Override

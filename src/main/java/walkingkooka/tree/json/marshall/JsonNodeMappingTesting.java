@@ -69,9 +69,9 @@ public interface JsonNodeMappingTesting<V> extends Testing {
     default void testTypeNameFromClass() {
         final V value = this.createJsonNodeMappingValue();
 
-        final ToJsonNodeContext context = this.toJsonNodeContext();
+        final JsonNodeMarshallContext context = this.marshallContext();
 
-        final JsonNode node = context.toJsonNodeWithType(value);
+        final JsonNode node = context.marshallWithType(value);
         if (node.isObject()) {
             assertEquals(node.objectOrFail().get(BasicJsonNodeContext.TYPE).map(n -> n.removeParent()),
                     context.typeName(value.getClass()),
@@ -83,7 +83,7 @@ public interface JsonNodeMappingTesting<V> extends Testing {
     default void testTypeNameAndRegisteredType() {
         this.createJsonNodeMappingValue(); // ensure static initializer is run...
 
-        final ToJsonNodeContext context = this.toJsonNodeContext();
+        final JsonNodeMarshallContext context = this.marshallContext();
 
         final Class<V> type = this.type();
         final Optional<JsonStringNode> maybeTypeName = context.typeName(type);
@@ -147,39 +147,39 @@ public interface JsonNodeMappingTesting<V> extends Testing {
     }
 
     @Test
-    default void testToJsonNodeRoundtripTwice() {
-        this.toJsonNodeRoundTripTwiceAndCheck(this.createJsonNodeMappingValue());
+    default void testMarshallRoundtripTwice() {
+        this.marshallRoundTripTwiceAndCheck(this.createJsonNodeMappingValue());
     }
 
     @Test
-    default void testToJsonNodeWithTypeRoundtripTwice() {
-        this.toJsonNodeWithTypeRoundTripTwiceAndCheck(this.createJsonNodeMappingValue());
+    default void testMarshallWithTypeRoundtripTwice() {
+        this.marshallWithTypeRoundTripTwiceAndCheck(this.createJsonNodeMappingValue());
     }
 
     @Test
-    default void testToJsonNodeRoundtripList() {
+    default void testMarshallRoundtripList() {
         final List<Object> list = Lists.of(this.createJsonNodeMappingValue());
 
         assertEquals(list,
-                this.unmarshallContext().unmarshallWithTypeList(this.toJsonNodeContext().toJsonNodeWithTypeList(list)),
+                this.unmarshallContext().unmarshallWithTypeList(this.marshallContext().marshallWithTypeList(list)),
                 () -> "Roundtrip to -> from -> to failed list=" + list);
     }
 
     @Test
-    default void testToJsonNodeRoundtripSet() {
+    default void testMarshallRoundtripSet() {
         final Set<Object> set = Sets.of(this.createJsonNodeMappingValue());
 
         assertEquals(set,
-                this.unmarshallContext().unmarshallWithTypeSet(this.toJsonNodeContext().toJsonNodeWithTypeSet(set)),
+                this.unmarshallContext().unmarshallWithTypeSet(this.marshallContext().marshallWithTypeSet(set)),
                 () -> "Roundtrip to -> from -> to failed set=" + set);
     }
 
     @Test
-    default void testToJsonNodeRoundtripMap() {
+    default void testMarshallRoundtripMap() {
         final Map<String, Object> map = Maps.of("key123", this.createJsonNodeMappingValue());
 
         assertEquals(map,
-                this.unmarshallContext().unmarshallWithTypeMap(this.toJsonNodeContext().toJsonNodeWithTypeMap(map)),
+                this.unmarshallContext().unmarshallWithTypeMap(this.marshallContext().marshallWithTypeMap(map)),
                 () -> "Roundtrip to -> from -> to failed marshall=" + map);
     }
 
@@ -193,55 +193,55 @@ public interface JsonNodeMappingTesting<V> extends Testing {
     V unmarshall(final JsonNode from,
                    final JsonNodeUnmarshallContext context);
 
-    default void toJsonNodeAndCheck(final Object value,
+    default void marshallAndCheck(final Object value,
                                     final String json) {
-        toJsonNodeAndCheck(value, JsonNode.parse(json));
+        marshallAndCheck(value, JsonNode.parse(json));
     }
 
-    default void toJsonNodeAndCheck(final Object value,
+    default void marshallAndCheck(final Object value,
                                     final JsonNode json) {
-        this.toJsonNodeAndCheck(value,
+        this.marshallAndCheck(value,
                 json,
-                this.toJsonNodeContext());
+                this.marshallContext());
     }
 
-    default void toJsonNodeAndCheck(final Object value,
+    default void marshallAndCheck(final Object value,
                                     final JsonNode json,
-                                    final ToJsonNodeContext context) {
+                                    final JsonNodeMarshallContext context) {
         assertEquals(json,
-                context.toJsonNode(value),
-                () -> "toJsonNode doesnt match=" + value);
+                context.marshall(value),
+                () -> "marshall doesnt match=" + value);
     }
 
-    default void toJsonNodeRoundTripTwiceAndCheck(final Object value) {
-        this.toJsonNodeRoundTripTwiceAndCheck(value, this.toJsonNodeContext());
+    default void marshallRoundTripTwiceAndCheck(final Object value) {
+        this.marshallRoundTripTwiceAndCheck(value, this.marshallContext());
     }
 
-    default void toJsonNodeRoundTripTwiceAndCheck(final Object value,
-                                                  final ToJsonNodeContext context) {
-        final JsonNode jsonNode = context.toJsonNode(value);
+    default void marshallRoundTripTwiceAndCheck(final Object value,
+                                                  final JsonNodeMarshallContext context) {
+        final JsonNode jsonNode = context.marshall(value);
 
         final Object fromValue = this.unmarshall(jsonNode);
-        final JsonNode jsonNode2 = context.toJsonNode(fromValue);
+        final JsonNode jsonNode2 = context.marshall(fromValue);
 
         assertEquals(fromValue,
                 this.unmarshall(jsonNode2),
                 () -> "Roundtrip to -> from -> to failed value=" + CharSequences.quoteIfChars(value));
     }
 
-    default void toJsonNodeWithTypeRoundTripTwiceAndCheck(final Object value) {
-        this.toJsonNodeWithTypeRoundTripTwiceAndCheck(value,
+    default void marshallWithTypeRoundTripTwiceAndCheck(final Object value) {
+        this.marshallWithTypeRoundTripTwiceAndCheck(value,
                 this.unmarshallContext(),
-                this.toJsonNodeContext());
+                this.marshallContext());
     }
 
-    default void toJsonNodeWithTypeRoundTripTwiceAndCheck(final Object value,
+    default void marshallWithTypeRoundTripTwiceAndCheck(final Object value,
                                                           final JsonNodeUnmarshallContext fromContext,
-                                                          final ToJsonNodeContext toContext) {
-        final JsonNode jsonNode = toContext.toJsonNodeWithType(value);
+                                                          final JsonNodeMarshallContext toContext) {
+        final JsonNode jsonNode = toContext.marshallWithType(value);
 
         final Object from = fromContext.unmarshallWithType(jsonNode);
-        final JsonNode jsonNode2 = toContext.toJsonNodeWithType(from);
+        final JsonNode jsonNode2 = toContext.marshallWithType(from);
 
         assertEquals(from,
                 fromContext.unmarshallWithType(jsonNode2),
@@ -258,8 +258,8 @@ public interface JsonNodeMappingTesting<V> extends Testing {
         return JsonNodeUnmarshallContexts.basic();
     }
 
-    default ToJsonNodeContext toJsonNodeContext() {
-        return ToJsonNodeContexts.basic();
+    default JsonNodeMarshallContext marshallContext() {
+        return JsonNodeMarshallContexts.basic();
     }
 
     Class<V> type();

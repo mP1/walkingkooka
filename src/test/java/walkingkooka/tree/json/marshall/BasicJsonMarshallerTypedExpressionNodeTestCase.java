@@ -31,8 +31,8 @@ public abstract class BasicJsonMarshallerTypedExpressionNodeTestCase<M extends B
     @Test
     public final void testRoundtrip() {
         final E expression = this.value();
-        final JsonNode json = this.toJsonNodeContext()
-                .toJsonNode(expression);
+        final JsonNode json = this.marshallContext()
+                .marshall(expression);
         this.unmarshallAndCheck(json, expression);
     }
 

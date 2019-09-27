@@ -92,7 +92,7 @@ public interface JsonNodeUnmarshallContext extends JsonNodeContext {
     // unmarshallWithType.............................................................................................
 
     /**
-     * Assumes a wrapper object with the type and value, basically the inverse of {@link ToJsonNodeContext#toJsonNodeWithType(Object)}.
+     * Assumes a wrapper object with the type and value, basically the inverse of {@link JsonNodeMarshallContext#marshallWithType(Object)}.
      */
     <T> T unmarshallWithType(final JsonNode node);
 

@@ -56,15 +56,15 @@ final class BasicJsonMarshallerString extends BasicJsonMarshaller<String> {
     }
 
     @Override
-    JsonNode toJsonNodeNonNull(final String value,
-                               final ToJsonNodeContext context) {
+    JsonNode marshallNonNull(final String value,
+                               final JsonNodeMarshallContext context) {
         return JsonNode.string(value);
     }
 
     @Override
-    JsonNode toJsonNodeWithTypeNonNull(final String value,
-                                       final ToJsonNodeContext context) {
-        return this.toJsonNodeNonNull(value,
+    JsonNode marshallWithTypeNonNull(final String value,
+                                       final JsonNodeMarshallContext context) {
+        return this.marshallNonNull(value,
                 context);
     }
 }

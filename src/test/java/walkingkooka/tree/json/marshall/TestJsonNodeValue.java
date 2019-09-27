@@ -60,7 +60,7 @@ public final class TestJsonNodeValue extends TestJsonNodeValueAbstract {
         return with(value);
     }
 
-    public JsonObjectNode toJsonNode(final ToJsonNodeContext context) {
+    public JsonObjectNode marshall(final JsonNodeMarshallContext context) {
         return JsonNode.object()
                 .set(KEY, JsonNode.string(this.value));
     }
@@ -70,7 +70,7 @@ public final class TestJsonNodeValue extends TestJsonNodeValueAbstract {
     public static void register() {
         remover = JsonNodeContext.register(TYPE_NAME,
                 TestJsonNodeValue::unmarshall,
-                TestJsonNodeValue::toJsonNode,
+                TestJsonNodeValue::marshall,
                 TestJsonNodeValue.class);
     }
 

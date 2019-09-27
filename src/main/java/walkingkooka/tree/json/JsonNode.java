@@ -65,7 +65,7 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
                 JsonNodeParserContexts.basic())
                 .get()
                 .cast();
-        return token.toJsonNode().get();
+        return token.marshall().get();
     }
 
     /**

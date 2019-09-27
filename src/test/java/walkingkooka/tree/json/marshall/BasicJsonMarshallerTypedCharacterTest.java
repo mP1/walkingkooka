@@ -45,7 +45,7 @@ public final class BasicJsonMarshallerTypedCharacterTest extends BasicJsonMarsha
 
     @Test
     public void testTo() {
-        this.toJsonNodeAndCheck('Z', JsonNode.string("Z"));
+        this.marshallAndCheck('Z', JsonNode.string("Z"));
     }
 
     @Override

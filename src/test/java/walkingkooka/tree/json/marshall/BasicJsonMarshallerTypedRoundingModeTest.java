@@ -60,7 +60,7 @@ public final class BasicJsonMarshallerTypedRoundingModeTest extends BasicJsonMar
     @Test
     public void testTo() {
         Arrays.stream(RoundingMode.values())
-                .forEach(r -> this.toJsonNodeAndCheck(r, JsonNode.string(r.name())));
+                .forEach(r -> this.marshallAndCheck(r, JsonNode.string(r.name())));
     }
 
     @Override

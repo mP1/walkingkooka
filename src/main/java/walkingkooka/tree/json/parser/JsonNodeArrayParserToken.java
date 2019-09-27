@@ -48,7 +48,7 @@ public final class JsonNodeArrayParserToken extends JsonNodeParentParserToken<Js
     }
 
     @Override
-    JsonNode toJsonNodeOrNull() {
+    JsonNode marshallOrNull() {
         final List<JsonNode> children = Lists.array();
         this.addJsonNode(children);
 

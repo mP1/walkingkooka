@@ -65,7 +65,7 @@ public final class BasicJsonMarshallerTypedMapTest extends BasicJsonMarshallerTy
 
     @Test
     public void testToEmptyMap() {
-        this.toJsonNodeWithTypeAndCheck(Maps.empty(), this.typeAndValue(JsonNode.array()));
+        this.marshallWithTypeAndCheck(Maps.empty(), this.typeAndValue(JsonNode.array()));
     }
 
     @Override
@@ -85,7 +85,7 @@ public final class BasicJsonMarshallerTypedMapTest extends BasicJsonMarshallerTy
         return JsonNode.array()
                 .appendChild(entry(JsonNode.booleanNode(Boolean.TRUE), JsonNode.nullNode()))
                 .appendChild(entry(JsonNode.number(123.5), JsonNode.string("abc123")))
-                .appendChild(entry(this.toJsonNodeContext().toJsonNodeWithType(TestJsonNodeValue.with("test-has-json-node-a1")), JsonNode.booleanNode(Boolean.FALSE)));
+                .appendChild(entry(this.marshallContext().marshallWithType(TestJsonNodeValue.with("test-has-json-node-a1")), JsonNode.booleanNode(Boolean.FALSE)));
     }
 
     private JsonNode entry(final JsonNode key, final JsonNode value) {

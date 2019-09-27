@@ -56,14 +56,14 @@ final class BasicJsonMarshallerBoolean extends BasicJsonMarshaller<Boolean> {
     }
 
     @Override
-    JsonNode toJsonNodeNonNull(final Boolean value,
-                               final ToJsonNodeContext context) {
+    JsonNode marshallNonNull(final Boolean value,
+                               final JsonNodeMarshallContext context) {
         return JsonNode.booleanNode(value);
     }
 
     @Override
-    JsonNode toJsonNodeWithTypeNonNull(final Boolean value,
-                                       final ToJsonNodeContext context) {
-        return this.toJsonNodeNonNull(value, context);
+    JsonNode marshallWithTypeNonNull(final Boolean value,
+                                       final JsonNodeMarshallContext context) {
+        return this.marshallNonNull(value, context);
     }
 }

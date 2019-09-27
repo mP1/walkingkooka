@@ -72,7 +72,7 @@ public final class JsonNodeUnmarshallContextUnmarshallWithTypePropertyBiFunction
         final JsonNodeUnmarshallContextUnmarshallWithTypePropertyBiFunction<TestJsonNodeValue> function = this.createBiFunction();
 
         this.applyAndCheck(function,
-                value.toJsonNode(this.toJsonNodeContext()),
+                value.marshall(this.marshallContext()),
                 this.unmarshallContext(),
                 value);
     }
@@ -82,16 +82,16 @@ public final class JsonNodeUnmarshallContextUnmarshallWithTypePropertyBiFunction
         final TestJsonNodeValue value1 = this.value();
         final JsonNodeUnmarshallContextUnmarshallWithTypePropertyBiFunction<TestJsonNodeValue> function = this.createBiFunction();
 
-        final ToJsonNodeContext context = this.toJsonNodeContext();
+        final JsonNodeMarshallContext context = this.marshallContext();
 
         this.applyAndCheck(function,
-                value1.toJsonNode(context),
+                value1.marshall(context),
                 this.unmarshallContext(),
                 value1);
 
         final TestJsonNodeValue value2 = TestJsonNodeValue.with("test-JsonNodeMap-b2");
         this.applyAndCheck(function,
-                value2.toJsonNode(context),
+                value2.marshall(context),
                 this.unmarshallContext(),
                 value2);
     }
@@ -100,7 +100,7 @@ public final class JsonNodeUnmarshallContextUnmarshallWithTypePropertyBiFunction
     public void testApplyTypeMissingFromSource() {
         final JsonNodeUnmarshallException thrown = assertThrows(JsonNodeUnmarshallException.class, () -> {
             this.createBiFunction(JsonNode.object())
-                    .apply(this.value().toJsonNode(this.toJsonNodeContext()), this.unmarshallContext());
+                    .apply(this.value().marshall(this.marshallContext()), this.unmarshallContext());
         });
         checkMessage(thrown,"Unknown property \"typeNameProperty1\" in {}");
     }
@@ -128,7 +128,7 @@ public final class JsonNodeUnmarshallContextUnmarshallWithTypePropertyBiFunction
 
     private JsonObjectNode objectWithType(final Class<?> type) {
         return JsonNode.object()
-                .set(typeNameProperty(), this.toJsonNodeContext().typeName(type).get());
+                .set(typeNameProperty(), this.marshallContext().typeName(type).get());
     }
 
     private TestJsonNodeValue value() {
@@ -143,8 +143,8 @@ public final class JsonNodeUnmarshallContextUnmarshallWithTypePropertyBiFunction
         return JsonNodeUnmarshallContexts.basic();
     }
 
-    private ToJsonNodeContext toJsonNodeContext() {
-        return ToJsonNodeContexts.basic();
+    private JsonNodeMarshallContext marshallContext() {
+        return JsonNodeMarshallContexts.basic();
     }
 
     @Override

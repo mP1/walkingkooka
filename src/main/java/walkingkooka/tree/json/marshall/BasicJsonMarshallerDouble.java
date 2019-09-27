@@ -56,14 +56,14 @@ final class BasicJsonMarshallerDouble extends BasicJsonMarshaller<Double> {
     }
 
     @Override
-    JsonNode toJsonNodeNonNull(final Double value,
-                               final ToJsonNodeContext context) {
+    JsonNode marshallNonNull(final Double value,
+                               final JsonNodeMarshallContext context) {
         return JsonNode.number(value);
     }
 
     @Override
-    JsonNode toJsonNodeWithTypeNonNull(final Double value,
-                                       final ToJsonNodeContext context) {
-        return this.toJsonNodeNonNull(value, context);
+    JsonNode marshallWithTypeNonNull(final Double value,
+                                       final JsonNodeMarshallContext context) {
+        return this.marshallNonNull(value, context);
     }
 }

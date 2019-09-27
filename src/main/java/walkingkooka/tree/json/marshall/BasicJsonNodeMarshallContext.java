@@ -32,49 +32,49 @@ import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 /**
- * A {@link ToJsonNodeContext} that uses a registered type primarily its {@link java.util.function.BiFunction} to
+ * A {@link JsonNodeMarshallContext} that uses a registered type primarily its {@link java.util.function.BiFunction} to
  * turn objects or values into {@link JsonNode}.
  */
-final class BasicToJsonNodeContext extends BasicJsonNodeContext implements ToJsonNodeContext {
+final class BasicJsonNodeMarshallContext extends BasicJsonNodeContext implements JsonNodeMarshallContext {
 
     /**
      * Singleton
      */
-    final static BasicToJsonNodeContext INSTANCE = new BasicToJsonNodeContext(ToJsonNodeContext.OBJECT_PRE_PROCESSOR);
+    final static BasicJsonNodeMarshallContext INSTANCE = new BasicJsonNodeMarshallContext(JsonNodeMarshallContext.OBJECT_PRE_PROCESSOR);
 
     /**
      * Private ctor
      */
-    private BasicToJsonNodeContext(final BiFunction<Object, JsonObjectNode, JsonObjectNode> processor) {
+    private BasicJsonNodeMarshallContext(final BiFunction<Object, JsonObjectNode, JsonObjectNode> processor) {
         super();
         this.processor = processor;
     }
 
-    // toJsonNode. .....................................................................................................
+    // marshall. .....................................................................................................
 
-    public ToJsonNodeContext setObjectPostProcessor(final BiFunction<Object, JsonObjectNode, JsonObjectNode> processor) {
+    public JsonNodeMarshallContext setObjectPostProcessor(final BiFunction<Object, JsonObjectNode, JsonObjectNode> processor) {
         Objects.requireNonNull(processor, "processor");
 
         return this.processor.equals(processor) ?
                 this :
-                new BasicToJsonNodeContext(processor);
+                new BasicJsonNodeMarshallContext(processor);
     }
 
-    // toJsonNode. .....................................................................................................
+    // marshall. .....................................................................................................
 
     /**
      * Accepts an {@link Object} and creates a {@link JsonNode} equivalent.
      */
     @Override
-    public JsonNode toJsonNode(final Object value) {
+    public JsonNode marshall(final Object value) {
         return null == value ?
                 JsonNode.nullNode() :
-                this.toJsonNodeNonNull(value);
+                this.marshallNonNull(value);
     }
 
-    private JsonNode toJsonNodeNonNull(final Object value) {
+    private JsonNode marshallNonNull(final Object value) {
         final JsonNode json = BasicJsonMarshaller.marshaller(value.getClass())
-                .toJsonNode(Cast.to(value), this);
+                .marshall(Cast.to(value), this);
         return json.isObject() ?
                 this.processor.apply(value, json.objectOrFail()) :
                 json;
@@ -86,24 +86,24 @@ final class BasicToJsonNodeContext extends BasicJsonNodeContext implements ToJso
      * Accepts a {@link List} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}.
      */
     @Override
-    public JsonNode toJsonNodeList(final List<?> list) {
-        return toJsonNodeCollection(list);
+    public JsonNode marshallList(final List<?> list) {
+        return marshallCollection(list);
     }
 
     /**
      * Accepts a {@link Set} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}.
      */
     @Override
-    public JsonNode toJsonNodeSet(final Set<?> set) {
-        return toJsonNodeCollection(set);
+    public JsonNode marshallSet(final Set<?> set) {
+        return marshallCollection(set);
     }
 
-    private JsonNode toJsonNodeCollection(final Collection<?> collection) {
+    private JsonNode marshallCollection(final Collection<?> collection) {
         return null == collection ?
                 JsonNode.nullNode() :
                 JsonObjectNode.array()
                         .setChildren(collection.stream()
-                                .map(this::toJsonNode)
+                                .map(this::marshall)
                                 .collect(Collectors.toList()));
     }
 
@@ -112,7 +112,7 @@ final class BasicToJsonNodeContext extends BasicJsonNodeContext implements ToJso
      * without recording the types for either.
      */
     @Override
-    public JsonNode toJsonNodeMap(final Map<?, ?> map) {
+    public JsonNode marshallMap(final Map<?, ?> map) {
         return null == map ?
                 JsonNode.nullNode() :
                 JsonObjectNode.array()
@@ -124,44 +124,44 @@ final class BasicToJsonNodeContext extends BasicJsonNodeContext implements ToJso
 
     private JsonNode entry(final Entry<?, ?> entry) {
         return JsonNode.object()
-                .set(BasicJsonMarshallerTypedMap.ENTRY_KEY, this.toJsonNode(entry.getKey()))
-                .set(BasicJsonMarshallerTypedMap.ENTRY_VALUE, this.toJsonNode(entry.getValue()));
+                .set(BasicJsonMarshallerTypedMap.ENTRY_KEY, this.marshall(entry.getKey()))
+                .set(BasicJsonMarshallerTypedMap.ENTRY_VALUE, this.marshall(entry.getValue()));
     }
 
-    // toJsonNodeWithType...............................................................................................
+    // marshallWithType...............................................................................................
 
     /**
      * Wraps the {@link JsonNode} with a type name declaration.
      */
     @Override
-    public JsonNode toJsonNodeWithType(final Object value) {
+    public JsonNode marshallWithType(final Object value) {
         return null == value ?
                 JsonNode.nullNode() :
                 BasicJsonMarshaller.marshaller(value.getClass())
-                        .toJsonNodeWithType(Cast.to(value), this);
+                        .marshallWithType(Cast.to(value), this);
     }
 
     /**
      * Accepts a {@link List} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}.
      */
     @Override
-    public JsonNode toJsonNodeWithTypeList(final List<?> list) {
-        return BasicJsonMarshallerTypedCollectionList.instance().toJsonNode(list, this);
+    public JsonNode marshallWithTypeList(final List<?> list) {
+        return BasicJsonMarshallerTypedCollectionList.instance().marshall(list, this);
     }
 
     /**
      * Accepts a {@link Set} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}.
      */
     @Override
-    public JsonNode toJsonNodeWithTypeSet(final Set<?> set) {
-        return BasicJsonMarshallerTypedCollectionSet.instance().toJsonNode(set, this);
+    public JsonNode marshallWithTypeSet(final Set<?> set) {
+        return BasicJsonMarshallerTypedCollectionSet.instance().marshall(set, this);
     }
 
     /**
      * Accepts a {@link Map} and returns its {@link JsonNode} equivalent.
      */
     @Override
-    public JsonNode toJsonNodeWithTypeMap(final Map<?, ?> map) {
-        return BasicJsonMarshallerTypedMap.instance().toJsonNode(map, this);
+    public JsonNode marshallWithTypeMap(final Map<?, ?> map) {
+        return BasicJsonMarshallerTypedMap.instance().marshall(map, this);
     }
 }

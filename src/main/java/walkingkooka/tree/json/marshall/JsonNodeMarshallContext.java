@@ -29,7 +29,7 @@ import java.util.function.BiFunction;
 /**
  * A {@link Context} that accompanies transforming an object into a {@link JsonNode}.
  */
-public interface ToJsonNodeContext extends JsonNodeContext {
+public interface JsonNodeMarshallContext extends JsonNodeContext {
 
     /**
      * A {@link BiFunction processor} that simply returns the given object ignoring the value.
@@ -39,45 +39,45 @@ public interface ToJsonNodeContext extends JsonNodeContext {
     /**
      * Sets or replaces the {@link BiFunction object post processor} creating a new instance as necessary.
      */
-    ToJsonNodeContext setObjectPostProcessor(final BiFunction<Object, JsonObjectNode, JsonObjectNode> processor);
+    JsonNodeMarshallContext setObjectPostProcessor(final BiFunction<Object, JsonObjectNode, JsonObjectNode> processor);
 
     /**
      * Returns the {@link JsonNode} equivalent of this object. This is ideal for situations where the value is not dynamic.
      */
-    JsonNode toJsonNode(final Object value);
+    JsonNode marshall(final Object value);
 
     /**
      * Creates a {@link JsonNode} that records the type name and the json representation of the given object.
      */
-    JsonNode toJsonNodeWithType(final Object value);
+    JsonNode marshallWithType(final Object value);
 
     /**
      * Accepts a {@link List} of elements which are assumed to be the same supported type.
      */
-    JsonNode toJsonNodeList(final List<?> list);
+    JsonNode marshallList(final List<?> list);
 
     /**
      * Accepts a {@link Set} of elements which are assumed to be the same supported type.
      */
-    JsonNode toJsonNodeSet(final Set<?> set);
+    JsonNode marshallSet(final Set<?> set);
 
     /**
      * Accepts a {@link Set} of elements which are assumed to be supported.
      */
-    JsonNode toJsonNodeMap(final Map<?, ?> map);
+    JsonNode marshallMap(final Map<?, ?> map);
 
     /**
      * Accepts a {@link List} of elements which are assumed to be supported.
      */
-    JsonNode toJsonNodeWithTypeList(final List<?> list);
+    JsonNode marshallWithTypeList(final List<?> list);
 
     /**
      * Accepts a {@link Set} of elements which are assumed to be supported.
      */
-    JsonNode toJsonNodeWithTypeSet(final Set<?> set);
+    JsonNode marshallWithTypeSet(final Set<?> set);
 
     /**
      * Accepts a {@link Map} and returns its {@link JsonNode} equivalent.
      */
-    JsonNode toJsonNodeWithTypeMap(final Map<?, ?> map);
+    JsonNode marshallWithTypeMap(final Map<?, ?> map);
 }

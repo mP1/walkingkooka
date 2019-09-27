@@ -40,10 +40,10 @@ abstract class BasicJsonMarshallerTyped<T> extends BasicJsonMarshaller<T> {
     }
 
     @Override
-    final JsonNode toJsonNodeWithTypeNonNull(final T value,
-                                             final ToJsonNodeContext context) {
+    final JsonNode marshallWithTypeNonNull(final T value,
+                                             final JsonNodeMarshallContext context) {
         return this.objectWithType()
-                .set(BasicJsonNodeContext.VALUE, context.toJsonNode(value));
+                .set(BasicJsonNodeContext.VALUE, context.marshall(value));
     }
 
     /**

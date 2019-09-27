@@ -27,7 +27,7 @@ public final class BasicJsonMarshallerTypedGenericRunnableTest extends BasicJson
     public void testToString() {
         final BasicJsonMarshallerTypedGeneric marshaller = BasicJsonMarshallerTypedGeneric.with("test-type",
                 TestJsonNodeValue::unmarshall,
-                TestJsonNodeValue::toJsonNode,
+                TestJsonNodeValue::marshall,
                 TestJsonNodeValue.class);
         this.toStringAndCheck(BasicJsonMarshallerTypedGenericRunnable.with(marshaller), marshaller.toString());
     }

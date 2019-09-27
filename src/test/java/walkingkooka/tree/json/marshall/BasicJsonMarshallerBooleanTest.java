@@ -34,12 +34,12 @@ public final class BasicJsonMarshallerBooleanTest extends BasicJsonMarshallerTes
 
     @Test
     public void testToTrue() {
-        this.toJsonNodeWithTypeAndCheck(true, JsonNode.booleanNode(true));
+        this.marshallWithTypeAndCheck(true, JsonNode.booleanNode(true));
     }
 
     @Test
     public void testToFalse() {
-        this.toJsonNodeWithTypeAndCheck(false, JsonNode.booleanNode(false));
+        this.marshallWithTypeAndCheck(false, JsonNode.booleanNode(false));
     }
 
     @Override

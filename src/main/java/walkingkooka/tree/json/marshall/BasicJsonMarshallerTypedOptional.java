@@ -88,14 +88,14 @@ final class BasicJsonMarshallerTypedOptional extends BasicJsonMarshallerTyped<Op
      * Returns an array which will hold either a single value or nothing when the optional is empty.
      */
     @Override
-    JsonNode toJsonNodeNonNull(final Optional<?> value,
-                               final ToJsonNodeContext context) {
-        return value.map(v -> this.toJsonNodeNonNullValue(v, context))
+    JsonNode marshallNonNull(final Optional<?> value,
+                               final JsonNodeMarshallContext context) {
+        return value.map(v -> this.marshallNonNullValue(v, context))
                 .orElse(JsonNode.array());
     }
 
-    private static JsonArrayNode toJsonNodeNonNullValue(final Object value,
-                                                        final ToJsonNodeContext context) {
-        return JsonNode.array().appendChild(context.toJsonNodeWithType(value));
+    private static JsonArrayNode marshallNonNullValue(final Object value,
+                                                        final JsonNodeMarshallContext context) {
+        return JsonNode.array().appendChild(context.marshallWithType(value));
     }
 }

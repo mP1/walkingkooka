@@ -116,9 +116,9 @@ final class BasicJsonMarshallerTypedRange extends BasicJsonMarshallerTyped<Range
     }
 
     @Override
-    JsonNode toJsonNodeNonNull(final Range value,
-                               final ToJsonNodeContext context) {
-        return BasicJsonMarshallerTypedRangeRangeVisitor.toJsonNode(value, context);
+    JsonNode marshallNonNull(final Range value,
+                               final JsonNodeMarshallContext context) {
+        return BasicJsonMarshallerTypedRangeRangeVisitor.marshall(value, context);
     }
 
     final static String LOWER_BOUND = "lower-bound";

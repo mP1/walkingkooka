@@ -31,8 +31,8 @@ public final class BasicJsonMarshallerTypedRangeTest extends BasicJsonMarshaller
     }
 
     @Test
-    public void testRangeAllToJson() {
-        this.toJsonNodeAndCheck(Range.all(), JsonNode.object());
+    public void testRangeAllMarshall() {
+        this.marshallAndCheck(Range.all(), JsonNode.object());
     }
 
     @Test
@@ -44,8 +44,8 @@ public final class BasicJsonMarshallerTypedRangeTest extends BasicJsonMarshaller
     }
 
     @Test
-    public void testRangeGreaterThanToJson() {
-        this.toJsonNodeAndCheck(Range.greaterThan(1),
+    public void testRangeGreaterThanMarshall() {
+        this.marshallAndCheck(Range.greaterThan(1),
                 JsonNode.object()
                         .set(BasicJsonMarshallerTypedRange.LOWER_BOUND_PROPERTY,
                                 JsonNode.object().set(BasicJsonMarshallerTypedRange.EXCLUSIVE_PROPERTY, this.value1())));
@@ -60,8 +60,8 @@ public final class BasicJsonMarshallerTypedRangeTest extends BasicJsonMarshaller
     }
 
     @Test
-    public void testRangeGreaterThanEqualsToJson() {
-        this.toJsonNodeAndCheck(Range.greaterThanEquals(1),
+    public void testRangeGreaterThanEqualsMarshall() {
+        this.marshallAndCheck(Range.greaterThanEquals(1),
                 JsonNode.object()
                         .set(BasicJsonMarshallerTypedRange.LOWER_BOUND_PROPERTY,
                                 JsonNode.object().set(BasicJsonMarshallerTypedRange.INCLUSIVE_PROPERTY, this.value1())));
@@ -76,8 +76,8 @@ public final class BasicJsonMarshallerTypedRangeTest extends BasicJsonMarshaller
     }
 
     @Test
-    public void testRangeLessThanToJson() {
-        this.toJsonNodeAndCheck(Range.lessThan(1),
+    public void testRangeLessThanMarshall() {
+        this.marshallAndCheck(Range.lessThan(1),
                 JsonNode.object()
                         .set(BasicJsonMarshallerTypedRange.UPPER_BOUND_PROPERTY,
                                 JsonNode.object().set(BasicJsonMarshallerTypedRange.EXCLUSIVE_PROPERTY, this.value1())));
@@ -92,8 +92,8 @@ public final class BasicJsonMarshallerTypedRangeTest extends BasicJsonMarshaller
     }
 
     @Test
-    public void testRangeLessThanEqualsToJson() {
-        this.toJsonNodeAndCheck(Range.lessThanEquals(1),
+    public void testRangeLessThanEqualsMarshall() {
+        this.marshallAndCheck(Range.lessThanEquals(1),
                 JsonNode.object()
                         .set(BasicJsonMarshallerTypedRange.UPPER_BOUND_PROPERTY,
                                 JsonNode.object().set(BasicJsonMarshallerTypedRange.INCLUSIVE_PROPERTY, this.value1())));
@@ -110,8 +110,8 @@ public final class BasicJsonMarshallerTypedRangeTest extends BasicJsonMarshaller
     }
 
     @Test
-    public void testRangeLowerInclusiveUpperExclusiveToJson() {
-        this.toJsonNodeAndCheck(Range.greaterThanEquals(1).and(Range.lessThan(2)),
+    public void testRangeLowerInclusiveUpperExclusiveMarshall() {
+        this.marshallAndCheck(Range.greaterThanEquals(1).and(Range.lessThan(2)),
                 JsonNode.object()
                         .set(BasicJsonMarshallerTypedRange.LOWER_BOUND_PROPERTY,
                                 JsonNode.object().set(BasicJsonMarshallerTypedRange.INCLUSIVE_PROPERTY, this.value1()))
@@ -130,8 +130,8 @@ public final class BasicJsonMarshallerTypedRangeTest extends BasicJsonMarshaller
     }
 
     @Test
-    public void testRangeLowerExclusiveUpperInclusiveToJson() {
-        this.toJsonNodeAndCheck(Range.greaterThan(1).and(Range.lessThanEquals(2)),
+    public void testRangeLowerExclusiveUpperInclusiveMarshall() {
+        this.marshallAndCheck(Range.greaterThan(1).and(Range.lessThanEquals(2)),
                 JsonNode.object()
                         .set(BasicJsonMarshallerTypedRange.LOWER_BOUND_PROPERTY,
                                 JsonNode.object().set(BasicJsonMarshallerTypedRange.EXCLUSIVE_PROPERTY, this.value1()))
@@ -148,8 +148,8 @@ public final class BasicJsonMarshallerTypedRangeTest extends BasicJsonMarshaller
     }
 
     private JsonNode valueWithType(final Integer value) {
-        return this.toJsonNodeContext()
-                .toJsonNodeWithType(value);
+        return this.marshallContext()
+                .marshallWithType(value);
     }
 
     // helpers..........................................................................................................

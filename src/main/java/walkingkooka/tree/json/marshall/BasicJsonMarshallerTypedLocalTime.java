@@ -58,8 +58,8 @@ final class BasicJsonMarshallerTypedLocalTime extends BasicJsonMarshallerTyped<L
     }
 
     @Override
-    JsonNode toJsonNodeNonNull(final LocalTime value,
-                               final ToJsonNodeContext context) {
+    JsonNode marshallNonNull(final LocalTime value,
+                               final JsonNodeMarshallContext context) {
         return JsonNode.string(value.toString());
     }
 }

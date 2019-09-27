@@ -103,8 +103,8 @@ final class BasicJsonMarshallerTypedMathContext extends BasicJsonMarshallerTyped
     }
 
     @Override
-    JsonNode toJsonNodeNonNull(final MathContext value,
-                               final ToJsonNodeContext context) {
+    JsonNode marshallNonNull(final MathContext value,
+                               final JsonNodeMarshallContext context) {
         return MathContext.DECIMAL32.equals(value) ?
                 DECIMAL32_JSON :
                 MathContext.DECIMAL64.equals(value) ?

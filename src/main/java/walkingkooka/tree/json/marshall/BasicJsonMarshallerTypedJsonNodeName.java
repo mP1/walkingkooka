@@ -57,8 +57,8 @@ final class BasicJsonMarshallerTypedJsonNodeName extends BasicJsonMarshallerType
     }
 
     @Override
-    JsonNode toJsonNodeNonNull(final JsonNodeName value,
-                               final ToJsonNodeContext context) {
+    JsonNode marshallNonNull(final JsonNodeName value,
+                               final JsonNodeMarshallContext context) {
         return JsonNode.string(value.toString());
     }
 }
