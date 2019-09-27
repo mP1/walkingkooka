@@ -46,7 +46,7 @@ public final class TestJsonNodeValue extends TestJsonNodeValueAbstract {
      * Accepts a json string creating a {@link TestJsonNodeValue}
      */
     public static TestJsonNodeValue unmarshall(final JsonNode node,
-                                                 final JsonNodeUnmarshallContext context) {
+                                               final JsonNodeUnmarshallContext context) {
         String value = null;
         for (JsonNode child : node.objectOrFail().children()) {
             final JsonNodeName property = child.name();
@@ -75,10 +75,10 @@ public final class TestJsonNodeValue extends TestJsonNodeValueAbstract {
     }
 
     public static void unregister() {
-       if(null != remover) {
-           remover.run();
-           remover = null;
-       }
+        if (null != remover) {
+            remover.run();
+            remover = null;
+        }
     }
 
     private static Runnable remover = null;

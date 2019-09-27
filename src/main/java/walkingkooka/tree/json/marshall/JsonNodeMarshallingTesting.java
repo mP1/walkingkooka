@@ -115,32 +115,32 @@ public interface JsonNodeMarshallingTesting<V> extends Testing {
     }
 
     default void unmarshallAndCheck(final String from,
-                                      final Object value) {
+                                    final Object value) {
         this.unmarshallAndCheck(JsonNode.parse(from), value);
     }
 
     default void unmarshallAndCheck(final JsonNode from,
-                                      final Object value) {
+                                    final Object value) {
         assertEquals(value,
                 this.unmarshall(from),
                 () -> "unmarshall failed " + from);
     }
 
     default void unmarshallFails(final String from,
-                                   final Class<? extends Throwable> thrown) {
+                                 final Class<? extends Throwable> thrown) {
         unmarshallFails(JsonNode.parse(from), thrown);
     }
 
     default void unmarshallFails(final JsonNode from,
-                                   final Class<? extends Throwable> thrown) {
+                                 final Class<? extends Throwable> thrown) {
         this.unmarshallFails(from,
                 thrown,
                 this.unmarshallContext());
     }
 
     default void unmarshallFails(final JsonNode from,
-                                   final Class<? extends Throwable> thrown,
-                                   final JsonNodeUnmarshallContext context) {
+                                 final Class<? extends Throwable> thrown,
+                                 final JsonNodeUnmarshallContext context) {
         assertThrows(JsonNodeUnmarshallException.class, () -> {
             context.unmarshall(from, this.type());
         });
@@ -191,23 +191,23 @@ public interface JsonNodeMarshallingTesting<V> extends Testing {
      * Typically calls a static method that accepts a {@link JsonNode} and creates a {@link V object}.
      */
     V unmarshall(final JsonNode from,
-                   final JsonNodeUnmarshallContext context);
+                 final JsonNodeUnmarshallContext context);
 
     default void marshallAndCheck(final Object value,
-                                    final String json) {
+                                  final String json) {
         marshallAndCheck(value, JsonNode.parse(json));
     }
 
     default void marshallAndCheck(final Object value,
-                                    final JsonNode json) {
+                                  final JsonNode json) {
         this.marshallAndCheck(value,
                 json,
                 this.marshallContext());
     }
 
     default void marshallAndCheck(final Object value,
-                                    final JsonNode json,
-                                    final JsonNodeMarshallContext context) {
+                                  final JsonNode json,
+                                  final JsonNodeMarshallContext context) {
         assertEquals(json,
                 context.marshall(value),
                 () -> "marshall doesnt match=" + value);
@@ -218,7 +218,7 @@ public interface JsonNodeMarshallingTesting<V> extends Testing {
     }
 
     default void marshallRoundTripTwiceAndCheck(final Object value,
-                                                  final JsonNodeMarshallContext context) {
+                                                final JsonNodeMarshallContext context) {
         final JsonNode jsonNode = context.marshall(value);
 
         final Object fromValue = this.unmarshall(jsonNode);
@@ -236,8 +236,8 @@ public interface JsonNodeMarshallingTesting<V> extends Testing {
     }
 
     default void marshallWithTypeRoundTripTwiceAndCheck(final Object value,
-                                                          final JsonNodeUnmarshallContext fromContext,
-                                                          final JsonNodeMarshallContext toContext) {
+                                                        final JsonNodeUnmarshallContext fromContext,
+                                                        final JsonNodeMarshallContext toContext) {
         final JsonNode jsonNode = toContext.marshallWithType(value);
 
         final Object from = fromContext.unmarshallWithType(jsonNode);

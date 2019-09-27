@@ -53,13 +53,13 @@ final class BasicJsonMarshallerTypedLocalDateTime extends BasicJsonMarshallerTyp
 
     @Override
     LocalDateTime unmarshallNonNull(final JsonNode node,
-                                      final JsonNodeUnmarshallContext context) {
+                                    final JsonNodeUnmarshallContext context) {
         return LocalDateTime.parse(node.stringValueOrFail());
     }
 
     @Override
     JsonNode marshallNonNull(final LocalDateTime value,
-                               final JsonNodeMarshallContext context) {
+                             final JsonNodeMarshallContext context) {
         return JsonNode.string(value.toString());
     }
 }

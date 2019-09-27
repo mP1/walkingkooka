@@ -56,13 +56,13 @@ final class BasicJsonMarshallerTypedLocale extends BasicJsonMarshallerTyped<Loca
 
     @Override
     Locale unmarshallNonNull(final JsonNode node,
-                               final JsonNodeUnmarshallContext context) {
+                             final JsonNodeUnmarshallContext context) {
         return Locale.forLanguageTag(node.stringValueOrFail());
     }
 
     @Override
     JsonNode marshallNonNull(final Locale value,
-                               final JsonNodeMarshallContext context) {
+                             final JsonNodeMarshallContext context) {
         return JsonNode.string(value.toLanguageTag());
     }
 }

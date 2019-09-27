@@ -236,7 +236,7 @@ abstract class BasicJsonMarshaller<T> {
      * Returns the value from its {@link JsonNode} representation.
      */
     final T unmarshall(final JsonNode node,
-                         final JsonNodeUnmarshallContext context) {
+                       final JsonNodeUnmarshallContext context) {
         try {
             return node.isNull() ?
                     this.unmarshallNull(context) :
@@ -251,7 +251,7 @@ abstract class BasicJsonMarshaller<T> {
     abstract T unmarshallNull(final JsonNodeUnmarshallContext context);
 
     abstract T unmarshallNonNull(final JsonNode node,
-                                   final JsonNodeUnmarshallContext context);
+                                 final JsonNodeUnmarshallContext context);
 
     // marshall.......................................................................................................
 
@@ -259,27 +259,27 @@ abstract class BasicJsonMarshaller<T> {
      * Creates the {@link JsonNode} representation of the given value without any type/value enclosing object.
      */
     final JsonNode marshall(final T value,
-                              final JsonNodeMarshallContext context) {
+                            final JsonNodeMarshallContext context) {
         return null == value ?
                 JsonNode.nullNode() :
                 this.marshallNonNull(value, context);
     }
 
     abstract JsonNode marshallNonNull(final T value,
-                                        final JsonNodeMarshallContext context);
+                                      final JsonNodeMarshallContext context);
 
     /**
      * Creates the {@link JsonNode} with the type representation of the given value.
      */
     final JsonNode marshallWithType(final T value,
-                                      final JsonNodeMarshallContext context) {
+                                    final JsonNodeMarshallContext context) {
         return null == value ?
                 JsonNode.nullNode() :
                 this.marshallWithTypeNonNull(value, context);
     }
 
     abstract JsonNode marshallWithTypeNonNull(final T value,
-                                                final JsonNodeMarshallContext context);
+                                              final JsonNodeMarshallContext context);
 
     // toString.........................................................................................................
 

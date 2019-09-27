@@ -29,7 +29,7 @@ import walkingkooka.tree.json.JsonObjectNode;
 final class BasicJsonMarshallerTypedRangeRangeVisitor<C extends Comparable<C>> extends RangeVisitor<C> {
 
     static <C extends Comparable<C>> JsonNode marshall(final Range<C> range,
-                                                         final JsonNodeMarshallContext context) {
+                                                       final JsonNodeMarshallContext context) {
         final BasicJsonMarshallerTypedRangeRangeVisitor<C> visitor = new BasicJsonMarshallerTypedRangeRangeVisitor(context);
         visitor.accept(range);
         return visitor.jsonNode;

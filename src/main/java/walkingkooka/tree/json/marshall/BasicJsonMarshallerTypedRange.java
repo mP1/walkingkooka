@@ -74,7 +74,7 @@ final class BasicJsonMarshallerTypedRange extends BasicJsonMarshallerTyped<Range
      */
     @SuppressWarnings("unchecked")
     Range<?> unmarshallNonNull(final JsonNode node,
-                                 final JsonNodeUnmarshallContext context) {
+                               final JsonNodeUnmarshallContext context) {
         RangeBound<?> lower = RangeBound.all();
         RangeBound<?> upper = RangeBound.all();
 
@@ -96,7 +96,7 @@ final class BasicJsonMarshallerTypedRange extends BasicJsonMarshallerTyped<Range
     }
 
     private static RangeBound<?> unmarshallRangeBound(final JsonNode node,
-                                                        final JsonNodeUnmarshallContext context) {
+                                                      final JsonNodeUnmarshallContext context) {
         RangeBound<?> bound = RangeBound.all();
 
         for (JsonNode child : node.children()) {
@@ -117,7 +117,7 @@ final class BasicJsonMarshallerTypedRange extends BasicJsonMarshallerTyped<Range
 
     @Override
     JsonNode marshallNonNull(final Range value,
-                               final JsonNodeMarshallContext context) {
+                             final JsonNodeMarshallContext context) {
         return BasicJsonMarshallerTypedRangeRangeVisitor.marshall(value, context);
     }
 

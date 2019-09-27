@@ -62,12 +62,12 @@ final class BasicJsonMarshallerTypedOptional extends BasicJsonMarshallerTyped<Op
 
     @Override
     Optional<?> unmarshallNonNull(final JsonNode node,
-                                    final JsonNodeUnmarshallContext context) {
+                                  final JsonNodeUnmarshallContext context) {
         return unmarshallNonNull0(node.arrayOrFail(), context);
     }
 
     private Optional<?> unmarshallNonNull0(final JsonArrayNode array,
-                                             final JsonNodeUnmarshallContext context) {
+                                           final JsonNodeUnmarshallContext context) {
         final List<JsonNode> children = array.children();
         return children.isEmpty() ?
                 Optional.empty() :
@@ -75,9 +75,9 @@ final class BasicJsonMarshallerTypedOptional extends BasicJsonMarshallerTyped<Op
     }
 
     private Optional<?> unmarshallNonNull1(final List<JsonNode> children,
-                                             final JsonNode parent,
-                                             final JsonNodeUnmarshallContext context) {
-        if(children.size() > 1) {
+                                           final JsonNode parent,
+                                           final JsonNodeUnmarshallContext context) {
+        if (children.size() > 1) {
             throw new JsonNodeUnmarshallException("Optional expected only 0/1 children but got " + children, parent);
         }
 
@@ -89,13 +89,13 @@ final class BasicJsonMarshallerTypedOptional extends BasicJsonMarshallerTyped<Op
      */
     @Override
     JsonNode marshallNonNull(final Optional<?> value,
-                               final JsonNodeMarshallContext context) {
-        return value.map(v -> this.marshallNonNullValue(v, context))
+                             final JsonNodeMarshallContext context) {
+        return value.map(v -> marshallNonNullValue(v, context))
                 .orElse(JsonNode.array());
     }
 
     private static JsonArrayNode marshallNonNullValue(final Object value,
-                                                        final JsonNodeMarshallContext context) {
+                                                      final JsonNodeMarshallContext context) {
         return JsonNode.array().appendChild(context.marshallWithType(value));
     }
 }

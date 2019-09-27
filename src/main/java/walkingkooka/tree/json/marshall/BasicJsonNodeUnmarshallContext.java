@@ -64,7 +64,7 @@ final class BasicJsonNodeUnmarshallContext extends BasicJsonNodeContext implemen
      */
     @Override
     public <T> T unmarshall(final JsonNode node,
-                              final Class<T> type) {
+                            final Class<T> type) {
         return type.cast(BasicJsonMarshaller.marshaller(type).unmarshall(this.preProcess(node, type), this));
     }
 
@@ -74,7 +74,7 @@ final class BasicJsonNodeUnmarshallContext extends BasicJsonNodeContext implemen
      */
     @Override
     public <T> List<T> unmarshallList(final JsonNode node,
-                                        final Class<T> elementType) {
+                                      final Class<T> elementType) {
         return this.unmarshallCollection(node,
                 elementType,
                 Collectors.toList());
@@ -86,15 +86,15 @@ final class BasicJsonNodeUnmarshallContext extends BasicJsonNodeContext implemen
      */
     @Override
     public <T> Set<T> unmarshallSet(final JsonNode node,
-                                      final Class<T> elementType) {
+                                    final Class<T> elementType) {
         return this.unmarshallCollection(node,
                 elementType,
                 Collectors.toCollection(Sets::ordered));
     }
 
     private <C extends Collection<T>, T> C unmarshallCollection(final JsonNode from,
-                                                                  final Class<T> elementType,
-                                                                  final Collector<T, ?, C> collector) {
+                                                                final Class<T> elementType,
+                                                                final Collector<T, ?, C> collector) {
         final BasicJsonMarshaller<T> marshaller = BasicJsonMarshaller.marshaller(elementType);
         return from.children()
                 .stream()
@@ -108,8 +108,8 @@ final class BasicJsonNodeUnmarshallContext extends BasicJsonNodeContext implemen
      */
     @Override
     public <K, V> Map<K, V> unmarshallMap(final JsonNode node,
-                                            final Class<K> keyType,
-                                            final Class<V> valueType) {
+                                          final Class<K> keyType,
+                                          final Class<V> valueType) {
         fromArrayCheck(node, Map.class);
 
         final BasicJsonMarshaller<K> keyMapper = BasicJsonMarshaller.marshaller(keyType);
@@ -164,8 +164,8 @@ final class BasicJsonNodeUnmarshallContext extends BasicJsonNodeContext implemen
     }
 
     private <C extends Collection<T>, T> C unmarshallCollectionWithType(final JsonNode from,
-                                                                          final Class<?> label,
-                                                                          final Collector<T, ?, C> collector) {
+                                                                        final Class<?> label,
+                                                                        final Collector<T, ?, C> collector) {
         return this.unmarshallCollection0(from,
                 label,
                 this::unmarshallWithType,
@@ -204,9 +204,9 @@ final class BasicJsonNodeUnmarshallContext extends BasicJsonNodeContext implemen
      * Turns all the children nodes into a {@link Collection}.
      */
     private <C extends Collection<T>, T> C unmarshallCollection0(final JsonNode from,
-                                                                   final Class<?> label,
-                                                                   final Function<JsonNode, T> element,
-                                                                   final Collector<T, ?, C> collector) {
+                                                                 final Class<?> label,
+                                                                 final Function<JsonNode, T> element,
+                                                                 final Collector<T, ?, C> collector) {
         fromArrayCheck(from, label);
 
         return from.children()

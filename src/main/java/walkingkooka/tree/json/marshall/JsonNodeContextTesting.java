@@ -224,47 +224,47 @@ public interface JsonNodeContextTesting<C extends JsonNodeContext> extends Conte
 
     @Test
     default void testTypeNameLocalDate() {
-        this.typeNameAndCheck(LocalDate.class, Optional.of(JsonNode.string("local-date")));;
+        this.typeNameAndCheck(LocalDate.class, Optional.of(JsonNode.string("local-date")));
     }
 
     @Test
     default void testTypeNameLocalDateTime() {
-        this.typeNameAndCheck(LocalDateTime.class, Optional.of(JsonNode.string("local-datetime")));;
+        this.typeNameAndCheck(LocalDateTime.class, Optional.of(JsonNode.string("local-datetime")));
     }
 
     @Test
     default void testTypeNameLocalTime() {
-        this.typeNameAndCheck(LocalTime.class, Optional.of(JsonNode.string("local-time")));;
+        this.typeNameAndCheck(LocalTime.class, Optional.of(JsonNode.string("local-time")));
     }
 
     @Test
     default void testTypeNameLocale() {
-        this.typeNameAndCheck(Locale.class, Optional.of(JsonNode.string("locale")));;
+        this.typeNameAndCheck(Locale.class, Optional.of(JsonNode.string("locale")));
     }
 
     @Test
     default void testTypeNameMathContext() {
-        this.typeNameAndCheck(MathContext.class, Optional.of(JsonNode.string("math-context")));;
+        this.typeNameAndCheck(MathContext.class, Optional.of(JsonNode.string("math-context")));
     }
 
     @Test
     default void testTypeNameList() {
-        this.typeNameAndCheck(List.class, Optional.of(JsonNode.string("list")));;
+        this.typeNameAndCheck(List.class, Optional.of(JsonNode.string("list")));
     }
 
     @Test
     default void testTypeNameMap() {
-        this.typeNameAndCheck(Map.class, Optional.of(JsonNode.string("marshall")));;
+        this.typeNameAndCheck(Map.class, Optional.of(JsonNode.string("marshall")));
     }
 
     @Test
     default void testTypeNameSet() {
-        this.typeNameAndCheck(Set.class, Optional.of(JsonNode.string("set")));;
+        this.typeNameAndCheck(Set.class, Optional.of(JsonNode.string("set")));
     }
 
     @Test
     default void testTypeNameOptional() {
-        this.typeNameAndCheck(Optional.class, Optional.of(JsonNode.string("optional")));;
+        this.typeNameAndCheck(Optional.class, Optional.of(JsonNode.string("optional")));
     }
 
     // registeredType....................................................................................................

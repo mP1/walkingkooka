@@ -54,11 +54,11 @@ public final class BasicJsonMarshallerTypedExpressionNodeBinaryTest extends Basi
 
     private ExpressionNode leftValue() {
         return ExpressionNode.bigInteger(BigInteger.valueOf(11));
-    };
+    }
 
     private ExpressionNode rightValue() {
         return ExpressionNode.text("b2");
-    };
+    }
 
     @Override
     JsonNode node() {

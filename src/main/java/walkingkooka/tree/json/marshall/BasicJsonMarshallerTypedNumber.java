@@ -31,7 +31,7 @@ abstract class BasicJsonMarshallerTypedNumber<T extends Number> extends BasicJso
 
     @Override
     final T unmarshallNonNull(final JsonNode node,
-                                final JsonNodeUnmarshallContext context) {
+                              final JsonNodeUnmarshallContext context) {
         return this.numberWithoutPrecisionLoss(node.numberValueOrFail());
     }
 
@@ -40,7 +40,7 @@ abstract class BasicJsonMarshallerTypedNumber<T extends Number> extends BasicJso
      */
     private T numberWithoutPrecisionLoss(final Number number) {
         final T number2 = this.number(number);
-        if(number2.doubleValue() != number.doubleValue()) {
+        if (number2.doubleValue() != number.doubleValue()) {
             throw new NumericLossJsonNodeException(number.getClass().getName() + "=" + number);
         }
         return number2;
@@ -55,7 +55,7 @@ abstract class BasicJsonMarshallerTypedNumber<T extends Number> extends BasicJso
 
     @Override
     final JsonNode marshallNonNull(final T value,
-                                     final JsonNodeMarshallContext context) {
+                                   final JsonNodeMarshallContext context) {
         return JsonNode.number(value.doubleValue());
     }
 }

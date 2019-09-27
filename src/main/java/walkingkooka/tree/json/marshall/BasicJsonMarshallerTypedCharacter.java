@@ -47,7 +47,7 @@ final class BasicJsonMarshallerTypedCharacter extends BasicJsonMarshallerTyped<C
 
     @Override
     Character unmarshallNonNull(final JsonNode node,
-                                  final JsonNodeUnmarshallContext context) {
+                                final JsonNodeUnmarshallContext context) {
         final String string = node.stringValueOrFail();
         final int length = string.length();
         if (1 != length) {
@@ -63,7 +63,7 @@ final class BasicJsonMarshallerTypedCharacter extends BasicJsonMarshallerTyped<C
 
     @Override
     JsonNode marshallNonNull(final Character value,
-                               final JsonNodeMarshallContext context) {
+                             final JsonNodeMarshallContext context) {
         return JsonNode.string(value.toString());
     }
 }

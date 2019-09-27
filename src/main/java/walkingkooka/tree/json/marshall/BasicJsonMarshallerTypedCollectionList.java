@@ -49,7 +49,7 @@ final class BasicJsonMarshallerTypedCollectionList extends BasicJsonMarshallerTy
 
     @Override
     final List<?> unmarshallNonNull(final JsonNode node,
-                                      final JsonNodeUnmarshallContext context) {
+                                    final JsonNodeUnmarshallContext context) {
         return context.unmarshallWithTypeList(node);
     }
 }

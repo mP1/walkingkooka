@@ -47,7 +47,7 @@ final class BasicJsonMarshallerTypedExpressionNodeValue<N extends ExpressionNode
 
     @Override
     N unmarshallNonNull(final JsonNode node,
-                          final JsonNodeUnmarshallContext context) {
+                        final JsonNodeUnmarshallContext context) {
         return this.from.apply(context.unmarshall(node, this.valueType));
     }
 
@@ -56,7 +56,7 @@ final class BasicJsonMarshallerTypedExpressionNodeValue<N extends ExpressionNode
 
     @Override
     JsonNode marshallNonNull(final N value,
-                               final JsonNodeMarshallContext context) {
+                             final JsonNodeMarshallContext context) {
         return context.marshall(value.value());
     }
 }

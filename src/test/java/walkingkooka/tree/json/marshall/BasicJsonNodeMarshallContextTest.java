@@ -95,7 +95,7 @@ public final class BasicJsonNodeMarshallContextTest extends BasicJsonNodeContext
 
     @Test
     public void testMarshallListNull() {
-        this.marshallListAndCheck(Lists.of((Object)null),
+        this.marshallListAndCheck(Lists.of((Object) null),
                 list(JsonNode.nullNode()));
     }
 
@@ -218,7 +218,7 @@ public final class BasicJsonNodeMarshallContextTest extends BasicJsonNodeContext
     }
 
     private <VV> void marshallMapAndCheck2(final VV value,
-                                             final JsonNode expected) {
+                                           final JsonNode expected) {
         final String KEY = "key1";
 
         this.marshallMapAndCheck(Maps.of(KEY, value),
@@ -343,7 +343,7 @@ public final class BasicJsonNodeMarshallContextTest extends BasicJsonNodeContext
 
     @Test
     public void testMarshallWithTypeListNullElement() {
-        this.marshallWithTypeListAndCheck(Lists.of((Object)null),
+        this.marshallWithTypeListAndCheck(Lists.of((Object) null),
                 this.list(JsonNode.nullNode()));
     }
 
@@ -434,7 +434,7 @@ public final class BasicJsonNodeMarshallContextTest extends BasicJsonNodeContext
 
     @Test
     public void testMarshallWithTypeSetNullElement() {
-        this.marshallWithTypeSetAndCheck(Sets.of((Object)null),
+        this.marshallWithTypeSetAndCheck(Sets.of((Object) null),
                 this.set(JsonNode.nullNode()));
     }
 
@@ -544,7 +544,7 @@ public final class BasicJsonNodeMarshallContextTest extends BasicJsonNodeContext
     }
 
     private <VV> void marshallWithTypeMapAndCheck3(final JsonNode value,
-                                                     final VV javaValue) {
+                                                   final VV javaValue) {
         final String KEY = "key1";
 
         this.marshallWithTypeMapAndCheck(Maps.of(KEY, javaValue),

@@ -243,48 +243,48 @@ public abstract class BasicJsonMarshallerTestCase2<M extends BasicJsonMarshaller
     }
 
     final void unmarshallAndCheck(final BasicJsonMarshaller<T> marshaller,
-                                    final JsonNode node,
-                                    final T value) {
+                                  final JsonNode node,
+                                  final T value) {
         assertEquals(value,
                 marshaller.unmarshall(node, this.unmarshallContext()),
                 () -> "unmarshall failed " + node);
     }
 
     final void unmarshallWithTypeAndCheck(final JsonNode node,
-                                            final T value) {
+                                          final T value) {
         assertEquals(value,
                 this.unmarshallContext().unmarshallWithType(node),
                 () -> "unmarshall failed " + node);
     }
 
     final void marshallWithTypeFailed(final T value,
-                                        final Class<? extends Throwable> thrown) {
+                                      final Class<? extends Throwable> thrown) {
         assertThrows(thrown, () -> {
             this.marshaller().marshallWithType(value, this.marshallContext());
         });
     }
 
     final void marshallAndCheck(final T value,
-                                  final JsonNode node) {
+                                final JsonNode node) {
         this.marshallAndCheck(this.marshaller(), value, node);
     }
 
     final void marshallAndCheck(final BasicJsonMarshaller<T> marshaller,
-                                  final T value,
-                                  final JsonNode node) {
+                                final T value,
+                                final JsonNode node) {
         assertEquals(node,
                 marshaller.marshall(value, this.marshallContext()),
                 () -> "marshall failed " + node);
     }
 
     final void marshallWithTypeAndCheck(final T value,
-                                          final JsonNode node) {
+                                        final JsonNode node) {
         this.marshallWithTypeAndCheck(this.marshaller(), value, node);
     }
 
     final void marshallWithTypeAndCheck(final BasicJsonMarshaller<T> marshaller,
-                                          final T value,
-                                          final JsonNode node) {
+                                        final T value,
+                                        final JsonNode node) {
         assertEquals(node,
                 marshaller.marshallWithType(value, this.marshallContext()),
                 () -> "marshallWithType failed " + node);

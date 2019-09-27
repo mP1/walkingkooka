@@ -95,7 +95,7 @@ final class BasicJsonMarshallerTypedNodeSelector extends BasicJsonMarshallerType
 
     @Override
     NodeSelector unmarshallNonNull(final JsonNode node,
-                                     final JsonNodeUnmarshallContext context) {
+                                   final JsonNodeUnmarshallContext context) {
         JsonArrayNode components = null;
 
         for (JsonNode child : node.objectOrFail().children()) {
@@ -129,8 +129,8 @@ final class BasicJsonMarshallerTypedNodeSelector extends BasicJsonMarshallerType
             NAME extends Name,
             ANAME extends Name,
             AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> unmarshallNonNull0(final BiFunction<JsonNode, JsonNodeUnmarshallContext, NAME> nameFactory,
-                                                                              final JsonArrayNode components,
-                                                                              final JsonNodeUnmarshallContext context) {
+                                                                            final JsonArrayNode components,
+                                                                            final JsonNodeUnmarshallContext context) {
         NodeSelector<N, NAME, ANAME, AVALUE> selector = NodeSelector.relative();
 
         for (JsonNode component : components.children()) {
@@ -257,7 +257,7 @@ final class BasicJsonMarshallerTypedNodeSelector extends BasicJsonMarshallerType
 
     @Override
     JsonNode marshallNonNull(final NodeSelector value,
-                               final JsonNodeMarshallContext context) {
+                             final JsonNodeMarshallContext context) {
         return BasicJsonMarshallerTypedNodeSelectorNodeSelectorVisitor.marshall(value, context);
     }
 

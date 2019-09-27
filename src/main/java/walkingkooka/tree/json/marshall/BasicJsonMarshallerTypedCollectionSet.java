@@ -49,7 +49,7 @@ final class BasicJsonMarshallerTypedCollectionSet extends BasicJsonMarshallerTyp
 
     @Override
     final Set<?> unmarshallNonNull(final JsonNode node,
-                                     final JsonNodeUnmarshallContext context) {
+                                   final JsonNodeUnmarshallContext context) {
         return context.unmarshallWithTypeSet(node);
     }
 }

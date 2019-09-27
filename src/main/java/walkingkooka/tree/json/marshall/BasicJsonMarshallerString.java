@@ -38,7 +38,7 @@ final class BasicJsonMarshallerString extends BasicJsonMarshaller<String> {
     Class<String> type() {
         return String.class;
     }
-    
+
     @Override
     String typeName() {
         return "string";
@@ -46,7 +46,7 @@ final class BasicJsonMarshallerString extends BasicJsonMarshaller<String> {
 
     @Override
     String unmarshallNonNull(final JsonNode node,
-                               final JsonNodeUnmarshallContext context) {
+                             final JsonNodeUnmarshallContext context) {
         return node.stringValueOrFail();
     }
 
@@ -57,13 +57,13 @@ final class BasicJsonMarshallerString extends BasicJsonMarshaller<String> {
 
     @Override
     JsonNode marshallNonNull(final String value,
-                               final JsonNodeMarshallContext context) {
+                             final JsonNodeMarshallContext context) {
         return JsonNode.string(value);
     }
 
     @Override
     JsonNode marshallWithTypeNonNull(final String value,
-                                       final JsonNodeMarshallContext context) {
+                                     final JsonNodeMarshallContext context) {
         return this.marshallNonNull(value,
                 context);
     }

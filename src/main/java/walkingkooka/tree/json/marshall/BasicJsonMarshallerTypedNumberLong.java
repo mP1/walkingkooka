@@ -47,7 +47,7 @@ final class BasicJsonMarshallerTypedNumberLong extends BasicJsonMarshallerTyped<
 
     @Override
     Long unmarshallNonNull(final JsonNode node,
-                             final JsonNodeUnmarshallContext context) {
+                           final JsonNodeUnmarshallContext context) {
         return node.isNumber() ?
                 this.unmarshallNumber(node.numberValueOrFail()) :
                 this.unmarshallString(node);
@@ -74,7 +74,7 @@ final class BasicJsonMarshallerTypedNumberLong extends BasicJsonMarshallerTyped<
 
     @Override
     JsonNode marshallNonNull(final Long value,
-                               final JsonNodeMarshallContext context) {
+                             final JsonNodeMarshallContext context) {
         return JsonNode.string(value.toString());
     }
 }
