@@ -19,7 +19,6 @@ package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.visit.Visiting;
 
@@ -29,11 +28,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class JsonNullNodeTest extends JsonLeafNodeTestCase<JsonNullNode, Void> {
-
-    @Override
-    String nodeTypeName() {
-        return "json-null";
-    }
 
     // toSearchNode..............................................................................
 
@@ -123,13 +117,5 @@ public final class JsonNullNodeTest extends JsonLeafNodeTestCase<JsonNullNode, V
                 PARENT_OR_FAIL,
                 STRING_VALUE_OR_FAIL,
                 VALUE);
-    }
-
-    // JsonNodeMappingTesting...............................................................................................
-
-    @Override
-    public final JsonNullNode fromJsonNode(final JsonNode from,
-                                           final FromJsonNodeContext context) {
-        return from.cast();
     }
 }

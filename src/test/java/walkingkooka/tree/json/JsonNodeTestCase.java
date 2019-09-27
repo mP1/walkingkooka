@@ -33,7 +33,6 @@ import walkingkooka.text.printer.Printers;
 import walkingkooka.tree.HasTextOffsetTesting;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.NodeTesting;
-import walkingkooka.tree.json.marshall.JsonNodeMappingTesting;
 import walkingkooka.tree.search.HasSearchNodeTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -46,7 +45,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class JsonNodeTestCase<N extends JsonNode> implements BeanPropertiesTesting,
         ClassTesting2<JsonNode>,
-        JsonNodeMappingTesting<JsonNode>,
         HasSearchNodeTesting<N>,
         HasTextOffsetTesting,
         HasTextTesting,
@@ -164,22 +162,6 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements BeanProper
         this.textOffsetAndCheck(this.createNode(), 0);
     }
 
-    // JsonNodeContext.................................................................................................
-
-    @Override
-    public void testStaticFromJsonNodeMethodsNonPublic() {
-    }
-
-    abstract String nodeTypeName();
-
-    @Test
-    public void testToJsonNodeRemovesParent() {
-        final N node = this.createJsonNode();
-        final JsonNode parent = JsonNode.object()
-                .appendChild(node);
-        this.toJsonNodeAndCheck(parent.children().get(0), node);
-    }
-
     @Test
     public void testPrintJsonNullPrinterFails() {
         assertThrows(NullPointerException.class, () -> {
@@ -243,12 +225,5 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements BeanProper
     @Override
     public final JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
-    }
-
-    // JsonNodeContext..................................................................................................
-
-    @Override
-    public final N createJsonNodeMappingValue() {
-        return this.createJsonNode();
     }
 }

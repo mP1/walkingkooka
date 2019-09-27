@@ -19,7 +19,6 @@ package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.visit.Visiting;
 
@@ -646,11 +645,6 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
     }
 
     @Override
-    String nodeTypeName() {
-        return "json-array";
-    }
-
-    @Override
     Class<JsonArrayNode> jsonNodeType() {
         return JsonArrayNode.class;
     }
@@ -673,14 +667,6 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
         this.parentMissingCheck(child);
 
         return newParent;
-    }
-
-    // JsonNodeMappingTesting...............................................................................................
-
-    @Override
-    public final JsonArrayNode fromJsonNode(final JsonNode from,
-                                            final FromJsonNodeContext context) {
-        return from.cast();
     }
 
     @Override

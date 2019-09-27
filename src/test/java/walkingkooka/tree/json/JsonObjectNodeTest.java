@@ -27,7 +27,6 @@ import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.IndentingPrinters;
 import walkingkooka.text.printer.Printers;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchNodeName;
 import walkingkooka.visit.Visiting;
@@ -896,19 +895,6 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     @Override
     Class<JsonObjectNode> jsonNodeType() {
         return JsonObjectNode.class;
-    }
-
-    @Override
-    String nodeTypeName() {
-        return "json-object";
-    }
-
-    // JsonNodeMappingTesting...............................................................................................
-
-    @Override
-    public final JsonObjectNode fromJsonNode(final JsonNode from,
-                                             final FromJsonNodeContext context) {
-        return from.cast();
     }
 
     @Override

@@ -34,7 +34,6 @@ import walkingkooka.text.printer.Printers;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TraversableHasTextOffset;
 import walkingkooka.tree.expression.ExpressionNodeName;
-import walkingkooka.tree.json.marshall.FromJsonNodeException;
 import walkingkooka.tree.json.parser.JsonNodeParserContext;
 import walkingkooka.tree.json.parser.JsonNodeParserContexts;
 import walkingkooka.tree.json.parser.JsonNodeParserToken;
@@ -297,14 +296,14 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
      * Reports a json node is not an object during a fromJsonNode
      */
     final <V> V reportInvalidNodeObject() {
-        throw new FromJsonNodeException("Node is not an JSON Object =" + this, this);
+        throw new JsonNodeException("Node is not an JSON Object =" + this);
     }
 
     /**
      * Reports a json node is not an array during a fromJsonNode operation.
      */
     final <V> V reportInvalidNodeArray() {
-        throw new FromJsonNodeException("Node is not an JSON Array =" + this, this);
+        throw new JsonNodeException("Node is not an JSON Array =" + this);
     }
 
     /**
