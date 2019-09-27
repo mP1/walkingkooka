@@ -53,11 +53,6 @@ public final class BasicJsonMarshallerTypedJsonNodeNameTest extends BasicJsonMar
     }
 
     @Override
-    Class<? extends RuntimeException> fromFailsCauseType() {
-        return NullPointerException.class;
-    }
-
-    @Override
     public Class<BasicJsonMarshallerTypedJsonNodeName> type() {
         return BasicJsonMarshallerTypedJsonNodeName.class;
     }

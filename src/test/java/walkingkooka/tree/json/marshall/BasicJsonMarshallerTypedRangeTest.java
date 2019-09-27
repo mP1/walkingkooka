@@ -185,11 +185,6 @@ public final class BasicJsonMarshallerTypedRangeTest extends BasicJsonMarshaller
     }
 
     @Override
-    Class<? extends RuntimeException> fromFailsCauseType() {
-        return NumberFormatException.class;
-    }
-
-    @Override
     public Class<BasicJsonMarshallerTypedRange> type() {
         return BasicJsonMarshallerTypedRange.class;
     }

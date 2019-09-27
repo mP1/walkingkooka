@@ -79,11 +79,6 @@ public final class BasicJsonMarshallerTypedCharacterTest extends BasicJsonMarsha
     }
 
     @Override
-    Class<? extends RuntimeException> fromFailsCauseType() {
-        return IllegalArgumentException.class;
-    }
-
-    @Override
     public Class<BasicJsonMarshallerTypedCharacter> type() {
         return BasicJsonMarshallerTypedCharacter.class;
     }

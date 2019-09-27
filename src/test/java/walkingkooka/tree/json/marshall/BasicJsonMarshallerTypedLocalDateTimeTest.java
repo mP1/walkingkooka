@@ -61,11 +61,6 @@ public final class BasicJsonMarshallerTypedLocalDateTimeTest extends BasicJsonMa
     }
 
     @Override
-    Class<? extends RuntimeException> fromFailsCauseType() {
-        return DateTimeParseException.class;
-    }
-
-    @Override
     public Class<BasicJsonMarshallerTypedLocalDateTime> type() {
         return BasicJsonMarshallerTypedLocalDateTime.class;
     }

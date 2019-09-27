@@ -419,11 +419,6 @@ public final class BasicJsonMarshallerTypedNodeSelectorTest extends BasicJsonMar
     }
 
     @Override
-    Class<? extends RuntimeException> fromFailsCauseType() {
-        return NumberFormatException.class;
-    }
-
-    @Override
     public Class<BasicJsonMarshallerTypedNodeSelector> type() {
         return BasicJsonMarshallerTypedNodeSelector.class;
     }
