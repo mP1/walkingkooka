@@ -18,9 +18,6 @@
 package walkingkooka.tree.expression;
 
 
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
-
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -108,21 +105,6 @@ public final class ExpressionLocalDateNode extends ExpressionValueNode<LocalDate
     @Override
     public void accept(final ExpressionNodeVisitor visitor) {
         visitor.visit(this);
-    }
-
-    // JsonNodeContext..................................................................................................
-
-    // @VisibleForTesting
-    static ExpressionLocalDateNode fromJsonNode(final JsonNode node,
-                                                final FromJsonNodeContext context) {
-        return ExpressionLocalDateNode.with(context.fromJsonNode(node, LocalDate.class));
-    }
-
-    static {
-        register("-local-date",
-                ExpressionLocalDateNode::fromJsonNode,
-                ExpressionLocalDateNode::toJsonNode,
-                ExpressionLocalDateNode.class);
     }
 
     // Object ....................................................................................................

@@ -18,10 +18,6 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.collect.list.Lists;
-import walkingkooka.tree.json.JsonArrayNode;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
-import walkingkooka.tree.json.marshall.ToJsonNodeContext;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -31,7 +27,6 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.BiFunction;
 
 /**
  * Base class for any expression that accepts two parameters.
@@ -190,25 +185,6 @@ abstract class ExpressionBinaryNode extends ExpressionParentFixedNode {
 
     static boolean isFloatDouble(final Object value) {
         return value instanceof Float || value instanceof Double;
-    }
-
-    // JsonNodeContext..................................................................................................
-
-    static <N extends ExpressionBinaryNode> N fromJsonNode0(final JsonNode node,
-                                                            final BiFunction<ExpressionNode, ExpressionNode, N> factory,
-                                                            final FromJsonNodeContext context) {
-        final JsonArrayNode array = node.arrayOrFail();
-
-        return factory.apply(
-                context.fromJsonNodeWithType(array.get(0)),
-                context.fromJsonNodeWithType(array.get(1)));
-    }
-
-    /**
-     * Converts both left and right into a {@link walkingkooka.tree.json.JsonArrayNode}.
-     */
-    final JsonNode toJsonNode(final ToJsonNodeContext context) {
-        return context.toJsonNodeWithTypeList(this.children());
     }
 
     // Object........................................................................................................

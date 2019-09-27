@@ -18,9 +18,6 @@
 package walkingkooka.tree.expression;
 
 
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
-
 /**
  * A {@link Double} number value.
  */
@@ -104,21 +101,6 @@ public final class ExpressionDoubleNode extends ExpressionValueNode<Double> {
     @Override
     public void accept(final ExpressionNodeVisitor visitor) {
         visitor.visit(this);
-    }
-
-    // JsonNodeContext..................................................................................................
-
-    // @VisibleForTesting
-    static ExpressionDoubleNode fromJsonNode(final JsonNode node,
-                                             final FromJsonNodeContext context) {
-        return ExpressionDoubleNode.with(context.fromJsonNode(node, Double.class));
-    }
-
-    static {
-        register("-double",
-                ExpressionDoubleNode::fromJsonNode,
-                ExpressionDoubleNode::toJsonNode,
-                ExpressionDoubleNode.class);
     }
 
     // Object ....................................................................................................

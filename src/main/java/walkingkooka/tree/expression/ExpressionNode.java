@@ -23,10 +23,6 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
-import walkingkooka.tree.json.marshall.JsonNodeContext;
-import walkingkooka.tree.json.marshall.ToJsonNodeContext;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
 
@@ -39,23 +35,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
 public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionNodeName, Name, Object> {
-
-    /**
-     * Sub classes register themselves
-     */
-    static <N extends ExpressionNode> void register(final String suffix,
-                                                    final BiFunction<JsonNode, FromJsonNodeContext, N> from,
-                                                    final BiFunction<N, ToJsonNodeContext, JsonNode> to,
-                                                    final Class<N> type) {
-        JsonNodeContext.register("expression" + suffix,
-                from,
-                to,
-                type);
-    }
 
     /**
      * An empty list that holds no children.

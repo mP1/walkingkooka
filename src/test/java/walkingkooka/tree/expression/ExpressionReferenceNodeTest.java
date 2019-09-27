@@ -18,8 +18,6 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 import walkingkooka.visit.Visiting;
 
 import java.math.MathContext;
@@ -31,31 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 public final class ExpressionReferenceNodeTest extends ExpressionLeafNodeTestCase<ExpressionReferenceNode, ExpressionReference> {
 
     @Override
-    public void testTypeNameFromClass() {
-    }
-
-    @Override
     public void testPropertiesNeverReturnNull() {
-    }
-
-    @Override
-    public void testToJsonNodeRoundtripTwice() {
-    }
-
-    @Override
-    public void testToJsonNodeWithTypeRoundtripTwice() {
-    }
-
-    @Override
-    public void testToJsonNodeRoundtripList() {
-    }
-
-    @Override
-    public void testToJsonNodeRoundtripSet() {
-    }
-
-    @Override
-    public void testToJsonNodeRoundtripMap() {
     }
 
     @Test
@@ -207,13 +181,5 @@ public final class ExpressionReferenceNodeTest extends ExpressionLeafNodeTestCas
     @Override
     Class<ExpressionReferenceNode> expressionNodeType() {
         return ExpressionReferenceNode.class;
-    }
-
-    // JsonNodeMappingTesting...............................................................................................
-
-    @Override
-    public ExpressionReferenceNode fromJsonNode(final JsonNode from,
-                                                final FromJsonNodeContext context) {
-        return ExpressionReferenceNode.fromJsonNode(from, context);
     }
 }

@@ -36,7 +36,6 @@ import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.NodeTesting;
-import walkingkooka.tree.json.marshall.JsonNodeMappingTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.math.BigDecimal;
@@ -56,7 +55,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implements ClassTesting2<ExpressionNode>,
-        JsonNodeMappingTesting<ExpressionNode>,
         IsMethodTesting<N>,
         NodeTesting<ExpressionNode, ExpressionNodeName, Name, Object> {
 
@@ -509,12 +507,5 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
     @Override
     public final JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
-    }
-
-    // JsonNodeMappingTesting...........................................................................................
-
-    @Override
-    public final ExpressionNode createJsonNodeMappingValue() {
-        return this.createExpressionNode();
     }
 }

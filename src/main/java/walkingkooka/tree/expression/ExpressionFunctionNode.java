@@ -17,10 +17,6 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.tree.json.JsonArrayNode;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
-import walkingkooka.tree.json.marshall.ToJsonNodeContext;
 import walkingkooka.visit.Visiting;
 
 import java.math.BigDecimal;
@@ -260,34 +256,6 @@ public final class ExpressionFunctionNode extends ExpressionVariableNode {
                         .stream()
                         .map(v -> v.toValue(context))
                         .collect(Collectors.toList()));
-    }
-
-    // JsonNodeContext..................................................................................................
-
-    // @VisibleForTesting
-    static ExpressionFunctionNode fromJsonNode(final JsonNode node,
-                                               final FromJsonNodeContext context) {
-        final JsonArrayNode array = node.arrayOrFail();
-
-        return ExpressionFunctionNode.with(
-                context.fromJsonNode(array.get(0), ExpressionNodeName.class),
-                context.fromJsonNodeWithTypeList(array.get(1)));
-    }
-
-    /**
-     * Converts all children into a {@link walkingkooka.tree.json.JsonArrayNode} with their types.
-     */
-    final JsonNode toJsonNode(final ToJsonNodeContext context) {
-        return JsonNode.array()
-                .appendChild(context.toJsonNode(this.name))
-                .appendChild(context.toJsonNodeWithTypeList(this.children()));
-    }
-
-    static {
-        register("-fn",
-                ExpressionFunctionNode::fromJsonNode,
-                ExpressionFunctionNode::toJsonNode,
-                ExpressionFunctionNode.class);
     }
 
     // Object.........................................................................................................

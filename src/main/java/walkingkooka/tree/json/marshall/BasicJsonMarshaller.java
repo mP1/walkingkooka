@@ -21,10 +21,42 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.expression.ExpressionAdditionNode;
+import walkingkooka.tree.expression.ExpressionAndNode;
+import walkingkooka.tree.expression.ExpressionBigDecimalNode;
+import walkingkooka.tree.expression.ExpressionBigIntegerNode;
+import walkingkooka.tree.expression.ExpressionBooleanNode;
+import walkingkooka.tree.expression.ExpressionDivisionNode;
+import walkingkooka.tree.expression.ExpressionDoubleNode;
+import walkingkooka.tree.expression.ExpressionEqualsNode;
+import walkingkooka.tree.expression.ExpressionGreaterThanEqualsNode;
+import walkingkooka.tree.expression.ExpressionGreaterThanNode;
+import walkingkooka.tree.expression.ExpressionLessThanEqualsNode;
+import walkingkooka.tree.expression.ExpressionLessThanNode;
+import walkingkooka.tree.expression.ExpressionLocalDateNode;
+import walkingkooka.tree.expression.ExpressionLocalDateTimeNode;
+import walkingkooka.tree.expression.ExpressionLocalTimeNode;
+import walkingkooka.tree.expression.ExpressionLongNode;
+import walkingkooka.tree.expression.ExpressionModuloNode;
+import walkingkooka.tree.expression.ExpressionMultiplicationNode;
+import walkingkooka.tree.expression.ExpressionNegativeNode;
+import walkingkooka.tree.expression.ExpressionNode;
+import walkingkooka.tree.expression.ExpressionNotEqualsNode;
+import walkingkooka.tree.expression.ExpressionNotNode;
+import walkingkooka.tree.expression.ExpressionOrNode;
+import walkingkooka.tree.expression.ExpressionPowerNode;
+import walkingkooka.tree.expression.ExpressionSubtractionNode;
+import walkingkooka.tree.expression.ExpressionTextNode;
+import walkingkooka.tree.expression.ExpressionXorNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonStringNode;
 import walkingkooka.tree.json.UnsupportedTypeJsonNodeException;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -80,6 +112,34 @@ abstract class BasicJsonMarshaller<T> {
                 BasicJsonMarshallerTypedBigDecimal.instance(),
                 BasicJsonMarshallerTypedBigInteger.instance(),
                 BasicJsonMarshallerTypedCharacter.instance(),
+                BasicJsonMarshallerTypedExpressionNode.binary(ExpressionNode::addition, ExpressionAdditionNode.class),
+                BasicJsonMarshallerTypedExpressionNode.binary(ExpressionNode::and, ExpressionAndNode.class),
+                BasicJsonMarshallerTypedExpressionNode.value(ExpressionNode::bigDecimal, ExpressionBigDecimalNode.class, BigDecimal.class),
+                BasicJsonMarshallerTypedExpressionNode.value(ExpressionNode::bigInteger, ExpressionBigIntegerNode.class, BigInteger.class),
+                BasicJsonMarshallerTypedExpressionNode.value(ExpressionNode::booleanNode, ExpressionBooleanNode.class, Boolean.class),
+                BasicJsonMarshallerTypedExpressionNode.binary(ExpressionNode::division, ExpressionDivisionNode.class),
+                BasicJsonMarshallerTypedExpressionNode.value(ExpressionNode::doubleNode, ExpressionDoubleNode.class, Double.class),
+                BasicJsonMarshallerTypedExpressionNode.binary(ExpressionNode::equalsNode, ExpressionEqualsNode.class),
+                BasicJsonMarshallerTypedExpressionNode.function(),
+                BasicJsonMarshallerTypedExpressionNode.binary(ExpressionNode::greaterThan, ExpressionGreaterThanNode.class),
+                BasicJsonMarshallerTypedExpressionNode.binary(ExpressionNode::greaterThanEquals, ExpressionGreaterThanEqualsNode.class),
+                BasicJsonMarshallerTypedExpressionNode.binary(ExpressionNode::lessThan, ExpressionLessThanNode.class),
+                BasicJsonMarshallerTypedExpressionNode.binary(ExpressionNode::lessThanEquals, ExpressionLessThanEqualsNode.class),
+                BasicJsonMarshallerTypedExpressionNode.value(ExpressionNode::localDate, ExpressionLocalDateNode.class, LocalDate.class),
+                BasicJsonMarshallerTypedExpressionNode.value(ExpressionNode::localDateTime, ExpressionLocalDateTimeNode.class, LocalDateTime.class),
+                BasicJsonMarshallerTypedExpressionNode.value(ExpressionNode::localTime, ExpressionLocalTimeNode.class, LocalTime.class),
+                BasicJsonMarshallerTypedExpressionNode.value(ExpressionNode::longNode, ExpressionLongNode.class, Long.class),
+                BasicJsonMarshallerTypedExpressionNode.binary(ExpressionNode::modulo, ExpressionModuloNode.class),
+                BasicJsonMarshallerTypedExpressionNode.binary(ExpressionNode::multiplication, ExpressionMultiplicationNode.class),
+                BasicJsonMarshallerTypedExpressionNode.unary(ExpressionNode::negative, ExpressionNegativeNode.class),
+                BasicJsonMarshallerTypedExpressionNode.unary(ExpressionNode::not, ExpressionNotNode.class),
+                BasicJsonMarshallerTypedExpressionNode.binary(ExpressionNode::notEquals, ExpressionNotEqualsNode.class),
+                BasicJsonMarshallerTypedExpressionNode.binary(ExpressionNode::or, ExpressionOrNode.class),
+                BasicJsonMarshallerTypedExpressionNode.binary(ExpressionNode::power, ExpressionPowerNode.class),
+                BasicJsonMarshallerTypedExpressionNode.reference(),
+                BasicJsonMarshallerTypedExpressionNode.binary(ExpressionNode::subtraction, ExpressionSubtractionNode.class),
+                BasicJsonMarshallerTypedExpressionNode.value(ExpressionNode::text, ExpressionTextNode.class, String.class),
+                BasicJsonMarshallerTypedExpressionNode.binary(ExpressionNode::xor, ExpressionXorNode.class),
                 BasicJsonMarshallerTypedJsonNode.instance(),
                 BasicJsonMarshallerTypedJsonNodeName.instance(),
                 BasicJsonMarshallerTypedCollectionList.instance(),

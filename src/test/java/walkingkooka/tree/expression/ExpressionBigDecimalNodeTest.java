@@ -18,8 +18,6 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 import walkingkooka.visit.Visiting;
 
 import java.math.BigDecimal;
@@ -134,13 +132,5 @@ public final class ExpressionBigDecimalNodeTest extends ExpressionLeafNodeTestCa
     @Override
     Class<ExpressionBigDecimalNode> expressionNodeType() {
         return ExpressionBigDecimalNode.class;
-    }
-
-    // JsonNodeMappingTesting...............................................................................................
-
-    @Override
-    public ExpressionBigDecimalNode fromJsonNode(final JsonNode from,
-                                                 final FromJsonNodeContext context) {
-        return ExpressionBigDecimalNode.fromJsonNode(from, context);
     }
 }

@@ -17,8 +17,6 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 import walkingkooka.visit.Visiting;
 
 import java.math.BigInteger;
@@ -103,23 +101,6 @@ public final class ExpressionOrNode extends ExpressionLogicalBinaryNode {
     @Override
     ExpressionNode applyLong(final long left, final long right, final ExpressionEvaluationContext context) {
         return ExpressionNode.longNode(left | right);
-    }
-
-    // JsonNodeContext..................................................................................................
-
-    // @VisibleForTesting
-    static ExpressionOrNode fromJsonNode(final JsonNode node,
-                                         final FromJsonNodeContext context) {
-        return fromJsonNode0(node,
-                ExpressionOrNode::with,
-                context);
-    }
-
-    static {
-        register(SYMBOL,
-                ExpressionOrNode::fromJsonNode,
-                ExpressionOrNode::toJsonNode,
-                ExpressionOrNode.class);
     }
 
     // Object ........................................................................................................

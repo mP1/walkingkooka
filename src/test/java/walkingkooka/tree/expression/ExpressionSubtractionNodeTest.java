@@ -19,8 +19,6 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 import walkingkooka.visit.Visiting;
 
 import java.math.BigDecimal;
@@ -443,14 +441,5 @@ public final class ExpressionSubtractionNodeTest extends ExpressionArithmeticBin
     @Override
     Class<ExpressionSubtractionNode> expressionNodeType() {
         return ExpressionSubtractionNode.class;
-    }
-
-    // JsonNodeMappingTesting...............................................................................................
-
-    @Override
-    public ExpressionSubtractionNode fromJsonNode(final JsonNode from,
-                                                  final FromJsonNodeContext context) {
-        return ExpressionSubtractionNode.fromJsonNode(from,
-                context);
     }
 }

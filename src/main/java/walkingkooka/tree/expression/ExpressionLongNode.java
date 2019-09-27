@@ -17,9 +17,6 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
-
 /**
  * A long number value.
  */
@@ -103,21 +100,6 @@ public final class ExpressionLongNode extends ExpressionValueNode<Long> {
     @Override
     public void accept(final ExpressionNodeVisitor visitor) {
         visitor.visit(this);
-    }
-
-    // JsonNodeContext..................................................................................................
-
-    // @VisibleForTesting
-    static ExpressionLongNode fromJsonNode(final JsonNode node,
-                                           final FromJsonNodeContext context) {
-        return ExpressionLongNode.with(context.fromJsonNode(node, Long.class));
-    }
-
-    static {
-        register("-long",
-                ExpressionLongNode::fromJsonNode,
-                ExpressionLongNode::toJsonNode,
-                ExpressionLongNode.class);
     }
 
     // Object ....................................................................................................

@@ -20,13 +20,22 @@ package walkingkooka.tree.json.marshall;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.expression.ExpressionNode;
+import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.json.JsonStringNode;
 import walkingkooka.tree.json.UnsupportedTypeJsonNodeException;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Optional;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -171,6 +180,160 @@ public final class BasicJsonMarshallerTest extends BasicJsonMarshallerTestCase<B
         assertThrows(UnsupportedTypeJsonNodeException.class, () -> {
             BasicJsonMarshaller.marshaller(this.getClass());
         });
+    }
+
+    // Expression.......................................................................................................
+
+    @Test
+    public void testExpressionAdditionNode() {
+        this.roundtripAndCheck(ExpressionNode::addition);
+    }
+
+    @Test
+    public void testExpressionAndNode() {
+        this.roundtripAndCheck(ExpressionNode::and);
+    }
+
+    @Test
+    public void testExpressionBigDecimalNode() {
+        this.roundtripAndCheck(ExpressionNode.bigDecimal(BigDecimal.valueOf(1.25)));
+    }
+
+    @Test
+    public void testExpressionBigIntegerNode() {
+        this.roundtripAndCheck(ExpressionNode.bigInteger(BigInteger.valueOf(567)));
+    }
+
+    @Test
+    public void testExpressionBooleanNode() {
+        this.roundtripAndCheck(ExpressionNode.booleanNode(true));
+    }
+
+    @Test
+    public void testExpressionDivisionNode() {
+        this.roundtripAndCheck(ExpressionNode::division);
+    }
+
+    @Test
+    public void testExpressionDoubleNode() {
+        this.roundtripAndCheck(ExpressionNode.doubleNode(99.5));
+    }
+
+    @Test
+    public void testExpressionEqualsNode() {
+        this.roundtripAndCheck(ExpressionNode::equalsNode);
+    }
+
+    @Test
+    public void testExpressionFunctionNode() {
+        this.roundtripAndCheck(ExpressionNode.function(
+                ExpressionNodeName.with("function123"),
+                Lists.of(ExpressionNode.booleanNode(true), ExpressionNode.text("2b"))));
+    }
+
+    @Test
+    public void testExpressionGreaterThanEqualsNode() {
+        this.roundtripAndCheck(ExpressionNode::greaterThanEquals);
+    }
+
+    @Test
+    public void testExpressionGreaterThanNode() {
+        this.roundtripAndCheck(ExpressionNode::greaterThan);
+    }
+
+    @Test
+    public void testExpressionLessThanEqualsNode() {
+        this.roundtripAndCheck(ExpressionNode::greaterThanEquals);
+    }
+
+    @Test
+    public void testExpressionLessThanNode() {
+        this.roundtripAndCheck(ExpressionNode::greaterThan);
+    }
+
+    @Test
+    public void testExpressionLocalDateNode() {
+        this.roundtripAndCheck(ExpressionNode.localDate(LocalDate.of(2000, 12, 31)));
+    }
+
+    @Test
+    public void testExpressionLocalDateTimeNode() {
+        this.roundtripAndCheck(ExpressionNode.localDateTime(LocalDateTime.of(2000, 12, 31, 6, 28, 29)));
+    }
+
+    @Test
+    public void testExpressionLocalTimeNode() {
+        this.roundtripAndCheck(ExpressionNode.localTime(LocalTime.of(6, 28, 29)));
+    }
+
+    @Test
+    public void testExpressionLongNode() {
+        this.roundtripAndCheck(ExpressionNode.longNode(123456));
+    }
+
+    @Test
+    public void testExpressionModuloNode() {
+        this.roundtripAndCheck(ExpressionNode::modulo);
+    }
+
+    @Test
+    public void testExpressionMultiplicationNode() {
+        this.roundtripAndCheck(ExpressionNode::multiplication);
+    }
+
+    @Test
+    public void testExpressionNegativeNode() {
+        this.roundtripAndCheck(ExpressionNode::negative);
+    }
+
+    @Test
+    public void testExpressionNotNode() {
+        this.roundtripAndCheck(ExpressionNode::not);
+    }
+
+    @Test
+    public void testExpressionNotEqualsNode() {
+        this.roundtripAndCheck(ExpressionNode::notEquals);
+    }
+
+    @Test
+    public void testExpressionOrNode() {
+        this.roundtripAndCheck(ExpressionNode::or);
+    }
+
+    @Test
+    public void testExpressionPowerNode() {
+        this.roundtripAndCheck(ExpressionNode::power);
+    }
+
+    @Test
+    public void testExpressionSubtractionNode() {
+        this.roundtripAndCheck(ExpressionNode::subtraction);
+    }
+
+    @Test
+    public void testExpressionText() {
+        this.roundtripAndCheck(ExpressionNode.text("abc123"));
+    }
+
+    @Test
+    public void testExpressionXorNode() {
+        this.roundtripAndCheck(ExpressionNode::xor);
+    }
+
+    private void roundtripAndCheck(final Function<ExpressionNode, ExpressionNode> factory) {
+        this.roundtripAndCheck(factory.apply(ExpressionNode.text("only-parameter")));
+    }
+
+    private void roundtripAndCheck(final BiFunction<ExpressionNode, ExpressionNode, ExpressionNode> factory) {
+        this.roundtripAndCheck(factory.apply(ExpressionNode.bigInteger(BigInteger.valueOf(1)), ExpressionNode.text("parameter-2b")));
+    }
+
+    private void roundtripAndCheck(final Object value) {
+        final JsonNode json = ToJsonNodeContexts.basic().toJsonNode(value);
+        assertEquals(value,
+                FromJsonNodeContexts.basic().fromJsonNode(json, value.getClass()),
+                () -> "roundtrip " + value + "\n" + json);
     }
 
     // ClassTesting.....................................................................................................

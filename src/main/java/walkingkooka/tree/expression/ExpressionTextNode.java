@@ -18,8 +18,6 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.text.CharSequences;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 
 import java.util.Objects;
 
@@ -107,21 +105,6 @@ public final class ExpressionTextNode extends ExpressionValueNode<String> {
     @Override
     public void accept(final ExpressionNodeVisitor visitor) {
         visitor.visit(this);
-    }
-
-    // JsonNodeContext..................................................................................................
-
-    // @VisibleForTesting
-    static ExpressionTextNode fromJsonNode(final JsonNode node,
-                                           final FromJsonNodeContext context) {
-        return ExpressionTextNode.with(context.fromJsonNode(node, String.class));
-    }
-
-    static {
-        register("-text",
-                ExpressionTextNode::fromJsonNode,
-                ExpressionTextNode::toJsonNode,
-                ExpressionTextNode.class);
     }
 
     // Object ....................................................................................................

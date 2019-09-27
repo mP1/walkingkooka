@@ -199,6 +199,5 @@ abstract class ExpressionLeafNode<V> extends ExpressionNode implements Value<V> 
 
     private boolean equalsIgnoringParentAndChildren0(final ExpressionLeafNode other) {
         return this.value.equals(other.value);
-
     }
 }
