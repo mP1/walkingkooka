@@ -19,7 +19,6 @@ package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.visit.Visiting;
 
@@ -108,11 +107,6 @@ public final class JsonNumberNodeTest extends JsonLeafNonNullNodeTestCase<JsonNu
     }
 
     @Override
-    String nodeTypeName() {
-        return "json-number";
-    }
-
-    @Override
     Class<JsonNumberNode> jsonNodeType() {
         return JsonNumberNode.class;
     }
@@ -128,13 +122,5 @@ public final class JsonNumberNodeTest extends JsonLeafNonNullNodeTestCase<JsonNu
                 OBJECT_OR_FAIL,
                 PARENT_OR_FAIL,
                 STRING_VALUE_OR_FAIL);
-    }
-
-    // JsonNodeMappingTesting..................................................................
-
-    @Override
-    public final JsonNumberNode fromJsonNode(final JsonNode from,
-                                             final FromJsonNodeContext context) {
-        return from.cast();
     }
 }
