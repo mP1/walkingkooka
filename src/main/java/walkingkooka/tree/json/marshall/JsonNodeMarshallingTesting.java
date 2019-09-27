@@ -40,7 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public interface JsonNodeMappingTesting<V> extends Testing {
+public interface JsonNodeMarshallingTesting<V> extends Testing {
 
     @Test
     default void testRegistered() throws Exception {
