@@ -17,8 +17,6 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 import walkingkooka.visit.Visiting;
 
 import java.math.BigDecimal;
@@ -129,23 +127,6 @@ public final class ExpressionDivisionNode extends ExpressionArithmeticBinaryNode
     @Override
     long applyLong0(final long left, final long right, final ExpressionEvaluationContext context) {
         return left / right;
-    }
-
-    // JsonNodeContext.................................................................................................
-
-    // @VisibleForTesting
-    static ExpressionDivisionNode fromJsonNode(final JsonNode node,
-                                               final FromJsonNodeContext context) {
-        return fromJsonNode0(node,
-                ExpressionDivisionNode::with,
-                context);
-    }
-
-    static {
-        register(SYMBOL,
-                ExpressionDivisionNode::fromJsonNode,
-                ExpressionDivisionNode::toJsonNode,
-                ExpressionDivisionNode.class);
     }
 
     // Object .........................................................................................................

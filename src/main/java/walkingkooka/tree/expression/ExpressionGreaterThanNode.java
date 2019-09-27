@@ -17,8 +17,6 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
@@ -105,23 +103,6 @@ public final class ExpressionGreaterThanNode extends ExpressionComparisonBinaryN
     @Override
     boolean isComparisonTrue(final int comparisonResult) {
         return comparisonResult > 0;
-    }
-
-    // JsonNodeContext..................................................................................................
-
-    // @VisibleForTesting
-    static ExpressionGreaterThanNode fromJsonNode(final JsonNode node,
-                                                  final FromJsonNodeContext context) {
-        return fromJsonNode0(node,
-                ExpressionGreaterThanNode::with,
-                context);
-    }
-
-    static {
-        register(SYMBOL,
-                ExpressionGreaterThanNode::fromJsonNode,
-                ExpressionGreaterThanNode::toJsonNode,
-                ExpressionGreaterThanNode.class);
     }
 
     // Object .........................................................................................................

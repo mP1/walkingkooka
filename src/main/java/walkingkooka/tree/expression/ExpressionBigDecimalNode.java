@@ -18,9 +18,6 @@
 package walkingkooka.tree.expression;
 
 
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
-
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -108,21 +105,6 @@ public final class ExpressionBigDecimalNode extends ExpressionValueNode<BigDecim
     @Override
     public void accept(final ExpressionNodeVisitor visitor) {
         visitor.visit(this);
-    }
-
-    // JsonNodeContext..................................................................................................
-
-    // @VisibleForTesting
-    static ExpressionBigDecimalNode fromJsonNode(final JsonNode node,
-                                                 final FromJsonNodeContext context) {
-        return ExpressionBigDecimalNode.with(context.fromJsonNode(node, BigDecimal.class));
-    }
-
-    static {
-        register("-big-decimal",
-                ExpressionBigDecimalNode::fromJsonNode,
-                ExpressionBigDecimalNode::toJsonNode,
-                ExpressionBigDecimalNode.class);
     }
 
     // Object ....................................................................................................

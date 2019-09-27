@@ -22,10 +22,6 @@ import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
-import walkingkooka.tree.json.marshall.JsonNodeContext;
-import walkingkooka.tree.json.marshall.ToJsonNodeContext;
 
 /**
  * The name of an expression node.
@@ -60,27 +56,6 @@ public final class ExpressionNodeName implements Name,
     }
 
     private final String name;
-
-    // JsonNodeContext..................................................................................................
-
-    /**
-     * Accepts a json string holding the name.
-     */
-    static ExpressionNodeName fromJsonNode(final JsonNode node,
-                                           final FromJsonNodeContext context) {
-        return with(node.stringValueOrFail());
-    }
-
-    JsonNode toJsonNode(final ToJsonNodeContext context) {
-        return JsonNode.string(this.toString());
-    }
-
-    static {
-        JsonNodeContext.register("expression-node-name",
-                ExpressionNodeName::fromJsonNode,
-                ExpressionNodeName::toJsonNode,
-                ExpressionNodeName.class);
-    }
 
     // Object...........................................................................................................
 

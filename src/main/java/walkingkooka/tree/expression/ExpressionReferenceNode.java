@@ -17,10 +17,6 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
-import walkingkooka.tree.json.marshall.ToJsonNodeContext;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
@@ -174,25 +170,6 @@ public final class ExpressionReferenceNode extends ExpressionLeafNode<Expression
 
     private ExpressionNode toExpressionNode(final ExpressionEvaluationContext context) {
         return context.referenceOrFail(this.value);
-    }
-
-    // JsonNodeContext..................................................................................................
-
-    // @VisibleForTesting
-    static ExpressionReferenceNode fromJsonNode(final JsonNode node,
-                                                final FromJsonNodeContext context) {
-        return with(context.fromJsonNodeWithType(node));
-    }
-
-    JsonNode toJsonNode(final ToJsonNodeContext context) {
-        return context.toJsonNodeWithType(this.value());
-    }
-
-    static {
-        register("-reference",
-                ExpressionReferenceNode::fromJsonNode,
-                ExpressionReferenceNode::toJsonNode,
-                ExpressionReferenceNode.class);
     }
 
     // Object ....................................................................................................

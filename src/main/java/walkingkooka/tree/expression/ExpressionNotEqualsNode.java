@@ -17,8 +17,6 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
@@ -105,23 +103,6 @@ public final class ExpressionNotEqualsNode extends ExpressionComparisonBinaryNod
     @Override
     boolean isComparisonTrue(final int comparisonResult) {
         return 0 != comparisonResult;
-    }
-
-    // JsonNodeContext..................................................................................................
-
-    // @VisibleForTesting
-    static ExpressionNotEqualsNode fromJsonNode(final JsonNode node,
-                                                final FromJsonNodeContext context) {
-        return fromJsonNode0(node,
-                ExpressionNotEqualsNode::with,
-                context);
-    }
-
-    static {
-        register(SYMBOL,
-                ExpressionNotEqualsNode::fromJsonNode,
-                ExpressionNotEqualsNode::toJsonNode,
-                ExpressionNotEqualsNode.class);
     }
 
     // Object .........................................................................................................

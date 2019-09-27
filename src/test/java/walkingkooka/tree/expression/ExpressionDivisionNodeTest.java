@@ -19,8 +19,6 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
@@ -241,13 +239,5 @@ public final class ExpressionDivisionNodeTest extends ExpressionArithmeticBinary
     @Override
     Class<ExpressionDivisionNode> expressionNodeType() {
         return ExpressionDivisionNode.class;
-    }
-
-    // JsonNodeMappingTesting...............................................................................................
-
-    @Override
-    public ExpressionDivisionNode fromJsonNode(final JsonNode from,
-                                               final FromJsonNodeContext context) {
-        return ExpressionDivisionNode.fromJsonNode(from, context);
     }
 }
