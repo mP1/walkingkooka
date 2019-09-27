@@ -70,31 +70,31 @@ public abstract class BasicJsonMarshallerTestCase2<M extends BasicJsonMarshaller
     }
 
     @Test
-    public final void testToJsonNodeWithNull() {
-        this.toJsonNodeAndCheck(null, JsonNode.nullNode());
+    public final void testMarshallWithNull() {
+        this.marshallAndCheck(null, JsonNode.nullNode());
     }
 
     @Test
-    public final void testToJsonNode() {
-        this.toJsonNodeAndCheck(this.value(), this.node());
+    public final void testMarshall() {
+        this.marshallAndCheck(this.value(), this.node());
     }
 
     @Test
-    public final void testToJsonNodeWithTypeNull() {
-        this.toJsonNodeWithTypeAndCheck(null, JsonNode.nullNode());
+    public final void testMarshallWithTypeNull() {
+        this.marshallWithTypeAndCheck(null, JsonNode.nullNode());
     }
 
     @Test
-    public final void testToJsonNodeWithType() {
-        this.toJsonNodeWithTypeAndCheck(this.value(), this.nodeWithType());
+    public final void testMarshallWithType() {
+        this.marshallWithTypeAndCheck(this.value(), this.nodeWithType());
     }
 
     @Test
-    public final void testRoundtripToJsonNodeWithTypeFromJsonNodeWithType() {
+    public final void testRoundtripMarshallWithTypeFromJsonNodeWithType() {
         final T value = this.value();
 
         final JsonNode json = this.marshaller()
-                .toJsonNodeWithType(value, this.toJsonNodeContext());
+                .marshallWithType(value, this.marshallContext());
 
         assertEquals(value,
                 this.unmarshallContext().unmarshallWithType(json),
@@ -102,23 +102,23 @@ public abstract class BasicJsonMarshallerTestCase2<M extends BasicJsonMarshaller
     }
 
     @Test
-    public final void testRoundtripFromJsonNodeWithTypeMapperToJsonNodeWithType() {
+    public final void testRoundtripFromJsonNodeWithTypeMapperMarshallWithType() {
         final JsonNode json = this.nodeWithType();
 
         final T value = this.unmarshallContext().
                 unmarshallWithType(json);
 
         assertEquals(json,
-                this.marshaller().toJsonNodeWithType(value, this.toJsonNodeContext()),
+                this.marshaller().marshallWithType(value, this.marshallContext()),
                 () -> "roundtrip starting with node failed, json: " + json + " -> value:: " + value);
     }
 
     @Test
-    public final void testRoundtripToJsonNodeWithTypeObjectFromJsonNodeWithType() {
+    public final void testRoundtripMarshallWithTypeObjectFromJsonNodeWithType() {
         final T value = this.value();
 
         final JsonNode json = this.marshaller()
-                .toJsonNodeWithType(value, this.toJsonNodeContext());
+                .marshallWithType(value, this.marshallContext());
 
         assertEquals(value,
                 this.unmarshallContext().unmarshallWithType(json),
@@ -130,7 +130,7 @@ public abstract class BasicJsonMarshallerTestCase2<M extends BasicJsonMarshaller
         final T value = this.value();
         final List<T> list = List.of(value);
 
-        final JsonNode jsonNode = this.toJsonNodeContext().toJsonNodeList(list);
+        final JsonNode jsonNode = this.marshallContext().marshallList(list);
 
         assertEquals(list,
                 this.unmarshallContext().unmarshallList(jsonNode, value.getClass()),
@@ -142,7 +142,7 @@ public abstract class BasicJsonMarshallerTestCase2<M extends BasicJsonMarshaller
         final T value = this.value();
         final Set<T> set = Set.of(value);
 
-        final JsonNode jsonNode = this.toJsonNodeContext().toJsonNodeSet(set);
+        final JsonNode jsonNode = this.marshallContext().marshallSet(set);
 
         assertEquals(set,
                 this.unmarshallContext().unmarshallSet(jsonNode, value.getClass()),
@@ -154,7 +154,7 @@ public abstract class BasicJsonMarshallerTestCase2<M extends BasicJsonMarshaller
         final T value = this.value();
         final Map<String, T> map = Map.of("key1", value);
 
-        final JsonNode jsonNode = this.toJsonNodeContext().toJsonNodeMap(map);
+        final JsonNode jsonNode = this.marshallContext().marshallMap(map);
 
         assertEquals(map,
                 this.unmarshallContext().unmarshallMap(jsonNode, String.class, value.getClass()),
@@ -165,7 +165,7 @@ public abstract class BasicJsonMarshallerTestCase2<M extends BasicJsonMarshaller
     public void testRoundtripTypeList() {
         final List<T> list = List.of(this.value());
 
-        final JsonNode jsonNode = this.toJsonNodeContext().toJsonNodeWithTypeList(list);
+        final JsonNode jsonNode = this.marshallContext().marshallWithTypeList(list);
 
         assertEquals(list,
                 this.unmarshallContext().unmarshallWithTypeList(jsonNode),
@@ -176,7 +176,7 @@ public abstract class BasicJsonMarshallerTestCase2<M extends BasicJsonMarshaller
     public void testRoundtripTypeSet() {
         final Set<T> set = Set.of(this.value());
 
-        final JsonNode jsonNode = this.toJsonNodeContext().toJsonNodeWithTypeSet(set);
+        final JsonNode jsonNode = this.marshallContext().marshallWithTypeSet(set);
 
         assertEquals(set,
                 this.unmarshallContext().unmarshallWithTypeSet(jsonNode),
@@ -187,7 +187,7 @@ public abstract class BasicJsonMarshallerTestCase2<M extends BasicJsonMarshaller
     public void testRoundtripTypeMap() {
         final Map<String, T> map = Map.of("key1", this.value());
 
-        final JsonNode jsonNode = this.toJsonNodeContext().toJsonNodeWithTypeMap(map);
+        final JsonNode jsonNode = this.marshallContext().marshallWithTypeMap(map);
 
         assertEquals(map,
                 this.unmarshallContext().unmarshallWithTypeMap(jsonNode),
@@ -257,37 +257,37 @@ public abstract class BasicJsonMarshallerTestCase2<M extends BasicJsonMarshaller
                 () -> "unmarshall failed " + node);
     }
 
-    final void toJsonNodeWithTypeFailed(final T value,
+    final void marshallWithTypeFailed(final T value,
                                         final Class<? extends Throwable> thrown) {
         assertThrows(thrown, () -> {
-            this.marshaller().toJsonNodeWithType(value, this.toJsonNodeContext());
+            this.marshaller().marshallWithType(value, this.marshallContext());
         });
     }
 
-    final void toJsonNodeAndCheck(final T value,
+    final void marshallAndCheck(final T value,
                                   final JsonNode node) {
-        this.toJsonNodeAndCheck(this.marshaller(), value, node);
+        this.marshallAndCheck(this.marshaller(), value, node);
     }
 
-    final void toJsonNodeAndCheck(final BasicJsonMarshaller<T> marshaller,
+    final void marshallAndCheck(final BasicJsonMarshaller<T> marshaller,
                                   final T value,
                                   final JsonNode node) {
         assertEquals(node,
-                marshaller.toJsonNode(value, this.toJsonNodeContext()),
-                () -> "toJsonNode failed " + node);
+                marshaller.marshall(value, this.marshallContext()),
+                () -> "marshall failed " + node);
     }
 
-    final void toJsonNodeWithTypeAndCheck(final T value,
+    final void marshallWithTypeAndCheck(final T value,
                                           final JsonNode node) {
-        this.toJsonNodeWithTypeAndCheck(this.marshaller(), value, node);
+        this.marshallWithTypeAndCheck(this.marshaller(), value, node);
     }
 
-    final void toJsonNodeWithTypeAndCheck(final BasicJsonMarshaller<T> marshaller,
+    final void marshallWithTypeAndCheck(final BasicJsonMarshaller<T> marshaller,
                                           final T value,
                                           final JsonNode node) {
         assertEquals(node,
-                marshaller.toJsonNodeWithType(value, this.toJsonNodeContext()),
-                () -> "toJsonNodeWithType failed " + node);
+                marshaller.marshallWithType(value, this.marshallContext()),
+                () -> "marshallWithType failed " + node);
     }
 
     abstract String typeName();
@@ -300,7 +300,7 @@ public abstract class BasicJsonMarshallerTestCase2<M extends BasicJsonMarshaller
         return BasicJsonNodeUnmarshallContext.INSTANCE;
     }
 
-    final ToJsonNodeContext toJsonNodeContext() {
-        return BasicToJsonNodeContext.INSTANCE;
+    final JsonNodeMarshallContext marshallContext() {
+        return BasicJsonNodeMarshallContext.INSTANCE;
     }
 }

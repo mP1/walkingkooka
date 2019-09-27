@@ -66,7 +66,7 @@ public final class JsonNodeNullParserToken extends JsonNodeValueParserToken<Void
     }
 
     @Override
-    final JsonNode toJsonNodeOrNull() {
+    final JsonNode marshallOrNull() {
         return JsonNode.nullNode();
     }
 

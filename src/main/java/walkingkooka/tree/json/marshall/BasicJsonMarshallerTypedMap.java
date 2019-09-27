@@ -67,8 +67,8 @@ final class BasicJsonMarshallerTypedMap extends BasicJsonMarshallerTyped<Map<?, 
     // to...............................................................................................................
 
     @Override
-    JsonNode toJsonNodeNonNull(final Map<?, ?> map,
-                               final ToJsonNodeContext context) {
+    JsonNode marshallNonNull(final Map<?, ?> map,
+                               final JsonNodeMarshallContext context) {
         return JsonObjectNode.array()
                 .setChildren(map.entrySet()
                         .stream()
@@ -77,10 +77,10 @@ final class BasicJsonMarshallerTypedMap extends BasicJsonMarshallerTyped<Map<?, 
     }
 
     private static JsonNode entryWithType(final Entry<?, ?> entry,
-                                          final ToJsonNodeContext context) {
+                                          final JsonNodeMarshallContext context) {
         return JsonNode.object()
-                .set(ENTRY_KEY, context.toJsonNodeWithType(entry.getKey()))
-                .set(ENTRY_VALUE, context.toJsonNodeWithType(entry.getValue()));
+                .set(ENTRY_KEY, context.marshallWithType(entry.getKey()))
+                .set(ENTRY_VALUE, context.marshallWithType(entry.getValue()));
     }
 
     final static JsonNodeName ENTRY_KEY = JsonNodeName.with("key");

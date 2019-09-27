@@ -55,8 +55,8 @@ final class BasicJsonMarshallerTypedExpressionNodeValue<N extends ExpressionNode
     private final Class<V> valueType;
 
     @Override
-    JsonNode toJsonNodeNonNull(final N value,
-                               final ToJsonNodeContext context) {
-        return context.toJsonNode(value.value());
+    JsonNode marshallNonNull(final N value,
+                               final JsonNodeMarshallContext context) {
+        return context.marshall(value.value());
     }
 }

@@ -73,8 +73,8 @@ final class BasicJsonMarshallerTypedNumberLong extends BasicJsonMarshallerTyped<
     }
 
     @Override
-    JsonNode toJsonNodeNonNull(final Long value,
-                               final ToJsonNodeContext context) {
+    JsonNode marshallNonNull(final Long value,
+                               final JsonNodeMarshallContext context) {
         return JsonNode.string(value.toString());
     }
 }

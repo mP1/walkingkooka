@@ -40,8 +40,8 @@ public final class BasicJsonMarshallerTypedNodeSelectorTest extends BasicJsonMar
     }
 
     @Test
-    public void testAbsoluteToJson() {
-        this.toJsonNodeAndCheck(TestNode.absoluteNodeSelector().self(),
+    public void testAbsoluteMarshall() {
+        this.marshallAndCheck(TestNode.absoluteNodeSelector().self(),
                 this.jsonNode(JsonNode.string("absolute"), JsonNode.string("self")));
     }
 
@@ -51,8 +51,8 @@ public final class BasicJsonMarshallerTypedNodeSelectorTest extends BasicJsonMar
     }
 
     @Test
-    public void testAncestorToJson() {
-        this.toJsonNodeAndCheck2(TestNode.relativeNodeSelector().ancestor(), JsonNode.string("ancestor"));
+    public void testAncestorMarshall() {
+        this.marshallAndCheck2(TestNode.relativeNodeSelector().ancestor(), JsonNode.string("ancestor"));
     }
 
     @Test
@@ -61,8 +61,8 @@ public final class BasicJsonMarshallerTypedNodeSelectorTest extends BasicJsonMar
     }
 
     @Test
-    public void testAncestorOrSelfToJson() {
-        this.toJsonNodeAndCheck2(TestNode.relativeNodeSelector().ancestorOrSelf(), JsonNode.string("ancestor-or-self"));
+    public void testAncestorOrSelfMarshall() {
+        this.marshallAndCheck2(TestNode.relativeNodeSelector().ancestorOrSelf(), JsonNode.string("ancestor-or-self"));
     }
 
     @Test
@@ -71,8 +71,8 @@ public final class BasicJsonMarshallerTypedNodeSelectorTest extends BasicJsonMar
     }
 
     @Test
-    public void testAttributeValueContainsToJson() {
-        this.toJsonNodeAndCheck2(this.attributeContains(), JsonNode.string(ATTRIBUTE_CONTAINS));
+    public void testAttributeValueContainsMarshall() {
+        this.marshallAndCheck2(this.attributeContains(), JsonNode.string(ATTRIBUTE_CONTAINS));
     }
 
     private NodeSelector<TestNode, StringName, StringName, Object> attributeContains() {
@@ -87,8 +87,8 @@ public final class BasicJsonMarshallerTypedNodeSelectorTest extends BasicJsonMar
     }
 
     @Test
-    public void testAttributeValueEndsWithToJson() {
-        this.toJsonNodeAndCheck2(this.attributeEndsWith(), JsonNode.string(ATTRIBUTE_ENDS_WITH));
+    public void testAttributeValueEndsWithMarshall() {
+        this.marshallAndCheck2(this.attributeEndsWith(), JsonNode.string(ATTRIBUTE_ENDS_WITH));
     }
 
     private NodeSelector<TestNode, StringName, StringName, Object> attributeEndsWith() {
@@ -104,8 +104,8 @@ public final class BasicJsonMarshallerTypedNodeSelectorTest extends BasicJsonMar
     }
 
     @Test
-    public void testAttributeValueEqualsWithToJson() {
-        this.toJsonNodeAndCheck2(this.attributeEquals(), JsonNode.string(ATTRIBUTE_EQUALS));
+    public void testAttributeValueEqualsWithMarshall() {
+        this.marshallAndCheck2(this.attributeEquals(), JsonNode.string(ATTRIBUTE_EQUALS));
     }
 
     private NodeSelector<TestNode, StringName, StringName, Object> attributeEquals() {
@@ -120,8 +120,8 @@ public final class BasicJsonMarshallerTypedNodeSelectorTest extends BasicJsonMar
     }
 
     @Test
-    public void testAttributeValueStartsWithToJson() {
-        this.toJsonNodeAndCheck2(this.attributeStartsWith(), JsonNode.string(ATTRIBUTE_STARTS_WITH));
+    public void testAttributeValueStartsWithMarshall() {
+        this.marshallAndCheck2(this.attributeStartsWith(), JsonNode.string(ATTRIBUTE_STARTS_WITH));
     }
 
     private NodeSelector<TestNode, StringName, StringName, Object> attributeStartsWith() {
@@ -150,8 +150,8 @@ public final class BasicJsonMarshallerTypedNodeSelectorTest extends BasicJsonMar
     }
 
     @Test
-    public void testChildrenToJson() {
-        this.toJsonNodeAndCheck2(TestNode.relativeNodeSelector().children(), JsonNode.string("child"));
+    public void testChildrenMarshall() {
+        this.marshallAndCheck2(TestNode.relativeNodeSelector().children(), JsonNode.string("child"));
     }
 
     @Test
@@ -161,8 +161,8 @@ public final class BasicJsonMarshallerTypedNodeSelectorTest extends BasicJsonMar
     }
 
     @Test
-    public void testCustomToStringToJson() {
-        this.toJsonNodeAndCheck(TestNode.relativeNodeSelector().self().setToString("custom-to-string"),
+    public void testCustomToStringMarshall() {
+        this.marshallAndCheck(TestNode.relativeNodeSelector().self().setToString("custom-to-string"),
                 this.jsonNode(JsonNode.string("custom:custom-to-string"), JsonNode.string("self")));
     }
 
@@ -172,8 +172,8 @@ public final class BasicJsonMarshallerTypedNodeSelectorTest extends BasicJsonMar
     }
 
     @Test
-    public void testDescendantToJson() {
-        this.toJsonNodeAndCheck2(TestNode.relativeNodeSelector().descendant(), JsonNode.string("descendant"));
+    public void testDescendantMarshall() {
+        this.marshallAndCheck2(TestNode.relativeNodeSelector().descendant(), JsonNode.string("descendant"));
     }
 
     @Test
@@ -182,8 +182,8 @@ public final class BasicJsonMarshallerTypedNodeSelectorTest extends BasicJsonMar
     }
 
     @Test
-    public void testDescendantOrSelfToJson() {
-        this.toJsonNodeAndCheck2(TestNode.relativeNodeSelector().descendantOrSelf(), JsonNode.string("descendant-or-self"));
+    public void testDescendantOrSelfMarshall() {
+        this.marshallAndCheck2(TestNode.relativeNodeSelector().descendantOrSelf(), JsonNode.string("descendant-or-self"));
     }
 
     @Test
@@ -192,8 +192,8 @@ public final class BasicJsonMarshallerTypedNodeSelectorTest extends BasicJsonMar
     }
 
     @Test
-    public void testExpressionToJson() {
-        this.toJsonNodeAndCheck2(TestNode.relativeNodeSelector().expression(this.sum()), JsonNode.string("expression:1+22"));
+    public void testExpressionMarshall() {
+        this.marshallAndCheck2(TestNode.relativeNodeSelector().expression(this.sum()), JsonNode.string("expression:1+22"));
     }
 
     private ExpressionNode sum() {
@@ -206,8 +206,8 @@ public final class BasicJsonMarshallerTypedNodeSelectorTest extends BasicJsonMar
     }
 
     @Test
-    public void testFirstChildToJson() {
-        this.toJsonNodeAndCheck2(TestNode.relativeNodeSelector().firstChild(), JsonNode.string("first-child"));
+    public void testFirstChildMarshall() {
+        this.marshallAndCheck2(TestNode.relativeNodeSelector().firstChild(), JsonNode.string("first-child"));
     }
 
     @Test
@@ -216,8 +216,8 @@ public final class BasicJsonMarshallerTypedNodeSelectorTest extends BasicJsonMar
     }
 
     @Test
-    public void testFollowingToJson() {
-        this.toJsonNodeAndCheck2(TestNode.relativeNodeSelector().following(), JsonNode.string("following"));
+    public void testFollowingMarshall() {
+        this.marshallAndCheck2(TestNode.relativeNodeSelector().following(), JsonNode.string("following"));
     }
 
     @Test
@@ -226,8 +226,8 @@ public final class BasicJsonMarshallerTypedNodeSelectorTest extends BasicJsonMar
     }
 
     @Test
-    public void testFollowingSiblingToJson() {
-        this.toJsonNodeAndCheck2(TestNode.relativeNodeSelector().followingSibling(), JsonNode.string("following-sibling"));
+    public void testFollowingSiblingMarshall() {
+        this.marshallAndCheck2(TestNode.relativeNodeSelector().followingSibling(), JsonNode.string("following-sibling"));
     }
 
     @Test
@@ -236,8 +236,8 @@ public final class BasicJsonMarshallerTypedNodeSelectorTest extends BasicJsonMar
     }
 
     @Test
-    public void testLastChildToJson() {
-        this.toJsonNodeAndCheck2(TestNode.relativeNodeSelector().lastChild(), JsonNode.string("last-child"));
+    public void testLastChildMarshall() {
+        this.marshallAndCheck2(TestNode.relativeNodeSelector().lastChild(), JsonNode.string("last-child"));
     }
 
     @Test
@@ -247,8 +247,8 @@ public final class BasicJsonMarshallerTypedNodeSelectorTest extends BasicJsonMar
     }
 
     @Test
-    public void testNamedToJson() {
-        this.toJsonNodeAndCheck(TestNode.relativeNodeSelector().named(Names.string("abc123")),
+    public void testNamedMarshall() {
+        this.marshallAndCheck(TestNode.relativeNodeSelector().named(Names.string("abc123")),
                 this.jsonNode("string-name", JsonNode.string("named:abc123")));
     }
 
@@ -258,8 +258,8 @@ public final class BasicJsonMarshallerTypedNodeSelectorTest extends BasicJsonMar
     }
 
     @Test
-    public void testParentToJson() {
-        this.toJsonNodeAndCheck2(TestNode.relativeNodeSelector().parent(), JsonNode.string("parent"));
+    public void testParentMarshall() {
+        this.marshallAndCheck2(TestNode.relativeNodeSelector().parent(), JsonNode.string("parent"));
     }
 
     @Test
@@ -268,8 +268,8 @@ public final class BasicJsonMarshallerTypedNodeSelectorTest extends BasicJsonMar
     }
 
     @Test
-    public void testPrecedingToJson() {
-        this.toJsonNodeAndCheck2(TestNode.relativeNodeSelector().preceding(), JsonNode.string("preceding"));
+    public void testPrecedingMarshall() {
+        this.marshallAndCheck2(TestNode.relativeNodeSelector().preceding(), JsonNode.string("preceding"));
     }
 
     @Test
@@ -278,8 +278,8 @@ public final class BasicJsonMarshallerTypedNodeSelectorTest extends BasicJsonMar
     }
 
     @Test
-    public void testPrecedingSiblingToJson() {
-        this.toJsonNodeAndCheck2(TestNode.relativeNodeSelector().precedingSibling(), JsonNode.string("preceding-sibling"));
+    public void testPrecedingSiblingMarshall() {
+        this.marshallAndCheck2(TestNode.relativeNodeSelector().precedingSibling(), JsonNode.string("preceding-sibling"));
     }
 
     @Test
@@ -288,8 +288,8 @@ public final class BasicJsonMarshallerTypedNodeSelectorTest extends BasicJsonMar
     }
 
     @Test
-    public void testSelfToJson() {
-        this.toJsonNodeAndCheck2(TestNode.relativeNodeSelector().self(), JsonNode.string("self"));
+    public void testSelfMarshall() {
+        this.marshallAndCheck2(TestNode.relativeNodeSelector().self(), JsonNode.string("self"));
     }
 
     private void unmarshallAndCheck2(final JsonNode component,
@@ -298,9 +298,9 @@ public final class BasicJsonMarshallerTypedNodeSelectorTest extends BasicJsonMar
                 selector);
     }
 
-    private void toJsonNodeAndCheck2(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+    private void marshallAndCheck2(final NodeSelector<TestNode, StringName, StringName, Object> selector,
                                      final JsonNode... components) {
-        this.toJsonNodeAndCheck(selector,
+        this.marshallAndCheck(selector,
                 this.jsonNode(components));
     }
 
@@ -368,8 +368,8 @@ public final class BasicJsonMarshallerTypedNodeSelectorTest extends BasicJsonMar
     }
 
     private void jsonRoundtripAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector) {
-        final JsonNode jsonNode = this.toJsonNodeContext()
-                .toJsonNode(selector);
+        final JsonNode jsonNode = this.marshallContext()
+                .marshall(selector);
         this.unmarshallAndCheck(jsonNode, selector);
     }
 

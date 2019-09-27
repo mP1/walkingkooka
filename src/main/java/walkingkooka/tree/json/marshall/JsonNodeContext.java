@@ -25,7 +25,7 @@ import java.util.Optional;
 import java.util.function.BiFunction;
 
 /**
- * A {@link Context} that combines common functionality between a {@link JsonNodeUnmarshallContext} and a {@link ToJsonNodeContext}.
+ * A {@link Context} that combines common functionality between a {@link JsonNodeUnmarshallContext} and a {@link JsonNodeMarshallContext}.
  */
 public interface JsonNodeContext extends Context {
     /**
@@ -34,7 +34,7 @@ public interface JsonNodeContext extends Context {
      */
     static <T> Runnable register(final String typeName,
                                  final BiFunction<JsonNode, JsonNodeUnmarshallContext, T> from,
-                                 final BiFunction<T, ToJsonNodeContext, JsonNode> to,
+                                 final BiFunction<T, JsonNodeMarshallContext, JsonNode> to,
                                  final Class<T> type,
                                  final Class<? extends T>... types) {
         return BasicJsonMarshaller.register(typeName,

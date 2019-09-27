@@ -118,20 +118,20 @@ public final class JsonNodeArrayParserTokenTest extends JsonNodeParentParserToke
     }
 
     @Test
-    public void testToJsonNodeEmpty() {
-        assertEquals(Optional.of(JsonNode.array()), JsonNodeParserToken.array(Lists.empty(), "[]").toJsonNode());
+    public void testMarshallEmpty() {
+        assertEquals(Optional.of(JsonNode.array()), JsonNodeParserToken.array(Lists.empty(), "[]").marshall());
     }
 
     @Test
-    public void testToJsonNode() {
+    public void testMarshall() {
         assertEquals(Optional.of(JsonNode.array().appendChild(JsonNode.number(123))),
-                array(number(123)).toJsonNode());
+                array(number(123)).marshall());
     }
 
     @Test
-    public void testToJsonNodeWhitespace() {
+    public void testMarshallWhitespace() {
         assertEquals(Optional.of(JsonNode.array().appendChild(JsonNode.number(123))),
-                array(number(123), whitespace(), whitespace()).toJsonNode());
+                array(number(123), whitespace(), whitespace()).marshall());
     }
 
     @Override

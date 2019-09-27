@@ -101,32 +101,32 @@ public final class BasicJsonMarshallerTypedOptionalTest extends BasicJsonMarshal
     }
 
     @Test
-    public void testToJsonEmptyOptional() {
-        this.toJsonNodeAndCheck(Optional.empty(), JsonNode.array());
+    public void testMarshallEmptyOptional() {
+        this.marshallAndCheck(Optional.empty(), JsonNode.array());
     }
 
     @Test
-    public void testToJsonBooleanTrue() {
-        this.toJsonNodeAndCheck2(true, JsonNode.booleanNode(true));
+    public void testMarshallBooleanTrue() {
+        this.marshallAndCheck2(true, JsonNode.booleanNode(true));
     }
 
     @Test
-    public void testToJsonBooleanFalse() {
-        this.toJsonNodeAndCheck2(false, JsonNode.booleanNode(false));
+    public void testMarshallBooleanFalse() {
+        this.marshallAndCheck2(false, JsonNode.booleanNode(false));
     }
 
     @Test
-    public void testToJsonDouble() {
-        this.toJsonNodeAndCheck2(1.5, JsonNode.number(1.5));
+    public void testMarshallDouble() {
+        this.marshallAndCheck2(1.5, JsonNode.number(1.5));
     }
 
     @Test
-    public void testToJsonString() {
-        this.toJsonNodeAndCheck2("abc123", JsonNode.string("abc123"));
+    public void testMarshallString() {
+        this.marshallAndCheck2("abc123", JsonNode.string("abc123"));
     }
 
-    private void toJsonNodeAndCheck2(final Object value, final JsonNode arrayElement) {
-        this.toJsonNodeAndCheck(Optional.of(value),
+    private void marshallAndCheck2(final Object value, final JsonNode arrayElement) {
+        this.marshallAndCheck(Optional.of(value),
                 JsonNode.array().appendChild(arrayElement));
     }
 
@@ -180,13 +180,13 @@ public final class BasicJsonMarshallerTypedOptionalTest extends BasicJsonMarshal
 
     private void roundtripAndCheck(final Optional<?> value) {
         final BasicJsonMarshallerTypedOptional marshaller = this.marshaller();
-        final JsonNode json = marshaller.toJsonNode(value, this.toJsonNodeContext());
+        final JsonNode json = marshaller.marshall(value, this.marshallContext());
         final Optional<?> from = marshaller.unmarshall(json, this.unmarshallContext());
 
         assertEquals(value, from, () -> "json\n" + json);
 
-        final JsonNode jsonWithType = this.toJsonNodeContext()
-                .toJsonNodeWithType(value);
+        final JsonNode jsonWithType = this.marshallContext()
+                .marshallWithType(value);
         final Optional<?> from2 = this.unmarshallContext()
                 .unmarshallWithType(jsonWithType);
 

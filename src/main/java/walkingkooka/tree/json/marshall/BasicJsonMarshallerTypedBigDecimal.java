@@ -58,8 +58,8 @@ final class BasicJsonMarshallerTypedBigDecimal extends BasicJsonMarshallerTyped<
     }
 
     @Override
-    JsonNode toJsonNodeNonNull(final BigDecimal value,
-                               final ToJsonNodeContext context) {
+    JsonNode marshallNonNull(final BigDecimal value,
+                               final JsonNodeMarshallContext context) {
         return JsonNode.string(value.toString());
     }
 }

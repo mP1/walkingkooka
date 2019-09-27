@@ -73,7 +73,7 @@ public final class BasicJsonNodeUnmarshallContextJsonNodeVisitorTest implements 
         TestJsonNodeValue.register();
 
         final TestJsonNodeValue object = TestJsonNodeValue.with("abc123");
-        this.valueAndCheck(ToJsonNodeContexts.basic().toJsonNodeWithType(object), object);
+        this.valueAndCheck(JsonNodeMarshallContexts.basic().marshallWithType(object), object);
     }
 
     @Test

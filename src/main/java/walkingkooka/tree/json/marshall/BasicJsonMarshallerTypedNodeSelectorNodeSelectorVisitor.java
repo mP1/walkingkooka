@@ -46,15 +46,15 @@ final class BasicJsonMarshallerTypedNodeSelectorNodeSelectorVisitor<N extends No
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
-            AVALUE> JsonNode toJsonNode(final NodeSelector<N, NAME, ANAME, AVALUE> selector,
-                                        final ToJsonNodeContext context) {
+            AVALUE> JsonNode marshall(final NodeSelector<N, NAME, ANAME, AVALUE> selector,
+                                        final JsonNodeMarshallContext context) {
         final BasicJsonMarshallerTypedNodeSelectorNodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor = new BasicJsonMarshallerTypedNodeSelectorNodeSelectorVisitor<>(context);
         visitor.accept(selector);
-        return visitor.toJsonNode();
+        return visitor.marshall();
     }
 
     // VisibleForTesting
-    BasicJsonMarshallerTypedNodeSelectorNodeSelectorVisitor(final ToJsonNodeContext context) {
+    BasicJsonMarshallerTypedNodeSelectorNodeSelectorVisitor(final JsonNodeMarshallContext context) {
         super();
         this.context = context;
     }
@@ -130,7 +130,7 @@ final class BasicJsonMarshallerTypedNodeSelectorNodeSelectorVisitor<N extends No
         return this.addComponent(BasicJsonMarshallerTypedNodeSelector.NAMED + BasicJsonMarshallerTypedNodeSelector.SEPARATOR + name.value());
     }
 
-    private final ToJsonNodeContext context;
+    private final JsonNodeMarshallContext context;
 
     @Override
     protected Visiting startVisitParent(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
@@ -157,7 +157,7 @@ final class BasicJsonMarshallerTypedNodeSelectorNodeSelectorVisitor<N extends No
         return this.addComponent(BasicJsonMarshallerTypedNodeSelector.SELF);
     }
 
-    private JsonNode toJsonNode() {
+    private JsonNode marshall() {
         final JsonObjectNode object = JsonNode.object()
                 .set(BasicJsonMarshallerTypedNodeSelector.COMPONENTS_PROPERTY,
                         JsonNode.array()
@@ -185,6 +185,6 @@ final class BasicJsonMarshallerTypedNodeSelectorNodeSelectorVisitor<N extends No
 
     @Override
     public String toString() {
-        return this.toJsonNode().toString();
+        return this.marshall().toString();
     }
 }

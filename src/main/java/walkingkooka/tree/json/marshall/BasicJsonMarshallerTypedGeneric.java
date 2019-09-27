@@ -35,7 +35,7 @@ final class BasicJsonMarshallerTypedGeneric<T> extends BasicJsonMarshallerTyped<
 
     static <T> BasicJsonMarshallerTypedGeneric<T> with(final String typeName,
                                                        final BiFunction<JsonNode, JsonNodeUnmarshallContext, T> from,
-                                                       final BiFunction<T, ToJsonNodeContext, JsonNode> to,
+                                                       final BiFunction<T, JsonNodeMarshallContext, JsonNode> to,
                                                        final Class<T> type,
                                                        final Class<? extends T>... types) {
         CharSequences.failIfNullOrEmpty(typeName, "typeName");
@@ -68,7 +68,7 @@ final class BasicJsonMarshallerTypedGeneric<T> extends BasicJsonMarshallerTyped<
 
     private BasicJsonMarshallerTypedGeneric(final String typeName,
                                             final BiFunction<JsonNode, JsonNodeUnmarshallContext, T> from,
-                                            final BiFunction<T, ToJsonNodeContext, JsonNode> to,
+                                            final BiFunction<T, JsonNodeMarshallContext, JsonNode> to,
                                             final Class<T> type,
                                             final List<Class<?>> types) {
         super();
@@ -136,10 +136,10 @@ final class BasicJsonMarshallerTypedGeneric<T> extends BasicJsonMarshallerTyped<
     private final BiFunction<JsonNode, JsonNodeUnmarshallContext, T> from;
 
     @Override
-    JsonNode toJsonNodeNonNull(final T value,
-                               final ToJsonNodeContext context) {
+    JsonNode marshallNonNull(final T value,
+                               final JsonNodeMarshallContext context) {
         return to.apply(value, context);
     }
 
-    final BiFunction<T, ToJsonNodeContext, JsonNode> to;
+    final BiFunction<T, JsonNodeMarshallContext, JsonNode> to;
 }

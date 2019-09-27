@@ -83,7 +83,7 @@ public final class BasicJsonMarshallerTypedMathContextTest extends BasicJsonMars
 
     @Test
     public void testToDecimal32() {
-        this.toJsonNodeAndCheck(MathContext.DECIMAL32, JsonNode.string("DECIMAL32"));
+        this.marshallAndCheck(MathContext.DECIMAL32, JsonNode.string("DECIMAL32"));
     }
 
     @Test
@@ -93,7 +93,7 @@ public final class BasicJsonMarshallerTypedMathContextTest extends BasicJsonMars
 
     @Test
     public void testToDecimal64() {
-        this.toJsonNodeAndCheck(MathContext.DECIMAL64, JsonNode.string("DECIMAL64"));
+        this.marshallAndCheck(MathContext.DECIMAL64, JsonNode.string("DECIMAL64"));
     }
 
     @Test
@@ -103,7 +103,7 @@ public final class BasicJsonMarshallerTypedMathContextTest extends BasicJsonMars
 
     @Test
     public void testToDecimal128() {
-        this.toJsonNodeAndCheck(MathContext.DECIMAL128, JsonNode.string("DECIMAL128"));
+        this.marshallAndCheck(MathContext.DECIMAL128, JsonNode.string("DECIMAL128"));
     }
 
     @Test
@@ -113,7 +113,7 @@ public final class BasicJsonMarshallerTypedMathContextTest extends BasicJsonMars
 
     @Test
     public void testToUnlimited() {
-        this.toJsonNodeAndCheck(MathContext.UNLIMITED, JsonNode.string("UNLIMITED"));
+        this.marshallAndCheck(MathContext.UNLIMITED, JsonNode.string("UNLIMITED"));
     }
 
     @Override

@@ -256,9 +256,9 @@ final class BasicJsonMarshallerTypedNodeSelector extends BasicJsonMarshallerType
     }
 
     @Override
-    JsonNode toJsonNodeNonNull(final NodeSelector value,
-                               final ToJsonNodeContext context) {
-        return BasicJsonMarshallerTypedNodeSelectorNodeSelectorVisitor.toJsonNode(value, context);
+    JsonNode marshallNonNull(final NodeSelector value,
+                               final JsonNodeMarshallContext context) {
+        return BasicJsonMarshallerTypedNodeSelectorNodeSelectorVisitor.marshall(value, context);
     }
 
     final static String NAME_TYPE = "name-type";

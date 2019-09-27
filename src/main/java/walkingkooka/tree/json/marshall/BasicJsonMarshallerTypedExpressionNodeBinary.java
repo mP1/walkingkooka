@@ -55,8 +55,8 @@ final class BasicJsonMarshallerTypedExpressionNodeBinary<N extends ExpressionNod
     private final BiFunction<ExpressionNode, ExpressionNode, N> from;
 
     @Override
-    JsonNode toJsonNodeNonNull(final N value,
-                               final ToJsonNodeContext context) {
-        return context.toJsonNodeWithTypeList(value.children());
+    JsonNode marshallNonNull(final N value,
+                               final JsonNodeMarshallContext context) {
+        return context.marshallWithTypeList(value.children());
     }
 }

@@ -48,8 +48,8 @@ final class BasicJsonMarshallerTypedExpressionNodeUnary<N extends ExpressionNode
     private final Function<ExpressionNode, N> from;
 
     @Override
-    JsonNode toJsonNodeNonNull(final N value,
-                               final ToJsonNodeContext context) {
-        return context.toJsonNodeWithType(value.children().get(0));
+    JsonNode marshallNonNull(final N value,
+                               final JsonNodeMarshallContext context) {
+        return context.marshallWithType(value.children().get(0));
     }
 }

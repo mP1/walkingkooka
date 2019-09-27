@@ -58,8 +58,8 @@ final class BasicJsonMarshallerTypedBigInteger extends BasicJsonMarshallerTyped<
     }
 
     @Override
-    JsonNode toJsonNodeNonNull(final BigInteger value,
-                               final ToJsonNodeContext context) {
+    JsonNode marshallNonNull(final BigInteger value,
+                               final JsonNodeMarshallContext context) {
         return JsonNode.string(value.toString());
     }
 }

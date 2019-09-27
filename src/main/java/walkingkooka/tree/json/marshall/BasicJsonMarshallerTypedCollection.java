@@ -35,11 +35,11 @@ abstract class BasicJsonMarshallerTypedCollection<C extends Collection<?>> exten
     }
 
     @Override
-    final JsonNode toJsonNodeNonNull(final C value,
-                                     final ToJsonNodeContext context) {
+    final JsonNode marshallNonNull(final C value,
+                                     final JsonNodeMarshallContext context) {
         return JsonObjectNode.array()
                 .setChildren(value.stream()
-                        .map(context::toJsonNodeWithType)
+                        .map(context::marshallWithType)
                         .collect(Collectors.toList()));
     }
 }

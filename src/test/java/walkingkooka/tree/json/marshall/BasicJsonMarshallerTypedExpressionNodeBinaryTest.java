@@ -62,11 +62,11 @@ public final class BasicJsonMarshallerTypedExpressionNodeBinaryTest extends Basi
 
     @Override
     JsonNode node() {
-        final ToJsonNodeContext context = this.toJsonNodeContext();
+        final JsonNodeMarshallContext context = this.marshallContext();
 
         return JsonNode.array()
-                .appendChild(context.toJsonNodeWithType(this.leftValue()))
-                .appendChild(context.toJsonNodeWithType(this.rightValue()));
+                .appendChild(context.marshallWithType(this.leftValue()))
+                .appendChild(context.marshallWithType(this.rightValue()));
     }
 
     @Override

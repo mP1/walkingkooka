@@ -25,50 +25,50 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.BiFunction;
 
-public class FakeToJsonNodeContext extends FakeJsonNodeContext implements ToJsonNodeContext {
+public class FakeJsonNodeMarshallContext extends FakeJsonNodeContext implements JsonNodeMarshallContext {
 
     @Override
-    public ToJsonNodeContext setObjectPostProcessor(final BiFunction<Object, JsonObjectNode, JsonObjectNode> processor) {
+    public JsonNodeMarshallContext setObjectPostProcessor(final BiFunction<Object, JsonObjectNode, JsonObjectNode> processor) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public JsonNode toJsonNode(final Object value) {
+    public JsonNode marshall(final Object value) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public JsonNode toJsonNodeWithType(final Object value) {
+    public JsonNode marshallWithType(final Object value) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public JsonNode toJsonNodeList(final List<?> list) {
+    public JsonNode marshallList(final List<?> list) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public JsonNode toJsonNodeSet(final Set<?> set) {
+    public JsonNode marshallSet(final Set<?> set) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public JsonNode toJsonNodeMap(final Map<?, ?> map) {
+    public JsonNode marshallMap(final Map<?, ?> map) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public JsonNode toJsonNodeWithTypeList(final List<?> list) {
+    public JsonNode marshallWithTypeList(final List<?> list) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public JsonNode toJsonNodeWithTypeSet(final Set<?> set) {
+    public JsonNode marshallWithTypeSet(final Set<?> set) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public JsonNode toJsonNodeWithTypeMap(final Map<?, ?> map) {
+    public JsonNode marshallWithTypeMap(final Map<?, ?> map) {
         throw new UnsupportedOperationException();
     }
 }

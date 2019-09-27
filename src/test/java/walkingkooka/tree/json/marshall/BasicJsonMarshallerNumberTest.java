@@ -23,37 +23,37 @@ import walkingkooka.tree.json.JsonNode;
 public final class BasicJsonMarshallerNumberTest extends BasicJsonMarshallerTestCase2<BasicJsonMarshallerNumber, Number> {
 
     @Test
-    public void testToJsonNodeByte() {
-        this.toJsonNodeAndCheck2(Byte.MAX_VALUE);
+    public void testMarshallByte() {
+        this.marshallAndCheck2(Byte.MAX_VALUE);
     }
 
     @Test
-    public void testToJsonNodeShort() {
-        this.toJsonNodeAndCheck2(Short.MAX_VALUE);
+    public void testMarshallShort() {
+        this.marshallAndCheck2(Short.MAX_VALUE);
     }
 
     @Test
-    public void testToJsonNodeInteger() {
-        this.toJsonNodeAndCheck2(Integer.MAX_VALUE);
+    public void testMarshallInteger() {
+        this.marshallAndCheck2(Integer.MAX_VALUE);
     }
 
     @Test
-    public void testToJsonNodeLong() {
-        this.toJsonNodeAndCheck2(Long.MAX_VALUE);
+    public void testMarshallLong() {
+        this.marshallAndCheck2(Long.MAX_VALUE);
     }
 
     @Test
-    public void testToJsonNodeFloat() {
-        this.toJsonNodeAndCheck2(Float.MAX_VALUE);
+    public void testMarshallFloat() {
+        this.marshallAndCheck2(Float.MAX_VALUE);
     }
 
     @Test
-    public void testToJsonNodeDouble() {
-        this.toJsonNodeAndCheck2(Double.MAX_VALUE);
+    public void testMarshallDouble() {
+        this.marshallAndCheck2(Double.MAX_VALUE);
     }
 
-    private void toJsonNodeAndCheck2(final Number value) {
-        this.toJsonNodeWithTypeAndCheck(value, JsonNode.number(value.doubleValue()));
+    private void marshallAndCheck2(final Number value) {
+        this.marshallWithTypeAndCheck(value, JsonNode.number(value.doubleValue()));
     }
 
     @Override

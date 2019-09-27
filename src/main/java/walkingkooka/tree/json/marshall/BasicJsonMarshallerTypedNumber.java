@@ -54,8 +54,8 @@ abstract class BasicJsonMarshallerTypedNumber<T extends Number> extends BasicJso
     }
 
     @Override
-    final JsonNode toJsonNodeNonNull(final T value,
-                                     final ToJsonNodeContext context) {
+    final JsonNode marshallNonNull(final T value,
+                                     final JsonNodeMarshallContext context) {
         return JsonNode.number(value.doubleValue());
     }
 }

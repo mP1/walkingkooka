@@ -59,7 +59,7 @@ public final class JsonNodeNumberParserToken extends JsonNodeValueParserToken<Do
     }
 
     @Override
-    JsonNode toJsonNodeOrNull() {
+    JsonNode marshallOrNull() {
         return JsonNode.number(this.value());
     }
 

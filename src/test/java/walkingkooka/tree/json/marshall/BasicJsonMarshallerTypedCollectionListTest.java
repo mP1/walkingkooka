@@ -60,7 +60,7 @@ public final class BasicJsonMarshallerTypedCollectionListTest extends BasicJsonM
 
     @Test
     public void testToEmptyList() {
-        this.toJsonNodeWithTypeAndCheck(Lists.empty(), this.typeAndValue(JsonNode.array()));
+        this.marshallWithTypeAndCheck(Lists.empty(), this.typeAndValue(JsonNode.array()));
     }
 
     @Override
@@ -80,7 +80,7 @@ public final class BasicJsonMarshallerTypedCollectionListTest extends BasicJsonM
                 .appendChild(JsonNode.booleanNode(true))
                 .appendChild(JsonNode.number(123.5))
                 .appendChild(JsonNode.string("abc123"))
-                .appendChild(this.toJsonNodeContext().toJsonNodeWithType(TestJsonNodeValue.with("test-has-json-node")));
+                .appendChild(this.marshallContext().marshallWithType(TestJsonNodeValue.with("test-has-json-node")));
     }
 
     @Override

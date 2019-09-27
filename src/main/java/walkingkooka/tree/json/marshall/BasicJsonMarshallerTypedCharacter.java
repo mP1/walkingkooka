@@ -62,8 +62,8 @@ final class BasicJsonMarshallerTypedCharacter extends BasicJsonMarshallerTyped<C
     }
 
     @Override
-    JsonNode toJsonNodeNonNull(final Character value,
-                               final ToJsonNodeContext context) {
+    JsonNode marshallNonNull(final Character value,
+                               final JsonNodeMarshallContext context) {
         return JsonNode.string(value.toString());
     }
 }
