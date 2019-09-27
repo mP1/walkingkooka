@@ -47,7 +47,7 @@ final class BasicJsonMarshallerTypedNodeSelectorNodeSelectorVisitor<N extends No
             NAME extends Name,
             ANAME extends Name,
             AVALUE> JsonNode marshall(final NodeSelector<N, NAME, ANAME, AVALUE> selector,
-                                        final JsonNodeMarshallContext context) {
+                                      final JsonNodeMarshallContext context) {
         final BasicJsonMarshallerTypedNodeSelectorNodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor = new BasicJsonMarshallerTypedNodeSelectorNodeSelectorVisitor<>(context);
         visitor.accept(selector);
         return visitor.marshall();

@@ -39,7 +39,7 @@ final class BasicJsonMarshallerTypedExpressionNodeFunction extends BasicJsonMars
 
     @Override
     ExpressionFunctionNode unmarshallNonNull(final JsonNode node,
-                                               final JsonNodeUnmarshallContext context) {
+                                             final JsonNodeUnmarshallContext context) {
         final JsonArrayNode array = node.arrayOrFail();
         return ExpressionNode.function(
                 ExpressionNodeName.with(array.get(0).stringValueOrFail()),
@@ -48,7 +48,7 @@ final class BasicJsonMarshallerTypedExpressionNodeFunction extends BasicJsonMars
 
     @Override
     JsonNode marshallNonNull(final ExpressionFunctionNode value,
-                               final JsonNodeMarshallContext context) {
+                             final JsonNodeMarshallContext context) {
         return context.marshallList(
                 Lists.of(
                         JsonNode.string(value.name().value()),

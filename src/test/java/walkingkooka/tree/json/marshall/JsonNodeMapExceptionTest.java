@@ -31,7 +31,7 @@ public final class JsonNodeMapExceptionTest implements StandardThrowableTesting<
     public JsonNodeMapException createThrowable(final String message, final Throwable cause) {
         return new JsonNodeMapException(message, cause);
     }
-    
+
     @Override
     public Class<JsonNodeMapException> type() {
         return JsonNodeMapException.class;

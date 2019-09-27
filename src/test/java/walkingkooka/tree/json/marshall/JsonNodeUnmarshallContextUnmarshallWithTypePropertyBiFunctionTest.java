@@ -102,7 +102,7 @@ public final class JsonNodeUnmarshallContextUnmarshallWithTypePropertyBiFunction
             this.createBiFunction(JsonNode.object())
                     .apply(this.value().marshall(this.marshallContext()), this.unmarshallContext());
         });
-        checkMessage(thrown,"Unknown property \"typeNameProperty1\" in {}");
+        checkMessage(thrown, "Unknown property \"typeNameProperty1\" in {}");
     }
 
     @Test

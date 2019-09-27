@@ -129,7 +129,7 @@ final class BasicJsonMarshallerTypedGeneric<T> extends BasicJsonMarshallerTyped<
 
     @Override
     T unmarshallNonNull(final JsonNode node,
-                          final JsonNodeUnmarshallContext context) {
+                        final JsonNodeUnmarshallContext context) {
         return this.from.apply(node, context);
     }
 
@@ -137,7 +137,7 @@ final class BasicJsonMarshallerTypedGeneric<T> extends BasicJsonMarshallerTyped<
 
     @Override
     JsonNode marshallNonNull(final T value,
-                               final JsonNodeMarshallContext context) {
+                             final JsonNodeMarshallContext context) {
         return to.apply(value, context);
     }
 

@@ -37,7 +37,7 @@ import java.util.Objects;
 final class BasicJsonNodeUnmarshallContextJsonNodeVisitor extends JsonNodeVisitor {
 
     static <T> T value(final JsonNode node,
-                        final JsonNodeUnmarshallContext context) {
+                       final JsonNodeUnmarshallContext context) {
         Objects.requireNonNull(node, "node");
 
         final BasicJsonNodeUnmarshallContextJsonNodeVisitor visitor = new BasicJsonNodeUnmarshallContextJsonNodeVisitor(context);
@@ -79,13 +79,13 @@ final class BasicJsonNodeUnmarshallContextJsonNodeVisitor extends JsonNodeVisito
     protected Visiting startVisit(final JsonObjectNode node) {
         try {
             final JsonNode type = node.getOrFail(BasicJsonNodeContext.TYPE);
-            if(!type.isString()) {
+            if (!type.isString()) {
                 throw new JsonNodeUnmarshallException("Invalid type", node);
             }
 
             final JsonNodeUnmarshallContext context = this.context;
             this.value = context.unmarshall(node.getOrFail(BasicJsonNodeContext.VALUE),
-                    context.registeredType(JsonStringNode.class.cast(type)).orElseThrow(()-> new JsonNodeUnmarshallException("Unknown type", node) ));
+                    context.registeredType((JsonStringNode) type).orElseThrow(() -> new JsonNodeUnmarshallException("Unknown type", node)));
         } catch (final NullPointerException | JsonNodeUnmarshallException cause) {
             throw cause;
         } catch (final RuntimeException cause) {

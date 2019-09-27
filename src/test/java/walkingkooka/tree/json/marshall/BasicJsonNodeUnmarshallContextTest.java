@@ -256,8 +256,8 @@ public final class BasicJsonNodeUnmarshallContextTest extends BasicJsonNodeConte
     }
 
     private <VV> void unmarshallMapAndCheck2(final JsonNode value,
-                                               final Class<VV> valueType,
-                                               final VV javaValue) {
+                                             final Class<VV> valueType,
+                                             final VV javaValue) {
         this.unmarshallMapAndCheck2(this.createContext(),
                 value,
                 valueType,
@@ -265,9 +265,9 @@ public final class BasicJsonNodeUnmarshallContextTest extends BasicJsonNodeConte
     }
 
     private <VV> void unmarshallMapAndCheck2(final JsonNodeUnmarshallContext context,
-                                               final JsonNode value,
-                                               final Class<VV> valueType,
-                                               final VV javaValue) {
+                                             final JsonNode value,
+                                             final Class<VV> valueType,
+                                             final VV javaValue) {
         this.unmarshallMapAndCheck(context,
                 JsonNode.array()
                         .appendChild(JsonNode.object()
@@ -531,7 +531,7 @@ public final class BasicJsonNodeUnmarshallContextTest extends BasicJsonNodeConte
                 this.setWithType(TestJsonNodeValue.TYPE_NAME, this.jsonNode2()),
                 Sets.of(this.value()));
     }
-    
+
     private JsonNode setWithType(final String typeName,
                                  final JsonNode node) {
         return JsonNode.array().appendChild(this.typeAndValue(typeName, node));
@@ -586,15 +586,15 @@ public final class BasicJsonNodeUnmarshallContextTest extends BasicJsonNodeConte
     }
 
     private <VV> void unmarshallWithTypeMapAndCheck3(final JsonNode jsonValue,
-                                                       final VV javaValue) {
+                                                     final VV javaValue) {
         this.unmarshallWithTypeMapAndCheck3(this.createContext(),
                 jsonValue,
                 javaValue);
     }
 
     private <VV> void unmarshallWithTypeMapAndCheck3(final JsonNodeUnmarshallContext context,
-                                                       final JsonNode jsonValue,
-                                                       final VV javaValue) {
+                                                     final JsonNode jsonValue,
+                                                     final VV javaValue) {
         this.unmarshallMapWithTypeAndCheck(context,
                 JsonNode.array()
                         .appendChild(JsonNode.object()

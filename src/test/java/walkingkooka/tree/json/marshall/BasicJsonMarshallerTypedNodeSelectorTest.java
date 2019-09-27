@@ -293,13 +293,13 @@ public final class BasicJsonMarshallerTypedNodeSelectorTest extends BasicJsonMar
     }
 
     private void unmarshallAndCheck2(final JsonNode component,
-                                       final NodeSelector<TestNode, StringName, StringName, Object> selector) {
+                                     final NodeSelector<TestNode, StringName, StringName, Object> selector) {
         this.unmarshallAndCheck(this.jsonNode(component),
                 selector);
     }
 
     private void marshallAndCheck2(final NodeSelector<TestNode, StringName, StringName, Object> selector,
-                                     final JsonNode... components) {
+                                   final JsonNode... components) {
         this.marshallAndCheck(selector,
                 this.jsonNode(components));
     }

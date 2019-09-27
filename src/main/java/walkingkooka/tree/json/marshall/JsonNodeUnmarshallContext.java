@@ -68,26 +68,26 @@ public interface JsonNodeUnmarshallContext extends JsonNodeContext {
      * Attempts to convert this node to the requested {@link Class type}.
      */
     <T> T unmarshall(final JsonNode node,
-                       final Class<T> type);
+                     final Class<T> type);
 
     /**
      * Assumes something like a {@link JsonArrayNode} and returns a {@link List} assuming the type of each element is fixed.
      */
     <T> List<T> unmarshallList(final JsonNode node,
-                                 final Class<T> elementType);
+                               final Class<T> elementType);
 
     /**
      * Assumes something like a {@link JsonArrayNode} and returns a {@link Set} assuming the type of each element is fixed.
      */
     <T> Set<T> unmarshallSet(final JsonNode node,
-                               final Class<T> elementType);
+                             final Class<T> elementType);
 
     /**
      * Assumes something like a {@link JsonArrayNode} of entries and returns a {@link Map} using the key and value types.
      */
     <K, V> Map<K, V> unmarshallMap(final JsonNode node,
-                                     final Class<K> keyType,
-                                     final Class<V> valueType);
+                                   final Class<K> keyType,
+                                   final Class<V> valueType);
 
     // unmarshallWithType.............................................................................................
 
@@ -115,8 +115,8 @@ public interface JsonNodeUnmarshallContext extends JsonNodeContext {
      * {@see JsonNodeUnmarshallContextUnmarshallWithTypePropertyBiFunction}
      */
     default <T> BiFunction<JsonNode, JsonNodeUnmarshallContext, T> unmarshallWithType(final JsonNodeName property,
-                                                                                        final JsonObjectNode propertySource,
-                                                                                        final Class<T> superType) {
+                                                                                      final JsonObjectNode propertySource,
+                                                                                      final Class<T> superType) {
         return JsonNodeUnmarshallContextUnmarshallWithTypePropertyBiFunction.with(property, propertySource, superType);
     }
 }

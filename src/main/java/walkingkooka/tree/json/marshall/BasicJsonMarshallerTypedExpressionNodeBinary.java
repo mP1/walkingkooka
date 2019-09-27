@@ -42,7 +42,7 @@ final class BasicJsonMarshallerTypedExpressionNodeBinary<N extends ExpressionNod
 
     @Override
     N unmarshallNonNull(final JsonNode node,
-                          final JsonNodeUnmarshallContext context) {
+                        final JsonNodeUnmarshallContext context) {
         final List<ExpressionNode> children = context.unmarshallWithTypeList(node);
         final int count = children.size();
         if (count != 2) {
@@ -56,7 +56,7 @@ final class BasicJsonMarshallerTypedExpressionNodeBinary<N extends ExpressionNod
 
     @Override
     JsonNode marshallNonNull(final N value,
-                               final JsonNodeMarshallContext context) {
+                             final JsonNodeMarshallContext context) {
         return context.marshallWithTypeList(value.children());
     }
 }

@@ -35,7 +35,7 @@ final class BasicJsonMarshallerTypedGenericRunnable implements Runnable {
 
     @Override
     public void run() {
-        if(false == this.removed.getAndSet(true)) {
+        if (false == this.removed.getAndSet(true)) {
             this.marshaller.remove();
         }
     }

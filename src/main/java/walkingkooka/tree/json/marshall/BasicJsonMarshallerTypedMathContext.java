@@ -59,7 +59,7 @@ final class BasicJsonMarshallerTypedMathContext extends BasicJsonMarshallerTyped
 
     @Override
     MathContext unmarshallNonNull(final JsonNode node,
-                                    final JsonNodeUnmarshallContext context) {
+                                  final JsonNodeUnmarshallContext context) {
         return unmarshallString(node.stringValueOrFail());
     }
 
@@ -104,7 +104,7 @@ final class BasicJsonMarshallerTypedMathContext extends BasicJsonMarshallerTyped
 
     @Override
     JsonNode marshallNonNull(final MathContext value,
-                               final JsonNodeMarshallContext context) {
+                             final JsonNodeMarshallContext context) {
         return MathContext.DECIMAL32.equals(value) ?
                 DECIMAL32_JSON :
                 MathContext.DECIMAL64.equals(value) ?
