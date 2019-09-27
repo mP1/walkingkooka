@@ -32,7 +32,7 @@ import java.util.function.BiFunction;
 /**
  * A {@link Context} that accompanies transforming {@link JsonNode} into an object.
  */
-public interface FromJsonNodeContext extends JsonNodeContext {
+public interface JsonNodeUnmarshallContext extends JsonNodeContext {
 
     /**
      * A {@link BiFunction processor} that simply returns the given object ignoring the value.
@@ -40,83 +40,83 @@ public interface FromJsonNodeContext extends JsonNodeContext {
     BiFunction<JsonObjectNode, Class<?>, JsonObjectNode> OBJECT_PRE_PROCESSOR = (jsonObject, type) -> jsonObject;
 
     /**
-     * Shared function used to report a required property is missing within a static fromJsonNode.
+     * Shared function used to report a required property is missing within a static unmarshall.
      */
     static void requiredPropertyMissing(final JsonNodeName property,
                                         final JsonNode node) {
-        throw new FromJsonNodeException("Required property " + CharSequences.quoteAndEscape(property.value()) + " missing=" + node,
+        throw new JsonNodeUnmarshallException("Required property " + CharSequences.quoteAndEscape(property.value()) + " missing=" + node,
                 node);
     }
 
     /**
-     * Shared function used to report a required property is missing within a static fromJsonNode.
+     * Shared function used to report a required property is missing within a static unmarshall.
      */
     static void unknownPropertyPresent(final JsonNodeName property,
                                        final JsonNode node) {
-        throw new FromJsonNodeException("Unknown property " + CharSequences.quoteAndEscape(property.value()) + " in " + node,
+        throw new JsonNodeUnmarshallException("Unknown property " + CharSequences.quoteAndEscape(property.value()) + " in " + node,
                 node);
     }
 
     /**
      * Sets or replaces the {@link BiFunction object pre processor} creating a new instance as necessary.
      */
-    FromJsonNodeContext setObjectPreProcessor(final BiFunction<JsonObjectNode, Class<?>, JsonObjectNode> processor);
+    JsonNodeUnmarshallContext setObjectPreProcessor(final BiFunction<JsonObjectNode, Class<?>, JsonObjectNode> processor);
 
     // from.............................................................................................................
 
     /**
      * Attempts to convert this node to the requested {@link Class type}.
      */
-    <T> T fromJsonNode(final JsonNode node,
+    <T> T unmarshall(final JsonNode node,
                        final Class<T> type);
 
     /**
      * Assumes something like a {@link JsonArrayNode} and returns a {@link List} assuming the type of each element is fixed.
      */
-    <T> List<T> fromJsonNodeList(final JsonNode node,
+    <T> List<T> unmarshallList(final JsonNode node,
                                  final Class<T> elementType);
 
     /**
      * Assumes something like a {@link JsonArrayNode} and returns a {@link Set} assuming the type of each element is fixed.
      */
-    <T> Set<T> fromJsonNodeSet(final JsonNode node,
+    <T> Set<T> unmarshallSet(final JsonNode node,
                                final Class<T> elementType);
 
     /**
      * Assumes something like a {@link JsonArrayNode} of entries and returns a {@link Map} using the key and value types.
      */
-    <K, V> Map<K, V> fromJsonNodeMap(final JsonNode node,
+    <K, V> Map<K, V> unmarshallMap(final JsonNode node,
                                      final Class<K> keyType,
                                      final Class<V> valueType);
 
-    // fromJsonNodeWithType.............................................................................................
+    // unmarshallWithType.............................................................................................
 
     /**
      * Assumes a wrapper object with the type and value, basically the inverse of {@link ToJsonNodeContext#toJsonNodeWithType(Object)}.
      */
-    <T> T fromJsonNodeWithType(final JsonNode node);
+    <T> T unmarshallWithType(final JsonNode node);
 
     /**
      * Assumes a {@link JsonArrayNode} holding objects tagged with type and values.
      */
-    <T> List<T> fromJsonNodeWithTypeList(final JsonNode node);
+    <T> List<T> unmarshallWithTypeList(final JsonNode node);
 
     /**
      * Assumes a {@link JsonArrayNode} holding objects tagged with type and values.
      */
-    <T> Set<T> fromJsonNodeWithTypeSet(final JsonNode node);
+    <T> Set<T> unmarshallWithTypeSet(final JsonNode node);
 
     /**
      * Assumes a {@link JsonArrayNode} holding entries of the {@link Map} tagged with type and values.
      */
-    <K, V> Map<K, V> fromJsonNodeWithTypeMap(final JsonNode node);
+    <K, V> Map<K, V> unmarshallWithTypeMap(final JsonNode node);
 
     /**
-     * {@see FromJsonNodeWithTypePropertyBiFunction}
+     * {@see JsonNodeUnmarshallContextUnmarshallWithTypePropertyBiFunction}
      */
-    default <T> BiFunction<JsonNode, FromJsonNodeContext, T> fromJsonNodeWithType(final JsonNodeName property,
-                                                                                  final JsonObjectNode propertySource,
-                                                                                  final Class<T> superType) {
-        return FromJsonNodeWithTypePropertyBiFunction.with(property, propertySource, superType);
+    default <T> BiFunction<JsonNode, JsonNodeUnmarshallContext, T> unmarshallWithType(final JsonNodeName property,
+                                                                                        final JsonObjectNode propertySource,
+                                                                                        final Class<T> superType) {
+        return JsonNodeUnmarshallContextUnmarshallWithTypePropertyBiFunction.with(property, propertySource, superType);
     }
 }

@@ -25,7 +25,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * A {@link JsonNodeContext} that contains shared methods and attributes for both {@link BasicFromJsonNodeContext} and
+ * A {@link JsonNodeContext} that contains shared methods and attributes for both {@link BasicJsonNodeUnmarshallContext} and
  * {@link BasicToJsonNodeContext}.
  */
 abstract class BasicJsonNodeContext implements JsonNodeContext {

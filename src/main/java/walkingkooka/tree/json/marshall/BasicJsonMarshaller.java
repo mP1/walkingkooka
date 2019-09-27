@@ -167,7 +167,7 @@ abstract class BasicJsonMarshaller<T> {
      * Registers the {@link BasicJsonMarshaller} for the given types.
      */
     static synchronized <T> Runnable register(final String typeName,
-                                              final BiFunction<JsonNode, FromJsonNodeContext, T> from,
+                                              final BiFunction<JsonNode, JsonNodeUnmarshallContext, T> from,
                                               final BiFunction<T, ToJsonNodeContext, JsonNode> to,
                                               final Class<T> type,
                                               final Class<? extends T>... types) {
@@ -230,28 +230,28 @@ abstract class BasicJsonMarshaller<T> {
         TYPENAME_TO_MARSHALLER.putIfAbsent(typeName, this);
     }
 
-    // fromJsonNode.....................................................................................................
+    // unmarshall.....................................................................................................
 
     /**
      * Returns the value from its {@link JsonNode} representation.
      */
-    final T fromJsonNode(final JsonNode node,
-                         final FromJsonNodeContext context) {
+    final T unmarshall(final JsonNode node,
+                         final JsonNodeUnmarshallContext context) {
         try {
             return node.isNull() ?
-                    this.fromJsonNodeNull(context) :
-                    this.fromJsonNodeNonNull(node, context);
-        } catch (final FromJsonNodeException | NullPointerException cause) {
+                    this.unmarshallNull(context) :
+                    this.unmarshallNonNull(node, context);
+        } catch (final JsonNodeUnmarshallException | NullPointerException cause) {
             throw cause;
         } catch (final RuntimeException cause) {
-            throw new FromJsonNodeException(cause.getMessage(), node, cause);
+            throw new JsonNodeUnmarshallException(cause.getMessage(), node, cause);
         }
     }
 
-    abstract T fromJsonNodeNull(final FromJsonNodeContext context);
+    abstract T unmarshallNull(final JsonNodeUnmarshallContext context);
 
-    abstract T fromJsonNodeNonNull(final JsonNode node,
-                                   final FromJsonNodeContext context);
+    abstract T unmarshallNonNull(final JsonNode node,
+                                   final JsonNodeUnmarshallContext context);
 
     // toJsonNode.......................................................................................................
 

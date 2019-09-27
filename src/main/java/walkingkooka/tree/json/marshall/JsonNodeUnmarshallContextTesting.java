@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public interface FromJsonNodeContextTesting<C extends FromJsonNodeContext> extends JsonNodeContextTesting<C> {
+public interface JsonNodeUnmarshallContextTesting<C extends JsonNodeUnmarshallContext> extends JsonNodeContextTesting<C> {
 
     // setObjectPreProcessor............................................................................................
 
@@ -44,220 +44,220 @@ public interface FromJsonNodeContextTesting<C extends FromJsonNodeContext> exten
 
     @Test
     default void testSetObjectPreProcessor() {
-        final FromJsonNodeContext context = this.createContext();
+        final JsonNodeUnmarshallContext context = this.createContext();
         final BiFunction<JsonObjectNode, Class<?>, JsonObjectNode> processor = (jsonObject, type) -> jsonObject;
 
-        final FromJsonNodeContext with = context.setObjectPreProcessor(processor);
+        final JsonNodeUnmarshallContext with = context.setObjectPreProcessor(processor);
         assertNotSame(context, with);
     }
 
     @Test
     default void testSetObjectPreProcessorSame() {
-        final FromJsonNodeContext context = this.createContext();
+        final JsonNodeUnmarshallContext context = this.createContext();
         final BiFunction<JsonObjectNode, Class<?>, JsonObjectNode> processor = (jsonObject, type) -> jsonObject;
 
-        final FromJsonNodeContext with = context.setObjectPreProcessor(processor);
+        final JsonNodeUnmarshallContext with = context.setObjectPreProcessor(processor);
         assertSame(with, with.setObjectPreProcessor(processor));
     }
     
-    // fromJsonNode.....................................................................................................
+    // unmarshall.....................................................................................................
 
     @Test
     default void testFromJsonNodeNullTypeFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.createContext().fromJsonNode(JsonNode.nullNode(), null);
+            this.createContext().unmarshall(JsonNode.nullNode(), null);
         });
     }
 
-    // fromJsonNodeList.................................................................................................
+    // unmarshallList.................................................................................................
 
     @Test
     default void testFromJsonNodeListNullTypeFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.createContext().fromJsonNodeList(JsonNode.nullNode(), null);
+            this.createContext().unmarshallList(JsonNode.nullNode(), null);
         });
     }
 
-    // fromJsonNodeSet..................................................................................................
+    // unmarshallSet..................................................................................................
 
     @Test
     default void testFromJsonNodeSetNullTypeFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.createContext().fromJsonNodeSet(JsonNode.nullNode(), null);
+            this.createContext().unmarshallSet(JsonNode.nullNode(), null);
         });
     }
 
-    // fromJsonNodeMap..................................................................................................
+    // unmarshallMap..................................................................................................
 
     @Test
     default void testFromJsonNodeMapNullKeyTypeFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.createContext().fromJsonNodeMap(JsonNode.array(), null, String.class);
+            this.createContext().unmarshallMap(JsonNode.array(), null, String.class);
         });
     }
 
     @Test
     default void testFromJsonNodeMapNullValueTypeFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.createContext().fromJsonNodeMap(JsonNode.array(), String.class, null);
+            this.createContext().unmarshallMap(JsonNode.array(), String.class, null);
         });
     }
 
-    // fromJsonNode.....................................................................................................
+    // unmarshall.....................................................................................................
 
-    default <T> void fromJsonNodeAndCheck(final JsonNode node,
+    default <T> void unmarshallAndCheck(final JsonNode node,
                                           final Class<T> type,
                                           final T expected) {
-        this.fromJsonNodeAndCheck(this.createContext(),
+        this.unmarshallAndCheck(this.createContext(),
                 node,
                 type,
                 expected);
     }
 
-    default <T> void fromJsonNodeAndCheck(final FromJsonNodeContext context,
+    default <T> void unmarshallAndCheck(final JsonNodeUnmarshallContext context,
                                           final JsonNode node,
                                           final Class<T> type,
                                           final T expected) {
         assertEquals(expected,
-                context.fromJsonNode(node, type),
-                () -> context + " fromJsonNode " + node + " type " + type.getName());
+                context.unmarshall(node, type),
+                () -> context + " unmarshall " + node + " type " + type.getName());
     }
 
-    // fromJsonNodeList.................................................................................................
+    // unmarshallList.................................................................................................
 
-    default <T> void fromJsonNodeListAndCheck(final JsonNode node,
+    default <T> void unmarshallListAndCheck(final JsonNode node,
                                               final Class<T> type,
                                               final List<T> expected) {
-        this.fromJsonNodeListAndCheck(this.createContext(),
+        this.unmarshallListAndCheck(this.createContext(),
                 node,
                 type,
                 expected);
     }
 
-    default <T> void fromJsonNodeListAndCheck(final FromJsonNodeContext context,
+    default <T> void unmarshallListAndCheck(final JsonNodeUnmarshallContext context,
                                               final JsonNode node,
                                               final Class<T> type,
                                               final List<T> expected) {
         assertEquals(expected,
-                context.fromJsonNodeList(node, type),
-                () -> context + " fromJsonNodeList " + node + " type " + type.getName());
+                context.unmarshallList(node, type),
+                () -> context + " unmarshallList " + node + " type " + type.getName());
     }
 
-    // fromJsonNodeSet..................................................................................................
+    // unmarshallSet..................................................................................................
 
-    default <T> void fromJsonNodeSetAndCheck(final JsonNode node,
+    default <T> void unmarshallSetAndCheck(final JsonNode node,
                                              final Class<T> type,
                                              final Set<T> expected) {
-        this.fromJsonNodeSetAndCheck(this.createContext(),
+        this.unmarshallSetAndCheck(this.createContext(),
                 node,
                 type,
                 expected);
     }
 
-    default <T> void fromJsonNodeSetAndCheck(final FromJsonNodeContext context,
+    default <T> void unmarshallSetAndCheck(final JsonNodeUnmarshallContext context,
                                              final JsonNode node,
                                              final Class<T> type,
                                              final Set<T> expected) {
         assertEquals(expected,
-                context.fromJsonNodeSet(node, type),
-                () -> context + " fromJsonNodeSet " + node + " type " + type.getName());
+                context.unmarshallSet(node, type),
+                () -> context + " unmarshallSet " + node + " type " + type.getName());
     }
 
-    // fromJsonNodeMap.................................................................................................
+    // unmarshallMap.................................................................................................
 
-    default <K, V> void fromJsonNodeMapAndCheck(final JsonNode node,
+    default <K, V> void unmarshallMapAndCheck(final JsonNode node,
                                                 final Class<K> key,
                                                 final Class<V> value,
                                                 final Map<K, V> expected) {
-        this.fromJsonNodeMapAndCheck(this.createContext(),
+        this.unmarshallMapAndCheck(this.createContext(),
                 node,
                 key,
                 value,
                 expected);
     }
 
-    default <K, V> void fromJsonNodeMapAndCheck(final FromJsonNodeContext context,
+    default <K, V> void unmarshallMapAndCheck(final JsonNodeUnmarshallContext context,
                                                 final JsonNode node,
                                                 final Class<K> key,
                                                 final Class<V> value,
                                                 final Map<K, V> expected) {
         assertEquals(expected,
-                context.fromJsonNodeMap(node, key, value),
-                () -> context + " fromJsonNodeMap " + node + " key " + key.getName() + " value " + value.getName());
+                context.unmarshallMap(node, key, value),
+                () -> context + " unmarshallMap " + node + " key " + key.getName() + " value " + value.getName());
     }
 
-    // fromJsonNodeWithType.............................................................................................
+    // unmarshallWithType.............................................................................................
 
-    default void fromJsonNodeWithTypeAndCheck(final JsonNode node,
+    default void unmarshallWithTypeAndCheck(final JsonNode node,
                                               final Object expected) {
-        this.fromJsonNodeWithTypeAndCheck(this.createContext(),
+        this.unmarshallWithTypeAndCheck(this.createContext(),
                 node,
                 expected);
     }
 
-    default void fromJsonNodeWithTypeAndCheck(final FromJsonNodeContext context,
+    default void unmarshallWithTypeAndCheck(final JsonNodeUnmarshallContext context,
                                               final JsonNode node,
                                               final Object expected) {
         assertEquals(expected,
-                context.fromJsonNodeWithType(node),
-                () -> context + " fromJsonNodeWithType " + node);
+                context.unmarshallWithType(node),
+                () -> context + " unmarshallWithType " + node);
     }
 
-    // fromJsonNodeWithTypeList..........................................................................................
+    // unmarshallWithTypeList..........................................................................................
 
-    default void fromJsonNodeWithTypeListAndCheck(final JsonNode node,
+    default void unmarshallWithTypeListAndCheck(final JsonNode node,
                                                   final List<?> expected) {
-        this.fromJsonNodeWithTypeListAndCheck(this.createContext(),
+        this.unmarshallWithTypeListAndCheck(this.createContext(),
                 node,
                 expected);
     }
 
-    default void fromJsonNodeWithTypeListAndCheck(final FromJsonNodeContext context,
+    default void unmarshallWithTypeListAndCheck(final JsonNodeUnmarshallContext context,
                                                   final JsonNode node,
                                                   final List<?> expected) {
         assertEquals(expected,
-                context.fromJsonNodeWithTypeList(node),
-                () -> context + " fromJsonNodeWithTypeList " + node);
+                context.unmarshallWithTypeList(node),
+                () -> context + " unmarshallWithTypeList " + node);
     }
 
-    // fromJsonNodeWithTypeSet..........................................................................................
+    // unmarshallWithTypeSet..........................................................................................
 
-    default void fromJsonNodeWithTypeSetAndCheck(final JsonNode node,
+    default void unmarshallWithTypeSetAndCheck(final JsonNode node,
                                                  final Set<?> expected) {
-        this.fromJsonNodeWithTypeSetAndCheck(this.createContext(),
+        this.unmarshallWithTypeSetAndCheck(this.createContext(),
                 node,
                 expected);
     }
 
-    default void fromJsonNodeWithTypeSetAndCheck(final FromJsonNodeContext context,
+    default void unmarshallWithTypeSetAndCheck(final JsonNodeUnmarshallContext context,
                                                  final JsonNode node,
                                                  final Set<?> expected) {
         assertEquals(expected,
-                context.fromJsonNodeWithTypeSet(node),
-                () -> context + " fromJsonNodeWithTypeSet " + node);
+                context.unmarshallWithTypeSet(node),
+                () -> context + " unmarshallWithTypeSet " + node);
     }
 
-    // fromJsonNodeMap.................................................................................................
+    // unmarshallMap.................................................................................................
 
-    default void fromJsonNodeWithTypeMapAndCheck(final JsonNode node,
+    default void unmarshallWithTypeMapAndCheck(final JsonNode node,
                                                  final Map<?, ?> expected) {
-        this.fromJsonNodeMapWithTypeAndCheck(this.createContext(),
+        this.unmarshallMapWithTypeAndCheck(this.createContext(),
                 node,
                 expected);
     }
 
-    default void fromJsonNodeMapWithTypeAndCheck(final FromJsonNodeContext context,
+    default void unmarshallMapWithTypeAndCheck(final JsonNodeUnmarshallContext context,
                                                  final JsonNode node,
                                                  final Map<?, ?> expected) {
         assertEquals(expected,
-                context.fromJsonNodeWithTypeMap(node),
-                () -> context + " fromJsonNodeWithTypeMap " + node);
+                context.unmarshallWithTypeMap(node),
+                () -> context + " unmarshallWithTypeMap " + node);
     }
 
     // TypeNameTesting..................................................................................................
 
     @Override
     default String typeNameSuffix() {
-        return FromJsonNodeContext.class.getSimpleName();
+        return JsonNodeUnmarshallContext.class.getSimpleName();
     }
 }

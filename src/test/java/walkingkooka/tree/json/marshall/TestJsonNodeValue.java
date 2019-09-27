@@ -45,8 +45,8 @@ public final class TestJsonNodeValue extends TestJsonNodeValueAbstract {
     /**
      * Accepts a json string creating a {@link TestJsonNodeValue}
      */
-    public static TestJsonNodeValue fromJsonNode(final JsonNode node,
-                                                 final FromJsonNodeContext context) {
+    public static TestJsonNodeValue unmarshall(final JsonNode node,
+                                                 final JsonNodeUnmarshallContext context) {
         String value = null;
         for (JsonNode child : node.objectOrFail().children()) {
             final JsonNodeName property = child.name();
@@ -54,7 +54,7 @@ public final class TestJsonNodeValue extends TestJsonNodeValueAbstract {
                 value = child.stringValueOrFail();
                 continue;
             }
-            FromJsonNodeContext.unknownPropertyPresent(property, node);
+            JsonNodeUnmarshallContext.unknownPropertyPresent(property, node);
         }
 
         return with(value);
@@ -69,7 +69,7 @@ public final class TestJsonNodeValue extends TestJsonNodeValueAbstract {
 
     public static void register() {
         remover = JsonNodeContext.register(TYPE_NAME,
-                TestJsonNodeValue::fromJsonNode,
+                TestJsonNodeValue::unmarshall,
                 TestJsonNodeValue::toJsonNode,
                 TestJsonNodeValue.class);
     }

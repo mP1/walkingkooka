@@ -40,9 +40,9 @@ final class BasicJsonMarshallerTypedExpressionNodeUnary<N extends ExpressionNode
     }
 
     @Override
-    N fromJsonNodeNonNull(final JsonNode node,
-                          final FromJsonNodeContext context) {
-        return this.from.apply(context.fromJsonNodeWithType(node));
+    N unmarshallNonNull(final JsonNode node,
+                          final JsonNodeUnmarshallContext context) {
+        return this.from.apply(context.unmarshallWithType(node));
     }
 
     private final Function<ExpressionNode, N> from;

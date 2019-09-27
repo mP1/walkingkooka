@@ -30,7 +30,7 @@ abstract class BasicJsonMarshallerTypedCollection<C extends Collection<?>> exten
     }
 
     @Override
-    final C fromJsonNodeNull(final FromJsonNodeContext context) {
+    final C unmarshallNull(final JsonNodeUnmarshallContext context) {
         return null;
     }
 

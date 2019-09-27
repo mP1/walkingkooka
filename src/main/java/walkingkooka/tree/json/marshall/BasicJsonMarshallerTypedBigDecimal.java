@@ -47,13 +47,13 @@ final class BasicJsonMarshallerTypedBigDecimal extends BasicJsonMarshallerTyped<
     }
 
     @Override
-    BigDecimal fromJsonNodeNull(final FromJsonNodeContext context) {
+    BigDecimal unmarshallNull(final JsonNodeUnmarshallContext context) {
         return null;
     }
 
     @Override
-    BigDecimal fromJsonNodeNonNull(final JsonNode node,
-                                   final FromJsonNodeContext context) {
+    BigDecimal unmarshallNonNull(final JsonNode node,
+                                   final JsonNodeUnmarshallContext context) {
         return new BigDecimal(node.stringValueOrFail());
     }
 

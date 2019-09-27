@@ -41,12 +41,12 @@ final class BasicJsonMarshallerTypedExpressionNodeBinary<N extends ExpressionNod
     }
 
     @Override
-    N fromJsonNodeNonNull(final JsonNode node,
-                          final FromJsonNodeContext context) {
-        final List<ExpressionNode> children = context.fromJsonNodeWithTypeList(node);
+    N unmarshallNonNull(final JsonNode node,
+                          final JsonNodeUnmarshallContext context) {
+        final List<ExpressionNode> children = context.unmarshallWithTypeList(node);
         final int count = children.size();
         if (count != 2) {
-            throw new FromJsonNodeException("Expected 2 children but got " + count, node);
+            throw new JsonNodeUnmarshallException("Expected 2 children but got " + count, node);
         }
 
         return this.from.apply(children.get(0), children.get(1));

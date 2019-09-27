@@ -33,17 +33,17 @@ public final class BasicJsonMarshallerTypedExpressionNodeFunctionTest extends Ba
 
     @Test
     public final void testFromBooleanFails() {
-        this.fromJsonNodeFailed(JsonNode.booleanNode(true), JsonNodeException.class);
+        this.unmarshallFailed(JsonNode.booleanNode(true), JsonNodeException.class);
     }
 
     @Test
     public final void testFromNumberFails() {
-        this.fromJsonNodeFailed(JsonNode.number(123), JsonNodeException.class);
+        this.unmarshallFailed(JsonNode.number(123), JsonNodeException.class);
     }
 
     @Test
     public final void testFromStringFails() {
-        this.fromJsonNodeFailed(JsonNode.string("abc123"), JsonNodeException.class);
+        this.unmarshallFailed(JsonNode.string("abc123"), JsonNodeException.class);
     }
 
     @Override

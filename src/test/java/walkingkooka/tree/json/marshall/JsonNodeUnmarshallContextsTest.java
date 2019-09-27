@@ -24,7 +24,7 @@ import walkingkooka.type.JavaVisibility;
 import java.lang.reflect.Method;
 import java.math.MathContext;
 
-public final class FromJsonNodeContextsTest implements PublicStaticHelperTesting<FromJsonNodeContexts> {
+public final class JsonNodeUnmarshallContextsTest implements PublicStaticHelperTesting<JsonNodeUnmarshallContexts> {
 
     @Test
     public void testPublicStaticMethodsWithoutMathContextParameter() {
@@ -32,8 +32,8 @@ public final class FromJsonNodeContextsTest implements PublicStaticHelperTesting
     }
 
     @Override
-    public Class<FromJsonNodeContexts> type() {
-        return FromJsonNodeContexts.class;
+    public Class<JsonNodeUnmarshallContexts> type() {
+        return JsonNodeUnmarshallContexts.class;
     }
 
     @Override

@@ -35,9 +35,9 @@ final class BasicJsonMarshallerTypedExpressionNodeReference extends BasicJsonMar
     }
 
     @Override
-    ExpressionReferenceNode fromJsonNodeNonNull(final JsonNode node,
-                                                final FromJsonNodeContext context) {
-        return ExpressionNode.reference(context.fromJsonNodeWithType(node));
+    ExpressionReferenceNode unmarshallNonNull(final JsonNode node,
+                                                final JsonNodeUnmarshallContext context) {
+        return ExpressionNode.reference(context.unmarshallWithType(node));
     }
 
     @Override

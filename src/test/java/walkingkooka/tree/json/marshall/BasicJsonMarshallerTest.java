@@ -54,7 +54,7 @@ public final class BasicJsonMarshallerTest extends BasicJsonMarshallerTestCase<B
     public void testRegisterNullTypeNameFails() {
         assertThrows(NullPointerException.class, () -> {
             BasicJsonMarshaller.register(null,
-                    TestJsonNodeValue::fromJsonNode,
+                    TestJsonNodeValue::unmarshall,
                     TestJsonNodeValue::toJsonNode,
                     TestJsonNodeValue.class);
         });
@@ -64,7 +64,7 @@ public final class BasicJsonMarshallerTest extends BasicJsonMarshallerTestCase<B
     public void testRegisterEmptyTypeNameFails() {
         assertThrows(IllegalArgumentException.class, () -> {
             BasicJsonMarshaller.register("",
-                    TestJsonNodeValue::fromJsonNode,
+                    TestJsonNodeValue::unmarshall,
                     TestJsonNodeValue::toJsonNode,
                     TestJsonNodeValue.class);
         });
@@ -84,7 +84,7 @@ public final class BasicJsonMarshallerTest extends BasicJsonMarshallerTestCase<B
     public void testRegisterNullToFunctionFails() {
         assertThrows(NullPointerException.class, () -> {
             BasicJsonMarshaller.register(TestJsonNodeValue.TYPE_NAME,
-                    TestJsonNodeValue::fromJsonNode,
+                    TestJsonNodeValue::unmarshall,
                     null,
                     TestJsonNodeValue.class);
         });
@@ -94,7 +94,7 @@ public final class BasicJsonMarshallerTest extends BasicJsonMarshallerTestCase<B
     public void testRegisterNullTypeFails() {
         assertThrows(NullPointerException.class, () -> {
             BasicJsonMarshaller.register(TestJsonNodeValue.TYPE_NAME,
-                    TestJsonNodeValue::fromJsonNode,
+                    TestJsonNodeValue::unmarshall,
                     TestJsonNodeValue::toJsonNode,
                     null);
         });
@@ -111,7 +111,7 @@ public final class BasicJsonMarshallerTest extends BasicJsonMarshallerTestCase<B
 
         assertThrows(IllegalArgumentException.class, () -> {
             BasicJsonMarshaller.register(TestJsonNodeValue.TYPE_NAME,
-                    TestJsonNodeValue::fromJsonNode,
+                    TestJsonNodeValue::unmarshall,
                     TestJsonNodeValue::toJsonNode,
                     TestJsonNodeValue.class);
         });
@@ -332,7 +332,7 @@ public final class BasicJsonMarshallerTest extends BasicJsonMarshallerTestCase<B
     private void roundtripAndCheck(final Object value) {
         final JsonNode json = ToJsonNodeContexts.basic().toJsonNode(value);
         assertEquals(value,
-                FromJsonNodeContexts.basic().fromJsonNode(json, value.getClass()),
+                JsonNodeUnmarshallContexts.basic().unmarshall(json, value.getClass()),
                 () -> "roundtrip " + value + "\n" + json);
     }
 

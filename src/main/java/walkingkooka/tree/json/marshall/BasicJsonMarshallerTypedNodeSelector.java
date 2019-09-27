@@ -89,13 +89,13 @@ final class BasicJsonMarshallerTypedNodeSelector extends BasicJsonMarshallerType
     }
 
     @Override
-    NodeSelector fromJsonNodeNull(final FromJsonNodeContext context) {
+    NodeSelector unmarshallNull(final JsonNodeUnmarshallContext context) {
         return null;
     }
 
     @Override
-    NodeSelector fromJsonNodeNonNull(final JsonNode node,
-                                     final FromJsonNodeContext context) {
+    NodeSelector unmarshallNonNull(final JsonNode node,
+                                     final JsonNodeUnmarshallContext context) {
         JsonArrayNode components = null;
 
         for (JsonNode child : node.objectOrFail().children()) {
@@ -113,11 +113,11 @@ final class BasicJsonMarshallerTypedNodeSelector extends BasicJsonMarshallerType
         }
 
         if (null == components) {
-            FromJsonNodeContext.requiredPropertyMissing(COMPONENTS_PROPERTY, node);
+            JsonNodeUnmarshallContext.requiredPropertyMissing(COMPONENTS_PROPERTY, node);
         }
 
-        return fromJsonNodeNonNull0(
-                context.fromJsonNodeWithType(NAME_TYPE_PROPERTY, node.objectOrFail(), Name.class),
+        return unmarshallNonNull0(
+                context.unmarshallWithType(NAME_TYPE_PROPERTY, node.objectOrFail(), Name.class),
                 components,
                 context);
     }
@@ -128,9 +128,9 @@ final class BasicJsonMarshallerTypedNodeSelector extends BasicJsonMarshallerType
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
-            AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> fromJsonNodeNonNull0(final BiFunction<JsonNode, FromJsonNodeContext, NAME> nameFactory,
+            AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> unmarshallNonNull0(final BiFunction<JsonNode, JsonNodeUnmarshallContext, NAME> nameFactory,
                                                                               final JsonArrayNode components,
-                                                                              final FromJsonNodeContext context) {
+                                                                              final JsonNodeUnmarshallContext context) {
         NodeSelector<N, NAME, ANAME, AVALUE> selector = NodeSelector.relative();
 
         for (JsonNode component : components.children()) {

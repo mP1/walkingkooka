@@ -20,28 +20,28 @@ package walkingkooka.tree.json.marshall;
 import walkingkooka.type.PublicStaticHelper;
 
 /**
- * Collection of static factory methods for numerous {@link FromJsonNodeContext}.
+ * Collection of static factory methods for numerous {@link JsonNodeUnmarshallContext}.
  */
-public final class FromJsonNodeContexts implements PublicStaticHelper {
+public final class JsonNodeUnmarshallContexts implements PublicStaticHelper {
 
     /**
-     * {@see BasicFromJsonNodeContext}
+     * {@see BasicJsonNodeUnmarshallContext}
      */
-    public static FromJsonNodeContext basic() {
-        return BasicFromJsonNodeContext.INSTANCE;
+    public static JsonNodeUnmarshallContext basic() {
+        return BasicJsonNodeUnmarshallContext.INSTANCE;
     }
 
     /**
-     * {@see FakeFromJsonNodeContext}
+     * {@see FakeJsonNodeUnmarshallContext}
      */
-    public static FromJsonNodeContext fake() {
-        return new FakeFromJsonNodeContext();
+    public static JsonNodeUnmarshallContext fake() {
+        return new FakeJsonNodeUnmarshallContext();
     }
 
     /**
      * Stops creation
      */
-    private FromJsonNodeContexts() {
+    private JsonNodeUnmarshallContexts() {
         throw new UnsupportedOperationException();
     }
 }

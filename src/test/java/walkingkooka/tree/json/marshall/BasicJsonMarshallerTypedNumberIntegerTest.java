@@ -25,12 +25,12 @@ public final class BasicJsonMarshallerTypedNumberIntegerTest extends BasicJsonMa
 
     @Test
     public void testFromJsonNodeInvalidFails() {
-        this.fromJsonNodeFailed(JsonNode.number(Double.MAX_VALUE), NumericLossJsonNodeException.class);
+        this.unmarshallFailed(JsonNode.number(Double.MAX_VALUE), NumericLossJsonNodeException.class);
     }
 
     @Test
     public void testFromJsonNodeInvalidFails2() {
-        this.fromJsonNodeFailed(JsonNode.number(1.5), NumericLossJsonNodeException.class);
+        this.unmarshallFailed(JsonNode.number(1.5), NumericLossJsonNodeException.class);
     }
 
     @Override

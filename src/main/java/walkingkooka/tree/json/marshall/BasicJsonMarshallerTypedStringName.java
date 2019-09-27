@@ -47,13 +47,13 @@ final class BasicJsonMarshallerTypedStringName extends BasicJsonMarshallerTyped<
     }
 
     @Override
-    StringName fromJsonNodeNull(final FromJsonNodeContext context) {
+    StringName unmarshallNull(final JsonNodeUnmarshallContext context) {
         return null;
     }
 
     @Override
-    StringName fromJsonNodeNonNull(final JsonNode node,
-                                   final FromJsonNodeContext context) {
+    StringName unmarshallNonNull(final JsonNode node,
+                                   final JsonNodeUnmarshallContext context) {
         return Names.string(node.stringValueOrFail());
     }
 

@@ -48,8 +48,8 @@ final class BasicJsonMarshallerTypedCollectionList extends BasicJsonMarshallerTy
     }
 
     @Override
-    final List<?> fromJsonNodeNonNull(final JsonNode node,
-                                      final FromJsonNodeContext context) {
-        return context.fromJsonNodeWithTypeList(node);
+    final List<?> unmarshallNonNull(final JsonNode node,
+                                      final JsonNodeUnmarshallContext context) {
+        return context.unmarshallWithTypeList(node);
     }
 }

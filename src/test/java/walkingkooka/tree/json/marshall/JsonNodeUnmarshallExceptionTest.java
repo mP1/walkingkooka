@@ -25,7 +25,7 @@ import walkingkooka.type.JavaVisibility;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class FromJsonNodeExceptionTest implements StandardThrowableTesting<FromJsonNodeException> {
+public final class JsonNodeUnmarshallExceptionTest implements StandardThrowableTesting<JsonNodeUnmarshallException> {
 
 
     @Test
@@ -35,20 +35,20 @@ public final class FromJsonNodeExceptionTest implements StandardThrowableTesting
 
     private void withMessageAndNodeFails(final String message, final JsonNode node) {
         assertThrows(NullPointerException.class, () -> {
-            new FromJsonNodeException(message, node);
+            new JsonNodeUnmarshallException(message, node);
         });
     }
 
     @Test
     public void testWithMessageAndNode() {
-        final FromJsonNodeException exception = this.createThrowable(MESSAGE);
+        final JsonNodeUnmarshallException exception = this.createThrowable(MESSAGE);
         checkThrowable(exception, MESSAGE, null);
         checkNode(exception);
     }
 
     @Test
     public void testWithMessageAndNodeAndCause() {
-        final FromJsonNodeException exception = this.createThrowable(MESSAGE, CAUSE);
+        final JsonNodeUnmarshallException exception = this.createThrowable(MESSAGE, CAUSE);
         checkThrowable(exception, MESSAGE, CAUSE);
         checkNode(exception);
     }
@@ -65,19 +65,19 @@ public final class FromJsonNodeExceptionTest implements StandardThrowableTesting
 
     @Test
     public void testWithNullMessageNodeAndCause() {
-        final FromJsonNodeException exception = new FromJsonNodeException(null, this.node(), CAUSE);
-        checkThrowable(exception, FromJsonNodeException.DEFAULT_MESSAGE, CAUSE);
+        final JsonNodeUnmarshallException exception = new JsonNodeUnmarshallException(null, this.node(), CAUSE);
+        checkThrowable(exception, JsonNodeUnmarshallException.DEFAULT_MESSAGE, CAUSE);
         checkNode(exception);
     }
 
     @Test
     public void testWithEmptyMessageNodeAndCause() {
-        final FromJsonNodeException exception = new FromJsonNodeException("", this.node(), CAUSE);
-        checkThrowable(exception, FromJsonNodeException.DEFAULT_MESSAGE, CAUSE);
+        final JsonNodeUnmarshallException exception = new JsonNodeUnmarshallException("", this.node(), CAUSE);
+        checkThrowable(exception, JsonNodeUnmarshallException.DEFAULT_MESSAGE, CAUSE);
         checkNode(exception);
     }
 
-    private void checkNode(final FromJsonNodeException exception) {
+    private void checkNode(final JsonNodeUnmarshallException exception) {
         assertEquals(this.node(), exception.node(), "node");
     }
 
@@ -86,18 +86,18 @@ public final class FromJsonNodeExceptionTest implements StandardThrowableTesting
     }
 
     @Override
-    public FromJsonNodeException createThrowable(final String message) {
-        return new FromJsonNodeException(message, node());
+    public JsonNodeUnmarshallException createThrowable(final String message) {
+        return new JsonNodeUnmarshallException(message, node());
     }
 
     @Override
-    public FromJsonNodeException createThrowable(final String message, final Throwable cause) {
-        return new FromJsonNodeException(message, node(), cause);
+    public JsonNodeUnmarshallException createThrowable(final String message, final Throwable cause) {
+        return new JsonNodeUnmarshallException(message, node(), cause);
     }
 
     @Override
-    public Class<FromJsonNodeException> type() {
-        return FromJsonNodeException.class;
+    public Class<JsonNodeUnmarshallException> type() {
+        return JsonNodeUnmarshallException.class;
     }
 
     @Override

@@ -30,8 +30,8 @@ abstract class BasicJsonMarshallerTypedNumber<T extends Number> extends BasicJso
     }
 
     @Override
-    final T fromJsonNodeNonNull(final JsonNode node,
-                                final FromJsonNodeContext context) {
+    final T unmarshallNonNull(final JsonNode node,
+                                final JsonNodeUnmarshallContext context) {
         return this.numberWithoutPrecisionLoss(node.numberValueOrFail());
     }
 
@@ -49,7 +49,7 @@ abstract class BasicJsonMarshallerTypedNumber<T extends Number> extends BasicJso
     abstract T number(final Number number);
 
     @Override
-    final T fromJsonNodeNull(final FromJsonNodeContext context) {
+    final T unmarshallNull(final JsonNodeUnmarshallContext context) {
         return null;
     }
 

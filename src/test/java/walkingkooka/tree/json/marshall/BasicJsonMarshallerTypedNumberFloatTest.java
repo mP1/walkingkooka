@@ -25,7 +25,7 @@ public final class BasicJsonMarshallerTypedNumberFloatTest extends BasicJsonMars
 
     @Test
     public void testFromJsonNodeInvalidFails() {
-        this.fromJsonNodeFailed(JsonNode.number(Double.MAX_VALUE), NumericLossJsonNodeException.class);
+        this.unmarshallFailed(JsonNode.number(Double.MAX_VALUE), NumericLossJsonNodeException.class);
     }
 
     @Override

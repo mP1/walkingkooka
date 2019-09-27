@@ -30,22 +30,22 @@ import java.util.function.BiFunction;
 /**
  * A factory that lazily retrieves the type of a given {@link JsonNode} from a given property on another object.
  */
-final class FromJsonNodeWithTypePropertyBiFunction<T> implements BiFunction<JsonNode, FromJsonNodeContext, T> {
+final class JsonNodeUnmarshallContextUnmarshallWithTypePropertyBiFunction<T> implements BiFunction<JsonNode, JsonNodeUnmarshallContext, T> {
 
     /**
-     * Factory called only by {@link FromJsonNodeContext#fromJsonNodeWithType(JsonNodeName, JsonObjectNode, Class)}
+     * Factory called only by {@link JsonNodeUnmarshallContext#unmarshallWithType(JsonNodeName, JsonObjectNode, Class)}
      */
-    static <T> FromJsonNodeWithTypePropertyBiFunction<T> with(final JsonNodeName property,
-                                                              final JsonObjectNode source,
-                                                              final Class<T> superType) {
+    static <T> JsonNodeUnmarshallContextUnmarshallWithTypePropertyBiFunction<T> with(final JsonNodeName property,
+                                                                                     final JsonObjectNode source,
+                                                                                     final Class<T> superType) {
         Objects.requireNonNull(source, "source");
         Objects.requireNonNull(superType, "superType");
 
-        return new FromJsonNodeWithTypePropertyBiFunction<>(property, source);
+        return new JsonNodeUnmarshallContextUnmarshallWithTypePropertyBiFunction<>(property, source);
     }
 
-    private FromJsonNodeWithTypePropertyBiFunction(final JsonNodeName property,
-                                                   final JsonObjectNode source) {
+    private JsonNodeUnmarshallContextUnmarshallWithTypePropertyBiFunction(final JsonNodeName property,
+                                                                          final JsonObjectNode source) {
         super();
         this.property = property;
         this.source = source;
@@ -53,22 +53,22 @@ final class FromJsonNodeWithTypePropertyBiFunction<T> implements BiFunction<Json
 
     @Override
     public T apply(final JsonNode node,
-                   final FromJsonNodeContext context) {
+                   final JsonNodeUnmarshallContext context) {
         final JsonNodeName property = this.property;
         final JsonObjectNode source = this.source;
 
         try {
             final JsonNode typeName = source.getOrFail(property);
             if (!typeName.isString()) {
-                throw new FromJsonNodeException("Property " + property + " contains invalid type name", source);
+                throw new JsonNodeUnmarshallException("Property " + property + " contains invalid type name", source);
             }
             final JsonStringNode stringTypeName = typeName.cast();
             final Class<?> type = context.registeredType(stringTypeName)
-                    .orElseThrow(() -> new FromJsonNodeException("Unknown type " + CharSequences.quoteAndEscape(stringTypeName.value()), this.source));
+                    .orElseThrow(() -> new JsonNodeUnmarshallException("Unknown type " + CharSequences.quoteAndEscape(stringTypeName.value()), this.source));
 
-            return Cast.to(type.cast(context.fromJsonNode(node, type)));
+            return Cast.to(type.cast(context.unmarshall(node, type)));
         } catch (final IllegalArgumentException cause) {
-            throw new FromJsonNodeException(cause.getMessage(), node);
+            throw new JsonNodeUnmarshallException(cause.getMessage(), node);
         }
     }
 

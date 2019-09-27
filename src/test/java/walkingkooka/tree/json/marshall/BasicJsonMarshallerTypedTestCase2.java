@@ -29,16 +29,16 @@ public abstract class BasicJsonMarshallerTypedTestCase2<M extends BasicJsonMarsh
 
     @Test
     public final void testFromBooleanFails() {
-        this.fromJsonNodeFailed(JsonNode.booleanNode(true), JsonNodeException.class);
+        this.unmarshallFailed(JsonNode.booleanNode(true), JsonNodeException.class);
     }
 
     @Test
     public final void testFromArrayFails() {
-        this.fromJsonNodeFailed(JsonNode.array(), JsonNodeException.class);
+        this.unmarshallFailed(JsonNode.array(), JsonNodeException.class);
     }
 
     @Test
     public final void testFromNumberFails() {
-        this.fromJsonNodeFailed(JsonNode.number(123), JsonNodeException.class);
+        this.unmarshallFailed(JsonNode.number(123), JsonNodeException.class);
     }
 }

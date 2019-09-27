@@ -49,7 +49,7 @@ final class BasicJsonMarshallerTypedRange extends BasicJsonMarshallerTyped<Range
     }
 
     @Override
-    Range fromJsonNodeNull(final FromJsonNodeContext context) {
+    Range unmarshallNull(final JsonNodeUnmarshallContext context) {
         return null;
     }
 
@@ -73,8 +73,8 @@ final class BasicJsonMarshallerTypedRange extends BasicJsonMarshallerTyped<Range
      * </pre>
      */
     @SuppressWarnings("unchecked")
-    Range<?> fromJsonNodeNonNull(final JsonNode node,
-                                 final FromJsonNodeContext context) {
+    Range<?> unmarshallNonNull(final JsonNode node,
+                                 final JsonNodeUnmarshallContext context) {
         RangeBound<?> lower = RangeBound.all();
         RangeBound<?> upper = RangeBound.all();
 
@@ -82,34 +82,34 @@ final class BasicJsonMarshallerTypedRange extends BasicJsonMarshallerTyped<Range
             final JsonNodeName name = child.name();
             switch (name.value()) {
                 case LOWER_BOUND:
-                    lower = fromJsonNodeRangeBound(child, context);
+                    lower = unmarshallRangeBound(child, context);
                     break;
                 case UPPER_BOUND:
-                    upper = fromJsonNodeRangeBound(child, context);
+                    upper = unmarshallRangeBound(child, context);
                     break;
                 default:
-                    FromJsonNodeContext.unknownPropertyPresent(name, node);
+                    JsonNodeUnmarshallContext.unknownPropertyPresent(name, node);
             }
         }
 
         return Range.with(Cast.to(lower), Cast.to(upper));
     }
 
-    private static RangeBound<?> fromJsonNodeRangeBound(final JsonNode node,
-                                                        final FromJsonNodeContext context) {
+    private static RangeBound<?> unmarshallRangeBound(final JsonNode node,
+                                                        final JsonNodeUnmarshallContext context) {
         RangeBound<?> bound = RangeBound.all();
 
         for (JsonNode child : node.children()) {
             final JsonNodeName name = child.name();
             switch (name.value()) {
                 case EXCLUSIVE:
-                    bound = RangeBound.exclusive(context.fromJsonNodeWithType(child));
+                    bound = RangeBound.exclusive(context.unmarshallWithType(child));
                     break;
                 case INCLUSIVE:
-                    bound = RangeBound.inclusive(context.fromJsonNodeWithType(child));
+                    bound = RangeBound.inclusive(context.unmarshallWithType(child));
                     break;
                 default:
-                    FromJsonNodeContext.unknownPropertyPresent(name, node);
+                    JsonNodeUnmarshallContext.unknownPropertyPresent(name, node);
             }
         }
         return bound;
