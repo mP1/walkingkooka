@@ -45,13 +45,13 @@ final class BasicJsonMarshallerNumber extends BasicJsonMarshaller<Number> {
     }
 
     @Override
-    Number fromJsonNodeNonNull(final JsonNode node,
-                               final FromJsonNodeContext context) {
+    Number unmarshallNonNull(final JsonNode node,
+                               final JsonNodeUnmarshallContext context) {
         return node.numberValueOrFail();
     }
 
     @Override
-    Number fromJsonNodeNull(final FromJsonNodeContext context) {
+    Number unmarshallNull(final JsonNodeUnmarshallContext context) {
         return null;
     }
 

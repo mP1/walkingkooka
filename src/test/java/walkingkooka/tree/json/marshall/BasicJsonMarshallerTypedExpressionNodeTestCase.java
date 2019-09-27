@@ -33,7 +33,7 @@ public abstract class BasicJsonMarshallerTypedExpressionNodeTestCase<M extends B
         final E expression = this.value();
         final JsonNode json = this.toJsonNodeContext()
                 .toJsonNode(expression);
-        this.fromJsonNodeAndCheck(json, expression);
+        this.unmarshallAndCheck(json, expression);
     }
 
     @Override

@@ -47,13 +47,13 @@ final class BasicJsonMarshallerTypedLocalDate extends BasicJsonMarshallerTyped<L
     }
 
     @Override
-    LocalDate fromJsonNodeNull(final FromJsonNodeContext context) {
+    LocalDate unmarshallNull(final JsonNodeUnmarshallContext context) {
         return null;
     }
 
     @Override
-    LocalDate fromJsonNodeNonNull(final JsonNode node,
-                                  final FromJsonNodeContext context) {
+    LocalDate unmarshallNonNull(final JsonNode node,
+                                  final JsonNodeUnmarshallContext context) {
         return LocalDate.parse(node.stringValueOrFail());
     }
 

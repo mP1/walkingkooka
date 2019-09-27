@@ -50,13 +50,13 @@ final class BasicJsonMarshallerTypedRoundingMode extends BasicJsonMarshallerType
     }
 
     @Override
-    RoundingMode fromJsonNodeNull(final FromJsonNodeContext context) {
+    RoundingMode unmarshallNull(final JsonNodeUnmarshallContext context) {
         return null;
     }
 
     @Override
-    RoundingMode fromJsonNodeNonNull(final JsonNode node,
-                                     final FromJsonNodeContext context) {
+    RoundingMode unmarshallNonNull(final JsonNode node,
+                                     final JsonNodeUnmarshallContext context) {
         return RoundingMode.valueOf(node.stringValueOrFail());
     }
 

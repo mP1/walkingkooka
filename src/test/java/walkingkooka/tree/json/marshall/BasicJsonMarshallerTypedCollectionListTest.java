@@ -40,22 +40,22 @@ public final class BasicJsonMarshallerTypedCollectionListTest extends BasicJsonM
 
     @Test
     public final void testFromBooleanFails() {
-        this.fromJsonNodeFailed(JsonNode.booleanNode(true), null);
+        this.unmarshallFailed(JsonNode.booleanNode(true), null);
     }
 
     @Test
     public final void testFromNumberFails() {
-        this.fromJsonNodeFailed(JsonNode.number(123), null);
+        this.unmarshallFailed(JsonNode.number(123), null);
     }
 
     @Test
     public final void testFromStringFails() {
-        this.fromJsonNodeFailed(JsonNode.string("abc123"), null);
+        this.unmarshallFailed(JsonNode.string("abc123"), null);
     }
 
     @Test
     public void testFromEmptyArray() {
-        this.fromJsonNodeAndCheck(JsonNode.array(), Lists.empty());
+        this.unmarshallAndCheck(JsonNode.array(), Lists.empty());
     }
 
     @Test

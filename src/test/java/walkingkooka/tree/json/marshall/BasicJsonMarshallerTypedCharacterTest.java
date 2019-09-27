@@ -25,22 +25,22 @@ public final class BasicJsonMarshallerTypedCharacterTest extends BasicJsonMarsha
     @Test
     @Override
     public void testFromJsonNodeJsonNullNode() {
-        this.fromJsonNodeFailed(JsonNode.nullNode(), NullPointerException.class);
+        this.unmarshallFailed(JsonNode.nullNode(), NullPointerException.class);
     }
 
     @Test
     public void testFromMoreThanOneLengthStringFails() {
-        this.fromJsonNodeFailed(JsonNode.string("abc"), IllegalArgumentException.class);
+        this.unmarshallFailed(JsonNode.string("abc"), IllegalArgumentException.class);
     }
 
     @Test
     public void testFrom() {
-        this.fromJsonNodeAndCheck(JsonNode.string("A"), 'A');
+        this.unmarshallAndCheck(JsonNode.string("A"), 'A');
     }
 
     @Test
     public void testFrom2() {
-        this.fromJsonNodeAndCheck(JsonNode.string("\t"), '\t');
+        this.unmarshallAndCheck(JsonNode.string("\t"), '\t');
     }
 
     @Test

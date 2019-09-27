@@ -25,36 +25,36 @@ public final class BasicJsonMarshallerTypedJsonNodeTest extends BasicJsonMarshal
 
     @Test
     public void testFromJsonNodeArrayRemovesParent() {
-        this.fromJsonNodeRemovesParentCheck(JsonNode.array().appendChild(JsonNode.string("1a")));
+        this.unmarshallRemovesParentCheck(JsonNode.array().appendChild(JsonNode.string("1a")));
     }
 
     @Test
     public void testFromJsonNodeBooleanRemovesParent() {
-        this.fromJsonNodeRemovesParentCheck(JsonNode.booleanNode(true));
+        this.unmarshallRemovesParentCheck(JsonNode.booleanNode(true));
     }
 
     @Test
     public void testFromJsonNodeNulRemovesParent() {
-        this.fromJsonNodeRemovesParentCheck(JsonNode.nullNode());
+        this.unmarshallRemovesParentCheck(JsonNode.nullNode());
     }
 
     @Test
     public void testFromJsonNodeNumberRemovesParent() {
-        this.fromJsonNodeRemovesParentCheck(JsonNode.number(12.5));
+        this.unmarshallRemovesParentCheck(JsonNode.number(12.5));
     }
 
     @Test
     public void testFromJsonNodeStringRemovesParent() {
-        this.fromJsonNodeRemovesParentCheck(JsonNode.string("child-123"));
+        this.unmarshallRemovesParentCheck(JsonNode.string("child-123"));
     }
 
     @Test
     public void testFromJsonNodeObjectRemovesParent() {
-        this.fromJsonNodeRemovesParentCheck(JsonNode.object().setChild(JsonNodeName.with("abc"), JsonNode.string("def")));
+        this.unmarshallRemovesParentCheck(JsonNode.object().setChild(JsonNodeName.with("abc"), JsonNode.string("def")));
     }
 
-    private void fromJsonNodeRemovesParentCheck(final JsonNode child) {
-        this.fromJsonNodeAndCheck(JsonNode.object()
+    private void unmarshallRemovesParentCheck(final JsonNode child) {
+        this.unmarshallAndCheck(JsonNode.object()
                         .set(JsonNodeName.with("child"), child)
                         .children().get(0),
                 child.removeParent());

@@ -130,10 +130,10 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements BeanProper
 
     final static String ARRAY_OR_FAIL = "arrayOrFail";
     final static String BOOLEAN_VALUE_OR_FAIL = "booleanValueOrFail";
-    final static String FROM_WITH_TYPE_LIST = "fromJsonNodeWithTypeList";
-    final static String FROM_WITH_TYPE_SET = "fromJsonNodeWithTypeSet";
-    final static String FROM_WITH_TYPE_MAP = "fromJsonNodeWithTypeMap";
-    final static String FROM_WITH_TYPE = "fromJsonNodeWithType";
+    final static String UNMARSHALL_LIST = "unmarshallWithTypeList";
+    final static String UNMARSHALL_SET = "unmarshallWithTypeSet";
+    final static String UNMARSHALL_MAP = "unmarshallWithTypeMap";
+    final static String UNMARSHALL = "unmarshallWithType";
     final static String NUMBER_VALUE_OR_FAIL = "numberValueOrFail";
     final static String OBJECT_OR_FAIL = "objectOrFail";
     final static String PARENT_OR_FAIL = "parentOrFail";

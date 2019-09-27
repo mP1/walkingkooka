@@ -33,28 +33,28 @@ import java.util.function.Function;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-final class BasicFromJsonNodeContext extends BasicJsonNodeContext implements FromJsonNodeContext {
+final class BasicJsonNodeUnmarshallContext extends BasicJsonNodeContext implements JsonNodeUnmarshallContext {
 
     /**
      * Singleton
      */
-    final static BasicFromJsonNodeContext INSTANCE = new BasicFromJsonNodeContext(FromJsonNodeContext.OBJECT_PRE_PROCESSOR);
+    final static BasicJsonNodeUnmarshallContext INSTANCE = new BasicJsonNodeUnmarshallContext(JsonNodeUnmarshallContext.OBJECT_PRE_PROCESSOR);
 
     /**
      * Private ctor
      */
-    private BasicFromJsonNodeContext(final BiFunction<JsonObjectNode, Class<?>, JsonObjectNode> processor) {
+    private BasicJsonNodeUnmarshallContext(final BiFunction<JsonObjectNode, Class<?>, JsonObjectNode> processor) {
         super();
         this.processor = processor;
     }
 
     @Override
-    public FromJsonNodeContext setObjectPreProcessor(final BiFunction<JsonObjectNode, Class<?>, JsonObjectNode> processor) {
+    public JsonNodeUnmarshallContext setObjectPreProcessor(final BiFunction<JsonObjectNode, Class<?>, JsonObjectNode> processor) {
         Objects.requireNonNull(processor, "processor");
 
         return this.processor.equals(processor) ?
                 this :
-                new BasicFromJsonNodeContext(processor);
+                new BasicJsonNodeUnmarshallContext(processor);
     }
 
     // from.............................................................................................................
@@ -63,9 +63,9 @@ final class BasicFromJsonNodeContext extends BasicJsonNodeContext implements Fro
      * Attempts to convert this node to the requested {@link Class type}.
      */
     @Override
-    public <T> T fromJsonNode(final JsonNode node,
+    public <T> T unmarshall(final JsonNode node,
                               final Class<T> type) {
-        return type.cast(BasicJsonMarshaller.marshaller(type).fromJsonNode(this.preProcess(node, type), this));
+        return type.cast(BasicJsonMarshaller.marshaller(type).unmarshall(this.preProcess(node, type), this));
     }
 
     /**
@@ -73,9 +73,9 @@ final class BasicFromJsonNodeContext extends BasicJsonNodeContext implements Fro
      * a {@link List} of them.
      */
     @Override
-    public <T> List<T> fromJsonNodeList(final JsonNode node,
+    public <T> List<T> unmarshallList(final JsonNode node,
                                         final Class<T> elementType) {
-        return this.fromJsonNodeCollection(node,
+        return this.unmarshallCollection(node,
                 elementType,
                 Collectors.toList());
     }
@@ -85,20 +85,20 @@ final class BasicFromJsonNodeContext extends BasicJsonNodeContext implements Fro
      * a {@link Set} of them.
      */
     @Override
-    public <T> Set<T> fromJsonNodeSet(final JsonNode node,
+    public <T> Set<T> unmarshallSet(final JsonNode node,
                                       final Class<T> elementType) {
-        return this.fromJsonNodeCollection(node,
+        return this.unmarshallCollection(node,
                 elementType,
                 Collectors.toCollection(Sets::ordered));
     }
 
-    private <C extends Collection<T>, T> C fromJsonNodeCollection(final JsonNode from,
+    private <C extends Collection<T>, T> C unmarshallCollection(final JsonNode from,
                                                                   final Class<T> elementType,
                                                                   final Collector<T, ?, C> collector) {
         final BasicJsonMarshaller<T> marshaller = BasicJsonMarshaller.marshaller(elementType);
         return from.children()
                 .stream()
-                .map(c -> marshaller.fromJsonNode(this.preProcess(c, elementType), this))
+                .map(c -> marshaller.unmarshall(this.preProcess(c, elementType), this))
                 .collect(collector);
     }
 
@@ -107,7 +107,7 @@ final class BasicFromJsonNodeContext extends BasicJsonNodeContext implements Fro
      * a {@link Map} of them.
      */
     @Override
-    public <K, V> Map<K, V> fromJsonNodeMap(final JsonNode node,
+    public <K, V> Map<K, V> unmarshallMap(final JsonNode node,
                                             final Class<K> keyType,
                                             final Class<V> valueType) {
         fromArrayCheck(node, Map.class);
@@ -121,34 +121,34 @@ final class BasicFromJsonNodeContext extends BasicJsonNodeContext implements Fro
             for (JsonNode entry : node.children()) {
                 final JsonObjectNode entryObject = entry.objectOrFail();
 
-                map.put(keyMapper.fromJsonNode(this.preProcess(entryObject.getOrFail(BasicJsonMarshallerTypedMap.ENTRY_KEY), keyType), this),
-                        valueMapper.fromJsonNode(this.preProcess(entryObject.getOrFail(BasicJsonMarshallerTypedMap.ENTRY_VALUE), valueType), this));
+                map.put(keyMapper.unmarshall(this.preProcess(entryObject.getOrFail(BasicJsonMarshallerTypedMap.ENTRY_KEY), keyType), this),
+                        valueMapper.unmarshall(this.preProcess(entryObject.getOrFail(BasicJsonMarshallerTypedMap.ENTRY_VALUE), valueType), this));
             }
             return map;
 
-        } catch (final NullPointerException | FromJsonNodeException cause) {
+        } catch (final NullPointerException | JsonNodeUnmarshallException cause) {
             throw cause;
         } catch (final RuntimeException cause) {
             throw cause;
         }
     }
 
-    // fromJsonNodeWithType.............................................................................................
+    // unmarshallWithType.............................................................................................
 
     /**
      * Assumes a wrapper object with the type and value, basically the inverse of {@link ToJsonNodeContext#toJsonNodeWithType(Object)}.
      */
     @Override
-    public <T> T fromJsonNodeWithType(final JsonNode node) {
-        return BasicFromJsonNodeContextJsonNodeVisitor.value(node, this);
+    public <T> T unmarshallWithType(final JsonNode node) {
+        return BasicJsonNodeUnmarshallContextJsonNodeVisitor.value(node, this);
     }
 
     /**
      * Assumes a {@link JsonArrayNode} holding objects tagged with type and values.
      */
     @Override
-    public <T> List<T> fromJsonNodeWithTypeList(final JsonNode node) {
-        return this.fromJsonNodeCollectionWithType(node,
+    public <T> List<T> unmarshallWithTypeList(final JsonNode node) {
+        return this.unmarshallCollectionWithType(node,
                 List.class,
                 Collectors.toList());
     }
@@ -157,18 +157,18 @@ final class BasicFromJsonNodeContext extends BasicJsonNodeContext implements Fro
      * Assumes a {@link JsonArrayNode} holding objects tagged with type and values.
      */
     @Override
-    public <T> Set<T> fromJsonNodeWithTypeSet(final JsonNode node) {
-        return this.fromJsonNodeCollectionWithType(node,
+    public <T> Set<T> unmarshallWithTypeSet(final JsonNode node) {
+        return this.unmarshallCollectionWithType(node,
                 Set.class,
                 Collectors.toCollection(Sets::ordered));
     }
 
-    private <C extends Collection<T>, T> C fromJsonNodeCollectionWithType(final JsonNode from,
+    private <C extends Collection<T>, T> C unmarshallCollectionWithType(final JsonNode from,
                                                                           final Class<?> label,
                                                                           final Collector<T, ?, C> collector) {
-        return this.fromJsonNodeCollection0(from,
+        return this.unmarshallCollection0(from,
                 label,
-                this::fromJsonNodeWithType,
+                this::unmarshallWithType,
                 collector);
     }
 
@@ -176,7 +176,7 @@ final class BasicFromJsonNodeContext extends BasicJsonNodeContext implements Fro
      * Assumes a {@link JsonArrayNode} holding entries of the {@link Map} tagged with type and values.
      */
     @Override
-    public <K, V> Map<K, V> fromJsonNodeWithTypeMap(final JsonNode node) {
+    public <K, V> Map<K, V> unmarshallWithTypeMap(final JsonNode node) {
         fromArrayCheck(node, Map.class);
 
         final Map<K, V> map = Maps.ordered();
@@ -184,8 +184,8 @@ final class BasicFromJsonNodeContext extends BasicJsonNodeContext implements Fro
         for (JsonNode child : node.children()) {
             final JsonObjectNode childObject = child.objectOrFail();
 
-            map.put(this.fromJsonNodeWithType(childObject.getOrFail(BasicJsonMarshallerTypedMap.ENTRY_KEY)),
-                    this.fromJsonNodeWithType(childObject.getOrFail(BasicJsonMarshallerTypedMap.ENTRY_VALUE)));
+            map.put(this.unmarshallWithType(childObject.getOrFail(BasicJsonMarshallerTypedMap.ENTRY_KEY)),
+                    this.unmarshallWithType(childObject.getOrFail(BasicJsonMarshallerTypedMap.ENTRY_VALUE)));
         }
 
         return map;
@@ -196,14 +196,14 @@ final class BasicFromJsonNodeContext extends BasicJsonNodeContext implements Fro
     private static void fromArrayCheck(final JsonNode node,
                                        final Class<?> label) {
         if (null != node && !node.isArray()) {
-            throw new FromJsonNodeException("Required array for " + label.getSimpleName(), node);
+            throw new JsonNodeUnmarshallException("Required array for " + label.getSimpleName(), node);
         }
     }
 
     /**
      * Turns all the children nodes into a {@link Collection}.
      */
-    private <C extends Collection<T>, T> C fromJsonNodeCollection0(final JsonNode from,
+    private <C extends Collection<T>, T> C unmarshallCollection0(final JsonNode from,
                                                                    final Class<?> label,
                                                                    final Function<JsonNode, T> element,
                                                                    final Collector<T, ?, C> collector) {

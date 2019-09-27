@@ -34,18 +34,18 @@ import java.util.Objects;
 /**
  * A {@link JsonNodeVisitor} that does the right thing for the different {@link JsonNode} types.
  */
-final class BasicFromJsonNodeContextJsonNodeVisitor extends JsonNodeVisitor {
+final class BasicJsonNodeUnmarshallContextJsonNodeVisitor extends JsonNodeVisitor {
 
     static <T> T value(final JsonNode node,
-                        final FromJsonNodeContext context) {
+                        final JsonNodeUnmarshallContext context) {
         Objects.requireNonNull(node, "node");
 
-        final BasicFromJsonNodeContextJsonNodeVisitor visitor = new BasicFromJsonNodeContextJsonNodeVisitor(context);
+        final BasicJsonNodeUnmarshallContextJsonNodeVisitor visitor = new BasicJsonNodeUnmarshallContextJsonNodeVisitor(context);
         visitor.accept(node);
         return Cast.to(visitor.value);
     }
 
-    BasicFromJsonNodeContextJsonNodeVisitor(final FromJsonNodeContext context) {
+    BasicJsonNodeUnmarshallContextJsonNodeVisitor(final JsonNodeUnmarshallContext context) {
         super();
         this.context = context;
     }
@@ -72,7 +72,7 @@ final class BasicFromJsonNodeContextJsonNodeVisitor extends JsonNodeVisitor {
 
     @Override
     protected Visiting startVisit(final JsonArrayNode node) {
-        throw new FromJsonNodeException("arrays never hold typed values", node);
+        throw new JsonNodeUnmarshallException("arrays never hold typed values", node);
     }
 
     @Override
@@ -80,21 +80,21 @@ final class BasicFromJsonNodeContextJsonNodeVisitor extends JsonNodeVisitor {
         try {
             final JsonNode type = node.getOrFail(BasicJsonNodeContext.TYPE);
             if(!type.isString()) {
-                throw new FromJsonNodeException("Invalid type", node);
+                throw new JsonNodeUnmarshallException("Invalid type", node);
             }
 
-            final FromJsonNodeContext context = this.context;
-            this.value = context.fromJsonNode(node.getOrFail(BasicJsonNodeContext.VALUE),
-                    context.registeredType(JsonStringNode.class.cast(type)).orElseThrow(()-> new FromJsonNodeException("Unknown type", node) ));
-        } catch (final NullPointerException | FromJsonNodeException cause) {
+            final JsonNodeUnmarshallContext context = this.context;
+            this.value = context.unmarshall(node.getOrFail(BasicJsonNodeContext.VALUE),
+                    context.registeredType(JsonStringNode.class.cast(type)).orElseThrow(()-> new JsonNodeUnmarshallException("Unknown type", node) ));
+        } catch (final NullPointerException | JsonNodeUnmarshallException cause) {
             throw cause;
         } catch (final RuntimeException cause) {
-            throw new FromJsonNodeException(cause.getMessage(), node, cause);
+            throw new JsonNodeUnmarshallException(cause.getMessage(), node, cause);
         }
         return Visiting.SKIP;
     }
 
-    private final FromJsonNodeContext context;
+    private final JsonNodeUnmarshallContext context;
 
     Object value;
 

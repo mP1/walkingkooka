@@ -46,8 +46,8 @@ final class BasicJsonMarshallerTypedCharacter extends BasicJsonMarshallerTyped<C
     }
 
     @Override
-    Character fromJsonNodeNonNull(final JsonNode node,
-                                  final FromJsonNodeContext context) {
+    Character unmarshallNonNull(final JsonNode node,
+                                  final JsonNodeUnmarshallContext context) {
         final String string = node.stringValueOrFail();
         final int length = string.length();
         if (1 != length) {
@@ -57,7 +57,7 @@ final class BasicJsonMarshallerTypedCharacter extends BasicJsonMarshallerTyped<C
     }
 
     @Override
-    Character fromJsonNodeNull(final FromJsonNodeContext context) {
+    Character unmarshallNull(final JsonNodeUnmarshallContext context) {
         throw new NullPointerException();
     }
 

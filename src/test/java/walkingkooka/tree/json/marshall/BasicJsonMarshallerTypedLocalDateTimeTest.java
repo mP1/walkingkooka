@@ -27,7 +27,7 @@ public final class BasicJsonMarshallerTypedLocalDateTimeTest extends BasicJsonMa
 
     @Test
     public void testFromInvalidDateFails() {
-        this.fromJsonNodeFailed(JsonNode.string("ABC123"), DateTimeParseException.class);
+        this.unmarshallFailed(JsonNode.string("ABC123"), DateTimeParseException.class);
     }
 
     @Override

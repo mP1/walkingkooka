@@ -118,7 +118,7 @@ abstract class BasicJsonMarshallerTypedExpressionNode<N extends ExpressionNode> 
     private final String name;
 
     @Override
-    final N fromJsonNodeNull(final FromJsonNodeContext context) {
+    final N unmarshallNull(final JsonNodeUnmarshallContext context) {
         return null;
     }
 }

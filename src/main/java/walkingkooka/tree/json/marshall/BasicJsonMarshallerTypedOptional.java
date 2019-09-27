@@ -56,32 +56,32 @@ final class BasicJsonMarshallerTypedOptional extends BasicJsonMarshallerTyped<Op
     }
 
     @Override
-    Optional<?> fromJsonNodeNull(final FromJsonNodeContext context) {
+    Optional<?> unmarshallNull(final JsonNodeUnmarshallContext context) {
         return null;
     }
 
     @Override
-    Optional<?> fromJsonNodeNonNull(final JsonNode node,
-                                    final FromJsonNodeContext context) {
-        return fromJsonNodeNonNull0(node.arrayOrFail(), context);
+    Optional<?> unmarshallNonNull(final JsonNode node,
+                                    final JsonNodeUnmarshallContext context) {
+        return unmarshallNonNull0(node.arrayOrFail(), context);
     }
 
-    private Optional<?> fromJsonNodeNonNull0(final JsonArrayNode array,
-                                             final FromJsonNodeContext context) {
+    private Optional<?> unmarshallNonNull0(final JsonArrayNode array,
+                                             final JsonNodeUnmarshallContext context) {
         final List<JsonNode> children = array.children();
         return children.isEmpty() ?
                 Optional.empty() :
-                this.fromJsonNodeNonNull1(children, array, context);
+                this.unmarshallNonNull1(children, array, context);
     }
 
-    private Optional<?> fromJsonNodeNonNull1(final List<JsonNode> children,
+    private Optional<?> unmarshallNonNull1(final List<JsonNode> children,
                                              final JsonNode parent,
-                                             final FromJsonNodeContext context) {
+                                             final JsonNodeUnmarshallContext context) {
         if(children.size() > 1) {
-            throw new FromJsonNodeException("Optional expected only 0/1 children but got " + children, parent);
+            throw new JsonNodeUnmarshallException("Optional expected only 0/1 children but got " + children, parent);
         }
 
-        return Optional.of(context.fromJsonNodeWithType(children.get(0)));
+        return Optional.of(context.unmarshallWithType(children.get(0)));
     }
 
     /**

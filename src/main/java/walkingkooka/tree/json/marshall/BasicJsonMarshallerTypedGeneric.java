@@ -34,7 +34,7 @@ import java.util.stream.Stream;
 final class BasicJsonMarshallerTypedGeneric<T> extends BasicJsonMarshallerTyped<T> {
 
     static <T> BasicJsonMarshallerTypedGeneric<T> with(final String typeName,
-                                                       final BiFunction<JsonNode, FromJsonNodeContext, T> from,
+                                                       final BiFunction<JsonNode, JsonNodeUnmarshallContext, T> from,
                                                        final BiFunction<T, ToJsonNodeContext, JsonNode> to,
                                                        final Class<T> type,
                                                        final Class<? extends T>... types) {
@@ -67,7 +67,7 @@ final class BasicJsonMarshallerTypedGeneric<T> extends BasicJsonMarshallerTyped<
     }
 
     private BasicJsonMarshallerTypedGeneric(final String typeName,
-                                            final BiFunction<JsonNode, FromJsonNodeContext, T> from,
+                                            final BiFunction<JsonNode, JsonNodeUnmarshallContext, T> from,
                                             final BiFunction<T, ToJsonNodeContext, JsonNode> to,
                                             final Class<T> type,
                                             final List<Class<?>> types) {
@@ -123,17 +123,17 @@ final class BasicJsonMarshallerTypedGeneric<T> extends BasicJsonMarshallerTyped<
     private final String typeName;
 
     @Override
-    T fromJsonNodeNull(final FromJsonNodeContext context) {
+    T unmarshallNull(final JsonNodeUnmarshallContext context) {
         return null;
     }
 
     @Override
-    T fromJsonNodeNonNull(final JsonNode node,
-                          final FromJsonNodeContext context) {
+    T unmarshallNonNull(final JsonNode node,
+                          final JsonNodeUnmarshallContext context) {
         return this.from.apply(node, context);
     }
 
-    private final BiFunction<JsonNode, FromJsonNodeContext, T> from;
+    private final BiFunction<JsonNode, JsonNodeUnmarshallContext, T> from;
 
     @Override
     JsonNode toJsonNodeNonNull(final T value,

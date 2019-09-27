@@ -23,28 +23,28 @@ import walkingkooka.tree.json.JsonNode;
 import java.util.Objects;
 
 /**
- * Used to report and wrap exceptions that occur during static fromJsonNode method calls.
+ * Used to report and wrap exceptions that occur during static unmarshall method calls.
  */
-public class FromJsonNodeException extends JsonNodeMapException {
+public class JsonNodeUnmarshallException extends JsonNodeMapException {
 
     private static final long serialVersionUID = 1L;
 
-    protected FromJsonNodeException() {
+    protected JsonNodeUnmarshallException() {
         super();
     }
 
-    public FromJsonNodeException(final String message, final JsonNode node) {
+    public JsonNodeUnmarshallException(final String message, final JsonNode node) {
         super(message);
         this.node = checkNode(node);
     }
 
-    public FromJsonNodeException(final String message, final JsonNode node, final Throwable cause) {
+    public JsonNodeUnmarshallException(final String message, final JsonNode node, final Throwable cause) {
         super(checkMessage(message), cause);
         this.node = checkNode(node);
     }
 
     /**
-     * Many cases simply wrap another operation in a try/catch and create a {@link FromJsonNodeException} from the message and cause.
+     * Many cases simply wrap another operation in a try/catch and create a {@link JsonNodeUnmarshallException} from the message and cause.
      * The message could be null and this must be replaced with a default message to avoid null/empty checks in {@link walkingkooka.SystemException}
      */
     private static String checkMessage(final String message) {
@@ -53,7 +53,7 @@ public class FromJsonNodeException extends JsonNodeMapException {
                 message;
     }
 
-    final static String DEFAULT_MESSAGE = "fromJsonNode failed";
+    final static String DEFAULT_MESSAGE = "unmarshall failed";
 
     private static JsonNode checkNode(final JsonNode node) {
         Objects.requireNonNull(node, "node");

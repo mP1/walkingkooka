@@ -28,33 +28,33 @@ public final class BasicJsonMarshallerTypedRoundingModeTest extends BasicJsonMar
 
     @Test
     public final void testFromBooleanFails() {
-        this.fromJsonNodeFailed(JsonNode.booleanNode(true), JsonNodeException.class);
+        this.unmarshallFailed(JsonNode.booleanNode(true), JsonNodeException.class);
     }
 
     @Test
     public final void testFromNumberFails() {
-        this.fromJsonNodeFailed(JsonNode.number(1.5), JsonNodeException.class);
+        this.unmarshallFailed(JsonNode.number(1.5), JsonNodeException.class);
     }
 
     @Test
     public final void testFromObjectFails() {
-        this.fromJsonNodeFailed(JsonNode.object(), JsonNodeException.class);
+        this.unmarshallFailed(JsonNode.object(), JsonNodeException.class);
     }
 
     @Test
     public final void testFromArrayFails() {
-        this.fromJsonNodeFailed(JsonNode.array(), JsonNodeException.class);
+        this.unmarshallFailed(JsonNode.array(), JsonNodeException.class);
     }
 
     @Test
     public final void testFromStringEmptyFails() {
-        this.fromJsonNodeFailed(JsonNode.string(""), IllegalArgumentException.class);
+        this.unmarshallFailed(JsonNode.string(""), IllegalArgumentException.class);
     }
 
     @Test
     public void testFromString() {
         Arrays.stream(RoundingMode.values())
-                .forEach(r -> this.fromJsonNodeAndCheck(JsonNode.string(r.name()), r));
+                .forEach(r -> this.unmarshallAndCheck(JsonNode.string(r.name()), r));
     }
 
     @Test

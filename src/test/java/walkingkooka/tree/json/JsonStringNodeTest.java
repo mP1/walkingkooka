@@ -123,10 +123,10 @@ public final class JsonStringNodeTest extends JsonLeafNonNullNodeTestCase<JsonSt
     List<String> propertiesNeverReturnNullSkipProperties() {
         return Lists.of(ARRAY_OR_FAIL,
                 BOOLEAN_VALUE_OR_FAIL,
-                FROM_WITH_TYPE_LIST,
-                FROM_WITH_TYPE_SET,
-                FROM_WITH_TYPE_MAP,
-                FROM_WITH_TYPE,
+                UNMARSHALL_LIST,
+                UNMARSHALL_SET,
+                UNMARSHALL_MAP,
+                UNMARSHALL,
                 NUMBER_VALUE_OR_FAIL,
                 OBJECT_OR_FAIL,
                 PARENT_OR_FAIL);

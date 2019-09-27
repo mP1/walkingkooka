@@ -102,47 +102,47 @@ public interface JsonNodeMappingTesting<V> extends Testing {
         assertEquals(Lists.empty(),
                 Arrays.stream(this.type().getMethods())
                         .filter(MethodAttributes.STATIC::is)
-                        .filter(m -> m.getName().startsWith("fromJsonNode"))
+                        .filter(m -> m.getName().startsWith("unmarshall"))
                         .collect(Collectors.toList()),
-                () -> "static fromJsonNode methods must not be public");
+                () -> "static unmarshall methods must not be public");
     }
 
     @Test
     default void testFromJsonNodeNullFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.fromJsonNode(null);
+            this.unmarshall(null);
         });
     }
 
-    default void fromJsonNodeAndCheck(final String from,
+    default void unmarshallAndCheck(final String from,
                                       final Object value) {
-        this.fromJsonNodeAndCheck(JsonNode.parse(from), value);
+        this.unmarshallAndCheck(JsonNode.parse(from), value);
     }
 
-    default void fromJsonNodeAndCheck(final JsonNode from,
+    default void unmarshallAndCheck(final JsonNode from,
                                       final Object value) {
         assertEquals(value,
-                this.fromJsonNode(from),
-                () -> "fromJsonNode failed " + from);
+                this.unmarshall(from),
+                () -> "unmarshall failed " + from);
     }
 
-    default void fromJsonNodeFails(final String from,
+    default void unmarshallFails(final String from,
                                    final Class<? extends Throwable> thrown) {
-        fromJsonNodeFails(JsonNode.parse(from), thrown);
+        unmarshallFails(JsonNode.parse(from), thrown);
     }
 
-    default void fromJsonNodeFails(final JsonNode from,
+    default void unmarshallFails(final JsonNode from,
                                    final Class<? extends Throwable> thrown) {
-        this.fromJsonNodeFails(from,
+        this.unmarshallFails(from,
                 thrown,
-                this.fromJsonNodeContext());
+                this.unmarshallContext());
     }
 
-    default void fromJsonNodeFails(final JsonNode from,
+    default void unmarshallFails(final JsonNode from,
                                    final Class<? extends Throwable> thrown,
-                                   final FromJsonNodeContext context) {
-        assertThrows(FromJsonNodeException.class, () -> {
-            context.fromJsonNode(from, this.type());
+                                   final JsonNodeUnmarshallContext context) {
+        assertThrows(JsonNodeUnmarshallException.class, () -> {
+            context.unmarshall(from, this.type());
         });
     }
 
@@ -161,7 +161,7 @@ public interface JsonNodeMappingTesting<V> extends Testing {
         final List<Object> list = Lists.of(this.createJsonNodeMappingValue());
 
         assertEquals(list,
-                this.fromJsonNodeContext().fromJsonNodeWithTypeList(this.toJsonNodeContext().toJsonNodeWithTypeList(list)),
+                this.unmarshallContext().unmarshallWithTypeList(this.toJsonNodeContext().toJsonNodeWithTypeList(list)),
                 () -> "Roundtrip to -> from -> to failed list=" + list);
     }
 
@@ -170,7 +170,7 @@ public interface JsonNodeMappingTesting<V> extends Testing {
         final Set<Object> set = Sets.of(this.createJsonNodeMappingValue());
 
         assertEquals(set,
-                this.fromJsonNodeContext().fromJsonNodeWithTypeSet(this.toJsonNodeContext().toJsonNodeWithTypeSet(set)),
+                this.unmarshallContext().unmarshallWithTypeSet(this.toJsonNodeContext().toJsonNodeWithTypeSet(set)),
                 () -> "Roundtrip to -> from -> to failed set=" + set);
     }
 
@@ -179,19 +179,19 @@ public interface JsonNodeMappingTesting<V> extends Testing {
         final Map<String, Object> map = Maps.of("key123", this.createJsonNodeMappingValue());
 
         assertEquals(map,
-                this.fromJsonNodeContext().fromJsonNodeWithTypeMap(this.toJsonNodeContext().toJsonNodeWithTypeMap(map)),
+                this.unmarshallContext().unmarshallWithTypeMap(this.toJsonNodeContext().toJsonNodeWithTypeMap(map)),
                 () -> "Roundtrip to -> from -> to failed marshall=" + map);
     }
 
-    default V fromJsonNode(final JsonNode from) {
-        return this.fromJsonNode(from, this.fromJsonNodeContext());
+    default V unmarshall(final JsonNode from) {
+        return this.unmarshall(from, this.unmarshallContext());
     }
 
     /**
      * Typically calls a static method that accepts a {@link JsonNode} and creates a {@link V object}.
      */
-    V fromJsonNode(final JsonNode from,
-                   final FromJsonNodeContext context);
+    V unmarshall(final JsonNode from,
+                   final JsonNodeUnmarshallContext context);
 
     default void toJsonNodeAndCheck(final Object value,
                                     final String json) {
@@ -221,41 +221,41 @@ public interface JsonNodeMappingTesting<V> extends Testing {
                                                   final ToJsonNodeContext context) {
         final JsonNode jsonNode = context.toJsonNode(value);
 
-        final Object fromValue = this.fromJsonNode(jsonNode);
+        final Object fromValue = this.unmarshall(jsonNode);
         final JsonNode jsonNode2 = context.toJsonNode(fromValue);
 
         assertEquals(fromValue,
-                this.fromJsonNode(jsonNode2),
+                this.unmarshall(jsonNode2),
                 () -> "Roundtrip to -> from -> to failed value=" + CharSequences.quoteIfChars(value));
     }
 
     default void toJsonNodeWithTypeRoundTripTwiceAndCheck(final Object value) {
         this.toJsonNodeWithTypeRoundTripTwiceAndCheck(value,
-                this.fromJsonNodeContext(),
+                this.unmarshallContext(),
                 this.toJsonNodeContext());
     }
 
     default void toJsonNodeWithTypeRoundTripTwiceAndCheck(final Object value,
-                                                          final FromJsonNodeContext fromContext,
+                                                          final JsonNodeUnmarshallContext fromContext,
                                                           final ToJsonNodeContext toContext) {
         final JsonNode jsonNode = toContext.toJsonNodeWithType(value);
 
-        final Object from = fromContext.fromJsonNodeWithType(jsonNode);
+        final Object from = fromContext.unmarshallWithType(jsonNode);
         final JsonNode jsonNode2 = toContext.toJsonNodeWithType(from);
 
         assertEquals(from,
-                fromContext.fromJsonNodeWithType(jsonNode2),
+                fromContext.unmarshallWithType(jsonNode2),
                 () -> "BasicJsonMarshaller roundtrip to -> from -> to failed =" + CharSequences.quoteIfChars(value));
 
         assertEquals(from,
-                fromContext.fromJsonNodeWithType(jsonNode2),
+                fromContext.unmarshallWithType(jsonNode2),
                 () -> "BasicJsonMarshaller roundtrip to -> from -> to failed =" + CharSequences.quoteIfChars(value));
     }
 
     V createJsonNodeMappingValue();
 
-    default FromJsonNodeContext fromJsonNodeContext() {
-        return FromJsonNodeContexts.basic();
+    default JsonNodeUnmarshallContext unmarshallContext() {
+        return JsonNodeUnmarshallContexts.basic();
     }
 
     default ToJsonNodeContext toJsonNodeContext() {

@@ -26,7 +26,7 @@ import walkingkooka.type.JavaVisibility;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicFromJsonNodeContextJsonNodeVisitorTest implements JsonNodeVisitorTesting<BasicFromJsonNodeContextJsonNodeVisitor> {
+public final class BasicJsonNodeUnmarshallContextJsonNodeVisitorTest implements JsonNodeVisitorTesting<BasicJsonNodeUnmarshallContextJsonNodeVisitor> {
 
     @AfterEach
     public void afterEach() {
@@ -36,14 +36,14 @@ public final class BasicFromJsonNodeContextJsonNodeVisitorTest implements JsonNo
     @Test
     public void testNullFails() {
         assertThrows(NullPointerException.class, () -> {
-            BasicFromJsonNodeContextJsonNodeVisitor.value(null, this.context());
+            BasicJsonNodeUnmarshallContextJsonNodeVisitor.value(null, this.context());
         });
     }
 
     @Test
     public void testArrayFails() {
-        assertThrows(FromJsonNodeException.class, () -> {
-            BasicFromJsonNodeContextJsonNodeVisitor.value(JsonNode.array(), this.context());
+        assertThrows(JsonNodeUnmarshallException.class, () -> {
+            BasicJsonNodeUnmarshallContextJsonNodeVisitor.value(JsonNode.array(), this.context());
         });
     }
 
@@ -85,29 +85,29 @@ public final class BasicFromJsonNodeContextJsonNodeVisitorTest implements JsonNo
     private void valueAndCheck(final JsonNode node,
                                final Object expected) {
         assertEquals(expected,
-                BasicFromJsonNodeContextJsonNodeVisitor.value(node, this.context()),
+                BasicJsonNodeUnmarshallContextJsonNodeVisitor.value(node, this.context()),
                 () -> "value " + node);
     }
 
     @Test
     public void testToString() {
-        final BasicFromJsonNodeContextJsonNodeVisitor visitor = new BasicFromJsonNodeContextJsonNodeVisitor(this.context());
+        final BasicJsonNodeUnmarshallContextJsonNodeVisitor visitor = new BasicJsonNodeUnmarshallContextJsonNodeVisitor(this.context());
         visitor.accept(JsonNode.number(12.5));
         this.toStringAndCheck(visitor, String.valueOf(12.5));
     }
 
     @Override
-    public BasicFromJsonNodeContextJsonNodeVisitor createVisitor() {
-        return new BasicFromJsonNodeContextJsonNodeVisitor(this.context());
+    public BasicJsonNodeUnmarshallContextJsonNodeVisitor createVisitor() {
+        return new BasicJsonNodeUnmarshallContextJsonNodeVisitor(this.context());
     }
 
-    private FromJsonNodeContext context() {
-        return BasicFromJsonNodeContext.INSTANCE;
+    private JsonNodeUnmarshallContext context() {
+        return BasicJsonNodeUnmarshallContext.INSTANCE;
     }
 
     @Override
-    public Class<BasicFromJsonNodeContextJsonNodeVisitor> type() {
-        return BasicFromJsonNodeContextJsonNodeVisitor.class;
+    public Class<BasicJsonNodeUnmarshallContextJsonNodeVisitor> type() {
+        return BasicJsonNodeUnmarshallContextJsonNodeVisitor.class;
     }
 
     @Override
@@ -117,6 +117,6 @@ public final class BasicFromJsonNodeContextJsonNodeVisitorTest implements JsonNo
 
     @Override
     public String typeNamePrefix() {
-        return BasicFromJsonNodeContext.class.getSimpleName();
+        return BasicJsonNodeUnmarshallContext.class.getSimpleName();
     }
 }

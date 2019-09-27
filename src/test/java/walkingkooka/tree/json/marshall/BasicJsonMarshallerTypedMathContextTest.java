@@ -28,57 +28,57 @@ public final class BasicJsonMarshallerTypedMathContextTest extends BasicJsonMars
 
     @Test
     public final void testFromBooleanFails() {
-        this.fromJsonNodeFailed(JsonNode.booleanNode(true), JsonNodeException.class);
+        this.unmarshallFailed(JsonNode.booleanNode(true), JsonNodeException.class);
     }
 
     @Test
     public final void testFromNumberFails() {
-        this.fromJsonNodeFailed(JsonNode.number(1.5), JsonNodeException.class);
+        this.unmarshallFailed(JsonNode.number(1.5), JsonNodeException.class);
     }
 
     @Test
     public final void testFromObjectFails() {
-        this.fromJsonNodeFailed(JsonNode.object(), JsonNodeException.class);
+        this.unmarshallFailed(JsonNode.object(), JsonNodeException.class);
     }
 
     @Test
     public final void testFromArrayFails() {
-        this.fromJsonNodeFailed(JsonNode.array(), JsonNodeException.class);
+        this.unmarshallFailed(JsonNode.array(), JsonNodeException.class);
     }
 
     @Test
     public final void testFromStringEmptyFails() {
-        this.fromJsonNodeFailed(JsonNode.string(""), IllegalArgumentException.class);
+        this.unmarshallFailed(JsonNode.string(""), IllegalArgumentException.class);
     }
 
     @Test
     public final void testFromStringEmptyPrecisionFails() {
-        this.fromJsonNodeFailed(JsonNode.string(",DECIMAL32"), IllegalArgumentException.class);
+        this.unmarshallFailed(JsonNode.string(",DECIMAL32"), IllegalArgumentException.class);
     }
 
     @Test
     public final void testFromStringInvalidPrecisionNumberFails() {
-        this.fromJsonNodeFailed(JsonNode.string("X,DECIMAL32"), IllegalArgumentException.class);
+        this.unmarshallFailed(JsonNode.string("X,DECIMAL32"), IllegalArgumentException.class);
     }
 
     @Test
     public final void testFromStringEmptyRoundingModeFails() {
-        this.fromJsonNodeFailed(JsonNode.string("9,"), IllegalArgumentException.class);
+        this.unmarshallFailed(JsonNode.string("9,"), IllegalArgumentException.class);
     }
 
     @Test
     public final void testFromStringUnknownRoundingModeFails() {
-        this.fromJsonNodeFailed(JsonNode.string("9,?UNKNOWN?"), IllegalArgumentException.class);
+        this.unmarshallFailed(JsonNode.string("9,?UNKNOWN?"), IllegalArgumentException.class);
     }
 
     @Test
     public final void testFromStringInvalidPrecisionFails() {
-        this.fromJsonNodeFailed(JsonNode.string("-9,DECIMAL32"), IllegalArgumentException.class);
+        this.unmarshallFailed(JsonNode.string("-9,DECIMAL32"), IllegalArgumentException.class);
     }
 
     @Test
     public void testFromDecimal32() {
-        this.fromJsonNodeAndCheck(JsonNode.string("DECIMAL32"), MathContext.DECIMAL32);
+        this.unmarshallAndCheck(JsonNode.string("DECIMAL32"), MathContext.DECIMAL32);
     }
 
     @Test
@@ -88,7 +88,7 @@ public final class BasicJsonMarshallerTypedMathContextTest extends BasicJsonMars
 
     @Test
     public void testFromDecimal64() {
-        this.fromJsonNodeAndCheck(JsonNode.string("DECIMAL64"), MathContext.DECIMAL64);
+        this.unmarshallAndCheck(JsonNode.string("DECIMAL64"), MathContext.DECIMAL64);
     }
 
     @Test
@@ -98,7 +98,7 @@ public final class BasicJsonMarshallerTypedMathContextTest extends BasicJsonMars
 
     @Test
     public void testFromDecimal128() {
-        this.fromJsonNodeAndCheck(JsonNode.string("DECIMAL128"), MathContext.DECIMAL128);
+        this.unmarshallAndCheck(JsonNode.string("DECIMAL128"), MathContext.DECIMAL128);
     }
 
     @Test
@@ -108,7 +108,7 @@ public final class BasicJsonMarshallerTypedMathContextTest extends BasicJsonMars
 
     @Test
     public void testFromUnlimited() {
-        this.fromJsonNodeAndCheck(JsonNode.string("UNLIMITED"), MathContext.UNLIMITED);
+        this.unmarshallAndCheck(JsonNode.string("UNLIMITED"), MathContext.UNLIMITED);
     }
 
     @Test

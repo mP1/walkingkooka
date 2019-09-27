@@ -26,57 +26,57 @@ import java.util.Set;
 import java.util.function.BiFunction;
 
 /**
- * A fake {@link FromJsonNodeContext}
+ * A fake {@link JsonNodeUnmarshallContext}
  */
-public class FakeFromJsonNodeContext extends FakeJsonNodeContext implements FromJsonNodeContext {
+public class FakeJsonNodeUnmarshallContext extends FakeJsonNodeContext implements JsonNodeUnmarshallContext {
 
     @Override
-    public FromJsonNodeContext setObjectPreProcessor(final BiFunction<JsonObjectNode, Class<?>, JsonObjectNode> processor) {
+    public JsonNodeUnmarshallContext setObjectPreProcessor(final BiFunction<JsonObjectNode, Class<?>, JsonObjectNode> processor) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <T> T fromJsonNode(final JsonNode node,
+    public <T> T unmarshall(final JsonNode node,
                               final Class<T> type) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <T> List<T> fromJsonNodeList(final JsonNode node,
+    public <T> List<T> unmarshallList(final JsonNode node,
                                         final Class<T> elementType) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <T> Set<T> fromJsonNodeSet(final JsonNode node,
+    public <T> Set<T> unmarshallSet(final JsonNode node,
                                       final Class<T> elementType) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <K, V> Map<K, V> fromJsonNodeMap(final JsonNode node,
+    public <K, V> Map<K, V> unmarshallMap(final JsonNode node,
                                             final Class<K> keyType,
                                             final Class<V> valueType) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <T> T fromJsonNodeWithType(final JsonNode node) {
+    public <T> T unmarshallWithType(final JsonNode node) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <T> List<T> fromJsonNodeWithTypeList(final JsonNode node) {
+    public <T> List<T> unmarshallWithTypeList(final JsonNode node) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <T> Set<T> fromJsonNodeWithTypeSet(final JsonNode node) {
+    public <T> Set<T> unmarshallWithTypeSet(final JsonNode node) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <K, V> Map<K, V> fromJsonNodeWithTypeMap(final JsonNode node) {
+    public <K, V> Map<K, V> unmarshallWithTypeMap(final JsonNode node) {
         throw new UnsupportedOperationException();
     }
 }

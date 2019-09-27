@@ -46,14 +46,14 @@ final class BasicJsonMarshallerTypedNumberLong extends BasicJsonMarshallerTyped<
     }
 
     @Override
-    Long fromJsonNodeNonNull(final JsonNode node,
-                             final FromJsonNodeContext context) {
+    Long unmarshallNonNull(final JsonNode node,
+                             final JsonNodeUnmarshallContext context) {
         return node.isNumber() ?
-                this.fromJsonNodeNumber(node.numberValueOrFail()) :
-                this.fromJsonNodeString(node);
+                this.unmarshallNumber(node.numberValueOrFail()) :
+                this.unmarshallString(node);
     }
 
-    private Long fromJsonNodeNumber(final Number number) {
+    private Long unmarshallNumber(final Number number) {
         final double doubleValue = number.doubleValue();
         final long longValue = number.longValue();
         if (doubleValue != longValue) {
@@ -62,13 +62,13 @@ final class BasicJsonMarshallerTypedNumberLong extends BasicJsonMarshallerTyped<
         return Long.valueOf(longValue);
     }
 
-    private Long fromJsonNodeString(final JsonNode node) {
+    private Long unmarshallString(final JsonNode node) {
         final String text = node.stringValueOrFail();
         return Long.parseLong(text);
     }
 
     @Override
-    Long fromJsonNodeNull(final FromJsonNodeContext context) {
+    Long unmarshallNull(final JsonNodeUnmarshallContext context) {
         return null;
     }
 
