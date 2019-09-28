@@ -17,13 +17,14 @@
 
 package walkingkooka.tree.pointer;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import walkingkooka.naming.StringName;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.TestNode;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.Optional;
@@ -31,7 +32,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class NodePointerTestCase<N extends NodePointer<JsonNode, JsonNodeName>> implements ClassTesting2<N>,
+public abstract class NodePointerTestCase<N extends NodePointer<TestNode, StringName>> implements ClassTesting2<N>,
         HashCodeEqualsDefinedTesting2<N>,
         ToStringTesting<N>,
         TypeNameTesting<N> {
@@ -40,23 +41,28 @@ public abstract class NodePointerTestCase<N extends NodePointer<JsonNode, JsonNo
         super();
     }
 
-    // add.......................................................................
+    @BeforeEach
+    public final void beforeEach() {
+        TestNode.clear();
+    }
+
+    // add...............................................................................................................
 
     @Test
     public final void testAddNullNodeFail() {
         assertThrows(NullPointerException.class, () -> {
-            this.createNodePointer().add(null, JsonNode.number(1));
+            this.createNodePointer().add(null, TestNode.with("ignore"));
         });
     }
 
     @Test
     public final void testAddNullAddNodeFail() {
         assertThrows(NullPointerException.class, () -> {
-            this.createNodePointer().add(JsonNode.object(), null);
+            this.createNodePointer().add(TestNode.with("ignore"), null);
         });
     }
 
-    // remove.......................................................................
+    // remove...........................................................................................................
 
     @Test
     public final void testRemoveNullNodeFail() {
@@ -65,15 +71,15 @@ public abstract class NodePointerTestCase<N extends NodePointer<JsonNode, JsonNo
         });
     }
 
-    // next.......................................................................
+    // next.............................................................................................................
 
     @Test
     public final void testNextMissing() {
         this.nextAndCheck(this.createNodePointer(), null);
     }
 
-    final void nextAndCheck(final NodePointer<JsonNode, JsonNodeName> pointer,
-                            final NodePointer<JsonNode, JsonNodeName> next) {
+    final void nextAndCheck(final NodePointer<TestNode, StringName> pointer,
+                            final NodePointer<TestNode, StringName> next) {
         assertEquals(Optional.ofNullable(next),
                 pointer.next(),
                 () -> " next of " + pointer);
@@ -86,46 +92,46 @@ public abstract class NodePointerTestCase<N extends NodePointer<JsonNode, JsonNo
         return this.createNodePointer();
     }
 
-    final void addAndCheck(final NodePointer<JsonNode, JsonNodeName> pointer,
-                           final JsonNode base,
-                           final JsonNode add,
-                           final JsonNode result) {
+    final void addAndCheck(final NodePointer<TestNode, StringName> pointer,
+                           final TestNode base,
+                           final TestNode add,
+                           final TestNode result) {
         assertEquals(result,
                 pointer.add(base, add),
                 () -> pointer + " add to " + base + ", " + add);
     }
 
-    final void addAndFail(final NodePointer<JsonNode, JsonNodeName> pointer,
-                          final JsonNode base,
-                          final JsonNode add) {
+    final void addAndFail(final NodePointer<TestNode, StringName> pointer,
+                          final TestNode base,
+                          final TestNode add) {
         assertThrows(NodePointerException.class, () -> {
             pointer.add(base, add);
         });
     }
 
-    final void removeAndCheck(final NodePointer<JsonNode, JsonNodeName> pointer,
-                              final JsonNode node,
-                              final JsonNode result) {
+    final void removeAndCheck(final NodePointer<TestNode, StringName> pointer,
+                              final TestNode node,
+                              final TestNode result) {
         assertEquals(result,
                 pointer.remove(node),
                 () -> pointer + " remove from " + node);
     }
 
-    final void removeAndFail(final NodePointer<JsonNode, JsonNodeName> pointer,
-                             final JsonNode node) {
+    final void removeAndFail(final NodePointer<TestNode, StringName> pointer,
+                             final TestNode node) {
         assertThrows(NodePointerException.class, () -> {
             pointer.remove(node);
         });
     }
 
-    // ClassTesting...........................................................................
+    // ClassTesting......................................................................................................
 
     @Override
     public final JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
     }
 
-    // TypeNameTesting.......................................................................
+    // TypeNameTesting..................................................................................................
 
     @Override
     public final String typeNamePrefix() {

@@ -18,10 +18,10 @@
 package walkingkooka.tree.pointer;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.naming.StringName;
+import walkingkooka.tree.TestNode;
 
-public abstract class NodePointerTestCase2<N extends NodePointer<JsonNode, JsonNodeName>> extends NodePointerTestCase<N> {
+public abstract class NodePointerTestCase2<N extends NodePointer<TestNode, StringName>> extends NodePointerTestCase<N> {
 
     NodePointerTestCase2() {
         super();
@@ -33,23 +33,23 @@ public abstract class NodePointerTestCase2<N extends NodePointer<JsonNode, JsonN
                 AppendNodePointer.create());
     }
 
-    // equals ....................................................................................
+    // equals ..........................................................................................................
 
     @Test
     public final void testEqualsDifferentNext() {
-        this.checkNotEquals(this.createObject().appendToLast(NodePointer.indexed(0, JsonNode.class)),
-                this.createObject().appendToLast(NodePointer.indexed(99, JsonNode.class)));
+        this.checkNotEquals(this.createObject().appendToLast(NodePointer.indexed(0, TestNode.class)),
+                this.createObject().appendToLast(NodePointer.indexed(99, TestNode.class)));
     }
 
     @Test
     public final void testEqualsDifferentNext2() {
         this.checkNotEquals(this.createObject(),
-                this.createObject().appendToLast(NodePointer.indexed(99, JsonNode.class)));
+                this.createObject().appendToLast(NodePointer.indexed(99, TestNode.class)));
     }
 
     @Test
     public final void testEqualsNext2() {
-        final NodePointer<JsonNode, JsonNodeName> next = NodePointer.indexed(99, JsonNode.class);
+        final NodePointer<TestNode, StringName> next = NodePointer.indexed(99, TestNode.class);
 
         this.checkEqualsAndHashCode(this.createObject().appendToLast(next),
                 this.createObject().appendToLast(next));

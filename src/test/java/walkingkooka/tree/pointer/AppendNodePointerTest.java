@@ -19,15 +19,15 @@ package walkingkooka.tree.pointer;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.tree.json.JsonArrayNode;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.naming.Names;
+import walkingkooka.naming.StringName;
+import walkingkooka.tree.TestNode;
 import walkingkooka.visit.Visiting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class AppendNodePointerTest extends NodePointerTestCase<AppendNodePointer<JsonNode, JsonNodeName>> {
+public final class AppendNodePointerTest extends NodePointerTestCase<AppendNodePointer<TestNode, StringName>> {
 
     @Test
     public void testAppendIndexedFails() {
@@ -39,7 +39,7 @@ public final class AppendNodePointerTest extends NodePointerTestCase<AppendNodeP
     @Test
     public void testAppendNamedFails() {
         assertThrows(UnsupportedOperationException.class, () -> {
-            this.createNodePointer().named(JsonNodeName.with("fail!"));
+            this.createNodePointer().named(Names.string("fail!"));
         });
     }
 
@@ -52,8 +52,8 @@ public final class AppendNodePointerTest extends NodePointerTestCase<AppendNodeP
 
     @Test
     public void testAdd() {
-        final JsonArrayNode array = JsonNode.array();
-        final JsonNode add = JsonNode.string("add");
+        final TestNode array = TestNode.with("empty");
+        final TestNode add = TestNode.with("add");
 
         this.addAndCheck(this.createNodePointer(),
                 array,
@@ -63,9 +63,9 @@ public final class AppendNodePointerTest extends NodePointerTestCase<AppendNodeP
 
     @Test
     public void testAdd2() {
-        final JsonArrayNode array = JsonNode.array()
-                .appendChild(JsonNode.string("a1"));
-        final JsonNode add = JsonNode.string("add");
+        final TestNode array = TestNode.with("root")
+                .appendChild(TestNode.with("a1"));
+        final TestNode add = TestNode.with("add");
 
         this.addAndCheck(this.createNodePointer(),
                 array,
@@ -76,19 +76,19 @@ public final class AppendNodePointerTest extends NodePointerTestCase<AppendNodeP
     @Test
     public void testRemoveFails() {
         assertThrows(UnsupportedOperationException.class, () -> {
-            this.createNodePointer().remove(JsonNode.object());
+            this.createNodePointer().remove(TestNode.with("remove"));
         });
     }
 
     @Test
     public void testToStringElementAppend() {
-        final NodePointer<JsonNode, JsonNodeName> element = NodePointer.named(JsonNodeName.with("abc"), JsonNode.class);
+        final NodePointer<TestNode, StringName> element = NodePointer.named(Names.string("abc"), TestNode.class);
         this.toStringAndCheck(element.append(), "/abc/-");
     }
 
     @Test
     public void testToStringArrayAppend() {
-        final NodePointer<JsonNode, JsonNodeName> array = NodePointer.indexed(123, JsonNode.class);
+        final NodePointer<TestNode, StringName> array = NodePointer.indexed(123, TestNode.class);
         this.toStringAndCheck(array.append(), "/123/-");
     }
 
@@ -101,20 +101,20 @@ public final class AppendNodePointerTest extends NodePointerTestCase<AppendNodeP
     public void testVisitor() {
         final StringBuilder b = new StringBuilder();
 
-        new FakeNodePointerVisitor<JsonNode, JsonNodeName>() {
+        new FakeNodePointerVisitor<TestNode, StringName>() {
             @Override
-            protected Visiting startVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+            protected Visiting startVisit(final NodePointer<TestNode, StringName> node) {
                 b.append("1");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+            protected void endVisit(final NodePointer<TestNode, StringName> node) {
                 b.append("2");
             }
 
             @Override
-            protected void visit(final AppendNodePointer<JsonNode, JsonNodeName> node) {
+            protected void visit(final AppendNodePointer<TestNode, StringName> node) {
                 b.append("3");
             }
 
@@ -124,12 +124,12 @@ public final class AppendNodePointerTest extends NodePointerTestCase<AppendNodeP
     }
 
     @Override
-    AppendNodePointer<JsonNode, JsonNodeName> createNodePointer() {
+    AppendNodePointer<TestNode, StringName> createNodePointer() {
         return AppendNodePointer.create();
     }
 
     @Override
-    public Class<AppendNodePointer<JsonNode, JsonNodeName>> type() {
+    public Class<AppendNodePointer<TestNode, StringName>> type() {
         return Cast.to(AppendNodePointer.class);
     }
 }

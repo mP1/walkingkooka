@@ -19,18 +19,19 @@ package walkingkooka.tree.pointer;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.tree.json.JsonArrayNode;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.naming.StringName;
+import walkingkooka.tree.TestNode;
 import walkingkooka.visit.Visiting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class RelativeNodePointerTest extends NodePointerTestCase2<RelativeNodePointer<JsonNode, JsonNodeName>> {
+public final class RelativeNodePointerTest extends NodePointerTestCase2<RelativeNodePointer<TestNode, StringName>> {
 
     private final static boolean NO_HASH = false;
     private final static boolean HASH = !NO_HASH;
+
+    // with.............................................................................................................
 
     @Test
     public void testWithNegativeIndexFails() {
@@ -41,50 +42,56 @@ public final class RelativeNodePointerTest extends NodePointerTestCase2<Relative
 
     @Test
     public void testWithZero() {
-        this.createAndCheck(0);
+        this.withAndCheck(0);
     }
 
     @Test
     public void testWith() {
-        this.createAndCheck(1);
+        this.withAndCheck(1);
     }
 
     @Test
     public void testWith2() {
-        this.createAndCheck(10);
+        this.withAndCheck(10);
     }
 
-    private void createAndCheck(final int ancestorCount) {
-        final RelativeNodePointer<JsonNode, JsonNodeName> pointer = RelativeNodePointer.with(ancestorCount, NO_HASH);
+    private void withAndCheck(final int ancestorCount) {
+        final RelativeNodePointer<TestNode, StringName> pointer = RelativeNodePointer.with(ancestorCount, NO_HASH);
         assertEquals(ancestorCount, pointer.ancestorCount, "ancestorCount");
     }
 
+    // add..............................................................................................................
+
     @Test
     public void testAdd() {
-        final JsonNode value = JsonNode.string("added");
+        final TestNode value = TestNode.with("added");
 
-        final JsonArrayNode start = JsonNode.array()
-                .appendChild(JsonNode.string("first"))
-                .appendChild(JsonNode.string("replaced"));
+        final TestNode root = TestNode.with("root")
+                .appendChild(TestNode.with("first"))
+                .appendChild(TestNode.with("replaced"));
 
-        this.addAndCheck(NodePointer.relative(0, JsonNode.class)
+        this.addAndCheck(NodePointer.relative(0, TestNode.class)
                         .appendToLast(IndexedChildNodePointer.with(1)),
-                start,
+                root,
                 value,
-                start.set(1, value));
+                root.setChild(1, value));
     }
+
+    // remove...........................................................................................................
 
     @Test
     public void testRemove() {
-        final JsonArrayNode start = JsonNode.array()
-                .appendChild(JsonNode.string("first"))
-                .appendChild(JsonNode.string("removed"));
+        final TestNode start = TestNode.with("object")
+                .appendChild(TestNode.with("first"))
+                .appendChild(TestNode.with("removed"));
 
-        this.removeAndCheck(NodePointer.relative(0, JsonNode.class)
+        this.removeAndCheck(NodePointer.relative(0, TestNode.class)
                         .appendToLast(IndexedChildNodePointer.with(1)),
                 start,
-                start.remove(1));
+                start.removeChild(1));
     }
+
+    // equals...........................................................................................................
 
     @Test
     public final void testEqualsAncestor() {
@@ -95,6 +102,8 @@ public final class RelativeNodePointerTest extends NodePointerTestCase2<Relative
     public final void testEqualsHash() {
         this.checkNotEquals(RelativeNodePointer.with(1, !NO_HASH));
     }
+
+    // toString.........................................................................................................
 
     @Test
     public void testToString() {
@@ -111,30 +120,32 @@ public final class RelativeNodePointerTest extends NodePointerTestCase2<Relative
         this.toStringAndCheck(RelativeNodePointer.with(1, NO_HASH), "1");
     }
 
+    // visitor..........................................................................................................
+
     @Test
     public void testVisitor() {
         final StringBuilder b = new StringBuilder();
 
-        new FakeNodePointerVisitor<JsonNode, JsonNodeName>() {
+        new FakeNodePointerVisitor<TestNode, StringName>() {
             @Override
-            protected Visiting startVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+            protected Visiting startVisit(final NodePointer<TestNode, StringName> node) {
                 b.append("1");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+            protected void endVisit(final NodePointer<TestNode, StringName> node) {
                 b.append("2");
             }
 
             @Override
-            protected Visiting startVisit(final RelativeNodePointer<JsonNode, JsonNodeName> node) {
+            protected Visiting startVisit(final RelativeNodePointer<TestNode, StringName> node) {
                 b.append("3");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final RelativeNodePointer<JsonNode, JsonNodeName> node) {
+            protected void endVisit(final RelativeNodePointer<TestNode, StringName> node) {
                 b.append("4");
             }
 
@@ -147,31 +158,31 @@ public final class RelativeNodePointerTest extends NodePointerTestCase2<Relative
     public void testVisitorWithNext() {
         final StringBuilder b = new StringBuilder();
 
-        new FakeNodePointerVisitor<JsonNode, JsonNodeName>() {
+        new FakeNodePointerVisitor<TestNode, StringName>() {
             @Override
-            protected Visiting startVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+            protected Visiting startVisit(final NodePointer<TestNode, StringName> node) {
                 b.append("1");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+            protected void endVisit(final NodePointer<TestNode, StringName> node) {
                 b.append("2");
             }
 
             @Override
-            protected void visit(final AppendNodePointer<JsonNode, JsonNodeName> node) {
+            protected void visit(final AppendNodePointer<TestNode, StringName> node) {
                 b.append("3");
             }
 
             @Override
-            protected Visiting startVisit(final RelativeNodePointer<JsonNode, JsonNodeName> node) {
+            protected Visiting startVisit(final RelativeNodePointer<TestNode, StringName> node) {
                 b.append("4");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final RelativeNodePointer<JsonNode, JsonNodeName> node) {
+            protected void endVisit(final RelativeNodePointer<TestNode, StringName> node) {
                 b.append("6");
             }
 
@@ -184,26 +195,26 @@ public final class RelativeNodePointerTest extends NodePointerTestCase2<Relative
     public void testVisitorWithNextSkipped() {
         final StringBuilder b = new StringBuilder();
 
-        new FakeNodePointerVisitor<JsonNode, JsonNodeName>() {
+        new FakeNodePointerVisitor<TestNode, StringName>() {
             @Override
-            protected Visiting startVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+            protected Visiting startVisit(final NodePointer<TestNode, StringName> node) {
                 b.append("1");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+            protected void endVisit(final NodePointer<TestNode, StringName> node) {
                 b.append("2");
             }
 
             @Override
-            protected Visiting startVisit(final RelativeNodePointer<JsonNode, JsonNodeName> node) {
+            protected Visiting startVisit(final RelativeNodePointer<TestNode, StringName> node) {
                 b.append("4");
                 return Visiting.SKIP;
             }
 
             @Override
-            protected void endVisit(final RelativeNodePointer<JsonNode, JsonNodeName> node) {
+            protected void endVisit(final RelativeNodePointer<TestNode, StringName> node) {
                 b.append("5");
             }
 
@@ -212,13 +223,15 @@ public final class RelativeNodePointerTest extends NodePointerTestCase2<Relative
         assertEquals("1452", b.toString());
     }
 
+    // helpers..........................................................................................................
+
     @Override
-    RelativeNodePointer<JsonNode, JsonNodeName> createNodePointer() {
+    RelativeNodePointer<TestNode, StringName> createNodePointer() {
         return RelativeNodePointer.with(1, false);
     }
 
     @Override
-    public Class<RelativeNodePointer<JsonNode, JsonNodeName>> type() {
+    public Class<RelativeNodePointer<TestNode, StringName>> type() {
         return Cast.to(RelativeNodePointer.class);
     }
 }

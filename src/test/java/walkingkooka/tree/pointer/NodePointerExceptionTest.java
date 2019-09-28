@@ -31,7 +31,7 @@ public final class NodePointerExceptionTest implements StandardThrowableTesting<
     public NodePointerException createThrowable(final String message, final Throwable cause) {
         return new NodePointerException(message, cause);
     }
-    
+
     @Override
     public Class<NodePointerException> type() {
         return NodePointerException.class;

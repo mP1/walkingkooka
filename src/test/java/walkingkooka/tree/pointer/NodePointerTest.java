@@ -17,16 +17,16 @@
 
 package walkingkooka.tree.pointer;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.naming.Names;
+import walkingkooka.naming.StringName;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
-import walkingkooka.tree.json.JsonArrayNode;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.TestNode;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.Optional;
@@ -38,23 +38,26 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode, JsonNodeName>>,
-        ParseStringTesting<NodePointer<JsonNode, JsonNodeName>>,
-        ToStringTesting<NodePointer<JsonNode, JsonNodeName>> {
+public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode, StringName>>,
+        ParseStringTesting<NodePointer<TestNode, StringName>>,
+        ToStringTesting<NodePointer<TestNode, StringName>> {
 
-    private final static JsonNodeName ABC = JsonNodeName.with("abc");
-    private final static JsonNodeName DEF = JsonNodeName.with("def");
-    private final static JsonNodeName GHI = JsonNodeName.with("ghi");
-    private final static JsonNodeName JKL = JsonNodeName.with("jkl");
+    private final static StringName ABC = Names.string("abc");
+    private final static StringName DEF = Names.string("def");
+    private final static StringName GHI = Names.string("ghi");
+    private final static StringName JKL = Names.string("jkl");
 
-    private final static Function<String, JsonNodeName> NAME_FACTORY = (s -> JsonNodeName.with(s));
+    private final static Function<String, StringName> NAME_FACTORY = (s -> Names.string(s));
 
-    private final static String TEXT = "text123";
+    @BeforeEach
+    public void beforeEach() {
+        TestNode.clear();
+    }
 
     @Test
     public void testIndexInvalidIndexFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            NodePointer.indexed(-1, JsonNode.class);
+            NodePointer.indexed(-1, TestNode.class);
         });
     }
 
@@ -68,7 +71,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
     @Test
     public void testIndexInvalidIndexFails2() {
         assertThrows(IllegalArgumentException.class, () -> {
-            NodePointer.indexed(0, JsonNode.class)
+            NodePointer.indexed(0, TestNode.class)
                     .indexed(-1);
         });
     }
@@ -76,7 +79,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
     @Test
     public void testNamedNullNameFails() {
         assertThrows(NullPointerException.class, () -> {
-            NodePointer.named(null, JsonNode.class);
+            NodePointer.named(null, TestNode.class);
         });
     }
 
@@ -90,7 +93,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
     @Test
     public void testNamedNullNameFails2() {
         assertThrows(NullPointerException.class, () -> {
-            NodePointer.named(ABC, JsonNode.class)
+            NodePointer.named(ABC, TestNode.class)
                     .named(null);
         });
     }
@@ -99,60 +102,60 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
 
     @Test
     public void testToStringRelative() {
-        this.toStringAndCheck(NodePointer.relative(1, JsonNode.class),
+        this.toStringAndCheck(NodePointer.relative(1, TestNode.class),
                 "1");
     }
 
     @Test
     public void testToStringRelativeHash() {
-        this.toStringAndCheck(NodePointer.relativeHash(1, JsonNode.class),
+        this.toStringAndCheck(NodePointer.relativeHash(1, TestNode.class),
                 "1#");
     }
 
     @Test
     public void testToStringRelativeIndex() {
-        this.toStringAndCheck(NodePointer.relative(1, JsonNode.class)
+        this.toStringAndCheck(NodePointer.relative(1, TestNode.class)
                         .indexed(23),
                 "1/23");
     }
 
     @Test
     public void testToStringRelativeNamed() {
-        this.toStringAndCheck(NodePointer.relative(1, JsonNode.class)
-                        .named(JsonNodeName.with("abc")),
+        this.toStringAndCheck(NodePointer.relative(1, TestNode.class)
+                        .named(Names.string("abc")),
                 "1/abc");
     }
 
     @Test
     public void testToStringRelativeHashNamed() {
-        this.toStringAndCheck(NodePointer.relativeHash(1, JsonNode.class)
-                        .named(JsonNodeName.with("abc")),
+        this.toStringAndCheck(NodePointer.relativeHash(1, TestNode.class)
+                        .named(Names.string("abc")),
                 "1/abc");
     }
 
     @Test
     public void testToStringChildIndex() {
-        this.toStringAndCheck(NodePointer.indexed(0, JsonNode.class),
+        this.toStringAndCheck(NodePointer.indexed(0, TestNode.class),
                 "/0");
     }
 
     @Test
     public void testToStringChildNamed() {
         this.toStringAndCheck("/abc",
-                NodePointer.named(ABC, JsonNode.class)
+                NodePointer.named(ABC, TestNode.class)
                         .toString());
     }
 
     @Test
     public void testToStringChildNamedChildIndex() {
-        this.toStringAndCheck(NodePointer.named(ABC, JsonNode.class)
+        this.toStringAndCheck(NodePointer.named(ABC, TestNode.class)
                         .indexed(0),
                 "/abc/0");
     }
 
     @Test
     public void testToStringChildNamedChildIndexX2() {
-        this.toStringAndCheck(NodePointer.named(ABC, JsonNode.class)
+        this.toStringAndCheck(NodePointer.named(ABC, TestNode.class)
                         .indexed(0)
                         .indexed(1),
                 "/abc/0/1");
@@ -161,7 +164,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
     @Test
     public void testToStringChildIndexChildNamedChildIndex() {
         this.toStringAndCheck("/0/abc/1",
-                NodePointer.indexed(0, JsonNode.class)
+                NodePointer.indexed(0, TestNode.class)
                         .named(ABC)
                         .indexed(1)
                         .toString());
@@ -169,14 +172,14 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
 
     @Test
     public void testToStringChildNamedChildNamed() {
-        this.toStringAndCheck(NodePointer.named(ABC, JsonNode.class)
+        this.toStringAndCheck(NodePointer.named(ABC, TestNode.class)
                         .named(DEF),
                 "/abc/def");
     }
 
     @Test
     public void testToStringChildNamedChildNamedChildNamed() {
-        this.toStringAndCheck(NodePointer.named(ABC, JsonNode.class)
+        this.toStringAndCheck(NodePointer.named(ABC, TestNode.class)
                         .named(DEF)
                         .named(GHI),
                 "/abc/def/ghi");
@@ -184,7 +187,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
 
     @Test
     public void testToStringChildNamedChildNamedChildNamedChildNamed() {
-        this.toStringAndCheck(NodePointer.named(ABC, JsonNode.class)
+        this.toStringAndCheck(NodePointer.named(ABC, TestNode.class)
                         .named(DEF)
                         .named(GHI)
                         .named(JKL),
@@ -193,250 +196,246 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
 
     @Test
     public void testToStringChildIndexChildIndexChildIndexChildIndex() {
-        this.toStringAndCheck(NodePointer.indexed(0, JsonNode.class)
+        this.toStringAndCheck(NodePointer.indexed(0, TestNode.class)
                         .indexed(1)
                         .indexed(2)
                         .indexed(3),
                 "/0/1/2/3");
     }
 
-    // traverse
+    // traverse.........................................................................................................
 
     @Test
     public void testRelativeAbsent() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.relative(1, JsonNode.class);
+        final NodePointer<TestNode, StringName> pointer = NodePointer.relative(1, TestNode.class);
         this.checkIsRelative(pointer);
 
-        final JsonNode root = JsonNode.object()
-                .set(DEF, JsonNode.string(TEXT));
+        final TestNode root = TestNode.with("root")
+                .appendChild(TestNode.with("match"));
         this.traverseFail(pointer, root);
     }
 
     @Test
     public void testRelativeSelf() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.relative(0, JsonNode.class);
+        final NodePointer<TestNode, StringName> pointer = NodePointer.relative(0, TestNode.class);
         this.checkIsRelative(pointer);
 
-        final JsonNode root = JsonNode.object()
-                .set(DEF, JsonNode.string(TEXT));
+        final TestNode root = TestNode.with("root")
+                .appendChild(TestNode.with("child"));
         this.traverseAndCheck(pointer, root, root.toString());
     }
 
     @Test
     public void testRelativeHashSelf() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.relative(0, JsonNode.class);
+        final NodePointer<TestNode, StringName> pointer = NodePointer.relative(0, TestNode.class);
         this.checkIsRelative(pointer);
 
-        final JsonNode root = JsonNode.object()
-                .set(DEF, JsonNode.string(TEXT));
+        final TestNode root = TestNode.with("root")
+                .appendChild(TestNode.with("child"));
         this.traverseAndCheck(pointer, root, root.toString());
     }
 
     @Test
     public void testRelativeParent() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.relative(1, JsonNode.class);
+        final NodePointer<TestNode, StringName> pointer = NodePointer.relative(1, TestNode.class);
         this.checkIsRelative(pointer);
 
-        final JsonObjectNode root = JsonNode.object()
-                .set(DEF, JsonNode.string(TEXT));
-        this.traverseAndCheck(pointer, root.get(DEF).get(), root.toString());
+        final TestNode root = TestNode.with("root")
+                .appendChild(TestNode.with("child"));
+        this.traverseAndCheck(pointer, root.child(0), root.toString());
     }
 
     @Test
     public void testNamedAbsent() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.named(ABC, JsonNode.class);
+        final NodePointer<TestNode, StringName> pointer = NodePointer.named(ABC, TestNode.class);
         this.checkIsAbsolute(pointer);
 
-        final JsonNode root = JsonNode.object()
-                .set(DEF, JsonNode.string(TEXT));
+        final TestNode root = TestNode.with("root")
+                .appendChild(TestNode.with("child"));
         this.traverseFail(pointer, root);
     }
 
     @Test
     public void testIndexAbsent() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.indexed(55, JsonNode.class);
+        final NodePointer<TestNode, StringName> pointer = NodePointer.indexed(55, TestNode.class);
         this.checkIsAbsolute(pointer);
 
-        final JsonNode root = JsonNode.object()
-                .set(DEF, JsonNode.string(TEXT));
+        final TestNode root = TestNode.with("root")
+                .appendChild(TestNode.with("child"));
         this.traverseFail(pointer, root);
     }
 
     @Test
     public void testIndexAbsent2() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.indexed(1, JsonNode.class);
+        final NodePointer<TestNode, StringName> pointer = NodePointer.indexed(1, TestNode.class);
         this.checkIsAbsolute(pointer);
 
-        final JsonNode root = JsonNode.object()
-                .set(ABC, JsonNode.string(TEXT));
+        final TestNode root = TestNode.with("root")
+                .appendChild(TestNode.with("child"));
         this.traverseFail(pointer, root);
     }
 
     @Test
     public void testIndex() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.indexed(0, JsonNode.class);
+        final NodePointer<TestNode, StringName> pointer = NodePointer.indexed(0, TestNode.class);
         this.checkIsAbsolute(pointer);
 
-        final JsonNode zero = JsonNode.string(TEXT);
-        final JsonNode root = JsonNode.array()
+        final TestNode zero = TestNode.with("match");
+        final TestNode root = TestNode.with("root")
                 .appendChild(zero);
         this.traverseAndCheck(pointer, root, zero.toString());
     }
 
     @Test
     public void testIndex2() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.indexed(1, JsonNode.class);
+        final NodePointer<TestNode, StringName> pointer = NodePointer.indexed(1, TestNode.class);
         this.checkIsAbsolute(pointer);
 
-        final JsonNode one = JsonNode.string(TEXT);
-        final JsonNode root = JsonNode.array()
-                .appendChild(JsonNode.string("wrong"))
+        final TestNode one = TestNode.with("match");
+        final TestNode root = TestNode.with("root")
+                .appendChild(TestNode.with("wrong"))
                 .appendChild(one);
         this.traverseAndCheck(pointer, root, one.toString());
     }
 
     @Test
     public void testNamed() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.named(ABC, JsonNode.class);
+        final NodePointer<TestNode, StringName> pointer = NodePointer.named(ABC, TestNode.class);
         this.checkIsAbsolute(pointer);
 
-        final JsonNode abc = JsonNode.string(TEXT);
-        final JsonNode root = JsonNode.object()
-                .set(ABC, abc);
+        final TestNode abc = TestNode.with("abc");
+        final TestNode root = TestNode.with("root")
+                .appendChild(abc);
         this.traverseAndCheck(pointer, root, abc.toString());
     }
 
     @Test
     public void testNamed2() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.named(DEF, JsonNode.class);
+        final NodePointer<TestNode, StringName> pointer = NodePointer.named(DEF, TestNode.class);
         this.checkIsAbsolute(pointer);
 
-        final JsonNode def = JsonNode.string(TEXT);
-        final JsonNode root = JsonNode.object()
-                .set(ABC, JsonNode.string("wrong node"))
-                .set(DEF, def);
+        final TestNode def = TestNode.with("def");
+        final TestNode root = TestNode.with("root")
+                .appendChild(TestNode.with("abc"))
+                .appendChild(def);
         this.traverseAndCheck(pointer, root, def.toString());
     }
 
     @Test
     public void testNamed3() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.named(ABC, JsonNode.class)
+        final NodePointer<TestNode, StringName> pointer = NodePointer.named(ABC, TestNode.class)
                 .named(DEF);
         this.checkIsAbsolute(pointer);
 
-        final JsonNode def = JsonNode.string(TEXT);
+        final TestNode def = TestNode.with("def");
 
-        final JsonNode root = JsonNode.object()
-                .set(ABC, JsonNode.object().set(DEF, def));
+        final TestNode root = TestNode.with("root")
+                .appendChild(TestNode.with("abc", def));
         this.traverseAndCheck(pointer, root, def.toString());
     }
 
     @Test
     public void testNamedLastAbsent() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.named(ABC, JsonNode.class)
+        final NodePointer<TestNode, StringName> pointer = NodePointer.named(ABC, TestNode.class)
                 .named(DEF)
                 .named(GHI);
         this.checkIsAbsolute(pointer);
 
-        final JsonNode def = JsonNode.string(TEXT);
-
-        final JsonNode root = JsonNode.object()
-                .set(ABC, JsonNode.object().set(DEF, def));
+        final TestNode root = TestNode.with("root")
+                .appendChild(TestNode.with("abc")
+                        .appendChild(TestNode.with("def")));
         this.traverseFail(pointer, root);
     }
 
     @Test
     public void testNamedLastAbsent2() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.named(ABC, JsonNode.class)
+        final NodePointer<TestNode, StringName> pointer = NodePointer.named(ABC, TestNode.class)
                 .named(GHI);
         this.checkIsAbsolute(pointer);
 
-        final JsonNode def = JsonNode.string(TEXT);
-
-        final JsonNode root = JsonNode.object()
-                .set(ABC, JsonNode.object().set(DEF, def));
+        final TestNode root = TestNode.with("root")
+                .appendChild(TestNode.with("abc").appendChild(TestNode.with("match")));
         this.traverseFail(pointer, root);
     }
 
     @Test
     public void testIndexLastAbsent() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.indexed(0, JsonNode.class)
+        final NodePointer<TestNode, StringName> pointer = NodePointer.indexed(0, TestNode.class)
                 .indexed(1)
                 .indexed(2);
         this.checkIsAbsolute(pointer);
 
-        final JsonNode def = JsonNode.string(TEXT);
-
-        final JsonNode root = JsonNode.array()
-                .appendChild(JsonNode.array().appendChild(JsonNode.string("wrong")).appendChild(def));
+        final TestNode root = TestNode.with("root")
+                .appendChild(TestNode.with("child")
+                        .appendChild(TestNode.with("wrong"))
+                        .appendChild(TestNode.with("def")));
         this.traverseFail(pointer, root);
     }
 
     @Test
     public void testIndexLastAbsent2() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.indexed(0, JsonNode.class)
+        final NodePointer<TestNode, StringName> pointer = NodePointer.indexed(0, TestNode.class)
                 .indexed(99);
         this.checkIsAbsolute(pointer);
 
-        final JsonNode def = JsonNode.string(TEXT);
-
-        final JsonNode root = JsonNode.object()
-                .set(ABC, JsonNode.array().appendChild(def));
+        final TestNode root = TestNode.with("root")
+                .appendChild(TestNode.with("abc")
+                        .appendChild(TestNode.with("match")));
         this.traverseFail(pointer, root);
     }
 
     @Test
     public void testNestedArray() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.indexed(0, JsonNode.class)
+        final NodePointer<TestNode, StringName> pointer = NodePointer.indexed(0, TestNode.class)
                 .indexed(1);
         this.checkIsAbsolute(pointer);
 
-        final JsonNode def = JsonNode.string(TEXT);
+        final TestNode match = TestNode.with("match1");
 
-        final JsonNode root = JsonNode.array()
-                .appendChild(JsonNode.array().appendChild(JsonNode.string("wrong")).appendChild(def));
-        this.traverseAndCheck(pointer, root, def.toString());
+        final TestNode root = TestNode.with("root")
+                .appendChild(TestNode.with("child0")
+                        .appendChild(TestNode.with("wrong"))
+                        .appendChild(match));
+        this.traverseAndCheck(pointer, root, match.toString());
     }
 
     @Test
     public void testIndexForObject() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.indexed(0, JsonNode.class);
+        final NodePointer<TestNode, StringName> pointer = NodePointer.indexed(0, TestNode.class);
         this.checkIsAbsolute(pointer);
 
-        final JsonNode def = JsonNode.string(TEXT);
+        final TestNode match = TestNode.with("match0");
 
-        final JsonNode root = JsonNode.object()
-                .set(ABC, def);
-        this.traverseAndCheck(pointer, root, def.toString());
+        final TestNode root = TestNode.with("root")
+                .appendChild(match);
+        this.traverseAndCheck(pointer, root, match.toString());
     }
 
     @Test
     public void testIndexForObject2() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.named(ABC, JsonNode.class)
+        final NodePointer<TestNode, StringName> pointer = NodePointer.named(ABC, TestNode.class)
                 .indexed(0);
         this.checkIsAbsolute(pointer);
 
-        final JsonNode def = JsonNode.string(TEXT);
+        final TestNode match = TestNode.with("name-abc-index-0");
 
-        final JsonNode root = JsonNode.object()
-                .set(ABC, JsonNode.object().set(DEF, def));
-        this.traverseAndCheck(pointer, root, def.toString());
+        final TestNode root = TestNode.with("root")
+                .appendChild(TestNode.with("abc")
+                        .appendChild(match));
+        this.traverseAndCheck(pointer, root, match.toString());
     }
 
     @Test
     public void testRelativeNestedArray() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.relative(1, JsonNode.class)
+        final NodePointer<TestNode, StringName> pointer = NodePointer.relative(1, TestNode.class)
                 .indexed(2);
         this.checkIsRelative(pointer);
 
-        final JsonNode text = JsonNode.string(TEXT);
-        final JsonNode root = JsonNode.array()
-                .appendChild(JsonNode.array().appendChild(JsonNode.string("wrong")).appendChild(JsonNode.string("wrong2")).appendChild(text));
-        final JsonArrayNode rootArray = Cast.to(JsonArrayNode.class.cast(root).get(0));
-        final JsonNode rootArrayElementOne = rootArray.get(1);
+        final TestNode text = TestNode.with("match");
+        final TestNode root = TestNode.with("root")
+                .appendChild(TestNode.with("child").appendChild(TestNode.with("wrong")).appendChild(TestNode.with("wrong2")).appendChild(text));
 
-
-        this.traverseAndCheck(pointer, rootArrayElementOne, text.toString());
+        this.traverseAndCheck(pointer, root.child(0).child(1), text.toString());
     }
 
     // parse.............................................................................................................
@@ -449,28 +448,28 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
     @Test
     public void testParseInvalidIndexFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            NodePointer.parse("/abc/-99", NAME_FACTORY, JsonNode.class);
+            NodePointer.parse("/abc/-99", NAME_FACTORY, TestNode.class);
         });
     }
 
     @Test
     public void testParseInvalidNameFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            NodePointer.parse("/abc//xyz", NAME_FACTORY, JsonNode.class);
+            NodePointer.parse("/abc//xyz", NAME_FACTORY, TestNode.class);
         });
     }
 
     @Test
     public void testParseInvalidNameFails2() {
         assertThrows(IllegalArgumentException.class, () -> {
-            NodePointer.parse("missing-leading-slash", NAME_FACTORY, JsonNode.class);
+            NodePointer.parse("missing-leading-slash", NAME_FACTORY, TestNode.class);
         });
     }
 
     @Test
     public void testParseNullNameFactoryFails() {
         assertThrows(NullPointerException.class, () -> {
-            NodePointer.parse("/valid-pointer", null, JsonNode.class);
+            NodePointer.parse("/valid-pointer", null, TestNode.class);
         });
     }
 
@@ -488,89 +487,83 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
 
     @Test
     public void testParseThenTraverseElements() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = parseString("/0/1");
+        final NodePointer<TestNode, StringName> pointer = parseString("/0/1");
 
-        final JsonNode def = JsonNode.string(TEXT);
-        final JsonNode root = JsonNode.array()
-                .appendChild(JsonNode.array().appendChild(JsonNode.string("wrong")).appendChild(def));
+        final TestNode def = TestNode.with("match");
+        final TestNode root = TestNode.with("root")
+                .appendChild(TestNode.with("child").appendChild(TestNode.with("wrong")).appendChild(def));
         this.traverseAndCheck(pointer, root, def.toString());
     }
 
     @Test
     public void testParseThenTraverseNamed() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = parseString("/abc/def");
+        final NodePointer<TestNode, StringName> pointer = parseString("/abc/def");
 
-        final JsonNode def = JsonNode.string(TEXT);
+        final TestNode def = TestNode.with("def");
 
-        final JsonNode root = JsonNode.object()
-                .set(ABC, JsonNode.object().set(DEF, def));
+        final TestNode root = TestNode.with("root")
+                .appendChild(TestNode.with("abc")
+                        .appendChild(def));
         this.traverseAndCheck(pointer, root, def.toString());
     }
 
     @Test
     public void testParseThenTraverseNamedAndIndex() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = parseString("/abc/0/def");
+        final NodePointer<TestNode, StringName> pointer = parseString("/abc/0/def");
 
-        final JsonNode def = JsonNode.string(TEXT);
+        final TestNode match = TestNode.with("def");
 
-        final JsonNode root = JsonNode.object()
-                .set(ABC, JsonNode.array()
-                        .appendChild(JsonNode.object().set(DEF, def).set(GHI, JsonNode.string("wrong!")))
-                        .appendChild(JsonNode.number(123)));
-        this.traverseAndCheck(pointer, root, def.toString());
+        final TestNode root = TestNode.with("root")
+                .appendChild(TestNode.with("abc")
+                        .appendChild(TestNode.with("abc-index-0")
+                                .appendChild(match)
+                                .appendChild(TestNode.with("ghi-wrong")))
+                        .appendChild(TestNode.with("another")));
+        this.traverseAndCheck(pointer, root, match.toString());
     }
 
     @Test
     public void testParseThenTraverseAppend() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = parseString("/abc/-");
+        final NodePointer<TestNode, StringName> pointer = parseString("/abc/-");
 
-        final JsonNode def = JsonNode.string(TEXT);
+        final TestNode match = TestNode.with("match");
 
-        final JsonNode root = JsonNode.object()
-                .set(ABC, JsonNode.object().set(DEF, def));
+        final TestNode root = TestNode.with("root")
+                .appendChild(TestNode.with("abc")
+                        .appendChild(match));
         this.traverseFail(pointer, root);
     }
 
     @Test
     public void testParseThenTraverseAppend2() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = parseString("/abc/def/-");
+        final NodePointer<TestNode, StringName> pointer = parseString("/abc/def/-");
 
-        final JsonNode def = JsonNode.string(TEXT);
+        final TestNode def = TestNode.with("def");
 
-        final JsonNode root = JsonNode.object()
-                .set(ABC, JsonNode.object().set(DEF, def));
+        final TestNode root = TestNode.with("root")
+                .appendChild(TestNode.with("abc")
+                        .appendChild(def));
         this.traverseFail(pointer, root);
     }
 
     @Test
     public void testParseTilde() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = parseString("/tilde~0");
+        final NodePointer<TestNode, StringName> pointer = parseString("/tilde~0");
 
-        final JsonNode text = JsonNode.string(TEXT);
+        final TestNode match = TestNode.with("tilde~");
 
-        final JsonNode root = JsonNode.object()
-                .set(JsonNodeName.with("tilde~"), text);
-        this.traverseAndCheck(pointer, root, text.toString());
+        final TestNode root = TestNode.with("root")
+                .appendChild(match);
+        this.traverseAndCheck(pointer, root, match.toString());
     }
 
-    @Test
-    public void testParseSlash() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = parseString("/slash~1");
-
-        final JsonNode text = JsonNode.string(TEXT);
-
-        final JsonNode root = JsonNode.object()
-                .set(JsonNodeName.with("slash/"), text);
-        this.traverseAndCheck(pointer, root, text.toString());
-    }
-
-    private void traverseAndCheck(final NodePointer<JsonNode, JsonNodeName> pointer, final JsonNode root, final String toString) {
-        final Optional<JsonNode> result = pointer.traverse(root);
+    private void traverseAndCheck(final NodePointer<TestNode, StringName> pointer, final TestNode root, final String toString) {
+        final Optional<TestNode> result = pointer.traverse(root);
         assertNotEquals(Optional.empty(), result, () -> "The pointer " + CharSequences.quote(pointer.toString()) + " should have matched a node but failed,\n" + root);
         assertEquals(toString, result.get().toString(), () -> "The pointer " + CharSequences.quote(pointer.toString()) + " should have matched the node\n" + root);
     }
 
-    private void traverseFail(final NodePointer<JsonNode, JsonNodeName> pointer, final JsonNode root) {
+    private void traverseFail(final NodePointer<TestNode, StringName> pointer, final TestNode root) {
         assertEquals(Optional.empty(), pointer.traverse(root), () -> "The pointer " + CharSequences.quote(pointer.toString()) + " should have matched nothing\n" + root);
     }
 
@@ -587,7 +580,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
     }
 
     @Override
-    public Class<NodePointer<JsonNode, JsonNodeName>> type() {
+    public Class<NodePointer<TestNode, StringName>> type() {
         return Cast.to(NodePointer.class);
     }
 
@@ -599,8 +592,8 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
     // ParseStringTesting ........................................................................................
 
     @Override
-    public NodePointer<JsonNode, JsonNodeName> parseString(final String pointer) {
-        final NodePointer<JsonNode, JsonNodeName> parsed = NodePointer.parse(pointer, NAME_FACTORY, JsonNode.class);
+    public NodePointer<TestNode, StringName> parseString(final String pointer) {
+        final NodePointer<TestNode, StringName> parsed = NodePointer.parse(pointer, NAME_FACTORY, TestNode.class);
         assertEquals(pointer,
                 parsed.toString(),
                 () -> "pointer.parse: " + CharSequences.quoteAndEscape(pointer));
