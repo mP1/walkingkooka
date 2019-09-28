@@ -19,18 +19,12 @@ package walkingkooka.tree;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.naming.Name;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ResourceTesting;
-import walkingkooka.tree.json.JsonArrayNode;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.type.JavaVisibility;
 
@@ -399,38 +393,8 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
         this.traverseAndCheck(grandChild4);
     }
 
-    @Test
-    public void testPointerJsonObjectProperty() {
-        final JsonNodeName second = JsonNodeName.with("second");
-
-        final JsonObjectNode root = JsonNode.object()
-                .set(JsonNodeName.with("first"), JsonNode.string("a1"))
-                .set(second, JsonNode.string("b2"));
-
-        this.traverseAndCheck(root.get(second).get());
-    }
-
-    @Test
-    public void testPointerJsonArrayElement() {
-        final JsonNodeName second = JsonNodeName.with("second");
-
-        final JsonObjectNode object = JsonNode.object()
-                .set(JsonNodeName.with("first"), JsonNode.string("a1"))
-                .set(second, JsonNode.string("b2"));
-
-        final JsonArrayNode root = JsonNode.array()
-                .appendChild(JsonNode.string("first-element"))
-                .appendChild(object);
-
-        final JsonObjectNode firstElement = Cast.to(root.get(1));
-        this.traverseAndCheck(firstElement.get(second).get());
-    }
-
-    private <N2 extends Node<N2, NAME2, ANAME2, AVALUE2>,
-            NAME2 extends Name,
-            ANAME2 extends Name,
-            AVALUE2> void traverseAndCheck(final N2 node) {
-        final NodePointer<N2, NAME2> pointer = node.pointer();
+    private void traverseAndCheck(final TestNode node) {
+        final NodePointer<TestNode, StringName> pointer = node.pointer();
 
         assertEquals(Optional.of(node),
                 pointer.traverse(node.root()),
