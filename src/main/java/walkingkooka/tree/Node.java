@@ -111,8 +111,7 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
 
     /**
      * Sets or replaces the child at the given index.<br>
-     * Sub classes such as {@link walkingkooka.tree.json.JsonArrayNode} may wish to support
-     * auto expanding the children list with null slots.
+     * Sub classes such as JsonArrayNode may wish to support auto expanding the children list with null slots.
      */
     default N setChild(final int index, final N child) {
         if (index < 0) {
