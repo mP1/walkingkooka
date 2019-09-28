@@ -484,305 +484,434 @@ public abstract class NodeSelectorParserToken implements ParserToken {
 
     abstract Object value();
 
+    // isXXX............................................................................................................
+
     /**
      * Only {@link NodeSelectorAbsoluteParserToken} return true
      */
-    public abstract boolean isAbsolute();
+    public final boolean isAbsolute() {
+        return this instanceof NodeSelectorAbsoluteParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorAdditionParserToken} return true
      */
-    public abstract boolean isAddition();
+    public final boolean isAddition() {
+        return this instanceof NodeSelectorAdditionParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorAncestorParserToken} return true
      */
-    public abstract boolean isAncestor();
+    public final boolean isAncestor() {
+        return this instanceof NodeSelectorAncestorParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorAncestorOrSelfParserToken} return true
      */
-    public abstract boolean isAncestorOrSelf();
+    public final boolean isAncestorOrSelf() {
+        return this instanceof NodeSelectorAncestorOrSelfParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorAndParserToken} return true
      */
-    public abstract boolean isAnd();
+    public final boolean isAnd() {
+        return this instanceof NodeSelectorAndParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorAndSymbolParserToken} return true
      */
-    public abstract boolean isAndSymbol();
+    public final boolean isAndSymbol() {
+        return this instanceof NodeSelectorAndSymbolParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorAtSignSymbolParserToken} return true
      */
-    public abstract boolean isAtSignSymbol();
+    public final boolean isAtSignSymbol() {
+        return this instanceof NodeSelectorAtSignSymbolParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorAttributeParserToken} return true
      */
-    public abstract boolean isAttribute();
+    public final boolean isAttribute() {
+        return this instanceof NodeSelectorAttributeParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorAttributeNameParserToken} return true
      */
-    public abstract boolean isAttributeName();
+    public final boolean isAttributeName() {
+        return this instanceof NodeSelectorAttributeNameParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorBracketOpenSymbolParserToken} return true
      */
-    public abstract boolean isBracketOpenSymbol();
+    public final boolean isBracketOpenSymbol() {
+        return this instanceof NodeSelectorBracketOpenSymbolParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorBracketCloseSymbolParserToken} return true
      */
-    public abstract boolean isBracketCloseSymbol();
+    public final boolean isBracketCloseSymbol() {
+        return this instanceof NodeSelectorBracketCloseSymbolParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorChildParserToken} return true
      */
-    public abstract boolean isChild();
+    public final boolean isChild() {
+        return this instanceof NodeSelectorChildParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorDescendantParserToken} return true
      */
-    public abstract boolean isDescendant();
+    public final boolean isDescendant() {
+        return this instanceof NodeSelectorDescendantParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorDescendantOrSelfParserToken} return true
      */
-    public abstract boolean isDescendantOrSelf();
+    public final boolean isDescendantOrSelf() {
+        return this instanceof NodeSelectorDescendantOrSelfParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorDivideSymbolParserToken} return true
      */
-    public abstract boolean isDivideSymbol();
+    public final boolean isDivideSymbol() {
+        return this instanceof NodeSelectorDivideSymbolParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorDivisionParserToken} return true
      */
-    public abstract boolean isDivision();
+    public final boolean isDivision() {
+        return this instanceof NodeSelectorDivisionParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorEqualsParserToken} return true
      */
-    public abstract boolean isEquals();
+    public final boolean isEquals() {
+        return this instanceof NodeSelectorEqualsParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorEqualsSymbolParserToken} return true
      */
-    public abstract boolean isEqualsSymbol();
+    public final boolean isEqualsSymbol() {
+        return this instanceof NodeSelectorEqualsSymbolParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorExpressionParserToken} return true
      */
-    public abstract boolean isExpression();
+    public final boolean isExpression() {
+        return this instanceof NodeSelectorExpressionParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorFirstChildParserToken} return true
      */
-    public abstract boolean isFirstChild();
+    public final boolean isFirstChild() {
+        return this instanceof NodeSelectorFirstChildParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorFollowingParserToken} return true
      */
-    public abstract boolean isFollowing();
+    public final boolean isFollowing() {
+        return this instanceof NodeSelectorFollowingParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorFollowingSiblingParserToken} return true
      */
-    public abstract boolean isFollowingSibling();
+    public final boolean isFollowingSibling() {
+        return this instanceof NodeSelectorFollowingSiblingParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorFunctionParserToken} return true
      */
-    public abstract boolean isFunction();
+    public final boolean isFunction() {
+        return this instanceof NodeSelectorFunctionParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorFunctionNameParserToken} return true
      */
-    public abstract boolean isFunctionName();
+    public final boolean isFunctionName() {
+        return this instanceof NodeSelectorFunctionNameParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorGreaterThanParserToken} return true
      */
-    public abstract boolean isGreaterThan();
+    public final boolean isGreaterThan() {
+        return this instanceof NodeSelectorGreaterThanParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorGreaterThanSymbolParserToken} return true
      */
-    public abstract boolean isGreaterThanSymbol();
+    public final boolean isGreaterThanSymbol() {
+        return this instanceof NodeSelectorGreaterThanSymbolParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorGreaterThanEqualsParserToken} return true
      */
-    public abstract boolean isGreaterThanEquals();
+    public final boolean isGreaterThanEquals() {
+        return this instanceof NodeSelectorGreaterThanEqualsParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorGreaterThanEqualsSymbolParserToken} return true
      */
-    public abstract boolean isGreaterThanEqualsSymbol();
+    public final boolean isGreaterThanEqualsSymbol() {
+        return this instanceof NodeSelectorGreaterThanEqualsSymbolParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorGroupParserToken} return true
      */
-    public abstract boolean isGroup();
+    public final boolean isGroup() {
+        return this instanceof NodeSelectorGroupParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorLastChildParserToken} return true
      */
-    public abstract boolean isLastChild();
+    public final boolean isLastChild() {
+        return this instanceof NodeSelectorLastChildParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorLessThanParserToken} return true
      */
-    public abstract boolean isLessThan();
+    public final boolean isLessThan() {
+        return this instanceof NodeSelectorLessThanParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorLessThanSymbolParserToken} return true
      */
-    public abstract boolean isLessThanSymbol();
+    public final boolean isLessThanSymbol() {
+        return this instanceof NodeSelectorLessThanSymbolParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorLessThanEqualsParserToken} return true
      */
-    public abstract boolean isLessThanEquals();
+    public final boolean isLessThanEquals() {
+        return this instanceof NodeSelectorLessThanEqualsParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorLessThanEqualsSymbolParserToken} return true
      */
-    public abstract boolean isLessThanEqualsSymbol();
+    public final boolean isLessThanEqualsSymbol() {
+        return this instanceof NodeSelectorLessThanEqualsSymbolParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorMinusSymbolParserToken} return true
      */
-    public abstract boolean isMinusSymbol();
+    public final boolean isMinusSymbol() {
+        return this instanceof NodeSelectorMinusSymbolParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorModuloParserToken} return true
      */
-    public abstract boolean isModulo();
+    public final boolean isModulo() {
+        return this instanceof NodeSelectorModuloParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorModuloSymbolParserToken} return true
      */
-    public abstract boolean isModuloSymbol();
+    public final boolean isModuloSymbol() {
+        return this instanceof NodeSelectorModuloSymbolParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorMultiplicationParserToken} return true
      */
-    public abstract boolean isMultiplication();
+    public final boolean isMultiplication() {
+        return this instanceof NodeSelectorMultiplicationParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorMultiplySymbolParserToken} return true
      */
-    public abstract boolean isMultiplySymbol();
+    public final boolean isMultiplySymbol() {
+        return this instanceof NodeSelectorMultiplySymbolParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorNegativeParserToken} return true
      */
-    public abstract boolean isNegative();
+    public final boolean isNegative() {
+        return this instanceof NodeSelectorNegativeParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorNodeNameParserToken} return true
      */
-    public abstract boolean isNodeName();
+    public final boolean isNodeName() {
+        return this instanceof NodeSelectorNodeNameParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorNotEqualsParserToken} return true
      */
-    public abstract boolean isNotEquals();
+    public final boolean isNotEquals() {
+        return this instanceof NodeSelectorNotEqualsParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorNotEqualsSymbolParserToken} return true
      */
-    public abstract boolean isNotEqualsSymbol();
+    public final boolean isNotEqualsSymbol() {
+        return this instanceof NodeSelectorNotEqualsSymbolParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorNumberParserToken} return true
      */
-    public abstract boolean isNumber();
+    public final boolean isNumber() {
+        return this instanceof NodeSelectorNumberParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorOrParserToken} return true
      */
-    public abstract boolean isOr();
+    public final boolean isOr() {
+        return this instanceof NodeSelectorOrParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorOrSymbolParserToken} return true
      */
-    public abstract boolean isOrSymbol();
+    public final boolean isOrSymbol() {
+        return this instanceof NodeSelectorOrSymbolParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorParameterSeparatorSymbolParserToken} return true
      */
-    public abstract boolean isParameterSeparatorSymbol();
+    public final boolean isParameterSeparatorSymbol() {
+        return this instanceof NodeSelectorParameterSeparatorSymbolParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorParenthesisOpenSymbolParserToken} return true
      */
-    public abstract boolean isParenthesisOpenSymbol();
+    public final boolean isParenthesisOpenSymbol() {
+        return this instanceof NodeSelectorParenthesisOpenSymbolParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorParenthesisCloseSymbolParserToken} return true
      */
-    public abstract boolean isParenthesisCloseSymbol();
+    public final boolean isParenthesisCloseSymbol() {
+        return this instanceof NodeSelectorParenthesisCloseSymbolParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorParentOfParserToken} return true
      */
-    public abstract boolean isParentOf();
+    public final boolean isParentOf() {
+        return this instanceof NodeSelectorParentOfParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorPlusSymbolParserToken} return true
      */
-    public abstract boolean isPlusSymbol();
+    public final boolean isPlusSymbol() {
+        return this instanceof NodeSelectorPlusSymbolParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorPrecedingParserToken} return true
      */
-    public abstract boolean isPreceding();
+    public final boolean isPreceding() {
+        return this instanceof NodeSelectorPrecedingParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorPrecedingSiblingParserToken} return true
      */
-    public abstract boolean isPrecedingSibling();
+    public final boolean isPrecedingSibling() {
+        return this instanceof NodeSelectorPrecedingSiblingParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorPredicateParserToken} return true
      */
-    public abstract boolean isPredicate();
+    public final boolean isPredicate() {
+        return this instanceof NodeSelectorPredicateParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorQuotedTextParserToken} return true
      */
-    public abstract boolean isQuotedText();
+    public final boolean isQuotedText() {
+        return this instanceof NodeSelectorQuotedTextParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorSelfParserToken} return true
      */
-    public abstract boolean isSelf();
+    public final boolean isSelf() {
+        return this instanceof NodeSelectorSelfParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorSlashSeparatorSymbolParserToken} return true
      */
-    public abstract boolean isSlashSeparatorSymbol();
+    public final boolean isSlashSeparatorSymbol() {
+        return this instanceof NodeSelectorSlashSeparatorSymbolParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorSubtractionParserToken} return true
      */
-    public abstract boolean isSubtraction();
+    public final boolean isSubtraction() {
+        return this instanceof NodeSelectorSubtractionParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorSymbolParserToken} return true
      */
-    public abstract boolean isSymbol();
+    public final boolean isSymbol() {
+        return this instanceof NodeSelectorSymbolParserToken;
+    }
+
+    /**
+     * Only {@link NodeSelectorWhitespaceParserToken} return true
+     */
+    public final boolean isWhitespace() {
+        return this instanceof NodeSelectorWhitespaceParserToken;
+    }
 
     /**
      * Only {@link NodeSelectorWildcardParserToken} return true
      */
-    public abstract boolean isWildcard();
+    public final boolean isWildcard() {
+        return this instanceof NodeSelectorWildcardParserToken;
+    }
 
     /**
      * The priority of this token, tokens with a value of zero are left in their original position.

@@ -32,49 +32,7 @@ public final class NodeSelectorBracketCloseSymbolParserToken extends NodeSelecto
         super(value, text);
     }
 
-    // is..........................................................................................................
-
-    @Override
-    public boolean isAtSignSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isBracketOpenSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isBracketCloseSymbol() {
-        return true;
-    }
-
-    @Override
-    public boolean isParameterSeparatorSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isParenthesisOpenSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isParenthesisCloseSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isSlashSeparatorSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isWhitespace() {
-        return false;
-    }
-
-    // Visitor................................................................................................
+    // Visitor..........................................................................................................
 
     @Override
     public void accept(final NodeSelectorParserTokenVisitor visitor) {

@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Represents a greater than equals sign in a comparison parser token.
  */
-public final class NodeSelectorGreaterThanEqualsSymbolParserToken extends NodeSelectorComparisonSymbolParserToken {
+public final class NodeSelectorGreaterThanEqualsSymbolParserToken extends NodeSelectorSymbolParserToken {
 
     static NodeSelectorGreaterThanEqualsSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -34,38 +34,6 @@ public final class NodeSelectorGreaterThanEqualsSymbolParserToken extends NodeSe
 
     private NodeSelectorGreaterThanEqualsSymbolParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    // is..........................................................................................................
-
-    @Override
-    public boolean isEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanEqualsSymbol() {
-        return true;
-    }
-
-    @Override
-    public boolean isLessThanSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isNotEqualsSymbol() {
-        return false;
     }
 
     // operator priority................................................................................................

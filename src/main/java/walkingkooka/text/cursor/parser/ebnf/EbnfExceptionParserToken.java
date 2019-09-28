@@ -57,53 +57,6 @@ public final class EbnfExceptionParserToken extends EbnfParentParserToken<EbnfEx
 
     private final EbnfParserToken exception;
 
-    // isXXX............................................................................................................
-
-    @Override
-    public boolean isAlternative() {
-        return false;
-    }
-
-    @Override
-    public boolean isConcatenation() {
-        return false;
-    }
-
-    @Override
-    public boolean isException() {
-        return true;
-    }
-
-    @Override
-    public boolean isGrammar() {
-        return false;
-    }
-
-    @Override
-    public boolean isGroup() {
-        return false;
-    }
-
-    @Override
-    public boolean isOptional() {
-        return false;
-    }
-
-    @Override
-    public boolean isRange() {
-        return false;
-    }
-
-    @Override
-    public boolean isRepeated() {
-        return false;
-    }
-
-    @Override
-    public boolean isRule() {
-        return false;
-    }
-
     // EbnfParserTokenVisitor............................................................................................
 
     @Override

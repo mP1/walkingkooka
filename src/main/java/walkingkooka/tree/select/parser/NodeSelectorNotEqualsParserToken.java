@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Parser token that represents an not equals condition including parameters.
  */
-public final class NodeSelectorNotEqualsParserToken extends NodeSelectorComparisonParserToken<NodeSelectorNotEqualsParserToken> {
+public final class NodeSelectorNotEqualsParserToken extends NodeSelectorBinaryParserToken<NodeSelectorNotEqualsParserToken> {
 
     static NodeSelectorNotEqualsParserToken with(final List<ParserToken> value,
                                                  final String text) {
@@ -38,39 +38,7 @@ public final class NodeSelectorNotEqualsParserToken extends NodeSelectorComparis
         super(value, text);
     }
 
-    // is...............................................................................................................
-
-    @Override
-    public boolean isEquals() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThan() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanEquals() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThan() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanEquals() {
-        return false;
-    }
-
-    @Override
-    public boolean isNotEquals() {
-        return true;
-    }
-
-    // Visitor........................................................................................................
+    // Visitor..........................................................................................................
 
     @Override
     public void accept(final NodeSelectorParserTokenVisitor visitor) {

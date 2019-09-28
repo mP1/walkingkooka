@@ -61,38 +61,6 @@ public final class ExpressionSubtractionNode extends ExpressionArithmeticBinaryN
         return new ExpressionSubtractionNode(index, left, right);
     }
 
-    // is .........................................................................................................
-
-    @Override
-    public boolean isAddition() {
-        return false;
-    }
-
-    @Override
-    public boolean isDivision() {
-        return false;
-    }
-
-    @Override
-    public boolean isModulo() {
-        return false;
-    }
-
-    @Override
-    public boolean isMultiplication() {
-        return false;
-    }
-
-    @Override
-    public boolean isPower() {
-        return false;
-    }
-
-    @Override
-    public boolean isSubtraction() {
-        return true;
-    }
-
     // Visitor .........................................................................................................
 
     @Override

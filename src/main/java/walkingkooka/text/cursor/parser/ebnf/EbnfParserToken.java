@@ -176,67 +176,100 @@ public abstract class EbnfParserToken implements ParserToken {
     /**
      * Only alternative tokens return true
      */
-    public abstract boolean isAlternative();
+    public final boolean isAlternative() {
+        return this instanceof EbnfAlternativeParserToken;
+    }
 
     /**
      * Only comment tokens return true
      */
-    public abstract boolean isComment();
+    public final boolean isComment() {
+        return this instanceof EbnfCommentParserToken;
+    }
 
     /**
      * Only concatenation tokens return true
      */
-    public abstract boolean isConcatenation();
+    public final boolean isConcatenation() {
+        return this instanceof EbnfConcatenationParserToken;
+    }
 
     /**
      * Only exception tokens return true
      */
-    public abstract boolean isException();
+    public final boolean isException() {
+        return this instanceof EbnfExceptionParserToken;
+    }
 
     /**
      * Only grouping tokens return true
      */
-    public abstract boolean isGroup();
+    public final boolean isGroup() {
+        return this instanceof EbnfGroupParserToken;
+    }
 
     /**
      * Only grammar tokens return true
      */
-    public abstract boolean isGrammar();
+    public final boolean isGrammar() {
+        return this instanceof EbnfGrammarParserToken;
+    }
 
     /**
      * Only identifiers return true
      */
-    public abstract boolean isIdentifier();
+    public final boolean isIdentifier() {
+        return this instanceof EbnfIdentifierParserToken;
+    }
 
     /**
      * Only optional tokens return true
      */
-    public abstract boolean isOptional();
+    public final boolean isOptional() {
+        return this instanceof EbnfOptionalParserToken;
+    }
 
     /**
      * Only range tokens return true
      */
-    public abstract boolean isRange();
+    public final boolean isRange() {
+        return this instanceof EbnfRangeParserToken;
+    }
 
     /**
      * Only repeating tokens return true
      */
-    public abstract boolean isRepeated();
+    public final boolean isRepeated() {
+        return this instanceof EbnfRepeatedParserToken;
+    }
 
     /**
      * Only rule tokens return true
      */
-    public abstract boolean isRule();
+    public final boolean isRule() {
+        return this instanceof EbnfRuleParserToken;
+    }
 
     /**
      * Only symbols tokens return true
      */
-    public abstract boolean isSymbol();
+    public final boolean isSymbol() {
+        return this instanceof EbnfSymbolParserToken || this.isWhitespace();
+    }
 
     /**
      * Only terminals return true
      */
-    public abstract boolean isTerminal();
+    public final boolean isTerminal() {
+        return this instanceof EbnfTerminalParserToken;
+    }
+
+    /**
+     * Only {@link EbnfWhitespaceParserToken} return true
+     */
+    public final boolean isWhitespace() {
+        return this instanceof EbnfWhitespaceParserToken;
+    }
 
     // EbnfParserTokenVisitor............................................................................................
 

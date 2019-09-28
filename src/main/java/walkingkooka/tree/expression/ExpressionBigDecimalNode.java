@@ -52,55 +52,7 @@ public final class ExpressionBigDecimalNode extends ExpressionValueNode<BigDecim
         return new ExpressionBigDecimalNode(index, value);
     }
 
-    @Override
-    public boolean isBigDecimal() {
-        return true;
-    }
-
-    @Override
-    public boolean isBigInteger() {
-        return false;
-    }
-
-    @Override
-    public boolean isBoolean() {
-        return false;
-    }
-
-    @Override
-    public boolean isDouble() {
-        return false;
-    }
-
-    @Override
-    public boolean isLocalDate() {
-        return false;
-    }
-
-    @Override
-    public boolean isLocalDateTime() {
-        return false;
-    }
-
-    @Override
-    public boolean isLocalTime() {
-        return false;
-    }
-
-    @Override
-    public boolean isLong() {
-        return false;
-    }
-
-    @Override
-    public boolean isReference() {
-        return false;
-    }
-
-    @Override
-    public boolean isText() {
-        return false;
-    }
+    // visitor..........................................................................................................
 
     @Override
     public void accept(final ExpressionNodeVisitor visitor) {

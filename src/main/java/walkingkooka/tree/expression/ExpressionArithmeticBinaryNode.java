@@ -29,38 +29,6 @@ abstract class ExpressionArithmeticBinaryNode extends ExpressionBinaryNode2 {
         super(index, left, right);
     }
 
-    // is .........................................................................................................
-
-    @Override
-    public final boolean isEquals() {
-        return false;
-    }
-
-    @Override
-    public final boolean isGreaterThan() {
-        return false;
-    }
-
-    @Override
-    public final boolean isGreaterThanEquals() {
-        return false;
-    }
-
-    @Override
-    public final boolean isLessThan() {
-        return false;
-    }
-
-    @Override
-    public final boolean isLessThanEquals() {
-        return false;
-    }
-
-    @Override
-    public final boolean isNotEquals() {
-        return false;
-    }
-
     // evaluation .....................................................................................................
 
     @Override

@@ -65,31 +65,6 @@ abstract class EbnfParentParserToken<T extends EbnfParentParserToken<T>> extends
 
     final List<ParserToken> value;
 
-    @Override
-    public final boolean isComment() {
-        return false;
-    }
-
-    @Override
-    public final boolean isIdentifier() {
-        return false;
-    }
-
-    @Override
-    public final boolean isSymbol() {
-        return false;
-    }
-
-    @Override
-    public final boolean isTerminal() {
-        return false;
-    }
-
-    @Override
-    public final boolean isWhitespace() {
-        return false;
-    }
-
     final void acceptValues(final EbnfParserTokenVisitor visitor) {
         for (ParserToken token : this.value()) {
             visitor.accept(token);

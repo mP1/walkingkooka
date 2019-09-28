@@ -56,55 +56,7 @@ public final class ExpressionReferenceNode extends ExpressionLeafNode<Expression
         return new ExpressionReferenceNode(index, value);
     }
 
-    @Override
-    public boolean isBigDecimal() {
-        return false;
-    }
-
-    @Override
-    public boolean isBigInteger() {
-        return false;
-    }
-
-    @Override
-    public boolean isBoolean() {
-        return false;
-    }
-
-    @Override
-    public boolean isDouble() {
-        return false;
-    }
-
-    @Override
-    public final boolean isLocalDate() {
-        return false;
-    }
-
-    @Override
-    public final boolean isLocalDateTime() {
-        return false;
-    }
-
-    @Override
-    public final boolean isLocalTime() {
-        return false;
-    }
-
-    @Override
-    public boolean isLong() {
-        return false;
-    }
-
-    @Override
-    public boolean isReference() {
-        return true;
-    }
-
-    @Override
-    public boolean isText() {
-        return false;
-    }
+    // visitor..........................................................................................................
 
     @Override
     public void accept(final ExpressionNodeVisitor visitor) {

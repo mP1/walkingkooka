@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Holds a division
  */
-public final class NodeSelectorDivisionParserToken extends NodeSelectorArithmeticParserToken<NodeSelectorDivisionParserToken> {
+public final class NodeSelectorDivisionParserToken extends NodeSelectorBinaryParserToken<NodeSelectorDivisionParserToken> {
 
     static NodeSelectorDivisionParserToken with(final List<ParserToken> value,
                                                 final String text) {
@@ -37,34 +37,7 @@ public final class NodeSelectorDivisionParserToken extends NodeSelectorArithmeti
         super(value, text);
     }
 
-    // is..............................................................................................................
-
-    @Override
-    public boolean isAddition() {
-        return false;
-    }
-
-    @Override
-    public boolean isDivision() {
-        return true;
-    }
-
-    @Override
-    public boolean isModulo() {
-        return false;
-    }
-
-    @Override
-    public boolean isMultiplication() {
-        return false;
-    }
-
-    @Override
-    public boolean isSubtraction() {
-        return false;
-    }
-
-    // Visitor........................................................................................................
+    // Visitor..........................................................................................................
 
     @Override
     public void accept(final NodeSelectorParserTokenVisitor visitor) {

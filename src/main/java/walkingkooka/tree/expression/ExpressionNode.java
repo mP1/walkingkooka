@@ -353,147 +353,204 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
         throw new UnsupportedOperationException();
     }
 
-    // is............................................................................................................
+    // is...............................................................................................................
 
     /**
      * Only {@link ExpressionAdditionNode} returns true
      */
-    public abstract boolean isAddition();
+    public final boolean isAddition() {
+        return this instanceof ExpressionAdditionNode;
+    }
 
     /**
      * Only {@link ExpressionAndNode} returns true
      */
-    public abstract boolean isAnd();
+    public final boolean isAnd() {
+        return this instanceof ExpressionAndNode;
+    }
 
     /**
      * Only {@link ExpressionBigDecimalNode} returns true
      */
-    public abstract boolean isBigDecimal();
+    public final boolean isBigDecimal() {
+        return this instanceof ExpressionBigDecimalNode;
+    }
 
     /**
      * Only {@link ExpressionBigIntegerNode} returns true
      */
-    public abstract boolean isBigInteger();
+    public final boolean isBigInteger() {
+        return this instanceof ExpressionBigIntegerNode;
+    }
 
     /**
      * Only {@link ExpressionBooleanNode} returns true
      */
-    public abstract boolean isBoolean();
+    public final boolean isBoolean() {
+        return this instanceof ExpressionBooleanNode;
+    }
 
     /**
      * Only {@link ExpressionDoubleNode} returns true
      */
-    public abstract boolean isDouble();
+    public final boolean isDouble() {
+        return this instanceof ExpressionDoubleNode;
+    }
 
     /**
      * Only {@link ExpressionDivisionNode} returns true
      */
-    public abstract boolean isDivision();
+    public final boolean isDivision() {
+        return this instanceof ExpressionDivisionNode;
+    }
 
     /**
      * Only {@link ExpressionEqualsNode} returns true
      */
-    public abstract boolean isEquals();
+    public final boolean isEquals() {
+        return this instanceof ExpressionEqualsNode;
+    }
 
     /**
      * Only {@link ExpressionFunctionNode} returns true
      */
-    public abstract boolean isFunction();
+    public final boolean isFunction() {
+        return this instanceof ExpressionFunctionNode;
+    }
 
     /**
      * Only {@link ExpressionGreaterThanNode} returns true
      */
-    public abstract boolean isGreaterThan();
+    public final boolean isGreaterThan() {
+        return this instanceof ExpressionGreaterThanNode;
+    }
 
     /**
      * Only {@link ExpressionGreaterThanEqualsNode} returns true
      */
-    public abstract boolean isGreaterThanEquals();
+    public final boolean isGreaterThanEquals() {
+        return this instanceof ExpressionGreaterThanEqualsNode;
+    }
 
     /**
      * Only {@link ExpressionLessThanNode} returns true
      */
-    public abstract boolean isLessThan();
+    public final boolean isLessThan() {
+        return this instanceof ExpressionLessThanNode;
+    }
 
     /**
      * Only {@link ExpressionLessThanEqualsNode} returns true
      */
-    public abstract boolean isLessThanEquals();
+    public final boolean isLessThanEquals() {
+        return this instanceof ExpressionLessThanEqualsNode;
+    }
 
     /**
      * Only {@link ExpressionLocalDateNode} returns true
      */
-    public abstract boolean isLocalDate();
+    public final boolean isLocalDate() {
+        return this instanceof ExpressionLocalDateNode;
+    }
 
     /**
      * Only {@link ExpressionLocalDateTimeNode} returns true
      */
-    public abstract boolean isLocalDateTime();
+    public final boolean isLocalDateTime() {
+        return this instanceof ExpressionLocalDateTimeNode;
+    }
 
     /**
      * Only {@link ExpressionLocalTimeNode} returns true
      */
-    public abstract boolean isLocalTime();
+    public final boolean isLocalTime() {
+        return this instanceof ExpressionLocalTimeNode;
+    }
 
     /**
      * Only {@link ExpressionLongNode} returns true
      */
-    public abstract boolean isLong();
+    public final boolean isLong() {
+        return this instanceof ExpressionLongNode;
+    }
 
     /**
      * Only {@link ExpressionModuloNode} returns true
      */
-    public abstract boolean isModulo();
+    public final boolean isModulo() {
+        return this instanceof ExpressionModuloNode;
+    }
 
     /**
      * Only {@link ExpressionMultiplicationNode} returns true
      */
-    public abstract boolean isMultiplication();
+    public final boolean isMultiplication() {
+        return this instanceof ExpressionMultiplicationNode;
+    }
 
     /**
      * Only {@link ExpressionNegativeNode} returns true
      */
-    public abstract boolean isNegative();
+    public final boolean isNegative() {
+        return this instanceof ExpressionNegativeNode;
+    }
 
     /**
      * Only {@link ExpressionNotNode} returns true
      */
-    public abstract boolean isNot();
+    public final boolean isNot() {
+        return this instanceof ExpressionNotNode;
+    }
 
     /**
      * Only {@link ExpressionNotEqualsNode} returns true
      */
-    public abstract boolean isNotEquals();
+    public final boolean isNotEquals() {
+        return this instanceof ExpressionNotEqualsNode;
+    }
 
     /**
      * Only {@link ExpressionOrNode} returns true
      */
-    public abstract boolean isOr();
+    public final boolean isOr() {
+        return this instanceof ExpressionOrNode;
+    }
 
     /**
      * Only {@link ExpressionPowerNode} returns true
      */
-    public abstract boolean isPower();
+    public final boolean isPower() {
+        return this instanceof ExpressionPowerNode;
+    }
 
     /**
      * Only {@link ExpressionReferenceNode} returns true
      */
-    public abstract boolean isReference();
+    public final boolean isReference() {
+        return this instanceof ExpressionReferenceNode;
+    }
 
     /**
      * Only {@link ExpressionSubtractionNode} returns true
      */
-    public abstract boolean isSubtraction();
+    public final boolean isSubtraction() {
+        return this instanceof ExpressionSubtractionNode;
+    }
 
     /**
      * Only {@link ExpressionTextNode} returns true
      */
-    public abstract boolean isText();
+    public final boolean isText() {
+        return this instanceof ExpressionTextNode;
+    }
 
     /**
      * Only {@link ExpressionXorNode} returns true
      */
-    public abstract boolean isXor();
+    public final boolean isXor() {
+        return this instanceof ExpressionXorNode;
+    }
+
     // helper............................................................................................................
 
     final <T extends ExpressionNode> T cast() {

@@ -60,37 +60,4 @@ abstract class NodeSelectorBinaryParserToken<T extends NodeSelectorBinaryParserT
     }
 
     final NodeSelectorParserToken right;
-
-    // is................................................................................................
-
-    @Override
-    public final boolean isAttribute() {
-        return false;
-    }
-
-    @Override
-    public final boolean isExpression() {
-        return false;
-    }
-
-    @Override
-    public final boolean isFunction() {
-        return false;
-    }
-
-    @Override
-    public final boolean isGroup() {
-        return false;
-    }
-
-    @Override
-    public final boolean isNegative() {
-        return false;
-    }
-
-    @Override
-    public final boolean isPredicate() {
-        return false;
-    }
-
 }

@@ -62,15 +62,7 @@ public final class ExpressionNotNode extends ExpressionUnaryNode {
         return new ExpressionNotNode(index, expression);
     }
 
-    @Override
-    public boolean isNegative() {
-        return false;
-    }
-
-    @Override
-    public boolean isNot() {
-        return true;
-    }
+    // visitor..........................................................................................................
 
     @Override
     public void accept(final ExpressionNodeVisitor visitor) {

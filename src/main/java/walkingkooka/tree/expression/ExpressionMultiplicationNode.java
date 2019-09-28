@@ -60,37 +60,6 @@ public final class ExpressionMultiplicationNode extends ExpressionArithmeticBina
     ExpressionMultiplicationNode replace1(final int index, final ExpressionNode left, final ExpressionNode right) {
         return new ExpressionMultiplicationNode(index, left, right);
     }
-    // is .........................................................................................................
-
-    @Override
-    public boolean isAddition() {
-        return false;
-    }
-
-    @Override
-    public boolean isDivision() {
-        return false;
-    }
-
-    @Override
-    public boolean isModulo() {
-        return false;
-    }
-
-    @Override
-    public boolean isMultiplication() {
-        return true;
-    }
-
-    @Override
-    public boolean isPower() {
-        return false;
-    }
-
-    @Override
-    public boolean isSubtraction() {
-        return false;
-    }
 
     // Visitor .........................................................................................................
 

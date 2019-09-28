@@ -57,23 +57,6 @@ public final class ExpressionAndNode extends ExpressionLogicalBinaryNode {
         return new ExpressionAndNode(index, left, right);
     }
 
-    // is .........................................................................................................
-
-    @Override
-    public boolean isAnd() {
-        return true;
-    }
-
-    @Override
-    public boolean isOr() {
-        return false;
-    }
-
-    @Override
-    public boolean isXor() {
-        return false;
-    }
-
     // Visitor .........................................................................................................
 
     @Override

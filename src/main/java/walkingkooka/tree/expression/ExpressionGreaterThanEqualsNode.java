@@ -56,38 +56,6 @@ public final class ExpressionGreaterThanEqualsNode extends ExpressionComparisonB
         return new ExpressionGreaterThanEqualsNode(index, left, right);
     }
 
-    // is .........................................................................................................
-
-    @Override
-    public boolean isEquals() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThan() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanEquals() {
-        return true;
-    }
-
-    @Override
-    public boolean isLessThan() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanEquals() {
-        return false;
-    }
-
-    @Override
-    public boolean isNotEquals() {
-        return false;
-    }
-
     // Visitor .........................................................................................................
 
     @Override

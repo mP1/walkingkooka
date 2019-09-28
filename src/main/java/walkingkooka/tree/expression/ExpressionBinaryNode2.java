@@ -30,21 +30,6 @@ abstract class ExpressionBinaryNode2 extends ExpressionBinaryNode {
     }
 
     @Override
-    public final boolean isAnd() {
-        return false;
-    }
-
-    @Override
-    public final boolean isOr() {
-        return false;
-    }
-
-    @Override
-    public final boolean isXor() {
-        return false;
-    }
-
-    @Override
     final ExpressionNode apply(final ExpressionNode left,
                                final ExpressionNode right,
                                final ExpressionEvaluationContext context) {

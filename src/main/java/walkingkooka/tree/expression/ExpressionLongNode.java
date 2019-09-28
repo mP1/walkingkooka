@@ -47,55 +47,7 @@ public final class ExpressionLongNode extends ExpressionValueNode<Long> {
         return new ExpressionLongNode(index, value);
     }
 
-    @Override
-    public boolean isBigDecimal() {
-        return false;
-    }
-
-    @Override
-    public boolean isBigInteger() {
-        return false;
-    }
-
-    @Override
-    public boolean isBoolean() {
-        return false;
-    }
-
-    @Override
-    public boolean isDouble() {
-        return false;
-    }
-
-    @Override
-    public boolean isLocalDate() {
-        return false;
-    }
-
-    @Override
-    public boolean isLocalDateTime() {
-        return false;
-    }
-
-    @Override
-    public boolean isLocalTime() {
-        return false;
-    }
-
-    @Override
-    public boolean isLong() {
-        return true;
-    }
-
-    @Override
-    public boolean isReference() {
-        return false;
-    }
-
-    @Override
-    public boolean isText() {
-        return false;
-    }
+    // visitor..........................................................................................................
 
     @Override
     public void accept(final ExpressionNodeVisitor visitor) {

@@ -47,29 +47,6 @@ final class RangeBoundAll<C extends Comparable<C>> extends RangeBound<C> {
     }
 
     /**
-     * Always true
-     */
-    @Override
-    public boolean isAll() {
-        return true;
-    }
-
-    /**
-     * Always false
-     */
-    @Override
-    public boolean isExclusive() {
-        return false;
-    }
-
-    /**
-     * Always false
-     */
-    public boolean isInclusive() {
-        return false;
-    }
-
-    /**
      * ALways nothing.
      */
     @Override

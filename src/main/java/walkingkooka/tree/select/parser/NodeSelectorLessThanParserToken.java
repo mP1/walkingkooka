@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Parser token that represents an less than condition including parameters.
  */
-public final class NodeSelectorLessThanParserToken extends NodeSelectorComparisonParserToken<NodeSelectorLessThanParserToken> {
+public final class NodeSelectorLessThanParserToken extends NodeSelectorBinaryParserToken<NodeSelectorLessThanParserToken> {
 
     static NodeSelectorLessThanParserToken with(final List<ParserToken> value,
                                                 final String text) {
@@ -38,39 +38,7 @@ public final class NodeSelectorLessThanParserToken extends NodeSelectorCompariso
         super(value, text);
     }
 
-    // is...............................................................................................................
-
-    @Override
-    public boolean isEquals() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThan() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanEquals() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThan() {
-        return true;
-    }
-
-    @Override
-    public boolean isLessThanEquals() {
-        return false;
-    }
-
-    @Override
-    public boolean isNotEquals() {
-        return false;
-    }
-
-    // Visitor........................................................................................................
+    // Visitor..........................................................................................................
 
     @Override
     public void accept(final NodeSelectorParserTokenVisitor visitor) {

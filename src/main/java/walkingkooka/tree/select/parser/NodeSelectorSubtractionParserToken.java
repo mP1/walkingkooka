@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Holds an subtraction operation.
  */
-public final class NodeSelectorSubtractionParserToken extends NodeSelectorArithmeticParserToken<NodeSelectorSubtractionParserToken> {
+public final class NodeSelectorSubtractionParserToken extends NodeSelectorBinaryParserToken<NodeSelectorSubtractionParserToken> {
 
     static NodeSelectorSubtractionParserToken with(final List<ParserToken> value,
                                                    final String text) {
@@ -37,34 +37,7 @@ public final class NodeSelectorSubtractionParserToken extends NodeSelectorArithm
         super(value, text);
     }
 
-    // is................................................................................................................
-
-    @Override
-    public boolean isAddition() {
-        return false;
-    }
-
-    @Override
-    public boolean isDivision() {
-        return false;
-    }
-
-    @Override
-    public boolean isModulo() {
-        return false;
-    }
-
-    @Override
-    public boolean isMultiplication() {
-        return false;
-    }
-
-    @Override
-    public boolean isSubtraction() {
-        return true;
-    }
-
-    // Visitor........................................................................................................
+    // Visitor..........................................................................................................
 
     @Override
     public void accept(final NodeSelectorParserTokenVisitor visitor) {

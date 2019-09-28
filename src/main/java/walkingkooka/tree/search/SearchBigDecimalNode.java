@@ -61,46 +61,6 @@ public final class SearchBigDecimalNode extends SearchLeafNode<BigDecimal> {
         return this.removeParent0().cast();
     }
 
-    @Override
-    public boolean isBigDecimal() {
-        return true;
-    }
-
-    @Override
-    public boolean isBigInteger() {
-        return false;
-    }
-
-    @Override
-    public boolean isDouble() {
-        return false;
-    }
-
-    @Override
-    public boolean isLocalDate() {
-        return false;
-    }
-
-    @Override
-    public boolean isLocalDateTime() {
-        return false;
-    }
-
-    @Override
-    public boolean isLocalTime() {
-        return false;
-    }
-
-    @Override
-    public boolean isLong() {
-        return false;
-    }
-
-    @Override
-    public boolean isText() {
-        return false;
-    }
-
     // SearchQuery......................................................................................................
 
     @Override

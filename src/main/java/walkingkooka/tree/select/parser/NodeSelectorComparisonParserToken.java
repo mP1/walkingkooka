@@ -32,41 +32,4 @@ abstract public class NodeSelectorComparisonParserToken<T extends NodeSelectorCo
                                       final String text) {
         super(value, text);
     }
-
-    // isXXX............................................................................................................
-
-    @Override
-    public final boolean isAddition() {
-        return false;
-    }
-
-    @Override
-    public final boolean isAnd() {
-        return false;
-    }
-
-    @Override
-    public final boolean isDivision() {
-        return false;
-    }
-
-    @Override
-    public final boolean isModulo() {
-        return false;
-    }
-
-    @Override
-    public final boolean isMultiplication() {
-        return false;
-    }
-
-    @Override
-    public final boolean isOr() {
-        return false;
-    }
-
-    @Override
-    public final boolean isSubtraction() {
-        return false;
-    }
 }

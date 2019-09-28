@@ -130,22 +130,7 @@ public final class SearchIgnoredNode extends SearchParentNode2 {
         return this.text1(beginOffset, endOffset, text).selected();
     }
 
-    @Override
-    public boolean isIgnored() {
-        return true;
-    }
-
-    @Override
-    public boolean isSelect() {
-        return false;
-    }
-
-    @Override
-    public boolean isSequence() {
-        return false;
-    }
-
-    // SearchQuery ...............................................................................................
+    // SearchQuery .....................................................................................................
 
     @Override
     void select(final SearchQuery query, final SearchQueryContext context) {

@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Holds an modulo operation
  */
-public final class NodeSelectorModuloParserToken extends NodeSelectorArithmeticParserToken<NodeSelectorModuloParserToken> {
+public final class NodeSelectorModuloParserToken extends NodeSelectorBinaryParserToken<NodeSelectorModuloParserToken> {
 
     static NodeSelectorModuloParserToken with(final List<ParserToken> value,
                                               final String text) {
@@ -37,34 +37,7 @@ public final class NodeSelectorModuloParserToken extends NodeSelectorArithmeticP
         super(value, text);
     }
 
-    // is..............................................................................................................
-
-    @Override
-    public boolean isAddition() {
-        return false;
-    }
-
-    @Override
-    public boolean isDivision() {
-        return false;
-    }
-
-    @Override
-    public boolean isModulo() {
-        return true;
-    }
-
-    @Override
-    public boolean isMultiplication() {
-        return false;
-    }
-
-    @Override
-    public boolean isSubtraction() {
-        return false;
-    }
-
-    // Visitor........................................................................................................
+    // Visitor..........................................................................................................
 
     @Override
     public void accept(final NodeSelectorParserTokenVisitor visitor) {

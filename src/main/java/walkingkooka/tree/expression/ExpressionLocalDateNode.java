@@ -52,55 +52,7 @@ public final class ExpressionLocalDateNode extends ExpressionValueNode<LocalDate
         return new ExpressionLocalDateNode(index, value);
     }
 
-    @Override
-    public boolean isBigDecimal() {
-        return false;
-    }
-
-    @Override
-    public boolean isBigInteger() {
-        return false;
-    }
-
-    @Override
-    public boolean isBoolean() {
-        return false;
-    }
-
-    @Override
-    public boolean isDouble() {
-        return false;
-    }
-
-    @Override
-    public boolean isLocalDate() {
-        return true;
-    }
-
-    @Override
-    public boolean isLocalDateTime() {
-        return false;
-    }
-
-    @Override
-    public boolean isLocalTime() {
-        return false;
-    }
-
-    @Override
-    public boolean isLong() {
-        return false;
-    }
-
-    @Override
-    public boolean isReference() {
-        return false;
-    }
-
-    @Override
-    public boolean isText() {
-        return false;
-    }
+    // Visitor..........................................................................................................
 
     @Override
     public void accept(final ExpressionNodeVisitor visitor) {

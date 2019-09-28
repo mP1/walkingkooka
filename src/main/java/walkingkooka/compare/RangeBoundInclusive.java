@@ -37,22 +37,7 @@ final class RangeBoundInclusive<C extends Comparable<C>> extends RangeBoundExclu
         super(value);
     }
 
-    /**
-     * Always false
-     */
-    @Override
-    public boolean isExclusive() {
-        return false;
-    }
-
-    /**
-     * Always false
-     */
-    public boolean isInclusive() {
-        return true;
-    }
-
-    // Range.predicate...........................................
+    // Range.predicate..................................................................................................
 
     @Override
     @SuppressWarnings("unchecked")

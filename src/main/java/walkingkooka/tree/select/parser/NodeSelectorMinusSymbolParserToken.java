@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Represents a minus symbol token.
  */
-public final class NodeSelectorMinusSymbolParserToken extends NodeSelectorArithmeticSymbolParserToken {
+public final class NodeSelectorMinusSymbolParserToken extends NodeSelectorSymbolParserToken {
 
     static NodeSelectorMinusSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -34,38 +34,6 @@ public final class NodeSelectorMinusSymbolParserToken extends NodeSelectorArithm
 
     private NodeSelectorMinusSymbolParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    // is..........................................................................................................
-
-    @Override
-    public boolean isDivideSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isMinusSymbol() {
-        return true;
-    }
-
-    @Override
-    public boolean isModuloSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isMultiplySymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isPlusSymbol() {
-        return false;
     }
 
     // operator priority..................................................................................................

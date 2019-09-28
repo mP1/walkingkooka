@@ -56,38 +56,6 @@ public final class ExpressionNotEqualsNode extends ExpressionComparisonBinaryNod
         return new ExpressionNotEqualsNode(index, left, right);
     }
 
-    // is .........................................................................................................
-
-    @Override
-    public boolean isEquals() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThan() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanEquals() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThan() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanEquals() {
-        return false;
-    }
-
-    @Override
-    public boolean isNotEquals() {
-        return true;
-    }
-
     // Visitor .........................................................................................................
 
     @Override

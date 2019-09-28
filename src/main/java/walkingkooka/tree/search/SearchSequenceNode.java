@@ -204,22 +204,7 @@ public final class SearchSequenceNode extends SearchParentNode2 {
                 new SearchSequenceNode(NO_INDEX, this.name, extracted);
     }
 
-    @Override
-    public boolean isIgnored() {
-        return false;
-    }
-
-    @Override
-    public boolean isSelect() {
-        return false;
-    }
-
-    @Override
-    public boolean isSequence() {
-        return true;
-    }
-
-    // SearchQuery ...............................................................................................
+    // SearchQuery .....................................................................................................
 
     @Override
     void select(final SearchQuery query, final SearchQueryContext context) {

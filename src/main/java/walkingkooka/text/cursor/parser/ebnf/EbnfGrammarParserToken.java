@@ -96,53 +96,6 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken<EbnfGram
         return EbnfParserCombinators.transform(this, identifierToParser, transformer);
     }
 
-    // isXXX............................................................................................................
-
-    @Override
-    public boolean isAlternative() {
-        return false;
-    }
-
-    @Override
-    public boolean isConcatenation() {
-        return false;
-    }
-
-    @Override
-    public boolean isException() {
-        return false;
-    }
-
-    @Override
-    public boolean isGrammar() {
-        return true;
-    }
-
-    @Override
-    public boolean isGroup() {
-        return false;
-    }
-
-    @Override
-    public boolean isOptional() {
-        return false;
-    }
-
-    @Override
-    public boolean isRange() {
-        return false;
-    }
-
-    @Override
-    public boolean isRepeated() {
-        return false;
-    }
-
-    @Override
-    public boolean isRule() {
-        return false;
-    }
-
     // EbnfParserTokenVisitor............................................................................................
 
     @Override
