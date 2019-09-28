@@ -189,6 +189,20 @@ public final class TestNode implements Node<TestNode, StringName, StringName, Ob
                 .orElse(this);
     }
 
+    /**
+     * Removes a child node with the given {@link StringName} or fails with a {@link IllegalArgumentException}.
+     */
+    public TestNode removeChild(final StringName name) {
+        final List<TestNode> removed = this.children()
+                .stream()
+                .filter(c -> false == c.name().equals(name))
+                .collect(Collectors.toList());
+        if (removed.size() == this.children().size()) {
+            throw new IllegalArgumentException("Child with name " + name + " missing");
+        }
+        return this.setChildren(removed);
+    }
+
     @Override
     public Map<StringName, Object> attributes() {
         return this.attributes;

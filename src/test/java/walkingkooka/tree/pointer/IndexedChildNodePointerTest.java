@@ -19,35 +19,34 @@ package walkingkooka.tree.pointer;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.tree.json.JsonArrayNode;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.naming.StringName;
+import walkingkooka.tree.TestNode;
 import walkingkooka.visit.Visiting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class IndexedChildNodePointerTest extends NodePointerTestCase2<IndexedChildNodePointer<JsonNode, JsonNodeName>> {
+public final class IndexedChildNodePointerTest extends NodePointerTestCase2<IndexedChildNodePointer<TestNode, StringName>> {
 
     @Test
     public void testWith() {
-        final IndexedChildNodePointer<JsonNode, JsonNodeName> pointer = this.createNodePointer();
+        final IndexedChildNodePointer<TestNode, StringName> pointer = this.createNodePointer();
         assertEquals(1, pointer.index(), "index");
     }
 
-    // add..................................................................................................
+    // add..............................................................................................................
 
     @Test
     public void testAddUnknownPathFails() {
-        this.addAndFail(NodePointer.indexed(1, JsonNode.class).appendToLast(IndexedChildNodePointer.with(99)),
-                JsonNode.array(),
-                JsonNode.string("!"));
+        this.addAndFail(NodePointer.indexed(1, TestNode.class).appendToLast(IndexedChildNodePointer.with(99)),
+                TestNode.with("name1"),
+                TestNode.with("value2"));
     }
 
     @Test
     public void testAddUnknownPathFails2() {
-        this.addAndFail(NodePointer.indexed(1, JsonNode.class).appendToLast(IndexedChildNodePointer.with(99)),
-                JsonNode.object(),
-                JsonNode.string("!"));
+        this.addAndFail(NodePointer.indexed(1, TestNode.class).appendToLast(IndexedChildNodePointer.with(99)),
+                TestNode.with("name1"),
+                TestNode.with("value2"));
     }
 
     @Test
@@ -66,62 +65,62 @@ public final class IndexedChildNodePointerTest extends NodePointerTestCase2<Inde
     }
 
     private void addAndCheck2(final int index) {
-        final JsonArrayNode start = JsonNode.array()
-                .appendChild(JsonNode.string("value-0a"))
-                .appendChild(JsonNode.string("value-1b"))
-                .appendChild(JsonNode.string("value-2c"));
+        final TestNode root = TestNode.with("root")
+                .appendChild(TestNode.with("value-0a"))
+                .appendChild(TestNode.with("value-1b"))
+                .appendChild(TestNode.with("value-2c"));
 
-        final JsonNode add = JsonNode.string("add");
+        final TestNode add = TestNode.with("add");
 
         this.addAndCheck(IndexedChildNodePointer.with(index),
-                start,
+                root,
                 add,
-                start.set(index, add));
+                root.setChild(index, add));
     }
 
-    // remove..................................................................................................
+    // remove...........................................................................................................
 
     @Test
     public void testRemoveUnknownPathFails() {
         this.removeAndFail(IndexedChildNodePointer.with(0),
-                JsonNode.object());
+                TestNode.with("remove"));
     }
 
     @Test
     public void testRemoveUnknownPathFails2() {
         this.removeAndFail(IndexedChildNodePointer.with(1),
-                JsonNode.array().appendChild(JsonNode.string("a")));
+                TestNode.with("root").appendChild(TestNode.with("a")));
     }
 
     @Test
     public void testRemoveChildIndex0() {
-        this.removeAndCheck2(JsonNode.array()
-                        .appendChild(JsonNode.string("a1"))
-                        .appendChild(JsonNode.string("b2")),
+        this.removeAndCheck2(TestNode.with("root")
+                        .appendChild(TestNode.with("a1"))
+                        .appendChild(TestNode.with("b2")),
                 0);
 
     }
 
     @Test
     public void testRemoveChildIndex1() {
-        this.removeAndCheck2(JsonNode.array()
-                        .appendChild(JsonNode.string("a1"))
-                        .appendChild(JsonNode.string("b2")),
+        this.removeAndCheck2(TestNode.with("root")
+                        .appendChild(TestNode.with("a1"))
+                        .appendChild(TestNode.with("b2")),
                 1);
 
     }
 
     @Test
     public void testRemoveChildIndex2() {
-        this.removeAndCheck2(JsonNode.array()
-                        .appendChild(JsonNode.string("a1"))
-                        .appendChild(JsonNode.string("b2"))
-                        .appendChild(JsonNode.string("c3")),
+        this.removeAndCheck2(TestNode.with("root")
+                        .appendChild(TestNode.with("a1"))
+                        .appendChild(TestNode.with("b2"))
+                        .appendChild(TestNode.with("c3")),
                 2);
 
     }
 
-    private void removeAndCheck2(final JsonArrayNode node,
+    private void removeAndCheck2(final TestNode node,
                                  final int index) {
         this.removeAndCheck(IndexedChildNodePointer.with(index),
                 node,
@@ -133,30 +132,32 @@ public final class IndexedChildNodePointerTest extends NodePointerTestCase2<Inde
         this.checkNotEquals(IndexedChildNodePointer.with(99));
     }
 
+    // visitor..........................................................................................................
+
     @Test
     public void testVisitor() {
         final StringBuilder b = new StringBuilder();
 
-        new FakeNodePointerVisitor<JsonNode, JsonNodeName>() {
+        new FakeNodePointerVisitor<TestNode, StringName>() {
             @Override
-            protected Visiting startVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+            protected Visiting startVisit(final NodePointer<TestNode, StringName> node) {
                 b.append("1");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+            protected void endVisit(final NodePointer<TestNode, StringName> node) {
                 b.append("2");
             }
 
             @Override
-            protected Visiting startVisit(final IndexedChildNodePointer<JsonNode, JsonNodeName> node) {
+            protected Visiting startVisit(final IndexedChildNodePointer<TestNode, StringName> node) {
                 b.append("3");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final IndexedChildNodePointer<JsonNode, JsonNodeName> node) {
+            protected void endVisit(final IndexedChildNodePointer<TestNode, StringName> node) {
                 b.append("4");
             }
 
@@ -169,31 +170,31 @@ public final class IndexedChildNodePointerTest extends NodePointerTestCase2<Inde
     public void testVisitorWithNext() {
         final StringBuilder b = new StringBuilder();
 
-        new FakeNodePointerVisitor<JsonNode, JsonNodeName>() {
+        new FakeNodePointerVisitor<TestNode, StringName>() {
             @Override
-            protected Visiting startVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+            protected Visiting startVisit(final NodePointer<TestNode, StringName> node) {
                 b.append("1");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+            protected void endVisit(final NodePointer<TestNode, StringName> node) {
                 b.append("2");
             }
 
             @Override
-            protected void visit(final AppendNodePointer<JsonNode, JsonNodeName> node) {
+            protected void visit(final AppendNodePointer<TestNode, StringName> node) {
                 b.append("3");
             }
 
             @Override
-            protected Visiting startVisit(final IndexedChildNodePointer<JsonNode, JsonNodeName> node) {
+            protected Visiting startVisit(final IndexedChildNodePointer<TestNode, StringName> node) {
                 b.append("4");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final IndexedChildNodePointer<JsonNode, JsonNodeName> node) {
+            protected void endVisit(final IndexedChildNodePointer<TestNode, StringName> node) {
                 b.append("5");
             }
 
@@ -206,26 +207,26 @@ public final class IndexedChildNodePointerTest extends NodePointerTestCase2<Inde
     public void testVisitorWithNextSkipped() {
         final StringBuilder b = new StringBuilder();
 
-        new FakeNodePointerVisitor<JsonNode, JsonNodeName>() {
+        new FakeNodePointerVisitor<TestNode, StringName>() {
             @Override
-            protected Visiting startVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+            protected Visiting startVisit(final NodePointer<TestNode, StringName> node) {
                 b.append("1");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+            protected void endVisit(final NodePointer<TestNode, StringName> node) {
                 b.append("2");
             }
 
             @Override
-            protected Visiting startVisit(final IndexedChildNodePointer<JsonNode, JsonNodeName> node) {
+            protected Visiting startVisit(final IndexedChildNodePointer<TestNode, StringName> node) {
                 b.append("4");
                 return Visiting.SKIP;
             }
 
             @Override
-            protected void endVisit(final IndexedChildNodePointer<JsonNode, JsonNodeName> node) {
+            protected void endVisit(final IndexedChildNodePointer<TestNode, StringName> node) {
                 b.append("5");
             }
 
@@ -235,12 +236,12 @@ public final class IndexedChildNodePointerTest extends NodePointerTestCase2<Inde
     }
 
     @Override
-    IndexedChildNodePointer<JsonNode, JsonNodeName> createNodePointer() {
+    IndexedChildNodePointer<TestNode, StringName> createNodePointer() {
         return IndexedChildNodePointer.with(1);
     }
 
     @Override
-    public Class<IndexedChildNodePointer<JsonNode, JsonNodeName>> type() {
+    public Class<IndexedChildNodePointer<TestNode, StringName>> type() {
         return Cast.to(IndexedChildNodePointer.class);
     }
 }
