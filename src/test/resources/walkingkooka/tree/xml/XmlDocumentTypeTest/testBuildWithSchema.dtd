@@ -1,4 +1,0 @@
-<!ELEMENT Date (Day, Month, Year)>
-<!ELEMENT Day (#PCDATA)>
-<!ELEMENT Month (#PCDATA)>
-<!ELEMENT Year (#PCDATA)>
