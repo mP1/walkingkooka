@@ -35,14 +35,6 @@ abstract class RangeBoundExclusiveInclusive<C extends Comparable<C>> extends Ran
     }
 
     /**
-     * Always false
-     */
-    @Override
-    public final boolean isAll() {
-        return false;
-    }
-
-    /**
      * The value.
      */
     @Override

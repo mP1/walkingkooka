@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Represents a less than equals sign in a comparison parser token.
  */
-public final class NodeSelectorLessThanEqualsSymbolParserToken extends NodeSelectorComparisonSymbolParserToken {
+public final class NodeSelectorLessThanEqualsSymbolParserToken extends NodeSelectorSymbolParserToken {
 
     static NodeSelectorLessThanEqualsSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -34,38 +34,6 @@ public final class NodeSelectorLessThanEqualsSymbolParserToken extends NodeSelec
 
     private NodeSelectorLessThanEqualsSymbolParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    // is..........................................................................................................
-
-    @Override
-    public boolean isEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanEqualsSymbol() {
-        return true;
-    }
-
-    @Override
-    public boolean isNotEqualsSymbol() {
-        return false;
     }
 
     // operator priority................................................................................................

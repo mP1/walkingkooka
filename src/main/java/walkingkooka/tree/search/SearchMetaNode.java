@@ -154,27 +154,7 @@ public final class SearchMetaNode extends SearchParentNode {
         return this.text1(beginOffset, endOffset, text).selected();
     }
 
-    @Override
-    public boolean isIgnored() {
-        return false;
-    }
-
-    @Override
-    public boolean isMeta() {
-        return true;
-    }
-
-    @Override
-    public boolean isSelect() {
-        return false;
-    }
-
-    @Override
-    public boolean isSequence() {
-        return false;
-    }
-
-    // HasText ...............................................................................................
+    // HasText ........................................................................................................
 
     @Override
     public String text() {

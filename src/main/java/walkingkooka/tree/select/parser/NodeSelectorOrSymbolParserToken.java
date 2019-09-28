@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Represents or symbol token.
  */
-public final class NodeSelectorOrSymbolParserToken extends NodeSelectorBinaryOperandSymbolParserToken {
+public final class NodeSelectorOrSymbolParserToken extends NodeSelectorSymbolParserToken {
 
     static NodeSelectorOrSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -34,73 +34,6 @@ public final class NodeSelectorOrSymbolParserToken extends NodeSelectorBinaryOpe
 
     private NodeSelectorOrSymbolParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    // is..........................................................................................................
-
-    @Override
-    public boolean isAndSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isDivideSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isMinusSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isModuloSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isMultiplySymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isNotEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isOrSymbol() {
-        return true;
-    }
-
-    @Override
-    public boolean isPlusSymbol() {
-        return false;
     }
 
     // operator priority..................................................................................................

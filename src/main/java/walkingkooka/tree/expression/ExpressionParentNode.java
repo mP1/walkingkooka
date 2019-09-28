@@ -92,59 +92,7 @@ abstract class ExpressionParentNode extends ExpressionNode {
 
     abstract ExpressionParentNode replace0(final int index, final List<ExpressionNode> children);
 
-    // is........................................................................................................
-
-    @Override
-    public final boolean isBigDecimal() {
-        return false;
-    }
-
-    @Override
-    public final boolean isBigInteger() {
-        return false;
-    }
-
-    @Override
-    public final boolean isBoolean() {
-        return false;
-    }
-
-    @Override
-    public final boolean isDouble() {
-        return false;
-    }
-
-    @Override
-    public final boolean isLocalDate() {
-        return false;
-    }
-
-    @Override
-    public final boolean isLocalDateTime() {
-        return false;
-    }
-
-    @Override
-    public final boolean isLocalTime() {
-        return false;
-    }
-
-    @Override
-    public final boolean isLong() {
-        return false;
-    }
-
-    @Override
-    public final boolean isReference() {
-        return false;
-    }
-
-    @Override
-    public final boolean isText() {
-        return false;
-    }
-
-    // Object........................................................................................................
+    // Object...........................................................................................................
 
     @Override
     public final int hashCode() {

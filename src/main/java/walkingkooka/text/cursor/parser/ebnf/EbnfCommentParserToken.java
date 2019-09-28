@@ -35,31 +35,6 @@ public final class EbnfCommentParserToken extends EbnfLeafParserToken<String> {
     // isXXX............................................................................................................
 
     @Override
-    public boolean isComment() {
-        return true;
-    }
-
-    @Override
-    public boolean isIdentifier() {
-        return false;
-    }
-
-    @Override
-    public boolean isSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isTerminal() {
-        return false;
-    }
-
-    @Override
-    public boolean isWhitespace() {
-        return false;
-    }
-
-    @Override
     public boolean isNoise() {
         return true;
     }

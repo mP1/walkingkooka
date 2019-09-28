@@ -43,12 +43,7 @@ abstract class SearchParentNode2 extends SearchParentNode {
         return SearchMetaNode.with0(this, attributes);
     }
 
-    @Override
-    public final boolean isMeta() {
-        return false;
-    }
-
-    // HasText ...............................................................................................
+    // HasText .........................................................................................................
 
     @Override
     public final String text() {

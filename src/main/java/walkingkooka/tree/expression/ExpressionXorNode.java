@@ -60,23 +60,6 @@ public final class ExpressionXorNode extends ExpressionLogicalBinaryNode {
         return new ExpressionXorNode(index, left, right);
     }
 
-    // is .........................................................................................................
-
-    @Override
-    public boolean isAnd() {
-        return false;
-    }
-
-    @Override
-    public boolean isOr() {
-        return false;
-    }
-
-    @Override
-    public boolean isXor() {
-        return true;
-    }
-
     // Visitor .........................................................................................................
 
     @Override

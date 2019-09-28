@@ -59,22 +59,6 @@ public final class ExpressionOrNode extends ExpressionLogicalBinaryNode {
     ExpressionOrNode replace1(final int index, final ExpressionNode left, final ExpressionNode right) {
         return new ExpressionOrNode(index, left, right);
     }
-    // is .........................................................................................................
-
-    @Override
-    public boolean isAnd() {
-        return false;
-    }
-
-    @Override
-    public boolean isOr() {
-        return true;
-    }
-
-    @Override
-    public boolean isXor() {
-        return false;
-    }
 
     // Visitor .........................................................................................................
 

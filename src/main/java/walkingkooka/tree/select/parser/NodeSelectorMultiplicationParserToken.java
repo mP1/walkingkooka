@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Holds an multiplication
  */
-public final class NodeSelectorMultiplicationParserToken extends NodeSelectorArithmeticParserToken<NodeSelectorMultiplicationParserToken> {
+public final class NodeSelectorMultiplicationParserToken extends NodeSelectorBinaryParserToken<NodeSelectorMultiplicationParserToken> {
 
     static NodeSelectorMultiplicationParserToken with(final List<ParserToken> value,
                                                       final String text) {
@@ -37,34 +37,7 @@ public final class NodeSelectorMultiplicationParserToken extends NodeSelectorAri
         super(value, text);
     }
 
-    // is...............................................................................................................
-
-    @Override
-    public boolean isAddition() {
-        return false;
-    }
-
-    @Override
-    public boolean isDivision() {
-        return false;
-    }
-
-    @Override
-    public boolean isModulo() {
-        return false;
-    }
-
-    @Override
-    public boolean isMultiplication() {
-        return true;
-    }
-
-    @Override
-    public boolean isSubtraction() {
-        return false;
-    }
-
-    // Visitor........................................................................................................
+    // Visitor..........................................................................................................
 
     @Override
     public void accept(final NodeSelectorParserTokenVisitor visitor) {

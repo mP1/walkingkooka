@@ -128,26 +128,6 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
     }
 
     @Override
-    public final boolean isIgnored() {
-        return false;
-    }
-
-    @Override
-    public final boolean isMeta() {
-        return false;
-    }
-
-    @Override
-    public final boolean isSelect() {
-        return false;
-    }
-
-    @Override
-    public final boolean isSequence() {
-        return false;
-    }
-
-    @Override
     public final List<SearchNode> children() {
         return NO_CHILDREN;
     }

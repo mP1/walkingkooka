@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Represents a MOD symbol token.
  */
-public final class NodeSelectorModuloSymbolParserToken extends NodeSelectorArithmeticSymbolParserToken {
+public final class NodeSelectorModuloSymbolParserToken extends NodeSelectorSymbolParserToken {
 
     static NodeSelectorModuloSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -34,38 +34,6 @@ public final class NodeSelectorModuloSymbolParserToken extends NodeSelectorArith
 
     private NodeSelectorModuloSymbolParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    // is..........................................................................................................
-
-    @Override
-    public boolean isDivideSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isMinusSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isModuloSymbol() {
-        return true;
-    }
-
-    @Override
-    public boolean isMultiplySymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isPlusSymbol() {
-        return false;
     }
 
     // operator priority..................................................................................................

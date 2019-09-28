@@ -28,68 +28,6 @@ abstract class ExpressionLogicalBinaryNode extends ExpressionBinaryNode {
         super(index, left, right);
     }
 
-    // is .........................................................................................................
-
-    @Override
-    public final boolean isAddition() {
-        return false;
-    }
-
-    @Override
-    public final boolean isDivision() {
-        return false;
-    }
-
-    @Override
-    public final boolean isEquals() {
-        return false;
-    }
-
-    @Override
-    public final boolean isGreaterThan() {
-        return false;
-    }
-
-    @Override
-    public final boolean isGreaterThanEquals() {
-        return false;
-    }
-
-    @Override
-    public final boolean isLessThan() {
-        return false;
-    }
-
-    @Override
-    public final boolean isLessThanEquals() {
-        return false;
-    }
-
-    @Override
-    public final boolean isModulo() {
-        return false;
-    }
-
-    @Override
-    public final boolean isMultiplication() {
-        return false;
-    }
-
-    @Override
-    public final boolean isNotEquals() {
-        return false;
-    }
-
-    @Override
-    public final boolean isPower() {
-        return false;
-    }
-
-    @Override
-    public final boolean isSubtraction() {
-        return false;
-    }
-
     // evaluation .....................................................................................................
 
     @Override

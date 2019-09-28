@@ -108,46 +108,6 @@ abstract class SearchParentNode extends SearchNode {
 
     abstract SearchParentNode replace0(final int index, final SearchNodeName name, final List<SearchNode> children);
 
-    @Override
-    public final boolean isBigDecimal() {
-        return false;
-    }
-
-    @Override
-    public final boolean isBigInteger() {
-        return false;
-    }
-
-    @Override
-    public final boolean isDouble() {
-        return false;
-    }
-
-    @Override
-    public final boolean isLocalDate() {
-        return false;
-    }
-
-    @Override
-    public final boolean isLocalDateTime() {
-        return false;
-    }
-
-    @Override
-    public final boolean isLocalTime() {
-        return false;
-    }
-
-    @Override
-    public final boolean isLong() {
-        return false;
-    }
-
-    @Override
-    public final boolean isText() {
-        return false;
-    }
-
     final void acceptValues(final SearchNodeVisitor visitor) {
         for (SearchNode node : this.children()) {
             visitor.accept(node);

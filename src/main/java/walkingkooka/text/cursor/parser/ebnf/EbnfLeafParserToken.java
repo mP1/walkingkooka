@@ -41,50 +41,5 @@ abstract class EbnfLeafParserToken<T> extends EbnfParserToken implements LeafPar
 
     final T value;
 
-    @Override
-    public final boolean isAlternative() {
-        return false;
-    }
-
-    @Override
-    public final boolean isConcatenation() {
-        return false;
-    }
-
-    @Override
-    public final boolean isException() {
-        return false;
-    }
-
-    @Override
-    public final boolean isGrammar() {
-        return false;
-    }
-
-    @Override
-    public final boolean isGroup() {
-        return false;
-    }
-
-    @Override
-    public final boolean isOptional() {
-        return false;
-    }
-
-    @Override
-    public final boolean isRange() {
-        return false;
-    }
-
-    @Override
-    public final boolean isRepeated() {
-        return false;
-    }
-
-    @Override
-    public final boolean isRule() {
-        return false;
-    }
-
     abstract public void accept(final EbnfParserTokenVisitor visitor);
 }

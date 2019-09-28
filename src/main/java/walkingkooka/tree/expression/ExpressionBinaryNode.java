@@ -62,24 +62,6 @@ abstract class ExpressionBinaryNode extends ExpressionParentFixedNode {
 
     abstract ExpressionBinaryNode replace1(final int index, final ExpressionNode left, final ExpressionNode right);
 
-    // is...........................................................................................................
-
-    @Override
-    public final boolean isFunction() {
-        return false;
-    }
-
-    @Override
-    public final boolean isNegative() {
-        return false;
-    }
-
-    @Override
-    public final boolean isNot() {
-        return false;
-    }
-
-
     // Node........................................................................................................
 
     @Override

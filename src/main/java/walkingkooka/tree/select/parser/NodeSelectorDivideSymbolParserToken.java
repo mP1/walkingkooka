@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Represents a DIV symbol token.
  */
-public final class NodeSelectorDivideSymbolParserToken extends NodeSelectorArithmeticSymbolParserToken {
+public final class NodeSelectorDivideSymbolParserToken extends NodeSelectorSymbolParserToken {
 
     static NodeSelectorDivideSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -34,38 +34,6 @@ public final class NodeSelectorDivideSymbolParserToken extends NodeSelectorArith
 
     private NodeSelectorDivideSymbolParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    // is..........................................................................................................
-
-    @Override
-    public boolean isDivideSymbol() {
-        return true;
-    }
-
-    @Override
-    public boolean isEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isMinusSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isModuloSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isMultiplySymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isPlusSymbol() {
-        return false;
     }
 
     // operator priority..................................................................................................

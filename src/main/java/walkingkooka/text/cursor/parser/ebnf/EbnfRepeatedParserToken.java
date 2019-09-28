@@ -35,53 +35,6 @@ public final class EbnfRepeatedParserToken extends EbnfParentParserToken<EbnfRep
         this.checkOnlyOneToken();
     }
 
-    // isXXX............................................................................................................
-
-    @Override
-    public boolean isAlternative() {
-        return false;
-    }
-
-    @Override
-    public boolean isConcatenation() {
-        return false;
-    }
-
-    @Override
-    public boolean isException() {
-        return false;
-    }
-
-    @Override
-    public boolean isGrammar() {
-        return false;
-    }
-
-    @Override
-    public boolean isGroup() {
-        return false;
-    }
-
-    @Override
-    public boolean isOptional() {
-        return false;
-    }
-
-    @Override
-    public boolean isRange() {
-        return false;
-    }
-
-    @Override
-    public boolean isRepeated() {
-        return true;
-    }
-
-    @Override
-    public boolean isRule() {
-        return false;
-    }
-
     // EbnfParserTokenVisitor............................................................................................
 
     @Override

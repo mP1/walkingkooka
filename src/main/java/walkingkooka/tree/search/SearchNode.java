@@ -337,62 +337,86 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
     /**
      * Only {@link SearchBigDecimalNode} returns true.
      */
-    public abstract boolean isBigDecimal();
+    public final boolean isBigDecimal() {
+        return this instanceof SearchBigDecimalNode;
+    }
 
     /**
      * Only {@link SearchBigIntegerNode} returns true.
      */
-    public abstract boolean isBigInteger();
+    public final boolean isBigInteger() {
+        return this instanceof SearchBigIntegerNode;
+    }
 
     /**
      * Only {@link SearchDoubleNode} returns true.
      */
-    public abstract boolean isDouble();
+    public final boolean isDouble() {
+        return this instanceof SearchDoubleNode;
+    }
 
     /**
      * Only {@link SearchIgnoredNode} returns true.
      */
-    public abstract boolean isIgnored();
+    public final boolean isIgnored() {
+        return this instanceof SearchIgnoredNode;
+    }
 
     /**
      * Only {@link SearchLocalDateNode} returns true.
      */
-    public abstract boolean isLocalDate();
+    public final boolean isLocalDate() {
+        return this instanceof SearchLocalDateNode;
+    }
 
     /**
      * Only {@link SearchLocalDateTimeNode} returns true.
      */
-    public abstract boolean isLocalDateTime();
+    public final boolean isLocalDateTime() {
+        return this instanceof SearchLocalDateTimeNode;
+    }
 
     /**
      * Only {@link SearchLocalTimeNode} returns true.
      */
-    public abstract boolean isLocalTime();
+    public final boolean isLocalTime() {
+        return this instanceof SearchLocalTimeNode;
+    }
 
     /**
      * Only {@link SearchLongNode} returns true.
      */
-    public abstract boolean isLong();
+    public final boolean isLong() {
+        return this instanceof SearchLongNode;
+    }
 
     /**
      * Only {@link SearchMetaNode} returns true.
      */
-    public abstract boolean isMeta();
+    public final boolean isMeta() {
+        return this instanceof SearchMetaNode;
+    }
 
     /**
      * Only {@link SearchSequenceNode} returns true.
      */
-    public abstract boolean isSequence();
+    public final boolean isSequence() {
+        return this instanceof SearchSequenceNode;
+    }
 
     /**
      * Only {@link SearchSelectNode} returns true.
      */
-    public abstract boolean isSelect();
+    public final boolean isSelect() {
+        return this instanceof SearchSelectNode;
+    }
 
     /**
      * Only {@link SearchTextNode} returns true.
      */
-    public abstract boolean isText();
+    public final boolean isText() {
+        return this instanceof SearchTextNode;
+    }
 
     /**
      * Optimisation to help gather text for all {@link SearchNode} by parents.

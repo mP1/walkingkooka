@@ -32,33 +32,6 @@ public final class EbnfTerminalParserToken extends EbnfLeafParserToken<String> {
         super(value, text);
     }
 
-    // isXXX............................................................................................................
-
-    @Override
-    public boolean isComment() {
-        return false;
-    }
-
-    @Override
-    public boolean isIdentifier() {
-        return false;
-    }
-
-    @Override
-    public boolean isSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isTerminal() {
-        return true;
-    }
-
-    @Override
-    public boolean isWhitespace() {
-        return false;
-    }
-
     // EbnfParserTokenVisitor............................................................................................
 
     @Override

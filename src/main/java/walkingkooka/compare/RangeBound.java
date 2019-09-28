@@ -70,17 +70,23 @@ abstract public class RangeBound<C extends Comparable<C>> implements HashCodeEqu
     /**
      * Only bounds without a value return true.
      */
-    public abstract boolean isAll();
+    public final boolean isAll() {
+        return this instanceof RangeBoundAll;
+    }
 
     /**
      * Only bounds with an exclusive value return true.
      */
-    public abstract boolean isExclusive();
+    public final boolean isExclusive() {
+        return this instanceof RangeBoundExclusive;
+    }
 
     /**
      * Only bounds with an inclusive value return true.
      */
-    public abstract boolean isInclusive();
+    public final boolean isInclusive() {
+        return this instanceof RangeBoundInclusive;
+    }
 
     /**
      * Inclusive and exclusive will also include a value.
