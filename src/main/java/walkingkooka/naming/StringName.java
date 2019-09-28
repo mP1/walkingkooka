@@ -23,16 +23,11 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
 
-import java.io.Serializable;
-
 /**
  * A simple {@link Name} that accepts a {@link String} composed of any character.
  */
 final public class StringName implements Name,
-        Comparable<StringName>,
-        Serializable {
-
-    private final static long serialVersionUID = 1L;
+        Comparable<StringName> {
 
     /**
      * Root singleton
@@ -62,15 +57,6 @@ final public class StringName implements Name,
     }
 
     private final String name;
-
-    // Serializable
-
-    /**
-     * Ensures singleton instance of any {@link StringName#ROOT}.
-     */
-    private Object readResolve() {
-        return this.name.equals(StringName.ROOT.name) ? StringName.ROOT : this;
-    }
 
     // Object..................................................................................................
 

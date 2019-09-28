@@ -18,12 +18,10 @@
 package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.Ascii;
 
 final public class AsciiPrintableCharPredicateTest
-        implements CharPredicateTesting<AsciiPrintableCharPredicate>,
-        SerializationTesting<AsciiPrintableCharPredicate> {
+        implements CharPredicateTesting<AsciiPrintableCharPredicate> {
 
     @Test
     public void testNull() {
@@ -48,15 +46,5 @@ final public class AsciiPrintableCharPredicateTest
     @Override
     public Class<AsciiPrintableCharPredicate> type() {
         return AsciiPrintableCharPredicate.class;
-    }
-
-    @Override
-    public AsciiPrintableCharPredicate serializableInstance() {
-        return AsciiPrintableCharPredicate.INSTANCE;
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return true;
     }
 }

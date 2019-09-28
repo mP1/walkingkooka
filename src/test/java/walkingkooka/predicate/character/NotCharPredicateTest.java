@@ -20,14 +20,12 @@ package walkingkooka.predicate.character;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
-import walkingkooka.test.SerializationTesting;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class NotCharPredicateTest implements CharPredicateTesting<NotCharPredicate>,
-        HashCodeEqualsDefinedTesting2<NotCharPredicate>,
-        SerializationTesting<NotCharPredicate> {
+        HashCodeEqualsDefinedTesting2<NotCharPredicate> {
 
     // constants
 
@@ -86,15 +84,5 @@ final public class NotCharPredicateTest implements CharPredicateTesting<NotCharP
     @Override
     public NotCharPredicate createObject() {
         return this.createCharPredicate();
-    }
-
-    @Override
-    public NotCharPredicate serializableInstance() {
-        return Cast.to(NotCharPredicate.wrap(CharPredicates.is('a')));
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

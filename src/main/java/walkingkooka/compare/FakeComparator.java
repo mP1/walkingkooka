@@ -19,15 +19,12 @@ package walkingkooka.compare;
 
 import walkingkooka.test.Fake;
 
-import java.io.Serializable;
 import java.util.Comparator;
 
 /**
  * A {@link Comparator} that always throws {@link UnsupportedOperationException}.
  */
-final class FakeComparator<T> implements Comparator<T>, Serializable, Fake {
-
-    private static final long serialVersionUID = 1L;
+final class FakeComparator<T> implements Comparator<T>, Fake {
 
     static <T> FakeComparator<T> create() {
         return new FakeComparator<T>();

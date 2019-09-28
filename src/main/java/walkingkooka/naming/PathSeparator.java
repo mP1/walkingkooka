@@ -20,13 +20,12 @@ package walkingkooka.naming;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * A {@link PathSeparator} captures the actual character and rules about a {@link Path}.
  */
-final public class PathSeparator implements HashCodeEqualsDefined, Serializable {
+final public class PathSeparator implements HashCodeEqualsDefined {
 
     private final static long serialVersionUID = 1L;
 
@@ -131,17 +130,7 @@ final public class PathSeparator implements HashCodeEqualsDefined, Serializable 
         }
     }
 
-    // Serializable
-
-    /**
-     * Ensure the singleton-ness of {@link #DOT} and {@link #SLASH}
-     */
-    private Object readResolve() {
-        return PathSeparator.SLASH.equals(this) ? PathSeparator.SLASH
-                : PathSeparator.DOT.equals(this) ? PathSeparator.DOT : this;
-    }
-
-    // Object
+    // Object...........................................................................................................
 
     /**
      * Hashing is calculated using the character and {@link #requiredAtStart} properties

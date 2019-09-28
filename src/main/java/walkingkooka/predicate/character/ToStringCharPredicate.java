@@ -21,14 +21,13 @@ import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.Whitespace;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Forwards all match requests to another wrapped {@link CharPredicate} but returns the given {@link
  * String}.
  */
-final class ToStringCharPredicate implements CharPredicate, HashCodeEqualsDefined, Serializable {
+final class ToStringCharPredicate implements CharPredicate, HashCodeEqualsDefined {
 
     /**
      * Creates a new {@link ToStringCharPredicate}
@@ -96,7 +95,4 @@ final class ToStringCharPredicate implements CharPredicate, HashCodeEqualsDefine
     }
 
     final String toString;
-
-    // Serializable
-    private static final long serialVersionUID = 517627157259571420L;
 }

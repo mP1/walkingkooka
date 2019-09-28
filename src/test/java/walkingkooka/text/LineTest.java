@@ -19,15 +19,13 @@ package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class LineTest implements ClassTesting2<Line>,
-        CharSequenceTesting<Line>,
-        SerializationTesting<Line> {
+        CharSequenceTesting<Line> {
 
     @Override
     public void testTypeNaming() {
@@ -103,15 +101,5 @@ final public class LineTest implements ClassTesting2<Line>,
     @Override
     public Line createObject() {
         return this.createCharSequence();
-    }
-
-    @Override
-    public Line serializableInstance() {
-        return Line.with("abc123");
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

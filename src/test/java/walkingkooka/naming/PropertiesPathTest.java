@@ -20,7 +20,6 @@ package walkingkooka.naming;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.test.SerializationTesting;
 
 import java.util.Set;
 
@@ -30,8 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class PropertiesPathTest extends PathTestCase<PropertiesPath, PropertiesName>
-        implements ParseStringTesting<PropertiesPath>,
-        SerializationTesting<PropertiesPath> {
+        implements ParseStringTesting<PropertiesPath> {
 
     @Test
     public void testParseEmptyComponent() {
@@ -63,8 +61,8 @@ final public class PropertiesPathTest extends PathTestCase<PropertiesPath, Prope
     }
 
     @Test
-    public void testGeneral() throws Exception {
-        final PropertiesPath path = this.cloneUsingSerialization(PropertiesPath.parse("one.two.three"));
+    public void testGeneral() {
+        final PropertiesPath path = PropertiesPath.parse("one.two.three");
         final PropertiesPath parent = path.parent().get();
 
         assertEquals("one.two", parent.value());
@@ -117,16 +115,6 @@ final public class PropertiesPathTest extends PathTestCase<PropertiesPath, Prope
     @Override
     public PropertiesPath createComparable() {
         return PropertiesPath.parse("property-abc");
-    }
-
-    @Override
-    public PropertiesPath serializableInstance() {
-        return PropertiesPath.parse("abc.def");
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 
     // ConstantTesting ........................................................................................

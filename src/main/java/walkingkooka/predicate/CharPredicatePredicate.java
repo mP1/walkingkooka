@@ -20,7 +20,6 @@ package walkingkooka.predicate;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.test.HashCodeEqualsDefined;
 
-import java.io.Serializable;
 import java.util.Objects;
 import java.util.function.Predicate;
 
@@ -28,7 +27,8 @@ import java.util.function.Predicate;
  * A {@link Predicate} adaptor that unwraps the {@link Character} and passes that char to a {@link
  * CharPredicate}.
  */
-final class CharPredicatePredicate implements Predicate<Character>, HashCodeEqualsDefined, Serializable {
+final class CharPredicatePredicate implements Predicate<Character>,
+        HashCodeEqualsDefined {
 
     /**
      * Creates a new {@link CharPredicatePredicate}
@@ -83,8 +83,4 @@ final class CharPredicatePredicate implements Predicate<Character>, HashCodeEqua
     public String toString() {
         return this.predicate.toString();
     }
-
-    // Serializable
-
-    private static final long serialVersionUID = 2265435120794290495L;
 }

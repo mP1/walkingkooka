@@ -19,14 +19,10 @@ package walkingkooka.predicate.character;
 
 import walkingkooka.text.CharSequences;
 
-import java.io.Serializable;
-
 /**
  * A {@link CharPredicate} that only matches a range of characters.
  */
-final class RangeCharPredicate implements CharPredicate, Serializable {
-
-    private static final long serialVersionUID = 124768675863487563L;
+final class RangeCharPredicate implements CharPredicate {
 
     /**
      * Factory that creates a char predicate that matches the given range of characters(both inclusive).

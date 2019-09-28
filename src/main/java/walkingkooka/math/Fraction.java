@@ -19,14 +19,13 @@ package walkingkooka.math;
 
 import walkingkooka.test.HashCodeEqualsDefined;
 
-import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Objects;
 
 /**
  * A fraction holds a numerator and non zero numerator.
  */
-public final class Fraction implements HashCodeEqualsDefined, Serializable {
+public final class Fraction implements HashCodeEqualsDefined {
 
     /**
      * Factory that creates a new {@link Fraction}
@@ -83,8 +82,4 @@ public final class Fraction implements HashCodeEqualsDefined, Serializable {
     public String toString() {
         return this.numerator + "/" + this.denominator;
     }
-
-    // Serializable.....................................................................................
-
-    private static final long serialVersionUID = 1;
 }

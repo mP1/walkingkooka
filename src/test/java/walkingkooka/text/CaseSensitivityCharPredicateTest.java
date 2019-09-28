@@ -20,12 +20,10 @@ package walkingkooka.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.predicate.character.CharPredicateTesting;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
-import walkingkooka.test.SerializationTesting;
 
 final public class CaseSensitivityCharPredicateTest
         implements CharPredicateTesting<CaseSensitivityCharPredicate>,
-        HashCodeEqualsDefinedTesting2<CaseSensitivityCharPredicate>,
-        SerializationTesting<CaseSensitivityCharPredicate> {
+        HashCodeEqualsDefinedTesting2<CaseSensitivityCharPredicate> {
 
     // constants
 
@@ -138,15 +136,5 @@ final public class CaseSensitivityCharPredicateTest
     @Override
     public CaseSensitivityCharPredicate createObject() {
         return CaseSensitivityCharPredicate.with(CHAR, SENSITIVITY);
-    }
-
-    @Override
-    public CaseSensitivityCharPredicate serializableInstance() {
-        return CaseSensitivityCharPredicate.with('a', SENSITIVITY);
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

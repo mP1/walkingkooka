@@ -26,6 +26,7 @@ import java.util.Objects;
  * true.
  */
 final class OrCharPredicate extends LogicalCharPredicate implements CharPredicate {
+
     static CharPredicate wrap(final CharPredicate left, final CharPredicate right) {
         Objects.requireNonNull(left, "left CharPredicate");
         Objects.requireNonNull(right, "right CharPredicate");
@@ -58,8 +59,4 @@ final class OrCharPredicate extends LogicalCharPredicate implements CharPredicat
     public String operator() {
         return "||";
     }
-
-    // Serializable
-
-    private static final long serialVersionUID = 32659459779119584L;
 }

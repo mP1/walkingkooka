@@ -19,14 +19,12 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
-import walkingkooka.test.SerializationTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class LogicalCharPredicateTestCase<P extends LogicalCharPredicate>
         implements CharPredicateTesting<P>,
-        HashCodeEqualsDefinedTesting2<P>,
-        SerializationTesting<P> {
+        HashCodeEqualsDefinedTesting2<P> {
 
     LogicalCharPredicateTestCase() {
         super();
@@ -79,15 +77,5 @@ abstract public class LogicalCharPredicateTestCase<P extends LogicalCharPredicat
     @Override
     public P createObject() {
         return this.createCharPredicate(CharPredicates.is('l'), CharPredicates.is('r'));
-    }
-
-    @Override
-    public final P serializableInstance() {
-        return this.createCharPredicate();
-    }
-
-    @Override
-    public final boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

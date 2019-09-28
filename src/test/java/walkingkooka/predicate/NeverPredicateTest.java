@@ -19,14 +19,12 @@ package walkingkooka.predicate;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.SerializationTesting;
 
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-final public class NeverPredicateTest extends PredicateTestCase<NeverPredicate<Object>, Object>
-        implements SerializationTesting<NeverPredicate<Object>> {
+final public class NeverPredicateTest extends PredicateTestCase<NeverPredicate<Object>, Object> {
 
     @Override
     public void testTestNullFails() {
@@ -68,15 +66,5 @@ final public class NeverPredicateTest extends PredicateTestCase<NeverPredicate<O
     @Override
     public Class<NeverPredicate<Object>> type() {
         return Cast.to(NeverPredicate.class);
-    }
-
-    @Override
-    public NeverPredicate<Object> serializableInstance() {
-        return NeverPredicate.instance();
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return true;
     }
 }

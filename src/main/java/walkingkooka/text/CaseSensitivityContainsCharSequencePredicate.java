@@ -23,8 +23,7 @@ import java.util.Objects;
  * {@link java.util.function.Predicate} that test any {@link CharSequence} that contains a {@link
  * CharSequence} maybe ignoring the case.
  */
-final class CaseSensitivityContainsCharSequencePredicate<C extends CharSequence>
-        extends CaseSensitivityCharSequencePredicateTemplate<C> {
+final class CaseSensitivityContainsCharSequencePredicate<C extends CharSequence> extends CaseSensitivityCharSequencePredicateTemplate<C> {
 
     /**
      * Creates a {@link CaseSensitivityContainsCharSequencePredicate}
@@ -59,8 +58,4 @@ final class CaseSensitivityContainsCharSequencePredicate<C extends CharSequence>
     String toStringPrefix() {
         return "contains ";
     }
-
-    // Serializable
-
-    private static final long serialVersionUID = -8507937877802130191L;
 }

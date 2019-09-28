@@ -17,11 +17,9 @@
 
 package walkingkooka.naming;
 
-import walkingkooka.io.SerializationProxy;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 
-import java.io.Serializable;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Properties;
@@ -30,9 +28,8 @@ import java.util.regex.Pattern;
 /**
  * A {@link Path} that wraps a {@link String} which may contain any character.
  */
-final public class PropertiesPath
-        implements Path<PropertiesPath, PropertiesName>, Comparable<PropertiesPath>, HashCodeEqualsDefined,
-        Serializable {
+final public class PropertiesPath implements Path<PropertiesPath, PropertiesName>, Comparable<PropertiesPath>,
+        HashCodeEqualsDefined {
 
     /**
      * {@link PathSeparator} instance
@@ -149,18 +146,7 @@ final public class PropertiesPath
         return this.path.compareTo(path.path);
     }
 
-    // Serialization
-
-    private static final long serialVersionUID = 2662286268230942553L;
-
-    /**
-     * Returns either of the two {@link SerializationProxy}
-     */
-    private Object writeReplace() {
-        return new PropertiesPathSerializationProxy(this.path);
-    }
-
-    // Object
+    // Object...........................................................................................................
 
     @Override
     public int hashCode() {

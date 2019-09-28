@@ -18,12 +18,10 @@
 package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.SerializationTesting;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-final public class NeverCharPredicateTest implements CharPredicateTesting<NeverCharPredicate>,
-        SerializationTesting<NeverCharPredicate> {
+final public class NeverCharPredicateTest implements CharPredicateTesting<NeverCharPredicate> {
 
     @Test
     public void testMatches() {
@@ -60,15 +58,5 @@ final public class NeverCharPredicateTest implements CharPredicateTesting<NeverC
     @Override
     public Class<NeverCharPredicate> type() {
         return NeverCharPredicate.class;
-    }
-
-    @Override
-    public NeverCharPredicate serializableInstance() {
-        return NeverCharPredicate.INSTANCE;
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return true;
     }
 }

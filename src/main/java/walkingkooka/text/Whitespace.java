@@ -19,13 +19,13 @@ package walkingkooka.text;
 
 import walkingkooka.test.HashCodeEqualsDefined;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * A {@link CharSequence} that contains only contain whitespace.
  */
-final public class Whitespace implements CharSequence, HashCodeEqualsDefined, Serializable {
+final public class Whitespace implements CharSequence,
+        HashCodeEqualsDefined {
 
     /**
      * Fails if the given {@link CharSequences} is null, empty or only whitespace.
@@ -166,16 +166,5 @@ final public class Whitespace implements CharSequence, HashCodeEqualsDefined, Se
     @Override
     public String toString() {
         return this.content;
-    }
-
-    // Serializable
-
-    private static final long serialVersionUID = 7917550576437440205L;
-
-    /**
-     * Ensures empty {@link Whitespace} remains a singleton
-     */
-    private Object readResolve() {
-        return this.content.length() == 0 ? Whitespace.EMPTY : this;
     }
 }

@@ -20,7 +20,6 @@ package walkingkooka.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -32,7 +31,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class IndentationTest implements ClassTesting2<Indentation>,
         HashCodeEqualsDefinedTesting2<Indentation>,
-        SerializationTesting<Indentation>,
         ToStringTesting<Indentation> {
 
     @Override
@@ -222,11 +220,6 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
         this.toStringAndCheck(Indentation.with("a1 "), "a1 ");
     }
 
-    @Test
-    public void testConstants() throws Exception {
-        this.constantsAreSingletons();
-    }
-
     private void check(final Indentation indentation, final String value) {
         assertEquals(value, indentation.value(), "value");
     }
@@ -248,15 +241,5 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
     @Override
     public Indentation createObject() {
         return Indentation.with("  ");
-    }
-
-    @Override
-    public Indentation serializableInstance() {
-        return Indentation.with("123");
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

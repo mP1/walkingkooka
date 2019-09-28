@@ -129,7 +129,4 @@ final class UnreadableStack<T> implements Stack<T>, HashCodeEqualsDefined {
     public String toString() {
         return this.stack.toString();
     }
-
-    // Serializable
-    private static final long serialVersionUID = 7789088450214321608L;
 }

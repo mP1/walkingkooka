@@ -20,14 +20,14 @@ import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.Whitespace;
 
-import java.io.Serializable;
 import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
  * Wraps another {@link Predicate} replacing or ignoring its {@link Predicate#toString()} with the provided {@link String}.
  */
-final class CustomToStringPredicate<T> implements Predicate<T>, HashCodeEqualsDefined, Serializable {
+final class CustomToStringPredicate<T> implements Predicate<T>,
+        HashCodeEqualsDefined {
 
     static <T> Predicate<T> wrap(final Predicate<T> predicate, final String toString) {
         Objects.requireNonNull(predicate, "predicate");
@@ -91,8 +91,4 @@ final class CustomToStringPredicate<T> implements Predicate<T>, HashCodeEqualsDe
 
     // @VisibleForTesting
     final String toString;
-
-    // Serializable
-
-    private static final long serialVersionUID = 1L;
 }

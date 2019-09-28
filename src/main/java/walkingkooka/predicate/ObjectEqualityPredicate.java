@@ -20,16 +20,14 @@ package walkingkooka.predicate;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 
-import java.io.Serializable;
 import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
  * A {@link Predicate} that test any value using {@link Object#equals(Object)}.
  */
-final class ObjectEqualityPredicate<T> implements Predicate<T>, HashCodeEqualsDefined, Serializable {
-
-    private static final long serialVersionUID = 5919947103632549692L;
+final class ObjectEqualityPredicate<T> implements Predicate<T>,
+        HashCodeEqualsDefined {
 
     /**
      * Creates a {@link ObjectEqualityPredicate}

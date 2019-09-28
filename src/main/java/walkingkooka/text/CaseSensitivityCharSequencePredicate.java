@@ -23,8 +23,7 @@ import java.util.Objects;
  * A {@link java.util.function.Predicate} that test any incoming {@link CharSequence} against a
  * {@link String} ignoring case.
  */
-final class CaseSensitivityCharSequencePredicate<C extends CharSequence>
-        extends CaseSensitivityCharSequencePredicateTemplate<C> {
+final class CaseSensitivityCharSequencePredicate<C extends CharSequence> extends CaseSensitivityCharSequencePredicateTemplate<C> {
 
     /**
      * Creates a {@link CaseSensitivityCharSequencePredicate}
@@ -58,8 +57,4 @@ final class CaseSensitivityCharSequencePredicate<C extends CharSequence>
     String toStringPrefix() {
         return "";
     }
-
-    // Serializable
-
-    private static final long serialVersionUID = -2622996930115534976L;
 }

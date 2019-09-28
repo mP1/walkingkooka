@@ -174,8 +174,4 @@ final class ArrayListStack<T> implements Stack<T>, HashCodeEqualsDefined {
     public String toString() {
         return this.items.toString();
     }
-
-    // Serializable
-
-    private static final long serialVersionUID = 7012739260832790902L;
 }

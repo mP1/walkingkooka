@@ -20,7 +20,6 @@ package walkingkooka.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,8 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ConcatCharSequenceTest implements ClassTesting2<ConcatCharSequence>,
-        CharSequenceTesting<ConcatCharSequence>,
-        SerializationTesting<ConcatCharSequence> {
+        CharSequenceTesting<ConcatCharSequence> {
 
     // constants
 
@@ -163,15 +161,5 @@ final public class ConcatCharSequenceTest implements ClassTesting2<ConcatCharSeq
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
-    }
-
-    @Override
-    public ConcatCharSequence serializableInstance() {
-        return (ConcatCharSequence) ConcatCharSequence.with(FIRST, SECOND);
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

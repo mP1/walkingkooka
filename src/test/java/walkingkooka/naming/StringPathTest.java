@@ -20,17 +20,11 @@ package walkingkooka.naming;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.test.SerializationTesting;
 
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertSame;
-
 final public class StringPathTest extends PathTestCase<StringPath, StringName>
-        implements ParseStringTesting<StringPath>,
-        SerializationTesting<StringPath> {
+        implements ParseStringTesting<StringPath> {
 
     @Override
     public void testAllConstructorsVisibility() {
@@ -104,30 +98,6 @@ final public class StringPathTest extends PathTestCase<StringPath, StringName>
         this.compareToAndCheckMore(StringPath.parse("/before"));
     }
 
-    @Test
-    public void testSerializeRootIsSingleton() throws Exception {
-        this.serializeSingletonAndCheck(StringPath.ROOT);
-    }
-
-    @Test
-    public void testSerializeParentNameAndIsRoot() throws Exception {
-        final StringPath path = this.cloneUsingSerialization(StringPath.parse("/one/two/three"));
-        final StringPath parent = path.parent().get();
-
-        assertEquals("/one/two", parent.value());
-
-        assertFalse(parent.isRoot());
-        assertSame(parent, path.parent().get());
-        assertEquals(StringName.with("two"), parent.name());
-
-        final StringPath grandParent = parent.parent().get();
-        assertEquals("/one", grandParent.value());
-        assertFalse(grandParent.isRoot());
-        assertEquals(StringName.with("one"), grandParent.name());
-
-        assertSame(StringPath.ROOT, grandParent.parent().get());
-    }
-
     @Override
     public StringPath root() {
         return StringPath.ROOT;
@@ -185,17 +155,5 @@ final public class StringPathTest extends PathTestCase<StringPath, StringName>
     @Override
     public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
         return expected;
-    }
-
-    // SerializationTesting ........................................................................................
-
-    @Override
-    public StringPath serializableInstance() {
-        return StringPath.parse("/path");
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

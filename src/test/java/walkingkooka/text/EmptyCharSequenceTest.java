@@ -19,12 +19,10 @@ package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.JavaVisibility;
 
 final public class EmptyCharSequenceTest implements ClassTesting2<EmptyCharSequence>,
-        CharSequenceTesting<EmptyCharSequence>,
-        SerializationTesting<EmptyCharSequence> {
+        CharSequenceTesting<EmptyCharSequence> {
 
     @Test
     public void testCharAtFails() {
@@ -82,15 +80,5 @@ final public class EmptyCharSequenceTest implements ClassTesting2<EmptyCharSeque
     @Override
     public EmptyCharSequence createObject() {
         return this.createCharSequence();
-    }
-
-    @Override
-    public EmptyCharSequence serializableInstance() {
-        return EmptyCharSequence.INSTANCE;
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return true;
     }
 }

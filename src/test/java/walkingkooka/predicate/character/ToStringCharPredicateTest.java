@@ -20,14 +20,12 @@ package walkingkooka.predicate.character;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
-import walkingkooka.test.SerializationTesting;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ToStringCharPredicateTest implements CharPredicateTesting<ToStringCharPredicate>,
-        HashCodeEqualsDefinedTesting2<ToStringCharPredicate>,
-        SerializationTesting<ToStringCharPredicate> {
+        HashCodeEqualsDefinedTesting2<ToStringCharPredicate> {
 
     // constants
 
@@ -133,15 +131,5 @@ final public class ToStringCharPredicateTest implements CharPredicateTesting<ToS
     @Override
     public Class<ToStringCharPredicate> type() {
         return Cast.to(ToStringCharPredicate.class);
-    }
-
-    @Override
-    public ToStringCharPredicate serializableInstance() {
-        return Cast.to(ToStringCharPredicate.wrap(CharPredicates.is('a'), "fancy toString"));
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

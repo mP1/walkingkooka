@@ -19,7 +19,6 @@ package walkingkooka;
 
 import walkingkooka.text.Whitespace;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -27,7 +26,7 @@ import java.util.Objects;
  * called the message must not be null or only whitespace and the {@link Throwable cause} must not
  * be null.
  */
-public class SystemException extends RuntimeException implements Serializable {
+public class SystemException extends RuntimeException {
 
     protected SystemException() {
     }
@@ -53,8 +52,4 @@ public class SystemException extends RuntimeException implements Serializable {
         Objects.requireNonNull(cause, "cause");
         return cause;
     }
-
-    // Serializable
-
-    private static final long serialVersionUID = 1L;
 }

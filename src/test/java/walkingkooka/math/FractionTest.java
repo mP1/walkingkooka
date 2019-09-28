@@ -20,7 +20,6 @@ package walkingkooka.math;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -31,7 +30,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class FractionTest implements ClassTesting2<Fraction>,
         HashCodeEqualsDefinedTesting2<Fraction>,
-        SerializationTesting<Fraction>,
         ToStringTesting<Fraction> {
 
     private final static BigInteger NUMERATOR = BigInteger.ONE;
@@ -94,15 +92,5 @@ public final class FractionTest implements ClassTesting2<Fraction>,
     @Override
     public Fraction createObject() {
         return Fraction.with(NUMERATOR, DENOMINATOR);
-    }
-
-    @Override
-    public Fraction serializableInstance() {
-        return Fraction.with(BigInteger.ONE, BigInteger.TEN);
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

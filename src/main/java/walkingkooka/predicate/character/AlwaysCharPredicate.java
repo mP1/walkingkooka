@@ -21,13 +21,11 @@ import walkingkooka.predicate.Andable;
 import walkingkooka.predicate.Notable;
 import walkingkooka.predicate.Orable;
 
-import java.io.Serializable;
-
 /**
  * A {@link CharPredicate} that always returns true regardless of input.
  */
 final class AlwaysCharPredicate
-        implements CharPredicate, Andable, Orable, Notable<CharPredicate>, Serializable {
+        implements CharPredicate, Andable, Orable, Notable<CharPredicate> {
     /**
      * Singleton
      */
@@ -70,16 +68,4 @@ final class AlwaysCharPredicate
     public String toString() {
         return "*";
     }
-
-    // Serializable
-
-    private static final long serialVersionUID = 166740320324835512L;
-
-    /**
-     * Guarantee singletoness
-     */
-    private Object readResolve() {
-        return AlwaysCharPredicate.INSTANCE;
-    }
-
 }

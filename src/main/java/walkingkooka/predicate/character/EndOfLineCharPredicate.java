@@ -17,14 +17,10 @@
 
 package walkingkooka.predicate.character;
 
-import java.io.Serializable;
-
 /**
  * A {@link CharPredicate} that only test carriage returns or newlines.
  */
-final class EndOfLineCharPredicate implements CharPredicate, Serializable {
-
-    private static final long serialVersionUID = 7236373959066476829L;
+final class EndOfLineCharPredicate implements CharPredicate {
 
     /**
      * Singleton
@@ -41,10 +37,6 @@ final class EndOfLineCharPredicate implements CharPredicate, Serializable {
     @Override
     public boolean test(final char c) {
         return ('\r' == c) || ('\n' == c);
-    }
-
-    private Object readResolve() {
-        return EndOfLineCharPredicate.INSTANCE;
     }
 
     @Override

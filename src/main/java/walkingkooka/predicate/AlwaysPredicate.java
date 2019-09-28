@@ -19,14 +19,15 @@ package walkingkooka.predicate;
 
 import walkingkooka.Cast;
 
-import java.io.Serializable;
 import java.util.function.Predicate;
 
 /**
  * A {@link Predicate} that always returns true regardless of input.
  */
-final class AlwaysPredicate<T>
-        implements Predicate<T>, Andable, Orable, Notable<Predicate<T>>, Serializable {
+final class AlwaysPredicate<T> implements Predicate<T>,
+        Andable,
+        Orable,
+        Notable<Predicate<T>> {
 
     /**
      * Singleton
@@ -75,16 +76,5 @@ final class AlwaysPredicate<T>
     @Override
     public String toString() {
         return "*";
-    }
-
-    // Serializable
-
-    private static final long serialVersionUID = -7055114884238460470L;
-
-    /**
-     * Guarantee singletoness
-     */
-    private Object readResolve() {
-        return AlwaysPredicate.INSTANCE;
     }
 }

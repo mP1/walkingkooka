@@ -136,16 +136,4 @@ final public class ReadOnlyStackTest extends StackTestCase<ReadOnlyStack<Object>
     public Class<ReadOnlyStack<Object>> type() {
         return Cast.to(ReadOnlyStack.class);
     }
-
-    @Override
-    public ReadOnlyStack<Object> serializableInstance() {
-        final Stack<Object> stack = Stacks.arrayList();
-        stack.push("*pushed onto stack*");
-        return ReadOnlyStack.wrap(stack);
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
-    }
 }

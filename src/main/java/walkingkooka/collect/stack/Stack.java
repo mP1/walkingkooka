@@ -17,14 +17,13 @@
 
 package walkingkooka.collect.stack;
 
-import java.io.Serializable;
 import java.util.Iterator;
 
 /**
  * A pure stack without the legacy of {@link java.util.Stack} which extends {@link
  * java.util.Vector}.
  */
-public interface Stack<T> extends Iterable<T>, Serializable {
+public interface Stack<T> extends Iterable<T> {
 
     /**
      * Peeks without removing the item at the top of the stack.

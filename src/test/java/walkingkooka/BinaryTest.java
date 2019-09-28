@@ -20,7 +20,6 @@ package walkingkooka;
 import org.junit.jupiter.api.Test;
 import walkingkooka.compare.Range;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
 
 import java.io.ByteArrayOutputStream;
@@ -37,7 +36,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class BinaryTest implements HashCodeEqualsDefinedTesting2<Binary>,
-        SerializationTesting<Binary>,
         ToStringTesting<Binary> {
 
     @Test
@@ -323,17 +321,5 @@ public final class BinaryTest implements HashCodeEqualsDefinedTesting2<Binary>,
     @Override
     public Class<Binary> type() {
         return Binary.class;
-    }
-
-    // SerializationTesting.............................................................................................
-
-    @Override
-    public Binary serializableInstance() {
-        return this.createObject();
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

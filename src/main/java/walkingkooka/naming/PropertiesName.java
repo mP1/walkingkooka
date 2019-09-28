@@ -22,14 +22,11 @@ import walkingkooka.Cast;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
-import java.io.Serializable;
-
 /**
  * A simple {@link Name} that accepts a {@link String} composed of any character.
  */
-final public class PropertiesName implements Name, Comparable<PropertiesName>, Serializable {
-
-    private final static long serialVersionUID = 1L;
+final public class PropertiesName implements Name,
+        Comparable<PropertiesName> {
 
     /**
      * Root singleton

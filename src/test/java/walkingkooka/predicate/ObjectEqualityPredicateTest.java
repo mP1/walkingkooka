@@ -20,7 +20,6 @@ package walkingkooka.predicate;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -28,8 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ObjectEqualityPredicateTest
         extends PredicateTestCase<ObjectEqualityPredicate<String>, String>
-        implements HashCodeEqualsDefinedTesting2<ObjectEqualityPredicate<String>>,
-        SerializationTesting<ObjectEqualityPredicate<String>> {
+        implements HashCodeEqualsDefinedTesting2<ObjectEqualityPredicate<String>> {
 
     final private static String MAGIC = "magic\n";
 
@@ -97,15 +95,5 @@ final public class ObjectEqualityPredicateTest
     @Override
     public ObjectEqualityPredicate<String> createObject() {
         return this.createPredicate();
-    }
-
-    @Override
-    public ObjectEqualityPredicate<String> serializableInstance() {
-        return ObjectEqualityPredicate.with("*string*");
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

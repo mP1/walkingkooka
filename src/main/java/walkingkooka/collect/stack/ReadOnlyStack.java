@@ -116,7 +116,4 @@ final class ReadOnlyStack<T> implements Stack<T>, HashCodeEqualsDefined {
     public String toString() {
         return this.stack.toString();
     }
-
-    // Serializable
-    private static final long serialVersionUID = -6365382206458151099L;
 }

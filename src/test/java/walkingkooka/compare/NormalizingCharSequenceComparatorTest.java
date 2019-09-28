@@ -23,15 +23,13 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class NormalizingCharSequenceComparatorTest implements ClassTesting2<NormalizingCharSequenceComparator<String>>,
         ComparatorTesting<NormalizingCharSequenceComparator<String>, String>,
-        HashCodeEqualsDefinedTesting2<NormalizingCharSequenceComparator<String>>,
-        SerializationTesting<NormalizingCharSequenceComparator<String>> {
+        HashCodeEqualsDefinedTesting2<NormalizingCharSequenceComparator<String>> {
 
     // constants
 
@@ -168,15 +166,5 @@ final public class NormalizingCharSequenceComparatorTest implements ClassTesting
     @Override
     public NormalizingCharSequenceComparator<String> createObject() {
         return this.createComparator();
-    }
-
-    @Override
-    public NormalizingCharSequenceComparator<String> serializableInstance() {
-        return NormalizingCharSequenceComparator.with(CharPredicates.is('A'));
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

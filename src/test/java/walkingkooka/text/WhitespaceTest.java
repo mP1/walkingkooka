@@ -19,7 +19,6 @@ package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,8 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class WhitespaceTest implements ClassTesting2<Whitespace>,
-        CharSequenceTesting<Whitespace>,
-        SerializationTesting<Whitespace> {
+        CharSequenceTesting<Whitespace> {
 
     @Override
     public void testTypeNaming() {
@@ -112,11 +110,6 @@ final public class WhitespaceTest implements ClassTesting2<Whitespace>,
     }
 
     @Test
-    public void testConstantsAreSingletons() throws Exception {
-        this.constantsAreSingletons();
-    }
-
-    @Test
     public void testEqualsDifferent() {
         this.checkNotEquals(Whitespace.with("\t"));
     }
@@ -144,15 +137,5 @@ final public class WhitespaceTest implements ClassTesting2<Whitespace>,
     @Override
     public Whitespace createObject() {
         return this.createCharSequence();
-    }
-
-    @Override
-    public Whitespace serializableInstance() {
-        return Whitespace.with("   ");
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

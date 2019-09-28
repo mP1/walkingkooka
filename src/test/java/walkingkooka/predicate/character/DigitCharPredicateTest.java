@@ -18,10 +18,8 @@
 package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.SerializationTesting;
 
-final public class DigitCharPredicateTest implements CharPredicateTesting<DigitCharPredicate>,
-        SerializationTesting<DigitCharPredicate> {
+final public class DigitCharPredicateTest implements CharPredicateTesting<DigitCharPredicate> {
 
     @Test
     public void testLetter() {
@@ -56,15 +54,5 @@ final public class DigitCharPredicateTest implements CharPredicateTesting<DigitC
     @Override
     public Class<DigitCharPredicate> type() {
         return DigitCharPredicate.class;
-    }
-
-    @Override
-    public DigitCharPredicate serializableInstance() {
-        return DigitCharPredicate.INSTANCE;
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return true;
     }
 }

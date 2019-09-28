@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.predicate.PredicateTesting2;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -29,8 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P extends CaseSensitivityCharSequencePredicateTemplate<String>>
         implements ClassTesting2<P>,
         PredicateTesting2<P, String>,
-        HashCodeEqualsDefinedTesting2<P>,
-        SerializationTesting<P> {
+        HashCodeEqualsDefinedTesting2<P> {
 
     private static final String STRING = "#$%";
     private final static CaseSensitivity SENSITIVITY = CaseSensitivity.SENSITIVE;
@@ -117,15 +115,5 @@ abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P ext
     @Override
     final public P createObject() {
         return this.createPredicate(STRING, SENSITIVITY);
-    }
-
-    @Override
-    public final P serializableInstance() {
-        return this.createPredicate();
-    }
-
-    @Override
-    public final boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

@@ -19,14 +19,10 @@ package walkingkooka.text;
 
 import walkingkooka.test.HashCodeEqualsDefined;
 
-import java.io.Serializable;
-
 /**
  * A {@link CharSequence} that is always empty.
  */
-final class EmptyCharSequence implements CharSequence, HashCodeEqualsDefined, Serializable {
-
-    private static final long serialVersionUID = 5821759502950692584L;
+final class EmptyCharSequence implements CharSequence, HashCodeEqualsDefined {
 
     /**
      * Singleton
@@ -61,12 +57,6 @@ final class EmptyCharSequence implements CharSequence, HashCodeEqualsDefined, Se
             throw new StringIndexOutOfBoundsException("Invalid end index " + end);
         }
         return this;
-    }
-
-    // Serialization
-
-    private Object readResolve() {
-        return EmptyCharSequence.INSTANCE;
     }
 
     /**

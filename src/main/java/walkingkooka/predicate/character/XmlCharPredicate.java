@@ -17,12 +17,10 @@
 
 package walkingkooka.predicate.character;
 
-import java.io.Serializable;
-
 /**
  * A {@link CharPredicate} that only test valid XML characters.
  */
-final class XmlCharPredicate implements CharPredicate, Serializable {
+final class XmlCharPredicate implements CharPredicate {
     /**
      * Singleton
      */
@@ -93,12 +91,4 @@ final class XmlCharPredicate implements CharPredicate, Serializable {
     public String toString() {
         return "XML";
     }
-
-    // Serializable
-
-    private Object readResolve() {
-        return XmlCharPredicate.INSTANCE;
-    }
-
-    private static final long serialVersionUID = -6260500073285469651L;
 }

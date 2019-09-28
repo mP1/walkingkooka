@@ -19,15 +19,13 @@ package walkingkooka.naming;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class PropertiesNameTest implements ClassTesting2<PropertiesName>,
-        NameTesting<PropertiesName, PropertiesName>,
-        SerializationTesting<PropertiesName> {
+        NameTesting<PropertiesName, PropertiesName> {
 
     @Test
     public void testCreateContainsSeparatorFails() {
@@ -75,16 +73,6 @@ final public class PropertiesNameTest implements ClassTesting2<PropertiesName>,
     @Override
     public String nameTextLess() {
         return "a";
-    }
-
-    @Override
-    public PropertiesName serializableInstance() {
-        return PropertiesName.with("abc");
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 
     @Override

@@ -19,12 +19,10 @@ package walkingkooka.predicate.character;
 
 import walkingkooka.text.Ascii;
 
-import java.io.Serializable;
-
 /**
  * A {@link CharPredicate} that only test ascii characters using {@link Ascii#isControl(char)}
  */
-final class AsciiControlCharPredicate implements CharPredicate, Serializable {
+final class AsciiControlCharPredicate implements CharPredicate {
 
     /**
      * Singleton
@@ -43,18 +41,8 @@ final class AsciiControlCharPredicate implements CharPredicate, Serializable {
         return Ascii.isControl(c);
     }
 
-    // Object
-
     @Override
     public String toString() {
         return "ASCII control";
     }
-
-    // Serializable
-
-    private Object readResolve() {
-        return AsciiControlCharPredicate.INSTANCE;
-    }
-
-    private static final long serialVersionUID = -8775161679665358040L;
 }
