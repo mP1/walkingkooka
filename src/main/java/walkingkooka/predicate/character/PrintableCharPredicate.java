@@ -17,15 +17,11 @@
 
 package walkingkooka.predicate.character;
 
-import java.io.Serializable;
-
 /**
  * A {@link CharPredicate} that returns true only if the given character is printable and not a
  * control character such of carriage return.
  */
-final class PrintableCharPredicate implements CharPredicate, Serializable {
-
-    private static final long serialVersionUID = -123352500915182057L;
+final class PrintableCharPredicate implements CharPredicate {
 
     /**
      * Singleton

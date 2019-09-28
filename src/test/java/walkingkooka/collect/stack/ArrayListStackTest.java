@@ -188,16 +188,6 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Strin
     }
 
     @Override
-    public ArrayListStack<String> serializableInstance() {
-        return ArrayListStack.create();
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
-    }
-
-    @Override
     public ArrayListStack<String> createObject() {
         return ArrayListStack.create();
     }

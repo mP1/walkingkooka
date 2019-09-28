@@ -20,7 +20,6 @@ package walkingkooka.predicate;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.test.HashCodeEqualsDefined;
 
-import java.io.Serializable;
 import java.util.Objects;
 import java.util.function.Predicate;
 
@@ -28,7 +27,8 @@ import java.util.function.Predicate;
  * A {@link Predicate} that only returns true if all characters in any {@link CharSequence}
  * are matched by the {@link CharPredicate}.
  */
-final class CharPredicateCharSequencePredicate implements Predicate<CharSequence>, HashCodeEqualsDefined, Serializable {
+final class CharPredicateCharSequencePredicate implements Predicate<CharSequence>,
+        HashCodeEqualsDefined {
 
     static Predicate<CharSequence> with(final CharPredicate predicate) {
         Objects.requireNonNull(predicate, "predicate");
@@ -60,10 +60,12 @@ final class CharPredicateCharSequencePredicate implements Predicate<CharSequence
 
     // Object
 
+    @Override
     public int hashCode() {
         return this.predicate.hashCode();
     }
 
+    @Override
     public boolean equals(final Object other) {
         return this == other || other instanceof CharPredicateCharSequencePredicate && equals0((CharPredicateCharSequencePredicate) other);
     }
@@ -72,11 +74,8 @@ final class CharPredicateCharSequencePredicate implements Predicate<CharSequence
         return this.predicate.equals(other.predicate);
     }
 
+    @Override
     public String toString() {
         return this.predicate.toString();
     }
-
-    // Serializable
-
-    private static final long serialVersionUID = 1L;
 }

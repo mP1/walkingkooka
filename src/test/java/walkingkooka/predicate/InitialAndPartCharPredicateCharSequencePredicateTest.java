@@ -22,14 +22,12 @@ import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
-import walkingkooka.test.SerializationTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class InitialAndPartCharPredicateCharSequencePredicateTest
         extends PredicateTestCase<InitialAndPartCharPredicateCharSequencePredicate, CharSequence>
-        implements HashCodeEqualsDefinedTesting2<InitialAndPartCharPredicateCharSequencePredicate>,
-        SerializationTesting<InitialAndPartCharPredicateCharSequencePredicate> {
+        implements HashCodeEqualsDefinedTesting2<InitialAndPartCharPredicateCharSequencePredicate> {
 
     // tests
 
@@ -123,15 +121,5 @@ final public class InitialAndPartCharPredicateCharSequencePredicateTest
     private InitialAndPartCharPredicateCharSequencePredicate createPredicate(final CharPredicate initial,
                                                                              final CharPredicate remaining) {
         return Cast.to(InitialAndPartCharPredicateCharSequencePredicate.with(initial, remaining));
-    }
-
-    @Override
-    public InitialAndPartCharPredicateCharSequencePredicate serializableInstance() {
-        return Cast.to(InitialAndPartCharPredicateCharSequencePredicate.with(CharPredicates.ascii(), CharPredicates.digit()));
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

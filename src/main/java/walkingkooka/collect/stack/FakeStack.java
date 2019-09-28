@@ -73,7 +73,4 @@ public class FakeStack<T> implements Stack<T>, Fake {
     public Iterator<T> iterator() {
         throw new UnsupportedOperationException();
     }
-
-    // Serializable
-    private static final long serialVersionUID = 7673968242617375306L;
 }

@@ -19,14 +19,16 @@ package walkingkooka.predicate;
 
 import walkingkooka.Cast;
 
-import java.io.Serializable;
 import java.util.function.Predicate;
 
 /**
  * A {@link Predicate} that always returns false.
  */
-final class NeverPredicate<T>
-        implements Predicate<T>, Andable, Orable, Notable<Predicate<T>>, Serializable {
+final class NeverPredicate<T> implements Predicate<T>,
+        Andable,
+        Orable,
+        Notable<Predicate<T>> {
+
     /**
      * Singleton
      */
@@ -75,13 +77,5 @@ final class NeverPredicate<T>
     @Override
     public String toString() {
         return "<none>";
-    }
-
-    // Serializable
-
-    private static final long serialVersionUID = -7708573589429691463L;
-
-    private Object readResolve() {
-        return NeverPredicate.INSTANCE;
     }
 }

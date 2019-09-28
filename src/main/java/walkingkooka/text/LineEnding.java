@@ -20,14 +20,14 @@ package walkingkooka.text;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.util.systemproperty.SystemProperty;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * A possible line ending. Note it is not possible to create instances only the available constants
  * or singletons may be used. Identity checking is always safe.
  */
-final public class LineEnding implements CharSequence, HashCodeEqualsDefined, Serializable {
+final public class LineEnding implements CharSequence,
+        HashCodeEqualsDefined {
 
     /**
      * Carriage return
@@ -114,23 +114,11 @@ final public class LineEnding implements CharSequence, HashCodeEqualsDefined, Se
 
     void complainIfPresent(final String text) {
         if (text.contains(this.value)) {
-            throw new IllegalArgumentException(
-                    "Text " + CharSequences.quote(text) + " contains " + this);
+            throw new IllegalArgumentException("Text " + CharSequences.quote(text) + " contains " + this);
         }
     }
 
-    // Serializable
-
-    private static final long serialVersionUID = 3221698293114136051L;
-
-    /**
-     * Ensures that constants remain singletons.
-     */
-    private Object readResolve() {
-        return from(this.value);
-    }
-
-    // Object
+    // Object...........................................................................................................
 
     @Override
     public int hashCode() {

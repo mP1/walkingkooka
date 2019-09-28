@@ -20,7 +20,6 @@ package walkingkooka.predicate.character;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -28,7 +27,8 @@ import java.util.Objects;
  * A {@link CharPredicate} that test any characters that appear in the provided {@link
  * CharSequence}.
  */
-final class AnyCharPredicate implements CharPredicate, HashCodeEqualsDefined, Serializable {
+final class AnyCharPredicate implements CharPredicate,
+        HashCodeEqualsDefined {
 
     /**
      * Creates a new {@link AnyCharPredicate} using the {@link String#length()} to select the best
@@ -147,8 +147,4 @@ final class AnyCharPredicate implements CharPredicate, HashCodeEqualsDefined, Se
     public String toString() {
         return CharSequences.quoteIfChars(this.array).toString();
     }
-
-    // Serializable
-
-    private static final long serialVersionUID = 7215792927176302382L;
 }

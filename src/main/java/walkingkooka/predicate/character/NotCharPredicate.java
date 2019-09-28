@@ -21,14 +21,15 @@ import walkingkooka.Cast;
 import walkingkooka.predicate.Notable;
 import walkingkooka.test.HashCodeEqualsDefined;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Inverts the results returned by the wrapped {@link CharPredicate}.
  */
-final class NotCharPredicate
-        implements CharPredicate, Notable<CharPredicate>, HashCodeEqualsDefined, Serializable {
+final class NotCharPredicate implements CharPredicate,
+        Notable<CharPredicate>,
+        HashCodeEqualsDefined {
+
     static CharPredicate wrap(final CharPredicate predicate) {
         Objects.requireNonNull(predicate, "predicate");
 
@@ -67,6 +68,7 @@ final class NotCharPredicate
         return this.predicate.hashCode();
     }
 
+    @Override
     public boolean equals(final Object other) {
         return this == other
                 || other instanceof NotCharPredicate && equals0((NotCharPredicate) other);
@@ -76,12 +78,8 @@ final class NotCharPredicate
         return this.predicate.equals(other.predicate);
     }
 
+    @Override
     public String toString() {
         return "!" + this.predicate;
     }
-
-    // Serializable
-
-    private static final long serialVersionUID = -3941496657398112181L;
-
 }

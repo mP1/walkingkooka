@@ -21,16 +21,15 @@ import walkingkooka.predicate.Notable;
 import walkingkooka.predicate.Notables;
 import walkingkooka.test.HashCodeEqualsDefined;
 
-import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Objects;
 
 /**
  * A {@link Comparator} that inverts the result of another wrapped {@link Comparator}.
  */
-final class NotComparator<T>
-        implements Comparator<T>, Notable<Comparator<T>>, HashCodeEqualsDefined, Serializable {
-    private final static long serialVersionUID = 1L;
+final class NotComparator<T> implements Comparator<T>,
+        HashCodeEqualsDefined,
+        Notable<Comparator<T>> {
 
     static <T> Comparator<T> wrap(final Comparator<T> comparator) {
         Objects.requireNonNull(comparator, "comparator");

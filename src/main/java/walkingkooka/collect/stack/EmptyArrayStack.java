@@ -21,7 +21,6 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.HashCodeEqualsDefined;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EmptyStackException;
@@ -31,7 +30,8 @@ import java.util.Objects;
 /**
  * An immutable empty {@link Stack}
  */
-final class EmptyArrayStack<T> implements Stack<T>, HashCodeEqualsDefined, Serializable {
+final class EmptyArrayStack<T> implements Stack<T>,
+        HashCodeEqualsDefined {
 
     /**
      * Type safe getter
@@ -133,13 +133,5 @@ final class EmptyArrayStack<T> implements Stack<T>, HashCodeEqualsDefined, Seria
     @Override
     public String toString() {
         return "[]";
-    }
-
-    // Serializable
-
-    private static final long serialVersionUID = -7072175446312014541L;
-
-    private Object readResolve() {
-        return EmptyArrayStack.INSTANCE;
     }
 }

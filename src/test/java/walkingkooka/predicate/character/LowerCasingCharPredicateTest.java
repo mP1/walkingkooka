@@ -20,7 +20,6 @@ package walkingkooka.predicate.character;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
-import walkingkooka.test.SerializationTesting;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -28,8 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class LowerCasingCharPredicateTest
         implements CharPredicateTesting<LowerCasingCharPredicate>,
-        HashCodeEqualsDefinedTesting2<LowerCasingCharPredicate>,
-        SerializationTesting<LowerCasingCharPredicate> {
+        HashCodeEqualsDefinedTesting2<LowerCasingCharPredicate> {
 
     @Test
     public void testWrapNullPredicateFails() {
@@ -90,15 +88,5 @@ final public class LowerCasingCharPredicateTest
     @Override
     public LowerCasingCharPredicate createObject() {
         return this.createCharPredicate();
-    }
-
-    @Override
-    public LowerCasingCharPredicate serializableInstance() {
-        return Cast.to(LowerCasingCharPredicate.wrap(CharPredicates.always()));
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

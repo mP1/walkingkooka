@@ -20,17 +20,12 @@ package walkingkooka.text;
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefined;
 
-import java.io.Serializable;
-
 /**
  * Template {@link CharSequence} that includes templated handling the boring bits of {@link
  * #charAt(int)} and {@link #subSequence(int, int)} .
  */
 abstract class CharSequence2<C extends CharSequence2<C>> implements CharSequence,
-        HashCodeEqualsDefined,
-        Serializable {
-
-    private static final long serialVersionUID = 4222295145637915231L;
+        HashCodeEqualsDefined {
 
     /**
      * Package private to limit sub classing.

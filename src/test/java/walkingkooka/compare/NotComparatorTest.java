@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.predicate.Notable;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.Comparator;
@@ -32,8 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class NotComparatorTest implements ClassTesting2<NotComparator<Object>>,
         ComparatorTesting<NotComparator<Object>, Object>,
-        HashCodeEqualsDefinedTesting2<NotComparator<Object>>,
-        SerializationTesting<NotComparator<Object>> {
+        HashCodeEqualsDefinedTesting2<NotComparator<Object>> {
 
     private final static Comparator<Object> COMPARATOR = Comparators.fake();
 
@@ -114,15 +112,5 @@ final public class NotComparatorTest implements ClassTesting2<NotComparator<Obje
     @Override
     public NotComparator<Object> createObject() {
         return this.createComparator();
-    }
-
-    @Override
-    public NotComparator<Object> serializableInstance() {
-        return Cast.to(NotComparator.wrap(Comparator.<String>naturalOrder()));
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

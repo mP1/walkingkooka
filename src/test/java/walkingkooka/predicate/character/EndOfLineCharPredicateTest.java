@@ -18,10 +18,8 @@
 package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.SerializationTesting;
 
-final public class EndOfLineCharPredicateTest implements CharPredicateTesting<EndOfLineCharPredicate>,
-        SerializationTesting<EndOfLineCharPredicate> {
+final public class EndOfLineCharPredicateTest implements CharPredicateTesting<EndOfLineCharPredicate> {
 
     @Test
     public void testCarriageReturn() {
@@ -56,15 +54,5 @@ final public class EndOfLineCharPredicateTest implements CharPredicateTesting<En
     @Override
     public Class<EndOfLineCharPredicate> type() {
         return EndOfLineCharPredicate.class;
-    }
-
-    @Override
-    public EndOfLineCharPredicate serializableInstance() {
-        return EndOfLineCharPredicate.INSTANCE;
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return true;
     }
 }

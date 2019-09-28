@@ -26,6 +26,7 @@ import java.util.Objects;
  * return true.
  */
 final class AndCharPredicate extends LogicalCharPredicate {
+
     static CharPredicate wrap(final CharPredicate left, final CharPredicate right) {
         Objects.requireNonNull(left, "left CharPredicate");
         Objects.requireNonNull(right, "right CharPredicate");
@@ -60,8 +61,4 @@ final class AndCharPredicate extends LogicalCharPredicate {
     String operator() {
         return "&&";
     }
-
-    // Serializable
-
-    private static final long serialVersionUID = -8566033105137840493L;
 }

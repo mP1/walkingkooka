@@ -18,9 +18,8 @@
 package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.SerializationTesting;
 
-final public class LetterCharPredicateTest implements CharPredicateTesting<LetterCharPredicate>, SerializationTesting<LetterCharPredicate> {
+final public class LetterCharPredicateTest implements CharPredicateTesting<LetterCharPredicate> {
 
     @Test
     public void testLetter() {
@@ -60,15 +59,5 @@ final public class LetterCharPredicateTest implements CharPredicateTesting<Lette
     @Override
     public Class<LetterCharPredicate> type() {
         return LetterCharPredicate.class;
-    }
-
-    @Override
-    public LetterCharPredicate serializableInstance() {
-        return LetterCharPredicate.INSTANCE;
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return true;
     }
 }

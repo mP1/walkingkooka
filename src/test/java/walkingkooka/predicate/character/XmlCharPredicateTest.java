@@ -18,10 +18,8 @@
 package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.SerializationTesting;
 
-final public class XmlCharPredicateTest implements CharPredicateTesting<XmlCharPredicate>,
-        SerializationTesting<XmlCharPredicate> {
+final public class XmlCharPredicateTest implements CharPredicateTesting<XmlCharPredicate> {
 
     @Test
     public void testNul() {
@@ -117,15 +115,5 @@ final public class XmlCharPredicateTest implements CharPredicateTesting<XmlCharP
     @Override
     public Class<XmlCharPredicate> type() {
         return XmlCharPredicate.class;
-    }
-
-    @Override
-    public XmlCharPredicate serializableInstance() {
-        return XmlCharPredicate.INSTANCE;
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return true;
     }
 }

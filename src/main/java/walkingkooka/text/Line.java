@@ -20,13 +20,12 @@ package walkingkooka.text;
 import walkingkooka.Value;
 import walkingkooka.test.HashCodeEqualsDefined;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * A {@link CharSequence} that represents a line of text and cannot contain any line ending.
  */
-final class Line implements Value<String>, HashCodeEqualsDefined, Serializable, CharSequence {
+final class Line implements Value<String>, HashCodeEqualsDefined, CharSequence {
     /**
      * Factory that creates a new {@link Line} providing the {@link String} has no {@link
      * LineEnding} characters within it.
@@ -96,7 +95,4 @@ final class Line implements Value<String>, HashCodeEqualsDefined, Serializable, 
     }
 
     private final String value;
-
-    // Serializable
-    private static final long serialVersionUID = 8704301322402248315L;
 }

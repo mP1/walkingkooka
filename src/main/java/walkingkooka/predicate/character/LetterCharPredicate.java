@@ -17,14 +17,10 @@
 
 package walkingkooka.predicate.character;
 
-import java.io.Serializable;
-
 /**
  * A {@link CharPredicate} that only test letters of defined by {@link Character#isLetter(char)}.
  */
-final class LetterCharPredicate implements CharPredicate, Serializable {
-
-    private static final long serialVersionUID = 967166192491540244L;
+final class LetterCharPredicate implements CharPredicate {
 
     /**
      * Singleton
@@ -41,10 +37,6 @@ final class LetterCharPredicate implements CharPredicate, Serializable {
     @Override
     public boolean test(final char c) {
         return Character.isLetter(c);
-    }
-
-    private Object readResolve() {
-        return LetterCharPredicate.INSTANCE;
     }
 
     @Override

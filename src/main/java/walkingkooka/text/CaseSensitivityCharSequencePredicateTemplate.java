@@ -19,15 +19,14 @@ package walkingkooka.text;
 
 import walkingkooka.test.HashCodeEqualsDefined;
 
-import java.io.Serializable;
 import java.util.function.Predicate;
 
 /**
  * An abstract {@link Predicate} that test any {@link CharSequence} that start with the {@link
  * CharSequence} ignoring the case.
  */
-abstract class CaseSensitivityCharSequencePredicateTemplate<C extends CharSequence>
-        implements Predicate<C>, HashCodeEqualsDefined, Serializable {
+abstract class CaseSensitivityCharSequencePredicateTemplate<C extends CharSequence> implements Predicate<C>,
+        HashCodeEqualsDefined {
 
     /**
      * Package private to limit sub classing.
@@ -69,8 +68,4 @@ abstract class CaseSensitivityCharSequencePredicateTemplate<C extends CharSequen
     }
 
     abstract String toStringPrefix();
-
-    // Serializable
-    private static final long serialVersionUID = 2070404199212863853L;
-
 }

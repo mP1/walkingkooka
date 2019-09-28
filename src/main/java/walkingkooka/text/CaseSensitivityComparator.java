@@ -19,7 +19,6 @@ package walkingkooka.text;
 
 import walkingkooka.compare.Comparators;
 
-import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Objects;
 
@@ -27,7 +26,7 @@ import java.util.Objects;
  * A {@link Comparator} for comparing two {@link CharSequence} character by character, regardless
  * of type using a {@link CaseSensitivity} of the char comparison strategy.
  */
-final class CaseSensitivityComparator<C extends CharSequence> implements Comparator<C>, Serializable {
+final class CaseSensitivityComparator<C extends CharSequence> implements Comparator<C> {
 
     /**
      * Type safe getter.
@@ -102,16 +101,5 @@ final class CaseSensitivityComparator<C extends CharSequence> implements Compara
     @Override
     public String toString() {
         return this.sensitivity.toString();
-    }
-
-    // Serializable
-
-    private static final long serialVersionUID = -7098494740240332341L;
-
-    /**
-     * Because {@link CaseSensitivity} is an enum its comparator will also be a singleton.
-     */
-    private Object readResolve() {
-        return this.sensitivity.comparator();
     }
 }

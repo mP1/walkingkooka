@@ -17,15 +17,11 @@
 
 package walkingkooka.predicate.character;
 
-import java.io.Serializable;
-
 /**
  * Always returns true if a character is a letter or digit of determined by {@link
  * Character#isLetterOrDigit(char)}.
  */
-final class LetterOrDigitCharPredicate implements CharPredicate, Serializable {
-
-    private static final long serialVersionUID = 2021196835111247371L;
+final class LetterOrDigitCharPredicate implements CharPredicate {
 
     /**
      * Singleton
@@ -42,10 +38,6 @@ final class LetterOrDigitCharPredicate implements CharPredicate, Serializable {
     @Override
     public boolean test(final char c) {
         return Character.isLetterOrDigit(c);
-    }
-
-    private Object readResolve() {
-        return LetterOrDigitCharPredicate.INSTANCE;
     }
 
     @Override

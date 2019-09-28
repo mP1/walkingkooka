@@ -22,7 +22,6 @@ import walkingkooka.Equality;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.HashCodeEqualsDefined;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Objects;
@@ -30,7 +29,7 @@ import java.util.Objects;
 /**
  * An {@link ArrayStack} is a true immutable {@link Stack}.
  */
-final class ArrayStack<T> implements Stack<T>, HashCodeEqualsDefined, Serializable {
+final class ArrayStack<T> implements Stack<T>, HashCodeEqualsDefined {
     /**
      * Creates a new {@link ArrayStack} with a single item.
      */
@@ -261,7 +260,4 @@ final class ArrayStack<T> implements Stack<T>, HashCodeEqualsDefined, Serializab
         b.append(']');
         return b.toString();
     }
-
-    // Serializable
-    private static final long serialVersionUID = -3081805552027230866L;
 }

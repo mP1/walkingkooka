@@ -17,15 +17,11 @@
 
 package walkingkooka.predicate.character;
 
-import java.io.Serializable;
-
 /**
  * A {@link CharPredicate} that only test whitespace of defined by {@link
  * Character#isWhitespace(char)}.
  */
-final class WhitespaceCharPredicate implements CharPredicate, Serializable {
-
-    private static final long serialVersionUID = -8772078653446125911L;
+final class WhitespaceCharPredicate implements CharPredicate {
 
     /**
      * Singleton
@@ -42,10 +38,6 @@ final class WhitespaceCharPredicate implements CharPredicate, Serializable {
     @Override
     public boolean test(final char c) {
         return Character.isWhitespace(c);
-    }
-
-    private Object readResolve() {
-        return WhitespaceCharPredicate.INSTANCE;
     }
 
     @Override

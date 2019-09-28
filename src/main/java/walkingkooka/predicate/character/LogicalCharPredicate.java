@@ -19,14 +19,13 @@ package walkingkooka.predicate.character;
 
 import walkingkooka.test.HashCodeEqualsDefined;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * A base class for any {@link CharPredicate} that includes a method to help possibly combine both
  * parameters.
  */
-abstract class LogicalCharPredicate implements CharPredicate, HashCodeEqualsDefined, Serializable {
+abstract class LogicalCharPredicate implements CharPredicate, HashCodeEqualsDefined {
 
     final CharPredicate left;
 
@@ -69,7 +68,4 @@ abstract class LogicalCharPredicate implements CharPredicate, HashCodeEqualsDefi
     }
 
     abstract String operator();
-
-    // Serializable
-    private static final long serialVersionUID = -8588904108084226194L;
 }

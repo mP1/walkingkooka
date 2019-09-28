@@ -19,16 +19,13 @@ package walkingkooka.predicate.character;
 
 import walkingkooka.test.HashCodeEqualsDefined;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Wraps another {@link CharPredicate} and lower casing the incoming character before delegating to
  * the wrapped {@link CharPredicate predicate}.
  */
-final class LowerCasingCharPredicate implements CharPredicate, HashCodeEqualsDefined, Serializable {
-
-    private static final long serialVersionUID = -8410360740869605034L;
+final class LowerCasingCharPredicate implements CharPredicate, HashCodeEqualsDefined {
 
     /**
      * Wraps the given {@link CharPredicate}

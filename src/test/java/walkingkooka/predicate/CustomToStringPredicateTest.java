@@ -19,7 +19,6 @@ package walkingkooka.predicate;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
-import walkingkooka.test.SerializationTesting;
 
 import java.util.function.Predicate;
 
@@ -28,8 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CustomToStringPredicateTest extends PredicateTestCase<CustomToStringPredicate<String>, String>
-        implements HashCodeEqualsDefinedTesting2<CustomToStringPredicate<String>>,
-        SerializationTesting<CustomToStringPredicate<String>> {
+        implements HashCodeEqualsDefinedTesting2<CustomToStringPredicate<String>> {
 
     private final static String STRING = "abc";
     private final static Predicate<String> WRAPPED = Predicates.is(STRING);
@@ -120,15 +118,5 @@ public final class CustomToStringPredicateTest extends PredicateTestCase<CustomT
     @Override
     public CustomToStringPredicate<String> createObject() {
         return this.createPredicate();
-    }
-
-    @Override
-    public CustomToStringPredicate<String> serializableInstance() {
-        return Cast.to(CustomToStringPredicate.wrap(Predicates.is("abc123"), "custom-to-string"));
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

@@ -53,8 +53,4 @@ final class AndNotCharPredicate extends LogicalCharPredicate {
     String operator() {
         return "&& -";
     }
-
-    // Serializable
-
-    private static final long serialVersionUID = 1;
 }

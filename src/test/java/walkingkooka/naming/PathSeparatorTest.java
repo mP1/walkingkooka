@@ -20,7 +20,6 @@ package walkingkooka.naming;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ThrowableTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.JavaVisibility;
@@ -31,7 +30,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class PathSeparatorTest implements ClassTesting2<PathSeparator>,
         HashCodeEqualsDefinedTesting2<PathSeparator>,
-        SerializationTesting<PathSeparator>,
         ThrowableTesting,
         ToStringTesting<PathSeparator> {
 
@@ -139,16 +137,6 @@ final public class PathSeparatorTest implements ClassTesting2<PathSeparator>,
         this.toStringAndCheck(PathSeparator.requiredAtStart(SEPARATOR), String.valueOf(SEPARATOR));
     }
 
-    @Test
-    public void testRequiredSlashSingletoness() throws Exception {
-        this.serializeSingletonAndCheck(PathSeparator.requiredAtStart('/'));
-    }
-
-    @Test
-    public void testNotRequiredDotSingletoness() throws Exception {
-        this.serializeSingletonAndCheck(PathSeparator.notRequiredAtStart('.'));
-    }
-
     @Override
     public Class<PathSeparator> type() {
         return PathSeparator.class;
@@ -162,15 +150,5 @@ final public class PathSeparatorTest implements ClassTesting2<PathSeparator>,
     @Override
     public PathSeparator createObject() {
         return PathSeparator.requiredAtStart(SEPARATOR);
-    }
-
-    @Override
-    public PathSeparator serializableInstance() {
-        return PathSeparator.requiredAtStart('@');
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

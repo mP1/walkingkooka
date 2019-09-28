@@ -18,11 +18,9 @@
 package walkingkooka.text;
 
 import walkingkooka.Value;
-import walkingkooka.io.SerializationProxy;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.printer.IndentingPrinter;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -32,7 +30,6 @@ import java.util.Objects;
  */
 final public class Indentation implements Value<String>,
         HashCodeEqualsDefined,
-        Serializable,
         CharSequence {
 
     /**
@@ -132,10 +129,9 @@ final public class Indentation implements Value<String>,
     }
 
     /**
-     * Package private constructor use static factory. This is also called by {@link
-     * IndentationSerializationProxy}.
+     * Private constructor use static factory.
      */
-    Indentation(final String value) {
+    private Indentation(final String value) {
         super();
         this.value = value;
     }
@@ -230,27 +226,4 @@ final public class Indentation implements Value<String>,
     public String toString() {
         return this.value;
     }
-
-    // Serializable
-
-    /**
-     * Returns either of the two {@link SerializationProxy}
-     */
-    // @VisibleForTesting
-    final Object writeReplace() {
-        final String value = this.value;
-        final int length = value.length();
-        return (length < Indentation.COUNT) && (this == Indentation.CONSTANTS[length]) ?
-                IndentationConstantSerializationProxy.with(length) :
-                IndentationSerializationProxy.with(value);
-    }
-
-    /**
-     * Should never be called expect a serialization proxy
-     */
-    private Object readResolve() {
-        throw new UnsupportedOperationException();
-    }
-
-    private static final long serialVersionUID = 4578811821151211701L;
 }

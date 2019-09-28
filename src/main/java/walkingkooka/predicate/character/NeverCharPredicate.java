@@ -21,13 +21,14 @@ import walkingkooka.predicate.Andable;
 import walkingkooka.predicate.Notable;
 import walkingkooka.predicate.Orable;
 
-import java.io.Serializable;
-
 /**
  * A {@link CharPredicate} that always returns false.
  */
-final class NeverCharPredicate
-        implements CharPredicate, Andable, Orable, Notable<CharPredicate>, Serializable {
+final class NeverCharPredicate implements CharPredicate,
+        Andable,
+        Orable,
+        Notable<CharPredicate> {
+
     /**
      * Singleton
      */
@@ -67,13 +68,5 @@ final class NeverCharPredicate
     @Override
     public String toString() {
         return "<none>";
-    }
-
-    // Serializable
-
-    private static final long serialVersionUID = -9077544336916109761L;
-
-    private Object readResolve() {
-        return NeverCharPredicate.INSTANCE;
     }
 }

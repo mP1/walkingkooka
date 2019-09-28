@@ -19,7 +19,6 @@ package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,8 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class LineEndingTest implements ClassTesting2<LineEnding>,
-        CharSequenceTesting<LineEnding>,
-        SerializationTesting<LineEnding> {
+        CharSequenceTesting<LineEnding> {
 
     @Override
     public void testTypeNaming() {
@@ -118,15 +116,5 @@ final public class LineEndingTest implements ClassTesting2<LineEnding>,
     @Override
     public LineEnding createObject() {
         return this.createCharSequence();
-    }
-
-    @Override
-    public LineEnding serializableInstance() {
-        return LineEnding.CR;
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return true;
     }
 }

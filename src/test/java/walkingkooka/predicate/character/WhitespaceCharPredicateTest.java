@@ -18,10 +18,8 @@
 package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.SerializationTesting;
 
-final public class WhitespaceCharPredicateTest implements CharPredicateTesting<WhitespaceCharPredicate>,
-        SerializationTesting<WhitespaceCharPredicate> {
+final public class WhitespaceCharPredicateTest implements CharPredicateTesting<WhitespaceCharPredicate> {
 
     @Test
     public void testWhitespace() {
@@ -46,15 +44,5 @@ final public class WhitespaceCharPredicateTest implements CharPredicateTesting<W
     @Override
     public Class<WhitespaceCharPredicate> type() {
         return WhitespaceCharPredicate.class;
-    }
-
-    @Override
-    public WhitespaceCharPredicate serializableInstance() {
-        return WhitespaceCharPredicate.INSTANCE;
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return true;
     }
 }

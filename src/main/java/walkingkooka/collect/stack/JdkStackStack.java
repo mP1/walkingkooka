@@ -165,7 +165,4 @@ final class JdkStackStack<T> implements Stack<T>, HashCodeEqualsDefined {
     public String toString() {
         return this.stack.toString();
     }
-
-    // Serializable
-    private static final long serialVersionUID = 7281491977242599359L;
 }

@@ -17,11 +17,9 @@
 
 package walkingkooka.naming;
 
-import walkingkooka.io.SerializationProxy;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 
-import java.io.Serializable;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -31,8 +29,7 @@ import java.util.Optional;
 final public class StringPath
         implements Path<StringPath, StringName>,
         Comparable<StringPath>,
-        HashCodeEqualsDefined,
-        Serializable {
+        HashCodeEqualsDefined {
 
     /**
      * {@link PathSeparator} instance
@@ -64,9 +61,9 @@ final public class StringPath
     }
 
     /**
-     * Package private constructor, only called by factories in this class and {@link StringPathSerializationProxy}
+     * Private constructor
      */
-    StringPath(final String path, final StringName name, final Optional<StringPath> parent) {
+    private StringPath(final String path, final StringName name, final Optional<StringPath> parent) {
         super();
         this.path = path;
         this.name = name;
@@ -145,18 +142,7 @@ final public class StringPath
         return this.path.compareTo(path.path);
     }
 
-    // Serialization
-
-    private static final long serialVersionUID = 2662286268230942553L;
-
-    /**
-     * Returns either of the two {@link SerializationProxy}
-     */
-    private Object writeReplace() {
-        return this.isRoot() ? StringPathRootSerializationProxy.INSTANCE : new StringPathSerializationProxy(this.path);
-    }
-
-    // Object
+    // Object...........................................................................................................
 
     @Override
     public int hashCode() {

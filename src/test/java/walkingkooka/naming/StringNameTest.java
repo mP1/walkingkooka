@@ -19,15 +19,13 @@ package walkingkooka.naming;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class StringNameTest implements ClassTesting2<StringName>,
-        NameTesting<StringName, StringName>,
-        SerializationTesting<StringName> {
+        NameTesting<StringName, StringName> {
 
     private final static String TEXT = "bcd123";
     
@@ -36,11 +34,6 @@ final public class StringNameTest implements ClassTesting2<StringName>,
         assertThrows(IllegalArgumentException.class, () -> {
             StringName.with("name-" + StringPath.SEPARATOR.string());
         });
-    }
-
-    @Test
-    public void testSerializeRootIsSingleton() throws Exception {
-        this.serializeSingletonAndCheck(StringName.ROOT);
     }
 
     @Test
@@ -89,17 +82,5 @@ final public class StringNameTest implements ClassTesting2<StringName>,
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
-    }
-
-    // SerializableTesting.............................................................................................
-
-    @Override
-    public StringName serializableInstance() {
-        return StringName.with("string");
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }

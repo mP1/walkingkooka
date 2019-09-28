@@ -26,7 +26,10 @@ import java.util.function.Predicate;
 /**
  * A {@link Predicate} that inverts the result of the wrapped {@link Predicate}.
  */
-final class NotPredicate<T> implements Predicate<T>, Notable<Predicate<T>>, HashCodeEqualsDefined {
+final class NotPredicate<T> implements Predicate<T>,
+        Notable<Predicate<T>>,
+        HashCodeEqualsDefined {
+
     static <T> Predicate<T> wrap(final Predicate<T> predicate) {
         Objects.requireNonNull(predicate, "predicate");
 
@@ -76,8 +79,4 @@ final class NotPredicate<T> implements Predicate<T>, Notable<Predicate<T>>, Hash
     public String toString() {
         return "!" + this.predicate;
     }
-
-    // Serializable
-
-    private static final long serialVersionUID = 1L;
 }

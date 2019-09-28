@@ -23,8 +23,7 @@ import java.util.Objects;
  * A {@link java.util.function.Predicate} that test any {@link CharSequence} that start with the
  * {@link CharSequence} ignoring the case.
  */
-final class CaseSensitivityStartsWithCharSequencePredicate<C extends CharSequence>
-        extends CaseSensitivityCharSequencePredicateTemplate<C> {
+final class CaseSensitivityStartsWithCharSequencePredicate<C extends CharSequence> extends CaseSensitivityCharSequencePredicateTemplate<C> {
 
     /**
      * Creates a {@link CaseSensitivityStartsWithCharSequencePredicate}
@@ -59,7 +58,4 @@ final class CaseSensitivityStartsWithCharSequencePredicate<C extends CharSequenc
     String toStringPrefix() {
         return "starts with ";
     }
-
-    // Serializable
-    private static final long serialVersionUID = 2070404199212863853L;
 }

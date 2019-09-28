@@ -20,13 +20,11 @@ package walkingkooka.text;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.test.HashCodeEqualsDefined;
 
-import java.io.Serializable;
-
 /**
  * A {@link CharPredicate} that test the character given to it at create time.
  */
-final class CaseSensitivityCharPredicate
-        implements CharPredicate, HashCodeEqualsDefined, Serializable {
+final class CaseSensitivityCharPredicate implements CharPredicate,
+        HashCodeEqualsDefined {
 
     /**
      * Creates a {@link CaseSensitivityCharPredicate}
@@ -74,8 +72,4 @@ final class CaseSensitivityCharPredicate
     public String toString() {
         return this.sensitivity.toString(this.c);
     }
-
-    // Serializable
-
-    private static final long serialVersionUID = 4543550575061728408L;
 }

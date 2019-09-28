@@ -20,7 +20,6 @@ package walkingkooka.compare;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.test.HashCodeEqualsDefined;
 
-import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Objects;
 
@@ -29,10 +28,8 @@ import java.util.Objects;
  * and should be normalized for purposes of comparison. This {@link Comparator} is particularly
  * useful for comparing {@link CharSequence} while ignoring redundant whitespace.
  */
-final class NormalizingCharSequenceComparator<S extends CharSequence>
-        implements Comparator<S>, HashCodeEqualsDefined, Serializable {
-
-    private static final long serialVersionUID = -1209342357403240327L;
+final class NormalizingCharSequenceComparator<S extends CharSequence> implements Comparator<S>,
+        HashCodeEqualsDefined {
 
     /**
      * Creates a {@link NormalizingCharSequenceComparator}
