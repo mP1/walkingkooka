@@ -27,9 +27,9 @@ import java.util.Objects;
 import java.util.function.Function;
 
 /**
- * A {@link Converter} which uses a {@link DateTimeFormatter}.
+ * A {@link Converter} which uses a {@link DateTimeFormatter} in some part of the conversion process.
  */
-abstract class DateTimeFormatterConverter<S, T> extends FixedSourceTypeTargetTypeConverter<S, T> {
+abstract class DateTimeFormatterConverter<S, T> extends Converter2 {
 
     /**
      * Package private to limit sub classing.
@@ -39,17 +39,33 @@ abstract class DateTimeFormatterConverter<S, T> extends FixedSourceTypeTargetTyp
         this.formatter = formatter;
     }
 
-    /**
-     * A factory which returns a {@link DateTimeFormatter} on demand using the {@link DateTimeContext}.
-     */
-    final Function<DateTimeContext, DateTimeFormatter> formatter;
+    @Override
+    public final boolean canConvert(final Object value,
+                                    final Class<?> type,
+                                    final ConverterContext context) {
+        return this.sourceType().isInstance(value) &&
+                this.targetType() == type;
+    }
+
+    abstract Class<S> sourceType();
+
+    @Override
+    final <TT> TT convert0(final Object value,
+                           final Class<TT> type,
+                           final ConverterContext context) {
+        try {
+            return type.cast(this.convert1(this.sourceType().cast(value), context));
+        } catch (final Exception cause) {
+            return this.failConversion(value, type, cause);
+        }
+    }
 
     /**
      * Uses the {@link Locale} and {@link ConverterContext#twoDigitYear()} creating a {@link DateTimeFormatter}
      * if necessary and then calls {@link #parseOrFormat(Object, DateTimeFormatter)} wrapping any thrown {@link DateTimeException}
      */
-    @Override
-    final T convert1(final S value, final ConverterContext context) {
+    private T convert1(final S value,
+                       final ConverterContext context) {
         final Locale locale = context.locale();
         final int twoDigitYear = context.twoDigitYear();
 
@@ -76,12 +92,13 @@ abstract class DateTimeFormatterConverter<S, T> extends FixedSourceTypeTargetTyp
             dateTimeFormatter = cache.formatter;
         }
 
-        try {
-            return this.parseOrFormat(value, dateTimeFormatter);
-        } catch (final Exception cause) {
-            return this.failConversion(value, cause);
-        }
+        return this.parseOrFormat(value, dateTimeFormatter);
     }
+
+    /**
+     * A factory which returns a {@link DateTimeFormatter} on demand using the {@link DateTimeContext}.
+     */
+    final Function<DateTimeContext, DateTimeFormatter> formatter;
 
     private transient DateTimeFormatterConverterCache cache;
 
@@ -91,8 +108,12 @@ abstract class DateTimeFormatterConverter<S, T> extends FixedSourceTypeTargetTyp
     abstract T parseOrFormat(final S value,
                              final DateTimeFormatter formatter) throws IllegalArgumentException, DateTimeException;
 
+    // Object...........................................................................................................
+
     @Override
-    final String toStringSuffix() {
-        return "";
+    public final String toString() {
+        return this.sourceType().getSimpleName() + "->" + this.targetType().getSimpleName();
     }
+
+    abstract Class<T> targetType();
 }

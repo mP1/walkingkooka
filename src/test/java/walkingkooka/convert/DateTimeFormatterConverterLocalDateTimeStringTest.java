@@ -55,7 +55,7 @@ public final class DateTimeFormatterConverterLocalDateTimeStringTest extends Dat
     }
 
     @Override
-    Class onlySupportedType() {
+    Class targetType() {
         return String.class;
     }
 

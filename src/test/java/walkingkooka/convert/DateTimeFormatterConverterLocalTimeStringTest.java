@@ -53,7 +53,7 @@ public final class DateTimeFormatterConverterLocalTimeStringTest extends DateTim
     }
 
     @Override
-    Class onlySupportedType() {
+    Class targetType() {
         return String.class;
     }
 

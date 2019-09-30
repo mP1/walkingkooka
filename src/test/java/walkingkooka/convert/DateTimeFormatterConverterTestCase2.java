@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public abstract class DateTimeFormatterConverterTestCase2<C extends FixedSourceTypeTargetTypeConverter<S, T>, S, T> extends FixedTypeConverterTestCase<C, T> {
+public abstract class DateTimeFormatterConverterTestCase2<C extends DateTimeFormatterConverter<S, T>, S, T> extends ConverterTestCase2<C> {
 
     DateTimeFormatterConverterTestCase2() {
         super();
@@ -44,14 +44,14 @@ public abstract class DateTimeFormatterConverterTestCase2<C extends FixedSourceT
 
     @Test
     public final void testConvert() {
-        this.convertAndCheck(this.source(), this.converted());
+        this.convertAndCheck2(this.source(), this.converted());
     }
 
     @Test
     public final void testConvertTwice() {
         final C converter = this.createConverter();
         final S source = this.source();
-        final Class<T> targetType = this.onlySupportedType();
+        final Class<T> targetType = this.targetType();
         final ConverterContext context = this.createContext();
         final T converted = this.converted();
 
@@ -149,13 +149,21 @@ public abstract class DateTimeFormatterConverterTestCase2<C extends FixedSourceT
 
     abstract T converted();
 
+    final void convertAndCheck2(final S source,
+                                final T converted) {
+        this.convertAndCheck2(this.createConverter(),
+                source,
+                this.createContext(),
+                converted);
+    }
+
     final void convertAndCheck2(final C converter,
                                 final S source,
                                 final ConverterContext context,
                                 final T converted) {
         this.convertAndCheck(converter,
                 source,
-                this.onlySupportedType(),
+                this.targetType(),
                 context,
                 converted);
     }
@@ -169,6 +177,8 @@ public abstract class DateTimeFormatterConverterTestCase2<C extends FixedSourceT
 
     @Override
     public String typeNameSuffix() {
-        return this.onlySupportedType().getSimpleName();
+        return this.targetType().getSimpleName();
     }
+
+    abstract Class<T> targetType();
 }

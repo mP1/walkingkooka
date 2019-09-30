@@ -60,7 +60,7 @@ public final class DateTimeFormatterConverterStringLocalDateTest extends DateTim
     }
 
     @Override
-    protected Class<LocalDate> onlySupportedType() {
+    protected Class<LocalDate> targetType() {
         return LocalDate.class;
     }
 
