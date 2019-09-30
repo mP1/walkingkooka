@@ -32,7 +32,7 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ParserConverterTest extends FixedTypeConverterTestCase<ParserConverter<BigDecimal, ParserContext>, BigDecimal> {
+public final class ParserConverterTest extends ConverterTestCase2<ParserConverter<BigDecimal, ParserContext>> {
 
     @Test
     public void testWithNullTypeFails() {
@@ -57,17 +57,17 @@ public final class ParserConverterTest extends FixedTypeConverterTestCase<Parser
 
     @Test
     public void testParserConverts() {
-        this.convertAndCheck("1.23", BigDecimal.valueOf(1.23));
+        this.convertAndCheck("1.23", BigDecimal.class, BigDecimal.valueOf(1.23));
     }
 
     @Test
     public void testParserNonStringFails() {
-        this.convertFails(Integer.MAX_VALUE);
+        this.convertFails(Integer.MAX_VALUE, BigDecimal.class);
     }
 
     @Test
     public void testParserFails() {
-        this.convertFails("FAILS");
+        this.convertFails("FAILS", BigDecimal.class);
     }
 
     @Test
@@ -93,11 +93,6 @@ public final class ParserConverterTest extends FixedTypeConverterTestCase<Parser
 
     private Parser<ParserContext> bigDecimalParser() {
         return Parsers.bigDecimal();
-    }
-
-    @Override
-    protected Class<BigDecimal> onlySupportedType() {
-        return BigDecimal.class;
     }
 
     @Override
