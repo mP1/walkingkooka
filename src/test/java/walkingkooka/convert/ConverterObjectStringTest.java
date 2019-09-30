@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-public final class StringConverterTest extends FixedTypeConverterTestCase<StringConverter, String> {
+public final class ConverterObjectStringTest extends FixedTypeConverterTestCase<ConverterObjectString, String> {
 
     @Test
     public void testBooleanTrue() {
@@ -44,8 +44,8 @@ public final class StringConverterTest extends FixedTypeConverterTestCase<String
     }
 
     @Override
-    public StringConverter createConverter() {
-        return StringConverter.INSTANCE;
+    public ConverterObjectString createConverter() {
+        return ConverterObjectString.INSTANCE;
     }
 
     @Override
@@ -59,7 +59,7 @@ public final class StringConverterTest extends FixedTypeConverterTestCase<String
     }
 
     @Override
-    public Class<StringConverter> type() {
-        return StringConverter.class;
+    public Class<ConverterObjectString> type() {
+        return ConverterObjectString.class;
     }
 }

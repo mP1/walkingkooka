@@ -270,10 +270,10 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * [@see StringConverter}
+     * [@see ConverterObjectString}
      */
     public static Converter string() {
-        return StringConverter.INSTANCE;
+        return ConverterObjectString.INSTANCE;
     }
 
     /**
