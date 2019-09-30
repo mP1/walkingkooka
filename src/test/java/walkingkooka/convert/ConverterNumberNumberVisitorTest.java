@@ -27,12 +27,12 @@ import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class NumberConverterNumberVisitorTest implements NumberVisitorTesting<NumberConverterNumberVisitor<BigDecimal>> {
+public final class ConverterNumberNumberVisitorTest implements NumberVisitorTesting<ConverterNumberNumberVisitor<BigDecimal>> {
 
     @Test
     public void testConvertUnsupported() {
         assertThrows(ConversionException.class, () -> {
-            NumberConverterNumberVisitor.convert(this.converter(),
+            ConverterNumberNumberVisitor.convert(this.converter(),
                     new Number() {
                         @Override
                         public int intValue() {
@@ -66,22 +66,22 @@ public final class NumberConverterNumberVisitorTest implements NumberVisitorTest
     }
 
     @Override
-    public NumberConverterNumberVisitor<BigDecimal> createVisitor() {
-        return new NumberConverterNumberVisitor<>(this.converter(), BigDecimal.class);
+    public ConverterNumberNumberVisitor<BigDecimal> createVisitor() {
+        return new ConverterNumberNumberVisitor<>(this.converter(), BigDecimal.class);
     }
 
-    private NumberConverter converter() {
-        return NumberConverterBoolean.INSTANCE;
+    private ConverterNumber converter() {
+        return ConverterNumberBoolean.INSTANCE;
     }
 
     @Override
     public String typeNamePrefix() {
-        return NumberConverter.class.getSimpleName();
+        return ConverterNumber.class.getSimpleName();
     }
 
     @Override
-    public Class<NumberConverterNumberVisitor<BigDecimal>> type() {
-        return Cast.to(NumberConverterNumberVisitor.class);
+    public Class<ConverterNumberNumberVisitor<BigDecimal>> type() {
+        return Cast.to(ConverterNumberNumberVisitor.class);
     }
 
     @Override

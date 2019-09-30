@@ -219,24 +219,24 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * {@see NumberConverterLocalDate}
+     * {@see ConverterNumberLocalDate}
      */
     public static Converter numberLocalDate(final long offset) {
-        return NumberConverterLocalDate.with(offset);
+        return ConverterNumberLocalDate.with(offset);
     }
 
     /**
-     * {@see NumberConverterLocalDateTime}
+     * {@see ConverterNumberLocalDateTime}
      */
     public static Converter numberLocalDateTime(final long offset) {
-        return NumberConverterLocalDateTime.with(offset);
+        return ConverterNumberLocalDateTime.with(offset);
     }
 
     /**
-     * {@see NumberConverterLocalTime}
+     * {@see ConverterNumberLocalTime}
      */
     public static Converter numberLocalTime() {
-        return NumberConverterLocalTime.INSTANCE;
+        return ConverterNumberLocalTime.INSTANCE;
     }
 
     /**
@@ -312,10 +312,10 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * {@see NumberConverterBoolean}
+     * {@see ConverterNumberBoolean}
      */
     public static Converter truthyNumberBoolean() {
-        return NumberConverterBoolean.INSTANCE;
+        return ConverterNumberBoolean.INSTANCE;
     }
 
     /**

@@ -24,19 +24,19 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
- * {@link NumberVisitor} that dispatches based on the {@link Number} type back to the {@link NumberConverter} to convert.
+ * {@link NumberVisitor} that dispatches based on the {@link Number} type back to the {@link ConverterNumber} to convert.
  */
-final class NumberConverterNumberVisitor<T> extends NumberVisitor {
+final class ConverterNumberNumberVisitor<T> extends NumberVisitor {
 
-    static <T> T convert(final NumberConverter<T> converter,
+    static <T> T convert(final ConverterNumber<T> converter,
                          final Number number,
                          final Class<T> type) {
-        final NumberConverterNumberVisitor<T> visitor = new NumberConverterNumberVisitor<>(converter, type);
+        final ConverterNumberNumberVisitor<T> visitor = new ConverterNumberNumberVisitor<>(converter, type);
         visitor.accept(number);
         return visitor.value;
     }
 
-    NumberConverterNumberVisitor(final NumberConverter<T> converter, final Class<T> type) {
+    ConverterNumberNumberVisitor(final ConverterNumber<T> converter, final Class<T> type) {
         super();
         this.converter = converter;
         this.type = type;
@@ -87,7 +87,7 @@ final class NumberConverterNumberVisitor<T> extends NumberVisitor {
         this.converter.failConversion(number, this.type);
     }
 
-    private final NumberConverter<T> converter;
+    private final ConverterNumber<T> converter;
 
     private T value;
     private final Class<T> type;

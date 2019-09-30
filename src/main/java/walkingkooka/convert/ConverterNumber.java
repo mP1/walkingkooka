@@ -23,9 +23,9 @@ import java.math.BigInteger;
 /**
  * A {@link Converter} that handles converting {@link Number} to another {@link Number} type.
  */
-abstract class NumberConverter<T> extends FixedTargetTypeConverter<T> {
+abstract class ConverterNumber<T> extends FixedTargetTypeConverter<T> {
 
-    NumberConverter() {
+    ConverterNumber() {
         super();
     }
 
@@ -41,7 +41,7 @@ abstract class NumberConverter<T> extends FixedTargetTypeConverter<T> {
     @Override
     final T convert1(final Object value, final Class<T> type, final ConverterContext context) {
         try {
-            return NumberConverterNumberVisitor.convert(this,
+            return ConverterNumberNumberVisitor.convert(this,
                     Number.class.cast(value),
                     type);
         } catch (final ArithmeticException | NumberFormatException fail) {

@@ -27,20 +27,20 @@ import java.time.LocalTime;
  * A {@link Converter} that handles converting any {@link Number} to a {@link LocalDateTime}.
  * The integer value becomes the days, and the fraction is a value of a whole day.
  */
-final class NumberConverterLocalDateTime extends NumberConverter<LocalDateTime> {
+final class ConverterNumberLocalDateTime extends ConverterNumber<LocalDateTime> {
 
     /**
      * Creates a new instance with the given date offset.
      * A value of zero is 1/1/1970.
      */
-    static NumberConverterLocalDateTime with(final long offset) {
-        return new NumberConverterLocalDateTime(offset);
+    static ConverterNumberLocalDateTime with(final long offset) {
+        return new ConverterNumberLocalDateTime(offset);
     }
 
     /**
      * Private ctor
      */
-    private NumberConverterLocalDateTime(final long offset) {
+    private ConverterNumberLocalDateTime(final long offset) {
         super();
         this.offset = offset;
     }
