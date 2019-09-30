@@ -18,15 +18,14 @@
 package walkingkooka.convert;
 
 /**
- * A base {@link Converter} that assumes a single source value type.
+ * A {@link Converter} which only accepts a single source type and a single target type, with an offset which is
+ * added to the date component.
  */
-abstract class FixedSourceTypeConverter<S> extends Converter2 {
+abstract class ConverterTemporal<S, D> extends Converter2 {
 
-    /**
-     * Package private to limit sub classing.
-     */
-    FixedSourceTypeConverter() {
+    ConverterTemporal(final long offset) {
         super();
+        this.offset = offset;
     }
 
     @Override
@@ -35,8 +34,6 @@ abstract class FixedSourceTypeConverter<S> extends Converter2 {
                                     final ConverterContext context) {
         return this.sourceType().isInstance(value) && this.isTargetType(type);
     }
-
-    abstract Class<S> sourceType();
 
     abstract boolean isTargetType(final Class<?> type);
 
@@ -53,10 +50,36 @@ abstract class FixedSourceTypeConverter<S> extends Converter2 {
                             final Class<T> type,
                             final ConverterContext context);
 
+    final long offset;
+
     @Override
     public final String toString() {
-        return this.sourceType().getSimpleName() + "->" + this.toStringSuffix();
+        return this.sourceType().getSimpleName() + "->" + this.targetType().getSimpleName() + toStringOffset(this.offset);
     }
 
-    abstract String toStringSuffix();
+    abstract Class<S> sourceType();
+
+    abstract Class<D> targetType();
+
+    /**
+     * Returns the {@link String} as a signed offset including a plus or minus when the value is non zero.
+     */
+    static String toStringOffset(final long offset) {
+        return 0 == offset ?
+                "" :
+                toStringOffset0(offset);
+    }
+
+    private static String toStringOffset0(final long offset) {
+        final StringBuilder b = new StringBuilder();
+        b.append('(');
+
+        if (offset > 0) {
+            b.append('+');
+        }
+        b.append(offset);
+        b.append(')');
+
+        return b.toString();
+    }
 }

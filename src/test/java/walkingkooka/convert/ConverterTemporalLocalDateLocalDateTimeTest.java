@@ -23,7 +23,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public final class LocalDateConverterLocalDateTimeTest extends LocalDateConverterTestCase<LocalDateConverterLocalDateTime> {
+public final class ConverterTemporalLocalDateLocalDateTimeTest extends ConverterTemporalLocalDateTestCase<ConverterTemporalLocalDateLocalDateTime, LocalDateTime> {
 
     @Test
     public void testLocalDate() {
@@ -47,12 +47,19 @@ public final class LocalDateConverterLocalDateTimeTest extends LocalDateConverte
     // ConverterTesting.................................................................................................
 
     @Override
-    public LocalDateConverterLocalDateTime createConverter() {
-        return LocalDateConverterLocalDateTime.INSTANCE;
+    public ConverterTemporalLocalDateLocalDateTime createConverter() {
+        return walkingkooka.convert.ConverterTemporalLocalDateLocalDateTime.INSTANCE;
     }
 
     @Override
-    public Class<LocalDateConverterLocalDateTime> type() {
-        return LocalDateConverterLocalDateTime.class;
+    Class<LocalDateTime> targetType() {
+        return LocalDateTime.class;
+    }
+
+    // ClassTesting....................................................................................................
+
+    @Override
+    public Class<ConverterTemporalLocalDateLocalDateTime> type() {
+        return ConverterTemporalLocalDateLocalDateTime.class;
     }
 }

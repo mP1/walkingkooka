@@ -23,7 +23,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
 
-public final class LocalDateConverterNumberTest extends LocalDateConverterTestCase<LocalDateConverterNumber> {
+public final class ConverterTemporalLocalDateNumberTest extends ConverterTemporalLocalDateTestCase<ConverterTemporalLocalDateNumber, Number> {
 
     // fail(overflow)....................................................................................................
 
@@ -104,12 +104,19 @@ public final class LocalDateConverterNumberTest extends LocalDateConverterTestCa
     // ConverterTesting.................................................................................................
 
     @Override
-    public LocalDateConverterNumber createConverter() {
-        return LocalDateConverterNumber.with(Converters.JAVA_EPOCH_OFFSET);
+    public ConverterTemporalLocalDateNumber createConverter() {
+        return walkingkooka.convert.ConverterTemporalLocalDateNumber.with(Converters.JAVA_EPOCH_OFFSET);
     }
 
     @Override
-    public Class<LocalDateConverterNumber> type() {
-        return LocalDateConverterNumber.class;
+    Class<Number> targetType() {
+        return Number.class;
+    }
+
+    // ClassTesting.....................................................................................................
+
+    @Override
+    public Class<ConverterTemporalLocalDateNumber> type() {
+        return ConverterTemporalLocalDateNumber.class;
     }
 }

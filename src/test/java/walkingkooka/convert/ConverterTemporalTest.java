@@ -17,29 +17,26 @@
 
 package walkingkooka.convert;
 
-public abstract class FixedSourceTypeConverterTestCase<C extends FixedSourceTypeConverter<S>, S> extends ConverterTestCase<C>
-        implements ConverterTesting2<C> {
+import java.time.temporal.Temporal;
 
-    FixedSourceTypeConverterTestCase() {
-        super();
-    }
+public final class ConverterTemporalTest extends ConverterTestCase<ConverterTemporal> {
+
+    // ClassTesting.....................................................................................................
 
     @Override
-    public final ConverterContext createContext() {
-        return ConverterContexts.fake();
+    public Class<ConverterTemporal> type() {
+        return ConverterTemporal.class;
     }
 
     // TypeNameTesting..................................................................................................
 
     @Override
-    public final String typeNamePrefix() {
-        return this.sourceType().getSimpleName() + Converter.class.getSimpleName();
+    public String typeNamePrefix() {
+        return Converter.class.getSimpleName();
     }
 
-    abstract Class<S> sourceType();
-
     @Override
-    public final String typeNameSuffix() {
-        return "";
+    public String typeNameSuffix() {
+        return Temporal.class.getSimpleName();
     }
 }

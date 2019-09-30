@@ -22,12 +22,12 @@ import java.time.LocalDateTime;
 /**
  * Converts a {@link LocalDateTime} to another type.
  */
-abstract class LocalDateTimeConverter<T> extends LocalDateOrLocalDateTimeNumberConverter<LocalDateTime, T> {
+abstract class ConverterTemporalLocalDateTime<D> extends ConverterTemporal<LocalDateTime, D> {
 
     /**
      * Package private to limit sub classing.
      */
-    LocalDateTimeConverter(final long offset) {
+    ConverterTemporalLocalDateTime(final long offset) {
         super(offset);
     }
 
