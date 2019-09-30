@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BooleanConverterTest extends FixedTypeConverterTestCase<BooleanConverter, String> {
+public final class BooleanTrueFalseConverterTest extends FixedTypeConverterTestCase<BooleanTrueFalseConverter, String> {
 
     private final static Class<Integer> SOURCE_TYPE = Integer.class;
     private final static Integer FALSE_VALUE = 1;
@@ -32,35 +32,35 @@ public final class BooleanConverterTest extends FixedTypeConverterTestCase<Boole
     @Test
     public void testWithNullSourceTypeFails() {
         assertThrows(NullPointerException.class, () -> {
-            BooleanConverter.with(null, FALSE_VALUE, TARGET_TYPE, TRUE_ANSWER, FALSE_ANSWER);
+            BooleanTrueFalseConverter.with(null, FALSE_VALUE, TARGET_TYPE, TRUE_ANSWER, FALSE_ANSWER);
         });
     }
 
     @Test
     public void testWithNullFalseValueFails() {
         assertThrows(NullPointerException.class, () -> {
-            BooleanConverter.with(SOURCE_TYPE, null, TARGET_TYPE, TRUE_ANSWER, FALSE_ANSWER);
+            BooleanTrueFalseConverter.with(SOURCE_TYPE, null, TARGET_TYPE, TRUE_ANSWER, FALSE_ANSWER);
         });
     }
 
     @Test
     public void testWithNullTargetTypeFails() {
         assertThrows(NullPointerException.class, () -> {
-            BooleanConverter.with(SOURCE_TYPE, FALSE_VALUE, null, TRUE_ANSWER, FALSE_ANSWER);
+            BooleanTrueFalseConverter.with(SOURCE_TYPE, FALSE_VALUE, null, TRUE_ANSWER, FALSE_ANSWER);
         });
     }
 
     @Test
     public void testWithNullTrueAnswerFails() {
         assertThrows(NullPointerException.class, () -> {
-            BooleanConverter.with(SOURCE_TYPE, FALSE_VALUE, TARGET_TYPE, null, FALSE_ANSWER);
+            BooleanTrueFalseConverter.with(SOURCE_TYPE, FALSE_VALUE, TARGET_TYPE, null, FALSE_ANSWER);
         });
     }
 
     @Test
     public void testWithNullFalseAnswerFails() {
         assertThrows(NullPointerException.class, () -> {
-            BooleanConverter.with(SOURCE_TYPE, FALSE_VALUE, TARGET_TYPE, TRUE_ANSWER, null);
+            BooleanTrueFalseConverter.with(SOURCE_TYPE, FALSE_VALUE, TARGET_TYPE, TRUE_ANSWER, null);
         });
     }
 
@@ -81,8 +81,8 @@ public final class BooleanConverterTest extends FixedTypeConverterTestCase<Boole
     }
 
     @Override
-    public BooleanConverter createConverter() {
-        return BooleanConverter.with(SOURCE_TYPE, FALSE_VALUE, TARGET_TYPE, TRUE_ANSWER, FALSE_ANSWER);
+    public BooleanTrueFalseConverter createConverter() {
+        return BooleanTrueFalseConverter.with(SOURCE_TYPE, FALSE_VALUE, TARGET_TYPE, TRUE_ANSWER, FALSE_ANSWER);
     }
 
     @Override
@@ -96,7 +96,7 @@ public final class BooleanConverterTest extends FixedTypeConverterTestCase<Boole
     }
 
     @Override
-    public Class<BooleanConverter> type() {
-        return BooleanConverter.class;
+    public Class<BooleanTrueFalseConverter> type() {
+        return BooleanTrueFalseConverter.class;
     }
 }

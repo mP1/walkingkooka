@@ -22,19 +22,31 @@ import java.util.Objects;
 /**
  * A {@link Converter} that knows how to convert towards a boolean answer.
  */
-final class BooleanConverter<S, T> extends FixedTargetTypeConverter<T> {
+final class BooleanTrueFalseConverter<S, D> extends Converter2 {
 
-    static <S, T> BooleanConverter<S, T> with(final Class<S> sourceType, final S falseValue, final Class<T> targetType, final T trueAnswer, final T falseAnswer) {
+    static <S, T> BooleanTrueFalseConverter<S, T> with(final Class<S> sourceType,
+                                                       final S falseValue,
+                                                       final Class<T> targetType,
+                                                       final T trueAnswer,
+                                                       final T falseAnswer) {
         Objects.requireNonNull(sourceType, "sourceType");
         Objects.requireNonNull(falseValue, "falseValue");
         Objects.requireNonNull(targetType, "targetType");
         Objects.requireNonNull(trueAnswer, "trueAnswer");
         Objects.requireNonNull(falseAnswer, "falseAnswer");
 
-        return new BooleanConverter<>(sourceType, falseValue, targetType, trueAnswer, falseAnswer);
+        return new BooleanTrueFalseConverter<>(sourceType,
+                falseValue,
+                targetType,
+                trueAnswer,
+                falseAnswer);
     }
 
-    private BooleanConverter(final Class<S> sourceType, final S falseValue, final Class<T> targetType, final T trueAnswer, final T falseAnswer) {
+    private BooleanTrueFalseConverter(final Class<S> sourceType,
+                                      final S falseValue,
+                                      final Class<D> targetType,
+                                      final D trueAnswer,
+                                      final D falseAnswer) {
         super();
         this.sourceType = sourceType;
         this.falseValue = falseValue;
@@ -44,7 +56,9 @@ final class BooleanConverter<S, T> extends FixedTargetTypeConverter<T> {
     }
 
     @Override
-    public boolean canConvert(final Object value, final Class<?> type, final ConverterContext context) {
+    public boolean canConvert(final Object value,
+                              final Class<?> type,
+                              final ConverterContext context) {
         return this.sourceType.isInstance(value) &&
                 this.targetType == type;
     }
@@ -52,22 +66,19 @@ final class BooleanConverter<S, T> extends FixedTargetTypeConverter<T> {
     private final Class<S> sourceType;
 
     @Override
-    T convert1(final Object value, final Class<T> type, final ConverterContext context) {
-        return this.falseValue.equals(value) ?
+    <T> T convert0(final Object value,
+                   final Class<T> type,
+                   final ConverterContext context) {
+        return type.cast(this.falseValue.equals(value) ?
                 this.falseAnswer :
-                this.trueAnswer;
+                this.trueAnswer);
     }
 
     private final Object falseValue;
-    private final T trueAnswer;
-    private final T falseAnswer;
+    private final D trueAnswer;
+    private final D falseAnswer;
 
-    @Override
-    Class<T> targetType() {
-        return this.targetType;
-    }
-
-    private final Class<T> targetType;
+    private final Class<D> targetType;
 
     @Override
     public String toString() {

@@ -21,7 +21,7 @@ import java.math.BigDecimal;
 
 /**
  * A {@link Converter} that handles converting {@link BigDecimal} to {@link Boolean}. It is not possible to use
- * {@link BooleanConverter} with a {@link BigDecimal#ZERO} because equality testing will fail with {@link BigDecimal} values
+ * {@link BooleanTrueFalseConverter} with a {@link BigDecimal#ZERO} because equality testing will fail with {@link BigDecimal} values
  * with extra zeroes.
  */
 final class ConverterBigDecimalBoolean extends FixedTargetTypeConverter<Boolean> {
