@@ -18,31 +18,40 @@
 package walkingkooka.convert;
 
 /**
- * Converts object instances to a requested target {@link Class type}.
+ * Converts an object instance to a requested target {@link Class type}.
  */
 public interface Converter {
 
     /**
-     * Queries whether this converter supports converting to the requested type.
+     * Queries whether this {@link Converter} supports converting to the requested {@link Class type}.
      */
-    boolean canConvert(final Object value, final Class<?> type, final ConverterContext context);
+    boolean canConvert(final Object value,
+                       final Class<?> type,
+                       final ConverterContext context);
 
     /**
      * Converts the object to the request type.
      */
-    <T> T convert(final Object value, final Class<T> type, final ConverterContext context);
+    <T> T convert(final Object value,
+                  final Class<T> type,
+                  final ConverterContext context);
 
-    default void failIfUnsupportedType(final Object value, final Class<?> target, final ConverterContext context) {
+    default void failIfUnsupportedType(final Object value,
+                                       final Class<?> target,
+                                       final ConverterContext context) {
         if (!this.canConvert(value, target, context)) {
             this.failConversion(value, target);
         }
     }
 
-    default <TT> TT failConversion(final Object value, final Class<TT> target) {
+    default <TT> TT failConversion(final Object value,
+                                   final Class<TT> target) {
         throw new FailedConversionException(value, target);
     }
 
-    default <TT> TT failConversion(final Object value, final Class<TT> target, final Throwable cause) {
+    default <TT> TT failConversion(final Object value,
+                                   final Class<TT> target,
+                                   final Throwable cause) {
         throw new FailedConversionException(value, target, cause);
     }
 
@@ -51,7 +60,7 @@ public interface Converter {
     }
 
     /**
-     * Chains this converter and another together.
+     * Chains a successful convert from this {@link Converter} to another {@link Converter} to complete conversion using two steps.
      */
     default Converter then(final Class<?> intermediateTargetType,
                            final Converter last) {
