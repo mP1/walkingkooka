@@ -20,11 +20,10 @@ package walkingkooka.convert;
 import java.math.BigDecimal;
 
 /**
- * A {@link Converter} that handles converting {@link BigDecimal} to {@link Boolean}. It is not possible to use
- * {@link BooleanTrueFalseConverter} with a {@link BigDecimal#ZERO} because equality testing will fail with {@link BigDecimal} values
- * with extra zeroes.
+ * A specialized {@link Converter} that tests a {@link BigDecimal} against zero without using {@link BigDecimal#equals(Object)
+ * which fails when trailing zero counts are different.
  */
-final class ConverterBigDecimalBoolean extends FixedTargetTypeConverter<Boolean> {
+final class ConverterBigDecimalBoolean extends Converter2 {
 
     /**
      * Singleton
@@ -39,18 +38,17 @@ final class ConverterBigDecimalBoolean extends FixedTargetTypeConverter<Boolean>
     }
 
     @Override
-    public boolean canConvert(final Object value, final Class<?> type, final ConverterContext context) {
-        return value instanceof BigDecimal;
+    public boolean canConvert(final Object value,
+                              final Class<?> type,
+                              final ConverterContext context) {
+        return value instanceof BigDecimal && type == Boolean.class;
     }
 
     @Override
-    Boolean convert1(final Object value, final Class<Boolean> type, final ConverterContext context) {
-        return BigDecimal.class.cast(value).signum() != 0;
-    }
-
-    @Override
-    Class<Boolean> targetType() {
-        return Boolean.class;
+    <T> T convert0(final Object value,
+                   final Class<T> type,
+                   final ConverterContext context) {
+        return type.cast(BigDecimal.class.cast(value).signum() != 0);
     }
 
     @Override
