@@ -24,17 +24,17 @@ import java.math.BigDecimal;
  * {@link BooleanConverter} with a {@link BigDecimal#ZERO} because equality testing will fail with {@link BigDecimal} values
  * with extra zeroes.
  */
-final class BigDecimalBooleanConverter extends FixedTargetTypeConverter<Boolean> {
+final class ConverterBigDecimalBoolean extends FixedTargetTypeConverter<Boolean> {
 
     /**
      * Singleton
      */
-    final static BigDecimalBooleanConverter INSTANCE = new BigDecimalBooleanConverter();
+    final static ConverterBigDecimalBoolean INSTANCE = new ConverterBigDecimalBoolean();
 
     /**
      * Private ctor use singleton
      */
-    private BigDecimalBooleanConverter() {
+    private ConverterBigDecimalBoolean() {
         super();
     }
 
