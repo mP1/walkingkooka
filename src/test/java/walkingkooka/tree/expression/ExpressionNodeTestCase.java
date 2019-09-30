@@ -385,7 +385,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
                 stringLocalTime,
                 stringLong,
                 stringNumber,
-                Converters.string(),
+                Converters.objectString(),
                 // boolean ->
                 fromBoolean(BigDecimal.class, Converters.numberNumber()),
                 fromBoolean(BigInteger.class, Converters.numberNumber()),

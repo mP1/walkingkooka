@@ -254,6 +254,13 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
+     * [@see ConverterObjectString}
+     */
+    public static Converter objectString() {
+        return ConverterObjectString.INSTANCE;
+    }
+    
+    /**
      * {@see ParserConverter}
      */
     public static <V, C extends ParserContext> Converter parser(final Class<V> type,
@@ -267,13 +274,6 @@ public final class Converters implements PublicStaticHelper {
      */
     public static Converter simple() {
         return SimpleConverter.INSTANCE;
-    }
-
-    /**
-     * [@see ConverterObjectString}
-     */
-    public static Converter string() {
-        return ConverterObjectString.INSTANCE;
     }
 
     /**

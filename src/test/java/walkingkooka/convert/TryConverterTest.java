@@ -45,7 +45,7 @@ public final class TryConverterTest extends ConverterTestCase2<TryConverter> {
 
     @Test
     public void testWithOne() {
-        final Converter only = Converters.string();
+        final Converter only = Converters.objectString();
         assertSame(only, TryConverter.with(Lists.of(only)));
     }
 

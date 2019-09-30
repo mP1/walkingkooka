@@ -2087,7 +2087,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                     }
 
                     private String convertToString(final Object value) {
-                        return Converters.string().convert(value, String.class, this.converterContext);
+                        return Converters.objectString().convert(value, String.class, this.converterContext);
                     }
 
                     private <T> T failConversion(final Object value, final Class<T> target) {
