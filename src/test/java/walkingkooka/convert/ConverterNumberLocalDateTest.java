@@ -31,12 +31,12 @@ public final class ConverterNumberLocalDateTest extends ConverterNumberTestCase<
 
     @Test
     public void testNonNumberTypeFails() {
-        this.convertFails("fail!");
+        this.convertFails2("fail!");
     }
 
     @Test
     public void testFromLocalDateFails() {
-        this.convertFails(LocalDate.ofEpochDay(VALUE));
+        this.convertFails2(LocalDate.ofEpochDay(VALUE));
     }
 
     @Test
@@ -46,7 +46,7 @@ public final class ConverterNumberLocalDateTest extends ConverterNumberTestCase<
 
     @Test
     public void testBigDecimalWithFraction() {
-        this.convertFails(BigDecimal.valueOf(123.5));
+        this.convertFails2(BigDecimal.valueOf(123.5));
     }
 
     @Test
@@ -81,7 +81,7 @@ public final class ConverterNumberLocalDateTest extends ConverterNumberTestCase<
 
     @Test
     public void testLong() {
-        this.convertAndCheck(Long.valueOf(VALUE), LocalDate.ofEpochDay(VALUE));
+        this.convertAndCheck2(Long.valueOf(VALUE), LocalDate.ofEpochDay(VALUE));
     }
 
     @Test
@@ -101,7 +101,7 @@ public final class ConverterNumberLocalDateTest extends ConverterNumberTestCase<
 
     @Test
     public void testDoubleWithFraction() {
-        this.convertFails(Double.valueOf(123.75));
+        this.convertFails2(Double.valueOf(123.75));
     }
 
     @Test
@@ -115,7 +115,7 @@ public final class ConverterNumberLocalDateTest extends ConverterNumberTestCase<
     }
 
     private void convertAndCheck2(final Number value) {
-        this.convertAndCheck(value, DATE_VALUE);
+        this.convertAndCheck2(value, DATE_VALUE);
     }
 
     private void convertAndCheckExcelOffset(final Number value) {
@@ -131,7 +131,7 @@ public final class ConverterNumberLocalDateTest extends ConverterNumberTestCase<
     }
 
     @Override
-    protected Class<LocalDate> onlySupportedType() {
+    protected Class<LocalDate> targetType() {
         return LocalDate.class;
     }
 

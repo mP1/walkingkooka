@@ -33,12 +33,12 @@ public final class ConverterNumberLocalDateTimeTest extends ConverterNumberTestC
 
     @Test
     public void testNonNumberTypeFails() {
-        this.convertFails("fail!");
+        this.convertFails2("fail!");
     }
 
     @Test
     public void testFromLocalDateTimeFails() {
-        this.convertFails(LocalDateTime.of(1, 2, 3, 4, 5));
+        this.convertFails2(LocalDateTime.of(1, 2, 3, 4, 5));
     }
 
     @Test
@@ -48,7 +48,7 @@ public final class ConverterNumberLocalDateTimeTest extends ConverterNumberTestC
 
     @Test
     public void testBigDecimalWithFraction() {
-        this.convertAndCheck(BigDecimal.valueOf(123.5), this.localDateTime(VALUE, 12, 0));
+        this.convertAndCheck2(BigDecimal.valueOf(123.5), this.localDateTime(VALUE, 12, 0));
     }
 
     @Test
@@ -78,7 +78,7 @@ public final class ConverterNumberLocalDateTimeTest extends ConverterNumberTestC
 
     @Test
     public void testDoubleWithFraction() {
-        this.convertAndCheck(BigDecimal.valueOf(123.5), this.localDateTime(VALUE, 12, 0));
+        this.convertAndCheck2(BigDecimal.valueOf(123.5), this.localDateTime(VALUE, 12, 0));
     }
 
     @Test
@@ -117,7 +117,7 @@ public final class ConverterNumberLocalDateTimeTest extends ConverterNumberTestC
     }
 
     private void convertAndCheck2(final Object value) {
-        this.convertAndCheck(value, this.localDateTime(VALUE, MIDNIGHT));
+        this.convertAndCheck2(value, this.localDateTime(VALUE, MIDNIGHT));
     }
 
     private void convertAndCheckExcelOffset(final Number value) {
@@ -145,7 +145,7 @@ public final class ConverterNumberLocalDateTimeTest extends ConverterNumberTestC
     }
 
     @Override
-    protected Class<LocalDateTime> onlySupportedType() {
+    protected Class<LocalDateTime> targetType() {
         return LocalDateTime.class;
     }
 

@@ -164,7 +164,7 @@ public final class ConverterNumberBooleanTest extends ConverterNumberTestCase<Co
     }
 
     @Override
-    protected Class<Boolean> onlySupportedType() {
+    protected Class<Boolean> targetType() {
         return Boolean.class;
     }
 

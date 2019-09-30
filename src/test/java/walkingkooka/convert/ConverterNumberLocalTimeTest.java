@@ -29,12 +29,12 @@ public final class ConverterNumberLocalTimeTest extends ConverterNumberTestCase<
 
     @Test
     public void testNonNumberTypeFails() {
-        this.convertFails("fail!");
+        this.convertFails2("fail!");
     }
 
     @Test
     public void testFromLocalTimeFails() {
-        this.convertFails(LocalTime.of(12, 59));
+        this.convertFails2(LocalTime.of(12, 59));
     }
 
     @Test
@@ -44,7 +44,7 @@ public final class ConverterNumberLocalTimeTest extends ConverterNumberTestCase<
 
     @Test
     public void testBigDecimalWithFraction() {
-        this.convertAndCheck(BigDecimal.valueOf(123.5), LocalTime.ofSecondOfDay(VALUE).plusNanos(Converters.NANOS_PER_SECOND / 2));
+        this.convertAndCheck2(BigDecimal.valueOf(123.5), LocalTime.ofSecondOfDay(VALUE).plusNanos(Converters.NANOS_PER_SECOND / 2));
     }
 
     @Test
@@ -64,7 +64,7 @@ public final class ConverterNumberLocalTimeTest extends ConverterNumberTestCase<
 
     @Test
     public void testDoubleWithFraction() {
-        this.convertAndCheck(BigDecimal.valueOf(123.5), LocalTime.ofSecondOfDay(VALUE).plusNanos(Converters.NANOS_PER_SECOND / 2));
+        this.convertAndCheck2(BigDecimal.valueOf(123.5), LocalTime.ofSecondOfDay(VALUE).plusNanos(Converters.NANOS_PER_SECOND / 2));
     }
 
     @Override
@@ -93,7 +93,7 @@ public final class ConverterNumberLocalTimeTest extends ConverterNumberTestCase<
     }
 
     private void convertAndCheck2(final Object value) {
-        this.convertAndCheck(value, LocalTime.ofSecondOfDay(VALUE));
+        this.convertAndCheck2(value, LocalTime.ofSecondOfDay(VALUE));
     }
 
     @Override
@@ -102,7 +102,7 @@ public final class ConverterNumberLocalTimeTest extends ConverterNumberTestCase<
     }
 
     @Override
-    protected Class<LocalTime> onlySupportedType() {
+    protected Class<LocalTime> targetType() {
         return LocalTime.class;
     }
 
