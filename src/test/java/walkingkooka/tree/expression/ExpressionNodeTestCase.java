@@ -460,7 +460,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
 
     private static <T> Converter fromBoolean(final Class<T> targetType, final Converter trueOrFalse) {
         final ConverterContext context = ConverterContexts.fake();
-        return Converters.booleanConverter(Boolean.class,
+        return Converters.booleanTrueFalse(Boolean.class,
                 Boolean.FALSE,
                 targetType,
                 trueOrFalse.convert(1L, targetType, context),
@@ -468,7 +468,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
     }
 
     private static <S> Converter toBoolean(final Class<S> sourceType, final S falseValue) {
-        return Converters.booleanConverter(sourceType,
+        return Converters.booleanTrueFalse(sourceType,
                 falseValue,
                 Boolean.class,
                 Boolean.TRUE,

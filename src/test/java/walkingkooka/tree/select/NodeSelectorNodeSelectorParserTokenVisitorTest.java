@@ -2061,7 +2061,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                      */
                     private BigDecimal convertToBigDecimal(final Object value) {
                         final Converter converter = value instanceof Boolean ?
-                                Converters.booleanConverter(Boolean.class, Boolean.TRUE, BigDecimal.class, BigDecimal.ONE, BigDecimal.ZERO) :
+                                Converters.booleanTrueFalse(Boolean.class, Boolean.TRUE, BigDecimal.class, BigDecimal.ONE, BigDecimal.ZERO) :
                                 value instanceof String ?
                                         Converters.parser(BigDecimal.class, Parsers.bigDecimal(), (c) -> ParserContexts.basic(c, c)) :
                                         Converters.numberNumber();
@@ -2075,7 +2075,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                     private Number convertToNumber(final Object value) {
                         return value instanceof String ?
                                 Integer.parseInt((String) value) :
-                                Converters.booleanConverter(Boolean.class, Boolean.TRUE, Number.class, 1L, 0L)
+                                Converters.booleanTrueFalse(Boolean.class, Boolean.TRUE, Number.class, 1L, 0L)
                                         .convert(value, Number.class, ConverterContexts.fake());
                     }
 
