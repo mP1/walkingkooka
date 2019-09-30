@@ -18,16 +18,16 @@
 package walkingkooka.convert;
 
 /**
- * A {@link Converter} invokes {@link Object#toString()} to convert any value into a {@link String}
+ * A {@link Converter} that invokes {@link Object#toString()} to convert any value into a {@link String}
  */
-final class StringConverter extends FixedTargetTypeConverter<String> {
+final class ConverterObjectString extends FixedTargetTypeConverter<String> {
 
     /**
      * Singleton
      */
-    final static StringConverter INSTANCE = new StringConverter();
+    final static ConverterObjectString INSTANCE = new ConverterObjectString();
 
-    private StringConverter() {
+    private ConverterObjectString() {
         super();
     }
 
