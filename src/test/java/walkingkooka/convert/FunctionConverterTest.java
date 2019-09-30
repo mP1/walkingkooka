@@ -24,7 +24,7 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class FunctionConverterTest extends FixedTypeConverterTestCase<FunctionConverter<String, Boolean>, Boolean> {
+public final class FunctionConverterTest extends ConverterTestCase2<FunctionConverter<String, Boolean>> {
 
     private final static Class<String> SOURCE_TYPE = String.class;
     private final static Class<Boolean> TARGET_TYPE = Boolean.class;
@@ -58,20 +58,26 @@ public final class FunctionConverterTest extends FixedTypeConverterTestCase<Func
         });
     }
 
+    // converter........................................................................................................
+
     @Test
     public void testTrue() {
-        this.convertAndCheck(Boolean.TRUE.toString(), true);
+        this.convertAndCheck2(Boolean.TRUE.toString(), true);
     }
 
     @Test
     public void testFalse() {
-        this.convertAndCheck(Boolean.FALSE.toString(), false);
+        this.convertAndCheck2(Boolean.FALSE.toString(), false);
     }
+
+    // toString.........................................................................................................
 
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createConverter(), "String->Boolean");
     }
+
+    // Converter........................................................................................................
 
     @Override
     public FunctionConverter<String, Boolean> createConverter() {
@@ -79,14 +85,16 @@ public final class FunctionConverterTest extends FixedTypeConverterTestCase<Func
     }
 
     @Override
-    protected Class<Boolean> onlySupportedType() {
-        return Boolean.class;
-    }
-
-    @Override
     public ConverterContext createContext() {
         return ConverterContexts.fake();
     }
+
+    private void convertAndCheck2(final String value,
+                                  final boolean expected) {
+        this.convertAndCheck(value, Boolean.class, expected);
+    }
+
+    // ClassTesting.....................................................................................................
 
     @Override
     public Class<FunctionConverter<String, Boolean>> type() {

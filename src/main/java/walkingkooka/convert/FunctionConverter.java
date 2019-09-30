@@ -23,7 +23,7 @@ import java.util.function.Function;
 /**
  * A {@link Converter} passes the given value to a {@link Function} such as a method handle to a static method which performs the conversion.
  */
-final class FunctionConverter<S, D> extends FixedSourceTypeTargetTypeConverter<S, D> {
+final class FunctionConverter<S, D> extends Converter2 {
 
     static <S, D> FunctionConverter<S, D> with(final Class<S> sourceType,
                                                final Class<D> targetType,
@@ -50,32 +50,26 @@ final class FunctionConverter<S, D> extends FixedSourceTypeTargetTypeConverter<S
         this.converter = converter;
     }
 
+    public boolean canConvert(final Object value,
+                              final Class<?> type,
+                              final ConverterContext context) {
+        return this.sourceType.isInstance(value) &&
+                this.targetType == type;
+    }
+
     @Override
-    Class<S> sourceType() {
-        return this.sourceType;
+    <T> T convert0(final Object value,
+                   final Class<T> type,
+                   final ConverterContext context) {
+        return type.cast(this.converter.apply(this.sourceType.cast(value)));
     }
 
     private final Class<S> sourceType;
-
-    @Override
-    Class<D> targetType() {
-        return this.targetType;
-    }
-
     private final Class<D> targetType;
-
-    @Override
-    D convert1(final S value, final ConverterContext context) {
-        return this.converter.apply(value);
-    }
-
-    /**
-     * A {@link Function} often a method reference that accepts the source value and returns the target, eg {@link Integer#parseInt(String)}.
-     */
     private final Function<S, D> converter;
 
     @Override
-    String toStringSuffix() {
-        return "";
+    public String toString() {
+        return this.sourceType.getSimpleName() + "->" + this.targetType.getSimpleName();
     }
 }
