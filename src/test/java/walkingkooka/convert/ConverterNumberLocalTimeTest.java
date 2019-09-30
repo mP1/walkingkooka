@@ -23,7 +23,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalTime;
 
-public final class NumberConverterLocalTimeTest extends NumberConverterTestCase<NumberConverterLocalTime, LocalTime> {
+public final class ConverterNumberLocalTimeTest extends ConverterNumberTestCase<ConverterNumberLocalTime, LocalTime> {
 
     private final static byte VALUE = 123;
 
@@ -97,8 +97,8 @@ public final class NumberConverterLocalTimeTest extends NumberConverterTestCase<
     }
 
     @Override
-    public NumberConverterLocalTime createConverter() {
-        return NumberConverterLocalTime.INSTANCE;
+    public ConverterNumberLocalTime createConverter() {
+        return ConverterNumberLocalTime.INSTANCE;
     }
 
     @Override
@@ -107,7 +107,7 @@ public final class NumberConverterLocalTimeTest extends NumberConverterTestCase<
     }
 
     @Override
-    public Class<NumberConverterLocalTime> type() {
-        return NumberConverterLocalTime.class;
+    public Class<ConverterNumberLocalTime> type() {
+        return ConverterNumberLocalTime.class;
     }
 }

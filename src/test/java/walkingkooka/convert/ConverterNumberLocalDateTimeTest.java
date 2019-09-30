@@ -25,7 +25,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public final class NumberConverterLocalDateTimeTest extends NumberConverterTestCase<NumberConverterLocalDateTime, LocalDateTime> {
+public final class ConverterNumberLocalDateTimeTest extends ConverterNumberTestCase<ConverterNumberLocalDateTime, LocalDateTime> {
 
     private final static int VALUE = 123;
     private final static LocalTime MIDNIGHT = LocalTime.ofSecondOfDay(0);
@@ -121,15 +121,15 @@ public final class NumberConverterLocalDateTimeTest extends NumberConverterTestC
     }
 
     private void convertAndCheckExcelOffset(final Number value) {
-        this.convertAndCheck(NumberConverterLocalDateTime.with(Converters.EXCEL_OFFSET),
+        this.convertAndCheck(ConverterNumberLocalDateTime.with(Converters.EXCEL_OFFSET),
                 value,
                 LocalDateTime.class,
                 DATE_TIME_EXCEL_OFFSET);
     }
 
     @Override
-    public NumberConverterLocalDateTime createConverter() {
-        return NumberConverterLocalDateTime.with(Converters.JAVA_EPOCH_OFFSET);
+    public ConverterNumberLocalDateTime createConverter() {
+        return ConverterNumberLocalDateTime.with(Converters.JAVA_EPOCH_OFFSET);
     }
 
     private LocalDateTime localDateTime(final int date, final int hours, final int minutes) {
@@ -150,7 +150,7 @@ public final class NumberConverterLocalDateTimeTest extends NumberConverterTestC
     }
 
     @Override
-    public Class<NumberConverterLocalDateTime> type() {
-        return NumberConverterLocalDateTime.class;
+    public Class<ConverterNumberLocalDateTime> type() {
+        return ConverterNumberLocalDateTime.class;
     }
 }

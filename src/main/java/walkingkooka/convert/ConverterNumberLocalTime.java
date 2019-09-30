@@ -25,17 +25,17 @@ import java.time.LocalTime;
  * A {@link Converter} that handles converting any {@link Number} to a {@link LocalTime}.
  * The value is the number of seconds in a day.
  */
-final class NumberConverterLocalTime extends NumberConverter<LocalTime> {
+final class ConverterNumberLocalTime extends ConverterNumber<LocalTime> {
 
     /**
      * Singleton
      */
-    final static NumberConverterLocalTime INSTANCE = new NumberConverterLocalTime();
+    final static ConverterNumberLocalTime INSTANCE = new ConverterNumberLocalTime();
 
     /**
      * Private ctor
      */
-    private NumberConverterLocalTime() {
+    private ConverterNumberLocalTime() {
         super();
     }
 

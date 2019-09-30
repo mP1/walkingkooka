@@ -19,7 +19,11 @@ package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
 
-public abstract class NumberConverterTestCase<C extends NumberConverter<T>, T> extends FixedTypeConverterTestCase<C, T> {
+public abstract class ConverterNumberTestCase<C extends ConverterNumber<T>, T> extends FixedTypeConverterTestCase<C, T> {
+
+    ConverterNumberTestCase() {
+        super();
+    }
 
     @Test
     public void testDoubleNanFails() {
@@ -55,7 +59,7 @@ public abstract class NumberConverterTestCase<C extends NumberConverter<T>, T> e
 
     @Override
     public final String typeNamePrefix() {
-        return Number.class.getSimpleName() + Converter.class.getSimpleName();
+        return Converter.class.getSimpleName() + Number.class.getSimpleName();
     }
 
     @Override

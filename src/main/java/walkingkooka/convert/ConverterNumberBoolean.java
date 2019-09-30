@@ -24,17 +24,17 @@ import java.math.BigInteger;
  * A {@link Converter} that handles converting any {@link Number} to a {@link BigDecimal}, following truth conventions,
  * where zero becomes false and all other values are true.
  */
-final class NumberConverterBoolean extends NumberConverter<Boolean> {
+final class ConverterNumberBoolean extends ConverterNumber<Boolean> {
 
     /**
      * Singleton
      */
-    final static NumberConverterBoolean INSTANCE = new NumberConverterBoolean();
+    final static ConverterNumberBoolean INSTANCE = new ConverterNumberBoolean();
 
     /**
      * Private ctor use singleton
      */
-    private NumberConverterBoolean() {
+    private ConverterNumberBoolean() {
         super();
     }
 
