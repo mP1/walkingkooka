@@ -19,7 +19,9 @@ package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
 
-public abstract class ConverterNumberTestCase<C extends ConverterNumber<T>, T> extends FixedTypeConverterTestCase<C, T> {
+import static org.junit.jupiter.api.Assertions.assertSame;
+
+public abstract class ConverterNumberTestCase<C extends ConverterNumber<T>, T> extends ConverterTestCase2<C> {
 
     ConverterNumberTestCase() {
         super();
@@ -27,33 +29,52 @@ public abstract class ConverterNumberTestCase<C extends ConverterNumber<T>, T> e
 
     @Test
     public void testDoubleNanFails() {
-        this.convertFails(Double.NaN);
+        this.convertFails2(Double.NaN);
     }
 
     @Test
     public void testDoublePositiveInfinityFails() {
-        this.convertFails(Double.POSITIVE_INFINITY);
+        this.convertFails2(Double.POSITIVE_INFINITY);
     }
 
     @Test
     public void testDoubleNegativeInfinityFails() {
-        this.convertFails(Double.NEGATIVE_INFINITY);
+        this.convertFails2(Double.NEGATIVE_INFINITY);
     }
 
     @Test
     public void testDoubleMaxFails() {
-        this.convertFails(Double.MAX_VALUE);
+        this.convertFails2(Double.MAX_VALUE);
     }
 
     @Test
     public void testDoubleMinFails() {
-        this.convertFails(Double.MIN_VALUE);
+        this.convertFails2(Double.MIN_VALUE);
     }
 
     @Override
     public final ConverterContext createContext() {
         return ConverterContexts.fake();
     }
+
+    @Override
+    public void convertAndCheck(final Object value) {
+        assertSame(value, this.convertAndCheck(value, this.targetType(), value));
+    }
+
+    final T convertAndCheck2(final Object value, final T expected) {
+        final Class<T> targetType = this.targetType();
+        return targetType.cast(this.convertAndCheck(this.createConverter(),
+                value,
+                targetType,
+                expected));
+    }
+
+    final void convertFails2(final Object value) {
+        this.convertFails(value, this.targetType());
+    }
+
+    abstract Class<T> targetType();
 
     // TypeNameTesting..................................................................................................
 
@@ -64,6 +85,6 @@ public abstract class ConverterNumberTestCase<C extends ConverterNumber<T>, T> e
 
     @Override
     public final String typeNameSuffix() {
-        return this.onlySupportedType().getSimpleName();
+        return this.targetType().getSimpleName();
     }
 }
