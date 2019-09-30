@@ -20,7 +20,7 @@ package walkingkooka.convert;
 /**
  * A {@link Converter} that invokes {@link Object#toString()} to convert any value into a {@link String}
  */
-final class ConverterObjectString extends FixedTargetTypeConverter<String> {
+final class ConverterObjectString extends Converter2 {
 
     /**
      * Singleton
@@ -37,17 +37,14 @@ final class ConverterObjectString extends FixedTargetTypeConverter<String> {
     }
 
     @Override
-    String convert1(final Object value, final Class<String> type, final ConverterContext context) {
-        return value.toString();
+    <T> T convert0(final Object value,
+                   final Class<T> type,
+                   final ConverterContext context) {
+        return type.cast(value.toString());
     }
 
     @Override
     public String toString() {
         return "*->String";
-    }
-
-    @Override
-    Class<String> targetType() {
-        return String.class;
     }
 }
