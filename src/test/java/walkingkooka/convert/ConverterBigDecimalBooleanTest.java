@@ -21,21 +21,21 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-public final class BigDecimalBooleanConverterTest extends FixedTypeConverterTestCase<BigDecimalBooleanConverter, Boolean> {
+public final class ConverterBigDecimalBooleanTest extends ConverterTestCase2<ConverterBigDecimalBoolean> {
 
     @Test
     public void testTrue() {
-        this.convertAndCheck(BigDecimal.ONE, true);
+        this.convertAndCheck2(BigDecimal.ONE, true);
     }
 
     @Test
     public void testFalse() {
-        this.convertAndCheck(BigDecimal.ZERO, false);
+        this.convertAndCheck2(BigDecimal.ZERO, false);
     }
 
     @Test
     public void testExtraZeroesFalse() {
-        this.convertAndCheck(new BigDecimal("000000"), false);
+        this.convertAndCheck2(new BigDecimal("000000"), false);
     }
 
     @Test
@@ -44,8 +44,8 @@ public final class BigDecimalBooleanConverterTest extends FixedTypeConverterTest
     }
 
     @Override
-    public BigDecimalBooleanConverter createConverter() {
-        return BigDecimalBooleanConverter.INSTANCE;
+    public ConverterBigDecimalBoolean createConverter() {
+        return ConverterBigDecimalBoolean.INSTANCE;
     }
 
     @Override
@@ -53,13 +53,27 @@ public final class BigDecimalBooleanConverterTest extends FixedTypeConverterTest
         return ConverterContexts.fake();
     }
 
+    private void convertAndCheck2(final BigDecimal value,
+                                  final Boolean expected) {
+        this.convertAndCheck(value, Boolean.class, expected);
+    }
+
+    // ClassTesting.....................................................................................................
+
     @Override
-    protected Class<Boolean> onlySupportedType() {
-        return Boolean.class;
+    public Class<ConverterBigDecimalBoolean> type() {
+        return ConverterBigDecimalBoolean.class;
+    }
+
+    // TypeNameTesting..................................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return Converter.class.getSimpleName();
     }
 
     @Override
-    public Class<BigDecimalBooleanConverter> type() {
-        return BigDecimalBooleanConverter.class;
+    public String typeNameSuffix() {
+        return BigDecimal.class.getSimpleName() + Boolean.class.getSimpleName();
     }
 }

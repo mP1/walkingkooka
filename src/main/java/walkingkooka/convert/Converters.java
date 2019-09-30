@@ -81,10 +81,10 @@ public final class Converters implements PublicStaticHelper {
     static final long NANOS_PER_DAY = NANOS_PER_HOUR * HOURS_PER_DAY;
 
     /**
-     * [@see BigDecimalBooleanConverter}
+     * [@see ConverterBigDecimalBoolean}
      */
     public static Converter bigDecimalBoolean() {
-        return BigDecimalBooleanConverter.INSTANCE;
+        return ConverterBigDecimalBoolean.INSTANCE;
     }
 
     /**
