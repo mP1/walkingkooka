@@ -58,8 +58,22 @@ public final class ConverterObjectStringTest extends FixedTypeConverterTestCase<
         return String.class;
     }
 
+    // ClassTesting.....................................................................................................
+
     @Override
     public Class<ConverterObjectString> type() {
         return ConverterObjectString.class;
+    }
+
+    // TypeNameTesting..................................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return Converter.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return Object.class.getSimpleName() + String.class.getSimpleName();
     }
 }
