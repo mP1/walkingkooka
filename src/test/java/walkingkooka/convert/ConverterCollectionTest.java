@@ -47,7 +47,7 @@ public final class ConverterCollectionTest extends ConverterTestCase2<ConverterC
 
     @Test
     public void testWithOneConverter() {
-        final Converter only = Converters.string();
+        final Converter only = Converters.objectString();
         assertSame(only, ConverterCollection.with(Lists.of(only)));
     }
 

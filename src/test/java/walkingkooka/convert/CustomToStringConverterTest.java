@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class CustomToStringConverterTest extends ConverterTestCase2<CustomToStringConverter>
         implements HashCodeEqualsDefinedTesting2<CustomToStringConverter> {
 
-    private final static Converter WRAPPED = Converters.string();
+    private final static Converter WRAPPED = Converters.objectString();
     private final static String CUSTOM_TO_STRING = "!!custom-to-string!!";
 
     @Test
