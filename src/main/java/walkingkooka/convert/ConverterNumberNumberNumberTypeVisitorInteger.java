@@ -20,42 +20,34 @@ package walkingkooka.convert;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-final class NumberNumberConverterNumberTypeVisitorFloatNumberVisitor extends NumberNumberConverterNumberTypeVisitorNumberVisitor<Float> {
+final class ConverterNumberNumberNumberTypeVisitorInteger extends ConverterNumberNumberNumberTypeVisitorNumber<Integer> {
 
-    static NumberNumberConverterNumberTypeVisitorFloatNumberVisitor with() {
-        return new NumberNumberConverterNumberTypeVisitorFloatNumberVisitor();
+    static ConverterNumberNumberNumberTypeVisitorInteger with() {
+        return new ConverterNumberNumberNumberTypeVisitorInteger();
     }
 
-    NumberNumberConverterNumberTypeVisitorFloatNumberVisitor() {
+    ConverterNumberNumberNumberTypeVisitorInteger() {
         super();
     }
 
     @Override
     protected void visit(final BigDecimal number) {
-        final float converted = number.floatValue();
-        if (0 != new BigDecimal(converted).compareTo(number)) {
-            this.failConversion(number);
-        }
-        this.save(converted);
+        this.save(number.intValueExact());
     }
 
-    @Override
+    @Override 
     protected void visit(final BigInteger number) {
-        final float converted = number.floatValue();
-        if (!new BigDecimal(converted).toBigIntegerExact().equals(number)) {
-            this.failConversion(number);
-        }
-        this.save(converted);
+        this.save(number.intValueExact());
     }
 
     @Override
     protected void visit(final Byte number) {
-        this.saveFloat(number);
+        this.saveInteger(number);
     }
 
     @Override
     protected void visit(final Double number) {
-        final float converted = number.floatValue();
+        final int converted = number.intValue();
         if (converted != number) {
             this.failConversion(number);
         }
@@ -64,18 +56,22 @@ final class NumberNumberConverterNumberTypeVisitorFloatNumberVisitor extends Num
 
     @Override 
     protected void visit(final Float number) {
-        this.save(number);
+        final int converted = number.intValue();
+        if (converted != number) {
+            this.failConversion(number);
+        }
+        this.save(converted);
     }
 
     @Override 
     protected void visit(final Integer number) {
-        this.saveFloat(number);;
+        this.save(number);
     }
 
     @Override 
     protected void visit(final Long number) {
-        final float converted = number.floatValue();
-        if (Float.valueOf(converted).longValue() != number.longValue()) {
+        final int converted = number.intValue();
+        if (converted != number) {
             this.failConversion(number);
         }
         this.save(converted);
@@ -83,15 +79,15 @@ final class NumberNumberConverterNumberTypeVisitorFloatNumberVisitor extends Num
 
     @Override 
     protected void visit(final Short number) {
-        this.saveFloat(number);
+        this.saveInteger(number);
     }
 
-    private void saveFloat(final Number number) {
-        this.save(number.floatValue());
+    private void saveInteger(final Number number) {
+        this.save(number.intValue());
     }
 
     @Override
-    Class<Float> targetType() {
-        return Float.class;
+    Class<Integer> targetType() {
+        return Integer.class;
     }
 }

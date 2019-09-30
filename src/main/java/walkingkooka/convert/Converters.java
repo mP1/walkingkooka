@@ -240,10 +240,10 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * {@see NumberNumberConverter}
+     * {@see ConverterNumberNumber}
      */
     public static Converter numberNumber() {
-        return NumberNumberConverter.INSTANCE;
+        return ConverterNumberNumber.INSTANCE;
     }
 
     /**

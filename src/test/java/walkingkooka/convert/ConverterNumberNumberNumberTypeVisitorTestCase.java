@@ -18,15 +18,15 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.math.NumberVisitor;
+import walkingkooka.math.NumberTypeVisitor;
 import walkingkooka.math.NumberVisitorTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.JavaVisibility;
 
-public abstract class NumberNumberConverterNumberTypeVisitorNumberVisitorTestCase<V extends NumberNumberConverterNumberTypeVisitorNumberVisitor<N>, N extends Number> implements NumberVisitorTesting<V>,
+public abstract class ConverterNumberNumberNumberTypeVisitorTestCase<V extends ConverterNumberNumberNumberTypeVisitorNumber<N>, N extends Number> implements NumberVisitorTesting<V>,
         ToStringTesting<V> {
 
-    NumberNumberConverterNumberTypeVisitorNumberVisitorTestCase() {
+    ConverterNumberNumberNumberTypeVisitorTestCase() {
         super();
     }
 
@@ -41,12 +41,12 @@ public abstract class NumberNumberConverterNumberTypeVisitorNumberVisitorTestCas
 
     @Override
     public final String typeNamePrefix() {
-        return NumberNumberConverter.class.getSimpleName();
+        return ConverterNumberNumber.class.getSimpleName() + NumberTypeVisitor.class.getSimpleName();
     }
 
     @Override
     public final String typeNameSuffix() {
-        return this.targetType().getSimpleName() + NumberVisitor.class.getSimpleName();
+        return this.targetType().getSimpleName();
     }
 
     @Override

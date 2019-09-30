@@ -58,7 +58,7 @@ abstract class Converter2 implements Converter {
                                 final ConverterContext context,
                                 final Object value) {
         try {
-            return NumberNumberConverter.INSTANCE
+            return ConverterNumberNumber.INSTANCE
                     .convert(number,
                             type,
                             context);

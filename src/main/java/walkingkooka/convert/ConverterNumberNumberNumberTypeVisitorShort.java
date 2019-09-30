@@ -20,34 +20,34 @@ package walkingkooka.convert;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-final class NumberNumberConverterNumberTypeVisitorByteNumberVisitor extends NumberNumberConverterNumberTypeVisitorNumberVisitor<Byte> {
+final class ConverterNumberNumberNumberTypeVisitorShort extends ConverterNumberNumberNumberTypeVisitorNumber<Short> {
 
-    static NumberNumberConverterNumberTypeVisitorByteNumberVisitor with() {
-        return new NumberNumberConverterNumberTypeVisitorByteNumberVisitor();
+    static ConverterNumberNumberNumberTypeVisitorShort with() {
+        return new ConverterNumberNumberNumberTypeVisitorShort();
     }
 
-    NumberNumberConverterNumberTypeVisitorByteNumberVisitor() {
+    ConverterNumberNumberNumberTypeVisitorShort() {
         super();
     }
 
     @Override
     protected void visit(final BigDecimal number) {
-        this.save(number.byteValueExact());
+        this.save(number.shortValueExact());
     }
 
     @Override 
     protected void visit(final BigInteger number) {
-        this.save(number.byteValueExact());
+        this.save(number.shortValueExact());
     }
 
     @Override
     protected void visit(final Byte number) {
-        this.save(number);
+        this.saveShort(number);
     }
 
     @Override
     protected void visit(final Double number) {
-        final byte converted = number.byteValue();
+        final short converted = number.shortValue();
         if (converted != number) {
             this.failConversion(number);
         }
@@ -56,7 +56,7 @@ final class NumberNumberConverterNumberTypeVisitorByteNumberVisitor extends Numb
 
     @Override 
     protected void visit(final Float number) {
-        final byte converted = number.byteValue();
+        final short converted = number.shortValue();
         if (converted != number) {
             this.failConversion(number);
         }
@@ -65,7 +65,7 @@ final class NumberNumberConverterNumberTypeVisitorByteNumberVisitor extends Numb
 
     @Override 
     protected void visit(final Integer number) {
-        final byte converted = number.byteValue();
+        final short converted = number.shortValue();
         if (converted != number) {
             this.failConversion(number);
         }
@@ -74,7 +74,7 @@ final class NumberNumberConverterNumberTypeVisitorByteNumberVisitor extends Numb
 
     @Override 
     protected void visit(final Long number) {
-        final byte converted = number.byteValue();
+        final short converted = number.shortValue();
         if (converted != number) {
             this.failConversion(number);
         }
@@ -83,15 +83,15 @@ final class NumberNumberConverterNumberTypeVisitorByteNumberVisitor extends Numb
 
     @Override 
     protected void visit(final Short number) {
-        final byte converted = number.byteValue();
-        if (converted != number) {
-            this.failConversion(number);
-        }
-        this.save(converted);
+        this.save(number);
+    }
+
+    private void saveShort(final Number number) {
+        this.save(number.shortValue());
     }
 
     @Override
-    Class<Byte> targetType() {
-        return Byte.class;
+    Class<Short> targetType() {
+        return Short.class;
     }
 }

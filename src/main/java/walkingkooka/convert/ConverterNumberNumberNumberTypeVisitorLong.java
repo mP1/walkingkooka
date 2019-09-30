@@ -20,74 +20,62 @@ package walkingkooka.convert;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-final class NumberNumberConverterNumberTypeVisitorIntegerNumberVisitor extends NumberNumberConverterNumberTypeVisitorNumberVisitor<Integer> {
+final class ConverterNumberNumberNumberTypeVisitorLong extends ConverterNumberNumberNumberTypeVisitorNumber<Long> {
 
-    static NumberNumberConverterNumberTypeVisitorIntegerNumberVisitor with() {
-        return new NumberNumberConverterNumberTypeVisitorIntegerNumberVisitor();
+    static ConverterNumberNumberNumberTypeVisitorLong with() {
+        return new ConverterNumberNumberNumberTypeVisitorLong();
     }
 
-    NumberNumberConverterNumberTypeVisitorIntegerNumberVisitor() {
+    ConverterNumberNumberNumberTypeVisitorLong() {
         super();
     }
 
     @Override
     protected void visit(final BigDecimal number) {
-        this.save(number.intValueExact());
+        this.save(number.longValueExact());
     }
 
     @Override 
     protected void visit(final BigInteger number) {
-        this.save(number.intValueExact());
+        this.save(number.longValueExact());
     }
 
     @Override
     protected void visit(final Byte number) {
-        this.saveInteger(number);
+        this.save(number.longValue());
     }
 
     @Override
     protected void visit(final Double number) {
-        final int converted = number.intValue();
-        if (converted != number) {
-            this.failConversion(number);
-        }
-        this.save(converted);
+        this.visit(new BigDecimal(number));
     }
 
     @Override 
     protected void visit(final Float number) {
-        final int converted = number.intValue();
-        if (converted != number) {
-            this.failConversion(number);
-        }
-        this.save(converted);
+        this.visit(new BigDecimal(number));
     }
 
     @Override 
     protected void visit(final Integer number) {
-        this.save(number);
+        this.save(number.longValue());
     }
 
     @Override 
     protected void visit(final Long number) {
-        final int converted = number.intValue();
-        if (converted != number) {
-            this.failConversion(number);
-        }
-        this.save(converted);
+        this.save(number);
     }
 
     @Override 
     protected void visit(final Short number) {
-        this.saveInteger(number);
+        this.saveLong(number);
     }
 
-    private void saveInteger(final Number number) {
-        this.save(number.intValue());
+    private void saveLong(final Number number) {
+        this.save(number.longValue());
     }
 
     @Override
-    Class<Integer> targetType() {
-        return Integer.class;
+    Class<Long> targetType() {
+        return Long.class;
     }
 }

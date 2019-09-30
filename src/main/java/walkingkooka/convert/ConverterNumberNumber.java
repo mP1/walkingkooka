@@ -26,14 +26,14 @@ import java.util.Objects;
 /**
  * A {@link Converter} which handles converting {@link Number} to other number types or nothing at all if the target is number.
  */
-final class NumberNumberConverter extends Converter2 {
+final class ConverterNumberNumber extends Converter2 {
 
     /**
      * Singleton
      */
-    final static NumberNumberConverter INSTANCE = new NumberNumberConverter();
+    final static ConverterNumberNumber INSTANCE = new ConverterNumberNumber();
 
-    private NumberNumberConverter() {
+    private ConverterNumberNumber() {
         super();
     }
 
@@ -73,7 +73,7 @@ final class NumberNumberConverter extends Converter2 {
 
     private <T> T convertNonNumber(final Object value,
                                    final Class<T> type) {
-        final NumberNumberConverterNumberTypeVisitorNumberVisitor<?> visitor = NumberNumberConverterNumberTypeVisitor.visitor(type);
+        final ConverterNumberNumberNumberTypeVisitorNumber<?> visitor = ConverterNumberNumberNumberTypeVisitor.visitor(type);
         if (null == visitor) {
             this.failConversion(value, type);
         }
