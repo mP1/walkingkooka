@@ -103,10 +103,10 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * [@see BooleanConverterNumber}
+     * [@see ConverterBooleanNumber}
      */
     public static Converter booleanNumber() {
-        return BooleanConverterNumber.INSTANCE;
+        return ConverterBooleanNumber.INSTANCE;
     }
 
     /**
