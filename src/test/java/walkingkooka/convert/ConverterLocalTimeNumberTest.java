@@ -23,7 +23,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalTime;
 
-public final class LocalTimeConverterNumberTest extends LocalTimeConverterTestCase<LocalTimeConverterNumber> {
+public final class ConverterLocalTimeNumberTest extends ConverterLocalTimeTestCase<ConverterLocalTimeNumber> {
 
     private final static byte VALUE = 123;
     private final static double WITH_NANOS = 123.5;
@@ -104,8 +104,13 @@ public final class LocalTimeConverterNumberTest extends LocalTimeConverterTestCa
     }
 
     @Override
-    public LocalTimeConverterNumber createConverter() {
-        return LocalTimeConverterNumber.INSTANCE;
+    public ConverterLocalTimeNumber createConverter() {
+        return ConverterLocalTimeNumber.INSTANCE;
+    }
+
+    @Override
+    public ConverterContext createContext() {
+        return ConverterContexts.fake();
     }
 
     private void convertAndCheck2(final Number expected) {
@@ -128,8 +133,17 @@ public final class LocalTimeConverterNumberTest extends LocalTimeConverterTestCa
         return LocalTime.ofSecondOfDay(VALUE).plusNanos(500000000);
     }
 
+    // ClassTesting.....................................................................................................
+
     @Override
-    public Class<LocalTimeConverterNumber> type() {
-        return LocalTimeConverterNumber.class;
+    public Class<ConverterLocalTimeNumber> type() {
+        return ConverterLocalTimeNumber.class;
+    }
+
+    // TypeNameTesting..................................................................................................
+
+    @Override
+    public String typeNameSuffix() {
+        return Number.class.getSimpleName();
     }
 }

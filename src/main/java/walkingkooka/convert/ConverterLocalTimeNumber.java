@@ -26,17 +26,17 @@ import java.time.LocalTime;
 /**
  * Converts a {@link LocalTime} into the requested {@link Number} type.
  */
-final class LocalTimeConverterNumber extends LocalTimeConverter {
+final class ConverterLocalTimeNumber extends ConverterLocalTime {
 
     /**
      * Singleton
      */
-    final static LocalTimeConverterNumber INSTANCE = new LocalTimeConverterNumber();
+    final static ConverterLocalTimeNumber INSTANCE = new ConverterLocalTimeNumber();
 
     /**
      * Private ctor use singleton
      */
-    private LocalTimeConverterNumber() {
+    private ConverterLocalTimeNumber() {
     }
 
     @Override
@@ -62,13 +62,8 @@ final class LocalTimeConverterNumber extends LocalTimeConverter {
         );
     }
 
-    /**
-     * Used to perform the final conversion part.
-     */
-    private final static Converter BIGDECIMAL_TO_NUMBER = Converters.numberNumber();
-
     @Override
-    String toStringSuffix() {
-        return Number.class.getSimpleName();
+    public String toString() {
+        return "LocalTime->Number";
     }
 }

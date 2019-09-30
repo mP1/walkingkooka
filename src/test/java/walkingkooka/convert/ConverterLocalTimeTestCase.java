@@ -19,14 +19,16 @@ package walkingkooka.convert;
 
 import java.time.LocalTime;
 
-public abstract class LocalTimeConverterTestCase<C extends LocalTimeConverter> extends FixedSourceTypeConverterTestCase<C, LocalTime> {
+public abstract class ConverterLocalTimeTestCase<C extends ConverterLocalTime> extends ConverterTestCase2<C> {
 
-    LocalTimeConverterTestCase() {
+    ConverterLocalTimeTestCase() {
         super();
     }
 
+    // TypeNameTesting..................................................................................................
+
     @Override
-    final Class<LocalTime> sourceType() {
-        return LocalTime.class;
+    public final String typeNamePrefix() {
+        return Converter.class.getSimpleName() + LocalTime.class.getSimpleName();
     }
 }
