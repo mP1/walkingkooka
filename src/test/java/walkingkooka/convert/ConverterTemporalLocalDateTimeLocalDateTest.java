@@ -23,40 +23,43 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public final class LocalDateTimeConverterLocalTimeTest extends LocalDateTimeConverterTestCase<LocalDateTimeConverterLocalTime, LocalTime> {
+public final class ConverterTemporalLocalDateTimeLocalDateTest extends ConverterTemporalLocalDateTimeTestCase<ConverterTemporalLocalDateTimeLocalDate, LocalDate> {
 
     @Test
     public void testMidnightTime() {
-        final LocalTime time = LocalTime.MIDNIGHT;
-        this.convertAndCheck2(LocalDateTime.of(date(), time), time);
+        final LocalDate date = LocalDate.of(2000, 1, 31);
+        this.convertAndCheck2(LocalDateTime.of(date, LocalTime.MIDNIGHT), date);
     }
 
     @Test
-    public void testNonMidnightTime2() {
-        final LocalTime time = LocalTime.of(12, 58, 59);
-        this.convertAndCheck2(LocalDateTime.of(date(), time), time);
-    }
-
-    private LocalDate date() {
-        return LocalDate.of(2000, 1, 31);
+    public void testNonMidnightTimeLost() {
+        final LocalDate date = LocalDate.of(2000, 1, 31);
+        this.convertAndCheck2(LocalDateTime.of(date, LocalTime.of(12, 58, 59)), date);
     }
 
     // toString.........................................................................................................
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createConverter(), "LocalDateTime->LocalTime");
+        this.toStringAndCheck(this.createConverter(), "LocalDateTime->LocalDate");
     }
 
     // ConverterTesting.................................................................................................
 
     @Override
-    public LocalDateTimeConverterLocalTime createConverter() {
-        return LocalDateTimeConverterLocalTime.INSTANCE;
+    public ConverterTemporalLocalDateTimeLocalDate createConverter() {
+        return ConverterTemporalLocalDateTimeLocalDate.INSTANCE;
     }
 
     @Override
-    public Class<LocalDateTimeConverterLocalTime> type() {
-        return LocalDateTimeConverterLocalTime.class;
+    Class<LocalDate> targetType() {
+        return LocalDate.class;
+    }
+
+    // ClassTesting.....................................................................................................
+
+    @Override
+    public Class<ConverterTemporalLocalDateTimeLocalDate> type() {
+        return ConverterTemporalLocalDateTimeLocalDate.class;
     }
 }

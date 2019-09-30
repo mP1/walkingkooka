@@ -25,7 +25,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public final class LocalDateTimeConverterNumberTest extends LocalDateTimeConverterTestCase<LocalDateTimeConverterNumber, Number> {
+public final class ConverterTemporalLocalDateTimeNumberTest extends ConverterTemporalLocalDateTimeTestCase<ConverterTemporalLocalDateTimeNumber, Number> {
 
     // fail(overflow)....................................................................................................
 
@@ -164,7 +164,7 @@ public final class LocalDateTimeConverterNumberTest extends LocalDateTimeConvert
     }
 
     private void convertWithOffsetAndCheck3(final Number expected) {
-        this.convertAndCheck(LocalDateTimeConverterNumber.with(OFFSET),
+        this.convertAndCheck(walkingkooka.convert.ConverterTemporalLocalDateTimeNumber.with(OFFSET),
                 LocalDateTime.of(LocalDate.ofEpochDay(BYTE_VALUE), LocalTime.MIDNIGHT),
                 expected.getClass(),
                 expected);
@@ -172,7 +172,7 @@ public final class LocalDateTimeConverterNumberTest extends LocalDateTimeConvert
 
     @Test
     public void testWithOffsetToNumber() {
-        this.convertAndCheck(LocalDateTimeConverterNumber.with(OFFSET),
+        this.convertAndCheck(walkingkooka.convert.ConverterTemporalLocalDateTimeNumber.with(OFFSET),
                 LocalDateTime.of(LocalDate.ofEpochDay(BYTE_VALUE), LocalTime.MIDNIGHT),
                 Number.class,
                 Double.valueOf(BYTE_VALUE + OFFSET));
@@ -188,12 +188,19 @@ public final class LocalDateTimeConverterNumberTest extends LocalDateTimeConvert
     // ConverterTesting.................................................................................................
 
     @Override
-    public LocalDateTimeConverterNumber createConverter() {
-        return LocalDateTimeConverterNumber.with(Converters.JAVA_EPOCH_OFFSET);
+    public ConverterTemporalLocalDateTimeNumber createConverter() {
+        return walkingkooka.convert.ConverterTemporalLocalDateTimeNumber.with(Converters.JAVA_EPOCH_OFFSET);
     }
 
     @Override
-    public Class<LocalDateTimeConverterNumber> type() {
-        return LocalDateTimeConverterNumber.class;
+    Class<Number> targetType() {
+        return Number.class;
+    }
+
+    // ClassTesting.....................................................................................................
+
+    @Override
+    public Class<ConverterTemporalLocalDateTimeNumber> type() {
+        return ConverterTemporalLocalDateTimeNumber.class;
     }
 }

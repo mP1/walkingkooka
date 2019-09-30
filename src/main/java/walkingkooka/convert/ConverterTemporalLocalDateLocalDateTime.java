@@ -17,42 +17,40 @@
 
 package walkingkooka.convert;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 /**
- * Converts {@link LocalDateTime} into {@link LocalTime} by simply returning the {@link LocalTime} component.
+ * A {@link Converter} that converts {@link LocalDate} into {@link LocalDateTime}.
  */
-final class LocalDateTimeConverterLocalTime extends LocalDateTimeConverter<LocalTime> {
+final class ConverterTemporalLocalDateLocalDateTime extends ConverterTemporalLocalDate<LocalDateTime> {
 
     /**
      * Singleton
      */
-    final static LocalDateTimeConverterLocalTime INSTANCE = new LocalDateTimeConverterLocalTime();
+    final static ConverterTemporalLocalDateLocalDateTime INSTANCE = new ConverterTemporalLocalDateLocalDateTime();
 
-    /**
-     * Private ctor use singleton
-     */
-    private LocalDateTimeConverterLocalTime() {
+    private ConverterTemporalLocalDateLocalDateTime() {
         super(0);
     }
 
     @Override
     boolean isTargetType(final Class<?> type) {
-        return LocalTime.class == type;
+        return LocalDateTime.class == type;
     }
 
     @Override
-    <T> T convertFromLocalDateTime(final long days,
-                                   final double time,
-                                   final LocalDateTime localDateTime,
-                                   final Class<T> type,
-                                   final ConverterContext context) {
-        return type.cast(localDateTime.toLocalTime());
+    <T> T convert1(final LocalDate date,
+                   final Class<T> type,
+                   final ConverterContext context) {
+        return type.cast(LocalDateTime.of(date, TIME));
     }
 
+    private final static LocalTime TIME = LocalTime.MIDNIGHT;
+
     @Override
-    Class<LocalTime> targetType() {
-        return LocalTime.class;
+    Class<LocalDateTime> targetType() {
+        return LocalDateTime.class;
     }
 }

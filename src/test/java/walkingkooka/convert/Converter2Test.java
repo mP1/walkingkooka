@@ -17,14 +17,24 @@
 
 package walkingkooka.convert;
 
-public final class Converter2Test extends ConverterTestCase3<Converter2> {
+public final class Converter2Test extends ConverterTestCase<Converter2> {
 
-    @Override
-    public void testTypeNaming() {
-    }
+    // ClassTesting.....................................................................................................
 
     @Override
     public Class<Converter2> type() {
         return Converter2.class;
+    }
+
+    // TypeNameTesting..................................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return Converter.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return "2";
     }
 }

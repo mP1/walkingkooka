@@ -20,24 +20,23 @@ package walkingkooka.convert;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.Temporal;
 
-public abstract class LocalDateTimeConverterTestCase<C extends LocalDateTimeConverter<T>, T> extends FixedSourceTypeConverterTestCase<C, LocalDateTime> {
+public abstract class ConverterTemporalLocalDateTimeTestCase<C extends ConverterTemporalLocalDateTime<D>, D> extends ConverterTemporalTestCase<C, LocalDateTime, D> {
 
     final static int VALUE = 123;
     final static LocalDate DAY = LocalDate.ofEpochDay(VALUE);
     final static LocalTime MIDNIGHT = LocalTime.ofSecondOfDay(0);
     final static LocalTime QUARTER_DAY = LocalTime.of(6, 0);
 
-    LocalDateTimeConverterTestCase() {
+    ConverterTemporalLocalDateTimeTestCase() {
         super();
     }
 
-    @Override
-    final Class<LocalDateTime> sourceType() {
-        return LocalDateTime.class;
-    }
+    // TypeNameTesting..................................................................................................
 
-    final void convertAndCheck2(final Object value, final Object expected) {
-        this.convertAndCheck(value, expected.getClass(), expected);
+    @Override
+    public final String typeNamePrefix() {
+        return Converter.class.getSimpleName() + Temporal.class.getSimpleName() + LocalDateTime.class.getSimpleName();
     }
 }

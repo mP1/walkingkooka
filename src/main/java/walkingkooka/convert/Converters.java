@@ -152,14 +152,14 @@ public final class Converters implements PublicStaticHelper {
      * {@see LocalDateLocalDateTimeConverter}
      */
     public static Converter localDateLocalDateTime() {
-        return LocalDateConverterLocalDateTime.INSTANCE;
+        return walkingkooka.convert.ConverterTemporalLocalDateLocalDateTime.INSTANCE;
     }
 
     /**
-     * {@see LocalDateConverterNumber}
+     * {@see ConverterTemporalLocalDateNumber}
      */
     public static Converter localDateNumber(final long offset) {
-        return LocalDateConverterNumber.with(offset);
+        return walkingkooka.convert.ConverterTemporalLocalDateNumber.with(offset);
     }
 
     /**
@@ -170,24 +170,24 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * {@see LocalDateTimeConverterLocalDate}
+     * {@see ConverterTemporalLocalDateTimeLocalDate}
      */
     public static Converter localDateTimeLocalDate() {
-        return LocalDateTimeConverterLocalDate.INSTANCE;
+        return ConverterTemporalLocalDateTimeLocalDate.INSTANCE;
     }
 
     /**
-     * {@see LocalDateTimeConverterLocalTime}
+     * {@see ConverterTemporalLocalDateTimeLocalTime}
      */
     public static Converter localDateTimeLocalTime() {
-        return LocalDateTimeConverterLocalTime.INSTANCE;
+        return ConverterTemporalLocalDateTimeLocalTime.INSTANCE;
     }
 
     /**
-     * {@see LocalDateTimeConverterNumber}
+     * {@see ConverterTemporalLocalDateTimeNumber}
      */
     public static Converter localDateTimeNumber(final long offset) {
-        return LocalDateTimeConverterNumber.with(offset);
+        return walkingkooka.convert.ConverterTemporalLocalDateTimeNumber.with(offset);
     }
 
     /**

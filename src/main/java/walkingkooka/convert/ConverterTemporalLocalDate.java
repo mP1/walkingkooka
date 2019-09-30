@@ -17,21 +17,22 @@
 
 package walkingkooka.convert;
 
-public abstract class ConverterTestCase3<C> extends ConverterTestCase<C> {
+import java.time.LocalDate;
 
-    ConverterTestCase3() {
-        super();
+/**
+ * Converts a {@link LocalDate} into another type.
+ */
+abstract class ConverterTemporalLocalDate<D> extends ConverterTemporal<LocalDate, D> {
+
+    /**
+     * Package private to limit sub classing.
+     */
+    ConverterTemporalLocalDate(final long offset) {
+        super(offset);
     }
 
-    // TypeNameTesting..................................................................................................
-
     @Override
-    public final String typeNamePrefix() {
-        return "";
-    }
-
-    @Override
-    public final String typeNameSuffix() {
-        return Converter.class.getSimpleName();
+    final Class<LocalDate> sourceType() {
+        return LocalDate.class;
     }
 }

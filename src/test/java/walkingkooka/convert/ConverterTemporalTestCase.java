@@ -17,20 +17,29 @@
 
 package walkingkooka.convert;
 
-import java.time.LocalDate;
+import java.time.temporal.Temporal;
 
-public abstract class LocalDateConverterTestCase<C extends FixedSourceTypeConverter<LocalDate>> extends FixedSourceTypeConverterTestCase<C, LocalDate> {
+public abstract class ConverterTemporalTestCase<C extends ConverterTemporal<S, D>, S extends Temporal, D> extends ConverterTestCase2<C> {
 
-    LocalDateConverterTestCase() {
+    ConverterTemporalTestCase() {
         super();
     }
 
     @Override
-    final Class<LocalDate> sourceType() {
-        return LocalDate.class;
+    public final ConverterContext createContext() {
+        return ConverterContexts.fake();
     }
 
     final void convertAndCheck2(final Object value, final Object expected) {
         this.convertAndCheck(value, expected.getClass(), expected);
+    }
+
+    abstract Class<D> targetType();
+
+    // TypeNameTesting..................................................................................................
+
+    @Override
+    public final String typeNameSuffix() {
+        return this.targetType().getSimpleName();
     }
 }

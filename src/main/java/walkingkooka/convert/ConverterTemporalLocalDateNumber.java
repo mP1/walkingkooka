@@ -19,25 +19,25 @@ package walkingkooka.convert;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
- * Converts a {@link LocalDateTime} into a {@link Number}.
+ * Converts {@link java.time.LocalDate} to {@link Number}
  */
-final class LocalDateTimeConverterNumber extends LocalDateTimeConverter<Number> {
+final class ConverterTemporalLocalDateNumber extends ConverterTemporalLocalDate<Number> {
 
     /**
-     * Creates a new instance with the given date offset.
+     * Factory that creates a new instance with the given date offset.
      * A value of zero = 1/1/1970.
      */
-    static LocalDateTimeConverterNumber with(final long offset) {
-        return new LocalDateTimeConverterNumber(offset);
+    static ConverterTemporalLocalDateNumber with(final long offset) {
+        return new ConverterTemporalLocalDateNumber(offset);
     }
 
     /**
      * Private ctor use factory
      */
-    private LocalDateTimeConverterNumber(final long offset) {
+    private ConverterTemporalLocalDateNumber(final long offset) {
         super(offset);
     }
 
@@ -55,15 +55,13 @@ final class LocalDateTimeConverterNumber extends LocalDateTimeConverter<Number> 
     }
 
     @Override
-    <T> T convertFromLocalDateTime(final long days,
-                                   final double time,
-                                   final LocalDateTime dateTime,
-                                   final Class<T> type,
-                                   final ConverterContext context) {
-        return this.convertToNumber(days + time,
+    <T> T convert1(final LocalDate date,
+                   final Class<T> type,
+                   final ConverterContext context) {
+        return this.convertToNumber(Long.valueOf(date.toEpochDay() + this.offset),
                 type,
                 context,
-                dateTime);
+                date);
     }
 
     @Override
