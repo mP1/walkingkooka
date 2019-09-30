@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-public final class BooleanConverterNumberTest extends FixedSourceTypeConverterTestCase<BooleanConverterNumber, Boolean> {
+public final class ConverterBooleanNumberTest extends ConverterTestCase2<ConverterBooleanNumber> {
 
     @Test
     public void testBigDecimalTrue() {
@@ -114,17 +114,31 @@ public final class BooleanConverterNumberTest extends FixedSourceTypeConverterTe
     }
 
     @Override
-    public BooleanConverterNumber createConverter() {
-        return BooleanConverterNumber.INSTANCE;
+    public ConverterBooleanNumber createConverter() {
+        return ConverterBooleanNumber.INSTANCE;
     }
 
     @Override
-    Class<Boolean> sourceType() {
-        return Boolean.class;
+    public ConverterContext createContext() {
+        return ConverterContexts.fake();
+    }
+
+    // ClassTesting.....................................................................................................
+
+    @Override
+    public Class<ConverterBooleanNumber> type() {
+        return ConverterBooleanNumber.class;
+    }
+
+    // TypeNameTesting..................................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return Converter.class.getSimpleName();
     }
 
     @Override
-    public Class<BooleanConverterNumber> type() {
-        return BooleanConverterNumber.class;
+    public String typeNameSuffix() {
+        return Boolean.class.getSimpleName() + Number.class.getSimpleName();
     }
 }

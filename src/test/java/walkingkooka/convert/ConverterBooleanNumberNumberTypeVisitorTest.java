@@ -19,9 +19,17 @@ package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.math.NumberTypeVisitorTesting;
-import walkingkooka.type.JavaVisibility;
 
-public final class BooleanConverterNumberNumberTypeVisitorTest implements NumberTypeVisitorTesting<BooleanConverterNumberNumberTypeVisitor> {
+public final class ConverterBooleanNumberNumberTypeVisitorTest extends ConverterTestCase<ConverterBooleanNumberNumberTypeVisitor>
+        implements NumberTypeVisitorTesting<ConverterBooleanNumberNumberTypeVisitor> {
+
+    @Override
+    public void testAllConstructorsVisibility() {
+    }
+
+    @Override
+    public void testIfClassIsFinalIfAllConstructorsArePrivate() {
+    }
 
     @Test
     public void testToString() {
@@ -30,35 +38,34 @@ public final class BooleanConverterNumberNumberTypeVisitorTest implements Number
 
     @Test
     public void testToString2() {
-        final BooleanConverterNumberNumberTypeVisitor visitor = new BooleanConverterNumberNumberTypeVisitor(true);
+        final ConverterBooleanNumberNumberTypeVisitor visitor = new ConverterBooleanNumberNumberTypeVisitor(true);
         visitor.number = 123;
         this.toStringAndCheck(visitor, "Boolean->Number true 123");
     }
 
     @Test
     public void testToStringFalseZero() {
-        final BooleanConverterNumberNumberTypeVisitor visitor = new BooleanConverterNumberNumberTypeVisitor(false);
+        final ConverterBooleanNumberNumberTypeVisitor visitor = new ConverterBooleanNumberNumberTypeVisitor(false);
         visitor.number = 0;
         this.toStringAndCheck(visitor, "Boolean->Number false 0");
     }
 
     @Override
-    public BooleanConverterNumberNumberTypeVisitor createVisitor() {
-        return new BooleanConverterNumberNumberTypeVisitor(true);
+    public ConverterBooleanNumberNumberTypeVisitor createVisitor() {
+        return new ConverterBooleanNumberNumberTypeVisitor(true);
     }
 
-    @Override
-    public Class<BooleanConverterNumberNumberTypeVisitor> type() {
-        return BooleanConverterNumberNumberTypeVisitor.class;
-    }
+    // ClassTesting.....................................................................................................
 
     @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+    public Class<ConverterBooleanNumberNumberTypeVisitor> type() {
+        return ConverterBooleanNumberNumberTypeVisitor.class;
     }
+
+    // TypeNameTesting..................................................................................................
 
     @Override
     public String typeNamePrefix() {
-        return BooleanConverterNumberNumberTypeVisitor.class.getSimpleName();
+        return ConverterBooleanNumber.class.getSimpleName();
     }
 }

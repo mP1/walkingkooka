@@ -23,27 +23,28 @@ import java.math.BigInteger;
 /**
  * Handles converting {@link Number} to {@link Boolean}.
  */
-final class BooleanConverterNumber extends FixedSourceTypeConverter<Boolean> {
+final class ConverterBooleanNumber extends Converter2 {
 
     /**
      * Singleton
      */
-    final static BooleanConverterNumber INSTANCE = new BooleanConverterNumber();
+    final static ConverterBooleanNumber INSTANCE = new ConverterBooleanNumber();
 
     /**
      * Private ctor use singleton.
      */
-    private BooleanConverterNumber() {
+    private ConverterBooleanNumber() {
         super();
     }
 
     @Override
-    Class<Boolean> sourceType() {
-        return Boolean.class;
+    public final boolean canConvert(final Object value,
+                                    final Class<?> type,
+                                    final ConverterContext context) {
+        return value instanceof Boolean && this.isTargetType(type);
     }
 
-    @Override
-    boolean isTargetType(final Class<?> type) {
+    private boolean isTargetType(final Class<?> type) {
         return type == BigDecimal.class ||
                 type == BigInteger.class ||
                 type == Byte.class ||
@@ -55,14 +56,12 @@ final class BooleanConverterNumber extends FixedSourceTypeConverter<Boolean> {
     }
 
     @Override
-    <T> T convert1(final Boolean value,
-                   final Class<T> type,
-                   final ConverterContext context) {
-        return type.cast(BooleanConverterNumberNumberTypeVisitor.convert(value, type));
+    <T> T convert0(final Object value, Class<T> type, ConverterContext context) {
+        return type.cast(ConverterBooleanNumberNumberTypeVisitor.convert(Boolean.class.cast(value), type));
     }
 
     @Override
-    String toStringSuffix() {
-        return Number.class.getSimpleName();
+    public String toString() {
+        return "Boolean->Number";
     }
 }
