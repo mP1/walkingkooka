@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BooleanTrueFalseConverterTest extends FixedTypeConverterTestCase<BooleanTrueFalseConverter, String> {
+public final class BooleanTrueFalseConverterTest extends ConverterTestCase2<BooleanTrueFalseConverter> {
 
     private final static Class<Integer> SOURCE_TYPE = Integer.class;
     private final static Integer FALSE_VALUE = 1;
@@ -66,12 +66,12 @@ public final class BooleanTrueFalseConverterTest extends FixedTypeConverterTestC
 
     @Test
     public void testTrue() {
-        this.convertAndCheck(2, TRUE_ANSWER);
+        this.convertAndCheck2(2, TRUE_ANSWER);
     }
 
     @Test
     public void testFalse() {
-        this.convertAndCheck(1, FALSE_ANSWER);
+        this.convertAndCheck2(1, FALSE_ANSWER);
     }
 
     @Test
@@ -90,10 +90,15 @@ public final class BooleanTrueFalseConverterTest extends FixedTypeConverterTestC
         return ConverterContexts.fake();
     }
 
-    @Override
-    protected Class<String> onlySupportedType() {
-        return String.class;
+    final void convertAndCheck2(final Object value,
+                                final String expected) {
+        this.convertAndCheck(this.createConverter(),
+                value,
+                String.class,
+                expected);
     }
+
+    // ClassTesting.....................................................................................................
 
     @Override
     public Class<BooleanTrueFalseConverter> type() {
