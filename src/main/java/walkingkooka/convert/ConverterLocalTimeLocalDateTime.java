@@ -24,14 +24,14 @@ import java.time.LocalTime;
 /**
  * A {@link Converter} that converts {@link LocalTime} into {@link LocalDateTime}.
  */
-final class LocalTimeConverterLocalDateTime extends LocalTimeConverter {
+final class ConverterLocalTimeLocalDateTime extends ConverterLocalTime {
 
     /**
      * Singleton
      */
-    final static LocalTimeConverterLocalDateTime INSTANCE = new LocalTimeConverterLocalDateTime();
+    final static ConverterLocalTimeLocalDateTime INSTANCE = new ConverterLocalTimeLocalDateTime();
 
-    private LocalTimeConverterLocalDateTime() {
+    private ConverterLocalTimeLocalDateTime() {
         super();
     }
 
@@ -52,7 +52,7 @@ final class LocalTimeConverterLocalDateTime extends LocalTimeConverter {
     private final static LocalDate DATE = LocalDate.EPOCH;
 
     @Override
-    String toStringSuffix() {
-        return LocalDateTime.class.getSimpleName();
+    public String toString() {
+        return "LocalTime->LocalDateTime";
     }
 }

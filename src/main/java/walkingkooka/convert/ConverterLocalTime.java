@@ -22,21 +22,33 @@ import java.time.LocalTime;
 /**
  * Converts a {@link LocalTime} to a given type.
  */
-abstract class LocalTimeConverter extends FixedSourceTypeConverter<LocalTime> {
+abstract class ConverterLocalTime extends Converter2 {
 
     /**
      * Package private to limit sub classing.
      */
-    LocalTimeConverter() {
+    ConverterLocalTime() {
     }
 
     @Override
-    final Class<LocalTime> sourceType() {
-        return LocalTime.class;
+    public final boolean canConvert(final Object value,
+                                    final Class<?> type,
+                                    final ConverterContext context) {
+        return value instanceof LocalTime && this.isTargetType(type);
     }
 
+    abstract boolean isTargetType(final Class<?> type);
+
     @Override
-    final <T> T convert1(final LocalTime value,
+    final <T> T convert0(final Object value,
+                         final Class<T> type,
+                         final ConverterContext context) {
+        return this.convert1(LocalTime.class.cast(value),
+                type,
+                context);
+    }
+
+    private <T> T convert1(final LocalTime value,
                          final Class<T> type,
                          final ConverterContext context) {
         return this.convertFromLocalTime(value.toSecondOfDay(),
