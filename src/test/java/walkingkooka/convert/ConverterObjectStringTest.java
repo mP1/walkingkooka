@@ -21,16 +21,16 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-public final class ConverterObjectStringTest extends FixedTypeConverterTestCase<ConverterObjectString, String> {
+public final class ConverterObjectStringTest extends ConverterTestCase2<ConverterObjectString> {
 
     @Test
     public void testBooleanTrue() {
-        this.convertAndCheck(Boolean.TRUE, Boolean.TRUE.toString());
+        this.convertAndCheck(Boolean.TRUE, String.class, Boolean.TRUE.toString());
     }
 
     @Test
     public void testLong() {
-        this.convertAndCheck(123L, "123");
+        this.convertAndCheck(123L, String.class, "123");
     }
 
     @Test
@@ -51,11 +51,6 @@ public final class ConverterObjectStringTest extends FixedTypeConverterTestCase<
     @Override
     public ConverterContext createContext() {
         return ConverterContexts.fake();
-    }
-
-    @Override
-    protected Class<String> onlySupportedType() {
-        return String.class;
     }
 
     // ClassTesting.....................................................................................................
