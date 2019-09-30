@@ -17,20 +17,20 @@
 
 package walkingkooka.convert;
 
-public final class NumberNumberConverterNumberTypeVisitorIntegerNumberVisitorTest extends NumberNumberConverterNumberTypeVisitorNumberVisitorTestCase<NumberNumberConverterNumberTypeVisitorIntegerNumberVisitor, Integer> {
+public final class ConverterNumberNumberNumberTypeVisitorShortTest extends ConverterNumberNumberNumberTypeVisitorTestCase<ConverterNumberNumberNumberTypeVisitorShort, Short> {
 
     @Override
-    public NumberNumberConverterNumberTypeVisitorIntegerNumberVisitor createVisitor() {
-        return new NumberNumberConverterNumberTypeVisitorIntegerNumberVisitor();
+    public ConverterNumberNumberNumberTypeVisitorShort createVisitor() {
+        return new ConverterNumberNumberNumberTypeVisitorShort();
     }
 
     @Override
-    public Class<NumberNumberConverterNumberTypeVisitorIntegerNumberVisitor> type() {
-        return NumberNumberConverterNumberTypeVisitorIntegerNumberVisitor.class;
+    public Class<ConverterNumberNumberNumberTypeVisitorShort> type() {
+        return ConverterNumberNumberNumberTypeVisitorShort.class;
     }
 
     @Override
-    Class<Integer> targetType() {
-        return Integer.class;
+    Class<Short> targetType() {
+        return Short.class;
     }
 }

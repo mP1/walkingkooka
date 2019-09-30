@@ -17,23 +17,22 @@
 
 package walkingkooka.convert;
 
-import walkingkooka.Cast;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
+import java.math.BigInteger;
 
-public final class NumberNumberConverterNumberTypeVisitorNumberVisitorTest implements ClassTesting2<NumberNumberConverterNumberTypeVisitorNumberVisitor<?>> {
+public final class ConverterNumberNumberNumberTypeVisitorBigIntegerTest extends ConverterNumberNumberNumberTypeVisitorTestCase<ConverterNumberNumberNumberTypeVisitorBigInteger, BigInteger> {
 
-    NumberNumberConverterNumberTypeVisitorNumberVisitorTest() {
-        super();
+    @Override
+    public ConverterNumberNumberNumberTypeVisitorBigInteger createVisitor() {
+        return new ConverterNumberNumberNumberTypeVisitorBigInteger();
     }
 
     @Override
-    public Class<NumberNumberConverterNumberTypeVisitorNumberVisitor<?>> type() {
-        return Cast.to(NumberNumberConverterNumberTypeVisitorNumberVisitor.class);
+    public Class<ConverterNumberNumberNumberTypeVisitorBigInteger> type() {
+        return ConverterNumberNumberNumberTypeVisitorBigInteger.class;
     }
 
     @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+    Class<BigInteger> targetType() {
+        return BigInteger.class;
     }
 }

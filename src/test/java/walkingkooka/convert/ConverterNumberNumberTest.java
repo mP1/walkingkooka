@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-public final class NumberNumberConverterTest extends ConverterTestCase2<NumberNumberConverter> {
+public final class ConverterNumberNumberTest extends ConverterTestCase2<ConverterNumberNumber> {
 
     // to Number........................................................................................................
 
@@ -670,8 +670,8 @@ public final class NumberNumberConverterTest extends ConverterTestCase2<NumberNu
     // helper............................................................................................................
 
     @Override
-    public NumberNumberConverter createConverter() {
-        return NumberNumberConverter.INSTANCE;
+    public ConverterNumberNumber createConverter() {
+        return ConverterNumberNumber.INSTANCE;
     }
 
     private final static Byte VALUE = 123;
@@ -721,8 +721,22 @@ public final class NumberNumberConverterTest extends ConverterTestCase2<NumberNu
         return ConverterContexts.fake();
     }
 
+    // ClassTesting.....................................................................................................
+
     @Override
-    public Class<NumberNumberConverter> type() {
-        return NumberNumberConverter.class;
+    public Class<ConverterNumberNumber> type() {
+        return ConverterNumberNumber.class;
+    }
+
+    // TypeNameTesting..................................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return Converter.class.getSimpleName();
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return Number.class.getSimpleName() + Number.class.getSimpleName();
     }
 }

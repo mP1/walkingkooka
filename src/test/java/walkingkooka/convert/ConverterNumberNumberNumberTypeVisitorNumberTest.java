@@ -17,20 +17,23 @@
 
 package walkingkooka.convert;
 
-public final class NumberNumberConverterNumberTypeVisitorFloatNumberVisitorTest extends NumberNumberConverterNumberTypeVisitorNumberVisitorTestCase<NumberNumberConverterNumberTypeVisitorFloatNumberVisitor, Float> {
+import walkingkooka.Cast;
+import walkingkooka.test.ClassTesting2;
+import walkingkooka.type.JavaVisibility;
 
-    @Override
-    public NumberNumberConverterNumberTypeVisitorFloatNumberVisitor createVisitor() {
-        return new NumberNumberConverterNumberTypeVisitorFloatNumberVisitor();
+public final class ConverterNumberNumberNumberTypeVisitorNumberTest implements ClassTesting2<ConverterNumberNumberNumberTypeVisitorNumber<?>> {
+
+    ConverterNumberNumberNumberTypeVisitorNumberTest() {
+        super();
     }
 
     @Override
-    public Class<NumberNumberConverterNumberTypeVisitorFloatNumberVisitor> type() {
-        return NumberNumberConverterNumberTypeVisitorFloatNumberVisitor.class;
+    public Class<ConverterNumberNumberNumberTypeVisitorNumber<?>> type() {
+        return Cast.to(ConverterNumberNumberNumberTypeVisitorNumber.class);
     }
 
     @Override
-    Class<Float> targetType() {
-        return Float.class;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

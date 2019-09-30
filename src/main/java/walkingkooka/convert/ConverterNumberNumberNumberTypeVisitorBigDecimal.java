@@ -20,13 +20,13 @@ package walkingkooka.convert;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-final class NumberNumberConverterNumberTypeVisitorBigDecimalNumberVisitor extends NumberNumberConverterNumberTypeVisitorNumberVisitor<BigDecimal> {
+final class ConverterNumberNumberNumberTypeVisitorBigDecimal extends ConverterNumberNumberNumberTypeVisitorNumber<BigDecimal> {
 
-    static NumberNumberConverterNumberTypeVisitorBigDecimalNumberVisitor with() {
-        return new NumberNumberConverterNumberTypeVisitorBigDecimalNumberVisitor();
+    static ConverterNumberNumberNumberTypeVisitorBigDecimal with() {
+        return new ConverterNumberNumberNumberTypeVisitorBigDecimal();
     }
 
-    NumberNumberConverterNumberTypeVisitorBigDecimalNumberVisitor() {
+    ConverterNumberNumberNumberTypeVisitorBigDecimal() {
         super();
     }
 

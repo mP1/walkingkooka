@@ -19,6 +19,7 @@ package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.math.NumberVisitor;
 import walkingkooka.math.NumberVisitorTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.JavaVisibility;
@@ -77,6 +78,11 @@ public final class ConverterNumberNumberVisitorTest implements NumberVisitorTest
     @Override
     public String typeNamePrefix() {
         return ConverterNumber.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return NumberVisitor.class.getSimpleName();
     }
 
     @Override

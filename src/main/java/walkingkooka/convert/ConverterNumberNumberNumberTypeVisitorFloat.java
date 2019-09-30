@@ -20,29 +20,29 @@ package walkingkooka.convert;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-final class NumberNumberConverterNumberTypeVisitorDoubleNumberVisitor extends NumberNumberConverterNumberTypeVisitorNumberVisitor<Double> {
+final class ConverterNumberNumberNumberTypeVisitorFloat extends ConverterNumberNumberNumberTypeVisitorNumber<Float> {
 
-    static NumberNumberConverterNumberTypeVisitorDoubleNumberVisitor with() {
-        return new NumberNumberConverterNumberTypeVisitorDoubleNumberVisitor();
+    static ConverterNumberNumberNumberTypeVisitorFloat with() {
+        return new ConverterNumberNumberNumberTypeVisitorFloat();
     }
 
-    NumberNumberConverterNumberTypeVisitorDoubleNumberVisitor() {
+    ConverterNumberNumberNumberTypeVisitorFloat() {
         super();
     }
 
     @Override
     protected void visit(final BigDecimal number) {
-        final double converted = number.doubleValue();
+        final float converted = number.floatValue();
         if (0 != new BigDecimal(converted).compareTo(number)) {
             this.failConversion(number);
         }
         this.save(converted);
     }
 
-    @Override 
+    @Override
     protected void visit(final BigInteger number) {
-        final double converted = number.doubleValue();
-        if (!new BigDecimal(converted).toBigInteger().equals(number)) {
+        final float converted = number.floatValue();
+        if (!new BigDecimal(converted).toBigIntegerExact().equals(number)) {
             this.failConversion(number);
         }
         this.save(converted);
@@ -50,28 +50,32 @@ final class NumberNumberConverterNumberTypeVisitorDoubleNumberVisitor extends Nu
 
     @Override
     protected void visit(final Byte number) {
-        this.saveDouble(number);
+        this.saveFloat(number);
     }
 
     @Override
     protected void visit(final Double number) {
-        this.save(number);
+        final float converted = number.floatValue();
+        if (converted != number) {
+            this.failConversion(number);
+        }
+        this.save(converted);
     }
 
     @Override 
     protected void visit(final Float number) {
-        this.saveDouble(number);
+        this.save(number);
     }
 
     @Override 
     protected void visit(final Integer number) {
-        this.saveDouble(number);
+        this.saveFloat(number);;
     }
 
     @Override 
     protected void visit(final Long number) {
-        final double converted = number.doubleValue();
-        if ((long)converted != number) {
+        final float converted = number.floatValue();
+        if (Float.valueOf(converted).longValue() != number.longValue()) {
             this.failConversion(number);
         }
         this.save(converted);
@@ -79,15 +83,15 @@ final class NumberNumberConverterNumberTypeVisitorDoubleNumberVisitor extends Nu
 
     @Override 
     protected void visit(final Short number) {
-        this.saveDouble(number);
+        this.saveFloat(number);
     }
 
-    private void saveDouble(final Number number) {
-        this.save(number.doubleValue());
+    private void saveFloat(final Number number) {
+        this.save(number.floatValue());
     }
 
     @Override
-    Class<Double> targetType() {
-        return Double.class;
+    Class<Float> targetType() {
+        return Float.class;
     }
 }

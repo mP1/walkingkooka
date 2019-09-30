@@ -19,9 +19,9 @@ package walkingkooka.convert;
 
 import walkingkooka.math.NumberVisitor;
 
-abstract class NumberNumberConverterNumberTypeVisitorNumberVisitor<N extends Number> extends NumberVisitor {
+abstract class ConverterNumberNumberNumberTypeVisitorNumber<N extends Number> extends NumberVisitor {
 
-    NumberNumberConverterNumberTypeVisitorNumberVisitor() {
+    ConverterNumberNumberNumberTypeVisitorNumber() {
         super();
     }
 

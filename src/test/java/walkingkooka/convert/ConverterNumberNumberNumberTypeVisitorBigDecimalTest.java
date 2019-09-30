@@ -19,16 +19,16 @@ package walkingkooka.convert;
 
 import java.math.BigDecimal;
 
-public final class NumberNumberConverterNumberTypeVisitorBigDecimalNumberVisitorTest extends NumberNumberConverterNumberTypeVisitorNumberVisitorTestCase<NumberNumberConverterNumberTypeVisitorBigDecimalNumberVisitor, BigDecimal> {
+public final class ConverterNumberNumberNumberTypeVisitorBigDecimalTest extends ConverterNumberNumberNumberTypeVisitorTestCase<ConverterNumberNumberNumberTypeVisitorBigDecimal, BigDecimal> {
 
     @Override
-    public NumberNumberConverterNumberTypeVisitorBigDecimalNumberVisitor createVisitor() {
-        return new NumberNumberConverterNumberTypeVisitorBigDecimalNumberVisitor();
+    public ConverterNumberNumberNumberTypeVisitorBigDecimal createVisitor() {
+        return new ConverterNumberNumberNumberTypeVisitorBigDecimal();
     }
 
     @Override
-    public Class<NumberNumberConverterNumberTypeVisitorBigDecimalNumberVisitor> type() {
-        return NumberNumberConverterNumberTypeVisitorBigDecimalNumberVisitor.class;
+    public Class<ConverterNumberNumberNumberTypeVisitorBigDecimal> type() {
+        return ConverterNumberNumberNumberTypeVisitorBigDecimal.class;
     }
 
     @Override
