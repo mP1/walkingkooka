@@ -17,6 +17,8 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Either;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -43,12 +45,12 @@ final class ConverterTemporalLocalDateTimeLocalDate extends ConverterTemporalLoc
     }
 
     @Override
-    <T> T convertFromLocalDateTime(final long days,
-                                   final double time,
-                                   final LocalDateTime localDateTime,
-                                   final Class<T> type,
-                                   final ConverterContext context) {
-        return type.cast(localDateTime.toLocalDate());
+    <T> Either<T, String> convertFromLocalDateTime(final long days,
+                                                   final double time,
+                                                   final LocalDateTime localDateTime,
+                                                   final Class<T> type,
+                                                   final ConverterContext context) {
+        return Either.left(type.cast(localDateTime.toLocalDate()));
     }
 
     @Override

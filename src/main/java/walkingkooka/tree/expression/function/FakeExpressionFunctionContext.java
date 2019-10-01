@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression.function;
 
+import walkingkooka.Either;
 import walkingkooka.test.Fake;
 import walkingkooka.tree.expression.ExpressionNodeName;
 
@@ -38,7 +39,7 @@ public class FakeExpressionFunctionContext implements ExpressionFunctionContext,
     }
 
     @Override
-    public <T> T convert(final Object value, final Class<T> target) {
+    public <T> Either<T, String> convert(final Object value, final Class<T> target) {
         Objects.requireNonNull(value, "value");
         Objects.requireNonNull(target, "target");
 

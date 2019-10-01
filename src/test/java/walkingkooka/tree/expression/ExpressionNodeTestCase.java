@@ -19,8 +19,8 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.convert.ConversionException;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
@@ -52,7 +52,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implements ClassTesting2<ExpressionNode>,
         IsMethodTesting<N>,
@@ -109,7 +108,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
 
     final LocalDate localDateValue(final long value) {
         return Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)
-                .convert(value, LocalDate.class, this.converterContext());
+                .convertOrFail(value, LocalDate.class, this.converterContext());
     }
 
     final ExpressionLocalDateNode localDate(final long value) {
@@ -118,7 +117,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
 
     final LocalDateTime localDateTimeValue(final double value) {
         return Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)
-                .convert(value, LocalDateTime.class, this.converterContext());
+                .convertOrFail(value, LocalDateTime.class, this.converterContext());
     }
 
     final ExpressionLocalDateTimeNode localDateTime(final double value) {
@@ -127,7 +126,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
 
     final LocalTime localTimeValue(final long value) {
         return Converters.numberLocalTime()
-                .convert(value, LocalTime.class, this.converterContext());
+                .convertOrFail(value, LocalTime.class, this.converterContext());
     }
 
     final ExpressionLocalTimeNode localTime(final long value) {
@@ -143,7 +142,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
     }
 
     final ExpressionTextNode text(final Object value) {
-        return text(context().convert(value, String.class));
+        return text(context().convertOrFail(value, String.class));
     }
 
     final String textText(final ExpressionValueNode value) {
@@ -440,20 +439,16 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
             private final MathContext matchContext = MathContext.DECIMAL64;
 
             @Override
-            public <T> T convert(final Object value, final Class<T> target) {
-                try {
-                    if (!(value instanceof Boolean ||
-                            value instanceof LocalDate ||
-                            value instanceof LocalDateTime ||
-                            value instanceof LocalTime ||
-                            value instanceof Number ||
-                            value instanceof String)) {
-                        fail("Cannot convert expects only Boolean | LocalDate | LocalDateTime, LocalTime | Number | String " + value.getClass().getName() + "=" + value);
-                    }
-                    return converters.convert(value, target, ExpressionNodeTestCase.this.converterContext());
-                } catch (final ConversionException fail) {
-                    throw new ExpressionEvaluationConversionException(fail.getMessage(), fail);
-                }
+            public <T> Either<T, String> convert(final Object value, final Class<T> target) {
+//                if (!(value instanceof Boolean ||
+//                        value instanceof LocalDate ||
+//                        value instanceof LocalDateTime ||
+//                        value instanceof LocalTime ||
+//                        value instanceof Number ||
+//                        value instanceof String)) {
+//                    fail("Cannot convert expects only Boolean | LocalDate | LocalDateTime, LocalTime | Number | String " + value.getClass().getName() + "=" + value);
+//                }
+                return converters.convert(value, target, ExpressionNodeTestCase.this.converterContext());
             }
         };
     }
@@ -463,8 +458,8 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
         return Converters.booleanTrueFalse(Boolean.class,
                 Boolean.FALSE,
                 targetType,
-                trueOrFalse.convert(1L, targetType, context),
-                trueOrFalse.convert(0L, targetType, context));
+                trueOrFalse.convertOrFail(1L, targetType, context),
+                trueOrFalse.convertOrFail(0L, targetType, context));
     }
 
     private static <S> Converter toBoolean(final Class<S> sourceType, final S falseValue) {

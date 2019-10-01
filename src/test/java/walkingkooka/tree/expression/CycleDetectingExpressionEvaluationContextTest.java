@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
@@ -304,12 +305,12 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
             }
 
             @Override
-            public <T> T convert(final Object value, final Class<T> target) {
+            public <T> Either<T, String> convert(final Object value, final Class<T> target) {
                 return Converters.parser(BigInteger.class, Parsers.bigInteger(10), (c) -> ParserContexts.basic(c, c))
                         .convert(value, target, ConverterContexts.basic(DateTimeContexts.fake(), this));
             }
         });
-        assertEquals(BigInteger.valueOf(123), context.convert("123", BigInteger.class));
+        assertEquals(Either.left(BigInteger.valueOf(123)), context.convert("123", BigInteger.class));
     }
 
     @Override

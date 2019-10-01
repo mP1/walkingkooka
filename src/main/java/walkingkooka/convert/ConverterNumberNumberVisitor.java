@@ -17,6 +17,7 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Either;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.math.NumberVisitor;
 
@@ -28,9 +29,9 @@ import java.math.BigInteger;
  */
 final class ConverterNumberNumberVisitor<T> extends NumberVisitor {
 
-    static <T> T convert(final ConverterNumber<T> converter,
-                         final Number number,
-                         final Class<T> type) {
+    static <T> Either<T, String> convert(final ConverterNumber<T> converter,
+                                         final Number number,
+                                         final Class<T> type) {
         final ConverterNumberNumberVisitor<T> visitor = new ConverterNumberNumberVisitor<>(converter, type);
         visitor.accept(number);
         return visitor.value;
@@ -84,12 +85,12 @@ final class ConverterNumberNumberVisitor<T> extends NumberVisitor {
 
     @Override
     protected void visitUnknown(final Number number) {
-        this.converter.failConversion(number, this.type);
+        this.value = this.converter.failConversion(number, this.type);
     }
 
     private final ConverterNumber<T> converter;
 
-    private T value;
+    private Either<T, String> value;
     private final Class<T> type;
 
     @Override

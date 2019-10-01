@@ -17,8 +17,10 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Either;
+
 /**
- * Converter that returns the value if the requested target type is the same.
+ * A {@link Converter} that returns the value if the requested target type is actually the requested target type.
  */
 final class SimpleConverter implements Converter {
 
@@ -34,17 +36,19 @@ final class SimpleConverter implements Converter {
     }
 
     @Override
-    public boolean canConvert(final Object value, final Class<?> type, final ConverterContext context) {
+    public boolean canConvert(final Object value,
+                              final Class<?> type,
+                              final ConverterContext context) {
         return type.isInstance(value);
     }
 
     @Override
-    public <T> T convert(final Object value, final Class<T> type, final ConverterContext context) {
-        try {
-            return type.cast(value);
-        } catch (final ClassCastException fail) {
-            return this.failConversion(value, type);
-        }
+    public <T> Either<T, String> convert(final Object value,
+                                         final Class<T> type,
+                                         final ConverterContext context) {
+        return type.isInstance(value) ?
+                Either.left(type.cast(value)) :
+                this.failConversion(value, type);
     }
 
     @Override

@@ -18,6 +18,7 @@
 package walkingkooka.convert;
 
 import walkingkooka.Cast;
+import walkingkooka.Either;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -56,28 +57,26 @@ final class ConverterNumberNumber extends Converter2 {
     }
 
     @Override
-    <T> T convert0(final Object value,
-                   final Class<T> type,
-                   final ConverterContext context) {
+    <T> Either<T, String> convert0(final Object value,
+                                   final Class<T> type,
+                                   final ConverterContext context) {
+        Either<T, String> result;
         try {
-            return type == Number.class ?
-                    type.cast(value) :
+            result = type == Number.class ?
+                    Either.left(type.cast(value)) :
                     this.convertNonNumber(value, type);
-        } catch (final ConversionException rethrow) {
-            throw rethrow;
         } catch (final RuntimeException cause) {
-            this.failConversion(value, type, cause);
-            return null;
+            result = this.failConversion(value, type, cause);
         }
+        return result;
     }
 
-    private <T> T convertNonNumber(final Object value,
-                                   final Class<T> type) {
+    private <T> Either<T, String> convertNonNumber(final Object value,
+                                                   final Class<T> type) {
         final ConverterNumberNumberNumberTypeVisitorNumber<?> visitor = ConverterNumberNumberNumberTypeVisitor.visitor(type);
-        if (null == visitor) {
-            this.failConversion(value, type);
-        }
-        return type.cast(visitor.convert(Cast.to(value)));
+        return null == visitor ?
+                this.failConversion(value, type) :
+                Either.left(type.cast(visitor.convert(Cast.to(value))));
     }
 
     @Override

@@ -17,6 +17,8 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Either;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -56,8 +58,8 @@ final class ConverterBooleanNumber extends Converter2 {
     }
 
     @Override
-    <T> T convert0(final Object value, Class<T> type, ConverterContext context) {
-        return type.cast(ConverterBooleanNumberNumberTypeVisitor.convert(Boolean.class.cast(value), type));
+    <T> Either<T, String> convert0(final Object value, Class<T> type, ConverterContext context) {
+        return Either.left(type.cast(ConverterBooleanNumberNumberTypeVisitor.convert(Boolean.class.cast(value), type)));
     }
 
     @Override

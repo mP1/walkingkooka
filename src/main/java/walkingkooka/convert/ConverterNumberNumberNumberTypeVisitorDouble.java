@@ -33,19 +33,17 @@ final class ConverterNumberNumberNumberTypeVisitorDouble extends ConverterNumber
     @Override
     protected void visit(final BigDecimal number) {
         final double converted = number.doubleValue();
-        if (0 != new BigDecimal(converted).compareTo(number)) {
-            this.failConversion(number);
+        if (0 == new BigDecimal(converted).compareTo(number)) {
+            this.save(converted);
         }
-        this.save(converted);
     }
 
     @Override 
     protected void visit(final BigInteger number) {
         final double converted = number.doubleValue();
-        if (!new BigDecimal(converted).toBigInteger().equals(number)) {
-            this.failConversion(number);
+        if (new BigDecimal(converted).toBigInteger().equals(number)) {
+            this.save(converted);
         }
-        this.save(converted);
     }
 
     @Override
@@ -71,10 +69,9 @@ final class ConverterNumberNumberNumberTypeVisitorDouble extends ConverterNumber
     @Override 
     protected void visit(final Long number) {
         final double converted = number.doubleValue();
-        if ((long)converted != number) {
-            this.failConversion(number);
+        if ((long)converted == number) {
+            this.save(converted);
         }
-        this.save(converted);
     }
 
     @Override 

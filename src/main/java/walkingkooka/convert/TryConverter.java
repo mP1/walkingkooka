@@ -17,14 +17,15 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Either;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * A {@link Converter} which tries all collectors catching all {@link ConversionException} until success. If none
- * succeed the last {@link ConversionException} will be thrown.
+ * A {@link Converter} which tries all {@link Converter} until a successful {@link Either#isLeft()}.
  */
 final class TryConverter implements Converter {
 
@@ -70,23 +71,17 @@ final class TryConverter implements Converter {
     }
 
     @Override
-    public <T> T convert(final Object value, final Class<T> type, final ConverterContext context) {
-        T converted = null;
-        ConversionException last = null;
+    public <T> Either<T, String> convert(final Object value, final Class<T> type, final ConverterContext context) {
+        Either<T, String> result = null;
 
         for (Converter converter : this.converters) {
-            try {
-                converted = converter.convert(value, type, context);
+            result = converter.convert(value, type, context);
+            if(result.isLeft()) {
                 break;
-            } catch (final ConversionException next) {
-                last = next;
             }
         }
-        if (null == converted) {
-            throw last;
-        }
 
-        return converted;
+        return result;
     }
 
     private Stream<Converter> stream() {

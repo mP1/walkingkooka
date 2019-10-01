@@ -17,6 +17,7 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Either;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.text.CharSequences;
 
@@ -47,56 +48,62 @@ abstract class DecimalFormatConverter extends Converter2 {
     }
 
     @Override
-    final <T> T convert0(final Object value,
-                         final Class<T> type,
-                         final ConverterContext context) {
-        final ThreadLocal<Map<ConverterContext, DecimalFormat>> cache = this.cache;
+    final <T> Either<T, String> convert0(final Object value,
+                                         final Class<T> type,
+                                         final ConverterContext context) {
+        Either<T, String> result;
+        try {
+            final ThreadLocal<Map<ConverterContext, DecimalFormat>> cache = this.cache;
 
-        Map<ConverterContext, DecimalFormat> map = cache.get();
-        if (null == map) {
-            map = new HashMap<>();
-            this.cache.set(map);
-        }
-
-        DecimalFormat format = map.get(context);
-        if (null == format) {
-            format = this.decimalFormat.apply(context);
-            format.setParseBigDecimal(true);
-
-            final Locale locale = context.locale();
-            try {
-                format.setCurrency(Currency.getInstance(locale));
-            } catch (final IllegalArgumentException cause) {
-                throw new ConversionException("Unable to set currency, probably an invalid locale " + CharSequences.quoteAndEscape(locale.toLanguageTag()));
+            Map<ConverterContext, DecimalFormat> map = cache.get();
+            if (null == map) {
+                map = new HashMap<>();
+                this.cache.set(map);
             }
 
-            final DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
-            symbols.setCurrencySymbol(context.currencySymbol());
-            symbols.setDecimalSeparator(context.decimalSeparator());
-            symbols.setExponentSeparator(String.valueOf(context.exponentSymbol()));
-            symbols.setGroupingSeparator(context.groupingSeparator());
-            symbols.setMinusSign(context.negativeSign());
-            symbols.setPercent(context.percentageSymbol());
+            DecimalFormat format = map.get(context);
+            if (null == format) {
+                format = this.decimalFormat.apply(context);
+                format.setParseBigDecimal(true);
 
-            format.setDecimalFormatSymbols(symbols);
+                final Locale locale = context.locale();
+                try {
+                    format.setCurrency(Currency.getInstance(locale));
+                } catch (final IllegalArgumentException cause) {
+                    throw new ConversionException("Unable to set currency, probably an invalid locale " + CharSequences.quoteAndEscape(locale.toLanguageTag()));
+                }
 
-            map.put(context, format);
+                final DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
+                symbols.setCurrencySymbol(context.currencySymbol());
+                symbols.setDecimalSeparator(context.decimalSeparator());
+                symbols.setExponentSeparator(String.valueOf(context.exponentSymbol()));
+                symbols.setGroupingSeparator(context.groupingSeparator());
+                symbols.setMinusSign(context.negativeSign());
+                symbols.setPercent(context.percentageSymbol());
+
+                format.setDecimalFormatSymbols(symbols);
+
+                map.put(context, format);
+            }
+
+            result = this.convertWithDecimalFormat(format,
+                    value,
+                    type,
+                    context);
+        } catch (final RuntimeException cause) {
+            result = this.failConversion(value, type, cause);
         }
-
-        return this.convertWithDecimalFormat(format,
-                value,
-                type,
-                context);
+        return result;
     }
 
     private final ThreadLocal<Map<ConverterContext, DecimalFormat>> cache = new ThreadLocal<>();
 
     private final Function<DecimalNumberContext, DecimalFormat> decimalFormat;
 
-    abstract <T> T convertWithDecimalFormat(final DecimalFormat decimalFormat,
-                                            final Object value,
-                                            final Class<T> type,
-                                            final ConverterContext context);
+    abstract <T> Either<T, String> convertWithDecimalFormat(final DecimalFormat decimalFormat,
+                                                            final Object value,
+                                                            final Class<T> type,
+                                                            final ConverterContext context);
 
     @Override
     public final String toString() {

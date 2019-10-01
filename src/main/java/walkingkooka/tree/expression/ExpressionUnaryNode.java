@@ -84,17 +84,17 @@ abstract class ExpressionUnaryNode extends ExpressionParentFixedNode implements 
 
     @Override
     public final LocalDate toLocalDate(final ExpressionEvaluationContext context) {
-        return context.convert(this.toNumber(context), LocalDate.class);
+        return context.convertOrFail(this.toNumber(context), LocalDate.class);
     }
 
     @Override
     public final LocalDateTime toLocalDateTime(final ExpressionEvaluationContext context) {
-        return context.convert(this.toNumber(context), LocalDateTime.class);
+        return context.convertOrFail(this.toNumber(context), LocalDateTime.class);
     }
 
     @Override
     public final LocalTime toLocalTime(final ExpressionEvaluationContext context) {
-        return context.convert(this.toNumber(context), LocalTime.class);
+        return context.convertOrFail(this.toNumber(context), LocalTime.class);
     }
 
     @Override

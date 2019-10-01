@@ -54,9 +54,7 @@ public final class ChainConverterTest extends ConverterTestCase2<ChainConverter>
 
     @Test
     public void testFirstFail() {
-        assertThrows(ConversionException.class, () -> {
-            this.convert("abc", BigDecimal.class);
-        });
+        this.convertFails("abc", BigDecimal.class);
     }
 
     public void testIncompatibleTargetTypeFails() {

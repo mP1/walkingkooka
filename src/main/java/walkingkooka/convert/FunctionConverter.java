@@ -17,6 +17,8 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Either;
+
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -58,10 +60,10 @@ final class FunctionConverter<S, D> extends Converter2 {
     }
 
     @Override
-    <T> T convert0(final Object value,
-                   final Class<T> type,
-                   final ConverterContext context) {
-        return type.cast(this.converter.apply(this.sourceType.cast(value)));
+    <T> Either<T, String> convert0(final Object value,
+                                   final Class<T> type,
+                                   final ConverterContext context) {
+        return Either.left(type.cast(this.converter.apply(this.sourceType.cast(value))));
     }
 
     private final Class<S> sourceType;

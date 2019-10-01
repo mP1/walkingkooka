@@ -17,6 +17,8 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Either;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -41,10 +43,10 @@ final class ConverterTemporalLocalDateLocalDateTime extends ConverterTemporalLoc
     }
 
     @Override
-    <T> T convert1(final LocalDate date,
-                   final Class<T> type,
-                   final ConverterContext context) {
-        return type.cast(LocalDateTime.of(date, TIME));
+    <T> Either<T, String> convert1(final LocalDate date,
+                                   final Class<T> type,
+                                   final ConverterContext context) {
+        return Either.left(type.cast(LocalDateTime.of(date, TIME)));
     }
 
     private final static LocalTime TIME = LocalTime.MIDNIGHT;

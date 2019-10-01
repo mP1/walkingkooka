@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.visit.Visiting;
 
@@ -174,7 +175,7 @@ public final class ExpressionFunctionNodeTest extends ExpressionVariableNodeTest
             }
 
             @Override
-            public <T> T convert(final Object value, final Class<T> target) {
+            public <T> Either<T, String> convert(final Object value, final Class<T> target) {
                 return context.convert(value, target);
             }
         };

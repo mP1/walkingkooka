@@ -18,6 +18,7 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -105,7 +106,9 @@ public final class ConverterBooleanNumberTest extends ConverterTestCase2<Convert
     }
 
     private void convertAndCheck(final boolean value, final Number expected) {
-        this.convertAndCheck(value, expected.getClass(), expected);
+        this.convertAndCheck(value,
+                Cast.to(expected.getClass()),
+                expected);
     }
 
     @Test

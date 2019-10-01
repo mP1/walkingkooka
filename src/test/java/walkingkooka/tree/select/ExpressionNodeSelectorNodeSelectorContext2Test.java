@@ -19,6 +19,7 @@ package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
@@ -108,7 +109,7 @@ public final class ExpressionNodeSelectorNodeSelectorContext2Test extends NodeSe
         final ExpressionNodeSelectorNodeSelectorContext2<TestNode, StringName, StringName, Object> context = ExpressionNodeSelectorNodeSelectorContext2.with(new FakeNodeSelectorContext<TestNode, StringName, StringName, Object>() {
 
             @Override
-            public <T> T convert(final Object value, final Class<T> target) {
+            public <T> Either<T, String> convert(final Object value, final Class<T> target) {
                 assertEquals(Integer.class, target, "target");
 
                 return Converters.collection(Lists.of(

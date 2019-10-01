@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.select;
 
+import walkingkooka.Either;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionNodeName;
@@ -85,7 +86,7 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
     }
 
     @Override
-    public final <T> T convert(final Object value, final Class<T> target) {
+    public final <T> Either<T, String> convert(final Object value, final Class<T> target) {
         return this.context.convert(value, target);
     }
 

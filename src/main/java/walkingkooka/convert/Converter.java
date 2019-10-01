@@ -17,6 +17,9 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Either;
+import walkingkooka.text.CharSequences;
+
 /**
  * Converts an object instance to a requested target {@link Class type}.
  */
@@ -30,29 +33,36 @@ public interface Converter {
                        final ConverterContext context);
 
     /**
-     * Converts the object to the request type.
+     * Converts the given value to the requested type returning an {@link Either} with {@link Either#leftValue()} holding
+     * the result or {@link Either#rightValue()} holding an failure message.
      */
-    <T> T convert(final Object value,
-                  final Class<T> type,
-                  final ConverterContext context);
+    <T> Either<T, String> convert(final Object value,
+                                  final Class<T> type,
+                                  final ConverterContext context);
 
-    default void failIfUnsupportedType(final Object value,
-                                       final Class<?> target,
-                                       final ConverterContext context) {
-        if (!this.canConvert(value, target, context)) {
-            this.failConversion(value, target);
+    /**
+     * Converts the given value to the {@link Class target type} or throws a {@link ConversionException}
+     */
+    default <T> T convertOrFail(final Object value,
+                                final Class<T> target,
+                                final ConverterContext context) {
+        final Either<T, String> converted = this.convert(value, target, context);
+        if (converted.isRight()) {
+            throw new ConversionException(converted.rightValue());
         }
+
+        return converted.leftValue();
     }
 
-    default <TT> TT failConversion(final Object value,
-                                   final Class<TT> target) {
-        throw new FailedConversionException(value, target);
+    default <T> Either<T, String> failConversion(final Object value,
+                                                 final Class<T> target) {
+        return Either.right("Failed to convert " + CharSequences.quoteIfChars(value) + " to " + target.getName());
     }
 
-    default <TT> TT failConversion(final Object value,
-                                   final Class<TT> target,
-                                   final Throwable cause) {
-        throw new FailedConversionException(value, target, cause);
+    default <T> Either<T, String> failConversion(final Object value,
+                                                 final Class<T> target,
+                                                 final Throwable cause) {
+        return Either.right("Failed to convert " + CharSequences.quoteIfChars(value) + " to " + target.getName() + " " + cause.getMessage());
     }
 
     default Converter setToString(final String toString) {

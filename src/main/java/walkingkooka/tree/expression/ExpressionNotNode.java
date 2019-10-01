@@ -86,12 +86,12 @@ public final class ExpressionNotNode extends ExpressionUnaryNode {
 
     @Override
     public boolean toBoolean(final ExpressionEvaluationContext context) {
-        return context.convert(this.toNumber(context), Boolean.class);
+        return context.convertOrFail(this.toNumber(context), Boolean.class);
     }
 
     @Override
     public double toDouble(final ExpressionEvaluationContext context) {
-        return context.convert(this.value().toBigInteger(context).not(), Double.class);
+        return context.convertOrFail(this.value().toBigInteger(context).not(), Double.class);
     }
 
     @Override
@@ -104,7 +104,7 @@ public final class ExpressionNotNode extends ExpressionUnaryNode {
         final Number number = this.value().toNumber(context);
         return number instanceof Long ?
                 this.applyLong(Long.class.cast(number)) :
-                this.applyBigInteger(context.convert(number, BigInteger.class));
+                this.applyBigInteger(context.convertOrFail(number, BigInteger.class));
     }
 
     private BigInteger applyBigInteger(final BigInteger bigInteger) {
@@ -117,7 +117,7 @@ public final class ExpressionNotNode extends ExpressionUnaryNode {
 
     @Override
     public String toText(final ExpressionEvaluationContext context) {
-        return context.convert(this.toNumber(context), String.class);
+        return context.convertOrFail(this.toNumber(context), String.class);
     }
 
     // Object ....................................................................................................

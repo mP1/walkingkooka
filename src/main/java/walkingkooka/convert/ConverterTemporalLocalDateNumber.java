@@ -17,6 +17,8 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Either;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
@@ -55,9 +57,9 @@ final class ConverterTemporalLocalDateNumber extends ConverterTemporalLocalDate<
     }
 
     @Override
-    <T> T convert1(final LocalDate date,
-                   final Class<T> type,
-                   final ConverterContext context) {
+    <T> Either<T, String> convert1(final LocalDate date,
+                                   final Class<T> type,
+                                   final ConverterContext context) {
         return this.convertToNumber(Long.valueOf(date.toEpochDay() + this.offset),
                 type,
                 context,

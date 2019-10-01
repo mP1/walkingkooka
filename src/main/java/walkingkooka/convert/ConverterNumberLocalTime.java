@@ -17,6 +17,8 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Either;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalTime;
@@ -40,42 +42,38 @@ final class ConverterNumberLocalTime extends ConverterNumber<LocalTime> {
     }
 
     @Override
-    LocalTime bigDecimal(final BigDecimal value) {
+    Either<LocalTime, String> bigDecimal(final BigDecimal value) {
         final double doubleValue = value.doubleValue();
-        if (0 != BigDecimal.valueOf(doubleValue).compareTo(value)) {
-            this.failConversion(value);
-        }
-
-        return this.localTime(doubleValue);
+        return 0 != BigDecimal.valueOf(doubleValue).compareTo(value) ?
+                this.failConversion(value, LocalTime.class) :
+                this.localTime(doubleValue);
     }
 
     @Override
-    LocalTime bigInteger(final BigInteger value) {
+    Either<LocalTime, String> bigInteger(final BigInteger value) {
         return this.localTime(value.longValueExact());
     }
 
     @Override
-    LocalTime doubleValue(final Double value) {
+    Either<LocalTime, String> doubleValue(final Double value) {
         return this.localTime(value.doubleValue());
     }
 
     @Override
-    LocalTime longValue(final Long value) {
+    Either<LocalTime, String> longValue(final Long value) {
         return this.localTime(value);
     }
 
-    private LocalTime localTime(final double value) {
-        final double doubleNanos = value * Converters.NANOS_PER_SECOND;
-        final long nanos = (long) doubleNanos;
-        if (nanos != doubleNanos) {
-            this.failConversion(value);
-        }
-
-        return LocalTime.ofNanoOfDay(nanos);
+    private Either<LocalTime, String> localTime(final long value) {
+        return Either.left(LocalTime.ofSecondOfDay(value));
     }
 
-    private LocalTime localTime(final long value) {
-        return LocalTime.ofSecondOfDay(value);
+    private Either<LocalTime, String> localTime(final double value) {
+        final double doubleNanos = value * Converters.NANOS_PER_SECOND;
+        final long nanos = (long) doubleNanos;
+        return nanos != doubleNanos ?
+                this.failConversion(value, LocalTime.class) :
+                Either.left(LocalTime.ofNanoOfDay(nanos));
     }
 
     @Override

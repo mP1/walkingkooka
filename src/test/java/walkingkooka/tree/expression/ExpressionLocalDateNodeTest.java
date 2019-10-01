@@ -98,7 +98,8 @@ public final class ExpressionLocalDateNodeTest extends ExpressionLeafNodeTestCas
     @Test
     public void testToLocalDateTime() {
         this.evaluateAndCheckLocalDateTime(this.createExpressionNode(),
-                Converters.localDateLocalDateTime().convert(this.value(), LocalDateTime.class, ConverterContexts.fake()));
+                Converters.localDateLocalDateTime()
+                        .convertOrFail(this.value(), LocalDateTime.class, ConverterContexts.fake()));
     }
 
     @Test

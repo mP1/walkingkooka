@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
+import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
@@ -64,24 +65,24 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V>, V>
     default ExpressionFunctionContext createContext() {
         return new FakeExpressionFunctionContext() {
             @Override
-            public <T> T convert(final Object value, final Class<T> target) {
+            public <T> Either<T, String> convert(final Object value, final Class<T> target) {
                 return ExpressionFunctionTesting.this.convert(value, target);
             }
         };
     }
 
-    default <T> T convert(final Object value, final Class<T> target) {
+    default <T> Either<T, String> convert(final Object value, final Class<T> target) {
         if (target.isInstance(value)) {
-            return target.cast(value);
+            return Either.left(target.cast(value));
         }
         if (target == String.class) {
-            return Cast.to(value.toString());
+            return Either.left(Cast.to(value.toString()));
         }
         if (value instanceof String && (target == Integer.class || target == Number.class)) {
-            return Cast.to(Integer.parseInt(value.toString()));
+            return Either.left(Cast.to(Integer.parseInt(value.toString())));
         }
         if (target == Boolean.class) {
-            return Cast.to(Boolean.parseBoolean(value.toString()));
+            return Either.left(Cast.to(Boolean.parseBoolean(value.toString())));
         }
 
         return Converters.numberNumber().convert(value, target, ConverterContexts.fake());

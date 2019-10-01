@@ -63,7 +63,7 @@ final class ExpressionNumberFunction2ExpressionNumberVisitor extends ExpressionN
 
     @Override
     protected Number visit(final Number number) {
-        return this.context.convert(number, BigDecimal.class);
+        return this.context.convertOrFail(number, BigDecimal.class);
     }
 
     private final ExpressionNumberFunction2 function;

@@ -17,6 +17,8 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Either;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -41,12 +43,12 @@ final class ConverterLocalTimeLocalDateTime extends ConverterLocalTime {
     }
 
     @Override
-    <T> T convertFromLocalTime(final long seconds,
-                               final long nano,
-                               final LocalTime localTime,
-                               final Class<T> type,
-                               final ConverterContext context) {
-        return type.cast(LocalDateTime.of(DATE, localTime));
+    <T> Either<T, String> convertFromLocalTime(final long seconds,
+                                               final long nano,
+                                               final LocalTime localTime,
+                                               final Class<T> type,
+                                               final ConverterContext context) {
+        return Either.left(type.cast(LocalDateTime.of(DATE, localTime)));
     }
 
     private final static LocalDate DATE = LocalDate.EPOCH;

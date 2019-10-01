@@ -18,6 +18,7 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -115,13 +116,13 @@ public final class ConverterLocalTimeNumberTest extends ConverterLocalTimeTestCa
 
     private void convertAndCheck2(final Number expected) {
         this.convertAndCheck(LocalTime.ofSecondOfDay(VALUE),
-                expected.getClass(),
+                Cast.to(expected.getClass()),
                 expected);
     }
 
     private void convertAndCheck3(final Number expected) {
         this.convertAndCheck(this.withNanos(),
-                expected.getClass(),
+                Cast.to(expected.getClass()),
                 expected);
     }
 

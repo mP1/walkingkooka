@@ -17,6 +17,7 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Either;
 import walkingkooka.math.DecimalNumberContext;
 
 import java.math.BigDecimal;
@@ -54,10 +55,10 @@ final class DecimalFormatConverterNumberString extends DecimalFormatConverter {
     }
 
     @Override
-    <T> T convertWithDecimalFormat(final DecimalFormat decimalFormat,
-                                   final Object value,
-                                   final Class<T> type,
-                                   final ConverterContext context) {
-        return type.cast(decimalFormat.format(value));
+    <T> Either<T, String> convertWithDecimalFormat(final DecimalFormat decimalFormat,
+                                                   final Object value,
+                                                   final Class<T> type,
+                                                   final ConverterContext context) {
+        return Either.left(type.cast(decimalFormat.format(value)));
     }
 }

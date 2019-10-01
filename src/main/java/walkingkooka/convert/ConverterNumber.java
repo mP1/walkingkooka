@@ -18,6 +18,7 @@
 package walkingkooka.convert;
 
 import walkingkooka.Cast;
+import walkingkooka.Either;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -43,41 +44,36 @@ abstract class ConverterNumber<T> extends Converter2 {
      * call one of four abstract methods.
      */
     @Override
-    final <TT> TT convert0(final Object value,
-                           final Class<TT> type,
-                           final ConverterContext context) {
+    final <U> Either<U, String> convert0(final Object value,
+                                         final Class<U> type,
+                                         final ConverterContext context) {
+        // T and U should be the same...
+        Either<U, String> result;
         try {
-            return type.cast(ConverterNumberNumberVisitor.convert(this,
+            result = ConverterNumberNumberVisitor.convert(Cast.to(this),
                     Number.class.cast(value),
-                    Cast.to(type)));
-        } catch (final ArithmeticException | NumberFormatException fail) {
-            return this.failConversion(value, type, fail);
+                    type);
+        } catch (final Exception cause) {
+            result = Either.right(cause.getMessage());
         }
+        return result;
     }
 
-    abstract T bigDecimal(final BigDecimal value);
+    abstract Either<T, String> bigDecimal(final BigDecimal value);
 
-    abstract T bigInteger(final BigInteger value);
+    abstract Either<T, String> bigInteger(final BigInteger value);
 
-    final T floatValue(final Float value) {
+    final Either<T, String> floatValue(final Float value) {
         return this.doubleValue(value.doubleValue());
     }
 
-    abstract T doubleValue(final Double value);
+    abstract Either<T, String> doubleValue(final Double value);
 
-    final T number(final Number value) {
+    final Either<T, String> number(final Number value) {
         return this.longValue(value.longValue());
     }
 
-    abstract T longValue(final Long value);
-
-    final T failConversion(final Object value) {
-        return this.failConversion(value, this.targetType());
-    }
-
-    final T failConversion(final Object value, final Throwable cause) {
-        return this.failConversion(value, this.targetType(), cause);
-    }
+    abstract Either<T, String> longValue(final Long value);
 
     // Object...........................................................................................................
 

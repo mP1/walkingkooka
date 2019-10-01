@@ -17,6 +17,8 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Either;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
@@ -43,31 +45,30 @@ final class ConverterNumberLocalDate extends ConverterNumber<LocalDate> {
     }
 
     @Override
-    LocalDate bigDecimal(final BigDecimal value) {
+    Either<LocalDate, String> bigDecimal(final BigDecimal value) {
         return this.localDate(value.longValueExact());
     }
 
     @Override
-    LocalDate bigInteger(final BigInteger value) {
+    Either<LocalDate, String> bigInteger(final BigInteger value) {
         return this.localDate(value.longValueExact());
     }
 
     @Override
-    LocalDate doubleValue(final Double value) {
+    Either<LocalDate, String> doubleValue(final Double value) {
         final double doubleValue = value;
-        if (value != (long) doubleValue) {
-            this.failConversion(value);
-        }
-        return this.localDate((long) doubleValue);
+        return value != (long) doubleValue ?
+                this.failConversion(value, LocalDate.class) :
+                this.localDate((long) doubleValue);
     }
 
     @Override
-    LocalDate longValue(final Long value) {
+    Either<LocalDate, String> longValue(final Long value) {
         return this.localDate(value);
     }
 
-    private LocalDate localDate(final long value) {
-        return LocalDate.ofEpochDay(value + this.offset);
+    private Either<LocalDate, String> localDate(final long value) {
+        return Either.left(LocalDate.ofEpochDay(value + this.offset));
     }
 
     private final long offset;

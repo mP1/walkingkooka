@@ -20,10 +20,10 @@ package walkingkooka.tree.select;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.convert.ConversionException;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
@@ -2025,23 +2025,25 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                     private ExpressionFunctionContext expressionFunctionContext() {
                         return new FakeExpressionFunctionContext() {
                             @Override
-                            public <T> T convert(Object value, Class<T> target) {
+                            public <T> Either<T, String> convert(final Object value,
+                                                                 final Class<T> target) {
                                 return convert0(value, target);
                             }
                         };
                     }
 
-                    private <T> T convert0(final Object value, final Class<T> target) {
+                    private <T> Either<T, String> convert0(final Object value,
+                                                           final Class<T> target) {
                         return this.convert(value, target);
                     }
 
                     @Override
-                    public <T> T convert(final Object value, final Class<T> target) {
+                    public <T> Either<T, String> convert(final Object value, final Class<T> target) {
                         Objects.requireNonNull(value, "value");
                         Objects.requireNonNull(target, "target");
 
                         return Cast.to(target.isInstance(value) ?
-                                target.cast(value) :
+                                Either.left(target.cast(value)) :
                                 target == BigDecimal.class ?
                                         this.convertToBigDecimal(value) :
                                         target == Boolean.class ?
@@ -2059,7 +2061,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                      * Currently {@link walkingkooka.tree.expression.ExpressionNode} will convert a pair of {@link Boolean} into
                      * {@link BigDecimal} prior to performing the operation such as equals.
                      */
-                    private BigDecimal convertToBigDecimal(final Object value) {
+                    private Either<BigDecimal, String> convertToBigDecimal(final Object value) {
                         final Converter converter = value instanceof Boolean ?
                                 Converters.booleanTrueFalse(Boolean.class, Boolean.TRUE, BigDecimal.class, BigDecimal.ONE, BigDecimal.ZERO) :
                                 value instanceof String ?
@@ -2068,30 +2070,30 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                         return converter.convert(value, BigDecimal.class, this.converterContext);
                     }
 
-                    private Boolean convertToBoolean(final Object value) {
+                    private Either<Boolean, String> convertToBoolean(final Object value) {
                         return Converters.truthyNumberBoolean().convert(value, Boolean.class, this.converterContext);
                     }
 
-                    private Number convertToNumber(final Object value) {
+                    private Either<Number, String> convertToNumber(final Object value) {
                         return value instanceof String ?
-                                Integer.parseInt((String) value) :
+                                Either.left(Integer.parseInt((String) value)) :
                                 Converters.booleanTrueFalse(Boolean.class, Boolean.TRUE, Number.class, 1L, 0L)
                                         .convert(value, Number.class, ConverterContexts.fake());
                     }
 
-                    private Integer convertToInteger(final Object value) {
+                    private Either<Integer, String> convertToInteger(final Object value) {
                         if (value instanceof Number) {
-                            return Number.class.cast(value).intValue();
+                            return Either.left(Number.class.cast(value).intValue());
                         }
-                        return Integer.parseInt(String.valueOf(value));
+                        return Either.left(Integer.parseInt(String.valueOf(value)));
                     }
 
-                    private String convertToString(final Object value) {
+                    private Either<String, String> convertToString(final Object value) {
                         return Converters.objectString().convert(value, String.class, this.converterContext);
                     }
 
-                    private <T> T failConversion(final Object value, final Class<T> target) {
-                        throw new ConversionException("Failed to convert " + CharSequences.quoteIfChars(value) + " to " + target.getSimpleName());
+                    private <T> Either<T, String> failConversion(final Object value, final Class<T> target) {
+                        return Either.right("Failed to convert " + CharSequences.quoteIfChars(value) + " to " + target.getSimpleName());
                     }
 
                     private final ConverterContext converterContext = ConverterContexts.basic(DateTimeContexts.fake(), decimalNumberContext());

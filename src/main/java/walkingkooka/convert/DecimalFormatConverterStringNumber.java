@@ -17,6 +17,7 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Either;
 import walkingkooka.math.DecimalNumberContext;
 
 import java.math.BigDecimal;
@@ -56,17 +57,16 @@ final class DecimalFormatConverterStringNumber extends DecimalFormatConverter {
     }
 
     @Override
-    <T> T convertWithDecimalFormat(final DecimalFormat decimalFormat,
-                                   final Object value,
-                                   final Class<T> type,
-                                   final ConverterContext context) {
+    <T> Either<T, String> convertWithDecimalFormat(final DecimalFormat decimalFormat,
+                                                   final Object value,
+                                                   final Class<T> type,
+                                                   final ConverterContext context) {
         final Number parsed = decimalFormat.parse(value.toString(), new ParsePosition(0));
-        if (null == parsed) {
-            this.failConversion(value, type);
-        }
-        return this.convertToNumber(parsed,
-                type,
-                context,
-                value);
+        return null == parsed ?
+                this.failConversion(value, type) :
+                this.convertToNumber(parsed,
+                        type,
+                        context,
+                        value);
     }
 }
