@@ -18,6 +18,7 @@
 package walkingkooka.convert;
 
 import walkingkooka.Cast;
+import walkingkooka.Either;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -53,13 +54,15 @@ final class ConverterLocalTimeNumber extends ConverterLocalTime {
     }
 
     @Override
-    <T> T convertFromLocalTime(final long seconds,
-                               final long nano,
-                               final LocalTime localTime,
-                               final Class<T> type,
-                               final ConverterContext context) {
-        return this.convertToNumber(BigDecimal.valueOf(seconds).add(BigDecimal.valueOf(1.0 * nano / Converters.NANOS_PER_SECOND)), Cast.to(type), context, localTime
-        );
+    <T> Either<T, String> convertFromLocalTime(final long seconds,
+                                               final long nano,
+                                               final LocalTime localTime,
+                                               final Class<T> type,
+                                               final ConverterContext context) {
+        return this.convertToNumber(BigDecimal.valueOf(seconds).add(BigDecimal.valueOf(1.0 * nano / Converters.NANOS_PER_SECOND)),
+                Cast.to(type),
+                context,
+                localTime);
     }
 
     @Override

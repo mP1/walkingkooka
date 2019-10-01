@@ -43,8 +43,8 @@ abstract class ExpressionBinaryNode2 extends ExpressionBinaryNode {
                 if (leftValue instanceof String) {
 
                     result = this.applyText(
-                            context.convert(leftValue, String.class),
-                            context.convert(rightValue, String.class),
+                            context.convertOrFail(leftValue, String.class),
+                            context.convertOrFail(rightValue, String.class),
                             context);
                     break;
                 }
@@ -54,8 +54,8 @@ abstract class ExpressionBinaryNode2 extends ExpressionBinaryNode {
                 final boolean rightByteShortIntegerLong = isByteShortIntegerLong(rightValue);
                 if (leftByteShortIntegerLong && rightByteShortIntegerLong) {
                     result = this.applyLong(
-                            context.convert(leftValue, Long.class),
-                            context.convert(rightValue, Long.class),
+                            context.convertOrFail(leftValue, Long.class),
+                            context.convertOrFail(rightValue, Long.class),
                             context);
                     break;
                 }
@@ -66,23 +66,23 @@ abstract class ExpressionBinaryNode2 extends ExpressionBinaryNode {
                         leftBigInteger && rightByteShortIntegerLong ||
                         leftByteShortIntegerLong && rightBigInteger) {
                     result = this.applyBigInteger(
-                            context.convert(leftValue, BigInteger.class),
-                            context.convert(rightValue, BigInteger.class),
+                            context.convertOrFail(leftValue, BigInteger.class),
+                            context.convertOrFail(rightValue, BigInteger.class),
                             context);
                     break;
                 }
                 // both must be double,
                 if (isFloatDouble(leftValue) && isFloatDouble(rightValue)) {
                     result = this.applyDouble(
-                            context.convert(leftValue, Double.class),
-                            context.convert(rightValue, Double.class),
+                            context.convertOrFail(leftValue, Double.class),
+                            context.convertOrFail(rightValue, Double.class),
                             context);
                     break;
                 }
                 // default is to promote both to BigDecimal.
                 result = this.applyBigDecimal(
-                        context.convert(leftValue, BigDecimal.class),
-                        context.convert(rightValue, BigDecimal.class),
+                        context.convertOrFail(leftValue, BigDecimal.class),
+                        context.convertOrFail(rightValue, BigDecimal.class),
                         context);
                 break;
             }

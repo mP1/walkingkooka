@@ -17,6 +17,8 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Cast;
+
 import java.time.temporal.Temporal;
 
 public abstract class ConverterTemporalTestCase<C extends ConverterTemporal<S, D>, S extends Temporal, D> extends ConverterTestCase2<C> {
@@ -31,7 +33,7 @@ public abstract class ConverterTemporalTestCase<C extends ConverterTemporal<S, D
     }
 
     final void convertAndCheck2(final Object value, final Object expected) {
-        this.convertAndCheck(value, expected.getClass(), expected);
+        this.convertAndCheck(value, Cast.to(expected.getClass()), expected);
     }
 
     abstract Class<D> targetType();

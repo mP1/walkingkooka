@@ -19,6 +19,7 @@ package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
@@ -418,7 +419,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
             }
 
             @Override
-            public <T> T convert(final Object value, final Class<T> target) {
+            public <T> Either<T, String> convert(final Object value, final Class<T> target) {
                 this.finisherGuardCheck();
                 return context.convert(value, target);
             }

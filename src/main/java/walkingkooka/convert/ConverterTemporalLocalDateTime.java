@@ -17,6 +17,8 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Either;
+
 import java.time.LocalDateTime;
 
 /**
@@ -37,9 +39,9 @@ abstract class ConverterTemporalLocalDateTime<D> extends ConverterTemporal<Local
     }
 
     @Override
-    final <T> T convert1(final LocalDateTime value,
-                         final Class<T> type,
-                         final ConverterContext context) {
+    final <T> Either<T, String> convert1(final LocalDateTime value,
+                                         final Class<T> type,
+                                         final ConverterContext context) {
         return this.convertFromLocalDateTime(value.toLocalDate().toEpochDay() + this.offset,
                 (double) value.toLocalTime().toNanoOfDay() / Converters.NANOS_PER_DAY,
                 value,
@@ -47,7 +49,7 @@ abstract class ConverterTemporalLocalDateTime<D> extends ConverterTemporal<Local
                 context);
     }
 
-    abstract <T> T convertFromLocalDateTime(final long days,
+    abstract <T> Either<T, String> convertFromLocalDateTime(final long days,
                                             final double time,
                                             final LocalDateTime localDateTime,
                                             final Class<T> type,

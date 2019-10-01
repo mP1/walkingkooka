@@ -17,6 +17,8 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Either;
+
 /**
  * A {@link Converter} that invokes {@link Object#toString()} to convert any value into a {@link String}
  */
@@ -37,10 +39,10 @@ final class ConverterObjectString extends Converter2 {
     }
 
     @Override
-    <T> T convert0(final Object value,
-                   final Class<T> type,
-                   final ConverterContext context) {
-        return type.cast(value.toString());
+    <T> Either<T, String> convert0(final Object value,
+                                   final Class<T> type,
+                                   final ConverterContext context) {
+        return Either.left(type.cast(value.toString()));
     }
 
     @Override

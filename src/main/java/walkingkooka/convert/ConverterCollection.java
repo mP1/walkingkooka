@@ -17,6 +17,7 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 
 import java.util.List;
@@ -59,17 +60,19 @@ final class ConverterCollection implements Converter {
     }
 
     @Override
-    public boolean canConvert(final Object value, final Class<?> type, ConverterContext context) {
+    public boolean canConvert(final Object value,
+                              final Class<?> type,
+                              final ConverterContext context) {
         return this.converterForType(value, type, context).isPresent();
     }
 
     @Override
-    public <T> T convert(final Object value, final Class<T> type, final ConverterContext context) {
+    public <T> Either<T, String> convert(final Object value,
+                                         final Class<T> type,
+                                         final ConverterContext context) {
         final Optional<Converter> converter = this.converterForType(value, type, context);
-        if (!converter.isPresent()) {
-            this.failConversion(value, type);
-        }
-        return converter.get().convert(value, type, context);
+        return converter.map(c -> c.convert(value, type, context))
+                .orElse(this.failConversion(value, type));
     }
 
     private Optional<Converter> converterForType(final Object value,

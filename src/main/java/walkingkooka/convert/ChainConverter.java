@@ -17,6 +17,9 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Cast;
+import walkingkooka.Either;
+
 import java.util.Objects;
 
 /**
@@ -47,15 +50,20 @@ final class ChainConverter implements Converter {
     }
 
     @Override
-    public boolean canConvert(final Object value, final Class<?> type, final ConverterContext context) {
+    public boolean canConvert(final Object value,
+                              final Class<?> type,
+                              final ConverterContext context) {
         return this.first.canConvert(value, this.intermediateTargetType, context);
     }
 
     @Override
-    public <T> T convert(final Object value, final Class<T> type, final ConverterContext context) {
-        return this.last.convert(this.first.convert(value, this.intermediateTargetType, context),
-                type,
-                context);
+    public <T> Either<T, String> convert(final Object value,
+                                         final Class<T> type,
+                                         final ConverterContext context) {
+        final Either<?, String> intermediate = this.first.convert(value, this.intermediateTargetType, context);
+        return intermediate.isLeft() ?
+                this.last.convert(intermediate.leftValue(), type, context) :
+                Cast.to(intermediate);
     }
 
     private final Converter first;

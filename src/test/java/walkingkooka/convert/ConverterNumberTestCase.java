@@ -59,7 +59,7 @@ public abstract class ConverterNumberTestCase<C extends ConverterNumber<T>, T> e
 
     @Override
     public void convertAndCheck(final Object value) {
-        assertSame(value, this.convertAndCheck(value, this.targetType(), value));
+        assertSame(value, this.convertAndCheck(value, this.targetType(), this.targetType().cast(value)));
     }
 
     final T convertAndCheck2(final Object value, final T expected) {

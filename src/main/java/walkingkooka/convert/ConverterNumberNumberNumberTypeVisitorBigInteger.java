@@ -37,7 +37,7 @@ final class ConverterNumberNumberNumberTypeVisitorBigInteger extends ConverterNu
 
     @Override 
     protected void visit(final BigInteger number) {
-        this.save(number);
+        this.save(number); // dead code because BigInteger to BigInteger is short circuited earlier by ConverterNumberNumber.
     }
 
     @Override

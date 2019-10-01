@@ -18,6 +18,7 @@
 package walkingkooka.tree.select;
 
 import walkingkooka.Cast;
+import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
@@ -123,7 +124,7 @@ final class ExpressionNodeSelectorExpressionEvaluationContext<N extends Node<N, 
     }
 
     @Override
-    public <T> T convert(final Object value, final Class<T> target) {
+    public <T> Either<T, String> convert(final Object value, final Class<T> target) {
         return this.context.convert(value, target);
     }
 

@@ -17,6 +17,8 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Either;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
@@ -46,53 +48,52 @@ final class ConverterNumberLocalDateTime extends ConverterNumber<LocalDateTime> 
     }
 
     @Override
-    LocalDateTime bigDecimal(final BigDecimal value) {
+    Either<LocalDateTime, String> bigDecimal(final BigDecimal value) {
         final double doubleValue = value.doubleValue();
-        if (0 != BigDecimal.valueOf(doubleValue).compareTo(value)) {
-            this.failConversion(value);
-        }
-
-        return this.localDateTime(doubleValue);
+        return 0 != BigDecimal.valueOf(doubleValue).compareTo(value) ?
+                this.failConversion(value, LocalDateTime.class) :
+                this.localDateTime(doubleValue);
     }
 
     @Override
-    LocalDateTime bigInteger(final BigInteger value) {
+    Either<LocalDateTime, String> bigInteger(final BigInteger value) {
         return this.localDateTime(value.longValueExact(), value);
     }
 
     @Override
-    LocalDateTime doubleValue(final Double value) {
+    Either<LocalDateTime, String> doubleValue(final Double value) {
         return this.localDateTime(value.doubleValue());
     }
 
     @Override
-    LocalDateTime longValue(final Long value) {
+    Either<LocalDateTime, String> longValue(final Long value) {
         return this.localDateTime(value, value);
     }
 
-    private LocalDateTime localDateTime(final double value) {
-        if (!Double.isFinite(value)) {
-            this.failConversion(value);
-        }
+    private Either<LocalDateTime, String> localDateTime(final double value) {
+        return !Double.isFinite(value) ?
+                this.failConversion(value, LocalDateTime.class) :
+                this.localDateTime0(value);
+    }
+
+    private Either<LocalDateTime, String> localDateTime0(final double value) {
         final double days = Math.floor(value);
 
         return localDateTime((int) days, value - days, value);
     }
 
-    private LocalDateTime localDateTime(final long longValue, final Number value) {
+    private Either<LocalDateTime, String> localDateTime(final long longValue, final Number value) {
         return localDateTime(longValue, 0, value);
     }
 
-    private LocalDateTime localDateTime(final long day, final double fraction, final Object value) {
+    private Either<LocalDateTime, String> localDateTime(final long day, final double fraction, final Object value) {
         final double doubleNano = fraction * Converters.NANOS_PER_DAY;
         final long nano = (long) doubleNano;
-        if (nano != doubleNano) {
-            this.failConversion(value);
-        }
-
-        return LocalDateTime.of(
-                LocalDate.ofEpochDay(day + this.offset),
-                LocalTime.ofNanoOfDay(nano));
+        return nano != doubleNano ?
+                this.failConversion(value, LocalDateTime.class) :
+                Either.left(LocalDateTime.of(
+                        LocalDate.ofEpochDay(day + this.offset),
+                        LocalTime.ofNanoOfDay(nano)));
     }
 
     private final long offset;

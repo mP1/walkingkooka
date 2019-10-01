@@ -113,7 +113,7 @@ public final class ConverterNumberNumberTest extends ConverterTestCase2<Converte
     }
 
     private void convertToSameTypeAndCheck(final Number number) {
-        this.convertAndCheck(number, number.getClass(), number);
+        this.convertAndCheck(number, Number.class, number);
     }
 
     // toBigDecimal.....................................................................................................

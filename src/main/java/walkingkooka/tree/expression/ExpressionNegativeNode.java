@@ -87,7 +87,7 @@ public final class ExpressionNegativeNode extends ExpressionUnaryNode {
 
     @Override
     public boolean toBoolean(final ExpressionEvaluationContext context) {
-        return context.convert(this.toNumber(context), Boolean.class);
+        return context.convertOrFail(this.toNumber(context), Boolean.class);
     }
 
     @Override
@@ -136,7 +136,7 @@ public final class ExpressionNegativeNode extends ExpressionUnaryNode {
 
     @Override
     public String toText(final ExpressionEvaluationContext context) {
-        return context.convert(this.toNumber(context), String.class);
+        return context.convertOrFail(this.toNumber(context), String.class);
     }
 
     // Object ....................................................................................................

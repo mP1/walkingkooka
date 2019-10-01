@@ -18,8 +18,10 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Context;
+import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.math.HasMathContext;
+import walkingkooka.tree.expression.ExpressionEvaluationException;
 import walkingkooka.tree.expression.ExpressionNodeName;
 
 import java.util.List;
@@ -32,7 +34,7 @@ public interface ExpressionFunctionContext extends Context, HasMathContext {
     /**
      * Constant for functions without any parameters.
      */
-    List<Object> NO_PARAMETERS = Lists.empty();
+    static List<Object> NO_PARAMETERS = Lists.empty();
 
     /**
      * Locates a function with the given name and then executes it with the provided parameter values.
@@ -40,7 +42,21 @@ public interface ExpressionFunctionContext extends Context, HasMathContext {
     Object function(final ExpressionNodeName name, final List<Object> parameters);
 
     /**
-     * Handles converting the given value to the target.
+     * Handles converting the given value to the {@link Class target type}.
      */
-    <T> T convert(final Object value, final Class<T> target);
+    <T> Either<T, String> convert(final Object value,
+                                  final Class<T> target);
+
+    /**
+     * Converts the given value to the {@link Class target type} or throws a {@link ExpressionEvaluationException}
+     */
+    default <T> T convertOrFail(final Object value,
+                                final Class<T> target) {
+        final Either<T, String> converted = this.convert(value, target);
+        if (converted.isRight()) {
+            throw new ExpressionEvaluationException(converted.rightValue());
+        }
+
+        return converted.leftValue();
+    }
 }

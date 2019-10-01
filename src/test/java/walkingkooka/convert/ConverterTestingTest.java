@@ -18,6 +18,7 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Either;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -61,7 +62,7 @@ public final class ConverterTestingTest implements ConverterTesting {
                         VALUE,
                         Integer.class,
                         CONTEXT,
-                        "WRONG"));
+                        9999));
     }
 
     @Test
@@ -79,11 +80,11 @@ public final class ConverterTestingTest implements ConverterTesting {
                               }
 
                               @Override
-                              public <T> T convert(final Object v,
-                                                   final Class<T> t,
-                                                   final ConverterContext c) {
+                              public <T> Either<T, String> convert(final Object v,
+                                                                   final Class<T> t,
+                                                                   final ConverterContext c) {
                                   check(v, t, c);
-                                  throw new ConversionException("hello");
+                                  return Either.right("Conversion fails!");
                               }
 
                               private void check(final Object v,
@@ -122,11 +123,11 @@ public final class ConverterTestingTest implements ConverterTesting {
         }
 
         @Override
-        public <T> T convert(final Object v,
+        public <T> Either<T, String> convert(final Object v,
                              final Class<T> t,
                              final ConverterContext c) {
             check(v, t, c);
-            return t.cast(EXPECTED);
+            return Either.left(t.cast(EXPECTED));
         }
 
         private void check(final Object v,

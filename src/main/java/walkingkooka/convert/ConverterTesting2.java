@@ -17,6 +17,8 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Cast;
+import walkingkooka.Either;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 
@@ -31,50 +33,55 @@ public interface ConverterTesting2<C extends Converter> extends ConverterTesting
     ConverterContext createContext();
 
     default void convertAndCheck(final Object value) {
-        assertSame(value, this.convertAndCheck(value, value.getClass(), value));
+        assertSame(value, this.convertAndCheck(value, Cast.to(value.getClass()), value));
     }
 
-    default Object convertAndCheck(final Object value, final Class<?> target) {
-        final Object result = this.convertAndCheck(this.createConverter(), value, target, value);
-        assertSame(result, value);
+    default <T> T convertAndCheck(final T value,
+                                  final Class<T> target) {
+        final T result = this.convertAndCheck(this.createConverter(), value, target, value);
+        assertSame(value, result);
         return result;
     }
 
-    default Object convertAndCheck(final Object value, final Class<?> target, final Object expected) {
+    default <T> T convertAndCheck(final Object value,
+                                  final Class<T> target,
+                                  final T expected) {
         return this.convertAndCheck(this.createConverter(), value, target, expected);
     }
 
-    default Object convertAndCheck(final Object value,
-                                   final Class<?> target,
-                                   final ConverterContext context,
-                                   final Object expected) {
+    default <T> T convertAndCheck(final Object value,
+                                  final Class<T> target,
+                                  final ConverterContext context,
+                                  final T expected) {
         return this.convertAndCheck(this.createConverter(), value, target, context, expected);
     }
 
-    default Object convertAndCheck(final Converter converter,
-                                   final Object value,
-                                   final Class<?> target,
-                                   final Object expected) {
+    default <T> T convertAndCheck(final Converter converter,
+                                  final Object value,
+                                  final Class<T> target,
+                                  final T expected) {
         return this.convertAndCheck(converter, value, target, this.createContext(), expected);
     }
 
-    default <T> void convertFails(final Object value, final Class<?> type) {
+    default void convertFails(final Object value, final Class<?> type) {
         this.convertFails(this.createConverter(), value, type);
     }
 
-    default <T> void convertFails(final Converter converter, final Object value, final Class<?> type) {
+    default void convertFails(final Converter converter, final Object value, final Class<?> type) {
         this.convertFails(converter, value, type, this.createContext());
     }
 
-    default Object convert(final Object value) {
-        return this.convert(value, value.getClass());
+    default <T> Either<T, String> convert(final T value) {
+        return this.convert(value, Cast.to(value.getClass()));
     }
 
-    default Object convert(final Object value, final Class<?> type) {
-        return this.createConverter().convert(value, type, this.createContext());
+    default <T> Either<T, String> convert(final Object value,
+                                          final Class<T> type) {
+        return this.createConverter()
+                .convert(value, type, this.createContext());
     }
 
-    // TypeNameTesting .........................................................................................
+    // TypeNameTesting .................................................................................................
 
     @Override
     default String typeNamePrefix() {

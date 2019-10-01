@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.convert.ConversionException;
+import walkingkooka.Either;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 
@@ -56,15 +56,19 @@ final class ExpressionNodeSelectorNodeSelectorContext2<N extends Node<N, NAME, A
      */
     @Override
     boolean nodePositionTest(final Object value) {
-        boolean result = false;
+        boolean result;
 
-        try {
-            result = value instanceof Boolean ?
-                    Boolean.TRUE.equals(value) :
-                    this.position == this.convert(value, Integer.class)
-                            .intValue();
-        } catch (final ConversionException ignore) {
+        if(value instanceof Boolean) {
+            result = Boolean.TRUE.equals(value);
+        } else {
+            final Either<Integer, String> position = this.convert(value, Integer.class);
+            if(position.isLeft()) {
+                result = this.position == position.leftValue();
+            } else {
+                result = false;
+            }
         }
+
         this.position++;
 
         return result;

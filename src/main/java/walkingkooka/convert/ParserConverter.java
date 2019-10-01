@@ -17,6 +17,7 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Either;
 import walkingkooka.Value;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
@@ -54,25 +55,31 @@ final class ParserConverter<V, PC extends ParserContext> implements Converter {
     }
 
     @Override
-    public boolean canConvert(final Object value, final Class<?> type, final ConverterContext context) {
+    public boolean canConvert(final Object value,
+                              final Class<?> type,
+                              final ConverterContext context) {
         return value instanceof String && this.type == type;
     }
 
     private final Class<V> type;
 
     @Override
-    public <T> T convert(final Object value, final Class<T> type, final ConverterContext context) {
-        if (false == value instanceof String) {
-            this.failConversion(value, type);
-        }
-        this.failIfUnsupportedType(value, type, context);
+    public <T> Either<T, String> convert(final Object value,
+                                         final Class<T> type,
+                                         final ConverterContext context) {
+        return value instanceof String ?
+                parseString((String) value, type, context) :
+                this.failConversion(value, type);
+    }
 
-        final TextCursor cursor = TextCursors.charSequence((String) value);
+    private <T> Either<T, String> parseString(final String text,
+                                              final Class<T> type,
+                                              final ConverterContext context) {
+        final TextCursor cursor = TextCursors.charSequence(text);
         final Optional<ParserToken> result = this.parser.parse(cursor, this.context.apply(context));
-        if (!result.isPresent()) {
-            this.failConversion(value, type);
-        }
-        return type.cast(Value.class.cast(result.get()).value());
+        return result.isPresent() ?
+                Either.left(type.cast(Value.class.cast(result.get()).value())) :
+                this.failConversion(text, type);
     }
 
     private final Parser<PC> parser;

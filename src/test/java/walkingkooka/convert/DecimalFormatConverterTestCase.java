@@ -18,6 +18,7 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
@@ -101,15 +102,15 @@ public abstract class DecimalFormatConverterTestCase<C extends DecimalFormatConv
                                 final Object expected) {
         this.convertAndCheck2(pattern,
                 value,
-                expected.getClass(),
+                Cast.to(expected.getClass()),
                 locale,
                 expected);
     }
 
-    final void convertAndCheck2(final String pattern,
-                                final Object value,
-                                final Class<?> type,
-                                final Object expected) {
+    final <T> void convertAndCheck2(final String pattern,
+                                    final Object value,
+                                    final Class<T> type,
+                                    final T expected) {
         this.convertAndCheck2(pattern,
                 value,
                 type,
@@ -117,11 +118,11 @@ public abstract class DecimalFormatConverterTestCase<C extends DecimalFormatConv
                 expected);
     }
 
-    final void convertAndCheck2(final String pattern,
-                                final Object value,
-                                final Class<?> type,
-                                final Locale locale,
-                                final Object expected) {
+    final <T> void convertAndCheck2(final String pattern,
+                                    final Object value,
+                                    final Class<T> type,
+                                    final Locale locale,
+                                    final T expected) {
         this.convertAndCheck(this.createConverter(pattern),
                 value,
                 type,

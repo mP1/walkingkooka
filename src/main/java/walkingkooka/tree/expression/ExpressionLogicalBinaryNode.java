@@ -49,8 +49,8 @@ abstract class ExpressionLogicalBinaryNode extends ExpressionBinaryNode {
 
                 if (leftValue instanceof Boolean) {
                     result = this.applyBoolean(
-                            context.convert(leftValue, Boolean.class),
-                            context.convert(rightValue, Boolean.class),
+                            context.convertOrFail(leftValue, Boolean.class),
+                            context.convertOrFail(rightValue, Boolean.class),
                             context);
                     break;
                 }
@@ -60,15 +60,15 @@ abstract class ExpressionLogicalBinaryNode extends ExpressionBinaryNode {
                 final boolean rightLong = isByteShortIntegerLong(rightValue);
                 if (leftLong && rightLong) {
                     result = this.applyLong(
-                            context.convert(leftValue, Long.class),
-                            context.convert(rightValue, Long.class),
+                            context.convertOrFail(leftValue, Long.class),
+                            context.convertOrFail(rightValue, Long.class),
                             context);
                     break;
                 }
                 // default is to promote both to BigInteger, doubles and BigDecimal may fail if they have decimals.
                 result = this.applyBigInteger(
-                        context.convert(leftValue, BigInteger.class),
-                        context.convert(rightValue, BigInteger.class),
+                        context.convertOrFail(leftValue, BigInteger.class),
+                        context.convertOrFail(rightValue, BigInteger.class),
                         context);
                 break;
             }

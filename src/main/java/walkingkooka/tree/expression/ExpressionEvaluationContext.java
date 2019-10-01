@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.Context;
+import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.HasMathContext;
@@ -54,7 +55,20 @@ public interface ExpressionEvaluationContext extends Context, DecimalNumberConte
     }
 
     /**
-     * Handles converting the given value to the target.
+     * Handles converting the given value to the requested {@link Class target type}.
      */
-    <T> T convert(final Object value, final Class<T> target);
+    <T> Either<T, String> convert(final Object value, final Class<T> target);
+
+    /**
+     * Converts the given value to the {@link Class target type} or throws a {@link ExpressionEvaluationConversionException}
+     */
+    default <T> T convertOrFail(final Object value,
+                                final Class<T> target) {
+        final Either<T, String> converted = this.convert(value, target);
+        if (converted.isRight()) {
+            throw new ExpressionEvaluationConversionException(converted.rightValue());
+        }
+
+        return converted.leftValue();
+    }
 }

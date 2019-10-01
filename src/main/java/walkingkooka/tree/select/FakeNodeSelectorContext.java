@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.select;
 
+import walkingkooka.Either;
 import walkingkooka.naming.Name;
 import walkingkooka.test.Fake;
 import walkingkooka.tree.Node;
@@ -51,7 +52,7 @@ public class FakeNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Override
-    public <T> T convert(final Object value, final Class<T> target) {
+    public <T> Either<T, String> convert(final Object value, final Class<T> target) {
         throw new UnsupportedOperationException();
     }
 

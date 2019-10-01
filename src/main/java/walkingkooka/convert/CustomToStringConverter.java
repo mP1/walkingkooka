@@ -17,6 +17,7 @@
 package walkingkooka.convert;
 
 import walkingkooka.Cast;
+import walkingkooka.Either;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.Whitespace;
 
@@ -59,12 +60,16 @@ final class CustomToStringConverter implements Converter, HashCodeEqualsDefined 
 
 
     @Override
-    public boolean canConvert(final Object value, final Class<?> type, final ConverterContext context) {
+    public boolean canConvert(final Object value,
+                              final Class<?> type,
+                              final ConverterContext context) {
         return this.converter.canConvert(value, type, context);
     }
 
     @Override
-    public <T> T convert(final Object value, final Class<T> type, final ConverterContext context) {
+    public <T> Either<T, String> convert(final Object value,
+                                         final Class<T> type,
+                                         final ConverterContext context) {
         return this.converter.convert(value, type, context);
     }
 

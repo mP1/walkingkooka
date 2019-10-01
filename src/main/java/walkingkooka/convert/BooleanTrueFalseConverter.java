@@ -17,6 +17,8 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Either;
+
 import java.util.Objects;
 
 /**
@@ -66,12 +68,12 @@ final class BooleanTrueFalseConverter<S, D> extends Converter2 {
     private final Class<S> sourceType;
 
     @Override
-    <T> T convert0(final Object value,
-                   final Class<T> type,
-                   final ConverterContext context) {
-        return type.cast(this.falseValue.equals(value) ?
+    <T> Either<T, String> convert0(final Object value,
+                                   final Class<T> type,
+                                   final ConverterContext context) {
+        return Either.left(type.cast(this.falseValue.equals(value) ?
                 this.falseAnswer :
-                this.trueAnswer);
+                this.trueAnswer));
     }
 
     private final Object falseValue;

@@ -17,6 +17,7 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Either;
 import walkingkooka.test.Fake;
 
 public class FakeConverter implements Converter, Fake {
@@ -28,9 +29,9 @@ public class FakeConverter implements Converter, Fake {
     }
 
     @Override
-    public <T> T convert(final Object value,
-                         final Class<T> type,
-                         final ConverterContext context) {
+    public <T> Either<T, String> convert(final Object value,
+                                         final Class<T> type,
+                                         final ConverterContext context) {
         throw new UnsupportedOperationException();
     }
 }

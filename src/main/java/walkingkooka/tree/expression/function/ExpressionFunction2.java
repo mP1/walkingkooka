@@ -47,35 +47,35 @@ abstract class ExpressionFunction2<T> implements ExpressionFunction<T> {
      * Converts a value into a boolean.
      */
     final boolean booleanValue(final Object value, final ExpressionFunctionContext context) {
-        return context.convert(value, Boolean.class);
+        return context.convertOrFail(value, Boolean.class);
     }
 
     /**
      * Converts a value into a {@link Comparable} with type parameters.
      */
     final Comparable comparable(final Object value, final ExpressionFunctionContext context) {
-        return context.convert(value, Comparable.class);
+        return context.convertOrFail(value, Comparable.class);
     }
 
     /**
      * Converts a value into an integer.
      */
     final int integer(final Object value, final ExpressionFunctionContext context) {
-        return context.convert(value, Integer.class);
+        return context.convertOrFail(value, Integer.class);
     }
 
     /**
      * Converts a value into a {@link Number}.
      */
     final Number number(final Object value, final ExpressionFunctionContext context) {
-        return context.convert(value, Number.class);
+        return context.convertOrFail(value, Number.class);
     }
 
     /**
      * Converts a value into a string.
      */
     final String string(final Object value, final ExpressionFunctionContext context) {
-        return context.convert(value, String.class);
+        return context.convertOrFail(value, String.class);
     }
 
     /**
@@ -117,7 +117,7 @@ abstract class ExpressionFunction2<T> implements ExpressionFunction<T> {
      * Retrieves the parameter at the index or throws a nice exception message.
      */
     final <TT> TT parameter(final List<?> parameters, final int i, final Class<TT> type, final ExpressionFunctionContext context) {
-        return context.convert(this.parameter(parameters, i), type);
+        return context.convertOrFail(this.parameter(parameters, i), type);
     }
 
     /**

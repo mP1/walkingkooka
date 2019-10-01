@@ -17,6 +17,8 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Either;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -39,23 +41,23 @@ final class ConverterNumberBoolean extends ConverterNumber<Boolean> {
     }
 
     @Override
-    Boolean bigDecimal(final BigDecimal value) {
-        return value.signum() != 0;
+    Either<Boolean, String> bigDecimal(final BigDecimal value) {
+        return Either.left(value.signum() != 0);
     }
 
     @Override
-    Boolean bigInteger(final BigInteger value) {
-        return value.signum() != 0;
+    Either<Boolean, String> bigInteger(final BigInteger value) {
+        return Either.left(value.signum() != 0);
     }
 
     @Override
-    Boolean doubleValue(final Double value) {
-        return !value.isInfinite() && !value.isNaN() && 0 != value.doubleValue();
+    Either<Boolean, String> doubleValue(final Double value) {
+        return Either.left(!value.isInfinite() && !value.isNaN() && 0 != value.doubleValue());
     }
 
     @Override
-    Boolean longValue(final Long value) {
-        return 0 != value.longValue();
+    Either<Boolean, String> longValue(final Long value) {
+        return Either.left(0 != value.longValue());
     }
 
     @Override
@@ -63,6 +65,7 @@ final class ConverterNumberBoolean extends ConverterNumber<Boolean> {
         return "Truthy ";
     }
 
+    @Override
     String toStringSuffix() {
         return "";
     }

@@ -19,6 +19,7 @@ package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.Either;
 import walkingkooka.math.NumberVisitor;
 import walkingkooka.math.NumberVisitorTesting;
 import walkingkooka.text.CharSequences;
@@ -26,39 +27,39 @@ import walkingkooka.type.JavaVisibility;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class ConverterNumberNumberVisitorTest implements NumberVisitorTesting<ConverterNumberNumberVisitor<BigDecimal>> {
 
     @Test
     public void testConvertUnsupported() {
-        assertThrows(ConversionException.class, () -> {
-            ConverterNumberNumberVisitor.convert(this.converter(),
-                    new Number() {
-                        @Override
-                        public int intValue() {
-                            throw new UnsupportedOperationException();
-                        }
+        final Number number = new Number() {
+            @Override
+            public int intValue() {
+                throw new UnsupportedOperationException();
+            }
 
-                        @Override
-                        public long longValue() {
-                            throw new UnsupportedOperationException();
-                        }
+            @Override
+            public long longValue() {
+                throw new UnsupportedOperationException();
+            }
 
-                        @Override
-                        public float floatValue() {
-                            throw new UnsupportedOperationException();
-                        }
+            @Override
+            public float floatValue() {
+                throw new UnsupportedOperationException();
+            }
 
-                        @Override
-                        public double doubleValue() {
-                            throw new UnsupportedOperationException();
-                        }
+            @Override
+            public double doubleValue() {
+                throw new UnsupportedOperationException();
+            }
 
-                        private final static long serialVersionUID = 1L;
-                    },
-                    BigDecimal.class);
-        });
+            private final static long serialVersionUID = 1L;
+        };
+        assertEquals(Either.right("Failed to convert " + number + " to " + BigDecimal.class.getName()),
+                ConverterNumberNumberVisitor.convert(this.converter(),
+                        number,
+                        BigDecimal.class));
     }
 
     @Test

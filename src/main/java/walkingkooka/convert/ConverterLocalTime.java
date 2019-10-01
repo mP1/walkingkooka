@@ -17,6 +17,8 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Either;
+
 import java.time.LocalTime;
 
 /**
@@ -40,17 +42,17 @@ abstract class ConverterLocalTime extends Converter2 {
     abstract boolean isTargetType(final Class<?> type);
 
     @Override
-    final <T> T convert0(final Object value,
-                         final Class<T> type,
-                         final ConverterContext context) {
+    final <T> Either<T, String> convert0(final Object value,
+                                         final Class<T> type,
+                                         final ConverterContext context) {
         return this.convert1(LocalTime.class.cast(value),
                 type,
                 context);
     }
 
-    private <T> T convert1(final LocalTime value,
-                         final Class<T> type,
-                         final ConverterContext context) {
+    private <T> Either<T, String> convert1(final LocalTime value,
+                                           final Class<T> type,
+                                           final ConverterContext context) {
         return this.convertFromLocalTime(value.toSecondOfDay(),
                 value.getNano(),
                 value,
@@ -58,9 +60,9 @@ abstract class ConverterLocalTime extends Converter2 {
                 context);
     }
 
-    abstract <T> T convertFromLocalTime(final long seconds,
-                                        final long nano,
-                                        final LocalTime localTime,
-                                        final Class<T> type,
-                                        final ConverterContext context);
+    abstract <T> Either<T, String> convertFromLocalTime(final long seconds,
+                                                        final long nano,
+                                                        final LocalTime localTime,
+                                                        final Class<T> type,
+                                                        final ConverterContext context);
 }

@@ -17,10 +17,12 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Either;
+
 import java.util.Objects;
 
 /**
- * A base {@link Converter} template.
+ * A base {@link Converter} template which most sub classes will require.
  */
 abstract class Converter2 implements Converter {
 
@@ -32,39 +34,36 @@ abstract class Converter2 implements Converter {
     }
 
     @Override
-    public final <T> T convert(final Object value,
-                               final Class<T> type,
-                               final ConverterContext context) {
+    public final <T> Either<T, String> convert(final Object value,
+                                               final Class<T> type,
+                                               final ConverterContext context) {
         Objects.requireNonNull(value, "value");
         Objects.requireNonNull(type, "type");
         Objects.requireNonNull(context, "context");
 
-        if (false == this.canConvert(value, type, context)) {
-            failConversion(value, type);
-        }
-
-        return this.convert0(value, type, context);
+        return this.canConvert(value, type, context) ?
+                this.convert0(value, type, context) :
+                this.failConversion(value, type);
     }
 
-    abstract <T> T convert0(final Object value,
-                            final Class<T> type,
-                            final ConverterContext context);
+    /**
+     * Template method that is only called with a value that has already passed a {@link #canConvert(Object, Class, ConverterContext)
+     * test and should convert successfully.
+     */
+    abstract <T> Either<T, String> convert0(final Object value,
+                                            final Class<T> type,
+                                            final ConverterContext context);
 
     /**
      * Helper that performs the last step by converting a {@link Number} to another {@link Number sub class}.
      */
-    final <N> N convertToNumber(final Number number,
-                                final Class<N> type,
-                                final ConverterContext context,
-                                final Object value) {
-        try {
-            return ConverterNumberNumber.INSTANCE
+    final <N> Either<N, String> convertToNumber(final Number number,
+                                                final Class<N> type,
+                                                final ConverterContext context,
+                                                final Object value) {
+        return ConverterNumberNumber.INSTANCE
                     .convert(number,
                             type,
                             context);
-        } catch (final FailedConversionException cause) {
-            // necessary so the exception has the correct value and type.
-            throw new FailedConversionException(value, type, cause);
-        }
     }
 }

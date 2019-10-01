@@ -17,34 +17,41 @@
 
 package walkingkooka.convert;
 
+import org.opentest4j.AssertionFailedError;
 import walkingkooka.Cast;
+import walkingkooka.Either;
 import walkingkooka.test.Testing;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A mixin interface with helpers to assist testing {@link Converter} converts or the conversion fails.
  */
 public interface ConverterTesting extends Testing {
 
-    default Object convertAndCheck(final Converter converter,
-                                   final Object value,
-                                   final Class<?> target,
-                                   final ConverterContext context,
-                                   final Object expected) {
+    default <T> T convertAndCheck(final Converter converter,
+                                  final Object value,
+                                  final Class<T> target,
+                                  final ConverterContext context,
+                                  final T expected) {
         assertEquals(true,
                 converter.canConvert(value, target, context),
                 converter + " can convert(" + CharSequences.quoteIfChars(value) + "(" + value.getClass().getName() + ")," + target.getName() + ")");
 
-        final Object result = converter.convert(value, target, context);
-        checkEquals("Failed to convert " + CharSequences.quoteIfChars(value) + " (" + value.getClass().getName() + ")= to " + target.getName(), expected, result);
+        final Either<T, String> result = converter.convert(value, target, context);
+        if (result.isRight()) {
+            throw new AssertionFailedError(result.rightValue());
+        }
 
-        return result;
+        final T convertedValue = result.leftValue();
+        checkEquals("Failed to convert " + CharSequences.quoteIfChars(value) + " (" + value.getClass().getName() + ")= to " + target.getName(), expected, convertedValue);
+        return convertedValue;
     }
 
-    default void checkEquals(final String message, final Object expected, final Object actual) {
+    default void checkEquals(final String message,
+                             final Object expected,
+                             final Object actual) {
         if (expected instanceof Comparable && expected.getClass().isInstance(actual)) {
             final Comparable expectedComparable = Cast.to(expected);
             final Comparable actualComparable = Cast.to(actual);
@@ -60,14 +67,9 @@ public interface ConverterTesting extends Testing {
                               final Object value,
                               final Class<?> type,
                               final ConverterContext context) {
-        try {
-            final Object result = converter.convert(value, type, context);
-            fail("Expected " + converter + " convert " + CharSequences.quoteIfChars(value) + "(" + value.getClass().getName() + ") to " + type.getName() + " to fail but got " + CharSequences.quoteIfChars(result));
-
-        } catch (final FailedConversionException failed) {
-            assertEquals(value, failed.value(), () -> failed.getMessage());
-            assertEquals(type, failed.targetType(), () -> failed.getMessage());
-        } catch (final ConversionException ignored) {
-        }
+        final Either<?, String> result = converter.convert(value, type, context);
+        result.mapLeft(v -> {
+            throw new AssertionFailedError("Expected failure converting " + CharSequences.quoteIfChars(value) + " to " + type.getName() + " but got " + CharSequences.quoteIfChars(v));
+        });
     }
 }

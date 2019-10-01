@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.Either;
 import walkingkooka.collect.set.Sets;
 
 import java.math.MathContext;
@@ -143,7 +144,8 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     }
 
     @Override
-    public <T> T convert(final Object from, final Class<T> toType) {
+    public <T> Either<T, String> convert(final Object from,
+                                         final Class<T> toType) {
         return this.context.convert(from, toType);
     }
 

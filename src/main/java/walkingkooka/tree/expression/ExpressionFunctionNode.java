@@ -155,7 +155,7 @@ public final class ExpressionFunctionNode extends ExpressionVariableNode {
     }
 
     private <T> T executeFunction(final ExpressionEvaluationContext context, final Class<T> target) {
-        return context.convert(this.executeFunction(context), target);
+        return context.convertOrFail(this.executeFunction(context), target);
     }
 
     private Object executeFunction(final ExpressionEvaluationContext context) {

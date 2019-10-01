@@ -48,19 +48,17 @@ final class ConverterNumberNumberNumberTypeVisitorInteger extends ConverterNumbe
     @Override
     protected void visit(final Double number) {
         final int converted = number.intValue();
-        if (converted != number) {
-            this.failConversion(number);
+        if (converted == number) {
+            this.save(converted);
         }
-        this.save(converted);
     }
 
     @Override 
     protected void visit(final Float number) {
         final int converted = number.intValue();
-        if (converted != number) {
-            this.failConversion(number);
+        if (converted == number) {
+            this.save(converted);
         }
-        this.save(converted);
     }
 
     @Override 
@@ -71,10 +69,9 @@ final class ConverterNumberNumberNumberTypeVisitorInteger extends ConverterNumbe
     @Override 
     protected void visit(final Long number) {
         final int converted = number.intValue();
-        if (converted != number) {
-            this.failConversion(number);
+        if (converted == number) {
+            this.save(converted);
         }
-        this.save(converted);
     }
 
     @Override 

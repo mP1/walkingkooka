@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.convert.ConversionException;
+import walkingkooka.Either;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 
@@ -130,12 +130,9 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     private final Function<ExpressionReference, Optional<ExpressionNode>> references;
 
     @Override
-    public <T> T convert(final Object value, final Class<T> target) {
-        try {
-            return this.converter.convert(value, target, this.converterContext);
-        } catch (final ConversionException cause) {
-            throw new ExpressionEvaluationConversionException(cause.getMessage(), cause);
-        }
+    public <T> Either<T, String> convert(final Object value,
+                                         final Class<T> target) {
+        return this.converter.convert(value, target, this.converterContext);
     }
 
     private final Converter converter;

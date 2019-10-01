@@ -42,52 +42,47 @@ final class ConverterNumberNumberNumberTypeVisitorByte extends ConverterNumberNu
 
     @Override
     protected void visit(final Byte number) {
-        this.save(number);
+        this.save(number);// dead code because Byte to Byte is short circuited earlier by ConverterNumberNumber.
     }
 
     @Override
     protected void visit(final Double number) {
         final byte converted = number.byteValue();
-        if (converted != number) {
-            this.failConversion(number);
+        if (converted == number) {
+            this.save(converted);
         }
-        this.save(converted);
     }
 
     @Override 
     protected void visit(final Float number) {
         final byte converted = number.byteValue();
-        if (converted != number) {
-            this.failConversion(number);
+        if (converted == number) {
+            this.save(converted);
         }
-        this.save(converted);
     }
 
     @Override 
     protected void visit(final Integer number) {
         final byte converted = number.byteValue();
-        if (converted != number) {
-            this.failConversion(number);
+        if (converted == number) {
+            this.save(converted);
         }
-        this.save(converted);
     }
 
     @Override 
     protected void visit(final Long number) {
         final byte converted = number.byteValue();
-        if (converted != number) {
-            this.failConversion(number);
+        if (converted == number) {
+            this.save(converted);
         }
-        this.save(converted);
     }
 
     @Override 
     protected void visit(final Short number) {
         final byte converted = number.byteValue();
-        if (converted != number) {
-            this.failConversion(number);
+        if (converted == number) {
+            this.save(converted);
         }
-        this.save(converted);
     }
 
     @Override

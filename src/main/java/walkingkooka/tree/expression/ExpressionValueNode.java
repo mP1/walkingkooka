@@ -35,52 +35,52 @@ abstract class ExpressionValueNode<V> extends ExpressionLeafNode<V> {
 
     @Override
     public final BigDecimal toBigDecimal(final ExpressionEvaluationContext context) {
-        return context.convert(this.value(), BigDecimal.class);
+        return context.convertOrFail(this.value(), BigDecimal.class);
     }
 
     @Override
     public final BigInteger toBigInteger(final ExpressionEvaluationContext context) {
-        return context.convert(this.value(), BigInteger.class);
+        return context.convertOrFail(this.value(), BigInteger.class);
     }
 
     @Override
     public final boolean toBoolean(final ExpressionEvaluationContext context) {
-        return context.convert(this.value(), Boolean.class);
+        return context.convertOrFail(this.value(), Boolean.class);
     }
 
     @Override
     public final double toDouble(final ExpressionEvaluationContext context) {
-        return context.convert(this.value(), Double.class);
+        return context.convertOrFail(this.value(), Double.class);
     }
 
     @Override
     public final LocalDate toLocalDate(final ExpressionEvaluationContext context) {
-        return context.convert(this.value(), LocalDate.class);
+        return context.convertOrFail(this.value(), LocalDate.class);
     }
 
     @Override
     public final LocalDateTime toLocalDateTime(final ExpressionEvaluationContext context) {
-        return context.convert(this.value(), LocalDateTime.class);
+        return context.convertOrFail(this.value(), LocalDateTime.class);
     }
 
     @Override
     public final LocalTime toLocalTime(final ExpressionEvaluationContext context) {
-        return context.convert(this.value(), LocalTime.class);
+        return context.convertOrFail(this.value(), LocalTime.class);
     }
 
     @Override
     public final long toLong(final ExpressionEvaluationContext context) {
-        return context.convert(this.value(), Long.class);
+        return context.convertOrFail(this.value(), Long.class);
     }
 
     @Override
     public final Number toNumber(final ExpressionEvaluationContext context) {
-        return context.convert(this.value(), Number.class);
+        return context.convertOrFail(this.value(), Number.class);
     }
 
     @Override
     public final String toText(final ExpressionEvaluationContext context) {
-        return context.convert(this.value(), String.class);
+        return context.convertOrFail(this.value(), String.class);
     }
 
     @Override

@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
@@ -96,7 +97,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     @Test
     public void testConvert() {
-        assertEquals(Long.valueOf(123L), this.createContext().convert(123.0, Long.class));
+        assertEquals(Either.left(Long.valueOf(123L)), this.createContext().convert(123.0, Long.class));
     }
 
     @Override

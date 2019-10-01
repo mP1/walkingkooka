@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.Either;
 import walkingkooka.math.FakeDecimalNumberContext;
 
 import java.math.MathContext;
@@ -49,7 +50,8 @@ public class FakeExpressionEvaluationContext extends FakeDecimalNumberContext im
     }
 
     @Override
-    public <T> T convert(final Object value, final Class<T> target) {
+    public <T> Either<T, String> convert(final Object value,
+                                         final Class<T> target) {
         Objects.requireNonNull(value, "value");
         Objects.requireNonNull(target, "target");
 

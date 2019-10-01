@@ -36,10 +36,6 @@ abstract class ConverterNumberNumberNumberTypeVisitorNumber<N extends Number> ex
 
     private N converted;
 
-    final void failConversion(final Number value) {
-        throw new FailedConversionException(value, this.targetType());
-    }
-
     abstract Class<N> targetType();
 
     @Override

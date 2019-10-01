@@ -18,6 +18,7 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -166,7 +167,7 @@ public final class ConverterTemporalLocalDateTimeNumberTest extends ConverterTem
     private void convertWithOffsetAndCheck3(final Number expected) {
         this.convertAndCheck(walkingkooka.convert.ConverterTemporalLocalDateTimeNumber.with(OFFSET),
                 LocalDateTime.of(LocalDate.ofEpochDay(BYTE_VALUE), LocalTime.MIDNIGHT),
-                expected.getClass(),
+                Cast.to(expected.getClass()),
                 expected);
     }
 
