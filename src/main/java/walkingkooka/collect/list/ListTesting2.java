@@ -23,10 +23,7 @@ import walkingkooka.test.TypeNameTesting;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-public interface ListTesting2<L extends List<E>, E> extends CollectionTesting2<L, E>,
+public interface ListTesting2<L extends List<E>, E> extends ListTesting, CollectionTesting2<L, E>,
         TypeNameTesting<L> {
 
     @Test
@@ -53,20 +50,7 @@ public interface ListTesting2<L extends List<E>, E> extends CollectionTesting2<L
 
     L createList();
 
-    default void getAndCheck(final List<E> list,
-                             final int index,
-                             final E element) {
-        assertEquals(element, list.get(index), () -> "get " + index + " from " + list);
-    }
-
-    default void getFails(final List<E> list,
-                          final int index) {
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            list.get(index);
-        });
-    }
-
-    // TypeNameTesting .........................................................................................
+    // TypeNameTesting .................................................................................................
 
     @Override
     default String typeNamePrefix() {
