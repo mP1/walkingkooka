@@ -975,22 +975,22 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
                 () -> "reduce " + CharSequences.quoteIfChars(initial) + " " + stream);
     }
 
-    // reduce(T, BinaryFunction, BinaryOperator)........................................................................................................
-
+    // reduce(T, BinaryFunction, BinaryOperator)........................................................................
+    
     @SuppressWarnings("unchecked")
-    default <T> void reduceAndCheck(final Stream<T> stream,
-                                    final T initial,
-                                    final BiFunction<T, T, T> reducer,
-                                    final BinaryOperator<T> combiner,
-                                    final T... values) {
+    default <TT> void reduceAndCheck(final Stream<TT> stream,
+                                     final TT initial,
+                                     final BiFunction<TT, TT, TT> reducer,
+                                     final BinaryOperator<TT> combiner,
+                                     final TT... values) {
         this.reduceAndCheck(stream, initial, reducer, combiner, Lists.of(values));
     }
 
-    default <T> void reduceAndCheck(final Stream<T> stream,
-                                    final T initial,
-                                    final BiFunction<T, T, T> reducer,
-                                    final BinaryOperator<T> combiner,
-                                    final List<T> values) {
+    default <TT> void reduceAndCheck(final Stream<TT> stream,
+                                     final TT initial,
+                                     final BiFunction<TT, TT, TT> reducer,
+                                     final BinaryOperator<TT> combiner,
+                                     final List<TT> values) {
         assertEquals(values.stream().reduce(initial, reducer, combiner),
                 stream.reduce(initial, reducer, combiner),
                 () -> "reduce " + CharSequences.quoteIfChars(initial) + " " + stream);
