@@ -346,7 +346,7 @@ enum DateTimeFormatterPatternComponent {
         int traverse(final String pattern,
                      final int position,
                      final DateTimeFormatterPatternVisitor visitor) {
-            /**
+            /*
              * <pre>
              * Zone names: This outputs the display name of the time-zone ID. If the count of letters is one, two or three,
              * then the short name is output. If the count of letters is four, then the full name is output. Five or more letters throws IllegalArgumentException.

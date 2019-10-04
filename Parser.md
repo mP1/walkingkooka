@@ -9,7 +9,7 @@ The Parser interface below denotes the main collaborators in the parsing process
 public interface Parser<T extends ParserToken, C extends ParserContext> {
 
     /**
-     * Attempts to parse the text given by the {@link TextCursor}.
+     * Attempts to parse the text given by the `TextCursor`.
      */
     Optional<T> parse(final TextCursor cursor, final C context);
 }
