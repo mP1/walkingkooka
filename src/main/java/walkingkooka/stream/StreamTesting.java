@@ -715,7 +715,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         final Predicate<T> keepOdd = (t) -> {
             final int index = values.indexOf(t);
             assertNotEquals(-1, index, () -> "unknown value=" + CharSequences.quoteIfChars(t));
-            return index % 1 == 0;
+            return (index & 1) == 0;
         };
 
         assertEquals(values.stream()
@@ -729,7 +729,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         final Predicate<T> keepEven = (t) -> {
             final int index = values.indexOf(t);
             assertNotEquals(-1, index, () -> "unknown value=" + CharSequences.quoteIfChars(t));
-            return index % 1 == 1;
+            return (index & 1) == 1;
         };
 
         assertEquals(values.stream()
