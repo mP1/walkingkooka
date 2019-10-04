@@ -31,11 +31,9 @@ public interface HasTextTesting extends Testing {
                 has.text(),
                 () -> (has instanceof HasText ? HasText.class.cast(has).text() : has.toString()) + (has instanceof Node ? "\n" + Node.class.cast(has).root() : ""));
 
-        if (has instanceof HasTextLength) {
-            final HasTextLength hasTextLength = Cast.to(has);
-            assertEquals(text.length(),
-                    hasTextLength.textLength(),
-                    () -> (has.toString()) + (has instanceof Node ? "\n" + Node.class.cast(has).root() : ""));
-        }
+        final HasTextLength hasTextLength = Cast.to(has);
+        assertEquals(text.length(),
+                hasTextLength.textLength(),
+                () -> (has.toString()) + (has instanceof Node ? "\n" + Node.class.cast(has).root() : ""));
     }
 }
