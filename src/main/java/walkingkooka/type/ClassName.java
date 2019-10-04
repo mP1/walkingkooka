@@ -119,7 +119,7 @@ public final class ClassName extends JavaName<ClassName> {
     }
 
     /**
-     * Handles the case where the input {@Link String} is not a constant, and must be verified.
+     * Handles the case where the input {@link String} is not a constant, and must be verified.
      */
     private static ClassName notConstant(final String name) {
         checkNotEmpty(name);
