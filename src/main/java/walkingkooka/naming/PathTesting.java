@@ -216,6 +216,9 @@ public interface PathTesting<P extends Path<P, N> & HashCodeEqualsDefined & Comp
             names.add(p.name().value());
             p = p.parent().get();
         }
+        if(!p.separator().isRequiredAtStart()) {
+           names.add(p.name().value());
+        }
 
         Collections.reverse(names);
 
@@ -229,9 +232,10 @@ public interface PathTesting<P extends Path<P, N> & HashCodeEqualsDefined & Comp
             b.append(name);
             add = true;
         }
+        this.valueCheck(path, b.toString());
     }
 
-    default void valueCheck(final P path, final String value) {
+    default void valueCheck(final Path<?, ?> path, final String value) {
         assertEquals(value, path.value(), "value of " + path);
     }
 
@@ -240,7 +244,7 @@ public interface PathTesting<P extends Path<P, N> & HashCodeEqualsDefined & Comp
         this.nameCheck(path, name.value());
     }
 
-    default void nameCheck(final P path, final String value) {
+    default void nameCheck(final Path<?, ?> path, final String value) {
         assertEquals(value, path.name().value(), () -> "name of " + path);
     }
 
