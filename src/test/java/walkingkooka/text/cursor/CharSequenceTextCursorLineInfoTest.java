@@ -56,12 +56,21 @@ final public class CharSequenceTextCursorLineInfoTest implements ClassTesting2<C
     }
 
     @Test
+    public void testSecondLineAfterCarriageReturn() {
+        final String prefix = "first\rl";
+        this.lineWithPosition(prefix + "ine\rafter", prefix, "line", 2, 2);
+    }
+
+    @Test
     public void testAfterLastChar() {
         final String text = "first\nsecond\rthird";
         this.lineWithPosition(text, text.length() + 1, "third", 3, 6);
     }
 
-    private void lineWithPosition(final String text, final String pos, final String line, final int lineNumber,
+    private void lineWithPosition(final String text,
+                                  final String pos,
+                                  final String line,
+                                  final int lineNumber,
                                   final int column) {
         if (false == text.startsWith(pos)) {
             assertEquals("Pos text must be at the start of text", text, pos);

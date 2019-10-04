@@ -131,8 +131,10 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
         this.equalsAndCheck(CaseSensitivity.INSENSITIVE, "apple", "APPLE", true);
     }
 
-    private void equalsAndCheck(final CaseSensitivity sensitivity, final CharSequence chars,
-                                final CharSequence otherChars, final boolean expected) {
+    private void equalsAndCheck(final CaseSensitivity sensitivity,
+                                final CharSequence chars,
+                                final CharSequence otherChars,
+                                final boolean expected) {
         final boolean result = sensitivity.equals(chars, otherChars);
         if (expected != result) {
             assertEquals(expected,

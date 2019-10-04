@@ -89,7 +89,7 @@ public final class EqualityTest implements PublicStaticHelperTesting<Equality> {
 
     @Test
     public void testIsAlmostEqualsFloatCloseEnough() {
-        this.isAlmostEqualsFloatAndCheck(4, 5, 2, true);
+        this.isAlmostEqualsFloatAndCheck(14, 15, 2, true);
     }
 
     private void isAlmostEqualsFloatAndCheck(final float first,
