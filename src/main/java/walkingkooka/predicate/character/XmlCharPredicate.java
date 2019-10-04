@@ -35,11 +35,6 @@ final class XmlCharPredicate implements CharPredicate {
 
     // CharPredicate
 
-    @Override
-    public boolean test(final char c) {
-        return this.isValidXmlCharacter(c);
-    }
-
     /**
      * <a>http://www.w3.org/TR/xml/#charsets}</a>
      *
@@ -47,10 +42,11 @@ final class XmlCharPredicate implements CharPredicate {
      * Char     ::=    #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
      * </pre>
      */
-    private boolean isValidXmlCharacter(final char c) {
-        boolean valid = false;
+    @Override
+    public boolean test(final char c) {
+        boolean valid;
 
-        for (; ; ) {
+        do {
             if (c < ' ') {
                 if ('\t' == c) {
                     valid = true;
@@ -64,6 +60,7 @@ final class XmlCharPredicate implements CharPredicate {
                     valid = true;
                     break;
                 }
+                valid = false;
                 break;
             }
             if (c <= 0xd7ff) {
@@ -79,8 +76,8 @@ final class XmlCharPredicate implements CharPredicate {
                 valid = true;
                 break;
             }
-            break;
-        }
+            valid = false;
+        } while (false);
 
         return valid;
     }
