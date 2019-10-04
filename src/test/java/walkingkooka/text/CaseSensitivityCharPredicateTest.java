@@ -34,7 +34,7 @@ final public class CaseSensitivityCharPredicateTest
 
     @Test
     public void testExactCaseSensitive() {
-        this.testTrueCaseSensitive(CHAR);
+        this.testTrue(this.createCharPredicateCaseSensitive(), CHAR);
     }
 
     @Test
@@ -60,6 +60,11 @@ final public class CaseSensitivityCharPredicateTest
     @Test
     public void testDifferentCaseInsensitive() {
         this.testFalseCaseInsensitive('z');
+    }
+
+    @Test
+    public void testDifferentCaseInsensitive2() {
+        this.testFalseCaseInsensitive('y');
     }
 
     @Test
@@ -94,10 +99,6 @@ final public class CaseSensitivityCharPredicateTest
     @Override
     public CaseSensitivityCharPredicate createCharPredicate() {
         return this.createCharPredicateCaseSensitive('A');
-    }
-
-    private void testTrueCaseSensitive(final char c) {
-        this.testTrue(this.createCharPredicateCaseSensitive(), c);
     }
 
     private void testFalseCaseSensitive(final char c) {

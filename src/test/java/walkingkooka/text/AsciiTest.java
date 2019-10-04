@@ -113,7 +113,7 @@ final public class AsciiTest implements PublicStaticHelperTesting<Ascii> {
 
     @Test
     public void testIsDigitWithNine() {
-        this.checkDigit('0');
+        this.checkDigit('9');
     }
 
     @Test

@@ -991,6 +991,11 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
     }
 
     @Test
+    public void testSubSequencePositiveIndices2() {
+        this.subSequenceAndCheck(" ssuubbb ", 2, 6, "suub");
+    }
+
+    @Test
     public void testSubSequenceNegativeTo() {
         this.subSequenceAndCheck("abcdef", 1, -2, "bcd");
     }

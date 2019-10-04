@@ -115,11 +115,7 @@ final public class AnyCharPredicateTest implements CharPredicateTesting<AnyCharP
 
     @Override
     public AnyCharPredicate createCharPredicate() {
-        return this.createCharPredicate(CHARS);
-    }
-
-    private AnyCharPredicate createCharPredicate(final String chars) {
-        return Cast.to(AnyCharPredicate.with(chars));
+        return Cast.to(AnyCharPredicate.with(CHARS));
     }
 
     @Override

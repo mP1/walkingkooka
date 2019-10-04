@@ -245,7 +245,7 @@ public final class BigDecimalParserTest extends Parser2TestCase<BigDecimalParser
 
     @Test
     public void testMinusNumberDecimalFraction4() {
-        this.parseAndCheck2("-123.875", "~");
+        this.parseAndCheck2("-123.875", "#");
     }
 
     @Test

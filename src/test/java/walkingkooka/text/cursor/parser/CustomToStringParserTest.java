@@ -116,6 +116,11 @@ public final class CustomToStringParserTest extends ParserTestCase<CustomToStrin
     }
 
     @Test
+    public void testEqualsDifferentParser2() {
+        this.checkNotEquals(this.createObject("different2", CUSTOM_TO_STRING));
+    }
+
+    @Test
     public void testEqualsDifferentCustomToString() {
         this.checkNotEquals(CustomToStringParser.wrap(WRAPPED, "different"));
     }
@@ -140,7 +145,7 @@ public final class CustomToStringParserTest extends ParserTestCase<CustomToStrin
         return this.createParser();
     }
 
-    protected CustomToStringParser<ParserContext> createObject(final String parserText, final String customToString) {
+    private CustomToStringParser<ParserContext> createObject(final String parserText, final String customToString) {
         final Parser<ParserContext> parser = CaseSensitivity.SENSITIVE.parser(parserText).cast();
         return CustomToStringParser.wrap(parser.cast(), customToString).cast();
     }
