@@ -28,8 +28,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 public final class SearchLocalDateNodeTest extends SearchLeafNodeTestCase<SearchLocalDateNode, LocalDate> {
 
     private final static int VALUE = 123;
-    private final String DATE_STRING = "2000-01-02";
-    private final String DIFFERENT_DATE_STRING = "1999-12-31";
+    private final static String DATE_STRING = "2000-01-02";
+    private final static String DIFFERENT_DATE_STRING = "1999-12-31";
 
     @Test
     public void testAccept() {
