@@ -32,10 +32,17 @@ final class Line implements Value<String>, HashCodeEqualsDefined, CharSequence {
      */
     static Line with(final String value) {
         Objects.requireNonNull(value, "value");
-        LineEnding.CR.complainIfPresent(value);
-        LineEnding.NL.complainIfPresent(value);
+        complainIfPresent(value, LineEnding.CR);
+        complainIfPresent(value, LineEnding.NL);
 
         return new Line(value);
+    }
+
+    private static void complainIfPresent(final String text,
+                                          final LineEnding lineEnding) {
+        if (text.contains(lineEnding.toString())) {
+            throw new IllegalArgumentException("Text " + CharSequences.quote(text) + " contains " + lineEnding);
+        }
     }
 
     /**
