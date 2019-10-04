@@ -92,9 +92,7 @@ final public class ArrayStackTest extends StackTestCase<ArrayStack<String>, Stri
     @Test
     public void testPop() {
         final Stack<String> with12 = ArrayStack.with("1").push("2");
-        if (false == (with12 instanceof ArrayStack)) {
-            Assertions.fail("Stack should be a ArrayStack=" + with12);
-        }
+        assertEquals(ArrayStack.class, with12.getClass(), () -> "Stack should be a ArrayStack=" + with12);
 
         final Stack<String> popped = with12.pop();
         assertEquals("1", popped.peek(), "peeked");
@@ -104,9 +102,7 @@ final public class ArrayStackTest extends StackTestCase<ArrayStack<String>, Stri
     @Test
     public void testPop2() {
         final Stack<String> stack = ArrayStack.with("1").push("2").push("3");
-        if (false == (stack instanceof ArrayStack)) {
-            Assertions.fail("Stack should be a ArrayStack=" + stack);
-        }
+        assertEquals(ArrayStack.class, stack.getClass(), () -> "Stack should be a ArrayStack=" + stack);
 
         final Stack<String> popped = stack.pop();
         this.checkSize(popped, 2);
