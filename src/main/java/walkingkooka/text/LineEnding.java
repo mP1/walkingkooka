@@ -110,14 +110,6 @@ final public class LineEnding implements CharSequence,
 
     private final String value;
 
-    // LineEnding
-
-    void complainIfPresent(final String text) {
-        if (text.contains(this.value)) {
-            throw new IllegalArgumentException("Text " + CharSequences.quote(text) + " contains " + this);
-        }
-    }
-
     // Object...........................................................................................................
 
     @Override
