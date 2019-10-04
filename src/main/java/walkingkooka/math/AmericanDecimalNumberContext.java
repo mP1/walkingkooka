@@ -33,7 +33,7 @@ final class AmericanDecimalNumberContext implements DecimalNumberContext {
     /**
      * Factory that returns a constant if a {@link MathContext} constant is given.
      */
-    final static AmericanDecimalNumberContext with(final MathContext mathContext) {
+    static AmericanDecimalNumberContext with(final MathContext mathContext) {
         Objects.requireNonNull(mathContext, "mathContext");
 
         return UNLIMITED.mathContext.equals(mathContext) ?
