@@ -149,12 +149,12 @@ public class AlternativesParserTest extends ParserTestCase<AlternativesParser<Pa
     }
 
     @SafeVarargs
-    private final AlternativesParser<ParserContext> createParser0(final Parser<ParserContext>... parsers) {
+    private AlternativesParser<ParserContext> createParser0(final Parser<ParserContext>... parsers) {
         return this.createParser1(parsers).cast();
     }
 
     @SafeVarargs
-    private final Parser<ParserContext> createParser1(final Parser<ParserContext>... parsers) {
+    private Parser<ParserContext> createParser1(final Parser<ParserContext>... parsers) {
         return AlternativesParser.with(Cast.to(Lists.of(parsers)));
     }
 
