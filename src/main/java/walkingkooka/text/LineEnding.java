@@ -78,8 +78,7 @@ final public class LineEnding implements CharSequence,
                 result = LineEnding.NONE;
                 break;
             }
-            throw new IllegalArgumentException(
-                    "Unknown line endings=" + CharSequences.quoteAndEscape(result));
+            throw new IllegalArgumentException("Unknown line endings=" + CharSequences.quoteAndEscape(lineEnding));
         }
 
         return result;
