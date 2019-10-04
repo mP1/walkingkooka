@@ -307,7 +307,7 @@ public final class BinaryTest implements HashCodeEqualsDefinedTesting2<Binary>,
     }
 
     private byte[] value() {
-        return new byte[]{00, 11, 22, 33, 44};
+        return new byte[]{0, 11, 22, 33, 44};
     }
 
     private long size() {
