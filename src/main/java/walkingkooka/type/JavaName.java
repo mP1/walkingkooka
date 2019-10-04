@@ -51,7 +51,7 @@ abstract class JavaName<N extends JavaName> implements Name, Comparable<N> {
         }
     }
 
-    private static int MAX_LENGTH = 65535;
+    private static final int MAX_LENGTH = 65535;
 
     /**
      * The package separator character<code>.</code>
