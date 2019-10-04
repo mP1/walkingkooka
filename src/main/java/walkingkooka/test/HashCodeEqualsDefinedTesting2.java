@@ -20,6 +20,7 @@ package walkingkooka.test;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
  * A mixin that contains additional tests for a created object.
@@ -36,10 +37,7 @@ public interface HashCodeEqualsDefinedTesting2<T extends HashCodeEqualsDefined> 
 
     @Test
     default void testEqualsNullIsFalse() {
-        final T object = this.createObject();
-        if (object.equals(null)) {
-            assertEquals(object, null);
-        }
+        assertNotEquals(this.createObject(), null);
     }
 
     @Test
