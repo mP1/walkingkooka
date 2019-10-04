@@ -31,7 +31,7 @@ import walkingkooka.text.CharacterConstant;
  */
 abstract class JavaName<N extends JavaName> implements Name, Comparable<N> {
 
-    final static void check(final String name) {
+    static void check(final String name) {
         CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name,
                 "name",
                 INITIAL,
@@ -39,29 +39,29 @@ abstract class JavaName<N extends JavaName> implements Name, Comparable<N> {
         checkLength(name);
     }
 
-    final static void checkNotEmpty(final String name) {
+    static void checkNotEmpty(final String name) {
         if (0 == name.length()) {
             throw new IllegalArgumentException("Empty name");
         }
     }
 
-    final static void checkLength(final String name) {
+    static void checkLength(final String name) {
         if (name.length() > MAX_LENGTH) {
             throw new InvalidTextLengthException("name", name, 0, MAX_LENGTH);
         }
     }
 
-    private final static int MAX_LENGTH = 65535;
+    private static int MAX_LENGTH = 65535;
 
     /**
      * The package separator character<code>.</code>
      */
-    final static CharacterConstant PACKAGE_SEPARATOR = CharacterConstant.with('.');
+    static CharacterConstant PACKAGE_SEPARATOR = CharacterConstant.with('.');
 
     /**
      * Checks that the package name between the given bounds of the name string is a valid package.
      */
-    final static void checkPackageName(final String name, final int end) {
+    static void checkPackageName(final String name, final int end) {
         char previous = PACKAGE_SEPARATOR.character();
 
         for (int i = 0; i < end; i++) {
@@ -92,8 +92,8 @@ abstract class JavaName<N extends JavaName> implements Name, Comparable<N> {
         }
     }
 
-    private final static CharPredicate INITIAL = Character::isJavaIdentifierStart;
-    private final static CharPredicate PART = Character::isJavaIdentifierPart;
+    private static CharPredicate INITIAL = Character::isJavaIdentifierStart;
+    private static CharPredicate PART = Character::isJavaIdentifierPart;
 
     JavaName(final String name) {
         super();
@@ -145,5 +145,5 @@ abstract class JavaName<N extends JavaName> implements Name, Comparable<N> {
         return CASE_SENSITIVITY;
     }
 
-    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
+    private static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 }
