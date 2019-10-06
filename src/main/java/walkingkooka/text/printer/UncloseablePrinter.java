@@ -25,25 +25,25 @@ import java.util.Objects;
  * A {@link Printer} that forwards all methods to another {@link Printer} but ignores any {@link
  * #close()}
  */
-final class UnclosablePrinter implements Printer {
+final class UncloseablePrinter implements Printer {
 
     /**
-     * Creates a new {@link UnclosablePrinter} or returns the {@link Printer} if it is already a
-     * {@link UnclosablePrinter}
+     * Creates a new {@link UncloseablePrinter} or returns the {@link Printer} if it is already a
+     * {@link UncloseablePrinter}
      */
-    static UnclosablePrinter wrap(final Printer printer) {
+    static UncloseablePrinter wrap(final Printer printer) {
         Objects.requireNonNull(printer, "printer");
 
         // do not double wrap.
-        return printer instanceof UnclosablePrinter ?
-                (UnclosablePrinter) printer :
-                new UnclosablePrinter(printer);
+        return printer instanceof UncloseablePrinter ?
+                (UncloseablePrinter) printer :
+                new UncloseablePrinter(printer);
     }
 
     /**
      * Private constructor use static factory.
      */
-    private UnclosablePrinter(final Printer printer) {
+    private UncloseablePrinter(final Printer printer) {
         super();
         this.printer = printer;
     }
