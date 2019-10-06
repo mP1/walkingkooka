@@ -49,6 +49,13 @@ public interface Printer extends PrinterLike, Closeable {
     void close() throws PrinterException;
 
     /**
+     * Creates an {@link IndentingPrinter} wrapping this {@link Printer}.
+     */
+    default IndentingPrinter indenting() {
+        return IndentingPrinters.printer(this);
+    }
+
+    /**
      * Returns a {@link Printer} that prints to both this and the given {@link Printer}.
      */
     default Printer tee(final Printer printer) {

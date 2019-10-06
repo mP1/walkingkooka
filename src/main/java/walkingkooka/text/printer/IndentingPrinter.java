@@ -38,4 +38,11 @@ public interface IndentingPrinter extends Printer {
      * Removes a previous indentation.
      */
     void outdent() throws PrinterException;
+
+    /**
+     * Always returns this.
+     */
+    default IndentingPrinter indenting() {
+        return this;
+    }
 }

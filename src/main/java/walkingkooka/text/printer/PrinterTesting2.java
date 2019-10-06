@@ -33,6 +33,13 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 public interface PrinterTesting2<P extends Printer> extends PrinterTesting<P> {
 
     @Test
+    default void testIndenting() {
+        final Printer printer = this.createPrinter();
+        final IndentingPrinter printer2 = printer.indenting();
+        assertNotSame(printer, printer2);
+    }
+
+    @Test
     default void testTee() {
         final Printer printer = this.createPrinter();
         final Printer printer2 = Printers.fake();
