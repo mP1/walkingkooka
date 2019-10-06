@@ -53,7 +53,7 @@ final class TextTransformingPrinter implements Printer {
         this.printer.print(this.transformer.apply(chars));
     }
 
-    private final Function<CharSequence, CharSequence> transformer;
+    final Function<CharSequence, CharSequence> transformer;
 
     @Override
     public LineEnding lineEnding() throws PrinterException {
