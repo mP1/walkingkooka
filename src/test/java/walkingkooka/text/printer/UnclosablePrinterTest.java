@@ -105,6 +105,13 @@ final public class UnclosablePrinterTest extends PrinterTestCase2<UnclosablePrin
     }
 
     @Override
+    @Test
+    public void testUncloseable() {
+        final Printer printer = this.createPrinter();
+        assertSame(printer, printer.uncloseable());
+    }
+
+    @Override
     public UnclosablePrinter createPrinter(final StringBuilder target) {
         return UnclosablePrinter.wrap(Printers.stringBuilder(target,
                 LINE_ENDING));

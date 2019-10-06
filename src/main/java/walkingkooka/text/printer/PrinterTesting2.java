@@ -40,6 +40,13 @@ public interface PrinterTesting2<P extends Printer> extends PrinterTesting<P> {
         assertNotSame(printer2, tee);
     }
 
+    @Test
+    default void testUncloseable() {
+        final Printer printer = this.createPrinter();
+        final Printer uncloseable = printer.uncloseable();
+        assertNotSame(printer, uncloseable);
+    }
+
     @Override
     default P createPrinter() {
         return this.createPrinter(new StringBuilder());
