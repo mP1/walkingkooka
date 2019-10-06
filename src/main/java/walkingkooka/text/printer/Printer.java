@@ -18,6 +18,7 @@
 package walkingkooka.text.printer;
 
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.printer.line.PrintedLineHandler;
 
 import java.io.Closeable;
 import java.util.function.Function;
@@ -53,6 +54,13 @@ public interface Printer extends PrinterLike, Closeable {
      */
     default IndentingPrinter indenting() {
         return IndentingPrinters.printer(this);
+    }
+
+    /**
+     * Returns a {@link Printer} that calls {@link PrintedLineHandler} with each {@link CharSequence line}.
+     */
+    default Printer printedLine(final PrintedLineHandler handler) {
+        return Printers.printedLine(this, handler);
     }
 
     /**

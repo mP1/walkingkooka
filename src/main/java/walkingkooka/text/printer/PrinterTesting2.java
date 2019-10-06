@@ -19,6 +19,7 @@ package walkingkooka.text.printer;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.printer.line.PrintedLineHandlers;
 
 import java.util.Objects;
 import java.util.function.Function;
@@ -37,6 +38,13 @@ public interface PrinterTesting2<P extends Printer> extends PrinterTesting<P> {
         final Printer printer = this.createPrinter();
         final IndentingPrinter printer2 = printer.indenting();
         assertNotSame(printer, printer2);
+    }
+
+    @Test
+    default void testPrintedLine() {
+        final Printer printer = this.createPrinter();
+        final Printer lines = printer.printedLine(PrintedLineHandlers.fake());
+        assertEquals(PrintedLineHandlerPrinter.class, lines.getClass(), () -> lines.toString());
     }
 
     @Test
