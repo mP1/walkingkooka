@@ -107,6 +107,14 @@ final public class Printers implements PublicStaticHelper {
     }
 
     /**
+     * {@see TextTransformingPrinter}
+     */
+    public static Printer textTransforming(final Function<CharSequence, CharSequence> transformer,
+                                           final Printer printer) {
+        return TextTransformingPrinter.with(transformer, printer);
+    }
+
+    /**
      * {@see UnclosablePrinter}
      */
     public static Printer unclosable(final Printer printer) {
