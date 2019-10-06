@@ -23,7 +23,7 @@ import walkingkooka.text.LineEnding;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class UnclosablePrinterTest extends PrinterTestCase2<UnclosablePrinter> {
+final public class UncloseablePrinterTest extends PrinterTestCase2<UncloseablePrinter> {
 
     // constants
 
@@ -34,14 +34,14 @@ final public class UnclosablePrinterTest extends PrinterTestCase2<UnclosablePrin
     @Test
     public void testWrapNullPrinterFails() {
         assertThrows(NullPointerException.class, () -> {
-            UnclosablePrinter.wrap(null);
+            UncloseablePrinter.wrap(null);
         });
     }
 
     @Test
     public void testDoesntDoubleWrap() {
-        final UnclosablePrinter printer = this.createPrinter();
-        assertSame(printer, UnclosablePrinter.wrap(printer));
+        final UncloseablePrinter printer = this.createPrinter();
+        assertSame(printer, UncloseablePrinter.wrap(printer));
     }
 
     @Override
@@ -58,7 +58,7 @@ final public class UnclosablePrinterTest extends PrinterTestCase2<UnclosablePrin
     @Test
     public void testMixedCharsAndLineEndings() {
         final StringBuilder printed = new StringBuilder();
-        final UnclosablePrinter printer = this.createPrinter(printed);
+        final UncloseablePrinter printer = this.createPrinter(printed);
         printer.print("123");
         printer.print(printer.lineEnding());
         printer.print("456");
@@ -72,7 +72,7 @@ final public class UnclosablePrinterTest extends PrinterTestCase2<UnclosablePrin
         final StringBuilder printed = new StringBuilder();
         final StringBuilder expected = new StringBuilder();
 
-        final UnclosablePrinter printer = this.createPrinter(printed);
+        final UncloseablePrinter printer = this.createPrinter(printed);
 
         final String before = "BEFORE";
         printer.print(before);
@@ -98,7 +98,7 @@ final public class UnclosablePrinterTest extends PrinterTestCase2<UnclosablePrin
     @Override
     @Test
     public void testFlushAfterCloseFails() {
-        final UnclosablePrinter printer = this.createPrinter();
+        final UncloseablePrinter printer = this.createPrinter();
         printer.close();
         printer.flush();
         printer.close();
@@ -112,13 +112,13 @@ final public class UnclosablePrinterTest extends PrinterTestCase2<UnclosablePrin
     }
 
     @Override
-    public UnclosablePrinter createPrinter(final StringBuilder target) {
-        return UnclosablePrinter.wrap(Printers.stringBuilder(target,
+    public UncloseablePrinter createPrinter(final StringBuilder target) {
+        return UncloseablePrinter.wrap(Printers.stringBuilder(target,
                 LINE_ENDING));
     }
 
     @Override
-    public Class<UnclosablePrinter> type() {
-        return UnclosablePrinter.class;
+    public Class<UncloseablePrinter> type() {
+        return UncloseablePrinter.class;
     }
 }
