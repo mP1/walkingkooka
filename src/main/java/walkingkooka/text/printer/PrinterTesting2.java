@@ -17,16 +17,28 @@
 
 package walkingkooka.text.printer;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 /**
  * Interface with default methods which can be mixed in to assist testing of an {@link Printer}.
  */
 public interface PrinterTesting2<P extends Printer> extends PrinterTesting<P> {
+
+    @Test
+    default void testTee() {
+        final Printer printer = this.createPrinter();
+        final Printer printer2 = Printers.fake();
+
+        final Printer tee = printer.tee(printer2);
+        assertNotSame(printer, tee);
+        assertNotSame(printer2, tee);
+    }
 
     @Override
     default P createPrinter() {
