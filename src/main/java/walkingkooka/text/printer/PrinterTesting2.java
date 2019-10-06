@@ -21,9 +21,11 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 /**
  * Interface with default methods which can be mixed in to assist testing of an {@link Printer}.
@@ -38,6 +40,15 @@ public interface PrinterTesting2<P extends Printer> extends PrinterTesting<P> {
         final Printer tee = printer.tee(printer2);
         assertNotSame(printer, tee);
         assertNotSame(printer2, tee);
+    }
+
+    @Test
+    default void testTransformText() {
+        final Printer printer = this.createPrinter();
+        final Function<CharSequence, CharSequence> transformer = (s) -> s.toString().toUpperCase();
+        final Printer transformingPrinter = printer.transformText(transformer);
+        assertEquals(TextTransformingPrinter.class, transformingPrinter.getClass(), () -> transformingPrinter.toString());
+        assertSame(transformer, ((TextTransformingPrinter) transformingPrinter).transformer, "transformer");
     }
 
     @Test

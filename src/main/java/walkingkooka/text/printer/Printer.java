@@ -20,6 +20,7 @@ package walkingkooka.text.printer;
 import walkingkooka.text.LineEnding;
 
 import java.io.Closeable;
+import java.util.function.Function;
 
 /**
  * A {@link Printer} may be used to print {@link CharSequence characters} to a target.
@@ -52,6 +53,13 @@ public interface Printer extends PrinterLike, Closeable {
      */
     default Printer tee(final Printer printer) {
         return Printers.tee(this, printer);
+    }
+
+    /**
+     * Returns a {@link Printer} that uses the {@link Function} to transform each and every printed {@link CharSequence}.
+     */
+    default Printer transformText(final Function<CharSequence, CharSequence> transformer) {
+        return Printers.textTransforming(transformer, this);
     }
 
     /**
