@@ -53,4 +53,11 @@ public interface Printer extends PrinterLike, Closeable {
     default Printer tee(final Printer printer) {
         return Printers.tee(this, printer);
     }
+
+    /**
+     * Returns a {@link Printer} that is unclose-able.
+     */
+    default Printer uncloseable() {
+        return Printers.unclosable(this);
+    }
 }
