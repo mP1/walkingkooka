@@ -44,13 +44,6 @@ final public class Printers implements PublicStaticHelper {
     }
 
     /**
-     * {@see NullReplacingPrinter}.
-     */
-    public static Printer nullReplacing(final Printer printer, final String replacement) {
-        return NullReplacingPrinter.wrap(printer, replacement);
-    }
-
-    /**
      * {@see PlainTextWithoutTagsPrinter}
      */
     public static Printer plainTextWithoutTags(final Printer printer) {
