@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.Indentation;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface IndentingPrinterTesting<P extends IndentingPrinter>
@@ -68,6 +69,12 @@ public interface IndentingPrinterTesting<P extends IndentingPrinter>
         assertThrows(IllegalStateException.class, () -> {
             printer.outdent();
         });
+    }
+
+    @Test
+    default void testIndenting() {
+        final IndentingPrinter printer = this.createPrinter();
+        assertSame(printer, printer.indenting());
     }
 
     // TypeNameTesting .........................................................................................
