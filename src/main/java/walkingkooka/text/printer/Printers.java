@@ -65,13 +65,6 @@ final public class Printers implements PublicStaticHelper {
     }
 
     /**
-     * {@see SeparatorAddingPrinter}.
-     */
-    public static Printer separatedBy(final Printer printer, final String separator) {
-        return SeparatorAddingPrinter.wrap(printer, separator);
-    }
-
-    /**
      * {@see SinkPrinter}.
      */
     public static Printer sink() {
