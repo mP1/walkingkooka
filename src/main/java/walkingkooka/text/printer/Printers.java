@@ -79,13 +79,6 @@ final public class Printers implements PublicStaticHelper {
     }
 
     /**
-     * {@see NullSkippingPrinter}.
-     */
-    public static Printer skipNulls(final Printer printer) {
-        return NullSkippingPrinter.wrap(printer);
-    }
-
-    /**
      * {@see StringBuilderPrinter}.
      */
     public static Printer stringBuilder(final StringBuilder builder, final LineEnding lineEnding) {
