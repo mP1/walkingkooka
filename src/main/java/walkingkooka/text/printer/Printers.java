@@ -24,7 +24,6 @@ import walkingkooka.type.PublicStaticHelper;
 import java.io.PrintStream;
 import java.io.Writer;
 import java.util.function.Function;
-import java.util.function.IntConsumer;
 import java.util.function.IntUnaryOperator;
 
 final public class Printers implements PublicStaticHelper {
@@ -42,13 +41,6 @@ final public class Printers implements PublicStaticHelper {
      */
     public static Printer fake() {
         return FakePrinter.create();
-    }
-
-    /**
-     * {@see LineCountingPrinter}
-     */
-    public static Printer lineCounter(final Printer printer, final IntConsumer counter) {
-        return LineCountingPrinter.wrap(printer, counter);
     }
 
     /**
