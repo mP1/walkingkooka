@@ -30,13 +30,6 @@ import java.util.function.IntUnaryOperator;
 final public class Printers implements PublicStaticHelper {
 
     /**
-     * {@see CharacterCountingPrinter}
-     */
-    public static Printer characterCounting(final Printer printer, final IntConsumer counter) {
-        return CharacterCountingPrinter.wrap(printer, counter);
-    }
-
-    /**
      * {@see HtmlEntityDecodingPrinter}.
      */
     public static Printer htmlEntityDecoder(final Function<String, String> entityDecoder,
