@@ -44,13 +44,6 @@ final public class Printers implements PublicStaticHelper {
     }
 
     /**
-     * {@see LineEndingPrinter}
-     */
-    public static Printer lineEnding(final Printer printer) {
-        return LineEndingPrinter.wrap(printer);
-    }
-
-    /**
      * {@see NullReplacingPrinter}.
      */
     public static Printer nullReplacing(final Printer printer, final String replacement) {
