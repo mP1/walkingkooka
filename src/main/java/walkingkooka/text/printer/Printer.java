@@ -46,4 +46,11 @@ public interface Printer extends PrinterLike, Closeable {
      */
     @Override
     void close() throws PrinterException;
+
+    /**
+     * Returns a {@link Printer} that prints to both this and the given {@link Printer}.
+     */
+    default Printer tee(final Printer printer) {
+        return Printers.tee(this, printer);
+    }
 }
