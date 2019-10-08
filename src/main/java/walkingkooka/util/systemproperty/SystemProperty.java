@@ -27,7 +27,8 @@ import java.util.Objects;
 import java.util.WeakHashMap;
 
 /**
- * Represents the key to a system property. A getter exists to retrieve the actual value.
+ * Represents the key to a system property. A getter exists to retrieve the actual value.<br>
+ * <a href="https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html"></a>
  */
 final public class SystemProperty implements Value<String>, HashCodeEqualsDefined {
 
@@ -50,8 +51,9 @@ final public class SystemProperty implements Value<String>, HashCodeEqualsDefine
 
     public final static SystemProperty JAVA_CLASS_PATH = createAndPut("java.class.path");
 
-    public final static SystemProperty JAVA_CLASS_VERSION
-            = createAndPut("java.class.version");
+    public final static SystemProperty JAVA_CLASS_PATH_SEPARATOR = createAndPut("path.separator");
+
+    public final static SystemProperty JAVA_CLASS_VERSION = createAndPut("java.class.version");
 
     public final static SystemProperty JAVA_COMPILER = createAndPut("java.compiler");
 
@@ -72,8 +74,6 @@ final public class SystemProperty implements Value<String>, HashCodeEqualsDefine
     public final static SystemProperty OS_ARCH = createAndPut("os.arch");
 
     public final static SystemProperty OS_VERSION = createAndPut("os.version");
-
-    public final static SystemProperty PATH_SEPARATOR = createAndPut("path.separator");
 
     public final static SystemProperty USER_DIR = createAndPut("user.dir");
 
