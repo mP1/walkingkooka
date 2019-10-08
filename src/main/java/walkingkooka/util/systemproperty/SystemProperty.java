@@ -37,12 +37,6 @@ final public class SystemProperty implements Value<String>, HashCodeEqualsDefine
      */
     private final static Map<String, SystemProperty> PROPERTIES = new WeakHashMap<String, SystemProperty>();
 
-    /**
-     * A {@link String} containing an invalid value which if passed to the factory method will
-     * fail.
-     */
-    public final static String INVALID = "";
-
     public final static SystemProperty FILE_ENCODING = createAndPut("file.encoding");
 
     public final static SystemProperty FILE_ENCODING_PKG = createAndPut("file.encoding.pkg");
