@@ -23,7 +23,6 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ConstantsTesting;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.text.CharSequences;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.Set;
@@ -61,12 +60,6 @@ final public class SystemPropertyTest implements ClassTesting2<SystemProperty>,
     }
 
     @Test
-    public void testGetCached() {
-        final String name = "name";
-        assertSame(SystemProperty.get(name), SystemProperty.get(name));
-    }
-
-    @Test
     public void testKnownProperty() {
         final SystemProperty name = SystemProperty.FILE_ENCODING;
         assertSame(name, SystemProperty.get(name.value()));
@@ -90,13 +83,12 @@ final public class SystemPropertyTest implements ClassTesting2<SystemProperty>,
     }
 
     @Test
-    public void testMissingRequiredValue() {
+    public void testMissingRequiredValueFails() {
         final SystemProperty name = SystemProperty.get(this.getClass().getName());
         name.clear();
-        try {
+        assertThrows(MissingSystemPropertyException.class, () -> {
             name.requiredPropertyValue();
-        } catch (final MissingSystemPropertyException expected) {
-        }
+        });
     }
 
     @Test
@@ -137,12 +129,7 @@ final public class SystemPropertyTest implements ClassTesting2<SystemProperty>,
         this.toStringAndCheck(SystemProperty.get(name), name);
     }
 
-    @Test
-    public void testToStringNeedsQuotes() {
-        final String name = "needs quotes";
-        this.toStringAndCheck(SystemProperty.get(name),
-                CharSequences.quoteIfNecessary(name).toString());
-    }
+    // ClassTesting.....................................................................................................
 
     @Override
     public Class<SystemProperty> type() {
@@ -154,10 +141,14 @@ final public class SystemPropertyTest implements ClassTesting2<SystemProperty>,
         return JavaVisibility.PUBLIC;
     }
 
+    // HashCodeEqualsDefinedTesting2.....................................................................................
+
     @Override
     public SystemProperty createObject() {
         return SystemProperty.FILE_SYSTEM_CASE_SENSITIVITY;
     }
+
+    // ConstantsTesting.................................................................................................
 
     @Override
     public Set<SystemProperty> intentionalDuplicateConstants() {
