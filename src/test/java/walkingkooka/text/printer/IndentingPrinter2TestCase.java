@@ -18,13 +18,15 @@
 package walkingkooka.text.printer;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.LineEnding;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class IndentingPrinter2TestCase<P extends IndentingPrinter2>
         extends PrinterTestCase2<P>
-        implements IndentingPrinterTesting<P> {
+        implements IndentingPrinterTesting<P>,
+        TypeNameTesting<P> {
 
     IndentingPrinter2TestCase() {
         super();
@@ -81,7 +83,8 @@ abstract public class IndentingPrinter2TestCase<P extends IndentingPrinter2>
         checkEquals("after", builder.toString());
     }
 
-    @Test final public void testLineStart2() {
+    @Test
+    final public void testLineStart2() {
         final StringBuilder builder = new StringBuilder();
         final P printer = this.createPrinter(builder);
         printer.print("before");
@@ -92,7 +95,8 @@ abstract public class IndentingPrinter2TestCase<P extends IndentingPrinter2>
                 builder.toString());
     }
 
-    @Test final public void testLineStartWithoutFollowingPrint() {
+    @Test
+    final public void testLineStartWithoutFollowingPrint() {
         final StringBuilder printed = new StringBuilder();
         final P printer = this.createPrinter(printed);
         printer.print("before");
@@ -101,7 +105,8 @@ abstract public class IndentingPrinter2TestCase<P extends IndentingPrinter2>
         checkEquals("before" + IndentingPrinter2TestCase.LINE_ENDING, printed.toString());
     }
 
-    @Test final public void testLineStartFollowingCarriageReturn() {
+    @Test
+    final public void testLineStartFollowingCarriageReturn() {
         final StringBuilder printed = new StringBuilder();
         final P printer = this.createPrinter(printed);
         printer.print("before\r");
@@ -111,7 +116,8 @@ abstract public class IndentingPrinter2TestCase<P extends IndentingPrinter2>
         checkEquals("before\rnext", printed.toString());
     }
 
-    @Test final public void testLineStartFollowingNewline() {
+    @Test
+    final public void testLineStartFollowingNewline() {
         final StringBuilder printed = new StringBuilder();
         final P printer = this.createPrinter(printed);
         printer.print("before\n");
@@ -121,7 +127,8 @@ abstract public class IndentingPrinter2TestCase<P extends IndentingPrinter2>
         checkEquals("before\nnext", printed.toString());
     }
 
-    @Test final public void testLineStartFollowingCarriageReturnNewLine() {
+    @Test
+    final public void testLineStartFollowingCarriageReturnNewLine() {
         final StringBuilder printed = new StringBuilder();
         final P printer = this.createPrinter(printed);
         printer.print("before\r\n");
@@ -157,5 +164,17 @@ abstract public class IndentingPrinter2TestCase<P extends IndentingPrinter2>
 
     final Printer createStringBuilderPrinter(final StringBuilder printed) {
         return Printers.stringBuilder(printed, IndentingPrinter2TestCase.LINE_ENDING);
+    }
+
+    // TypeNameTesting..................................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return IndentingPrinter2.class.getSimpleName();
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return "";
     }
 }

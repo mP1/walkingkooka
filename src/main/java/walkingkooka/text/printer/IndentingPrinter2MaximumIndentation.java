@@ -24,22 +24,22 @@ import java.util.Objects;
 /**
  * A {@link IndentingPrinter} which ignores attempts to indent more than the maximum limit.
  */
-final class MaximumIndentationIndentingPrinter extends IndentingPrinter2 {
+final class IndentingPrinter2MaximumIndentation extends IndentingPrinter2 {
 
-    static MaximumIndentationIndentingPrinter wrap(final Printer printer, final int maxIndentation) {
+    static IndentingPrinter2MaximumIndentation wrap(final Printer printer, final int maxIndentation) {
         Objects.requireNonNull(printer, "printer");
         if (maxIndentation < 0) {
             throw new IllegalArgumentException(
                     "MaxIndentation " + maxIndentation + " must be greater than 0");
         }
 
-        return new MaximumIndentationIndentingPrinter(printer, maxIndentation);
+        return new IndentingPrinter2MaximumIndentation(printer, maxIndentation);
     }
 
     /**
      * Private constructor use static factory
      */
-    private MaximumIndentationIndentingPrinter(final Printer printer, final int maxIndentation) {
+    private IndentingPrinter2MaximumIndentation(final Printer printer, final int maxIndentation) {
         super(printer);
 
         this.maxIndentation = maxIndentation;
