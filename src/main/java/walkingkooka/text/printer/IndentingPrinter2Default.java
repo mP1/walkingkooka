@@ -25,18 +25,18 @@ import java.util.Objects;
  * Adds support for writing text that requires some line formatting functionality such of
  * indentation and starting a new line.
  */
-final class DefaultIndentingPrinter extends IndentingPrinter2 {
+final class IndentingPrinter2Default extends IndentingPrinter2 {
 
-    static DefaultIndentingPrinter wrap(final Printer printer) {
+    static IndentingPrinter2Default wrap(final Printer printer) {
         Objects.requireNonNull(printer, "printer");
 
-        return new DefaultIndentingPrinter(printer);
+        return new IndentingPrinter2Default(printer);
     }
 
     /**
      * Private constructor use static factory.
      */
-    private DefaultIndentingPrinter(final Printer printer) {
+    private IndentingPrinter2Default(final Printer printer) {
         super(printer);
     }
 

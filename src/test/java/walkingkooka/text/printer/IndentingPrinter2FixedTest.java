@@ -22,8 +22,8 @@ import walkingkooka.text.Indentation;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class FixedIndentingPrinterTest
-        extends IndentingPrinter2TestCase<FixedIndentingPrinter> {
+final public class IndentingPrinter2FixedTest
+        extends IndentingPrinter2TestCase<IndentingPrinter2Fixed> {
 
     // constants
 
@@ -38,14 +38,14 @@ final public class FixedIndentingPrinterTest
     @Test
     public void testWrapNullIndentationFails() {
         assertThrows(NullPointerException.class, () -> {
-            FixedIndentingPrinter.wrap(Printers.fake(), null);
+            IndentingPrinter2Fixed.wrap(Printers.fake(), null);
         });
     }
 
     @Test
     public void testPrintWithIndent() {
         final StringBuilder builder = new StringBuilder();
-        final FixedIndentingPrinter printer = this.createPrinter(builder);
+        final IndentingPrinter2Fixed printer = this.createPrinter(builder);
         printer.indent(INDENTATION2);
         printer.print("line1");
         checkEquals(INDENTATION + "line1", builder.toString());
@@ -54,7 +54,7 @@ final public class FixedIndentingPrinterTest
     @Test
     public void testIndentNotImmediate() {
         final StringBuilder builder = new StringBuilder();
-        final FixedIndentingPrinter printer = this.createPrinter(builder);
+        final IndentingPrinter2Fixed printer = this.createPrinter(builder);
         printer.print("before");
         printer.indent(INDENTATION2);
         printer.print("after\n");
@@ -66,7 +66,7 @@ final public class FixedIndentingPrinterTest
     @Test
     public void testAutoIndentWhenCarriageReturnWritten() {
         final StringBuilder builder = new StringBuilder();
-        final FixedIndentingPrinter printer = this.createPrinter(builder);
+        final IndentingPrinter2Fixed printer = this.createPrinter(builder);
         printer.indent(INDENTATION2);
         printer.print("line1\r");
         printer.print("line2\r");
@@ -77,7 +77,7 @@ final public class FixedIndentingPrinterTest
     @Test
     public void testAutoIndentWhenNewLineWritten() {
         final StringBuilder builder = new StringBuilder();
-        final FixedIndentingPrinter printer = this.createPrinter(builder);
+        final IndentingPrinter2Fixed printer = this.createPrinter(builder);
         printer.indent(INDENTATION2);
         printer.print("line1\n");
         printer.print("line2\n");
@@ -88,7 +88,7 @@ final public class FixedIndentingPrinterTest
     @Test
     public void testAutoIndentedWhenCarriageReturnNewLineWritten() {
         final StringBuilder builder = new StringBuilder();
-        final FixedIndentingPrinter printer = this.createPrinter(builder);
+        final IndentingPrinter2Fixed printer = this.createPrinter(builder);
         printer.indent(INDENTATION2);
         printer.print("line1\r\n");
         printer.print("line2\r\n");
@@ -99,7 +99,7 @@ final public class FixedIndentingPrinterTest
     @Test
     public void testWithManyLines() {
         final StringBuilder builder = new StringBuilder();
-        final FixedIndentingPrinter printer = this.createPrinter(builder);
+        final IndentingPrinter2Fixed printer = this.createPrinter(builder);
         printer.indent(INDENTATION2);
         printer.print("line1\n");
         printer.print("lin");
@@ -115,7 +115,7 @@ final public class FixedIndentingPrinterTest
     @Test
     public void testIndentOutdentThenPrint() {
         final StringBuilder builder = new StringBuilder();
-        final FixedIndentingPrinter printer = this.createPrinter(builder);
+        final IndentingPrinter2Fixed printer = this.createPrinter(builder);
         printer.indent(INDENTATION2);
         printer.print("line1\n");
         printer.outdent();
@@ -128,7 +128,7 @@ final public class FixedIndentingPrinterTest
     @Test
     public void testIndentOutdentIndentOutdentThenPrint() {
         final StringBuilder builder = new StringBuilder();
-        final FixedIndentingPrinter printer = this.createPrinter(builder);
+        final IndentingPrinter2Fixed printer = this.createPrinter(builder);
         printer.indent(INDENTATION2);
         printer.print("line1\n");
         printer.outdent();
@@ -146,7 +146,7 @@ final public class FixedIndentingPrinterTest
     @Test
     public void testOutdentNotImmediate() {
         final StringBuilder builder = new StringBuilder();
-        final FixedIndentingPrinter printer = this.createPrinter(builder);
+        final IndentingPrinter2Fixed printer = this.createPrinter(builder);
         printer.indent(INDENTATION2);
         printer.print("before");
         printer.outdent();
@@ -159,7 +159,7 @@ final public class FixedIndentingPrinterTest
     @Test
     public void testNestedIndents() {
         final StringBuilder builder = new StringBuilder();
-        final FixedIndentingPrinter printer = this.createPrinter(builder);
+        final IndentingPrinter2Fixed printer = this.createPrinter(builder);
         printer.indent(Indentation.with("-"));
         printer.print("line1\n");
         printer.indent(INDENTATION2);
@@ -181,7 +181,7 @@ final public class FixedIndentingPrinterTest
     @Test
     public void testLineStartAfterIndent() {
         final StringBuilder builder = new StringBuilder();
-        final FixedIndentingPrinter printer = this.createPrinter(builder);
+        final IndentingPrinter2Fixed printer = this.createPrinter(builder);
         printer.print("line1");
         printer.indent(Indentation.with("!"));
         printer.lineStart();
@@ -195,24 +195,24 @@ final public class FixedIndentingPrinterTest
     public void testToString() {
         checkEquals(PRINTER + " indent=\""
                         + INDENTATION + "\"",
-                FixedIndentingPrinter.wrap(PRINTER,
+                IndentingPrinter2Fixed.wrap(PRINTER,
                         INDENTATION).toString());
     }
 
     @Test
     public void testToStringEscaped() {
         checkEquals(PRINTER + " indent=\"\\t..\"",
-                FixedIndentingPrinter.wrap(PRINTER,
+                IndentingPrinter2Fixed.wrap(PRINTER,
                         Indentation.with("\t..")).toString());
     }
 
     @Override
-    FixedIndentingPrinter createPrinter(final Printer printer) {
-        return FixedIndentingPrinter.wrap(printer, INDENTATION);
+    IndentingPrinter2Fixed createPrinter(final Printer printer) {
+        return IndentingPrinter2Fixed.wrap(printer, INDENTATION);
     }
 
     @Override
-    public Class<FixedIndentingPrinter> type() {
-        return FixedIndentingPrinter.class;
+    public Class<IndentingPrinter2Fixed> type() {
+        return IndentingPrinter2Fixed.class;
     }
 }

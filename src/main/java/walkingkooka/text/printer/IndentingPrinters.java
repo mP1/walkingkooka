@@ -30,10 +30,11 @@ final public class IndentingPrinters implements PublicStaticHelper {
     }
 
     /**
-     * {@see FixedIndentingPrinter}
+     * {@see IndentingPrinter2Fixed}
      */
-    public static IndentingPrinter fixed(final Printer printer, final Indentation indentation) {
-        return FixedIndentingPrinter.wrap(printer, indentation);
+    public static IndentingPrinter fixed(final Printer printer,
+                                         final Indentation indentation) {
+        return IndentingPrinter2Fixed.wrap(printer, indentation);
     }
 
     /**
@@ -41,14 +42,14 @@ final public class IndentingPrinters implements PublicStaticHelper {
      */
     public static IndentingPrinter indentationLimited(final Printer printer,
                                                       final int maxIndentation) {
-        return MaximumIndentationIndentingPrinter.wrap(printer, maxIndentation);
+        return IndentingPrinter2MaximumIndentation.wrap(printer, maxIndentation);
     }
 
     /**
-     * {@see DefaultIndentingPrinter}
+     * {@see IndentingPrinter2Default}
      */
     public static IndentingPrinter printer(final Printer printer) {
-        return DefaultIndentingPrinter.wrap(printer);
+        return IndentingPrinter2Default.wrap(printer);
     }
 
     /**

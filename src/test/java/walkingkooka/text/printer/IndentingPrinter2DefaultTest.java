@@ -20,30 +20,15 @@ package walkingkooka.text.printer;
 import org.junit.jupiter.api.Test;
 import walkingkooka.text.Indentation;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-final public class MaximumIndentationIndentingPrinterTest
-        extends IndentingPrinter2TestCase<MaximumIndentationIndentingPrinter> {
-
-    // constants
-
-    private final static int MAX = 5;
+final public class IndentingPrinter2DefaultTest
+        extends IndentingPrinter2TestCase<IndentingPrinter2Default> {
 
     private final static Indentation INDENTATION = Indentation.with(">");
-
-    // tests
-
-    @Test
-    public void testWrapInvalidMaximumIndentationFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            MaximumIndentationIndentingPrinter.wrap(Printers.fake(), -1);
-        });
-    }
 
     @Test
     public void testPrintWithIndent() {
         final StringBuilder printed = new StringBuilder();
-        final MaximumIndentationIndentingPrinter printer = this.createPrinter(printed);
+        final IndentingPrinter2Default printer = this.createPrinter(printed);
         printer.indent(INDENTATION);
         printer.print("line1");
         checkEquals(">line1", printed.toString());
@@ -52,7 +37,7 @@ final public class MaximumIndentationIndentingPrinterTest
     @Test
     public void testIndentNotImmediate() {
         final StringBuilder printed = new StringBuilder();
-        final MaximumIndentationIndentingPrinter printer = this.createPrinter(printed);
+        final IndentingPrinter2Default printer = this.createPrinter(printed);
         printer.print("before");
         printer.indent(INDENTATION);
         printer.print("after\n");
@@ -63,7 +48,7 @@ final public class MaximumIndentationIndentingPrinterTest
     @Test
     public void testAutoIndentWhenCarriageReturnWritten() {
         final StringBuilder printed = new StringBuilder();
-        final MaximumIndentationIndentingPrinter printer = this.createPrinter(printed);
+        final IndentingPrinter2Default printer = this.createPrinter(printed);
         printer.indent(INDENTATION);
         printer.print("line1\r");
         printer.print("line2\r");
@@ -73,7 +58,7 @@ final public class MaximumIndentationIndentingPrinterTest
     @Test
     public void testAutoIndentWhenNewLineWritten() {
         final StringBuilder printed = new StringBuilder();
-        final MaximumIndentationIndentingPrinter printer = this.createPrinter(printed);
+        final IndentingPrinter2Default printer = this.createPrinter(printed);
         printer.indent(INDENTATION);
         printer.print("line1\n");
         printer.print("line2\n");
@@ -83,7 +68,7 @@ final public class MaximumIndentationIndentingPrinterTest
     @Test
     public void testAutoIndentedWhenCarriageReturnNewLineWritten() {
         final StringBuilder printed = new StringBuilder();
-        final MaximumIndentationIndentingPrinter printer = this.createPrinter(printed);
+        final IndentingPrinter2Default printer = this.createPrinter(printed);
         printer.indent(INDENTATION);
         printer.print("line1\r\n");
         printer.print("line2\r\n");
@@ -93,7 +78,7 @@ final public class MaximumIndentationIndentingPrinterTest
     @Test
     public void testWithManyLines() {
         final StringBuilder printed = new StringBuilder();
-        final MaximumIndentationIndentingPrinter printer = this.createPrinter(printed);
+        final IndentingPrinter2Default printer = this.createPrinter(printed);
         printer.indent(INDENTATION);
         printer.print("line1\n");
         printer.print("lin");
@@ -109,7 +94,7 @@ final public class MaximumIndentationIndentingPrinterTest
     @Test
     public void testIndentThenOutdentThenPrint() {
         final StringBuilder printed = new StringBuilder();
-        final MaximumIndentationIndentingPrinter printer = this.createPrinter(printed);
+        final IndentingPrinter2Default printer = this.createPrinter(printed);
         printer.indent(INDENTATION);
         printer.print("line1\n");
         printer.outdent();
@@ -122,7 +107,7 @@ final public class MaximumIndentationIndentingPrinterTest
     @Test
     public void testIndentOutdentIndentOutdentThenPrint() {
         final StringBuilder printed = new StringBuilder();
-        final MaximumIndentationIndentingPrinter printer = this.createPrinter(printed);
+        final IndentingPrinter2Default printer = this.createPrinter(printed);
         printer.indent(INDENTATION);
         printer.print("line1\n");
         printer.outdent();
@@ -140,7 +125,7 @@ final public class MaximumIndentationIndentingPrinterTest
     @Test
     public void testOutdentNotImmediate() {
         final StringBuilder printed = new StringBuilder();
-        final MaximumIndentationIndentingPrinter printer = this.createPrinter(printed);
+        final IndentingPrinter2Default printer = this.createPrinter(printed);
         printer.indent(INDENTATION);
         printer.print("before");
         printer.outdent();
@@ -152,7 +137,7 @@ final public class MaximumIndentationIndentingPrinterTest
     @Test
     public void testNestedIndents() {
         final StringBuilder printed = new StringBuilder();
-        final MaximumIndentationIndentingPrinter printer = this.createPrinter(printed);
+        final IndentingPrinter2Default printer = this.createPrinter(printed);
         printer.indent(Indentation.with("-"));
         printer.print("line1\n");
         printer.indent(INDENTATION);
@@ -170,87 +155,58 @@ final public class MaximumIndentationIndentingPrinterTest
     }
 
     @Test
-    public void testIgnoresExtraIndentation() {
+    public void testPrintAndLineStartWithoutEol() {
         final StringBuilder printed = new StringBuilder();
-        final MaximumIndentationIndentingPrinter printer = this.createPrinter(printed);
-        printer.indent(Indentation.with("1234567>")); // 1
-        printer.print("line1\n");
-        checkEquals("12345line1\n", printed.toString());
-    }
+        final IndentingPrinter2Default printer = this.createPrinter(printed);
+        printer.print("line1");
+        printer.lineStart();
+        printer.print("line2");
+        printer.lineStart();
+        printer.print("line3");
+        printer.lineStart();
 
-    @Test
-    public void testIgnoresExtraIndentation2() {
-        final StringBuilder printed = new StringBuilder();
-        final MaximumIndentationIndentingPrinter printer = this.createPrinter(printed);
-        printer.indent(Indentation.with("->")); // 1
-        printer.print("line1\n");
-        printer.indent(Indentation.with("=>")); // ->=>
-        printer.print("line2\n");
-        printer.indent(Indentation.with("->")); // ->=>->
-        printer.print("line3\r");
-        printer.outdent(); // ->=>
-        printer.print("line4\n");
-        printer.outdent(); // ->
-        printer.print("line5");
-        checkEquals("->line1\n" + //
-                "->=>line2\n" + //
-                "->=>-line3\r" + //
-                "->=>line4\n" + //
-                "->line5", printed.toString());
-    }
-
-    @Test
-    public void testMaxIndentationZero() {
-        final StringBuilder printed = new StringBuilder();
-        final MaximumIndentationIndentingPrinter printer = MaximumIndentationIndentingPrinter.wrap(
-                this.createStringBuilderPrinter(printed),
-                0);
-        printer.indent(Indentation.with("->"));
-        printer.print("line1\n");
-        printer.indent(Indentation.with("=>"));
-        printer.print("line2\n");
-        printer.indent(Indentation.with("->"));
-        printer.print("line3\r");
-        printer.outdent();
-        printer.print("line4\n");
-        printer.outdent();
-        printer.print("line5");
-        checkEquals("line1\n" + //
-                "line2\n" + //
-                "line3\r" + //
-                "line4\n" + //
-                "line5", printed.toString());
+        checkEquals("line1\rline2\rline3\r", printed.toString());
     }
 
     @Test
     public void testLineStartAfterIndent() {
         final StringBuilder printed = new StringBuilder();
-        final MaximumIndentationIndentingPrinter printer = this.createPrinter(printed);
+        final IndentingPrinter2Default printer = this.createPrinter(printed);
         printer.print("line1");
         printer.indent(Indentation.with("!"));
         printer.lineStart();
-        printer.print("line2\n");
+        printer.print("line2");
 
-        checkEquals("line1\r" + "!line2\n", printed.toString());
+        checkEquals("line1" + IndentingPrinter2TestCase.LINE_ENDING + "!line2",
+                printed.toString());
+    }
+
+    @Test
+    public void testMixedCharactersAndLineEnding() {
+        final StringBuilder printed = new StringBuilder();
+        final IndentingPrinter2Default printer = this.createPrinter(printed);
+        printer.print("line1");
+        printer.indent(Indentation.with("!"));
+        printer.print(printer.lineEnding());
+        printer.print("line2");
+
+        checkEquals("line1" + IndentingPrinter2TestCase.LINE_ENDING + "!line2",
+                printed.toString());
     }
 
     @Test
     public void testToString() {
         final Printer printer = Printers.fake();
-        checkEquals(printer.toString() + " maxIndentation="
-                        + MAX,
-                MaximumIndentationIndentingPrinter.wrap(printer,
-                        MAX).toString());
+        checkEquals(printer.toString(), IndentingPrinter2Default.wrap(printer).toString());
     }
 
     @Override
-    MaximumIndentationIndentingPrinter createPrinter(final Printer printer) {
-        return MaximumIndentationIndentingPrinter.wrap(printer,
-                MAX);
+    IndentingPrinter2Default createPrinter(final Printer printer) {
+        return IndentingPrinter2Default.wrap(printer);
     }
 
     @Override
-    public Class<MaximumIndentationIndentingPrinter> type() {
-        return MaximumIndentationIndentingPrinter.class;
+    public Class<IndentingPrinter2Default> type() {
+        return IndentingPrinter2Default.class;
     }
 }
