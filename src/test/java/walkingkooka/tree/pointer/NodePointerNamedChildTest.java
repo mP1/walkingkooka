@@ -26,7 +26,7 @@ import walkingkooka.visit.Visiting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class NamedChildNodePointerTest extends NodePointerTestCase2<NamedChildNodePointer<TestNode, StringName>> {
+public final class NodePointerNamedChildTest extends NodePointerTestCase2<NodePointerNamedChild<TestNode, StringName>> {
 
     private final static StringName A1_NAME = Names.string("A1");
     private final static StringName B2_NAME = Names.string("B2");
@@ -36,22 +36,22 @@ public final class NamedChildNodePointerTest extends NodePointerTestCase2<NamedC
 
     @Test
     public void testWith() {
-        final NamedChildNodePointer<TestNode, StringName> pointer = this.createNodePointer();
-        assertEquals(this.name(), pointer.name(), "name");
+        final NodePointerNamedChild<TestNode, StringName> pointer = this.createNodePointer();
+        assertEquals(this.name(), pointer.name, "name");
     }
 
     // add..............................................................................................................
 
     @Test
     public void testAddUnknownPathFails() {
-        this.addAndFail(NodePointer.named(A1_NAME, TestNode.class).appendToLast(NamedChildNodePointer.with(B2_NAME)),
+        this.addAndFail(NodePointer.named(A1_NAME, TestNode.class).appendToLast(NodePointerNamedChild.with(B2_NAME)),
                 TestNode.with("child"),
                 A1_NODE);
     }
 
     @Test
     public void testAddUnknownPathFails2() {
-        this.addAndFail(NodePointer.named(A1_NAME, TestNode.class).appendToLast(IndexedChildNodePointer.with(99)),
+        this.addAndFail(NodePointer.named(A1_NAME, TestNode.class).appendToLast(NodePointerIndexedChild.with(99)),
                 TestNode.with("child"),
                 A1_NODE);
     }
@@ -61,7 +61,7 @@ public final class NamedChildNodePointerTest extends NodePointerTestCase2<NamedC
         final TestNode root = TestNode.with("root")
                 .appendChild(A1_NODE);
 
-        this.addAndCheck(NamedChildNodePointer.with(A1_NAME),
+        this.addAndCheck(NodePointerNamedChild.with(A1_NAME),
                 root,
                 A1_NODE,
                 root);
@@ -72,7 +72,7 @@ public final class NamedChildNodePointerTest extends NodePointerTestCase2<NamedC
         final TestNode root = TestNode.with("root")
                 .appendChild(A1_NODE);
 
-        this.addAndCheck(NamedChildNodePointer.with(B2_NAME),
+        this.addAndCheck(NodePointerNamedChild.with(B2_NAME),
                 root,
                 B2_NODE,
                 root.appendChild(B2_NODE));
@@ -88,7 +88,7 @@ public final class NamedChildNodePointerTest extends NodePointerTestCase2<NamedC
 
         final TestNode replacedB2 = TestNode.with("b2-replaced-value");
 
-        this.addAndCheck(NamedChildNodePointer.with(B2_NAME),
+        this.addAndCheck(NodePointerNamedChild.with(B2_NAME),
                 root,
                 replacedB2,
                 root.appendChild(replacedB2));
@@ -98,13 +98,13 @@ public final class NamedChildNodePointerTest extends NodePointerTestCase2<NamedC
 
     @Test
     public void testRemoveUnknownPathFails() {
-        this.removeAndFail(NamedChildNodePointer.with(A1_NAME),
+        this.removeAndFail(NodePointerNamedChild.with(A1_NAME),
                 TestNode.with("remove"));
     }
 
     @Test
     public void testRemoveUnknownPathFails2() {
-        this.removeAndFail(NamedChildNodePointer.with(A1_NAME),
+        this.removeAndFail(NodePointerNamedChild.with(A1_NAME),
                 TestNode.with("root")
                         .appendChild((B2_NODE)));
     }
@@ -126,26 +126,26 @@ public final class NamedChildNodePointerTest extends NodePointerTestCase2<NamedC
 
     private void removeAndCheck2(final TestNode node,
                                  final StringName name) {
-        this.removeAndCheck(NamedChildNodePointer.with(name),
+        this.removeAndCheck(NodePointerNamedChild.with(name),
                 node,
                 node.removeChild(name));
     }
 
     @Test
     public final void testEqualsDifferentName() {
-        this.checkNotEquals(NamedChildNodePointer.with(Names.string("different")));
+        this.checkNotEquals(NodePointerNamedChild.with(Names.string("different")));
     }
 
     // toString.........................................................................................................
 
 //    @Test
 //    public void testToStringWithSlash() {
-//        this.toStringAndCheck(NamedChildNodePointer.with(Names.string("slash/")), "/slash~1");
+//        this.toStringAndCheck(NodePointerNamedChild.with(Names.string("slash/")), "/slash~1");
 //    }
 
     @Test
     public void testToStringWithTilde() {
-        this.toStringAndCheck(NamedChildNodePointer.with(Names.string("tilde~")), "/tilde~0");
+        this.toStringAndCheck(NodePointerNamedChild.with(Names.string("tilde~")), "/tilde~0");
     }
 
     // visitor..........................................................................................................
@@ -167,13 +167,15 @@ public final class NamedChildNodePointerTest extends NodePointerTestCase2<NamedC
             }
 
             @Override
-            protected Visiting startVisit(final NamedChildNodePointer<TestNode, StringName> node) {
+            protected Visiting startNamedChildVisit(final NodePointer<TestNode, StringName> node,
+                                                    final StringName name) {
                 b.append("3");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final NamedChildNodePointer<TestNode, StringName> node) {
+            protected void endNamedChildVisit(final NodePointer<TestNode, StringName> node,
+                                              final StringName name) {
                 b.append("4");
             }
 
@@ -199,18 +201,20 @@ public final class NamedChildNodePointerTest extends NodePointerTestCase2<NamedC
             }
 
             @Override
-            protected void visit(final AppendNodePointer<TestNode, StringName> node) {
+            protected void visitAppend(final NodePointer<TestNode, StringName> node) {
                 b.append("3");
             }
 
             @Override
-            protected Visiting startVisit(final NamedChildNodePointer<TestNode, StringName> node) {
+            protected Visiting startNamedChildVisit(final NodePointer<TestNode, StringName> node,
+                                                    final StringName name) {
                 b.append("5");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final NamedChildNodePointer<TestNode, StringName> node) {
+            protected void endNamedChildVisit(final NodePointer<TestNode, StringName> node,
+                                              final StringName name) {
                 b.append("6");
             }
 
@@ -236,13 +240,15 @@ public final class NamedChildNodePointerTest extends NodePointerTestCase2<NamedC
             }
 
             @Override
-            protected Visiting startVisit(final NamedChildNodePointer<TestNode, StringName> node) {
+            protected Visiting startNamedChildVisit(final NodePointer<TestNode, StringName> node,
+                                                    final StringName name) {
                 b.append("4");
                 return Visiting.SKIP;
             }
 
             @Override
-            protected void endVisit(final NamedChildNodePointer<TestNode, StringName> node) {
+            protected void endNamedChildVisit(final NodePointer<TestNode, StringName> node,
+                                              final StringName name) {
                 b.append("5");
             }
 
@@ -252,8 +258,8 @@ public final class NamedChildNodePointerTest extends NodePointerTestCase2<NamedC
     }
 
     @Override
-    NamedChildNodePointer<TestNode, StringName> createNodePointer() {
-        return NamedChildNodePointer.with(this.name());
+    NodePointerNamedChild<TestNode, StringName> createNodePointer() {
+        return NodePointerNamedChild.with(this.name());
     }
 
     private StringName name() {
@@ -261,7 +267,7 @@ public final class NamedChildNodePointerTest extends NodePointerTestCase2<NamedC
     }
 
     @Override
-    public Class<NamedChildNodePointer<TestNode, StringName>> type() {
-        return Cast.to(NamedChildNodePointer.class);
+    public Class<NodePointerNamedChild<TestNode, StringName>> type() {
+        return Cast.to(NodePointerNamedChild.class);
     }
 }

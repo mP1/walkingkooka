@@ -27,7 +27,7 @@ import walkingkooka.visit.Visiting;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class AppendNodePointerTest extends NodePointerTestCase<AppendNodePointer<TestNode, StringName>> {
+public final class NodePointerAppendTest extends NodePointerTestCase<NodePointerAppend<TestNode, StringName>> {
 
     @Test
     public void testAppendIndexedFails() {
@@ -94,7 +94,7 @@ public final class AppendNodePointerTest extends NodePointerTestCase<AppendNodeP
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(AppendNodePointer.create(), "/-");
+        this.toStringAndCheck(NodePointerAppend.create(), "/-");
     }
 
     @Test
@@ -114,7 +114,7 @@ public final class AppendNodePointerTest extends NodePointerTestCase<AppendNodeP
             }
 
             @Override
-            protected void visit(final AppendNodePointer<TestNode, StringName> node) {
+            protected void visitAppend(final NodePointer<TestNode, StringName> node) {
                 b.append("3");
             }
 
@@ -124,12 +124,12 @@ public final class AppendNodePointerTest extends NodePointerTestCase<AppendNodeP
     }
 
     @Override
-    AppendNodePointer<TestNode, StringName> createNodePointer() {
-        return AppendNodePointer.create();
+    NodePointerAppend<TestNode, StringName> createNodePointer() {
+        return NodePointerAppend.create();
     }
 
     @Override
-    public Class<AppendNodePointer<TestNode, StringName>> type() {
-        return Cast.to(AppendNodePointer.class);
+    public Class<NodePointerAppend<TestNode, StringName>> type() {
+        return Cast.to(NodePointerAppend.class);
     }
 }

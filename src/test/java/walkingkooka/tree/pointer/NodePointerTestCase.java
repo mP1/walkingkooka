@@ -128,18 +128,18 @@ public abstract class NodePointerTestCase<N extends NodePointer<TestNode, String
 
     @Override
     public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     // TypeNameTesting..................................................................................................
 
     @Override
     public final String typeNamePrefix() {
-        return "";
+        return NodePointer.class.getSimpleName();
     }
 
     @Override
     public final String typeNameSuffix() {
-        return NodePointer.class.getSimpleName();
+        return "";
     }
 }

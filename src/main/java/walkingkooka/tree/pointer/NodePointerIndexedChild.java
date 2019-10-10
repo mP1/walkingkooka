@@ -22,55 +22,46 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.visit.Visiting;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents a component that matches a node by its name from a parent.
+ * Represents a component that matches a node by its index relative to its parent.
  */
-public final class NamedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME> {
+final class NodePointerIndexedChild<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME> {
 
     /**
-     * Creates a new {@link NamedChildNodePointer}.
+     * Creates a {@link NodePointerIndexedChild}
      */
-    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NamedChildNodePointer<N, NAME> with(final NAME name) {
-        Objects.requireNonNull(name, "name");
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointerIndexedChild<N, NAME> with(final int index) {
+        if (index < 0) {
+            throw new IllegalArgumentException("Invalid index " + index + " values should be greater or equal to 0");
+        }
 
-        return new NamedChildNodePointer<N, NAME>(name, absent());
+        return new NodePointerIndexedChild<N, NAME>(index, absent());
     }
 
     /**
      * Private ctor.
      */
-    private NamedChildNodePointer(final NAME name, final NodePointer<N, NAME> next) {
-        super(next);
-        this.name = name;
+    private NodePointerIndexedChild(final int index, final NodePointer<N, NAME> pointer) {
+        super(pointer);
+        this.index = index;
     }
 
-    /**
-     * Getter that returns the {@link Name} to match.
-     */
-    public NAME name() {
-        return this.name;
-    }
-
-    private final NAME name;
+    final int index;
 
     @Override
     NodePointer<N, NAME> appendToLast(final NodePointer<N, NAME> pointer) {
-        return new NamedChildNodePointer<>(this.name, this.appendToLast0(pointer));
+        return new NodePointerIndexedChild<>(this.index, this.appendToLast0(pointer));
     }
 
     @Override
     N nextNodeOrNull(final N node) {
-        N matched = null;
-
-        for (N child : node.children()) {
-            if (child.name().equals(this.name)) {
-                matched = child;
-                break;
-            }
-        }
-        return matched;
+        final List<N> children = node.children();
+        return this.index < children.size() ?
+                children.get(this.index) :
+                null;
     }
 
     @Override
@@ -80,7 +71,7 @@ public final class NamedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME ext
 
     @Override
     N add0(final N node, final N value) {
-        return node.setChild(this.name, value);
+        return node.setChild(this.index, value);
     }
 
     @Override
@@ -92,22 +83,23 @@ public final class NamedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME ext
 
     @Override
     void accept(final NodePointerVisitor<N, NAME> visitor) {
-        if (Visiting.CONTINUE == visitor.startVisit(this)) {
+        final int index = this.index;
+        if (Visiting.CONTINUE == visitor.startIndexedChildVisit(this, index)) {
             this.acceptNext(visitor);
         }
-        visitor.endVisit(this);
+        visitor.endIndexedChildVisit(this, index);
     }
 
     // HashCodeEqualsDefined...........................................................................................
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.name, this.next);
+        return Objects.hash(this.index, this.next);
     }
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof NamedChildNodePointer;
+        return other instanceof NodePointerIndexedChild;
     }
 
     @Override
@@ -115,16 +107,14 @@ public final class NamedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME ext
         return this.equals2(Cast.to(other));
     }
 
-    private boolean equals2(final NamedChildNodePointer<?, ?> other) {
-        return this.name.equals(other.name);
+    private boolean equals2(final NodePointerIndexedChild<?, ?> other) {
+        return this.index == other.index;
     }
 
     @Override
     void toString0(final StringBuilder b) {
         b.append(SEPARATOR.character());
-        b.append(this.name.value()
-                .replace("~", "~0")
-                .replace("/", "~1")); // escape slash and tilde
+        b.append(this.index);
     }
 
     @Override

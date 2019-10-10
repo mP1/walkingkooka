@@ -38,42 +38,46 @@ public class FakeNodePointerVisitor<N extends Node<N, NAME, ?, ?>, NAME extends 
     }
 
     @Override
-    protected void visit(final AnyNodePointer<N, NAME> node) {
+    protected void visitAny(final NodePointer<N, NAME> node) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final AppendNodePointer<N, NAME> node) {
+    protected void visitAppend(final NodePointer<N, NAME> node) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final IndexedChildNodePointer<N, NAME> node) {
+    protected Visiting startIndexedChildVisit(final NodePointer<N, NAME> node,
+                                              final int index) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final IndexedChildNodePointer<N, NAME> node) {
+    protected void endIndexedChildVisit(final NodePointer<N, NAME> node,
+                                        final int index) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final NamedChildNodePointer<N, NAME> node) {
+    protected Visiting startNamedChildVisit(final NodePointer<N, NAME> node,
+                                            final NAME name) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final NamedChildNodePointer<N, NAME> node) {
+    protected void endNamedChildVisit(final NodePointer<N, NAME> node,
+                                      final NAME name) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final RelativeNodePointer<N, NAME> node) {
+    protected Visiting startRelativeVisit(final NodePointer<N, NAME> node) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final RelativeNodePointer<N, NAME> node) {
+    protected void endRelativeVisit(final NodePointer<N, NAME> node) {
         throw new UnsupportedOperationException();
     }
 }
