@@ -24,41 +24,34 @@ import walkingkooka.tree.Node;
 import java.util.Objects;
 
 /**
- * Represents a reference to an invalid array element.
- * <a href="https://tools.ietf.org/html/rfc6901#page-5"></a>
- * <pre>
- * Note that the use of the "-" character to index an array will always
- * result in such an error condition because by definition it refers to
- * a nonexistent array element.  Thus, applications of JSON Pointer need
- * to specify how that character is to be handled, if it is to be
- * useful.
- * ...
- * </pre>
+ * Matches all the nodes, or the start node.
  */
-public final class AppendNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME> {
+final class NodePointerAny<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME> {
 
     /**
-     * Creates a {@link AppendNodePointer}
+     * Creates a {@link NodePointerAny}
      */
-    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> AppendNodePointer<N, NAME> create() {
-        return new AppendNodePointer<N, NAME>(absent());
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointerAny<N, NAME> get() {
+        return Cast.to(INSTANCE);
     }
+
+    private final static NodePointer INSTANCE = new NodePointerAny();
 
     /**
      * Private ctor.
      */
-    private AppendNodePointer(final NodePointer<N, NAME> next) {
-        super(next);
+    private NodePointerAny() {
+        super(null);
     }
 
     @Override
     NodePointer<N, NAME> appendToLast(final NodePointer<N, NAME> pointer) {
-        throw new UnsupportedOperationException();
+        return pointer;
     }
 
     @Override
     N nextNodeOrNull(final N node) {
-        return null;
+        return node;
     }
 
     @Override
@@ -68,7 +61,7 @@ public final class AppendNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends
 
     @Override
     N add0(final N node, final N value) {
-        return node.appendChild(value);
+        throw new UnsupportedOperationException("Add not supported for " + this);
     }
 
     @Override
@@ -76,14 +69,13 @@ public final class AppendNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends
         throw new UnsupportedOperationException("Remove not supported for " + this);
     }
 
-    // NodePointerVisitor.............................................................................................
+    // NodePointerVisitor................................................................................
 
-    @Override
     void accept(final NodePointerVisitor<N, NAME> visitor) {
-        visitor.visit(this);
+        visitor.visitAny(this);
     }
 
-    // HashCodeEqualsDefined...........................................................................................
+    // HashCodeEqualsDefined...............................................................................
 
     @Override
     public int hashCode() {
@@ -92,7 +84,7 @@ public final class AppendNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof AppendNodePointer;
+        return other instanceof NodePointerAny;
     }
 
     @Override
@@ -100,14 +92,13 @@ public final class AppendNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends
         return this.equals2(Cast.to(other));
     }
 
-    private boolean equals2(final AppendNodePointer<?, ?> other) {
-        return true;
+    private boolean equals2(final NodePointerAny<?, ?> other) {
+        return true; // no properties to test ignoring next.
     }
 
     @Override
     void toString0(final StringBuilder b) {
-        b.append(SEPARATOR.character());
-        b.append(APPEND);
+        // nop
     }
 
     @Override

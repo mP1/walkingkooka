@@ -22,50 +22,48 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.visit.Visiting;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents a component that matches a node by its element.
+ * Represents a component that matches a node by its name from a parent.
  */
-public final class IndexedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME> {
+final class NodePointerNamedChild<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME> {
 
     /**
-     * Creates a {@link IndexedChildNodePointer}
+     * Creates a new {@link NodePointerNamedChild}.
      */
-    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> IndexedChildNodePointer<N, NAME> with(final int index) {
-        if (index < 0) {
-            throw new IllegalArgumentException("Invalid index " + index + " values should be greater or equal to 0");
-        }
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointerNamedChild<N, NAME> with(final NAME name) {
+        Objects.requireNonNull(name, "name");
 
-        return new IndexedChildNodePointer<N, NAME>(index, absent());
+        return new NodePointerNamedChild<N, NAME>(name, absent());
     }
 
     /**
      * Private ctor.
      */
-    private IndexedChildNodePointer(final int index, final NodePointer<N, NAME> pointer) {
-        super(pointer);
-        this.index = index;
+    private NodePointerNamedChild(final NAME name, final NodePointer<N, NAME> next) {
+        super(next);
+        this.name = name;
     }
 
-    public int index() {
-        return this.index;
-    }
-
-    private final int index;
+    final NAME name;
 
     @Override
     NodePointer<N, NAME> appendToLast(final NodePointer<N, NAME> pointer) {
-        return new IndexedChildNodePointer<>(this.index, this.appendToLast0(pointer));
+        return new NodePointerNamedChild<>(this.name, this.appendToLast0(pointer));
     }
 
     @Override
     N nextNodeOrNull(final N node) {
-        final List<N> children = node.children();
-        return this.index < children.size() ?
-                children.get(this.index) :
-                null;
+        N matched = null;
+
+        for (N child : node.children()) {
+            if (child.name().equals(this.name)) {
+                matched = child;
+                break;
+            }
+        }
+        return matched;
     }
 
     @Override
@@ -75,7 +73,7 @@ public final class IndexedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME e
 
     @Override
     N add0(final N node, final N value) {
-        return node.setChild(this.index, value);
+        return node.setChild(this.name, value);
     }
 
     @Override
@@ -87,22 +85,23 @@ public final class IndexedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME e
 
     @Override
     void accept(final NodePointerVisitor<N, NAME> visitor) {
-        if (Visiting.CONTINUE == visitor.startVisit(this)) {
+        final NAME name = this.name;
+        if (Visiting.CONTINUE == visitor.startNamedChildVisit(this, name)) {
             this.acceptNext(visitor);
         }
-        visitor.endVisit(this);
+        visitor.endNamedChildVisit(this, name);
     }
 
     // HashCodeEqualsDefined...........................................................................................
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.index, this.next);
+        return Objects.hash(this.name, this.next);
     }
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof IndexedChildNodePointer;
+        return other instanceof NodePointerNamedChild;
     }
 
     @Override
@@ -110,14 +109,16 @@ public final class IndexedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME e
         return this.equals2(Cast.to(other));
     }
 
-    private boolean equals2(final IndexedChildNodePointer<?, ?> other) {
-        return this.index == other.index;
+    private boolean equals2(final NodePointerNamedChild<?, ?> other) {
+        return this.name.equals(other.name);
     }
 
     @Override
     void toString0(final StringBuilder b) {
         b.append(SEPARATOR.character());
-        b.append(this.index);
+        b.append(this.name.value()
+                .replace("~", "~0")
+                .replace("/", "~1")); // escape slash and tilde
     }
 
     @Override

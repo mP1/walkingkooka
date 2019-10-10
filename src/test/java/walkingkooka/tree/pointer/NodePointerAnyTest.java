@@ -26,7 +26,7 @@ import walkingkooka.visit.Visiting;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class AnyNodePointerTest extends NodePointerTestCase2<AnyNodePointer<TestNode, StringName>> {
+public final class NodePointerAnyTest extends NodePointerTestCase2<NodePointerAny<TestNode, StringName>> {
 
     @Test
     @Override
@@ -50,7 +50,7 @@ public final class AnyNodePointerTest extends NodePointerTestCase2<AnyNodePointe
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(AnyNodePointer.get(), "");
+        this.toStringAndCheck(NodePointerAny.get(), "");
     }
 
     @Test
@@ -70,7 +70,7 @@ public final class AnyNodePointerTest extends NodePointerTestCase2<AnyNodePointe
             }
 
             @Override
-            protected void visit(final AnyNodePointer<TestNode, StringName> node) {
+            protected void visitAny(final NodePointer<TestNode, StringName> node) {
                 b.append("3");
             }
         }.accept(this.createNodePointer());
@@ -79,12 +79,12 @@ public final class AnyNodePointerTest extends NodePointerTestCase2<AnyNodePointe
     }
 
     @Override
-    AnyNodePointer<TestNode, StringName> createNodePointer() {
-        return AnyNodePointer.get();
+    NodePointerAny<TestNode, StringName> createNodePointer() {
+        return NodePointerAny.get();
     }
 
     @Override
-    public Class<AnyNodePointer<TestNode, StringName>> type() {
-        return Cast.to(AnyNodePointer.class);
+    public Class<NodePointerAny<TestNode, StringName>> type() {
+        return Cast.to(NodePointerAny.class);
     }
 }

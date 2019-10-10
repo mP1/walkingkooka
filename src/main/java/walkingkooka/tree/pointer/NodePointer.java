@@ -74,7 +74,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
             try {
                 final int number = Integer.parseInt(component);
                 result = result.appendToLast(relative ?
-                        RelativeNodePointer.with(number, hash) :
+                        NodePointerRelative.with(number, hash) :
                         indexed(number, nodeType));
             } catch (final NumberFormatException mustBeName) {
                 if (relative) {
@@ -107,7 +107,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
     public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> any(final Class<N> nodeType) {
         checkNodeType(nodeType);
 
-        return AnyNodePointer.get();
+        return NodePointerAny.get();
     }
 
     /**
@@ -117,7 +117,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
                                                                                                   final Class<N> nodeType) {
         checkNodeType(nodeType);
 
-        return IndexedChildNodePointer.with(index);
+        return NodePointerIndexedChild.with(index);
     }
 
     /**
@@ -127,7 +127,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
                                                                                                 final Class<N> nodeType) {
         checkNodeType(nodeType);
 
-        return NamedChildNodePointer.with(name);
+        return NodePointerNamedChild.with(name);
     }
 
     /**
@@ -137,7 +137,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
                                                                                                    final Class<N> nodeType) {
         checkNodeType(nodeType);
 
-        return RelativeNodePointer.with(ancestor, false);
+        return NodePointerRelative.with(ancestor, false);
     }
 
     /**
@@ -147,7 +147,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
                                                                                                        final Class<N> nodeType) {
         checkNodeType(nodeType);
 
-        return RelativeNodePointer.with(ancestor, true);
+        return NodePointerRelative.with(ancestor, true);
     }
 
     /**
@@ -161,21 +161,21 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
      * Appends a none pointer, equivalent to the "-" token within a string pointer.
      */
     public final NodePointer<N, NAME> append() {
-        return this.appendToLast(AppendNodePointer.create());
+        return this.appendToLast(NodePointerAppend.create());
     }
 
     /**
      * Appends a child name to this pointer.
      */
     public final NodePointer<N, NAME> named(final NAME name) {
-        return this.appendToLast(NamedChildNodePointer.with(name));
+        return this.appendToLast(NodePointerNamedChild.with(name));
     }
 
     /**
      * Appends an index to this pointer.
      */
     public final NodePointer<N, NAME> indexed(final int index) {
-        return this.appendToLast(IndexedChildNodePointer.with(index));
+        return this.appendToLast(NodePointerIndexedChild.with(index));
     }
 
     /**

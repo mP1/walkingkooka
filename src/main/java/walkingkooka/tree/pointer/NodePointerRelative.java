@@ -28,24 +28,24 @@ import java.util.Optional;
 /**
  * Represents the opening relative pointer..
  */
-public final class RelativeNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME> {
+final class NodePointerRelative<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME> {
 
     /**
-     * Creates a {@link RelativeNodePointer}
+     * Creates a {@link NodePointerRelative}
      */
-    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> RelativeNodePointer<N, NAME> with(final int ancestorCount,
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointerRelative<N, NAME> with(final int ancestorCount,
                                                                                                 final boolean hash) {
         if (ancestorCount < 0) {
             throw new IllegalArgumentException("Invalid ancestorCount " + ancestorCount + " values should be greater or equal to 0");
         }
 
-        return new RelativeNodePointer<N, NAME>(ancestorCount, hash, absent());
+        return new NodePointerRelative<N, NAME>(ancestorCount, hash, absent());
     }
 
     /**
      * Private ctor.
      */
-    private RelativeNodePointer(final int ancestorCount, final boolean hash, final NodePointer<N, NAME> pointer) {
+    private NodePointerRelative(final int ancestorCount, final boolean hash, final NodePointer<N, NAME> pointer) {
         super(pointer);
         this.ancestorCount = ancestorCount;
         this.hash = hash;
@@ -53,7 +53,7 @@ public final class RelativeNodePointer<N extends Node<N, NAME, ?, ?>, NAME exten
 
     @Override
     NodePointer<N, NAME> appendToLast(final NodePointer<N, NAME> pointer) {
-        return new RelativeNodePointer<>(this.ancestorCount, this.hash, this.appendToLast0(pointer));
+        return new NodePointerRelative<>(this.ancestorCount, this.hash, this.appendToLast0(pointer));
     }
 
     @Override
@@ -96,10 +96,10 @@ public final class RelativeNodePointer<N extends Node<N, NAME, ?, ?>, NAME exten
 
     @Override
     void accept(final NodePointerVisitor<N, NAME> visitor) {
-        if (Visiting.CONTINUE == visitor.startVisit(this)) {
+        if (Visiting.CONTINUE == visitor.startRelativeVisit(this)) {
             this.acceptNext(visitor);
         }
-        visitor.endVisit(this);
+        visitor.endRelativeVisit(this);
     }
 
     // HashCodeEqualsDefined...........................................................................................
@@ -111,7 +111,7 @@ public final class RelativeNodePointer<N extends Node<N, NAME, ?, ?>, NAME exten
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof RelativeNodePointer;
+        return other instanceof NodePointerRelative;
     }
 
     @Override
@@ -119,7 +119,7 @@ public final class RelativeNodePointer<N extends Node<N, NAME, ?, ?>, NAME exten
         return this.equals2(Cast.to(other));
     }
 
-    private boolean equals2(final RelativeNodePointer<?, ?> other) {
+    private boolean equals2(final NodePointerRelative<?, ?> other) {
         return this.ancestorCount == other.ancestorCount &&
                 this.hash == other.hash;
     }

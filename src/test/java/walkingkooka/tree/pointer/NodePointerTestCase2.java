@@ -30,7 +30,7 @@ public abstract class NodePointerTestCase2<N extends NodePointer<TestNode, Strin
     @Test
     public void testNextAppend() {
         this.nextAndCheck(this.createNodePointer().append(),
-                AppendNodePointer.create());
+                NodePointerAppend.create());
     }
 
     // equals ..........................................................................................................

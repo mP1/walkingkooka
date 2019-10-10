@@ -26,7 +26,7 @@ import walkingkooka.visit.Visiting;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class RelativeNodePointerTest extends NodePointerTestCase2<RelativeNodePointer<TestNode, StringName>> {
+public final class NodePointerRelativeTest extends NodePointerTestCase2<NodePointerRelative<TestNode, StringName>> {
 
     private final static boolean NO_HASH = false;
     private final static boolean HASH = !NO_HASH;
@@ -36,7 +36,7 @@ public final class RelativeNodePointerTest extends NodePointerTestCase2<Relative
     @Test
     public void testWithNegativeIndexFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            RelativeNodePointer.with(-1, NO_HASH);
+            NodePointerRelative.with(-1, NO_HASH);
         });
     }
 
@@ -56,7 +56,7 @@ public final class RelativeNodePointerTest extends NodePointerTestCase2<Relative
     }
 
     private void withAndCheck(final int ancestorCount) {
-        final RelativeNodePointer<TestNode, StringName> pointer = RelativeNodePointer.with(ancestorCount, NO_HASH);
+        final NodePointerRelative<TestNode, StringName> pointer = NodePointerRelative.with(ancestorCount, NO_HASH);
         assertEquals(ancestorCount, pointer.ancestorCount, "ancestorCount");
     }
 
@@ -71,7 +71,7 @@ public final class RelativeNodePointerTest extends NodePointerTestCase2<Relative
                 .appendChild(TestNode.with("replaced"));
 
         this.addAndCheck(NodePointer.relative(0, TestNode.class)
-                        .appendToLast(IndexedChildNodePointer.with(1)),
+                        .appendToLast(NodePointerIndexedChild.with(1)),
                 root,
                 value,
                 root.setChild(1, value));
@@ -86,7 +86,7 @@ public final class RelativeNodePointerTest extends NodePointerTestCase2<Relative
                 .appendChild(TestNode.with("removed"));
 
         this.removeAndCheck(NodePointer.relative(0, TestNode.class)
-                        .appendToLast(IndexedChildNodePointer.with(1)),
+                        .appendToLast(NodePointerIndexedChild.with(1)),
                 start,
                 start.removeChild(1));
     }
@@ -95,29 +95,29 @@ public final class RelativeNodePointerTest extends NodePointerTestCase2<Relative
 
     @Test
     public final void testEqualsAncestor() {
-        this.checkNotEquals(RelativeNodePointer.with(99, NO_HASH));
+        this.checkNotEquals(NodePointerRelative.with(99, NO_HASH));
     }
 
     @Test
     public final void testEqualsHash() {
-        this.checkNotEquals(RelativeNodePointer.with(1, !NO_HASH));
+        this.checkNotEquals(NodePointerRelative.with(1, !NO_HASH));
     }
 
     // toString.........................................................................................................
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(RelativeNodePointer.with(1, NO_HASH), "1");
+        this.toStringAndCheck(NodePointerRelative.with(1, NO_HASH), "1");
     }
 
     @Test
     public void testToStringHash() {
-        this.toStringAndCheck(RelativeNodePointer.with(1, HASH), "1#");
+        this.toStringAndCheck(NodePointerRelative.with(1, HASH), "1#");
     }
 
     @Test
     public void testToStringAndIndex() {
-        this.toStringAndCheck(RelativeNodePointer.with(1, NO_HASH), "1");
+        this.toStringAndCheck(NodePointerRelative.with(1, NO_HASH), "1");
     }
 
     // visitor..........................................................................................................
@@ -139,13 +139,13 @@ public final class RelativeNodePointerTest extends NodePointerTestCase2<Relative
             }
 
             @Override
-            protected Visiting startVisit(final RelativeNodePointer<TestNode, StringName> node) {
+            protected Visiting startRelativeVisit(final NodePointer<TestNode, StringName> node) {
                 b.append("3");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final RelativeNodePointer<TestNode, StringName> node) {
+            protected void endRelativeVisit(final NodePointer<TestNode, StringName> node) {
                 b.append("4");
             }
 
@@ -171,18 +171,18 @@ public final class RelativeNodePointerTest extends NodePointerTestCase2<Relative
             }
 
             @Override
-            protected void visit(final AppendNodePointer<TestNode, StringName> node) {
+            protected void visitAppend(final NodePointer<TestNode, StringName> node) {
                 b.append("3");
             }
 
             @Override
-            protected Visiting startVisit(final RelativeNodePointer<TestNode, StringName> node) {
+            protected Visiting startRelativeVisit(final NodePointer<TestNode, StringName> node) {
                 b.append("4");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final RelativeNodePointer<TestNode, StringName> node) {
+            protected void endRelativeVisit(final NodePointer<TestNode, StringName> node) {
                 b.append("6");
             }
 
@@ -208,13 +208,13 @@ public final class RelativeNodePointerTest extends NodePointerTestCase2<Relative
             }
 
             @Override
-            protected Visiting startVisit(final RelativeNodePointer<TestNode, StringName> node) {
+            protected Visiting startRelativeVisit(final NodePointer<TestNode, StringName> node) {
                 b.append("4");
                 return Visiting.SKIP;
             }
 
             @Override
-            protected void endVisit(final RelativeNodePointer<TestNode, StringName> node) {
+            protected void endRelativeVisit(final NodePointer<TestNode, StringName> node) {
                 b.append("5");
             }
 
@@ -226,12 +226,12 @@ public final class RelativeNodePointerTest extends NodePointerTestCase2<Relative
     // helpers..........................................................................................................
 
     @Override
-    RelativeNodePointer<TestNode, StringName> createNodePointer() {
-        return RelativeNodePointer.with(1, false);
+    NodePointerRelative<TestNode, StringName> createNodePointer() {
+        return NodePointerRelative.with(1, false);
     }
 
     @Override
-    public Class<RelativeNodePointer<TestNode, StringName>> type() {
-        return Cast.to(RelativeNodePointer.class);
+    public Class<NodePointerRelative<TestNode, StringName>> type() {
+        return Cast.to(NodePointerRelative.class);
     }
 }

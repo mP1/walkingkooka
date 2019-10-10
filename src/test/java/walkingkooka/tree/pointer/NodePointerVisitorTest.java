@@ -71,7 +71,7 @@ public final class NodePointerVisitorTest implements NodePointerVisitorTesting<F
             }
 
             @Override
-            protected void visit(final AnyNodePointer<TestNode, StringName> node) {
+            protected void visitAny(final NodePointer<TestNode, StringName> node) {
                 b.append("3");
             }
         }.accept(NodePointer.any(TestNode.class));
@@ -101,12 +101,12 @@ public final class NodePointerVisitorTest implements NodePointerVisitorTesting<F
                 b.append("2");
             }
 
-            protected Visiting startVisit(final RelativeNodePointer<TestNode, StringName> node) {
+            protected Visiting startRelativeVisit(final NodePointer<TestNode, StringName> node) {
                 b.append("3");
                 return Visiting.CONTINUE;
             }
 
-            protected void endVisit(final RelativeNodePointer<TestNode, StringName> node) {
+            protected void endRelativeVisit(final NodePointer<TestNode, StringName> node) {
                 b.append("4");
                 // nop
             }
@@ -139,31 +139,35 @@ public final class NodePointerVisitorTest implements NodePointerVisitorTesting<F
             }
 
             @Override
-            protected void visit(final AppendNodePointer<TestNode, StringName> node) {
+            protected void visitAppend(final NodePointer<TestNode, StringName> node) {
                 b.append("3");
             }
 
             @Override
-            protected Visiting startVisit(final IndexedChildNodePointer<TestNode, StringName> node) {
-                assertEquals(1, node.index(), "index");
+            protected Visiting startIndexedChildVisit(final NodePointer<TestNode, StringName> node,
+                                                      final int index) {
+                assertEquals(1, index, "index");
                 b.append("4");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final IndexedChildNodePointer<TestNode, StringName> node) {
+            protected void endIndexedChildVisit(final NodePointer<TestNode, StringName> node,
+                                                final int index) {
                 b.append("5");
             }
 
             @Override
-            protected Visiting startVisit(final NamedChildNodePointer<TestNode, StringName> node) {
-                assertEquals(Names.string("abc"), node.name(), "name");
+            protected Visiting startNamedChildVisit(final NodePointer<TestNode, StringName> node,
+                                                    final StringName name) {
+                assertEquals(Names.string("abc"), name, "name");
                 b.append("6");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final NamedChildNodePointer<TestNode, StringName> node) {
+            protected void endNamedChildVisit(final NodePointer<TestNode, StringName> node,
+                                              final StringName name) {
                 b.append("7");
             }
         }.accept(NodePointer.parse("/1/abc/-", Names::string, TestNode.class));
@@ -198,28 +202,32 @@ public final class NodePointerVisitorTest implements NodePointerVisitorTesting<F
             }
 
             @Override
-            protected void visit(final AppendNodePointer<TestNode, StringName> p) {
+            protected void visitAppend(final NodePointer<TestNode, StringName> p) {
                 b.append("-");
             }
 
             @Override
-            protected Visiting startVisit(final IndexedChildNodePointer<TestNode, StringName> p) {
-                b.append(p.index());
+            protected Visiting startIndexedChildVisit(final NodePointer<TestNode, StringName> p,
+                                                      final int index) {
+                b.append(index);
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final IndexedChildNodePointer<TestNode, StringName> p) {
+            protected void endIndexedChildVisit(final NodePointer<TestNode, StringName> p,
+                                                final int index) {
             }
 
             @Override
-            protected Visiting startVisit(final NamedChildNodePointer<TestNode, StringName> p) {
-                b.append(p.name());
+            protected Visiting startNamedChildVisit(final NodePointer<TestNode, StringName> p,
+                                                    final StringName name) {
+                b.append(name);
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final NamedChildNodePointer<TestNode, StringName> p) {
+            protected void endNamedChildVisit(final NodePointer<TestNode, StringName> p,
+                                              final StringName name) {
             }
         }.accept(pointer);
 

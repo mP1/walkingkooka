@@ -25,26 +25,26 @@ import walkingkooka.visit.Visiting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class IndexedChildNodePointerTest extends NodePointerTestCase2<IndexedChildNodePointer<TestNode, StringName>> {
+public final class NodePointerIndexedChildTest extends NodePointerTestCase2<NodePointerIndexedChild<TestNode, StringName>> {
 
     @Test
     public void testWith() {
-        final IndexedChildNodePointer<TestNode, StringName> pointer = this.createNodePointer();
-        assertEquals(1, pointer.index(), "index");
+        final NodePointerIndexedChild<TestNode, StringName> pointer = this.createNodePointer();
+        assertEquals(1, pointer.index, "index");
     }
 
     // add..............................................................................................................
 
     @Test
     public void testAddUnknownPathFails() {
-        this.addAndFail(NodePointer.indexed(1, TestNode.class).appendToLast(IndexedChildNodePointer.with(99)),
+        this.addAndFail(NodePointer.indexed(1, TestNode.class).appendToLast(NodePointerIndexedChild.with(99)),
                 TestNode.with("name1"),
                 TestNode.with("value2"));
     }
 
     @Test
     public void testAddUnknownPathFails2() {
-        this.addAndFail(NodePointer.indexed(1, TestNode.class).appendToLast(IndexedChildNodePointer.with(99)),
+        this.addAndFail(NodePointer.indexed(1, TestNode.class).appendToLast(NodePointerIndexedChild.with(99)),
                 TestNode.with("name1"),
                 TestNode.with("value2"));
     }
@@ -72,7 +72,7 @@ public final class IndexedChildNodePointerTest extends NodePointerTestCase2<Inde
 
         final TestNode add = TestNode.with("add");
 
-        this.addAndCheck(IndexedChildNodePointer.with(index),
+        this.addAndCheck(NodePointerIndexedChild.with(index),
                 root,
                 add,
                 root.setChild(index, add));
@@ -82,13 +82,13 @@ public final class IndexedChildNodePointerTest extends NodePointerTestCase2<Inde
 
     @Test
     public void testRemoveUnknownPathFails() {
-        this.removeAndFail(IndexedChildNodePointer.with(0),
+        this.removeAndFail(NodePointerIndexedChild.with(0),
                 TestNode.with("remove"));
     }
 
     @Test
     public void testRemoveUnknownPathFails2() {
-        this.removeAndFail(IndexedChildNodePointer.with(1),
+        this.removeAndFail(NodePointerIndexedChild.with(1),
                 TestNode.with("root").appendChild(TestNode.with("a")));
     }
 
@@ -122,14 +122,14 @@ public final class IndexedChildNodePointerTest extends NodePointerTestCase2<Inde
 
     private void removeAndCheck2(final TestNode node,
                                  final int index) {
-        this.removeAndCheck(IndexedChildNodePointer.with(index),
+        this.removeAndCheck(NodePointerIndexedChild.with(index),
                 node,
                 node.removeChild(index));
     }
 
     @Test
     public final void testEqualsDifferentIndex() {
-        this.checkNotEquals(IndexedChildNodePointer.with(99));
+        this.checkNotEquals(NodePointerIndexedChild.with(99));
     }
 
     // visitor..........................................................................................................
@@ -151,13 +151,15 @@ public final class IndexedChildNodePointerTest extends NodePointerTestCase2<Inde
             }
 
             @Override
-            protected Visiting startVisit(final IndexedChildNodePointer<TestNode, StringName> node) {
+            protected Visiting startIndexedChildVisit(final NodePointer<TestNode, StringName> node,
+                                                      final int index) {
                 b.append("3");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final IndexedChildNodePointer<TestNode, StringName> node) {
+            protected void endIndexedChildVisit(final NodePointer<TestNode, StringName> node,
+                                                final int index) {
                 b.append("4");
             }
 
@@ -183,18 +185,20 @@ public final class IndexedChildNodePointerTest extends NodePointerTestCase2<Inde
             }
 
             @Override
-            protected void visit(final AppendNodePointer<TestNode, StringName> node) {
+            protected void visitAppend(final NodePointer<TestNode, StringName> node) {
                 b.append("3");
             }
 
             @Override
-            protected Visiting startVisit(final IndexedChildNodePointer<TestNode, StringName> node) {
+            protected Visiting startIndexedChildVisit(final NodePointer<TestNode, StringName> node,
+                                                      final int index) {
                 b.append("4");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final IndexedChildNodePointer<TestNode, StringName> node) {
+            protected void endIndexedChildVisit(final NodePointer<TestNode, StringName> node,
+                                                final int index) {
                 b.append("5");
             }
 
@@ -220,13 +224,15 @@ public final class IndexedChildNodePointerTest extends NodePointerTestCase2<Inde
             }
 
             @Override
-            protected Visiting startVisit(final IndexedChildNodePointer<TestNode, StringName> node) {
+            protected Visiting startIndexedChildVisit(final NodePointer<TestNode, StringName> node,
+                                                      final int index) {
                 b.append("4");
                 return Visiting.SKIP;
             }
 
             @Override
-            protected void endVisit(final IndexedChildNodePointer<TestNode, StringName> node) {
+            protected void endIndexedChildVisit(final NodePointer<TestNode, StringName> node,
+                                                final int index) {
                 b.append("5");
             }
 
@@ -236,12 +242,12 @@ public final class IndexedChildNodePointerTest extends NodePointerTestCase2<Inde
     }
 
     @Override
-    IndexedChildNodePointer<TestNode, StringName> createNodePointer() {
-        return IndexedChildNodePointer.with(1);
+    NodePointerIndexedChild<TestNode, StringName> createNodePointer() {
+        return NodePointerIndexedChild.with(1);
     }
 
     @Override
-    public Class<IndexedChildNodePointer<TestNode, StringName>> type() {
-        return Cast.to(IndexedChildNodePointer.class);
+    public Class<NodePointerIndexedChild<TestNode, StringName>> type() {
+        return Cast.to(NodePointerIndexedChild.class);
     }
 }
