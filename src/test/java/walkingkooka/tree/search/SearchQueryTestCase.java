@@ -280,11 +280,11 @@ public abstract class SearchQueryTestCase<Q extends SearchQuery> implements Clas
 
     @Override
     public final String typeNamePrefix() {
-        return "Search";
+        return SearchQuery.class.getSimpleName();
     }
 
     @Override
     public final String typeNameSuffix() {
-        return "Query";
+        return "";
     }
 }

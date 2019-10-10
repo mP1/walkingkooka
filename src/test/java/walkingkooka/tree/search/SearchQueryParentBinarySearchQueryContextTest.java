@@ -18,32 +18,17 @@
 package walkingkooka.tree.search;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.JavaVisibility;
 
-public abstract class SearchQueryContextTestCase<C extends SearchQueryContext> implements ClassTesting2<C>,
-        TypeNameTesting<C> {
+public final class SearchQueryParentBinarySearchQueryContextTest implements ClassTesting2<SearchQueryParentBinarySearchQueryContext> {
 
-    SearchQueryContextTestCase() {
-        super();
+    @Override
+    public Class<SearchQueryParentBinarySearchQueryContext> type() {
+        return SearchQueryParentBinarySearchQueryContext.class;
     }
-
-    // ClassTesting ....................................................................................................
 
     @Override
     public final JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
-    }
-
-    // TypeNameTesting .................................................................................................
-
-    @Override
-    public final String typeNamePrefix() {
-        return SearchQuery.class.getSimpleName();
-    }
-
-    @Override
-    public String typeNameSuffix() {
-        return SearchQueryContext.class.getSimpleName();
     }
 }

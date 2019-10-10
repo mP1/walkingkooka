@@ -21,10 +21,10 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.JavaVisibility;
 
-public abstract class SearchQueryContextTestCase<C extends SearchQueryContext> implements ClassTesting2<C>,
-        TypeNameTesting<C> {
+public abstract class SearchQueryTestCase2<Q extends SearchQuery> implements ClassTesting2<Q>,
+        TypeNameTesting<Q> {
 
-    SearchQueryContextTestCase() {
+    SearchQueryTestCase2() {
         super();
     }
 
@@ -43,7 +43,7 @@ public abstract class SearchQueryContextTestCase<C extends SearchQueryContext> i
     }
 
     @Override
-    public String typeNameSuffix() {
-        return SearchQueryContext.class.getSimpleName();
+    public final String typeNameSuffix() {
+        return "";
     }
 }
