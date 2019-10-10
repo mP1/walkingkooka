@@ -58,31 +58,31 @@ public abstract class NodePointerVisitor<N extends Node<N, NAME, ?, ?>, NAME ext
         // nop
     }
 
-    protected Visiting startIndexedChildVisit(final NodePointer<N, NAME> node,
+    protected Visiting startVisitIndexedChild(final NodePointer<N, NAME> node,
                                               final int index) {
         return Visiting.CONTINUE;
     }
 
-    protected void endIndexedChildVisit(final NodePointer<N, NAME> node,
+    protected void endVisitIndexedChild(final NodePointer<N, NAME> node,
                                         final int index) {
         // nop
     }
 
-    protected Visiting startNamedChildVisit(final NodePointer<N, NAME> node,
+    protected Visiting startVisitNamedChild(final NodePointer<N, NAME> node,
                                             final NAME name) {
         return Visiting.CONTINUE;
     }
 
-    protected void endNamedChildVisit(final NodePointer<N, NAME> node,
+    protected void endVisitNamedChild(final NodePointer<N, NAME> node,
                                       final NAME name) {
         // nop
     }
 
-    protected Visiting startRelativeVisit(final NodePointer<N, NAME> node) {
+    protected Visiting startVisitRelative(final NodePointer<N, NAME> node) {
         return Visiting.CONTINUE;
     }
 
-    protected void endRelativeVisit(final NodePointer<N, NAME> node) {
+    protected void endVisitRelative(final NodePointer<N, NAME> node) {
         // nop
     }
 }

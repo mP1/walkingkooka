@@ -86,10 +86,10 @@ final class NodePointerNamedChild<N extends Node<N, NAME, ?, ?>, NAME extends Na
     @Override
     void accept(final NodePointerVisitor<N, NAME> visitor) {
         final NAME name = this.name;
-        if (Visiting.CONTINUE == visitor.startNamedChildVisit(this, name)) {
+        if (Visiting.CONTINUE == visitor.startVisitNamedChild(this, name)) {
             this.acceptNext(visitor);
         }
-        visitor.endNamedChildVisit(this, name);
+        visitor.endVisitNamedChild(this, name);
     }
 
     // HashCodeEqualsDefined...........................................................................................

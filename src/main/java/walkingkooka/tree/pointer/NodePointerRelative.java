@@ -96,10 +96,10 @@ final class NodePointerRelative<N extends Node<N, NAME, ?, ?>, NAME extends Name
 
     @Override
     void accept(final NodePointerVisitor<N, NAME> visitor) {
-        if (Visiting.CONTINUE == visitor.startRelativeVisit(this)) {
+        if (Visiting.CONTINUE == visitor.startVisitRelative(this)) {
             this.acceptNext(visitor);
         }
-        visitor.endRelativeVisit(this);
+        visitor.endVisitRelative(this);
     }
 
     // HashCodeEqualsDefined...........................................................................................
