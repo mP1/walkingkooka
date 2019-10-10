@@ -101,12 +101,12 @@ public final class NodePointerVisitorTest implements NodePointerVisitorTesting<F
                 b.append("2");
             }
 
-            protected Visiting startRelativeVisit(final NodePointer<TestNode, StringName> node) {
+            protected Visiting startVisitRelative(final NodePointer<TestNode, StringName> node) {
                 b.append("3");
                 return Visiting.CONTINUE;
             }
 
-            protected void endRelativeVisit(final NodePointer<TestNode, StringName> node) {
+            protected void endVisitRelative(final NodePointer<TestNode, StringName> node) {
                 b.append("4");
                 // nop
             }
@@ -144,7 +144,7 @@ public final class NodePointerVisitorTest implements NodePointerVisitorTesting<F
             }
 
             @Override
-            protected Visiting startIndexedChildVisit(final NodePointer<TestNode, StringName> node,
+            protected Visiting startVisitIndexedChild(final NodePointer<TestNode, StringName> node,
                                                       final int index) {
                 assertEquals(1, index, "index");
                 b.append("4");
@@ -152,13 +152,13 @@ public final class NodePointerVisitorTest implements NodePointerVisitorTesting<F
             }
 
             @Override
-            protected void endIndexedChildVisit(final NodePointer<TestNode, StringName> node,
+            protected void endVisitIndexedChild(final NodePointer<TestNode, StringName> node,
                                                 final int index) {
                 b.append("5");
             }
 
             @Override
-            protected Visiting startNamedChildVisit(final NodePointer<TestNode, StringName> node,
+            protected Visiting startVisitNamedChild(final NodePointer<TestNode, StringName> node,
                                                     final StringName name) {
                 assertEquals(Names.string("abc"), name, "name");
                 b.append("6");
@@ -166,7 +166,7 @@ public final class NodePointerVisitorTest implements NodePointerVisitorTesting<F
             }
 
             @Override
-            protected void endNamedChildVisit(final NodePointer<TestNode, StringName> node,
+            protected void endVisitNamedChild(final NodePointer<TestNode, StringName> node,
                                               final StringName name) {
                 b.append("7");
             }
@@ -207,26 +207,26 @@ public final class NodePointerVisitorTest implements NodePointerVisitorTesting<F
             }
 
             @Override
-            protected Visiting startIndexedChildVisit(final NodePointer<TestNode, StringName> p,
+            protected Visiting startVisitIndexedChild(final NodePointer<TestNode, StringName> p,
                                                       final int index) {
                 b.append(index);
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endIndexedChildVisit(final NodePointer<TestNode, StringName> p,
+            protected void endVisitIndexedChild(final NodePointer<TestNode, StringName> p,
                                                 final int index) {
             }
 
             @Override
-            protected Visiting startNamedChildVisit(final NodePointer<TestNode, StringName> p,
+            protected Visiting startVisitNamedChild(final NodePointer<TestNode, StringName> p,
                                                     final StringName name) {
                 b.append(name);
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endNamedChildVisit(final NodePointer<TestNode, StringName> p,
+            protected void endVisitNamedChild(final NodePointer<TestNode, StringName> p,
                                               final StringName name) {
             }
         }.accept(pointer);

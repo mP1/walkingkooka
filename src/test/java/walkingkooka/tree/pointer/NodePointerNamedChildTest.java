@@ -167,14 +167,14 @@ public final class NodePointerNamedChildTest extends NodePointerTestCase2<NodePo
             }
 
             @Override
-            protected Visiting startNamedChildVisit(final NodePointer<TestNode, StringName> node,
+            protected Visiting startVisitNamedChild(final NodePointer<TestNode, StringName> node,
                                                     final StringName name) {
                 b.append("3");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endNamedChildVisit(final NodePointer<TestNode, StringName> node,
+            protected void endVisitNamedChild(final NodePointer<TestNode, StringName> node,
                                               final StringName name) {
                 b.append("4");
             }
@@ -206,14 +206,14 @@ public final class NodePointerNamedChildTest extends NodePointerTestCase2<NodePo
             }
 
             @Override
-            protected Visiting startNamedChildVisit(final NodePointer<TestNode, StringName> node,
+            protected Visiting startVisitNamedChild(final NodePointer<TestNode, StringName> node,
                                                     final StringName name) {
                 b.append("5");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endNamedChildVisit(final NodePointer<TestNode, StringName> node,
+            protected void endVisitNamedChild(final NodePointer<TestNode, StringName> node,
                                               final StringName name) {
                 b.append("6");
             }
@@ -240,14 +240,14 @@ public final class NodePointerNamedChildTest extends NodePointerTestCase2<NodePo
             }
 
             @Override
-            protected Visiting startNamedChildVisit(final NodePointer<TestNode, StringName> node,
+            protected Visiting startVisitNamedChild(final NodePointer<TestNode, StringName> node,
                                                     final StringName name) {
                 b.append("4");
                 return Visiting.SKIP;
             }
 
             @Override
-            protected void endNamedChildVisit(final NodePointer<TestNode, StringName> node,
+            protected void endVisitNamedChild(final NodePointer<TestNode, StringName> node,
                                               final StringName name) {
                 b.append("5");
             }

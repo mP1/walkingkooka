@@ -84,10 +84,10 @@ final class NodePointerIndexedChild<N extends Node<N, NAME, ?, ?>, NAME extends 
     @Override
     void accept(final NodePointerVisitor<N, NAME> visitor) {
         final int index = this.index;
-        if (Visiting.CONTINUE == visitor.startIndexedChildVisit(this, index)) {
+        if (Visiting.CONTINUE == visitor.startVisitIndexedChild(this, index)) {
             this.acceptNext(visitor);
         }
-        visitor.endIndexedChildVisit(this, index);
+        visitor.endVisitIndexedChild(this, index);
     }
 
     // HashCodeEqualsDefined...........................................................................................

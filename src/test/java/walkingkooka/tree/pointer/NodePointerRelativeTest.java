@@ -139,13 +139,13 @@ public final class NodePointerRelativeTest extends NodePointerTestCase2<NodePoin
             }
 
             @Override
-            protected Visiting startRelativeVisit(final NodePointer<TestNode, StringName> node) {
+            protected Visiting startVisitRelative(final NodePointer<TestNode, StringName> node) {
                 b.append("3");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endRelativeVisit(final NodePointer<TestNode, StringName> node) {
+            protected void endVisitRelative(final NodePointer<TestNode, StringName> node) {
                 b.append("4");
             }
 
@@ -176,13 +176,13 @@ public final class NodePointerRelativeTest extends NodePointerTestCase2<NodePoin
             }
 
             @Override
-            protected Visiting startRelativeVisit(final NodePointer<TestNode, StringName> node) {
+            protected Visiting startVisitRelative(final NodePointer<TestNode, StringName> node) {
                 b.append("4");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endRelativeVisit(final NodePointer<TestNode, StringName> node) {
+            protected void endVisitRelative(final NodePointer<TestNode, StringName> node) {
                 b.append("6");
             }
 
@@ -208,13 +208,13 @@ public final class NodePointerRelativeTest extends NodePointerTestCase2<NodePoin
             }
 
             @Override
-            protected Visiting startRelativeVisit(final NodePointer<TestNode, StringName> node) {
+            protected Visiting startVisitRelative(final NodePointer<TestNode, StringName> node) {
                 b.append("4");
                 return Visiting.SKIP;
             }
 
             @Override
-            protected void endRelativeVisit(final NodePointer<TestNode, StringName> node) {
+            protected void endVisitRelative(final NodePointer<TestNode, StringName> node) {
                 b.append("5");
             }
 

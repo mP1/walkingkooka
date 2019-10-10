@@ -151,14 +151,14 @@ public final class NodePointerIndexedChildTest extends NodePointerTestCase2<Node
             }
 
             @Override
-            protected Visiting startIndexedChildVisit(final NodePointer<TestNode, StringName> node,
+            protected Visiting startVisitIndexedChild(final NodePointer<TestNode, StringName> node,
                                                       final int index) {
                 b.append("3");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endIndexedChildVisit(final NodePointer<TestNode, StringName> node,
+            protected void endVisitIndexedChild(final NodePointer<TestNode, StringName> node,
                                                 final int index) {
                 b.append("4");
             }
@@ -190,14 +190,14 @@ public final class NodePointerIndexedChildTest extends NodePointerTestCase2<Node
             }
 
             @Override
-            protected Visiting startIndexedChildVisit(final NodePointer<TestNode, StringName> node,
+            protected Visiting startVisitIndexedChild(final NodePointer<TestNode, StringName> node,
                                                       final int index) {
                 b.append("4");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endIndexedChildVisit(final NodePointer<TestNode, StringName> node,
+            protected void endVisitIndexedChild(final NodePointer<TestNode, StringName> node,
                                                 final int index) {
                 b.append("5");
             }
@@ -224,14 +224,14 @@ public final class NodePointerIndexedChildTest extends NodePointerTestCase2<Node
             }
 
             @Override
-            protected Visiting startIndexedChildVisit(final NodePointer<TestNode, StringName> node,
+            protected Visiting startVisitIndexedChild(final NodePointer<TestNode, StringName> node,
                                                       final int index) {
                 b.append("4");
                 return Visiting.SKIP;
             }
 
             @Override
-            protected void endIndexedChildVisit(final NodePointer<TestNode, StringName> node,
+            protected void endVisitIndexedChild(final NodePointer<TestNode, StringName> node,
                                                 final int index) {
                 b.append("5");
             }

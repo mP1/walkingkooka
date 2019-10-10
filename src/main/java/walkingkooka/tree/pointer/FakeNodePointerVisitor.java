@@ -48,36 +48,36 @@ public class FakeNodePointerVisitor<N extends Node<N, NAME, ?, ?>, NAME extends 
     }
 
     @Override
-    protected Visiting startIndexedChildVisit(final NodePointer<N, NAME> node,
+    protected Visiting startVisitIndexedChild(final NodePointer<N, NAME> node,
                                               final int index) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endIndexedChildVisit(final NodePointer<N, NAME> node,
+    protected void endVisitIndexedChild(final NodePointer<N, NAME> node,
                                         final int index) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startNamedChildVisit(final NodePointer<N, NAME> node,
+    protected Visiting startVisitNamedChild(final NodePointer<N, NAME> node,
                                             final NAME name) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endNamedChildVisit(final NodePointer<N, NAME> node,
+    protected void endVisitNamedChild(final NodePointer<N, NAME> node,
                                       final NAME name) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startRelativeVisit(final NodePointer<N, NAME> node) {
+    protected Visiting startVisitRelative(final NodePointer<N, NAME> node) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endRelativeVisit(final NodePointer<N, NAME> node) {
+    protected void endVisitRelative(final NodePointer<N, NAME> node) {
         throw new UnsupportedOperationException();
     }
 }
