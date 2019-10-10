@@ -24,28 +24,28 @@ import java.time.LocalDateTime;
  */
 abstract class SearchLocalDateTimeQueryValueSearchQueryTester extends SearchQueryTester<LocalDateTime> {
 
-    static SearchLocalDateTimeQueryValueEqualsSearchQueryTester equalsTester(final LocalDateTime value) {
-        return SearchLocalDateTimeQueryValueEqualsSearchQueryTester.with(value);
+    static SearchLocalDateTimeQueryValueSearchQueryTesterEquals equalsTester(final LocalDateTime value) {
+        return SearchLocalDateTimeQueryValueSearchQueryTesterEquals.with(value);
     }
 
-    static SearchLocalDateTimeQueryValueGreaterThanSearchQueryTester greaterThan(final LocalDateTime value) {
-        return SearchLocalDateTimeQueryValueGreaterThanSearchQueryTester.with(value);
+    static SearchLocalDateTimeQueryValueSearchQueryTesterGreaterThan greaterThan(final LocalDateTime value) {
+        return SearchLocalDateTimeQueryValueSearchQueryTesterGreaterThan.with(value);
     }
 
-    static SearchLocalDateTimeQueryValueGreaterThanEqualsSearchQueryTester greaterThanEquals(final LocalDateTime value) {
-        return SearchLocalDateTimeQueryValueGreaterThanEqualsSearchQueryTester.with(value);
+    static SearchLocalDateTimeQueryValueSearchQueryTesterGreaterThanEquals greaterThanEquals(final LocalDateTime value) {
+        return SearchLocalDateTimeQueryValueSearchQueryTesterGreaterThanEquals.with(value);
     }
 
-    static SearchLocalDateTimeQueryValueLessThanSearchQueryTester lessThan(final LocalDateTime value) {
-        return SearchLocalDateTimeQueryValueLessThanSearchQueryTester.with(value);
+    static SearchLocalDateTimeQueryValueSearchQueryTesterLessThan lessThan(final LocalDateTime value) {
+        return SearchLocalDateTimeQueryValueSearchQueryTesterLessThan.with(value);
     }
 
-    static SearchLocalDateTimeQueryValueLessThanEqualsSearchQueryTester lessThanEquals(final LocalDateTime value) {
-        return SearchLocalDateTimeQueryValueLessThanEqualsSearchQueryTester.with(value);
+    static SearchLocalDateTimeQueryValueSearchQueryTesterLessThanEquals lessThanEquals(final LocalDateTime value) {
+        return SearchLocalDateTimeQueryValueSearchQueryTesterLessThanEquals.with(value);
     }
 
-    static SearchLocalDateTimeQueryValueNotEqualsSearchQueryTester notEquals(final LocalDateTime value) {
-        return SearchLocalDateTimeQueryValueNotEqualsSearchQueryTester.with(value);
+    static SearchLocalDateTimeQueryValueSearchQueryTesterNotEquals notEquals(final LocalDateTime value) {
+        return SearchLocalDateTimeQueryValueSearchQueryTesterNotEquals.with(value);
     }
 
     SearchLocalDateTimeQueryValueSearchQueryTester(final LocalDateTime value) {

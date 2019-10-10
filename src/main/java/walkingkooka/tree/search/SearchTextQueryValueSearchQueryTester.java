@@ -23,7 +23,7 @@ import walkingkooka.text.CaseSensitivity;
 /**
  * The {@link SearchQueryTester} used by {@link SearchTextQueryValue}
  */
-final class SearchTextQueryValueSearchQueryTester extends SearchComparableQueryValueSearchQueryTester<String> {
+final class SearchTextQueryValueSearchQueryTester extends SearchQueryValueSearchQueryTesterComparable<String> {
 
     static SearchTextQueryValueSearchQueryTester with(final String value, final CaseSensitivity caseSensitivity, final SearchQueryValueSearchQueryTesterComparisonPredicate predicate) {
         return new SearchTextQueryValueSearchQueryTester(value, caseSensitivity, predicate);
@@ -72,7 +72,7 @@ final class SearchTextQueryValueSearchQueryTester extends SearchComparableQueryV
     }
 
     @Override
-    boolean equals3(final SearchComparableQueryValueSearchQueryTester other) {
+    boolean equals3(final SearchQueryValueSearchQueryTesterComparable other) {
         return this.equals3(Cast.to(other));
     }
 
