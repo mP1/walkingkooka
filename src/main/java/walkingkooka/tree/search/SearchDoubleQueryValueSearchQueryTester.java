@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.search;
 
-final class SearchDoubleQueryValueSearchQueryTester extends SearchComparableQueryValueSearchQueryTester<Double> {
+final class SearchDoubleQueryValueSearchQueryTester extends SearchQueryValueSearchQueryTesterComparable<Double> {
 
     static SearchDoubleQueryValueSearchQueryTester with(final Double value, final SearchQueryValueSearchQueryTesterComparisonPredicate predicate) {
         return new SearchDoubleQueryValueSearchQueryTester(value, predicate);
@@ -63,7 +63,7 @@ final class SearchDoubleQueryValueSearchQueryTester extends SearchComparableQuer
     }
 
     @Override
-    boolean equals3(final SearchComparableQueryValueSearchQueryTester other) {
+    boolean equals3(final SearchQueryValueSearchQueryTesterComparable other) {
         return true; // no extra properties
     }
 }

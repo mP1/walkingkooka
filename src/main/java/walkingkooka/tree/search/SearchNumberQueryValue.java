@@ -52,9 +52,9 @@ abstract class SearchNumberQueryValue<N extends Number & Comparable<N>> extends 
     }
 
     /**
-     * Factory that creates a sub class of {@link SearchComparableQueryValueSearchQueryTester}
+     * Factory that creates a sub class of {@link SearchQueryValueSearchQueryTesterComparable}
      */
-    abstract SearchComparableQueryValueSearchQueryTester<N> tester(final SearchQueryValueSearchQueryTesterComparisonPredicate resultPredicate);
+    abstract SearchQueryValueSearchQueryTesterComparable<N> tester(final SearchQueryValueSearchQueryTesterComparisonPredicate resultPredicate);
 
     @Override
     final String text() {

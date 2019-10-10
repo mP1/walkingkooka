@@ -66,6 +66,6 @@ public abstract class SearchQueryTesterTestCase<T extends SearchQueryTester<V>, 
 
     @Override
     public final String typeNameSuffix() {
-        return SearchQueryTester.class.getSimpleName();
+        return "";
     }
 }

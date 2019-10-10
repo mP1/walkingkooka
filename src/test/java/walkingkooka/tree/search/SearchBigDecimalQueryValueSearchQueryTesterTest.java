@@ -19,7 +19,7 @@ package walkingkooka.tree.search;
 
 import java.math.BigDecimal;
 
-public final class SearchBigDecimalQueryValueSearchQueryTesterTest extends SearchComparableQueryValueSearchQueryTesterTestCase<SearchBigDecimalQueryValueSearchQueryTester, BigDecimal> {
+public final class SearchBigDecimalQueryValueSearchQueryTesterTest extends SearchQueryValueSearchQueryTesterComparableTestCase<SearchBigDecimalQueryValueSearchQueryTester, BigDecimal> {
 
     @Override
     SearchBigDecimalQueryValueSearchQueryTester createSearchQueryTester(final BigDecimal value,

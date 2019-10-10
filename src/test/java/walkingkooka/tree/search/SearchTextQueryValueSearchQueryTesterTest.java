@@ -20,7 +20,7 @@ package walkingkooka.tree.search;
 import org.junit.jupiter.api.Test;
 import walkingkooka.text.CaseSensitivity;
 
-public final class SearchTextQueryValueSearchQueryTesterTest extends SearchComparableQueryValueSearchQueryTesterTestCase<SearchTextQueryValueSearchQueryTester, String> {
+public final class SearchTextQueryValueSearchQueryTesterTest extends SearchQueryValueSearchQueryTesterComparableTestCase<SearchTextQueryValueSearchQueryTester, String> {
 
     private final static CaseSensitivity SENSITIVITY = CaseSensitivity.SENSITIVE;
 

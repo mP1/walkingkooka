@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.search;
 
-public final class SearchLongQueryValueSearchQueryTesterTest extends SearchComparableQueryValueSearchQueryTesterTestCase<SearchLongQueryValueSearchQueryTester, Long> {
+public final class SearchLongQueryValueSearchQueryTesterTest extends SearchQueryValueSearchQueryTesterComparableTestCase<SearchLongQueryValueSearchQueryTester, Long> {
 
     @Override
     SearchLongQueryValueSearchQueryTester createSearchQueryTester(final Long value,

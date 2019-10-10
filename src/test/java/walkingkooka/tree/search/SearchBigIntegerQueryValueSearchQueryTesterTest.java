@@ -19,7 +19,7 @@ package walkingkooka.tree.search;
 
 import java.math.BigInteger;
 
-public final class SearchBigIntegerQueryValueSearchQueryTesterTest extends SearchComparableQueryValueSearchQueryTesterTestCase<SearchBigIntegerQueryValueSearchQueryTester, BigInteger> {
+public final class SearchBigIntegerQueryValueSearchQueryTesterTest extends SearchQueryValueSearchQueryTesterComparableTestCase<SearchBigIntegerQueryValueSearchQueryTester, BigInteger> {
 
     @Override
     SearchBigIntegerQueryValueSearchQueryTester createSearchQueryTester(final BigInteger value,

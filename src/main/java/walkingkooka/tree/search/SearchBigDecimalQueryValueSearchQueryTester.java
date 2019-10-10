@@ -19,7 +19,7 @@ package walkingkooka.tree.search;
 
 import java.math.BigDecimal;
 
-final class SearchBigDecimalQueryValueSearchQueryTester extends SearchComparableQueryValueSearchQueryTester<BigDecimal> {
+final class SearchBigDecimalQueryValueSearchQueryTester extends SearchQueryValueSearchQueryTesterComparable<BigDecimal> {
 
     static SearchBigDecimalQueryValueSearchQueryTester with(final BigDecimal value, final SearchQueryValueSearchQueryTesterComparisonPredicate predicate) {
         return new SearchBigDecimalQueryValueSearchQueryTester(value, predicate);
@@ -65,7 +65,7 @@ final class SearchBigDecimalQueryValueSearchQueryTester extends SearchComparable
     }
 
     @Override
-    boolean equals3(final SearchComparableQueryValueSearchQueryTester other) {
+    boolean equals3(final SearchQueryValueSearchQueryTesterComparable other) {
         return true; // no extra properties
     }
 }
