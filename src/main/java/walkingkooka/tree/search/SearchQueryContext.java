@@ -37,7 +37,7 @@ abstract class SearchQueryContext implements Context {
     abstract void failure(final SearchNode node);
 
     /**
-     * This method is called for each matched node. Currently only called by {@link SearchContainsQuery}.
+     * This method is called for each matched node. Currently only called by {@link SearchQueryLeafValueContains}.
      */
     final void success(final SearchNode match) {
         this.success(match, match);

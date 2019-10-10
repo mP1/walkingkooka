@@ -28,72 +28,72 @@ import java.util.Objects;
  */
 public abstract class SearchQuery implements HashCodeEqualsDefined {
 
-    static SearchAndQuery and(final SearchQuery left, final SearchQuery right) {
-        return SearchAndQuery.with(left, right);
+    static SearchQueryParentBinaryAnd and(final SearchQuery left, final SearchQuery right) {
+        return SearchQueryParentBinaryAnd.with(left, right);
     }
 
     /**
-     * {@see SearchAttributeValueContainsQuery}
+     * {@see SearchQueryLeafAttributeValueContains}
      */
-    static SearchAttributeValueContainsQuery attributeValueContains(final SearchTextQueryValue value, final SearchNodeAttributeName attributeName, final CaseSensitivity caseSensitivity) {
-        return SearchAttributeValueContainsQuery.with(value, attributeName, caseSensitivity);
+    static SearchQueryLeafAttributeValueContains attributeValueContains(final SearchTextQueryValue value, final SearchNodeAttributeName attributeName, final CaseSensitivity caseSensitivity) {
+        return SearchQueryLeafAttributeValueContains.with(value, attributeName, caseSensitivity);
     }
 
     /**
-     * {@see SearchAttributeValueDoesntContainsQuery}
+     * {@see SearchQueryLeafAttributeValueDoesntContains}
      */
-    static SearchAttributeValueDoesntContainsQuery attributeValueDoesntContains(final SearchTextQueryValue value, final SearchNodeAttributeName attributeName, final CaseSensitivity caseSensitivity) {
-        return SearchAttributeValueDoesntContainsQuery.with(value, attributeName, caseSensitivity);
+    static SearchQueryLeafAttributeValueDoesntContains attributeValueDoesntContains(final SearchTextQueryValue value, final SearchNodeAttributeName attributeName, final CaseSensitivity caseSensitivity) {
+        return SearchQueryLeafAttributeValueDoesntContains.with(value, attributeName, caseSensitivity);
     }
 
     /**
-     * {@see SearchAttributeValueEqualsQuery}
+     * {@see SearchQueryLeafAttributeValueEquals}
      */
-    static SearchAttributeValueEqualsQuery attributeValueEquals(final SearchTextQueryValue value, final SearchNodeAttributeName attributeName, final CaseSensitivity caseSensitivity) {
-        return SearchAttributeValueEqualsQuery.with(value, attributeName, caseSensitivity);
+    static SearchQueryLeafAttributeValueEquals attributeValueEquals(final SearchTextQueryValue value, final SearchNodeAttributeName attributeName, final CaseSensitivity caseSensitivity) {
+        return SearchQueryLeafAttributeValueEquals.with(value, attributeName, caseSensitivity);
     }
 
     /**
-     * {@see SearchAttributeValueNotEqualsQuery}
+     * {@see SearchQueryLeafAttributeValueNotEquals}
      */
-    static SearchAttributeValueNotEqualsQuery attributeValueNotEquals(final SearchTextQueryValue value, final SearchNodeAttributeName attributeName, final CaseSensitivity caseSensitivity) {
-        return SearchAttributeValueNotEqualsQuery.with(value, attributeName, caseSensitivity);
+    static SearchQueryLeafAttributeValueNotEquals attributeValueNotEquals(final SearchTextQueryValue value, final SearchNodeAttributeName attributeName, final CaseSensitivity caseSensitivity) {
+        return SearchQueryLeafAttributeValueNotEquals.with(value, attributeName, caseSensitivity);
     }
 
-    static SearchContainsQuery contains(final SearchTextQueryValue value, final CaseSensitivity caseSensitivity) {
-        return SearchContainsQuery.with(value, caseSensitivity);
+    static SearchQueryLeafValueContains contains(final SearchTextQueryValue value, final CaseSensitivity caseSensitivity) {
+        return SearchQueryLeafValueContains.with(value, caseSensitivity);
     }
 
-    static SearchEqualsQuery equalsQuery(final SearchQueryValue value, final SearchQueryTester tester) {
-        return SearchEqualsQuery.with(value, tester);
+    static SearchQueryLeafValueEquals equalsQuery(final SearchQueryValue value, final SearchQueryTester tester) {
+        return SearchQueryLeafValueEquals.with(value, tester);
     }
 
-    static SearchGreaterThanEqualsQuery greaterThanEquals(final SearchQueryValue value, final SearchQueryTester tester) {
-        return SearchGreaterThanEqualsQuery.with(value, tester);
+    static SearchQueryLeafValueGreaterThanEquals greaterThanEquals(final SearchQueryValue value, final SearchQueryTester tester) {
+        return SearchQueryLeafValueGreaterThanEquals.with(value, tester);
     }
 
-    static SearchGreaterThanQuery greaterThan(final SearchQueryValue value, final SearchQueryTester tester) {
-        return SearchGreaterThanQuery.with(value, tester);
+    static SearchQueryLeafValueGreaterThan greaterThan(final SearchQueryValue value, final SearchQueryTester tester) {
+        return SearchQueryLeafValueGreaterThan.with(value, tester);
     }
 
-    static SearchLessThanEqualsQuery lessThanEquals(final SearchQueryValue value, final SearchQueryTester tester) {
-        return SearchLessThanEqualsQuery.with(value, tester);
+    static SearchQueryLeafValueLessThanEquals lessThanEquals(final SearchQueryValue value, final SearchQueryTester tester) {
+        return SearchQueryLeafValueLessThanEquals.with(value, tester);
     }
 
-    static SearchLessThanQuery lessThan(final SearchQueryValue value, final SearchQueryTester tester) {
-        return SearchLessThanQuery.with(value, tester);
+    static SearchQueryLeafValueLessThan lessThan(final SearchQueryValue value, final SearchQueryTester tester) {
+        return SearchQueryLeafValueLessThan.with(value, tester);
     }
 
-    static SearchNotQuery not(final SearchQuery query) {
-        return SearchNotQuery.with(query);
+    static SearchQueryParentUnaryNot not(final SearchQuery query) {
+        return SearchQueryParentUnaryNot.with(query);
     }
 
-    static SearchNotEqualsQuery notEquals(final SearchQueryValue value, final SearchQueryTester tester) {
-        return SearchNotEqualsQuery.with(value, tester);
+    static SearchQueryLeafValueNotEquals notEquals(final SearchQueryValue value, final SearchQueryTester tester) {
+        return SearchQueryLeafValueNotEquals.with(value, tester);
     }
 
-    static SearchOrQuery or(final SearchQuery left, final SearchQuery right) {
-        return SearchOrQuery.with(left, right);
+    static SearchQueryParentBinaryOr or(final SearchQuery left, final SearchQuery right) {
+        return SearchQueryParentBinaryOr.with(left, right);
     }
 
     /**
