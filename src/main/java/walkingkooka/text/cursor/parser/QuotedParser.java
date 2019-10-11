@@ -43,7 +43,7 @@ abstract class QuotedParser<C extends ParserContext> extends Parser2<C> {
 
         cursor.next();
 
-        Optional<ParserToken> result = null;
+        ParserToken result = null;
         boolean backslashed = false;
         int unicodeDigitCounter = -1;
         char unicodeCharValue = 0;
@@ -100,7 +100,7 @@ abstract class QuotedParser<C extends ParserContext> extends Parser2<C> {
             // closing quote found...
             if (quote == c) {
                 cursor.next();
-                result = Optional.of(this.token(raw.toString(), start.textBetween().toString()));
+                result = this.token(raw.toString(), start.textBetween().toString());
                 break;
             }
 
@@ -114,7 +114,7 @@ abstract class QuotedParser<C extends ParserContext> extends Parser2<C> {
             throw new ParserException(missingTerminatingQuote(quote));
         }
 
-        return result;
+        return Optional.of(result);
     }
 
     /**
