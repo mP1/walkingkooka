@@ -130,7 +130,7 @@ public final class TestNode implements Node<TestNode, StringName, StringName, Ob
         return this.parent;
     }
 
-    final Optional<TestNode> parent;
+    Optional<TestNode> parent;
 
     @Override
     public TestNode removeParent() {
