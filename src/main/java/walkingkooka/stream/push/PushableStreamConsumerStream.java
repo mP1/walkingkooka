@@ -295,7 +295,7 @@ final class PushableStreamConsumerStream<T> implements Stream<T>,
 
     @Override
     public Stream<T> sorted() {
-        return this.collect(Collectors.toCollection(Sets::<T>ordered)).stream();
+        return this.collect(Collectors.toCollection(Sets::ordered)).stream();
     }
 
     @Override
