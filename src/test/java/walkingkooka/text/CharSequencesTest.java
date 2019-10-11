@@ -65,8 +65,7 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     @Test
     public void testBigEndianHexDigitsEmpty() {
-        this.bigEndianHexDigitsAndCheck("",
-                new byte[0]);
+        this.bigEndianHexDigitsAndCheck("");
     }
 
     @Test

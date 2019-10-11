@@ -97,7 +97,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
     }
 
     final void applyAndCheck(final TestNode start) {
-        this.applyAndCheck0(this.createSelector(), start, new String[0]);
+        this.applyAndCheck0(this.createSelector(), start);
     }
 
     final void applyAndCheck(final TestNode start, final String... nodes) {
