@@ -21,12 +21,12 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -64,8 +64,7 @@ public interface NodeSelectorTesting<N extends Node<N, NAME, ANAME, AVALUE>,
                         }, // ignore potentials
                         (n) -> selected.add(n))); // capture selecteds
 
-        return selected.stream()
-                .collect(Collectors.toList());
+        return new ArrayList<>(selected);
     }
 
     default NodeSelectorContext<N, NAME, ANAME, AVALUE> nodeSelectorContext(final Consumer<N> potential,

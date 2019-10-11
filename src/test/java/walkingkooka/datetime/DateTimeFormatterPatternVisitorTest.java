@@ -26,7 +26,6 @@ import walkingkooka.visit.Visiting;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -1078,8 +1077,7 @@ public final class DateTimeFormatterPatternVisitorTest extends DateTimeFormatter
         final void checkVisited(final String pattern,
                                 final String expected) {
             assertEquals(expected,
-                    this.visited.stream()
-                            .collect(Collectors.joining(",")),
+                    String.join(",", this.visited),
                     () -> "Pattern " + CharSequences.quoteAndEscape(pattern));
         }
     }

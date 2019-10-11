@@ -64,9 +64,7 @@ final class ClassMethodTesting {
                     continue;
                 }
                 if (prefixes.stream()
-                        .filter(methodName::startsWith)
-                        .findFirst()
-                        .isPresent()) {
+                        .anyMatch(methodName::startsWith)) {
                     continue;
                 }
 
