@@ -987,7 +987,7 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         return PushableStreamConsumerStream.with(this.starter(values));
     }
 
-    private Consumer<PushableStreamConsumer<String>> starter = this.starter(this.values());
+    private final Consumer<PushableStreamConsumer<String>> starter = this.starter(this.values());
 
     private Consumer<PushableStreamConsumer<String>> starter(final String... values) {
         return this.starter(Lists.of(values));

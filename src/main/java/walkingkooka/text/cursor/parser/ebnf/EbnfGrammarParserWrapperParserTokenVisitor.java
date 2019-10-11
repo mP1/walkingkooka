@@ -43,7 +43,7 @@ final class EbnfGrammarParserWrapperParserTokenVisitor extends EbnfParserTokenVi
         return Visiting.SKIP;
     }
 
-    private List<ParserToken> tokens = Lists.array();
+    private final List<ParserToken> tokens = Lists.array();
 
     @Override
     public String toString() {

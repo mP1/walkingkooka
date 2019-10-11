@@ -120,7 +120,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
                 selector.toString());
     }
 
-    private TestNode node = TestNode.with("node");
+    private final TestNode node = TestNode.with("node");
 
     private NodeSelector<TestNode, StringName, StringName, Object> selector() {
         return TestNode.relativeNodeSelector().named(Names.string("abc123"));

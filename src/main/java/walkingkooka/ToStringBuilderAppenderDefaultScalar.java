@@ -40,5 +40,5 @@ final class ToStringBuilderAppenderDefaultScalar extends ToStringBuilderAppender
         builder.valueFinished();
     }
 
-    private String string;
+    private final String string;
 }

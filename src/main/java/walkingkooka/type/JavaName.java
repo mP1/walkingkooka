@@ -56,7 +56,7 @@ abstract class JavaName<N extends JavaName> implements Name, Comparable<N> {
     /**
      * The package separator character<code>.</code>
      */
-    static CharacterConstant PACKAGE_SEPARATOR = CharacterConstant.with('.');
+    static final CharacterConstant PACKAGE_SEPARATOR = CharacterConstant.with('.');
 
     /**
      * Checks that the package name between the given bounds of the name string is a valid package.
@@ -92,8 +92,8 @@ abstract class JavaName<N extends JavaName> implements Name, Comparable<N> {
         }
     }
 
-    private static CharPredicate INITIAL = Character::isJavaIdentifierStart;
-    private static CharPredicate PART = Character::isJavaIdentifierPart;
+    private static final CharPredicate INITIAL = Character::isJavaIdentifierStart;
+    private static final CharPredicate PART = Character::isJavaIdentifierPart;
 
     JavaName(final String name) {
         super();
@@ -145,5 +145,5 @@ abstract class JavaName<N extends JavaName> implements Name, Comparable<N> {
         return CASE_SENSITIVITY;
     }
 
-    private static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
+    private static final CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 }

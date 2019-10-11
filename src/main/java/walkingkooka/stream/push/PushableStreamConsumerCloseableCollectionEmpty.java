@@ -25,7 +25,7 @@ import walkingkooka.collect.list.Lists;
  */
 final class PushableStreamConsumerCloseableCollectionEmpty extends PushableStreamConsumerCloseableCollection {
 
-    static PushableStreamConsumerCloseableCollectionEmpty INSTANCE = new PushableStreamConsumerCloseableCollectionEmpty();
+    static final PushableStreamConsumerCloseableCollectionEmpty INSTANCE = new PushableStreamConsumerCloseableCollectionEmpty();
 
     private PushableStreamConsumerCloseableCollectionEmpty() {
         super();
