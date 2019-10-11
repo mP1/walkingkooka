@@ -180,77 +180,77 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
     }
 
     @Test
-    public void testIsOrLessPublicProtected() throws Exception {
+    public void testIsOrLessPublicProtected() {
         this.isOrLessCheck(JavaVisibility.PUBLIC, JavaVisibility.PROTECTED, false);
     }
 
     @Test
-    public void testIsOrLessPublicPackagePrivate() throws Exception {
+    public void testIsOrLessPublicPackagePrivate() {
         this.isOrLessCheck(JavaVisibility.PUBLIC, JavaVisibility.PACKAGE_PRIVATE, false);
     }
 
     @Test
-    public void testIsOrLessPublicPrivate() throws Exception {
+    public void testIsOrLessPublicPrivate() {
         this.isOrLessCheck(JavaVisibility.PUBLIC, JavaVisibility.PRIVATE, false);
     }
 
     @Test
-    public void testIsOrLessProtectedPublic() throws Exception {
+    public void testIsOrLessProtectedPublic() {
         this.isOrLessCheck(JavaVisibility.PROTECTED, JavaVisibility.PUBLIC, true);
     }
 
     @Test
-    public void testIsOrLessProtectedProtected() throws Exception {
+    public void testIsOrLessProtectedProtected() {
         this.isOrLessCheck(JavaVisibility.PROTECTED, JavaVisibility.PROTECTED, true);
     }
 
     @Test
-    public void testIsOrLessProtectedPackagePrivate() throws Exception {
+    public void testIsOrLessProtectedPackagePrivate() {
         this.isOrLessCheck(JavaVisibility.PROTECTED, JavaVisibility.PACKAGE_PRIVATE, false);
     }
 
     @Test
-    public void testIsOrLessProtectedPrivate() throws Exception {
+    public void testIsOrLessProtectedPrivate() {
         this.isOrLessCheck(JavaVisibility.PROTECTED, JavaVisibility.PRIVATE, false);
     }
 
     @Test
-    public void testIsOrLessPackagePrivatePublic() throws Exception {
+    public void testIsOrLessPackagePrivatePublic() {
         this.isOrLessCheck(JavaVisibility.PACKAGE_PRIVATE, JavaVisibility.PUBLIC, true);
     }
 
     @Test
-    public void testIsOrLessPackagePrivateProtected() throws Exception {
+    public void testIsOrLessPackagePrivateProtected() {
         this.isOrLessCheck(JavaVisibility.PACKAGE_PRIVATE, JavaVisibility.PROTECTED, true);
     }
 
     @Test
-    public void testIsOrLessPackagePrivatePackagePrivate() throws Exception {
+    public void testIsOrLessPackagePrivatePackagePrivate() {
         this.isOrLessCheck(JavaVisibility.PACKAGE_PRIVATE, JavaVisibility.PACKAGE_PRIVATE, true);
     }
 
     @Test
-    public void testIsOrLessPackagePrivatePrivate() throws Exception {
+    public void testIsOrLessPackagePrivatePrivate() {
         this.isOrLessCheck(JavaVisibility.PACKAGE_PRIVATE, JavaVisibility.PRIVATE, false);
     }
 
     @Test
-    public void testIsOrLessPrivatePublic() throws Exception {
+    public void testIsOrLessPrivatePublic() {
         this.isOrLessCheck(JavaVisibility.PRIVATE, JavaVisibility.PUBLIC, true);
     }
 
     @Test
-    public void testIsOrLessPrivateProtected() throws Exception {
+    public void testIsOrLessPrivateProtected() {
         this.isOrLessCheck(JavaVisibility.PRIVATE, JavaVisibility.PROTECTED, true);
     }
 
     @Test
-    public void testIsOrLessPrivatePackagePrivate() throws Exception {
+    public void testIsOrLessPrivatePackagePrivate() {
         this.isOrLessCheck(JavaVisibility.PRIVATE, JavaVisibility.PACKAGE_PRIVATE, true);
     }
 
     @Test
-    public void testIsOrLessPrivatePrivate() throws Exception {
+    public void testIsOrLessPrivatePrivate() {
         this.isOrLessCheck(JavaVisibility.PRIVATE, JavaVisibility.PRIVATE, true);
     }
 
