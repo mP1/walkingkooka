@@ -130,6 +130,7 @@ public final class TestNode implements Node<TestNode, StringName, StringName, Ob
         return this.parent;
     }
 
+    @SuppressWarnings("CanBeFinal")
     Optional<TestNode> parent;
 
     @Override
