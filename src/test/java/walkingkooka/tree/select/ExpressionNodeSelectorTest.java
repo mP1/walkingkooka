@@ -90,6 +90,7 @@ final public class ExpressionNodeSelectorTest extends
                 child1, child2);
     }
 
+    @SuppressWarnings("PointlessArithmeticExpression")
     @Test
     public void testChildrenExpressionNumberPosition1() {
         this.childrenExpressionNumberPositionAndCheck(ExpressionNode.longNode(NodeSelector.INDEX_BIAS + 0), 0);
@@ -256,6 +257,7 @@ final public class ExpressionNodeSelectorTest extends
 
         TestNode.clear();
 
+        //noinspection PointlessArithmeticExpression
         this.acceptMapAndCheck(TestNode.relativeNodeSelector()
                 .children()
                 .expression(ExpressionNode.longNode(NodeSelector.INDEX_BIAS + 0)),

@@ -104,7 +104,7 @@ public final class ExpressionDivisionNodeTest extends ExpressionArithmeticBinary
 
     @Test
     public void testEvaluateToBigDecimalBigInteger() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(50), bigInteger(10)), 50 / 10);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(50), bigInteger(10)), 50.0 / 10);
     }
 
     @Test
@@ -114,13 +114,13 @@ public final class ExpressionDivisionNodeTest extends ExpressionArithmeticBinary
 
     @Test
     public void testEvaluateToBigDecimalLong() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(50), longValue(5)), 50 / 5);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(50), longValue(5)), 50.0 / 5);
     }
 
 
     @Test
     public void testEvaluateToBigDecimalText() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(50), text(5)), 50 / 5);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(50), text(5)), 50.0 / 5);
     }
 
     // toBigInteger...............................................................................................
@@ -181,12 +181,12 @@ public final class ExpressionDivisionNodeTest extends ExpressionArithmeticBinary
 
     @Test
     public void testEvaluateToLongBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(longValue(60), bigDecimal(12)), 60L / 12L);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(longValue(60), bigDecimal(12)), 60.0 / 12);
     }
 
     @Test
     public void testEvaluateToLongBigInteger() {
-        this.evaluateAndCheckBigInteger(this.createExpressionNode(longValue(60), bigInteger(12)), 60L / 12L);
+        this.evaluateAndCheckBigInteger(this.createExpressionNode(longValue(60), bigInteger(12)), 60 / 12L);
     }
 
     @Test
@@ -208,7 +208,7 @@ public final class ExpressionDivisionNodeTest extends ExpressionArithmeticBinary
 
     @Test
     public void testEvaluateToNumberBigDecimal() {
-        this.evaluateAndCheckNumberBigDecimal(this.createExpressionNode(bigDecimal(60), bigDecimal(5)), 60 / 5);
+        this.evaluateAndCheckNumberBigDecimal(this.createExpressionNode(bigDecimal(60), bigDecimal(5)), 60.0 / 5);
     }
 
     @Test
@@ -218,7 +218,7 @@ public final class ExpressionDivisionNodeTest extends ExpressionArithmeticBinary
 
     @Test
     public void testEvaluateToNumberDouble() {
-        this.evaluateAndCheckNumberDouble(this.createExpressionNode(doubleValue(60), doubleValue(5)), 60 / 5);
+        this.evaluateAndCheckNumberDouble(this.createExpressionNode(doubleValue(60), doubleValue(5)), 60.0 / 5);
     }
 
     @Test
