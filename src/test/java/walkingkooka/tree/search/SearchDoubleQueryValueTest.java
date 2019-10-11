@@ -26,12 +26,12 @@ public final class SearchDoubleQueryValueTest extends SearchQueryValueTestCase<S
 
     @Override
     Double value() {
-        return Double.valueOf(123.5);
+        return 123.5;
     }
 
     @Override
     Double differentValue() {
-        return Double.valueOf(999);
+        return 999.0;
     }
 
     @Override

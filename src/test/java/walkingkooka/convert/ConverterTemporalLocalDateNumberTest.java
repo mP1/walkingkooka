@@ -62,27 +62,27 @@ public final class ConverterTemporalLocalDateNumberTest extends ConverterTempora
 
     @Test
     public void testToShort() {
-        this.convertAndCheck3(Short.valueOf(BYTE_VALUE));
+        this.convertAndCheck3((short)BYTE_VALUE);
     }
 
     @Test
     public void testToInteger() {
-        this.convertAndCheck3(Integer.valueOf(BYTE_VALUE));
+        this.convertAndCheck3((int)BYTE_VALUE);
     }
 
     @Test
     public void testToLong() {
-        this.convertAndCheck3(Long.valueOf(BYTE_VALUE));
+        this.convertAndCheck3((long)BYTE_VALUE);
     }
 
     @Test
     public void testToFloat() {
-        this.convertAndCheck3(Float.valueOf(BYTE_VALUE));
+        this.convertAndCheck3((float)BYTE_VALUE);
     }
 
     @Test
     public void testToDouble() {
-        this.convertAndCheck3(Double.valueOf(BYTE_VALUE));
+        this.convertAndCheck3((double)BYTE_VALUE);
     }
 
     private void convertAndCheck3(final Number expected) {
@@ -91,7 +91,7 @@ public final class ConverterTemporalLocalDateNumberTest extends ConverterTempora
 
     @Test
     public void testToNumber() {
-        this.convertAndCheck(LocalDate.ofEpochDay(BYTE_VALUE), Number.class, Long.valueOf(BYTE_VALUE));
+        this.convertAndCheck(LocalDate.ofEpochDay(BYTE_VALUE), Number.class, (long)BYTE_VALUE);
     }
 
     // toString.........................................................................................................

@@ -44,7 +44,7 @@ final class ExpressionStringLengthFunction extends ExpressionFunction2<Number> {
                         final ExpressionFunctionContext context) {
         this.checkParameterCount(parameters, 1);
 
-        return Long.valueOf(this.string(parameters, 0, context).length());
+        return (long)this.string(parameters, 0, context).length();
     }
 
 

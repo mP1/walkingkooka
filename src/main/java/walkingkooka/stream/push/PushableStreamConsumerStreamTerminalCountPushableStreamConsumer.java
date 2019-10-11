@@ -54,7 +54,7 @@ final class PushableStreamConsumerStreamTerminalCountPushableStreamConsumer<T> e
      */
     @Override
     Long result() {
-        return Long.valueOf(this.counter);
+        return this.counter;
     }
 
     private long counter;

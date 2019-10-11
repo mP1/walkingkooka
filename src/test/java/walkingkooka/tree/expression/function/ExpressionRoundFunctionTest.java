@@ -47,19 +47,19 @@ public final class ExpressionRoundFunctionTest extends ExpressionNumberFunction2
 
     @Test
     public void testDoubleDown() {
-        this.applyAndCheck3(Double.valueOf(1.25), Long.valueOf(1));
+        this.applyAndCheck3(1.25, 1L);
     }
 
     @Test
     public void testDoubleUp() {
-        this.applyAndCheck3(Double.valueOf(1.5), Long.valueOf(2));
+        this.applyAndCheck3(1.5, 2L);
     }
 
     // Long.............................................................................................................
 
     @Test
     public void testLong() {
-        this.applyAndCheck3(Long.valueOf(-2));
+        this.applyAndCheck3(-2L);
     }
 
     // Integer.............................................................................................................

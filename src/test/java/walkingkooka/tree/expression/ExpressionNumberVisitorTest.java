@@ -65,7 +65,7 @@ public final class ExpressionNumberVisitorTest implements ExpressionNumberVisito
     @Test
     public void testAcceptDouble() {
         new ExpressionNumberVisitor() {
-        }.accept(Double.valueOf(123.5));
+        }.accept(123.5);
     }
 
     @Test
@@ -75,13 +75,13 @@ public final class ExpressionNumberVisitorTest implements ExpressionNumberVisito
             protected void visit(final Double number) {
                 ExpressionNumberVisitorTest.this.visit = number;
             }
-        }, Double.valueOf(123.5));
+        }, 123.5);
     }
 
     @Test
     public void testAcceptLong() {
         new ExpressionNumberVisitor() {
-        }.accept(Long.valueOf(123));
+        }.accept(123L);
     }
 
     @Test
@@ -91,7 +91,7 @@ public final class ExpressionNumberVisitorTest implements ExpressionNumberVisito
             protected void visit(final Long number) {
                 ExpressionNumberVisitorTest.this.visit = number;
             }
-        }, Long.valueOf(123));
+        }, 123L);
     }
 
     @Test
@@ -106,14 +106,14 @@ public final class ExpressionNumberVisitorTest implements ExpressionNumberVisito
                                 protected Number visit(final Number number) {
                                     return BigDecimal.valueOf(number.intValue());
                                 }
-                            }, Integer.valueOf(123),
+                            }, 123,
                 BigDecimal.valueOf(123));
     }
 
     @Test
     public void testAcceptUnsupportedNumberTypeFails() {
         this.acceptFails(new ExpressionNumberVisitor() {
-        }, Integer.valueOf(123));
+        }, 123);
     }
 
     @Test
@@ -128,7 +128,7 @@ public final class ExpressionNumberVisitorTest implements ExpressionNumberVisito
             protected Number visit(final Number number) {
                 return number;
             }
-        }, Integer.valueOf(123));
+        }, 123);
     }
 
     private void acceptFails(final ExpressionNumberVisitor visitor,

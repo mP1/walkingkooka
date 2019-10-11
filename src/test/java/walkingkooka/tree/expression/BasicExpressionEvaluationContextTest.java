@@ -97,7 +97,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     @Test
     public void testConvert() {
-        assertEquals(Either.left(Long.valueOf(123L)), this.createContext().convert(123.0, Long.class));
+        assertEquals(Either.left(123L), this.createContext().convert(123.0, Long.class));
     }
 
     @Override

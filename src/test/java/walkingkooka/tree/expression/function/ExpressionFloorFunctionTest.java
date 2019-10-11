@@ -52,24 +52,24 @@ public final class ExpressionFloorFunctionTest extends ExpressionNumberFunction2
 
     @Test
     public void testDouble() {
-        this.applyAndCheck3(Double.valueOf(1.25), Double.valueOf(1));
+        this.applyAndCheck3(1.25, 1.0);
     }
 
     @Test
     public void testDouble2() {
-        this.applyAndCheck3(Double.valueOf(1.5), Double.valueOf(1));
+        this.applyAndCheck3(1.5, 1.0);
     }
 
     @Test
     public void testDouble3() {
-        this.applyAndCheck3(Double.valueOf(1));
+        this.applyAndCheck3(1.0);
     }
 
     // Long.............................................................................................................
 
     @Test
     public void testLong() {
-        this.applyAndCheck3(Long.valueOf(-2));
+        this.applyAndCheck3(-2L);
     }
 
     // Integer.............................................................................................................

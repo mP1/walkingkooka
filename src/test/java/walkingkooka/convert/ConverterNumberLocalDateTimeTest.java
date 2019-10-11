@@ -108,12 +108,12 @@ public final class ConverterNumberLocalDateTimeTest extends ConverterNumberTestC
 
     @Test
     public void testLong() {
-        this.convertAndCheck2(Long.valueOf(VALUE));
+        this.convertAndCheck2((long)VALUE);
     }
 
     @Test
     public void testLongWithExcelOffset() {
-        this.convertAndCheckExcelOffset(Long.valueOf(VALUE));
+        this.convertAndCheckExcelOffset((long)VALUE);
     }
 
     private void convertAndCheck2(final Object value) {

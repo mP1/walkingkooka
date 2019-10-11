@@ -121,7 +121,7 @@ public final class ExpressionNegativeNodeTest extends ExpressionUnaryNodeTestCas
 
     @Test
     public void testEvaluateToNumberDouble() {
-        final Double value = Double.valueOf(123);
+        final double value = 123;
         this.evaluateAndCheckDouble(this.createExpressionNode(ExpressionNode.doubleNode(value)), -value);
     }
 

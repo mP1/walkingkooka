@@ -70,7 +70,7 @@ public final class TryConverterTest extends ConverterTestCase2<TryConverter> {
     public void testLast() {
         this.convertAndCheck(Byte.MAX_VALUE,
                 Long.class,
-                Long.valueOf(Byte.MAX_VALUE));
+                (long)(Byte.MAX_VALUE));
     }
 
     @Test
