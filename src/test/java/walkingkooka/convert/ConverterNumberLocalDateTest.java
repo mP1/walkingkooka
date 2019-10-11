@@ -66,47 +66,47 @@ public final class ConverterNumberLocalDateTest extends ConverterNumberTestCase<
 
     @Test
     public void testByte() {
-        this.convertAndCheck2(Byte.valueOf(VALUE));
+        this.convertAndCheck2(VALUE);
     }
 
     @Test
     public void testShort() {
-        this.convertAndCheck2(Short.valueOf(VALUE));
+        this.convertAndCheck2((short)VALUE);
     }
 
     @Test
     public void testInteger() {
-        this.convertAndCheck2(Integer.valueOf(VALUE));
+        this.convertAndCheck2((int)VALUE);
     }
 
     @Test
     public void testLong() {
-        this.convertAndCheck2(Long.valueOf(VALUE), LocalDate.ofEpochDay(VALUE));
+        this.convertAndCheck2((long)VALUE, LocalDate.ofEpochDay(VALUE));
     }
 
     @Test
     public void testLongWithExcelOffset() {
-        this.convertAndCheckExcelOffset(Long.valueOf(VALUE));
+        this.convertAndCheckExcelOffset((long)VALUE);
     }
 
     @Test
     public void testFloat() {
-        this.convertAndCheck2(Float.valueOf(VALUE));
+        this.convertAndCheck2((float)VALUE);
     }
 
     @Test
     public void testDouble() {
-        this.convertAndCheck2(Double.valueOf(VALUE));
+        this.convertAndCheck2((double)VALUE);
     }
 
     @Test
     public void testDoubleWithFraction() {
-        this.convertFails2(Double.valueOf(123.75));
+        this.convertFails2(123.75);
     }
 
     @Test
     public void testDoubleWithExcelOffset() {
-        this.convertAndCheckExcelOffset(Double.valueOf(VALUE));
+        this.convertAndCheckExcelOffset((double)VALUE);
     }
 
     @Override

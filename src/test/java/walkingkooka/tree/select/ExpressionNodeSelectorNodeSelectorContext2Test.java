@@ -71,12 +71,12 @@ public final class ExpressionNodeSelectorNodeSelectorContext2Test extends NodeSe
 
     @Test
     public void testNodePositionLongDifferent() {
-        this.nodePositionTestAndCheck(Long.valueOf(INDEX + 99), false);
+        this.nodePositionTestAndCheck(INDEX + 99L, false);
     }
 
     @Test
     public void testNodePositionLongEqual() {
-        this.nodePositionTestAndCheck(Long.valueOf(INDEX), true);
+        this.nodePositionTestAndCheck((long)(INDEX), true);
     }
 
     @Test

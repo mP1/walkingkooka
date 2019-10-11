@@ -264,7 +264,7 @@ public final class ExpressionOrNodeTest extends ExpressionLogicalBinaryNodeTestC
 
     @Test
     public void testEvaluateToValueLongLong() {
-        this.evaluateAndCheckValue(this.createExpressionNode(longValue(6), longValue(3)), Long.valueOf(6 | 3));
+        this.evaluateAndCheckValue(this.createExpressionNode(longValue(6), longValue(3)), 6L | 3L);
     }
 
     @Test

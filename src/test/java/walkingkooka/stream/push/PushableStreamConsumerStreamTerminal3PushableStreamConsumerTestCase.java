@@ -73,7 +73,7 @@ public abstract class PushableStreamConsumerStreamTerminal3PushableStreamConsume
 
     final void acceptAndCheck(final Predicate<String> predicate,
                               final String commaSeperated,
-                              final boolean result,
+                              final Boolean result,
                               final int consumedCount) {
         final P consumer = this.createPushableStreamStreamPushableStreamConsumer(predicate, PushableStreamConsumerCloseableCollection.empty());
 
@@ -86,7 +86,7 @@ public abstract class PushableStreamConsumerStreamTerminal3PushableStreamConsume
             i++;
         }
 
-        assertEquals(Boolean.valueOf(result),
+        assertEquals(result,
                 consumer.result(),
                 () -> "values: " + CharSequences.quoteAndEscape(commaSeperated) + " " + consumer);
         assertEquals(consumedCount, i, () -> "consumed values count, values: " + CharSequences.quoteAndEscape(commaSeperated));

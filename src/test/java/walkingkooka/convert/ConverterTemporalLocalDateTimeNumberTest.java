@@ -70,37 +70,37 @@ public final class ConverterTemporalLocalDateTimeNumberTest extends ConverterTem
 
     @Test
     public void testToShort() {
-        this.convertAndCheck3(Short.valueOf(BYTE_VALUE));
+        this.convertAndCheck3((short)BYTE_VALUE);
     }
 
     @Test
     public void testToInteger() {
-        this.convertAndCheck3(Integer.valueOf(BYTE_VALUE));
+        this.convertAndCheck3((int)BYTE_VALUE);
     }
 
     @Test
     public void testToLong() {
-        this.convertAndCheck3(Long.valueOf(BYTE_VALUE));
+        this.convertAndCheck3((long)BYTE_VALUE);
     }
 
     @Test
     public void testToFloat() {
-        this.convertAndCheck3(Float.valueOf(BYTE_VALUE));
+        this.convertAndCheck3((float)BYTE_VALUE);
     }
 
     @Test
     public void testToFloatQuarter() {
-        this.convertAndCheck4(Float.valueOf(BYTE_VALUE + 0.25f));
+        this.convertAndCheck4(BYTE_VALUE + 0.25f);
     }
 
     @Test
     public void testToDouble() {
-        this.convertAndCheck3(Double.valueOf(BYTE_VALUE));
+        this.convertAndCheck3((double)BYTE_VALUE);
     }
 
     @Test
     public void testToDoubleQuarter() {
-        this.convertAndCheck4(Double.valueOf(BYTE_VALUE + 0.25));
+        this.convertAndCheck4(BYTE_VALUE + 0.25);
     }
 
     private void convertAndCheck3(final Number expected) {
@@ -117,7 +117,7 @@ public final class ConverterTemporalLocalDateTimeNumberTest extends ConverterTem
     public void testToNumber() {
         this.convertAndCheck(LocalDateTime.of(LocalDate.ofEpochDay(BYTE_VALUE), LocalTime.MIDNIGHT),
                 Number.class,
-                Double.valueOf(BYTE_VALUE));
+                (double)BYTE_VALUE);
     }
 
     // withOffset.......................................................................................................
@@ -141,27 +141,27 @@ public final class ConverterTemporalLocalDateTimeNumberTest extends ConverterTem
 
     @Test
     public void testWithOffsetToShort() {
-        this.convertWithOffsetAndCheck3(Short.valueOf((byte) (OFFSET + BYTE_VALUE)));
+        this.convertWithOffsetAndCheck3((short)((byte) (OFFSET + BYTE_VALUE)));
     }
 
     @Test
     public void testWithOffsetToInteger() {
-        this.convertWithOffsetAndCheck3(Integer.valueOf(OFFSET + BYTE_VALUE));
+        this.convertWithOffsetAndCheck3((int)(OFFSET + BYTE_VALUE));
     }
 
     @Test
     public void testWithOffsetToLong() {
-        this.convertWithOffsetAndCheck3(Long.valueOf(OFFSET + BYTE_VALUE));
+        this.convertWithOffsetAndCheck3((long)(OFFSET + BYTE_VALUE));
     }
 
     @Test
     public void testWithOffsetToFloat() {
-        this.convertWithOffsetAndCheck3(Float.valueOf(OFFSET + BYTE_VALUE));
+        this.convertWithOffsetAndCheck3((float)(OFFSET + BYTE_VALUE));
     }
 
     @Test
     public void testWithOffsetToDouble() {
-        this.convertWithOffsetAndCheck3(Double.valueOf(OFFSET + BYTE_VALUE));
+        this.convertWithOffsetAndCheck3((double)(OFFSET + BYTE_VALUE));
     }
 
     private void convertWithOffsetAndCheck3(final Number expected) {
@@ -176,7 +176,7 @@ public final class ConverterTemporalLocalDateTimeNumberTest extends ConverterTem
         this.convertAndCheck(walkingkooka.convert.ConverterTemporalLocalDateTimeNumber.with(OFFSET),
                 LocalDateTime.of(LocalDate.ofEpochDay(BYTE_VALUE), LocalTime.MIDNIGHT),
                 Number.class,
-                Double.valueOf(BYTE_VALUE + OFFSET));
+                (double)(BYTE_VALUE + OFFSET));
     }
 
     // toString.........................................................................................................

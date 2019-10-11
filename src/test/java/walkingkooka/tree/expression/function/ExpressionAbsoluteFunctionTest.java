@@ -62,34 +62,34 @@ public final class ExpressionAbsoluteFunctionTest extends ExpressionNumberFuncti
 
     @Test
     public void testDoubleNegative() {
-        this.applyAndCheck3(Double.valueOf(-2), Double.valueOf(2));
+        this.applyAndCheck3(-2.0, 2.0);
     }
 
     @Test
     public void testDoubleZero() {
-        this.applyAndCheck3(Double.valueOf(0));
+        this.applyAndCheck3(0.0);
     }
 
     @Test
     public void testDoublePositive() {
-        this.applyAndCheck3(Double.valueOf(3));
+        this.applyAndCheck3(3.0);
     }
 
     // Long.............................................................................................................
 
     @Test
     public void testLongNegative() {
-        this.applyAndCheck3(Long.valueOf(-2), Long.valueOf(2));
+        this.applyAndCheck3(-2L, 2L);
     }
 
     @Test
     public void testLongZero() {
-        this.applyAndCheck3(Long.valueOf(0));
+        this.applyAndCheck3(0L);
     }
 
     @Test
     public void testLongPositive() {
-        this.applyAndCheck3(Long.valueOf(3));
+        this.applyAndCheck3(3L);
     }
 
     // Integer.............................................................................................................

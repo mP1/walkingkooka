@@ -825,7 +825,7 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     @Test
     public void testQuoteIfCharsChar() {
-        quoteIfCharsAndCheck(Character.valueOf('\n'), "'\\n'");
+        quoteIfCharsAndCheck('\n', "'\\n'");
     }
 
     private void quoteIfCharsAndCheck(final Object chars, final String expected) {

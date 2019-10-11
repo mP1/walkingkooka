@@ -48,7 +48,7 @@ final class ExpressionNotFunction extends ExpressionFunction2<Boolean> {
                          final ExpressionFunctionContext context) {
         this.checkParameterCount(parameters, 2);
 
-        return Boolean.valueOf(!context.convertOrFail(this.function.apply(parameters, context), Boolean.class));
+        return !context.convertOrFail(this.function.apply(parameters, context), Boolean.class);
     }
 
     private final ExpressionFunction<?> function;
