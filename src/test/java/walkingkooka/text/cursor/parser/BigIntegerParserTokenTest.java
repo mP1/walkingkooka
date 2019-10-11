@@ -29,9 +29,7 @@ public final class BigIntegerParserTokenTest extends ParserTokenTestCase<BigInte
 
     @Test
     public void testWithNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            BigIntegerParserToken.with(null, "123");
-        });
+        assertThrows(NullPointerException.class, () -> BigIntegerParserToken.with(null, "123"));
     }
 
     @Test

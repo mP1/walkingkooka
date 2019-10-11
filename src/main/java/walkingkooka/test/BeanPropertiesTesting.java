@@ -38,13 +38,11 @@ public interface BeanPropertiesTesting {
      */
     default void allPropertiesNeverReturnNullCheck(final Object object,
                                                    final Predicate<Method> skip) throws Exception {
-        final Predicate<Method> filter = (method) -> {
-            return !MethodAttributes.STATIC.is(method) &&
-                    method.getReturnType() != Void.class &&
-                    method.getParameterTypes().length == 0 &&
-                    method.getDeclaringClass() != Object.class &&
-                    !skip.test(method);
-        };
+        final Predicate<Method> filter = (method) -> !MethodAttributes.STATIC.is(method) &&
+                method.getReturnType() != Void.class &&
+                method.getParameterTypes().length == 0 &&
+                method.getDeclaringClass() != Object.class &&
+                !skip.test(method);
 
         final List<Method> properties = Arrays.stream(object.getClass().getMethods())
                 .filter(filter)

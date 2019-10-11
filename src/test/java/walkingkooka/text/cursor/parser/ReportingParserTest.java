@@ -33,23 +33,17 @@ public final class ReportingParserTest extends ParserTestCase<ReportingParser<Pa
 
     @Test
     public void testWithNullConditionFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ReportingParser.with(null, this.reporter(), this.parser2());
-        });
+        assertThrows(NullPointerException.class, () -> ReportingParser.with(null, this.reporter(), this.parser2()));
     }
 
     @Test
     public void testWithNullReporterFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ReportingParser.with(CONDITION, null, this.parser2());
-        });
+        assertThrows(NullPointerException.class, () -> ReportingParser.with(CONDITION, null, this.parser2()));
     }
 
     @Test
     public void testWithNullParserFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ReportingParser.with(CONDITION, this.reporter(), null);
-        });
+        assertThrows(NullPointerException.class, () -> ReportingParser.with(CONDITION, this.reporter(), null));
     }
 
     @Test

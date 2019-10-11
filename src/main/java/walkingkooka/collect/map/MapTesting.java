@@ -142,16 +142,12 @@ public interface MapTesting<M extends Map<K, V>, K, V> {
     default void putFails(final Map<K, V> map,
                           final K key,
                           final V value) {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            map.put(key, value);
-        });
+        assertThrows(UnsupportedOperationException.class, () -> map.put(key, value));
     }
 
     default void removeFails(final Map<K, V> map,
                              final K key) {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            map.remove(key);
-        });
+        assertThrows(UnsupportedOperationException.class, () -> map.remove(key));
     }
 
     default void sizeAndCheck(final Map<K, V> map, final int size) {

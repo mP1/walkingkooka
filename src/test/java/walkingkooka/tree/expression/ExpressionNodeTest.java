@@ -34,16 +34,12 @@ public final class ExpressionNodeTest implements ClassTesting2<ExpressionNode> {
 
     @Test
     public void testValueOrFailNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ExpressionNode.valueOrFail(null);
-        });
+        assertThrows(NullPointerException.class, () -> ExpressionNode.valueOrFail(null));
     }
 
     @Test
     public void testValueOrFailUnknownValueTypeFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ExpressionNode.valueOrFail(this);
-        });
+        assertThrows(IllegalArgumentException.class, () -> ExpressionNode.valueOrFail(this));
     }
 
     @Test

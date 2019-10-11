@@ -43,23 +43,17 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
 
     @Test
     public void testCarriageReturnRepeatingCharFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Indentation.with('\r', 1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> Indentation.with('\r', 1));
     }
 
     @Test
     public void testNewLineRepeatingCharFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Indentation.with('\n', 1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> Indentation.with('\n', 1));
     }
 
     @Test
     public void testInvalidRepeatingCountFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Indentation.with('.', -1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> Indentation.with('.', -1));
     }
 
     @Test
@@ -74,23 +68,17 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
 
     @Test
     public void testNullStringFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Indentation.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> Indentation.with(null));
     }
 
     @Test
     public void testStringIncludesCarriageReturnFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Indentation.with("with carriage return \r");
-        });
+        assertThrows(IllegalArgumentException.class, () -> Indentation.with("with carriage return \r"));
     }
 
     @Test
     public void testStringIncludesNewLineFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Indentation.with("with new line \n");
-        });
+        assertThrows(IllegalArgumentException.class, () -> Indentation.with("with new line \n"));
     }
 
     @Test
@@ -143,9 +131,7 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
     @Test
     public void testAppendNullFails() {
         final Indentation indentation = Indentation.with("..");
-        assertThrows(NullPointerException.class, () -> {
-            indentation.append(null);
-        });
+        assertThrows(NullPointerException.class, () -> indentation.append(null));
     }
 
     @Test

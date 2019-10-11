@@ -30,9 +30,7 @@ public final class CharacterCharPredicateParserTest extends Parser2TestCase<Char
 
     @Test
     public void testWithNullCharPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CharacterCharPredicateParser.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> CharacterCharPredicateParser.with(null));
     }
 
     @Test

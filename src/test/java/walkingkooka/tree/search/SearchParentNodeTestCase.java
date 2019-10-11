@@ -49,9 +49,7 @@ public abstract class SearchParentNodeTestCase<N extends SearchParentNode> exten
 
     @Test
     public final void testSetChildrenEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createSearchNode().setChildren(Lists.empty());
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createSearchNode().setChildren(Lists.empty()));
     }
 
     @Test

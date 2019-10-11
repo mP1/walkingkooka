@@ -33,16 +33,12 @@ public class LongParserTest extends Parser2TestCase<LongParser<ParserContext>, L
 
     @Test
     public void testWithNegativeRadixFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            LongParser.with(-1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> LongParser.with(-1));
     }
 
     @Test
     public void testWithZeroRadixFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            LongParser.with(0);
-        });
+        assertThrows(IllegalArgumentException.class, () -> LongParser.with(0));
     }
 
     @Test
@@ -165,25 +161,19 @@ public class LongParserTest extends Parser2TestCase<LongParser<ParserContext>, L
     public void testGreaterMaxValueFails() {
         final BigInteger bigInteger = BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE);
 
-        assertThrows(ParserException.class, () -> {
-            this.parseFailAndCheck(LongParser.with(10), bigInteger.toString());
-        });
+        assertThrows(ParserException.class, () -> this.parseFailAndCheck(LongParser.with(10), bigInteger.toString()));
     }
 
     @Test
     public void testLessMinValueFails() {
         final BigInteger bigInteger = BigInteger.valueOf(Long.MIN_VALUE).subtract(BigInteger.ONE);
 
-        assertThrows(ParserException.class, () -> {
-            this.parseFailAndCheck(LongParser.with(10), bigInteger.toString());
-        });
+        assertThrows(ParserException.class, () -> this.parseFailAndCheck(LongParser.with(10), bigInteger.toString()));
     }
 
     @Test
     public void testGreaterMaxValueHexFails() {
-        assertThrows(ParserException.class, () -> {
-            this.parseFailAndCheck(LongParser.with(16), "8fffffffffffffff");
-        });
+        assertThrows(ParserException.class, () -> this.parseFailAndCheck(LongParser.with(16), "8fffffffffffffff"));
     }
 
     @Test

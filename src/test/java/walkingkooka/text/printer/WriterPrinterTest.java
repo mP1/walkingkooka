@@ -54,16 +54,12 @@ final public class WriterPrinterTest extends PrinterTestCase<WriterPrinter> {
 
     @Test
     public void testAdaptNullWriterFails() {
-        assertThrows(NullPointerException.class, () -> {
-            WriterPrinter.adapt(null, LINE_ENDING);
-        });
+        assertThrows(NullPointerException.class, () -> WriterPrinter.adapt(null, LINE_ENDING));
     }
 
     @Test
     public void testAdaptNullLineEndingFails() {
-        assertThrows(NullPointerException.class, () -> {
-            WriterPrinter.adapt(WRITER, null);
-        });
+        assertThrows(NullPointerException.class, () -> WriterPrinter.adapt(WRITER, null));
     }
 
     @Test
@@ -103,9 +99,7 @@ final public class WriterPrinterTest extends PrinterTestCase<WriterPrinter> {
                         throw new UnsupportedOperationException();
                     }
                 });
-        final PrinterException expected = assertThrows(PrinterException.class, () -> {
-            printer.print(written);
-        });
+        final PrinterException expected = assertThrows(PrinterException.class, () -> printer.print(written));
         assertSame(thrown, expected.getCause(), "cause");
     }
 

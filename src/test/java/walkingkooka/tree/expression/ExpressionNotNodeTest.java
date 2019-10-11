@@ -91,9 +91,7 @@ public final class ExpressionNotNodeTest extends ExpressionUnaryNodeTestCase<Exp
 
     @Test
     public void testEvaluateToBigDecimalWithDecimalsFails() {
-        assertThrows(ExpressionEvaluationConversionException.class, () -> {
-            this.createExpressionNode(bigDecimal(1.5)).toNumber(context());
-        });
+        assertThrows(ExpressionEvaluationConversionException.class, () -> this.createExpressionNode(bigDecimal(1.5)).toNumber(context()));
     }
 
     @Test
@@ -110,9 +108,7 @@ public final class ExpressionNotNodeTest extends ExpressionUnaryNodeTestCase<Exp
 
     @Test
     public void testEvaluateToDoubleWithDecimalsFails() {
-        assertThrows(ExpressionEvaluationConversionException.class, () -> {
-            this.createExpressionNode(doubleValue(1.5)).toNumber(context());
-        });
+        assertThrows(ExpressionEvaluationConversionException.class, () -> this.createExpressionNode(doubleValue(1.5)).toNumber(context()));
     }
 
     @Test

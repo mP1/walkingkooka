@@ -35,30 +35,22 @@ public final class CustomToStringPredicateTest extends PredicateTestCase<CustomT
 
     @Test
     public void testWrapNullPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CustomToStringPredicate.wrap(null, CUSTOM_TO_STRING);
-        });
+        assertThrows(NullPointerException.class, () -> CustomToStringPredicate.wrap(null, CUSTOM_TO_STRING));
     }
 
     @Test
     public void testWrapNullToStringFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CustomToStringPredicate.wrap(WRAPPED, null);
-        });
+        assertThrows(NullPointerException.class, () -> CustomToStringPredicate.wrap(WRAPPED, null));
     }
 
     @Test
     public void testWrapEmptyToStringFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CustomToStringPredicate.wrap(WRAPPED, "");
-        });
+        assertThrows(IllegalArgumentException.class, () -> CustomToStringPredicate.wrap(WRAPPED, ""));
     }
 
     @Test
     public void testWrapWhitespaceToStringFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CustomToStringPredicate.wrap(WRAPPED, " \t");
-        });
+        assertThrows(IllegalArgumentException.class, () -> CustomToStringPredicate.wrap(WRAPPED, " \t"));
     }
 
     @Test

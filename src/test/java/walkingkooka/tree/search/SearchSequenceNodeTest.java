@@ -31,16 +31,12 @@ public final class SearchSequenceNodeTest extends SearchParentNodeTestCase<Searc
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            SearchSequenceNode.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> SearchSequenceNode.with(null));
     }
 
     @Test
     public void testWithEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            SearchSequenceNode.with(Lists.empty());
-        });
+        assertThrows(IllegalArgumentException.class, () -> SearchSequenceNode.with(Lists.empty()));
     }
 
     @Test

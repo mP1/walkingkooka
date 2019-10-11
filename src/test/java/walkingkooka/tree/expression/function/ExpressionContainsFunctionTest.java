@@ -25,9 +25,7 @@ public final class ExpressionContainsFunctionTest extends ExpressionFunctionTest
 
     @Test
     public void testOneParameterFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.apply2( "a1");
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.apply2( "a1"));
     }
 
     @Test

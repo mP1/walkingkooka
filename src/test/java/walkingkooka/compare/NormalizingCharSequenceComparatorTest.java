@@ -39,9 +39,7 @@ final public class NormalizingCharSequenceComparatorTest implements ClassTesting
 
     @Test
     public void testWithNullCharPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            NormalizingCharSequenceComparator.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> NormalizingCharSequenceComparator.with(null));
     }
 
     @Test

@@ -35,9 +35,7 @@ final public class NotCharPredicateTest implements CharPredicateTesting<NotCharP
 
     @Test
     public void testWrapNullPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            NotCharPredicate.wrap(null);
-        });
+        assertThrows(NullPointerException.class, () -> NotCharPredicate.wrap(null));
     }
 
     @Test

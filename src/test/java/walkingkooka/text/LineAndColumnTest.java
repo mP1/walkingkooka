@@ -36,24 +36,17 @@ public class LineAndColumnTest implements ClassTesting2<LineAndColumn>,
 
     @Test
     public void testCreateInvalidLineNumberFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            LineAndColumn.with(0, COLUMN_NUMBER, LINE);
-        });
+        assertThrows(IllegalArgumentException.class, () -> LineAndColumn.with(0, COLUMN_NUMBER, LINE));
     }
 
     @Test
     public void testCreateInvalidColumnNumberFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            LineAndColumn.with(LINE_NUMBER, 0, LINE);
-
-        });
+        assertThrows(IllegalArgumentException.class, () -> LineAndColumn.with(LINE_NUMBER, 0, LINE));
     }
 
     @Test
     public void testCreateNullLineFails() {
-        assertThrows(NullPointerException.class, () -> {
-            LineAndColumn.with(LINE_NUMBER, COLUMN_NUMBER, null);
-        });
+        assertThrows(NullPointerException.class, () -> LineAndColumn.with(LINE_NUMBER, COLUMN_NUMBER, null));
     }
 
     @Test
@@ -223,9 +216,7 @@ public class LineAndColumnTest implements ClassTesting2<LineAndColumn>,
     @Test
     public void testAfterLastCharFails() {
         final String text = "first\nsecond\rthird";
-        assertThrows(StringIndexOutOfBoundsException.class, () -> {
-            this.determineAndCheck(text, text.length() + 1, "", 4, 1);
-        });
+        assertThrows(StringIndexOutOfBoundsException.class, () -> this.determineAndCheck(text, text.length() + 1, "", 4, 1));
     }
 
     @Test

@@ -36,16 +36,12 @@ public interface DateTimeContextTesting2<C extends DateTimeContext> extends Cont
 
     @Test
     default void testAmpmNegativeFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createContext().ampm(-1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createContext().ampm(-1));
     }
 
     @Test
     default void testAmpmInvalidFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createContext().ampm(24);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createContext().ampm(24));
     }
 
     @Test
@@ -60,16 +56,12 @@ public interface DateTimeContextTesting2<C extends DateTimeContext> extends Cont
 
     @Test
     default void testMonthNameNegativeFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createContext().monthName(-1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createContext().monthName(-1));
     }
 
     @Test
     default void testMonthNameInvalidFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createContext().monthName(12);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createContext().monthName(12));
     }
 
     @Test
@@ -84,16 +76,12 @@ public interface DateTimeContextTesting2<C extends DateTimeContext> extends Cont
 
     @Test
     default void testMonthNameAbbrevationNegativeFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createContext().monthNameAbbreviation(-1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createContext().monthNameAbbreviation(-1));
     }
 
     @Test
     default void testMonthNameAbbreviationInvalidFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createContext().monthNameAbbreviation(12);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createContext().monthNameAbbreviation(12));
     }
 
     @Test
@@ -114,16 +102,12 @@ public interface DateTimeContextTesting2<C extends DateTimeContext> extends Cont
 
     @Test
     default void testWeekDayNameNegativeFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createContext().weekDayName(-1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createContext().weekDayName(-1));
     }
 
     @Test
     default void testWeekDayNameInvalidFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createContext().weekDayName(8);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createContext().weekDayName(8));
     }
 
     @Test
@@ -138,16 +122,12 @@ public interface DateTimeContextTesting2<C extends DateTimeContext> extends Cont
 
     @Test
     default void testWeekDayNameAbbrevationNegativeFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createContext().weekDayNameAbbreviation(-1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createContext().weekDayNameAbbreviation(-1));
     }
 
     @Test
     default void testWeekDayNameAbbreviationInvalidFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createContext().weekDayNameAbbreviation(8);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createContext().weekDayNameAbbreviation(8));
     }
 
     @Override

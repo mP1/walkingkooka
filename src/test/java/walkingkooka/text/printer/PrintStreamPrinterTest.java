@@ -44,16 +44,12 @@ final public class PrintStreamPrinterTest extends PrinterTestCase<PrintStreamPri
 
     @Test
     public void testWithNullPrintStreamFails() {
-        assertThrows(NullPointerException.class, () -> {
-            PrintStreamPrinter.with(null, LINE_ENDING);
-        });
+        assertThrows(NullPointerException.class, () -> PrintStreamPrinter.with(null, LINE_ENDING));
     }
 
     @Test
     public void testWithNullLineEndingFails() {
-        assertThrows(NullPointerException.class, () -> {
-            PrintStreamPrinter.with(System.out, null);
-        });
+        assertThrows(NullPointerException.class, () -> PrintStreamPrinter.with(System.out, null));
     }
 
     @Override

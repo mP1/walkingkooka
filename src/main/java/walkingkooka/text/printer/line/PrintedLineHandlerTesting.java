@@ -43,27 +43,21 @@ public interface PrintedLineHandlerTesting<H extends PrintedLineHandler>
 
     @Test
     default void testNullLineFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createLineHandler().linePrinted(null,
-                    LineEnding.NL,
-                    Printers.fake());
-        });
+        assertThrows(NullPointerException.class, () -> this.createLineHandler().linePrinted(null,
+                LineEnding.NL,
+                Printers.fake()));
     }
 
     @Test
     default void testNullLineEndingFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createLineHandler().linePrinted("", null, Printers.fake());
-        });
+        assertThrows(NullPointerException.class, () -> this.createLineHandler().linePrinted("", null, Printers.fake()));
     }
 
     @Test
     default void testNullPrinterFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createLineHandler().linePrinted("",
-                    LineEnding.NL,
-                    null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createLineHandler().linePrinted("",
+                LineEnding.NL,
+                null));
     }
 
     H createLineHandler();

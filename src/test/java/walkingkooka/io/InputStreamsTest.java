@@ -31,9 +31,7 @@ public final class InputStreamsTest implements PublicStaticHelperTesting<InputSt
 
     @Test
     public void testReadAllBytesNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            InputStreams.readAllBytes(null);
-        });
+        assertThrows(NullPointerException.class, () -> InputStreams.readAllBytes(null));
     }
 
     @Test

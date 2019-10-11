@@ -56,46 +56,34 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
 
     @Test
     public void testIndexInvalidIndexFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            NodePointer.indexed(-1, TestNode.class);
-        });
+        assertThrows(IllegalArgumentException.class, () -> NodePointer.indexed(-1, TestNode.class));
     }
 
     @Test
     public void testIndexNullNodeClassFails() {
-        assertThrows(NullPointerException.class, () -> {
-            NodePointer.indexed(0, null);
-        });
+        assertThrows(NullPointerException.class, () -> NodePointer.indexed(0, null));
     }
 
     @Test
     public void testIndexInvalidIndexFails2() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            NodePointer.indexed(0, TestNode.class)
-                    .indexed(-1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> NodePointer.indexed(0, TestNode.class)
+                .indexed(-1));
     }
 
     @Test
     public void testNamedNullNameFails() {
-        assertThrows(NullPointerException.class, () -> {
-            NodePointer.named(null, TestNode.class);
-        });
+        assertThrows(NullPointerException.class, () -> NodePointer.named(null, TestNode.class));
     }
 
     @Test
     public void testNamedNullNodeClassFails() {
-        assertThrows(NullPointerException.class, () -> {
-            NodePointer.named(ABC, null);
-        });
+        assertThrows(NullPointerException.class, () -> NodePointer.named(ABC, null));
     }
 
     @Test
     public void testNamedNullNameFails2() {
-        assertThrows(NullPointerException.class, () -> {
-            NodePointer.named(ABC, TestNode.class)
-                    .named(null);
-        });
+        assertThrows(NullPointerException.class, () -> NodePointer.named(ABC, TestNode.class)
+                .named(null));
     }
 
     // toString.......................................................................................................
@@ -447,37 +435,27 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
 
     @Test
     public void testParseInvalidIndexFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            NodePointer.parse("/abc/-99", NAME_FACTORY, TestNode.class);
-        });
+        assertThrows(IllegalArgumentException.class, () -> NodePointer.parse("/abc/-99", NAME_FACTORY, TestNode.class));
     }
 
     @Test
     public void testParseInvalidNameFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            NodePointer.parse("/abc//xyz", NAME_FACTORY, TestNode.class);
-        });
+        assertThrows(IllegalArgumentException.class, () -> NodePointer.parse("/abc//xyz", NAME_FACTORY, TestNode.class));
     }
 
     @Test
     public void testParseInvalidNameFails2() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            NodePointer.parse("missing-leading-slash", NAME_FACTORY, TestNode.class);
-        });
+        assertThrows(IllegalArgumentException.class, () -> NodePointer.parse("missing-leading-slash", NAME_FACTORY, TestNode.class));
     }
 
     @Test
     public void testParseNullNameFactoryFails() {
-        assertThrows(NullPointerException.class, () -> {
-            NodePointer.parse("/valid-pointer", null, TestNode.class);
-        });
+        assertThrows(NullPointerException.class, () -> NodePointer.parse("/valid-pointer", null, TestNode.class));
     }
 
     @Test
     public void testParseNullNodeTypeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            NodePointer.parse("/valid-pointer", NAME_FACTORY, null);
-        });
+        assertThrows(NullPointerException.class, () -> NodePointer.parse("/valid-pointer", NAME_FACTORY, null));
     }
 
     @Test

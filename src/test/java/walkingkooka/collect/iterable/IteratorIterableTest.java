@@ -33,9 +33,7 @@ final public class IteratorIterableTest implements ClassTesting2<IteratorIterabl
 
     @Test
     public void testWithNullIteratorFails() {
-        assertThrows(NullPointerException.class, () -> {
-            IteratorIterable.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> IteratorIterable.with(null));
     }
 
     @Test

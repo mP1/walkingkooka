@@ -50,23 +50,17 @@ final public class OpenCheckerTest implements ClassTesting2<OpenChecker<Exceptio
 
     @Test
     public void testNullMessageFails() {
-        assertThrows(NullPointerException.class, () -> {
-            OpenChecker.with(null, THROWABLE_FACTORY);
-        });
+        assertThrows(NullPointerException.class, () -> OpenChecker.with(null, THROWABLE_FACTORY));
     }
 
     @Test
     public void testWhitespaceOnlyMessageFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            OpenChecker.with("   ", THROWABLE_FACTORY);
-        });
+        assertThrows(IllegalArgumentException.class, () -> OpenChecker.with("   ", THROWABLE_FACTORY));
     }
 
     @Test
     public void testNullThrowableFactoryFails() {
-        assertThrows(NullPointerException.class, () -> {
-            OpenChecker.with(MESSAGE, (Function<String, Thrown>) null);
-        });
+        assertThrows(NullPointerException.class, () -> OpenChecker.with(MESSAGE, (Function<String, Thrown>) null));
     }
 
     @Test
@@ -95,9 +89,7 @@ final public class OpenCheckerTest implements ClassTesting2<OpenChecker<Exceptio
         assertFalse(checker.close(), "was previous open");
         assertTrue(checker.isClosed());
 
-        final Thrown expected = assertThrows(Thrown.class, () -> {
-            checker.check(THROWABLE_FACTORY);
-        });
+        final Thrown expected = assertThrows(Thrown.class, () -> checker.check(THROWABLE_FACTORY));
         checkMessage(expected, MESSAGE);
     }
 

@@ -34,9 +34,7 @@ public final class EitherRightTest extends EitherTestCase2<EitherRight<String, I
 
     @Test
     public void testLeftValueFails() {
-        assertThrows(NoSuchElementException.class, () -> {
-            this.createEither().leftValue();
-        });
+        assertThrows(NoSuchElementException.class, () -> this.createEither().leftValue());
     }
 
     @Test
@@ -118,9 +116,7 @@ public final class EitherRightTest extends EitherTestCase2<EitherRight<String, I
 
     @Test
     public void testOrElseLeftThrowFails() {
-        assertThrows(Exception.class, () -> {
-            this.createEither().orElseLeftThrow(Exception::new);
-        });
+        assertThrows(Exception.class, () -> this.createEither().orElseLeftThrow(Exception::new));
     }
 
     @Test

@@ -130,9 +130,7 @@ public interface ParserTokenTesting<T extends ParserToken & HashCodeEqualsDefine
 
     @Test
     default void testWithNullTextFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createToken(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createToken(null));
     }
 
     @Test

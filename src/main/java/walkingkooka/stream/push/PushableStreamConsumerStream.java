@@ -192,9 +192,7 @@ final class PushableStreamConsumerStream<T> implements Stream<T>,
 
         final IntStream.Builder builder = IntStream.builder();
 
-        this.assembleStartAndReturnResult((closeables) -> PushableStreamConsumerStreamPushableStreamConsumer.forEach((t -> {
-            builder.accept(mapper.applyAsInt(t));
-        }), closeables));
+        this.assembleStartAndReturnResult((closeables) -> PushableStreamConsumerStreamPushableStreamConsumer.forEach((t -> builder.accept(mapper.applyAsInt(t))), closeables));
 
         return builder.build();
     }
@@ -205,9 +203,7 @@ final class PushableStreamConsumerStream<T> implements Stream<T>,
 
         final LongStream.Builder builder = LongStream.builder();
 
-        this.assembleStartAndReturnResult((closeables) -> PushableStreamConsumerStreamPushableStreamConsumer.forEach((t -> {
-            builder.accept(mapper.applyAsLong(t));
-        }), closeables));
+        this.assembleStartAndReturnResult((closeables) -> PushableStreamConsumerStreamPushableStreamConsumer.forEach((t -> builder.accept(mapper.applyAsLong(t))), closeables));
 
         return builder.build();
     }
@@ -218,9 +214,7 @@ final class PushableStreamConsumerStream<T> implements Stream<T>,
 
         final DoubleStream.Builder builder = DoubleStream.builder();
 
-        this.assembleStartAndReturnResult((closeables) -> PushableStreamConsumerStreamPushableStreamConsumer.forEach((t -> {
-            builder.accept(mapper.applyAsDouble(t));
-        }), closeables));
+        this.assembleStartAndReturnResult((closeables) -> PushableStreamConsumerStreamPushableStreamConsumer.forEach((t -> builder.accept(mapper.applyAsDouble(t))), closeables));
 
         return builder.build();
     }

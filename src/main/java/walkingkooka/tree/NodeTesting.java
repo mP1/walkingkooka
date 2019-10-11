@@ -118,36 +118,28 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
     default void testSetChildIndexInvalidFails() {
         final N node = this.createNode();
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            node.setChild(-1, node);
-        });
+        assertThrows(IllegalArgumentException.class, () -> node.setChild(-1, node));
     }
 
     @Test
     default void testSetChildIndexNullNodeFails() {
         final N node = this.createNode();
 
-        assertThrows(NullPointerException.class, () -> {
-            node.setChild(0, null);
-        });
+        assertThrows(NullPointerException.class, () -> node.setChild(0, null));
     }
 
     @Test
     default void testSetChildNameNullFails() {
         final N node = this.createNode();
 
-        assertThrows(NullPointerException.class, () -> {
-            node.setChild(null, node);
-        });
+        assertThrows(NullPointerException.class, () -> node.setChild(null, node));
     }
 
     @Test
     default void testSetChildNameNullNodeFails() {
         final N node = this.createNode();
 
-        assertThrows(NullPointerException.class, () -> {
-            node.setChild(node.name(), null);
-        });
+        assertThrows(NullPointerException.class, () -> node.setChild(node.name(), null));
     }
 
     @Test

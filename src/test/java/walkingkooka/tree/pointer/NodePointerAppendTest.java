@@ -31,23 +31,17 @@ public final class NodePointerAppendTest extends NodePointerTestCase<NodePointer
 
     @Test
     public void testAppendIndexedFails() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            this.createNodePointer().indexed(1);
-        });
+        assertThrows(UnsupportedOperationException.class, () -> this.createNodePointer().indexed(1));
     }
 
     @Test
     public void testAppendNamedFails() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            this.createNodePointer().named(Names.string("fail!"));
-        });
+        assertThrows(UnsupportedOperationException.class, () -> this.createNodePointer().named(Names.string("fail!")));
     }
 
     @Test
     public void testAppendAppendFails() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            this.createNodePointer().append();
-        });
+        assertThrows(UnsupportedOperationException.class, () -> this.createNodePointer().append());
     }
 
     @Test
@@ -75,9 +69,7 @@ public final class NodePointerAppendTest extends NodePointerTestCase<NodePointer
 
     @Test
     public void testRemoveFails() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            this.createNodePointer().remove(TestNode.with("remove"));
-        });
+        assertThrows(UnsupportedOperationException.class, () -> this.createNodePointer().remove(TestNode.with("remove")));
     }
 
     @Test

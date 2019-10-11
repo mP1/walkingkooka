@@ -170,9 +170,7 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> & HashCode
                 chars[last] = c;
                 final String text = new String(chars);
 
-                final InvalidCharacterException expected = assertThrows(InvalidCharacterException.class, () -> {
-                            this.createName(text);
-                        },
+                final InvalidCharacterException expected = assertThrows(InvalidCharacterException.class, () -> this.createName(text),
                         () -> "Name text=" + CharSequences.quoteAndEscape(text).toString());
                 final int j = i;
                 assertEquals(last,
@@ -217,9 +215,7 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> & HashCode
             final String chars = IntStream.rangeClosed(0, max + 1)
                     .mapToObj(i -> String.valueOf(this.possibleValidChars(i).charAt(0)))
                     .collect(Collectors.joining(""));
-            assertThrows(InvalidTextLengthException.class, () -> {
-                this.createName(chars);
-            });
+            assertThrows(InvalidTextLengthException.class, () -> this.createName(chars));
         }
     }
 

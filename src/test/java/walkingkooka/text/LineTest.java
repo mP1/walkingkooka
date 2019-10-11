@@ -34,23 +34,17 @@ final public class LineTest implements ClassTesting2<Line>,
 
     @Test
     public void testWithNullTextFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Line.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> Line.with(null));
     }
 
     @Test
     public void testWithCrTextFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Line.with("abc \r");
-        });
+        assertThrows(IllegalArgumentException.class, () -> Line.with("abc \r"));
     }
 
     @Test
     public void testWithNlTextFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Line.with("abc \n");
-        });
+        assertThrows(IllegalArgumentException.class, () -> Line.with("abc \n"));
     }
 
     @Test

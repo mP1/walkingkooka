@@ -31,30 +31,22 @@ public final class ParserReporterExceptionTest implements ClassTesting2<ParserRe
 
     @Test
     public void testWithNullMessageFails() {
-        assertThrows(NullPointerException.class, () -> {
-            new ParserReporterException(null, TextCursorLineInfos.fake());
-        });
+        assertThrows(NullPointerException.class, () -> new ParserReporterException(null, TextCursorLineInfos.fake()));
     }
 
     @Test
     public void testWithEmptyMessageFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new ParserReporterException("", TextCursorLineInfos.fake());
-        });
+        assertThrows(IllegalArgumentException.class, () -> new ParserReporterException("", TextCursorLineInfos.fake()));
     }
 
     @Test
     public void testWithBlankMessageFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new ParserReporterException("   ", TextCursorLineInfos.fake());
-        });
+        assertThrows(IllegalArgumentException.class, () -> new ParserReporterException("   ", TextCursorLineInfos.fake()));
     }
 
     @Test
     public void testWithNullLineInfoFails() {
-        assertThrows(NullPointerException.class, () -> {
-            new ParserReporterException("message!", null);
-        });
+        assertThrows(NullPointerException.class, () -> new ParserReporterException("message!", null));
     }
 
     @Test

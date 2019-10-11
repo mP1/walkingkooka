@@ -37,9 +37,7 @@ public abstract class NodeSelectorBinaryParserTokenTestCase<T extends NodeSelect
         final NodeSelectorParserToken symbol = this.operatorSymbol();
         final NodeSelectorParserToken right = this.rightToken();
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken(whitespace.text() + symbol.text() + right.text(), whitespace, symbol, right);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createToken(whitespace.text() + symbol.text() + right.text(), whitespace, symbol, right));
     }
 
     @Test
@@ -48,9 +46,7 @@ public abstract class NodeSelectorBinaryParserTokenTestCase<T extends NodeSelect
         final NodeSelectorParserToken symbol = this.operatorSymbol();
         final NodeSelectorParserToken whitespace = this.whitespace();
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken(left.text() + symbol.text() + whitespace.text(), left, symbol, whitespace);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createToken(left.text() + symbol.text() + whitespace.text(), left, symbol, whitespace));
     }
 
     @Test

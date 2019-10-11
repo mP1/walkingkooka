@@ -316,16 +316,12 @@ public final class ComparisonRelationTest implements ClassTesting2<ComparisonRel
 
     @Test
     public void testFindWithSymbolNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ComparisonRelation.findWithSymbol(null);
-        });
+        assertThrows(NullPointerException.class, () -> ComparisonRelation.findWithSymbol(null));
     }
 
     @Test
     public void testFindWithSymbolUnknownFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ComparisonRelation.findWithSymbol("?");
-        });
+        assertThrows(IllegalArgumentException.class, () -> ComparisonRelation.findWithSymbol("?"));
     }
 
     @Test

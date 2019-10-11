@@ -39,9 +39,7 @@ public final class DateTimeFormatterBuilderDateTimeFormatterPatternVisitorTest i
 
     @Test
     public void testNewNullDateTimeFormatterBuilderFails() {
-        assertThrows(NullPointerException.class, () -> {
-            new DateTimeFormatterBuilderDateTimeFormatterPatternVisitor(null);
-        });
+        assertThrows(NullPointerException.class, () -> new DateTimeFormatterBuilderDateTimeFormatterPatternVisitor(null));
     }
 
     @Test
@@ -183,9 +181,7 @@ public final class DateTimeFormatterBuilderDateTimeFormatterPatternVisitorTest i
 
     @Test
     public void testVisitIllegalFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createVisitor().accept("#");
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createVisitor().accept("#"));
     }
 
     @Test

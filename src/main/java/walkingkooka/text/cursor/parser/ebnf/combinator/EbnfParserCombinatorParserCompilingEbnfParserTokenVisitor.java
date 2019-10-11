@@ -79,9 +79,7 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor extends Eb
                 .map(EbnfParserToken.class::cast)
                 .filter(EbnfParserToken::isRule)
                 .map(EbnfRuleParserToken.class::cast)
-                .forEach(r -> {
-                    this.identifierToRule.put(r.identifier().value(), r);
-                });
+                .forEach(r -> this.identifierToRule.put(r.identifier().value(), r));
         return super.startVisit(token);
     }
 
@@ -172,9 +170,7 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor extends Eb
     @Override
     protected void endVisit(final EbnfConcatenationParserToken token) {
         final SequenceParserBuilder<ParserContext> b = Parsers.sequenceParserBuilder();
-        this.children.forEach(p -> {
-            this.concatenationParserToken(p, b);
-        });
+        this.children.forEach(p -> this.concatenationParserToken(p, b));
         final Parser<ParserContext> parser = b.build()
                 .setToString(token.toString());
         this.exit();

@@ -46,9 +46,7 @@ public abstract class ParserTestCase<P extends Parser<ParserContext>> implements
 
     @Test
     public final void testOrNullParserFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createParser().or(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createParser().or(null));
     }
 
     @Test

@@ -37,9 +37,7 @@ abstract public class PredicateTestCase<P extends Predicate<T>, T> implements Cl
 
     @Test
     public void testTestNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.test(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.test(null));
     }
 
     @Override

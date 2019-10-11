@@ -28,9 +28,7 @@ public final class PushableStreamConsumerStreamIntermediate2FlatMapTest extends 
 
     @Test
     public void testWithNullMapperFails() {
-        assertThrows(NullPointerException.class, () -> {
-            PushableStreamConsumerStreamIntermediate2FlatMap.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> PushableStreamConsumerStreamIntermediate2FlatMap.with(null));
     }
 
     @Test

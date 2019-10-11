@@ -34,47 +34,41 @@ public final class BasicDecimalNumberContextTest implements ClassTesting2<BasicD
 
     @Test
     public void testWithNullCurrencySymbol() {
-        assertThrows(NullPointerException.class, () -> {
-            BasicDecimalNumberContext.with(null,
-                    '.',
-                    'E',
-                    ',',
-                    '-',
-                    '%',
-                    '+',
-                    LOCALE,
-                    MATH_CONTEXT);
-        });
+        assertThrows(NullPointerException.class, () -> BasicDecimalNumberContext.with(null,
+                '.',
+                'E',
+                ',',
+                '-',
+                '%',
+                '+',
+                LOCALE,
+                MATH_CONTEXT));
     }
 
     @Test
     public void testWithNullLocale() {
-        assertThrows(NullPointerException.class, () -> {
-            BasicDecimalNumberContext.with("$",
-                    '.',
-                    'E',
-                    ',',
-                    '-',
-                    '%',
-                    '+',
-                    null,
-                    MATH_CONTEXT);
-        });
+        assertThrows(NullPointerException.class, () -> BasicDecimalNumberContext.with("$",
+                '.',
+                'E',
+                ',',
+                '-',
+                '%',
+                '+',
+                null,
+                MATH_CONTEXT));
     }
 
     @Test
     public void testWithNullMathContext() {
-        assertThrows(NullPointerException.class, () -> {
-            BasicDecimalNumberContext.with("$",
-                    '.',
-                    'E',
-                    ',',
-                    '-',
-                    '%',
-                    '+',
-                    LOCALE,
-                    null);
-        });
+        assertThrows(NullPointerException.class, () -> BasicDecimalNumberContext.with("$",
+                '.',
+                'E',
+                ',',
+                '-',
+                '%',
+                '+',
+                LOCALE,
+                null));
     }
 
     @Test

@@ -44,9 +44,7 @@ final public class NotPredicateTest extends PredicateTestCase<NotPredicate<Strin
 
     @Test
     public void testWrapNullPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            NotPredicate.wrap(null);
-        });
+        assertThrows(NullPointerException.class, () -> NotPredicate.wrap(null));
     }
 
     @Test

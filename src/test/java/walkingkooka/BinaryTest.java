@@ -40,9 +40,7 @@ public final class BinaryTest implements HashCodeEqualsDefinedTesting2<Binary>,
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Binary.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> Binary.with(null));
     }
 
     @Test
@@ -80,9 +78,7 @@ public final class BinaryTest implements HashCodeEqualsDefinedTesting2<Binary>,
 
     @Test
     public void testExtractNullRangeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createObject().extract(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createObject().extract(null));
     }
 
     @Test
@@ -111,9 +107,7 @@ public final class BinaryTest implements HashCodeEqualsDefinedTesting2<Binary>,
 
     private void extractFails(final Binary binary,
                               final Range<Long> range) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            binary.extract(range);
-        });
+        assertThrows(IllegalArgumentException.class, () -> binary.extract(range));
     }
 
     @Test

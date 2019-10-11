@@ -32,9 +32,7 @@ public abstract class EbnfAlternativeConcatenationParentParserTokenTestCase<T ex
 
     @Test
     public final void testOnlyOneTokenIgnoringCommentsSymbolsWhitespaceFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken(this.text(), this.identifier("first"), this.comment2());
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createToken(this.text(), this.identifier("first"), this.comment2()));
     }
 
     @Override

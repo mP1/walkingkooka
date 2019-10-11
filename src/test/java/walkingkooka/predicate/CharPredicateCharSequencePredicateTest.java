@@ -37,9 +37,7 @@ final public class CharPredicateCharSequencePredicateTest
 
     @Test
     public void testWithNullCharPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CharPredicateCharSequencePredicate.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> CharPredicateCharSequencePredicate.with(null));
     }
 
     @Test

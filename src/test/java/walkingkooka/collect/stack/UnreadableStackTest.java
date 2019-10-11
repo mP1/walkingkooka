@@ -34,9 +34,7 @@ final public class UnreadableStackTest extends StackTestCase<UnreadableStack<Obj
 
     @Test
     public void testWithNullStackFails() {
-        assertThrows(NullPointerException.class, () -> {
-            UnreadableStack.wrap(null);
-        });
+        assertThrows(NullPointerException.class, () -> UnreadableStack.wrap(null));
     }
 
     @Test

@@ -28,37 +28,27 @@ public abstract class EbnfParentParserTokenTestCase2<T extends EbnfParentParserT
 
     @Test
     public final void testOnlyCommentsFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken(this.text(), this.comment1(), this.comment2());
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createToken(this.text(), this.comment1(), this.comment2()));
     }
 
     @Test
     public final void testOnlySymbolsFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken(this.text(), symbol("a"), symbol("z"));
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createToken(this.text(), symbol("a"), symbol("z")));
     }
 
     @Test
     public final void testOnlyWhitespaceFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken(this.text(), this.whitespace("   "), this.whitespace(" "));
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createToken(this.text(), this.whitespace("   "), this.whitespace(" ")));
     }
 
     @Test
     public final void testOnlyCommentsSymbolsWhitespaceFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken(this.text(), this.comment1(), symbol("2"), this.whitespace("   "));
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createToken(this.text(), this.comment1(), symbol("2"), this.whitespace("   ")));
     }
 
     @Test
     public final void testOnlyCommentWhitespaceFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken(this.text(), this.whitespace("   "), this.whitespace(" "));
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createToken(this.text(), this.whitespace("   "), this.whitespace(" ")));
     }
 
     public abstract void testToSearchNode();

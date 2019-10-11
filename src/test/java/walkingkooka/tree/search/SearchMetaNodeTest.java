@@ -37,23 +37,17 @@ public final class SearchMetaNodeTest extends SearchParentNodeTestCase<SearchMet
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            SearchMetaNode.with(null, this.attributes());
-        });
+        assertThrows(NullPointerException.class, () -> SearchMetaNode.with(null, this.attributes()));
     }
 
     @Test
     public void testWithNullAttributesFails() {
-        assertThrows(NullPointerException.class, () -> {
-            SearchMetaNode.with(this.child(), null);
-        });
+        assertThrows(NullPointerException.class, () -> SearchMetaNode.with(this.child(), null));
     }
 
     @Test
     public void testWithEmptyAttributesFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            SearchMetaNode.with(this.child(), SearchMetaNode.NO_ATTRIBUTES);
-        });
+        assertThrows(IllegalArgumentException.class, () -> SearchMetaNode.with(this.child(), SearchMetaNode.NO_ATTRIBUTES));
     }
 
     @Test
@@ -67,9 +61,7 @@ public final class SearchMetaNodeTest extends SearchParentNodeTestCase<SearchMet
 
     @Test
     public void testSetChildrenIncorrectCountFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createSearchNode().setChildren(Lists.of(this.text("child-1"), this.text("child-2")));
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createSearchNode().setChildren(Lists.of(this.text("child-1"), this.text("child-2"))));
     }
 
     @Test
@@ -99,9 +91,7 @@ public final class SearchMetaNodeTest extends SearchParentNodeTestCase<SearchMet
 
     @Test
     public void testAppendChild() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            this.createSearchNode().appendChild(this.text("append-fails"));
-        });
+        assertThrows(UnsupportedOperationException.class, () -> this.createSearchNode().appendChild(this.text("append-fails")));
     }
 
     @Override
@@ -111,9 +101,7 @@ public final class SearchMetaNodeTest extends SearchParentNodeTestCase<SearchMet
 
     @Test
     public void testRemoveChildFirst() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            this.createSearchNode().removeChild(0);
-        });
+        assertThrows(UnsupportedOperationException.class, () -> this.createSearchNode().removeChild(0));
     }
 
     @Override

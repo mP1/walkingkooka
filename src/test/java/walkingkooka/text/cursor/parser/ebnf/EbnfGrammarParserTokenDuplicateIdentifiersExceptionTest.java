@@ -36,16 +36,12 @@ public final class EbnfGrammarParserTokenDuplicateIdentifiersExceptionTest imple
 
     @Test
     public void testWithNullDuplicatesFails() {
-        assertThrows(NullPointerException.class, () -> {
-            new EbnfGrammarParserTokenDuplicateIdentifiersException("message 123", null);
-        });
+        assertThrows(NullPointerException.class, () -> new EbnfGrammarParserTokenDuplicateIdentifiersException("message 123", null));
     }
 
     @Test
     public void testWithEmptyDuplicatesFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new EbnfGrammarParserTokenDuplicateIdentifiersException("message 123", Sets.empty());
-        });
+        assertThrows(IllegalArgumentException.class, () -> new EbnfGrammarParserTokenDuplicateIdentifiersException("message 123", Sets.empty()));
     }
 
     @Test

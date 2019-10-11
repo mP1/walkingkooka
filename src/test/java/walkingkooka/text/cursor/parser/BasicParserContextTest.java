@@ -46,16 +46,12 @@ public final class BasicParserContextTest implements ClassTesting2<BasicParserCo
 
     @Test
     public void testWithNullDateTimeContextFails() {
-        assertThrows(NullPointerException.class, () -> {
-            BasicParserContext.with(null, DecimalNumberContexts.fake());
-        });
+        assertThrows(NullPointerException.class, () -> BasicParserContext.with(null, DecimalNumberContexts.fake()));
     }
 
     @Test
     public void testWithNullDecimalNumberContextFails() {
-        assertThrows(NullPointerException.class, () -> {
-            BasicParserContext.with(DateTimeContexts.fake(), null);
-        });
+        assertThrows(NullPointerException.class, () -> BasicParserContext.with(DateTimeContexts.fake(), null));
     }
 
     @Test

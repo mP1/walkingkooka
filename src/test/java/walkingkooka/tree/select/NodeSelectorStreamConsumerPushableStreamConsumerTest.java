@@ -47,64 +47,54 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
 
     @Test
     public void testWithNullNodeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            NodeSelectorStreamConsumerPushableStreamConsumer.with(null,
-                    this.selector(),
-                    this.functions(),
-                    this.converter(),
-                    this.converterContext(),
-                    this.nodeType());
-        });
+        assertThrows(NullPointerException.class, () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(null,
+                this.selector(),
+                this.functions(),
+                this.converter(),
+                this.converterContext(),
+                this.nodeType()));
     }
 
     // no TestWithNullSelector because NodeSelector.stream
 
     @Test
     public void testWithNullFunctionsFails() {
-        assertThrows(NullPointerException.class, () -> {
-            NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
-                    this.selector(),
-                    null,
-                    this.converter(),
-                    this.converterContext(),
-                    this.nodeType());
-        });
+        assertThrows(NullPointerException.class, () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
+                this.selector(),
+                null,
+                this.converter(),
+                this.converterContext(),
+                this.nodeType()));
     }
 
     @Test
     public void testWithNullConverterFails() {
-        assertThrows(NullPointerException.class, () -> {
-            NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
-                    this.selector(),
-                    this.functions(),
-                    null,
-                    this.converterContext(),
-                    this.nodeType());
-        });
+        assertThrows(NullPointerException.class, () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
+                this.selector(),
+                this.functions(),
+                null,
+                this.converterContext(),
+                this.nodeType()));
     }
 
     @Test
     public void testWithNullConverterContextFails() {
-        assertThrows(NullPointerException.class, () -> {
-            NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
-                    this.selector(),
-                    this.functions(),
-                    this.converter(),
-                    null,
-                    this.nodeType());
-        });
+        assertThrows(NullPointerException.class, () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
+                this.selector(),
+                this.functions(),
+                this.converter(),
+                null,
+                this.nodeType()));
     }
 
     @Test
     public void testWithNullNodeTypeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
-                    this.selector(),
-                    this.functions(),
-                    this.converter(),
-                    this.converterContext(),
-                    null);
-        });
+        assertThrows(NullPointerException.class, () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
+                this.selector(),
+                this.functions(),
+                this.converter(),
+                this.converterContext(),
+                null));
     }
 
     @Test

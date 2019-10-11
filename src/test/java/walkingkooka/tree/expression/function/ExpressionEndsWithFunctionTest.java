@@ -30,17 +30,13 @@ public final class ExpressionEndsWithFunctionTest extends ExpressionFunctionTest
 
     @Test
     public void testOneParametersFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.apply2( "a1");
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.apply2( "a1"));
     }
 
 
     @Test
     public void testThreeParametersFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.apply2( "a1", 2, 3);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.apply2( "a1", 2, 3));
     }
 
     @Test

@@ -53,9 +53,7 @@ final public class CharPredicateBuilderTest implements ClassTesting2<CharPredica
     public void testOrNullPredicateFails() {
         final CharPredicateBuilder builder = this.createBuilder();
         builder.predicate = PREDICATE;
-        assertThrows(NullPointerException.class, () -> {
-            builder.or(null);
-        });
+        assertThrows(NullPointerException.class, () -> builder.or(null));
         assertSame(PREDICATE, builder.predicate, "predicate");
     }
 
@@ -84,9 +82,7 @@ final public class CharPredicateBuilderTest implements ClassTesting2<CharPredica
     public void testAnyNullStringFails() {
         final CharPredicateBuilder builder = this.createBuilder();
         builder.predicate = PREDICATE;
-        assertThrows(NullPointerException.class, () -> {
-            builder.any((String) null);
-        });
+        assertThrows(NullPointerException.class, () -> builder.any((String) null));
         assertSame(PREDICATE, builder.predicate, "predicate");
     }
 
@@ -119,9 +115,7 @@ final public class CharPredicateBuilderTest implements ClassTesting2<CharPredica
     public void testAnyNullCharsFails() {
         final CharPredicateBuilder builder = this.createBuilder();
         builder.predicate = PREDICATE;
-        assertThrows(NullPointerException.class, () -> {
-            builder.any((char[]) null);
-        });
+        assertThrows(NullPointerException.class, () -> builder.any((char[]) null));
         assertSame(PREDICATE, builder.predicate, "predicate");
     }
 
@@ -154,9 +148,7 @@ final public class CharPredicateBuilderTest implements ClassTesting2<CharPredica
     public void testAndNullPredicate() {
         final CharPredicateBuilder builder = this.createBuilder();
         builder.predicate = PREDICATE;
-        assertThrows(NullPointerException.class, () -> {
-            builder.and(null);
-        });
+        assertThrows(NullPointerException.class, () -> builder.and(null));
         assertSame(PREDICATE, builder.predicate, "predicate");
     }
 
@@ -208,9 +200,7 @@ final public class CharPredicateBuilderTest implements ClassTesting2<CharPredica
     public void testAndNotNullPredicate() {
         final CharPredicateBuilder builder = this.createBuilder();
         builder.predicate = PREDICATE;
-        assertThrows(NullPointerException.class, () -> {
-            builder.andNot(null);
-        });
+        assertThrows(NullPointerException.class, () -> builder.andNot(null));
         assertSame(PREDICATE, builder.predicate, "predicate");
     }
 
@@ -271,9 +261,7 @@ final public class CharPredicateBuilderTest implements ClassTesting2<CharPredica
     public void testNullStringFails() {
         final CharPredicateBuilder builder = this.createBuilder();
         builder.predicate = PREDICATE;
-        assertThrows(NullPointerException.class, () -> {
-            builder.toString(null);
-        });
+        assertThrows(NullPointerException.class, () -> builder.toString(null));
         assertSame(PREDICATE, builder.predicate, "predicate");
     }
 
@@ -290,9 +278,7 @@ final public class CharPredicateBuilderTest implements ClassTesting2<CharPredica
     private void toStringFails(final String toString) {
         final CharPredicateBuilder builder = this.createBuilder();
         builder.predicate = PREDICATE;
-        assertThrows(IllegalArgumentException.class, () -> {
-            builder.toString(toString);
-        });
+        assertThrows(IllegalArgumentException.class, () -> builder.toString(toString));
         assertSame(PREDICATE, builder.predicate, "predicate");
     }
 

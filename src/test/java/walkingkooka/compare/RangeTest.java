@@ -50,16 +50,12 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     @Test
     public void testWithNullLowerFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Range.with(null, RangeBound.<Integer>all());
-        });
+        assertThrows(NullPointerException.class, () -> Range.with(null, RangeBound.<Integer>all()));
     }
 
     @Test
     public void testWithNullUpperFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Range.with(RangeBound.<Integer>all(), null);
-        });
+        assertThrows(NullPointerException.class, () -> Range.with(RangeBound.<Integer>all(), null));
     }
 
     @Test
@@ -76,9 +72,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     @Test
     public void testAndNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPredicate().and(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createPredicate().and(null));
     }
 
     // all ..............................................................................................
@@ -107,9 +101,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     @Test
     public void testSingletonNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Range.singleton(null);
-        });
+        assertThrows(NullPointerException.class, () -> Range.singleton(null));
     }
 
     @Test
@@ -146,9 +138,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     @Test
     public void testLessThanNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Range.lessThan(null);
-        });
+        assertThrows(NullPointerException.class, () -> Range.lessThan(null));
     }
 
     @Test
@@ -185,9 +175,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     @Test
     public void testLessThanEqualsNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Range.lessThanEquals(null);
-        });
+        assertThrows(NullPointerException.class, () -> Range.lessThanEquals(null));
     }
 
     @Test
@@ -224,9 +212,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     @Test
     public void testGreaterThanNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Range.greaterThan(null);
-        });
+        assertThrows(NullPointerException.class, () -> Range.greaterThan(null));
     }
 
     @Test
@@ -263,9 +249,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     @Test
     public void testGreaterThanEqualsNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Range.greaterThanEquals(null);
-        });
+        assertThrows(NullPointerException.class, () -> Range.greaterThanEquals(null));
     }
 
     @Test
@@ -375,67 +359,49 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     @Test
     public void testAndLessThanAndGreaterThanFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            lessThan().and(greaterThan());
-        });
+        assertThrows(IllegalArgumentException.class, () -> lessThan().and(greaterThan()));
     }
 
     @Test
     public void testAndGreaterThanAndLessThanFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            greaterThan().and(lessThan());
-        });
+        assertThrows(IllegalArgumentException.class, () -> greaterThan().and(lessThan()));
     }
 
     @Test
     public void testAndLessThanAndGreaterThanFails2() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Range.lessThan(122).and(Range.greaterThan(123));
-        });
+        assertThrows(IllegalArgumentException.class, () -> Range.lessThan(122).and(Range.greaterThan(123)));
     }
 
     @Test
     public void testAndLessThanEqualAndGreaterThanFails2() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Range.lessThanEquals(122).and(Range.greaterThan(123));
-        });
+        assertThrows(IllegalArgumentException.class, () -> Range.lessThanEquals(122).and(Range.greaterThan(123)));
     }
 
     @Test
     public void testAndLessThanEqualAndSingletonFails2() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Range.lessThanEquals(122).and(Range.singleton(123));
-        });
+        assertThrows(IllegalArgumentException.class, () -> Range.lessThanEquals(122).and(Range.singleton(123)));
     }
 
     @Test
     public void testAndSingletonAndGreaterThanFails2() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Range.singleton(122).and(Range.greaterThan(123));
-        });
+        assertThrows(IllegalArgumentException.class, () -> Range.singleton(122).and(Range.greaterThan(123)));
     }
 
     @Test
     public void testAndSingletonAndGreaterThanEqualsFails2() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Range.singleton(122).and(Range.greaterThanEquals(123));
-        });
+        assertThrows(IllegalArgumentException.class, () -> Range.singleton(122).and(Range.greaterThanEquals(123)));
     }
 
     @Test
     public void testAndNonOverlappingBoundedRangeBoundedRangeFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Range.greaterThan(222).and(Range.lessThan(333))
-                    .and(Range.greaterThan(888).and(Range.lessThan(999)));
-        });
+        assertThrows(IllegalArgumentException.class, () -> Range.greaterThan(222).and(Range.lessThan(333))
+                .and(Range.greaterThan(888).and(Range.lessThan(999))));
     }
 
     @Test
     public void testAndNonOverlappingBoundedRangeBoundedRangeFails2() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Range.greaterThan(222).and(Range.lessThan(333))
-                    .and(Range.greaterThan(333).and(Range.lessThan(999)));
-        });
+        assertThrows(IllegalArgumentException.class, () -> Range.greaterThan(222).and(Range.lessThan(333))
+                .and(Range.greaterThan(333).and(Range.lessThan(999))));
     }
 
     // and gt lt ......................................................................
@@ -688,9 +654,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     @Test
     public void testIsOverlappingpingNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Range.all().isOverlapping(null);
-        });
+        assertThrows(NullPointerException.class, () -> Range.all().isOverlapping(null));
     }
 
     @Test
@@ -867,20 +831,16 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     @Test
     public void testParseNullFactoryFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Range.parse("1", ':', null);
-        });
+        assertThrows(NullPointerException.class, () -> Range.parse("1", ':', null));
     }
 
     @Test
     public void testParseInvalidCharacterFails() {
         final String text = "1A:2!";
 
-        final InvalidCharacterException thrown = assertThrows(InvalidCharacterException.class, () -> {
-            Range.parse(text, ':', (s) -> {
-                throw new InvalidCharacterException("2!", 1);
-            });
-        });
+        final InvalidCharacterException thrown = assertThrows(InvalidCharacterException.class, () -> Range.parse(text, ':', (s) -> {
+            throw new InvalidCharacterException("2!", 1);
+        }));
         assertEquals(text, thrown.text(), "text");
     }
 

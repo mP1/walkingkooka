@@ -31,16 +31,12 @@ public interface StandardThrowableTesting<T extends Throwable> extends Throwable
 
     @Test
     default void testWithNullMessageFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createThrowable(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createThrowable(null));
     }
 
     @Test
     default void testWithEmptyMessageFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createThrowable("");
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createThrowable(""));
     }
 
     @Test
@@ -52,30 +48,22 @@ public interface StandardThrowableTesting<T extends Throwable> extends Throwable
 
     @Test
     default void testConstructorCauseUnavailable() {
-        assertThrows(NoSuchMethodException.class, () -> {
-            this.type().getDeclaredConstructor(Throwable.class);
-        });
+        assertThrows(NoSuchMethodException.class, () -> this.type().getDeclaredConstructor(Throwable.class));
     }
 
     @Test
     default void testWithNullMessageAndCauseExceptionFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createThrowable(null, CAUSE);
-        });
+        assertThrows(NullPointerException.class, () -> this.createThrowable(null, CAUSE));
     }
 
     @Test
     default void testWithEmptyMessageAndNonNullCauseFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createThrowable("", CAUSE);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createThrowable("", CAUSE));
     }
 
     @Test
     default void testWithMessageAndNullCauseFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createThrowable(MESSAGE, null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createThrowable(MESSAGE, null));
     }
 
     @Test

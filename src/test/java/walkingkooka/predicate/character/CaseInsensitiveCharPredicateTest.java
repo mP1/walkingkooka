@@ -26,9 +26,7 @@ public final class CaseInsensitiveCharPredicateTest implements CharPredicateTest
 
     @Test
     public void testWithNullCharPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CaseInsensitiveCharPredicate.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> CaseInsensitiveCharPredicate.with(null));
     }
 
     @Test

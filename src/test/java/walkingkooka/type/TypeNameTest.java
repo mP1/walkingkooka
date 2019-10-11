@@ -29,9 +29,7 @@ public final class TypeNameTest extends PackageNameOrTypeNameJavaNameTestCase<Cl
 
     @Test
     public void testFromClassNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ClassName.fromClass(null);
-        });
+        assertThrows(NullPointerException.class, () -> ClassName.fromClass(null));
     }
 
     @Test
@@ -42,87 +40,63 @@ public final class TypeNameTest extends PackageNameOrTypeNameJavaNameTestCase<Cl
 
     @Test
     public void testWithTrailingDotFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            this.createName("pkg1.ClassName.");
-        });
+        assertThrows(InvalidCharacterException.class, () -> this.createName("pkg1.ClassName."));
     }
 
     @Test
     public void testWithEmptyPackageFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            this.createName("before..after");
-        });
+        assertThrows(InvalidCharacterException.class, () -> this.createName("before..after"));
     }
 
     @Test
     public void testWithEmptyPackageFails2() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            this.createName("pkg123..");
-        });
+        assertThrows(InvalidCharacterException.class, () -> this.createName("pkg123.."));
     }
 
     @Test
     public void testWithEmptyPackageFails3() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            this.createName("..after");
-        });
+        assertThrows(InvalidCharacterException.class, () -> this.createName("..after"));
     }
 
     @Test
     public void testWithPartInsteadOfInitialFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            this.createName("pkg123.1ClassName");
-        });
+        assertThrows(InvalidCharacterException.class, () -> this.createName("pkg123.1ClassName"));
     }
 
     @Test
     public void testWithPartInsteadOfInitialFails2() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            this.createName("1abc.ClassName");
-        });
+        assertThrows(InvalidCharacterException.class, () -> this.createName("1abc.ClassName"));
     }
 
     @Test
     public void testWithPartInsteadOfInitialFails3() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            this.createName("pkg123.1");
-        });
+        assertThrows(InvalidCharacterException.class, () -> this.createName("pkg123.1"));
     }
 
     @Test
     public void testWithPartInsteadOfInitialFails4() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            this.createName("pkg123.1");
-        });
+        assertThrows(InvalidCharacterException.class, () -> this.createName("pkg123.1"));
     }
 
     @Test
     public void testWithInvalidPartFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            this.createName("pkg123.a\nb.ClassName");
-        });
+        assertThrows(InvalidCharacterException.class, () -> this.createName("pkg123.a\nb.ClassName"));
     }
 
     @Test
     public void testWithInvalidPartFails2() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            this.createName("pkg123.A\n");
-        });
+        assertThrows(InvalidCharacterException.class, () -> this.createName("pkg123.A\n"));
     }
 
     @Test
     public void testWithArrayClassNameFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            this.createName(Object[].class.getName());
-        });
+        assertThrows(InvalidCharacterException.class, () -> this.createName(Object[].class.getName()));
     }
 
     @Test
     public void testWithLambdaClassNameFails() {
         final Predicate<?> lambda = (t) -> true;
-        assertThrows(InvalidCharacterException.class, () -> {
-            this.createName(lambda.getClass().getName());
-        });
+        assertThrows(InvalidCharacterException.class, () -> this.createName(lambda.getClass().getName()));
     }
 
     @Test

@@ -37,30 +37,22 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     @Test
     public void testBigEndianHexDigitsNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CharSequences.bigEndianHexDigits(null);
-        });
+        assertThrows(NullPointerException.class, () -> CharSequences.bigEndianHexDigits(null));
     }
 
     @Test
     public void testBigEndianHexDigitsOddNumberOfDigitsFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CharSequences.bigEndianHexDigits("1");
-        });
+        assertThrows(IllegalArgumentException.class, () -> CharSequences.bigEndianHexDigits("1"));
     }
 
     @Test
     public void testBigEndianHexDigitsOddNumberOfDigits2Fails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CharSequences.bigEndianHexDigits("12345");
-        });
+        assertThrows(IllegalArgumentException.class, () -> CharSequences.bigEndianHexDigits("12345"));
     }
 
     @Test
     public void testBigEndianHexDigitsIllegalCharacterFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            CharSequences.bigEndianHexDigits("123X56");
-        });
+        assertThrows(InvalidCharacterException.class, () -> CharSequences.bigEndianHexDigits("123X56"));
     }
 
     @Test
@@ -111,9 +103,7 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     @Test
     public void testCapitalizeNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CharSequences.capitalize(null);
-        });
+        assertThrows(NullPointerException.class, () -> CharSequences.capitalize(null));
     }
 
     @Test
@@ -149,16 +139,12 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     @Test
     public void testCopyCaseNullCharsFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CharSequences.copyCase(null, CASE_SOURCE);
-        });
+        assertThrows(NullPointerException.class, () -> CharSequences.copyCase(null, CASE_SOURCE));
     }
 
     @Test
     public void testCopyCaseNullCaseSourceFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CharSequences.copyCase(CHARS, null);
-        });
+        assertThrows(NullPointerException.class, () -> CharSequences.copyCase(CHARS, null));
     }
 
     @Test
@@ -358,23 +344,17 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     @Test
     public void testIndexOfNullCharsFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CharSequences.indexOf(null, "searchFor");
-        });
+        assertThrows(NullPointerException.class, () -> CharSequences.indexOf(null, "searchFor"));
     }
 
     @Test
     public void testIndexOfNullSearchForFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CharSequences.indexOf("chars", null);
-        });
+        assertThrows(NullPointerException.class, () -> CharSequences.indexOf("chars", null));
     }
 
     @Test
     public void testIndexOfEmptySearchForFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CharSequences.indexOf("chars", "");
-        });
+        assertThrows(IllegalArgumentException.class, () -> CharSequences.indexOf("chars", ""));
     }
 
     @Test
@@ -498,16 +478,12 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     @Test
     public void testPadLeftNullCharSequenceFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CharSequences.padLeft(null, LENGTH, PADDING);
-        });
+        assertThrows(NullPointerException.class, () -> CharSequences.padLeft(null, LENGTH, PADDING));
     }
 
     @Test
     public void testPadLeftInvalidLengthFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CharSequences.padLeft(CHARS, CHARS.length() - 1, PADDING);
-        });
+        assertThrows(IllegalArgumentException.class, () -> CharSequences.padLeft(CHARS, CHARS.length() - 1, PADDING));
     }
 
     @Test
@@ -581,16 +557,12 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     @Test
     public void testPadRightNullCharSequenceFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CharSequences.padRight(null, LENGTH, PADDING);
-        });
+        assertThrows(NullPointerException.class, () -> CharSequences.padRight(null, LENGTH, PADDING));
     }
 
     @Test
     public void testPadRightInvalidLengthFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CharSequences.padRight(CHARS, CHARS.length() - 1, PADDING);
-        });
+        assertThrows(IllegalArgumentException.class, () -> CharSequences.padRight(CHARS, CHARS.length() - 1, PADDING));
     }
 
     @Test
@@ -869,16 +841,12 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     @Test
     public void testShrinkNullCharSequenceFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CharSequences.shrink(null, 10);
-        });
+        assertThrows(NullPointerException.class, () -> CharSequences.shrink(null, 10));
     }
 
     @Test
     public void testShrinkInvalidDesiredLengthFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CharSequences.shrink("apple", 5);
-        });
+        assertThrows(IllegalArgumentException.class, () -> CharSequences.shrink("apple", 5));
     }
 
     @Test
@@ -966,9 +934,7 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     @Test
     public void testSubSequenceNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CharSequences.subSequence(null, 1, 1);
-        });
+        assertThrows(NullPointerException.class, () -> CharSequences.subSequence(null, 1, 1));
     }
 
     @Test
@@ -977,9 +943,7 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
         final int to = -5;
         final String string = "string";
 
-        final IndexOutOfBoundsException expected = assertThrows(IndexOutOfBoundsException.class, () -> {
-            CharSequences.subSequence(string, from, to);
-        });
+        final IndexOutOfBoundsException expected = assertThrows(IndexOutOfBoundsException.class, () -> CharSequences.subSequence(string, from, to));
         checkMessage(expected,
                 CharSequences.toIndexBeforeFromIndex(from, to, string.length()));
     }
@@ -1014,9 +978,7 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     @Test
     public void testTrimNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CharSequences.trim(null);
-        });
+        assertThrows(NullPointerException.class, () -> CharSequences.trim(null));
     }
 
     @Test
@@ -1059,9 +1021,7 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     @Test
     public void testTrimLeftNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CharSequences.trimLeft(null);
-        });
+        assertThrows(NullPointerException.class, () -> CharSequences.trimLeft(null));
     }
 
     @Test
@@ -1093,9 +1053,7 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     @Test
     public void testTrimRightNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CharSequences.trimRight(null);
-        });
+        assertThrows(NullPointerException.class, () -> CharSequences.trimRight(null));
     }
 
     @Test

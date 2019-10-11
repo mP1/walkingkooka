@@ -36,16 +36,12 @@ final public class TeePrinterTest extends PrinterTestCase<TeePrinter> {
 
     @Test
     public void testWrapNullFirstPrinterFails() {
-        assertThrows(NullPointerException.class, () -> {
-            TeePrinter.wrap(null, PRINTER);
-        });
+        assertThrows(NullPointerException.class, () -> TeePrinter.wrap(null, PRINTER));
     }
 
     @Test
     public void testWrapNullSecondPrinterFails() {
-        assertThrows(NullPointerException.class, () -> {
-            TeePrinter.wrap(PRINTER, null);
-        });
+        assertThrows(NullPointerException.class, () -> TeePrinter.wrap(PRINTER, null));
     }
 
     @Test

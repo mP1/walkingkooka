@@ -31,9 +31,7 @@ public final class SearchNodeAttributeNameTest implements ClassTesting2<SearchNo
 
     @Test
     public void testWithDotDotFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            this.createName("abc..def");
-        });
+        assertThrows(InvalidCharacterException.class, () -> this.createName("abc..def"));
     }
 
     @Test

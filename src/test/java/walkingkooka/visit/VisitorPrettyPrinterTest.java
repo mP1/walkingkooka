@@ -39,23 +39,17 @@ public final class VisitorPrettyPrinterTest implements ClassTesting2<VisitorPret
 
     @Test
     public void testWithNullPrinterFails() {
-        assertThrows(NullPointerException.class, () -> {
-            VisitorPrettyPrinter.with(null, this.indentation(), this.typeName());
-        });
+        assertThrows(NullPointerException.class, () -> VisitorPrettyPrinter.with(null, this.indentation(), this.typeName()));
     }
 
     @Test
     public void testWithNullIdentationFails() {
-        assertThrows(NullPointerException.class, () -> {
-            VisitorPrettyPrinter.with(this.printer(), null, this.typeName());
-        });
+        assertThrows(NullPointerException.class, () -> VisitorPrettyPrinter.with(this.printer(), null, this.typeName()));
     }
 
     @Test
     public void testWithNullTypeNameFails() {
-        assertThrows(NullPointerException.class, () -> {
-            VisitorPrettyPrinter.with(this.printer(), this.indentation(), null);
-        });
+        assertThrows(NullPointerException.class, () -> VisitorPrettyPrinter.with(this.printer(), this.indentation(), null));
     }
 
     @Test
@@ -80,23 +74,17 @@ public final class VisitorPrettyPrinterTest implements ClassTesting2<VisitorPret
 
     @Test
     public void testComputeFromClassSimpleNameObjectNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            VisitorPrettyPrinter.computeFromClassSimpleName(null, "prefix", "suffix");
-        });
+        assertThrows(NullPointerException.class, () -> VisitorPrettyPrinter.computeFromClassSimpleName(null, "prefix", "suffix"));
     }
 
     @Test
     public void testComputeFromClassSimpleNamePrefixNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            VisitorPrettyPrinter.computeFromClassSimpleName(new Object(), null, "suffix");
-        });
+        assertThrows(NullPointerException.class, () -> VisitorPrettyPrinter.computeFromClassSimpleName(new Object(), null, "suffix"));
     }
 
     @Test
     public void testComputeFromClassSimpleNameSuffixNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            VisitorPrettyPrinter.computeFromClassSimpleName(new Object(), "prefix", null);
-        });
+        assertThrows(NullPointerException.class, () -> VisitorPrettyPrinter.computeFromClassSimpleName(new Object(), "prefix", null));
     }
 
     @Test

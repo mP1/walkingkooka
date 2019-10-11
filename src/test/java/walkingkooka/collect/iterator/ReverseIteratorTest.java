@@ -33,9 +33,7 @@ final public class ReverseIteratorTest extends IteratorTestCase<ReverseIterator<
 
     @Test
     public void testWithNullIteratorFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ReverseIterator.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> ReverseIterator.with(null));
     }
 
     @Test

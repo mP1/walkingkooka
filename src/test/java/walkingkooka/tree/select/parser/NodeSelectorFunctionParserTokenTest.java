@@ -34,9 +34,7 @@ public final class NodeSelectorFunctionParserTokenTest extends NodeSelectorParen
 
     @Test
     public void testWithMissingFunctionNameFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            NodeSelectorFunctionParserToken.with(Lists.of(number()), number().text());
-        });
+        assertThrows(IllegalArgumentException.class, () -> NodeSelectorFunctionParserToken.with(Lists.of(number()), number().text()));
     }
 
     @Test

@@ -28,23 +28,17 @@ public final class DoubleQuotedParserTokenTest extends ParserTokenTestCase<Doubl
 
     @Test
     public void testWithNullContentFails() {
-        assertThrows(NullPointerException.class, () -> {
-            DoubleQuotedParserToken.with(null, "\"abc\"");
-        });
+        assertThrows(NullPointerException.class, () -> DoubleQuotedParserToken.with(null, "\"abc\""));
     }
 
     @Test
     public void testWithMissingStartQuoteFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            DoubleQuotedParserToken.with("abc", "abc\"");
-        });
+        assertThrows(IllegalArgumentException.class, () -> DoubleQuotedParserToken.with("abc", "abc\""));
     }
 
     @Test
     public void testWithMissingEndQuoteFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            DoubleQuotedParserToken.with("abc", "\"abc");
-        });
+        assertThrows(IllegalArgumentException.class, () -> DoubleQuotedParserToken.with("abc", "\"abc"));
     }
 
     @Test

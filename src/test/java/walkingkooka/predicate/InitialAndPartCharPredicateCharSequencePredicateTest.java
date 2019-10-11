@@ -33,16 +33,12 @@ final public class InitialAndPartCharPredicateCharSequencePredicateTest
 
     @Test
     public void testWithNullInitialCharPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            InitialAndPartCharPredicateCharSequencePredicate.with(null, CharPredicates.never());
-        });
+        assertThrows(NullPointerException.class, () -> InitialAndPartCharPredicateCharSequencePredicate.with(null, CharPredicates.never()));
     }
 
     @Test
     public void testWithNullRemainingCharPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            InitialAndPartCharPredicateCharSequencePredicate.with(CharPredicates.never(), null);
-        });
+        assertThrows(NullPointerException.class, () -> InitialAndPartCharPredicateCharSequencePredicate.with(CharPredicates.never(), null));
     }
 
     @Test

@@ -35,9 +35,7 @@ final public class ObjectEqualityPredicateTest
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ObjectEqualityPredicate.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> ObjectEqualityPredicate.with(null));
     }
 
     @Test

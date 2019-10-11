@@ -49,9 +49,7 @@ public interface StackTesting<S extends Stack<T> & HashCodeEqualsDefined, T> ext
 
     @Test
     default void testPushAllNullIteratorFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createStack().pushAll(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createStack().pushAll(null));
     }
 
     @Test

@@ -33,16 +33,12 @@ public final class ExpressionFunctionNodeTest extends ExpressionVariableNodeTest
 
     @Test
     public void testWithNullNameFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ExpressionFunctionNode.with(null, this.children());
-        });
+        assertThrows(NullPointerException.class, () -> ExpressionFunctionNode.with(null, this.children()));
     }
 
     @Test
     public void testSetNameNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createExpressionNode().setName(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createExpressionNode().setName(null));
     }
 
     @Test

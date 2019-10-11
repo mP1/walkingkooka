@@ -31,9 +31,7 @@ final public class CharSequenceTextCursorTest implements ClassTesting2<CharSeque
 
     @Test
     public void testFromNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CharSequenceTextCursor.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> CharSequenceTextCursor.with(null));
     }
 
     @Test

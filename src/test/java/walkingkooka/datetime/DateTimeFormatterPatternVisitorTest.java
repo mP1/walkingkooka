@@ -239,9 +239,7 @@ public final class DateTimeFormatterPatternVisitorTest extends DateTimeFormatter
 
     @Test
     public void testDateTimeFormatterOfTwoLittleCFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            DateTimeFormatter.ofPattern("cc");
-        });
+        assertThrows(IllegalArgumentException.class, () -> DateTimeFormatter.ofPattern("cc"));
     }
 
     @Test
@@ -451,16 +449,12 @@ public final class DateTimeFormatterPatternVisitorTest extends DateTimeFormatter
 
     @Test
     public void testDateTimeFormatterOfPatternLocalizedZoneOffset2Fails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            DateTimeFormatter.ofPattern("OO");
-        });
+        assertThrows(IllegalArgumentException.class, () -> DateTimeFormatter.ofPattern("OO"));
     }
 
     @Test
     public void testDateTimeFormatterOfPatternLocalizedZoneOffset3Fails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            DateTimeFormatter.ofPattern("OOO");
-        });
+        assertThrows(IllegalArgumentException.class, () -> DateTimeFormatter.ofPattern("OOO"));
     }
 
     @Test
@@ -955,9 +949,7 @@ public final class DateTimeFormatterPatternVisitorTest extends DateTimeFormatter
     }
 
     private void visitIllegalAndCheck(final String pattern) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            DateTimeFormatter.ofPattern(pattern);
-        });
+        assertThrows(IllegalArgumentException.class, () -> DateTimeFormatter.ofPattern(pattern));
         new TestDateTimeFormatterPatternVisitor() {
             @Override
             protected void visitIllegal(final String p) {

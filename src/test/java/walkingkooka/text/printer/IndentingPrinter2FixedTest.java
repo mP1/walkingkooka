@@ -37,9 +37,7 @@ final public class IndentingPrinter2FixedTest
 
     @Test
     public void testWrapNullIndentationFails() {
-        assertThrows(NullPointerException.class, () -> {
-            IndentingPrinter2Fixed.wrap(Printers.fake(), null);
-        });
+        assertThrows(NullPointerException.class, () -> IndentingPrinter2Fixed.wrap(Printers.fake(), null));
     }
 
     @Test

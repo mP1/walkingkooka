@@ -88,11 +88,9 @@ public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends
      */
     @Test
     default void testPublicStaticMethodsParameterAndReturnTypesArePublic() {
-        final Predicate<Method> publicReturnTypeAndParameters = (m) -> {
-            return JavaVisibility.PUBLIC != JavaVisibility.of(m.getReturnType()) ||
-                    Arrays.stream(m.getParameterTypes())
-                            .anyMatch(t -> JavaVisibility.PUBLIC != JavaVisibility.of(t));
-        };
+        final Predicate<Method> publicReturnTypeAndParameters = (m) -> JavaVisibility.PUBLIC != JavaVisibility.of(m.getReturnType()) ||
+                Arrays.stream(m.getParameterTypes())
+                        .anyMatch(t -> JavaVisibility.PUBLIC != JavaVisibility.of(t));
         PublicStaticHelperTesting2.methodFilterAndCheckNone(this.type(),
                 publicReturnTypeAndParameters,
                 "All method parameter and return type must be public");

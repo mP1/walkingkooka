@@ -61,16 +61,12 @@ final public class LineEndingTest implements ClassTesting2<LineEnding>,
 
     @Test
     public void testFromNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            LineEnding.from(null);
-        });
+        assertThrows(NullPointerException.class, () -> LineEnding.from(null));
     }
 
     @Test
     public void testFromUnknownFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            LineEnding.from("UNKNOWN LINE ENDING");
-        });
+        assertThrows(IllegalArgumentException.class, () -> LineEnding.from("UNKNOWN LINE ENDING"));
     }
 
     @Test

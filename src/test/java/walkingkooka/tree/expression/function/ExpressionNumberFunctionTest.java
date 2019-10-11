@@ -30,9 +30,7 @@ public final class ExpressionNumberFunctionTest extends ExpressionFunctionTestCa
 
     @Test
     public void testTwoParametersFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.apply2( "a1", "b2");
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.apply2( "a1", "b2"));
     }
 
     @Test
@@ -47,9 +45,7 @@ public final class ExpressionNumberFunctionTest extends ExpressionFunctionTestCa
 
     @Test
     public void testStringNonNumericFails() {
-        assertThrows(NumberFormatException.class, () -> {
-            this.apply2( "abc");
-        });
+        assertThrows(NumberFormatException.class, () -> this.apply2( "abc"));
     }
 
     @Test

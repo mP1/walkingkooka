@@ -42,9 +42,7 @@ public final class CollectionTestingTest implements CollectionTesting {
 
     @Test
     public void testContainsPresentAbsent() {
-        assertThrows(AssertionError.class, () -> {
-            this.containsAndCheck(Collections.singleton(ELEMENT1), ELEMENT2);
-        });
+        assertThrows(AssertionError.class, () -> this.containsAndCheck(Collections.singleton(ELEMENT1), ELEMENT2));
     }
 
     @Test
@@ -54,9 +52,7 @@ public final class CollectionTestingTest implements CollectionTesting {
 
     @Test
     public void testContainsAbsentPresent() {
-        assertThrows(AssertionError.class, () -> {
-            this.containsAndCheckAbsent(Collections.singleton(ELEMENT1), ELEMENT1);
-        });
+        assertThrows(AssertionError.class, () -> this.containsAndCheckAbsent(Collections.singleton(ELEMENT1), ELEMENT1));
     }
 
     @Test

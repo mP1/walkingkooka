@@ -40,16 +40,12 @@ public final class EbnfParserCombinatorDuplicateRuleExceptionTest implements Cla
 
     @Test
     public void testWithNullMessageFails() {
-        assertThrows(NullPointerException.class, () -> {
-            new EbnfParserCombinatorDuplicateRuleException(null, this.duplicate());
-        });
+        assertThrows(NullPointerException.class, () -> new EbnfParserCombinatorDuplicateRuleException(null, this.duplicate()));
     }
 
     @Test
     public void testWithNullDuplicateRuleFails() {
-        assertThrows(NullPointerException.class, () -> {
-            new EbnfParserCombinatorDuplicateRuleException(this.message(), null);
-        });
+        assertThrows(NullPointerException.class, () -> new EbnfParserCombinatorDuplicateRuleException(this.message(), null));
     }
 
     @Test

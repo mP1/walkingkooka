@@ -46,16 +46,12 @@ public final class BasicConverterContextTest implements ClassTesting2<BasicConve
 
     @Test
     public void testWithNullDateTimeContextFails() {
-        assertThrows(NullPointerException.class, () -> {
-            BasicConverterContext.with(null, this.decimalNumberContext());
-        });
+        assertThrows(NullPointerException.class, () -> BasicConverterContext.with(null, this.decimalNumberContext()));
     }
 
     @Test
     public void testWithNullDecimalNumberContextFails() {
-        assertThrows(NullPointerException.class, () -> {
-            BasicConverterContext.with(this.dateTimeContext(), null);
-        });
+        assertThrows(NullPointerException.class, () -> BasicConverterContext.with(this.dateTimeContext(), null));
     }
 
     @Test

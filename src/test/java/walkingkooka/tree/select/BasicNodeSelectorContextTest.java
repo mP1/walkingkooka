@@ -48,93 +48,79 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
 
     @Test
     public void testWithNullFinisher() {
-        assertThrows(NullPointerException.class, () -> {
-            BasicNodeSelectorContext.with(null,
-                    this.predicate(),
-                    this.mapper(),
-                    this.functions(),
-                    this.converter(),
-                    this.converterContext(),
-                    this.nodeType());
-        });
+        assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(null,
+                this.predicate(),
+                this.mapper(),
+                this.functions(),
+                this.converter(),
+                this.converterContext(),
+                this.nodeType()));
     }
 
     @Test
     public void testWithNullFilter() {
-        assertThrows(NullPointerException.class, () -> {
-            BasicNodeSelectorContext.with(this.finisher(),
-                    null,
-                    this.mapper(),
-                    this.functions(),
-                    this.converter(),
-                    this.converterContext(),
-                    this.nodeType());
-        });
+        assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
+                null,
+                this.mapper(),
+                this.functions(),
+                this.converter(),
+                this.converterContext(),
+                this.nodeType()));
     }
 
     @Test
     public void testWithNullSelectedFails() {
-        assertThrows(NullPointerException.class, () -> {
-            BasicNodeSelectorContext.with(this.finisher(),
-                    this.predicate(),
-                    null,
-                    this.functions(),
-                    this.converter(),
-                    this.converterContext(),
-                    this.nodeType());
-        });
+        assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
+                this.predicate(),
+                null,
+                this.functions(),
+                this.converter(),
+                this.converterContext(),
+                this.nodeType()));
     }
 
     @Test
     public void testWithNullFunctionsFails() {
-        assertThrows(NullPointerException.class, () -> {
-            BasicNodeSelectorContext.with(this.finisher(),
-                    this.predicate(),
-                    this.mapper(),
-                    null,
-                    this.converter(),
-                    this.converterContext(),
-                    this.nodeType());
-        });
+        assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
+                this.predicate(),
+                this.mapper(),
+                null,
+                this.converter(),
+                this.converterContext(),
+                this.nodeType()));
     }
 
     @Test
     public void testWithNullConverterFails() {
-        assertThrows(NullPointerException.class, () -> {
-            BasicNodeSelectorContext.with(this.finisher(),
-                    this.predicate(),
-                    this.mapper(),
-                    this.functions(),
-                    null,
-                    this.converterContext(),
-                    this.nodeType());
-        });
+        assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
+                this.predicate(),
+                this.mapper(),
+                this.functions(),
+                null,
+                this.converterContext(),
+                this.nodeType()));
     }
 
     @Test
     public void testWithNullConverterContextFails() {
-        assertThrows(NullPointerException.class, () -> {
-            BasicNodeSelectorContext.with(this.finisher(),
-                    this.predicate(),
-                    this.mapper(),
-                    this.functions(),
-                    this.converter(),
-                    null,
-                    this.nodeType());
-        });
+        assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
+                this.predicate(),
+                this.mapper(),
+                this.functions(),
+                this.converter(),
+                null,
+                this.nodeType()));
     }
 
     @Test
     public void testWithNullNodeTypeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            BasicNodeSelectorContext.with(this.finisher(),
-                    this.predicate(),
-                    this.mapper(),
-                    this.functions(),
-                    this.converter(),
-                    this.converterContext(),
-                    null);
-        });
+        assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
+                this.predicate(),
+                this.mapper(),
+                this.functions(),
+                this.converter(),
+                this.converterContext(),
+                null));
     }
 
     @Test
@@ -143,9 +129,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
 
         TestNode.clear();
 
-        assertThrows(NodeSelectorException.class, () -> {
-            context.function(this.node(), NodeSelectorContext.NO_PARAMETERS);
-        });
+        assertThrows(NodeSelectorException.class, () -> context.function(this.node(), NodeSelectorContext.NO_PARAMETERS));
     }
 
     @Test

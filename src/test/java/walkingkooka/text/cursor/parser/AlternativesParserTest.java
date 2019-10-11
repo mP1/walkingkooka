@@ -38,16 +38,12 @@ public class AlternativesParserTest extends ParserTestCase<AlternativesParser<Pa
 
     @Test
     public void testWithNullParsersFails() {
-        assertThrows(NullPointerException.class, () -> {
-            AlternativesParser.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> AlternativesParser.with(null));
     }
 
     @Test
     public void testWithZeroParsersFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            AlternativesParser.with(Lists.empty());
-        });
+        assertThrows(IllegalArgumentException.class, () -> AlternativesParser.with(Lists.empty()));
     }
 
     @Test

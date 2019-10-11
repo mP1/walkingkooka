@@ -25,9 +25,7 @@ public final class ExpressionNotFunctionTest extends ExpressionFunctionTestCase<
 
     @Test
     public void testWithNullFunctionFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ExpressionNotFunction.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> ExpressionNotFunction.with(null));
     }
 
     @Test

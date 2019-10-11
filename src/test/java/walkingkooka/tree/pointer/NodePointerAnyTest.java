@@ -36,16 +36,12 @@ public final class NodePointerAnyTest extends NodePointerTestCase2<NodePointerAn
 
     @Test
     public void testAddFails() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            this.createNodePointer().add(TestNode.with("name1"), TestNode.with("value2"));
-        });
+        assertThrows(UnsupportedOperationException.class, () -> this.createNodePointer().add(TestNode.with("name1"), TestNode.with("value2")));
     }
 
     @Test
     public void testRemoveFails() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            this.createNodePointer().remove(TestNode.with("remove fails"));
-        });
+        assertThrows(UnsupportedOperationException.class, () -> this.createNodePointer().remove(TestNode.with("remove fails")));
     }
 
     @Test

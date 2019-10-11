@@ -35,23 +35,17 @@ public interface ParserReporterTesting<R extends ParserReporter<C>, T extends Pa
 
     @Test
     default void testNullTextCursorFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.report(null, this.createContext(), Parsers.fake());
-        });
+        assertThrows(NullPointerException.class, () -> this.report(null, this.createContext(), Parsers.fake()));
     }
 
     @Test
     default void testNullContextFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.report(TextCursors.fake(), null, Parsers.fake());
-        });
+        assertThrows(NullPointerException.class, () -> this.report(TextCursors.fake(), null, Parsers.fake()));
     }
 
     @Test
     default void testNullParserFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.report(TextCursors.fake(), this.createContext(), null);
-        });
+        assertThrows(NullPointerException.class, () -> this.report(TextCursors.fake(), this.createContext(), null));
     }
 
     R createParserReporter();

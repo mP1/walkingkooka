@@ -32,30 +32,22 @@ public final class FunctionConverterTest extends ConverterTestCase2<FunctionConv
 
     @Test
     public void testWithNullSourceTypeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            FunctionConverter.with(null, TARGET_TYPE, CONVERTER);
-        });
+        assertThrows(NullPointerException.class, () -> FunctionConverter.with(null, TARGET_TYPE, CONVERTER));
     }
 
     @Test
     public void testWithNullTargetTypeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            FunctionConverter.with(SOURCE_TYPE, null, CONVERTER);
-        });
+        assertThrows(NullPointerException.class, () -> FunctionConverter.with(SOURCE_TYPE, null, CONVERTER));
     }
 
     @Test
     public void testWithNullConverterFunctionFails() {
-        assertThrows(NullPointerException.class, () -> {
-            FunctionConverter.with(null, TARGET_TYPE, null);
-        });
+        assertThrows(NullPointerException.class, () -> FunctionConverter.with(null, TARGET_TYPE, null));
     }
 
     @Test
     public void testWithSameSourceAndTargetTypesFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            FunctionConverter.with(SOURCE_TYPE, SOURCE_TYPE, String::valueOf);
-        });
+        assertThrows(IllegalArgumentException.class, () -> FunctionConverter.with(SOURCE_TYPE, SOURCE_TYPE, String::valueOf));
     }
 
     // converter........................................................................................................

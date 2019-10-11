@@ -43,9 +43,7 @@ public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode<V>, V> ext
 
     @Test
     public final void testSetValueNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createSearchNode().setValue(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createSearchNode().setValue(null));
     }
 
     @Test

@@ -36,9 +36,7 @@ final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEnt
 
     @Test
     public void testWrapNullEntityDecoderFails() {
-        assertThrows(NullPointerException.class, () -> {
-            HtmlEntityDecodingPrinter.wrap(null, Printers.fake());
-        });
+        assertThrows(NullPointerException.class, () -> HtmlEntityDecodingPrinter.wrap(null, Printers.fake()));
     }
 
     @Test

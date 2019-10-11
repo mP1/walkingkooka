@@ -32,9 +32,7 @@ public class EbnfExceptionParserTokenTest extends EbnfParentParserTokenTestCase2
 
     @Test
     public final void testIncorrectTokenCountFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken(this.text(), this.identifier1(), this.comment2(), this.identifier2(), this.identifier("identifier3"));
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createToken(this.text(), this.identifier1(), this.comment2(), this.identifier2(), this.identifier("identifier3")));
     }
 
     @Test

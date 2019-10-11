@@ -29,30 +29,22 @@ public class SurroundStringParserTest extends Parser2TestCase<SurroundStringPars
 
     @Test
     public void testWithNullOpenFails() {
-        assertThrows(NullPointerException.class, () -> {
-            SurroundStringParser.with(null, CLOSE);
-        });
+        assertThrows(NullPointerException.class, () -> SurroundStringParser.with(null, CLOSE));
     }
 
     @Test
     public void testWithEmptyOpenFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            SurroundStringParser.with("", CLOSE);
-        });
+        assertThrows(IllegalArgumentException.class, () -> SurroundStringParser.with("", CLOSE));
     }
 
     @Test
     public void testWithNullCloseFails() {
-        assertThrows(NullPointerException.class, () -> {
-            SurroundStringParser.with(OPEN, null);
-        });
+        assertThrows(NullPointerException.class, () -> SurroundStringParser.with(OPEN, null));
     }
 
     @Test
     public void testWithEmptyCloseFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            SurroundStringParser.with(OPEN, "");
-        });
+        assertThrows(IllegalArgumentException.class, () -> SurroundStringParser.with(OPEN, ""));
     }
 
     @Test

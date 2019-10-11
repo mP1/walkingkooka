@@ -31,22 +31,16 @@ public class TransformingParserTest extends ParserTestCase<TransformingParser<Pa
 
     private final static int RADIX = 10;
     private final static Parser<ParserContext> PARSER = Parsers.stringCharPredicate(CharPredicates.digit(), 1, 10);
-    private final static BiFunction<ParserToken, ParserContext, ParserToken> TRANSFORMER = (t, c) -> {
-        return ParserTokens.bigInteger(new BigInteger(((StringParserToken) t).value(), RADIX), t.text());
-    };
+    private final static BiFunction<ParserToken, ParserContext, ParserToken> TRANSFORMER = (t, c) -> ParserTokens.bigInteger(new BigInteger(((StringParserToken) t).value(), RADIX), t.text());
 
     @Test
     public void testWithNullParserFails() {
-        assertThrows(NullPointerException.class, () -> {
-            TransformingParser.with(null, TRANSFORMER);
-        });
+        assertThrows(NullPointerException.class, () -> TransformingParser.with(null, TRANSFORMER));
     }
 
     @Test
     public void testWithNullTransformerFails() {
-        assertThrows(NullPointerException.class, () -> {
-            TransformingParser.with(PARSER, null);
-        });
+        assertThrows(NullPointerException.class, () -> TransformingParser.with(PARSER, null));
     }
 
     @Test

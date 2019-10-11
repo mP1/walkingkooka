@@ -31,9 +31,7 @@ public final class ListTestingTest implements ListTesting {
 
     @Test
     public void testGetAndCheckFails() {
-        assertThrows(AssertionFailedError.class, () -> {
-            this.getAndCheck(Lists.of("a1", "b2", "c3"), 2, "999");
-        });
+        assertThrows(AssertionFailedError.class, () -> this.getAndCheck(Lists.of("a1", "b2", "c3"), 2, "999"));
     }
 
     @Test
@@ -43,8 +41,6 @@ public final class ListTestingTest implements ListTesting {
 
     @Test
     public void testGetFailsDoesntFail() {
-        assertThrows(AssertionFailedError.class, () -> {
-            this.getFails(Lists.of("a1", "b2", "c3"), 2);
-        });
+        assertThrows(AssertionFailedError.class, () -> this.getFails(Lists.of("a1", "b2", "c3"), 2));
     }
 }

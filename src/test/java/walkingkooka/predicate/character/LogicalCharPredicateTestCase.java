@@ -32,16 +32,12 @@ abstract public class LogicalCharPredicateTestCase<P extends LogicalCharPredicat
 
     @Test
     final public void testWrapNullFirstPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createCharPredicate(null, CharPredicates.fake());
-        });
+        assertThrows(NullPointerException.class, () -> this.createCharPredicate(null, CharPredicates.fake()));
     }
 
     @Test
     final public void testWrapNullSecondPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createCharPredicate(CharPredicates.fake(), null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createCharPredicate(CharPredicates.fake(), null));
     }
 
     @Test

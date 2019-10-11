@@ -31,16 +31,12 @@ public final class TryConverterTest extends ConverterTestCase2<TryConverter> {
 
     @Test
     public void testWithEmptyFails() {
-        assertThrows(NullPointerException.class, () -> {
-            TryConverter.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> TryConverter.with(null));
     }
 
     @Test
     public void testWithZeroFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            TryConverter.with(Lists.empty());
-        });
+        assertThrows(IllegalArgumentException.class, () -> TryConverter.with(Lists.empty()));
     }
 
     @Test

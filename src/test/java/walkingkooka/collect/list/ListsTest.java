@@ -47,9 +47,7 @@ final public class ListsTest implements PublicStaticHelperTesting<Lists>,
 
     @Test
     public void testImmutableNullListFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ImmutableList.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> ImmutableList.with(null));
     }
 
     @Test
@@ -95,9 +93,7 @@ final public class ListsTest implements PublicStaticHelperTesting<Lists>,
 
     @Test
     public void testOfVarArgsNullArrayFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Lists.of((Object[]) null);
-        });
+        assertThrows(NullPointerException.class, () -> Lists.of((Object[]) null));
     }
 
     @Test

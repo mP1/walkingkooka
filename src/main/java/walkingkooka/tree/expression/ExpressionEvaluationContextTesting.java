@@ -32,37 +32,27 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
 
     @Test
     default void testFunctionNullNameFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createContext().function(null, ExpressionEvaluationContext.NO_PARAMETERS);
-        });
+        assertThrows(NullPointerException.class, () -> this.createContext().function(null, ExpressionEvaluationContext.NO_PARAMETERS));
     }
 
     @Test
     default void testFunctionNullParametersFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createContext().function(ExpressionNodeName.with("sum"), null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createContext().function(ExpressionNodeName.with("sum"), null));
     }
 
     @Test
     default void testReferenceNullReferenceFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createContext().reference(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createContext().reference(null));
     }
 
     @Test
     default void testConvertNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createContext().convert(null, Object.class);
-        });
+        assertThrows(NullPointerException.class, () -> this.createContext().convert(null, Object.class));
     }
 
     @Test
     default void testConvertNullTargetTypeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createContext().convert("value", null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createContext().convert("value", null));
     }
 
     default void toValueAndCheck(final ExpressionNode node, final ExpressionEvaluationContext context, final Object value) {

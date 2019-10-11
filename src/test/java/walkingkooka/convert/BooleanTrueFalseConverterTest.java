@@ -31,37 +31,27 @@ public final class BooleanTrueFalseConverterTest extends ConverterTestCase2<Bool
 
     @Test
     public void testWithNullSourceTypeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            BooleanTrueFalseConverter.with(null, FALSE_VALUE, TARGET_TYPE, TRUE_ANSWER, FALSE_ANSWER);
-        });
+        assertThrows(NullPointerException.class, () -> BooleanTrueFalseConverter.with(null, FALSE_VALUE, TARGET_TYPE, TRUE_ANSWER, FALSE_ANSWER));
     }
 
     @Test
     public void testWithNullFalseValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            BooleanTrueFalseConverter.with(SOURCE_TYPE, null, TARGET_TYPE, TRUE_ANSWER, FALSE_ANSWER);
-        });
+        assertThrows(NullPointerException.class, () -> BooleanTrueFalseConverter.with(SOURCE_TYPE, null, TARGET_TYPE, TRUE_ANSWER, FALSE_ANSWER));
     }
 
     @Test
     public void testWithNullTargetTypeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            BooleanTrueFalseConverter.with(SOURCE_TYPE, FALSE_VALUE, null, TRUE_ANSWER, FALSE_ANSWER);
-        });
+        assertThrows(NullPointerException.class, () -> BooleanTrueFalseConverter.with(SOURCE_TYPE, FALSE_VALUE, null, TRUE_ANSWER, FALSE_ANSWER));
     }
 
     @Test
     public void testWithNullTrueAnswerFails() {
-        assertThrows(NullPointerException.class, () -> {
-            BooleanTrueFalseConverter.with(SOURCE_TYPE, FALSE_VALUE, TARGET_TYPE, null, FALSE_ANSWER);
-        });
+        assertThrows(NullPointerException.class, () -> BooleanTrueFalseConverter.with(SOURCE_TYPE, FALSE_VALUE, TARGET_TYPE, null, FALSE_ANSWER));
     }
 
     @Test
     public void testWithNullFalseAnswerFails() {
-        assertThrows(NullPointerException.class, () -> {
-            BooleanTrueFalseConverter.with(SOURCE_TYPE, FALSE_VALUE, TARGET_TYPE, TRUE_ANSWER, null);
-        });
+        assertThrows(NullPointerException.class, () -> BooleanTrueFalseConverter.with(SOURCE_TYPE, FALSE_VALUE, TARGET_TYPE, TRUE_ANSWER, null));
     }
 
     @Test

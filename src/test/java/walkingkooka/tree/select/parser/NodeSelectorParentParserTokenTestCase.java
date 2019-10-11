@@ -38,9 +38,7 @@ public abstract class NodeSelectorParentParserTokenTestCase<T extends NodeSelect
 
     @Test
     public final void testWithNullTokensFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createToken(this.text(), Cast.<List<ParserToken>>to(null));
-        });
+        assertThrows(NullPointerException.class, () -> this.createToken(this.text(), Cast.<List<ParserToken>>to(null)));
     }
 
     @Test

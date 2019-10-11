@@ -49,9 +49,7 @@ public final class PushableStreamConsumerStreamTerminalFindFirstOrderedPushableS
         final PushableStreamConsumerStreamTerminalFindFirstOrderedPushableStreamConsumer<String> findFirst = this.createPushableStreamConsumer();
         this.accept(findFirst, found);
 
-        assertThrows(StreamException.class, () -> {
-            findFirst.accept("2!!");
-        });
+        assertThrows(StreamException.class, () -> findFirst.accept("2!!"));
     }
 
     @Test

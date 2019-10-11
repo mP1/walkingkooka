@@ -33,30 +33,22 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
 
     @Test
     public void testWithNullTextFails() {
-        assertThrows(NullPointerException.class, () -> {
-            new InvalidCharacterException(null, 3);
-        });
+        assertThrows(NullPointerException.class, () -> new InvalidCharacterException(null, 3));
     }
 
     @Test
     public void testWithEmptyTextFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new InvalidCharacterException("", 3);
-        });
+        assertThrows(IllegalArgumentException.class, () -> new InvalidCharacterException("", 3));
     }
 
     @Test
     public void testWithInvalidPositionFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new InvalidCharacterException(TEXT, -1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> new InvalidCharacterException(TEXT, -1));
     }
 
     @Test
     public void testWithInvalidPositionFails2() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new InvalidCharacterException(TEXT, TEXT.length());
-        });
+        assertThrows(IllegalArgumentException.class, () -> new InvalidCharacterException(TEXT, TEXT.length()));
     }
 
     @Test
@@ -75,38 +67,28 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
 
     @Test
     public void testSetTextAndPositionNullTextFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.create().setTextAndPosition(null, POSITION);
-        });
+        assertThrows(NullPointerException.class, () -> this.create().setTextAndPosition(null, POSITION));
     }
 
     @Test
     public void testSetTextAndPositionEmptyTextFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.create().setTextAndPosition("", POSITION);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.create().setTextAndPosition("", POSITION));
     }
 
     @Test
     public void testSetTextAndPositionInvalidPositionFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.create().setTextAndPosition(TEXT, -1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.create().setTextAndPosition(TEXT, -1));
     }
 
     @Test
     public void testSetTextAndPositionInvalidPositionFails2() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.create().setTextAndPosition(TEXT, TEXT.length() + 1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.create().setTextAndPosition(TEXT, TEXT.length() + 1));
     }
 
     @Test
     public void testSetTextAndPositionInvalidPositionFails3() {
         final String text = "abc";
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.create().setTextAndPosition(text, text.length() + 1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.create().setTextAndPosition(text, text.length() + 1));
     }
 
     @Test

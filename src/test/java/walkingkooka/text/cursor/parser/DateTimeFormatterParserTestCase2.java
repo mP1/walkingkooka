@@ -42,9 +42,7 @@ public abstract class DateTimeFormatterParserTestCase2<P extends DateTimeFormatt
 
     @Test
     public final void testWithNullFormatterFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createParser((Function<DateTimeContext, DateTimeFormatter>) null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createParser((Function<DateTimeContext, DateTimeFormatter>) null));
     }
 
     @Override

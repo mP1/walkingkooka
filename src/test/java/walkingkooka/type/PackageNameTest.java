@@ -32,9 +32,7 @@ public final class PackageNameTest extends PackageNameOrTypeNameJavaNameTestCase
 
     @Test
     public void testFromPackageNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            PackageName.from(null);
-        });
+        assertThrows(NullPointerException.class, () -> PackageName.from(null));
     }
 
     @Test
@@ -45,72 +43,52 @@ public final class PackageNameTest extends PackageNameOrTypeNameJavaNameTestCase
 
     @Test
     public void testWithEmptyPackageFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            this.createName("before..after");
-        });
+        assertThrows(InvalidCharacterException.class, () -> this.createName("before..after"));
     }
 
     @Test
     public void testWithTrailingDotFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            this.createName("pkg1.pkg2.");
-        });
+        assertThrows(InvalidCharacterException.class, () -> this.createName("pkg1.pkg2."));
     }
 
     @Test
     public void testWithEmptyPackageFails2() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            this.createName("before..");
-        });
+        assertThrows(InvalidCharacterException.class, () -> this.createName("before.."));
     }
 
     @Test
     public void testWithEmptyPackageFails3() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            this.createName("..after");
-        });
+        assertThrows(InvalidCharacterException.class, () -> this.createName("..after"));
     }
 
     @Test
     public void testWithPartInsteadOfInitialFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            this.createName("before.1abc.after");
-        });
+        assertThrows(InvalidCharacterException.class, () -> this.createName("before.1abc.after"));
     }
 
     @Test
     public void testWithPartInsteadOfInitialFails2() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            this.createName("1abc.after");
-        });
+        assertThrows(InvalidCharacterException.class, () -> this.createName("1abc.after"));
     }
 
     @Test
     public void testWithPartInsteadOfInitialFails3() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            this.createName("before.1");
-        });
+        assertThrows(InvalidCharacterException.class, () -> this.createName("before.1"));
     }
 
     @Test
     public void testWithPartInsteadOfInitialFails4() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            this.createName("before.1");
-        });
+        assertThrows(InvalidCharacterException.class, () -> this.createName("before.1"));
     }
 
     @Test
     public void testWithInvalidPartFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            this.createName("before.a\nb.after");
-        });
+        assertThrows(InvalidCharacterException.class, () -> this.createName("before.a\nb.after"));
     }
 
     @Test
     public void testWithInvalidPartFails2() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            this.createName("before.a\n");
-        });
+        assertThrows(InvalidCharacterException.class, () -> this.createName("before.a\n"));
     }
 
     @Test
@@ -136,18 +114,14 @@ public final class PackageNameTest extends PackageNameOrTypeNameJavaNameTestCase
     @Test
     public void testAllBeginInvalidCharsFails() {
         for (char c : this.possibleInvalidChars(0).toCharArray()) {
-            assertThrows(InvalidCharacterException.class, () -> {
-                this.createName("before." + c);
-            });
+            assertThrows(InvalidCharacterException.class, () -> this.createName("before." + c));
         }
     }
 
     @Test
     public void testAllNonInitialInvalidCharsFails() {
         for (char c : this.possibleInvalidChars(3).toCharArray()) {
-            assertThrows(InvalidCharacterException.class, () -> {
-                this.createName("before." + c);
-            });
+            assertThrows(InvalidCharacterException.class, () -> this.createName("before." + c));
         }
     }
 
@@ -173,9 +147,7 @@ public final class PackageNameTest extends PackageNameOrTypeNameJavaNameTestCase
 
     @Test
     public void testAppendNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createName("before.pkg").append(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createName("before.pkg").append(null));
     }
 
     @Test

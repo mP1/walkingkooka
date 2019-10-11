@@ -37,23 +37,17 @@ final public class IterablesTest implements PublicStaticHelperTesting<Iterables>
 
     @Test
     public void testEqualsNullIterableFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Iterables.equals(null, Iterables.fake(), EQUIVALENCY);
-        });
+        assertThrows(NullPointerException.class, () -> Iterables.equals(null, Iterables.fake(), EQUIVALENCY));
     }
 
     @Test
     public void testEqualsNullOtherIterableFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Iterables.equals(Iterables.fake(), null, EQUIVALENCY);
-        });
+        assertThrows(NullPointerException.class, () -> Iterables.equals(Iterables.fake(), null, EQUIVALENCY));
     }
 
     @Test
     public void testEqualsNullEquivalenceFunctionFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Iterables.equals(Iterables.fake(), Iterables.fake(), null);
-        });
+        assertThrows(NullPointerException.class, () -> Iterables.equals(Iterables.fake(), Iterables.fake(), null));
     }
 
     @Test

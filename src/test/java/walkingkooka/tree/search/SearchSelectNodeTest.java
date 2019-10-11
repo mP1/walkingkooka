@@ -32,9 +32,7 @@ public final class SearchSelectNodeTest extends SearchParentNodeTestCase<SearchS
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            SearchSelectNode.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> SearchSelectNode.with(null));
     }
 
     @Test
@@ -45,9 +43,7 @@ public final class SearchSelectNodeTest extends SearchParentNodeTestCase<SearchS
 
     @Test
     public void testSetChildrenIncorrectCountFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createSearchNode().setChildren(Lists.of(this.text("child-1"), this.text("child-2")));
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createSearchNode().setChildren(Lists.of(this.text("child-1"), this.text("child-2"))));
     }
 
     @Test
@@ -90,9 +86,7 @@ public final class SearchSelectNodeTest extends SearchParentNodeTestCase<SearchS
 
     @Test
     public void testAppendChild() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            this.createSearchNode().appendChild(this.text("append-fails"));
-        });
+        assertThrows(UnsupportedOperationException.class, () -> this.createSearchNode().appendChild(this.text("append-fails")));
     }
 
     @Override
@@ -102,9 +96,7 @@ public final class SearchSelectNodeTest extends SearchParentNodeTestCase<SearchS
 
     @Test
     public void testRemoveChildFirst() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            this.createSearchNode().removeChild(0);
-        });
+        assertThrows(UnsupportedOperationException.class, () -> this.createSearchNode().removeChild(0));
     }
 
     @Override

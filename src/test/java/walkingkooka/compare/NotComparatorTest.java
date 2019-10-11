@@ -37,9 +37,7 @@ final public class NotComparatorTest implements ClassTesting2<NotComparator<Obje
 
     @Test
     public void testWrapNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            NotComparator.wrap(null);
-        });
+        assertThrows(NullPointerException.class, () -> NotComparator.wrap(null));
     }
 
     @Test

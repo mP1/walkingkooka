@@ -28,9 +28,7 @@ public final class PushableStreamConsumerStreamIntermediate2FilterTest extends P
 
     @Test
     public void testWithNullCollectorFails() {
-        assertThrows(NullPointerException.class, () -> {
-            PushableStreamConsumerStreamIntermediate2Filter.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> PushableStreamConsumerStreamIntermediate2Filter.with(null));
     }
 
     @Test

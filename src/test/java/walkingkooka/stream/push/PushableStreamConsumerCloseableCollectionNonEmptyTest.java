@@ -71,9 +71,7 @@ public final class PushableStreamConsumerCloseableCollectionNonEmptyTest extends
         this.closeCount = 0;
 
         final PushableStreamConsumerCloseableCollectionNonEmpty collection = this.createCloseableCollection()
-                .add(() -> {
-                    this.closeCount++;
-                });
+                .add(() -> this.closeCount++);
         collection.close();
 
         collection.closeables.stream()

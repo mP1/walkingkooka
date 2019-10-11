@@ -35,16 +35,12 @@ public final class EbnfGrammarParserTokenInvalidReferencesExceptionTest implemen
 
     @Test
     public void testWithNullReferencesFails() {
-        assertThrows(NullPointerException.class, () -> {
-            new EbnfGrammarParserTokenInvalidReferencesException("message", null);
-        });
+        assertThrows(NullPointerException.class, () -> new EbnfGrammarParserTokenInvalidReferencesException("message", null));
     }
 
     @Test
     public void testWithEmptyReferencesFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new EbnfGrammarParserTokenInvalidReferencesException("message", Sets.empty());
-        });
+        assertThrows(IllegalArgumentException.class, () -> new EbnfGrammarParserTokenInvalidReferencesException("message", Sets.empty()));
     }
 
     @Test

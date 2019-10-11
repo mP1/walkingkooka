@@ -59,9 +59,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     @Test
     default void testAllMatchNullPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createStream().allMatch(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createStream().allMatch(null));
     }
 
     @Test
@@ -90,9 +88,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     @Test
     default void testAnyMatchNullPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createStream().anyMatch(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createStream().anyMatch(null));
     }
 
     @Test
@@ -137,9 +133,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     @Test
     default void testNoneMatchNullPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createStream().noneMatch(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createStream().noneMatch(null));
     }
 
     @Test
@@ -184,9 +178,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     @Test
     default void testCollectNullCollectorFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createStream().collect(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createStream().collect(null));
     }
 
     @Test
@@ -205,9 +197,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     @Test
     default void testFilterNullPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createStream().filter(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createStream().filter(null));
     }
 
     @Test
@@ -359,9 +349,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     @Test
     default void testForEachNullConsumerFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createStream().forEach(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createStream().forEach(null));
     }
 
     @Test
@@ -373,9 +361,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     @Test
     default void testForEachOrderedNullConsumerFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createStream().forEachOrdered(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createStream().forEachOrdered(null));
     }
 
     @Test
@@ -394,9 +380,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     @Test
     default void testPeekNullConsumerFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createStream().peek(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createStream().peek(null));
     }
 
     @Test
@@ -408,9 +392,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     @Test
     default void testLimitInvalidMaxSizeFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createStream().limit(-1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createStream().limit(-1));
     }
 
     @Test
@@ -499,9 +481,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     @Test
     default void testSkipInvalidMaxSizeFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createStream().skip(-1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createStream().skip(-1));
     }
 
     @Test
@@ -565,18 +545,14 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     @Test
     default void testMaxNullComparatorFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createStream().max(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createStream().max(null));
     }
 
     // min..........................................................................................................
 
     @Test
     default void testMinNullComparatorFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createStream().min(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createStream().min(null));
     }
 
     // factory..........................................................................................................

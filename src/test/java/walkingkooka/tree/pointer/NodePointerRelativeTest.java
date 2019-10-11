@@ -35,9 +35,7 @@ public final class NodePointerRelativeTest extends NodePointerTestCase2<NodePoin
 
     @Test
     public void testWithNegativeIndexFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            NodePointerRelative.with(-1, NO_HASH);
-        });
+        assertThrows(IllegalArgumentException.class, () -> NodePointerRelative.with(-1, NO_HASH));
     }
 
     @Test

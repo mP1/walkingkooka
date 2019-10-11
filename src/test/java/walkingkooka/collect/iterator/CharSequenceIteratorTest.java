@@ -32,9 +32,7 @@ final public class CharSequenceIteratorTest
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CharSequenceIterator.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> CharSequenceIterator.with(null));
     }
 
     @Test

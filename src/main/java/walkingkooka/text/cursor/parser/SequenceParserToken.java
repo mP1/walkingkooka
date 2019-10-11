@@ -113,11 +113,9 @@ public final class SequenceParserToken extends RepeatedOrSequenceParserToken<Seq
         return flat.stream()
                 .filter(SequenceParserToken::notWhitespace)
                 .findFirst()
-                .map(t -> {
-                    return t.isSymbol() ?
-                            this :
-                            tryFindAndIntroduceBinaryOperator(flat, transformer);
-                }).orElse(this);
+                .map(t -> t.isSymbol() ?
+                        this :
+                        tryFindAndIntroduceBinaryOperator(flat, transformer)).orElse(this);
     }
 
     private static boolean notWhitespace(final ParserToken token) {

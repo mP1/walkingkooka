@@ -46,9 +46,7 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest implements Cha
 
     @Test
     public void testFromGrammarNullGrammarFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CharPredicateGrammarEbnfParserTokenVisitor.fromGrammar(null, Maps.empty());
-        });
+        assertThrows(NullPointerException.class, () -> CharPredicateGrammarEbnfParserTokenVisitor.fromGrammar(null, Maps.empty()));
     }
 
     @Test
@@ -60,9 +58,7 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest implements Cha
                 text);
         final EbnfGrammarParserToken grammar = EbnfParserToken.grammar(Lists.of(rule), text);
 
-        assertThrows(NullPointerException.class, () -> {
-            CharPredicateGrammarEbnfParserTokenVisitor.fromGrammar(grammar, null);
-        });
+        assertThrows(NullPointerException.class, () -> CharPredicateGrammarEbnfParserTokenVisitor.fromGrammar(grammar, null));
     }
 
     @Test

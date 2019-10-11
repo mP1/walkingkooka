@@ -25,9 +25,7 @@ public final class MethodNameTest extends JavaNameTestCase<MethodName> {
 
     @Test
     public void testFromMethodNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            MethodName.from(null);
-        });
+        assertThrows(NullPointerException.class, () -> MethodName.from(null));
     }
 
     @Test

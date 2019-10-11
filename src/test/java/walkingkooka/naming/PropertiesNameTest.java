@@ -29,9 +29,7 @@ final public class PropertiesNameTest implements ClassTesting2<PropertiesName>,
 
     @Test
     public void testCreateContainsSeparatorFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            PropertiesName.with("xyz" + PropertiesPath.SEPARATOR.string());
-        });
+        assertThrows(IllegalArgumentException.class, () -> PropertiesName.with("xyz" + PropertiesPath.SEPARATOR.string()));
     }
 
     @Test

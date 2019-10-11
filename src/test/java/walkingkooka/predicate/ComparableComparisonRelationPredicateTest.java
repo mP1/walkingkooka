@@ -31,16 +31,12 @@ public final class ComparableComparisonRelationPredicateTest extends PredicateTe
 
     @Test
     public void testWithNullComparisonResultFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ComparableComparisonRelationPredicate.with(null, MORE);
-        });
+        assertThrows(NullPointerException.class, () -> ComparableComparisonRelationPredicate.with(null, MORE));
     }
 
     @Test
     public void testWithNullRightComparableFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ComparableComparisonRelationPredicate.with(ComparisonRelation.EQ, null);
-        });
+        assertThrows(NullPointerException.class, () -> ComparableComparisonRelationPredicate.with(ComparisonRelation.EQ, null));
     }
 
     // EQ .................................................................................

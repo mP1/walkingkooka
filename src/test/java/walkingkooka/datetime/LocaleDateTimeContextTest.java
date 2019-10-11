@@ -27,9 +27,7 @@ public final class LocaleDateTimeContextTest implements DateTimeContextTesting2<
 
     @Test
     public void testWithNullLocaleFails() {
-        assertThrows(NullPointerException.class, () -> {
-            LocaleDateTimeContext.with(null, 50);
-        });
+        assertThrows(NullPointerException.class, () -> LocaleDateTimeContext.with(null, 50));
     }
 
     // ampm.............................................................................................................

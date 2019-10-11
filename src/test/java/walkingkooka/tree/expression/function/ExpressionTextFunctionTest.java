@@ -30,9 +30,7 @@ public final class ExpressionTextFunctionTest extends ExpressionFunctionTestCase
 
     @Test
     public void testTwoParametersFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.apply2( "a1", "b2");
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.apply2( "a1", "b2"));
     }
 
     @Test

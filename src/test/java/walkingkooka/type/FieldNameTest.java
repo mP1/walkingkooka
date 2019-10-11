@@ -25,9 +25,7 @@ public final class FieldNameTest extends JavaNameTestCase<FieldName> {
 
     @Test
     public void testFromFieldNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            FieldName.from(null);
-        });
+        assertThrows(NullPointerException.class, () -> FieldName.from(null));
     }
 
     @Test
