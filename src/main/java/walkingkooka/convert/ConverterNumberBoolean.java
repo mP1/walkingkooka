@@ -50,11 +50,13 @@ final class ConverterNumberBoolean extends ConverterNumber<Boolean> {
         return Either.left(value.signum() != 0);
     }
 
+    @SuppressWarnings("UnnecessaryUnboxing")
     @Override
     Either<Boolean, String> doubleValue(final Double value) {
         return Either.left(!value.isInfinite() && !value.isNaN() && 0 != value.doubleValue());
     }
 
+    @SuppressWarnings("UnnecessaryUnboxing")
     @Override
     Either<Boolean, String> longValue(final Long value) {
         return Either.left(0 != value.longValue());

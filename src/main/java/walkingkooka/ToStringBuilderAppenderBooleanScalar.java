@@ -32,6 +32,7 @@ final class ToStringBuilderAppenderBooleanScalar extends ToStringBuilderAppender
         return this.value == false;
     }
 
+    @SuppressWarnings("UnnecessaryUnboxing")
     @Override
     void value(final ToStringBuilder builder) {
         builder.buffer.append(this.value.booleanValue() ?

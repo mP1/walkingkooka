@@ -688,6 +688,7 @@ public final class ConverterNumberNumberTest extends ConverterTestCase2<Converte
         return BigInteger.valueOf(Long.MAX_VALUE).multiply(BigInteger.valueOf(Long.MAX_VALUE));
     }
 
+    @SuppressWarnings("UnnecessaryUnboxing")
     private Byte byteValue() {
         return VALUE.byteValue();
     }

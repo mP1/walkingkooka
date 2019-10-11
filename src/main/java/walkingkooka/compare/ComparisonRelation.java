@@ -140,6 +140,7 @@ public enum ComparisonRelation implements Predicate<Integer> {
     /**
      * Returns true if the integer satisfies the relation. The numeric values follow the {@link Comparator} return values.
      */
+    @SuppressWarnings("UnnecessaryUnboxing")
     @Override
     public boolean test(final Integer integer) {
         return this.test0(integer.intValue());

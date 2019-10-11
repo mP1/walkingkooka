@@ -382,7 +382,7 @@ public enum CaseSensitivity {
         final String systemPropertyValue = FILE_SYSTEM_PROPERTY.propertyValue();
         return CharSequences.isNullOrEmpty(systemPropertyValue) ?
                 null :
-                Boolean.valueOf(systemPropertyValue) ?
+                Boolean.parseBoolean(systemPropertyValue) ?
                         SENSITIVE :
                         INSENSITIVE;
     }

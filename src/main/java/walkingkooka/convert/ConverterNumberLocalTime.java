@@ -54,6 +54,7 @@ final class ConverterNumberLocalTime extends ConverterNumber<LocalTime> {
         return this.localTime(value.longValueExact());
     }
 
+    @SuppressWarnings("UnnecessaryUnboxing")
     @Override
     Either<LocalTime, String> doubleValue(final Double value) {
         return this.localTime(value.doubleValue());
