@@ -27,7 +27,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Base class for testing any {@link CharSequence} with most tests testing parameter validation.
@@ -107,12 +106,9 @@ public interface CharSequenceTesting<C extends CharSequence & HashCodeEqualsDefi
     }
 
     default void subSequenceFails(final C sequence, final int from, final int to) {
-        try {
+        assertThrows(StringIndexOutOfBoundsException.class, () -> {
             sequence.subSequence(from, to);
-            fail("Expected exception to be thrown");
-        } catch (final StringIndexOutOfBoundsException ignored) {
-        } catch (final IllegalArgumentException ignored) {
-        }
+        });
     }
 
     @Test
