@@ -157,7 +157,7 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
                 b.toString());
     }
 
-    class TestSub {
+    static class TestSub {
     }
 
     @Test
@@ -298,7 +298,7 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
         }.accept(TestImplIntf.class);
     }
 
-    class TestImplIntf implements TestIntf {
+    static class TestImplIntf implements TestIntf {
     }
 
     interface TestIntf {
