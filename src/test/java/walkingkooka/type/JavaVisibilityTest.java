@@ -168,7 +168,7 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
     // isOrLess.........................................................................................................
 
     @Test
-    public void testIsOrLessPublicPublic() throws Exception {
+    public void testIsOrLessPublicPublic() {
         this.isOrLessCheck(JavaVisibility.PUBLIC, JavaVisibility.PUBLIC, true);
     }
 
