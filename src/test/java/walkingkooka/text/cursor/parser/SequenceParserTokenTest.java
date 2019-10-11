@@ -512,7 +512,6 @@ public final class SequenceParserTokenTest extends RepeatedOrSequenceParserToken
 
         @Override
         public final void accept(final ParserTokenVisitor visitor) {
-            ;
         }
 
         @Override
