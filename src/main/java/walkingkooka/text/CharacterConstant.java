@@ -95,11 +95,10 @@ final public class CharacterConstant implements CharSequence, HashCodeEqualsDefi
     }
 
     private CharSequence failSubSequence(final int end) {
-        this.failIndexOfOutBounds("end must be 0 or 1 but was " + end);
-        return null; // never happens
+        return this.failIndexOfOutBounds("end must be 0 or 1 but was " + end);
     }
 
-    private void failIndexOfOutBounds(final String message) {
+    private CharSequence failIndexOfOutBounds(final String message) {
         throw new StringIndexOutOfBoundsException(message);
     }
 
