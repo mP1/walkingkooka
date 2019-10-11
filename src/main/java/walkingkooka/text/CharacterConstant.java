@@ -111,21 +111,11 @@ final public class CharacterConstant implements CharSequence, HashCodeEqualsDefi
 
     @Override
     public boolean equals(final Object other) {
-        return (this == other) || //
-                ((other instanceof Character) && this.equals0((Character) other)) || //
-                ((other instanceof String) && this.equals1((String) other)) || //
-                ((other instanceof CharacterConstant) && this.equals2((CharacterConstant) other));
+        return this == other || //
+                other instanceof CharacterConstant && this.equals0((CharacterConstant) other);
     }
 
-    private boolean equals0(final Character c) {
-        return this.equals(c.charValue());
-    }
-
-    private boolean equals1(final String string) {
-        return this.string.equals(string);
-    }
-
-    private boolean equals2(final CharacterConstant other) {
+    private boolean equals0(final CharacterConstant other) {
         return this.equals(other.character);
     }
 
