@@ -45,13 +45,6 @@ final public class Comparators implements PublicStaticHelper {
     }
 
     /**
-     * {@see NotComparator}.
-     */
-    public static <T> Comparator<T> not(final Comparator<T> comparator) {
-        return NotComparator.wrap(comparator);
-    }
-
-    /**
      * Returns an integer that contains the sign of the given int value.
      */
     public static int normalize(final int value) {
