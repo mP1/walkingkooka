@@ -103,6 +103,7 @@ public final class StreamTestingTest implements StreamTesting<Stream<Integer>, I
                 stream(1, 22, 555, 44, 33).max(Comparator.naturalOrder()));
     }
 
+    @SuppressWarnings("RedundantComparatorComparing")
     @Test
     public void testMax4() {
         assertEquals(Optional.of(1),
@@ -131,6 +132,7 @@ public final class StreamTestingTest implements StreamTesting<Stream<Integer>, I
                 stream(555, 22, 1, 44, 33).min(Comparator.naturalOrder()));
     }
 
+    @SuppressWarnings("RedundantComparatorComparing")
     @Test
     public void testMin4() {
         assertEquals(Optional.of(555),
