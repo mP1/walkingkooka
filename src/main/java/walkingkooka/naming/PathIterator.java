@@ -38,8 +38,7 @@ final class PathIterator<P extends Path<P, N>, N extends Name> implements Iterat
     private PathIterator(final Path<P, N> path) {
         super();
 
-        final List<N> components = Lists.array();
-        this.components = components;
+        this.components = Lists.array();
 
         this.visitParent(path);
 

@@ -40,8 +40,7 @@ public final class EbnfGrammarParserTest extends EbnfParserTestCase<EbnfGrammarP
 
     @Test
     public void testWhitespaceBetweenRules() {
-        final String between = WHITESPACE1;
-        final String text = RULE1 + between + RULE2;
+        final String text = RULE1 + WHITESPACE1 + RULE2;
         this.parseAndCheck(text,
                 grammar(text,
                         rule1(),
