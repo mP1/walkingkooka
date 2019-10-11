@@ -32,7 +32,7 @@ final class AlwaysPredicate<T> implements Predicate<T>,
     /**
      * Singleton
      */
-    private final static AlwaysPredicate<Object> INSTANCE = new AlwaysPredicate<Object>();
+    private final static AlwaysPredicate<Object> INSTANCE = new AlwaysPredicate<>();
 
     /**
      * Type safe singleton getter.

@@ -27,7 +27,7 @@ import java.util.NoSuchElementException;
 final class OneIterator<E> implements Iterator<E> {
 
     static <E> OneIterator<E> with(final E value) {
-        return new OneIterator<E>(value);
+        return new OneIterator<>(value);
     }
 
     /**

@@ -49,7 +49,7 @@ final class SystemPropertyValueClearPrivilegedAction implements PrivilegedAction
     /**
      * Thread local used to temporarily hold the system property being read.
      */
-    final static ThreadLocal<SystemProperty> property = new ThreadLocal<SystemProperty>();
+    final static ThreadLocal<SystemProperty> property = new ThreadLocal<>();
 
     /**
      * Private constructor

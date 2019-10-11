@@ -30,7 +30,7 @@ final class PushableStreamConsumerStreamTerminal2MaxPushableStreamConsumer<T> ex
                                                                                       final PushableStreamConsumerCloseableCollection closeables) {
         check(comparator);
 
-        return new PushableStreamConsumerStreamTerminal2MaxPushableStreamConsumer<T>(comparator, closeables);
+        return new PushableStreamConsumerStreamTerminal2MaxPushableStreamConsumer<>(comparator, closeables);
     }
 
     /**

@@ -92,35 +92,35 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
      * A {@link Range} that holds a single value.
      */
     public static <C extends Comparable<C>> Range<C> singleton(final C value) {
-        return new Range<C>(RangeBound.inclusive(value), RangeBound.inclusive(value));
+        return new Range<>(RangeBound.inclusive(value), RangeBound.inclusive(value));
     }
 
     /**
      * A {@link Range} that matches all values less than but not including the given value.
      */
     public static <C extends Comparable<C>> Range<C> lessThan(final C value) {
-        return new Range<C>(RangeBound.all(), RangeBound.exclusive(value));
+        return new Range<>(RangeBound.all(), RangeBound.exclusive(value));
     }
 
     /**
      * A {@link Range} that matches all values less than and including the given value.
      */
     public static <C extends Comparable<C>> Range<C> lessThanEquals(final C value) {
-        return new Range<C>(RangeBound.all(), RangeBound.inclusive(value));
+        return new Range<>(RangeBound.all(), RangeBound.inclusive(value));
     }
 
     /**
      * A {@link Range} that matches all values greater than but not including the given value.
      */
     public static <C extends Comparable<C>> Range<C> greaterThan(final C value) {
-        return new Range<C>(RangeBound.exclusive(value), RangeBound.all());
+        return new Range<>(RangeBound.exclusive(value), RangeBound.all());
     }
 
     /**
      * A {@link Range} that matches all values greater than and including the given value.
      */
     public static <C extends Comparable<C>> Range<C> greaterThanEquals(final C value) {
-        return new Range<C>(RangeBound.inclusive(value), RangeBound.all());
+        return new Range<>(RangeBound.inclusive(value), RangeBound.all());
     }
 
     /**
@@ -176,7 +176,7 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
             throw new IllegalArgumentException("Invalid range bounds " + this + " < " + other);
         }
 
-        return new Range<C>(lower, lower);
+        return new Range<>(lower, lower);
     }
 
     private Range<C> replace0(final RangeBound<C> lower, final RangeBound<C> upper) {
@@ -192,7 +192,7 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
             throw new IllegalArgumentException("Invalid range bounds " + lower + " > " + upper);
         }
 
-        return new Range<C>(lower, upper);
+        return new Range<>(lower, upper);
     }
 
 

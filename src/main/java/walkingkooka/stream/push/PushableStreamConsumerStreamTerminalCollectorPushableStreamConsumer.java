@@ -34,7 +34,7 @@ final class PushableStreamConsumerStreamTerminalCollectorPushableStreamConsumer<
                                                                                                        final PushableStreamConsumerCloseableCollection closeables) {
         Objects.requireNonNull(collector, "collector");
 
-        return new PushableStreamConsumerStreamTerminalCollectorPushableStreamConsumer<T, A, R>(collector, closeables);
+        return new PushableStreamConsumerStreamTerminalCollectorPushableStreamConsumer<>(collector, closeables);
     }
 
     /**

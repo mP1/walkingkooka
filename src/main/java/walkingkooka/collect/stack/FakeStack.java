@@ -28,7 +28,7 @@ import java.util.Objects;
 public class FakeStack<T> implements Stack<T>, Fake {
 
     static <T> FakeStack<T> create() {
-        return new FakeStack<T>();
+        return new FakeStack<>();
     }
 
     /**

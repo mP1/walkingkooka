@@ -487,7 +487,7 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
 
     @Test
     public void testValueEnumerationNotConsumed() {
-        final Enumeration<String> enumeration = new Enumeration<String>() {
+        final Enumeration<String> enumeration = new Enumeration<>() {
             @Override
             public boolean hasMoreElements() {
                 throw new UnsupportedOperationException();

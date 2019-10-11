@@ -27,7 +27,7 @@ import java.util.function.Predicate;
 public class FakePredicate<T> implements Predicate<T>, Fake {
 
     static <T> FakePredicate<T> create() {
-        return new FakePredicate<T>();
+        return new FakePredicate<>();
     }
 
     /**

@@ -70,7 +70,7 @@ public final class NodeSelectorContexts implements PublicStaticHelper {
             NAME extends Name,
             ANAME extends Name,
             AVALUE> NodeSelectorContext<N, NAME, ANAME, AVALUE> fake() {
-        return new FakeNodeSelectorContext<N, NAME, ANAME, AVALUE>();
+        return new FakeNodeSelectorContext<>();
     }
 
     /**

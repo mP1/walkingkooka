@@ -33,7 +33,7 @@ final class CaseSensitivityCharSequencePredicate<C extends CharSequence> extends
         Objects.requireNonNull(chars, "chars");
         Objects.requireNonNull(sensitivity, "sensitivity");
 
-        return new CaseSensitivityCharSequencePredicate<C>(chars, sensitivity);
+        return new CaseSensitivityCharSequencePredicate<>(chars, sensitivity);
     }
 
     /**

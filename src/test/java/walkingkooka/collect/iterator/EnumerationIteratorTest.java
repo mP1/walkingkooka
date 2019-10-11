@@ -69,7 +69,7 @@ final public class EnumerationIteratorTest
         return EnumerationIterator.adapt(ENUMERATION);
     }
 
-    private static final Enumeration<Integer> ENUMERATION = new Enumeration<Integer>() {
+    private static final Enumeration<Integer> ENUMERATION = new Enumeration<>() {
         @Override
         public boolean hasMoreElements() {
             throw new UnsupportedOperationException();

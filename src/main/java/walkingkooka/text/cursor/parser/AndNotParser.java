@@ -32,7 +32,7 @@ final class AndNotParser<C extends ParserContext> implements Parser<C> {
         Objects.requireNonNull(left, "left");
         Objects.requireNonNull(right, "right");
 
-        return new AndNotParser<C>(left, right);
+        return new AndNotParser<>(left, right);
     }
 
     private AndNotParser(final Parser<C> left, final Parser<C> right) {

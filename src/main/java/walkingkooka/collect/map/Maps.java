@@ -49,7 +49,7 @@ final public class Maps implements PublicStaticHelper {
      * {@see ConcurrentHashMap}
      */
     static public <K, V> ConcurrentMap<K, V> concurrent() {
-        return new ConcurrentHashMap<K, V>();
+        return new ConcurrentHashMap<>();
     }
 
     /**
@@ -77,14 +77,14 @@ final public class Maps implements PublicStaticHelper {
      * {@see HashMap}
      */
     static public <K, V> Map<K, V> hash() {
-        return new HashMap<K, V>();
+        return new HashMap<>();
     }
 
     /**
      * {@see IdentityHashMap}
      */
     static public <K, V> Map<K, V> identity() {
-        return new IdentityHashMap<K, V>();
+        return new IdentityHashMap<>();
     }
 
     /**
@@ -154,14 +154,14 @@ final public class Maps implements PublicStaticHelper {
      * {@see TreeMap}
      */
     static public <K, V> NavigableMap<K, V> navigable() {
-        return new TreeMap<K, V>();
+        return new TreeMap<>();
     }
 
     /**
      * {@see TreeMap}
      */
     static public <K, V> NavigableMap<K, V> navigable(final Comparator<? super K> comparator) {
-        return new TreeMap<K, V>(comparator);
+        return new TreeMap<>(comparator);
     }
 
     /**
@@ -233,7 +233,7 @@ final public class Maps implements PublicStaticHelper {
      * {@see LinkedHashMap}
      */
     static public <K, V> Map<K, V> ordered() {
-        return new LinkedHashMap<K, V>();
+        return new LinkedHashMap<>();
     }
 
     /**
@@ -249,21 +249,21 @@ final public class Maps implements PublicStaticHelper {
      * {@see TreeMap}
      */
     static public <K, V> SortedMap<K, V> sorted() {
-        return new TreeMap<K, V>();
+        return new TreeMap<>();
     }
 
     /**
      * {@see TreeMap}
      */
     static public <K, V> SortedMap<K, V> sorted(final Comparator<? super K> comparator) {
-        return new TreeMap<K, V>(comparator);
+        return new TreeMap<>(comparator);
     }
 
     /**
      * {@see WeakHashMap}
      */
     static public <K, V> Map<K, V> weak() {
-        return new WeakHashMap<K, V>();
+        return new WeakHashMap<>();
     }
 
     /**

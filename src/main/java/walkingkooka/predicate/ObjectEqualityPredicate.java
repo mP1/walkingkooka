@@ -35,7 +35,7 @@ final class ObjectEqualityPredicate<T> implements Predicate<T>,
     static <T, U extends T> ObjectEqualityPredicate<T> with(final U value) {
         Objects.requireNonNull(value, "value");
 
-        return new ObjectEqualityPredicate<T>(value);
+        return new ObjectEqualityPredicate<>(value);
     }
 
     /**

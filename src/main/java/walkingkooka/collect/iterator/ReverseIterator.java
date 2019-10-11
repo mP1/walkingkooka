@@ -51,7 +51,7 @@ final class ReverseIterator<E> implements Iterator<E> {
             while (iterator.hasNext()) {
                 stack.push(iterator.next());
             }
-            result = new ReverseIterator<E>(stack);
+            result = new ReverseIterator<>(stack);
         }
         return result;
     }

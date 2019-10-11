@@ -32,7 +32,7 @@ final class NeverPredicate<T> implements Predicate<T>,
     /**
      * Singleton
      */
-    private final static NeverPredicate<Object> INSTANCE = new NeverPredicate<Object>();
+    private final static NeverPredicate<Object> INSTANCE = new NeverPredicate<>();
 
     /**
      * Type safe singleton getter.

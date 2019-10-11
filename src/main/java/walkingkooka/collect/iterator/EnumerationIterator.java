@@ -29,7 +29,7 @@ final class EnumerationIterator<E> implements Iterator<E> {
     static <E> EnumerationIterator<E> adapt(final Enumeration<E> enumeration) {
         Objects.requireNonNull(enumeration, "enumeration");
 
-        return new EnumerationIterator<E>(enumeration);
+        return new EnumerationIterator<>(enumeration);
     }
 
     private EnumerationIterator(final Enumeration<E> enumeration) {

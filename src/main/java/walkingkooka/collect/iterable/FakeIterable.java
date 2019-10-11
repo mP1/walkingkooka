@@ -30,7 +30,7 @@ final class FakeIterable<T> implements Iterable<T>, Fake {
      * Creates a new {@link FakeIterable}
      */
     static <T> FakeIterable<T> create() {
-        return new FakeIterable<T>();
+        return new FakeIterable<>();
     }
 
     /**

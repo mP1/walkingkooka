@@ -33,7 +33,7 @@ extends PushableStreamConsumerStreamPushableStreamConsumerTestCase2<P> {
 
     final static String NEXT_TOSTRING = "Next123";
 
-    static final PushableStreamConsumerStreamPushableStreamConsumer<String> NEXT = new PushableStreamConsumerStreamPushableStreamConsumer<String>() {
+    static final PushableStreamConsumerStreamPushableStreamConsumer<String> NEXT = new PushableStreamConsumerStreamPushableStreamConsumer<>() {
 
         @Override
         public boolean isFinished() {

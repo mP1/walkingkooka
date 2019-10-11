@@ -50,7 +50,7 @@ final class LimitedIterator<E> implements Iterator<E> {
                 }
                 wrapped = limited.iterator;
             }
-            result = new LimitedIterator<E>(wrapped, count);
+            result = new LimitedIterator<>(wrapped, count);
             break;
         }
 

@@ -37,7 +37,7 @@ final class ReadOnlyStack<T> implements Stack<T>, HashCodeEqualsDefined {
 
         return stack instanceof ReadOnlyStack ?
                 Cast.to(stack) :
-                new ReadOnlyStack<T>(stack);
+                new ReadOnlyStack<>(stack);
     }
 
     /**

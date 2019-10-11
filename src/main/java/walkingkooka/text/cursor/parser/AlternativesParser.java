@@ -92,7 +92,7 @@ final class AlternativesParser<C extends ParserContext> implements Parser<C>, Ha
                 parser = parsers.get(0).cast();
                 break;
             default:
-                parser = new AlternativesParser<C>(parsers);
+                parser = new AlternativesParser<>(parsers);
                 break;
         }
 

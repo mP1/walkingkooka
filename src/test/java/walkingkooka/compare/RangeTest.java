@@ -1028,7 +1028,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
         final Integer lower = 55;
         final Range<Integer> range = Range.greaterThan(lower);
 
-        range.accept(new FakeRangeVisitor<Integer>() {
+        range.accept(new FakeRangeVisitor<>() {
 
             @Override
             protected Visiting startVisit(final Range<Integer> r) {

@@ -33,7 +33,7 @@ final class NotPredicate<T> implements Predicate<T>,
     static <T> Predicate<T> wrap(final Predicate<T> predicate) {
         Objects.requireNonNull(predicate, "predicate");
 
-        return predicate instanceof Notable ? not(predicate) : new NotPredicate<T>(predicate);
+        return predicate instanceof Notable ? not(predicate) : new NotPredicate<>(predicate);
     }
 
     private static <T> Predicate<T> not(final Predicate<T> predicate) {

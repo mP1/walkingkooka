@@ -37,7 +37,7 @@ final public class OpenChecker<T extends Throwable> {
         Whitespace.failIfNullOrEmptyOrWhitespace(message, "message");
         Objects.requireNonNull(throwableFactory, "throwableFactory");
 
-        return new OpenChecker<T>(message, throwableFactory);
+        return new OpenChecker<>(message, throwableFactory);
     }
 
     /**

@@ -62,7 +62,7 @@ public interface StackTesting<S extends Stack<T> & HashCodeEqualsDefined, T> ext
     @Test
     default void testHashCodeAgainstJavaUtilStack() {
         final S stack = this.createStack();
-        final java.util.Stack<T> jdkStack = new java.util.Stack<T>();
+        final java.util.Stack<T> jdkStack = new java.util.Stack<>();
         for(Iterator<T> iterator = stack.iterator(); iterator.hasNext();) {
             jdkStack.push(iterator.next());
         }

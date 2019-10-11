@@ -36,7 +36,7 @@ final class ReadOnlyIterator<T> implements Iterator<T> {
 
         return iterator instanceof ReadOnlyIterator ?
                 Cast.to(iterator) :
-                new ReadOnlyIterator<T>(iterator);
+                new ReadOnlyIterator<>(iterator);
     }
 
     private ReadOnlyIterator(final Iterator<T> iterator) {

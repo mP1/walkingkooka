@@ -37,7 +37,7 @@ final class ReverseIterable<T> implements Iterable<T> {
             final ReverseIterable<T> reverseIterable = Cast.to(iterable);
             result = reverseIterable.iterable;
         } else {
-            result = new ReverseIterable<T>(iterable);
+            result = new ReverseIterable<>(iterable);
         }
 
         return result;

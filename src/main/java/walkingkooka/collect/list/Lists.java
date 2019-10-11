@@ -42,14 +42,14 @@ final public class Lists implements PublicStaticHelper {
      * {@see ArrayList}
      */
     public static <T> List<T> array() {
-        return new ArrayList<T>();
+        return new ArrayList<>();
     }
 
     /**
      * {@see CopyOnWriteArrayList}
      */
     public static <T> CopyOnWriteArrayList<T> copyOnWrite() {
-        return new CopyOnWriteArrayList<T>();
+        return new CopyOnWriteArrayList<>();
     }
 
     /**
@@ -77,7 +77,7 @@ final public class Lists implements PublicStaticHelper {
      * {@see LinkedList}
      */
     public static <T> List<T> linkedList() {
-        return new LinkedList<T>();
+        return new LinkedList<>();
     }
 
     /**
@@ -108,7 +108,7 @@ final public class Lists implements PublicStaticHelper {
      * {@see Vector}
      */
     public static <T> Vector<T> vector() {
-        return new Vector<T>();
+        return new Vector<>();
     }
 
     /**

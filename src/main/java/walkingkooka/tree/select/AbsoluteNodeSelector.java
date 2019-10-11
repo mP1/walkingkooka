@@ -56,7 +56,7 @@ final class AbsoluteNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
                 this :
                 selector instanceof DescendantNodeSelector ?
                         selector :
-                        new AbsoluteNodeSelector<N, NAME, ANAME, AVALUE>(selector);
+                        new AbsoluteNodeSelector<>(selector);
     }
 
     @Override

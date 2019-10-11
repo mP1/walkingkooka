@@ -31,7 +31,7 @@ final class PushableStreamConsumerStreamTerminal3NoneMatchPushableStreamConsumer
                                                                                             final PushableStreamConsumerCloseableCollection closeables) {
         Objects.requireNonNull(predicate, "predicate");
 
-        return new PushableStreamConsumerStreamTerminal3NoneMatchPushableStreamConsumer<T>(predicate, closeables);
+        return new PushableStreamConsumerStreamTerminal3NoneMatchPushableStreamConsumer<>(predicate, closeables);
     }
 
     private PushableStreamConsumerStreamTerminal3NoneMatchPushableStreamConsumer(final Predicate<? super T> predicate,

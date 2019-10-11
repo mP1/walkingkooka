@@ -53,7 +53,7 @@ public final class CollectionTesting2Test implements CollectionTesting2<List<Str
 
                 @Override
                 public List<String> createCollection() {
-                    return new AbstractList<String>() {
+                    return new AbstractList<>() {
                         @Override
                         public String get(final int index) {
                             if (0 == index) {

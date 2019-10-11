@@ -67,7 +67,7 @@ public abstract class PushableStreamConsumerStreamIntermediate1PushableStreamCon
         final List<String> collected = Lists.array();
 
         final P consumer = this.createPushableStreamConsumer(skipOrLimit,
-                new PushableStreamConsumer<String>() {
+                new PushableStreamConsumer<>() {
                     @Override
                     public boolean isFinished() {
                         return collected.size() >= finishedCollectedSize;

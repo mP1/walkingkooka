@@ -93,7 +93,7 @@ final public class UnreadableStackTest extends StackTestCase<UnreadableStack<Obj
 
     @Test
     public void testHashCode() {
-        final UnreadableStack<Object> stack = UnreadableStack.wrap(new FakeStack<Object>() {
+        final UnreadableStack<Object> stack = UnreadableStack.wrap(new FakeStack<>() {
 
             @Override
             public int hashCode() {

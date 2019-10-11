@@ -37,7 +37,7 @@ final class UnreadableStack<T> implements Stack<T>, HashCodeEqualsDefined {
 
         return stack instanceof UnreadableStack ?
                 Cast.to(stack) :
-                new UnreadableStack<T>(stack);
+                new UnreadableStack<>(stack);
     }
 
     /**

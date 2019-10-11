@@ -27,7 +27,7 @@ import java.util.Iterator;
 final class FakeIterator<T> implements Iterator<T>, Fake {
 
     static <T> FakeIterator<T> create() {
-        return new FakeIterator<T>();
+        return new FakeIterator<>();
     }
 
     private FakeIterator() {

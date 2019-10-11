@@ -57,7 +57,7 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
 
     @Override
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
-        return new ExpressionNodeSelector<N, NAME, ANAME, AVALUE>(this.expressionNode, selector);
+        return new ExpressionNodeSelector<>(this.expressionNode, selector);
     }
 
     @Override

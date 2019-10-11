@@ -28,7 +28,7 @@ final class PushableStreamConsumerStreamTerminalForEachOrderedPushableStreamCons
 
     static <T> PushableStreamConsumerStreamTerminalForEachOrderedPushableStreamConsumer<T> with(final Consumer<? super T> action,
                                                                                                 final PushableStreamConsumerCloseableCollection closeables) {
-        return new PushableStreamConsumerStreamTerminalForEachOrderedPushableStreamConsumer<T>(action, closeables);
+        return new PushableStreamConsumerStreamTerminalForEachOrderedPushableStreamConsumer<>(action, closeables);
     }
 
     /**
