@@ -342,6 +342,7 @@ public abstract class DateTimeFormatterPatternVisitor extends Visitor<String> {
      * ZoneId: This outputs the time-zone ID, such as 'Europe/Paris'. If the count of letters is two, then the time-zone ID is output. Any other count of letters throws IllegalArgumentException.x`x``
      * </pre>
      */
+    @SuppressWarnings("SwitchStatementWithTooFewBranches")
     final void traverseTimezoneId(final int width) {
         switch (width) {
             case 2:
