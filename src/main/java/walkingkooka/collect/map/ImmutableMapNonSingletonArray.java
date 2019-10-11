@@ -17,6 +17,7 @@
 
 package walkingkooka.collect.map;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -38,39 +39,23 @@ final class ImmutableMapNonSingletonArray<K, V> extends ImmutableMap<K, V> {
 
     @Override
     public boolean containsKey(final Object key) {
-        boolean contains = false;
-        for (final Entry<K, V> entry : this.entrySet.entries) {
-            contains = entry.getKey().equals(key);
-            if (contains) {
-                break;
-            }
-        }
-        return contains;
-    }
-
-    @Override
-    public boolean containsValue(final Object value) {
-        boolean contains = false;
-        for (final Entry<K, V> entry : this.entrySet.entries) {
-            contains = Objects.equals(entry.getValue(), value);
-            if (contains) {
-                break;
-            }
-        }
-        return contains;
+        return Arrays.stream(this.entrySet.entries)
+                .anyMatch(e -> e.getKey().equals(key));
     }
 
     @Override
     public V get(final Object key) {
-        V value = null;
+        return (V) Arrays.stream(this.entrySet.entries)
+                .filter(e -> e.getKey().equals(key))
+                .map(Entry::getValue)
+                .findFirst()
+                .orElse(null);
+    }
 
-        for (Entry<K, V> entry : this.entrySet.entries) {
-            if (entry.getKey().equals(key)) {
-                value = entry.getValue();
-                break;
-            }
-        }
-        return value;
+    @Override
+    public boolean containsValue(final Object value) {
+        return Arrays.stream(this.entrySet.entries)
+                .anyMatch(e -> Objects.equals(e.getValue(), value));
     }
 
     @Override
