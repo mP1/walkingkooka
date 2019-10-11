@@ -48,9 +48,7 @@ final class PathIterator<P extends Path<P, N>, N extends Name> implements Iterat
 
     private void visitParent(final Path<P, N> path) {
         final Optional<P> parent = path.parent();
-        if (parent.isPresent()) {
-            this.visitParent(parent.get());
-        }
+        parent.ifPresent(this::visitParent);
         this.components.add(path.name());
     }
 

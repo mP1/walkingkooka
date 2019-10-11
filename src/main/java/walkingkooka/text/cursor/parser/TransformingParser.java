@@ -43,9 +43,7 @@ final class TransformingParser<C extends ParserContext> implements Parser<C> {
     @Override
     public Optional<ParserToken> parse(final TextCursor cursor, final C context) {
         final Optional<ParserToken> token = this.parser.parse(cursor, context);
-        return token.isPresent() ?
-                Optional.of(this.transformer.apply(token.get(), context)) :
-                Optional.empty();
+        return token.map(parserToken -> this.transformer.apply(parserToken, context));
 
     }
 
