@@ -40,10 +40,6 @@ final class PrintableCharPredicate implements CharPredicate {
         return false == Character.isISOControl(c);
     }
 
-    private Object readResolve() {
-        return PrintableCharPredicate.INSTANCE;
-    }
-
     @Override
     public String toString() {
         return "printable";
