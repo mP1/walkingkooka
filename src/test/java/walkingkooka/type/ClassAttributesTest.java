@@ -43,6 +43,7 @@ public final class ClassAttributesTest implements ClassTesting2<ClassAttributes>
         assertEquals(Sets.of(ClassAttributes.ABSTRACT), ClassAttributes.get(TestAbstractClass.class));
     }
 
+    @SuppressWarnings("InnerClassMayBeStatic")
     abstract class TestAbstractClass {
     }
 
