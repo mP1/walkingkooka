@@ -57,7 +57,7 @@ final class ParserTokenTesting2 {
                 .collect(Collectors.toList());
 
         final String publicStaticMethodsToString = publicStaticMethods.stream()
-                .map(m -> m.toGenericString())
+                .map(Method::toGenericString)
                 .collect(Collectors.joining(LineEnding.SYSTEM.toString()));
         assertEquals(1,
                 factoryMethods.size(),

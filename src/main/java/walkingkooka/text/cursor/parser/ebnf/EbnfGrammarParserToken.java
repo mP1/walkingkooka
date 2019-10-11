@@ -76,7 +76,7 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken<EbnfGram
         identifiers.values()
                 .stream()
                 .filter(e -> e.size() > 1)
-                .forEach(e -> duplicates.addAll(e));
+                .forEach(duplicates::addAll);
         if (!duplicates.isEmpty()) {
             throw new EbnfGrammarParserTokenDuplicateIdentifiersException(duplicates.size() + " rules with the same identifier=" + duplicates, duplicates);
         }

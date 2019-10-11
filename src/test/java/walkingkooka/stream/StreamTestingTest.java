@@ -71,7 +71,7 @@ public final class StreamTestingTest implements StreamTesting<Stream<Integer>, I
 
     @Test
     public void testCollect() {
-        this.collectAndCheck(() -> this.createStream(), this.values());
+        this.collectAndCheck(this::createStream, this.values());
     }
 
     // iterator............................................................................................................

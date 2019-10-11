@@ -52,14 +52,14 @@ public final class SequenceParserToken extends RepeatedOrSequenceParserToken<Seq
      * Removes any noisy token values, returning a new instance if necessary.
      */
     public SequenceParserToken removeNoise() {
-        return this.removeIf(t -> t.isNoise());
+        return this.removeIf(ParserToken::isNoise);
     }
 
     /**
      * Removes any whitespace token values, returning a new instance if necessary.
      */
     public SequenceParserToken removeWhitespace() {
-        return this.removeIf(t -> t.isWhitespace());
+        return this.removeIf(ParserToken::isWhitespace);
     }
 
     /**

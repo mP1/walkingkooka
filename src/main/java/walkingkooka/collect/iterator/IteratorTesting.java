@@ -54,21 +54,15 @@ public interface IteratorTesting {
     }
 
     default void nextFails(final String message, final Iterator<?> iterator) {
-        assertThrows(NoSuchElementException.class, () -> {
-            iterator.next();
-        });
+        assertThrows(NoSuchElementException.class, iterator::next);
     }
 
     default void removeWithoutNextFails(final Iterator<?> iterator) {
-        assertThrows(IllegalStateException.class, () -> {
-            iterator.remove();
-        });
+        assertThrows(IllegalStateException.class, iterator::remove);
     }
 
     default void removeUnsupportedFails(final Iterator<?> iterator) {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            iterator.remove();
-        });
+        assertThrows(UnsupportedOperationException.class, iterator::remove);
     }
 
     @SuppressWarnings("unchecked")
@@ -87,7 +81,7 @@ public interface IteratorTesting {
         }
         assertEquals(Lists.of(expected),
                 consumed,
-                () -> iterator.toString());
+                iterator::toString);
         this.nextFails(iterator);
     }
 
@@ -108,7 +102,7 @@ public interface IteratorTesting {
 
         assertEquals(Lists.of(expected),
                 consumed,
-                () -> iterator.toString());
+                iterator::toString);
         this.nextFails(iterator);
     }
 }

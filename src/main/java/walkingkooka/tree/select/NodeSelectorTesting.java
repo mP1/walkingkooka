@@ -62,7 +62,7 @@ public interface NodeSelectorTesting<N extends Node<N, NAME, ANAME, AVALUE>,
                 this.nodeSelectorContext(
                         (n) -> {
                         }, // ignore potentials
-                        (n) -> selected.add(n))); // capture selecteds
+                        selected::add)); // capture selecteds
 
         return new ArrayList<>(selected);
     }

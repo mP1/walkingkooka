@@ -133,7 +133,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                                     potential.add(n);
                                     return true;
                                 },
-                                (n) -> selected.add(n))));
+                                selected::add)));
         assertEquals(Lists.of(nodes), nodeNames(selected), () -> "Selector.apply\n" + start);
         assertNotEquals(Sets.empty(), potential, "potentials must not be empty");
         assertTrue(potential.contains(start), () -> "potentials must include initial node=" + potential);
@@ -159,7 +159,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                 selector.apply(start,
                         this.context(this.finisher(selectCount, selected),
                                 Predicates.always(),
-                                (n) -> selected.add(n))),
+                                selected::add)),
                 () -> "incorrect start node returned, selector: " + selector);
         assertEquals(nodeNames(nodes),
                 nodeNames(selected),
@@ -175,7 +175,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                 selector.apply(start,
                         this.context(this.finisher(selectCount, selected),
                                 Predicates.always(),
-                                (n) -> selected.add(n))),
+                                selected::add)),
                 () -> "incorrect start node returned, selector: " + selector);
         assertEquals(Lists.of(nodes),
                 nodeNames(selected),
@@ -214,7 +214,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                 selector.apply(start,
                         this.context(finisher,
                                 Predicates.always(),
-                                (n) -> selected.add(n))),
+                                selected::add)),
                 () -> "incorrect start node returned, selector: " + selector);
         assertEquals(nodeNames(nodes),
                 nodeNames(selected),
@@ -230,7 +230,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                 selector.apply(start,
                         this.context(finisher,
                                 Predicates.always(),
-                                (n) -> selected.add(n))),
+                                selected::add)),
                 () -> "incorrect start node returned, selector: " + selector);
         assertEquals(Lists.of(nodes),
                 nodeNames(selected),
@@ -256,7 +256,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
         assertSame(start,
                 selector.apply(start,
                         this.context(filter,
-                                (n) -> selected.add(n))));
+                                selected::add)));
         assertEquals(nodeNames(nodes),
                 nodeNames(selected),
                 () -> "Selector.apply\n" + start);
@@ -270,7 +270,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
         assertSame(start,
                 selector.apply(start,
                         this.context(filter,
-                                (n) -> selected.add(n))));
+                                selected::add)));
         assertEquals(Lists.of(nodes),
                 nodeNames(selected),
                 () -> "Selector.apply\n" + start);

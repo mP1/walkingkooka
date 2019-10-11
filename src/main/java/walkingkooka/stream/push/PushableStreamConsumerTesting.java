@@ -34,7 +34,7 @@ public interface PushableStreamConsumerTesting<C extends PushableStreamConsumer<
                                  final boolean finished) {
         assertEquals(finished,
                 consumer.isFinished(),
-                () -> consumer.toString());
+                consumer::toString);
     }
 
     default void accept(final PushableStreamConsumer<T> consumer,

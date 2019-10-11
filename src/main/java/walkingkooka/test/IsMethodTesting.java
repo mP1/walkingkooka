@@ -73,7 +73,7 @@ public interface IsMethodTesting<T> extends Testing {
                                 throw new Error(cause);
                             }
                         })
-                        .map(m -> m.toGenericString())
+                        .map(Method::toGenericString)
                         .collect(Collectors.toList()),
                 "IsMethods that should have returned false but returned true.");
     }

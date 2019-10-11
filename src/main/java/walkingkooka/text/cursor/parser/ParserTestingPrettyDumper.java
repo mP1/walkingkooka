@@ -33,7 +33,7 @@ import java.util.Optional;
 final class ParserTestingPrettyDumper {
 
     static String dump(final Optional<ParserToken> token) {
-        return token.map(t -> dump0(t))
+        return token.map(ParserTestingPrettyDumper::dump0)
                 .orElse(null);
     }
 

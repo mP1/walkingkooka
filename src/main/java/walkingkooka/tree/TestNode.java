@@ -170,7 +170,7 @@ public final class TestNode implements Node<TestNode, StringName, StringName, Ob
      */
     private static List<TestNode> copyChildren(final List<TestNode> children) {
         return Lists.immutable(children.stream()
-                .map(c -> c.copy())
+                .map(TestNode::copy)
                 .collect(Collectors.toList())
         );
     }

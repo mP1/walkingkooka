@@ -295,7 +295,7 @@ final class PushableStreamConsumerStream<T> implements Stream<T>,
 
     @Override
     public Stream<T> sorted() {
-        return this.collect(Collectors.toCollection(() -> Sets.<T>ordered())).stream();
+        return this.collect(Collectors.toCollection(Sets::<T>ordered)).stream();
     }
 
     @Override
@@ -359,7 +359,7 @@ final class PushableStreamConsumerStream<T> implements Stream<T>,
 
     @Override
     public Optional<T> findFirst() {
-        return this.assembleStartAndReturnResult((closeables) -> PushableStreamConsumerStreamPushableStreamConsumer.findFirst(closeables));
+        return this.assembleStartAndReturnResult(PushableStreamConsumerStreamPushableStreamConsumer::findFirst);
     }
 
     /**
@@ -405,7 +405,7 @@ final class PushableStreamConsumerStream<T> implements Stream<T>,
 
     @Override
     public long count() {
-        return this.assembleStartAndReturnResult((closeables) -> PushableStreamConsumerStreamPushableStreamConsumer.count(closeables));
+        return this.assembleStartAndReturnResult(PushableStreamConsumerStreamPushableStreamConsumer::count);
     }
 
     // ITERATOR ........................................................................................................

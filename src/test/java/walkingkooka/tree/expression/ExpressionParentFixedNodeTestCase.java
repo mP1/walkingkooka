@@ -25,36 +25,26 @@ public abstract class ExpressionParentFixedNodeTestCase<N extends ExpressionPare
 
     @Test
     public void testAppendChild() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            super.testAppendChild();
-        });
+        assertThrows(UnsupportedOperationException.class, super::testAppendChild);
     }
 
     @Test
     public void testAppendChild2() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            super.testAppendChild2();
-        });
+        assertThrows(UnsupportedOperationException.class, super::testAppendChild2);
     }
 
     @Test
     public void testRemoveChildFirst() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            super.testRemoveChildFirst();
-        });
+        assertThrows(UnsupportedOperationException.class, super::testRemoveChildFirst);
     }
 
     @Test
     public void testRemoveChildLast() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            super.testRemoveChildLast();
-        });
+        assertThrows(UnsupportedOperationException.class, super::testRemoveChildLast);
     }
 
     @Test
     public void testParentWithoutChild() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            super.testParentWithoutChild();
-        });
+        assertThrows(UnsupportedOperationException.class, super::testParentWithoutChild);
     }
 }

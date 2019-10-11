@@ -86,7 +86,7 @@ public final class FieldAttributesTest implements ClassTesting2<FieldAttributes>
         for (FieldAttributes possible : FieldAttributes.values()) {
             assertEquals(set.contains(possible),
                     possible.is(field),
-                    () -> field.toGenericString());
+                    field::toGenericString);
         }
     }
 

@@ -62,9 +62,7 @@ public interface PrinterTesting<P extends Printer> extends ToStringTesting<P>,
     default void testLineEndingAfterCloseFails() {
         final P printer = this.createPrinterAndClose();
 
-        assertThrows(PrinterException.class, () -> {
-            printer.lineEnding();
-        });
+        assertThrows(PrinterException.class, printer::lineEnding);
 
     }
 
@@ -72,9 +70,7 @@ public interface PrinterTesting<P extends Printer> extends ToStringTesting<P>,
     default void testFlushAfterCloseFails() {
         final P printer = this.createPrinterAndClose();
 
-        assertThrows(PrinterException.class, () -> {
-            printer.flush();
-        });
+        assertThrows(PrinterException.class, printer::flush);
 
     }
 

@@ -166,9 +166,7 @@ public final class TraversableIteratorTest implements ClassTesting2<TraversableI
     public void testRemoveFails() {
         final Iterator<TestNode> iterator = this.createIterator();
         iterator.next();
-        assertThrows(UnsupportedOperationException.class, () -> {
-            iterator.remove();
-        });
+        assertThrows(UnsupportedOperationException.class, iterator::remove);
     }
 
     @Test

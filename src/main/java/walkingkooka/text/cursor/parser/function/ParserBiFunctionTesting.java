@@ -17,6 +17,7 @@
 package walkingkooka.text.cursor.parser.function;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.HasText;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokens;
@@ -60,7 +61,7 @@ public interface ParserBiFunctionTesting<F extends BiFunction<SequenceParserToke
         return ParserTokens.sequence(
                 Lists.of(tokens),
                 Arrays.stream(tokens)
-                        .map(t -> t.text())
+                        .map(HasText::text)
                         .collect(Collectors.joining()));
     }
 }

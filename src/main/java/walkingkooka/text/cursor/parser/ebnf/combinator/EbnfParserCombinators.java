@@ -65,8 +65,8 @@ public final class EbnfParserCombinators implements PublicStaticHelper {
     private static void preloadProxies(final EbnfGrammarParserToken grammar, final Map<EbnfIdentifierName, Parser<ParserContext>> identifierToParser) {
         grammar.value()
                 .stream()
-                .map(m -> EbnfParserToken.class.cast(m))
-                .filter(t -> t.isRule())
+                .map(EbnfParserToken.class::cast)
+                .filter(EbnfParserToken::isRule)
                 .forEach(t -> addProxy(t.cast(), identifierToParser));
     }
 

@@ -25,9 +25,7 @@ public final class ExpressionNormalizeSpaceFunctionTest extends ExpressionFuncti
 
     @Test
     public void testZeroParametersFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.apply2();
-        });
+        assertThrows(IllegalArgumentException.class, this::apply2);
     }
 
     @Test

@@ -129,16 +129,12 @@ public final class EbnfParserCombinatorsTest implements ParserTesting2<Parser<Fa
 
     @Test
     public void testIdentifierDuplicateRuleGrammarFails() {
-        assertThrows(EbnfParserCombinatorDuplicateRuleException.class, () -> {
-            this.createParser2();
-        });
+        assertThrows(EbnfParserCombinatorDuplicateRuleException.class, this::createParser2);
     }
 
     @Test
     public void testIdentifierDuplicateRulePredefinedFails() {
-        assertThrows(EbnfParserCombinatorDuplicateRuleException.class, () -> {
-            this.createParser2();
-        });
+        assertThrows(EbnfParserCombinatorDuplicateRuleException.class, this::createParser2);
     }
 
     @Test
@@ -415,9 +411,9 @@ public final class EbnfParserCombinatorsTest implements ParserTesting2<Parser<Fa
         grammar.value()
                 .stream()
                 .filter(t -> t instanceof EbnfParserToken)
-                .map(t -> EbnfParserToken.class.cast(t))
-                .filter(t -> t.isRule())
-                .map(t -> EbnfRuleParserToken.class.cast(t))
+                .map(EbnfParserToken.class::cast)
+                .filter(EbnfParserToken::isRule)
+                .map(EbnfRuleParserToken.class::cast)
                 .forEach(rule -> {
                     identifierToToken.put(rule.identifier().value(), rule.token());
                 });

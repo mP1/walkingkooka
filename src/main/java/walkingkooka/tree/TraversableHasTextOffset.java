@@ -34,7 +34,7 @@ public interface TraversableHasTextOffset<T extends HasTextLength & HasTextOffse
         return this.previousSibling()
                 .map(p -> p.textOffset() + p.textLength())
                 .orElse(this.parent()
-                        .map(p -> p.textOffset())
+                        .map(HasTextOffset::textOffset)
                         .orElse(0));
     }
 }

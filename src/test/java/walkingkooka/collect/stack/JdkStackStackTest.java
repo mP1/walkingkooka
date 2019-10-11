@@ -99,17 +99,13 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
     @Test
     public void testPeekWhenEmptyFails() {
         final Stack<Object> stack = JdkStackStack.create();
-        assertThrows(EmptyStackException.class, () -> {
-            stack.peek();
-        });
+        assertThrows(EmptyStackException.class, stack::peek);
     }
 
     @Test
     public void testPopWhenEmptyFails() {
         final Stack<Object> stack = JdkStackStack.create();
-        assertThrows(EmptyStackException.class, () -> {
-            stack.pop();
-        });
+        assertThrows(EmptyStackException.class, stack::pop);
     }
 
     @Test

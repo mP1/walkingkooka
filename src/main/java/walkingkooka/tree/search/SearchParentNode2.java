@@ -18,6 +18,7 @@
 package walkingkooka.tree.search;
 
 import walkingkooka.collect.map.Maps;
+import walkingkooka.text.HasText;
 
 import java.util.List;
 import java.util.Map;
@@ -64,7 +65,7 @@ abstract class SearchParentNode2 extends SearchParentNode {
     @Override
     public final int textLength() {
         return this.children().stream()
-                .mapToInt(c -> c.textLength())
+                .mapToInt(HasText::textLength)
                 .sum();
     }
 

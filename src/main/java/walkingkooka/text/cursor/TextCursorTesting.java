@@ -48,9 +48,7 @@ public interface TextCursorTesting<T> {
     }
 
     default void moveNextFails(final TextCursor cursor) {
-        assertThrows(TextCursorException.class, () -> {
-            cursor.next();
-        });
+        assertThrows(TextCursorException.class, cursor::next);
     }
 
     default void atAndCheck(final TextCursor cursor, final char expected) {
@@ -76,8 +74,6 @@ public interface TextCursorTesting<T> {
     }
 
     default void atFails(final TextCursor cursor) {
-        assertThrows(TextCursorException.class, () -> {
-            cursor.at();
-        });
+        assertThrows(TextCursorException.class, cursor::at);
     }
 }

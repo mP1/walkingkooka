@@ -83,7 +83,7 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
         final Constructor<?> constructor = classs.getDeclaredConstructor();
         assertEquals(visibility,
                 JavaVisibility.of(constructor),
-                () -> constructor.toGenericString());
+                constructor::toGenericString);
     }
 
     // of(Method)......................................................................................................
@@ -128,7 +128,7 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
         final Method method = JavaVisibilityTest.class.getDeclaredMethod(methodName);
         assertEquals(visibility,
                 JavaVisibility.of(method),
-                () -> method.toGenericString());
+                method::toGenericString);
     }
 
     // of(Field)......................................................................................................

@@ -66,9 +66,7 @@ public interface IndentingPrinterTesting<P extends IndentingPrinter>
     }
 
     default void outdentFails(final P printer) {
-        assertThrows(IllegalStateException.class, () -> {
-            printer.outdent();
-        });
+        assertThrows(IllegalStateException.class, printer::outdent);
     }
 
     @Test

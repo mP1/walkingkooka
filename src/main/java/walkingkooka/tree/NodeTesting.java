@@ -175,9 +175,7 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         assertEquals(true, node.isRoot(), "root");
         assertEquals(Optional.empty(), node.parentWithout(), () -> "parent without " + node);
 
-        assertThrows(NodeException.class, () -> {
-            node.parentOrFail();
-        });
+        assertThrows(NodeException.class, node::parentOrFail);
     }
 
     default void parentMissingCheck(final N node, final N parentWithout) {

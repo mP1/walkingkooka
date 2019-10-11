@@ -25,9 +25,7 @@ public final class ExpressionChooseFunctionTest extends ExpressionFunctionTestCa
 
     @Test
     public void testZeroParametersFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.apply2();
-        });
+        assertThrows(IllegalArgumentException.class, this::apply2);
     }
 
     @Test

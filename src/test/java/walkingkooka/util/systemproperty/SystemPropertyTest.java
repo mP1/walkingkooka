@@ -86,9 +86,7 @@ final public class SystemPropertyTest implements ClassTesting2<SystemProperty>,
     public void testMissingRequiredValueFails() {
         final SystemProperty name = SystemProperty.get(this.getClass().getName());
         name.clear();
-        assertThrows(MissingSystemPropertyException.class, () -> {
-            name.requiredPropertyValue();
-        });
+        assertThrows(MissingSystemPropertyException.class, name::requiredPropertyValue);
     }
 
     @Test

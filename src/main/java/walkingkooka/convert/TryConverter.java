@@ -93,7 +93,7 @@ final class TryConverter implements Converter {
     @Override
     public String toString() {
         return this.converters.stream()
-                .map(c -> c.toString())
+                .map(Object::toString)
                 .collect(Collectors.joining(", "));
     }
 }

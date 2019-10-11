@@ -59,9 +59,7 @@ public final class NeverErrorTest implements StandardThrowableTesting<NeverError
     private void check(final Runnable thrower,
                        final String message,
                        final Throwable cause) {
-        final NeverError expected = assertThrows(NeverError.class, () -> {
-            thrower.run();
-        });
+        final NeverError expected = assertThrows(NeverError.class, thrower::run);
 
         this.checkThrowable(expected, message, cause);
     }

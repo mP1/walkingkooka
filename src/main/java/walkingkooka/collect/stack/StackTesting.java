@@ -38,17 +38,13 @@ public interface StackTesting<S extends Stack<T> & HashCodeEqualsDefined, T> ext
     @Test
     default void testPeekWhenEmptyFails() {
         final Stack<String> stack = ArrayListStack.create();
-        assertThrows(EmptyStackException.class, () -> {
-            stack.peek();
-        });
+        assertThrows(EmptyStackException.class, stack::peek);
     }
 
     @Test
     default void testPopWhenEmptyFails() {
         final Stack<String> stack = ArrayListStack.create();
-        assertThrows(EmptyStackException.class, () -> {
-            stack.pop();
-        });
+        assertThrows(EmptyStackException.class, stack::pop);
     }
 
     @Test

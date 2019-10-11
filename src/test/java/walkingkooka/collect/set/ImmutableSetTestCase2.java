@@ -43,9 +43,7 @@ public abstract class ImmutableSetTestCase2<S extends ImmutableSet<String>> exte
     public final void testIteratorRemoveFails() {
         final Iterator<String> iterator = this.createSet().iterator();
         iterator.next();
-        assertThrows(UnsupportedOperationException.class, () -> {
-            iterator.remove();
-        });
+        assertThrows(UnsupportedOperationException.class, iterator::remove);
     }
 
     @Override
