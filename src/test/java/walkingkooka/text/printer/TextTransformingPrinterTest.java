@@ -33,16 +33,12 @@ final public class TextTransformingPrinterTest extends PrinterTestCase2<TextTran
 
     @Test
     public void testWithNullTransformerFails() {
-        assertThrows(NullPointerException.class, () -> {
-            TextTransformingPrinter.with(null, Printers.fake());
-        });
+        assertThrows(NullPointerException.class, () -> TextTransformingPrinter.with(null, Printers.fake()));
     }
 
     @Test
     public void testWithNullPrinterFails() {
-        assertThrows(NullPointerException.class, () -> {
-            TextTransformingPrinter.with(this::transformer, null);
-        });
+        assertThrows(NullPointerException.class, () -> TextTransformingPrinter.with(this::transformer, null));
     }
 
     // lineEnding........................................................................................................

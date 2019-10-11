@@ -32,37 +32,27 @@ public final class StringInitialAndPartCharPredicateParserTest extends Parser2Te
 
     @Test
     public void testWithNullInitialCharPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            StringInitialAndPartCharPredicateParser.with(null, PART, MIN_LENGTH, MAX_LENGTH);
-        });
+        assertThrows(NullPointerException.class, () -> StringInitialAndPartCharPredicateParser.with(null, PART, MIN_LENGTH, MAX_LENGTH));
     }
 
     @Test
     public void testWithNullInitialPartPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            StringInitialAndPartCharPredicateParser.with(INITIAL, null, MIN_LENGTH, MAX_LENGTH);
-        });
+        assertThrows(NullPointerException.class, () -> StringInitialAndPartCharPredicateParser.with(INITIAL, null, MIN_LENGTH, MAX_LENGTH));
     }
 
     @Test
     public void testWithInvalidMinLengthFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            StringInitialAndPartCharPredicateParser.with(INITIAL, PART, 0, MAX_LENGTH);
-        });
+        assertThrows(IllegalArgumentException.class, () -> StringInitialAndPartCharPredicateParser.with(INITIAL, PART, 0, MAX_LENGTH));
     }
 
     @Test
     public void testWithInvalidMaxLengthFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            StringInitialAndPartCharPredicateParser.with(INITIAL, PART, MIN_LENGTH, MIN_LENGTH);
-        });
+        assertThrows(IllegalArgumentException.class, () -> StringInitialAndPartCharPredicateParser.with(INITIAL, PART, MIN_LENGTH, MIN_LENGTH));
     }
 
     @Test
     public void testWithInvalidMaxLengthFails2() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            StringInitialAndPartCharPredicateParser.with(INITIAL, PART, MIN_LENGTH, MIN_LENGTH - 1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> StringInitialAndPartCharPredicateParser.with(INITIAL, PART, MIN_LENGTH, MIN_LENGTH - 1));
     }
 
     @Test

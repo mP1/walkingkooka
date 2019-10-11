@@ -43,16 +43,12 @@ final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<
 
     @Test
     public void testWrapNullIteratorFails() {
-        assertThrows(NullPointerException.class, () -> {
-            LimitedIterator.wrap((Iterator<String>) null, COUNT);
-        });
+        assertThrows(NullPointerException.class, () -> LimitedIterator.wrap((Iterator<String>) null, COUNT));
     }
 
     @Test
     public void testWrapNegativeCountFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            LimitedIterator.wrap(ITERATOR, -1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> LimitedIterator.wrap(ITERATOR, -1));
     }
 
     @Test

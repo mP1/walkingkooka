@@ -36,9 +36,7 @@ final public class PlainTextWithoutTagsPrinterTest
 
     @Test
     public void testWrapNullPrinterFails() {
-        assertThrows(NullPointerException.class, () -> {
-            PlainTextWithoutTagsPrinter.wrap(null);
-        });
+        assertThrows(NullPointerException.class, () -> PlainTextWithoutTagsPrinter.wrap(null));
     }
 
     @Test

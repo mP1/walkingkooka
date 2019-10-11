@@ -42,16 +42,12 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
 
     @Test
     public void testWithNullFirstFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ChainIterator.with(null, SECOND);
-        });
+        assertThrows(NullPointerException.class, () -> ChainIterator.with(null, SECOND));
     }
 
     @Test
     public void testWithNullIteratorsFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ChainIterator.with(FIRST, null);
-        });
+        assertThrows(NullPointerException.class, () -> ChainIterator.with(FIRST, null));
     }
 
     @Test

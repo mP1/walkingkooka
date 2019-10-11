@@ -31,9 +31,7 @@ public interface ComparableTesting2<C extends Comparable<C> & HashCodeEqualsDefi
 
     @Test
     default void testCompareToNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createComparable().compareTo(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createComparable().compareTo(null));
     }
 
     @Test

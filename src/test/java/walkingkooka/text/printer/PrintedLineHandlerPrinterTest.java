@@ -53,16 +53,12 @@ final public class PrintedLineHandlerPrinterTest extends PrinterTestCase2<Printe
 
     @Test
     public void testWrapNullPrinterFails() {
-        assertThrows(NullPointerException.class, () -> {
-            PrintedLineHandlerPrinter.wrap(null, HANDLER);
-        });
+        assertThrows(NullPointerException.class, () -> PrintedLineHandlerPrinter.wrap(null, HANDLER));
     }
 
     @Test
     public void testWrapNullLineHandlerFails() {
-        assertThrows(NullPointerException.class, () -> {
-            PrintedLineHandlerPrinter.wrap(PRINTER, null);
-        });
+        assertThrows(NullPointerException.class, () -> PrintedLineHandlerPrinter.wrap(PRINTER, null));
     }
 
     @Test

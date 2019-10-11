@@ -35,16 +35,12 @@ final public class WhitespaceTest implements ClassTesting2<Whitespace>,
 
     @Test
     public void testNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Whitespace.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> Whitespace.with(null));
     }
 
     @Test
     public void testIncludesNonWhitespaceCharacterFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Whitespace.with(" !");
-        });
+        assertThrows(IllegalArgumentException.class, () -> Whitespace.with(" !"));
     }
 
     @Test

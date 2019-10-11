@@ -40,31 +40,23 @@ public final class ImmutableTypeRegistryTest implements ClassTesting2<ImmutableT
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ImmutableTypeRegistry.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> ImmutableTypeRegistry.with(null));
     }
 
     @Test
     public void testAddNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.registry().add(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.registry().add(null));
     }
 
     @Test
     public void testAddAbstractFails() {
-        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
-            this.registry().add(AbstractList.class);
-        });
+        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> this.registry().add(AbstractList.class));
         checkMessage(thrown, "Type java.util.AbstractList is abstract");
     }
 
     @Test
     public void testAddNotSubclassFails() {
-        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
-            this.registry().add(HashSet.class);
-        });
+        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> this.registry().add(HashSet.class));
 
         checkMessage(thrown, "Type java.util.HashSet is not a sub class of java.util.List");
     }

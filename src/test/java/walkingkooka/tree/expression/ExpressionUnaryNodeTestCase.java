@@ -35,23 +35,17 @@ public abstract class ExpressionUnaryNodeTestCase<N extends ExpressionUnaryNode>
 
     @Test
     public final void testWithNullChildFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createExpressionNode(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createExpressionNode(null));
     }
 
     @Test
     public final void testSetChildrenZeroFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createExpressionNode().setChildren(ExpressionNode.NO_CHILDREN);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createExpressionNode().setChildren(ExpressionNode.NO_CHILDREN));
     }
 
     @Test
     public final void testSetChildrenTwoFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createExpressionNode().setChildren(Lists.of(child(), differentChild()));
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createExpressionNode().setChildren(Lists.of(child(), differentChild())));
     }
 
     @Test

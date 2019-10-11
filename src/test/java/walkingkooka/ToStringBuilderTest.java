@@ -56,58 +56,42 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
 
     @Test
     public void testNullLabelFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ToStringBuilder.empty().label(null);
-        });
+        assertThrows(NullPointerException.class, () -> ToStringBuilder.empty().label(null));
     }
 
     @Test
     public void testNullLabelSeparatorFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ToStringBuilder.empty().labelSeparator(null);
-        });
+        assertThrows(NullPointerException.class, () -> ToStringBuilder.empty().labelSeparator(null));
     }
 
     @Test
     public void testNullValueSeparatorFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ToStringBuilder.empty().valueSeparator(null);
-        });
+        assertThrows(NullPointerException.class, () -> ToStringBuilder.empty().valueSeparator(null));
     }
 
     @Test
     public void testNullSeparatorFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ToStringBuilder.empty().separator(null);
-        });
+        assertThrows(NullPointerException.class, () -> ToStringBuilder.empty().separator(null));
     }
 
     @Test
     public void testNullDisableFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ToStringBuilder.empty().disable(null);
-        });
+        assertThrows(NullPointerException.class, () -> ToStringBuilder.empty().disable(null));
     }
 
     @Test
     public void testNullEnableFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ToStringBuilder.empty().enable(null);
-        });
+        assertThrows(NullPointerException.class, () -> ToStringBuilder.empty().enable(null));
     }
 
     @Test
     public void testSurroundValuesNullBeforeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ToStringBuilder.empty().surroundValues(null, "after");
-        });
+        assertThrows(NullPointerException.class, () -> ToStringBuilder.empty().surroundValues(null, "after"));
     }
 
     @Test
     public void testSurroundValuesNullAfterFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ToStringBuilder.empty().surroundValues("before", null);
-        });
+        assertThrows(NullPointerException.class, () -> ToStringBuilder.empty().surroundValues("before", null));
     }
 
     // defaults .........................................................................................................
@@ -192,9 +176,7 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
 
     @Test
     public void testInvalidValueLengthFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ToStringBuilder.empty().valueLength(0);
-        });
+        assertThrows(IllegalArgumentException.class, () -> ToStringBuilder.empty().valueLength(0));
     }
 
     @Test
@@ -256,9 +238,7 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
 
     @Test
     public void testInvalidGlobalLengthFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ToStringBuilder.empty().globalLength(0);
-        });
+        assertThrows(IllegalArgumentException.class, () -> ToStringBuilder.empty().globalLength(0));
     }
 
     @Test
@@ -520,9 +500,7 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
 
     @Test
     public void testBuildFromNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ToStringBuilder.buildFrom(null);
-        });
+        assertThrows(NullPointerException.class, () -> ToStringBuilder.buildFrom(null));
     }
 
     @Test

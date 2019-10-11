@@ -36,9 +36,7 @@ public abstract class PushableStreamConsumerStreamTerminal3PushableStreamConsume
 
     @Test
     public final void testWithNullPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPushableStreamStreamPushableStreamConsumer(null, this.closeables);
-        });
+        assertThrows(NullPointerException.class, () -> this.createPushableStreamStreamPushableStreamConsumer(null, this.closeables));
     }
 
     @Test

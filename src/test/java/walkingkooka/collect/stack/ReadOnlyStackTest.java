@@ -36,9 +36,7 @@ final public class ReadOnlyStackTest extends StackTestCase<ReadOnlyStack<Object>
 
     @Test
     public void testWithNullStackFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ReadOnlyStack.wrap(null);
-        });
+        assertThrows(NullPointerException.class, () -> ReadOnlyStack.wrap(null));
     }
 
     @Test
@@ -72,17 +70,13 @@ final public class ReadOnlyStackTest extends StackTestCase<ReadOnlyStack<Object>
     @Test
     public void testPushFails() {
         final ReadOnlyStack<Object> readOnly = ReadOnlyStack.wrap(Stacks.fake());
-        assertThrows(UnsupportedOperationException.class, () -> {
-            readOnly.push(ITEM);
-        });
+        assertThrows(UnsupportedOperationException.class, () -> readOnly.push(ITEM));
     }
 
     @Test
     public void testPushAllFails() {
         final ReadOnlyStack<Object> readOnly = ReadOnlyStack.wrap(Stacks.fake());
-        assertThrows(UnsupportedOperationException.class, () -> {
-            readOnly.pushAll(Iterators.one(ITEM));
-        });
+        assertThrows(UnsupportedOperationException.class, () -> readOnly.pushAll(Iterators.one(ITEM)));
     }
 
     @Test

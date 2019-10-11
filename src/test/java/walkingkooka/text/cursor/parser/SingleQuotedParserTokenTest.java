@@ -27,23 +27,17 @@ public final class SingleQuotedParserTokenTest extends ParserTokenTestCase<Singl
 
     @Test
     public void testWithNullContentFails() {
-        assertThrows(NullPointerException.class, () -> {
-            SingleQuotedParserToken.with(null, "\"abc\"");
-        });
+        assertThrows(NullPointerException.class, () -> SingleQuotedParserToken.with(null, "\"abc\""));
     }
 
     @Test
     public void testWithMissingStartQuoteFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            SingleQuotedParserToken.with("abc", "abc'");
-        });
+        assertThrows(IllegalArgumentException.class, () -> SingleQuotedParserToken.with("abc", "abc'"));
     }
 
     @Test
     public void testWithMissingEndQuoteFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            SingleQuotedParserToken.with("abc", "'abc");
-        });
+        assertThrows(IllegalArgumentException.class, () -> SingleQuotedParserToken.with("abc", "'abc"));
     }
 
     @Test

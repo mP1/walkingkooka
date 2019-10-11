@@ -70,9 +70,7 @@ public interface CharSequenceTesting<C extends CharSequence & HashCodeEqualsDefi
     }
 
     default void charAtFails(final CharSequence sequence, final int index) {
-        assertThrows(Exception.class, () -> {
-            this.createCharSequence().charAt(index);
-        });
+        assertThrows(Exception.class, () -> this.createCharSequence().charAt(index));
     }
 
     @Test
@@ -106,9 +104,7 @@ public interface CharSequenceTesting<C extends CharSequence & HashCodeEqualsDefi
     }
 
     default void subSequenceFails(final C sequence, final int from, final int to) {
-        assertThrows(StringIndexOutOfBoundsException.class, () -> {
-            sequence.subSequence(from, to);
-        });
+        assertThrows(StringIndexOutOfBoundsException.class, () -> sequence.subSequence(from, to));
     }
 
     @Test

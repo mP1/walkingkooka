@@ -33,9 +33,7 @@ public interface CollectionTesting {
         final List<E> before = Lists.array();
         before.addAll(collection);
 
-        assertThrows(UnsupportedOperationException.class, () -> {
-            collection.add(add);
-        });
+        assertThrows(UnsupportedOperationException.class, () -> collection.add(add));
 
         final List<E> after = Lists.array();
         after.addAll(collection);
@@ -65,9 +63,7 @@ public interface CollectionTesting {
         final List<E> before = Lists.array();
         before.addAll(collection);
 
-        assertThrows(UnsupportedOperationException.class, () -> {
-            collection.remove(remove);
-        });
+        assertThrows(UnsupportedOperationException.class, () -> collection.remove(remove));
 
         final List<E> after = Lists.array();
         after.addAll(collection);

@@ -35,9 +35,7 @@ final public class IndentingPrinter2MaximumIndentationTest
 
     @Test
     public void testWrapInvalidMaximumIndentationFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            IndentingPrinter2MaximumIndentation.wrap(Printers.fake(), -1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> IndentingPrinter2MaximumIndentation.wrap(Printers.fake(), -1));
     }
 
     @Test

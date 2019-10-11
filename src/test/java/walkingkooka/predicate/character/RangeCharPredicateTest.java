@@ -27,9 +27,7 @@ public class RangeCharPredicateTest implements CharPredicateTesting<RangeCharPre
 
     @Test
     public void testWithStartAfterEndFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createCharPredicate('z', 'a');
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createCharPredicate('z', 'a'));
     }
 
     @Test

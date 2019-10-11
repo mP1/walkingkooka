@@ -38,16 +38,12 @@ abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P ext
     }
 
     @Test final public void testWithNullCharacterSequenceFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPredicate(null, SENSITIVITY);
-        });
+        assertThrows(NullPointerException.class, () -> this.createPredicate(null, SENSITIVITY));
     }
 
     @Test
     public void testWithEmptyCharacterSequenceFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createPredicate("", SENSITIVITY);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createPredicate("", SENSITIVITY));
     }
 
     @Test final public void testToStringCaseSensitive() {

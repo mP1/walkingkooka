@@ -26,51 +26,37 @@ public final class ExpressionSubstringFunctionTest extends ExpressionFunctionTes
 
     @Test
     public void testZeroParametersFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.apply2(this);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.apply2(this));
     }
 
     @Test
     public void testOneParametersFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.apply2( "a1");
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.apply2( "a1"));
     }
 
     @Test
     public void testTwoParametersFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.apply2( "a1", "b2");
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.apply2( "a1", "b2"));
     }
 
     @Test
     public void testFourParametersFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.apply2( "a1", 2, 3, 4);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.apply2( "a1", 2, 3, 4));
     }
 
     @Test
     public void testSubstringOutOfRange() {
-        assertThrows(StringIndexOutOfBoundsException.class, () -> {
-            this.apply2( "abcdef", -2, 2);
-        });
+        assertThrows(StringIndexOutOfBoundsException.class, () -> this.apply2( "abcdef", -2, 2));
     }
 
     @Test
     public void testSubstringOutOfRange2() {
-        assertThrows(StringIndexOutOfBoundsException.class, () -> {
-            this.apply2( "abcdef", 2, -1);
-        });
+        assertThrows(StringIndexOutOfBoundsException.class, () -> this.apply2( "abcdef", 2, -1));
     }
 
     @Test
     public void testSubstringOutOfRange3() {
-        assertThrows(StringIndexOutOfBoundsException.class, () -> {
-            this.apply2( "abcdef", 1, 99);
-        });
+        assertThrows(StringIndexOutOfBoundsException.class, () -> this.apply2( "abcdef", 1, 99));
     }
 
     @Test

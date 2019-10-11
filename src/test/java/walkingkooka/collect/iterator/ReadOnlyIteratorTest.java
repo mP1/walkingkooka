@@ -37,9 +37,7 @@ final public class ReadOnlyIteratorTest extends IteratorTestCase<ReadOnlyIterato
 
     @Test
     public void testWrapNullIteratorFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ReadOnlyIterator.wrap(null);
-        });
+        assertThrows(NullPointerException.class, () -> ReadOnlyIterator.wrap(null));
     }
 
     @Test

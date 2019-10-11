@@ -43,16 +43,12 @@ final public class TabExpandingPrinterTest extends PrinterTestCase2<TabExpanding
 
     @Test
     public void testWrapNullPrinterFails() {
-        assertThrows(NullPointerException.class, () -> {
-            TabExpandingPrinter.wrap(null, TAB_STOPS);
-        });
+        assertThrows(NullPointerException.class, () -> TabExpandingPrinter.wrap(null, TAB_STOPS));
     }
 
     @Test
     public void testWrapNullTabStopsFails() {
-        assertThrows(NullPointerException.class, () -> {
-            TabExpandingPrinter.wrap(PRINTER, null);
-        });
+        assertThrows(NullPointerException.class, () -> TabExpandingPrinter.wrap(PRINTER, null));
     }
 
     @Test

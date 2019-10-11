@@ -41,96 +41,72 @@ public abstract class EitherTestCase2<E extends Either<L, R>, L, R> extends Eith
 
     @Test
     public final void testSetLeftValueNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createEither().setLeftValue(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createEither().setLeftValue(null));
     }
 
     @Test
     public final void testSetRightValueNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createEither().setRightValue(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createEither().setRightValue(null));
     }
 
     // orElseGet.........................................................................................................
 
     @Test
     public final void testOrElseLeftGetNullSupplierFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createEither().orElseLeftGet(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createEither().orElseLeftGet(null));
     }
 
     @Test
     public final void testOrElseRightGetNullSupplierFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createEither().orElseRightGet(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createEither().orElseRightGet(null));
     }
 
     // orElseThrows.....................................................................................................
 
     @Test
     public final void testOrElseLeftThrowsNullSupplierFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createEither().orElseLeftThrow(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createEither().orElseLeftThrow(null));
     }
 
     @Test
     public final void testOrElseRightThrowsNullSupplierFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createEither().orElseRightThrow(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createEither().orElseRightThrow(null));
     }
 
     // map..............................................................................................................
 
     @Test
     public final void testMapLeftNullMapperFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createEither().mapLeft(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createEither().mapLeft(null));
     }
 
     @Test
     public final void testMapRightNullMapperFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createEither().mapRight(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createEither().mapRight(null));
     }
 
     // ifPresent.........................................................................................................
 
     @Test
     public final void testIfPresentLeftNullConsumerFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createEither().ifLeftPresent(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createEither().ifLeftPresent(null));
     }
 
     @Test
     public final void testIfPresentRightNullConsumerFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createEither().ifRightPresent(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createEither().ifRightPresent(null));
     }
 
     // accept...........................................................................................................
 
     @Test
     public final void testAcceptNullLeftConsumerFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createEither().accept(null, this::acceptRight);
-        });
+        assertThrows(NullPointerException.class, () -> this.createEither().accept(null, this::acceptRight));
     }
 
     @Test
     public final void testAcceptNullRightConsumerFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createEither().accept(this::acceptLeft, null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createEither().accept(this::acceptLeft, null));
     }
 
     final void acceptLeft(final L left) {

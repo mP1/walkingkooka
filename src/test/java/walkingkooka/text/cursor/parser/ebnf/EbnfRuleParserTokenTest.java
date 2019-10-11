@@ -32,23 +32,17 @@ public class EbnfRuleParserTokenTest extends EbnfParentParserTokenTestCase<EbnfR
 
     @Test
     public void testMissingIdentifierFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken(this.text(), assignment(), terminal1(), terminator());
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createToken(this.text(), assignment(), terminal1(), terminator()));
     }
 
     @Test
     public void testMissingIdentifierFails2() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken(this.text(), terminal1(), assignment(), identifier1(), terminator());
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createToken(this.text(), terminal1(), assignment(), identifier1(), terminator()));
     }
 
     @Test
     public void testMissingTokenFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken(this.text(), identifier1(), assignment(), terminator());
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createToken(this.text(), identifier1(), assignment(), terminator()));
     }
 
     @Test

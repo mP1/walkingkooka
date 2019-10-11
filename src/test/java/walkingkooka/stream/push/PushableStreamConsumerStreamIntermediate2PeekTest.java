@@ -27,9 +27,7 @@ public final class PushableStreamConsumerStreamIntermediate2PeekTest extends Pus
 
     @Test
     public void testWithNullActionFails() {
-        assertThrows(NullPointerException.class, () -> {
-            PushableStreamConsumerStreamIntermediate2Peek.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> PushableStreamConsumerStreamIntermediate2Peek.with(null));
     }
 
     @Test

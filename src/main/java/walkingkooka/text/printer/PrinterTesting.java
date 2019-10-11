@@ -34,9 +34,7 @@ public interface PrinterTesting<P extends Printer> extends ToStringTesting<P>,
     @Test
     default void testPrintNullFails() {
         final P printer = this.createPrinter();
-        assertThrows(NullPointerException.class, () -> {
-            printer.print(null);
-        });
+        assertThrows(NullPointerException.class, () -> printer.print(null));
     }
 
     @Test
@@ -53,9 +51,7 @@ public interface PrinterTesting<P extends Printer> extends ToStringTesting<P>,
     default void testPrintAfterCloseFails() {
         final P printer = this.createPrinterAndClose();
 
-        assertThrows(PrinterException.class, () -> {
-            printer.print("print should have been failed because is already closed");
-        });
+        assertThrows(PrinterException.class, () -> printer.print("print should have been failed because is already closed"));
     }
 
     @Test

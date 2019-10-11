@@ -31,9 +31,7 @@ final public class EnumerationIteratorTest
 
     @Test
     public void testWithNullEnumerationFails() {
-        assertThrows(NullPointerException.class, () -> {
-            EnumerationIterator.adapt(null);
-        });
+        assertThrows(NullPointerException.class, () -> EnumerationIterator.adapt(null));
     }
 
     @Test

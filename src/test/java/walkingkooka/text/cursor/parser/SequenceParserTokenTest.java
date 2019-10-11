@@ -91,16 +91,12 @@ public final class SequenceParserTokenTest extends RepeatedOrSequenceParserToken
 
     @Test
     public void testRequiredInvalidIndexFails() {
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            this.createToken().required(999, StringParserToken.class);
-        });
+        assertThrows(IndexOutOfBoundsException.class, () -> this.createToken().required(999, StringParserToken.class));
     }
 
     @Test
     public void testRequiredInvalidTypeFails() {
-        assertThrows(ClassCastException.class, () -> {
-            this.createToken().required(0, BigIntegerParserToken.class);
-        });
+        assertThrows(ClassCastException.class, () -> this.createToken().required(0, BigIntegerParserToken.class));
     }
 
     @Test
@@ -176,9 +172,7 @@ public final class SequenceParserTokenTest extends RepeatedOrSequenceParserToken
 
     @Test
     public void testTransformNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createDifferentToken().transform(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createDifferentToken().transform(null));
     }
 
     @Test

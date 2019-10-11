@@ -39,16 +39,12 @@ public abstract class ExpressionBinaryNodeTestCase<N extends ExpressionBinaryNod
 
     @Test
     public final void testWithNullLeftFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createExpressionNode(null, this.right());
-        });
+        assertThrows(NullPointerException.class, () -> this.createExpressionNode(null, this.right()));
     }
 
     @Test
     public final void testWithNullRightFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createExpressionNode(this.left(), null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createExpressionNode(this.left(), null));
     }
 
     @Test
@@ -62,23 +58,17 @@ public abstract class ExpressionBinaryNodeTestCase<N extends ExpressionBinaryNod
 
     @Test
     public final void testSetChildrenZeroFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createExpressionNode().setChildren(ExpressionNode.NO_CHILDREN);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createExpressionNode().setChildren(ExpressionNode.NO_CHILDREN));
     }
 
     @Test
     public final void testSetChildrenOneFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createExpressionNode().setChildren(Lists.of(left()));
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createExpressionNode().setChildren(Lists.of(left())));
     }
 
     @Test
     public final void testSetChildrenThreeFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createExpressionNode().setChildren(Lists.of(left(), right(), text("third")));
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createExpressionNode().setChildren(Lists.of(left(), right(), text("third"))));
     }
 
     @Test

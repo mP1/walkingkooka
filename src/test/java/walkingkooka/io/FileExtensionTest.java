@@ -33,30 +33,22 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            FileExtension.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> FileExtension.with(null));
     }
 
     @Test
     public void testWithEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            FileExtension.with("");
-        });
+        assertThrows(IllegalArgumentException.class, () -> FileExtension.with(""));
     }
 
     @Test
     public void testWithContainsDotFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            FileExtension.with("a.b");
-        });
+        assertThrows(InvalidCharacterException.class, () -> FileExtension.with("a.b"));
     }
 
     @Test
     public void testExtractNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            FileExtension.extract(null);
-        });
+        assertThrows(NullPointerException.class, () -> FileExtension.extract(null));
     }
 
     @Test

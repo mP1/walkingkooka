@@ -134,9 +134,7 @@ public final class ExpressionNumberVisitorTest implements ExpressionNumberVisito
     private void acceptFails(final ExpressionNumberVisitor visitor,
                              final Number number) {
         assertThrows(ExpressionException.class,
-                () -> {
-                    visitor.accept(number);
-                });
+                () -> visitor.accept(number));
     }
 
     private void acceptAndCheck(final TestFakeExpressionNumberVisitor visitor,

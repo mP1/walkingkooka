@@ -27,9 +27,7 @@ public final class CycleDetectedExpressionEvaluationConversionExceptionTest impl
 
     @Test
     public void testCreateNullReferenceFails() {
-        assertThrows(NullPointerException.class, () -> {
-            new CycleDetectedExpressionEvaluationConversionException("message123", null);
-        });
+        assertThrows(NullPointerException.class, () -> new CycleDetectedExpressionEvaluationConversionException("message123", null));
     }
 
     @Override

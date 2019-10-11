@@ -40,9 +40,7 @@ public abstract class PushableStreamConsumerCloseableCollectionTestCase<C extend
 
     @Test
     public final void testAddNullCloseableRunnableFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createCloseableCollection().add(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createCloseableCollection().add(null));
     }
 
     final void addAndCheck(final PushableStreamConsumerCloseableCollection collection,

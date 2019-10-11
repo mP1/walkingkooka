@@ -32,9 +32,7 @@ public abstract class PushableStreamConsumerStreamTerminal4PushableStreamConsume
 
     @Test
     public final void testWithNullReducerFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPushableStreamConsumer(null, this.closeables);
-        });
+        assertThrows(NullPointerException.class, () -> this.createPushableStreamConsumer(null, this.closeables));
     }
 
     @Override

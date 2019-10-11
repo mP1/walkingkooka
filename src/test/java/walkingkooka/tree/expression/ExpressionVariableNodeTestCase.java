@@ -32,9 +32,7 @@ public abstract class ExpressionVariableNodeTestCase<N extends ExpressionVariabl
 
     @Test
     public final void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createExpressionNode((List<ExpressionNode>) null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createExpressionNode((List<ExpressionNode>) null));
     }
 
     @Test

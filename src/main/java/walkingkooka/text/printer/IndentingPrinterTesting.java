@@ -37,9 +37,7 @@ public interface IndentingPrinterTesting<P extends IndentingPrinter>
 
     @Test
     default void testIndentWithNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPrinter().indent(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createPrinter().indent(null));
     }
 
     @Test

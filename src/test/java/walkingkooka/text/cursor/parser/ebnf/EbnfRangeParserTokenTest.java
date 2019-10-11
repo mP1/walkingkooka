@@ -36,23 +36,17 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
     @Test
     public void testMissingBeginTokenFails() {
         final EbnfParserToken identifier1 = this.identifier1();
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken(this.text(), EbnfParserToken.optional(Lists.of(identifier1), "{" + identifier1 + "}"), between(), terminal2());
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createToken(this.text(), EbnfParserToken.optional(Lists.of(identifier1), "{" + identifier1 + "}"), between(), terminal2()));
     }
 
     @Test
     public void testMissingRangeBetweenFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken(this.text(), identifier1(), terminal2(), terminal2());
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createToken(this.text(), identifier1(), terminal2(), terminal2()));
     }
 
     @Test
     public void testMissingEndTokenFails2() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken(this.text(), terminal1(), between(), comment1());
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createToken(this.text(), terminal1(), between(), comment1()));
     }
 
     @Test

@@ -414,9 +414,7 @@ public final class EbnfParserCombinatorsTest implements ParserTesting2<Parser<Fa
                 .map(EbnfParserToken.class::cast)
                 .filter(EbnfParserToken::isRule)
                 .map(EbnfRuleParserToken.class::cast)
-                .forEach(rule -> {
-                    identifierToToken.put(rule.identifier().value(), rule.token());
-                });
+                .forEach(rule -> identifierToToken.put(rule.identifier().value(), rule.token()));
 
         return new EbnfParserCombinatorSyntaxTreeTransformer() {
             @Override
@@ -426,9 +424,7 @@ public final class EbnfParserCombinatorsTest implements ParserTesting2<Parser<Fa
 
             @Override
             public Parser<ParserContext> concatenation(final EbnfConcatenationParserToken token, final Parser<ParserContext> parser) {
-                return parser.transform((sequenceParserToken, fakeParserContext) -> {
-                    return sequenceParserToken;
-                });
+                return parser.transform((sequenceParserToken, fakeParserContext) -> sequenceParserToken);
             }
 
             @Override

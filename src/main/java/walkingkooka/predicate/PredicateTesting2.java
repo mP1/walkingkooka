@@ -35,9 +35,7 @@ public interface PredicateTesting2<P extends Predicate<T>, T>
 
     @Test
     default void testTestNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.test(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.test(null));
     }
 
     P createPredicate();

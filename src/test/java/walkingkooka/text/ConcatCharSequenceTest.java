@@ -39,16 +39,12 @@ final public class ConcatCharSequenceTest implements ClassTesting2<ConcatCharSeq
 
     @Test
     public void testWithNullFirstFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ConcatCharSequence.with(null, SECOND);
-        });
+        assertThrows(NullPointerException.class, () -> ConcatCharSequence.with(null, SECOND));
     }
 
     @Test
     public void testWithNullSecondFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ConcatCharSequence.with(FIRST, null);
-        });
+        assertThrows(NullPointerException.class, () -> ConcatCharSequence.with(FIRST, null));
     }
 
     @Test

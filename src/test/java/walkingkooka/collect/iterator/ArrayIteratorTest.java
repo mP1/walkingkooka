@@ -29,9 +29,7 @@ final public class ArrayIteratorTest extends IteratorTestCase<ArrayIterator<Stri
 
     @Test
     public void testWithNullArrayFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ArrayIterator.with((Object[]) null);
-        });
+        assertThrows(NullPointerException.class, () -> ArrayIterator.with((Object[]) null));
     }
 
     @Test

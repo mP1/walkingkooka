@@ -27,9 +27,7 @@ public final class StringParserTokenTest extends ParserTokenTestCase<StringParse
 
     @Test
     public void testWithNullContentFails() {
-        assertThrows(NullPointerException.class, () -> {
-            StringParserToken.with(null, "\"abc\"");
-        });
+        assertThrows(NullPointerException.class, () -> StringParserToken.with(null, "\"abc\""));
     }
 
     @Test

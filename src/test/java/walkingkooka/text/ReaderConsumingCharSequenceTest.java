@@ -34,23 +34,17 @@ public class ReaderConsumingCharSequenceTest implements ClassTesting2<ReaderCons
 
     @Test
     public void testWithNullReaderFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ReaderConsumingCharSequence.with(null, BUFFER_SIZE);
-        });
+        assertThrows(NullPointerException.class, () -> ReaderConsumingCharSequence.with(null, BUFFER_SIZE));
     }
 
     @Test
     public void testWithInvalidBufferSizeFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ReaderConsumingCharSequence.with(new StringReader("a"), -1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> ReaderConsumingCharSequence.with(new StringReader("a"), -1));
     }
 
     @Test
     public void testWithInvalidBufferSizeFails2() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ReaderConsumingCharSequence.with(new StringReader(""), 0);
-        });
+        assertThrows(IllegalArgumentException.class, () -> ReaderConsumingCharSequence.with(new StringReader(""), 0));
     }
 
     @Test

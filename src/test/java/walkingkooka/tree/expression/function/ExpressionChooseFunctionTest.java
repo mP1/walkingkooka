@@ -30,16 +30,12 @@ public final class ExpressionChooseFunctionTest extends ExpressionFunctionTestCa
 
     @Test
     public void testOneParametersFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.apply2("a1");
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.apply2("a1"));
     }
 
     @Test
     public void testTwoParametersFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.apply2("a1", 2);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.apply2("a1", 2));
     }
 
     @Test

@@ -31,16 +31,12 @@ public interface ParseStringTesting<T> extends Testing {
 
     @Test
     default void testParseStringNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.parseString(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.parseString(null));
     }
 
     @Test
     default void testParseStringEmptyFails() {
-        assertThrows(this.parseStringFailedExpected(IllegalArgumentException.class), () -> {
-            this.parseString("");
-        });
+        assertThrows(this.parseStringFailedExpected(IllegalArgumentException.class), () -> this.parseString(""));
     }
 
     /**
@@ -78,9 +74,7 @@ public interface ParseStringTesting<T> extends Testing {
                                   final Class<? extends RuntimeException> expected) {
 
         final Class<? extends RuntimeException> expected2 = this.parseStringFailedExpected(expected);
-        assertThrows(expected2, () -> {
-            this.parseString(text);
-        });
+        assertThrows(expected2, () -> this.parseString(text));
     }
 
     /**
@@ -94,9 +88,7 @@ public interface ParseStringTesting<T> extends Testing {
     default void parseStringFails(final String text,
                                   final RuntimeException expected) {
         final RuntimeException expected2 = this.parseStringFailedExpected(expected);
-        final RuntimeException thrown = assertThrows(expected.getClass(), () -> {
-            this.parseString(text);
-        });
+        final RuntimeException thrown = assertThrows(expected.getClass(), () -> this.parseString(text));
         assertEquals(expected2.getMessage(),
                 thrown.getMessage(),
                 () -> "Incorrect failure message for " + CharSequences.quoteAndEscape(text));

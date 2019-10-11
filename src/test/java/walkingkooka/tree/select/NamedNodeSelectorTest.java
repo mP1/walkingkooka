@@ -36,9 +36,7 @@ final public class NamedNodeSelectorTest extends
 
     @Test
     public void testWithNullNameFails() {
-        assertThrows(NullPointerException.class, () -> {
-            NamedNodeSelector.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> NamedNodeSelector.with(null));
     }
 
     @Test

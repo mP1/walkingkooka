@@ -42,16 +42,12 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
 
     @Test
     public final void testWithNullTokensFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createToken(this.text(), Cast.<List<ParserToken>>to(null));
-        });
+        assertThrows(NullPointerException.class, () -> this.createToken(this.text(), Cast.<List<ParserToken>>to(null)));
     }
 
     @Test
     public final void testWithEmptyTokensFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken(this.text(), Lists.empty());
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createToken(this.text(), Lists.empty()));
     }
 
     @Test

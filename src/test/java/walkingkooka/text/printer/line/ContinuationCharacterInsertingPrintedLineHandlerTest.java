@@ -39,25 +39,19 @@ final public class ContinuationCharacterInsertingPrintedLineHandlerTest implemen
 
     @Test
     public void testWithInvalidWidthFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ContinuationCharacterInsertingPrintedLineHandler.with(0, CONTINUATION);
-        });
+        assertThrows(IllegalArgumentException.class, () -> ContinuationCharacterInsertingPrintedLineHandler.with(0, CONTINUATION));
     }
 
     @Test
     public void testWithCarriageReturnContinuationCharacterFails() {
-        final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> {
-            ContinuationCharacterInsertingPrintedLineHandler.with(WIDTH, '\r');
-        });
+        final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> ContinuationCharacterInsertingPrintedLineHandler.with(WIDTH, '\r'));
         checkMessage(expected,
                 ContinuationCharacterInsertingPrintedLineHandler.mustNotBeEndOfLineCharacter('\r'));
     }
 
     @Test
     public void testWithNewLineContinuationCharacterFails() {
-        final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> {
-            ContinuationCharacterInsertingPrintedLineHandler.with(WIDTH, '\n');
-        });
+        final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> ContinuationCharacterInsertingPrintedLineHandler.with(WIDTH, '\n'));
         checkMessage(expected,
                 ContinuationCharacterInsertingPrintedLineHandler.mustNotBeEndOfLineCharacter('\n'));
     }

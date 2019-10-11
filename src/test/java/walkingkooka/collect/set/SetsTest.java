@@ -35,9 +35,7 @@ final public class SetsTest implements PublicStaticHelperTesting<Sets> {
 
     @Test
     public void testOfNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Sets.of((Object[]) null);
-        });
+        assertThrows(NullPointerException.class, () -> Sets.of((Object[]) null));
     }
 
     @Test

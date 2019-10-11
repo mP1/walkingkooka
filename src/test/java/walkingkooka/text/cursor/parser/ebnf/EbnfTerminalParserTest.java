@@ -35,9 +35,7 @@ public final class EbnfTerminalParserTest extends EbnfParserTestCase3<EbnfTermin
 
     @Test
     public void testInvalidBackslash() {
-        assertThrows(EbnfTerminalParserException.class, () -> {
-            this.parseFailAndCheck("'\\x'");
-        });
+        assertThrows(EbnfTerminalParserException.class, () -> this.parseFailAndCheck("'\\x'"));
     }
 
     @Test

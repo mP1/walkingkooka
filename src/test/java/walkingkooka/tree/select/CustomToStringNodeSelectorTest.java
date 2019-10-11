@@ -32,16 +32,12 @@ final public class CustomToStringNodeSelectorTest extends NodeSelectorTestCase4<
 
     @Test
     public void testWithSelectorNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CustomToStringNodeSelector.with(null, TOSTRING);
-        });
+        assertThrows(NullPointerException.class, () -> CustomToStringNodeSelector.with(null, TOSTRING));
     }
 
     @Test
     public void testWithToStringNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CustomToStringNodeSelector.with(this.wrapped(), null);
-        });
+        assertThrows(NullPointerException.class, () -> CustomToStringNodeSelector.with(this.wrapped(), null));
     }
 
     @Test

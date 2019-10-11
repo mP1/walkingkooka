@@ -33,51 +33,37 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<I
 
     @Test
     public void testWithNullLabelFails() {
-        assertThrows(NullPointerException.class, () -> {
-            new InvalidTextLengthException(null, TEXT, MIN, MAX);
-        });
+        assertThrows(NullPointerException.class, () -> new InvalidTextLengthException(null, TEXT, MIN, MAX));
     }
 
     @Test
     public void testWithEmptyLabelFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new InvalidTextLengthException("", TEXT, MIN, MAX);
-        });
+        assertThrows(IllegalArgumentException.class, () -> new InvalidTextLengthException("", TEXT, MIN, MAX));
     }
 
     @Test
     public void testWithWhitespaceLabelFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new InvalidTextLengthException(" ", TEXT, MIN, MAX);
-        });
+        assertThrows(IllegalArgumentException.class, () -> new InvalidTextLengthException(" ", TEXT, MIN, MAX));
     }
 
     @Test
     public void testWithNullTextFails() {
-        assertThrows(NullPointerException.class, () -> {
-            new InvalidTextLengthException(LABEL, null, MIN, MAX);
-        });
+        assertThrows(NullPointerException.class, () -> new InvalidTextLengthException(LABEL, null, MIN, MAX));
     }
 
     @Test
     public void testWithInvalidMinFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new InvalidTextLengthException(LABEL, TEXT, -1, MAX);
-        });
+        assertThrows(IllegalArgumentException.class, () -> new InvalidTextLengthException(LABEL, TEXT, -1, MAX));
     }
 
     @Test
     public void testWithInvalidMinGreaterThanTextFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new InvalidTextLengthException(LABEL, TEXT, 6, MAX);
-        });
+        assertThrows(IllegalArgumentException.class, () -> new InvalidTextLengthException(LABEL, TEXT, 6, MAX));
     }
 
     @Test
     public void testWithInvalidMaxFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new InvalidTextLengthException(LABEL, TEXT, MIN, MIN - 1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> new InvalidTextLengthException(LABEL, TEXT, MIN, MIN - 1));
     }
 
     @Test

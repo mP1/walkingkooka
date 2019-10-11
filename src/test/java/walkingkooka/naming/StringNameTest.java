@@ -31,9 +31,7 @@ final public class StringNameTest implements ClassTesting2<StringName>,
     
     @Test
     public void testContainsSeparatorFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            StringName.with("name-" + StringPath.SEPARATOR.string());
-        });
+        assertThrows(IllegalArgumentException.class, () -> StringName.with("name-" + StringPath.SEPARATOR.string()));
     }
 
     @Test

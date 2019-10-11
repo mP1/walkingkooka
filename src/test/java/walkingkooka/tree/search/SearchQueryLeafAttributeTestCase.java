@@ -26,16 +26,12 @@ public abstract class SearchQueryLeafAttributeTestCase<Q extends SearchQueryLeaf
 
     @Test
     public final void testWithNullAttributeNameFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createSearchQuery(this.queryValue(), null, CaseSensitivity.SENSITIVE);
-        });
+        assertThrows(NullPointerException.class, () -> this.createSearchQuery(this.queryValue(), null, CaseSensitivity.SENSITIVE));
     }
 
     @Test
     public final void testWithNullCaseSensitivityFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createSearchQuery(this.queryValue(), this.attributeName(), null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createSearchQuery(this.queryValue(), this.attributeName(), null));
     }
 
     final Q createSearchQuery() {

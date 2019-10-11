@@ -33,23 +33,17 @@ public final class ChainConverterTest extends ConverterTestCase2<ChainConverter>
 
     @Test
     public void testWithNullFirstConverterFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ChainConverter.with(null, this.intermediateTargetType(), this.doubleToBigDecimal());
-        });
+        assertThrows(NullPointerException.class, () -> ChainConverter.with(null, this.intermediateTargetType(), this.doubleToBigDecimal()));
     }
 
     @Test
     public void testWithNullIntermediateTargetTypeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ChainConverter.with(this.stringToDouble(), null, this.doubleToBigDecimal());
-        });
+        assertThrows(NullPointerException.class, () -> ChainConverter.with(this.stringToDouble(), null, this.doubleToBigDecimal()));
     }
 
     @Test
     public void testWithNullLastConverterFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ChainConverter.with(this.stringToDouble(), this.intermediateTargetType(), null);
-        });
+        assertThrows(NullPointerException.class, () -> ChainConverter.with(this.stringToDouble(), this.intermediateTargetType(), null));
     }
 
     @Test

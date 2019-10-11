@@ -51,9 +51,7 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
 
     @Test
     public void testStreamNullPushableStreamConsumerFails() {
-        assertThrows(NullPointerException.class, () -> {
-            PushableStreamConsumerStream.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> PushableStreamConsumerStream.with(null));
     }
 
     @Test
@@ -857,9 +855,7 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         this.closeableFired = 0;
 
         final Stream<String> stream = this.createStream()
-                .onClose(() -> {
-                    this.closeableFired++;
-                });
+                .onClose(() -> this.closeableFired++);
         this.collectAndCheck(stream, this.values());
         assertEquals(1, this.closeableFired, "Closeable not fired only once");
     }
@@ -869,12 +865,8 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         this.closeableFired = 0;
 
         final Stream<String> stream = this.createStream()
-                .onClose(() -> {
-                    this.closeableFired++;
-                })
-                .onClose(() -> {
-                    this.closeableFired += 10;
-                });
+                .onClose(() -> this.closeableFired++)
+                .onClose(() -> this.closeableFired += 10);
         this.collectAndCheck(stream, this.values());
         assertEquals(11, this.closeableFired, "Both closeables not fired only once");
     }

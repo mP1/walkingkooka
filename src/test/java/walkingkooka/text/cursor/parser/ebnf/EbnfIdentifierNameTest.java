@@ -32,23 +32,17 @@ final public class EbnfIdentifierNameTest implements ClassTesting2<EbnfIdentifie
 
     @Test
     public void testCreateContainsSeparatorFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            EbnfIdentifierName.with("xyz" + PropertiesPath.SEPARATOR.string());
-        });
+        assertThrows(InvalidCharacterException.class, () -> EbnfIdentifierName.with("xyz" + PropertiesPath.SEPARATOR.string()));
     }
 
     @Test
     public void testWithInvalidInitialFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            EbnfIdentifierName.with("1abc");
-        });
+        assertThrows(InvalidCharacterException.class, () -> EbnfIdentifierName.with("1abc"));
     }
 
     @Test
     public void testWithInvalidPartFails() {
-        assertThrows(InvalidCharacterException.class, () -> {
-            EbnfIdentifierName.with("abc$def");
-        });
+        assertThrows(InvalidCharacterException.class, () -> EbnfIdentifierName.with("abc$def"));
     }
 
     @Override

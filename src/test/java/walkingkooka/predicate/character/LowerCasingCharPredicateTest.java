@@ -31,9 +31,7 @@ final public class LowerCasingCharPredicateTest
 
     @Test
     public void testWrapNullPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            LowerCasingCharPredicate.wrap(null);
-        });
+        assertThrows(NullPointerException.class, () -> LowerCasingCharPredicate.wrap(null));
     }
 
     @Test

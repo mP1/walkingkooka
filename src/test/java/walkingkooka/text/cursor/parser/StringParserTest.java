@@ -32,23 +32,17 @@ public class StringParserTest extends Parser2TestCase<StringParser<ParserContext
 
     @Test
     public void testWithNullStringFails() {
-        assertThrows(NullPointerException.class, () -> {
-            StringParser.with(null, CASE_SENSITIVITY);
-        });
+        assertThrows(NullPointerException.class, () -> StringParser.with(null, CASE_SENSITIVITY));
     }
 
     @Test
     public void testWithEmptyStringFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            StringParser.with("", CASE_SENSITIVITY);
-        });
+        assertThrows(IllegalArgumentException.class, () -> StringParser.with("", CASE_SENSITIVITY));
     }
 
     @Test
     public void testWithNullCaseSensitivityFails() {
-        assertThrows(NullPointerException.class, () -> {
-            StringParser.with(STRING, null);
-        });
+        assertThrows(NullPointerException.class, () -> StringParser.with(STRING, null));
     }
 
     @Test

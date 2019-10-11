@@ -37,16 +37,12 @@ public final class PrefixedNumberParserTokenBiFunctionTest implements ClassTesti
 
     @Test
     public void testInvalidFirstToken() {
-        assertThrows(ParserException.class, () -> {
-            this.applyAndCheck(this.invalidFirstToken(), this.secondToken(), null);
-        });
+        assertThrows(ParserException.class, () -> this.applyAndCheck(this.invalidFirstToken(), this.secondToken(), null));
     }
 
     @Test
     public void testInvalidSecondToken() {
-        assertThrows(ParserException.class, () -> {
-            this.applyAndCheck(this.firstToken(), this.invalidSecondToken(), null);
-        });
+        assertThrows(ParserException.class, () -> this.applyAndCheck(this.firstToken(), this.invalidSecondToken(), null));
     }
 
     @Test

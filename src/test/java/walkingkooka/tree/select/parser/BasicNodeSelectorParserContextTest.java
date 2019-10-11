@@ -32,9 +32,7 @@ public final class BasicNodeSelectorParserContextTest implements ClassTesting2<B
 
     @Test
     public void testWithNullHasMathContextFails() {
-        assertThrows(NullPointerException.class, () -> {
-            BasicNodeSelectorParserContext.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> BasicNodeSelectorParserContext.with(null));
     }
 
     @Override

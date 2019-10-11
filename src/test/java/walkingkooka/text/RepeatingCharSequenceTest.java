@@ -38,9 +38,7 @@ final public class RepeatingCharSequenceTest implements ClassTesting2<RepeatingC
 
     @Test
     public void testWithInvalidLengthFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            RepeatingCharSequence.with(CHAR, -1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> RepeatingCharSequence.with(CHAR, -1));
     }
 
     @Test

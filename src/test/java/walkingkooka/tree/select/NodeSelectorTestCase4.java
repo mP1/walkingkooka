@@ -69,16 +69,12 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
 
     @Test
     public void testAppendNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createSelector().append(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createSelector().append(null));
     }
 
     @Test
     public final void testSetToStringNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createSelector().setToString(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createSelector().setToString(null));
     }
 
     @Test

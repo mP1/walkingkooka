@@ -33,9 +33,7 @@ final public class UncloseablePrinterTest extends PrinterTestCase2<UncloseablePr
 
     @Test
     public void testWrapNullPrinterFails() {
-        assertThrows(NullPointerException.class, () -> {
-            UncloseablePrinter.wrap(null);
-        });
+        assertThrows(NullPointerException.class, () -> UncloseablePrinter.wrap(null));
     }
 
     @Test

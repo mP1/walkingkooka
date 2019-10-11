@@ -37,9 +37,7 @@ public abstract class DateTimeFormatterConverterTestCase2<C extends DateTimeForm
 
     @Test
     public final void testWithNullFormatterFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createConverter((Function<DateTimeContext, DateTimeFormatter>) null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createConverter((Function<DateTimeContext, DateTimeFormatter>) null));
     }
 
     @Test

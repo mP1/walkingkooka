@@ -34,9 +34,7 @@ public abstract class EbnfGroupOptionalRepeatParentParserTokenTestCase<T extends
 
     @Test
     public final void testTooManyTokensIgnoringCommentsSymbolsWhitespaceFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken(this.text(), this.identifier1(), this.comment2(), this.identifier("identifier3"));
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createToken(this.text(), this.identifier1(), this.comment2(), this.identifier("identifier3")));
     }
 
     @Test

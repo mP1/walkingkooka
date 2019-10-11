@@ -32,30 +32,22 @@ public class StringCharPredicateParserTest extends Parser2TestCase<StringCharPre
 
     @Test
     public void testWithNullCharPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            StringCharPredicateParser.with(null, MIN_LENGTH, MAX_LENGTH);
-        });
+        assertThrows(NullPointerException.class, () -> StringCharPredicateParser.with(null, MIN_LENGTH, MAX_LENGTH));
     }
 
     @Test
     public void testWithInvalidMinLengthFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            StringCharPredicateParser.with(DIGITS, -1, MAX_LENGTH);
-        });
+        assertThrows(IllegalArgumentException.class, () -> StringCharPredicateParser.with(DIGITS, -1, MAX_LENGTH));
     }
 
     @Test
     public void testWithInvalidMinLengthFails2() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            StringCharPredicateParser.with(DIGITS, 0, MAX_LENGTH);
-        });
+        assertThrows(IllegalArgumentException.class, () -> StringCharPredicateParser.with(DIGITS, 0, MAX_LENGTH));
     }
 
     @Test
     public void testWithInvalidMaxLengthFails2() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            StringCharPredicateParser.with(DIGITS, MIN_LENGTH, MIN_LENGTH - 1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> StringCharPredicateParser.with(DIGITS, MIN_LENGTH, MIN_LENGTH - 1));
     }
 
     @Test

@@ -61,9 +61,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
 
     @Test
     public void testWithNullContextFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CycleDetectingExpressionEvaluationContext.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> CycleDetectingExpressionEvaluationContext.with(null));
     }
 
     public void testFunction() {
@@ -173,9 +171,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
             }
         });
 
-        assertThrows(CycleDetectedExpressionEvaluationConversionException.class, () -> {
-            target.toValue(context);
-        });
+        assertThrows(CycleDetectedExpressionEvaluationConversionException.class, () -> target.toValue(context));
     }
 
     @Test
@@ -203,9 +199,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 return null;
             }
         });
-        assertThrows(CycleDetectedExpressionEvaluationConversionException.class, () -> {
-            ExpressionNode.reference(A1).toValue(context);
-        });
+        assertThrows(CycleDetectedExpressionEvaluationConversionException.class, () -> ExpressionNode.reference(A1).toValue(context));
     }
 
     @Test
@@ -271,9 +265,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
             }
         });
 
-        assertThrows(CycleDetectedExpressionEvaluationConversionException.class, () -> {
-            b2Expression.toValue(context);
-        });
+        assertThrows(CycleDetectedExpressionEvaluationConversionException.class, () -> b2Expression.toValue(context));
         this.toValueAndCheck(expression, context, VALUE);
     }
 

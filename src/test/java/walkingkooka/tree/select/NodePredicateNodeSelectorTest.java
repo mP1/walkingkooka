@@ -44,9 +44,7 @@ final public class NodePredicateNodeSelectorTest extends
 
     @Test
     public void testWithNullPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            NodePredicateNodeSelector.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> NodePredicateNodeSelector.with(null));
     }
 
     @Test

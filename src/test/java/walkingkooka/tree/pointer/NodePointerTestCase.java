@@ -50,25 +50,19 @@ public abstract class NodePointerTestCase<N extends NodePointer<TestNode, String
 
     @Test
     public final void testAddNullNodeFail() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createNodePointer().add(null, TestNode.with("ignore"));
-        });
+        assertThrows(NullPointerException.class, () -> this.createNodePointer().add(null, TestNode.with("ignore")));
     }
 
     @Test
     public final void testAddNullAddNodeFail() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createNodePointer().add(TestNode.with("ignore"), null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createNodePointer().add(TestNode.with("ignore"), null));
     }
 
     // remove...........................................................................................................
 
     @Test
     public final void testRemoveNullNodeFail() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createNodePointer().remove(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createNodePointer().remove(null));
     }
 
     // next.............................................................................................................
@@ -104,9 +98,7 @@ public abstract class NodePointerTestCase<N extends NodePointer<TestNode, String
     final void addAndFail(final NodePointer<TestNode, StringName> pointer,
                           final TestNode base,
                           final TestNode add) {
-        assertThrows(NodePointerException.class, () -> {
-            pointer.add(base, add);
-        });
+        assertThrows(NodePointerException.class, () -> pointer.add(base, add));
     }
 
     final void removeAndCheck(final NodePointer<TestNode, StringName> pointer,
@@ -119,9 +111,7 @@ public abstract class NodePointerTestCase<N extends NodePointer<TestNode, String
 
     final void removeAndFail(final NodePointer<TestNode, StringName> pointer,
                              final TestNode node) {
-        assertThrows(NodePointerException.class, () -> {
-            pointer.remove(node);
-        });
+        assertThrows(NodePointerException.class, () -> pointer.remove(node));
     }
 
     // ClassTesting......................................................................................................

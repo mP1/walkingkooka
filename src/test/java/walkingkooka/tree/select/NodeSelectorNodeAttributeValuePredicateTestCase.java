@@ -48,9 +48,7 @@ public abstract class NodeSelectorNodeAttributeValuePredicateTestCase<N extends 
 
     @Test
     public void testWithNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPredicate(ATTRIBUTE_NAME1, null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createPredicate(ATTRIBUTE_NAME1, null));
     }
 
     @Test

@@ -34,9 +34,7 @@ public final class AmericanDecimalNumberContextTest implements ClassTesting2<Ame
 
     @Test
     public void testWithNullMathContextFails() {
-        assertThrows(NullPointerException.class, () -> {
-            AmericanDecimalNumberContext.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> AmericanDecimalNumberContext.with(null));
     }
 
     @Test

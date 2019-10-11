@@ -41,16 +41,12 @@ public abstract class RepeatedOrSequenceParserTokenTestCase<T extends RepeatedOr
 
     @Test
     public final void testWithNullTokensFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createToken(null, "tokens");
-        });
+        assertThrows(NullPointerException.class, () -> this.createToken(null, "tokens"));
     }
 
     @Test
     public final void testWithZeroTokensFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken(Lists.empty(), "abc");
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createToken(Lists.empty(), "abc"));
     }
 
     // flat............................................................................................................

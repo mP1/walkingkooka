@@ -41,9 +41,7 @@ public final class EbnfParserCombinatorsTransformMapTest implements MapTesting2<
 
     @Test
     public void testGetUnknownFails() {
-        assertThrows(EbnfParserCombinatorException.class, () -> {
-            this.createMap().get(EbnfIdentifierName.with("unknown"));
-        });
+        assertThrows(EbnfParserCombinatorException.class, () -> this.createMap().get(EbnfIdentifierName.with("unknown")));
     }
 
     @Test

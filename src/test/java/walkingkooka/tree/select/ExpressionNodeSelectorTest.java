@@ -40,9 +40,7 @@ final public class ExpressionNodeSelectorTest extends
 
     @Test
     public void testWithNullPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ExpressionNodeSelector.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> ExpressionNodeSelector.with(null));
     }
 
     @Test

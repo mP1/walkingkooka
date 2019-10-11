@@ -42,30 +42,22 @@ final public class ToStringCharPredicateTest implements CharPredicateTesting<ToS
 
     @Test
     public void testWrapNullPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ToStringCharPredicate.wrap(null, TOSTRING);
-        });
+        assertThrows(NullPointerException.class, () -> ToStringCharPredicate.wrap(null, TOSTRING));
     }
 
     @Test
     public void testWrapNullToStringFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ToStringCharPredicate.wrap(PREDICATE, null);
-        });
+        assertThrows(NullPointerException.class, () -> ToStringCharPredicate.wrap(PREDICATE, null));
     }
 
     @Test
     public void testWrapEmptyPredicateFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ToStringCharPredicate.wrap(PREDICATE, "");
-        });
+        assertThrows(IllegalArgumentException.class, () -> ToStringCharPredicate.wrap(PREDICATE, ""));
     }
 
     @Test
     public void testWrapWhitespacePredicateFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ToStringCharPredicate.wrap(PREDICATE, " \t");
-        });
+        assertThrows(IllegalArgumentException.class, () -> ToStringCharPredicate.wrap(PREDICATE, " \t"));
     }
 
     @Test

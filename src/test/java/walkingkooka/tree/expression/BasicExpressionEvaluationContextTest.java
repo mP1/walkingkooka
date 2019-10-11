@@ -47,42 +47,34 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     @Test
     public void testWithNullFunctionsFails() {
-        assertThrows(NullPointerException.class, () -> {
-            BasicExpressionEvaluationContext.with(null,
-                    this.references(),
-                    this.converter(),
-                    this.converterContext());
-        });
+        assertThrows(NullPointerException.class, () -> BasicExpressionEvaluationContext.with(null,
+                this.references(),
+                this.converter(),
+                this.converterContext()));
     }
 
     @Test
     public void testWithNullReferencesFails() {
-        assertThrows(NullPointerException.class, () -> {
-            BasicExpressionEvaluationContext.with(this.functions(),
-                    null,
-                    this.converter(),
-                    this.converterContext());
-        });
+        assertThrows(NullPointerException.class, () -> BasicExpressionEvaluationContext.with(this.functions(),
+                null,
+                this.converter(),
+                this.converterContext()));
     }
 
     @Test
     public void testWithNullConverterFails() {
-        assertThrows(NullPointerException.class, () -> {
-            BasicExpressionEvaluationContext.with(this.functions(),
-                    this.references(),
-                    null,
-                    this.converterContext());
-        });
+        assertThrows(NullPointerException.class, () -> BasicExpressionEvaluationContext.with(this.functions(),
+                this.references(),
+                null,
+                this.converterContext()));
     }
 
     @Test
     public void testWithNullConverterContextFails() {
-        assertThrows(NullPointerException.class, () -> {
-            BasicExpressionEvaluationContext.with(this.functions(),
-                    this.references(),
-                    this.converter(),
-                    null);
-        });
+        assertThrows(NullPointerException.class, () -> BasicExpressionEvaluationContext.with(this.functions(),
+                this.references(),
+                this.converter(),
+                null));
     }
 
     @Test

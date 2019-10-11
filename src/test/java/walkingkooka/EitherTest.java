@@ -29,16 +29,12 @@ public final class EitherTest extends EitherTestCase<Either<String, Integer>, St
 
     @Test
     public void testLeftNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Either.left(null);
-        });
+        assertThrows(NullPointerException.class, () -> Either.left(null));
     }
 
     @Test
     public void testRightNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Either.right(null);
-        });
+        assertThrows(NullPointerException.class, () -> Either.right(null));
     }
 
     @Test

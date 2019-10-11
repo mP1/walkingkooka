@@ -33,9 +33,7 @@ final public class WhitespaceCleaningPrinterTest extends PrinterTestCase2<Whites
 
     @Test
     public void testWrapNullPrinterFails() {
-        assertThrows(NullPointerException.class, () -> {
-            WhitespaceCleaningPrinter.wrap(null);
-        });
+        assertThrows(NullPointerException.class, () -> WhitespaceCleaningPrinter.wrap(null));
     }
 
     @Test

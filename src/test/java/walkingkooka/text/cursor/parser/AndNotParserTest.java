@@ -33,16 +33,12 @@ public final class AndNotParserTest extends ParserTestCase<AndNotParser<ParserCo
 
     @Test
     public void testWithNullLeftFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createParser(null, this.right());
-        });
+        assertThrows(NullPointerException.class, () -> this.createParser(null, this.right()));
     }
 
     @Test
     public void testWithNullRightFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createParser(this.left(), null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createParser(this.left(), null));
     }
 
     @Test

@@ -30,9 +30,7 @@ public final class PushableStreamConsumerStreamTerminalCollectorPushableStreamCo
 
     @Test
     public void testWithNullCollectorFails() {
-        assertThrows(NullPointerException.class, () -> {
-            PushableStreamConsumerStreamTerminalCollectorPushableStreamConsumer.with(null, PushableStreamConsumerCloseableCollection.empty());
-        });
+        assertThrows(NullPointerException.class, () -> PushableStreamConsumerStreamTerminalCollectorPushableStreamConsumer.with(null, PushableStreamConsumerCloseableCollection.empty()));
     }
 
     @Test

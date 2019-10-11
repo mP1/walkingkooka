@@ -33,9 +33,7 @@ final public class CharPredicatePredicateTest extends PredicateTestCase<CharPred
 
     @Test
     public void testAdaptNullCharPredicateFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CharPredicatePredicate.adapt(null);
-        });
+        assertThrows(NullPointerException.class, () -> CharPredicatePredicate.adapt(null));
     }
 
     @Test

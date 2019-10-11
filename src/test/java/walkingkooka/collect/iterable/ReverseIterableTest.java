@@ -42,9 +42,7 @@ final public class ReverseIterableTest implements ClassTesting2<ReverseIterable<
 
     @Test
     public void testWrapNullIterableFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ReverseIterable.wrap(null);
-        });
+        assertThrows(NullPointerException.class, () -> ReverseIterable.wrap(null));
     }
 
     @Test

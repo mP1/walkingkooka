@@ -40,16 +40,12 @@ final public class SystemPropertyTest implements ClassTesting2<SystemProperty>,
 
     @Test
     public void testGetNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            SystemProperty.get(null);
-        });
+        assertThrows(NullPointerException.class, () -> SystemProperty.get(null));
     }
 
     @Test
     public void testGetEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            SystemProperty.get("");
-        });
+        assertThrows(IllegalArgumentException.class, () -> SystemProperty.get(""));
     }
 
     @Test

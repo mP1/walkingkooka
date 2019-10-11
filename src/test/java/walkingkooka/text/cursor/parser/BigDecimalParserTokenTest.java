@@ -29,9 +29,7 @@ public final class BigDecimalParserTokenTest extends ParserTokenTestCase<BigDeci
 
     @Test
     public void testWithNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            BigDecimalParserToken.with(null, "123");
-        });
+        assertThrows(NullPointerException.class, () -> BigDecimalParserToken.with(null, "123"));
     }
 
     @Test

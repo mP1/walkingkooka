@@ -41,48 +41,44 @@ public final class CollectionTesting2Test implements CollectionTesting2<List<Str
 
     @Test
     public void testIsEmptyAndSizeFails() {
-        assertThrows(AssertionFailedError.class, () -> {
-            this.sizeAndCheck(this.createCollection(), 999);
-        });
+        assertThrows(AssertionFailedError.class, () -> this.sizeAndCheck(this.createCollection(), 999));
     }
 
     @Test
     public void testIteratorContainsAndCollectionFails() {
-        assertThrows(AssertionFailedError.class, () -> {
-            new CollectionTesting2<List<String>, String>() {
+        assertThrows(AssertionFailedError.class, () -> new CollectionTesting2<List<String>, String>() {
 
-                @Override
-                public List<String> createCollection() {
-                    return new AbstractList<>() {
-                        @Override
-                        public String get(final int index) {
-                            if (0 == index) {
-                                return "a1";
-                            }
-                            if (1 == index) {
-                                return "b1";
-                            }
-                            throw new ArrayIndexOutOfBoundsException("Invalid index: " + index);
+            @Override
+            public List<String> createCollection() {
+                return new AbstractList<>() {
+                    @Override
+                    public String get(final int index) {
+                        if (0 == index) {
+                            return "a1";
                         }
-
-                        @Override
-                        public Iterator<String> iterator() {
-                            return Iterators.one("a1");
+                        if (1 == index) {
+                            return "b1";
                         }
+                        throw new ArrayIndexOutOfBoundsException("Invalid index: " + index);
+                    }
 
-                        @Override
-                        public int size() {
-                            return 2;
-                        }
-                    };
-                }
+                    @Override
+                    public Iterator<String> iterator() {
+                        return Iterators.one("a1");
+                    }
 
-                @Override
-                public Class<List<String>> type() {
-                    return Cast.to(List.class);
-                }
-            }.testIteratorContainsAndCollection();
-        });
+                    @Override
+                    public int size() {
+                        return 2;
+                    }
+                };
+            }
+
+            @Override
+            public Class<List<String>> type() {
+                return Cast.to(List.class);
+            }
+        }.testIteratorContainsAndCollection());
     }
 
     @Override

@@ -73,17 +73,13 @@ public final class MapTestingTest implements MapTesting<Map<String, Integer>, St
 
     @Test
     public void testPutFails() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            Collections.emptyMap().put("key", "value");
-        });
+        assertThrows(UnsupportedOperationException.class, () -> Collections.emptyMap().put("key", "value"));
     }
 
     @Test
     public void testRemoveFails() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            Collections.singletonMap("key", "value")
-                    .remove("key");
-        });
+        assertThrows(UnsupportedOperationException.class, () -> Collections.singletonMap("key", "value")
+                .remove("key"));
     }
 
     @Override

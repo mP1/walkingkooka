@@ -41,9 +41,7 @@ final public class ReadOnlyIterableTest implements ClassTesting2<ReadOnlyIterabl
 
     @Test
     public void testWrapNullIterableFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ReadOnlyIterable.wrap(null);
-        });
+        assertThrows(NullPointerException.class, () -> ReadOnlyIterable.wrap(null));
     }
 
     @Test

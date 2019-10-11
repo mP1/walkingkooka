@@ -36,9 +36,7 @@ final public class AnyCharPredicateTest implements CharPredicateTesting<AnyCharP
 
     @Test
     public void testWithNullCharsFails() {
-        assertThrows(NullPointerException.class, () -> {
-            AnyCharPredicate.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> AnyCharPredicate.with(null));
     }
 
     @Test

@@ -35,46 +35,38 @@ public final class DecimalFormatSymbolsDecimalNumberContextTest implements Class
 
     @Test
     public void testWithNullSymbolFails() {
-        assertThrows(NullPointerException.class, () -> {
-            DecimalFormatSymbolsDecimalNumberContext.with(null,
-                    'E',
-                    '+',
-                    LOCALE,
-                    MATH_CONTEXT);
-        });
+        assertThrows(NullPointerException.class, () -> DecimalFormatSymbolsDecimalNumberContext.with(null,
+                'E',
+                '+',
+                LOCALE,
+                MATH_CONTEXT));
     }
 
     @Test
     public void testWithExponentAndPositiveSameFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            DecimalFormatSymbolsDecimalNumberContext.with(this.decimalFormatSymbols(),
-                    '?',
-                    '?',
-                    LOCALE,
-                    MATH_CONTEXT);
-        });
+        assertThrows(IllegalArgumentException.class, () -> DecimalFormatSymbolsDecimalNumberContext.with(this.decimalFormatSymbols(),
+                '?',
+                '?',
+                LOCALE,
+                MATH_CONTEXT));
     }
 
     @Test
     public void testWithNullLocaleFails() {
-        assertThrows(NullPointerException.class, () -> {
-            DecimalFormatSymbolsDecimalNumberContext.with(this.decimalFormatSymbols(),
-                    'E',
-                    '+',
-                    null,
-                    MATH_CONTEXT);
-        });
+        assertThrows(NullPointerException.class, () -> DecimalFormatSymbolsDecimalNumberContext.with(this.decimalFormatSymbols(),
+                'E',
+                '+',
+                null,
+                MATH_CONTEXT));
     }
 
     @Test
     public void testWithNullMathContextFails() {
-        assertThrows(NullPointerException.class, () -> {
-            DecimalFormatSymbolsDecimalNumberContext.with(this.decimalFormatSymbols(),
-                    'E',
-                    '+',
-                    LOCALE,
-                    null);
-        });
+        assertThrows(NullPointerException.class, () -> DecimalFormatSymbolsDecimalNumberContext.with(this.decimalFormatSymbols(),
+                'E',
+                '+',
+                LOCALE,
+                null));
     }
 
     @Test

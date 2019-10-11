@@ -33,16 +33,12 @@ public class BigIntegerParserTest extends Parser2TestCase<BigIntegerParser<Parse
 
     @Test
     public void testWithNegativeRadixFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            BigIntegerParser.with(-1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> BigIntegerParser.with(-1));
     }
 
     @Test
     public void testWithZeroRadixFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            BigIntegerParser.with(0);
-        });
+        assertThrows(IllegalArgumentException.class, () -> BigIntegerParser.with(0));
     }
 
     @Test

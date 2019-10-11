@@ -30,30 +30,22 @@ public interface ExpressionFunctionContextTesting<C extends ExpressionFunctionCo
 
     @Test
     default void testFunctionNullNameFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createContext().function(null, ExpressionFunctionContext.NO_PARAMETERS);
-        });
+        assertThrows(NullPointerException.class, () -> this.createContext().function(null, ExpressionFunctionContext.NO_PARAMETERS));
     }
 
     @Test
     default void testFunctionNullParametersFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createContext().function(ExpressionNodeName.with("sum"), null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createContext().function(ExpressionNodeName.with("sum"), null));
     }
 
     @Test
     default void testConvertNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createContext().convert(null, Object.class);
-        });
+        assertThrows(NullPointerException.class, () -> this.createContext().convert(null, Object.class));
     }
 
     @Test
     default void testConvertNullTargetTypeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createContext().convert("value", null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createContext().convert("value", null));
     }
 
     @Override

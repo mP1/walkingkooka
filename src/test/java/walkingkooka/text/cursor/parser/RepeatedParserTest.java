@@ -33,9 +33,7 @@ public class RepeatedParserTest extends Parser2TestCase<RepeatedParser<ParserCon
 
     @Test
     public void testWithNullParserFails() {
-        assertThrows(NullPointerException.class, () -> {
-            RepeatedParser.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> RepeatedParser.with(null));
     }
 
     @Test

@@ -59,9 +59,7 @@ public interface VisitorTesting<V extends Visitor<T>, T>
 
     @Test
     default void testAcceptNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createVisitor().accept(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createVisitor().accept(null));
     }
 
     @Test

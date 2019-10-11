@@ -38,23 +38,17 @@ public final class FractionTest implements ClassTesting2<Fraction>,
 
     @Test
     public void testWithNullNumeratorFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Fraction.with(null, DENOMINATOR);
-        });
+        assertThrows(NullPointerException.class, () -> Fraction.with(null, DENOMINATOR));
     }
 
     @Test
     public void testWithNullDenominatorFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Fraction.with(NUMERATOR, null);
-        });
+        assertThrows(NullPointerException.class, () -> Fraction.with(NUMERATOR, null));
     }
 
     @Test
     public void testWithZeroDenominatorFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Fraction.with(NUMERATOR, BigInteger.ZERO);
-        });
+        assertThrows(IllegalArgumentException.class, () -> Fraction.with(NUMERATOR, BigInteger.ZERO));
     }
 
     @Test

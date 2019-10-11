@@ -36,23 +36,17 @@ public final class ParserConverterTest extends ConverterTestCase2<ParserConverte
 
     @Test
     public void testWithNullTypeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ParserConverter.with(null, this.bigDecimalParser(), this.parserContextAdapter());
-        });
+        assertThrows(NullPointerException.class, () -> ParserConverter.with(null, this.bigDecimalParser(), this.parserContextAdapter()));
     }
 
     @Test
     public void testWithNullParserFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ParserConverter.with(BigDecimal.class, null, this.parserContextAdapter());
-        });
+        assertThrows(NullPointerException.class, () -> ParserConverter.with(BigDecimal.class, null, this.parserContextAdapter()));
     }
 
     @Test
     public void testWithNullParserContextAdapterFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ParserConverter.with(BigDecimal.class, this.bigDecimalParser(), null);
-        });
+        assertThrows(NullPointerException.class, () -> ParserConverter.with(BigDecimal.class, this.bigDecimalParser(), null));
     }
 
     @Test

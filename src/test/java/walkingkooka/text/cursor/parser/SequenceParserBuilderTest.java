@@ -34,16 +34,12 @@ public final class SequenceParserBuilderTest implements ClassTesting2<SequencePa
 
     @Test
     public void testOptionalNullParserFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createBuilder().optional(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createBuilder().optional(null));
     }
 
     @Test
     public void testRequiredNullParserFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createBuilder().required(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createBuilder().required(null));
     }
 
     @Test

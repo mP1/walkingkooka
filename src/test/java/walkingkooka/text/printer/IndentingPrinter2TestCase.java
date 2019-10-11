@@ -40,9 +40,7 @@ abstract public class IndentingPrinter2TestCase<P extends IndentingPrinter2>
 
     @Test
     final public void testWrapNullPrinterFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPrinter((Printer) null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createPrinter((Printer) null));
     }
 
     @Override

@@ -147,9 +147,7 @@ public interface ParserTesting extends Testing {
                                                         final CC context,
                                                         final TextCursor cursor,
                                                         final String messagePart) {
-        final ParserException expected = assertThrows(ParserException.class, () -> {
-            this.parse(parser, cursor, context);
-        });
+        final ParserException expected = assertThrows(ParserException.class, () -> this.parse(parser, cursor, context));
 
         final String message = expected.getMessage();
         assertEquals(true, message.contains(messagePart), () -> "Message: " + message + " missing " + messagePart);

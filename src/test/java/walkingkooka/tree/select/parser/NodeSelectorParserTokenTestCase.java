@@ -46,9 +46,7 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
 
     @Test
     public final void testEmptyTextFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken("");
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createToken(""));
     }
 
     @Test

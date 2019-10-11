@@ -38,10 +38,8 @@ public final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisito
                 NodeSelectorParserToken.number(BigDecimal.valueOf(123), "123")),
                 "xyz");
 
-        final NodeSelectorException thrown = assertThrows(NodeSelectorException.class, () -> {
-            new NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor(Predicates.never())
-                    .accept(token);
-        });
+        final NodeSelectorException thrown = assertThrows(NodeSelectorException.class, () -> new NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor(Predicates.never())
+                .accept(token));
         checkMessage(thrown, "Unknown function \"zyx\" in \"xyz\"");
     }
 

@@ -48,25 +48,19 @@ final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
     @Test
     public void testAddWithNullFails() {
         final MissingBuilder missing = MissingBuilder.empty();
-        assertThrows(NullPointerException.class, () -> {
-            missing.add(null);
-        });
+        assertThrows(NullPointerException.class, () -> missing.add(null));
     }
 
     @Test
     public void testAddWithEmptyFails() {
         final MissingBuilder missing = MissingBuilder.empty();
-        assertThrows(IllegalArgumentException.class, () -> {
-            missing.add("");
-        });
+        assertThrows(IllegalArgumentException.class, () -> missing.add(""));
     }
 
     @Test
     public void testAddWithWhitespaceFails() {
         final MissingBuilder missing = MissingBuilder.empty();
-        assertThrows(IllegalArgumentException.class, () -> {
-            missing.add(" \t");
-        });
+        assertThrows(IllegalArgumentException.class, () -> missing.add(" \t"));
     }
 
     @Test
@@ -90,25 +84,19 @@ final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
     @Test
     public void testAddIfNullWithNullLabelFails() {
         final MissingBuilder missing = MissingBuilder.empty();
-        assertThrows(NullPointerException.class, () -> {
-            missing.addIfNull(false, null);
-        });
+        assertThrows(NullPointerException.class, () -> missing.addIfNull(false, null));
     }
 
     @Test
     public void testAddIfNullWithEmptyLabelFails() {
         final MissingBuilder missing = MissingBuilder.empty();
-        assertThrows(IllegalArgumentException.class, () -> {
-            missing.addIfNull(false, "");
-        });
+        assertThrows(IllegalArgumentException.class, () -> missing.addIfNull(false, ""));
     }
 
     @Test
     public void testAddIfNullWithWhitespaceLabelFails() {
         final MissingBuilder missing = MissingBuilder.empty();
-        assertThrows(IllegalArgumentException.class, () -> {
-            missing.addIfNull(false, " \t");
-        });
+        assertThrows(IllegalArgumentException.class, () -> missing.addIfNull(false, " \t"));
     }
 
     @Test
@@ -130,25 +118,19 @@ final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
     @Test
     public void testAddIfZeroWithNullLabelFails() {
         final MissingBuilder missing = MissingBuilder.empty();
-        assertThrows(NullPointerException.class, () -> {
-            missing.addIfZero(1, null);
-        });
+        assertThrows(NullPointerException.class, () -> missing.addIfZero(1, null));
     }
 
     @Test
     public void testAddIfZeroWithEmptyLabelFails() {
         final MissingBuilder missing = MissingBuilder.empty();
-        assertThrows(IllegalArgumentException.class, () -> {
-            missing.addIfZero(1, "");
-        });
+        assertThrows(IllegalArgumentException.class, () -> missing.addIfZero(1, ""));
     }
 
     @Test
     public void testAddIfZeroWithWhitespaceLabelFails() {
         final MissingBuilder missing = MissingBuilder.empty();
-        assertThrows(IllegalArgumentException.class, () -> {
-            missing.addIfZero(1, " \t");
-        });
+        assertThrows(IllegalArgumentException.class, () -> missing.addIfZero(1, " \t"));
     }
 
     @Test
@@ -170,25 +152,19 @@ final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
     @Test
     public void testAddIfFalseWithNullFails() {
         final MissingBuilder missing = MissingBuilder.empty();
-        assertThrows(NullPointerException.class, () -> {
-            missing.addIfFalse(false, null);
-        });
+        assertThrows(NullPointerException.class, () -> missing.addIfFalse(false, null));
     }
 
     @Test
     public void testAddIfFalseWithEmptyFails() {
         final MissingBuilder missing = MissingBuilder.empty();
-        assertThrows(IllegalArgumentException.class, () -> {
-            missing.addIfFalse(false, "");
-        });
+        assertThrows(IllegalArgumentException.class, () -> missing.addIfFalse(false, ""));
     }
 
     @Test
     public void testAddIfFalseWithWhitespaceFails() {
         final MissingBuilder missing = MissingBuilder.empty();
-        assertThrows(IllegalArgumentException.class, () -> {
-            missing.addIfFalse(false, " \t");
-        });
+        assertThrows(IllegalArgumentException.class, () -> missing.addIfFalse(false, " \t"));
     }
 
     @Test
@@ -208,25 +184,19 @@ final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
     @Test
     public void testFailIfMissingWithLabelNullFails() {
         final MissingBuilder missing = MissingBuilder.empty();
-        assertThrows(NullPointerException.class, () -> {
-            missing.failIfMissing(null);
-        });
+        assertThrows(NullPointerException.class, () -> missing.failIfMissing(null));
     }
 
     @Test
     public void testFailIfMissingWithLabelEmptyFails() {
         final MissingBuilder missing = MissingBuilder.empty();
-        assertThrows(IllegalArgumentException.class, () -> {
-            missing.failIfMissing("");
-        });
+        assertThrows(IllegalArgumentException.class, () -> missing.failIfMissing(""));
     }
 
     @Test
     public void testFailIfMissingWithLabelWhitespaceFails() {
         final MissingBuilder missing = MissingBuilder.empty();
-        assertThrows(IllegalArgumentException.class, () -> {
-            missing.failIfMissing(" \t");
-        });
+        assertThrows(IllegalArgumentException.class, () -> missing.failIfMissing(" \t"));
     }
 
     @Test
@@ -241,9 +211,7 @@ final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
         missing.add("1");
         missing.add("2");
 
-        final BuilderException expected = assertThrows(BuilderException.class, () -> {
-            missing.failIfMissing(BEFORE);
-        });
+        final BuilderException expected = assertThrows(BuilderException.class, () -> missing.failIfMissing(BEFORE));
         checkMessage(expected, BEFORE + " 1, 2");
     }
 

@@ -61,9 +61,7 @@ public abstract class SearchNodeTestCase<N extends SearchNode> implements ClassT
 
     @Test
     public final void testSetNameNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createSearchNode().setName(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createSearchNode().setName(null));
     }
 
     @Test
@@ -96,9 +94,7 @@ public abstract class SearchNodeTestCase<N extends SearchNode> implements ClassT
 
     @Test
     public final void testReplaceInvalidBeforeOffsetFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createSearchNode().replace(-1, 1, this.replaceNode());
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createSearchNode().replace(-1, 1, this.replaceNode()));
     }
 
     @Test
@@ -106,9 +102,7 @@ public abstract class SearchNodeTestCase<N extends SearchNode> implements ClassT
         final N node = this.createSearchNode();
         final int before = node.text().length();
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            node.replace(before, before, this.replaceNode());
-        });
+        assertThrows(IllegalArgumentException.class, () -> node.replace(before, before, this.replaceNode()));
     }
 
     @Test
@@ -116,9 +110,7 @@ public abstract class SearchNodeTestCase<N extends SearchNode> implements ClassT
         final N node = this.createSearchNode();
         final int before = node.text().length();
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            node.replace(before + 1, before, this.replaceNode());
-        });
+        assertThrows(IllegalArgumentException.class, () -> node.replace(before + 1, before, this.replaceNode()));
 
     }
 
@@ -126,25 +118,19 @@ public abstract class SearchNodeTestCase<N extends SearchNode> implements ClassT
     public final void testReplaceInvalidEndOffsetFails() {
         final N node = this.createSearchNode();
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            node.replace(1, 0, this.replaceNode());
-        });
+        assertThrows(IllegalArgumentException.class, () -> node.replace(1, 0, this.replaceNode()));
     }
 
     @Test
     public final void testReplaceInvalidEndOffsetFails2() {
         final N node = this.createSearchNode();
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            node.replace(0, node.text().length() + 1, this.replaceNode());
-        });
+        assertThrows(IllegalArgumentException.class, () -> node.replace(0, node.text().length() + 1, this.replaceNode()));
     }
 
     @Test
     public final void testReplaceNullNodeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createSearchNode().replace(0, 1, null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createSearchNode().replace(0, 1, null));
     }
 
     final SearchNode replaceNode() {
@@ -153,9 +139,7 @@ public abstract class SearchNodeTestCase<N extends SearchNode> implements ClassT
 
     @Test
     public void testReplaceSelectedWithNullFunctionFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createSearchNode().replaceSelected(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createSearchNode().replaceSelected(null));
     }
 
     @Test

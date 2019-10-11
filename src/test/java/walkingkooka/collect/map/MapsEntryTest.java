@@ -34,9 +34,7 @@ public final class MapsEntryTest implements ClassTesting2<MapsEntry<String, Inte
 
     @Test
     public void testWithNullKeyFails() {
-        assertThrows(NullPointerException.class, () -> {
-            MapsEntry.with(null, VALUE);
-        });
+        assertThrows(NullPointerException.class, () -> MapsEntry.with(null, VALUE));
     }
 
     @Test
@@ -51,9 +49,7 @@ public final class MapsEntryTest implements ClassTesting2<MapsEntry<String, Inte
 
     @Test
     public void testSetValueFails() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            this.createEntry().setValue(null);
-        });
+        assertThrows(UnsupportedOperationException.class, () -> this.createEntry().setValue(null));
     }
 
     @Test

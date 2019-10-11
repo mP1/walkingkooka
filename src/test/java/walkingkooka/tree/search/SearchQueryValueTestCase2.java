@@ -25,8 +25,6 @@ public abstract class SearchQueryValueTestCase2<Q extends SearchQueryValue, V> e
 
     @Test
     public void testWithNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createSearchQueryValue(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createSearchQueryValue(null));
     }
 }

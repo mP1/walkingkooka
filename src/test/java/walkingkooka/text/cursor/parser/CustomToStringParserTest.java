@@ -36,30 +36,22 @@ public final class CustomToStringParserTest extends ParserTestCase<CustomToStrin
 
     @Test
     public void testWrapNullParserFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CustomToStringParser.wrap(null, CUSTOM_TO_STRING);
-        });
+        assertThrows(NullPointerException.class, () -> CustomToStringParser.wrap(null, CUSTOM_TO_STRING));
     }
 
     @Test
     public void testWrapNullToStringFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CustomToStringParser.wrap(WRAPPED, null);
-        });
+        assertThrows(NullPointerException.class, () -> CustomToStringParser.wrap(WRAPPED, null));
     }
 
     @Test
     public void testWrapEmptyToStringFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CustomToStringParser.wrap(WRAPPED, "");
-        });
+        assertThrows(IllegalArgumentException.class, () -> CustomToStringParser.wrap(WRAPPED, ""));
     }
 
     @Test
     public void testWrapWhitespaceToStringFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CustomToStringParser.wrap(WRAPPED, " \t");
-        });
+        assertThrows(IllegalArgumentException.class, () -> CustomToStringParser.wrap(WRAPPED, " \t"));
     }
 
     @Test

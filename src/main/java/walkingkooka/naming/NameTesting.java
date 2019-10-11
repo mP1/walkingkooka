@@ -47,16 +47,12 @@ public interface NameTesting<N extends Name, C extends Comparable<C> & HashCodeE
 
     @Test
     default void testNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createName(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createName(null));
     }
 
     @Test
     default void testEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createName("");
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createName(""));
     }
 
     @Test

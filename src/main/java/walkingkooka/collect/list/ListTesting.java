@@ -36,8 +36,6 @@ public interface ListTesting extends CollectionTesting {
 
     default <E> void getFails(final List<E> list,
                               final int index) {
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            list.get(index);
-        });
+        assertThrows(IndexOutOfBoundsException.class, () -> list.get(index));
     }
 }

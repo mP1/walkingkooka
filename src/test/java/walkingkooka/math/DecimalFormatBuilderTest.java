@@ -40,9 +40,7 @@ public final class DecimalFormatBuilderTest implements BuilderTesting<DecimalFor
 
     @Test
     public void testRoundingModeNull() {
-        assertThrows(NullPointerException.class, () -> {
-            DecimalFormatBuilder.empty().roundingMode(null);
-        });
+        assertThrows(NullPointerException.class, () -> DecimalFormatBuilder.empty().roundingMode(null));
     }
 
     @Test
@@ -82,9 +80,7 @@ public final class DecimalFormatBuilderTest implements BuilderTesting<DecimalFor
 
     @Test
     public void testGroupingSizeInvalidFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            DecimalFormatBuilder.empty().groupingSize(0);
-        });
+        assertThrows(IllegalArgumentException.class, () -> DecimalFormatBuilder.empty().groupingSize(0));
     }
 
     @Test
@@ -94,9 +90,7 @@ public final class DecimalFormatBuilderTest implements BuilderTesting<DecimalFor
 
     @Test
     public void testLocaleNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            DecimalFormatBuilder.empty().locale(null);
-        });
+        assertThrows(NullPointerException.class, () -> DecimalFormatBuilder.empty().locale(null));
     }
 
     @Test
@@ -152,9 +146,7 @@ public final class DecimalFormatBuilderTest implements BuilderTesting<DecimalFor
 
     @Test
     public void testPrefixNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            DecimalFormatBuilder.empty().prefix(null);
-        });
+        assertThrows(NullPointerException.class, () -> DecimalFormatBuilder.empty().prefix(null));
     }
 
     @Test
@@ -189,9 +181,7 @@ public final class DecimalFormatBuilderTest implements BuilderTesting<DecimalFor
 
     @Test
     public void testSuffixNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            DecimalFormatBuilder.empty().suffix(null);
-        });
+        assertThrows(NullPointerException.class, () -> DecimalFormatBuilder.empty().suffix(null));
     }
 
     @Test

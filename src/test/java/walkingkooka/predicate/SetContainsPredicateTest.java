@@ -29,9 +29,7 @@ public final class SetContainsPredicateTest extends PredicateTestCase<SetContain
 
     @Test
     public void testWithNullSetFails() {
-        assertThrows(NullPointerException.class, () -> {
-            SetContainsPredicate.with(null);
-        });
+        assertThrows(NullPointerException.class, () -> SetContainsPredicate.with(null));
     }
 
     @Test

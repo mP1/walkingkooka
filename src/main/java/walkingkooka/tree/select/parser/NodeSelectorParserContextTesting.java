@@ -29,9 +29,7 @@ public interface NodeSelectorParserContextTesting<C extends NodeSelectorParserCo
 
     @Test
     default void testLocaleFails() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            this.createContext().locale();
-        });
+        assertThrows(UnsupportedOperationException.class, () -> this.createContext().locale());
     }
 
     @Override

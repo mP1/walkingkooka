@@ -42,25 +42,19 @@ final public class PathSeparatorTest implements ClassTesting2<PathSeparator>,
 
     @Test
     public void testRequiredControlSeparatorCharacterFails() {
-        final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> {
-            PathSeparator.requiredAtStart('\n');
-        });
+        final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> PathSeparator.requiredAtStart('\n'));
         checkMessage(expected, PathSeparator.invalidCharacter('\n'));
     }
 
     @Test
     public void testRequiredLetterFails() {
-        final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> {
-            PathSeparator.requiredAtStart('A');
-        });
+        final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> PathSeparator.requiredAtStart('A'));
         assertEquals(PathSeparator.invalidCharacter('A'), expected.getMessage());
     }
 
     @Test
     public void testRequiredDigitFails() {
-        final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> {
-            PathSeparator.requiredAtStart('1');
-        });
+        final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> PathSeparator.requiredAtStart('1'));
         assertEquals(PathSeparator.invalidCharacter('1'), expected.getMessage());
     }
 
@@ -87,24 +81,18 @@ final public class PathSeparatorTest implements ClassTesting2<PathSeparator>,
 
     @Test
     public void testNotRequiredControlSeparatorCharacterFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            PathSeparator.notRequiredAtStart('\n');
-        });
+        assertThrows(IllegalArgumentException.class, () -> PathSeparator.notRequiredAtStart('\n'));
     }
 
     @Test
     public void testNotRequiredLetterFails() {
-        final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> {
-            PathSeparator.notRequiredAtStart('A');
-        });
+        final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> PathSeparator.notRequiredAtStart('A'));
         assertEquals(PathSeparator.invalidCharacter('A'), expected.getMessage());
     }
 
     @Test
     public void testNotRequiredDigitFails() {
-        final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> {
-            PathSeparator.notRequiredAtStart('1');
-        });
+        final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> PathSeparator.notRequiredAtStart('1'));
         assertEquals(PathSeparator.invalidCharacter('1'), expected.getMessage());
     }
 

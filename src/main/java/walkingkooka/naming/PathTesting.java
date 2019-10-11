@@ -52,9 +52,7 @@ public interface PathTesting<P extends Path<P, N> & HashCodeEqualsDefined & Comp
 
     @Test
     default void testAppendNullNameFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPath().append((N) null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createPath().append((N) null));
     }
 
     @Test
@@ -130,9 +128,7 @@ public interface PathTesting<P extends Path<P, N> & HashCodeEqualsDefined & Comp
 
     @Test
     default void testAppendNullPathFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPath().append((P) null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createPath().append((P) null));
     }
 
     @Test

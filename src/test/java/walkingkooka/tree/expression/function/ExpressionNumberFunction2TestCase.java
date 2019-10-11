@@ -39,9 +39,7 @@ public abstract class ExpressionNumberFunction2TestCase<F extends ExpressionNumb
     }
 
     private void applyAndFail(final Object...parameters) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.apply2(parameters);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.apply2(parameters));
     }
 
     @Test
