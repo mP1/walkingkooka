@@ -27,8 +27,6 @@ import java.util.Objects;
  */
 final public class PathSeparator implements HashCodeEqualsDefined {
 
-    private final static long serialVersionUID = 1L;
-
     /**
      * Creates a {@link PathSeparator} that separates path components and is required to start with.
      */

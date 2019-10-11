@@ -82,7 +82,7 @@ final public class NamedNodeSelectorTest extends
     public void testNameChildIgnoresGrandChildren2() {
         final TestNode grandChild = TestNode.with("grandChild");
         final TestNode child = TestNode.with("child", grandChild);
-        final TestNode parent = TestNode.with("parent", child);
+        TestNode.with("parent", child);
 
         this.applyAndCheck2(child.name(), child, child);
     }

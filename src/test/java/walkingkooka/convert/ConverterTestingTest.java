@@ -104,7 +104,6 @@ public final class ConverterTestingTest implements ConverterTesting {
     public void testConvertFails2() {
         final String value = "xyz";
         final ConverterContext context = ConverterContexts.fake();
-        final Integer expected = 123;
 
         assertThrows(AssertionError.class,
                 () -> this.convertFails(new TestConverter(),

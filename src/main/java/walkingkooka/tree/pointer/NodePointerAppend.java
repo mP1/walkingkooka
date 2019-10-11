@@ -17,7 +17,6 @@
 
 package walkingkooka.tree.pointer;
 
-import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 
@@ -97,10 +96,6 @@ final class NodePointerAppend<N extends Node<N, NAME, ?, ?>, NAME extends Name> 
 
     @Override
     boolean equals1(final NodePointer<?, ?> other) {
-        return this.equals2(Cast.to(other));
-    }
-
-    private boolean equals2(final NodePointerAppend<?, ?> other) {
         return true;
     }
 

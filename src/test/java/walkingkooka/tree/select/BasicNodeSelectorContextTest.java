@@ -142,7 +142,6 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         final BasicNodeSelectorContext<TestNode, StringName, StringName, Object> context = this.createContext();
 
         TestNode.clear();
-        final TestNode current = TestNode.with("current123");
 
         assertThrows(NodeSelectorException.class, () -> {
             context.function(this.node(), NodeSelectorContext.NO_PARAMETERS);

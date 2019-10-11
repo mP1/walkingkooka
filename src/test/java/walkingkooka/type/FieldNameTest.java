@@ -37,6 +37,7 @@ public final class FieldNameTest extends JavaNameTestCase<FieldName> {
         this.checkValue(field, name);
     }
 
+    @SuppressWarnings("unused")
     private final String field123 = "value123";
 
     @Override

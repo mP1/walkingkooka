@@ -24,8 +24,6 @@ import java.util.Arrays;
  */
 final class RepeatingCharSequence extends CharSequence2<RepeatingCharSequence> {
 
-    private static final long serialVersionUID = 220307732204512861L;
-
     static CharSequence with(final char c, final int length) {
         if (length < 0) {
             throw new IllegalArgumentException("Length " + length + " must not be negative");

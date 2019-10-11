@@ -42,7 +42,7 @@ public final class ExpressionNodeSelectorNodeSelectorContext2Test extends NodeSe
     @Test
     public void testAll() {
         final ExpressionNodeSelectorNodeSelectorContext2<TestNode, StringName, StringName, Object> context = this.createContext();
-        this.checkType(this.createContext().all(), AllNodeSelectorContext2.class);
+        this.checkType(context.all(), AllNodeSelectorContext2.class);
     }
 
     @Test

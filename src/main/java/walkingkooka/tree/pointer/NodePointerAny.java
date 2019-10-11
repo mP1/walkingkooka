@@ -89,11 +89,7 @@ final class NodePointerAny<N extends Node<N, NAME, ?, ?>, NAME extends Name> ext
 
     @Override
     boolean equals1(final NodePointer<?, ?> other) {
-        return this.equals2(Cast.to(other));
-    }
-
-    private boolean equals2(final NodePointerAny<?, ?> other) {
-        return true; // no properties to test ignoring next.
+        return true;
     }
 
     @Override

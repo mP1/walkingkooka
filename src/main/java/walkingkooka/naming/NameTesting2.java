@@ -160,7 +160,6 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> & HashCode
             // fill with valid characters except for last with invalid.
             final int last = i - 1;
             for (int j = 0; j < last; j++) {
-                final String s = this.possibleValidChars(j);
                 chars[j] = this.possibleValidChars(j)
                         .charAt(0);
             }

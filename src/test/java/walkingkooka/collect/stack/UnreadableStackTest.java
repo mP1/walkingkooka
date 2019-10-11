@@ -95,8 +95,6 @@ final public class UnreadableStackTest extends StackTestCase<UnreadableStack<Obj
     public void testHashCode() {
         final UnreadableStack<Object> stack = UnreadableStack.wrap(new FakeStack<Object>() {
 
-            private static final long serialVersionUID = 1L;
-
             @Override
             public int hashCode() {
                 return 123;

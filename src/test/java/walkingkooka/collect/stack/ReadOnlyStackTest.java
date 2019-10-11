@@ -91,8 +91,6 @@ final public class ReadOnlyStackTest extends StackTestCase<ReadOnlyStack<Object>
         final Stack<Object> stack = ReadOnlyStack.wrap(//
                 new FakeStack<Object>() {
 
-                    private static final long serialVersionUID = 381918503618696270L;
-
                     @Override
                     public Iterator<Object> iterator() {
                         return iterator;

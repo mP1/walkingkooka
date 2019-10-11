@@ -88,14 +88,14 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
 
     private static ParserToken predicate(final ParserToken token, final ParserContext context) {
         return token instanceof SequenceParserToken ?
-                predicate0(SequenceParserToken.class.cast(token), context) :
+                predicate0(SequenceParserToken.class.cast(token)) :
                 parent(token, NodeSelectorParserToken::predicate);
     }
 
     /**
      * Handles grouping of AND and OR sub expressions before creating the enclosing {@link NodeSelectorPredicateParserToken}.
      */
-    private static ParserToken predicate0(final SequenceParserToken sequenceParserToken, final ParserContext context) {
+    private static ParserToken predicate0(final SequenceParserToken sequenceParserToken) {
         final List<ParserToken> all = Lists.array();
         final List<ParserToken> tokens = Lists.array();
 
