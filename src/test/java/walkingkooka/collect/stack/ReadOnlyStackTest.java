@@ -89,7 +89,7 @@ final public class ReadOnlyStackTest extends StackTestCase<ReadOnlyStack<Object>
     public void testIterator() {
         final Iterator<Object> iterator = Iterators.fake();
         final Stack<Object> stack = ReadOnlyStack.wrap(//
-                new FakeStack<Object>() {
+                new FakeStack<>() {
 
                     @Override
                     public Iterator<Object> iterator() {

@@ -35,7 +35,7 @@ final class RepeatedParser<C extends ParserContext> extends Parser2<C> {
 
         return parser instanceof RepeatedParser ?
                 Cast.to(parser) :
-                new RepeatedParser<C>(parser);
+                new RepeatedParser<>(parser);
     }
 
     private RepeatedParser(final Parser<C> parser) {

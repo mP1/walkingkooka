@@ -122,8 +122,8 @@ final class ClassMethodTesting {
     }
 
     private static Set<Method> overridableMethods(final Class<?> type) {
-        final Set<Class<?>> alreadyVisited = new HashSet<Class<?>>();
-        final Set<Method> methods = new TreeSet<Method>(new Comparator<Method>() {
+        final Set<Class<?>> alreadyVisited = new HashSet<>();
+        final Set<Method> methods = new TreeSet<>(new Comparator<>() {
 
             @Override
             public int compare(final Method method1, final Method method2) {

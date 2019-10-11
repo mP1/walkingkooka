@@ -50,7 +50,7 @@ final class SystemPropertyValueGetterPrivilegedAction implements PrivilegedActio
     /**
      * Thread local used to temporarily hold the system property being read.
      */
-    final static ThreadLocal<SystemProperty> property = new ThreadLocal<SystemProperty>();
+    final static ThreadLocal<SystemProperty> property = new ThreadLocal<>();
 
     /**
      * Private constructor

@@ -1985,7 +1985,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final Set<TestNode> selected = Sets.ordered();
         selector.apply(root,
-                new FakeNodeSelectorContext<TestNode, StringName, StringName, Object>() {
+                new FakeNodeSelectorContext<>() {
                     @Override
                     public boolean isFinished() {
                         return false;

@@ -60,7 +60,7 @@ final public class Sets implements PublicStaticHelper {
      * {@see HashSet}
      */
     public static <E> Set<E> hash() {
-        return new HashSet<E>();
+        return new HashSet<>();
     }
 
     /**
@@ -74,7 +74,7 @@ final public class Sets implements PublicStaticHelper {
      * {@see TreeSet}
      */
     public static <E> NavigableSet<E> navigable() {
-        return new TreeSet<E>();
+        return new TreeSet<>();
     }
 
     /**
@@ -101,7 +101,7 @@ final public class Sets implements PublicStaticHelper {
      * {@see LinkedHashSet}
      */
     public static <E> Set<E> ordered() {
-        return new LinkedHashSet<E>();
+        return new LinkedHashSet<>();
     }
 
     /**
@@ -117,14 +117,14 @@ final public class Sets implements PublicStaticHelper {
      * {@see TreeSet}
      */
     public static <E> SortedSet<E> sorted() {
-        return new TreeSet<E>();
+        return new TreeSet<>();
     }
 
     /**
      * {@see TreeSet}
      */
     public static <E> SortedSet<E> sorted(final Comparator<? super E> comparator) {
-        return new TreeSet<E>(comparator);
+        return new TreeSet<>(comparator);
     }
 
     /**

@@ -72,7 +72,7 @@ final public class ReverseIteratorTest extends IteratorTestCase<ReverseIterator<
     }
 
     private ReverseIterator<String> iterator(final String... strings) {
-        return Cast.to(ReverseIterator.with(new ArrayList<String>(Lists.of(strings)).iterator()));
+        return Cast.to(ReverseIterator.with(new ArrayList<>(Lists.of(strings)).iterator()));
     }
 
     @Override

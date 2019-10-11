@@ -38,7 +38,7 @@ public final class VisitorPrettyPrinter<T> {
         Objects.requireNonNull(indentation, "indentation");
         Objects.requireNonNull(typeName, "typeName");
 
-        return new VisitorPrettyPrinter<T>(printer, indentation, typeName);
+        return new VisitorPrettyPrinter<>(printer, indentation, typeName);
     }
 
     /**

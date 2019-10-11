@@ -41,7 +41,7 @@ final class ArrayStack<T> implements Stack<T>, HashCodeEqualsDefined {
      * Creates a new {@link ArrayStack} with an array. The last it set to the end of the array
      */
     static <T> ArrayStack<T> with(final Object[] items) {
-        return new ArrayStack<T>(items, items.length);
+        return new ArrayStack<>(items, items.length);
     }
 
     private ArrayStack(final Object[] array, final int last) {
@@ -70,7 +70,7 @@ final class ArrayStack<T> implements Stack<T>, HashCodeEqualsDefined {
             stack = EmptyArrayStack.instance();
         } else {
             // share array but decrement last
-            stack = new ArrayStack<T>(this.array, newLast);
+            stack = new ArrayStack<>(this.array, newLast);
         }
 
         return stack;
@@ -91,7 +91,7 @@ final class ArrayStack<T> implements Stack<T>, HashCodeEqualsDefined {
         // save the new item in the last slot
         newArray[last] = item;
 
-        return new ArrayStack<T>(newArray, newLast);
+        return new ArrayStack<>(newArray, newLast);
     }
 
     /**
@@ -125,7 +125,7 @@ final class ArrayStack<T> implements Stack<T>, HashCodeEqualsDefined {
                 i++;
             }
 
-            stack = new ArrayStack<T>(newArray, newLast);
+            stack = new ArrayStack<>(newArray, newLast);
         }
 
         return stack;

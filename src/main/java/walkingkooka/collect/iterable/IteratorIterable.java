@@ -32,7 +32,7 @@ final class IteratorIterable<T> implements Iterable<T> {
     static <T> IteratorIterable<T> with(final Iterator<T> iterator) {
         Objects.requireNonNull(iterator, "iterator");
 
-        return new IteratorIterable<T>(iterator);
+        return new IteratorIterable<>(iterator);
     }
 
     /**

@@ -30,7 +30,7 @@ final class PushableStreamConsumerStreamTerminal2MinPushableStreamConsumer<T> ex
                                                                                       final PushableStreamConsumerCloseableCollection closeables) {
         check(comparator);
 
-        return new PushableStreamConsumerStreamTerminal2MinPushableStreamConsumer<T>(comparator, closeables);
+        return new PushableStreamConsumerStreamTerminal2MinPushableStreamConsumer<>(comparator, closeables);
     }
 
     /**

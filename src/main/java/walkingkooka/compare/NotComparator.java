@@ -35,7 +35,7 @@ final class NotComparator<T> implements Comparator<T>,
         Objects.requireNonNull(comparator, "comparator");
 
         final Comparator<T> not = Notables.maybeNotable(comparator);
-        return null != not ? not : new NotComparator<T>(comparator);
+        return null != not ? not : new NotComparator<>(comparator);
     }
 
     /**

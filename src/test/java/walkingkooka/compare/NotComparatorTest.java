@@ -65,7 +65,7 @@ final public class NotComparatorTest implements ClassTesting2<NotComparator<Obje
     public void testInvertsResult() {
         final Object object1 = new Object();
         final Object object2 = new Object();
-        final Comparator<Object> comparator = NotComparator.wrap(new Comparator<Object>() {
+        final Comparator<Object> comparator = NotComparator.wrap(new Comparator<>() {
 
             @Override
             public int compare(final Object o1, final Object o2) {

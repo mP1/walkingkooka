@@ -42,7 +42,7 @@ public abstract class NodeSelectorContext2TestCase<C extends NodeSelectorContext
     }
 
     final NodeSelectorContext<TestNode, StringName, StringName, Object> contextWithToString(final String toString) {
-        return new FakeNodeSelectorContext<TestNode, StringName, StringName, Object>() {
+        return new FakeNodeSelectorContext<>() {
             @Override
             public String toString() {
                 return toString;

@@ -27,7 +27,7 @@ import java.util.NoSuchElementException;
  */
 final class ArrayStackIterator<E> implements Iterator<E> {
     static <E> ArrayStackIterator<E> with(final ArrayStack<E> stack) {
-        return new ArrayStackIterator<E>(stack);
+        return new ArrayStackIterator<>(stack);
     }
 
     private ArrayStackIterator(final ArrayStack<E> stack) {

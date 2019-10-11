@@ -38,7 +38,7 @@ final class NormalizingCharSequenceComparator<S extends CharSequence> implements
             final CharPredicate predicate) {
         Objects.requireNonNull(predicate, "predicate");
 
-        return new NormalizingCharSequenceComparator<S>(predicate);
+        return new NormalizingCharSequenceComparator<>(predicate);
     }
 
     /**

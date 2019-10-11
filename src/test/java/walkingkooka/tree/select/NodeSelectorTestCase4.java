@@ -311,7 +311,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                 selector.apply(start,
                         this.context0(() -> false,
                                 Predicates.always(),
-                                new Function<TestNode, TestNode>() {
+                                new Function<>() {
                                     @Override
                                     public TestNode apply(final TestNode testNode) {
                                         return TestNode.with(testNode.name().value() + "*" + this.i++)
@@ -383,7 +383,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                 ConverterContexts.fake(),
                 TestNode.class);
 
-        return new NodeSelectorContext<TestNode, StringName, StringName, Object>() {
+        return new NodeSelectorContext<>() {
             @Override
             public boolean isFinished() {
                 return context.isFinished();

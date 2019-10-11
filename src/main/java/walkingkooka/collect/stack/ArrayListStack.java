@@ -37,7 +37,7 @@ final class ArrayListStack<T> implements Stack<T>, HashCodeEqualsDefined {
      * Creates an empty {@link ArrayListStack}.
      */
     static <T> ArrayListStack<T> create() {
-        return new ArrayListStack<T>();
+        return new ArrayListStack<>();
     }
 
     /**

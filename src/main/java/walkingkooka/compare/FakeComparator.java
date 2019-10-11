@@ -27,7 +27,7 @@ import java.util.Comparator;
 final class FakeComparator<T> implements Comparator<T>, Fake {
 
     static <T> FakeComparator<T> create() {
-        return new FakeComparator<T>();
+        return new FakeComparator<>();
     }
 
     private FakeComparator() {

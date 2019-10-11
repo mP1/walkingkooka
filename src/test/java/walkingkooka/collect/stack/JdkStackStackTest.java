@@ -49,7 +49,7 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
         assertSame(stack, stack.push("2"), "this not returned");
         this.checkSize(stack, 2);
 
-        final java.util.Stack<String> jdkStack = new java.util.Stack<String>();
+        final java.util.Stack<String> jdkStack = new java.util.Stack<>();
         jdkStack.push("1");
         jdkStack.push("2");
         assertEquals(jdkStack, stack.stack, "items on wrapped jdk stack");
@@ -69,7 +69,7 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
         assertSame(stack, stack.pushAll(Lists.of("1", "2").iterator()), "this was not returned");
         this.checkSize(stack, 2);
 
-        final java.util.Stack<String> jdkStack = new java.util.Stack<String>();
+        final java.util.Stack<String> jdkStack = new java.util.Stack<>();
         jdkStack.push("1");
         jdkStack.push("2");
         assertEquals(jdkStack, stack.stack, "items on wrapped jdk stack");

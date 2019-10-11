@@ -27,7 +27,7 @@ final class RangeBoundExclusive<C extends Comparable<C>> extends RangeBoundExclu
      */
     static <C extends Comparable<C>> RangeBoundExclusive<C> with(final C value) {
         checkValue(value);
-        return new RangeBoundExclusive<C>(value);
+        return new RangeBoundExclusive<>(value);
     }
 
     /**

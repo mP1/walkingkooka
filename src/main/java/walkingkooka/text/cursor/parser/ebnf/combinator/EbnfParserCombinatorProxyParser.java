@@ -31,7 +31,7 @@ import java.util.Optional;
 final class EbnfParserCombinatorProxyParser<C extends ParserContext> implements Parser<C> {
 
     static <C extends ParserContext> EbnfParserCombinatorProxyParser<C> with(final EbnfIdentifierParserToken identifier) {
-        return new EbnfParserCombinatorProxyParser<C>(identifier);
+        return new EbnfParserCombinatorProxyParser<>(identifier);
     }
 
     private EbnfParserCombinatorProxyParser(final EbnfIdentifierParserToken identifier) {

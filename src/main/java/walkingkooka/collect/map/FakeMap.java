@@ -30,7 +30,7 @@ import java.util.Set;
 public class FakeMap<K, V> implements Map<K, V>, Fake {
 
     static <K, V> Map<K, V> create() {
-        return new FakeMap<K, V>();
+        return new FakeMap<>();
     }
 
     protected FakeMap() {

@@ -33,7 +33,7 @@ final class CaseSensitivityContainsCharSequencePredicate<C extends CharSequence>
         CharSequences.failIfNullOrEmpty(contains, "contains");
         Objects.requireNonNull(sensitivity, "sensitivity");
 
-        return new CaseSensitivityContainsCharSequencePredicate<C>(contains, sensitivity);
+        return new CaseSensitivityContainsCharSequencePredicate<>(contains, sensitivity);
     }
 
     /**

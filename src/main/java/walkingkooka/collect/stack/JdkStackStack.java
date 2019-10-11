@@ -34,7 +34,7 @@ final class JdkStackStack<T> implements Stack<T>, HashCodeEqualsDefined {
      * Factory that creates an empty {@link JdkStackStack}
      */
     static <T> JdkStackStack<T> create() {
-        return new JdkStackStack<T>(new java.util.Stack<T>());
+        return new JdkStackStack<>(new java.util.Stack<>());
     }
 
     /**

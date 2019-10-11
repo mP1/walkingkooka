@@ -81,12 +81,12 @@ final public class ReadOnlyIteratorTest extends IteratorTestCase<ReadOnlyIterato
     @Test
     public void testToString() {
         final Iterator<Object> iterator
-                = new ArrayList<Object>(Lists.of(ELEMENT)).iterator();
+                = new ArrayList<>(Lists.of(ELEMENT)).iterator();
         this.toStringAndCheck(ReadOnlyIterator.wrap(iterator), iterator.toString());
     }
 
     private ReadOnlyIterator<Object> iterator(final Object... strings) {
-        return ReadOnlyIterator.wrap(new ArrayList<Object>(Lists.of(strings)).iterator());
+        return ReadOnlyIterator.wrap(new ArrayList<>(Lists.of(strings)).iterator());
     }
 
     @Override

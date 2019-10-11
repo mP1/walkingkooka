@@ -35,7 +35,7 @@ final public class SystemProperty implements Value<String>, HashCodeEqualsDefine
     /**
      * A cache of {@link SystemProperty} constants.
      */
-    private final static Map<String, SystemProperty> PROPERTIES = new HashMap<String, SystemProperty>();
+    private final static Map<String, SystemProperty> PROPERTIES = new HashMap<>();
 
     public final static SystemProperty FILE_ENCODING = registerConstant("file.encoding");
 

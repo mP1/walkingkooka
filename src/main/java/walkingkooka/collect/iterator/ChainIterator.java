@@ -38,7 +38,7 @@ final class ChainIterator<E> implements Iterator<E> {
 
         return iterators.length == 0 ?
                 first :
-                new ChainIterator<E>(first, iterators.clone());
+                new ChainIterator<>(first, iterators.clone());
     }
 
     /**

@@ -34,7 +34,7 @@ final class CaseSensitivityEndsWithCharSequencePredicate<C extends CharSequence>
         CharSequences.failIfNullOrEmpty(startsWith, "startsWith");
         Objects.requireNonNull(sensitivity, "sensitivity");
 
-        return new CaseSensitivityEndsWithCharSequencePredicate<C>(startsWith, sensitivity);
+        return new CaseSensitivityEndsWithCharSequencePredicate<>(startsWith, sensitivity);
     }
 
     /**

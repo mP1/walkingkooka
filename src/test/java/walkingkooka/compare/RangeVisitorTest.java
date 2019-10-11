@@ -537,7 +537,7 @@ public final class RangeVisitorTest implements VisitorTesting<RangeVisitor<Integ
 
     @Override
     public RangeVisitor<Integer> createVisitor() {
-        return new FakeRangeVisitor<Integer>() {
+        return new FakeRangeVisitor<>() {
 
             @Override
             public String toString() {
