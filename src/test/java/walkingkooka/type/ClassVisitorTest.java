@@ -199,7 +199,7 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
         }.accept(TestSub2.class);
     }
 
-    class TestSub2 extends TestSub {
+    static class TestSub2 extends TestSub {
     }
 
     // implements interface.............................................................................................
@@ -348,7 +348,7 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
                 b.toString());
     }
 
-    class TestImplIntf2 extends TestImplIntf implements TestIntf2 {
+    static class TestImplIntf2 extends TestImplIntf implements TestIntf2 {
     }
 
     interface TestIntf2 {
