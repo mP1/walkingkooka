@@ -354,6 +354,7 @@ abstract class ToStringBuilderAppender<V> {
     /**
      * Returns true if the value should be skipped because skipping is enabled and the value is empty/default.
      */
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     abstract boolean shouldSkip(final ToStringBuilder builder);
 
     /**
