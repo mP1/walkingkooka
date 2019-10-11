@@ -93,6 +93,7 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
         checkMethod("publicMethod", JavaVisibility.PUBLIC);
     }
 
+    @SuppressWarnings("unused")
     public void publicMethod() {
     }
 
@@ -109,6 +110,7 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
         checkMethod("packagePrivateMethod", JavaVisibility.PACKAGE_PRIVATE);
     }
 
+    @SuppressWarnings("unused")
     void packagePrivateMethod() {
     }
 
@@ -117,6 +119,7 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
         checkMethod(("privateMethod"), JavaVisibility.PRIVATE);
     }
 
+    @SuppressWarnings("unused")
     private void privateMethod() {
     }
 
@@ -135,6 +138,7 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
         checkField("publicField", JavaVisibility.PUBLIC);
     }
 
+    @SuppressWarnings("unused")
     public Object publicField;
 
     @Test
@@ -142,6 +146,7 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
         checkField("protectedField", JavaVisibility.PROTECTED);
     }
 
+    @SuppressWarnings("unused")
     protected Object protectedField;
 
     @Test
@@ -149,6 +154,7 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
         checkField("packagePrivateField", JavaVisibility.PACKAGE_PRIVATE);
     }
 
+    @SuppressWarnings("unused")
     Object packagePrivateField;
 
     @Test
@@ -156,6 +162,7 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
         checkField("privateField", JavaVisibility.PRIVATE);
     }
 
+    @SuppressWarnings("unused")
     private Object privateField;
 
     private void checkField(final String field,

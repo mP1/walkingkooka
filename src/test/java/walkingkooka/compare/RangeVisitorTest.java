@@ -527,7 +527,7 @@ public final class RangeVisitorTest implements VisitorTesting<RangeVisitor<Integ
                        final RangeBound<Integer> lowerBound,
                        final RangeBound<Integer> upperBound) {
         assertSame(lowerBound, range.lower, "lowerBound");
-        assertSame(lowerBound, range.lower, "upperBound");
+        assertSame(upperBound, range.upper, "upperBound");
     }
 
     @Override

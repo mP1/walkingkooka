@@ -33,6 +33,7 @@ public final class FieldAttributesTest implements ClassTesting2<FieldAttributes>
         fieldAndCheck("finalField", FieldAttributes.FINAL);
     }
 
+    @SuppressWarnings("unused")
     private final Object finalField = null;
 
     @Test
@@ -40,6 +41,7 @@ public final class FieldAttributesTest implements ClassTesting2<FieldAttributes>
         fieldAndCheck("noneField");
     }
 
+    @SuppressWarnings("unused")
     private Object noneField = null;
 
     @Test
@@ -47,6 +49,7 @@ public final class FieldAttributesTest implements ClassTesting2<FieldAttributes>
         fieldAndCheck("staticField", FieldAttributes.STATIC);
     }
 
+    @SuppressWarnings("unused")
     private static Object staticField = null;
 
     @Test
@@ -54,6 +57,7 @@ public final class FieldAttributesTest implements ClassTesting2<FieldAttributes>
         fieldAndCheck("staticTransientVolatileField", FieldAttributes.STATIC, FieldAttributes.TRANSIENT, FieldAttributes.VOLATILE);
     }
 
+    @SuppressWarnings("unused")
     private static transient volatile Object staticTransientVolatileField = null;
 
     @Test
@@ -61,6 +65,7 @@ public final class FieldAttributesTest implements ClassTesting2<FieldAttributes>
         fieldAndCheck("transientField", FieldAttributes.TRANSIENT);
     }
 
+    @SuppressWarnings("unused")
     private transient Object transientField = null;
 
     @Test
@@ -68,6 +73,7 @@ public final class FieldAttributesTest implements ClassTesting2<FieldAttributes>
         fieldAndCheck("volatileField", FieldAttributes.VOLATILE);
     }
 
+    @SuppressWarnings("unused")
     private volatile Object volatileField = null;
 
     private void fieldAndCheck(final String name,

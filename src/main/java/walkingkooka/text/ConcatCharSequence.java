@@ -24,8 +24,6 @@ import java.util.Objects;
  */
 final class ConcatCharSequence extends CharSequence2<ConcatCharSequence> {
 
-    private static final long serialVersionUID = 1L;
-
     /**
      * Factory that creates a new {@link ConcatCharSequence} or handles empty.
      */

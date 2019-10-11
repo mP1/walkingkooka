@@ -68,7 +68,7 @@ final public class ParentNodeSelectorTest extends
     public void testParentIgnoresGrandParent() {
         final TestNode grandChild = TestNode.with("grandChild");
         final TestNode child = TestNode.with("child", grandChild); //
-        final TestNode parent = TestNode.with("parent", child);
+        TestNode.with("parent", child);
 
         this.applyAndCheck(child.child(0), child);
     }

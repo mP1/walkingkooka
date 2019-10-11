@@ -285,7 +285,6 @@ public final class EbnfParserCombinatorsTest implements ParserTesting2<Parser<Fa
 
         final ParserToken i = this.string("i");
         final ParserToken p = this.string("p");
-        final ParserToken q = this.string("q");
         final ParserToken l = this.string("L");
 
         {

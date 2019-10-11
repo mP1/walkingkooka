@@ -59,8 +59,4 @@ final class CaseSensitivityEndsWithCharSequencePredicate<C extends CharSequence>
     String toStringPrefix() {
         return "ends with ";
     }
-
-    // serializable
-
-    private static final long serialVersionUID = 95296863659226360L;
 }

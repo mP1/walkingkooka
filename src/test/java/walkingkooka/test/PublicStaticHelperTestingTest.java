@@ -183,6 +183,7 @@ public final class PublicStaticHelperTestingTest implements PublicStaticHelperTe
 
     public static final class TestPrivateStaticMethods implements PublicStaticHelper {
 
+        @SuppressWarnings("unused")
         private static void privateStaticMethod() {
         }
     }

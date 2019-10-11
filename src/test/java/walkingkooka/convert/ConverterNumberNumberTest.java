@@ -353,10 +353,6 @@ public final class ConverterNumberNumberTest extends ConverterTestCase2<Converte
         this.convertAndCheck(number, Double.class, this.doubleValue());
     }
 
-    private void convertToDoubleFails(final Number number) {
-        this.convertFails(number, Double.class);
-    }
-
     // toFloat..........................................................................................................
 
     @Test

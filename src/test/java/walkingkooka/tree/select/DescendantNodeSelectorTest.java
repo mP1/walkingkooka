@@ -40,7 +40,7 @@ final public class DescendantNodeSelectorTest extends
     @Test
     public void testDescendantIgnoresParent() {
         final TestNode child = TestNode.with("child");
-        final TestNode parent = TestNode.with("parent", child);
+        TestNode.with("parent", child);
 
         this.applyAndCheck(child);
     }
@@ -80,7 +80,7 @@ final public class DescendantNodeSelectorTest extends
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
         final TestNode siblingOfParent = TestNode.with("siblingOfParent", TestNode.with("siblingOfParent-child"));
-        final TestNode grandParent = TestNode.with("grandParent", parent, siblingOfParent);
+        TestNode.with("grandParent", parent, siblingOfParent);
 
         this.applyAndCheck(parent, child);
     }

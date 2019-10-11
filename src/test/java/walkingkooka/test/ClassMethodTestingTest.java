@@ -148,6 +148,7 @@ public final class ClassMethodTestingTest implements ClassTesting<ClassMethodTes
 
     static class TestAllMethodsVisibilityPrivateStaticMethod {
 
+        @SuppressWarnings("unused")
         static private void privateStaticMethod(final Object param1) {
         }
     }
@@ -289,7 +290,8 @@ public final class ClassMethodTestingTest implements ClassTesting<ClassMethodTes
 
     static class TestAllMethodsVisibilityPrivateInstanceMethod {
 
-        private void privateInstanceMethod(final Object param1) {
+        @SuppressWarnings("unused")
+        private void privateInstanceMethod(@SuppressWarnings("unused") final Object param1) {
         }
     }
 
