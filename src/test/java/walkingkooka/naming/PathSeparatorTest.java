@@ -59,8 +59,14 @@ final public class PathSeparatorTest implements ClassTesting2<PathSeparator>,
     }
 
     @Test
-    public void testRequiredAtStart() {
+    public void testRequiredSlashAtStart() {
         this.check(PathSeparator.requiredAtStart(SEPARATOR), SEPARATOR, REQUIRED);
+    }
+
+    @Test
+    public void testRequiredBackslashAtStart() {
+        final char c = '\\';
+        this.check(PathSeparator.requiredAtStart(c), c, REQUIRED);
     }
 
     @Test
