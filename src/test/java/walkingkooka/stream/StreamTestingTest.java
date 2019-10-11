@@ -204,6 +204,6 @@ public final class StreamTestingTest implements StreamTesting<Stream<Integer>, I
     }
 
     private static Stream<Integer> stream(final Integer... values) {
-        return Arrays.asList(values).stream();
+        return Arrays.stream(values);
     }
 }
