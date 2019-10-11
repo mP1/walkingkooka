@@ -103,7 +103,7 @@ public final class ExpressionNotNode extends ExpressionUnaryNode {
     public Number toNumber(final ExpressionEvaluationContext context) {
         final Number number = this.value().toNumber(context);
         return number instanceof Long ?
-                this.applyLong(Long.class.cast(number)) :
+                this.applyLong((Long) number) :
                 this.applyBigInteger(context.convertOrFail(number, BigInteger.class));
     }
 

@@ -51,7 +51,7 @@ abstract class ConverterNumber<T> extends Converter2 {
         Either<U, String> result;
         try {
             result = ConverterNumberNumberVisitor.convert(Cast.to(this),
-                    Number.class.cast(value),
+                    (Number) value,
                     type);
         } catch (final Exception cause) {
             result = Either.right(cause.getMessage());

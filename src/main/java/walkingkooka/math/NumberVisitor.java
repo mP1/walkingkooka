@@ -40,35 +40,35 @@ public abstract class NumberVisitor extends Visitor<Number> {
         if (Visiting.CONTINUE == this.startVisit(number)) {
             do {
                 if (number instanceof BigDecimal) {
-                    this.visit(BigDecimal.class.cast(number));
+                    this.visit((BigDecimal) number);
                     break;
                 }
                 if (number instanceof BigInteger) {
-                    this.visit(BigInteger.class.cast(number));
+                    this.visit((BigInteger) number);
                     break;
                 }
                 if (number instanceof Byte) {
-                    this.visit(Byte.class.cast(number));
+                    this.visit((Byte) number);
                     break;
                 }
                 if (number instanceof Double) {
-                    this.visit(Double.class.cast(number));
+                    this.visit((Double) number);
                     break;
                 }
                 if (number instanceof Float) {
-                    this.visit(Float.class.cast(number));
+                    this.visit((Float) number);
                     break;
                 }
                 if (number instanceof Integer) {
-                    this.visit(Integer.class.cast(number));
+                    this.visit((Integer) number);
                     break;
                 }
                 if (number instanceof Long) {
-                    this.visit(Long.class.cast(number));
+                    this.visit((Long) number);
                     break;
                 }
                 if (number instanceof Short) {
-                    this.visit(Short.class.cast(number));
+                    this.visit((Short) number);
                     break;
                 }
                 this.visitUnknown(number);

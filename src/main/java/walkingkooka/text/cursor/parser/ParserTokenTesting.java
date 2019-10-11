@@ -74,12 +74,12 @@ public interface ParserTokenTesting<T extends ParserToken & HashCodeEqualsDefine
         for (; ; ) {
             final T token = this.createToken();
             if (token instanceof LeafParserToken) {
-                final Object value = LeafParserToken.class.cast(token).value();
+                final Object value = ((LeafParserToken) token).value();
                 assertFalse(value instanceof Collection, () -> token + " value must not be a Collection but was " + value.getClass() + "=" + value);
                 break;
             }
             if (token instanceof ParentParserToken) {
-                final Object value = ParentParserToken.class.cast(token).value();
+                final Object value = ((ParentParserToken) token).value();
                 assertTrue(value instanceof Collection, () -> token + " value must be a Collection but was " + value.getClass() + "=" + value);
                 break;
             }
@@ -154,9 +154,9 @@ public interface ParserTokenTesting<T extends ParserToken & HashCodeEqualsDefine
                 assertTrue(searchNode.isSequence(),
                         () -> "SearchNode should be a SearchSequenceNode=" + searchNode);
 
-                final ParentParserToken<?> parent = ParentParserToken.class.cast(token);
+                final ParentParserToken<?> parent = (ParentParserToken) token;
                 assertEquals(parent.value().size(),
-                        SearchSequenceNode.class.cast(searchNode).children().size(),
+                        ((SearchSequenceNode) searchNode).children().size(),
                         "child count should be the same");
                 break;
             }

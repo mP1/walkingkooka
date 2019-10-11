@@ -59,7 +59,7 @@ final class ConverterBooleanNumber extends Converter2 {
 
     @Override
     <T> Either<T, String> convert0(final Object value, Class<T> type, ConverterContext context) {
-        return Either.left(type.cast(ConverterBooleanNumberNumberTypeVisitor.convert(Boolean.class.cast(value), type)));
+        return Either.left(type.cast(ConverterBooleanNumberNumberTypeVisitor.convert((Boolean) value, type)));
     }
 
     @Override

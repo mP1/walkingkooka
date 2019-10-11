@@ -45,7 +45,7 @@ public final class NodeSelectorAttributeParserToken extends NodeSelectorParentPa
         if (!name.isAttributeName()) {
             throw new IllegalArgumentException("Attribute name missing from " + value);
         }
-        this.attributeName = NodeSelectorAttributeNameParserToken.class.cast(name).value();
+        this.attributeName = ((NodeSelectorAttributeNameParserToken) name).value();
     }
 
     public NodeSelectorAttributeName attributeName() {

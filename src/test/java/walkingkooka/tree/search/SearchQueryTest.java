@@ -118,7 +118,7 @@ public final class SearchQueryTest implements ClassTesting2<SearchQuery>,
         final Optional<ParserToken> tokens = parser.parse(TextCursors.charSequence(input), new FakeParserContext());
 
         // convert into SearchTextNodes
-        final SearchSequenceNode nodes = SearchNode.sequence(RepeatedParserToken.class.cast(tokens.get()).flat().value().stream()
+        final SearchSequenceNode nodes = SearchNode.sequence(((RepeatedParserToken) tokens.get()).flat().value().stream()
                 .map(t -> SearchNode.text(t.text(), t.text()))
                 .collect(Collectors.toList()));
 

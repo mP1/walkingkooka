@@ -2083,7 +2083,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
                     private Either<Integer, String> convertToInteger(final Object value) {
                         if (value instanceof Number) {
-                            return Either.left(Number.class.cast(value).intValue());
+                            return Either.left(((Number) value).intValue());
                         }
                         return Either.left(Integer.parseInt(String.valueOf(value)));
                     }

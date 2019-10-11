@@ -45,7 +45,7 @@ abstract class ConverterLocalTime extends Converter2 {
     final <T> Either<T, String> convert0(final Object value,
                                          final Class<T> type,
                                          final ConverterContext context) {
-        return this.convert1(LocalTime.class.cast(value),
+        return this.convert1((LocalTime) value,
                 type,
                 context);
     }

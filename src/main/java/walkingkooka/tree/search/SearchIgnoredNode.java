@@ -86,7 +86,7 @@ public final class SearchIgnoredNode extends SearchParentNode2 {
 
     private static SearchNode maybeUnwrap(final SearchNode node) {
         return node.isIgnored() ?
-                SearchIgnoredNode.class.cast(node).child() :
+                ((SearchIgnoredNode) node).child() :
                 node;
     }
 

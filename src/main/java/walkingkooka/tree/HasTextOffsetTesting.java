@@ -34,6 +34,6 @@ public interface HasTextOffsetTesting extends Testing {
                                     final int offset) {
         assertEquals(offset,
                 has.textOffset(),
-                () -> (has instanceof HasText ? HasText.class.cast(has).text() : has.toString()) + (has instanceof Node ? "\n" + Node.class.cast(has).root() : ""));
+                () -> (has instanceof HasText ? ((HasText) has).text() : has.toString()) + (has instanceof Node ? "\n" + ((Node) has).root() : ""));
     }
 }

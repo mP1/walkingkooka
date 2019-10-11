@@ -45,19 +45,19 @@ public abstract class ExpressionNumberVisitor extends Visitor<Number> {
             do {
                 do {
                     if (n instanceof BigDecimal) {
-                        this.visit(BigDecimal.class.cast(n));
+                        this.visit((BigDecimal) n);
                         break Exit;
                     }
                     if (n instanceof BigInteger) {
-                        this.visit(BigInteger.class.cast(n));
+                        this.visit((BigInteger) n);
                         break Exit;
                     }
                     if (n instanceof Double) {
-                        this.visit(Double.class.cast(n));
+                        this.visit((Double) n);
                         break Exit;
                     }
                     if (n instanceof Long) {
-                        this.visit(Long.class.cast(n));
+                        this.visit((Long) n);
                         break Exit;
                     }
                     n = this.visit(n);

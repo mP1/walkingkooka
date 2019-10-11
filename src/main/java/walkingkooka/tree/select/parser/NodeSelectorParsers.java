@@ -235,7 +235,7 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
             .setToString(NUMBER_IDENTIFIER.toString());
 
     private static ParserToken number(final ParserToken token, final ParserContext context) {
-        return NodeSelectorParserToken.number(BigDecimalParserToken.class.cast(token).value(), token.text());
+        return NodeSelectorParserToken.number(((BigDecimalParserToken) token).value(), token.text());
     }
 
     private static final EbnfIdentifierName OR_IDENTIFIER = EbnfIdentifierName.with("OR");
@@ -259,7 +259,7 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
             .setToString(QUOTED_TEXT_IDENTIFIER.toString());
 
     private static ParserToken quotedText(final ParserToken token, final ParserContext context) {
-        return NodeSelectorParserToken.quotedText(DoubleQuotedParserToken.class.cast(token).value(), token.text());
+        return NodeSelectorParserToken.quotedText(((DoubleQuotedParserToken) token).value(), token.text());
     }
 
     private static final EbnfIdentifierName PARAMETER_SEPARATOR_IDENTIFIER = EbnfIdentifierName.with("PARAMETER_SEPARATOR");
@@ -393,7 +393,7 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
                 CharPredicates.letterOrDigit().or(part),
                 1,
                 Integer.MAX_VALUE)
-                .transform(((stringParserToken, parserContext) -> parserTokenFactory.apply(nameFactory.apply(StringParserToken.class.cast(stringParserToken).value()), stringParserToken.text())))
+                .transform(((stringParserToken, parserContext) -> parserTokenFactory.apply(nameFactory.apply(((StringParserToken) stringParserToken).value()), stringParserToken.text())))
                 .setToString(name.value())
                 .cast();
     }
@@ -410,7 +410,7 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
             .cast();
 
     private static ParserToken transformWhitespace(final ParserToken token, final ParserContext context) {
-        return NodeSelectorParserToken.whitespace(StringParserToken.class.cast(token).value(), token.text());
+        return NodeSelectorParserToken.whitespace(((StringParserToken) token).value(), token.text());
     }
 
     private static final EbnfIdentifierName WILDCARD_IDENTIFIER = EbnfIdentifierName.with("WILDCARD");
@@ -425,7 +425,7 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
                                                  final BiFunction<String, String, ParserToken> factory,
                                                  final Class<? extends NodeSelectorLeafParserToken> tokenClass) {
         return Parsers.character(CaseSensitivity.SENSITIVE.charPredicate(c))
-                .transform((charParserToken, context) -> factory.apply(CharacterParserToken.class.cast(charParserToken).value().toString(), charParserToken.text()))
+                .transform((charParserToken, context) -> factory.apply(((CharacterParserToken) charParserToken).value().toString(), charParserToken.text()))
                 .setToString(tokenClass.getSimpleName())
                 .cast();
     }
@@ -442,7 +442,7 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
                                                   final BiFunction<String, String, ParserToken> factory,
                                                   final Class<? extends NodeSelectorLeafParserToken> tokenClass) {
         return CaseSensitivity.INSENSITIVE.parser(text)
-                .transform((stringParserToken, context) -> factory.apply(StringParserToken.class.cast(stringParserToken).value(), stringParserToken.text()))
+                .transform((stringParserToken, context) -> factory.apply(((StringParserToken) stringParserToken).value(), stringParserToken.text()))
                 .setToString(tokenClass.getSimpleName())
                 .cast();
     }
