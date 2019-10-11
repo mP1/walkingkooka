@@ -23,7 +23,6 @@ import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class CharacterConstantTest implements ClassTesting2<CharacterConstant>,
         CharSequenceTesting<CharacterConstant> {
@@ -73,27 +72,6 @@ final public class CharacterConstantTest implements ClassTesting2<CharacterConst
     public void testEqualsDifferent() {
         this.checkNotEquals(CharacterConstant.with((char) (CHAR
                 + 1)));
-    }
-
-    @Test
-    public void testSameCharacter() {
-        assertTrue(this.createObject().equals(CHAR));
-    }
-
-    @Test
-    public void testSameCharacter2() {
-        assertTrue(this.createObject().equals((Object) CHAR));
-    }
-
-    @Test
-    public void testSameString() {
-        assertTrue(this.createObject().equals("" + CHAR));
-    }
-
-    @Test
-    public void testSameString2() {
-        assertTrue(this.createObject()
-                .equals("" + CHAR));
     }
 
     @Test
