@@ -74,6 +74,7 @@ final class AlternativesParser<C extends ParserContext> implements Parser<C>, Ha
     private static <C extends ParserContext> List<Parser<C>> unwrapAllCustomToStringParsers(final List<Parser<C>> parsers) {
         return parsers.stream()
                 .filter(p -> p instanceof CustomToStringParser)
+                .map(p -> ((CustomToStringParser<C>)p).parser.cast())
                 .map(p -> Cast.<Parser<C>>to(p))
                 .collect(Collectors.toList());
     }
