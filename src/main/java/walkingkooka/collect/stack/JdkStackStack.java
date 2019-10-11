@@ -18,7 +18,6 @@
 package walkingkooka.collect.stack;
 
 import walkingkooka.Cast;
-import walkingkooka.Equality;
 import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Iterator;
@@ -138,7 +137,7 @@ final class JdkStackStack<T> implements Stack<T>, HashCodeEqualsDefined {
                 if (false == iterator2.hasNext()) {
                     break;
                 }
-                if (false == Equality.safeEquals(iterator1.next(), iterator2.next())) {
+                if (false == Objects.equals(iterator1.next(), iterator2.next())) {
                     break;
                 }
             }

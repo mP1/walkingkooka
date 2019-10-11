@@ -18,7 +18,6 @@
 package walkingkooka.collect.stack;
 
 import walkingkooka.Cast;
-import walkingkooka.Equality;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.HashCodeEqualsDefined;
 
@@ -216,7 +215,7 @@ final class ArrayStack<T> implements Stack<T>, HashCodeEqualsDefined {
                 equals = true;
 
                 for (int i = 0; i < last; i++) {
-                    if (false == Equality.safeEquals(array[i], otherArray[i])) {
+                    if (false == Objects.equals(array[i], otherArray[i])) {
                         equals = false;
                         break BigLoop;
                     }
@@ -229,7 +228,7 @@ final class ArrayStack<T> implements Stack<T>, HashCodeEqualsDefined {
             final Iterator<T> stackIterator = stack.iterator();
 
             for (int i = 0; i < last; i++) {
-                if (false == Equality.safeEquals(array[i], stackIterator.next())) {
+                if (false == Objects.equals(array[i], stackIterator.next())) {
                     break BigLoop;
                 }
             }
