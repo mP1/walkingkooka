@@ -26,6 +26,7 @@ import java.util.Set;
  */
 final class ImmutableMapNonSingletonArray<K, V> extends ImmutableMap<K, V> {
 
+    @SuppressWarnings("unchecked")
     static <K, V> ImmutableMapNonSingletonArray<K, V> with(final Entry<K, V>... notCopied) {
         return new ImmutableMapNonSingletonArray<>(notCopied);
     }
@@ -38,7 +39,7 @@ final class ImmutableMapNonSingletonArray<K, V> extends ImmutableMap<K, V> {
     @Override
     public boolean containsKey(final Object key) {
         boolean contains = false;
-        for (Entry<K, V> entry : this.entrySet.entries) {
+        for (final Entry<K, V> entry : this.entrySet.entries) {
             contains = entry.getKey().equals(key);
             if (contains) {
                 break;
@@ -50,7 +51,7 @@ final class ImmutableMapNonSingletonArray<K, V> extends ImmutableMap<K, V> {
     @Override
     public boolean containsValue(final Object value) {
         boolean contains = false;
-        for (Entry<K, V> entry : this.entrySet.entries) {
+        for (final Entry<K, V> entry : this.entrySet.entries) {
             contains = Objects.equals(entry.getValue(), value);
             if (contains) {
                 break;

@@ -39,7 +39,7 @@ final class BinaryRangeVisitor extends RangeVisitor<Long> {
     }
 
     // @Testing
-    BinaryRangeVisitor(final Range range) {
+    BinaryRangeVisitor(final Range<Long> range) {
         super();
         this.range = range;
         this.lower = 0;

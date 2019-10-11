@@ -182,7 +182,8 @@ public interface PathTesting<P extends Path<P, N> & HashCodeEqualsDefined & Comp
     /**
      * Concatenates a full path composed by the given names components
      */
-    default String concat(final N... names) {
+    @SuppressWarnings("unchecked")
+    default <N extends Name> String concat(final N... names) {
         final PathSeparator separator = this.separator();
         final char separatorCharacter = separator.character();
 

@@ -29,7 +29,7 @@ import java.util.function.Supplier;
  */
 final class EitherRight<L, R> extends Either<L, R> {
 
-    static <L, R> EitherRight withRight(final R value) {
+    static <L, R> EitherRight<L, R> withRight(final R value) {
         return new EitherRight<>(value);
     }
 

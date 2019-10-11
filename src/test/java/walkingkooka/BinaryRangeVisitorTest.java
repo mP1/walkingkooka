@@ -94,8 +94,8 @@ public final class BinaryRangeVisitorTest implements RangeVisitorTesting<BinaryR
         return new BinaryRangeVisitor(this.range());
     }
 
-    private Range<Integer> range() {
-        return Range.greaterThanEquals(12).and(Range.lessThanEquals(34));
+    private Range<Long> range() {
+        return Range.greaterThanEquals(12L).and(Range.lessThanEquals(34L));
     }
 
     @Override

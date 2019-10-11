@@ -71,6 +71,7 @@ public interface IteratorTesting {
         });
     }
 
+    @SuppressWarnings("unchecked")
     default <T> void iterateUsingHasNextAndCheck(final Iterator<T> iterator,
                                                  final T... expected) {
         Objects.requireNonNull(iterator, "iterator");
@@ -90,6 +91,7 @@ public interface IteratorTesting {
         this.nextFails(iterator);
     }
 
+    @SuppressWarnings("unchecked")
     default <T> void iterateAndCheck(final Iterator<T> iterator,
                                      final T... expected) {
 

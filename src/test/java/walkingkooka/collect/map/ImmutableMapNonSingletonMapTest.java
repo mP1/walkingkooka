@@ -31,7 +31,7 @@ public final class ImmutableMapNonSingletonMapTest extends ImmutableMapTestCase3
         final Map<String, Integer> ordered = Maps.ordered();
         ordered.put(KEY1, VALUE1);
         ordered.put(KEY2, VALUE2);
-        final ImmutableMapNonSingletonMap immutable = ImmutableMapNonSingletonMap.with(ordered);
+        final ImmutableMapNonSingletonMap<String, Integer> immutable = ImmutableMapNonSingletonMap.with(ordered);
 
         ordered.clear();
         assertEquals(ordered, immutable);

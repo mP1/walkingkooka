@@ -29,7 +29,7 @@ public final class ImmutableMapNonSingletonArrayTest extends ImmutableMapTestCas
         final Entry<String, Integer>[] array = new Entry[2];
         array[0] = Maps.entry(KEY1, VALUE1);
         array[1] = Maps.entry(KEY2, VALUE2);
-        final ImmutableMapNonSingletonArray immutable = ImmutableMapNonSingletonArray.with(array);
+        final ImmutableMapNonSingletonArray<String, Integer> immutable = ImmutableMapNonSingletonArray.with(array);
 
         array[1] = Maps.entry(KEY2, 666);
 
