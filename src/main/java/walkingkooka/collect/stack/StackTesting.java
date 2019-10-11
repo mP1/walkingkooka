@@ -24,7 +24,6 @@ import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 
 import java.util.EmptyStackException;
-import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -63,8 +62,8 @@ public interface StackTesting<S extends Stack<T> & HashCodeEqualsDefined, T> ext
     default void testHashCodeAgainstJavaUtilStack() {
         final S stack = this.createStack();
         final java.util.Stack<T> jdkStack = new java.util.Stack<>();
-        for(Iterator<T> iterator = stack.iterator(); iterator.hasNext();) {
-            jdkStack.push(iterator.next());
+        for (final T t : stack) {
+            jdkStack.push(t);
         }
 
         checkHashCode(jdkStack, stack);
