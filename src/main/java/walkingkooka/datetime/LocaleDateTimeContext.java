@@ -89,7 +89,7 @@ final class LocaleDateTimeContext implements DateTimeContext {
         return this.locale;
     }
 
-    private Locale locale;
+    private final Locale locale;
 
     @Override
     public List<String> monthNames() {

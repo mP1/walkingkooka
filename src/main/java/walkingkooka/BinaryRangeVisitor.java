@@ -98,7 +98,7 @@ final class BinaryRangeVisitor extends RangeVisitor<Long> {
     }
 
     private Binary binary;
-    private Range<Long> range;
+    private final Range<Long> range;
     private int lower;
     private int upper;
 
