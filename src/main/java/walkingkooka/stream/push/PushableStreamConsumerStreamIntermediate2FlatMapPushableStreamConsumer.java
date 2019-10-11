@@ -45,7 +45,7 @@ final class PushableStreamConsumerStreamIntermediate2FlatMapPushableStreamConsum
     public void accept(final T value) {
         final Stream<T> stream = Cast.to(this.mapper.apply(value));
         if (null != stream) {
-            stream.forEach(this.next::accept);
+            stream.forEach(this.next);
         }
     }
 
