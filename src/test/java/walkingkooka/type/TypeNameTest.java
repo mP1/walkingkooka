@@ -35,7 +35,7 @@ public final class TypeNameTest extends PackageNameOrTypeNameJavaNameTestCase<Cl
     }
 
     @Test
-    public void testFromClass() throws Exception {
+    public void testFromClass() {
         final ClassName p = ClassName.fromClass(this.getClass());
         this.checkValue(p, "walkingkooka.type.TypeNameTest");
     }

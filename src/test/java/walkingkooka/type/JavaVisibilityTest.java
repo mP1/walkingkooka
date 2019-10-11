@@ -249,7 +249,7 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
 
     private void isOrLessCheck(final JavaVisibility visibility,
                                final JavaVisibility other,
-                               final boolean expected) throws Exception {
+                               final boolean expected) {
         assertEquals(expected,
                 visibility.isOrLess(other),
                 () -> visibility + " is less than " + other);

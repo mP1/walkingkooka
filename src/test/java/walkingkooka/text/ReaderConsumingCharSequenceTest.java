@@ -99,7 +99,7 @@ public class ReaderConsumingCharSequenceTest implements ClassTesting2<ReaderCons
     }
 
     @Test
-    public void testConsumeUsingLengthTests() throws Exception {
+    public void testConsumeUsingLengthTests() {
         final String text = "abcdefghijklmnopqrstuvwxyz";
         try (final StringReader reader = new StringReader(text)) {
             final ReaderConsumingCharSequence chars = ReaderConsumingCharSequence.with(reader, 1);

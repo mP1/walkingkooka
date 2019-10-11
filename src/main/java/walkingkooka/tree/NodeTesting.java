@@ -75,7 +75,7 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Test
-    default void testPublicStaticMethodNodeSelectorExpressionParserToken() throws Exception {
+    default void testPublicStaticMethodNodeSelectorExpressionParserToken() {
         final Method method = Arrays.stream(this.type().getMethods())
                 .filter(MethodAttributes.STATIC::is)
                 .filter(m -> m.getReturnType() == NodeSelector.class)

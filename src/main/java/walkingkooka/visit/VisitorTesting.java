@@ -44,7 +44,7 @@ public interface VisitorTesting<V extends Visitor<T>, T>
      * All visitors must have protected constructors.
      */
     @Test
-    default void testAllConstructorsVisibility() throws Exception {
+    default void testAllConstructorsVisibility() {
         assertEquals(Lists.empty(),
                 Arrays.stream(this.type().getConstructors())
                         .filter(c -> JavaVisibility.PROTECTED != JavaVisibility.of(c))
