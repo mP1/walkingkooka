@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.ToStringTesting;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 public interface CollectionTesting2<C extends Collection<E>, E> extends CollectionTesting, ToStringTesting<C> {
 
@@ -34,10 +33,8 @@ public interface CollectionTesting2<C extends Collection<E>, E> extends Collecti
     default void testIteratorContainsAndCollection() {
         int size = 0;
         final C collection = this.createCollection();
-        final Iterator<E> iterator = collection.iterator();
 
-        while (iterator.hasNext()) {
-            final E element = iterator.next();
+        for (final E element : collection) {
             containsAndCheck(collection, element);
             size++;
         }

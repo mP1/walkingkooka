@@ -20,7 +20,6 @@ package walkingkooka.collect.map;
 import org.junit.jupiter.api.Test;
 import walkingkooka.text.CharSequences;
 
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -38,10 +37,8 @@ public interface MapTesting<M extends Map<K, V>, K, V> {
     default void testIteratorContainsKeyAndSize() {
         int size = 0;
         final M map = this.createMap();
-        final Iterator<Entry<K, V>> iterator = map.entrySet().iterator();
 
-        while (iterator.hasNext()) {
-            final Entry<K, V> keyAndValue = iterator.next();
+        for (final Entry<K, V> keyAndValue : map.entrySet()) {
             containsKeyAndCheck(map, keyAndValue.getKey());
             size++;
         }
@@ -53,10 +50,8 @@ public interface MapTesting<M extends Map<K, V>, K, V> {
     default void testIteratorAndContainsValueAndSize() {
         int size = 0;
         final M map = this.createMap();
-        final Iterator<Entry<K, V>> iterator = map.entrySet().iterator();
 
-        while (iterator.hasNext()) {
-            final Entry<K, V> keyAndValue = iterator.next();
+        for (Entry<K, V> keyAndValue : map.entrySet()) {
             containsValueAndCheck(map, keyAndValue.getValue());
             size++;
         }
@@ -68,10 +63,8 @@ public interface MapTesting<M extends Map<K, V>, K, V> {
     default void testIteratorAndSize() {
         int size = 0;
         final M map = this.createMap();
-        final Iterator<Entry<K, V>> iterator = map.entrySet().iterator();
 
-        while (iterator.hasNext()) {
-            iterator.next();
+        for (Entry<K, V> kvEntry : map.entrySet()) {
             size++;
         }
 
