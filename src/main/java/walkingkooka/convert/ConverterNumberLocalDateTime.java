@@ -60,6 +60,7 @@ final class ConverterNumberLocalDateTime extends ConverterNumber<LocalDateTime> 
         return this.localDateTime(value.longValueExact(), value);
     }
 
+    @SuppressWarnings("UnnecessaryUnboxing")
     @Override
     Either<LocalDateTime, String> doubleValue(final Double value) {
         return this.localDateTime(value.doubleValue());

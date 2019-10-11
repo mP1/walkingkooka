@@ -69,7 +69,8 @@ final class ConverterNumberNumberNumberTypeVisitorFloat extends ConverterNumberN
         this.saveFloat(number);
     }
 
-    @Override 
+    @SuppressWarnings("UnnecessaryUnboxing")
+    @Override
     protected void visit(final Long number) {
         final float converted = number.floatValue();
         if (Float.valueOf(converted).longValue() == number.longValue()) {

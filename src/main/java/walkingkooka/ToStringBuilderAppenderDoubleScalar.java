@@ -27,9 +27,10 @@ final class ToStringBuilderAppenderDoubleScalar extends ToStringBuilderAppenderN
         super(value);
     }
 
+    @SuppressWarnings("UnnecessaryUnboxing")
     @Override
     boolean isDefaultValue() {
-        return this.value.doubleValue() == 0;
+        return Math.signum(this.value.doubleValue()) == 0;
     }
 
     @Override
