@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class InputStreamsTest implements PublicStaticHelperTesting<InputStreams> {
 
     @Test
-    public void testReadAllBytesNullFails() throws Exception {
+    public void testReadAllBytesNullFails() {
         assertThrows(NullPointerException.class, () -> {
             InputStreams.readAllBytes(null);
         });

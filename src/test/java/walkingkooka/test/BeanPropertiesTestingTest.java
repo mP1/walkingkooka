@@ -55,7 +55,7 @@ public final class BeanPropertiesTestingTest implements BeanPropertiesTesting {
     }
 
     @Test
-    public void testAllPropertiesNeverReturnNullCheckFails() throws Exception {
+    public void testAllPropertiesNeverReturnNullCheckFails() {
         assertThrows(AssertionError.class,
                 () -> this.allPropertiesNeverReturnNullCheck(new TestAllPropertiesNeverReturnNullCheckFails(),
                         Predicates.never()));
