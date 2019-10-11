@@ -55,7 +55,7 @@ final public class PathSeparator implements HashCodeEqualsDefined {
      * Creates a new {@link PathSeparator} instance.
      */
     private static PathSeparator with(final char character, final boolean requiredAtStart) {
-        if (Character.isISOControl(character) || Character.isLetterOrDigit(character)) {
+        if (character <= ' ' || Character.isLetterOrDigit(character)) {
             throw new IllegalArgumentException(PathSeparator.invalidCharacter(character));
         }
         return new PathSeparator(character, requiredAtStart);
