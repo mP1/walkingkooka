@@ -69,13 +69,13 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
 
             @Override
             protected Visiting startVisitClass(final Class<?> classs) {
-                b.append(",start class:" + name(classs));
+                b.append(",start class:").append(name(classs));
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisitClass(final Class<?> classs) {
-                b.append(",end class:" + name(classs));
+                b.append(",end class:").append(name(classs));
             }
         }.accept(Object.class);
 
@@ -99,24 +99,24 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
 
             @Override
             protected Visiting startVisitClass(final Class<?> classs) {
-                b.append(",start: " + name(classs));
+                b.append(",start: ").append(name(classs));
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisitClass(final Class<?> classs) {
-                b.append(",end: " + name(classs));
+                b.append(",end: ").append(name(classs));
             }
 
             @Override
             protected Visiting startVisitSuperClass(final Class<?> classs) {
-                b.append(",start super: " + name(classs));
+                b.append(",start super: ").append(name(classs));
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisitSuperClass(final Class<?> classs) {
-                b.append(",end super: " + name(classs));
+                b.append(",end super: ").append(name(classs));
             }
         }.accept(TestSub.class);
 
@@ -132,24 +132,24 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
 
             @Override
             protected Visiting startVisitClass(final Class<?> classs) {
-                b.append(",start class:" + name(classs));
+                b.append(",start class:").append(name(classs));
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisitClass(final Class<?> classs) {
-                b.append(",end class:" + name(classs));
+                b.append(",end class:").append(name(classs));
             }
 
             @Override
             protected Visiting startVisitSuperClass(final Class<?> classs) {
-                b.append(",start super:" + name(classs));
+                b.append(",start super:").append(name(classs));
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisitSuperClass(final Class<?> classs) {
-                b.append(",end super:" + name(classs));
+                b.append(",end super:").append(name(classs));
             }
         }.accept(TestSub.class);
 
@@ -168,24 +168,24 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
 
             @Override
             protected Visiting startVisitClass(final Class<?> classs) {
-                b.append(",start class:" + name(classs));
+                b.append(",start class:").append(name(classs));
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisitClass(final Class<?> classs) {
-                b.append(",end class:" + name(classs));
+                b.append(",end class:").append(name(classs));
             }
 
             @Override
             protected Visiting startVisitSuperClass(final Class<?> classs) {
-                b.append(",start super:" + name(classs));
+                b.append(",start super:").append(name(classs));
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisitSuperClass(final Class<?> classs) {
-                b.append(",end super:" + name(classs));
+                b.append(",end super:").append(name(classs));
             }
         }.accept(TestSub2.class);
 
@@ -212,35 +212,35 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
 
             @Override
             protected Visiting startVisitClass(final Class<?> classs) {
-                b.append(",start class:" + name(classs));
+                b.append(",start class:").append(name(classs));
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisitClass(final Class<?> classs) {
-                b.append(",end class:" + name(classs));
+                b.append(",end class:").append(name(classs));
             }
 
             @Override
             protected Visiting startVisitSuperClass(final Class<?> classs) {
-                b.append(",start super:" + name(classs));
+                b.append(",start super:").append(name(classs));
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisitSuperClass(final Class<?> classs) {
-                b.append(",end super:" + name(classs));
+                b.append(",end super:").append(name(classs));
             }
 
             @Override
             protected Visiting startVisitImplementedInterface(final Class<?> classs) {
-                b.append(",start impl:" + name(classs));
+                b.append(",start impl:").append(name(classs));
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisitImplementedInterface(final Class<?> classs) {
-                b.append(",end impl:" + name(classs));
+                b.append(",end impl:").append(name(classs));
             }
         }.accept(TestImplIntf.class);
 
@@ -256,35 +256,35 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
 
             @Override
             protected Visiting startVisitClass(final Class<?> classs) {
-                b.append(",start class:" + name(classs));
+                b.append(",start class:").append(name(classs));
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisitClass(final Class<?> classs) {
-                b.append(",end class:" + name(classs));
+                b.append(",end class:").append(name(classs));
             }
 
             @Override
             protected Visiting startVisitSuperClass(final Class<?> classs) {
-                b.append(",start super:" + name(classs));
+                b.append(",start super:").append(name(classs));
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisitSuperClass(final Class<?> classs) {
-                b.append(",end super:" + name(classs));
+                b.append(",end super:").append(name(classs));
             }
 
             @Override
             protected Visiting startVisitImplementedInterface(final Class<?> classs) {
-                b.append(",start intf:" + name(classs));
+                b.append(",start intf:").append(name(classs));
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisitImplementedInterface(final Class<?> classs) {
-                b.append(",end intf:" + name(classs));
+                b.append(",end intf:").append(name(classs));
             }
         }.accept(TestImplIntf.class);
 
@@ -312,35 +312,35 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
 
             @Override
             protected Visiting startVisitClass(final Class<?> classs) {
-                b.append(",start class:" + name(classs));
+                b.append(",start class:").append(name(classs));
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisitClass(final Class<?> classs) {
-                b.append(",end class:" + name(classs));
+                b.append(",end class:").append(name(classs));
             }
 
             @Override
             protected Visiting startVisitSuperClass(final Class<?> classs) {
-                b.append(",start super:" + name(classs));
+                b.append(",start super:").append(name(classs));
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisitSuperClass(final Class<?> classs) {
-                b.append(",end super:" + name(classs));
+                b.append(",end super:").append(name(classs));
             }
 
             @Override
             protected Visiting startVisitImplementedInterface(final Class<?> classs) {
-                b.append(",start intf:" + name(classs));
+                b.append(",start intf:").append(name(classs));
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisitImplementedInterface(final Class<?> classs) {
-                b.append(",end intf:" + name(classs));
+                b.append(",end intf:").append(name(classs));
             }
         }.accept(TestImplIntf2.class);
 
@@ -364,46 +364,46 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
 
             @Override
             protected Visiting startVisitClass(final Class<?> classs) {
-                b.append(",start class:" + name(classs));
+                b.append(",start class:").append(name(classs));
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisitClass(final Class<?> classs) {
-                b.append(",end class:" + name(classs));
+                b.append(",end class:").append(name(classs));
             }
 
             @Override
             protected Visiting startVisitArrayComponent(final Class<?> classs) {
-                b.append(",start array-comp:" + name(classs));
+                b.append(",start array-comp:").append(name(classs));
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisitArrayComponent(final Class<?> classs) {
-                b.append(",end array-comp:" + name(classs));
+                b.append(",end array-comp:").append(name(classs));
             }
 
             @Override
             protected Visiting startVisitSuperClass(final Class<?> classs) {
-                b.append(",start super:" + name(classs));
+                b.append(",start super:").append(name(classs));
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisitSuperClass(final Class<?> classs) {
-                b.append(",end super:" + name(classs));
+                b.append(",end super:").append(name(classs));
             }
 
             @Override
             protected Visiting startVisitImplementedInterface(final Class<?> classs) {
-                b.append(",start intf:" + name(classs));
+                b.append(",start intf:").append(name(classs));
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisitImplementedInterface(final Class<?> classs) {
-                b.append(",end intf:" + name(classs));
+                b.append(",end intf:").append(name(classs));
             }
         }.accept(Object[].class);
 
