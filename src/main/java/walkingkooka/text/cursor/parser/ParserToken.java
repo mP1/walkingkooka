@@ -17,7 +17,6 @@
 
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.HasText;
 import walkingkooka.tree.search.HasSearchNode;
@@ -72,7 +71,7 @@ public interface ParserToken extends HashCodeEqualsDefined,
     /**
      * Useful to get help reduce casting noise.
      */
-    default <T extends ParserToken> T cast() {
-        return Cast.to(this);
+    default <T extends ParserToken> T cast(final Class<T> type) {
+        return (T)this;
     }
 }

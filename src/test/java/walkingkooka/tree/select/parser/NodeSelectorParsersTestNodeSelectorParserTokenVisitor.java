@@ -36,7 +36,7 @@ final class NodeSelectorParsersTestNodeSelectorParserTokenVisitor extends NodeSe
     static NodeSelectorParserToken toUpper(final NodeSelectorParserToken token) {
         final NodeSelectorParsersTestNodeSelectorParserTokenVisitor visitor = new NodeSelectorParsersTestNodeSelectorParserTokenVisitor();
         visitor.accept(token);
-        return visitor.children.get(0).cast();
+        return visitor.children.get(0).cast(NodeSelectorParserToken.class);
     }
 
     private NodeSelectorParsersTestNodeSelectorParserTokenVisitor() {

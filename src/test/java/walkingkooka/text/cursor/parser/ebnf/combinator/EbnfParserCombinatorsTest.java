@@ -400,7 +400,8 @@ public final class EbnfParserCombinatorsTest implements ParserTesting2<Parser<Fa
                 final CharSequence remaining = save.textBetween();
                 fail("Failed to parse all of grammar from " + CharSequences.quote(resourceName) + " text remaining: " + remaining + "\n\n" + CharSequences.escape(remaining) + "\n\nGrammar File:\n" + text);
             }
-            return grammar.get().cast();
+            return grammar.get()
+                    .cast(EbnfGrammarParserToken.class);
         } catch (final IOException cause) {
             throw new Error("failed to read grammar from " + CharSequences.quote(resourceName));
         }
@@ -459,9 +460,9 @@ public final class EbnfParserCombinatorsTest implements ParserTesting2<Parser<Fa
 
             private char characterForIdentifierOrTerminal(final EbnfParserToken token) {
                 return token.isTerminal() ?
-                        this.characterFromTerminal(token.cast()) :
+                        this.characterFromTerminal(token.cast(EbnfTerminalParserToken.class)) :
                         token.isIdentifier() ?
-                                this.characterFromIdentifierReference(token.cast()) :
+                                this.characterFromIdentifierReference(token.cast(EbnfIdentifierParserToken.class)) :
                                 failInvalidRangeBound("Invalid range bound, expected terminal or identifier indirectly pointing to a terminal but got " + token, token);
             }
 

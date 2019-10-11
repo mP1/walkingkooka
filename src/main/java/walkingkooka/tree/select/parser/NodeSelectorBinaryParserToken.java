@@ -39,8 +39,8 @@ abstract class NodeSelectorBinaryParserToken<T extends NodeSelectorBinaryParserT
             throw new IllegalArgumentException("Expected 2 tokens but got " + count + "=" + without);
         }
 
-        this.left = without.get(0).cast();
-        this.right = without.get(1).cast();
+        this.left = without.get(0).cast(NodeSelectorParserToken.class);
+        this.right = without.get(1).cast(NodeSelectorParserToken.class);
     }
 
     /**

@@ -41,7 +41,7 @@ public final class NodeSelectorAttributeParserToken extends NodeSelectorParentPa
         if (count < 1) {
             throw new IllegalArgumentException("Expected at least 1 tokens but got " + count + "=" + without);
         }
-        final NodeSelectorParserToken name = without.get(0).cast();
+        final NodeSelectorParserToken name = without.get(0).cast(NodeSelectorParserToken.class);
         if (!name.isAttributeName()) {
             throw new IllegalArgumentException("Attribute name missing from " + value);
         }

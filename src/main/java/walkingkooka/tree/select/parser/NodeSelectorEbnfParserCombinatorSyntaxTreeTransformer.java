@@ -60,7 +60,7 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
     private static final EbnfIdentifierName FUNCTION_IDENTIFIER = EbnfIdentifierName.with("FUNCTION");
 
     private static ParserToken group(final ParserToken token, final ParserContext context) {
-        return NodeSelectorParserToken.group(clean(token.cast()), token.text());
+        return NodeSelectorParserToken.group(clean(token.cast(SequenceParserToken.class)), token.text());
     }
 
     private static final EbnfIdentifierName GROUP_IDENTIFIER = EbnfIdentifierName.with("GROUP");
@@ -71,7 +71,7 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
     }
 
     private static ParserToken negative(final ParserToken token, final ParserContext context) {
-        return NodeSelectorParserToken.negative(clean(token.cast()), token.text());
+        return NodeSelectorParserToken.negative(clean(token.cast(SequenceParserToken.class)), token.text());
     }
 
     private static final EbnfIdentifierName NEGATIVE_IDENTIFIER = EbnfIdentifierName.with("NEGATIVE");
@@ -102,7 +102,7 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
         int mode = PREDICATE;
 
         for (ParserToken token : sequenceParserToken.value()) {
-            final NodeSelectorParserToken selectorParserToken = token.cast();
+            final NodeSelectorParserToken selectorParserToken = token.cast(NodeSelectorParserToken.class);
 
             final boolean andSymbol = selectorParserToken.isAndSymbol();
             final boolean orSymbol = selectorParserToken.isOrSymbol();

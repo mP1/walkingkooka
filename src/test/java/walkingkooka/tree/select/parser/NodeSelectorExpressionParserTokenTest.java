@@ -38,7 +38,7 @@ public final class NodeSelectorExpressionParserTokenTest extends NodeSelectorPar
 
         final NodeSelectorExpressionParserToken expression = this.createToken();
 
-        final NodeSelectorWildcardParserToken wildcard = expression.value().get(0).cast();
+        final NodeSelectorWildcardParserToken wildcard = expression.value().get(0).cast(NodeSelectorWildcardParserToken.class);
 
         new FakeNodeSelectorParserTokenVisitor() {
             @Override

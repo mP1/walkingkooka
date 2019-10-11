@@ -19,6 +19,7 @@ package walkingkooka.text.cursor.parser.ebnf.combinator;
 
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierParserToken;
@@ -65,9 +66,13 @@ public final class EbnfParserCombinators implements PublicStaticHelper {
     private static void preloadProxies(final EbnfGrammarParserToken grammar, final Map<EbnfIdentifierName, Parser<ParserContext>> identifierToParser) {
         grammar.value()
                 .stream()
-                .map(EbnfParserToken.class::cast)
+                .map(EbnfParserCombinators::toEbnfParserToken)
                 .filter(EbnfParserToken::isRule)
-                .forEach(t -> addProxy(t.cast(), identifierToParser));
+                .forEach(t -> addProxy(t.cast(EbnfRuleParserToken.class), identifierToParser));
+    }
+
+    private static EbnfParserToken toEbnfParserToken(final ParserToken token) {
+        return token.cast(EbnfParserToken.class);
     }
 
     private static void addProxy(final EbnfRuleParserToken rule, final Map<EbnfIdentifierName, Parser<ParserContext>> identifierToParser) {

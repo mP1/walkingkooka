@@ -38,9 +38,9 @@ public final class NodeSelectorGroupParserTokenTest extends NodeSelectorParentPa
 
         final NodeSelectorGroupParserToken expression = this.createToken();
 
-        final NodeSelectorParenthesisOpenSymbolParserToken open = expression.value().get(0).cast();
-        final NodeSelectorNumberParserToken number = expression.value().get(1).cast();
-        final NodeSelectorParenthesisCloseSymbolParserToken close = expression.value().get(2).cast();
+        final NodeSelectorParenthesisOpenSymbolParserToken open = expression.value().get(0).cast(NodeSelectorParenthesisOpenSymbolParserToken.class);
+        final NodeSelectorNumberParserToken number = expression.value().get(1).cast(NodeSelectorNumberParserToken.class);
+        final NodeSelectorParenthesisCloseSymbolParserToken close = expression.value().get(2).cast(NodeSelectorParenthesisCloseSymbolParserToken.class);
 
         new FakeNodeSelectorParserTokenVisitor() {
             @Override

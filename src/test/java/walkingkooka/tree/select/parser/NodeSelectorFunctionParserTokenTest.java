@@ -79,10 +79,10 @@ public final class NodeSelectorFunctionParserTokenTest extends NodeSelectorParen
 
         final NodeSelectorFunctionParserToken function = this.createToken();
 
-        final NodeSelectorFunctionNameParserToken functionName = function.value().get(0).cast();
-        final NodeSelectorParenthesisOpenSymbolParserToken parenOpen = function.value().get(1).cast();
-        final NodeSelectorQuotedTextParserToken quotedText = function.value().get(2).cast();
-        final NodeSelectorParenthesisCloseSymbolParserToken parenClose = function.value().get(3).cast();
+        final NodeSelectorFunctionNameParserToken functionName = function.value().get(0).cast(NodeSelectorFunctionNameParserToken.class);
+        final NodeSelectorParenthesisOpenSymbolParserToken parenOpen = function.value().get(1).cast(NodeSelectorParenthesisOpenSymbolParserToken.class);
+        final NodeSelectorQuotedTextParserToken quotedText = function.value().get(2).cast(NodeSelectorQuotedTextParserToken.class);
+        final NodeSelectorParenthesisCloseSymbolParserToken parenClose = function.value().get(3).cast(NodeSelectorParenthesisCloseSymbolParserToken.class);
 
         new FakeNodeSelectorParserTokenVisitor() {
             @Override

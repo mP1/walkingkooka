@@ -36,9 +36,9 @@ public final class NodeSelectorSubtractionParserTokenTest extends NodeSelectorBi
 
         final NodeSelectorSubtractionParserToken and = this.createToken();
 
-        final NodeSelectorNodeNameParserToken nodeName = and.value().get(0).cast();
-        final NodeSelectorMinusSymbolParserToken minusSymbol = and.value().get(1).cast();
-        final NodeSelectorWildcardParserToken wildcard = and.value().get(2).cast();
+        final NodeSelectorNodeNameParserToken nodeName = and.value().get(0).cast(NodeSelectorNodeNameParserToken.class);
+        final NodeSelectorMinusSymbolParserToken minusSymbol = and.value().get(1).cast(NodeSelectorMinusSymbolParserToken.class);
+        final NodeSelectorWildcardParserToken wildcard = and.value().get(2).cast(NodeSelectorWildcardParserToken.class);
 
         new FakeNodeSelectorParserTokenVisitor() {
             @Override

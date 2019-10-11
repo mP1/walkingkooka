@@ -36,9 +36,9 @@ public final class NodeSelectorModuloParserTokenTest extends NodeSelectorBinaryP
 
         final NodeSelectorModuloParserToken modulo = this.createToken();
 
-        final NodeSelectorNodeNameParserToken nodeName = modulo.value().get(0).cast();
-        final NodeSelectorModuloSymbolParserToken moduloSymbol = modulo.value().get(1).cast();
-        final NodeSelectorWildcardParserToken wildcard = modulo.value().get(2).cast();
+        final NodeSelectorNodeNameParserToken nodeName = modulo.value().get(0).cast(NodeSelectorNodeNameParserToken.class);
+        final NodeSelectorModuloSymbolParserToken moduloSymbol = modulo.value().get(1).cast(NodeSelectorModuloSymbolParserToken.class);
+        final NodeSelectorWildcardParserToken wildcard = modulo.value().get(2).cast(NodeSelectorWildcardParserToken.class);
 
         new FakeNodeSelectorParserTokenVisitor() {
             @Override

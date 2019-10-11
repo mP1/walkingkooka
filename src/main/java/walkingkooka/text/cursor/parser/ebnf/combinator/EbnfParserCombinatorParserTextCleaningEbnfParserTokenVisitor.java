@@ -51,7 +51,8 @@ final class EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitor extends
     static EbnfGrammarParserToken clean(final EbnfGrammarParserToken grammar) {
         final EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitor visitor = new EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitor();
         visitor.accept(grammar);
-        return visitor.children.get(0).cast();
+        return visitor.children.get(0)
+                .cast(EbnfGrammarParserToken.class);
     }
 
     EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitor() {
