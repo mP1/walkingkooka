@@ -127,7 +127,7 @@ public final class ExpressionNegativeNodeTest extends ExpressionUnaryNodeTestCas
 
     @Test
     public void testEvaluateToNumberLong() {
-        final Long value = 123L;
+        final long value = 123L;
         this.evaluateAndCheckNumberLong(this.createExpressionNode(ExpressionNode.longNode(value)), -value);
     }
 
