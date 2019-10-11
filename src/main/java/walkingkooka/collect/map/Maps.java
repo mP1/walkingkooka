@@ -107,7 +107,7 @@ final public class Maps implements PublicStaticHelper {
                 ordered();
         copy.putAll(map);
 
-        Map<K, V> immutable = null;
+        Map<K, V> immutable;
         switch (copy.size()) {
             case 0:
                 immutable = empty();
