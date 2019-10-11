@@ -36,9 +36,9 @@ public final class NodeSelectorAdditionParserTokenTest extends NodeSelectorBinar
 
         final NodeSelectorAdditionParserToken add = this.createToken();
 
-        final NodeSelectorNodeNameParserToken nodeName = add.value().get(0).cast();
-        final NodeSelectorPlusSymbolParserToken addSymbol = add.value().get(1).cast();
-        final NodeSelectorWildcardParserToken wildcard = add.value().get(2).cast();
+        final NodeSelectorNodeNameParserToken nodeName = add.value().get(0).cast(NodeSelectorNodeNameParserToken.class);
+        final NodeSelectorPlusSymbolParserToken addSymbol = add.value().get(1).cast(NodeSelectorPlusSymbolParserToken.class);
+        final NodeSelectorWildcardParserToken wildcard = add.value().get(2).cast(NodeSelectorWildcardParserToken.class);
 
         new FakeNodeSelectorParserTokenVisitor() {
             @Override

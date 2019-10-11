@@ -36,9 +36,9 @@ public final class NodeSelectorDivisionParserTokenTest extends NodeSelectorBinar
 
         final NodeSelectorDivisionParserToken division = this.createToken();
 
-        final NodeSelectorNodeNameParserToken nodeName = division.value().get(0).cast();
-        final NodeSelectorDivideSymbolParserToken divide = division.value().get(1).cast();
-        final NodeSelectorWildcardParserToken wildcard = division.value().get(2).cast();
+        final NodeSelectorNodeNameParserToken nodeName = division.value().get(0).cast(NodeSelectorNodeNameParserToken.class);
+        final NodeSelectorDivideSymbolParserToken divide = division.value().get(1).cast(NodeSelectorDivideSymbolParserToken.class);
+        final NodeSelectorWildcardParserToken wildcard = division.value().get(2).cast(NodeSelectorWildcardParserToken.class);
 
         new FakeNodeSelectorParserTokenVisitor() {
             @Override

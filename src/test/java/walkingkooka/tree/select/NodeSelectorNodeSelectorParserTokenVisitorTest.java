@@ -2119,7 +2119,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                 .parse(TextCursors.charSequence(expression),
                         NodeSelectorParserContexts.basic(decimalNumberContext()))
                 .orElseThrow(() -> new UnsupportedOperationException(expression))
-                .cast();
+                .cast(NodeSelectorExpressionParserToken.class);
     }
 
     private DecimalNumberContext decimalNumberContext() {

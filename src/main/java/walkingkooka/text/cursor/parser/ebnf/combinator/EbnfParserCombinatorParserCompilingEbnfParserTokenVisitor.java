@@ -105,7 +105,7 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor extends Eb
 
             EbnfParserToken token = rule.token();
             while (token.isIdentifier()) {
-                final EbnfIdentifierParserToken tokenIdentifier = token.cast();
+                final EbnfIdentifierParserToken tokenIdentifier = token.cast(EbnfIdentifierParserToken.class);
                 token = this.identifierToRule.get(tokenIdentifier.value()).token();
             }
 

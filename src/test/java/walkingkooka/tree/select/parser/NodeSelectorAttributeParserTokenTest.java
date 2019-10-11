@@ -46,8 +46,8 @@ public final class NodeSelectorAttributeParserTokenTest extends NodeSelectorPare
         final List<ParserToken> visited = Lists.array();
 
         final NodeSelectorAttributeParserToken attribute = this.createToken();
-        final NodeSelectorAtSignSymbolParserToken atSign = attribute.value().get(0).cast();
-        final NodeSelectorAttributeNameParserToken name = attribute.value().get(1).cast();
+        final NodeSelectorAtSignSymbolParserToken atSign = attribute.value().get(0).cast(NodeSelectorAtSignSymbolParserToken.class);
+        final NodeSelectorAttributeNameParserToken name = attribute.value().get(1).cast(NodeSelectorAttributeNameParserToken.class);
 
         new FakeNodeSelectorParserTokenVisitor() {
             @Override

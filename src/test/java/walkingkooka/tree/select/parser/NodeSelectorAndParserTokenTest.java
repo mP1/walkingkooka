@@ -36,9 +36,9 @@ public final class NodeSelectorAndParserTokenTest extends NodeSelectorBinaryPars
 
         final NodeSelectorAndParserToken and = this.createToken();
 
-        final NodeSelectorNodeNameParserToken nodeName = and.value().get(0).cast();
-        final NodeSelectorAndSymbolParserToken andSymbol = and.value().get(1).cast();
-        final NodeSelectorWildcardParserToken wildcard = and.value().get(2).cast();
+        final NodeSelectorNodeNameParserToken nodeName = and.value().get(0).cast(NodeSelectorNodeNameParserToken.class);
+        final NodeSelectorAndSymbolParserToken andSymbol = and.value().get(1).cast(NodeSelectorAndSymbolParserToken.class);
+        final NodeSelectorWildcardParserToken wildcard = and.value().get(2).cast(NodeSelectorWildcardParserToken.class);
 
         new FakeNodeSelectorParserTokenVisitor() {
             @Override

@@ -37,15 +37,15 @@ public final class NodeSelectorPredicateParserTokenTest extends NodeSelectorPare
         final List<ParserToken> visited = Lists.array();
 
         final NodeSelectorPredicateParserToken predicate = this.createToken();
-        final NodeSelectorFunctionParserToken function = predicate.value().get(0).cast();
+        final NodeSelectorFunctionParserToken function = predicate.value().get(0).cast(NodeSelectorFunctionParserToken.class);
 
-        final NodeSelectorFunctionNameParserToken functionName = function.value().get(0).cast();
-        final NodeSelectorParenthesisOpenSymbolParserToken parenOpen = function.value().get(1).cast();
-        final NodeSelectorAtSignSymbolParserToken atSign = function.value().get(2).cast();
-        final NodeSelectorAttributeNameParserToken attributeName = function.value().get(3).cast();
-        final NodeSelectorParameterSeparatorSymbolParserToken comma = function.value().get(4).cast();
-        final NodeSelectorQuotedTextParserToken quotedText = function.value().get(5).cast();
-        final NodeSelectorParenthesisCloseSymbolParserToken parenClose = function.value().get(6).cast();
+        final NodeSelectorFunctionNameParserToken functionName = function.value().get(0).cast(NodeSelectorFunctionNameParserToken.class);
+        final NodeSelectorParenthesisOpenSymbolParserToken parenOpen = function.value().get(1).cast(NodeSelectorParenthesisOpenSymbolParserToken.class);
+        final NodeSelectorAtSignSymbolParserToken atSign = function.value().get(2).cast(NodeSelectorAtSignSymbolParserToken.class);
+        final NodeSelectorAttributeNameParserToken attributeName = function.value().get(3).cast(NodeSelectorAttributeNameParserToken.class);
+        final NodeSelectorParameterSeparatorSymbolParserToken comma = function.value().get(4).cast(NodeSelectorParameterSeparatorSymbolParserToken.class);
+        final NodeSelectorQuotedTextParserToken quotedText = function.value().get(5).cast(NodeSelectorQuotedTextParserToken.class);
+        final NodeSelectorParenthesisCloseSymbolParserToken parenClose = function.value().get(6).cast(NodeSelectorParenthesisCloseSymbolParserToken.class);
 
         new FakeNodeSelectorParserTokenVisitor() {
             @Override

@@ -61,7 +61,7 @@ public abstract class RepeatedOrSequenceParserTokenTestCase<T extends RepeatedOr
     public final void testFlatRequired() {
         final T child = this.createToken(STRING4, STRING5);
         final T parent = this.createToken(STRING1, STRING2, child);
-        final T flat = parent.flat().cast();
+        final T flat = parent.flat().cast(this.type());
         assertNotSame(parent, flat);
         assertEquals(Lists.of(STRING1, STRING2, STRING4, STRING5), flat.value(), "values after flattening");
         this.textAndCheck(flat, "a1b2d4e5");
@@ -72,7 +72,7 @@ public abstract class RepeatedOrSequenceParserTokenTestCase<T extends RepeatedOr
         final T childChild = this.createToken(STRING5, STRING6);
         final T child = this.createToken(STRING4, childChild);
         final T parent = this.createToken(STRING1, STRING2, child);
-        final T flat = parent.flat().cast();
+        final T flat = parent.flat().cast(this.type());
         assertNotSame(parent, flat);
         assertEquals(Lists.of(STRING1, STRING2, STRING4, STRING5, STRING6), flat.value(), "values after flattening");
         this.textAndCheck(flat, "a1b2d4e5f6");
@@ -105,7 +105,7 @@ public abstract class RepeatedOrSequenceParserTokenTestCase<T extends RepeatedOr
         final T childChild = this.createToken(STRING5, STRING6, parserToken);
         final T child = this.createToken(STRING4, childChild);
         final T parent = this.createToken(STRING1, STRING2, child);
-        final T flat = parent.flat().cast();
+        final T flat = parent.flat().cast(this.type());
         assertNotSame(parent, flat);
         assertEquals(Lists.of(STRING1, STRING2, STRING4, STRING5, STRING6, parserToken), flat.value(), "values after flattening");
         this.textAndCheck(flat, "a1b2d4e5f6!");

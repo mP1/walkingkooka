@@ -43,7 +43,7 @@ public final class NodeSelectorNegativeParserToken extends NodeSelectorParentPar
             throw new IllegalArgumentException("Expected 1 token but got " + count + "=" + without);
         }
 
-        this.parameter = without.get(0).cast();
+        this.parameter = without.get(0).cast(NodeSelectorParserToken.class);
     }
 
     public NodeSelectorParserToken parameter() {

@@ -34,8 +34,8 @@ public final class EbnfExceptionParserToken extends EbnfParentParserToken<EbnfEx
         super(tokens, text);
 
         final List<ParserToken> without = this.checkOnlyTwoTokens();
-        this.token = without.get(0).cast();
-        this.exception = without.get(1).cast();
+        this.token = without.get(0).cast(EbnfParserToken.class);
+        this.exception = without.get(1).cast(EbnfParserToken.class);
     }
 
     /**

@@ -259,7 +259,7 @@ public final class ExpressionNodeSelectorToStringExpressionNodeVisitorTest imple
                 .orFailIfCursorNotEmpty(ParserReporters.basic())
                 .parse(TextCursors.charSequence(expression), NodeSelectorParserContexts.basic(DecimalNumberContexts.american(MathContext.DECIMAL32)))
                 .orElseThrow(() -> new ParserException("Failed to parse " + CharSequences.quoteAndEscape(expression)))
-                .cast();
+                .cast(NodeSelectorPredicateParserToken.class);
     }
 
     private void toStringAndCheck(final ExpressionNode node,

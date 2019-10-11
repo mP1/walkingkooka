@@ -178,9 +178,9 @@ final class CharPredicateGrammarEbnfParserTokenVisitor extends EbnfParserTokenVi
 
     private char characterForIdentifierOrTerminal(final EbnfParserToken token) {
         return token.isTerminal() ?
-                this.characterFromTerminal(token.cast()) :
+                this.characterFromTerminal(token.cast(EbnfTerminalParserToken.class)) :
                 token.isIdentifier() ?
-                        this.characterFromIdentifierReference(token.cast()) :
+                        this.characterFromIdentifierReference(token.cast(EbnfIdentifierParserToken.class)) :
                         failInvalidRangeBound("Invalid range bound, expected terminal or identifier indirectly pointing to a terminal but got " + token);
     }
 

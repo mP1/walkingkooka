@@ -190,7 +190,7 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest implements Cha
                 final CharSequence remaining = save.textBetween();
                 fail("Failed to parse all of grammar from " + CharSequences.quote(resourceName) + " text remaining: " + remaining + "\n\n" + CharSequences.escape(remaining) + "\n\nGrammar File:\n" + text);
             }
-            return grammar.get().cast();
+            return grammar.get().cast(EbnfGrammarParserToken.class);
         } catch (final IOException cause) {
             throw new Error("failed to read grammar from " + CharSequences.quote(resourceName));
         }

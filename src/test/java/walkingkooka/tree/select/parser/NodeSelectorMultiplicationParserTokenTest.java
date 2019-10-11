@@ -36,9 +36,9 @@ public final class NodeSelectorMultiplicationParserTokenTest extends NodeSelecto
 
         final NodeSelectorMultiplicationParserToken multiply = this.createToken();
 
-        final NodeSelectorNodeNameParserToken nodeName = multiply.value().get(0).cast();
-        final NodeSelectorMultiplySymbolParserToken multiplySymbol = multiply.value().get(1).cast();
-        final NodeSelectorWildcardParserToken wildcard = multiply.value().get(2).cast();
+        final NodeSelectorNodeNameParserToken nodeName = multiply.value().get(0).cast(NodeSelectorNodeNameParserToken.class);
+        final NodeSelectorMultiplySymbolParserToken multiplySymbol = multiply.value().get(1).cast(NodeSelectorMultiplySymbolParserToken.class);
+        final NodeSelectorWildcardParserToken wildcard = multiply.value().get(2).cast(NodeSelectorWildcardParserToken.class);
 
         new FakeNodeSelectorParserTokenVisitor() {
             @Override
