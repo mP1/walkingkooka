@@ -34,7 +34,7 @@ public interface ExpressionFunctionContext extends Context, HasMathContext {
     /**
      * Constant for functions without any parameters.
      */
-    static List<Object> NO_PARAMETERS = Lists.empty();
+    List<Object> NO_PARAMETERS = Lists.empty();
 
     /**
      * Locates a function with the given name and then executes it with the provided parameter values.
