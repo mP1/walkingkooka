@@ -33,6 +33,7 @@ public abstract class ExpressionNumberVisitor extends Visitor<Number> {
         super();
     }
 
+    @SuppressWarnings("NumberEquality")
     @Override
     public final void accept(final Number number) {
         Objects.requireNonNull(number, "number");
