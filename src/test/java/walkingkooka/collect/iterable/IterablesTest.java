@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class IterablesTest implements PublicStaticHelperTesting<Iterables> {
 
-    private final static BiPredicate<String, String> EQUIVALENCY = (first, other) -> first.equalsIgnoreCase(other);
+    private final static BiPredicate<String, String> EQUIVALENCY = String::equalsIgnoreCase;
     private final static String A = "a";
     private final static String B = "b";
     private final static String C = "c";

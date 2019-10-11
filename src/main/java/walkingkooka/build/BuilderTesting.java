@@ -57,9 +57,7 @@ public interface BuilderTesting<B extends Builder<T>, T> extends ThrowableTestin
     default void buildFails(final Builder<?> builder, final String message) {
         Objects.requireNonNull(builder, "builder");
 
-        final BuilderException expected = assertThrows(BuilderException.class, () -> {
-            builder.build();
-        });
+        final BuilderException expected = assertThrows(BuilderException.class, builder::build);
         if (null != message) {
            this.checkMessage(expected, message);
         }
@@ -71,9 +69,7 @@ public interface BuilderTesting<B extends Builder<T>, T> extends ThrowableTestin
         Objects.requireNonNull(builder, "builder");
         Objects.requireNonNull(firstRequired, "firstRequired");
 
-        final BuilderException expected = assertThrows(BuilderException.class, () -> {
-            builder.build();
-        });
+        final BuilderException expected = assertThrows(BuilderException.class, builder::build);
 
         final String message = expected.getMessage();
         final Set<String> wrong = Sets.ordered();

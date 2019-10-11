@@ -181,7 +181,7 @@ public final class VisitorPrettyPrinterTest implements ClassTesting2<VisitorPret
     }
 
     private Function<Object, String> typeName() {
-        return (o -> o.toString());
+        return (Object::toString);
     }
 
     @Override

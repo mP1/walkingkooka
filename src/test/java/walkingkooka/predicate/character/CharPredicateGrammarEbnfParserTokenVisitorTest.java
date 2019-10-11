@@ -82,23 +82,17 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest implements Cha
 
     @Test
     public void testIdentifierUnknownFail() {
-        assertThrows(EbnfGrammarParserTokenInvalidReferencesException.class, () -> {
-            this.createCharPredicate0();
-        });
+        assertThrows(EbnfGrammarParserTokenInvalidReferencesException.class, this::createCharPredicate0);
     }
 
     @Test
     public void testRangeBeginInvalidTerminalFail() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createCharPredicate0();
-        });
+        assertThrows(IllegalArgumentException.class, this::createCharPredicate0);
     }
 
     @Test
     public void testRangeEndInvalidTerminalFail() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createCharPredicate0();
-        });
+        assertThrows(IllegalArgumentException.class, this::createCharPredicate0);
     }
 
     @Test
@@ -127,23 +121,17 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest implements Cha
 
     @Test
     public void testConcatenation() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            this.createCharPredicate0();
-        });
+        assertThrows(UnsupportedOperationException.class, this::createCharPredicate0);
     }
 
     @Test
     public void testOptional() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            this.createCharPredicate0();
-        });
+        assertThrows(UnsupportedOperationException.class, this::createCharPredicate0);
     }
 
     @Test
     public void testRepeated() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            this.createCharPredicate0();
-        });
+        assertThrows(UnsupportedOperationException.class, this::createCharPredicate0);
     }
 
     @Test

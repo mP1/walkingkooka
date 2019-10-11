@@ -85,12 +85,8 @@ final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<
         assertSame("2", iterator.next());
 
         assertFalse(iterator.hasNext());
-        assertThrows(NoSuchElementException.class, () -> {
-            iterator.next();
-        });
-        assertThrows(UnsupportedOperationException.class, () -> {
-            iterator.remove();
-        });
+        assertThrows(NoSuchElementException.class, iterator::next);
+        assertThrows(UnsupportedOperationException.class, iterator::remove);
     }
 
     @Test

@@ -24,6 +24,7 @@ import walkingkooka.type.MethodAttributes;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -60,9 +61,7 @@ public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends
         final Constructor<H> constructor = type.getDeclaredConstructor();
         constructor.setAccessible(true);
 
-        final InvocationTargetException cause = assertThrows(InvocationTargetException.class, () -> {
-            constructor.newInstance();
-        });
+        final InvocationTargetException cause = assertThrows(InvocationTargetException.class, constructor::newInstance);
         final Throwable target = cause.getTargetException();
         assertTrue(target instanceof UnsupportedOperationException, "Expected UnsupportedOperationException but got " + target);
     }
@@ -114,7 +113,7 @@ public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends
                 Arrays.stream(type.getDeclaredFields())
                         .filter(f -> false == f.getName().contains("jacoco"))
                         .filter(f -> false == FieldAttributes.get(f).contains(FieldAttributes.STATIC))
-                        .map(f -> f.toGenericString())
+                        .map(Field::toGenericString)
                         .collect(Collectors.joining(",")));
     }
 

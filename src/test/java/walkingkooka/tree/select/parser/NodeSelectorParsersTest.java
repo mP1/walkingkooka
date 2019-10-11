@@ -1720,7 +1720,7 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
                 text);
 
         final List<ParserToken> lower = Arrays.stream(tokens)
-                .map(t -> NodeSelectorParsersTestNodeSelectorParserTokenVisitor.toUpper(t))
+                .map(NodeSelectorParsersTestNodeSelectorParserTokenVisitor::toUpper)
                 .collect(Collectors.toList());
         final String textUpper = ParserToken.text(lower);
 

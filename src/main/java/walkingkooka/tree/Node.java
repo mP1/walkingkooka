@@ -101,7 +101,7 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
                 node :
                 this.parent()
                         .map(p -> p.replaceChild(Cast.to(this), node).children().get(this.index()))
-                        .orElse(node.parent().map(n -> n.removeParent()).orElse(node));
+                        .orElse(node.parent().map(Node::removeParent).orElse(node));
     }
 
     /**

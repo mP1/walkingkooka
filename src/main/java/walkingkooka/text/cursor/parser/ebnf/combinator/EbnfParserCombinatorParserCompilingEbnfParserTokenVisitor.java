@@ -76,9 +76,9 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor extends Eb
         token.value()
                 .stream()
                 .filter(t -> t instanceof EbnfParserToken)
-                .map(t -> EbnfParserToken.class.cast(t))
-                .filter(t -> t.isRule())
-                .map(t -> EbnfRuleParserToken.class.cast(t))
+                .map(EbnfParserToken.class::cast)
+                .filter(EbnfParserToken::isRule)
+                .map(EbnfRuleParserToken.class::cast)
                 .forEach(r -> {
                     this.identifierToRule.put(r.identifier().value(), r);
                 });
@@ -90,9 +90,7 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor extends Eb
         // replace all EbnfParserCombinatorProxyParser with the parser they are wrapping. This also has the advantage that
         // all parsers display their complete source.
 
-        this.identifierToParser.entrySet().forEach(identifierAndParser -> {
-            this.fixRuleParserToString(identifierAndParser);
-        });
+        this.identifierToParser.entrySet().forEach(this::fixRuleParserToString);
         super.endVisit(token);
     }
 
@@ -262,9 +260,7 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor extends Eb
     @Override
     protected void endVisit(final EbnfRangeParserToken token) {
         final SequenceParserBuilder<ParserContext> b = Parsers.sequenceParserBuilder();
-        this.children.forEach(p -> {
-            b.required(p);
-        });
+        this.children.forEach(b::required);
         final Parser<ParserContext> parser = b.build()
                 .setToString(token.toString());
         this.exit();

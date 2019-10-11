@@ -350,7 +350,7 @@ public final class SequenceParserTokenTest extends RepeatedOrSequenceParserToken
                                    final ParserToken expected) {
         assertEquals(expected,
                 token.transform(new TestBinaryOperatorTransformer()),
-                () -> token.toString());
+                token::toString);
     }
 
     private ParserToken integer(final int value) {

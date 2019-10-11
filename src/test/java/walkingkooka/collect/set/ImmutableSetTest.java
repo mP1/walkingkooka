@@ -79,7 +79,7 @@ public final class ImmutableSetTest extends ImmutableSetTestCase<ImmutableSet<?>
     private void isImmutableAndCheck(final Set<?> set, final boolean expected) {
         assertEquals(expected,
                 ImmutableSet.isImmutable(set),
-                () -> set.toString());
+                set::toString);
     }
 
     // immutable........................................................................................................

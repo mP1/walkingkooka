@@ -57,27 +57,27 @@ public final class DecimalFormatBuilderTest implements BuilderTesting<DecimalFor
 
     @Test
     public void testCurrency() {
-        this.appendAndCheck((b) -> b.currency(), "\u00A4");
+        this.appendAndCheck(DecimalFormatBuilder::currency, "\u00A4");
     }
 
     @Test
     public void testDecimalSeparator() {
-        this.appendAndCheck((b) -> b.decimalSeparator(), ".");
+        this.appendAndCheck(DecimalFormatBuilder::decimalSeparator, ".");
     }
 
     @Test
     public void testDigit() {
-        this.appendAndCheck((b) -> b.digit(), "#");
+        this.appendAndCheck(DecimalFormatBuilder::digit, "#");
     }
 
     @Test
     public void testDigitOrZero() {
-        this.appendAndCheck((b) -> b.digitOrZero(), "0");
+        this.appendAndCheck(DecimalFormatBuilder::digitOrZero, "0");
     }
 
     @Test
     public void testExponent() {
-        this.appendAndCheck((b) -> b.exponent(), "E");
+        this.appendAndCheck(DecimalFormatBuilder::exponent, "E");
     }
 
     @Test
@@ -89,7 +89,7 @@ public final class DecimalFormatBuilderTest implements BuilderTesting<DecimalFor
 
     @Test
     public void testGroupingSeparator() {
-        this.appendAndCheck((b) -> b.groupingSeparator(), ",");
+        this.appendAndCheck(DecimalFormatBuilder::groupingSeparator, ",");
     }
 
     @Test
@@ -101,17 +101,17 @@ public final class DecimalFormatBuilderTest implements BuilderTesting<DecimalFor
 
     @Test
     public void testMultiplyBy1000() {
-        this.appendAndCheck((b) -> b.multiplyBy1000(), "\u2030");
+        this.appendAndCheck(DecimalFormatBuilder::multiplyBy1000, "\u2030");
     }
 
     @Test
     public void testNegativeSign() {
-        this.appendAndCheck((b) -> b.negativeSign(), "-");
+        this.appendAndCheck(DecimalFormatBuilder::negativeSign, "-");
     }
 
     @Test
     public void testPercent() {
-        this.appendAndCheck((b) -> b.percentage(), "%");
+        this.appendAndCheck(DecimalFormatBuilder::percentage, "%");
     }
 
     private void appendAndCheck(final Function<DecimalFormatBuilder, DecimalFormatBuilder> append, final String pattern) {
@@ -147,9 +147,7 @@ public final class DecimalFormatBuilderTest implements BuilderTesting<DecimalFor
                 .digit()
                 .digit()
                 .negativeSubPattern();
-        assertThrows(IllegalArgumentException.class, () -> {
-            b.negativeSubPattern();
-        });
+        assertThrows(IllegalArgumentException.class, b::negativeSubPattern);
     }
 
     @Test

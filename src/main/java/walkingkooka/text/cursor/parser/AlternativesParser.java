@@ -75,7 +75,7 @@ final class AlternativesParser<C extends ParserContext> implements Parser<C>, Ha
         return parsers.stream()
                 .filter(p -> p instanceof CustomToStringParser)
                 .map(p -> ((CustomToStringParser<C>)p).parser.cast())
-                .map(p -> Cast.<Parser<C>>to(p))
+                .map(Cast::<Parser<C>>to)
                 .collect(Collectors.toList());
     }
 
@@ -164,7 +164,7 @@ final class AlternativesParser<C extends ParserContext> implements Parser<C>, Ha
 
     private static <CC extends ParserContext> String toString0(final List<Parser<CC>> parsers) {
         return parsers.stream()
-                .map(p -> p.toString())
+                .map(Object::toString)
                 .collect(Collectors.joining(" | ", "(", ")"));
     }
 }

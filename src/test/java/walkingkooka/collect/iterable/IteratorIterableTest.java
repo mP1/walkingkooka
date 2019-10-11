@@ -50,9 +50,7 @@ final public class IteratorIterableTest implements ClassTesting2<IteratorIterabl
         final Iterable<Object> iterable = this.createIterable();
         iterable.iterator();
 
-        assertThrows(IllegalStateException.class, () -> {
-            iterable.iterator();
-        });
+        assertThrows(IllegalStateException.class, iterable::iterator);
     }
 
     @Test

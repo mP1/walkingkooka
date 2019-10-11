@@ -65,7 +65,7 @@ public abstract class NonTerminalNodeSelectorTestCase<S extends NodeSelector<Tes
         assertSame(start,
                 selector.apply(start,
                         context(Predicates.always(),
-                                (n) -> selected.add(n))));
+                                selected::add)));
         final List<String> selectedNames = selected
                 .stream()
                 .map(n -> n.name().value())

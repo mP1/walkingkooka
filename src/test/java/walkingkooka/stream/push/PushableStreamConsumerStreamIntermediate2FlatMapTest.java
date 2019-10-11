@@ -43,7 +43,7 @@ public final class PushableStreamConsumerStreamIntermediate2FlatMapTest extends 
         return PushableStreamConsumerStreamIntermediate2FlatMap.with(MAPPER);
     }
 
-    private final static Function<?, Stream<?>> MAPPER = (s)-> Stream.of(s);
+    private final static Function<?, Stream<?>> MAPPER = Stream::of;
 
     @Override
     public Class<PushableStreamConsumerStreamIntermediate2FlatMap> type() {

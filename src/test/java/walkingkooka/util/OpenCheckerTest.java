@@ -84,9 +84,7 @@ final public class OpenCheckerTest implements ClassTesting2<OpenChecker<Exceptio
         assertFalse(checker.close(), "was previous open");
         assertTrue(checker.isClosed());
 
-        final Thrown expected = assertThrows(Thrown.class, () -> {
-            checker.check();
-        });
+        final Thrown expected = assertThrows(Thrown.class, checker::check);
         checkMessage(expected, MESSAGE);
     }
 
@@ -122,9 +120,7 @@ final public class OpenCheckerTest implements ClassTesting2<OpenChecker<Exceptio
         final OpenChecker<Thrown> checker = OpenChecker.with(MESSAGE, THROWABLE_FACTORY);
         checker.closeOnce();
 
-        assertThrows(Thrown.class, () -> {
-            checker.closeOnce();
-        });
+        assertThrows(Thrown.class, checker::closeOnce);
         assertTrue(checker.isClosed(), "should be closed");
     }
 

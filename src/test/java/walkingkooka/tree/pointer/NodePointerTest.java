@@ -47,7 +47,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
     private final static StringName GHI = Names.string("ghi");
     private final static StringName JKL = Names.string("jkl");
 
-    private final static Function<String, StringName> NAME_FACTORY = (s -> Names.string(s));
+    private final static Function<String, StringName> NAME_FACTORY = (Names::string);
 
     @BeforeEach
     public void beforeEach() {

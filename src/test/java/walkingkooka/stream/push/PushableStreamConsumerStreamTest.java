@@ -473,7 +473,7 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
 
     @Test
     public void testStreamFlatMap() {
-        final Function<String, Stream<String>> mapper = (s) -> Stream.of(s);
+        final Function<String, Stream<String>> mapper = Stream::of;
 
         final Consumer<PushableStreamConsumer<String>> starter = this.starter();
         final PushableStreamConsumerStream<String> stream = PushableStreamConsumerStream.with(starter);
@@ -489,7 +489,7 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
 
     @Test
     public void testStreamFlatMapCollect() {
-        final Function<String, Stream<String>> mapper = (s) -> Stream.of(s);
+        final Function<String, Stream<String>> mapper = Stream::of;
 
         final Stream<String> stream2 = this.createStream("a1", "b2", "c3")
                 .flatMap(mapper);
@@ -499,7 +499,7 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
 
     @Test
     public void testStreamFlatMapToArray() {
-        final Function<String, Stream<String>> mapper = (s) -> Stream.of(s);
+        final Function<String, Stream<String>> mapper = Stream::of;
 
         final Stream<String> stream2 = this.createStream("a1", "b2", "c3")
                 .flatMap(mapper);
@@ -509,7 +509,7 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
 
     @Test
     public void testStreamFlatMapCollectIncludesNull() {
-        final Function<String, Stream<String>> mapper = (s) -> Stream.of(s);
+        final Function<String, Stream<String>> mapper = Stream::of;
 
         final Stream<String> stream2 = this.createStream("a1", null, "c3")
                 .flatMap(mapper);
@@ -777,9 +777,7 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
     public void testStreamSpliteratorComparatorFails() {
         final Spliterator<String> spliterator = this.createStream().spliterator();
 
-        assertThrows(IllegalStateException.class, () -> {
-            spliterator.getComparator();
-        });
+        assertThrows(IllegalStateException.class, spliterator::getComparator);
     }
 
     @Test

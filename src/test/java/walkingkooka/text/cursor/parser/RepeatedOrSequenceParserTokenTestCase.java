@@ -19,6 +19,7 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.HasText;
 import walkingkooka.tree.search.SearchNode;
 
 import java.util.Arrays;
@@ -116,7 +117,7 @@ public abstract class RepeatedOrSequenceParserTokenTestCase<T extends RepeatedOr
 
     final T createToken(final ParserToken... tokens) {
         return this.createToken(Lists.of(tokens), Arrays.stream(tokens)
-                .map(t -> t.text())
+                .map(HasText::text)
                 .collect(Collectors.joining()));
     }
 

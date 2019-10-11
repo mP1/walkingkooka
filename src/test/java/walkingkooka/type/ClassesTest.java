@@ -123,7 +123,7 @@ public final class ClassesTest implements PublicStaticHelperTesting<Classes> {
                                    final Class<?> expected) {
         assertEquals(Optional.ofNullable(expected),
                 Classes.primitive(classs),
-                () -> classs.getName());
+                classs::getName);
     }
 
     // primitive........................................................................................................
@@ -223,7 +223,7 @@ public final class ClassesTest implements PublicStaticHelperTesting<Classes> {
 
         assertEquals(Optional.ofNullable(expected),
                 Classes.wrapper(classs),
-                () -> classs.getName());
+                classs::getName);
     }
 
     // ClassTesting.....................................................................................................

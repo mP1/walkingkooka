@@ -25,8 +25,7 @@ import java.util.function.Function;
  * The exception thrown if anything goes wrong when printing to a {@link Printer}
  */
 public class PrinterException extends TextException {
-    public static final Function<String, PrinterException> FACTORY = (message) -> new PrinterException(
-            message);
+    public static final Function<String, PrinterException> FACTORY = PrinterException::new;
     private static final long serialVersionUID = 1L;
 
     /**

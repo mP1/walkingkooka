@@ -41,8 +41,6 @@ public abstract class ImmutableListTestCase2<S extends ImmutableList<String>> ex
     public final void testIteratorRemoveFails() {
         final Iterator<String> iterator = this.createList().iterator();
         iterator.next();
-        assertThrows(UnsupportedOperationException.class, () -> {
-            iterator.remove();
-        });
+        assertThrows(UnsupportedOperationException.class, iterator::remove);
     }
 }

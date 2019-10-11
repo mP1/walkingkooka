@@ -132,8 +132,8 @@ final public class Predicates implements PublicStaticHelper {
     }
 
     private final static Predicate<CharSequence> JAVA_IDENTIFIER = Predicates.initialAndPart(
-            (c) -> Character.isJavaIdentifierStart(c),
-            (c) -> Character.isJavaIdentifierPart(c));
+            Character::isJavaIdentifierStart,
+            Character::isJavaIdentifierPart);
 
     /**
      * {@see NeverPredicate}.

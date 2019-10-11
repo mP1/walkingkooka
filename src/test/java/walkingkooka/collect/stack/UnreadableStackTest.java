@@ -48,33 +48,25 @@ final public class UnreadableStackTest extends StackTestCase<UnreadableStack<Obj
     @Test
     public void testPeekFails() {
         final UnreadableStack<Object> stack = this.createStack();
-        assertThrows(UnsupportedOperationException.class, () -> {
-            stack.peek();
-        });
+        assertThrows(UnsupportedOperationException.class, stack::peek);
     }
 
     @Test
     public void testPopFails() {
         final UnreadableStack<Object> stack = this.createStack();
-        assertThrows(UnsupportedOperationException.class, () -> {
-            stack.pop();
-        });
+        assertThrows(UnsupportedOperationException.class, stack::pop);
     }
 
     @Test
     public void testIsEmptyFails() {
         final UnreadableStack<Object> stack = this.createStack();
-        assertThrows(UnsupportedOperationException.class, () -> {
-            stack.isEmpty();
-        });
+        assertThrows(UnsupportedOperationException.class, stack::isEmpty);
     }
 
     @Test
     public void testSizeFails() {
         final UnreadableStack<Object> stack = this.createStack();
-        assertThrows(UnsupportedOperationException.class, () -> {
-            stack.size();
-        });
+        assertThrows(UnsupportedOperationException.class, stack::size);
     }
 
     @Test

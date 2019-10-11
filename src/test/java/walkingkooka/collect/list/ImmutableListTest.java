@@ -70,7 +70,7 @@ public final class ImmutableListTest extends ImmutableListTestCase<ImmutableList
     private void isImmutableAndCheck(final List<?> list, final boolean expected) {
         assertEquals(expected,
                 ImmutableList.isImmutable(list),
-                () -> list.toString());
+                list::toString);
     }
 
     // immutable........................................................................................................

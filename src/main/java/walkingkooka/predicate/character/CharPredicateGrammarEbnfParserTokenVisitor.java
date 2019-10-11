@@ -74,9 +74,9 @@ final class CharPredicateGrammarEbnfParserTokenVisitor extends EbnfParserTokenVi
         token.value()
                 .stream()
                 .filter(t -> t instanceof EbnfParserToken)
-                .map(t -> EbnfParserToken.class.cast(t))
-                .filter(t -> t.isRule())
-                .map(t -> EbnfRuleParserToken.class.cast(t))
+                .map(EbnfParserToken.class::cast)
+                .filter(EbnfParserToken::isRule)
+                .map(EbnfRuleParserToken.class::cast)
                 .forEach(this::ruleIdentifier);
         return super.startVisit(token);
     }

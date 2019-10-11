@@ -26,9 +26,7 @@ public final class ExpressionComparisonFunctionTest extends ExpressionFunctionTe
 
     @Test
     public void testZeroParametersFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.apply2();
-        });
+        assertThrows(IllegalArgumentException.class, this::apply2);
     }
 
     @Test

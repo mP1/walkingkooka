@@ -85,7 +85,7 @@ public abstract class SearchNodeTestCase<N extends SearchNode> implements ClassT
     public final void testSetNameReturnType() throws Exception {
         final Class<N> type = this.searchNodeType();
         final Method method = type.getMethod("setName", SearchNodeName.class);
-        assertEquals(type, method.getReturnType(), () -> method.toGenericString());
+        assertEquals(type, method.getReturnType(), method::toGenericString);
     }
 
     @Test

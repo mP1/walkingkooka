@@ -40,7 +40,7 @@ public interface ParserToken extends HashCodeEqualsDefined,
         Objects.requireNonNull(tokens, "tokens");
 
         return tokens.stream()
-                .map(t -> t.text())
+                .map(HasText::text)
                 .collect(Collectors.joining());
     }
 
