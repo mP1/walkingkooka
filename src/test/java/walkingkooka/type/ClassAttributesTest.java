@@ -44,7 +44,7 @@ public final class ClassAttributesTest implements ClassTesting2<ClassAttributes>
         assertEquals(Sets.of(ClassAttributes.ABSTRACT), ClassAttributes.get(TestAbstractClass.class));
     }
 
-    abstract class TestAbstractClass {
+    abstract static class TestAbstractClass {
     }
 
     @Test

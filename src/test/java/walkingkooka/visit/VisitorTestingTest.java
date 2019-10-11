@@ -163,7 +163,7 @@ public final class VisitorTestingTest implements ClassTesting2<VisitorTesting> {
         }
     }
 
-    class TestPackagePrivateVisitable implements Visitable {
+    static class TestPackagePrivateVisitable implements Visitable {
     }
 
     @Test
@@ -192,7 +192,7 @@ public final class VisitorTestingTest implements ClassTesting2<VisitorTesting> {
     }
 
 
-    public class TestVisitable implements Visitable {
+    public static class TestVisitable implements Visitable {
     }
 
     @Override

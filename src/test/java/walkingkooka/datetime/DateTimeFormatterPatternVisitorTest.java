@@ -1023,7 +1023,7 @@ public final class DateTimeFormatterPatternVisitorTest extends DateTimeFormatter
         assertEquals(expected, kind, "incorrect kind for " + width);
     }
 
-    abstract class TestDateTimeFormatterPatternVisitor extends FakeDateTimeFormatterPatternVisitor {
+    abstract static class TestDateTimeFormatterPatternVisitor extends FakeDateTimeFormatterPatternVisitor {
 
         void acceptAndCheck(final String pattern, final String expected) {
             this.visited.clear();
