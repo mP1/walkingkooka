@@ -21,5 +21,5 @@ public enum DateTimeFormatterPatternComponentKind {
     NUMBER,
     SHORT_TEXT,
     LONG_TEXT,
-    NARROW_TEXT;
+    NARROW_TEXT
 }

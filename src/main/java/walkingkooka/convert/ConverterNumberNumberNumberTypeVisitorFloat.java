@@ -66,7 +66,7 @@ final class ConverterNumberNumberNumberTypeVisitorFloat extends ConverterNumberN
 
     @Override 
     protected void visit(final Integer number) {
-        this.saveFloat(number);;
+        this.saveFloat(number);
     }
 
     @Override 
