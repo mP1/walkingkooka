@@ -69,7 +69,6 @@ final class ExpressionSubstringFunction extends ExpressionFunction2<String> {
         final int parameterCount = parameters.size();
         switch (parameterCount) {
             case 2:
-                break;
             case 3:
                 break;
             default:
