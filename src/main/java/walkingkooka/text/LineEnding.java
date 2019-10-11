@@ -60,7 +60,7 @@ final public class LineEnding implements CharSequence,
     public static LineEnding from(final String lineEnding) {
         Objects.requireNonNull(lineEnding, "lineEnding");
 
-        LineEnding result = null;
+        LineEnding result;
         for (; ; ) {
             if (lineEnding.equals(LineEnding.CR.value)) {
                 result = LineEnding.CR;
