@@ -42,7 +42,7 @@ public final class ImmutableTypeRegistry {
         return new ImmutableTypeRegistry(base);
     }
 
-    private ImmutableTypeRegistry(final Class base) {
+    private ImmutableTypeRegistry(final Class<?> base) {
         super();
         this.base = base;
     }
@@ -64,7 +64,7 @@ public final class ImmutableTypeRegistry {
     /**
      * Base class that all registered and queried must implement or be a sub class.
      */
-    private final Class base;
+    private final Class<?> base;
 
     /**
      * Returns true if the type has been registered.

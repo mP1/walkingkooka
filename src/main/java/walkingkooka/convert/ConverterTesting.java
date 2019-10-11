@@ -53,9 +53,8 @@ public interface ConverterTesting extends Testing {
                              final Object expected,
                              final Object actual) {
         if (expected instanceof Comparable && expected.getClass().isInstance(actual)) {
-            final Comparable expectedComparable = Cast.to(expected);
-            final Comparable actualComparable = Cast.to(actual);
-            if (expectedComparable.compareTo(actualComparable) != 0) {
+            final Comparable<?> expectedComparable = Cast.to(expected);
+            if (expectedComparable.compareTo(Cast.to(actual)) != 0) {
                 assertEquals(expected, actual, message);
             }
         } else {

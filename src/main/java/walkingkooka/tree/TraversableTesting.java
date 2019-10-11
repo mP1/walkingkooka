@@ -59,7 +59,9 @@ public interface TraversableTesting {
         }
     }
 
-    default <TT extends Traversable<TT>> void childCountCheck(final TT parent, final TT... children) {
+    @SuppressWarnings("unchecked")
+    default <TT extends Traversable<TT>> void childCountCheck(final TT parent,
+                                                              final TT... children) {
         this.childCountCheck(parent, children.length);
     }
 

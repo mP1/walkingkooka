@@ -52,10 +52,10 @@ final class ExpressionComparisonFunction extends ExpressionFunction2<Boolean> {
                          final ExpressionFunctionContext context) {
         this.checkParameterCount(parameters, 2);
 
-        final Comparable first = this.comparable(parameters, 0, context);
-        final Comparable second = this.parameter(parameters, 1, first.getClass(), context);
+        final Comparable<?> first = this.comparable(parameters, 0, context);
+        final Comparable<?> second = this.parameter(parameters, 1, first.getClass(), context);
 
-        return this.relation.predicate(second).test(Cast.to(first));
+        return this.relation.predicate(Cast.to(second)).test(Cast.to(first));
     }
 
     private final ComparisonRelation relation;

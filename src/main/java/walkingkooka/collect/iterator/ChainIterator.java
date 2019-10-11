@@ -30,6 +30,7 @@ final class ChainIterator<E> implements Iterator<E> {
     /**
      * Creates an {@link ChainIterator} from two {@link Iterators}.
      */
+    @SuppressWarnings("unchecked")
     static <E> Iterator<E> with(final Iterator<E> first,
                                 final Iterator<E>... iterators) {
         Objects.requireNonNull(first, "first");

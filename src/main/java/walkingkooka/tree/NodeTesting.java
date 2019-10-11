@@ -237,7 +237,9 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         return newParent;
     }
 
-    default N setChildrenAndCheck(final N parent, final N... children) {
+    @SuppressWarnings("unchecked")
+    default N setChildrenAndCheck(final N parent,
+                                  final N... children) {
         final N newParent = parent.setChildren(Arrays.asList(children));
 
         this.childrenParentCheck(newParent);
