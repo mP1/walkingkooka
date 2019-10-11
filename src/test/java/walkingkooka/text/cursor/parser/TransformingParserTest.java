@@ -32,7 +32,7 @@ public class TransformingParserTest extends ParserTestCase<TransformingParser<Pa
     private final static int RADIX = 10;
     private final static Parser<ParserContext> PARSER = Parsers.stringCharPredicate(CharPredicates.digit(), 1, 10);
     private final static BiFunction<ParserToken, ParserContext, ParserToken> TRANSFORMER = (t, c) -> {
-        return ParserTokens.bigInteger(new BigInteger(StringParserToken.class.cast(t).value(), RADIX), t.text());
+        return ParserTokens.bigInteger(new BigInteger(((StringParserToken) t).value(), RADIX), t.text());
     };
 
     @Test

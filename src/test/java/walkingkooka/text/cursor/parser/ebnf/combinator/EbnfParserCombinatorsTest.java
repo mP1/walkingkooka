@@ -501,7 +501,7 @@ public final class EbnfParserCombinatorsTest implements ParserTesting2<Parser<Fa
                 return parser.transform((stringParserToken, contextIgnored) -> {
                     ParserToken result = stringParserToken;
                     try {
-                        result = number(StringParserToken.class.cast(stringParserToken).value());
+                        result = number(((StringParserToken) stringParserToken).value());
                     } catch (final NumberFormatException ignore) {
                     }
                     return result;

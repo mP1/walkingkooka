@@ -49,7 +49,7 @@ public final class PushableStreamConsumerCloseableCollectionNonEmptyTest extends
                 this.first, second, third, fourth);
 
         collection.closeables
-                .forEach(c -> TestCloseableRunnable.class.cast(c).checkNotClosed());
+                .forEach(c -> ((TestCloseableRunnable) c).checkNotClosed());
     }
 
     @Test
@@ -63,7 +63,7 @@ public final class PushableStreamConsumerCloseableCollectionNonEmptyTest extends
         collection.close();
 
         collection.closeables
-                .forEach(c -> TestCloseableRunnable.class.cast(c).checkClosed());
+                .forEach(c -> ((TestCloseableRunnable) c).checkClosed());
     }
 
     @Test
@@ -78,13 +78,13 @@ public final class PushableStreamConsumerCloseableCollectionNonEmptyTest extends
 
         collection.closeables.stream()
                 .filter(p -> p instanceof TestCloseableRunnable)
-                .forEach(c -> TestCloseableRunnable.class.cast(c).checkClosed());
+                .forEach(c -> ((TestCloseableRunnable) c).checkClosed());
 
         collection.close();
 
         collection.closeables.stream()
                 .filter(p -> p instanceof TestCloseableRunnable)
-                .forEach(c -> TestCloseableRunnable.class.cast(c).checkClosed());
+                .forEach(c -> ((TestCloseableRunnable) c).checkClosed());
 
         assertEquals(1, this.closeCount);
     }

@@ -114,7 +114,7 @@ public final class Binary implements HashCodeEqualsDefined,
     }
 
     public boolean equals(final Object other) {
-        return this == other || other instanceof Binary && this.equals0(Binary.class.cast(other));
+        return this == other || other instanceof Binary && this.equals0((Binary) other);
     }
 
     private boolean equals0(final Binary other) {

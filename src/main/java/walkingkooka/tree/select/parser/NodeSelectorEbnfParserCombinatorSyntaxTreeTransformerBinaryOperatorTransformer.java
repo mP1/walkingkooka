@@ -48,14 +48,14 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformerBinaryOperatorT
 
     @Override
     public int priority(final ParserToken token) {
-        return NodeSelectorParserToken.class.cast(token).operatorPriority();
+        return ((NodeSelectorParserToken) token).operatorPriority();
     }
 
     @Override
     public ParserToken binaryOperand(final List<ParserToken> tokens,
                                      final String text,
                                      final ParserToken parent) {
-        return NodeSelectorParserToken.class.cast(parent).binaryOperand(tokens, text);
+        return ((NodeSelectorParserToken) parent).binaryOperand(tokens, text);
     }
 
     @Override

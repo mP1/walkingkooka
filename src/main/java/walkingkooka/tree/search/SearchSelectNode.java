@@ -86,7 +86,7 @@ public final class SearchSelectNode extends SearchParentNode2 {
 
     private static SearchNode maybeUnwrap(final SearchNode node) {
         return node.isSelect() ?
-                SearchSelectNode.class.cast(node).child() :
+                ((SearchSelectNode) node).child() :
                 node;
     }
 

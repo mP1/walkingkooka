@@ -43,39 +43,39 @@ public interface LeafParserToken<T> extends ParserToken, Value<T> {
             final String text = this.text();
             final Object value = this.value();
             if (value instanceof BigDecimal) {
-                node = SearchNode.bigDecimal(text, BigDecimal.class.cast(value));
+                node = SearchNode.bigDecimal(text, (BigDecimal) value);
                 break;
             }
             if (value instanceof BigInteger) {
-                node = SearchNode.bigInteger(text, BigInteger.class.cast(value));
+                node = SearchNode.bigInteger(text, (BigInteger) value);
                 break;
             }
             if (value instanceof Double) {
-                node = SearchNode.doubleNode(text, Double.class.cast(value));
+                node = SearchNode.doubleNode(text, (Double) value);
                 break;
             }
             if (value instanceof LocalDate) {
-                node = SearchNode.localDate(text, LocalDate.class.cast(value));
+                node = SearchNode.localDate(text, (LocalDate) value);
                 break;
             }
             if (value instanceof LocalDateTime) {
-                node = SearchNode.localDateTime(text, LocalDateTime.class.cast(value));
+                node = SearchNode.localDateTime(text, (LocalDateTime) value);
                 break;
             }
             if (value instanceof LocalTime) {
-                node = SearchNode.localTime(text, LocalTime.class.cast(value));
+                node = SearchNode.localTime(text, (LocalTime) value);
                 break;
             }
             if (value instanceof Long) {
-                node = SearchNode.longNode(text, Long.class.cast(value));
+                node = SearchNode.longNode(text, (Long) value);
                 break;
             }
             if (value instanceof Name) {
-                node = SearchNode.text(text, Name.class.cast(value).value());
+                node = SearchNode.text(text, ((Name) value).value());
                 break;
             }
             if (value instanceof String) {
-                node = SearchNode.text(text, String.class.cast(value));
+                node = SearchNode.text(text, (String) value);
                 break;
             }
 

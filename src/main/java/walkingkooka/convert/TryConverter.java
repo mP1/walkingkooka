@@ -53,7 +53,7 @@ final class TryConverter implements Converter {
 
     private static Stream<Converter> flatMap(final Converter converter) {
         return converter instanceof TryConverter ?
-                TryConverter.class.cast(converter).stream() :
+                ((TryConverter) converter).stream() :
                 Stream.of(converter);
     }
 

@@ -52,7 +52,7 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
 
 
         return value instanceof Number ?
-                ExpressionNodeNumberVisitor.expressionNode(Number.class.cast(value)) :
+                ExpressionNodeNumberVisitor.expressionNode((Number) value) :
                 value instanceof Boolean ?
                         booleanNode(Cast.to(value)) :
                         value instanceof LocalDate ?

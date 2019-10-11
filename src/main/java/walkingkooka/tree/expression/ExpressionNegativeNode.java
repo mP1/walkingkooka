@@ -104,13 +104,13 @@ public final class ExpressionNegativeNode extends ExpressionUnaryNode {
     public Number toNumber(final ExpressionEvaluationContext context) {
         final Number number = this.value().toNumber(context);
         return number instanceof BigDecimal ?
-                this.applyBigDecimal(BigDecimal.class.cast(number), context) :
+                this.applyBigDecimal((BigDecimal) number, context) :
                 number instanceof BigInteger ?
-                        this.applyBigInteger(BigInteger.class.cast(number)) :
+                        this.applyBigInteger((BigInteger) number) :
                         number instanceof Double ?
-                                this.applyDouble(Double.class.cast(number)) :
+                                this.applyDouble((Double) number) :
                                 number instanceof Long ?
-                                        this.applyLong(Long.class.cast(number)) :
+                                        this.applyLong((Long) number) :
                                         failToNumber(number);
     }
 

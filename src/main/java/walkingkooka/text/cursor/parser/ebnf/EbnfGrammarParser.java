@@ -59,11 +59,11 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
     }
 
     private static ParserToken transformWhitespace(final ParserToken token, ParserContext context) {
-        return EbnfWhitespaceParserToken.with(StringParserToken.class.cast(token).value(), token.text());
+        return EbnfWhitespaceParserToken.with(((StringParserToken) token).value(), token.text());
     }
 
     private static ParserToken transformComment(final ParserToken token, ParserContext context) {
-        return EbnfCommentParserToken.with(StringParserToken.class.cast(token).value(), token.text());
+        return EbnfCommentParserToken.with(((StringParserToken) token).value(), token.text());
     }
 
     /**
@@ -366,7 +366,7 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
     }
 
     private static ParserToken transformSymbolCharacter(final ParserToken token, final ParserContext context) {
-        return EbnfSymbolParserToken.with(CharacterParserToken.class.cast(token).value().toString(), token.text());
+        return EbnfSymbolParserToken.with(((CharacterParserToken) token).value().toString(), token.text());
     }
 
     /**
@@ -380,7 +380,7 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
     }
 
     private static ParserToken transformSymbolString(final ParserToken token, final ParserContext context) {
-        return EbnfSymbolParserToken.with(StringParserToken.class.cast(token).value(), token.text());
+        return EbnfSymbolParserToken.with(((StringParserToken) token).value(), token.text());
     }
 
     private static BiFunction<ParserToken, EbnfParserContext, ParserToken> filterAndWrap(final BiFunction<List<ParserToken>, String, ParserToken> wrapper) {
@@ -405,7 +405,7 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
     }
 
     private static EbnfGrammarParserToken grammarParserToken(final ParserToken sequence, final EbnfParserContext context) {
-        return EbnfGrammarParserToken.with(SequenceParserToken.class.cast(sequence).flat()
+        return EbnfGrammarParserToken.with(((SequenceParserToken) sequence).flat()
                         .value(),
                 sequence.text());
     }

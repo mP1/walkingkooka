@@ -47,7 +47,7 @@ public final class NodeSelectorFunctionParserToken extends NodeSelectorParentPar
             throw new IllegalArgumentException("Function name missing from " + value);
         }
 
-        this.functionName = NodeSelectorFunctionNameParserToken.class.cast(name).value();
+        this.functionName = ((NodeSelectorFunctionNameParserToken) name).value();
         this.parameters = without.subList(1, without.size());
     }
 
