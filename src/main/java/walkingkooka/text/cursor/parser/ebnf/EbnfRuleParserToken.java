@@ -41,7 +41,7 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken<EbnfRulePar
         final EbnfRuleParserTokenConsumer checker = EbnfRuleParserTokenConsumer.with();
         tokens.stream()
                 .filter(t -> t instanceof EbnfParserToken)
-                .map(EbnfParserToken.class::cast)
+                .map(EbnfRuleParserToken::toEbnfParserToken)
                 .forEach(checker);
 
         final EbnfIdentifierParserToken identifier = checker.identifier;
@@ -55,6 +55,10 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken<EbnfRulePar
 
         this.identifier = identifier;
         this.token = token;
+    }
+
+    private static EbnfParserToken toEbnfParserToken(final ParserToken token) {
+        return token.cast(EbnfParserToken.class);
     }
 
     public EbnfIdentifierParserToken identifier() {
