@@ -22,7 +22,6 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.PublicStaticHelper;
 
-import java.util.Objects;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -87,19 +86,6 @@ final public class Predicates implements PublicStaticHelper {
      */
     public static <T> Predicate<T> customToString(final Predicate<T> predicate, final String toString) {
         return CustomToStringPredicate.wrap(predicate, toString);
-    }
-
-    /**
-     * If a value is null or fails the {@link Predicate}, a {@link NullPointerException} or {@link IllegalArgumentException}
-     * will be thrown.
-     */
-    public static <T> void failIfNullOrFalse(final T value, final Predicate<T> predicate, final String formatMessage) {
-        if (null == value) {
-            Objects.requireNonNull(value, String.format(formatMessage, value));
-        }
-        if (!predicate.test(value)) {
-            throw new IllegalArgumentException(String.format(formatMessage, value) + " must be " + predicate);
-        }
     }
 
     /**
