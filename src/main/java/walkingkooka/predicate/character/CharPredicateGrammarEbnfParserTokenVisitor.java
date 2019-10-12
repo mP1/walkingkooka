@@ -23,6 +23,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.stack.Stack;
 import walkingkooka.collect.stack.Stacks;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfAlternativeParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfConcatenationParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfExceptionParserToken;
@@ -74,11 +75,19 @@ final class CharPredicateGrammarEbnfParserTokenVisitor extends EbnfParserTokenVi
         token.value()
                 .stream()
                 .filter(t -> t instanceof EbnfParserToken)
-                .map(EbnfParserToken.class::cast)
+                .map(CharPredicateGrammarEbnfParserTokenVisitor::toEbnfParserToken)
                 .filter(EbnfParserToken::isRule)
-                .map(EbnfRuleParserToken.class::cast)
+                .map(CharPredicateGrammarEbnfParserTokenVisitor::toEbnfRuleParserToken)
                 .forEach(this::ruleIdentifier);
-        return super.startVisit(token);
+        return Visiting.CONTINUE;
+    }
+
+    private static EbnfParserToken toEbnfParserToken(final ParserToken token) {
+        return token.cast(EbnfParserToken.class);
+    }
+
+    private static EbnfRuleParserToken toEbnfRuleParserToken(final ParserToken token) {
+        return token.cast(EbnfRuleParserToken.class);
     }
 
     private void ruleIdentifier(final EbnfRuleParserToken rule) {
