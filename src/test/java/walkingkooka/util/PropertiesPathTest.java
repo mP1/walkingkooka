@@ -15,11 +15,15 @@
  *
  */
 
-package walkingkooka.naming;
+package walkingkooka.util;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.naming.PathSeparator;
+import walkingkooka.naming.PathTesting;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ParseStringTesting;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Set;
 
@@ -28,8 +32,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final public class PropertiesPathTest extends PathTestCase<PropertiesPath, PropertiesName>
-        implements ParseStringTesting<PropertiesPath> {
+final public class PropertiesPathTest implements PathTesting<PropertiesPath, PropertiesName>,
+        ClassTesting2<PropertiesPath>,
+        ParseStringTesting<PropertiesPath> {
 
     @Test
     public void testParseEmptyComponent() {
@@ -107,24 +112,33 @@ final public class PropertiesPathTest extends PathTestCase<PropertiesPath, Prope
         return PropertiesPath.SEPARATOR;
     }
 
-    @Override
-    public Class<PropertiesPath> type() {
-        return PropertiesPath.class;
-    }
+    // ComparableTesting................................................................................................
 
     @Override
     public PropertiesPath createComparable() {
         return PropertiesPath.parse("property-abc");
     }
 
-    // ConstantTesting ........................................................................................
+    // ClassTesting.....................................................................................................
+
+    @Override
+    public Class<PropertiesPath> type() {
+        return PropertiesPath.class;
+    }
+
+    @Override
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
+    }
+
+    // ConstantTesting .................................................................................................
 
     @Override
     public Set<PropertiesPath> intentionalDuplicateConstants() {
         return Sets.empty();
     }
 
-    // ParseStringTesting ........................................................................................
+    // ParseStringTesting ..............................................................................................
 
     @Override
     public PropertiesPath parseString(final String text) {

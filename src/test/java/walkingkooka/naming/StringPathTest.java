@@ -19,12 +19,15 @@ package walkingkooka.naming;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ParseStringTesting;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Set;
 
-final public class StringPathTest extends PathTestCase<StringPath, StringName>
-        implements ParseStringTesting<StringPath> {
+final public class StringPathTest implements PathTesting<StringPath, StringName>,
+        ClassTesting2<StringPath>,
+        ParseStringTesting<StringPath> {
 
     @Override
     public void testAllConstructorsVisibility() {
@@ -123,24 +126,33 @@ final public class StringPathTest extends PathTestCase<StringPath, StringName>
         return StringPath.SEPARATOR;
     }
 
-    @Override
-    public Class<StringPath> type() {
-        return StringPath.class;
-    }
+    // ComparableTesting................................................................................................
 
     @Override
     public StringPath createComparable() {
         return StringPath.parse("/path");
     }
 
-    // ConstantTesting ........................................................................................
+    // ClassTesting.....................................................................................................
+
+    @Override
+    public Class<StringPath> type() {
+        return StringPath.class;
+    }
+
+    @Override
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
+    }
+
+    // ConstantTesting ..................................................................................................
 
     @Override
     public Set<StringPath> intentionalDuplicateConstants() {
         return Sets.empty();
     }
 
-    // ParseStringTesting ........................................................................................
+    // ParseStringTesting ..............................................................................................
 
     @Override
     public StringPath parseString(final String text) {
