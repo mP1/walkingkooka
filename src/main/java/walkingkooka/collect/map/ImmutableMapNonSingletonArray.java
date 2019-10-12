@@ -45,11 +45,15 @@ final class ImmutableMapNonSingletonArray<K, V> extends ImmutableMap<K, V> {
 
     @Override
     public V get(final Object key) {
-        return (V) Arrays.stream(this.entrySet.entries)
-                .filter(e -> e.getKey().equals(key))
-                .map(Entry::getValue)
-                .findFirst()
-                .orElse(null);
+        V value = null;
+
+        for (Entry<K, V> entry : this.entrySet.entries) {
+            if (entry.getKey().equals(key)) {
+                value = entry.getValue();
+                break;
+            }
+        }
+        return value;
     }
 
     @Override
