@@ -41,7 +41,7 @@ final public class EbnfRangeParserToken extends EbnfParentParserToken<EbnfRangeP
         final EbnfRangeParserTokenConsumer checker = EbnfRangeParserTokenConsumer.with();
         tokens.stream()
                 .filter(t -> t instanceof EbnfParserToken)
-                .map(EbnfParserToken.class::cast)
+                .map(EbnfRangeParserToken::toEbnfParserToken)
                 .forEach(checker);
 
         final EbnfParserToken begin = checker.begin;
@@ -55,6 +55,10 @@ final public class EbnfRangeParserToken extends EbnfParentParserToken<EbnfRangeP
 
         this.begin = begin;
         this.end = end;
+    }
+
+    private static EbnfParserToken toEbnfParserToken(final ParserToken token) {
+        return token.cast(EbnfParserToken.class);
     }
 
     public EbnfParserToken begin() {
