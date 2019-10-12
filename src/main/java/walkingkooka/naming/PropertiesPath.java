@@ -23,7 +23,6 @@ import walkingkooka.text.CharSequences;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Properties;
-import java.util.regex.Pattern;
 
 /**
  * A {@link Path} that wraps a {@link String} which may contain any character.
@@ -36,8 +35,6 @@ final public class PropertiesPath implements Path<PropertiesPath, PropertiesName
      */
     public final static PathSeparator SEPARATOR = PathSeparator.notRequiredAtStart('.');
 
-    private final static String SPLIT = Pattern.quote(SEPARATOR.string());
-
     final static Optional<PropertiesPath> NO_PARENT = Optional.empty();
 
     /**
@@ -48,7 +45,8 @@ final public class PropertiesPath implements Path<PropertiesPath, PropertiesName
 
         try {
             PropertiesPath result = null;
-            for (String component : path.split(SPLIT)) {
+
+            for (final String component : path.split("\\.")) {
                 final PropertiesName name = PropertiesName.with(component);
                 result = null == result ?
                         new PropertiesPath(component, name, NO_PARENT) :
