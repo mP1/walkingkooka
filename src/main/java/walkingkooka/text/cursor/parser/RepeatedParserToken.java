@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * This {@link ParserToken} holds one or more of the tokens of the same type but not equal.
  */
-public final class RepeatedParserToken extends RepeatedOrSequenceParserToken<RepeatedParserToken> {
+public final class RepeatedParserToken extends RepeatedOrSequenceParserToken {
 
     static RepeatedParserToken with(final List<ParserToken> tokens, final String text) {
         Objects.requireNonNull(tokens, "tokens");

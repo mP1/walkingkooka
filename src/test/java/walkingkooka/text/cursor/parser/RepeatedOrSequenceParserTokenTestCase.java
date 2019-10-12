@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class RepeatedOrSequenceParserTokenTestCase<T extends RepeatedOrSequenceParserToken<T>> extends ParserTokenTestCase<T> {
+public abstract class RepeatedOrSequenceParserTokenTestCase<T extends RepeatedOrSequenceParserToken> extends ParserTokenTestCase<T> {
 
     private final static StringParserToken STRING1 = ParserTokens.string("a1", "a1");
     private final static StringParserToken STRING2 = ParserTokens.string("b2", "b2");
