@@ -32,7 +32,7 @@ public final class SequenceParserToken extends RepeatedOrSequenceParserToken {
     /**
      * Factory that wraps many tokens in a {@link SequenceParserToken}.
      */
-    static <T extends ParserToken> SequenceParserToken with(final List<ParserToken> tokens, final String text) {
+    static SequenceParserToken with(final List<ParserToken> tokens, final String text) {
         Objects.requireNonNull(tokens, "tokens");
         Objects.requireNonNull(text, "text");
 
