@@ -29,13 +29,6 @@ final public class Paths implements PublicStaticHelper {
     }
 
     /**
-     * {@see PropertiesPath}
-     */
-    public static PropertiesPath properties(final String path) {
-        return PropertiesPath.parse(path);
-    }
-
-    /**
      * {@see StringPath}
      */
     public static StringPath string(final String path) {

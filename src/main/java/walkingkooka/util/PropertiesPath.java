@@ -15,8 +15,10 @@
  *
  */
 
-package walkingkooka.naming;
+package walkingkooka.util;
 
+import walkingkooka.naming.Path;
+import walkingkooka.naming.PathSeparator;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 

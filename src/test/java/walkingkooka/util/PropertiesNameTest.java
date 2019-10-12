@@ -15,9 +15,10 @@
  *
  */
 
-package walkingkooka.naming;
+package walkingkooka.util;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.JavaVisibility;

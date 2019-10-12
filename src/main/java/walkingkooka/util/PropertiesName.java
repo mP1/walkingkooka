@@ -15,10 +15,11 @@
  *
  */
 
-package walkingkooka.naming;
+package walkingkooka.util;
 
 
 import walkingkooka.Cast;
+import walkingkooka.naming.Name;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
@@ -57,7 +58,7 @@ final public class PropertiesName implements Name,
 
     private final String name;
 
-    // Object..................................................................................................
+    // Object...........................................................................................................
 
     public final int hashCode() {
         return CASE_SENSITIVITY.hash(this.name);
@@ -79,7 +80,7 @@ final public class PropertiesName implements Name,
         return this.name;
     }
 
-    // Comparable ...................................................................................................
+    // Comparable ......................................................................................................
 
     @Override
     public int compareTo(final PropertiesName other) {
