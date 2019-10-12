@@ -60,7 +60,7 @@ final class ParserTestingPrettyDumper {
         }
     }
 
-    private static void dumpParent(final ParentParserToken<?> token,
+    private static void dumpParent(final ParentParserToken token,
                                    final VisitorPrettyPrinter<ParserToken> printer) {
         printer.enter(token);
         token.value().forEach(t -> dump(t, printer));
