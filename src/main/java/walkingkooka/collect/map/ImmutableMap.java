@@ -17,12 +17,12 @@
 
 package walkingkooka.collect.map;
 
-import walkingkooka.collect.ImmutableTypeRegistry;
 import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.AbstractMap;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Base class for numerous {@link Map} views which are considered immutable and read only.
@@ -30,10 +30,13 @@ import java.util.Map;
 abstract class ImmutableMap<K, V> extends AbstractMap<K, V> implements HashCodeEqualsDefined {
 
     /**
-     * Special case checking for empty {@link Map} created by {@link Collections#emptyMap()}.
+     * A registry of immutable {@link Map} types.
      */
-    final static ImmutableTypeRegistry TYPES = ImmutableTypeRegistry.with(Map.class)
-            .add(Maps.empty().getClass());
+    final static Set<Class<?>> TYPES = Collections.newSetFromMap(Maps.concurrent());
+
+    static {
+        TYPES.add(Maps.empty().getClass());
+    }
 
     /**
      * Returns true if the {@link Map} is immutable. This may not detect all but tries to attempt a few known to {@link Map}.
