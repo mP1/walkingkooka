@@ -38,6 +38,13 @@ public final class ImmutableMapNonSingletonArrayTest extends ImmutableMapTestCas
         this.sizeAndCheck(immutable, 2);
     }
 
+    @Test
+    public void testGetNullValue() {
+        final ImmutableMapNonSingletonArray<String, Integer> map = this.createMap(KEY1, null, KEY2, VALUE2);
+        this.getAndCheck(map, KEY1, null);
+        this.getAndCheck(map, KEY2, VALUE2);
+    }
+
     @Override
     ImmutableMapNonSingletonArray<String, Integer> createMap(final String key0,
                                                              final Integer value0,
