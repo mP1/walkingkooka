@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 /**
  * Interface that all parent parser tokens must implement.
  */
-public interface ParentParserToken<P extends ParentParserToken> extends ParserToken, Value<List<ParserToken>>, HasSearchNode {
+public interface ParentParserToken extends ParserToken, Value<List<ParserToken>>, HasSearchNode {
 
     /**
      * Returns a {@link List} without any {@link ParserToken tokens} that return true for {@link #isNoise()}.
