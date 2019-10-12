@@ -37,7 +37,7 @@ final class PrintableCharPredicate implements CharPredicate {
 
     @Override
     public boolean test(final char c) {
-        return false == Character.isISOControl(c);
+        return c >= ' ';
     }
 
     @Override
