@@ -17,12 +17,13 @@
 
 package walkingkooka.collect.list;
 
-import walkingkooka.collect.ImmutableTypeRegistry;
+import walkingkooka.collect.map.Maps;
 
 import java.util.AbstractList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Base class for all immutable {@link List} returned by {@link Lists}.
@@ -30,10 +31,14 @@ import java.util.Objects;
 abstract class ImmutableList<T> extends AbstractList<T> {
 
     /**
-     * Special case checking for empty {@link List} created by {@link Collections#emptyList()}.
+     * A registry of immutable {@link List} types.
      */
-    final static ImmutableTypeRegistry TYPES = ImmutableTypeRegistry.with(List.class)
-            .add(Lists.empty().getClass());
+    final static Set<Class<?>> TYPES = Collections.newSetFromMap(Maps.concurrent());
+
+    static {
+        TYPES.add(List.class);
+        TYPES.add(Lists.empty().getClass());
+    }
 
     /**
      * Returns true if the {@link List} is immutable. This may not detect all but tries to attempt a few known to {@link List}.

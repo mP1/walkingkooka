@@ -18,7 +18,7 @@
 package walkingkooka.collect.set;
 
 import walkingkooka.Cast;
-import walkingkooka.collect.ImmutableTypeRegistry;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.AbstractSet;
@@ -33,10 +33,13 @@ import java.util.SortedSet;
 abstract class ImmutableSet<T> extends AbstractSet<T> implements HashCodeEqualsDefined {
 
     /**
-     * Special case checking for empty {@link Set} created by {@link Collections#emptySet()}.
+     * A registry of immutable {@link Set} types.
      */
-    final static ImmutableTypeRegistry TYPES = ImmutableTypeRegistry.with(Set.class)
-            .add(Sets.empty().getClass());
+    final static Set<Class<?>> TYPES = Collections.newSetFromMap(Maps.concurrent());
+
+    static {
+        TYPES.add(Sets.empty().getClass());
+    }
 
     /**
      * Returns true if the {@link Set} is immutable. This may not detect all but tries to attempt a few known to {@link Set}.
