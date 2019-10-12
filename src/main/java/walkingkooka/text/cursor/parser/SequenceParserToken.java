@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 /**
  * This {@link ParserToken} holds a sequence in order of tokens.
  */
-public final class SequenceParserToken extends RepeatedOrSequenceParserToken<SequenceParserToken> {
+public final class SequenceParserToken extends RepeatedOrSequenceParserToken {
 
     /**
      * Factory that wraps many tokens in a {@link SequenceParserToken}.

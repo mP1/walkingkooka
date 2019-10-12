@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * A common base class for both {@link RepeatedParserToken} and {@link SequenceParserToken}.
  */
-abstract public class RepeatedOrSequenceParserToken<T extends RepeatedOrSequenceParserToken<T>> extends ParserToken2<List<ParserToken>>
+abstract public class RepeatedOrSequenceParserToken extends ParserToken2<List<ParserToken>>
         implements ParentParserToken {
 
     /**
@@ -55,7 +55,7 @@ abstract public class RepeatedOrSequenceParserToken<T extends RepeatedOrSequence
     /**
      * Recursively flattens all embedded {@link RepeatedOrSequenceParserToken} into a single {@link RepeatedOrSequenceParserToken}.
      */
-    public abstract RepeatedOrSequenceParserToken<?> flat();
+    public abstract RepeatedOrSequenceParserToken flat();
 
     // ParserTokenVisitor...............................................................................................
 
