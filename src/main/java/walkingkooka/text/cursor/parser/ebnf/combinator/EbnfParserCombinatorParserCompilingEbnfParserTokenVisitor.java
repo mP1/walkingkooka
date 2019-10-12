@@ -26,6 +26,7 @@ import walkingkooka.collect.stack.Stacks;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.SequenceParserBuilder;
 import walkingkooka.text.cursor.parser.ebnf.EbnfAlternativeParserToken;
@@ -76,11 +77,19 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor extends Eb
         token.value()
                 .stream()
                 .filter(t -> t instanceof EbnfParserToken)
-                .map(EbnfParserToken.class::cast)
+                .map(EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor::toEbnfParserToken)
                 .filter(EbnfParserToken::isRule)
-                .map(EbnfRuleParserToken.class::cast)
+                .map(EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor::toEbnfRuleParserToken)
                 .forEach(r -> this.identifierToRule.put(r.identifier().value(), r));
         return super.startVisit(token);
+    }
+
+    private static EbnfParserToken toEbnfParserToken(final ParserToken token) {
+        return token.cast(EbnfParserToken.class);
+    }
+
+    private static EbnfRuleParserToken toEbnfRuleParserToken(final ParserToken token) {
+        return token.cast(EbnfRuleParserToken.class);
     }
 
     @Override
