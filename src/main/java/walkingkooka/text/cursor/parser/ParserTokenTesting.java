@@ -28,7 +28,6 @@ import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasTextTesting;
 import walkingkooka.tree.search.SearchNode;
-import walkingkooka.tree.search.SearchSequenceNode;
 import walkingkooka.visit.Visiting;
 
 import java.util.Collection;
