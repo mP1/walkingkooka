@@ -29,21 +29,25 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ParserReporterExceptionTest implements ClassTesting2<ParserReporterException> {
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithNullMessageFails() {
         assertThrows(NullPointerException.class, () -> new ParserReporterException(null, TextCursorLineInfos.fake()));
     }
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithEmptyMessageFails() {
         assertThrows(IllegalArgumentException.class, () -> new ParserReporterException("", TextCursorLineInfos.fake()));
     }
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithBlankMessageFails() {
         assertThrows(IllegalArgumentException.class, () -> new ParserReporterException("   ", TextCursorLineInfos.fake()));
     }
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithNullLineInfoFails() {
         assertThrows(NullPointerException.class, () -> new ParserReporterException("message!", null));
