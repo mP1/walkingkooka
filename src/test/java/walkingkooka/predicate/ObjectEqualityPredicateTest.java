@@ -56,6 +56,7 @@ final public class ObjectEqualityPredicateTest
 
     @Test
     public void testTestButDifferentInstance() {
+        //noinspection StringOperationCanBeSimplified
         this.testTrue(new String(MAGIC));
     }
 
