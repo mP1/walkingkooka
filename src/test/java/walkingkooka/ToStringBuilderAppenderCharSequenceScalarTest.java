@@ -63,12 +63,12 @@ public final class ToStringBuilderAppenderCharSequenceScalarTest extends ToStrin
 
     @Override
     void append(final ToStringBuilder builder, final CharSequence value) {
-        builder.append((CharSequence) value);
+        builder.append(value);
     }
 
     @Override
     void value(final ToStringBuilder builder, final CharSequence value) {
-        builder.value((CharSequence) value);
+        builder.value(value);
     }
 
     @Override

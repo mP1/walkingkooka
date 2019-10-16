@@ -72,6 +72,7 @@ public final class ConverterNumberLocalTimeTest extends ConverterNumberTestCase<
         throw new UnsupportedOperationException();
     }
 
+    @SuppressWarnings("RedundantCast")
     @Test
     public void testByte() {
         this.convertAndCheck2((byte) VALUE);
