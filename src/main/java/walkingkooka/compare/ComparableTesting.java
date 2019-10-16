@@ -59,6 +59,7 @@ public interface ComparableTesting extends HashCodeEqualsDefinedTesting {
         }
     }
 
+    @SuppressWarnings("unchecked")
     default <C extends Comparable<C>> void compareToArraySortAndCheck(final C... values) {
         if (values.length % 2 != 0) {
             Assertions.fail("Expected even number of values " + Arrays.toString(values));

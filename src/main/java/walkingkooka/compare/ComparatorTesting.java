@@ -106,10 +106,12 @@ public interface ComparatorTesting<C extends Comparator<T>, T>
         }
     }
 
+    @SuppressWarnings("unchecked")
     default void comparatorArraySortAndCheck(final T... values) {
         this.comparatorArraySortAndCheck(this.createComparator(), values);
     }
 
+    @SuppressWarnings("unchecked")
     default <TT> void comparatorArraySortAndCheck(final Comparator<TT> comparator,
                                                   final TT... values) {
         if (values.length % 2 != 0) {

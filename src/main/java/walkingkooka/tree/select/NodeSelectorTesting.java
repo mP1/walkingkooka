@@ -37,6 +37,7 @@ public interface NodeSelectorTesting<N extends Node<N, NAME, ANAME, AVALUE>,
 
     N createNode();
 
+    @SuppressWarnings("unchecked")
     default void selectorApplyAndCheck(final N node,
                                        final NodeSelector<N, NAME, ANAME, AVALUE> selector,
                                        final N... expected) {

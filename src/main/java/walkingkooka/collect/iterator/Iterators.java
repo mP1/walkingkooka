@@ -35,6 +35,7 @@ final public class Iterators implements PublicStaticHelper {
     /**
      * {@see ChainIterator}
      */
+    @SafeVarargs
     public static <E> Iterator<E> chain(final Iterator<E> first,
                                         final Iterator<E>... iterators) {
         return ChainIterator.with(first, iterators);

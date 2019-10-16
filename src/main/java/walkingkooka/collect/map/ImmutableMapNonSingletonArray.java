@@ -32,6 +32,7 @@ final class ImmutableMapNonSingletonArray<K, V> extends ImmutableMap<K, V> {
         return new ImmutableMapNonSingletonArray<>(notCopied);
     }
 
+    @SafeVarargs
     private ImmutableMapNonSingletonArray(final Entry<K, V>... entries) {
         super();
         this.entrySet = ImmutableMapNonSingletonArrayEntrySet.with(entries);
@@ -47,7 +48,7 @@ final class ImmutableMapNonSingletonArray<K, V> extends ImmutableMap<K, V> {
     public V get(final Object key) {
         V value = null;
 
-        for (Entry<K, V> entry : this.entrySet.entries) {
+        for (final Entry<K, V> entry : this.entrySet.entries) {
             if (entry.getKey().equals(key)) {
                 value = entry.getValue();
                 break;
