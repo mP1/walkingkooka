@@ -111,6 +111,7 @@ abstract class CharSequence2<C extends CharSequence2<C>> implements CharSequence
      * instances.
      */
     @Override
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     final public boolean equals(final Object other) {
         return this == other || this.canBeEqual(other) && this.equals0(Cast.to(other));
     }

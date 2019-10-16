@@ -468,6 +468,7 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
     public abstract int hashCode();
 
     @Override
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     public final boolean equals(final Object other) {
         return this == other ||
                 this.canBeEqual(other) &&
