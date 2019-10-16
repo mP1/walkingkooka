@@ -113,20 +113,12 @@ public final class BuilderTestingTest implements BuilderTesting<Builder<String>,
     }
 
     private Builder<String> builder(final String product) {
-        return new Builder<>() {
-            @Override
-            public String build() throws BuilderException {
-                return product;
-            }
-        };
+        return () -> product;
     }
 
     private Builder<String> builderBuildThrows(final String message) {
-        return new Builder<>() {
-            @Override
-            public String build() throws BuilderException {
-                throw new BuilderException(message);
-            }
+        return () -> {
+            throw new BuilderException(message);
         };
     }
 

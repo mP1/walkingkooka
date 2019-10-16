@@ -39,11 +39,8 @@ final public class OpenCheckerTest implements ClassTesting2<OpenChecker<Exceptio
 
     private final static String MESSAGE = "Not Open";
 
-    private final static Function<String, Thrown> THROWABLE_FACTORY = new Function<>() {
-        @Override
-        public Thrown apply(final String s) {
-            throw new Thrown(s);
-        }
+    private final static Function<String, Thrown> THROWABLE_FACTORY = s -> {
+        throw new Thrown(s);
     };
 
     // tests

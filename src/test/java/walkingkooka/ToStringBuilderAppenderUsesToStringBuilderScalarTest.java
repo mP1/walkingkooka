@@ -85,19 +85,15 @@ public final class ToStringBuilderAppenderUsesToStringBuilderScalarTest extends 
                         .disable(ToStringBuilderOption.QUOTE)//
                         .enable(ToStringBuilderOption.INLINE_ELEMENTS)
                         .label(LABEL1)
-                        .value(new UsesToStringBuilder() {
-
-                            @Override
-                            public void buildToString(final ToStringBuilder builder) {
-                                builder.separator("/")
-                                        .labelSeparator(labelSeparator2)
-                                        .separator(separator2)
-                                        .valueSeparator(valueSeparator2)
-                                        .enable(ToStringBuilderOption.QUOTE);
-                                builder.value(VALUE1);
-                                builder.label(LABEL2)
-                                        .value(Lists.of(20, 21));
-                            }
+                        .value(builder -> {
+                            builder.separator("/")
+                                    .labelSeparator(labelSeparator2)
+                                    .separator(separator2)
+                                    .valueSeparator(valueSeparator2)
+                                    .enable(ToStringBuilderOption.QUOTE);
+                            builder.value(VALUE1);
+                            builder.label(LABEL2)
+                                    .value(Lists.of(20, 21));
                         })//
                         .label(LABEL3)
                         .value(Lists.of(value3a, value3b)), //
@@ -123,18 +119,14 @@ public final class ToStringBuilderAppenderUsesToStringBuilderScalarTest extends 
                         .label(LABEL1)
                         .value(VALUE1) //
                         .label(LABEL2)
-                        .value(new UsesToStringBuilder() {
-
-                            @Override
-                            public void buildToString(final ToStringBuilder builder) {
-                                builder.separator("/")
-                                        .labelSeparator(labelSeparator2)
-                                        .separator(separator2)
-                                        .valueSeparator(valueSeparator2)
-                                        .enable(ToStringBuilderOption.QUOTE);
-                                builder.value(value2);
-                                builder.label(LABEL3).value(Lists.of(30, 31));
-                            }
+                        .value(builder -> {
+                            builder.separator("/")
+                                    .labelSeparator(labelSeparator2)
+                                    .separator(separator2)
+                                    .valueSeparator(valueSeparator2)
+                                    .enable(ToStringBuilderOption.QUOTE);
+                            builder.value(value2);
+                            builder.label(LABEL3).value(Lists.of(30, 31));
                         })//
                         .label(LABEL4)
                         .value(Lists.of(value4a, value4b)), //

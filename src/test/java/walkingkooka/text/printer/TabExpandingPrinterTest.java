@@ -30,11 +30,8 @@ final public class TabExpandingPrinterTest extends PrinterTestCase2<TabExpanding
 
     private final static Printer PRINTER = Printers.fake();
 
-    private final static IntUnaryOperator TAB_STOPS = new IntUnaryOperator() {
-        @Override
-        public int applyAsInt(final int operand) {
-            throw new UnsupportedOperationException();
-        }
+    private final static IntUnaryOperator TAB_STOPS = operand -> {
+        throw new UnsupportedOperationException();
     };
 
     private final static LineEnding LINE_ENDING = LineEnding.NL;
