@@ -348,6 +348,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
     // HashCodeEqualsDefined...............................................................................
 
     @Override
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     public final boolean equals(final Object other) {
         return this == other || this.canBeEqual(other) && this.equals0(Cast.to(other));
     }

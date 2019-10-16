@@ -49,6 +49,7 @@ abstract class CaseSensitivityCharSequencePredicateTemplate<C extends CharSequen
         return this.sensitivity.hash(this.chars);
     }
 
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     @Override
     public boolean equals(final Object other) {
         return (this == other) || (this.canBeEqual(other)

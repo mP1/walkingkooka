@@ -146,6 +146,7 @@ public abstract class SearchQuery implements HashCodeEqualsDefined {
     abstract public int hashCode();
 
     @Override
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     public final boolean equals(final Object other) {
         return this == other ||
                 this.canBeEqual(other) &&

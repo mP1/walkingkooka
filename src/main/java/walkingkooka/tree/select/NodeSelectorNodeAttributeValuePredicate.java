@@ -101,6 +101,7 @@ abstract class NodeSelectorNodeAttributeValuePredicate<N extends Node<N, NAME, A
     }
 
     @Override
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     public final boolean equals(final Object other) {
         return this == other || this.isSameType(other) && this.equals0(Cast.to(other));
     }

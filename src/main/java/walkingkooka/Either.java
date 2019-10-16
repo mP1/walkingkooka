@@ -239,6 +239,7 @@ public abstract class Either<L, R> implements HashCodeEqualsDefined {
     }
 
     @Override
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     public final boolean equals(final Object other) {
         return this == other ||
                 this.canBeEquals(other) && this.value().equals(((Either) other).value());

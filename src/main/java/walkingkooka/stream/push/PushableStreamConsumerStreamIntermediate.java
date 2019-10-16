@@ -93,6 +93,7 @@ abstract class PushableStreamConsumerStreamIntermediate implements HashCodeEqual
     abstract PushableStreamConsumerStreamIntermediatePushableStreamConsumer<?> createWithNext(PushableStreamConsumer<?> next);
 
     @Override
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     public final boolean equals(final Object other) {
         return this == other || this.canBeEqual(other) && this.equals0(other);
     }

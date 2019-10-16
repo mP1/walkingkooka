@@ -50,6 +50,7 @@ abstract class SequenceParserComponent<C extends ParserContext> implements HashC
     }
 
     @Override
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     public boolean equals(final Object other) {
         return this == other ||
                 this.canBeEqual(other) && this.equals0(Cast.to(other));

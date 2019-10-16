@@ -50,6 +50,7 @@ abstract class RangeBoundExclusiveInclusive<C extends Comparable<C>> extends Ran
     }
 
     @Override
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     public final boolean equals(final Object other) {
         return this == other ||
                 this.canBeEquals(other) &&

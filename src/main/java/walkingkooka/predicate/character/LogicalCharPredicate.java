@@ -48,9 +48,10 @@ abstract class LogicalCharPredicate implements CharPredicate, HashCodeEqualsDefi
     }
 
     @Override
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     final public boolean equals(final Object other) {
-        return (other == this) || (this.canBeEqualType(other)
-                && this.equals0((LogicalCharPredicate) other));
+        return other == this ||
+                (this.canBeEqualType(other) && this.equals0((LogicalCharPredicate) other));
     }
 
     /**

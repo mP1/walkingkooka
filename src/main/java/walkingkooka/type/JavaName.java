@@ -115,6 +115,7 @@ abstract class JavaName<N extends JavaName> implements Name, Comparable<N> {
     }
 
     @Override
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     public boolean equals(final Object other) {
         return this == other ||
                 this.canBeEqual(other) &&
