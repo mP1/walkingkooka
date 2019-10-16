@@ -31,36 +31,43 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<I
     private final static int MIN = 2;
     private final static int MAX = 5;
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithNullLabelFails() {
         assertThrows(NullPointerException.class, () -> new InvalidTextLengthException(null, TEXT, MIN, MAX));
     }
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithEmptyLabelFails() {
         assertThrows(IllegalArgumentException.class, () -> new InvalidTextLengthException("", TEXT, MIN, MAX));
     }
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithWhitespaceLabelFails() {
         assertThrows(IllegalArgumentException.class, () -> new InvalidTextLengthException(" ", TEXT, MIN, MAX));
     }
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithNullTextFails() {
         assertThrows(NullPointerException.class, () -> new InvalidTextLengthException(LABEL, null, MIN, MAX));
     }
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithInvalidMinFails() {
         assertThrows(IllegalArgumentException.class, () -> new InvalidTextLengthException(LABEL, TEXT, -1, MAX));
     }
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithInvalidMinGreaterThanTextFails() {
         assertThrows(IllegalArgumentException.class, () -> new InvalidTextLengthException(LABEL, TEXT, 6, MAX));
     }
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithInvalidMaxFails() {
         assertThrows(IllegalArgumentException.class, () -> new InvalidTextLengthException(LABEL, TEXT, MIN, MIN - 1));

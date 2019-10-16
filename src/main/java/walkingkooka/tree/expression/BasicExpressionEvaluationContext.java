@@ -122,7 +122,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     public Optional<ExpressionNode> reference(final ExpressionReference reference) {
         final Optional<ExpressionNode> node = this.references.apply(reference);
         if (!node.isPresent()) {
-            new ExpressionEvaluationReferenceException("Missing reference: " + reference);
+            throw new ExpressionEvaluationReferenceException("Missing reference: " + reference);
         }
         return node;
     }

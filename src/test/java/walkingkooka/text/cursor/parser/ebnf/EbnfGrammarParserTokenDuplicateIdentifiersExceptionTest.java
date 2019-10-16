@@ -34,11 +34,13 @@ public final class EbnfGrammarParserTokenDuplicateIdentifiersExceptionTest imple
         ThrowableTesting,
         ToStringTesting<EbnfGrammarParserTokenDuplicateIdentifiersException> {
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithNullDuplicatesFails() {
         assertThrows(NullPointerException.class, () -> new EbnfGrammarParserTokenDuplicateIdentifiersException("message 123", null));
     }
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithEmptyDuplicatesFails() {
         assertThrows(IllegalArgumentException.class, () -> new EbnfGrammarParserTokenDuplicateIdentifiersException("message 123", Sets.empty()));

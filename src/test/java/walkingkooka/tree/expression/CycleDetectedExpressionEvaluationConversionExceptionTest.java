@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CycleDetectedExpressionEvaluationConversionExceptionTest implements ClassTesting<CycleDetectedExpressionEvaluationConversionException> {
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testCreateNullReferenceFails() {
         assertThrows(NullPointerException.class, () -> new CycleDetectedExpressionEvaluationConversionException("message123", null));

@@ -38,11 +38,13 @@ public final class EbnfParserCombinatorDuplicateRuleExceptionTest implements Cla
         throw new UnsupportedOperationException();
     }
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithNullMessageFails() {
         assertThrows(NullPointerException.class, () -> new EbnfParserCombinatorDuplicateRuleException(null, this.duplicate()));
     }
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithNullDuplicateRuleFails() {
         assertThrows(NullPointerException.class, () -> new EbnfParserCombinatorDuplicateRuleException(this.message(), null));

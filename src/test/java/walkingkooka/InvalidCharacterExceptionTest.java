@@ -31,21 +31,25 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
     private final static String TEXT = "abc!123";
     private final static int POSITION = 3;
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithNullTextFails() {
         assertThrows(NullPointerException.class, () -> new InvalidCharacterException(null, 3));
     }
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithEmptyTextFails() {
         assertThrows(IllegalArgumentException.class, () -> new InvalidCharacterException("", 3));
     }
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithInvalidPositionFails() {
         assertThrows(IllegalArgumentException.class, () -> new InvalidCharacterException(TEXT, -1));
     }
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithInvalidPositionFails2() {
         assertThrows(IllegalArgumentException.class, () -> new InvalidCharacterException(TEXT, TEXT.length()));
@@ -65,26 +69,31 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
         checkCause(thrown, cause);
     }
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testSetTextAndPositionNullTextFails() {
         assertThrows(NullPointerException.class, () -> this.create().setTextAndPosition(null, POSITION));
     }
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testSetTextAndPositionEmptyTextFails() {
         assertThrows(IllegalArgumentException.class, () -> this.create().setTextAndPosition("", POSITION));
     }
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testSetTextAndPositionInvalidPositionFails() {
         assertThrows(IllegalArgumentException.class, () -> this.create().setTextAndPosition(TEXT, -1));
     }
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testSetTextAndPositionInvalidPositionFails2() {
         assertThrows(IllegalArgumentException.class, () -> this.create().setTextAndPosition(TEXT, TEXT.length() + 1));
     }
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testSetTextAndPositionInvalidPositionFails3() {
         final String text = "abc";

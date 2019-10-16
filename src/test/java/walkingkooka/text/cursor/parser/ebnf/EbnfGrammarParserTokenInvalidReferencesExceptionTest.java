@@ -33,11 +33,13 @@ public final class EbnfGrammarParserTokenInvalidReferencesExceptionTest implemen
         ThrowableTesting,
         ToStringTesting<EbnfGrammarParserTokenInvalidReferencesException> {
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithNullReferencesFails() {
         assertThrows(NullPointerException.class, () -> new EbnfGrammarParserTokenInvalidReferencesException("message", null));
     }
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithEmptyReferencesFails() {
         assertThrows(IllegalArgumentException.class, () -> new EbnfGrammarParserTokenInvalidReferencesException("message", Sets.empty()));
