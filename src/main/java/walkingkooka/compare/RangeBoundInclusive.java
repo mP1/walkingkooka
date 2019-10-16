@@ -40,13 +40,11 @@ final class RangeBoundInclusive<C extends Comparable<C>> extends RangeBoundExclu
     // Range.predicate..................................................................................................
 
     @Override
-    @SuppressWarnings("unchecked")
     boolean lowerTest(final C value) {
         return this.value.compareTo(value) <= 0;
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     boolean upperTest(final C value) {
         return this.value.compareTo(value) >= 0;
     }
@@ -59,13 +57,11 @@ final class RangeBoundInclusive<C extends Comparable<C>> extends RangeBoundExclu
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     boolean lessThanOrEqual0(final RangeBoundExclusive<C> other) {
         return other.value.compareTo(this.value) < 0;
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     boolean lessThanOrEqual0(final RangeBoundInclusive<C> other) {
         return other.value.compareTo(this.value) <= 0;
     }
@@ -78,7 +74,6 @@ final class RangeBoundInclusive<C extends Comparable<C>> extends RangeBoundExclu
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     RangeBound<C> min0(final RangeBoundExclusive<C> other) {
         return this.value.compareTo(other.value) <= 0 ?
                 this :
@@ -86,7 +81,6 @@ final class RangeBoundInclusive<C extends Comparable<C>> extends RangeBoundExclu
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     RangeBound<C> min0(final RangeBoundInclusive<C> other) {
         return this.value.compareTo(other.value) <= 0 ?
                 this :
@@ -99,7 +93,6 @@ final class RangeBoundInclusive<C extends Comparable<C>> extends RangeBoundExclu
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     RangeBound<C> max0(final RangeBoundExclusive<C> other) {
         return this.value.compareTo(other.value) >= 0 ?
                 this :
@@ -107,7 +100,6 @@ final class RangeBoundInclusive<C extends Comparable<C>> extends RangeBoundExclu
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     RangeBound<C> max0(final RangeBoundInclusive<C> other) {
         return this.value.compareTo(other.value) >= 0 ?
                 this :
