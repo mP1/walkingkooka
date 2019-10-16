@@ -31,20 +31,15 @@ final public class PrintedLineHandlerPrinterTest extends PrinterTestCase2<Printe
 
     private final static Printer PRINTER = createContractPrinter();
 
-    private final static PrintedLineHandler HANDLER = new PrintedLineHandler() {
-
-        @Override
-        public void linePrinted(final CharSequence line, final LineEnding lineEnding,
-                                final Printer printer) {
-            final String lineString = line.toString();
-            if ((-1 != lineString.indexOf('\r')) || (-1 != lineString.indexOf('\n'))) {
-                Assertions.fail("PrintedLineHandler line should not have a CR or NL="
-                        + CharSequences.escape(line));
-            }
-            printer.print(line);
-            printer.print("!");
-            printer.print(lineEnding);
+    private final static PrintedLineHandler HANDLER = (line, lineEnding, printer) -> {
+        final String lineString = line.toString();
+        if ((-1 != lineString.indexOf('\r')) || (-1 != lineString.indexOf('\n'))) {
+            Assertions.fail("PrintedLineHandler line should not have a CR or NL="
+                    + CharSequences.escape(line));
         }
+        printer.print(line);
+        printer.print("!");
+        printer.print(lineEnding);
     };
 
     private final static LineEnding LINE_ENDING = LineEnding.CR;

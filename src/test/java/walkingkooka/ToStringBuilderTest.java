@@ -268,14 +268,10 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
     @Test
     public void testGlobalLengthValueFullValueUsesToStringBuilder() {
         this.buildAndCheckFull(this.createFullWithLabel()//
-                .value(new UsesToStringBuilder() {
-
-                    @Override
-                    public void buildToString(final ToStringBuilder builder) {
-                        builder.globalLength(5);
-                        assertEquals(5, builder.globalLength, "globalLength");
-                        builder.value("IGNORED!");
-                    }
+                .value(builder -> {
+                    builder.globalLength(5);
+                    assertEquals(5, builder.globalLength, "globalLength");
+                    builder.value("IGNORED!");
                 }));
     }
 
@@ -284,17 +280,13 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
         this.buildAndCheck(this.builder()//
                 .globalLength(15)//
                 .value("1234567890") //
-                .value(new UsesToStringBuilder() {
-
-                    @Override
-                    public void buildToString(final ToStringBuilder builder) {
-                        builder.globalLength(100);
-                        assertEquals(builder.buffer.length() + 100,
-                                builder.globalLength,
-                                "globalLength");
-                        builder.value("abcdefghij");
-                        builder.value("ignored");
-                    }
+                .value(builder -> {
+                    builder.globalLength(100);
+                    assertEquals(builder.buffer.length() + 100,
+                            builder.globalLength,
+                            "globalLength");
+                    builder.value("abcdefghij");
+                    builder.value("ignored");
                 }), "1234567890abcde");
     }
 
@@ -303,38 +295,30 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
         this.buildAndCheck(this.builder()//
                 .globalLength(15)//
                 .value("1234567890") //
-                .value(new UsesToStringBuilder() {
+                .value(builder -> {
+                    builder.globalLength(5);
+                    assertEquals(builder.buffer.length() + 5,
+                            builder.globalLength,
+                            "globalLength");
 
-                    @Override
-                    public void buildToString(final ToStringBuilder builder) {
-                        builder.globalLength(5);
-                        assertEquals(builder.buffer.length() + 5,
-                                builder.globalLength,
-                                "globalLength");
+                    builder.globalLength(100);
+                    assertEquals(builder.buffer.length() + 100,
+                            builder.globalLength,
+                            "globalLength");
 
-                        builder.globalLength(100);
-                        assertEquals(builder.buffer.length() + 100,
-                                builder.globalLength,
-                                "globalLength");
-
-                        builder.value("abcdefghij");
-                        builder.value("ignored");
-                    }
+                    builder.value("abcdefghij");
+                    builder.value("ignored");
                 }), "1234567890abcde");
     }
 
     @Test
     public void testGlobalLengthValueLengthValueFullValueUsesToStringBuilder() {
         this.buildAndCheck(this.builder(5, 10)//
-                .value(new UsesToStringBuilder() {
-
-                    @Override
-                    public void buildToString(final ToStringBuilder builder) {
-                        builder.valueLength(10);
-                        assertEquals(5, builder.globalLength, "globalLength");
-                        assertEquals(5, builder.valueLength, "valueLength");
-                        builder.value("abcdefghij");
-                    }
+                .value(builder -> {
+                    builder.valueLength(10);
+                    assertEquals(5, builder.globalLength, "globalLength");
+                    assertEquals(5, builder.valueLength, "valueLength");
+                    builder.value("abcdefghij");
                 }), "abcde");
     }
 
@@ -342,16 +326,12 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
     public void testGlobalLengthValueLengthValueFullValueUsesToStringBuilder2() {
         this.buildAndCheck(this.builder()//
                 .valueLength(10)//
-                .value(new UsesToStringBuilder() {
+                .value(builder -> {
+                    builder.valueLength(5);
+                    assertEquals(10, builder.globalLength, "globalLength");
+                    assertEquals(5, builder.valueLength, "valueLength");
 
-                    @Override
-                    public void buildToString(final ToStringBuilder builder) {
-                        builder.valueLength(5);
-                        assertEquals(10, builder.globalLength, "globalLength");
-                        assertEquals(5, builder.valueLength, "valueLength");
-
-                        builder.value("abcdefghij");
-                    }
+                    builder.value("abcdefghij");
                 }), "abcde");
     }
 
@@ -359,17 +339,13 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
     public void testGlobalLengthValueLengthValueFullValueUsesToStringBuilder3() {
         this.buildAndCheck(this.builder()//
                 .valueLength(10)//
-                .value(new UsesToStringBuilder() {
+                .value(builder -> {
+                    builder.valueLength(5);
+                    assertEquals(10, builder.globalLength, "globalLength");
+                    assertEquals(5, builder.valueLength, "valueLength");
 
-                    @Override
-                    public void buildToString(final ToStringBuilder builder) {
-                        builder.valueLength(5);
-                        assertEquals(10, builder.globalLength, "globalLength");
-                        assertEquals(5, builder.valueLength, "valueLength");
-
-                        builder.value("abcdefghij");
-                        builder.value("12345678");
-                    }
+                    builder.value("abcdefghij");
+                    builder.value("12345678");
                 }), "abcde12345");
     }
 
@@ -377,18 +353,14 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
     public void testValueLengthUsesToStringBuilderValueLengthIncreases() {
         this.buildAndCheck(this.builder()//
                 .valueLength(10)//
-                .value(new UsesToStringBuilder() {
+                .value(builder -> {
+                    builder.valueLength(4);
+                    builder.valueLength(5);
+                    assertEquals(10, builder.globalLength, "globalLength");
+                    assertEquals(5, builder.valueLength, "valueLength");
 
-                    @Override
-                    public void buildToString(final ToStringBuilder builder) {
-                        builder.valueLength(4);
-                        builder.valueLength(5);
-                        assertEquals(10, builder.globalLength, "globalLength");
-                        assertEquals(5, builder.valueLength, "valueLength");
-
-                        builder.value("abcdefghij");
-                        builder.value("12345678");
-                    }
+                    builder.value("abcdefghij");
+                    builder.value("12345678");
                 }), "abcde12345");
     }
 
@@ -396,19 +368,15 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
     public void testValueLengthUsesToStringBuilderValueLengthDecreaseIncrease() {
         this.buildAndCheck(this.builder()//
                 .valueLength(10)//
-                .value(new UsesToStringBuilder() {
+                .value(builder -> {
+                    builder.valueLength(4);
+                    builder.valueLength(3);
+                    builder.valueLength(5);
+                    assertEquals(10, builder.globalLength, "globalLength");
+                    assertEquals(5, builder.valueLength, "valueLength");
 
-                    @Override
-                    public void buildToString(final ToStringBuilder builder) {
-                        builder.valueLength(4);
-                        builder.valueLength(3);
-                        builder.valueLength(5);
-                        assertEquals(10, builder.globalLength, "globalLength");
-                        assertEquals(5, builder.valueLength, "valueLength");
-
-                        builder.value("abcdefghij");
-                        builder.value("12345678");
-                    }
+                    builder.value("abcdefghij");
+                    builder.value("12345678");
                 }), "abcde12345");
     }
 
@@ -418,18 +386,14 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
                 .globalLength(15)//
                 .valueLength(5)//
                 .value("1234567") //
-                .value(new UsesToStringBuilder() {
+                .value(builder -> {
+                    assertEquals(5, builder.valueLength, "valueLength");
+                    assertEquals(builder.buffer.length() + 5,
+                            builder.globalLength,
+                            "globalLength");
 
-                    @Override
-                    public void buildToString(final ToStringBuilder builder) {
-                        assertEquals(5, builder.valueLength, "valueLength");
-                        assertEquals(builder.buffer.length() + 5,
-                                builder.globalLength,
-                                "globalLength");
-
-                        builder.value("abcdefghij"); // expected "abcde" to be added.
-                        builder.value("IGNORED");
-                    }
+                    builder.value("abcdefghij"); // expected "abcde" to be added.
+                    builder.value("IGNORED");
                 })//
                 .value("1234567"), "12345abcde12345");
     }
@@ -440,18 +404,14 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
                 .globalLength(15)//
                 .valueLength(5)//
                 .value("1234567") //
-                .value(new UsesToStringBuilder() {
+                .value(builder -> {
+                    builder.valueLength(6); //
+                    assertEquals(5, builder.valueLength, "valueLength"); // increase ignored.
 
-                    @Override
-                    public void buildToString(final ToStringBuilder builder) {
-                        builder.valueLength(6); //
-                        assertEquals(5, builder.valueLength, "valueLength"); // increase ignored.
+                    assertEquals(builder.buffer.length() + 5, builder.globalLength, "globalLength");
 
-                        assertEquals(builder.buffer.length() + 5, builder.globalLength, "globalLength");
-
-                        builder.value("abcdefghij"); // expected "abcde" to be added.
-                        builder.value("IGNORED");
-                    }
+                    builder.value("abcdefghij"); // expected "abcde" to be added.
+                    builder.value("IGNORED");
                 })//
                 .value("1234567"), "12345abcde12345");
     }
@@ -554,15 +514,11 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
     }
 
     private UsesToStringBuilder usesToStringBuilder(final String label, final Object value) {
-        return new UsesToStringBuilder() {
-
-            @Override
-            public void buildToString(final ToStringBuilder builder) {
-                if (null != label) {
-                    builder.label(label);
-                }
-                builder.value(value);
+        return builder -> {
+            if (null != label) {
+                builder.label(label);
             }
+            builder.value(value);
         };
     }
 

@@ -24,7 +24,6 @@ import walkingkooka.type.MethodAttributes;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -123,35 +122,31 @@ final class ClassMethodTesting {
 
     private static Set<Method> overridableMethods(final Class<?> type) {
         final Set<Class<?>> alreadyVisited = new HashSet<>();
-        final Set<Method> methods = new TreeSet<>(new Comparator<>() {
+        final Set<Method> methods = new TreeSet<>((method1, method2) -> {
+            int value;
 
-            @Override
-            public int compare(final Method method1, final Method method2) {
-                int value;
+            do {
+                value = method1.getName().compareTo(method2.getName());
+                if (0 != value) {
+                    break;
+                }
 
-                do {
-                    value = method1.getName().compareTo(method2.getName());
-                    if (0 != value) {
-                        break;
-                    }
+                final Class<?>[] parameterTypes1 = method1.getParameterTypes();
+                final Class<?>[] parameterTypes2 = method2.getParameterTypes();
+                value = parameterTypes1.length - parameterTypes2.length;
+                if (0 != value) {
+                    break;
+                }
+                // HACK Need a better way to determine if a method overrides another generic method.
+                // for (int i = 0; i < parameterTypes1.length; i++) {
+                // value = parameterTypes1[i].getName().compareTo(parameterTypes2[i].getName());
+                // if (0 != value) {
+                // break;
+                // }
+                // }
+            } while (false);
 
-                    final Class<?>[] parameterTypes1 = method1.getParameterTypes();
-                    final Class<?>[] parameterTypes2 = method2.getParameterTypes();
-                    value = parameterTypes1.length - parameterTypes2.length;
-                    if (0 != value) {
-                        break;
-                    }
-                    // HACK Need a better way to determine if a method overrides another generic method.
-                    // for (int i = 0; i < parameterTypes1.length; i++) {
-                    // value = parameterTypes1[i].getName().compareTo(parameterTypes2[i].getName());
-                    // if (0 != value) {
-                    // break;
-                    // }
-                    // }
-                } while (false);
-
-                return value;
-            }
+            return value;
         });
         processImplementedInterfaces(type, alreadyVisited, methods);
         processClassAndImplementedInterfaces(type.getSuperclass(), alreadyVisited, methods);
