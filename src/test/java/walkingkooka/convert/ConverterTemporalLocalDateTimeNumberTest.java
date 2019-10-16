@@ -144,6 +144,7 @@ public final class ConverterTemporalLocalDateTimeNumberTest extends ConverterTem
         this.convertWithOffsetAndCheck3((short)((byte) (OFFSET + BYTE_VALUE)));
     }
 
+    @SuppressWarnings("RedundantCast")
     @Test
     public void testWithOffsetToInteger() {
         this.convertWithOffsetAndCheck3((int)(OFFSET + BYTE_VALUE));

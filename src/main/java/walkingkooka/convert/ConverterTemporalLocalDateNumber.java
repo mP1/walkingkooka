@@ -60,7 +60,7 @@ final class ConverterTemporalLocalDateNumber extends ConverterTemporalLocalDate<
     <T> Either<T, String> convert1(final LocalDate date,
                                    final Class<T> type,
                                    final ConverterContext context) {
-        return this.convertToNumber((long)(date.toEpochDay() + this.offset),
+        return this.convertToNumber(date.toEpochDay() + this.offset,
                 type,
                 context,
                 date);

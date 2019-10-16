@@ -154,7 +154,7 @@ public interface ParserTokenTesting<T extends ParserToken & HashCodeEqualsDefine
 
                 final ParentParserToken parent = (ParentParserToken) token;
                 assertEquals(parent.value().size(),
-                        ((SearchSequenceNode) searchNode).children().size(),
+                        searchNode.children().size(),
                         "child count should be the same");
                 break;
             }
