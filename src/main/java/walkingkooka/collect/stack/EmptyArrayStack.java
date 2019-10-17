@@ -107,7 +107,7 @@ final class EmptyArrayStack<T> implements Stack<T>,
 
     @Override
     public Iterator<T> iterator() {
-        return Collections.<T>emptyList().iterator();
+        return Collections.emptyIterator();
     }
 
     // HashCodeEqualsDefined
