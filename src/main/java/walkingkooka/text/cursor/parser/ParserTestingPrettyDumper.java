@@ -17,7 +17,6 @@
 
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.Cast;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.IndentingPrinter;
@@ -56,7 +55,7 @@ final class ParserTestingPrettyDumper {
             printer.leaf(token);
         }
         if (token instanceof ParentParserToken) {
-            dumpParent(Cast.to(token), printer);
+            dumpParent(token.cast(ParentParserToken.class), printer);
         }
     }
 

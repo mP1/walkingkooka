@@ -16,7 +16,6 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.cursor.TextCursor;
@@ -224,10 +223,11 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
                 .required(RHS2)
                 .build()
                 .repeating();
-        final Parser<EbnfParserContext> all = Cast.to(Parsers.sequenceParserBuilder()
+        final Parser<EbnfParserContext> all = Parsers.sequenceParserBuilder()
                 .required(required.cast())
                 .optional(optionalRepeating.cast())
-                .build());
+                .build()
+                .cast();
         return all
                 .transform(filterAndWrap(EbnfParserToken::alternative));
     }
@@ -258,10 +258,11 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
                 .required(RHS2)
                 .build()
                 .repeating();
-        final Parser<EbnfParserContext> all = Cast.to(Parsers.sequenceParserBuilder()
+        final Parser<EbnfParserContext> all = Parsers.sequenceParserBuilder()
                 .required(required.cast())
                 .optional(optionalRepeating.cast())
-                .build());
+                .build()
+                .cast();
         return all
                 .transform(filterAndWrap(EbnfParserToken::concatenation));
     }

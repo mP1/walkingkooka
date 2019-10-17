@@ -16,7 +16,6 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.Cast;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 
@@ -32,7 +31,7 @@ final class DoubleParser<C extends ParserContext> extends Parser2<C> {
      * Factory that creates a {@link DoubleParser}
      */
     static <C extends ParserContext> DoubleParser<C> instance() {
-        return Cast.to(INSTANCE);
+        return INSTANCE.cast();
     }
 
     private final static DoubleParser<?> INSTANCE = new DoubleParser();

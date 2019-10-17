@@ -87,14 +87,14 @@ public interface Parser<C extends ParserContext> {
      */
     default Parser<C> orReport(final ParserReporter<C> reporter) {
         final Parser<C> that = this.cast();
-        return Parsers.alternatives(Lists.of(that, Parsers.report(ParserReporterCondition.ALWAYS, Cast.to(reporter), that))).cast();
+        return Parsers.alternatives(Lists.of(that, Parsers.report(ParserReporterCondition.ALWAYS, reporter, that))).cast();
     }
 
     /**
      * Returns a {@link Parser} which will use the {@link ParserReporter} if the {@link TextCursor} is not empty.
      */
     default Parser<C> orFailIfCursorNotEmpty(final ParserReporter<C> reporter) {
-        return Parsers.report(ParserReporterCondition.NOT_EMPTY, Cast.to(reporter), this);
+        return Parsers.report(ParserReporterCondition.NOT_EMPTY, reporter, this);
     }
 
     /**

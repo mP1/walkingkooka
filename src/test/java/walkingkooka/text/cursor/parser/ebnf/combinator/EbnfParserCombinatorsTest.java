@@ -19,7 +19,6 @@ package walkingkooka.text.cursor.parser.ebnf.combinator;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.character.CharPredicates;
@@ -377,7 +376,7 @@ public final class EbnfParserCombinatorsTest implements ParserTesting2<Parser<Fa
         final Map<EbnfIdentifierName, Parser<ParserContext>> all = grammar.combinator(defaults,
                 this.syntaxTreeTransformer(grammar));
 
-        final Parser<FakeParserContext> test = Cast.to(all.get(TEST));
+        final Parser<FakeParserContext> test = all.get(TEST).cast();
         assertNotNull(test, TEST + " parser not found in grammar\n" + grammar);
         return test;
     }
