@@ -47,6 +47,7 @@ final public class Comparators implements PublicStaticHelper {
     /**
      * Returns an integer that contains the sign of the given int value.
      */
+    @SuppressWarnings("UseCompareMethod")
     public static int normalize(final int value) {
         return 0 == value ? 0 : value < 0 ? -1 : +1;
     }
