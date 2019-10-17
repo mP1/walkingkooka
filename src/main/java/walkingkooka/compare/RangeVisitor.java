@@ -54,6 +54,7 @@ public abstract class RangeVisitor<C extends Comparable<C>> extends Visitor<Rang
                 }
 
                 if (lower.isInclusive() && lower.equals(upper)) {
+                    //noinspection OptionalGetWithoutIsPresent
                     this.singleton(lower.value().get());
                     break;
                 }

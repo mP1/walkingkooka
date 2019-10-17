@@ -92,7 +92,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 return Optional.of(target);
             }
         });
-        assertSame(target, context.reference(A1).get());
+        assertSame(target, context.reference(A1).orElse(null));
     }
 
     @Test

@@ -538,11 +538,15 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
     private void traverseAndCheck(final NodePointer<TestNode, StringName> pointer, final TestNode root, final String toString) {
         final Optional<TestNode> result = pointer.traverse(root);
         assertNotEquals(Optional.empty(), result, () -> "The pointer " + CharSequences.quote(pointer.toString()) + " should have matched a node but failed,\n" + root);
-        assertEquals(toString, result.get().toString(), () -> "The pointer " + CharSequences.quote(pointer.toString()) + " should have matched the node\n" + root);
+        assertEquals(toString,
+                result.map(TestNode::toString).orElse(null),
+                () -> "The pointer " + CharSequences.quote(pointer.toString()) + " should have matched the node\n" + root);
     }
 
     private void traverseFail(final NodePointer<TestNode, StringName> pointer, final TestNode root) {
-        assertEquals(Optional.empty(), pointer.traverse(root), () -> "The pointer " + CharSequences.quote(pointer.toString()) + " should have matched nothing\n" + root);
+        assertEquals(Optional.empty(),
+                pointer.traverse(root),
+                () -> "The pointer " + CharSequences.quote(pointer.toString()) + " should have matched nothing\n" + root);
     }
 
     private void checkIsAbsolute(final NodePointer<?, ?> pointer) {
