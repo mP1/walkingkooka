@@ -986,10 +986,7 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
     private Consumer<PushableStreamConsumer<String>> starter(final List<String> values) {
         return (c) -> {
             final Iterator<String> i = values.iterator();
-            for (; ; ) {
-                if (c.isFinished() || false == i.hasNext()) {
-                    break;
-                }
+            while (false == c.isFinished() && i.hasNext()) {
                 final String value = i.next();
                 c.accept(value);
             }
