@@ -48,7 +48,6 @@ public final class ImmutableMapTest extends ImmutableMapTestCase<ImmutableMap<St
 
     @Test
     public void testIsImmutableArrayImmutable() {
-        //noinspection unchecked
         this.immutableAndCheck(ImmutableMap.array(Maps.entry(KEY1, VALUE1)), true);
     }
 
