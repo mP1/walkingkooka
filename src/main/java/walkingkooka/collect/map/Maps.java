@@ -118,20 +118,17 @@ final public class Maps implements PublicStaticHelper {
                 break;
             case 2:
                 final Iterator<Entry<K, V>> entries2 = copy.entrySet().iterator();
-                //noinspection unchecked
                 immutable = ImmutableMap.array(entries2.next(),
                         entries2.next());
                 break;
             case 3:
                 final Iterator<Entry<K, V>> entries3 = copy.entrySet().iterator();
-                //noinspection unchecked
                 immutable = ImmutableMap.array(entries3.next(),
                         entries3.next(),
                         entries3.next());
                 break;
             case 4:
                 final Iterator<Entry<K, V>> entries4 = copy.entrySet().iterator();
-                //noinspection unchecked,unchecked
                 immutable = ImmutableMap.array(entries4.next(),
                         entries4.next(),
                         entries4.next(),

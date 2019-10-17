@@ -46,7 +46,6 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
         assertThrows(NullPointerException.class, () -> ChainIterator.with(null, SECOND));
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void testWithNullIteratorsFails() {
         assertThrows(NullPointerException.class, () -> ChainIterator.with(FIRST, null));
