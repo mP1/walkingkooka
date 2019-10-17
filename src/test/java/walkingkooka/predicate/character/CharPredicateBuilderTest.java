@@ -257,6 +257,7 @@ final public class CharPredicateBuilderTest implements ClassTesting2<CharPredica
         this.checkPredicate(builder);
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test
     public void testNullStringFails() {
         final CharPredicateBuilder builder = this.createBuilder();
@@ -275,6 +276,7 @@ final public class CharPredicateBuilderTest implements ClassTesting2<CharPredica
         this.toStringFails("  \t\r\n");
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     private void toStringFails(final String toString) {
         final CharPredicateBuilder builder = this.createBuilder();
         builder.predicate = PREDICATE;
@@ -291,6 +293,7 @@ final public class CharPredicateBuilderTest implements ClassTesting2<CharPredica
         this.toStringAndCheck(builder, predicate.toString());
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test
     public void testToStringAfterToString() {
         final CharPredicateBuilder builder = this.createBuilder();

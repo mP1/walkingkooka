@@ -34,6 +34,7 @@ public interface ListTesting extends CollectionTesting {
                 () -> "get " + index + " from " + list);
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     default <E> void getFails(final List<E> list,
                               final int index) {
         assertThrows(IndexOutOfBoundsException.class, () -> list.get(index));
