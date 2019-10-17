@@ -59,7 +59,7 @@ public final class SearchLocalDateQueryValue extends SearchQueryValue {
         return SearchQuery.notEquals(this, SearchLocalDateQueryValueSearchQueryTester.notEquals(this.value));
     }
 
-    final LocalDate value;
+    private final LocalDate value;
 
     @Override
     final String text() {

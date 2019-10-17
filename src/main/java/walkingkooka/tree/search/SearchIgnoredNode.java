@@ -30,6 +30,7 @@ import java.util.stream.Collectors;
  */
 public final class SearchIgnoredNode extends SearchParentNode2 {
 
+    @SuppressWarnings("WeakerAccess")
     public final static SearchNodeName NAME = SearchNodeName.fromClass(SearchIgnoredNode.class);
 
     /**

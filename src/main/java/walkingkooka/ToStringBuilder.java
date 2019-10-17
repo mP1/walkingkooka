@@ -74,6 +74,7 @@ final public class ToStringBuilder implements Builder<String> {
      * The default label separator is the equals sign. New or different values may be set using
      * {@link #labelSeparator(String)}.
      */
+    @SuppressWarnings("WeakerAccess")
     public static final String LABEL_SEPARATOR = "=";
 
     /**
@@ -92,12 +93,14 @@ final public class ToStringBuilder implements Builder<String> {
      * The default value which surrounds values charSequence an {@link Iterable iterable}, {@link Map} and arrays
      * except for char[] which is nothing. New or different values may be set using {@link #surroundValues(String, String)}.
      */
+    @SuppressWarnings("WeakerAccess")
     public static final String DEFAULT_BEFORE_VALUES = "";
 
     /**
      * The default value which surrounds values charSequence an {@link Iterable iterable}, {@link Map} and arrays
      * except for char[] which is nothing. New or different values may be set using {@link #surroundValues(String, String)}.
      */
+    @SuppressWarnings("WeakerAccess")
     public static final String DEFAULT_AFTER_VALUES = "";
 
     /**
@@ -268,7 +271,7 @@ final public class ToStringBuilder implements Builder<String> {
     /**
      * The default label separator is the equals sign.
      */
-    String labelSeparator;
+    private String labelSeparator;
 
     /**
      * Sets the separator between consecutive values.
@@ -280,7 +283,7 @@ final public class ToStringBuilder implements Builder<String> {
         return this;
     }
 
-    String valueSeparator;
+    private String valueSeparator;
 
     /**
      * Sets two surround {@link String} values that surround zero or more values. This only affects {@link Iterable iterable},

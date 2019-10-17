@@ -24,6 +24,7 @@ import java.math.BigDecimal;
  */
 public final class SearchBigDecimalNode extends SearchLeafNode<BigDecimal> {
 
+    @SuppressWarnings("WeakerAccess")
     public final static SearchNodeName NAME = SearchNodeName.fromClass(SearchBigDecimalNode.class);
 
     static SearchBigDecimalNode with(final String text, final BigDecimal value) {

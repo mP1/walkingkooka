@@ -32,6 +32,7 @@ import java.util.function.Function;
  */
 public final class SearchMetaNode extends SearchParentNode {
 
+    @SuppressWarnings("WeakerAccess")
     public final static SearchNodeName NAME = SearchNodeName.fromClass(SearchMetaNode.class);
 
     final static Map<SearchNodeAttributeName, String> NO_ATTRIBUTES = Maps.empty();
@@ -78,6 +79,7 @@ public final class SearchMetaNode extends SearchParentNode {
         return this.removeParent0().cast();
     }
 
+    @SuppressWarnings("WeakerAccess")
     public SearchNode child() {
         return this.children().get(0);
     }

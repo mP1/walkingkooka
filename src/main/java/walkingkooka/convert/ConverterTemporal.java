@@ -66,7 +66,7 @@ abstract class ConverterTemporal<S, D> extends Converter2 {
     /**
      * Returns the {@link String} as a signed offset including a plus or minus when the value is non zero.
      */
-    static String toStringOffset(final long offset) {
+    private static String toStringOffset(final long offset) {
         return 0 == offset ?
                 "" :
                 toStringOffset0(offset);

@@ -282,6 +282,7 @@ public enum CaseSensitivity {
     /**
      * Hashes the given character.
      */
+    @SuppressWarnings("WeakerAccess")
     abstract public int hash(char c);
 
     /**

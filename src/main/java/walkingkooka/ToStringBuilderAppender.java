@@ -79,7 +79,7 @@ abstract class ToStringBuilderAppender<V> {
     /**
      * {@see ToStringBuilderAppenderDefaultScalar}
      */
-    static ToStringBuilderAppenderDefaultScalar defaultScalar(final Object value) {
+    private static ToStringBuilderAppenderDefaultScalar defaultScalar(final Object value) {
         return ToStringBuilderAppenderDefaultScalar.with(value);
     }
 
@@ -100,7 +100,7 @@ abstract class ToStringBuilderAppender<V> {
     /**
      * {@see ToStringBuilderAppenderEntryScalar}
      */
-    static ToStringBuilderAppender<?> entry(final Entry<?, ?> value) {
+    private static ToStringBuilderAppender<?> entry(final Entry<?, ?> value) {
         return ToStringBuilderAppenderEntryScalar.with(value);
     }
 
@@ -135,7 +135,7 @@ abstract class ToStringBuilderAppender<V> {
     /**
      * {@see ToStringBuilderAppenderIterableVector}
      */
-    static ToStringBuilderAppender<?> iterable(final Iterable<?> value) {
+    private static ToStringBuilderAppender<?> iterable(final Iterable<?> value) {
         return ToStringBuilderAppenderIterableVector.with(value);
     }
 
@@ -269,7 +269,7 @@ abstract class ToStringBuilderAppender<V> {
     /**
      * Wraps the object array which must be non null, and creates a {@link #iterable(Iterable)}.
      */
-    static ToStringBuilderAppender<?> objectArray(final Object[] value) {
+    private static ToStringBuilderAppender<?> objectArray(final Object[] value) {
         return iterable(Arrays.asList(value));
     }
 

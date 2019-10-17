@@ -22,6 +22,7 @@ package walkingkooka.tree.search;
  */
 public final class SearchDoubleNode extends SearchLeafNode<Double> {
 
+    @SuppressWarnings("WeakerAccess")
     public final static SearchNodeName NAME = SearchNodeName.fromClass(SearchDoubleNode.class);
 
     static SearchDoubleNode with(final String text, final Double value) {

@@ -35,13 +35,14 @@ final public class PackageName extends JavaName<PackageName> {
     /**
      * The package separator character<code>.</code>
      */
+    @SuppressWarnings("WeakerAccess")
     public final static CharacterConstant SEPARATOR = PACKAGE_SEPARATOR;
 
     /**
      * The wildcard character<code>*</code> that is used by package imports
      */
+    @SuppressWarnings("WeakerAccess")
     public final static CharacterConstant WILDCARD = CharacterConstant.with('*');
-
 
     /**
      * Creates a {@link PackageName} for the given {@link Package}.

@@ -24,6 +24,7 @@ import java.math.BigInteger;
  */
 public final class SearchBigIntegerNode extends SearchLeafNode<BigInteger> {
 
+    @SuppressWarnings("WeakerAccess")
     public final static SearchNodeName NAME = SearchNodeName.fromClass(SearchBigIntegerNode.class);
 
     static SearchBigIntegerNode with(final String text, final BigInteger value) {

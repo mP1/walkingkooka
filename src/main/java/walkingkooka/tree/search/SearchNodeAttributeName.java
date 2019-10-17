@@ -33,11 +33,11 @@ public final class SearchNodeAttributeName implements Name,
 
     private final static CharPredicate LETTER = CharPredicates.letter();
 
-    final static CharPredicate INITIAL = LETTER;
+    private final static CharPredicate INITIAL = LETTER;
 
     private final static CharPredicate DIGIT = CharPredicates.range('0', '9');
 
-    final static CharPredicate PART = INITIAL.or(DIGIT.or(CharPredicates.is('-')).or(CharPredicates.is('.')));
+    private final static CharPredicate PART = INITIAL.or(DIGIT.or(CharPredicates.is('-')).or(CharPredicates.is('.')));
 
     public static SearchNodeAttributeName with(final String name) {
         CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name, "name", INITIAL, PART);

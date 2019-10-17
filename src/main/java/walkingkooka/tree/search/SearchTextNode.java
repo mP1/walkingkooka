@@ -24,6 +24,7 @@ import walkingkooka.text.CharSequences;
  */
 public final class SearchTextNode extends SearchLeafNode<String> {
 
+    @SuppressWarnings("WeakerAccess")
     public final static SearchNodeName NAME = SearchNodeName.fromClass(SearchTextNode.class);
 
     static SearchTextNode with(final String text, final String value) {
