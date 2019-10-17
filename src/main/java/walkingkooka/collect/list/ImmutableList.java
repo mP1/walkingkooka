@@ -95,7 +95,7 @@ abstract class ImmutableList<T> extends AbstractList<T> {
     /**
      * Creates a {@link ImmutableListNonSingleton} with the given {@link List} which is not defensively copied.
      */
-    static <T> ImmutableList<T> wrap(final List<T> wrap) {
+    private static <T> ImmutableList<T> wrap(final List<T> wrap) {
         return ImmutableListNonSingleton.with(wrap);
     }
 }

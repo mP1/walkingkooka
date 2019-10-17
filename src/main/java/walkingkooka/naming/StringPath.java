@@ -95,7 +95,7 @@ final public class StringPath
     /**
      * Thrown when attempting to add the root name to this {@link StringPath}.
      */
-    final static String CANNOT_APPEND_ROOT_NAME = "Cannot append root name.";
+    private final static String CANNOT_APPEND_ROOT_NAME = "Cannot append root name.";
 
     @Override
     public String value() {

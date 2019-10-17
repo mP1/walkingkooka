@@ -50,6 +50,7 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
     /**
      * An empty list with no children.
      */
+    @SuppressWarnings("WeakerAccess")
     public final static List<SearchNode> NO_CHILDREN = Lists.empty();
 
     /**
@@ -174,7 +175,7 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
         return copy;
     }
 
-    Optional<SearchNode> parent;
+    private Optional<SearchNode> parent;
 
     /**
      * Sub classes should call this method and cast to their same type.
@@ -358,6 +359,7 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
     /**
      * Only {@link SearchIgnoredNode} returns true.
      */
+    @SuppressWarnings("WeakerAccess")
     public final boolean isIgnored() {
         return this instanceof SearchIgnoredNode;
     }
@@ -407,6 +409,7 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
     /**
      * Only {@link SearchSelectNode} returns true.
      */
+    @SuppressWarnings("WeakerAccess")
     public final boolean isSelect() {
         return this instanceof SearchSelectNode;
     }
@@ -477,7 +480,7 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
 
     abstract boolean canBeEqual(Object other);
 
-    final boolean equals0(final SearchNode other) {
+    private boolean equals0(final SearchNode other) {
         return this.equalsAncestors(other) &&
                 this.equalsDescendants0(other);
     }

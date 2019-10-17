@@ -56,7 +56,7 @@ public final class Binary implements HashCodeEqualsDefined,
     }
 
     // BinaryRangeVisitor
-    final byte[] value;
+    private final byte[] value;
 
     /**
      * The size or number of bytes in this {@link Binary}

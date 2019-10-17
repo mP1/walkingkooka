@@ -71,8 +71,10 @@ public final class TestNode implements Node<TestNode, StringName, StringName, Ob
     /**
      * The {@link PathSeparator} for node selector paths.
      */
+    @SuppressWarnings("WeakerAccess")
     public static final PathSeparator PATH_SEPARATOR = PathSeparator.requiredAtStart('/');
 
+    @SuppressWarnings("WeakerAccess")
     public final static Optional<TestNode> NO_PARENT = Optional.empty();
 
     public static TestNode with(final String name, final TestNode... children) {

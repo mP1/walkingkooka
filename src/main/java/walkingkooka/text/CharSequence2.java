@@ -103,7 +103,7 @@ abstract class CharSequence2<C extends CharSequence2<C>> implements CharSequence
     /**
      * The cached hash code which is initially set to 0.
      */
-    transient int hashCode = 0;
+    private transient int hashCode = 0;
 
     /**
      * Performs some simple checks for nullness, identity and type using {@link #canBeEqual(Object)}

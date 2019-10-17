@@ -81,7 +81,7 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
                 .cast();
     }
 
-    static void checkValue(final Object value) {
+    private static void checkValue(final Object value) {
         Objects.requireNonNull(value, "value");
     }
 

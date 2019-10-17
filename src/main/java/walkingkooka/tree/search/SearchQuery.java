@@ -28,7 +28,8 @@ import java.util.Objects;
  */
 public abstract class SearchQuery implements HashCodeEqualsDefined {
 
-    static SearchQueryParentBinaryAnd and(final SearchQuery left, final SearchQuery right) {
+    private static SearchQueryParentBinaryAnd and(final SearchQuery left,
+                                                  final SearchQuery right) {
         return SearchQueryParentBinaryAnd.with(left, right);
     }
 
@@ -92,7 +93,8 @@ public abstract class SearchQuery implements HashCodeEqualsDefined {
         return SearchQueryLeafValueNotEquals.with(value, tester);
     }
 
-    static SearchQueryParentBinaryOr or(final SearchQuery left, final SearchQuery right) {
+    private static SearchQueryParentBinaryOr or(final SearchQuery left,
+                                                final SearchQuery right) {
         return SearchQueryParentBinaryOr.with(left, right);
     }
 

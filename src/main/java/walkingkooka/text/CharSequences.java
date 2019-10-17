@@ -63,8 +63,7 @@ final public class CharSequences implements PublicStaticHelper {
         return bytes;
     }
 
-    // @VisibleForTesting
-    static String oddNumberOfDigits(final int length) {
+    private static String oddNumberOfDigits(final int length) {
         return "Expected even number of hex digits=" + length;
     }
 

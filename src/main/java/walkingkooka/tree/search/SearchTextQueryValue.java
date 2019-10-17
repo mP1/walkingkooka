@@ -78,7 +78,7 @@ public final class SearchTextQueryValue extends SearchQueryValue {
         return SearchTextQueryValueSearchQueryTester.with(this.value, caseSensitivity, resultPredicate);
     }
 
-    final String value;
+    private final String value;
 
     @Override
     final String text() {

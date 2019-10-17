@@ -25,6 +25,7 @@ import java.time.format.DateTimeFormatter;
  */
 public final class SearchLocalDateNode extends SearchLeafNode<LocalDate> {
 
+    @SuppressWarnings("WeakerAccess")
     public final static SearchNodeName NAME = SearchNodeName.fromClass(SearchLocalDateNode.class);
 
     static SearchLocalDateNode with(final String text, final LocalDate value) {
