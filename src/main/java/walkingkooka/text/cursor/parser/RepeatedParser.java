@@ -16,7 +16,6 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
@@ -34,7 +33,7 @@ final class RepeatedParser<C extends ParserContext> extends Parser2<C> {
         Objects.requireNonNull(parser, "parser");
 
         return parser instanceof RepeatedParser ?
-                Cast.to(parser) :
+                parser.cast() :
                 new RepeatedParser<>(parser);
     }
 

@@ -16,7 +16,6 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.cursor.TextCursor;
 
@@ -53,7 +52,7 @@ abstract class SequenceParserComponent<C extends ParserContext> implements HashC
     @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     public boolean equals(final Object other) {
         return this == other ||
-                this.canBeEqual(other) && this.equals0(Cast.to(other));
+                this.canBeEqual(other) && this.equals0((SequenceParserComponent<?>)other);
     }
 
     abstract boolean canBeEqual(final Object other);

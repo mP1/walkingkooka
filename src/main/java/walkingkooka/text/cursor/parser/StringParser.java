@@ -16,7 +16,6 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
@@ -81,7 +80,7 @@ final class StringParser<C extends ParserContext> extends Parser2<C> implements 
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof StringParser && this.equals0(Cast.to(other));
+                other instanceof StringParser && this.equals0((StringParser<?>)other);
     }
 
     private boolean equals0(final StringParser<?> other) {

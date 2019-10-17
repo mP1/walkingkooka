@@ -16,7 +16,6 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.Whitespace;
 import walkingkooka.text.cursor.TextCursor;
@@ -44,7 +43,7 @@ final class CustomToStringParser<C extends ParserContext> implements Parser<C>, 
             Parser<C> wrap = parser;
             if (parser instanceof CustomToStringParser) {
                 // unwrap then re-wrap the parser...
-                final CustomToStringParser<C> custom = Cast.to(wrap);
+                final CustomToStringParser<C> custom = wrap.cast();
                 wrap = custom.parser;
             }
             result = new CustomToStringParser<>(wrap, toString);
@@ -84,7 +83,7 @@ final class CustomToStringParser<C extends ParserContext> implements Parser<C>, 
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof CustomToStringParser && this.equals0(Cast.to(other));
+                other instanceof CustomToStringParser && this.equals0((CustomToStringParser<?>)other);
     }
 
     private boolean equals0(final CustomToStringParser<?> other) {

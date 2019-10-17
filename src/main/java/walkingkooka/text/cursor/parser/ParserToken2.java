@@ -17,7 +17,6 @@
 
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.Cast;
 import walkingkooka.Value;
 
 /**
@@ -67,7 +66,7 @@ abstract class ParserToken2<V> implements ParserToken, Value<V> {
     @Override
     @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     public final boolean equals(final Object other) {
-        return this == other || this.canBeEqual(other) && this.equals0(Cast.to(other));
+        return this == other || this.canBeEqual(other) && this.equals0((ParserToken2<?>)other);
     }
 
     abstract boolean canBeEqual(final Object other);
