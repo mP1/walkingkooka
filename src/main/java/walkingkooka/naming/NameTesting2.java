@@ -192,7 +192,7 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> & HashCode
         final int longest = IntStream.rangeClosed(0, max)
                 .map(i -> this.possibleValidChars(i).length())
                 .max()
-                .getAsInt();
+                .orElse(0);
 
         for (int i = min; i <= max; i++) {
             final char[] chars = new char[i];

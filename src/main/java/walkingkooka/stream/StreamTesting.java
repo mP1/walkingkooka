@@ -746,7 +746,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         assertNotEquals(Optional.empty(),
                 any,
                 () -> "findAny " + stream + " values: " + values);
-        assertTrue(values.contains(any.get()),
+        assertTrue(values.contains(any.orElse(null)),
                 () -> "findAny from " + stream + " found " + any);
     }
 
