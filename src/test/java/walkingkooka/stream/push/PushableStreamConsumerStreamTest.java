@@ -51,6 +51,7 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
 
     @Test
     public void testStreamNullPushableStreamConsumerFails() {
+        //noinspection ResultOfMethodCallIgnored
         assertThrows(NullPointerException.class, () -> PushableStreamConsumerStream.with(null));
     }
 

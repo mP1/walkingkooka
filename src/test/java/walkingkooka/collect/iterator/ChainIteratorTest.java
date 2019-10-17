@@ -254,6 +254,7 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
         this.toStringAndCheck(this.createIterator(), FIRST + "...");
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test
     public void testToStringAfterConsumingFirstIterator() {
         final List<String> first = Lists.of("1");
@@ -270,6 +271,7 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
         this.toStringAndCheck(iterator, secondIterator.toString());
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test
     public void testToStringWhenEmpty() {
         final List<String> first = Lists.empty();

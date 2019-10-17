@@ -35,16 +35,19 @@ final public class IterablesTest implements PublicStaticHelperTesting<Iterables>
     private final static String B = "b";
     private final static String C = "c";
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test
     public void testEqualsNullIterableFails() {
         assertThrows(NullPointerException.class, () -> Iterables.equals(null, Iterables.fake(), EQUIVALENCY));
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test
     public void testEqualsNullOtherIterableFails() {
         assertThrows(NullPointerException.class, () -> Iterables.equals(Iterables.fake(), null, EQUIVALENCY));
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test
     public void testEqualsNullEquivalenceFunctionFails() {
         assertThrows(NullPointerException.class, () -> Iterables.equals(Iterables.fake(), Iterables.fake(), null));

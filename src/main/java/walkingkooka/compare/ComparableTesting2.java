@@ -29,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public interface ComparableTesting2<C extends Comparable<C> & HashCodeEqualsDefined> extends ComparableTesting, HashCodeEqualsDefinedTesting2<C> {
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test
     default void testCompareToNullFails() {
         assertThrows(NullPointerException.class, () -> this.createComparable().compareTo(null));
