@@ -147,8 +147,10 @@ public interface ParentNodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         final N child1 = this.createNode();
         final N child2 = this.createNode();
 
+        @SuppressWarnings("unchecked")
         final N set = this.setChildrenAndCheck(parent, child1, child2);
 
+        //noinspection unchecked
         this.childCountCheck(set, child1, child2);
     }
 
@@ -175,11 +177,14 @@ public interface ParentNodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         final N child1 = this.createNode();
         final N child2 = this.createNode();
 
+        @SuppressWarnings("unchecked")
         final N parent1 = this.setChildrenAndCheck(parent, child1, child2);
 
         final N child3 = this.createNode();
+        @SuppressWarnings("unchecked")
         final N parent2 = this.setChildrenAndCheck(parent1, child3);
 
+        //noinspection unchecked
         this.childCountCheck(parent2, child3);
     }
 

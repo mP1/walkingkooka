@@ -40,11 +40,13 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
 
     // tests
 
+    @SuppressWarnings("unchecked")
     @Test
     public void testWithNullFirstFails() {
         assertThrows(NullPointerException.class, () -> ChainIterator.with(null, SECOND));
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void testWithNullIteratorsFails() {
         assertThrows(NullPointerException.class, () -> ChainIterator.with(FIRST, null));
@@ -53,6 +55,7 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
     @Test
     public void testWithOne() {
         final Iterator<?> only = Iterators.fake();
+        //noinspection unchecked
         assertSame(only, ChainIterator.with(only));
     }
 
@@ -163,6 +166,7 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
         final List<String> first = Lists.empty();
         final List<String> second = Lists.empty();
 
+        @SuppressWarnings("unchecked")
         final Iterator<String> iterator = ChainIterator.with(first.iterator(), second.iterator());
         this.hasNextCheckFalse(iterator);
         this.nextFails(iterator);
@@ -286,6 +290,7 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
 
     private ChainIterator<String> createIterator(final Iterator<String> first,
                                                  final Iterator<String> second) {
+        //noinspection unchecked
         return Cast.to(ChainIterator.with(first, second));
     }
 

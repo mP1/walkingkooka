@@ -44,6 +44,7 @@ public final class ImmutableMapSingletonTest extends ImmutableMapTestCase2<Immut
 
     @Test
     public void testIterator() {
+        //noinspection unchecked
         this.iterateAndCheck(this.createMap().entrySet().iterator(), Maps.entry(KEY, VALUE));
     }
 
