@@ -837,48 +837,7 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
                 "Quote if necessary \"" + sequence + "\" ");
     }
 
-    // shrink............................................................................
-
-    @Test
-    public void testShrinkNullCharSequenceFails() {
-        assertThrows(NullPointerException.class, () -> CharSequences.shrink(null, 10));
-    }
-
-    @Test
-    public void testShrinkInvalidDesiredLengthFails() {
-        assertThrows(IllegalArgumentException.class, () -> CharSequences.shrink("apple", 5));
-    }
-
-    @Test
-    public void testShrinkTooShort() {
-        final String string = "apple";
-        this.shrinkAndCheck(string, 10, string);
-    }
-
-    @Test
-    public void testShrinkAlreadyDesiredLengthed() {
-        this.shrinkAndCheck("greenapple", 10, "greenapple");
-    }
-
-    @Test
-    public void testShrinkNeedsShrinking() {
-        this.shrinkAndCheck("apple banana", 10, "appl...ana");
-    }
-
-    @Test
-    public void testShrinkNeedsShrinking2() {
-        this.shrinkAndCheck("apple banana carrot", 11, "appl...rrot");
-    }
-
-    private void shrinkAndCheck(final CharSequence sequence, final int desiredLength,
-                                final CharSequence expected) {
-        final CharSequence actual = CharSequences.shrink(sequence, desiredLength);
-        assertEquals(expected,
-                actual,
-                "Shrinking \"" + sequence + "\" with a desired length=" + desiredLength);
-    }
-
-    // startsWith.....................................................................................
+    // startsWith.......................................................................................................
 
     @Test
     public void testStartsWithDifferent() {
