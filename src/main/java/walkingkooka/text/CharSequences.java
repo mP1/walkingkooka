@@ -534,39 +534,6 @@ final public class CharSequences implements PublicStaticHelper {
     }
 
     /**
-     * Creates a new {@link CharSequence} which contains the beginning and end of the given {@link
-     * CharSequence} if its too long.
-     *
-     * <pre>
-     * CharSequence shrunk = CharSequence.shrink(&quot;apple banana&quot;, 8);
-     * System.out.println(shrunk); // &quot;appl...nana&quot;
-     *
-     * CharSequence shrunk2 = CharSequence.shrink(&quot;short&quot;, 8);
-     * System.out.println(shrunk2); // &quot;short&quot;
-     * </pre>
-     */
-    public static CharSequence shrink(final CharSequence chars, final int desiredLength) {
-        Objects.requireNonNull(chars, "chars");
-
-        if (desiredLength < 0 || desiredLength < 6) {
-            throw new IllegalArgumentException(
-                    "DesiredLength " + desiredLength + " must be between 0 and 6");
-        }
-
-        CharSequence shorter = chars;
-
-        final int length = chars.length();
-        if (length > desiredLength) {
-            final int keep = (desiredLength - 3) / 2;
-
-            shorter = chars.subSequence(0, keep + (((desiredLength & 1) == 1) ? 0 : 1)) + "..."
-                    + chars.subSequence(length - keep, chars.length());
-        }
-
-        return shorter;
-    }
-
-    /**
      * Tests if the first string starts with the second ignoring case. This is equivalent to
      * CharSequence.startsWith() but ignores case.
      */
