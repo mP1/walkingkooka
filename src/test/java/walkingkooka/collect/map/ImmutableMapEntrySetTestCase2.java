@@ -36,6 +36,7 @@ public abstract class ImmutableMapEntrySetTestCase2<S extends ImmutableMapEntryS
 
     @Test
     public final void testIterate() {
+        //noinspection unchecked
         this.iterateAndCheck(this.createSet().iterator(),
                 Maps.entry(KEY1, VALUE1),
                 Maps.entry(KEY2, VALUE2));

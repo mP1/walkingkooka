@@ -26,6 +26,7 @@ public final class ImmutableMapNonSingletonArrayTest extends ImmutableMapTestCas
 
     @Test
     public void testNotCopied() {
+        @SuppressWarnings("unchecked")
         final Entry<String, Integer>[] array = new Entry[2];
         array[0] = Maps.entry(KEY1, VALUE1);
         array[1] = Maps.entry(KEY2, VALUE2);
@@ -50,6 +51,7 @@ public final class ImmutableMapNonSingletonArrayTest extends ImmutableMapTestCas
                                                              final Integer value0,
                                                              final String key1,
                                                              final Integer value1) {
+        //noinspection unchecked
         return ImmutableMapNonSingletonArray.with(Maps.entry(key0, value0), Maps.entry(key1, value1));
     }
 

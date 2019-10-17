@@ -95,7 +95,7 @@ public final class SequenceParserToken extends RepeatedOrSequenceParserToken {
     public <T extends ParserToken> T required(final int index, final Class<T> type) {
         final List<ParserToken> tokens = this.value();
         try {
-            return (T)tokens.get(index);
+            return tokens.get(index).cast(type);
         } catch (final IndexOutOfBoundsException cause) {
             throw new IndexOutOfBoundsException("Invalid index " + index + " must be between 0 and " + tokens.size());
         }

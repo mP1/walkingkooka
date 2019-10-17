@@ -49,6 +49,7 @@ abstract class ImmutableMap<K, V> extends AbstractMap<K, V> implements HashCodeE
      * {@see ImmutableMapNonSingletonArray}
      */
     @SuppressWarnings("unchecked")
+    @SafeVarargs
     static <K, V> Map<K, V> array(final Entry<K, V>... entries) {
         return ImmutableMapNonSingletonArray.with(entries);
     }

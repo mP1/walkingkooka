@@ -138,6 +138,7 @@ public interface PathTesting<P extends Path<P, N> & HashCodeEqualsDefined & Comp
         final N name3 = this.createName(2);
         final N name4 = this.createName(3);
 
+        @SuppressWarnings("unchecked")
         final String fullPath4 = this.concat(name1, name2, name3, name4);
 
         final P path = this.parsePath(fullPath4);

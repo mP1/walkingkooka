@@ -48,6 +48,7 @@ final class ImmutableMapNonSingletonArray<K, V> extends ImmutableMap<K, V> {
     public V get(final Object key) {
         V value = null;
 
+        //noinspection unchecked
         for (final Entry<K, V> entry : this.entrySet.entries) {
             if (entry.getKey().equals(key)) {
                 value = entry.getValue();
@@ -65,6 +66,7 @@ final class ImmutableMapNonSingletonArray<K, V> extends ImmutableMap<K, V> {
 
     @Override
     public Set<Entry<K, V>> entrySet() {
+        //noinspection unchecked
         return this.entrySet;
     }
 
