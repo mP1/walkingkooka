@@ -41,7 +41,7 @@ public interface Converter {
                                   final ConverterContext context);
 
     /**
-     * Converts the given value to the {@link Class target reflect} or throws a {@link ConversionException}
+     * Converts the given value to the {@link Class target type} or throws a {@link ConversionException}
      */
     default <T> T convertOrFail(final Object value,
                                 final Class<T> target,

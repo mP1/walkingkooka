@@ -55,12 +55,12 @@ public interface ExpressionEvaluationContext extends Context, DecimalNumberConte
     }
 
     /**
-     * Handles converting the given value to the requested {@link Class target reflect}.
+     * Handles converting the given value to the requested {@link Class target type}.
      */
     <T> Either<T, String> convert(final Object value, final Class<T> target);
 
     /**
-     * Converts the given value to the {@link Class target reflect} or throws a {@link ExpressionEvaluationConversionException}
+     * Converts the given value to the {@link Class target type} or throws a {@link ExpressionEvaluationConversionException}
      */
     default <T> T convertOrFail(final Object value,
                                 final Class<T> target) {

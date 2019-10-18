@@ -20,7 +20,7 @@ package walkingkooka.convert;
 import walkingkooka.Either;
 
 /**
- * A {@link Converter} which only accepts a single source reflect and a single target reflect, with an offset which is
+ * A {@link Converter} which only accepts a single source reflect and a single target type, with an offset which is
  * added to the date component.
  */
 abstract class ConverterTemporal<S, D> extends Converter2 {
