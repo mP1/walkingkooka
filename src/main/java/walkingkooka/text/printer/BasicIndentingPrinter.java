@@ -27,29 +27,45 @@ import java.util.Objects;
 
 /**
  * Adds support for writing text that requires some line formatting functionality such of
- * indentation and starting a new line. A single method remains abstract and may be overridden to
- * control which indentation is used.
+ * indentation and starting a new line.
  */
-abstract class IndentingPrinter2 implements IndentingPrinter {
+final class BasicIndentingPrinter implements IndentingPrinter {
+
     private final static char NL = '\n';
-
     private final static char CR = '\r';
+    private final static char START_OF_NEW_LINE = BasicIndentingPrinter.NL;
+    private final Stack<Indentation> indentations = Stacks.arrayList();
+    /**
+     * The {@link Printer} that is written too.
+     */
+    private final Printer printer;
+    /**
+     * This string is written to each and every new line.
+     */
+    private Indentation indentation;
+    /**
+     * Holds the last character to be added.
+     */
+    private char previous;
 
-    private final static char START_OF_NEW_LINE = IndentingPrinter2.NL;
+    static BasicIndentingPrinter wrap(final Printer printer) {
+        Objects.requireNonNull(printer, "printer");
+
+        return new BasicIndentingPrinter(printer);
+    }
 
     /**
-     * Package private constructor to limit sub classing.
+     * Private constructor use static factory.
      */
-    IndentingPrinter2(final Printer printer) {
+    private BasicIndentingPrinter(final Printer printer) {
         super();
 
         this.printer = printer;
         this.indentation = Indentation.EMPTY;
-        this.previous = IndentingPrinter2.START_OF_NEW_LINE;
+        this.previous = START_OF_NEW_LINE;
     }
 
-    @Override
-    final public void print(final CharSequence chars) throws PrinterException {
+    @Override final public void print(final CharSequence chars) throws PrinterException {
         this.print0(null == chars ? "null" : chars);
     }
 
@@ -68,8 +84,8 @@ abstract class IndentingPrinter2 implements IndentingPrinter {
         for (int i = 0; i < end; i++) {
             final char c = chars.charAt(i);
 
-            if ((IndentingPrinter2.NL == previous) || (
-                    (previous == IndentingPrinter2.CR) && (IndentingPrinter2.NL
+            if ((BasicIndentingPrinter.NL == previous) || (
+                    (previous == BasicIndentingPrinter.CR) && (BasicIndentingPrinter.NL
                             != c))) {
                 if (start != i) {
                     printer.print(chars.subSequence(start, i));
@@ -88,32 +104,19 @@ abstract class IndentingPrinter2 implements IndentingPrinter {
     }
 
     @Override
-    final public LineEnding lineEnding() throws PrinterException {
-        return this.printer.lineEnding();
-    }
-
-    // IndentingPrinter
-
-    @Override
-    final public void indent(final Indentation indentation) throws PrinterException {
+    public void indent(final Indentation indentation) throws PrinterException {
         Objects.requireNonNull(indentation, "indentation");
 
         final Indentation before = this.indentation;
         this.indentations.push(before);
-        this.indentation = this.appendNewIndentation(indentation, before);
+        this.indentation = before.append(indentation);
     }
-
-    /**
-     * Sub classes may override this to append the new indentation with the preceeding amount of
-     * indentation.
-     */
-    abstract Indentation appendNewIndentation(final Indentation with, Indentation preceeding);
 
     /**
      * Removes the last indentation.
      */
     @Override
-    final public void outdent() throws PrinterException {
+    public void outdent() throws PrinterException {
         try {
             final Stack<Indentation> indentations = this.indentations;
             this.indentation = indentations.peek();
@@ -123,56 +126,39 @@ abstract class IndentingPrinter2 implements IndentingPrinter {
         }
     }
 
-    private final Stack<Indentation> indentations = Stacks.arrayList();
-
-    /**
-     * This string is written to each and every new line.
-     */
-    private Indentation indentation;
+    @Override
+    public LineEnding lineEnding() throws PrinterException {
+        return this.printer.lineEnding();
+    }
 
     /**
      * Conditionally inserts a EOL guaranteeing the next print will start on a new line.
      */
     @Override
-    final public void lineStart() throws PrinterException {
+    public void lineStart() throws PrinterException {
         final char previous = this.previous;
-        if ((IndentingPrinter2.CR != previous) && (IndentingPrinter2.NL != previous)) {
+        if ((BasicIndentingPrinter.CR != previous) && (BasicIndentingPrinter.NL != previous)) {
             final Printer printer = this.printer;
             printer.print(printer.lineEnding());
-            this.previous = IndentingPrinter2.START_OF_NEW_LINE;
+            this.previous = BasicIndentingPrinter.START_OF_NEW_LINE;
         }
     }
 
     @Override
-    final public void flush() throws PrinterException {
+    public void flush() throws PrinterException {
         this.printer.flush();
     }
 
     @Override
-    final public void close() throws PrinterException {
+    public void close() throws PrinterException {
         this.printer.close();
     }
-
-    /**
-     * Holds the last character to be added.
-     */
-    private char previous;
-
-    /**
-     * The {@link Printer} that is written too.
-     */
-    private final Printer printer;
 
     /**
      * Dumps something meaningful about this {@link IndentingPrinter}.
      */
     @Override
-    final public String toString() {
-        return this.toString(this.printer);
+    public String toString() {
+        return this.printer.toString();
     }
-
-    /**
-     * Force sub classes to override.
-     */
-    abstract String toString(Printer printer);
 }
