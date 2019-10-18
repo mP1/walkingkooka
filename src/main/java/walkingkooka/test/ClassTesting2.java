@@ -18,8 +18,8 @@
 package walkingkooka.test;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.type.ClassAttributes;
-import walkingkooka.type.JavaVisibility;
+import walkingkooka.reflect.ClassAttributes;
+import walkingkooka.reflect.JavaVisibility;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
@@ -64,6 +64,6 @@ public interface ClassTesting2<T> extends ClassTesting<T> {
                         .filter(c -> false == JavaVisibility.of(c).isOrLess(sameOrLess))
                         .map(Constructor::toGenericString)
                         .collect(Collectors.joining(", ")),
-                () -> "Found several constructors that are not " + sameOrLess + " for type " + type.getName());
+                () -> "Found several constructors that are not " + sameOrLess + " for reflect " + type.getName());
     }
 }

@@ -17,9 +17,9 @@
 
 package walkingkooka.compare;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.JavaVisibility;
 
 public abstract class RangeBoundTestCase<B extends RangeBound<Integer>> implements ClassTesting2<B>,
         TypeNameTesting<B> {

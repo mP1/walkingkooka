@@ -17,8 +17,8 @@
 
 package walkingkooka.collect.iterator;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.PublicStaticHelperTesting;
-import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
 

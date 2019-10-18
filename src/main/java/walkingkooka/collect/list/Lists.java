@@ -18,7 +18,7 @@
 package walkingkooka.collect.list;
 
 import walkingkooka.collect.iterable.Iterables;
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.PublicStaticHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,7 +32,7 @@ import java.util.function.BiPredicate;
 final public class Lists implements PublicStaticHelper {
 
     /**
-     * Registers a {@link List} type as immutable.
+     * Registers a {@link List} reflect as immutable.
      */
     public static void registerImmutableType(final Class<? extends List> type) {
         ImmutableList.TYPES.add(type);

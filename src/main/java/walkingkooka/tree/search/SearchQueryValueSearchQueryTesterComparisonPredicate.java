@@ -21,7 +21,7 @@ import java.util.Comparator;
 
 /**
  * Returns true if the condition is met, testing the predicate of a {@link Number} comparing against another
- * number of the same type.
+ * number of the same reflect.
  */
 enum SearchQueryValueSearchQueryTesterComparisonPredicate {
     EQUALS {

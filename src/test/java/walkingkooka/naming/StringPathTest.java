@@ -19,9 +19,9 @@ package walkingkooka.naming;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.type.JavaVisibility;
 
 import java.util.Set;
 

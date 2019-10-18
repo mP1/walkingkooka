@@ -18,7 +18,7 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.type.JavaVisibility;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.visit.Visiting;
 
 import java.math.BigDecimal;

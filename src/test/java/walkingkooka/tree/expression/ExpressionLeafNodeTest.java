@@ -17,8 +17,8 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
 
 public final class ExpressionLeafNodeTest implements ClassTesting2<ExpressionLeafNode> {
     @Override

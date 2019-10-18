@@ -106,7 +106,7 @@ abstract class CharSequence2<C extends CharSequence2<C>> implements CharSequence
     private transient int hashCode = 0;
 
     /**
-     * Performs some simple checks for nullness, identity and type using {@link #canBeEqual(Object)}
+     * Performs some simple checks for nullness, identity and reflect using {@link #canBeEqual(Object)}
      * before invoking {@link #equals0(C)} if types are compatible but different
      * instances.
      */
@@ -123,7 +123,7 @@ abstract class CharSequence2<C extends CharSequence2<C>> implements CharSequence
     abstract boolean canBeEqual(final Object other);
 
     /**
-     * This method is invoked only if the both objects are the same type and not null.
+     * This method is invoked only if the both objects are the same reflect and not null.
      */
     abstract boolean equals0(C object);
 

@@ -20,7 +20,7 @@ package walkingkooka.convert;
 import walkingkooka.Either;
 
 /**
- * A {@link Converter} that returns the value if the requested target type is actually the requested target type.
+ * A {@link Converter} that returns the value if the requested target reflect is actually the requested target reflect.
  */
 final class SimpleConverter implements Converter {
 
@@ -53,6 +53,6 @@ final class SimpleConverter implements Converter {
 
     @Override
     public String toString() {
-        return "value instanceof target type.";
+        return "value instanceof target reflect.";
     }
 }

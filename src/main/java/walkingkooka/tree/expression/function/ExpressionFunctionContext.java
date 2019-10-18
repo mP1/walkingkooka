@@ -42,13 +42,13 @@ public interface ExpressionFunctionContext extends Context, HasMathContext {
     Object function(final ExpressionNodeName name, final List<Object> parameters);
 
     /**
-     * Handles converting the given value to the {@link Class target type}.
+     * Handles converting the given value to the {@link Class target reflect}.
      */
     <T> Either<T, String> convert(final Object value,
                                   final Class<T> target);
 
     /**
-     * Converts the given value to the {@link Class target type} or throws a {@link ExpressionEvaluationException}
+     * Converts the given value to the {@link Class target reflect} or throws a {@link ExpressionEvaluationException}
      */
     default <T> T convertOrFail(final Object value,
                                 final Class<T> target) {

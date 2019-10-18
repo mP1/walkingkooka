@@ -19,9 +19,9 @@ package walkingkooka.text.cursor.parser;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.build.BuilderTesting;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

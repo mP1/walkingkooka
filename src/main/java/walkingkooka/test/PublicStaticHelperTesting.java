@@ -18,10 +18,10 @@
 package walkingkooka.test;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.type.FieldAttributes;
-import walkingkooka.type.JavaVisibility;
-import walkingkooka.type.MethodAttributes;
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.FieldAttributes;
+import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.MethodAttributes;
+import walkingkooka.reflect.PublicStaticHelper;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -93,7 +93,7 @@ public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends
                         .anyMatch(t -> JavaVisibility.PUBLIC != JavaVisibility.of(t));
         PublicStaticHelperTesting2.methodFilterAndCheckNone(this.type(),
                 publicReturnTypeAndParameters,
-                "All method parameter and return type must be public");
+                "All method parameter and return reflect must be public");
     }
 
     /**
@@ -116,7 +116,7 @@ public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends
     }
 
     /**
-     * The type being tested.
+     * The reflect being tested.
      */
     Class<H> type();
 }

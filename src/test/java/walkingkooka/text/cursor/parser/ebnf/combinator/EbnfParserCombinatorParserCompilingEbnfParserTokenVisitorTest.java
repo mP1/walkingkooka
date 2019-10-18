@@ -19,11 +19,11 @@ package walkingkooka.text.cursor.parser.ebnf.combinator;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
 import walkingkooka.text.cursor.parser.ebnf.EbnfParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfParserTokenVisitorTesting;
-import walkingkooka.type.JavaVisibility;
 
 public final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitorTest implements EbnfParserTokenVisitorTesting<EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor, EbnfParserToken> {
 

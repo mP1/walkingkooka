@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.predicate.Predicates;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.ParserException;
@@ -31,7 +32,6 @@ import walkingkooka.tree.expression.ExpressionNodeVisitorTesting;
 import walkingkooka.tree.select.parser.NodeSelectorParserContexts;
 import walkingkooka.tree.select.parser.NodeSelectorParsers;
 import walkingkooka.tree.select.parser.NodeSelectorPredicateParserToken;
-import walkingkooka.type.JavaVisibility;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

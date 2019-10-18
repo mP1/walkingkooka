@@ -18,7 +18,7 @@
 package walkingkooka.predicate;
 
 import walkingkooka.Cast;
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.PublicStaticHelper;
 
 import java.util.Objects;
 

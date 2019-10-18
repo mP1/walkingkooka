@@ -18,8 +18,8 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.PublicStaticHelperTesting;
-import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
 import java.math.MathContext;

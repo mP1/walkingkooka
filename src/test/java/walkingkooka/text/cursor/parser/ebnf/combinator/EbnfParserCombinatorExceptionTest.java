@@ -17,8 +17,8 @@
 
 package walkingkooka.text.cursor.parser.ebnf.combinator;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.StandardThrowableTesting;
-import walkingkooka.type.JavaVisibility;
 
 public final class EbnfParserCombinatorExceptionTest implements StandardThrowableTesting<EbnfParserCombinatorException> {
 

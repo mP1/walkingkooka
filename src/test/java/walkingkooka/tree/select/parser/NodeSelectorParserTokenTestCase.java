@@ -18,6 +18,7 @@ package walkingkooka.tree.select.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.PublicStaticFactoryTesting;
@@ -25,7 +26,6 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenTesting;
 import walkingkooka.tree.select.NodeSelector;
-import walkingkooka.type.JavaVisibility;
 
 import java.math.BigDecimal;
 import java.util.function.Predicate;

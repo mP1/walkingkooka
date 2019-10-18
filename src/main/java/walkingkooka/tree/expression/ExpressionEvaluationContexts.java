@@ -19,7 +19,7 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.PublicStaticHelper;
 
 import java.util.List;
 import java.util.Optional;

@@ -17,7 +17,7 @@
 
 package walkingkooka.io;
 
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.PublicStaticHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

@@ -51,7 +51,7 @@ abstract class ExpressionFunction2<T> implements ExpressionFunction<T> {
     }
 
     /**
-     * Converts a value into a {@link Comparable} with type parameters.
+     * Converts a value into a {@link Comparable} with reflect parameters.
      */
     final Comparable comparable(final Object value, final ExpressionFunctionContext context) {
         return context.convertOrFail(value, Comparable.class);

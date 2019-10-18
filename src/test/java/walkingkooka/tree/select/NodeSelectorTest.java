@@ -25,10 +25,10 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.stream.StreamTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.TestNode;
-import walkingkooka.type.JavaVisibility;
 
 import java.util.List;
 import java.util.stream.Stream;

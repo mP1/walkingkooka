@@ -23,13 +23,13 @@ import walkingkooka.text.CharSequences;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
- * A testing mixin that tests that a type has the required prefix and suffix. One standard includes the addition
+ * A testing mixin that tests that a reflect has the required prefix and suffix. One standard includes the addition
  * of the implementing interface as a required suffix.
  */
 public interface TypeNameTesting<T> extends Testing {
 
     /**
-     * Verifies that this type has been named and includes the required prefix and suffix.
+     * Verifies that this reflect has been named and includes the required prefix and suffix.
      */
     @Test
     default void testTypeNaming() {
@@ -48,18 +48,18 @@ public interface TypeNameTesting<T> extends Testing {
         if (!typeNamePrefix().isEmpty() &&
                 false == name.startsWith(Fake.class.getSimpleName() + prefix) &&
                 false == name.startsWith(prefix)) {
-            fail("type name " + CharSequences.quote(name) + " missing required prefix " + CharSequences.quote(prefix));
+            fail("reflect name " + CharSequences.quote(name) + " missing required prefix " + CharSequences.quote(prefix));
         }
 
         if (!typeNameSuffix().isEmpty() &&
                 false == name.endsWith(Fake.class.getSimpleName() + suffix) &&
                 false == name.endsWith(suffix)) {
-            fail("type name " + CharSequences.quote(name) + " missing required suffix " + CharSequences.quote(suffix));
+            fail("reflect name " + CharSequences.quote(name) + " missing required suffix " + CharSequences.quote(suffix));
         }
     }
 
     /**
-     * Returns the text after substracting the {@link #typeNamePrefix()} from the type.
+     * Returns the text after substracting the {@link #typeNamePrefix()} from the reflect.
      */
     default String subtractTypeNamePrefix() {
         final String name = this.type().getSimpleName();
@@ -72,12 +72,12 @@ public interface TypeNameTesting<T> extends Testing {
     }
 
     /**
-     * The require prefix for this type or empty string.
+     * The require prefix for this reflect or empty string.
      */
     String typeNamePrefix();
 
     /**
-     * Returns the text after substracting the {@link #typeNameSuffix()} from the type.
+     * Returns the text after substracting the {@link #typeNameSuffix()} from the reflect.
      */
     default String subtractTypeNameSuffix() {
         final String name = this.type().getSimpleName();
@@ -90,12 +90,12 @@ public interface TypeNameTesting<T> extends Testing {
     }
 
     /**
-     * The require suffix for this type or empty string.
+     * The require suffix for this reflect or empty string.
      */
     String typeNameSuffix();
 
     /**
-     * The type being tested.
+     * The reflect being tested.
      */
     Class<T> type();
 }

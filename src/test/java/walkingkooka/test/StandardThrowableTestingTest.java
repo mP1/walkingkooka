@@ -18,8 +18,8 @@
 package walkingkooka.test;
 
 import walkingkooka.SystemException;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.StandardThrowableTestingTest.TestRuntimeException;
-import walkingkooka.type.JavaVisibility;
 
 public final class StandardThrowableTestingTest implements StandardThrowableTesting<TestRuntimeException> {
 

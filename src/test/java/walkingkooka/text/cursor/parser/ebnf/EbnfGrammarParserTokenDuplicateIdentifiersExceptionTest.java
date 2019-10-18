@@ -20,10 +20,10 @@ package walkingkooka.text.cursor.parser.ebnf;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting;
 import walkingkooka.test.ThrowableTesting;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.type.JavaVisibility;
 
 import java.util.Set;
 

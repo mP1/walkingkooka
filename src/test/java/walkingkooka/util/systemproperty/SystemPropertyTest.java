@@ -19,11 +19,11 @@ package walkingkooka.util.systemproperty;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ConstantsTesting;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.type.JavaVisibility;
 
 import java.util.Set;
 

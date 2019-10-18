@@ -17,7 +17,7 @@
 
 package walkingkooka.text.cursor;
 
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.PublicStaticHelper;
 
 final public class TextCursorLineInfos implements PublicStaticHelper {
 

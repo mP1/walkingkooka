@@ -63,7 +63,7 @@ abstract class ExpressionComparisonBinaryNode extends ExpressionBinaryNode2 {
     }
 
     /**
-     * Converts the ternary result of a comparison into a boolean for this comparison type.
+     * Converts the ternary result of a comparison into a boolean for this comparison reflect.
      */
     abstract boolean isComparisonTrue(final int comparisonResult);
 }

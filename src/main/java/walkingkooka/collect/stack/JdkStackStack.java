@@ -122,7 +122,7 @@ final class JdkStackStack<T> implements Stack<T>, HashCodeEqualsDefined {
                 break;
             }
 
-            // different type of stack copy and check items while popping
+            // different reflect of stack copy and check items while popping
             final Iterator<T> iterator1 = this.iterator();
             final Iterator<T> iterator2 = stack.iterator();
 

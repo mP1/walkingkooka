@@ -18,9 +18,9 @@
 package walkingkooka;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;

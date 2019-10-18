@@ -17,9 +17,9 @@
 
 package walkingkooka.text.printer;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.LineEnding;
-import walkingkooka.type.JavaVisibility;
 
 /**
  * Base class for testing a {@link Printer} with mostly parameter checking tests.

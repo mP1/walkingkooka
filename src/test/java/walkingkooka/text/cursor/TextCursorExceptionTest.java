@@ -17,8 +17,8 @@
 
 package walkingkooka.text.cursor;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.StandardThrowableTesting;
-import walkingkooka.type.JavaVisibility;
 
 final public class TextCursorExceptionTest implements StandardThrowableTesting<TextCursorException> {
 

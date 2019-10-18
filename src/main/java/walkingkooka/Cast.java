@@ -17,7 +17,7 @@
 
 package walkingkooka;
 
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.PublicStaticHelper;
 
 /**
  * A collect of utilities relating to casting or narrowing of value to something with less

@@ -19,8 +19,8 @@ package walkingkooka.collect.map;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.iterator.IteratorTesting;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.PublicStaticHelperTesting;
-import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
 import java.util.Collections;
@@ -153,7 +153,7 @@ final public class MapsTest implements PublicStaticHelperTesting<Maps>,
     private void checkType(Map<String, Integer> immutable, final Class<?> type) {
         assertEquals(type,
                 immutable.getClass(),
-                () -> " type of " + immutable);
+                () -> " reflect of " + immutable);
     }
 
     @Test

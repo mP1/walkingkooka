@@ -17,9 +17,9 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.JavaVisibility;
 
 public abstract class ConverterTestCase<C> implements ClassTesting2<C>, TypeNameTesting<C> {
 

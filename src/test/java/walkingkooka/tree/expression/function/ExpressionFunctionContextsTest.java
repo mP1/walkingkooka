@@ -17,8 +17,8 @@
 
 package walkingkooka.tree.expression.function;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.PublicStaticHelperTesting;
-import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
 

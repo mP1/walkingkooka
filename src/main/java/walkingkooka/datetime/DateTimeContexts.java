@@ -16,7 +16,7 @@
  */
 package walkingkooka.datetime;
 
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.PublicStaticHelper;
 
 import java.util.Locale;
 

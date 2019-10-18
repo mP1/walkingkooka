@@ -19,8 +19,8 @@ package walkingkooka.compare;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.predicate.PredicateTesting2;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
 
 import java.util.function.Predicate;
 

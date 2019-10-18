@@ -18,13 +18,13 @@ package walkingkooka.text.cursor.parser.function;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.cursor.parser.BigIntegerParserToken;
 import walkingkooka.text.cursor.parser.FakeParserContext;
 import walkingkooka.text.cursor.parser.ParserException;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokens;
-import walkingkooka.type.JavaVisibility;
 
 import java.math.BigInteger;
 

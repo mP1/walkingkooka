@@ -17,8 +17,8 @@
 
 package walkingkooka.tree.select.parser;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.Fake;
-import walkingkooka.type.JavaVisibility;
 
 public final class FakeNodeSelectorParserTokenVisitorTest extends NodeSelectorParserTokenVisitorTestCase<FakeNodeSelectorParserTokenVisitor> {
 

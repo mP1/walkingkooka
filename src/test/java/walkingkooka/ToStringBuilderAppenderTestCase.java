@@ -17,9 +17,9 @@
 
 package walkingkooka;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.JavaVisibility;
 
 public abstract class ToStringBuilderAppenderTestCase<A extends ToStringBuilderAppender<V>, V> implements ClassTesting2<A>,
         TypeNameTesting<A> {

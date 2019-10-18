@@ -18,11 +18,11 @@
 package walkingkooka.predicate.character;
 
 import walkingkooka.InvalidCharacterException;
+import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
-import walkingkooka.type.PublicStaticHelper;
 
 import java.util.Map;
 import java.util.Objects;

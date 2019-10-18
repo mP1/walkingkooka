@@ -19,10 +19,10 @@ package walkingkooka.util;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ThrowableTesting;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.type.JavaVisibility;
 
 import java.util.function.Function;
 

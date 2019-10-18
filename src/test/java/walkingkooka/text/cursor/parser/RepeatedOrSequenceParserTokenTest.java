@@ -16,8 +16,8 @@
  */
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
 
 public final class RepeatedOrSequenceParserTokenTest implements ClassTesting2<RepeatedOrSequenceParserToken> {
     @Override

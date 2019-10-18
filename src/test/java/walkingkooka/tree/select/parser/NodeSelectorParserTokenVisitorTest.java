@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.select.parser;
 
-import walkingkooka.type.JavaVisibility;
+import walkingkooka.reflect.JavaVisibility;
 
 public final class NodeSelectorParserTokenVisitorTest implements NodeSelectorParserTokenVisitorTesting<NodeSelectorParserTokenVisitor> {
 

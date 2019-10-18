@@ -19,9 +19,9 @@ package walkingkooka.convert;
 
 import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
-import walkingkooka.type.PublicStaticHelper;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;

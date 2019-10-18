@@ -19,6 +19,7 @@ package walkingkooka.visit;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
@@ -27,7 +28,6 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.IndentingPrinters;
 import walkingkooka.text.printer.Printers;
-import walkingkooka.type.JavaVisibility;
 
 import java.util.function.Function;
 

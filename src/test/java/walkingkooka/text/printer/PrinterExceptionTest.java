@@ -17,8 +17,8 @@
 
 package walkingkooka.text.printer;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.StandardThrowableTesting;
-import walkingkooka.type.JavaVisibility;
 
 final public class PrinterExceptionTest implements StandardThrowableTesting<PrinterException> {
 

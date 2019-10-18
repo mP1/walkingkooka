@@ -17,10 +17,10 @@
 
 package walkingkooka.text.cursor.parser.ebnf;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenVisitor;
 import walkingkooka.text.cursor.parser.ParserTokenVisitorTesting;
-import walkingkooka.type.JavaVisibility;
 
 public final class EbnfGrammarParserWrapperParserTokenVisitorTest implements ParserTokenVisitorTesting<EbnfGrammarParserWrapperParserTokenVisitor, ParserToken> {
     @Override

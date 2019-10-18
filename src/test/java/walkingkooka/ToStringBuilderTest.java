@@ -21,8 +21,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.build.BuilderTesting;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CharSequences;
-import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;

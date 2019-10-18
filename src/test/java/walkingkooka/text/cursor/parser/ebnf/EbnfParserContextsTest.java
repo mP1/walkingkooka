@@ -17,8 +17,8 @@
 
 package walkingkooka.text.cursor.parser.ebnf;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.PublicStaticHelperTesting;
-import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
 

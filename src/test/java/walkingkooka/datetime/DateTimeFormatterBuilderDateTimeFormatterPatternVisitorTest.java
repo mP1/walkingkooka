@@ -18,8 +18,8 @@
 package walkingkooka.datetime;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CharSequences;
-import walkingkooka.type.JavaVisibility;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;

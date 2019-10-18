@@ -20,8 +20,8 @@ package walkingkooka;
 import org.junit.jupiter.api.Test;
 import walkingkooka.compare.Range;
 import walkingkooka.compare.RangeVisitorTesting;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

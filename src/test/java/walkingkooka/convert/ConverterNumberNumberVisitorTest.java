@@ -22,8 +22,8 @@ import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.math.NumberVisitor;
 import walkingkooka.math.NumberVisitorTesting;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CharSequences;
-import walkingkooka.type.JavaVisibility;
 
 import java.math.BigDecimal;
 

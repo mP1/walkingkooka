@@ -17,7 +17,7 @@
 
 package walkingkooka.naming;
 
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.PublicStaticHelper;
 
 final public class Names implements PublicStaticHelper {
 

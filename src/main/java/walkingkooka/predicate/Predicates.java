@@ -19,8 +19,8 @@ package walkingkooka.predicate;
 
 import walkingkooka.compare.ComparisonRelation;
 import walkingkooka.predicate.character.CharPredicate;
+import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.type.PublicStaticHelper;
 
 import java.util.Set;
 import java.util.function.Predicate;

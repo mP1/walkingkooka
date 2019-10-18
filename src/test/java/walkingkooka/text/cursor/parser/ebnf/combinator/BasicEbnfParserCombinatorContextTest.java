@@ -18,8 +18,8 @@
 package walkingkooka.text.cursor.parser.ebnf.combinator;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
 
 public final class BasicEbnfParserCombinatorContextTest implements ClassTesting2<BasicEbnfParserCombinatorContext>,
         EbnfParserCombinatorContextTesting<BasicEbnfParserCombinatorContext> {

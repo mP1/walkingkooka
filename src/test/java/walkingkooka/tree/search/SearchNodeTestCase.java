@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.PublicStaticFactoryTesting;
@@ -29,7 +30,6 @@ import walkingkooka.text.HasTextTesting;
 import walkingkooka.tree.HasTextOffsetTesting;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.NodeTesting;
-import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
 import java.util.function.Function;

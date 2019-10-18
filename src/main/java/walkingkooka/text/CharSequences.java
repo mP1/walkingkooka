@@ -18,7 +18,7 @@
 package walkingkooka.text;
 
 import walkingkooka.InvalidCharacterException;
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.PublicStaticHelper;
 
 import java.io.Reader;
 import java.util.Objects;

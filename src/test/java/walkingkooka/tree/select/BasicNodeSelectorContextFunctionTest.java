@@ -17,10 +17,10 @@
 
 package walkingkooka.tree.select;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.type.JavaVisibility;
 import walkingkooka.util.FunctionTesting;
 
 import java.util.Optional;

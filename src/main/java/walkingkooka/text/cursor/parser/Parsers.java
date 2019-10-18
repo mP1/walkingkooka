@@ -18,8 +18,8 @@ package walkingkooka.text.cursor.parser;
 
 import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.predicate.character.CharPredicate;
+import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.type.PublicStaticHelper;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;

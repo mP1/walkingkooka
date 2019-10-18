@@ -17,7 +17,7 @@
 
 package walkingkooka;
 
-import walkingkooka.type.JavaVisibility;
+import walkingkooka.reflect.JavaVisibility;
 
 final public class ToStringBuilderModeTest extends ToStringBuilderTestCase<ToStringBuilderMode> {
 

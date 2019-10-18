@@ -17,7 +17,7 @@
 
 package walkingkooka.text.printer.line;
 
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.PublicStaticHelper;
 
 final public class PrintedLineHandlers implements PublicStaticHelper {
 

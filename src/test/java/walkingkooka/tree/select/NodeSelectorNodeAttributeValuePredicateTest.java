@@ -17,8 +17,8 @@
 
 package walkingkooka.tree.select;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
 
 public final class NodeSelectorNodeAttributeValuePredicateTest implements ClassTesting2<NodeSelectorNodeAttributeValuePredicate> {
     @Override

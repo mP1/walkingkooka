@@ -17,8 +17,8 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.StandardThrowableTesting;
-import walkingkooka.type.JavaVisibility;
 
 public final class ConversionExceptionTest implements StandardThrowableTesting<ConversionException> {
 

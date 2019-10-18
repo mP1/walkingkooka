@@ -19,8 +19,8 @@ package walkingkooka.tree;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
+import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.tree.pointer.NodePointer;
-import walkingkooka.type.PublicStaticHelper;
 
 import java.util.Optional;
 

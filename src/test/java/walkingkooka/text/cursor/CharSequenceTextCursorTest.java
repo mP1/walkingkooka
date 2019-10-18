@@ -18,9 +18,9 @@
 package walkingkooka.text.cursor;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

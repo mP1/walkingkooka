@@ -17,10 +17,10 @@
 
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.MethodAttributes;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
-import walkingkooka.type.JavaVisibility;
-import walkingkooka.type.MethodAttributes;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -32,8 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 final class ParserTokenTesting2 {
 
     /**
-     * The base is typically the base sub class of the type being tested, and holds the public static factory method
-     * usually named after the type being tested.
+     * The base is typically the base sub class of the reflect being tested, and holds the public static factory method
+     * usually named after the reflect being tested.
      */
     static void publicStaticFactoryCheck(final Class<?> base,
                                          final String prefix,

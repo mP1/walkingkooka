@@ -17,8 +17,8 @@
 
 package walkingkooka.stream.push;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.StandardThrowableTesting;
-import walkingkooka.type.JavaVisibility;
 
 final public class PushStreamExceptionTest implements StandardThrowableTesting<PushStreamException> {
 

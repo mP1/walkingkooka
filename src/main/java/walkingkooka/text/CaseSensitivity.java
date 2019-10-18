@@ -293,7 +293,7 @@ public enum CaseSensitivity {
     }
 
     /**
-     * Returns a {@link Comparator} for comparing any two {@link CharSequence} ignoring type.
+     * Returns a {@link Comparator} for comparing any two {@link CharSequence} ignoring reflect.
      */
     abstract public <C extends CharSequence> Comparator<C> comparator();
 

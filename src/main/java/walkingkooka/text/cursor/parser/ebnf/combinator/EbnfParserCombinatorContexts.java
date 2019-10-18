@@ -17,8 +17,8 @@
 
 package walkingkooka.text.cursor.parser.ebnf.combinator;
 
+import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.cursor.parser.ParserContext;
-import walkingkooka.type.PublicStaticHelper;
 
 public final class EbnfParserCombinatorContexts implements PublicStaticHelper {
 

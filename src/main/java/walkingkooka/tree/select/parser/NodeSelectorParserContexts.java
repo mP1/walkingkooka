@@ -18,7 +18,7 @@
 package walkingkooka.tree.select.parser;
 
 import walkingkooka.math.HasMathContext;
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.PublicStaticHelper;
 
 public final class NodeSelectorParserContexts implements PublicStaticHelper {
 

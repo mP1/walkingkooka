@@ -18,12 +18,12 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.Cast;
+import walkingkooka.reflect.ClassName;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.type.ClassName;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;

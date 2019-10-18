@@ -19,10 +19,10 @@ package walkingkooka.tree.search;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.JavaVisibility;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

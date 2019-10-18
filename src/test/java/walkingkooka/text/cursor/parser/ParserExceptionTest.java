@@ -17,8 +17,8 @@
 
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.StandardThrowableTesting;
-import walkingkooka.type.JavaVisibility;
 
 public final class ParserExceptionTest implements StandardThrowableTesting<ParserException> {
     

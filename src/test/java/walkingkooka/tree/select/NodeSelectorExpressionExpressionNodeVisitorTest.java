@@ -21,10 +21,10 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.expression.ExpressionNodeVisitorTesting;
-import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -17,8 +17,8 @@
 
 package walkingkooka.text.cursor.parser.ebnf.combinator;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
 
 public final class EbnfParserCombinatorProxyParserTest implements ClassTesting2<EbnfParserCombinatorProxyParser> {
     @Override
