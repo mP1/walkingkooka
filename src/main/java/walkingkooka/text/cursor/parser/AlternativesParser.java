@@ -18,7 +18,6 @@ package walkingkooka.text.cursor.parser;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.cursor.TextCursor;
 
 import java.util.List;
@@ -29,7 +28,7 @@ import java.util.stream.Collectors;
 /**
  * A {@link Parser} that tries all parsers until one is matched and then ignores the remainder.
  */
-final class AlternativesParser<C extends ParserContext> implements Parser<C>, HashCodeEqualsDefined {
+final class AlternativesParser<C extends ParserContext> implements Parser<C> {
 
     /**
      * Factory that creates a {@link Parser} possibly simplifying things.

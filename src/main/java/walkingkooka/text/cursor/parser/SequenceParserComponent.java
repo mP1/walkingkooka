@@ -16,7 +16,6 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.cursor.TextCursor;
 
 import java.util.List;
@@ -27,7 +26,7 @@ import java.util.stream.Collectors;
 /**
  * A component within one of several parsers in a sequence.
  */
-abstract class SequenceParserComponent<C extends ParserContext> implements HashCodeEqualsDefined {
+abstract class SequenceParserComponent<C extends ParserContext> {
 
     SequenceParserComponent(final Parser<C> parser) {
         Objects.requireNonNull(parser, "parser");

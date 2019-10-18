@@ -17,8 +17,8 @@
 
 package walkingkooka.stream.push;
 
+import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.ToStringTesting;
 
 import java.util.List;
 

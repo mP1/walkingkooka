@@ -19,11 +19,11 @@ package walkingkooka.stream.push;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.ToStringTesting;
 import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.stream.StreamTesting;
-import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 
 import java.util.Arrays;

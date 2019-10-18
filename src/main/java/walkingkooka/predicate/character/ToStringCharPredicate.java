@@ -18,7 +18,6 @@
 package walkingkooka.predicate.character;
 
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.Whitespace;
 
 import java.util.Objects;
@@ -27,7 +26,7 @@ import java.util.Objects;
  * Forwards all match requests to another wrapped {@link CharPredicate} but returns the given {@link
  * String}.
  */
-final class ToStringCharPredicate implements CharPredicate, HashCodeEqualsDefined {
+final class ToStringCharPredicate implements CharPredicate {
 
     /**
      * Creates a new {@link ToStringCharPredicate}

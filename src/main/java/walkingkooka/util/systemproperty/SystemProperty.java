@@ -18,7 +18,6 @@
 package walkingkooka.util.systemproperty;
 
 import walkingkooka.Value;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
@@ -30,7 +29,7 @@ import java.util.Objects;
  * Represents a system property with methods to interact with values.<br>
  * <a href="https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html"></a>
  */
-final public class SystemProperty implements Value<String>, HashCodeEqualsDefined {
+final public class SystemProperty implements Value<String> {
 
     /**
      * A cache of {@link SystemProperty} constants.

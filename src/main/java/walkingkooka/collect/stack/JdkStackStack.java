@@ -18,7 +18,6 @@
 package walkingkooka.collect.stack;
 
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Iterator;
 import java.util.Objects;
@@ -27,7 +26,7 @@ import java.util.Objects;
  * A {@link Stack} that delegates all method calls to a {@link java.util.Stack}. When modified the
  * same {@link Stack} is returned.
  */
-final class JdkStackStack<T> implements Stack<T>, HashCodeEqualsDefined {
+final class JdkStackStack<T> implements Stack<T> {
 
     /**
      * Factory that creates an empty {@link JdkStackStack}

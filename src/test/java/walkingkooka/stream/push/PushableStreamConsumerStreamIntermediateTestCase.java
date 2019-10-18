@@ -17,9 +17,9 @@
 
 package walkingkooka.stream.push;
 
+import walkingkooka.HashCodeEqualsDefinedTesting2;
+import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.TypeNameTesting;
-import walkingkooka.test.HashCodeEqualsDefinedTesting2;
-import walkingkooka.test.ToStringTesting;
 
 public abstract class PushableStreamConsumerStreamIntermediateTestCase<I extends PushableStreamConsumerStreamIntermediate> extends PushableStreamConsumerTestCase<I>
         implements HashCodeEqualsDefinedTesting2<I>,

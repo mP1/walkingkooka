@@ -18,8 +18,8 @@
 package walkingkooka.compare;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.IsMethodTesting;
-import walkingkooka.test.ToStringTesting;
 
 import java.util.Optional;
 import java.util.function.Predicate;

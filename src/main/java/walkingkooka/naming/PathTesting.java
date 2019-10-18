@@ -18,13 +18,12 @@
 package walkingkooka.naming;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.ToStringTesting;
 import walkingkooka.collect.iterable.Iterables;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.reflect.ConstantsTesting;
 import walkingkooka.reflect.TypeNameTesting;
-import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.test.ToStringTesting;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Base class for testing a {@link Path} with mostly parameter checking tests.
  */
-public interface PathTesting<P extends Path<P, N> & HashCodeEqualsDefined & Comparable<P>, N extends Name> extends ComparableTesting2<P>,
+public interface PathTesting<P extends Path<P, N>  & Comparable<P>, N extends Name> extends ComparableTesting2<P>,
         ConstantsTesting<P>,
         ToStringTesting<P>,
         TypeNameTesting<P> {

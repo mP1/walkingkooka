@@ -18,7 +18,7 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ToStringTesting;
+import walkingkooka.ToStringTesting;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;

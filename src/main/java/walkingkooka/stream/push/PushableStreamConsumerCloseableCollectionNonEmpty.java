@@ -20,14 +20,13 @@ package walkingkooka.stream.push;
 import walkingkooka.Cast;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.List;
 
 /**
  * A {@link PushableStreamConsumerCloseableCollection} with at least one {@link Runnable}.
  */
-final class PushableStreamConsumerCloseableCollectionNonEmpty extends PushableStreamConsumerCloseableCollection implements HashCodeEqualsDefined {
+final class PushableStreamConsumerCloseableCollectionNonEmpty extends PushableStreamConsumerCloseableCollection {
 
     static PushableStreamConsumerCloseableCollectionNonEmpty with(final List<Runnable> closeables) {
         return new PushableStreamConsumerCloseableCollectionNonEmpty(closeables);

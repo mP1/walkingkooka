@@ -19,7 +19,6 @@ package walkingkooka.predicate.character;
 
 import walkingkooka.Cast;
 import walkingkooka.predicate.Notable;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Objects;
 
@@ -27,8 +26,7 @@ import java.util.Objects;
  * Inverts the results returned by the wrapped {@link CharPredicate}.
  */
 final class NotCharPredicate implements CharPredicate,
-        Notable<CharPredicate>,
-        HashCodeEqualsDefined {
+        Notable<CharPredicate> {
 
     static CharPredicate wrap(final CharPredicate predicate) {
         Objects.requireNonNull(predicate, "predicate");

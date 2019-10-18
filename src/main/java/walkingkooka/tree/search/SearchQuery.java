@@ -18,7 +18,6 @@
 package walkingkooka.tree.search;
 
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
 
 import java.util.Objects;
@@ -26,7 +25,7 @@ import java.util.Objects;
 /**
  * A query that may be used to search {@link SearchNode} for matches.
  */
-public abstract class SearchQuery implements HashCodeEqualsDefined {
+public abstract class SearchQuery {
 
     private static SearchQueryParentBinaryAnd and(final SearchQuery left,
                                                   final SearchQuery right) {

@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.test;
+package walkingkooka;
 
 import org.junit.jupiter.api.Test;
 

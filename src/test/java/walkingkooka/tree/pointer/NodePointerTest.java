@@ -20,12 +20,12 @@ package walkingkooka.tree.pointer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.ToStringTesting;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.TestNode;
 

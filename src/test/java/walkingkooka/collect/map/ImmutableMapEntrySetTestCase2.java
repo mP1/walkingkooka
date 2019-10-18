@@ -18,9 +18,9 @@
 package walkingkooka.collect.map;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.ToStringTesting;
 import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.collect.set.SetTesting2;
-import walkingkooka.test.ToStringTesting;
 
 import java.util.Map;
 import java.util.Map.Entry;

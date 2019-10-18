@@ -19,7 +19,6 @@ package walkingkooka.collect.stack;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -28,7 +27,7 @@ import java.util.Objects;
 /**
  * An {@link ArrayStack} is a true immutable {@link Stack}.
  */
-final class ArrayStack<T> implements Stack<T>, HashCodeEqualsDefined {
+final class ArrayStack<T> implements Stack<T> {
     /**
      * Creates a new {@link ArrayStack} with a single item.
      */
@@ -158,7 +157,7 @@ final class ArrayStack<T> implements Stack<T>, HashCodeEqualsDefined {
      */
     final int last;
 
-    // HashCodeEqualsDefined
+    // Object...........................................................................................................
 
     @Override
     public int hashCode() {

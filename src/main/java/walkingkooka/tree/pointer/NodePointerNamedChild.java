@@ -92,7 +92,7 @@ final class NodePointerNamedChild<N extends Node<N, NAME, ?, ?>, NAME extends Na
         visitor.endVisitNamedChild(this, name);
     }
 
-    // HashCodeEqualsDefined...........................................................................................
+    // Object...........................................................................................................
 
     @Override
     public int hashCode() {

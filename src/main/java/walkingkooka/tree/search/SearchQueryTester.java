@@ -18,9 +18,8 @@
 package walkingkooka.tree.search;
 
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefined;
 
-abstract class SearchQueryTester<T> implements HashCodeEqualsDefined {
+abstract class SearchQueryTester<T> {
 
     SearchQueryTester(final T value) {
         super();

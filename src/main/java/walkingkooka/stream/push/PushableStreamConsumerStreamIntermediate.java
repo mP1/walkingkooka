@@ -17,8 +17,6 @@
 
 package walkingkooka.stream.push;
 
-import walkingkooka.test.HashCodeEqualsDefined;
-
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -27,7 +25,7 @@ import java.util.stream.Stream;
 /**
  * Base class for all intermediate steps while building a {@link Stream} to terminal operation invocation.
  */
-abstract class PushableStreamConsumerStreamIntermediate implements HashCodeEqualsDefined {
+abstract class PushableStreamConsumerStreamIntermediate {
 
     /**
      * {@see PushableStreamConsumerStreamIntermediate2Filter}

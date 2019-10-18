@@ -19,7 +19,7 @@ package walkingkooka.stream.push;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefinedTesting2;
+import walkingkooka.HashCodeEqualsDefinedTesting2;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

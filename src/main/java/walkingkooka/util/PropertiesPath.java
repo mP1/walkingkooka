@@ -19,7 +19,6 @@ package walkingkooka.util;
 
 import walkingkooka.naming.Path;
 import walkingkooka.naming.PathSeparator;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
@@ -29,8 +28,7 @@ import java.util.Properties;
 /**
  * A {@link Path} that wraps a {@link String} which may contain any character.
  */
-final public class PropertiesPath implements Path<PropertiesPath, PropertiesName>, Comparable<PropertiesPath>,
-        HashCodeEqualsDefined {
+final public class PropertiesPath implements Path<PropertiesPath, PropertiesName>, Comparable<PropertiesPath> {
 
     /**
      * {@link PathSeparator} instance

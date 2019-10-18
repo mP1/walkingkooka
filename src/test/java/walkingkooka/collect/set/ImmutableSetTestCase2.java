@@ -18,8 +18,8 @@
 package walkingkooka.collect.set;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.collect.iterator.IteratorTesting;
-import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 
 import java.util.Iterator;
 

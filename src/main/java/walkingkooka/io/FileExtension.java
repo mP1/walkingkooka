@@ -20,7 +20,6 @@ package walkingkooka.io;
 import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.Value;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
@@ -30,7 +29,7 @@ import java.util.Optional;
 /**
  * Represents the file extension with a filename.
  */
-public final class FileExtension implements HashCodeEqualsDefined,
+public final class FileExtension implements
         Comparable<FileExtension>,
         Value<String> {
 

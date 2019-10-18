@@ -17,7 +17,6 @@
 
 package walkingkooka.predicate.character;
 
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 
 import java.util.Arrays;
@@ -27,8 +26,7 @@ import java.util.Objects;
  * A {@link CharPredicate} that test any characters that appear in the provided {@link
  * CharSequence}.
  */
-final class AnyCharPredicate implements CharPredicate,
-        HashCodeEqualsDefined {
+final class AnyCharPredicate implements CharPredicate {
 
     /**
      * Creates a new {@link AnyCharPredicate} using the {@link String#length()} to select the best

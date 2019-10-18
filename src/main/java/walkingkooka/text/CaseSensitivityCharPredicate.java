@@ -18,13 +18,11 @@
 package walkingkooka.text;
 
 import walkingkooka.predicate.character.CharPredicate;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 /**
  * A {@link CharPredicate} that test the character given to it at create time.
  */
-final class CaseSensitivityCharPredicate implements CharPredicate,
-        HashCodeEqualsDefined {
+final class CaseSensitivityCharPredicate implements CharPredicate {
 
     /**
      * Creates a {@link CaseSensitivityCharPredicate}

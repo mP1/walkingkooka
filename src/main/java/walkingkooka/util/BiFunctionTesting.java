@@ -16,7 +16,7 @@
  */
 package walkingkooka.util;
 
-import walkingkooka.test.ToStringTesting;
+import walkingkooka.ToStringTesting;
 import walkingkooka.text.CharSequences;
 
 import java.util.function.BiFunction;

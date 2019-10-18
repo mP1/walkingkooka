@@ -18,11 +18,11 @@
 package walkingkooka.visit;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
-import walkingkooka.test.ToStringTesting;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;

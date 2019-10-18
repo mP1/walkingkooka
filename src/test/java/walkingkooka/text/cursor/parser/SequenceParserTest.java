@@ -18,8 +18,8 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.text.CaseSensitivity;
 
 public final class SequenceParserTest extends Parser2TestCase<SequenceParser<ParserContext>, SequenceParserToken>

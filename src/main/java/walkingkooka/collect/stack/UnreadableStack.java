@@ -18,7 +18,6 @@
 package walkingkooka.collect.stack;
 
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Iterator;
 import java.util.Objects;
@@ -27,7 +26,7 @@ import java.util.Objects;
  * Wraps another {@link Stack} with only the {@link #push(Object)} method working with all other
  * methods throwing {@link UnsupportedOperationException}.
  */
-final class UnreadableStack<T> implements Stack<T>, HashCodeEqualsDefined {
+final class UnreadableStack<T> implements Stack<T> {
 
     /**
      * Wraps another {@link Stack} making it unreadable.

@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.datetime.DateTimeContext;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 
@@ -41,7 +40,7 @@ import java.util.function.Function;
  * The pattern that created the {@link DateTimeFormatter} must be given to the factory so the preliminary phase can
  * try its simple parsing.
  */
-abstract class DateTimeFormatterParser<C extends ParserContext> extends Parser2<C> implements HashCodeEqualsDefined {
+abstract class DateTimeFormatterParser<C extends ParserContext> extends Parser2<C> {
 
     /**
      * Package private to limit subclassing.

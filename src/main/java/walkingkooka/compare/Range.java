@@ -19,7 +19,6 @@ package walkingkooka.compare;
 
 import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.visit.Visitable;
 
@@ -33,7 +32,6 @@ import java.util.function.Predicate;
  * and then intersect them.
  */
 public final class Range<C extends Comparable<C>> implements Predicate<C>,
-        HashCodeEqualsDefined,
         Visitable {
 
     /**

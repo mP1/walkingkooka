@@ -19,8 +19,8 @@ package walkingkooka.convert;
 
 import walkingkooka.Cast;
 import walkingkooka.Either;
+import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.TypeNameTesting;
-import walkingkooka.test.ToStringTesting;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 

@@ -15,10 +15,12 @@
  *
  */
 
-package walkingkooka.test;
+package walkingkooka;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.Fake;
+import walkingkooka.test.Testing;
 import walkingkooka.text.CharSequences;
 
 import java.lang.reflect.Method;

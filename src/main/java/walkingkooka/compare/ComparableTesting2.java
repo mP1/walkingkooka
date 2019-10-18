@@ -18,8 +18,7 @@
 package walkingkooka.compare;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.test.HashCodeEqualsDefinedTesting2;
+import walkingkooka.HashCodeEqualsDefinedTesting2;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -27,7 +26,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * An interface for testing {@link Comparable comparables}. Many compareTo methods are
  * available that compare andassert the result.
  */
-public interface ComparableTesting2<C extends Comparable<C> & HashCodeEqualsDefined> extends ComparableTesting, HashCodeEqualsDefinedTesting2<C> {
+public interface ComparableTesting2<C extends Comparable<C>> extends ComparableTesting,
+        HashCodeEqualsDefinedTesting2<C> {
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test

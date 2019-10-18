@@ -18,14 +18,12 @@
 package walkingkooka.text;
 
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 /**
  * Template {@link CharSequence} that includes templated handling the boring bits of {@link
  * #charAt(int)} and {@link #subSequence(int, int)} .
  */
-abstract class CharSequence2<C extends CharSequence2<C>> implements CharSequence,
-        HashCodeEqualsDefined {
+abstract class CharSequence2<C extends CharSequence2<C>> implements CharSequence {
 
     /**
      * Package private to limit sub classing.
@@ -81,7 +79,7 @@ abstract class CharSequence2<C extends CharSequence2<C>> implements CharSequence
      */
     abstract CharSequence subSequence0(int start, int end);
 
-    // HashCodeEqualsDefined
+    // Object...........................................................................................................
 
     /**
      * Lazily calculates the hash code and stores it for future retrieval.

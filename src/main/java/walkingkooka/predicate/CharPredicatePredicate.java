@@ -18,7 +18,6 @@
 package walkingkooka.predicate;
 
 import walkingkooka.predicate.character.CharPredicate;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -27,8 +26,7 @@ import java.util.function.Predicate;
  * A {@link Predicate} adaptor that unwraps the {@link Character} and passes that char to a {@link
  * CharPredicate}.
  */
-final class CharPredicatePredicate implements Predicate<Character>,
-        HashCodeEqualsDefined {
+final class CharPredicatePredicate implements Predicate<Character> {
 
     /**
      * Creates a new {@link CharPredicatePredicate}

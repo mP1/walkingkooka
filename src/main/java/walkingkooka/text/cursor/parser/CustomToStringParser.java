@@ -16,7 +16,6 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.Whitespace;
 import walkingkooka.text.cursor.TextCursor;
 
@@ -26,7 +25,7 @@ import java.util.Optional;
 /**
  * Wraps another {@link Parser} replacing or ignoring its {@link Parser#toString()} with the provided {@link String}.
  */
-final class CustomToStringParser<C extends ParserContext> implements Parser<C>, HashCodeEqualsDefined {
+final class CustomToStringParser<C extends ParserContext> implements Parser<C> {
 
     static <C extends ParserContext> Parser<C> wrap(final Parser<C> parser, final String toString) {
         Objects.requireNonNull(parser, "parser");

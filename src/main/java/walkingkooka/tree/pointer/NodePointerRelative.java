@@ -102,7 +102,7 @@ final class NodePointerRelative<N extends Node<N, NAME, ?, ?>, NAME extends Name
         visitor.endVisitRelative(this);
     }
 
-    // HashCodeEqualsDefined...........................................................................................
+    // Object...........................................................................................................
 
     @Override
     public int hashCode() {

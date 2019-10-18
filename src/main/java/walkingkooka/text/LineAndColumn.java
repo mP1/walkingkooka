@@ -17,14 +17,12 @@
 
 package walkingkooka.text;
 
-import walkingkooka.test.HashCodeEqualsDefined;
-
 import java.util.Objects;
 
 /**
  * Represents the line and column of a position within text.
  */
-public final class LineAndColumn implements HashCodeEqualsDefined {
+public final class LineAndColumn {
 
     public final static int LINE_NUMBER_START = 1;
     public final static int COLUMN_START = 1;

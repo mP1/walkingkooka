@@ -18,7 +18,7 @@
 package walkingkooka.collect;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ToStringTesting;
+import walkingkooka.ToStringTesting;
 
 import java.util.Collection;
 

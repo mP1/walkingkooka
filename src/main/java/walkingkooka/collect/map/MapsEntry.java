@@ -20,7 +20,6 @@ package walkingkooka.collect.map;
 import walkingkooka.Cast;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.ToStringBuilderOption;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Map;
 import java.util.Objects;
@@ -28,7 +27,7 @@ import java.util.Objects;
 /**
  * A read only{@link Map.Entry}.
  */
-final class MapsEntry<K, V> implements Map.Entry<K, V>, HashCodeEqualsDefined {
+final class MapsEntry<K, V> implements Map.Entry<K, V> {
 
     static <K, V> MapsEntry<K, V> with(final K key, final V value) {
         Objects.requireNonNull(key, "key");

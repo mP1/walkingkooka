@@ -17,15 +17,12 @@
 
 package walkingkooka.text;
 
-import walkingkooka.test.HashCodeEqualsDefined;
-
 import java.util.Objects;
 
 /**
  * A {@link CharSequence} that contains only contain whitespace.
  */
-final public class Whitespace implements CharSequence,
-        HashCodeEqualsDefined {
+final public class Whitespace implements CharSequence {
 
     /**
      * Fails if the given {@link CharSequences} is null, empty or only whitespace.

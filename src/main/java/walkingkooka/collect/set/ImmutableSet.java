@@ -19,7 +19,6 @@ package walkingkooka.collect.set;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.AbstractSet;
 import java.util.Collections;
@@ -30,7 +29,7 @@ import java.util.SortedSet;
 /**
  * A {@link Set} known to be immutable and holds a copy of any {@link Set} given to it.
  */
-abstract class ImmutableSet<T> extends AbstractSet<T> implements HashCodeEqualsDefined {
+abstract class ImmutableSet<T> extends AbstractSet<T> {
 
     /**
      * A registry of immutable {@link Set} types.

@@ -82,7 +82,7 @@ final class NodePointerAppend<N extends Node<N, NAME, ?, ?>, NAME extends Name> 
         visitor.visitAppend(this);
     }
 
-    // HashCodeEqualsDefined...........................................................................................
+    // Object...........................................................................................................
 
     @Override
     public int hashCode() {

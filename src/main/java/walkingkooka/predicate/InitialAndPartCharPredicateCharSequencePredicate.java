@@ -18,7 +18,6 @@
 package walkingkooka.predicate;
 
 import walkingkooka.predicate.character.CharPredicate;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -27,7 +26,7 @@ import java.util.function.Predicate;
  * A {@link Predicate} that test a {@link CharSequence} using two predicates, the first requires the initial char to be
  * true and the second matches remaining characters.
  */
-final class InitialAndPartCharPredicateCharSequencePredicate implements Predicate<CharSequence>, HashCodeEqualsDefined {
+final class InitialAndPartCharPredicateCharSequencePredicate implements Predicate<CharSequence> {
 
     static Predicate<CharSequence> with(final CharPredicate initial, final CharPredicate remaining) {
         Objects.requireNonNull(initial, "initial");

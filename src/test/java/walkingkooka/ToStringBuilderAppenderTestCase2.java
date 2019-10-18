@@ -18,7 +18,6 @@
 package walkingkooka;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

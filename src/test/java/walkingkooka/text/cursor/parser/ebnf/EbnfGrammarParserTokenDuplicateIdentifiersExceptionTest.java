@@ -18,12 +18,12 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.ThrowableTesting;
-import walkingkooka.test.ToStringTesting;
 
 import java.util.Set;
 

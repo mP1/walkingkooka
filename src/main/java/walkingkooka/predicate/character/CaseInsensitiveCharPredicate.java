@@ -17,16 +17,13 @@
 
 package walkingkooka.predicate.character;
 
-import walkingkooka.test.HashCodeEqualsDefined;
-
 import java.util.Objects;
 
 /**
  * Wraps another {@link CharPredicate} and has some test by passing the lower case and upper case of
  * a letter to the wrapped {@link CharPredicate}.
  */
-final class CaseInsensitiveCharPredicate implements CharPredicate,
-        HashCodeEqualsDefined {
+final class CaseInsensitiveCharPredicate implements CharPredicate {
 
     static CharPredicate with(final CharPredicate predicate) {
         Objects.requireNonNull(predicate, "predicate");

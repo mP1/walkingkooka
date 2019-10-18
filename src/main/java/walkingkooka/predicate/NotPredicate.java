@@ -18,7 +18,6 @@
 package walkingkooka.predicate;
 
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -27,8 +26,7 @@ import java.util.function.Predicate;
  * A {@link Predicate} that inverts the result of the wrapped {@link Predicate}.
  */
 final class NotPredicate<T> implements Predicate<T>,
-        Notable<Predicate<T>>,
-        HashCodeEqualsDefined {
+        Notable<Predicate<T>> {
 
     static <T> Predicate<T> wrap(final Predicate<T> predicate) {
         Objects.requireNonNull(predicate, "predicate");
