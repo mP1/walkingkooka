@@ -19,11 +19,10 @@ package walkingkooka.naming;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.ToStringTesting;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
-import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CaseSensitivity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,8 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Base class for testing a {@link Name} with mostly helpers to assert construction failure.
  */
-public interface NameTesting<N extends Name, C extends Comparable<C> & HashCodeEqualsDefined>
-        extends ComparableTesting2<C>,
+public interface NameTesting<N extends Name, C extends Comparable<C>> extends ComparableTesting2<C>,
         ToStringTesting<N>,
         TypeNameTesting<N> {
 

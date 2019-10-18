@@ -18,13 +18,12 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.HashCodeEqualsDefinedTesting2;
+import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.BeanPropertiesTesting;
 import walkingkooka.reflect.TypeNameTesting;
-import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.test.HashCodeEqualsDefinedTesting2;
-import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasTextTesting;
 import walkingkooka.tree.search.SearchNode;
@@ -45,7 +44,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  *
  * @param <T>
  */
-public interface ParserTokenTesting<T extends ParserToken & HashCodeEqualsDefined> extends BeanPropertiesTesting,
+public interface ParserTokenTesting<T extends ParserToken > extends BeanPropertiesTesting,
         HashCodeEqualsDefinedTesting2<T>,
         HasTextTesting,
         ToStringTesting<T>,

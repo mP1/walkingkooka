@@ -18,14 +18,13 @@
 package walkingkooka.text;
 
 import walkingkooka.Value;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Objects;
 
 /**
  * A {@link CharSequence} that represents a line of text and cannot contain any line ending.
  */
-final class Line implements Value<String>, HashCodeEqualsDefined, CharSequence {
+final class Line implements Value<String>, CharSequence {
     /**
      * Factory that creates a new {@link Line} providing the {@link String} has no {@link
      * LineEnding} characters within it.
@@ -80,7 +79,7 @@ final class Line implements Value<String>, HashCodeEqualsDefined, CharSequence {
         return this.value;
     }
 
-    // HashCodeEqualsDefined
+    // Object...........................................................................................................
 
     @Override
     public int hashCode() {

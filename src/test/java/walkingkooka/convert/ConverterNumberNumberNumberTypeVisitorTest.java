@@ -18,9 +18,9 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.ToStringTesting;
 import walkingkooka.math.NumberTypeVisitorTesting;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ToStringTesting;
 
 import java.math.BigInteger;
 

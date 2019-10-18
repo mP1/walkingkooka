@@ -19,7 +19,6 @@ package walkingkooka.compare;
 
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -162,7 +161,7 @@ public final class ComparableTestingTest implements ComparableTesting {
         assertEquals(true, fail);
     }
 
-    static class TestComparable implements Comparable<TestComparable>, HashCodeEqualsDefined {
+    static class TestComparable implements Comparable<TestComparable> {
 
         TestComparable(final String value) {
             this.value = value;

@@ -18,7 +18,6 @@
 package walkingkooka.compare;
 
 import walkingkooka.Value;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -26,7 +25,7 @@ import java.util.Optional;
 /**
  * One of three bounds of a {@link Range}
  */
-abstract public class RangeBound<C extends Comparable<C>> implements HashCodeEqualsDefined, Value<Optional<C>> {
+abstract public class RangeBound<C extends Comparable<C>> implements Value<Optional<C>> {
 
     /**
      * {@see RangeBoundAll}

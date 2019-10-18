@@ -17,7 +17,6 @@
 
 package walkingkooka.text;
 
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.util.systemproperty.SystemProperty;
 
 import java.util.Objects;
@@ -26,8 +25,7 @@ import java.util.Objects;
  * A possible line ending. Note it is not possible to create instances only the available constants
  * or singletons may be used. Identity checking is always safe.
  */
-final public class LineEnding implements CharSequence,
-        HashCodeEqualsDefined {
+final public class LineEnding implements CharSequence {
 
     /**
      * Carriage return

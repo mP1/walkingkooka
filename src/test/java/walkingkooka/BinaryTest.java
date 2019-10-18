@@ -19,8 +19,6 @@ package walkingkooka;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.compare.Range;
-import walkingkooka.test.HashCodeEqualsDefinedTesting2;
-import walkingkooka.test.ToStringTesting;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

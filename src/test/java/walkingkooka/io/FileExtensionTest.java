@@ -19,8 +19,8 @@ package walkingkooka.io;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
+import walkingkooka.ToStringTesting;
 import walkingkooka.compare.ComparableTesting2;
-import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 
 import java.util.Optional;

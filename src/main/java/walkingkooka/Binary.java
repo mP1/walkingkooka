@@ -18,7 +18,6 @@
 package walkingkooka;
 
 import walkingkooka.compare.Range;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -31,8 +30,7 @@ import java.util.zip.GZIPOutputStream;
 /**
  * A {@link Value} that holds a byte array.
  */
-public final class Binary implements HashCodeEqualsDefined,
-        Value<byte[]> {
+public final class Binary implements Value<byte[]> {
 
     /**
      * A {@link Binary} with zero bytes.

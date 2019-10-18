@@ -19,7 +19,7 @@ package walkingkooka.predicate;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefinedTesting2;
+import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;

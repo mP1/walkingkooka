@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.test;
+package walkingkooka;
 
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 /**
  * A mixin that contains additional tests for a created object.
  */
-public interface HashCodeEqualsDefinedTesting2<T extends HashCodeEqualsDefined> extends HashCodeEqualsDefinedTesting {
+public interface HashCodeEqualsDefinedTesting2<T> extends HashCodeEqualsDefinedTesting {
 
     @Test
     default void testHashCode() {

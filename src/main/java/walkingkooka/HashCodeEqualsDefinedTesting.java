@@ -15,7 +15,9 @@
  *
  */
 
-package walkingkooka.test;
+package walkingkooka;
+
+import walkingkooka.test.Testing;
 
 import java.util.Objects;
 

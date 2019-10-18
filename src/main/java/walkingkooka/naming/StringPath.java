@@ -17,7 +17,6 @@
 
 package walkingkooka.naming;
 
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
@@ -28,8 +27,7 @@ import java.util.Optional;
  */
 final public class StringPath
         implements Path<StringPath, StringName>,
-        Comparable<StringPath>,
-        HashCodeEqualsDefined {
+        Comparable<StringPath> {
 
     /**
      * {@link PathSeparator} instance

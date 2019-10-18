@@ -17,7 +17,6 @@
 
 package walkingkooka;
 
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 
 import java.util.NoSuchElementException;
@@ -30,7 +29,7 @@ import java.util.function.Supplier;
  * An either requires a single non null value which maybe on the left or right but not both or none.
  * One noticable method missing is a filter, because the concept of NONE is not supported.
  */
-public abstract class Either<L, R> implements HashCodeEqualsDefined {
+public abstract class Either<L, R> {
 
     /**
      * Creates a new {@link Either} with a left value.

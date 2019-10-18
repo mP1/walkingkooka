@@ -18,7 +18,7 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefinedTesting2;
+import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 

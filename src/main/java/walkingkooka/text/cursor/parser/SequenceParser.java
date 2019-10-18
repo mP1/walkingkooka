@@ -17,7 +17,6 @@
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 
@@ -27,7 +26,7 @@ import java.util.Optional;
 /**
  * A {@link Parser} that requires all parsers are matched in order returning all tokens within a {@link SequenceParserToken}
  */
-final class SequenceParser<C extends ParserContext> extends Parser2<C> implements HashCodeEqualsDefined {
+final class SequenceParser<C extends ParserContext> extends Parser2<C> {
 
     /**
      * Factory method only called by {@link SequenceParserBuilder#build()}

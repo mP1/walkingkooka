@@ -18,12 +18,11 @@
 package walkingkooka.tree;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.HashCodeEqualsDefinedTesting2;
+import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.BeanPropertiesTesting;
 import walkingkooka.reflect.TypeNameTesting;
-import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.test.HashCodeEqualsDefinedTesting2;
-import walkingkooka.test.ToStringTesting;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 /**
  * A mixin interface that contains tests and helpers to assist testing of {@link Traversable} implementations..
  */
-public interface TraversableTesting2<T extends Traversable<T> & HashCodeEqualsDefined>
+public interface TraversableTesting2<T extends Traversable<T> >
         extends BeanPropertiesTesting,
         HashCodeEqualsDefinedTesting2<T>,
         ToStringTesting<T>,

@@ -18,7 +18,6 @@
 package walkingkooka.tree;
 
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Iterator;
 import java.util.List;
@@ -27,7 +26,7 @@ import java.util.Optional;
 /**
  * A {@link Traversable} is part of a tree holding branches and leaves all of which are traversables.
  */
-public interface Traversable<T extends Traversable<T>> extends HashCodeEqualsDefined {
+public interface Traversable<T extends Traversable<T>> {
 
     /**
      * Standard index response to indicate a unsuccessful scan of an item in a list.

@@ -17,14 +17,12 @@
 
 package walkingkooka.text;
 
-import walkingkooka.test.HashCodeEqualsDefined;
-
 /**
  * Holds both a character and its {@link String} equivalent. This is ideal for constants that should
  * not be inlined and is intended to replace dual declaration of constants of for the character and
  * another to hold the {@link String} equivalent.
  */
-final public class CharacterConstant implements CharSequence, HashCodeEqualsDefined {
+final public class CharacterConstant implements CharSequence {
 
     final static char LOWER_BOUNDS = '\n';
 

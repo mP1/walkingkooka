@@ -21,7 +21,6 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.HasName;
 import walkingkooka.naming.Name;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.visit.Visitable;
 
@@ -37,8 +36,7 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
         AVALUE>
-        extends HashCodeEqualsDefined,
-        HasName<NAME>,
+        extends HasName<NAME>,
         Traversable<N>,
         Visitable {
 

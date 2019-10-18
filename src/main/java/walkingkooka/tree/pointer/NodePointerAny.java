@@ -75,7 +75,7 @@ final class NodePointerAny<N extends Node<N, NAME, ?, ?>, NAME extends Name> ext
         visitor.visitAny(this);
     }
 
-    // HashCodeEqualsDefined...............................................................................
+    // Object...........................................................................................................
 
     @Override
     public int hashCode() {

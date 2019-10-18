@@ -16,7 +16,6 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
@@ -28,7 +27,7 @@ import java.util.Optional;
 /**
  * A {@link Parser} that only matches the given {@link String} which must not be null or empty.
  */
-final class StringParser<C extends ParserContext> extends Parser2<C> implements HashCodeEqualsDefined {
+final class StringParser<C extends ParserContext> extends Parser2<C> {
 
     static <C extends ParserContext> StringParser<C> with(final String string, final CaseSensitivity caseSensitivity) {
         CharSequences.failIfNullOrEmpty(string, "string");

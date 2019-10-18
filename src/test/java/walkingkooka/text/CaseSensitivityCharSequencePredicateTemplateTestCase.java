@@ -18,10 +18,10 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.predicate.PredicateTesting2;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

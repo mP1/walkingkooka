@@ -18,10 +18,10 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.ToStringTesting;
 import walkingkooka.math.NumberTypeVisitor;
 import walkingkooka.math.NumberVisitorTesting;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ToStringTesting;
 
 public abstract class ConverterNumberNumberNumberTypeVisitorTestCase<V extends ConverterNumberNumberNumberTypeVisitorNumber<N>, N extends Number> implements NumberVisitorTesting<V>,
         ToStringTesting<V> {

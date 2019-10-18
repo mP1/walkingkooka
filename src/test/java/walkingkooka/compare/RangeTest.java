@@ -19,11 +19,11 @@ package walkingkooka.compare;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.predicate.PredicateTesting2;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.visit.VisitableTesting;
 import walkingkooka.visit.Visiting;

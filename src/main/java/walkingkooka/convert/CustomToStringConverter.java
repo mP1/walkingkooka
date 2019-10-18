@@ -18,7 +18,6 @@ package walkingkooka.convert;
 
 import walkingkooka.Cast;
 import walkingkooka.Either;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.Whitespace;
 
 import java.util.Objects;
@@ -26,7 +25,7 @@ import java.util.Objects;
 /**
  * Wraps another {@link Converter} replacing or ignoring its {@link Converter#toString()} with the provided {@link String}.
  */
-final class CustomToStringConverter implements Converter, HashCodeEqualsDefined {
+final class CustomToStringConverter implements Converter {
 
     static Converter wrap(final Converter converter, final String toString) {
         Objects.requireNonNull(converter, "converter");

@@ -21,7 +21,6 @@ import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.naming.Name;
 import walkingkooka.stream.push.PushableStreamConsumer;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionNode;
@@ -46,8 +45,7 @@ import java.util.stream.Stream;
 public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
-        AVALUE> implements HashCodeEqualsDefined,
-        Visitable {
+        AVALUE> implements Visitable {
 
     /**
      * Path separator

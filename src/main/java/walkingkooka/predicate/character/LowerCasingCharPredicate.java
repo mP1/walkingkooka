@@ -17,15 +17,13 @@
 
 package walkingkooka.predicate.character;
 
-import walkingkooka.test.HashCodeEqualsDefined;
-
 import java.util.Objects;
 
 /**
  * Wraps another {@link CharPredicate} and lower casing the incoming character before delegating to
  * the wrapped {@link CharPredicate predicate}.
  */
-final class LowerCasingCharPredicate implements CharPredicate, HashCodeEqualsDefined {
+final class LowerCasingCharPredicate implements CharPredicate {
 
     /**
      * Wraps the given {@link CharPredicate}

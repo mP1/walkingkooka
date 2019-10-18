@@ -20,7 +20,6 @@ package walkingkooka.naming;
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.InvalidTextLengthException;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 
 import java.util.stream.Collectors;
@@ -32,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Base class for testing a {@link Name} with mostly helpers to assert construction failure.
  */
-public interface NameTesting2<N extends Name, C extends Comparable<C> & HashCodeEqualsDefined> extends NameTesting<N, C> {
+public interface NameTesting2<N extends Name, C extends Comparable<C> > extends NameTesting<N, C> {
 
     /**
      * All upper case ascii letters

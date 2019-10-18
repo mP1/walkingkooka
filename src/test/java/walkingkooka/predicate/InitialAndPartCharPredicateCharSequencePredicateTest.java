@@ -19,9 +19,9 @@ package walkingkooka.predicate;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

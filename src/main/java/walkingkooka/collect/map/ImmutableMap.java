@@ -17,8 +17,6 @@
 
 package walkingkooka.collect.map;
 
-import walkingkooka.test.HashCodeEqualsDefined;
-
 import java.util.AbstractMap;
 import java.util.Collections;
 import java.util.Map;
@@ -27,7 +25,7 @@ import java.util.Set;
 /**
  * Base class for numerous {@link Map} views which are considered immutable and read only.
  */
-abstract class ImmutableMap<K, V> extends AbstractMap<K, V> implements HashCodeEqualsDefined {
+abstract class ImmutableMap<K, V> extends AbstractMap<K, V> {
 
     /**
      * A registry of immutable {@link Map} types.

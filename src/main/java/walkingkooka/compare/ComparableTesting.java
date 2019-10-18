@@ -18,8 +18,8 @@
 package walkingkooka.compare;
 
 import org.junit.jupiter.api.Assertions;
+import walkingkooka.HashCodeEqualsDefinedTesting;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
 
 import java.util.ArrayList;
 import java.util.Arrays;

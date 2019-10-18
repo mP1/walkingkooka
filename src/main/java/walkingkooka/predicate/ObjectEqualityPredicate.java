@@ -17,7 +17,6 @@
 
 package walkingkooka.predicate;
 
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
@@ -26,8 +25,7 @@ import java.util.function.Predicate;
 /**
  * A {@link Predicate} that test any value using {@link Object#equals(Object)}.
  */
-final class ObjectEqualityPredicate<T> implements Predicate<T>,
-        HashCodeEqualsDefined {
+final class ObjectEqualityPredicate<T> implements Predicate<T> {
 
     /**
      * Creates a {@link ObjectEqualityPredicate}

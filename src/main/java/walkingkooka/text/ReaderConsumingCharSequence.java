@@ -18,7 +18,6 @@
 package walkingkooka.text;
 
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -28,7 +27,7 @@ import java.util.Objects;
  * A {@link CharSequence} that reads its characters from a {@link Reader} when the last character in its current buffer
  * is read. Because this is mutable the hashcode and equals methods arent really worth using.
  */
-final class ReaderConsumingCharSequence implements CharSequence, HashCodeEqualsDefined {
+final class ReaderConsumingCharSequence implements CharSequence {
 
     static ReaderConsumingCharSequence with(final Reader reader, final int bufferSize) {
         Objects.requireNonNull(reader, "reader");

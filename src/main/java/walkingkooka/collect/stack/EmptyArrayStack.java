@@ -19,7 +19,6 @@ package walkingkooka.collect.stack;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -30,8 +29,7 @@ import java.util.Objects;
 /**
  * An immutable empty {@link Stack}
  */
-final class EmptyArrayStack<T> implements Stack<T>,
-        HashCodeEqualsDefined {
+final class EmptyArrayStack<T> implements Stack<T> {
 
     /**
      * Type safe getter
@@ -110,7 +108,7 @@ final class EmptyArrayStack<T> implements Stack<T>,
         return Collections.emptyIterator();
     }
 
-    // HashCodeEqualsDefined
+    // Object...........................................................................................................
 
     @Override
     public int hashCode() {

@@ -19,12 +19,11 @@ package walkingkooka.collect.stack;
 
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 /**
  * Base class for testing a {@link Stack} in this package.
  */
-abstract public class StackTestCase<S extends Stack<T> & HashCodeEqualsDefined, T> implements ClassTesting2<S>,
+abstract public class StackTestCase<S extends Stack<T> , T> implements ClassTesting2<S>,
         StackTesting<S, T> {
 
     StackTestCase() {

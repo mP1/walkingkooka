@@ -19,7 +19,6 @@ package walkingkooka.collect.stack;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.ArrayList;
 import java.util.EmptyStackException;
@@ -31,7 +30,7 @@ import java.util.Objects;
  * A simple {@link Stack} backed by an {@link ArrayList}. This stack is mutable. All operations
  * always return this.
  */
-final class ArrayListStack<T> implements Stack<T>, HashCodeEqualsDefined {
+final class ArrayListStack<T> implements Stack<T> {
     /**
      * Creates an empty {@link ArrayListStack}.
      */

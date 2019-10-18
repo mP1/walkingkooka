@@ -18,7 +18,6 @@
 package walkingkooka.tree.search;
 
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -30,7 +29,7 @@ import java.util.Objects;
 /**
  * Holds a query value and provides factory methods to create {@link SearchQuery}.
  */
-public abstract class SearchQueryValue implements HashCodeEqualsDefined {
+public abstract class SearchQueryValue {
 
     /**
      * {@see SearchBigDecimalQueryValue}

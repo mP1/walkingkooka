@@ -18,7 +18,6 @@
 package walkingkooka.predicate;
 
 import walkingkooka.predicate.character.CharPredicate;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -27,8 +26,7 @@ import java.util.function.Predicate;
  * A {@link Predicate} that only returns true if all characters in any {@link CharSequence}
  * are matched by the {@link CharPredicate}.
  */
-final class CharPredicateCharSequencePredicate implements Predicate<CharSequence>,
-        HashCodeEqualsDefined {
+final class CharPredicateCharSequencePredicate implements Predicate<CharSequence> {
 
     static Predicate<CharSequence> with(final CharPredicate predicate) {
         Objects.requireNonNull(predicate, "predicate");

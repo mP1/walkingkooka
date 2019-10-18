@@ -17,15 +17,13 @@
 
 package walkingkooka.math;
 
-import walkingkooka.test.HashCodeEqualsDefined;
-
 import java.math.BigInteger;
 import java.util.Objects;
 
 /**
  * A fraction holds a numerator and non zero numerator.
  */
-public final class Fraction implements HashCodeEqualsDefined {
+public final class Fraction {
 
     /**
      * Factory that creates a new {@link Fraction}
@@ -60,7 +58,7 @@ public final class Fraction implements HashCodeEqualsDefined {
 
     private final BigInteger denominator;
 
-    // HashCodeEqualsDefined....................................................................
+    // Object...........................................................................................................
 
     @Override
     public int hashCode() {

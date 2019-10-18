@@ -18,10 +18,9 @@
 package walkingkooka.collect.stack;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.HashCodeEqualsDefinedTesting2;
+import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.TypeNameTesting;
-import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.test.HashCodeEqualsDefinedTesting2;
-import walkingkooka.test.ToStringTesting;
 
 import java.util.EmptyStackException;
 
@@ -31,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Mixin interface for testing a {@link Stack}.
  */
-public interface StackTesting<S extends Stack<T> & HashCodeEqualsDefined, T> extends HashCodeEqualsDefinedTesting2<S>,
+public interface StackTesting<S extends Stack<T>, T> extends HashCodeEqualsDefinedTesting2<S>,
         ToStringTesting<S>,
         TypeNameTesting<S> {
 

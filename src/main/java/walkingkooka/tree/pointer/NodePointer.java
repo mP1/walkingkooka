@@ -19,7 +19,6 @@ package walkingkooka.tree.pointer;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.tree.Node;
@@ -36,8 +35,7 @@ import java.util.function.Function;
  * <br>
  * <a href="http://json-schema.org/latest/relative-json-pointer.html#RFC4627">spec</a>
  */
-public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> implements HashCodeEqualsDefined,
-        Visitable {
+public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> implements Visitable {
 
     final static String APPEND = "-";
 
@@ -345,7 +343,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
         }
     }
 
-    // HashCodeEqualsDefined...............................................................................
+    // Object...........................................................................................................
 
     @Override
     @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")

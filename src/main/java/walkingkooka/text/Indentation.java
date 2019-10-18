@@ -18,7 +18,6 @@
 package walkingkooka.text;
 
 import walkingkooka.Value;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.printer.IndentingPrinter;
 
 import java.util.Arrays;
@@ -28,9 +27,7 @@ import java.util.Objects;
  * A {@link Value} and {@link CharSequence} that holds the indentation that may be added to an
  * {@link IndentingPrinter}
  */
-final public class Indentation implements Value<String>,
-        HashCodeEqualsDefined,
-        CharSequence {
+final public class Indentation implements Value<String>, CharSequence {
 
     /**
      * The max length of the last constant.

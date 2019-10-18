@@ -17,7 +17,6 @@
 
 package walkingkooka.naming;
 
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
@@ -25,7 +24,7 @@ import java.util.Objects;
 /**
  * A {@link PathSeparator} captures the actual character and rules about a {@link Path}.
  */
-final public class PathSeparator implements HashCodeEqualsDefined {
+final public class PathSeparator {
 
     /**
      * Creates a {@link PathSeparator} that separates path components and is required to start with.

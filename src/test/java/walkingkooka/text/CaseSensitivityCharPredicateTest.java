@@ -18,8 +18,8 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.predicate.character.CharPredicateTesting;
-import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 
 final public class CaseSensitivityCharPredicateTest
         implements CharPredicateTesting<CaseSensitivityCharPredicate>,

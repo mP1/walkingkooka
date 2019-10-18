@@ -17,10 +17,10 @@
 
 package walkingkooka.collect.iterator;
 
+import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
-import walkingkooka.test.ToStringTesting;
 
 import java.util.Iterator;
 

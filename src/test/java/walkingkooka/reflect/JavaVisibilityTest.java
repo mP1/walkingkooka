@@ -18,7 +18,7 @@
 package walkingkooka.reflect;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ToStringTesting;
+import walkingkooka.ToStringTesting;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;

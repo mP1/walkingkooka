@@ -17,12 +17,10 @@
 
 package walkingkooka.text;
 
-import walkingkooka.test.HashCodeEqualsDefined;
-
 /**
  * A {@link CharSequence} that is always empty.
  */
-final class EmptyCharSequence implements CharSequence, HashCodeEqualsDefined {
+final class EmptyCharSequence implements CharSequence {
 
     /**
      * Singleton

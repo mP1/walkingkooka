@@ -17,16 +17,13 @@
 
 package walkingkooka.text;
 
-import walkingkooka.test.HashCodeEqualsDefined;
-
 import java.util.function.Predicate;
 
 /**
  * An abstract {@link Predicate} that test any {@link CharSequence} that start with the {@link
  * CharSequence} ignoring the case.
  */
-abstract class CaseSensitivityCharSequencePredicateTemplate<C extends CharSequence> implements Predicate<C>,
-        HashCodeEqualsDefined {
+abstract class CaseSensitivityCharSequencePredicateTemplate<C extends CharSequence> implements Predicate<C> {
 
     /**
      * Package private to limit sub classing.

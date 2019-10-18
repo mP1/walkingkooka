@@ -17,15 +17,13 @@
 
 package walkingkooka.predicate.character;
 
-import walkingkooka.test.HashCodeEqualsDefined;
-
 import java.util.Objects;
 
 /**
  * A base class for any {@link CharPredicate} that includes a method to help possibly combine both
  * parameters.
  */
-abstract class LogicalCharPredicate implements CharPredicate, HashCodeEqualsDefined {
+abstract class LogicalCharPredicate implements CharPredicate {
 
     final CharPredicate left;
 
