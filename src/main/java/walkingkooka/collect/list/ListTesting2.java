@@ -19,7 +19,7 @@ package walkingkooka.collect.list;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.CollectionTesting2;
-import walkingkooka.test.TypeNameTesting;
+import walkingkooka.reflect.TypeNameTesting;
 
 import java.util.List;
 

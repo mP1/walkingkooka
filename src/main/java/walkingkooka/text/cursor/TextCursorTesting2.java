@@ -18,7 +18,7 @@
 package walkingkooka.text.cursor;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.TypeNameTesting;
+import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

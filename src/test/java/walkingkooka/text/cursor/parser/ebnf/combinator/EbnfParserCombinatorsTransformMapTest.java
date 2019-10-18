@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.MapTesting2;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.test.TypeNameTesting;
+import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.Parsers;

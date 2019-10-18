@@ -17,8 +17,8 @@
 
 package walkingkooka.tree.select;
 
+import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting2;
 
 public final class AbsoluteOrAxisNodeSelectorTest implements ClassTesting2<AbsoluteOrAxisNodeSelector> {
     @Override

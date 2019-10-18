@@ -15,12 +15,12 @@
  *
  */
 
-package walkingkooka.test;
+package walkingkooka.reflect;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.reflect.MethodAttributes;
+import walkingkooka.test.Fake;
+import walkingkooka.test.TestSuiteNameTesting;
 
 import java.util.Arrays;
 import java.util.function.Predicate;

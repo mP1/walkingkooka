@@ -19,8 +19,8 @@ package walkingkooka.tree.select;
 
 import walkingkooka.naming.Name;
 import walkingkooka.naming.StringName;
+import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TestNode;
 

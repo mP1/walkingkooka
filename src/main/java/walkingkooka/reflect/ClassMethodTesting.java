@@ -15,12 +15,10 @@
  *
  */
 
-package walkingkooka.test;
+package walkingkooka.reflect;
 
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.reflect.MethodAttributes;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;

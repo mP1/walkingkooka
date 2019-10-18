@@ -19,7 +19,7 @@ package walkingkooka.io;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.io.ByteArrayInputStream;
 import java.lang.reflect.Method;

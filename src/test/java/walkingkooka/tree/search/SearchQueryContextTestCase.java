@@ -17,9 +17,9 @@
 
 package walkingkooka.tree.search;
 
+import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.TypeNameTesting;
+import walkingkooka.reflect.TypeNameTesting;
 
 public abstract class SearchQueryContextTestCase<C extends SearchQueryContext> implements ClassTesting2<C>,
         TypeNameTesting<C> {

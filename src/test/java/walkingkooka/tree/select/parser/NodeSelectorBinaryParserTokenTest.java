@@ -19,8 +19,8 @@ package walkingkooka.tree.select.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting2;
 
 public final class NodeSelectorBinaryParserTokenTest implements ClassTesting2<NodeSelectorBinaryParserToken<?>> {
 

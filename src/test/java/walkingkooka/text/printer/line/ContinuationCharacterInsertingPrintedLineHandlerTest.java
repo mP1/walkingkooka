@@ -18,9 +18,9 @@
 package walkingkooka.text.printer.line;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.ThrowableTesting;
+import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.text.LineEnding;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;

@@ -15,11 +15,11 @@
  *
  */
 
-package walkingkooka.test;
+package walkingkooka.reflect;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import walkingkooka.reflect.ClassAttributes;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.test.Fake;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
@@ -59,7 +59,7 @@ public interface ClassTesting2<T> extends ClassTesting<T> {
                 ClassAttributes.FINAL.is(type) ?
                         JavaVisibility.PRIVATE :
                         JavaVisibility.PACKAGE_PRIVATE;
-        assertEquals("",
+        Assertions.assertEquals("",
                 Arrays.stream(this.type().getDeclaredConstructors())
                         .filter(c -> false == JavaVisibility.of(c).isOrLess(sameOrLess))
                         .map(Constructor::toGenericString)

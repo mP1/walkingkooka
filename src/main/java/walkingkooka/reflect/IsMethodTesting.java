@@ -15,11 +15,11 @@
  *
  */
 
-package walkingkooka.test;
+package walkingkooka.reflect;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.reflect.MethodAttributes;
+import walkingkooka.test.Testing;
 import walkingkooka.text.CharSequences;
 
 import java.lang.reflect.Method;

@@ -17,8 +17,8 @@
 
 package walkingkooka.text.cursor;
 
+import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.test.TypeNameTesting;
 
 /**
  * Mixin that introduces helpers and tests for {@link TextCursorLineInfo} implementations.

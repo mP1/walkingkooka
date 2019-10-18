@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.test;
+package walkingkooka.reflect;
 
 import walkingkooka.collect.list.Lists;
 

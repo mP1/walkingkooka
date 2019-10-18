@@ -18,10 +18,10 @@
 package walkingkooka.collect.stack;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.test.TypeNameTesting;
 
 import java.util.EmptyStackException;
 

@@ -17,8 +17,8 @@
 
 package walkingkooka.tree.select.parser;
 
+import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.cursor.parser.ebnf.combinator.EbnfParserCombinatorSyntaxTreeTransformerTesting;
 
 public final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformerTest implements ClassTesting2<NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer>,

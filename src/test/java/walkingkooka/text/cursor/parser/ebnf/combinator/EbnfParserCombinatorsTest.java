@@ -23,7 +23,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.reflect.PublicStaticHelperTesting;
 import walkingkooka.test.ResourceTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;

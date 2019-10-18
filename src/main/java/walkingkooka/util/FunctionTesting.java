@@ -16,7 +16,7 @@
  */
 package walkingkooka.util;
 
-import walkingkooka.test.TypeNameTesting;
+import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 
 import java.util.function.Function;

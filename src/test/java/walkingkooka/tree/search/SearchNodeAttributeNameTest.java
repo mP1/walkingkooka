@@ -20,8 +20,8 @@ package walkingkooka.tree.search;
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.naming.NameTesting2;
+import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;

@@ -21,8 +21,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.PathTesting;
+import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ParseStringTesting;
 
 import java.util.Set;

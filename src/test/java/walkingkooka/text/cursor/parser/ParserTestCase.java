@@ -18,10 +18,10 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting2;
+import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.cursor.TextCursor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

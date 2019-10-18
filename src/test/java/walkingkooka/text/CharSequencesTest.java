@@ -20,8 +20,8 @@ package walkingkooka.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.PublicStaticHelperTesting;
-import walkingkooka.test.ThrowableTesting;
+import walkingkooka.reflect.PublicStaticHelperTesting;
+import walkingkooka.reflect.ThrowableTesting;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;

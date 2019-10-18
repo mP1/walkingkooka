@@ -20,8 +20,8 @@ package walkingkooka.collect.iterable;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
+import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting2;
 
 import java.util.Iterator;
 

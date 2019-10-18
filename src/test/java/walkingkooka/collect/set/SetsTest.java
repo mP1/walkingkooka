@@ -20,7 +20,7 @@ package walkingkooka.collect.set;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

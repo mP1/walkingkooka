@@ -15,10 +15,10 @@
  *
  */
 
-package walkingkooka.test;
+package walkingkooka.reflect;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.test.Fake;
 
 import java.lang.reflect.Constructor;
 

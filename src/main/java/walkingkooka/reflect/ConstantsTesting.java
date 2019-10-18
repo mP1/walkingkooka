@@ -15,14 +15,13 @@
  *
  */
 
-package walkingkooka.test;
+package walkingkooka.reflect;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.reflect.FieldAttributes;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.test.Testing;
 
 import java.lang.reflect.Field;
 import java.util.Set;

@@ -17,8 +17,8 @@
 
 package walkingkooka.datetime;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.TypeNameTesting;
+import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.TypeNameTesting;
 
 import java.time.format.DateTimeFormatter;
 

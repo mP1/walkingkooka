@@ -18,7 +18,6 @@
 package walkingkooka.reflect;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
 import java.util.Optional;

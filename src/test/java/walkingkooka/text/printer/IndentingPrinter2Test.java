@@ -17,8 +17,8 @@
 
 package walkingkooka.text.printer;
 
+import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting2;
 
 final public class IndentingPrinter2Test
         implements ClassTesting2<IndentingPrinter2> {

@@ -17,8 +17,8 @@
 
 package walkingkooka.collect.map;
 
+import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.test.TypeNameTesting;
 
 import java.util.Map;
 

@@ -15,11 +15,10 @@
  *
  */
 
-package walkingkooka.test;
+package walkingkooka.reflect;
 
 import walkingkooka.SystemException;
-import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.StandardThrowableTestingTest.TestRuntimeException;
+import walkingkooka.reflect.StandardThrowableTestingTest.TestRuntimeException;
 
 public final class StandardThrowableTestingTest implements StandardThrowableTesting<TestRuntimeException> {
 

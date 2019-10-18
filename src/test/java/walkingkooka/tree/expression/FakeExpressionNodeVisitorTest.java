@@ -17,8 +17,8 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting;
 
 public final class FakeExpressionNodeVisitorTest implements ClassTesting<FakeExpressionNodeVisitor> {
 

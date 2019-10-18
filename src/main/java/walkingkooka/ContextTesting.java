@@ -16,8 +16,8 @@
  */
 package walkingkooka;
 
+import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.test.TypeNameTesting;
 
 /**
  * Mixing interface that provides methods to test a {@link Context}

@@ -18,8 +18,8 @@
 package walkingkooka.convert;
 
 import walkingkooka.Cast;
+import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting2;
 
 public final class ConverterNumberNumberNumberTypeVisitorNumberTest implements ClassTesting2<ConverterNumberNumberNumberTypeVisitorNumber<?>> {
 

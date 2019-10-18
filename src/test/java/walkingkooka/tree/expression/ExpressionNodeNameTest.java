@@ -18,8 +18,8 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.naming.NameTesting2;
+import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 
 public final class ExpressionNodeNameTest implements ClassTesting2<ExpressionNodeName>,

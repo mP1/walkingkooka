@@ -19,11 +19,11 @@ package walkingkooka.tree;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.BeanPropertiesTesting;
+import walkingkooka.reflect.BeanPropertiesTesting;
+import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.test.TypeNameTesting;
 
 import java.util.List;
 import java.util.Optional;

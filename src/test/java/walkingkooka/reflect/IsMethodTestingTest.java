@@ -15,18 +15,18 @@
  *
  */
 
-package walkingkooka.test;
+package walkingkooka.reflect;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.predicate.Predicates;
-import walkingkooka.test.IsMethodTestingTest.TestIsMethod.TestApple;
-import walkingkooka.test.IsMethodTestingTest.TestIsMethodFalse.TestGolf;
-import walkingkooka.test.IsMethodTestingTest.TestIsMethodFilter.TestKetchup;
-import walkingkooka.test.IsMethodTestingTest.TestIsMethodMissing.TestMoon;
-import walkingkooka.test.IsMethodTestingTest.TestIsMethodMultipleTrue.TestHope;
-import walkingkooka.test.IsMethodTestingTest.TestIsMethodPrefixCheck.TestCarrot;
-import walkingkooka.test.IsMethodTestingTest.TestIsMethodSuffixCheck.TestEggplant;
-import walkingkooka.test.IsMethodTestingTest.TestIsMethodThrows.TestJigsaw;
+import walkingkooka.reflect.IsMethodTestingTest.TestIsMethod.TestApple;
+import walkingkooka.reflect.IsMethodTestingTest.TestIsMethodFalse.TestGolf;
+import walkingkooka.reflect.IsMethodTestingTest.TestIsMethodFilter.TestKetchup;
+import walkingkooka.reflect.IsMethodTestingTest.TestIsMethodMissing.TestMoon;
+import walkingkooka.reflect.IsMethodTestingTest.TestIsMethodMultipleTrue.TestHope;
+import walkingkooka.reflect.IsMethodTestingTest.TestIsMethodPrefixCheck.TestCarrot;
+import walkingkooka.reflect.IsMethodTestingTest.TestIsMethodSuffixCheck.TestEggplant;
+import walkingkooka.reflect.IsMethodTestingTest.TestIsMethodThrows.TestJigsaw;
 
 import java.util.function.Predicate;
 

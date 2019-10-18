@@ -17,8 +17,8 @@
 
 package walkingkooka.collect.iterable;
 
+import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.test.TypeNameTesting;
 
 /**
  * Mixin interface for testing {@link Iterable}

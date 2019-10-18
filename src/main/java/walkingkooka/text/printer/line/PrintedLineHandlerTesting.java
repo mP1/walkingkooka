@@ -19,8 +19,8 @@ package walkingkooka.text.printer.line;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;

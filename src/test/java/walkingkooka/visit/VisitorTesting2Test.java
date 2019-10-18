@@ -17,9 +17,9 @@
 
 package walkingkooka.visit;
 
+import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting;
-import walkingkooka.test.TypeNameTesting;
+import walkingkooka.reflect.TypeNameTesting;
 
 public final class VisitorTesting2Test implements ClassTesting<VisitorTesting2>,
         TypeNameTesting<VisitorTesting2> {

@@ -21,10 +21,10 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.iterable.Iterables;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.ComparableTesting2;
-import walkingkooka.test.ConstantsTesting;
+import walkingkooka.reflect.ConstantsTesting;
+import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.test.TypeNameTesting;
 
 import java.util.Collections;
 import java.util.List;
