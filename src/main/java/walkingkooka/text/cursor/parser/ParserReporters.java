@@ -17,7 +17,7 @@
 
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.PublicStaticHelper;
 
 public final class ParserReporters implements PublicStaticHelper {
 

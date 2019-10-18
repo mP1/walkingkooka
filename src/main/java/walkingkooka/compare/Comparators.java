@@ -18,7 +18,7 @@
 package walkingkooka.compare;
 
 import walkingkooka.predicate.character.CharPredicate;
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.PublicStaticHelper;
 
 import java.util.Comparator;
 

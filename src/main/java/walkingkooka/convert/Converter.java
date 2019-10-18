@@ -21,19 +21,19 @@ import walkingkooka.Either;
 import walkingkooka.text.CharSequences;
 
 /**
- * Converts an object instance to a requested target {@link Class type}.
+ * Converts an object instance to a requested target {@link Class reflect}.
  */
 public interface Converter {
 
     /**
-     * Queries whether this {@link Converter} supports converting to the requested {@link Class type}.
+     * Queries whether this {@link Converter} supports converting to the requested {@link Class reflect}.
      */
     boolean canConvert(final Object value,
                        final Class<?> type,
                        final ConverterContext context);
 
     /**
-     * Converts the given value to the requested type returning an {@link Either} with {@link Either#leftValue()} holding
+     * Converts the given value to the requested reflect returning an {@link Either} with {@link Either#leftValue()} holding
      * the result or {@link Either#rightValue()} holding an failure message.
      */
     <T> Either<T, String> convert(final Object value,
@@ -41,7 +41,7 @@ public interface Converter {
                                   final ConverterContext context);
 
     /**
-     * Converts the given value to the {@link Class target type} or throws a {@link ConversionException}
+     * Converts the given value to the {@link Class target reflect} or throws a {@link ConversionException}
      */
     default <T> T convertOrFail(final Object value,
                                 final Class<T> target,

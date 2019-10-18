@@ -55,7 +55,7 @@ abstract class LogicalCharPredicate implements CharPredicate, HashCodeEqualsDefi
     }
 
     /**
-     * Sub classes should do a implements this type here
+     * Sub classes should do a implements this reflect here
      */
     abstract boolean canBeEqualType(final Object other);
 

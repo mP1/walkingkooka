@@ -19,8 +19,8 @@ package walkingkooka.test;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.reflect.MethodAttributes;
 import walkingkooka.text.CharSequences;
-import walkingkooka.type.MethodAttributes;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;

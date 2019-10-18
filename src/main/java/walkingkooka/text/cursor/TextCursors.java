@@ -17,9 +17,9 @@
 
 package walkingkooka.text.cursor;
 
+import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.HasText;
 import walkingkooka.tree.Traversable;
-import walkingkooka.type.PublicStaticHelper;
 
 /**
  * A collection of factory methods to create {@link TextCursor cursors} and some helper methods.

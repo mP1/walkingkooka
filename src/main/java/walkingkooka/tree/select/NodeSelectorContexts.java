@@ -19,10 +19,10 @@ package walkingkooka.tree.select;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.naming.Name;
+import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.type.PublicStaticHelper;
 
 import java.util.Optional;
 import java.util.function.BooleanSupplier;

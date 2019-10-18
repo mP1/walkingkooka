@@ -17,8 +17,8 @@
 
 package walkingkooka.tree.select.parser;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.StandardThrowableTesting;
-import walkingkooka.type.JavaVisibility;
 
 public final class NodeSelectorParserExceptionTest implements StandardThrowableTesting<NodeSelectorParserException> {
 

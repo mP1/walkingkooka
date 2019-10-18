@@ -25,11 +25,11 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.type.JavaVisibility;
 
 import java.util.Optional;
 import java.util.function.BooleanSupplier;

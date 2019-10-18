@@ -17,8 +17,8 @@
 
 package walkingkooka.util.systemproperty;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
 
 final public class SystemPropertyValueSetterPrivilegedActionTest implements ClassTesting2<SystemPropertyValueSetterPrivilegedAction> {
 

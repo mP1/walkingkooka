@@ -18,8 +18,8 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
 
 public abstract class ParserTokenTestCase<T extends ParserToken> implements ClassTesting2<T>,
         ParserTokenTesting<T> {

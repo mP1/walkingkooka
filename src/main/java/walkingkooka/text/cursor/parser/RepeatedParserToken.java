@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * This {@link ParserToken} holds one or more of the tokens of the same type but not equal.
+ * This {@link ParserToken} holds one or more of the tokens of the same reflect but not equal.
  */
 public final class RepeatedParserToken extends RepeatedOrSequenceParserToken {
 

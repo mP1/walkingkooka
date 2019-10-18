@@ -17,8 +17,8 @@
 
 package walkingkooka.stream.push;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
 
 public abstract class PushableStreamConsumerTestCase<T> implements ClassTesting2<T> {
 

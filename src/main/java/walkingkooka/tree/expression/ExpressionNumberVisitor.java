@@ -63,7 +63,7 @@ public abstract class ExpressionNumberVisitor extends Visitor<Number> {
                     n = this.visit(n);
                 } while (n != number);
 
-                throw new ExpressionException("Unsupported Number type " + number.getClass().getName() + "=" + number);
+                throw new ExpressionException("Unsupported Number reflect " + number.getClass().getName() + "=" + number);
             } while (false);
         }
         this.endVisit(number);

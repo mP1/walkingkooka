@@ -17,8 +17,8 @@
 
 package walkingkooka.collect.map;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
 
 public abstract class ImmutableMapTestCase<T> implements ClassTesting2<T> {
 

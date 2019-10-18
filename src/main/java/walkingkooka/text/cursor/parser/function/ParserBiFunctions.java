@@ -16,11 +16,11 @@
  */
 package walkingkooka.text.cursor.parser.function;
 
+import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.cursor.parser.BigIntegerParserToken;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.SequenceParserToken;
-import walkingkooka.type.PublicStaticHelper;
 
 import java.util.function.BiFunction;
 

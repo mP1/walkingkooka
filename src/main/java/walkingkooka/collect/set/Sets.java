@@ -18,7 +18,7 @@
 package walkingkooka.collect.set;
 
 import walkingkooka.collect.iterable.Iterables;
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.PublicStaticHelper;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -34,7 +34,7 @@ import java.util.function.BiPredicate;
 
 final public class Sets implements PublicStaticHelper {
     /**
-     * Registers a {@link List} type as immutable.
+     * Registers a {@link List} reflect as immutable.
      */
     public static void registerImmutableType(final Class<? extends Set> type) {
         ImmutableSet.TYPES.add(type);

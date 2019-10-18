@@ -18,8 +18,8 @@
 package walkingkooka.compare;
 
 import walkingkooka.Cast;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
 
 public final class RangeBoundTest implements ClassTesting2<RangeBound<?>> {
     @Override

@@ -20,7 +20,7 @@ package walkingkooka.convert;
 import java.time.LocalDate;
 
 /**
- * Converts a {@link LocalDate} into another type.
+ * Converts a {@link LocalDate} into another reflect.
  */
 abstract class ConverterTemporalLocalDate<D> extends ConverterTemporal<LocalDate, D> {
 

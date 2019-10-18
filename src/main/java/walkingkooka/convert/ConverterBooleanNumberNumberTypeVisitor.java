@@ -104,7 +104,7 @@ final class ConverterBooleanNumberNumberTypeVisitor extends NumberTypeVisitor {
 
     @Override
     protected void visitUnknown(final Class<?> numberType) {
-        throw new ConversionException("Unexpected number type " + numberType.getName()); // Unknown Number types failed earlier.
+        throw new ConversionException("Unexpected number reflect " + numberType.getName()); // Unknown Number types failed earlier.
     }
 
     /**

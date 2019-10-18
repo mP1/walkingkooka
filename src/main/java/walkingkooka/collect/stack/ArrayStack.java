@@ -223,7 +223,7 @@ final class ArrayStack<T> implements Stack<T>, HashCodeEqualsDefined {
                 break;
             }
 
-            // different type of stack copy and check items while popping
+            // different reflect of stack copy and check items while popping
             final Object[] array = this.array;
             final Iterator<T> stackIterator = stack.iterator();
 

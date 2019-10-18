@@ -21,8 +21,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.type.FieldAttributes;
-import walkingkooka.type.JavaVisibility;
+import walkingkooka.reflect.FieldAttributes;
+import walkingkooka.reflect.JavaVisibility;
 
 import java.lang.reflect.Field;
 import java.util.Set;
@@ -47,12 +47,12 @@ public interface ConstantsTesting<T> extends Testing {
         try {
             field = enclosingType.getDeclaredField(name);
         } catch (final Exception cause) {
-            Assertions.fail("Cannot find public constant field of type " + enclosingType + " called "
+            Assertions.fail("Cannot find public constant field of reflect " + enclosingType + " called "
                     + name);
         }
 
         final Field field2 = field;
-        assertEquals(fieldType, field.getType(), "The field " + name + " is wrong the type");
+        assertEquals(fieldType, field.getType(), "The field " + name + " is wrong the reflect");
         assertTrue(FieldAttributes.STATIC.is(field), () -> "The field " + name + " must be static =" + field2);
         assertSame(JavaVisibility.PUBLIC, JavaVisibility.of(field), () -> "The field " + name + " must be public =" + field2);
         assertTrue(FieldAttributes.FINAL.is(field), () -> "The field " + name + " must be final=" + field2);

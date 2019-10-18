@@ -18,7 +18,7 @@ package walkingkooka.text.cursor.parser;
 
 import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.math.DecimalNumberContext;
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.PublicStaticHelper;
 
 /**
  * A collection of factory methods to create parsers.

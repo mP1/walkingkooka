@@ -123,7 +123,7 @@ abstract class DateTimeFormatterConverter<S, D> extends Converter2 {
     }
 
     /**
-     * The {@link Class target type}, all sub classes produce a single target type.
+     * The {@link Class target reflect}, all sub classes produce a single target reflect.
      */
     abstract Class<D> targetType();
 }

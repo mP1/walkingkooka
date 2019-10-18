@@ -18,8 +18,8 @@
 package walkingkooka;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.StandardThrowableTesting;
-import walkingkooka.type.JavaVisibility;
 
 import java.io.UnsupportedEncodingException;
 

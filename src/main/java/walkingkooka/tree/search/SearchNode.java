@@ -178,7 +178,7 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
     private Optional<SearchNode> parent;
 
     /**
-     * Sub classes should call this method and cast to their same type.
+     * Sub classes should call this method and cast to their same reflect.
      */
     final SearchNode removeParent0() {
         return this.isRoot() ?

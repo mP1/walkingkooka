@@ -18,8 +18,8 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
 
 final public class EmptyCharSequenceTest implements ClassTesting2<EmptyCharSequence>,
         CharSequenceTesting<EmptyCharSequence> {

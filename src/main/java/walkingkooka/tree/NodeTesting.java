@@ -20,10 +20,10 @@ package walkingkooka.tree;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
+import walkingkooka.reflect.MethodAttributes;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.NodeSelectorTesting;
 import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
-import walkingkooka.type.MethodAttributes;
 import walkingkooka.visit.VisitableTesting;
 
 import java.lang.reflect.Method;

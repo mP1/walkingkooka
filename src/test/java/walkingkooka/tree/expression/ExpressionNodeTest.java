@@ -18,8 +18,8 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -119,7 +119,7 @@ public final class ExpressionNodeTest implements ClassTesting2<ExpressionNode> {
 
     private void valueOrFailAndCheck(final Object value, final Class<? extends ExpressionValueNode> type, final Object expected) {
         final ExpressionNode node = ExpressionNode.valueOrFail(value);
-        assertEquals(type, node.getClass(), "node type of " + value);
+        assertEquals(type, node.getClass(), "node reflect of " + value);
         assertEquals(expected, type.cast(node).value(), "value");
     }
 

@@ -19,8 +19,8 @@ package walkingkooka.test;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.type.JavaVisibility;
-import walkingkooka.type.MethodAttributes;
+import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.MethodAttributes;
 
 import java.util.Arrays;
 import java.util.function.Predicate;

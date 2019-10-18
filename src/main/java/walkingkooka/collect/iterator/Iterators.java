@@ -17,7 +17,7 @@
 
 package walkingkooka.collect.iterator;
 
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.PublicStaticHelper;
 
 import java.util.Enumeration;
 import java.util.Iterator;

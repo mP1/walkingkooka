@@ -17,7 +17,7 @@
 
 package walkingkooka.collect.iterable;
 
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.PublicStaticHelper;
 
 import java.util.Iterator;
 import java.util.Objects;

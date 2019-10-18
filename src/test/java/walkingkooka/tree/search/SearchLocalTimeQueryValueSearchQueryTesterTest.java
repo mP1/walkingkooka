@@ -17,8 +17,8 @@
 
 package walkingkooka.tree.search;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
 
 public final class SearchLocalTimeQueryValueSearchQueryTesterTest implements ClassTesting2<SearchLocalTimeQueryValueSearchQueryTester> {
     @Override

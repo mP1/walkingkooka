@@ -19,7 +19,7 @@ package walkingkooka.convert;
 
 import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.math.DecimalNumberContext;
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.PublicStaticHelper;
 
 /**
  * Factory methods for numerous {@link Converter converters}.

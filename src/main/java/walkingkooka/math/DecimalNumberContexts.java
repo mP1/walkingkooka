@@ -16,7 +16,7 @@
  */
 package walkingkooka.math;
 
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.PublicStaticHelper;
 
 import java.math.MathContext;
 import java.text.DecimalFormatSymbols;

@@ -17,7 +17,7 @@
 
 package walkingkooka.collect.stack;
 
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.PublicStaticHelper;
 
 final public class Stacks implements PublicStaticHelper {
 

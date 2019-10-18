@@ -16,8 +16,8 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
 
 public final class EbnfRangeParserTokenConsumerTest implements ClassTesting2<EbnfRangeParserTokenConsumer> {
     @Override

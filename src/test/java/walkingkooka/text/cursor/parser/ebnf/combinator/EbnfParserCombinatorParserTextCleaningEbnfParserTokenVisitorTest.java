@@ -18,9 +18,9 @@
 package walkingkooka.text.cursor.parser.ebnf.combinator;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.cursor.parser.ebnf.EbnfParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfParserTokenVisitorTesting;
-import walkingkooka.type.JavaVisibility;
 
 public final class EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitorTest implements EbnfParserTokenVisitorTesting<EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitor, EbnfParserToken> {
 

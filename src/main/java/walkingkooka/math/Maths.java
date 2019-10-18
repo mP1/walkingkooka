@@ -17,7 +17,7 @@
 
 package walkingkooka.math;
 
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.PublicStaticHelper;
 
 import java.math.BigDecimal;
 import java.util.Optional;

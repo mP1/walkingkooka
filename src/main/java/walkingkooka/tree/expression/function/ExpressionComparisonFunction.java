@@ -26,7 +26,7 @@ import java.util.Objects;
 
 /**
  * A function that compares two parameters of the same value. Before comparing the second value is coverted to the same
- * type as the first.
+ * reflect as the first.
  */
 final class ExpressionComparisonFunction extends ExpressionFunction2<Boolean> {
 

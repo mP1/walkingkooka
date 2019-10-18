@@ -16,8 +16,8 @@
  */
 package walkingkooka.tree.select.parser;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
 
 public final class NodeSelectorSymbolParserTokenTest implements ClassTesting2<NodeSelectorSymbolParserToken> {
 

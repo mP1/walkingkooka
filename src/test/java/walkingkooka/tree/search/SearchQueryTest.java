@@ -20,6 +20,7 @@ package walkingkooka.tree.search;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ResourceTesting;
 import walkingkooka.text.CaseSensitivity;
@@ -31,7 +32,6 @@ import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.RepeatedParserToken;
-import walkingkooka.type.JavaVisibility;
 
 import java.io.IOException;
 import java.util.Optional;

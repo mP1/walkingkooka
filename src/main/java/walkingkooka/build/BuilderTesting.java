@@ -20,10 +20,10 @@ package walkingkooka.build;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ThrowableTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.JavaVisibility;
 
 import java.util.Objects;
 import java.util.Set;
@@ -43,7 +43,7 @@ public interface BuilderTesting<B extends Builder<T>, T> extends ThrowableTestin
         final Class<T> type = this.builderProductType();
         assertEquals(JavaVisibility.PUBLIC,
                 JavaVisibility.of(type),
-                "Builder product type " + type.getName() + " is not public");
+                "Builder product reflect " + type.getName() + " is not public");
     }
 
     default void buildAndCheck(final Builder<T> builder, final T product) {

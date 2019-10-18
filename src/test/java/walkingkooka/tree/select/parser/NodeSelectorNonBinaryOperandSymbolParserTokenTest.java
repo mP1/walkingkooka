@@ -18,8 +18,8 @@
 package walkingkooka.tree.select.parser;
 
 import walkingkooka.Cast;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
 
 public final class NodeSelectorNonBinaryOperandSymbolParserTokenTest implements ClassTesting2<NodeSelectorNonBinaryOperandSymbolParserToken> {
 

@@ -17,8 +17,8 @@
 
 package walkingkooka.tree.search;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.StandardThrowableTesting;
-import walkingkooka.type.JavaVisibility;
 
 public final class SearchQueryExceptionTest implements StandardThrowableTesting<SearchQueryException> {
 

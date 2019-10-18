@@ -17,7 +17,7 @@
 
 package walkingkooka.text;
 
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.PublicStaticHelper;
 
 /**
  * A collect of utilities related to ASCII.<br> Constants taken from <a>http://en.wikipedia.org/wiki/Control_character</a>

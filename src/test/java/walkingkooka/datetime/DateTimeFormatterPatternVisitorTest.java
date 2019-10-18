@@ -20,8 +20,8 @@ package walkingkooka.datetime;
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CharSequences;
-import walkingkooka.type.JavaVisibility;
 import walkingkooka.visit.Visiting;
 
 import java.time.format.DateTimeFormatter;

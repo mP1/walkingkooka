@@ -18,9 +18,9 @@
 package walkingkooka.test;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.test.PublicStaticHelperTestingTest.TestPublicStaticHelperTesting;
-import walkingkooka.type.JavaVisibility;
-import walkingkooka.type.PublicStaticHelper;
 
 import java.lang.reflect.Method;
 

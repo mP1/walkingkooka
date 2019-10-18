@@ -17,7 +17,7 @@
 
 package walkingkooka.datetime;
 
-import walkingkooka.type.JavaVisibility;
+import walkingkooka.reflect.JavaVisibility;
 
 public final class DateTimeFormatterPatternComponentKindFactoryTest extends DateTimeFormatterPatternVisitorTestCase2<DateTimeFormatterPatternComponentKindFactory> {
     @Override

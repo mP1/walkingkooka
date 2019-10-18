@@ -18,8 +18,8 @@
 package walkingkooka.visit;
 
 import walkingkooka.collect.list.Lists;
-import walkingkooka.type.JavaVisibility;
-import walkingkooka.type.MethodAttributes;
+import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.MethodAttributes;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;

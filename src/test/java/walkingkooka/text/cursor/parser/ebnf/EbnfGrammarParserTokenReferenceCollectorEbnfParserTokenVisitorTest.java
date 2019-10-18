@@ -17,7 +17,7 @@
 
 package walkingkooka.text.cursor.parser.ebnf;
 
-import walkingkooka.type.JavaVisibility;
+import walkingkooka.reflect.JavaVisibility;
 
 public final class EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitorTest implements EbnfParserTokenVisitorTesting<EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor, EbnfGrammarParserToken> {
 

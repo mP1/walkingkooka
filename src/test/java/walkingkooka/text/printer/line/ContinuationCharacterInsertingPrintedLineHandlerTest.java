@@ -18,10 +18,10 @@
 package walkingkooka.text.printer.line;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ThrowableTesting;
 import walkingkooka.text.LineEnding;
-import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

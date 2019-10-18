@@ -17,7 +17,7 @@
 
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.PublicStaticHelper;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

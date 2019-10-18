@@ -17,9 +17,9 @@
 
 package walkingkooka.collect.stack;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.type.JavaVisibility;
 
 /**
  * Base class for testing a {@link Stack} in this package.

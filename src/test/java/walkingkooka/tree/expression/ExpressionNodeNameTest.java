@@ -18,9 +18,9 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.naming.NameTesting2;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.type.JavaVisibility;
 
 public final class ExpressionNodeNameTest implements ClassTesting2<ExpressionNodeName>,
         NameTesting2<ExpressionNodeName, ExpressionNodeName> {

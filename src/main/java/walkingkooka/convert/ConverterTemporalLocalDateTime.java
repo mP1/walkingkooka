@@ -22,7 +22,7 @@ import walkingkooka.Either;
 import java.time.LocalDateTime;
 
 /**
- * Converts a {@link LocalDateTime} to another type.
+ * Converts a {@link LocalDateTime} to another reflect.
  */
 abstract class ConverterTemporalLocalDateTime<D> extends ConverterTemporal<LocalDateTime, D> {
 

@@ -18,8 +18,8 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
 
 public final class ExpressionBinaryNodeTest implements ClassTesting2<ExpressionBinaryNode> {
 

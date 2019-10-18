@@ -34,6 +34,7 @@ import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.ParserContexts;
@@ -48,7 +49,6 @@ import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorParserContexts;
 import walkingkooka.tree.select.parser.NodeSelectorParserTokenVisitorTesting;
 import walkingkooka.tree.select.parser.NodeSelectorParsers;
-import walkingkooka.type.JavaVisibility;
 
 import java.math.BigDecimal;
 import java.math.MathContext;

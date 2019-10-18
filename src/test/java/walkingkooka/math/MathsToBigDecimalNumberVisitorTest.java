@@ -18,7 +18,7 @@
 package walkingkooka.math;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.type.JavaVisibility;
+import walkingkooka.reflect.JavaVisibility;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

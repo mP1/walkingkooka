@@ -127,7 +127,7 @@ public final class ImmutableSetTest extends ImmutableSetTestCase<ImmutableSet<?>
         final Set<String> immutable = Sets.immutable(from);
         assertEquals(true,
                 immutable instanceof ImmutableSet,
-                () -> "from " + from + " type=" + immutable.getClass().getName() + " " + immutable);
+                () -> "from " + from + " reflect=" + immutable.getClass().getName() + " " + immutable);
         return immutable;
     }
 

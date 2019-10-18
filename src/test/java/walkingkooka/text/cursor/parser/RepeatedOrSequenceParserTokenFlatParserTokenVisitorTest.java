@@ -18,7 +18,7 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.type.JavaVisibility;
+import walkingkooka.reflect.JavaVisibility;
 
 public final class RepeatedOrSequenceParserTokenFlatParserTokenVisitorTest implements ParserTokenVisitorTesting<RepeatedOrSequenceParserTokenFlatParserTokenVisitor, ParserToken> {
 

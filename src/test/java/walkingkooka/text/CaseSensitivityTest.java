@@ -21,8 +21,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.compare.Comparators;
 import walkingkooka.predicate.PredicateTesting;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.JavaVisibility;
 import walkingkooka.util.systemproperty.SystemProperty;
 
 import java.util.function.Predicate;

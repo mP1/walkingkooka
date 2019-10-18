@@ -16,9 +16,9 @@
  */
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.type.JavaVisibility;
 
 public abstract class SequenceParserComponentTestCase<C extends SequenceParserComponent> implements ClassTesting2<C>,
         ToStringTesting<C> {
