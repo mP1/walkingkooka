@@ -20,10 +20,10 @@ package walkingkooka.text.cursor.parser.ebnf;
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.naming.NameTesting2;
-import walkingkooka.util.PropertiesPath;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.JavaVisibility;
+import walkingkooka.util.PropertiesPath;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
