@@ -15,9 +15,7 @@
  *
  */
 
-package walkingkooka.test;
-
-import walkingkooka.reflect.JavaVisibility;
+package walkingkooka.reflect;
 
 public final class PublicStaticHelperTesting2Test implements ClassTesting<PublicStaticHelperTesting2> {
     @Override

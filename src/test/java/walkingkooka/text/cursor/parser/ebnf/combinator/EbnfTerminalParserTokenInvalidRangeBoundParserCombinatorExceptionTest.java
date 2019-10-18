@@ -17,8 +17,8 @@
 
 package walkingkooka.text.cursor.parser.ebnf.combinator;
 
+import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting2;
 
 public final class EbnfTerminalParserTokenInvalidRangeBoundParserCombinatorExceptionTest implements ClassTesting2<EbnfTerminalParserTokenInvalidRangeBoundParserCombinatorException> {
 

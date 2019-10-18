@@ -15,9 +15,7 @@
  *
  */
 
-package walkingkooka.test;
-
-import walkingkooka.reflect.MethodAttributes;
+package walkingkooka.reflect;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;

@@ -17,8 +17,8 @@
 
 package walkingkooka.tree.expression.function;
 
+import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting2;
 
 public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<T>, T> implements ExpressionFunctionTesting<F, T>,
         ClassTesting2<F> {

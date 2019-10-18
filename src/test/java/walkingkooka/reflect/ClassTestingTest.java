@@ -15,10 +15,9 @@
  *
  */
 
-package walkingkooka.test;
+package walkingkooka.reflect;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.reflect.JavaVisibility;
 
 import java.math.MathContext;
 import java.util.HashMap;

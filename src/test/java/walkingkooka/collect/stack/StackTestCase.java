@@ -17,8 +17,8 @@
 
 package walkingkooka.collect.stack;
 
+import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefined;
 
 /**

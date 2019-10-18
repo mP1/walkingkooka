@@ -17,8 +17,8 @@
 
 package walkingkooka.datetime;
 
+import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting2;
 
 public final class DateTimeContextGetterTest implements ClassTesting2<DateTimeContextGetter> {
 

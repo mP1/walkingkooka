@@ -15,12 +15,10 @@
  *
  */
 
-package walkingkooka.test;
+package walkingkooka.reflect;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.test.PublicStaticHelperTestingTest.TestPublicStaticHelperTesting;
+import walkingkooka.reflect.PublicStaticHelperTestingTest.TestPublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
 

@@ -18,7 +18,7 @@
 package walkingkooka.build;
 
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.reflect.StandardThrowableTesting;
 
 public final class BuilderExceptionTest implements StandardThrowableTesting<BuilderException> {
 

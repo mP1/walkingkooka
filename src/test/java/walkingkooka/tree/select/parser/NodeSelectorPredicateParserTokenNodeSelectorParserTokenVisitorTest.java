@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ThrowableTesting;
+import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.tree.select.NodeSelectorException;
 
 import java.math.BigDecimal;

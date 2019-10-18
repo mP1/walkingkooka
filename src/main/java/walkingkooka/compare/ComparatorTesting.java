@@ -19,8 +19,8 @@ package walkingkooka.compare;
 
 import org.junit.jupiter.api.Assertions;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 
 import java.util.ArrayList;

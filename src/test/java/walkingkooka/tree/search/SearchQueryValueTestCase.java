@@ -18,11 +18,11 @@
 package walkingkooka.tree.search;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting2;
+import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.test.TypeNameTesting;
 
 public abstract class SearchQueryValueTestCase<Q extends SearchQueryValue, V> implements ClassTesting2<Q>,
         HashCodeEqualsDefinedTesting2<Q>,

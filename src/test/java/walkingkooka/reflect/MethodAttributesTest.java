@@ -19,7 +19,6 @@ package walkingkooka.reflect;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 
 import java.lang.reflect.Method;

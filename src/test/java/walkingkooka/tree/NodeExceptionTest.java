@@ -18,7 +18,7 @@
 package walkingkooka.tree;
 
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.reflect.StandardThrowableTesting;
 
 public final class NodeExceptionTest implements StandardThrowableTesting<NodeException> {
 

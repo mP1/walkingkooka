@@ -18,7 +18,7 @@
 package walkingkooka.stream;
 
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.reflect.StandardThrowableTesting;
 
 final public class StreamExceptionTest implements StandardThrowableTesting<StreamException> {
 

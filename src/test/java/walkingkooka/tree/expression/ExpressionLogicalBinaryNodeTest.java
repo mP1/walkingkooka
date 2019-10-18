@@ -17,8 +17,8 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting2;
 
 public final class ExpressionLogicalBinaryNodeTest implements ClassTesting2<ExpressionLogicalBinaryNode> {
     @Override

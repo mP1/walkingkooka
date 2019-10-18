@@ -18,8 +18,8 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
+import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting2;
 
 public final class ExpressionFunction2Test implements ClassTesting2<ExpressionFunction2<?>> {
 

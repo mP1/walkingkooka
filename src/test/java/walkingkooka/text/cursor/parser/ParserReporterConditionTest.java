@@ -17,8 +17,8 @@
 
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting2;
 
 public final class ParserReporterConditionTest implements ClassTesting2<ParserReporterCondition> {
 

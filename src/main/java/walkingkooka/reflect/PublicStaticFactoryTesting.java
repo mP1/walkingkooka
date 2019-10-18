@@ -15,10 +15,8 @@
  *
  */
 
-package walkingkooka.test;
+package walkingkooka.reflect;
 
-import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.reflect.MethodAttributes;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
 

@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.test;
+package walkingkooka.reflect;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

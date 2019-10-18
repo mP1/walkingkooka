@@ -17,7 +17,7 @@
 package walkingkooka.datetime;
 
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
 

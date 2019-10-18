@@ -21,9 +21,9 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ThrowableTesting;
+import walkingkooka.reflect.ThrowableTesting;
+import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.test.TypeNameTesting;
 
 import java.util.Objects;
 import java.util.Set;

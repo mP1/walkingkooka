@@ -17,9 +17,9 @@
 
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.TypeNameTesting;
+import walkingkooka.reflect.TypeNameTesting;
 
 public abstract class DateTimeFormatterParserTestCase<T>
         implements ClassTesting2<T>,

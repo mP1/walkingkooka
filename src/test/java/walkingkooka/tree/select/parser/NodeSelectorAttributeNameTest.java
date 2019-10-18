@@ -18,8 +18,8 @@
 package walkingkooka.tree.select.parser;
 
 import walkingkooka.naming.NameTesting2;
+import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 
 final public class NodeSelectorAttributeNameTest implements ClassTesting2<NodeSelectorAttributeName>,

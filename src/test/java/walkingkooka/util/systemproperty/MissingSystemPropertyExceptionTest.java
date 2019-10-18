@@ -18,7 +18,7 @@
 package walkingkooka.util.systemproperty;
 
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.reflect.StandardThrowableTesting;
 
 final public class MissingSystemPropertyExceptionTest implements StandardThrowableTesting<MissingSystemPropertyException> {
 

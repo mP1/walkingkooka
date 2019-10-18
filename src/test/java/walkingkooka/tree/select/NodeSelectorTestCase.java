@@ -17,9 +17,9 @@
 
 package walkingkooka.tree.select;
 
+import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.TypeNameTesting;
+import walkingkooka.reflect.TypeNameTesting;
 
 abstract public class NodeSelectorTestCase<S> implements ClassTesting2<S>, TypeNameTesting<S> {
 

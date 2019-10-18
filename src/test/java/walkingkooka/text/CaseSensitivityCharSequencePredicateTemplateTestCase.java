@@ -19,8 +19,8 @@ package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.predicate.PredicateTesting2;
+import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
