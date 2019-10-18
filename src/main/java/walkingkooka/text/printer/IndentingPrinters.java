@@ -18,7 +18,6 @@
 package walkingkooka.text.printer;
 
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.text.Indentation;
 
 final public class IndentingPrinters implements PublicStaticHelper {
 
@@ -30,26 +29,10 @@ final public class IndentingPrinters implements PublicStaticHelper {
     }
 
     /**
-     * {@see IndentingPrinter2Fixed}
-     */
-    public static IndentingPrinter fixed(final Printer printer,
-                                         final Indentation indentation) {
-        return IndentingPrinter2Fixed.wrap(printer, indentation);
-    }
-
-    /**
-     * {@see IndentationLimitedIndentingPrinter}
-     */
-    public static IndentingPrinter indentationLimited(final Printer printer,
-                                                      final int maxIndentation) {
-        return IndentingPrinter2MaximumIndentation.wrap(printer, maxIndentation);
-    }
-
-    /**
-     * {@see IndentingPrinter2Default}
+     * {@see BasicIndentingPrinter}
      */
     public static IndentingPrinter printer(final Printer printer) {
-        return IndentingPrinter2Default.wrap(printer);
+        return BasicIndentingPrinter.wrap(printer);
     }
 
     /**
