@@ -17,8 +17,6 @@
 
 package walkingkooka.text.printer;
 
-import walkingkooka.text.Indentation;
-
 /**
  * A {@link Printer} that includes additional functionality to support indentation.
  */
@@ -32,17 +30,10 @@ public interface IndentingPrinter extends Printer {
     /**
      * Increases the indentation
      */
-    void indent(Indentation with) throws PrinterException;
+    void indent() throws PrinterException;
 
     /**
      * Removes a previous indentation.
      */
     void outdent() throws PrinterException;
-
-    /**
-     * Always returns this.
-     */
-    default IndentingPrinter indenting() {
-        return this;
-    }
 }

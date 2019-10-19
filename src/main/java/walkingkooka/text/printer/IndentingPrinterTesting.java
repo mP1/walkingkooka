@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.text.Indentation;
 
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface IndentingPrinterTesting<P extends IndentingPrinter>
@@ -36,11 +35,6 @@ public interface IndentingPrinterTesting<P extends IndentingPrinter>
     // tests
 
     @Test
-    default void testIndentWithNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createPrinter().indent(null));
-    }
-
-    @Test
     default void testUnmatchedOutdentFails() {
         this.outdentFails(this.createPrinter());
     }
@@ -48,7 +42,7 @@ public interface IndentingPrinterTesting<P extends IndentingPrinter>
     @Test
     default void testTooManyOutdentsFails() {
         final P printer = this.createPrinter();
-        printer.indent(INDENTATION);
+        printer.indent();
         printer.outdent();
         this.outdentFails(printer);
     }
@@ -56,8 +50,8 @@ public interface IndentingPrinterTesting<P extends IndentingPrinter>
     @Test
     default void testTooManyOutdentsFails2() {
         final P printer = this.createPrinter();
-        printer.indent(INDENTATION);
-        printer.indent(INDENTATION);
+        printer.indent();
+        printer.indent();
         printer.outdent();
         printer.outdent();
         this.outdentFails(printer);
@@ -65,12 +59,6 @@ public interface IndentingPrinterTesting<P extends IndentingPrinter>
 
     default void outdentFails(final P printer) {
         assertThrows(IllegalStateException.class, printer::outdent);
-    }
-
-    @Test
-    default void testIndenting() {
-        final IndentingPrinter printer = this.createPrinter();
-        assertSame(printer, printer.indenting());
     }
 
     // TypeNameTesting .........................................................................................

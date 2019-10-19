@@ -17,10 +17,6 @@
 
 package walkingkooka.text.printer;
 
-import walkingkooka.text.Indentation;
-
-import java.util.Objects;
-
 /**
  * A {@link IndentingPrinter} that always throws {@link UnsupportedOperationException}.
  */
@@ -48,9 +44,7 @@ public class FakeIndentingPrinter extends FakePrinter implements IndentingPrinte
     }
 
     @Override
-    public void indent(final Indentation indentation) throws PrinterException {
-        Objects.requireNonNull(indentation, "indentation");
-
+    public void indent() throws PrinterException {
         throw new UnsupportedOperationException();
     }
 

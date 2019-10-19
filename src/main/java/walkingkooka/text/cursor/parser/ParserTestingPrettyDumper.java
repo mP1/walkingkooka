@@ -39,10 +39,10 @@ final class ParserTestingPrettyDumper {
     private static String dump0(final ParserToken token) {
         final StringBuilder b = new StringBuilder();
 
-        try (final IndentingPrinter printer = IndentingPrinters.printer(Printers.stringBuilder(b, LineEnding.NL))) {
-            dump(token, VisitorPrettyPrinter.with(printer,
-                    Indentation.with("  "),
-                    (t) -> VisitorPrettyPrinter.computeFromClassSimpleName(t, "", ParserToken.class.getSimpleName())));
+        try (final IndentingPrinter printer = IndentingPrinters.printer(Printers.stringBuilder(b, LineEnding.NL), Indentation.with("  "))) {
+            dump(token,
+                    VisitorPrettyPrinter.with(printer,
+                            (t) -> VisitorPrettyPrinter.computeFromClassSimpleName(t, "", ParserToken.class.getSimpleName())));
             printer.flush();
         }
 
