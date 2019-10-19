@@ -17,12 +17,9 @@
 
 package walkingkooka.text.printer;
 
-import walkingkooka.collect.stack.Stack;
-import walkingkooka.collect.stack.Stacks;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 
-import java.util.EmptyStackException;
 import java.util.Objects;
 
 /**
@@ -34,7 +31,7 @@ final class BasicIndentingPrinter implements IndentingPrinter {
     private final static char NL = '\n';
     private final static char CR = '\r';
     private final static char START_OF_NEW_LINE = BasicIndentingPrinter.NL;
-    private final Stack<Indentation> indentations = Stacks.arrayList();
+
     /**
      * The {@link Printer} that is written too.
      */
@@ -42,30 +39,40 @@ final class BasicIndentingPrinter implements IndentingPrinter {
     /**
      * This string is written to each and every new line.
      */
-    private Indentation indentation;
+    private final Indentation indentation;
+
+    /**
+     * The indentation depth that increases with calls to {@link #indent} and decreases with calls to {@link #outdent()}.
+     */
+    private int indentationDepth;
+
     /**
      * Holds the last character to be added.
      */
     private char previous;
 
-    static BasicIndentingPrinter wrap(final Printer printer) {
+    static BasicIndentingPrinter with(final Printer printer,
+                                      final Indentation indentation) {
         Objects.requireNonNull(printer, "printer");
+        Objects.requireNonNull(indentation, "indentation");
 
-        return new BasicIndentingPrinter(printer);
+        return new BasicIndentingPrinter(printer, indentation);
     }
 
     /**
      * Private constructor use static factory.
      */
-    private BasicIndentingPrinter(final Printer printer) {
+    private BasicIndentingPrinter(final Printer printer,
+                                  final Indentation indentation) {
         super();
 
         this.printer = printer;
-        this.indentation = Indentation.EMPTY;
+        this.indentation =indentation;
         this.previous = START_OF_NEW_LINE;
     }
 
-    @Override final public void print(final CharSequence chars) throws PrinterException {
+    @Override
+    final public void print(final CharSequence chars) throws PrinterException {
         this.print0(null == chars ? "null" : chars);
     }
 
@@ -75,7 +82,6 @@ final class BasicIndentingPrinter implements IndentingPrinter {
     private void print0(final CharSequence chars) {
         final Printer printer = this.printer;
         final int end = chars.length();
-        final Indentation preceeding = this.indentation;
 
         // vars
         char previous = this.previous;
@@ -84,13 +90,13 @@ final class BasicIndentingPrinter implements IndentingPrinter {
         for (int i = 0; i < end; i++) {
             final char c = chars.charAt(i);
 
-            if ((BasicIndentingPrinter.NL == previous) || (
-                    (previous == BasicIndentingPrinter.CR) && (BasicIndentingPrinter.NL
-                            != c))) {
+            if (BasicIndentingPrinter.NL == previous || ((previous == CR) && (NL != c))) {
                 if (start != i) {
                     printer.print(chars.subSequence(start, i));
                 }
-                printer.print(preceeding);
+                for(int j = 0; j < this.indentationDepth; j++) {
+                    printer.print(this.indentation);
+                }
                 start = i;
             }
 
@@ -104,26 +110,19 @@ final class BasicIndentingPrinter implements IndentingPrinter {
     }
 
     @Override
-    public void indent(final Indentation indentation) throws PrinterException {
-        Objects.requireNonNull(indentation, "indentation");
-
-        final Indentation before = this.indentation;
-        this.indentations.push(before);
-        this.indentation = before.append(indentation);
+    public void indent() throws PrinterException {
+        this.indentationDepth++; // dont care if overflows...
     }
 
     /**
-     * Removes the last indentation.
+     * Decreases indentation.
      */
     @Override
     public void outdent() throws PrinterException {
-        try {
-            final Stack<Indentation> indentations = this.indentations;
-            this.indentation = indentations.peek();
-            indentations.pop();
-        } catch (final EmptyStackException empty) {
+        if (0 == this.indentationDepth) {
             throw new IllegalStateException("More outdents than indents");
         }
+        this.indentationDepth--;
     }
 
     @Override

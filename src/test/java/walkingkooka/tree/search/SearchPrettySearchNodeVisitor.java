@@ -34,8 +34,7 @@ final class SearchPrettySearchNodeVisitor extends SearchNodeVisitor {
         final StringBuilder b = new StringBuilder();
 
         new SearchPrettySearchNodeVisitor(VisitorPrettyPrinter.with(
-                IndentingPrinters.printer(Printers.stringBuilder(b, LineEnding.NL)),
-                Indentation.with("  "),
+                IndentingPrinters.printer(Printers.stringBuilder(b, LineEnding.NL), Indentation.with(' ', 2)),
                 SearchPrettySearchNodeVisitor::tokenName)).accept(node);
         return b.toString();
     }

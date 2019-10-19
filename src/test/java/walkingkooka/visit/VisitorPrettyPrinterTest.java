@@ -39,17 +39,12 @@ public final class VisitorPrettyPrinterTest implements ClassTesting2<VisitorPret
 
     @Test
     public void testWithNullPrinterFails() {
-        assertThrows(NullPointerException.class, () -> VisitorPrettyPrinter.with(null, this.indentation(), this.typeName()));
-    }
-
-    @Test
-    public void testWithNullIdentationFails() {
-        assertThrows(NullPointerException.class, () -> VisitorPrettyPrinter.with(this.printer(), null, this.typeName()));
+        assertThrows(NullPointerException.class, () -> VisitorPrettyPrinter.with(null, this.typeName()));
     }
 
     @Test
     public void testWithNullTypeNameFails() {
-        assertThrows(NullPointerException.class, () -> VisitorPrettyPrinter.with(this.printer(), this.indentation(), null));
+        assertThrows(NullPointerException.class, () -> VisitorPrettyPrinter.with(this.printer(), null));
     }
 
     @Test
@@ -155,17 +150,12 @@ public final class VisitorPrettyPrinterTest implements ClassTesting2<VisitorPret
 
     private VisitorPrettyPrinter<Object> prettyPrinter(final StringBuilder b) {
         return VisitorPrettyPrinter.with(
-                IndentingPrinters.printer(Printers.stringBuilder(b, LineEnding.NL)),
-                this.indentation(),
+                IndentingPrinters.printer(Printers.stringBuilder(b, LineEnding.NL), Indentation.with("  ")),
                 this.typeName());
     }
 
     private IndentingPrinter printer() {
         return IndentingPrinters.fake();
-    }
-
-    private Indentation indentation() {
-        return Indentation.with("  ");
     }
 
     private Function<Object, String> typeName() {

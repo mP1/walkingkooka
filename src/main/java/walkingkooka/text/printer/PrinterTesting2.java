@@ -19,6 +19,7 @@ package walkingkooka.text.printer;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.printer.line.PrintedLineHandlers;
 
 import java.util.Objects;
@@ -36,7 +37,7 @@ public interface PrinterTesting2<P extends Printer> extends PrinterTesting<P> {
     @Test
     default void testIndenting() {
         final Printer printer = this.createPrinter();
-        final IndentingPrinter printer2 = printer.indenting();
+        final IndentingPrinter printer2 = printer.indenting(Indentation.with(' ', 4));
         assertNotSame(printer, printer2);
     }
 

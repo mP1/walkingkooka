@@ -17,6 +17,7 @@
 
 package walkingkooka.text.printer;
 
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.line.PrintedLineHandler;
 
@@ -52,8 +53,8 @@ public interface Printer extends PrinterLike, Closeable {
     /**
      * Creates an {@link IndentingPrinter} wrapping this {@link Printer}.
      */
-    default IndentingPrinter indenting() {
-        return IndentingPrinters.printer(this);
+    default IndentingPrinter indenting(final Indentation indentation) {
+        return IndentingPrinters.printer(this, indentation);
     }
 
     /**

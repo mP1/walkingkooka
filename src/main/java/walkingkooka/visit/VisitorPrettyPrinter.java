@@ -32,13 +32,11 @@ public final class VisitorPrettyPrinter<T> {
      * Factory that creates a new {@link VisitorPrettyPrinter}
      */
     public static <T> VisitorPrettyPrinter<T> with(final IndentingPrinter printer,
-                                                   final Indentation indentation,
                                                    final Function<T, String> typeName) {
         Objects.requireNonNull(printer, "printer");
-        Objects.requireNonNull(indentation, "indentation");
         Objects.requireNonNull(typeName, "typeName");
 
-        return new VisitorPrettyPrinter<>(printer, indentation, typeName);
+        return new VisitorPrettyPrinter<>(printer, typeName);
     }
 
     /**
@@ -66,10 +64,8 @@ public final class VisitorPrettyPrinter<T> {
      * Package private
      */
     private VisitorPrettyPrinter(final IndentingPrinter printer,
-                                 final Indentation indentation,
                                  final Function<T, String> typeName) {
         this.printer = printer;
-        this.indentation = indentation;
         this.typeName = typeName;
     }
 
@@ -79,7 +75,7 @@ public final class VisitorPrettyPrinter<T> {
     public void enter(final T token) {
         this.printer.print(this.typeName(token));
         this.printer.print(this.printer.lineEnding());
-        this.printer.indent(this.indentation);
+        this.printer.indent();
     }
 
     /**
@@ -102,7 +98,6 @@ public final class VisitorPrettyPrinter<T> {
     }
 
     private final IndentingPrinter printer;
-    private final Indentation indentation;
     private final Function<T, String> typeName;
 
     @Override
