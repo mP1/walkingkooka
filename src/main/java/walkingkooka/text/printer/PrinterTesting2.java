@@ -84,42 +84,54 @@ public interface PrinterTesting2<P extends Printer> extends PrinterTesting<P> {
         this.printAndCheck(printed, printed.toString());
     }
 
-    default void printAndCheck(final CharSequence printed, final String expected) {
+    default void printAndCheck(final CharSequence printed,
+                               final String expected) {
         this.printAndCheck(printed, expected, null);
     }
 
-    default void printAndCheck(final CharSequence printed, final String expected,
+    default void printAndCheck(final CharSequence printed,
+                               final String expected,
                                final String message) {
         this.printAndCheck(new CharSequence[]{printed}, expected, null);
     }
 
-    default void printAndCheck(final CharSequence[] chars, final String expected) {
+    default void printAndCheck(final CharSequence[] chars,
+                               final String expected) {
         this.printAndCheck(chars, expected, null);
     }
 
-    default void printAndCheck(final CharSequence[] chars, final String expected,
+    default void printAndCheck(final CharSequence[] chars,
+                               final String expected,
                                final String message) {
         final StringBuilder target = new StringBuilder();
         this.printAndCheck(this.createPrinter(target), chars, target, expected, message);
     }
 
-    default void printAndCheck(final Printer printer, final CharSequence printed,
-                               final StringBuilder target, final String expected) {
+    default void printAndCheck(final Printer printer,
+                               final CharSequence printed,
+                               final StringBuilder target,
+                               final String expected) {
         this.printAndCheck(printer, printed, target, expected, "printed");
     }
 
-    default void printAndCheck(final Printer printer, final CharSequence printed,
-                               final StringBuilder target, final String expected, final String message) {
+    default void printAndCheck(final Printer printer,
+                               final CharSequence printed,
+                               final StringBuilder target,
+                               final String expected, final String message) {
         this.printAndCheck(printer, new CharSequence[]{printed}, target, expected, message);
     }
 
-    default void printAndCheck(final Printer printer, final CharSequence[] chars,
-                               final StringBuilder target, final String expected) {
+    default void printAndCheck(final Printer printer,
+                               final CharSequence[] chars,
+                               final StringBuilder target,
+                               final String expected) {
         this.printAndCheck(printer, chars, target, expected, "printed");
     }
 
-    default void printAndCheck(final Printer printer, final CharSequence[] chars,
-                               final StringBuilder target, final String expected, final String message) {
+    default void printAndCheck(final Printer printer,
+                               final CharSequence[] chars,
+                               final StringBuilder target,
+                               final String expected, final String message) {
         this.printAndCheck(printer, chars, target, expected, true, message);
     }
 
