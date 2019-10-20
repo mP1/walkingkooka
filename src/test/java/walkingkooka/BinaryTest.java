@@ -18,7 +18,7 @@
 package walkingkooka;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.compare.Range;
+import walkingkooka.math.Range;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

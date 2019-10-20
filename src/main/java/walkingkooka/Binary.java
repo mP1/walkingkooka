@@ -17,7 +17,7 @@
 
 package walkingkooka;
 
-import walkingkooka.compare.Range;
+import walkingkooka.math.Range;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

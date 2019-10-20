@@ -17,9 +17,9 @@
 
 package walkingkooka;
 
-import walkingkooka.compare.Range;
-import walkingkooka.compare.RangeBound;
-import walkingkooka.compare.RangeVisitor;
+import walkingkooka.math.Range;
+import walkingkooka.math.RangeBound;
+import walkingkooka.math.RangeVisitor;
 
 import java.util.Objects;
 

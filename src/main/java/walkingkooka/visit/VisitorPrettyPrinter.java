@@ -17,7 +17,6 @@
 
 package walkingkooka.visit;
 
-import walkingkooka.text.Indentation;
 import walkingkooka.text.printer.IndentingPrinter;
 
 import java.util.Objects;

@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.compare;
+package walkingkooka.math;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
