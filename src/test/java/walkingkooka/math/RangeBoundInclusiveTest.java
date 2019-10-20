@@ -15,14 +15,14 @@
  *
  */
 
-package walkingkooka.compare;
+package walkingkooka.math;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
 import java.util.Optional;
 
-public final class RangeBoundExclusiveTest extends RangeBoundTestCase2<RangeBoundExclusive<Integer>> {
+public final class RangeBoundInclusiveTest extends RangeBoundTestCase2<RangeBoundInclusive<Integer>> {
 
     private final static int VALUE = 123;
 
@@ -33,11 +33,11 @@ public final class RangeBoundExclusiveTest extends RangeBoundTestCase2<RangeBoun
 
     @Test
     public void testMinExclusive() {
-        this.minAndCheck(RangeBound.exclusive(VALUE), RangeBound.exclusive(VALUE));
+        this.minAndCheck(RangeBound.exclusive(VALUE), RangeBound.inclusive(VALUE));
     }
 
     // 1, 2, 3      inc
-    // 1, 2 , x     ex
+    // x, 2 , 3     ex
     @Test
     public void testMinInclusive() {
         this.minAndCheck(RangeBound.inclusive(VALUE), RangeBound.inclusive(VALUE));
@@ -45,7 +45,7 @@ public final class RangeBoundExclusiveTest extends RangeBoundTestCase2<RangeBoun
 
     @Test
     public void testMaxExclusive() {
-        this.maxAndCheck(RangeBound.exclusive(VALUE), RangeBound.exclusive(VALUE));
+        this.maxAndCheck(RangeBound.exclusive(VALUE), RangeBound.inclusive(VALUE));
     }
 
     // 1, 2, 3 inc
@@ -56,12 +56,12 @@ public final class RangeBoundExclusiveTest extends RangeBoundTestCase2<RangeBoun
     }
 
     @Override
-    RangeBoundExclusive<Integer> createRangeBound() {
-        return RangeBoundExclusive.with(VALUE);
+    RangeBoundInclusive<Integer> createRangeBound() {
+        return RangeBoundInclusive.with(VALUE);
     }
 
     @Override
-    public Class<RangeBoundExclusive<Integer>> type() {
-        return Cast.to(RangeBoundExclusive.class);
+    public Class<RangeBoundInclusive<Integer>> type() {
+        return Cast.to(RangeBoundInclusive.class);
     }
 }

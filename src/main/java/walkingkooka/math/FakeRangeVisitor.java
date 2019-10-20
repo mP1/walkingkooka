@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.compare;
+package walkingkooka.math;
 
 import walkingkooka.test.Fake;
 import walkingkooka.visit.Visiting;

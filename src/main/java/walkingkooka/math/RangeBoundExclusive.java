@@ -15,25 +15,25 @@
  *
  */
 
-package walkingkooka.compare;
+package walkingkooka.math;
 
 /**
- * Represents a inclusive value within a {@link Range}
+ * Represents a exclusive value within a {@link Range}
  */
-final class RangeBoundInclusive<C extends Comparable<C>> extends RangeBoundExclusiveInclusive<C> {
+final class RangeBoundExclusive<C extends Comparable<C>> extends RangeBoundExclusiveInclusive<C> {
 
     /**
-     * Creates a {@link RangeBoundInclusive}.
+     * Creates a {@link RangeBoundExclusive}.
      */
-    static <C extends Comparable<C>> RangeBoundInclusive<C> with(final C value) {
+    static <C extends Comparable<C>> RangeBoundExclusive<C> with(final C value) {
         checkValue(value);
-        return new RangeBoundInclusive<>(value);
+        return new RangeBoundExclusive<>(value);
     }
 
     /**
      * Private ctor use factory
      */
-    private RangeBoundInclusive(final C value) {
+    private RangeBoundExclusive(final C value) {
         super(value);
     }
 
@@ -41,12 +41,12 @@ final class RangeBoundInclusive<C extends Comparable<C>> extends RangeBoundExclu
 
     @Override
     boolean lowerTest(final C value) {
-        return this.value.compareTo(value) <= 0;
+        return this.value.compareTo(value) < 0;
     }
 
     @Override
     boolean upperTest(final C value) {
-        return this.value.compareTo(value) >= 0;
+        return this.value.compareTo(value) > 0;
     }
 
     // isOverlappingEquals ...............................................................................................
@@ -63,7 +63,7 @@ final class RangeBoundInclusive<C extends Comparable<C>> extends RangeBoundExclu
 
     @Override
     boolean lessThanOrEqual0(final RangeBoundInclusive<C> other) {
-        return other.value.compareTo(this.value) <= 0;
+        return other.value.compareTo(this.value) < 0;
     }
 
     // Range.intersection.......................................................
@@ -82,7 +82,7 @@ final class RangeBoundInclusive<C extends Comparable<C>> extends RangeBoundExclu
 
     @Override
     RangeBound<C> min0(final RangeBoundInclusive<C> other) {
-        return this.value.compareTo(other.value) <= 0 ?
+        return this.value.compareTo(other.value) < 0 ?
                 this :
                 other;
     }
@@ -101,7 +101,7 @@ final class RangeBoundInclusive<C extends Comparable<C>> extends RangeBoundExclu
 
     @Override
     RangeBound<C> max0(final RangeBoundInclusive<C> other) {
-        return this.value.compareTo(other.value) >= 0 ?
+        return this.value.compareTo(other.value) > 0 ?
                 this :
                 other;
     }
@@ -110,12 +110,12 @@ final class RangeBoundInclusive<C extends Comparable<C>> extends RangeBoundExclu
 
     @Override
     void traverseLowerBound(final RangeVisitor<C> visitor) {
-        visitor.lowerBoundInclusive(this.value);
+        visitor.lowerBoundExclusive(this.value);
     }
 
     @Override
     void traverseUpperBound(final RangeVisitor<C> visitor) {
-        visitor.upperBoundInclusive(this.value);
+        visitor.upperBoundExclusive(this.value);
     }
 
     // Range.toString.......................................................
@@ -127,30 +127,28 @@ final class RangeBoundInclusive<C extends Comparable<C>> extends RangeBoundExclu
 
     @Override
     String rangeToString0(final RangeBoundAll<C> lower) {
-        return "<=" + this.value;
+        return "<" + this.value;
     }
 
     @Override
     String rangeToString0(final RangeBoundExclusive<C> lower) {
-        return EXCLUSIVE_OPEN + lower.value + ".." + this.value + INCLUSIVE_CLOSE;
+        return EXCLUSIVE_OPEN + lower.value + BETWEEN + this.value + EXCLUSIVE_CLOSE;
     }
 
     @Override
     String rangeToString0(final RangeBoundInclusive<C> lower) {
-        return this.value.equals(lower.value) ?
-                String.valueOf(this.value) :
-                INCLUSIVE_OPEN + lower.value + BETWEEN + this.value + INCLUSIVE_CLOSE;
+        return INCLUSIVE_OPEN + lower.value + BETWEEN + this.value + EXCLUSIVE_CLOSE;
     }
 
-    // Object........................................................................................
+    // Object....................................................................
 
     @Override
     boolean canBeEquals(final Object other) {
-        return other instanceof RangeBoundInclusive;
+        return other instanceof RangeBoundExclusive;
     }
 
     @Override
     String label() {
-        return "Inclusive";
+        return "Exclusive";
     }
 }

@@ -15,20 +15,35 @@
  *
  */
 
-package walkingkooka.compare;
+package walkingkooka.math;
 
-import walkingkooka.Cast;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.TypeNameTesting;
 
-public final class RangeBoundTest implements ClassTesting2<RangeBound<?>> {
-    @Override
-    public Class<RangeBound<?>> type() {
-        return Cast.to(RangeBound.class);
+public abstract class RangeBoundTestCase<B extends RangeBound<Integer>> implements ClassTesting2<B>,
+        TypeNameTesting<B> {
+
+    RangeBoundTestCase() {
+        super();
     }
+
+    // ClassTesting2...........................................................................................
 
     @Override
     public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
+        return JavaVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return RangeBound.class.getSimpleName();
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return "";
     }
 }
