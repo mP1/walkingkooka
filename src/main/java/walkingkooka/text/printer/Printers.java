@@ -44,13 +44,6 @@ final public class Printers implements PublicStaticHelper {
     }
 
     /**
-     * {@see PlainTextWithoutTagsPrinter}
-     */
-    public static Printer plainTextWithoutTags(final Printer printer) {
-        return PlainTextWithoutTagsPrinter.wrap(printer);
-    }
-
-    /**
      * {@see PrintedLineHandlerPrinter}
      */
     public static Printer printedLine(final Printer printer, final PrintedLineHandler handler) {
