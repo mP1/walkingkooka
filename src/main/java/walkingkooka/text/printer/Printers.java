@@ -122,13 +122,6 @@ final public class Printers implements PublicStaticHelper {
     }
 
     /**
-     * {@see WhitespaceCleaningPrinter}.
-     */
-    public static Printer whitespaceCleaning(final Printer printer) {
-        return WhitespaceCleaningPrinter.wrap(printer);
-    }
-
-    /**
      * {@see WriterPrinter}
      */
     public static Printer writer(final Writer writer, final LineEnding lineEnding) {
