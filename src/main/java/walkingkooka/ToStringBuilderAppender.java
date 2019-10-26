@@ -23,7 +23,7 @@ import java.util.Map.Entry;
 import java.util.Optional;
 
 /**
- * A template class that handles "appending" a value of any reflect honouring the options and encodings set on the parent {@link ToStringBuilderOption}.
+ * A template class that handles "appending" a value of any type honouring the options and encodings set on the parent {@link ToStringBuilderOption}.
  */
 abstract class ToStringBuilderAppender<V> {
 

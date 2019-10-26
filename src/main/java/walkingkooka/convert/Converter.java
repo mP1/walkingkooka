@@ -33,7 +33,7 @@ public interface Converter {
                        final ConverterContext context);
 
     /**
-     * Converts the given value to the requested reflect returning an {@link Either} with {@link Either#leftValue()} holding
+     * Converts the given value to the requested type returning an {@link Either} with {@link Either#leftValue()} holding
      * the result or {@link Either#rightValue()} holding an failure message.
      */
     <T> Either<T, String> convert(final Object value,

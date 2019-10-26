@@ -53,7 +53,7 @@ abstract class LogicalCharPredicate implements CharPredicate {
     }
 
     /**
-     * Sub classes should do a implements this reflect here
+     * Sub classes should do a implements this type here
      */
     abstract boolean canBeEqualType(final Object other);
 

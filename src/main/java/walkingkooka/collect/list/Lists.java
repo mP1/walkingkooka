@@ -32,7 +32,7 @@ import java.util.function.BiPredicate;
 final public class Lists implements PublicStaticHelper {
 
     /**
-     * Registers a {@link List} reflect as immutable.
+     * Registers a {@link List} type as immutable.
      */
     public static void registerImmutableType(final Class<? extends List> type) {
         ImmutableList.TYPES.add(type);

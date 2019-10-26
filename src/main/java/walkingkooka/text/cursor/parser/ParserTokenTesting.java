@@ -105,7 +105,7 @@ public interface ParserTokenTesting<T extends ParserToken > extends BeanProperti
     String SYMBOL = "Symbol";
 
     /**
-     * If a reflect class name includes Whitespace its {@link ParserToken#isWhitespace()} should also return true.
+     * If a type class name includes Whitespace its {@link ParserToken#isWhitespace()} should also return true.
      */
     @Test
     default void testIsWhitespace() {

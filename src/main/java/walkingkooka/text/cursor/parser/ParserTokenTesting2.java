@@ -32,8 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 final class ParserTokenTesting2 {
 
     /**
-     * The base is typically the base sub class of the reflect being tested, and holds the public static factory method
-     * usually named after the reflect being tested.
+     * The base is typically the base sub class of the type being tested, and holds the public static factory method
+     * usually named after the type being tested.
      */
     static void publicStaticFactoryCheck(final Class<?> base,
                                          final String prefix,

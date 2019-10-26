@@ -90,7 +90,7 @@ public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends
                         .anyMatch(t -> JavaVisibility.PUBLIC != JavaVisibility.of(t));
         PublicStaticHelperTesting2.methodFilterAndCheckNone(this.type(),
                 publicReturnTypeAndParameters,
-                "All method parameter and return reflect must be public");
+                "All method parameter and return type must be public");
     }
 
     /**
@@ -113,7 +113,7 @@ public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends
     }
 
     /**
-     * The reflect being tested.
+     * The type being tested.
      */
     Class<H> type();
 }

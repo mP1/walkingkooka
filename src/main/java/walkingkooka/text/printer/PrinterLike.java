@@ -18,7 +18,7 @@
 package walkingkooka.text.printer;
 
 /**
- * A super tag interface for {@link Printer} and similar reflect interfaces. Note this interface
+ * A super tag interface for {@link Printer} and similar type interfaces. Note this interface
  * defines no methods.
  */
 public interface PrinterLike {

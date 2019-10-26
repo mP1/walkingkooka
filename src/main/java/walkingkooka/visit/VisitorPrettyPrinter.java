@@ -39,7 +39,7 @@ public final class VisitorPrettyPrinter<T> {
     }
 
     /**
-     * Attempts to remove the prefix and suffix and returns the reflect name of the given object.
+     * Attempts to remove the prefix and suffix and returns the type name of the given object.
      */
     public static String computeFromClassSimpleName(final Object object, final String prefix, final String suffix) {
         Objects.requireNonNull(object, "object");

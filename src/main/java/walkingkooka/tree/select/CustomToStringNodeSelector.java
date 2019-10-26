@@ -45,7 +45,7 @@ final class CustomToStringNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
     }
 
     /**
-     * Package private constructor use reflect safe getter
+     * Package private constructor use type safe getter
      */
     private CustomToStringNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> selector, final String toString) {
         super();
