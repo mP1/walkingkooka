@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
- * Verifies that the test suite name matches the reflect being tested. The formula for the test suite is {@link #type()}
+ * Verifies that the test suite name matches the type being tested. The formula for the test suite is {@link #type()}
  * + <code>Test</code>
  */
 public interface TestSuiteNameTesting<T> extends Testing {
@@ -39,7 +39,7 @@ public interface TestSuiteNameTesting<T> extends Testing {
     }
 
     /**
-     * The reflect being tested.
+     * The type being tested.
      */
     Class<T> type();
 }

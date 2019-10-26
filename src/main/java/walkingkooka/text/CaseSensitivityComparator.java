@@ -24,7 +24,7 @@ import java.util.Objects;
 
 /**
  * A {@link Comparator} for comparing two {@link CharSequence} character by character, regardless
- * of reflect using a {@link CaseSensitivity} of the char comparison strategy.
+ * of type using a {@link CaseSensitivity} of the char comparison strategy.
  */
 final class CaseSensitivityComparator<C extends CharSequence> implements Comparator<C> {
 

@@ -25,7 +25,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
- * {@link NumberVisitor} that dispatches based on the {@link Number} reflect back to the {@link ConverterNumber} to convert.
+ * {@link NumberVisitor} that dispatches based on the {@link Number} type back to the {@link ConverterNumber} to convert.
  */
 final class ConverterNumberNumberVisitor<T> extends NumberVisitor {
 

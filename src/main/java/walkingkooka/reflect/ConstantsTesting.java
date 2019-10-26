@@ -46,7 +46,7 @@ public interface ConstantsTesting<T> extends Testing {
         try {
             field = enclosingType.getDeclaredField(name);
         } catch (final Exception cause) {
-            Assertions.fail("Cannot find public constant field of reflect " + enclosingType + " called "
+            Assertions.fail("Cannot find public constant field of type " + enclosingType + " called "
                     + name);
         }
 

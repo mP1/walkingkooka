@@ -29,7 +29,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 /**
- * A node pointer may be thought of as a JsonPointer that operates on any reflect of {@link Node}.
+ * A node pointer may be thought of as a JsonPointer that operates on any type of {@link Node}.
  * THe only difference is an element index will always match any first child, for something like a json object this will be the first key/value.
  * Because the return value is a {@link Node} any relative pointer terminating with a trailing will ignore the hash itself and return the result as if it was absent.
  * <br>

@@ -222,7 +222,7 @@ final class ArrayStack<T> implements Stack<T> {
                 break;
             }
 
-            // different reflect of stack copy and check items while popping
+            // different type of stack copy and check items while popping
             final Object[] array = this.array;
             final Iterator<T> stackIterator = stack.iterator();
 

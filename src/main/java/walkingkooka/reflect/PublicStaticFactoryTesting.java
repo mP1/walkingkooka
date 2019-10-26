@@ -28,13 +28,13 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Contains non public methods to assist the testing of a reflect with for static factory methods.
+ * Contains non public methods to assist the testing of a type with for static factory methods.
  */
 public final class PublicStaticFactoryTesting {
 
     /**
-     * The base is typically the base sub class of the reflect being tested, and holds the public static factory method
-     * usually named after the reflect being tested.
+     * The base is typically the base sub class of the type being tested, and holds the public static factory method
+     * usually named after the type being tested.
      */
     public static void check(final Class<?> base,
                              final String prefix,
