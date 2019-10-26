@@ -16,8 +16,6 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.tree.search.SearchNode;
-
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -50,12 +48,5 @@ public final class BigDecimalParserToken extends ParserToken2<BigDecimal> implem
     @Override
     boolean equals1(final ParserToken2<?> other) {
         return true; // no extra properties to compare
-    }
-
-    // HasSearchNode ...............................................................................................
-
-    @Override
-    public SearchNode toSearchNode() {
-        return SearchNode.bigDecimal(this.text(), this.value());
     }
 }

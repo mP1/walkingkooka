@@ -18,9 +18,6 @@
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.Value;
-import walkingkooka.collect.list.Lists;
-import walkingkooka.tree.search.HasSearchNode;
-import walkingkooka.tree.search.SearchNode;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,7 +25,7 @@ import java.util.stream.Collectors;
 /**
  * Interface that all parent parser tokens must implement.
  */
-public interface ParentParserToken extends ParserToken, Value<List<ParserToken>>, HasSearchNode {
+public interface ParentParserToken extends ParserToken, Value<List<ParserToken>> {
 
     /**
      * Returns a {@link List} without any {@link ParserToken tokens} that return true for {@link #isNoise()}.
@@ -37,18 +34,5 @@ public interface ParentParserToken extends ParserToken, Value<List<ParserToken>>
         return value.stream()
                 .filter(t -> !t.isNoise())
                 .collect(Collectors.toList());
-    }
-
-    /**
-     * Creates a {@link SearchNode#sequence(List)} from all the converted child tokens.
-     */
-    default SearchNode toSearchNode() {
-        final List<SearchNode> children = Lists.array();
-
-        for (ParserToken child : this.value()) {
-            children.add(child.toSearchNode());
-        }
-
-        return SearchNode.sequence(children);
     }
 }
