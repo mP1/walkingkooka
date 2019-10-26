@@ -64,6 +64,6 @@ public interface ClassTesting2<T> extends ClassTesting<T> {
                         .filter(c -> false == JavaVisibility.of(c).isOrLess(sameOrLess))
                         .map(Constructor::toGenericString)
                         .collect(Collectors.joining(", ")),
-                () -> "Found several constructors that are not " + sameOrLess + " for reflect " + type.getName());
+                () -> "Found several constructors that are not " + sameOrLess + " for type " + type.getName());
     }
 }

@@ -47,7 +47,7 @@ public interface BeanPropertiesTesting {
                 .collect(Collectors.toList());
         assertNotEquals(0,
                 properties.size(),
-                "Found zero properties for reflect=" + object.getClass().getName());
+                "Found zero properties for type=" + object.getClass().getName());
         for (Method method : properties) {
             method.setAccessible(true);
             assertNotNull(method.invoke(object),
