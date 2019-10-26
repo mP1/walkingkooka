@@ -16,8 +16,6 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.tree.search.SearchNode;
-
 import java.time.LocalTime;
 import java.util.Objects;
 
@@ -49,12 +47,5 @@ public final class LocalTimeParserToken extends ParserToken2<LocalTime> implemen
     @Override
     boolean equals1(final ParserToken2<?> other) {
         return true; // no extra properties to compare
-    }
-
-    // HasSearchNode ...............................................................................................
-
-    @Override
-    public SearchNode toSearchNode() {
-        return SearchNode.localTime(this.text(), this.value());
     }
 }

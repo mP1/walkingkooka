@@ -20,7 +20,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CharSequences;
-import walkingkooka.tree.search.SearchNode;
 import walkingkooka.visit.Visiting;
 
 import java.math.BigInteger;
@@ -43,12 +42,6 @@ public final class SequenceParserTokenTest extends RepeatedOrSequenceParserToken
         @Override
         public String text() {
             return "";
-        }
-
-        @Override
-        public SearchNode toSearchNode() {
-            final String text = this.text();
-            return SearchNode.text(text, text);
         }
     };
     private final static ParserToken WHITESPACE = new FakeParserToken() {

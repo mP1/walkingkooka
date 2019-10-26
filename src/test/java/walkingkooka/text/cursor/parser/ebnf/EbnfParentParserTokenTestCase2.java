@@ -50,6 +50,4 @@ public abstract class EbnfParentParserTokenTestCase2<T extends EbnfParentParserT
     public final void testOnlyCommentWhitespaceFails() {
         assertThrows(IllegalArgumentException.class, () -> this.createToken(this.text(), this.whitespace("   "), this.whitespace(" ")));
     }
-
-    public abstract void testToSearchNode();
 }

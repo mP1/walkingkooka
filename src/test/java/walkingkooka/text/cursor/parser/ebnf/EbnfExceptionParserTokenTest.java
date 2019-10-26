@@ -19,7 +19,6 @@ package walkingkooka.text.cursor.parser.ebnf;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.tree.search.SearchNode;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
@@ -99,17 +98,6 @@ public class EbnfExceptionParserTokenTest extends EbnfParentParserTokenTestCase2
                 exception, exception, exception),
                 visited,
                 "visited");
-    }
-
-
-    @Test
-    public final void testToSearchNode() {
-        final EbnfConcatenationParserToken token = EbnfConcatenationParserToken.with(
-                Lists.of(this.identifier1(), EbnfParserToken.symbol("-", "-"), this.identifier2()),
-                this.text());
-        final SearchNode searchNode = token.toSearchNode();
-
-        assertEquals(token.text(), searchNode.text(), "text");
     }
 
     @Override

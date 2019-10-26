@@ -16,8 +16,6 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.tree.search.SearchNode;
-
 /**
  * A {@link ParserToken} holding text surrounded by either single or double quotes.
  */
@@ -33,14 +31,6 @@ public abstract class QuotedParserToken extends ParserToken2<String> implements 
     @Override
     final boolean equals1(final ParserToken2<?> other) {
         return true; // no extra properties to compare
-    }
-
-    // HasSearchNode ...............................................................................................
-
-    @Override
-    public final SearchNode toSearchNode() {
-        final String text = this.text();
-        return SearchNode.text(text, text);
     }
 }
 

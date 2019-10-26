@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.test.Fake;
-import walkingkooka.tree.search.SearchNode;
 
 public class FakeParserToken implements ParserToken, Fake {
     @Override
@@ -33,11 +32,6 @@ public class FakeParserToken implements ParserToken, Fake {
 
     @Override
     public void accept(final ParserTokenVisitor visitor) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public SearchNode toSearchNode() {
         throw new UnsupportedOperationException();
     }
 }

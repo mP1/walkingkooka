@@ -19,11 +19,9 @@ package walkingkooka.text.cursor.parser.ebnf;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.tree.search.SearchNode;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class EbnfGroupOptionalRepeatParentParserTokenTestCase<T extends EbnfParentParserToken<T>> extends EbnfParentParserTokenTestCase2<T> {
@@ -35,14 +33,6 @@ public abstract class EbnfGroupOptionalRepeatParentParserTokenTestCase<T extends
     @Test
     public final void testTooManyTokensIgnoringCommentsSymbolsWhitespaceFails() {
         assertThrows(IllegalArgumentException.class, () -> this.createToken(this.text(), this.identifier1(), this.comment2(), this.identifier("identifier3")));
-    }
-
-    @Test
-    public final void testToSearchNode() {
-        final T token = this.createToken(this.text(), symbol(this.openChar()), this.identifier1(), symbol(this.closeChar()));
-        final SearchNode searchNode = token.toSearchNode();
-
-        assertEquals(token.text(), searchNode.text(), "text");
     }
 
     @Override

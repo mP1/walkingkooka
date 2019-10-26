@@ -195,12 +195,6 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
                 "visited");
     }
 
-    @Test
-    public final void testToSearchNode() {
-        final EbnfRangeParserToken token = this.createToken();
-        assertEquals(token.text(), token.toSearchNode().text(), "text");
-    }
-
     @Override
     public EbnfRangeParserToken createDifferentToken() {
         return this.createToken("'different-1'..'different-2'",

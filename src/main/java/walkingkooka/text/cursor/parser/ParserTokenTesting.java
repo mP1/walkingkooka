@@ -26,7 +26,6 @@ import walkingkooka.reflect.BeanPropertiesTesting;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasTextTesting;
-import walkingkooka.tree.search.SearchNode;
 import walkingkooka.visit.Visiting;
 
 import java.util.Collection;
@@ -134,36 +133,6 @@ public interface ParserTokenTesting<T extends ParserToken > extends BeanProperti
     @Test
     default void testText() {
         this.textAndCheck(this.createToken(), this.text());
-    }
-
-    @Test
-    default void testToSearchNode() {
-        final T token = this.createToken();
-        final SearchNode searchNode = token.toSearchNode();
-        assertEquals(token.text(), searchNode.text(), "text");
-
-        for (; ; ) {
-            if (token instanceof LeafParserToken) {
-                break;
-            }
-            if (token instanceof ParentParserToken) {
-                assertTrue(searchNode.isSequence(),
-                        () -> "SearchNode should be a SearchSequenceNode=" + searchNode);
-
-                final ParentParserToken parent = (ParentParserToken) token;
-                assertEquals(parent.value().size(),
-                        searchNode.children().size(),
-                        "child count should be the same");
-                break;
-            }
-            fail(token + "(" + token.getClass().getName() + ") does not implement " + LeafParserToken.class.getName() + " or " + ParentParserToken.class.getName());
-        }
-    }
-
-    @Test
-    default void testToSearchNode2() {
-        final T token = this.createToken();
-        assertEquals(token.toSearchNode(), token.toSearchNode());
     }
 
     @Test
