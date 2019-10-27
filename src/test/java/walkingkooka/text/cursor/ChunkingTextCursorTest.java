@@ -18,20 +18,18 @@
 package walkingkooka.text.cursor;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.Cast;
+import walkingkooka.ToStringTesting;
+import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class TraversableTextCursorTest implements ClassTesting2<TraversableTextCursor<NodeTextCursorTestNode>>,
-        TextCursorTesting2<TraversableTextCursor<NodeTextCursorTestNode>> {
-
-    // in all tests below text with numbers should be skipped because nodes with children text is ignored.
+public final class ChunkingTextCursorTest implements ClassTesting2<ChunkingTextCursor>,
+        TextCursorTesting2<ChunkingTextCursor>,
+        ToStringTesting<ChunkingTextCursor> {
 
     @Test
-    public void testParentAndChild() {
-        final TextCursor cursor = TraversableTextCursor.with(
-                new NodeTextCursorTestNode("parent", "123",
-                        new NodeTextCursorTestNode("child", "ABC")));
+    public void testSingleChunk() {
+        final TextCursor cursor = this.createTextCursor0("ABC");
         this.checkNotEmpty(cursor);
 
         this.atAndCheck(cursor, 'A');
@@ -45,11 +43,8 @@ public final class TraversableTextCursorTest implements ClassTesting2<Traversabl
     }
 
     @Test
-    public void testParentAndChild2() {
-        final TextCursor cursor = TraversableTextCursor.with(
-                new NodeTextCursorTestNode("parent", "123",
-                        new NodeTextCursorTestNode("child", "A"),
-                        new NodeTextCursorTestNode("child", "B")));
+    public void testMultipleChunks() {
+        final TextCursor cursor = this.createTextCursor0("A", "B");
         this.checkNotEmpty(cursor);
 
         this.atAndCheck(cursor, 'A');
@@ -61,14 +56,8 @@ public final class TraversableTextCursorTest implements ClassTesting2<Traversabl
     }
 
     @Test
-    public void testParentAndChildAndGrandchildren() {
-        final TextCursor cursor = TraversableTextCursor.with(
-                new NodeTextCursorTestNode("parent", "123",
-                        new NodeTextCursorTestNode("child1", "A"),
-                        new NodeTextCursorTestNode("child2", "456",
-                                new NodeTextCursorTestNode("grandChild-1", "B"),
-                                new NodeTextCursorTestNode("grandChild-2", "C")),
-                        new NodeTextCursorTestNode("child3", "D")));
+    public void testMultipleChunks2() {
+        final TextCursor cursor = this.createTextCursor0("AB", "CD");
         this.checkNotEmpty(cursor);
 
         this.atAndCheck(cursor, 'A');
@@ -85,13 +74,7 @@ public final class TraversableTextCursorTest implements ClassTesting2<Traversabl
 
     @Test
     public void testGraphSaveAndRestores() {
-        final TextCursor cursor = TraversableTextCursor.with(
-                new NodeTextCursorTestNode("parent", "123",
-                        new NodeTextCursorTestNode("child1", "A"),
-                        new NodeTextCursorTestNode("child2", "456",
-                                new NodeTextCursorTestNode("grandChild-1", "B"),
-                                new NodeTextCursorTestNode("grandChild-2", "C")),
-                        new NodeTextCursorTestNode("child3", "D")));
+        final TextCursor cursor = this.createTextCursor0("A", "BC", "D");
         this.checkNotEmpty(cursor);
         this.atAndCheck(cursor, 'A');
         cursor.next();
@@ -131,19 +114,37 @@ public final class TraversableTextCursorTest implements ClassTesting2<Traversabl
         this.checkEmpty(cursor);
     }
 
-    // TextCursorTesting2.......................................................................................
+    // toString.........................................................................................................
 
-    @Override
-    public TraversableTextCursor<NodeTextCursorTestNode> createTextCursor(final String text) {
-        return TraversableTextCursor.with(new NodeTextCursorTestNode("root-without-children", text));
+    @Test
+    public void testToString() {
+        final String text = "abc123";
+        final ChunkingTextCursor chunking = this.createTextCursor(text);
+        chunking.at();
+
+        final TextCursor cursor = TextCursors.charSequence(text);
+        cursor.at();
+
+        this.toStringAndCheck(chunking, cursor.toString());
     }
 
+    // TextCursorTesting2...............................................................................................
+
     @Override
-    public Class<TraversableTextCursor<NodeTextCursorTestNode>> type() {
-        return Cast.to(TraversableTextCursor.class);
+    public ChunkingTextCursor createTextCursor(final String text) {
+        return this.createTextCursor0(text);
     }
 
-    // ClassTestCase.......................................................................................
+    private ChunkingTextCursor createTextCursor0(final String... text) {
+        return ChunkingTextCursor.with(Iterators.array(text));
+    }
+
+    // ClassTesting.....................................................................................................
+
+    @Override
+    public Class<ChunkingTextCursor> type() {
+        return ChunkingTextCursor.class;
+    }
 
     @Override
     public JavaVisibility typeVisibility() {

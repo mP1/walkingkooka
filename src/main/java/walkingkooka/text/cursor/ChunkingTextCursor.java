@@ -17,34 +17,28 @@
 
 package walkingkooka.text.cursor;
 
-import walkingkooka.text.HasText;
-import walkingkooka.tree.Traversable;
-
 import java.util.Iterator;
 import java.util.Objects;
 
 /**
- * A {@link TextCursor} that consumes the text belonging to a {@link Traversable} and all its descendants.
- * This will be useful to walk over a tree of Traversable, where some or all or perhaps none contain text.
- * Note that any parent traversable, that is a traversable with one or more children will have its text if any ignored.
- * It is assumed that the text of a parent traversable, may be reconstructed from the text from child traversables.
+ * A {@link TextCursor} that walks a buffer of text consuming new text when the buffer has been consumed.
  */
-final class TraversableTextCursor<T extends Traversable<T> & HasText> implements TextCursor {
+final class ChunkingTextCursor implements TextCursor {
 
     /**
-     * Factory that creates a {@link TextCursor} using the provided {@link Traversable}
+     * Factory that creates a {@link TextCursor} using the provided {@link Iterator}
      */
-    static <T extends Traversable<T> & HasText> TraversableTextCursor<T> with(final T traversable) {
-        Objects.requireNonNull(traversable, "traversable");
+    static ChunkingTextCursor with(final Iterator<String>  chunks) {
+        Objects.requireNonNull(chunks, "chunks");
 
-        return new TraversableTextCursor<>(traversable);
+        return new ChunkingTextCursor(chunks);
     }
 
     /**
      * Private ctor use factory
      */
-    private TraversableTextCursor(final T traversable) {
-        this.iterator = traversable.traversableIterator();
+    private ChunkingTextCursor(final Iterator<String> chunks) {
+        this.chunks = chunks;
         this.cursor = TextCursors.charSequence(this.text);
     }
 
@@ -69,18 +63,8 @@ final class TraversableTextCursor<T extends Traversable<T> & HasText> implements
 
     private void fillIfCursorEmpty() {
         if (this.cursor.isEmpty()) {
-            // grab next traversable, and fill StringBuilder $text.
-            for (; ; ) {
-                if (!this.iterator.hasNext()) {
-                    break;
-                }
-                final T traversable = this.iterator.next();
-
-                // only consume text from traversables without any children...
-                if (traversable.children().isEmpty()) {
-                    this.text.append(traversable.text());
-                    break;
-                }
+            if(this.chunks.hasNext()) {
+                this.text.append(this.chunks.next());
             }
         }
     }
@@ -96,12 +80,12 @@ final class TraversableTextCursor<T extends Traversable<T> & HasText> implements
     }
 
     /**
-     * Provides the next {@link Traversable} to add more text to {@link #text}
+     * Provides the next chunk of {@link String text}.
      */
-    private final Iterator<T> iterator;
+    private final Iterator<String> chunks;
 
     /**
-     * Filled with text whenever the wrapped cursor becomes empty.
+     * Filled with text whenever the wrapped {@link #chunks} becomes empty.
      */
     private final StringBuilder text = new StringBuilder();
 
