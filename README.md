@@ -5,25 +5,6 @@
 
 A very brief overview of some larger more powerful features and the small are available in this project.
 
-## [Node](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/tree/Node.java)
-A `Node` is a member of a graph or tree of objects. Many computing technologies exist, both in memory, the network or on
-disk, such as JSON and XML amongst many others are trees of nodes. 
-
-These representations/formats have many related powerful side technologies, but one problem is they dont work with other
-trees:
- 
-- [json-patch](http://jsonpatch.com) only works with JSON and not XML.
-- [XPATH](https://en.wikipedia.org/wiki/XPath) only works with XML and not JSON.
-
-This project starting with its Node interface, includes implementations that make all tech work for all nodes.
-
-- [stream](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/tree/select/NodeSelector.java) X-path selected `Node` stream provider
-- [NodePointer](https://github.com/mP1/walkingkooka/tree/master/src/main/java/walkingkooka/tree/pointer/NodePointer.java) json pointer for all `Nodes`.
-- [NodeSelector](https://github.com/mP1/walkingkooka/tree/master/src/main/java/walkingkooka/tree/select/NodeSelector.java) xpath for all `Nodes`.
-
-Click [here](Node.md) for a more in depth readme about the interface and how this enables exciting tech such as json-patch
-to work on all tree structures.
-
 ## [Parser](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/text/cursor/Parser.java)
 Numerous `Parsers` and support classes are available that can be used to consume text into a tree of tokens for later
 processing. In addition to assembling parses by hand, support is also present to define a grammar in EBNF and parse that
