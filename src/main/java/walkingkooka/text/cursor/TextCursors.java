@@ -18,8 +18,8 @@
 package walkingkooka.text.cursor;
 
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.text.HasText;
-import walkingkooka.tree.Traversable;
+
+import java.util.Iterator;
 
 /**
  * A collection of factory methods to create {@link TextCursor cursors} and some helper methods.
@@ -34,17 +34,17 @@ final public class TextCursors implements PublicStaticHelper {
     }
 
     /**
+     * {@see ChunkingTextCursor}
+     */
+    public static TextCursor chunking(final Iterator<String> chunks) {
+        return ChunkingTextCursor.with(chunks);
+    }
+
+    /**
      * {@see FakeTextCursor}
      */
     public static TextCursor fake() {
         return FakeTextCursor.create();
-    }
-
-    /**
-     * {@see TraversableTextCursor}
-     */
-    public static <T extends Traversable<T> & HasText> TextCursor traversable(final T traversable) {
-        return TraversableTextCursor.with(traversable);
     }
 
     /**
