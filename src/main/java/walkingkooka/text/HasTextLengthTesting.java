@@ -17,9 +17,7 @@
 
 package walkingkooka.text;
 
-import walkingkooka.Cast;
 import walkingkooka.test.Testing;
-import walkingkooka.tree.Node;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -34,13 +32,6 @@ public interface HasTextLengthTesting extends Testing {
                                     final int length) {
         assertEquals(length,
                 has.textLength(),
-                () -> has.textLength() + (has instanceof Node ? "\n" + ((Node) has).root() : ""));
-
-        if (has instanceof HasText) {
-            final HasText hasText = Cast.to(has);
-            assertEquals(length,
-                    hasText.text().length(),
-                    () -> (has.toString()) + (has instanceof Node ? "\n" + ((Node) has).root() : ""));
-        }
+                () -> has.toString());
     }
 }
