@@ -24,7 +24,6 @@ import walkingkooka.text.printer.line.PrintedLineHandler;
 import java.io.PrintStream;
 import java.io.Writer;
 import java.util.function.Function;
-import java.util.function.IntUnaryOperator;
 
 final public class Printers implements PublicStaticHelper {
 
@@ -83,13 +82,6 @@ final public class Printers implements PublicStaticHelper {
      */
     public static Printer sysOut() {
         return PrintStreamPrinter.sysOut();
-    }
-
-    /**
-     * {@see TabExpandingPrinter}
-     */
-    public static Printer tabExpanding(final Printer printer, final IntUnaryOperator tabStops) {
-        return TabExpandingPrinter.wrap(printer, tabStops);
     }
 
     /**
