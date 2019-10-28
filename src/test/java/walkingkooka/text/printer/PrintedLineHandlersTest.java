@@ -15,10 +15,11 @@
  *
  */
 
-package walkingkooka.text.printer.line;
+package walkingkooka.text.printer;
 
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
+import walkingkooka.text.printer.PrintedLineHandlers;
 
 import java.lang.reflect.Method;
 

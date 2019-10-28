@@ -19,7 +19,6 @@ package walkingkooka.text.printer;
 
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.text.printer.line.PrintedLineHandler;
 
 import java.io.Closeable;
 import java.util.function.Function;

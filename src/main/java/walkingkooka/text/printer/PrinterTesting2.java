@@ -20,7 +20,6 @@ package walkingkooka.text.printer;
 import org.junit.jupiter.api.Test;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Indentation;
-import walkingkooka.text.printer.line.PrintedLineHandlers;
 
 import java.util.Objects;
 import java.util.function.Function;

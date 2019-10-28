@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
-import walkingkooka.text.printer.line.PrintedLineHandler;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
