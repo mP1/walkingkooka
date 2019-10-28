@@ -18,14 +18,12 @@
 package walkingkooka.text;
 
 import walkingkooka.Value;
-import walkingkooka.text.printer.IndentingPrinter;
 
 import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * A {@link Value} and {@link CharSequence} that holds the indentation that may be added to an
- * {@link IndentingPrinter}
+ * A {@link Value} and {@link CharSequence} that holds the indentation that may be used by a printer.
  */
 final public class Indentation implements Value<String>, CharSequence {
 
