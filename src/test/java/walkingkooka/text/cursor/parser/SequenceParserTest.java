@@ -201,7 +201,7 @@ public final class SequenceParserTest extends Parser2TestCase<SequenceParser<Par
     }
 
     private static Parser<ParserContext> parser(final String string) {
-        return CaseSensitivity.SENSITIVE.parser(string).cast();
+        return Parsers.string(string, CaseSensitivity.SENSITIVE);
     }
 
     private static StringParserToken string(final String s) {

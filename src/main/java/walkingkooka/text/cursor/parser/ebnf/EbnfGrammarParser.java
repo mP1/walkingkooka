@@ -374,7 +374,7 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
      * Creates a parser that matches the given character and wraps it inside a {@link EbnfSymbolParserToken}
      */
     private static Parser<EbnfParserContext> symbol(final String symbol, final String name) {
-        return CaseSensitivity.SENSITIVE.parser(symbol)
+        return Parsers.string(symbol, CaseSensitivity.SENSITIVE)
                 .transform(EbnfGrammarParser::transformSymbolString)
                 .setToString(name)
                 .cast();

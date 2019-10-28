@@ -303,7 +303,7 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor extends Eb
 
     @Override
     protected void visit(final EbnfTerminalParserToken token) {
-        final Parser<ParserContext> parser = CaseSensitivity.SENSITIVE.parser(token.value())
+        final Parser<ParserContext> parser = Parsers.string(token.value(), CaseSensitivity.SENSITIVE)
                 .setToString(token.toString());
         this.add(
                 this.transformer.terminal(token, parser),

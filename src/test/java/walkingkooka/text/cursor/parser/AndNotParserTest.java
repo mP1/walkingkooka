@@ -113,7 +113,7 @@ public final class AndNotParserTest extends ParserTestCase<AndNotParser<ParserCo
     }
 
     private Parser<ParserContext> string(final String string) {
-        return CaseSensitivity.SENSITIVE.parser(string);
+        return Parsers.string(string, CaseSensitivity.SENSITIVE);
     }
 
     @Override
