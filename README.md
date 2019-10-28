@@ -3,15 +3,9 @@
 
 # Basic Project
 
-A very brief overview of some larger more powerful features and the small are available in this project.
-
-## [Parser](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/text/cursor/Parser.java)
-Numerous `Parsers` and support classes are available that can be used to consume text into a tree of tokens for later
-processing. In addition to assembling parses by hand, support is also present to define a grammar in EBNF and parse that
-into a tree. This later feature makes it easy to grab grammars from RFC and assemble text into a nice object representation.
-
-Click [here](Parser.md) to read more about the basic building blocks of parsing and [here](Parser-Grammar-Ebnf.md) for more
-advanced features and use cases.
+A very brief overview of some larger more powerful features and the small are available in this and child projects, 
+that do much much more leveraging the basic fundamentals present in this library. One example of the utility is presented
+below.
 
 ## [ToStringBuilder](https://github.com/mP1/walkingkooka/tree/master/src/main/java/walkingkooka/ToStringBuilder.java)
 
