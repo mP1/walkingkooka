@@ -18,7 +18,6 @@
 package walkingkooka.text.printer;
 
 import walkingkooka.text.LineEnding;
-import walkingkooka.text.printer.line.PrintedLineHandler;
 
 import java.util.Objects;
 

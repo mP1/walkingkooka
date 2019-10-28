@@ -15,11 +15,10 @@
  *
  */
 
-package walkingkooka.text.printer.line;
+package walkingkooka.text.printer;
 
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
-import walkingkooka.text.printer.Printer;
 
 import java.util.Objects;
 

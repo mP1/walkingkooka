@@ -19,7 +19,6 @@ package walkingkooka.text.printer;
 
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.LineEnding;
-import walkingkooka.text.printer.line.PrintedLineHandler;
 
 import java.io.PrintStream;
 import java.io.Writer;

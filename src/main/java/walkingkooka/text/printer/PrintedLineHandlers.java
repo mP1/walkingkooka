@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.text.printer.line;
+package walkingkooka.text.printer;
 
 import walkingkooka.reflect.PublicStaticHelper;
 

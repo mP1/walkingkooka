@@ -15,13 +15,15 @@
  *
  */
 
-package walkingkooka.text.printer.line;
+package walkingkooka.text.printer;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.printer.ContinuationCharacterInsertingPrintedLineHandler;
+import walkingkooka.text.printer.PrintedLineHandlerTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
