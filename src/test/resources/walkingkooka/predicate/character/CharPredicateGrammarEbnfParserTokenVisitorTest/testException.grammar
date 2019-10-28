@@ -1,2 +1,0 @@
-ABCD = ("A" | "B" | "C" | "D" );
-TEST = ABCD - "D";

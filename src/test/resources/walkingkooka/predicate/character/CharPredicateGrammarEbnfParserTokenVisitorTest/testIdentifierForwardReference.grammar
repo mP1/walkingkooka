@@ -1,3 +1,0 @@
-ABC=DEF;
-TEST=ABC;
-DEF="A" | "B" | "C";

@@ -21,10 +21,7 @@ import walkingkooka.InvalidCharacterException;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserToken;
-import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
 
-import java.util.Map;
 import java.util.Objects;
 
 final public class CharPredicates implements PublicStaticHelper {
@@ -187,14 +184,6 @@ final public class CharPredicates implements PublicStaticHelper {
                 throw new InvalidCharacterException(chars.toString(), i);
             }
         }
-    }
-
-    /**
-     * {@see CharPredicateGrammarEbnfParserTokenVisitor}
-     */
-    public static Map<EbnfIdentifierName, CharPredicate> fromGrammar(final EbnfGrammarParserToken grammar,
-                                                                     final Map<EbnfIdentifierName, CharPredicate> predefined) {
-        return CharPredicateGrammarEbnfParserTokenVisitor.fromGrammar(grammar, predefined);
     }
 
     /**
