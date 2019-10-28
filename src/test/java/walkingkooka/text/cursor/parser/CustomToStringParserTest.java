@@ -31,7 +31,7 @@ public final class CustomToStringParserTest extends ParserTestCase<CustomToStrin
         implements HashCodeEqualsDefinedTesting2<CustomToStringParser<ParserContext>> {
 
     private final static String STRING = "abc";
-    private final static Parser<ParserContext> WRAPPED = CaseSensitivity.SENSITIVE.parser(STRING);
+    private final static Parser<ParserContext> WRAPPED = Parsers.string(STRING, CaseSensitivity.SENSITIVE);
     private final static String CUSTOM_TO_STRING = "!!abc!!";
 
     @Test
@@ -137,8 +137,9 @@ public final class CustomToStringParserTest extends ParserTestCase<CustomToStrin
         return this.createParser();
     }
 
-    private CustomToStringParser<ParserContext> createObject(final String parserText, final String customToString) {
-        final Parser<ParserContext> parser = CaseSensitivity.SENSITIVE.parser(parserText).cast();
-        return CustomToStringParser.wrap(parser.cast(), customToString).cast();
+    private CustomToStringParser<ParserContext> createObject(final String parserText,
+                                                             final String customToString) {
+        return CustomToStringParser.wrap(Parsers.string(parserText, CaseSensitivity.SENSITIVE),
+                customToString).cast();
     }
 }

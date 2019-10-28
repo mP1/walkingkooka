@@ -19,10 +19,6 @@ package walkingkooka.text;
 
 import walkingkooka.compare.Comparators;
 import walkingkooka.predicate.character.CharPredicate;
-import walkingkooka.text.cursor.parser.Parser;
-import walkingkooka.text.cursor.parser.ParserContext;
-import walkingkooka.text.cursor.parser.Parsers;
-import walkingkooka.text.cursor.parser.StringParserToken;
 import walkingkooka.util.systemproperty.SystemProperty;
 
 import java.nio.file.Files;
@@ -302,13 +298,6 @@ public enum CaseSensitivity {
      */
     final public CharPredicate charPredicate(final char c) {
         return CaseSensitivityCharPredicate.with(c, this);
-    }
-
-    /**
-     * Creates a {@link Parser} that returns {@link StringParserToken} which honours this {@link CaseSensitivity}.
-     */
-    final public <C extends ParserContext> Parser<C> parser(final String text) {
-        return Parsers.string(text, this);
     }
 
     /**

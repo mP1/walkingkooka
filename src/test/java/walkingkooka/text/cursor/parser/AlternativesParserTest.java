@@ -159,7 +159,7 @@ public class AlternativesParserTest extends ParserTestCase<AlternativesParser<Pa
     }
 
     private static Parser<ParserContext> parser(final String string) {
-        return CaseSensitivity.SENSITIVE.parser(string).cast();
+        return Parsers.string(string, CaseSensitivity.SENSITIVE);
     }
 
     @Override

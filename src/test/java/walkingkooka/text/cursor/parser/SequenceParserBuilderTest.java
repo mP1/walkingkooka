@@ -25,12 +25,12 @@ import walkingkooka.text.CaseSensitivity;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SequenceParserBuilderTest implements ClassTesting2<SequenceParserBuilder<FakeParserContext>>,
-        BuilderTesting<SequenceParserBuilder<FakeParserContext>, Parser<FakeParserContext>> {
+public final class SequenceParserBuilderTest implements ClassTesting2<SequenceParserBuilder<ParserContext>>,
+        BuilderTesting<SequenceParserBuilder<ParserContext>, Parser<ParserContext>> {
 
-    private final static Parser<FakeParserContext> PARSER1 = parser("1");
-    private final static Parser<FakeParserContext> PARSER2 = parser("2");
-    private final static Parser<FakeParserContext> PARSER3 = parser("3");
+    private final static Parser<ParserContext> PARSER1 = parser("1");
+    private final static Parser<ParserContext> PARSER2 = parser("2");
+    private final static Parser<ParserContext> PARSER3 = parser("3");
 
     @Test
     public void testOptionalNullParserFails() {
@@ -75,21 +75,21 @@ public final class SequenceParserBuilderTest implements ClassTesting2<SequencePa
     }
 
     @Override
-    public SequenceParserBuilder<FakeParserContext> createBuilder() {
+    public SequenceParserBuilder<ParserContext> createBuilder() {
         return SequenceParserBuilder.empty();
     }
 
-    private static Parser<FakeParserContext> parser(final String string) {
-        return CaseSensitivity.SENSITIVE.parser(string).cast();
+    private static Parser<ParserContext> parser(final String string) {
+        return Parsers.string(string, CaseSensitivity.SENSITIVE);
     }
 
     @Override
-    public Class<SequenceParserBuilder<FakeParserContext>> type() {
+    public Class<SequenceParserBuilder<ParserContext>> type() {
         return Cast.to(SequenceParserBuilder.class);
     }
 
     @Override
-    public Class<Parser<FakeParserContext>> builderProductType() {
+    public Class<Parser<ParserContext>> builderProductType() {
         return Cast.to(SequenceParserToken.class);
     }
 
