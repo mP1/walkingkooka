@@ -1,4 +1,0 @@
-FROM="a".."b";
-TO="z";
-
-TEST=FROM..TO;
