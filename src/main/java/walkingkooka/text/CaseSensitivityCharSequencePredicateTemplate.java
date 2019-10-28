@@ -39,16 +39,16 @@ abstract class CaseSensitivityCharSequencePredicateTemplate<C extends CharSequen
 
     final CaseSensitivity sensitivity;
 
-    // Object
+    // Object...........................................................................................................
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return this.sensitivity.hash(this.chars);
     }
 
     @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     @Override
-    public boolean equals(final Object other) {
+    public final boolean equals(final Object other) {
         return (this == other) || (this.canBeEqual(other)
                 && this.equals0((CaseSensitivityCharSequencePredicateTemplate<?>) other));
     }
@@ -61,7 +61,7 @@ abstract class CaseSensitivityCharSequencePredicateTemplate<C extends CharSequen
     }
 
     @Override
-    final public String toString() {
+    public final String toString() {
         return this.sensitivity.toString(this.toStringPrefix(), this.chars);
     }
 
