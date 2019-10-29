@@ -97,7 +97,8 @@ final public class CharSequences implements PublicStaticHelper {
      * without change.<br>
      * This would be particularly useful for a search and replace functionality with preserveCase = true.
      */
-    public static CharSequence copyCase(final CharSequence chars, final CharSequence caseSource) {
+    public static CharSequence copyCase(final CharSequence chars,
+                                        final CharSequence caseSource) {
         Objects.requireNonNull(chars, "chars");
         Objects.requireNonNull(caseSource, "caseSource");
 
@@ -144,7 +145,8 @@ final public class CharSequences implements PublicStaticHelper {
      * Tests if the first string ends with the second ignoring case. This is equivalent to
      * CharSequence.endsWith() but ignores case.
      */
-    public static boolean endsWith(final CharSequence chars, final String endsWith) {
+    public static boolean endsWith(final CharSequence chars,
+                                   final String endsWith) {
         Objects.requireNonNull(chars, "chars");
         failIfNullOrEmpty(endsWith, "endsWith");
 
@@ -299,7 +301,8 @@ final public class CharSequences implements PublicStaticHelper {
     /**
      * Tests if two {@link CharSequences} are equal
      */
-    public static boolean equals(final CharSequence chars, final CharSequence otherChars) {
+    public static boolean equals(final CharSequence chars,
+                                 final CharSequence otherChars) {
         Objects.requireNonNull(chars, "chars");
         Objects.requireNonNull(otherChars, "otherChars");
 
@@ -326,13 +329,15 @@ final public class CharSequences implements PublicStaticHelper {
     /**
      * Fails if the chars are null or empty.
      */
-    public static void failIfNullOrEmpty(final CharSequence chars, final String label) {
+    public static void failIfNullOrEmpty(final CharSequence chars,
+                                         final String label) {
         failIfNullOrEmpty0(label, "label");
         failIfNullOrEmpty0(chars, label);
     }
 
-    private static void failIfNullOrEmpty0(final CharSequence chars, final String label) {
-        Objects.requireNonNull(label, label);
+    private static void failIfNullOrEmpty0(final CharSequence chars,
+                                           final String label) {
+        Objects.requireNonNull(chars, label);
         if (chars.length() == 0) {
             throw new IllegalArgumentException(label + " is empty");
         }
@@ -365,7 +370,8 @@ final public class CharSequences implements PublicStaticHelper {
     /**
      * Attempts to find the {@link CharSequence searchFor} within the {@link CharSequence}
      */
-    public static int indexOf(final CharSequence chars, final String indexOf) {
+    public static int indexOf(final CharSequence chars,
+                              final String indexOf) {
         Objects.requireNonNull(chars, "chars");
         failIfNullOrEmpty(indexOf, "indexOf");
 
@@ -522,14 +528,16 @@ final public class CharSequences implements PublicStaticHelper {
     /**
      * {@see ReaderConsumingCharSequence}
      */
-    public static CharSequence readerConsuming(final Reader reader, final int bufferSize) {
+    public static CharSequence readerConsuming(final Reader reader,
+                                               final int bufferSize) {
         return ReaderConsumingCharSequence.with(reader, bufferSize);
     }
 
     /**
      * {@see RepeatingCharSequence}
      */
-    public static CharSequence repeating(final char c, final int length) {
+    public static CharSequence repeating(final char c,
+                                         final int length) {
         return RepeatingCharSequence.with(c, length);
     }
 
@@ -537,7 +545,8 @@ final public class CharSequences implements PublicStaticHelper {
      * Tests if the first string starts with the second ignoring case. This is equivalent to
      * CharSequence.startsWith() but ignores case.
      */
-    public static boolean startsWith(final CharSequence chars, final String startsWith) {
+    public static boolean startsWith(final CharSequence chars,
+                                     final String startsWith) {
         Objects.requireNonNull(chars, "chars");
         failIfNullOrEmpty(startsWith, "startsWith");
 
@@ -563,7 +572,9 @@ final public class CharSequences implements PublicStaticHelper {
      * the to index is negative and before the from index a {@link ArrayIndexOutOfBoundsException}
      * is thrown.
      */
-    public static CharSequence subSequence(final CharSequence chars, final int from, final int to) {
+    public static CharSequence subSequence(final CharSequence chars,
+                                           final int from,
+                                           final int to) {
         Objects.requireNonNull(chars, "chars");
 
         CharSequence subSequence;
@@ -586,7 +597,8 @@ final public class CharSequences implements PublicStaticHelper {
      * Performs a {@link CharSequence#subSequence(int, int)} with a negative to index.
      */
     private static CharSequence subSequenceWithNegativeToIndex(final CharSequence sequence,
-                                                               final int from, final int to) {
+                                                               final int from,
+                                                               final int to) {
         final int length = sequence.length();
         final int positiveToIndex = length + to;
         if (positiveToIndex < from) {
@@ -611,8 +623,8 @@ final public class CharSequences implements PublicStaticHelper {
     public static CharSequence trim(final CharSequence chars) {
         Objects.requireNonNull(chars, "chars");
 
-        final int start = findStart(chars);
-        return chars.subSequence(start, findEnd(chars, start));
+        final int start = findNonWhitespaceStart(chars);
+        return chars.subSequence(start, findNonWhitespaceEnd(chars, start));
     }
 
     /**
@@ -621,7 +633,7 @@ final public class CharSequences implements PublicStaticHelper {
     public static CharSequence trimLeft(final CharSequence chars) {
         Objects.requireNonNull(chars, "chars");
 
-        return chars.subSequence(findStart(chars), chars.length());
+        return chars.subSequence(findNonWhitespaceStart(chars), chars.length());
     }
 
     /**
@@ -630,13 +642,13 @@ final public class CharSequences implements PublicStaticHelper {
     public static CharSequence trimRight(final CharSequence chars) {
         Objects.requireNonNull(chars, "chars");
 
-        return chars.subSequence(0, findEnd(chars, 0));
+        return chars.subSequence(0, findNonWhitespaceEnd(chars, 0));
     }
 
     /**
      * Finds the first non whitespace character in the {@link CharSequence}
      */
-    static private int findStart(final CharSequence chars) {
+    static private int findNonWhitespaceStart(final CharSequence chars) {
         final int length = chars.length();
         int i = 0;
 
@@ -656,7 +668,8 @@ final public class CharSequences implements PublicStaticHelper {
     /**
      * Finds the last non whitespace character in the {@link CharSequence}
      */
-    static private int findEnd(final CharSequence chars, final int stop) {
+    static private int findNonWhitespaceEnd(final CharSequence chars,
+                                            final int stop) {
         int i = chars.length();
 
         while (i > stop) {
