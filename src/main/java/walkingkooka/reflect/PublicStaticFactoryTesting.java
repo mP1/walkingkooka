@@ -36,12 +36,10 @@ public final class PublicStaticFactoryTesting {
      * The base is typically the base sub class of the type being tested, and holds the public static factory method
      * usually named after the type being tested.
      */
-    public static void check(final Class<?> base,
-                             final String prefix,
-                             final Class<?> suffixType,
-                             final Class<?> type) {
-        final String suffix = suffixType.getSimpleName();
-
+    public static void checkFactoryMethods(final Class<?> base,
+                                           final String prefix,
+                                           final String suffix,
+                                           final Class<?> type) {
         final String name = type.getSimpleName();
         final String without = Character.toLowerCase(name.charAt(prefix.length())) +
                 name.substring(prefix.length() + 1, name.length() - suffix.length());
