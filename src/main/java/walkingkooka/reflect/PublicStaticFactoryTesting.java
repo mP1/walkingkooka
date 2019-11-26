@@ -17,12 +17,14 @@
 
 package walkingkooka.reflect;
 
+import walkingkooka.collect.set.Sets;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Comparator;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,18 +48,27 @@ public final class PublicStaticFactoryTesting {
 
         final String factoryMethodName = factoryMethodNameSpecialFixup(without, suffix);
 
-        final List<Method> publicStaticMethods = Arrays.stream(base.getMethods())
-                .filter(m -> MethodAttributes.STATIC.is(m) && JavaVisibility.PUBLIC == JavaVisibility.of(m))
-                .collect(Collectors.toList());
+        final Comparator<Method> methodSorter = (l, r) -> {
+            int result = l.getName().compareTo(r.getName());
+            if (0 != result) {
+                result = l.toGenericString().compareTo(r.toGenericString()); // good enuff even if return type is sorted before params.
+            }
+            return result;
+        };
 
-        final List<Method> factoryMethods = publicStaticMethods.stream()
+        final Set<Method> publicStaticMethods = Arrays.stream(base.getMethods())
+                .filter(m -> MethodAttributes.STATIC.is(m) && JavaVisibility.PUBLIC == JavaVisibility.of(m))
+                .collect(Collectors.toCollection(() -> Sets.sorted(methodSorter)));
+
+        final Set<Method> factoryMethods = publicStaticMethods.stream()
                 .filter(m -> m.getName().equals(factoryMethodName) &&
                         m.getReturnType().equals(type))
-                .collect(Collectors.toList());
+                .collect(Collectors.toCollection(() -> Sets.sorted(methodSorter)));
 
         final String publicStaticMethodsToString = publicStaticMethods.stream()
                 .map(Method::toGenericString)
                 .collect(Collectors.joining(LineEnding.SYSTEM.toString()));
+
         assertEquals(1,
                 factoryMethods.size(),
                 () -> "Expected only a single factory method called " + CharSequences.quote(factoryMethodName) +
