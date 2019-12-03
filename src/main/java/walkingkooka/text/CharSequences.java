@@ -71,7 +71,7 @@ final public class CharSequences implements PublicStaticHelper {
      * Capitalises the first character of the given {@link CharSequence}
      */
     public static CharSequence capitalize(final CharSequence chars) {
-        Objects.requireNonNull(chars, "chars");
+        checkChars(chars);
 
         CharSequence result = chars;
         final int length = chars.length();
@@ -99,7 +99,7 @@ final public class CharSequences implements PublicStaticHelper {
      */
     public static CharSequence copyCase(final CharSequence chars,
                                         final CharSequence caseSource) {
-        Objects.requireNonNull(chars, "chars");
+        checkChars(chars);
         Objects.requireNonNull(caseSource, "caseSource");
 
         final StringBuilder b = new StringBuilder();
@@ -147,7 +147,7 @@ final public class CharSequences implements PublicStaticHelper {
      */
     public static boolean endsWith(final CharSequence chars,
                                    final String endsWith) {
-        Objects.requireNonNull(chars, "chars");
+        checkChars(chars);
         failIfNullOrEmpty(endsWith, "endsWith");
 
         boolean result = false;
@@ -303,7 +303,7 @@ final public class CharSequences implements PublicStaticHelper {
      */
     public static boolean equals(final CharSequence chars,
                                  final CharSequence otherChars) {
-        Objects.requireNonNull(chars, "chars");
+        checkChars(chars);
         Objects.requireNonNull(otherChars, "otherChars");
 
         boolean equals = false;
@@ -372,7 +372,7 @@ final public class CharSequences implements PublicStaticHelper {
      */
     public static int indexOf(final CharSequence chars,
                               final String indexOf) {
-        Objects.requireNonNull(chars, "chars");
+        checkChars(chars);
         failIfNullOrEmpty(indexOf, "indexOf");
 
         int index = -1;
@@ -415,7 +415,7 @@ final public class CharSequences implements PublicStaticHelper {
     public static CharSequence padLeft(final CharSequence chars,
                                        final int length,
                                        final char pad) {
-        Objects.requireNonNull(chars, "chars");
+        checkChars(chars);
 
         final int charsLength = chars.length();
         if (length < charsLength) {
@@ -547,7 +547,7 @@ final public class CharSequences implements PublicStaticHelper {
      */
     public static boolean startsWith(final CharSequence chars,
                                      final String startsWith) {
-        Objects.requireNonNull(chars, "chars");
+        checkChars(chars);
         failIfNullOrEmpty(startsWith, "startsWith");
 
         boolean result = false;
@@ -575,7 +575,7 @@ final public class CharSequences implements PublicStaticHelper {
     public static CharSequence subSequence(final CharSequence chars,
                                            final int from,
                                            final int to) {
-        Objects.requireNonNull(chars, "chars");
+        checkChars(chars);
 
         CharSequence subSequence;
         do {
@@ -621,7 +621,7 @@ final public class CharSequences implements PublicStaticHelper {
      * Trims whitespace from the left and end of the given {@link CharSequence}.
      */
     public static CharSequence trim(final CharSequence chars) {
-        Objects.requireNonNull(chars, "chars");
+        checkChars(chars);
 
         final int start = findNonWhitespaceStart(chars);
         return chars.subSequence(start, findNonWhitespaceEnd(chars, start));
@@ -631,7 +631,7 @@ final public class CharSequences implements PublicStaticHelper {
      * Trims whitespace from the left or beginning of the given {@link CharSequence}.
      */
     public static CharSequence trimLeft(final CharSequence chars) {
-        Objects.requireNonNull(chars, "chars");
+        checkChars(chars);
 
         return chars.subSequence(findNonWhitespaceStart(chars), chars.length());
     }
@@ -640,7 +640,7 @@ final public class CharSequences implements PublicStaticHelper {
      * Trims whitespace from the right or end of the given {@link CharSequence}.
      */
     public static CharSequence trimRight(final CharSequence chars) {
-        Objects.requireNonNull(chars, "chars");
+        checkChars(chars);
 
         return chars.subSequence(0, findNonWhitespaceEnd(chars, 0));
     }
@@ -778,6 +778,10 @@ final public class CharSequences implements PublicStaticHelper {
             }
         }
         return builder.toString();
+    }
+
+    private static void checkChars(final CharSequence chars) {
+        Objects.requireNonNull(chars, "chars");
     }
 
     /**
