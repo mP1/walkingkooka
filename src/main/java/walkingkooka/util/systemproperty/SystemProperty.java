@@ -131,13 +131,7 @@ final public class SystemProperty implements Value<String> {
      * Retrieves the current value of this system property. May return null if not set.
      */
     public String propertyValue() {
-        String value;
-        if (null == System.getSecurityManager()) {
-            value = System.getProperty(this.name);
-        } else {
-            value = SystemPropertyValueGetterPrivilegedAction.get(this);
-        }
-        return value;
+        return SystemPropertySecurityAction.execute(() -> System.getProperty(this.name));
     }
 
     /**
@@ -159,11 +153,7 @@ final public class SystemProperty implements Value<String> {
     public void set(final String value) {
         Objects.requireNonNull(value, "value");
 
-        if (null == System.getSecurityManager()) {
-            System.setProperty(this.name, value);
-        } else {
-            SystemPropertyValueSetterPrivilegedAction.set(this, value);
-        }
+        SystemPropertySecurityAction.execute(() -> System.setProperty(this.name, value));
     }
 
     /**
@@ -171,7 +161,7 @@ final public class SystemProperty implements Value<String> {
      * current user does not have permission.
      */
     public String clear() {
-        return System.clearProperty(this.name);
+        return SystemPropertySecurityAction.execute(() -> System.clearProperty(this.name));
     }
 
     // Object..........................................................................................................
