@@ -28,6 +28,18 @@ import java.util.function.Supplier;
  */
 final class SystemPropertySecurityAction implements StaticHelper {
 
+    static String clearProperty(final String property) {
+        return execute(() -> System.clearProperty(property));
+    }
+
+    static String getProperty(final String property) {
+        return execute(() -> System.getProperty(property));
+    }
+
+    static void setProperty(final String property, final String value) {
+        execute(() -> System.setProperty(property, value));
+    }
+
     static <T> T execute(final Supplier<T> action) {
         return execute0(() -> action.get());
     }
