@@ -33,7 +33,7 @@ final class ArrayIterator<T> implements Iterator<T> {
     static <T> ArrayIterator<T> with(final T... items) {
         Objects.requireNonNull(items, "items");
 
-        return new ArrayIterator<>(items.clone());
+        return new ArrayIterator<>(Arrays.copyOf(items, items.length));
     }
 
     /**

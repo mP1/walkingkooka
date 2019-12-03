@@ -40,7 +40,7 @@ public final class Binary implements Value<byte[]> {
     public static Binary with(final byte[] value) {
         Objects.requireNonNull(value, "value");
 
-        return value.length == 0 ? EMPTY : new Binary(value.clone());
+        return value.length == 0 ? EMPTY : new Binary(Arrays.copyOf(value, value.length));
     }
 
     private Binary(final byte[] value) {
@@ -50,7 +50,7 @@ public final class Binary implements Value<byte[]> {
 
     @Override
     public byte[] value() {
-        return value.clone();
+        return Arrays.copyOf(this.value, this.value.length);
     }
 
     // BinaryRangeVisitor
