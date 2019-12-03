@@ -1,0 +1,12 @@
+# Filter everything except PublicStaticHelper & StaticHelper
+
+Class*
+Fake*
+Field*
+Java*
+Method*
+PackageName*
+
+*Testing*
+
+

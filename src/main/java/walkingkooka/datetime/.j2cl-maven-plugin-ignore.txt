@@ -1,0 +1,6 @@
+# Classes with references to java.time are blacklisted until they are emulated.
+
+DateTimeFormatterBuilderDateTimeFormatterPatternVisitor.*
+DateTimeFormatterPattern*
+FakeDateTimeFormatterPattern*
+LocaleDateTimeContext.*
