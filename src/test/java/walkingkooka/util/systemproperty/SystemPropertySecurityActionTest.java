@@ -20,11 +20,11 @@ package walkingkooka.util.systemproperty;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-final public class SystemPropertyValueClearPrivilegedActionTest implements ClassTesting2<SystemPropertyValueClearPrivilegedAction> {
+public final class SystemPropertySecurityActionTest implements ClassTesting2<SystemPropertySecurityAction> {
 
     @Override
-    public Class<SystemPropertyValueClearPrivilegedAction> type() {
-        return SystemPropertyValueClearPrivilegedAction.class;
+    public Class<SystemPropertySecurityAction> type() {
+        return SystemPropertySecurityAction.class;
     }
 
     @Override
