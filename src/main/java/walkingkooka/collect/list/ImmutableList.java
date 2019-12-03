@@ -17,10 +17,9 @@
 
 package walkingkooka.collect.list;
 
-import walkingkooka.collect.map.Maps;
+import walkingkooka.collect.set.Sets;
 
 import java.util.AbstractList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -33,7 +32,7 @@ abstract class ImmutableList<T> extends AbstractList<T> {
     /**
      * A registry of immutable {@link List} types.
      */
-    final static Set<Class<?>> TYPES = Collections.newSetFromMap(Maps.concurrent());
+    final static Set<Class<?>> TYPES = Sets.hash();
 
     static {
         TYPES.add(List.class);
