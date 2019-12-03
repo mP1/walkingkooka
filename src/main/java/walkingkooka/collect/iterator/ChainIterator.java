@@ -17,6 +17,7 @@
 
 package walkingkooka.collect.iterator;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -38,7 +39,7 @@ final class ChainIterator<E> implements Iterator<E> {
 
         return iterators.length == 0 ?
                 first :
-                new ChainIterator<>(first, iterators.clone());
+                new ChainIterator<>(first, Arrays.copyOf(iterators, iterators.length));
     }
 
     /**

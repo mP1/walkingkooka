@@ -94,7 +94,7 @@ final public class Lists implements PublicStaticHelper {
      */
     @SafeVarargs
     public static <T> List<T> of(final T... items) {
-        return ImmutableList.select(Arrays.asList(items.clone()));
+        return ImmutableList.select(Arrays.asList(Arrays.copyOf(items, items.length)));
     }
 
     /**
