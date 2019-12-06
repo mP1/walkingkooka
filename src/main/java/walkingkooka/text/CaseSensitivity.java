@@ -17,6 +17,7 @@
 
 package walkingkooka.text;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.compare.Comparators;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.util.systemproperty.SystemProperty;
@@ -349,14 +350,17 @@ public enum CaseSensitivity {
      * overriding a tests involving {@link java.io.File}.
      * A boolean value of true indicates the file system is case sensitive, any other value means its not.
      */
+    @GwtIncompatible
     public final static SystemProperty FILE_SYSTEM_PROPERTY = SystemProperty.FILE_SYSTEM_CASE_SENSITIVITY;
 
     // @VisibilityForTesting
+    @GwtIncompatible
     static volatile CaseSensitivity FILE_SYSTEM;
 
     /**
      * Returns a {@link CaseSensitivity} that matches the case sensitivity of file names.
      */
+    @GwtIncompatible
     public static CaseSensitivity fileSystem() {
         if (null == FILE_SYSTEM) {
             CaseSensitivity sensitivity = fromSystemProperty();
@@ -368,6 +372,7 @@ public enum CaseSensitivity {
         return FILE_SYSTEM;
     }
 
+    @GwtIncompatible
     private static CaseSensitivity fromSystemProperty() {
         final String systemPropertyValue = FILE_SYSTEM_PROPERTY.propertyValue();
         return CharSequences.isNullOrEmpty(systemPropertyValue) ?
@@ -380,6 +385,7 @@ public enum CaseSensitivity {
     /**
      * Create two paths with the different case and then checks if they are the same file using {@link Files#isSameFile(Path, Path)}.
      */
+    @GwtIncompatible
     private static CaseSensitivity fromFileEqualityTests() {
         try {
             final String filename = "abc";

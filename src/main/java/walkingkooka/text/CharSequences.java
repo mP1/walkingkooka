@@ -17,6 +17,7 @@
 
 package walkingkooka.text;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.reflect.PublicStaticHelper;
 
@@ -528,6 +529,7 @@ final public class CharSequences implements PublicStaticHelper {
     /**
      * {@see ReaderConsumingCharSequence}
      */
+    @GwtIncompatible
     public static CharSequence readerConsuming(final Reader reader,
                                                final int bufferSize) {
         return ReaderConsumingCharSequence.with(reader, bufferSize);

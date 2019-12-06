@@ -1,0 +1,3 @@
+# Classes with references to java.text.DecimalFormat are blacklisted until they are emulated.
+
+DecimalFormat*

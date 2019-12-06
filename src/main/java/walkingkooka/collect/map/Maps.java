@@ -17,6 +17,7 @@
 
 package walkingkooka.collect.map;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Cast;
 import walkingkooka.reflect.PublicStaticHelper;
 
@@ -50,6 +51,7 @@ final public class Maps implements PublicStaticHelper {
     /**
      * {@see ConcurrentHashMap}
      */
+    @GwtIncompatible("Maybe replace with regular HashMap for j2cl")
     static public <K, V> ConcurrentMap<K, V> concurrent() {
         return new ConcurrentHashMap<>();
     }
@@ -265,6 +267,7 @@ final public class Maps implements PublicStaticHelper {
     /**
      * {@see WeakHashMap}
      */
+    @GwtIncompatible("Maybe replace with regular HashMap for j2cl")
     static public <K, V> Map<K, V> weak() {
         return new WeakHashMap<>();
     }

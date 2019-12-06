@@ -1,0 +1,3 @@
+# Properties and properties files are not supported by j2cl (yet?)
+Properties*
+

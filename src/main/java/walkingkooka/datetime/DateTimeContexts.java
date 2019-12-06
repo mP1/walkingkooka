@@ -16,6 +16,7 @@
  */
 package walkingkooka.datetime;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.reflect.PublicStaticHelper;
 
 import java.util.Locale;
@@ -28,6 +29,7 @@ public final class DateTimeContexts implements PublicStaticHelper {
     /**
      * {@see LocaleDateTimeContext}
      */
+    @GwtIncompatible
     public static DateTimeContext locale(final Locale locale,
                                          final int twoDigitYear) {
         return LocaleDateTimeContext.with(locale, twoDigitYear);

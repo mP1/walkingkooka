@@ -17,6 +17,7 @@
 
 package walkingkooka;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.math.Range;
 
 import java.io.ByteArrayInputStream;
@@ -87,6 +88,7 @@ public final class Binary implements Value<byte[]> {
     /**
      * Returns a {@link Binary} with its contents gzipped.
      */
+    @GwtIncompatible
     public Binary gzip() throws IOException {
         try (final ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
             try (final GZIPOutputStream gzip = new GZIPOutputStream(outputStream)) {

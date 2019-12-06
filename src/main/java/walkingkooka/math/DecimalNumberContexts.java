@@ -16,6 +16,7 @@
  */
 package walkingkooka.math;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.reflect.PublicStaticHelper;
 
 import java.math.MathContext;
@@ -60,6 +61,7 @@ public final class DecimalNumberContexts implements PublicStaticHelper {
     /**
      * {@see DecimalFormatSymbolsDecimalNumberContext}
      */
+    @GwtIncompatible
     public static DecimalNumberContext decimalFormatSymbols(final DecimalFormatSymbols symbols,
                                                             final char exponentSymbol,
                                                             final char positiveSign,

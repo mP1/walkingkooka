@@ -17,6 +17,7 @@
 
 package walkingkooka.predicate;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.compare.ComparisonRelation;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.reflect.PublicStaticHelper;
@@ -113,10 +114,12 @@ final public class Predicates implements PublicStaticHelper {
      * Matches java identifiers using {@link Character#isJavaIdentifierStart(char)} and
      * {@link Character#isJavaIdentifierPart(char)}.
      */
+    @GwtIncompatible
     public static Predicate<CharSequence> javaIdentifier() {
         return JAVA_IDENTIFIER;
     }
 
+    @GwtIncompatible
     private final static Predicate<CharSequence> JAVA_IDENTIFIER = Predicates.initialAndPart(
             Character::isJavaIdentifierStart,
             Character::isJavaIdentifierPart);
