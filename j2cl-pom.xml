@@ -127,7 +127,7 @@
 
     <pluginRepositories>
         <pluginRepository>
-            <id>github.com/mP1 maven repo</id>
+            <id>github.com mP1 maven repo</id>
             <url>https://maven-repo-254709.appspot.com</url>
             <snapshots>
                 <enabled>true</enabled>
