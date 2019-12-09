@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.util.systemproperty;
+package walkingkooka.util;
 
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.StandardThrowableTesting;

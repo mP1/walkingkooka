@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.util.systemproperty;
+package walkingkooka.util;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
@@ -24,6 +24,8 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.ConstantsTesting;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.util.MissingSystemPropertyException;
+import walkingkooka.util.SystemProperty;
 
 import java.util.Set;
 

@@ -20,7 +20,7 @@ package walkingkooka.text;
 import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.compare.Comparators;
 import walkingkooka.predicate.character.CharPredicate;
-import walkingkooka.util.systemproperty.SystemProperty;
+import walkingkooka.util.SystemProperty;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
