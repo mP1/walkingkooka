@@ -15,4 +15,21 @@
  *
  */
 
-package walkingkooka.util.systemproperty;
+package walkingkooka.util;
+
+import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.util.SystemPropertySecurityAction;
+
+public final class SystemPropertySecurityActionTest implements ClassTesting2<SystemPropertySecurityAction> {
+
+    @Override
+    public Class<SystemPropertySecurityAction> type() {
+        return SystemPropertySecurityAction.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
+    }
+}

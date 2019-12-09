@@ -23,7 +23,7 @@ import walkingkooka.compare.Comparators;
 import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.util.systemproperty.SystemProperty;
+import walkingkooka.util.SystemProperty;
 
 import java.util.function.Predicate;
 
