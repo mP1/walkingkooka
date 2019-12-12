@@ -80,29 +80,33 @@
         <dependency>
             <groupId>com.vertispan.j2cl</groupId>
             <artifactId>bootstrap</artifactId>
-            <version>0.4-SNAPSHOT</version>
+            <version>0.5-SNAPSHOT</version>
             <type>zip</type>
             <classifier>jszip</classifier>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.vertispan.j2cl</groupId>
             <artifactId>javac-bootstrap-classpath</artifactId>
-            <version>0.4-SNAPSHOT</version>
+            <version>0.5-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.vertispan.j2cl</groupId>
             <artifactId>jre</artifactId>
-            <version>0.4-SNAPSHOT</version>
+            <version>0.5-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.vertispan.j2cl</groupId>
             <artifactId>jre</artifactId>
-            <version>0.4-SNAPSHOT</version>
+            <version>0.5-SNAPSHOT</version>
             <type>zip</type>
             <classifier>jszip</classifier>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -135,7 +139,6 @@
                 <checksumPolicy>fail</checksumPolicy>
             </snapshots>
         </pluginRepository>
-
         <pluginRepository>
             <id>vertispan-releases</id>
             <name>Vertispan hosted artifacts-releases</name>
@@ -147,10 +150,40 @@
                 <enabled>true</enabled>
             </snapshots>
         </pluginRepository>
+        <pluginRepository>
+            <id>vertispan-gwt-snapshots</id>
+            <url>https://repo.vertispan.com/gwt-snapshot/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>google-sonatype-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/google-snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
     </pluginRepositories>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <source>9</source>
+                    <target>9</target>
+                    <forceJavacCompilerUse>true</forceJavacCompilerUse>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>walkingkooka</groupId>
                 <artifactId>j2cl-maven-plugin</artifactId>
@@ -171,22 +204,21 @@
                                 <jsinterop.checks>DISABLED</jsinterop.checks>
                             </defines>
                             <entry-points>walkingkooka.app</entry-points>
-                            <excluded-dependencies></excluded-dependencies>
                             <externs></externs>
-                            <formatting>PRETTY_PRINT</formatting>
+                            <formatting/><!--<formatting>PRETTY_PRINT</formatting>-->
                             <language-out>ECMASCRIPT_2016</language-out>
                             <thread-pool-size>0</thread-pool-size>
 
                             <added-dependencies>
                                 <param>
-                                    com.vertispan.jsinterop:base:jar:1.0.0-SNAPSHOT=com.vertispan.j2cl:gwt-internal-annotations:0.4-SNAPSHOT
+                                    com.vertispan.jsinterop:base:jar:1.0.0-SNAPSHOT=com.vertispan.j2cl:gwt-internal-annotations:0.5-SNAPSHOT
                                 </param>
                             </added-dependencies>
                             <classpath-required>
-                                <param>com.vertispan.j2cl:javac-bootstrap-classpath:0.4-SNAPSHOT</param>
-                                <param>com.vertispan.j2cl:jre:0.4-SNAPSHOT</param>
+                                <param>com.vertispan.j2cl:javac-bootstrap-classpath:0.5-SNAPSHOT</param>
+                                <param>com.vertispan.j2cl:jre:0.5-SNAPSHOT</param>
                                 <param>com.vertispan.jsinterop:base:jar:1.0.0-SNAPSHOT</param>
-                                <param>com.vertispan.j2cl:gwt-internal-annotations:jar:0.4-SNAPSHOT</param>
+                                <param>com.vertispan.j2cl:gwt-internal-annotations:jar:0.5-SNAPSHOT</param>
                                 <param>com.google.jsinterop:jsinterop-annotations:jar:2.0.0</param>
                                 <param>javax.annotation:jsr250-api:1.0</param>
                             </classpath-required>
@@ -197,20 +229,20 @@
                                 <param>javax.validation:validation-api:1.0.0.GA</param>
                                 <param>org.w3c.css:sac:1.3</param>
                             </excluded-dependencies>
+
                             <javascript-source-required>
-                                <param>com.vertispan.j2cl:bootstrap:zip:jszip:0.4-SNAPSHOT</param>
-                                <param>com.vertispan.j2cl:jre:zip:jszip:0.4-SNAPSHOT</param>
-                                <param>com.vertispan.jsinterop:base:jar:1.0.0-SNAPSHOT</param>
+                                <param>com.vertispan.j2cl:bootstrap:zip:jszip:0.5-SNAPSHOT</param>
+                                <param>com.vertispan.j2cl:jre:zip:jszip:0.5-SNAPSHOT</param>
                             </javascript-source-required>
                             <processing-skipped>
                                 <!-- jre & bootstrap transpiled versions also included as dependencies, skip transpiling-->
-                                <param>com.vertispan.j2cl:javac-bootstrap-classpath:0.4-SNAPSHOT</param>
-                                <param>com.vertispan.j2cl:jre:0.4-SNAPSHOT</param>
-                                <param>com.vertispan.j2cl:bootstrap:zip:jszip:0.4-SNAPSHOT</param>
-                                <param>com.vertispan.j2cl:jre:zip:jszip:0.4-SNAPSHOT</param>
+                                <param>com.vertispan.j2cl:javac-bootstrap-classpath:0.5-SNAPSHOT</param>
+                                <param>com.vertispan.j2cl:jre:0.5-SNAPSHOT</param>
+                                <param>com.vertispan.j2cl:bootstrap:zip:jszip:0.5-SNAPSHOT</param>
+                                <param>com.vertispan.j2cl:jre:zip:jszip:0.5-SNAPSHOT</param>
                                 <!-- dependencies below only contain annotations -->
                                 <param>com.google.jsinterop:jsinterop-annotations:jar:2.0.0</param>
-                                <param>com.vertispan.j2cl:gwt-internal-annotations:jar:0.4-SNAPSHOT</param>
+                                <param>com.vertispan.j2cl:gwt-internal-annotations:jar:0.5-SNAPSHOT</param>
                                 <param>javax.annotation:jsr250-api:1.0</param>
 
                                 <!-- only require junit during javac compiles -->
@@ -221,7 +253,9 @@
                                 <param>org.junit.platform:junit-platform-engine:1.4.0</param>
                                 <param>org.opentest4j:opentest4j:1.1.1</param>
                             </processing-skipped>
-                            <replaced-dependencies/>
+                            <replaced-dependencies>
+                                <param>com.vertispan.j2cl:gwt-internal-annotations:0.4-SNAPSHOT=com.vertispan.j2cl:gwt-internal-annotations:0.5-SNAPSHOT</param>
+                            </replaced-dependencies>
                         </configuration>
                     </execution>
                 </executions>
