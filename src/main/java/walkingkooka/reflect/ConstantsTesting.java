@@ -73,9 +73,9 @@ public interface ConstantsTesting<T> extends Testing {
             }
             assertSame(JavaVisibility.PUBLIC,
                     JavaVisibility.of(constant),
-                    "Constant must be public");
+                    () -> "Constant must be public " + constant.toGenericString());
             if (false == FieldAttributes.STATIC.is(constant)) {
-                fail("Constant is not static=" + constant.getName());
+                fail("Constant is not static=" + constant.toGenericString());
             }
             final T value = Cast.to(constant.get(null));
 
