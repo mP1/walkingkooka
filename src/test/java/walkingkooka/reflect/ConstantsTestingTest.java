@@ -44,8 +44,8 @@ public final class ConstantsTestingTest implements ConstantsTesting<ConstantsTes
     // testConstantsAreUnique...........................................................................................
 
     @Test
-    public void testConstantsAreUniqueNotStaticFails() {
-        assertThrows(AssertionError.class, () -> new testConstantsAreUniqueNotStaticFails("").testConstantsAreUnique());
+    public void testNotStaticFieldIgnored() throws Exception {
+        new testConstantsAreUniqueNotStaticFails("").testConstantsAreUnique();
     }
 
     static class testConstantsAreUniqueNotStaticFails extends TestConstantsTestingTest<testConstantsAreUniqueNotStaticFails> {

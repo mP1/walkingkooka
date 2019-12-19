@@ -71,12 +71,15 @@ public interface ConstantsTesting<T> extends Testing {
             if (false == constant.getType().equals(type)) {
                 continue;
             }
+            if (false == FieldAttributes.STATIC.is(constant)) {
+                continue;
+            }
+            if (false == FieldAttributes.FINAL.is(constant)) {
+                continue;
+            }
             assertSame(JavaVisibility.PUBLIC,
                     JavaVisibility.of(constant),
                     () -> "Constant must be public " + constant.toGenericString());
-            if (false == FieldAttributes.STATIC.is(constant)) {
-                fail("Constant is not static=" + constant.toGenericString());
-            }
             final T value = Cast.to(constant.get(null));
 
             // intentional duplicate ignore...
