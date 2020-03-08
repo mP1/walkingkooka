@@ -31,6 +31,7 @@ abstract class PushableStreamConsumerStreamIntermediate1 extends PushableStreamC
 
     final long value;
 
+    @SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
     @Override
     public final int hashCode() {
         return Long.hashCode(this.value);

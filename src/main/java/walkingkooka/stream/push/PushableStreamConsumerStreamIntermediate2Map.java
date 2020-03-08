@@ -47,6 +47,7 @@ final class PushableStreamConsumerStreamIntermediate2Map extends PushableStreamC
 
     // Object..........................................................................................................
 
+    @SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
     @Override
     public int hashCode() {
         return this.mapper.hashCode();

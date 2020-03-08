@@ -47,6 +47,7 @@ final class PushableStreamConsumerStreamIntermediate2Filter extends PushableStre
 
     // Object..........................................................................................................
 
+    @SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
     @Override
     public int hashCode() {
         return this.predicate.hashCode();
