@@ -65,31 +65,26 @@ public final class LineAndColumn {
 
         CharSequence line;
         int column = COLUMN_START;
-        if (pos > length) {
-            lineNumber++;
-            line = "";
-        } else {
 
-            // find end of line...
-            int end = length;
-            column = COLUMN_START;
-            for (int j = startOfLine; j < length; j++) {
-                final char c = chars.charAt(j);
-                if (('\r' == c) || ('\n' == c)) {
-                    end = j;
-                    break;
-                }
-                if (j < pos) {
-                    column++;
-                }
+        // find end of line...
+        int end = length;
+        column = COLUMN_START;
+        for (int j = startOfLine; j < length; j++) {
+            final char c = chars.charAt(j);
+            if (('\r' == c) || ('\n' == c)) {
+                end = j;
+                break;
             }
-            line = chars.subSequence(startOfLine, end);
-            final int lineLength = line.length();
-            if (lineLength > 0) {
-                column = column <= lineLength ?
-                        column :
-                        lineLength + 1;
+            if (j < pos) {
+                column++;
             }
+        }
+        line = chars.subSequence(startOfLine, end);
+        final int lineLength = line.length();
+        if (lineLength > 0) {
+            column = column <= lineLength ?
+                    column :
+                    lineLength + 1;
         }
 
         return new LineAndColumn(lineNumber, column, line);
