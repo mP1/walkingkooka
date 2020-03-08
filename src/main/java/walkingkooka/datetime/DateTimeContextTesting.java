@@ -61,7 +61,7 @@ public interface DateTimeContextTesting extends HasLocaleTesting {
     default void twoDigitYearAndCheck(final DateTimeContext context,
                                       final int twoDigitYear) {
         assertEquals(true,
-                twoDigitYear >= 0 || twoDigitYear <= 100,
+                twoDigitYear >= 0 && twoDigitYear <= 100,
                 () -> "twoDigitYear " + twoDigitYear + " " + context);
     }
 
