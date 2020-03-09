@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 /**
  * Base class for both LIMIT and SKIP.
  */
+@SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
 abstract class PushableStreamConsumerStreamIntermediate1 extends PushableStreamConsumerStreamIntermediate {
 
     PushableStreamConsumerStreamIntermediate1(final long value) {
@@ -31,7 +32,6 @@ abstract class PushableStreamConsumerStreamIntermediate1 extends PushableStreamC
 
     final long value;
 
-    @SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
     @Override
     public final int hashCode() {
         return Long.hashCode(this.value);

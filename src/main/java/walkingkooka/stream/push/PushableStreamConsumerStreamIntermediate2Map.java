@@ -25,6 +25,7 @@ import java.util.function.Function;
 /**
  * The MAP {@link PushableStreamConsumerStream}
  */
+@SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
 final class PushableStreamConsumerStreamIntermediate2Map extends PushableStreamConsumerStreamIntermediate2 {
 
     static PushableStreamConsumerStreamIntermediate2Map with(final Function<?, ?> mapper) {
@@ -47,7 +48,6 @@ final class PushableStreamConsumerStreamIntermediate2Map extends PushableStreamC
 
     // Object..........................................................................................................
 
-    @SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
     @Override
     public int hashCode() {
         return this.mapper.hashCode();
