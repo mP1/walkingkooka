@@ -25,6 +25,7 @@ import java.util.function.Consumer;
 /**
  * The PEEK {@link PushableStreamConsumerStream}
  */
+@SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
 final class PushableStreamConsumerStreamIntermediate2Peek extends PushableStreamConsumerStreamIntermediate2 {
 
     static PushableStreamConsumerStreamIntermediate2Peek with(final Consumer<?> action) {
@@ -47,7 +48,6 @@ final class PushableStreamConsumerStreamIntermediate2Peek extends PushableStream
 
     // Object..........................................................................................................
 
-    @SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
     @Override
     public int hashCode() {
         return this.action.hashCode();

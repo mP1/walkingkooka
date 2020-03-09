@@ -25,6 +25,7 @@ import java.util.function.Predicate;
 /**
  * The FILTER intermediate op {@link PushableStreamConsumerStream}.
  */
+@SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
 final class PushableStreamConsumerStreamIntermediate2Filter extends PushableStreamConsumerStreamIntermediate2 {
 
     static PushableStreamConsumerStreamIntermediate2Filter with(final Predicate<?> predicate) {
@@ -47,7 +48,6 @@ final class PushableStreamConsumerStreamIntermediate2Filter extends PushableStre
 
     // Object..........................................................................................................
 
-    @SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
     @Override
     public int hashCode() {
         return this.predicate.hashCode();

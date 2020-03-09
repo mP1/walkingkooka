@@ -26,6 +26,7 @@ import java.util.stream.Stream;
 /**
  * The FLATMAP {@link PushableStreamConsumerStream}
  */
+@SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
 final class PushableStreamConsumerStreamIntermediate2FlatMap extends PushableStreamConsumerStreamIntermediate2 {
 
     static PushableStreamConsumerStreamIntermediate2FlatMap with(final Function<?, Stream<?>> mapper) {
@@ -48,7 +49,6 @@ final class PushableStreamConsumerStreamIntermediate2FlatMap extends PushableStr
 
     // Object..........................................................................................................
 
-    @SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
     @Override
     public int hashCode() {
         return this.mapper.hashCode();
