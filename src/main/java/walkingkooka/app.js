@@ -1,3 +1,3 @@
-goog.module('walkingkooka.app');
+goog.module('walkingkooka');
 
 document.write("Hello!");
