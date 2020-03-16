@@ -17,11 +17,8 @@
 
 package walkingkooka.reflect.j2clshadedclasstestingtest.package2;
 
-import walkingkooka.reflect.j2clshadedclasstestingtest.Different;
-
 public class DifferentMethodReturnType {
 
-    public Different method1(final String parameter) {
-        return null;
+    public void method1() {
     }
 }

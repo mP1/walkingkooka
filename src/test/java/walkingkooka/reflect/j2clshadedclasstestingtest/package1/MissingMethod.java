@@ -22,4 +22,8 @@ public class MissingMethod {
     public Object method1(final String parameter) {
         return null;
     }
+
+    // missing in package2 and ignored
+    public void missingMethod2() {
+    }
 }
