@@ -15,29 +15,11 @@
  *
  */
 
-package walkingkooka.reflect.j2clshadedclasstestingtest.package2;
+package walkingkooka.reflect.j2clshadedclasstestingtest.package1;
 
-import walkingkooka.reflect.j2clshadedclasstestingtest.Class4;
+import walkingkooka.reflect.j2clshadedclasstestingtest.Different;
 
-public class Shaded1 {
+public class DifferentFieldType {
 
-    public Shaded3 method1(final Shaded2 shaded2) {
-        return null;
-    }
-
-    public String method2(final String parameter) {
-        return null;
-    }
-
-    protected static Class4 method3(final String parameter) {
-        return null;
-    }
-
-    // fields...........................................................................................................
-
-    public Shaded3 field1;
-
-    public String field2;
-
-    protected static Class4 field3;
+    public Different field1;
 }
