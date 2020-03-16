@@ -27,6 +27,7 @@ import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -39,9 +40,9 @@ public interface J2clShadedClassTesting {
 
     String J2CL_SHADE_FILENAME = ".walkingkooka-j2cl-maven-plugin-shade.txt";
 
-    default void methodSignaturesCheck(final Class<?> emulatedType,
-                                       final Class<?> jreType) throws IOException {
-        try (final InputStream file = emulatedType.getClass().getResourceAsStream(J2CL_SHADE_FILENAME)) {
+    default void methodSignaturesCheck(final Class<?> shadedType,
+                                       final Class<?> unshadedType) throws IOException {
+        try (final InputStream file = shadedType.getClass().getResourceAsStream(J2CL_SHADE_FILENAME)) {
             if (null == file) {
                 Assertions.fail("Unable to find resource " + CharSequences.quote(J2CL_SHADE_FILENAME));
             }
@@ -51,8 +52,8 @@ public interface J2clShadedClassTesting {
             final Map<String, String> map = Maps.sorted();
             properties.forEach((k, v) -> map.put((String) k, (String) v));
 
-            this.methodSignaturesCheck(emulatedType,
-                    jreType,
+            this.methodSignaturesCheck(shadedType,
+                    unshadedType,
                     map);
         }
     }
@@ -61,24 +62,24 @@ public interface J2clShadedClassTesting {
      * Used to check that all methods on the emulated type method signatures match up with the JRE type.
      * This includes using a transformer which transforms the types in emulatedType method parameters and return types.
      */
-    default void methodSignaturesCheck(final Class<?> emulatedType,
-                                       final Class<?> jreType,
-                                       final Map<String, String> shaded) {
+    default void methodSignaturesCheck(final Class<?> shadedType,
+                                       final Class<?> unshadedType,
+                                       final Map<String, String> shadings) {
         final Predicate<Method> publicProtectedMethodPredicate = m -> false == JavaVisibility.of(m).isOrLess(JavaVisibility.PACKAGE_PRIVATE);
 
-        // keep only public and protected emulatedType methods..........................................................
-        final Set<Method> emulatedPublicProtectedMethods = Arrays.stream(emulatedType.getDeclaredMethods())
+        // keep only public and protected shadedType methods..........................................................
+        final Set<Method> shadedPublicProtectedMethods = Arrays.stream(shadedType.getDeclaredMethods())
                 .filter(publicProtectedMethodPredicate)
                 .collect(Collectors.toSet());
 
         // this is used to translate method signatures of $emulatedPublicProtectedMethods into $jreType method signatures.
-        final UnaryOperator<Class> typeTransformer = t -> {
+        final UnaryOperator<Class> typeShader = t -> {
             String typeName = t.getName();
 
-            return shaded.entrySet()
+            return shadings.entrySet()
                     .stream()
                     .filter(e -> typeName.startsWith(e.getKey()))
-                    .map(e -> e.getValue() + typeName.substring(0, e.getKey().length()))
+                    .map(e -> e.getValue() + typeName.substring(e.getKey().length()))
                     .map(n -> {
                         try {
                             return Class.forName(n);
@@ -90,30 +91,30 @@ public interface J2clShadedClassTesting {
                     .orElse(t);
         };
 
-        final Set<Method> badEmulatedMethods = Sets.ordered();
-        for (final Method emulatedMethod : emulatedPublicProtectedMethods) {
-            // try and locate the jre method with the same name and parameters
+        final Set<Method> badShadedMethods = Sets.ordered();
+        for (final Method shadedMethod : shadedPublicProtectedMethods) {
+            // try and locate the shaded method with the same name and parameters
             try {
-                final Method jreMethod = jreType.getDeclaredMethod(emulatedMethod.getName(),
-                        Arrays.stream(emulatedMethod.getParameterTypes())
-                                .map(typeTransformer)
+                final Method unshadedMethod = unshadedType.getDeclaredMethod(shadedMethod.getName(),
+                        Arrays.stream(shadedMethod.getParameterTypes())
+                                .map(typeShader)
                                 .toArray(Class[]::new)
                 );
 
-                if (emulatedMethod.getReturnType().equals(jreMethod)) {
-                    badEmulatedMethods.add(jreMethod);
+                if (false == typeShader.apply(shadedMethod.getReturnType()).equals(unshadedMethod.getReturnType())) {
+                    badShadedMethods.add(shadedMethod);
                 }
 
             } catch (final Exception notFound) {
-                badEmulatedMethods.add(emulatedMethod);
+                badShadedMethods.add(shadedMethod);
                 continue;
             }
 
             // verify jre method return type matches emulated
         }
 
-        assertEquals(Sets.empty(),
-                badEmulatedMethods,
-                () -> "Several " + emulatedType.getName() + " methods have different signatures compared to " + jreType.getName());
+        assertEquals(Sets.empty().stream().map(Object::toString).collect(Collectors.joining("\n")),
+                badShadedMethods.stream().map(Method::toGenericString).collect(Collectors.joining("\n")),
+                () -> "Several " + shadedType.getName() + " methods have different signatures compared to " + unshadedType.getName() + " shadings\n" + shadings.entrySet().stream().map(Entry::toString).collect(Collectors.joining("\n", "", "\n")));
     }
 }

@@ -17,9 +17,12 @@
 
 package walkingkooka.reflect.j2clshadedclasstestingtest.package1;
 
+import walkingkooka.reflect.j2clshadedclasstestingtest.Different;
+
 public class DifferentMethodParameter {
 
-    public Object method1(final String parameter) {
+    public Object method1(final int ignored1,
+                          final Different parameter2) {
         return null;
     }
 }

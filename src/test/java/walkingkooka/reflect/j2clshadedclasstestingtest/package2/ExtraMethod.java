@@ -18,4 +18,7 @@
 package walkingkooka.reflect.j2clshadedclasstestingtest.package2;
 
 public class ExtraMethod {
+    public Object extraMethod1(final String parameter) {
+        return null;
+    }
 }
