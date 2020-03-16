@@ -1,0 +1,119 @@
+/*
+ * Copyright 2019 Miroslav Pokorny (github.com/mP1)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+package walkingkooka.reflect;
+
+import org.junit.jupiter.api.Assertions;
+import walkingkooka.collect.map.Maps;
+import walkingkooka.collect.set.Sets;
+import walkingkooka.text.CharSequences;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public interface J2clShadedClassTesting {
+
+    String J2CL_SHADE_FILENAME = ".walkingkooka-j2cl-maven-plugin-shade.txt";
+
+    default void methodSignaturesCheck(final Class<?> emulatedType,
+                                       final Class<?> jreType) throws IOException {
+        try (final InputStream file = emulatedType.getClass().getResourceAsStream(J2CL_SHADE_FILENAME)) {
+            if (null == file) {
+                Assertions.fail("Unable to find resource " + CharSequences.quote(J2CL_SHADE_FILENAME));
+            }
+            final Properties properties = new Properties();
+            properties.load(file);
+
+            final Map<String, String> map = Maps.sorted();
+            properties.forEach((k, v) -> map.put((String) k, (String) v));
+
+            this.methodSignaturesCheck(emulatedType,
+                    jreType,
+                    map);
+        }
+    }
+
+    /**
+     * Used to check that all methods on the emulated type method signatures match up with the JRE type.
+     * This includes using a transformer which transforms the types in emulatedType method parameters and return types.
+     */
+    default void methodSignaturesCheck(final Class<?> emulatedType,
+                                       final Class<?> jreType,
+                                       final Map<String, String> shaded) {
+        final Predicate<Method> publicProtectedMethodPredicate = m -> false == JavaVisibility.of(m).isOrLess(JavaVisibility.PACKAGE_PRIVATE);
+
+        // keep only public and protected emulatedType methods..........................................................
+        final Set<Method> emulatedPublicProtectedMethods = Arrays.stream(emulatedType.getDeclaredMethods())
+                .filter(publicProtectedMethodPredicate)
+                .collect(Collectors.toSet());
+
+        // this is used to translate method signatures of $emulatedPublicProtectedMethods into $jreType method signatures.
+        final UnaryOperator<Class> typeTransformer = t -> {
+            String typeName = t.getName();
+
+            return shaded.entrySet()
+                    .stream()
+                    .filter(e -> typeName.startsWith(e.getKey()))
+                    .map(e -> e.getValue() + typeName.substring(0, e.getKey().length()))
+                    .map(n -> {
+                        try {
+                            return Class.forName(n);
+                        } catch (final Exception notFound) {
+                            throw new RuntimeException("Unable to find type " + CharSequences.quote(typeName));
+                        }
+                    })
+                    .findFirst()
+                    .orElse(t);
+        };
+
+        final Set<Method> badEmulatedMethods = Sets.ordered();
+        for (final Method emulatedMethod : emulatedPublicProtectedMethods) {
+            // try and locate the jre method with the same name and parameters
+            try {
+                final Method jreMethod = jreType.getDeclaredMethod(emulatedMethod.getName(),
+                        Arrays.stream(emulatedMethod.getParameterTypes())
+                                .map(typeTransformer)
+                                .toArray(Class[]::new)
+                );
+
+                if (emulatedMethod.getReturnType().equals(jreMethod)) {
+                    badEmulatedMethods.add(jreMethod);
+                }
+
+            } catch (final Exception notFound) {
+                badEmulatedMethods.add(emulatedMethod);
+                continue;
+            }
+
+            // verify jre method return type matches emulated
+        }
+
+        assertEquals(Sets.empty(),
+                badEmulatedMethods,
+                () -> "Several " + emulatedType.getName() + " methods have different signatures compared to " + jreType.getName());
+    }
+}

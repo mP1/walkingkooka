@@ -213,10 +213,10 @@ public final class ParseStringTestingTest implements ParseStringTesting<String> 
 
     @Test
     public void testParseStringFailsClass2() {
-        mustFail(() -> new TestParseStringFailsClass2().parseStringFails("abcd", IllegalArgumentException.class));
+        mustFail(() -> new TestParseStringFailsShaded2().parseStringFails("abcd", IllegalArgumentException.class));
     }
 
-    static class TestParseStringFailsClass2 extends TestParseStringTesting<String> {
+    static class TestParseStringFailsShaded2 extends TestParseStringTesting<String> {
         @Override
         public String parseString(final String text) {
             return text;
