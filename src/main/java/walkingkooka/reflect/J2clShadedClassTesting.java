@@ -92,7 +92,9 @@ public interface J2clShadedClassTesting {
         for (final Field shadedField : shadedPublicProtectedFields) {
             try {
                 final Field unshadedField = unshadedType.getDeclaredField(shadedField.getName());
-                if (false == typeShader.apply(shadedField.getType()).equals(unshadedField.getType())) {
+                if (false == typeShader.apply(shadedField.getType()).equals(unshadedField.getType()) ||
+                        JavaVisibility.of(shadedField) != JavaVisibility.of(unshadedField) ||
+                        false == FieldAttributes.get(shadedField).equals(FieldAttributes.get(unshadedField))) {
                     badShadedFields.add(shadedField);
                 }
 
@@ -166,7 +168,9 @@ public interface J2clShadedClassTesting {
                                 .toArray(Class[]::new)
                 );
 
-                if (false == typeShader.apply(shadedMethod.getReturnType()).equals(unshadedMethod.getReturnType())) {
+                if (false == typeShader.apply(shadedMethod.getReturnType()).equals(unshadedMethod.getReturnType()) ||
+                        JavaVisibility.of(shadedMethod) != JavaVisibility.of(unshadedMethod) ||
+                        false == MethodAttributes.get(shadedMethod).equals(MethodAttributes.get(unshadedMethod))) {
                     badShadedMethods.add(shadedMethod);
                 }
 
