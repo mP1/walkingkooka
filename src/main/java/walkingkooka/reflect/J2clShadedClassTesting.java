@@ -39,11 +39,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public interface J2clShadedClassTesting {
 
-    String J2CL_SHADE_FILENAME = ".walkingkooka-j2cl-maven-plugin-shade.txt";
+    String J2CL_SHADE_FILENAME = "/.walkingkooka-j2cl-maven-plugin-shade.txt";
 
     default void fieldDeclarationsCheck(final Class<?> shadedType,
                                         final Class<?> unshadedType) throws IOException {
-        try (final InputStream file = shadedType.getClass().getResourceAsStream(J2CL_SHADE_FILENAME)) {
+        try (final InputStream file = shadedType.getResourceAsStream(J2CL_SHADE_FILENAME)) {
             if (null == file) {
                 Assertions.fail("Unable to find resource " + CharSequences.quote(J2CL_SHADE_FILENAME));
             }
@@ -111,7 +111,7 @@ public interface J2clShadedClassTesting {
 
     default void methodSignaturesCheck(final Class<?> shadedType,
                                        final Class<?> unshadedType) throws IOException {
-        try (final InputStream file = shadedType.getClass().getResourceAsStream(J2CL_SHADE_FILENAME)) {
+        try (final InputStream file = shadedType.getResourceAsStream(J2CL_SHADE_FILENAME)) {
             if (null == file) {
                 Assertions.fail("Unable to find resource " + CharSequences.quote(J2CL_SHADE_FILENAME));
             }
