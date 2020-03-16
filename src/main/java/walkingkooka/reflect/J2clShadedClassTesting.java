@@ -58,10 +58,6 @@ public interface J2clShadedClassTesting {
         }
     }
 
-    /**
-     * Used to check that all methods on the emulated type method signatures match up with the JRE type.
-     * This includes using a transformer which transforms the types in emulatedType method parameters and return types.
-     */
     default void methodSignaturesCheck(final Class<?> shadedType,
                                        final Class<?> unshadedType,
                                        final Map<String, String> shadings) {
