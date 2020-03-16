@@ -27,7 +27,78 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class J2clShadedClassTestingTest implements J2clShadedClassTesting {
+    
+    // fields...........................................................................................................
 
+    @Test
+    public void testFieldDeclarationshadeFileNotFound() {
+        assertThrows(Throwable.class, () -> {
+            this.fieldDeclarationsCheck(J2clShadedClassTestingTest.class, J2clShadedClassTestingTest.class);
+        });
+    }
+
+    @Test
+    public void testFieldDeclarationsCheckSameTypesNoShaded() {
+        this.fieldDeclarationsCheck(J2clShadedClassTestingTest.class,
+                J2clShadedClassTestingTest.class,
+                Maps.empty());
+    }
+
+    @Test
+    public void testFieldDeclarationsCheckSameTypes() {
+        this.fieldDeclarationsCheck(J2clShadedClassTestingTest.class,
+                J2clShadedClassTestingTest.class,
+                Maps.of("from", "to"));
+    }
+
+
+    @Test
+    public void testFieldDeclarationsShaded() {
+        this.fieldDeclarationsCheck2(walkingkooka.reflect.j2clshadedclasstestingtest.package1.Shaded1.class,
+                walkingkooka.reflect.j2clshadedclasstestingtest.package2.Shaded1.class);
+    }
+
+    @Test
+    public void testFieldDeclarationsShadedExtraIgnored() {
+        this.fieldDeclarationsCheck2(walkingkooka.reflect.j2clshadedclasstestingtest.package1.ExtraField.class,
+                walkingkooka.reflect.j2clshadedclasstestingtest.package2.ExtraField.class);
+    }
+
+    private void fieldDeclarationsCheck2(final Class<?> class1,
+                                         final Class<?> class2) {
+        this.fieldDeclarationsCheck(class1,
+                class2,
+                Maps.of(class1.getPackageName(), class2.getPackageName()));
+    }
+
+    @Test
+    public void testFieldDeclarationsShadedDifferentFieldTypeFails() {
+        this.fieldDeclarationsCheckFails(walkingkooka.reflect.j2clshadedclasstestingtest.package1.DifferentFieldType.class,
+                walkingkooka.reflect.j2clshadedclasstestingtest.package2.DifferentFieldType.class,
+                "public walkingkooka.reflect.j2clshadedclasstestingtest.Different walkingkooka.reflect.j2clshadedclasstestingtest.package1.DifferentFieldType.field1");
+    }
+
+    @Test
+    public void testFieldDeclarationsShadedMissingFieldFails() {
+        this.fieldDeclarationsCheckFails(walkingkooka.reflect.j2clshadedclasstestingtest.package1.MissingField.class,
+                walkingkooka.reflect.j2clshadedclasstestingtest.package2.MissingField.class,
+                "public java.lang.Object walkingkooka.reflect.j2clshadedclasstestingtest.package1.MissingField.missingField2");
+    }
+
+    private void fieldDeclarationsCheckFails(final Class<?> class1,
+                                             final Class<?> class2,
+                                             final String... expected) {
+        final Throwable thrown = assertThrows(Throwable.class, () -> {
+            this.fieldDeclarationsCheck(class1,
+                    class2,
+                    Maps.of(class1.getPackageName(), class2.getPackageName()));
+        });
+        final String message = thrown.getMessage();
+        assertTrue(Arrays.stream(expected).allMatch(c -> message.contains(c)), () -> message + " contains " + Arrays.stream(expected).collect(Collectors.joining(", ")));
+    }
+
+    // methods..........................................................................................................
+    
     @Test
     public void testMethodSignatureShadeFileNotFound() {
         assertThrows(Throwable.class, () -> {

@@ -40,4 +40,16 @@ public class Shaded1 {
     private Object ignored2() {
         return null;
     }
+
+    // fields...........................................................................................................
+
+    public Shaded3 field1;
+
+    public String field2;
+
+    protected static Class4 field3;
+
+    Object ignored1;
+
+    private Object ignored2;
 }
