@@ -1275,10 +1275,10 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
 
     @Test
     // TODO add an if for windows and linux.
-    public void testWithoutSystemProperty() {
+    public void testWithoutSystemPropertyOnOSX() {
         CaseSensitivity.FILE_SYSTEM = null;
 
-        final String osName = SystemProperty.OS_NAME.propertyValue();
+        final String osName = SystemProperty.OS_NAME.propertyValue().orElse("");
         if (osName.contains("OS X")) {
             assertEquals(CaseSensitivity.SENSITIVE, CaseSensitivity.fileSystem());
         }

@@ -24,14 +24,12 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.ConstantsTesting;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.util.MissingSystemPropertyException;
-import walkingkooka.util.SystemProperty;
 
+import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -70,14 +68,17 @@ final public class SystemPropertyTest implements ClassTesting2<SystemProperty>,
 
     @Test
     public void testUnknown() {
-        assertNull(SystemProperty.get(this.getClass().getName() + ".unknown")
+        assertEquals(Optional.empty(),
+            SystemProperty.get(this.getClass().getName() + ".unknown")
                 .propertyValue());
     }
 
     @Test
     public void testRequiredValue() {
         final SystemProperty property = SystemProperty.FILE_SEPARATOR;
-        assertEquals(property.propertyValue(), property.requiredPropertyValue(), "value");
+        assertEquals(property.propertyValue().orElse("FAIL!"),
+            property.requiredPropertyValue(),
+                () -> "value of " + property);
     }
 
     @Test
@@ -95,7 +96,7 @@ final public class SystemPropertyTest implements ClassTesting2<SystemProperty>,
 
         try {
             property.set(value);
-            assertEquals(value, property.propertyValue());
+            assertEquals(Optional.of(value), property.propertyValue());
         } catch (final SecurityException ignore) {
         }
     }
@@ -109,7 +110,7 @@ final public class SystemPropertyTest implements ClassTesting2<SystemProperty>,
         try {
             property.set(value);
             property.clear();
-            assertNull(property.propertyValue());
+            assertEquals(Optional.empty(), property.propertyValue());
         } catch (final SecurityException ignore) {
         }
     }
