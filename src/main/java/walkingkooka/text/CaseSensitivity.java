@@ -374,12 +374,15 @@ public enum CaseSensitivity {
 
     @GwtIncompatible
     private static CaseSensitivity fromSystemProperty() {
-        final String systemPropertyValue = FILE_SYSTEM_PROPERTY.propertyValue();
-        return CharSequences.isNullOrEmpty(systemPropertyValue) ?
-                null :
-                Boolean.parseBoolean(systemPropertyValue) ?
-                        SENSITIVE :
-                        INSENSITIVE;
+        return FILE_SYSTEM_PROPERTY.propertyValue()
+                .map(CaseSensitivity::fromSystemProperty0)
+                .orElse(null);
+    }
+
+    private static CaseSensitivity fromSystemProperty0(final String systemPropertyValue) {
+        return Boolean.parseBoolean(systemPropertyValue) ?
+                SENSITIVE :
+                INSENSITIVE;
     }
 
     /**

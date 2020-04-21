@@ -24,6 +24,7 @@ import walkingkooka.text.CharSequences;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Represents a system property with methods to interact with values.<br>
@@ -130,8 +131,8 @@ final public class SystemProperty implements Value<String> {
     /**
      * Retrieves the current value of this system property. May return null if not set.
      */
-    public String propertyValue() {
-        return SystemPropertySecurityAction.getProperty(this.name);
+    public Optional<String> propertyValue() {
+        return Optional.ofNullable(SystemPropertySecurityAction.getProperty(this.name));
     }
 
     /**
@@ -139,11 +140,7 @@ final public class SystemProperty implements Value<String> {
      * MissingSystemPropertyException} rather than null will be thrown.
      */
     public String requiredPropertyValue() throws MissingSystemPropertyException {
-        final String value = this.propertyValue();
-        if (null == value) {
-            throw new MissingSystemPropertyException("Unable to find value for=" + this.name);
-        }
-        return value;
+        return this.propertyValue().orElseThrow(() -> new MissingSystemPropertyException("Unable to find value for=" + this.name));
     }
 
     /**
