@@ -48,10 +48,10 @@ public class NeverError extends Error {
     }
 
     /**
-     * Useful to report unexpected enums in a switch.
+     * Useful to report unexpected enums like values such as {@link int} or {@link String} used in a switch statement.
      */
     @SafeVarargs
-    public static <E extends Enum<E>, T> T unhandledCase(final Object value, final Object... expected) {
+    public static <T> T unhandledCase(final T value, final T... expected) {
         throw new NeverError("Unhandled value: " + CharSequences.quoteIfChars(value) + " only expected: " + Arrays.stream(expected)
                 .map(CharSequences::quoteIfChars)
                 .collect(Collectors.joining(",")));
