@@ -17,8 +17,6 @@
 
 package walkingkooka.text;
 
-import walkingkooka.util.SystemProperty;
-
 import java.util.Objects;
 
 /**
@@ -50,7 +48,9 @@ final public class LineEnding implements CharSequence {
     /**
      * The actual system line ending.
      */
-    public final static LineEnding SYSTEM = from(SystemProperty.LINE_SEPARATOR.requiredPropertyValue());
+    //public final static LineEnding SYSTEM = from(SystemProperty.LINE_SEPARATOR.requiredPropertyValue());
+    // j2cl SystemProperty is not supported due to AccessController usage. https://github.com/mP1/walkingkooka/issues/2438
+    public final static LineEnding SYSTEM = from(System.getProperty("line.separator"));
 
     /**
      * Returns the {@link LineEnding} for the given {@link String line ending}.
