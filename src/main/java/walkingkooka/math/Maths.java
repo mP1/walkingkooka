@@ -68,8 +68,7 @@ public final class Maths implements PublicStaticHelper {
                 bigDecimal = BigDecimal.ROUND_UP;
                 break;
             default:
-                bigDecimal = NeverError.unhandledCase(mode, RoundingMode.values());
-                break;
+                bigDecimal = NeverError.unhandledEnum(mode, RoundingMode.values());
         }
 
         return bigDecimal;
