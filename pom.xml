@@ -136,7 +136,7 @@
             <resource>
                 <directory>src/main/java</directory>
                 <includes>
-                    <include>**/.walkingkooka-j2cl-maven-plugin-ignored-files.txt</include>
+                    <include>**/*</include>
                 </includes>
             </resource>
         </resources>
