@@ -50,7 +50,8 @@ final public class LineEnding implements CharSequence {
      */
     //public final static LineEnding SYSTEM = from(SystemProperty.LINE_SEPARATOR.requiredPropertyValue());
     // j2cl SystemProperty is not supported due to AccessController usage. https://github.com/mP1/walkingkooka/issues/2438
-    public final static LineEnding SYSTEM = from(System.getProperty("line.separator"));
+    // default required because property will be absent https://github.com/mP1/walkingkooka/issues/2445
+    public final static LineEnding SYSTEM = from(System.getProperty("line.separator", "\n"));
 
     /**
      * Returns the {@link LineEnding} for the given {@link String line ending}.
