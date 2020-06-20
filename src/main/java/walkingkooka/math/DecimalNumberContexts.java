@@ -31,6 +31,7 @@ public final class DecimalNumberContexts implements PublicStaticHelper {
     /**
      * {@see AmericanDecimalNumberContext}
      */
+    @GwtIncompatible
     public static DecimalNumberContext american(final MathContext mathContext) {
         return AmericanDecimalNumberContext.with(mathContext);
     }

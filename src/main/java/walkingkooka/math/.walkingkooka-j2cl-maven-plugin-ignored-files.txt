@@ -1,3 +1,9 @@
-# Classes with references to java.text.DecimalFormat are blacklisted until they are emulated.
+#
+# AmericanDecimalNumberContext required Locale.US which becomes broken when mp1/j2cl-java-util-Locale is used.
+#
+AmericanDecimalNumberContext*
 
+#
+# Classes with references to java.text.DecimalFormat are blacklisted until they are emulated.
+#
 DecimalFormat*
