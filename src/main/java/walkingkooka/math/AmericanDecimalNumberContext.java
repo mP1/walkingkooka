@@ -97,11 +97,8 @@ final class AmericanDecimalNumberContext implements DecimalNumberContext {
 
     @Override
     public Locale locale() {
-        return LOCALE;
+        return Locale.US;
     }
-
-    // cant use Locale.US constant because is not supported by https://github.com/mP1/j2cl-java-util-Locale
-    private final static Locale LOCALE = Locale.forLanguageTag("en-US");
 
     @Override
     public MathContext mathContext() {
