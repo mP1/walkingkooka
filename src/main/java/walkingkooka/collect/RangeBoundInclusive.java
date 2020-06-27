@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.math;
+package walkingkooka.collect;
 
 /**
  * Represents a inclusive value within a {@link Range}

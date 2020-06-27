@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.math;
+package walkingkooka.collect;
 
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;

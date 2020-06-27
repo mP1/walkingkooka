@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.math;
+package walkingkooka.collect;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;

@@ -18,7 +18,7 @@
 package walkingkooka;
 
 import javaemul.internal.annotations.GwtIncompatible;
-import walkingkooka.math.Range;
+import walkingkooka.collect.Range;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
