@@ -15,20 +15,13 @@
  *
  */
 
-package walkingkooka.math;
+package walkingkooka.collect;
 
-import walkingkooka.Cast;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.visit.VisitorTesting;
 
-public final class RangeBoundTest implements ClassTesting2<RangeBound<?>> {
+public interface RangeVisitorTesting<V extends RangeVisitor<C>, C extends Comparable<C>> extends VisitorTesting<V, Range<C>> {
     @Override
-    public Class<RangeBound<?>> type() {
-        return Cast.to(RangeBound.class);
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
+    default String typeNameSuffix() {
+        return RangeVisitor.class.getSimpleName();
     }
 }
