@@ -41,10 +41,10 @@
             <name>Vertispan hosted artifacts-releases</name>
             <url>https://repo.vertispan.com/j2cl</url>
             <releases>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
             </releases>
             <snapshots>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
             </snapshots>
         </repository>
         <repository>
@@ -54,7 +54,7 @@
                 <enabled>false</enabled>
             </releases>
             <snapshots>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
             </snapshots>
         </repository>
         <repository>
@@ -64,7 +64,7 @@
                 <enabled>false</enabled>
             </releases>
             <snapshots>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
             </snapshots>
         </repository>
     </repositories>
@@ -134,7 +134,7 @@
             <id>github.com mP1 maven repo</id>
             <url>https://maven-repo-254709.appspot.com</url>
             <snapshots>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
                 <updatePolicy>daily</updatePolicy>
                 <checksumPolicy>fail</checksumPolicy>
             </snapshots>
@@ -144,10 +144,10 @@
             <name>Vertispan hosted artifacts-releases</name>
             <url>https://repo.vertispan.com/j2cl</url>
             <releases>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
             </releases>
             <snapshots>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
             </snapshots>
         </pluginRepository>
         <pluginRepository>
@@ -157,7 +157,7 @@
                 <enabled>false</enabled>
             </releases>
             <snapshots>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
             </snapshots>
         </pluginRepository>
         <pluginRepository>
@@ -167,7 +167,7 @@
                 <enabled>false</enabled>
             </releases>
             <snapshots>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
