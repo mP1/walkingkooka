@@ -41,30 +41,30 @@
             <name>Vertispan hosted artifacts-releases</name>
             <url>https://repo.vertispan.com/j2cl</url>
             <releases>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </releases>
             <snapshots>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </snapshots>
         </repository>
         <repository>
             <id>vertispan-gwt-snapshots</id>
             <url>https://repo.vertispan.com/gwt-snapshot/</url>
             <releases>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </releases>
             <snapshots>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </snapshots>
         </repository>
         <repository>
             <id>google-sonatype-snapshots</id>
             <url>https://oss.sonatype.org/content/repositories/google-snapshots/</url>
             <releases>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </releases>
             <snapshots>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </snapshots>
         </repository>
     </repositories>
@@ -134,7 +134,7 @@
             <id>github.com mP1 maven repo</id>
             <url>https://maven-repo-254709.appspot.com</url>
             <snapshots>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
                 <updatePolicy>daily</updatePolicy>
                 <checksumPolicy>fail</checksumPolicy>
             </snapshots>
@@ -144,30 +144,30 @@
             <name>Vertispan hosted artifacts-releases</name>
             <url>https://repo.vertispan.com/j2cl</url>
             <releases>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </releases>
             <snapshots>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </snapshots>
         </pluginRepository>
         <pluginRepository>
             <id>vertispan-gwt-snapshots</id>
             <url>https://repo.vertispan.com/gwt-snapshot/</url>
             <releases>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </releases>
             <snapshots>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </snapshots>
         </pluginRepository>
         <pluginRepository>
             <id>google-sonatype-snapshots</id>
             <url>https://oss.sonatype.org/content/repositories/google-snapshots/</url>
             <releases>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </releases>
             <snapshots>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
