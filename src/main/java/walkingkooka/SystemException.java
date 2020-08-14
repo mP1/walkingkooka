@@ -49,7 +49,6 @@ public class SystemException extends RuntimeException {
     }
 
     private static Throwable checkCause(final Throwable cause) {
-        Objects.requireNonNull(cause, "cause");
-        return cause;
+        return Objects.requireNonNull(cause, "cause");
     }
 }
