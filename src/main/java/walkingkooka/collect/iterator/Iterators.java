@@ -21,6 +21,7 @@ import walkingkooka.reflect.PublicStaticHelper;
 
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.function.Function;
 
 final public class Iterators implements PublicStaticHelper {
 
@@ -74,6 +75,14 @@ final public class Iterators implements PublicStaticHelper {
      */
     public static <E> Iterator<E> limited(final Iterator<E> iterator, final int count) {
         return LimitedIterator.wrap(iterator, count);
+    }
+
+    /**
+     * {@see MappingIterator}
+     */
+    public static <S, D> Iterator<D> mapping(final Iterator<S> iterator,
+                                             final Function<S, D> mapper) {
+        return MappingIterator.with(iterator, mapper);
     }
 
     /**
