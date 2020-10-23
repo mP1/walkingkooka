@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.predicate.PredicateTesting2;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.text.CharSequences;
 
 import java.util.function.Predicate;
 
@@ -349,5 +350,26 @@ public final class ComparisonRelationTest implements ClassTesting2<ComparisonRel
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
+    }
+
+    // ??? Not sure why cant call default method...
+    public void testTrue(final Predicate<Integer> predicate, final Integer value) {
+        assertEquals(true,
+                predicate.test(value),
+                () -> predicate + " should match=" + CharSequences.quoteIfChars(value));
+
+        assertEquals(true,
+                predicate.test(value.intValue()),
+                () -> predicate + " should match=" + CharSequences.quoteIfChars(value));
+    }
+
+    public void testFalse(final Predicate<Integer> predicate, final Integer value) {
+        assertEquals(false,
+                predicate.test(value),
+                () -> predicate + " should not match=" + CharSequences.quoteIfChars(value));
+
+        assertEquals(false,
+                predicate.test(value.intValue()),
+                () -> predicate + " should not match=" + CharSequences.quoteIfChars(value));
     }
 }

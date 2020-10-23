@@ -32,7 +32,7 @@ public enum ComparisonRelation implements Predicate<Integer> {
 
     EQ("=") {
         @Override
-        boolean test0(final int value) {
+        public boolean test(final int value) {
             return 0 == value;
         }
 
@@ -51,7 +51,7 @@ public enum ComparisonRelation implements Predicate<Integer> {
     },
     GTE(">=") {
         @Override
-        boolean test0(final int value) {
+        public boolean test(final int value) {
             return value >= 0;
         }
 
@@ -67,7 +67,7 @@ public enum ComparisonRelation implements Predicate<Integer> {
     },
     GT(">") {
         @Override
-        boolean test0(final int value) {
+        public boolean test(final int value) {
             return value > 0;
         }
 
@@ -83,7 +83,7 @@ public enum ComparisonRelation implements Predicate<Integer> {
     },
     LTE("<=") {
         @Override
-        boolean test0(final int value) {
+        public boolean test(final int value) {
             return value <= 0;
         }
 
@@ -99,7 +99,7 @@ public enum ComparisonRelation implements Predicate<Integer> {
     },
     LT("<") {
         @Override
-        boolean test0(final int value) {
+        public boolean test(final int value) {
             return value < 0;
         }
 
@@ -115,7 +115,7 @@ public enum ComparisonRelation implements Predicate<Integer> {
     },
     NE("!=") {
         @Override
-        boolean test0(final int value) {
+        public boolean test(final int value) {
             return 0 != value;
         }
 
@@ -143,10 +143,10 @@ public enum ComparisonRelation implements Predicate<Integer> {
     @SuppressWarnings("UnnecessaryUnboxing")
     @Override
     public boolean test(final Integer integer) {
-        return this.test0(integer.intValue());
+        return this.test(integer.intValue());
     }
 
-    abstract boolean test0(final int value);
+    public abstract boolean test(final int integer);
 
     /**
      * The mathematical symbol for the relation, eg {@link #LTE} returns "<=".
