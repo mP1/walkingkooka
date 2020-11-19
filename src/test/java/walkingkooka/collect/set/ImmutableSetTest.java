@@ -110,6 +110,15 @@ public final class ImmutableSetTest extends ImmutableSetTestCase<ImmutableSet<?>
 
         final Set<String> immutable = this.immutableAndCheck(set);
         this.iterateAndCheck(immutable.iterator(), "1a", "2b", "3c");
+
+        this.containsAndCheck(set, "1a", true);
+        this.containsAndCheck(set, "1A", false);
+
+        this.containsAndCheck(set, "2b", true);
+        this.containsAndCheck(set, "2B", false);
+
+        this.containsAndCheck(set, "3c", true);
+        this.containsAndCheck(set, "3C", false);
     }
 
     @Test
@@ -121,6 +130,25 @@ public final class ImmutableSetTest extends ImmutableSetTestCase<ImmutableSet<?>
 
         final Set<String> immutable = this.immutableAndCheck(set);
         this.iterateAndCheck(immutable.iterator(), "1a", "2B", "3C");
+
+        this.containsAndCheck(set, "1a", true);
+        this.containsAndCheck(set, "1A", true);
+
+        this.containsAndCheck(set, "2b", true);
+        this.containsAndCheck(set, "2B", true);
+
+        this.containsAndCheck(set, "3c", true);
+        this.containsAndCheck(set, "3C", true);
+
+        this.containsAndCheck(set, "?", false);
+    }
+
+    private void containsAndCheck(final Set<?> set,
+                                  final Object contains,
+                                  final boolean expected) {
+        assertEquals(expected,
+                set.contains(contains),
+                () -> set + " contains " + contains);
     }
 
     private Set<String> immutableAndCheck(final Set<String> from) {
