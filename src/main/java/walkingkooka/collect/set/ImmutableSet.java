@@ -60,6 +60,35 @@ abstract class ImmutableSet<T> extends AbstractSet<T> {
      * Copy to an ordered {@link Set} keeping the original order for sorted or unsorted {@link Set sets}.
      */
     static <T> Set<T> copy(final Set<T> from) {
+        return from instanceof SortedSet ?
+                copySortedSet(from) :
+                copyUnsortedSet(from);
+    }
+
+    /**
+     * Handles sorted sets by either returning empty or wrapping them to block modifications.
+     */
+    private static <T> Set<T> copySortedSet(final Set<T> from) {
+        final Set<T> to = sorted(Cast.to(from));
+        to.addAll(from);
+
+        Set<T> immutable;
+        switch (to.size()) {
+            case 0:
+                immutable = Sets.empty();
+                break;
+            default:
+                immutable = wrap(to);
+                break;
+        }
+
+        return immutable;
+    }
+
+    /**
+     * Handles {@link Set} that are not {@link SortedSet}.
+     */
+    private static <T> Set<T> copyUnsortedSet(final Set<T> from) {
         final Set<T> to = from instanceof SortedSet ?
                 sorted(Cast.to(from)) :
                 Sets.ordered();
