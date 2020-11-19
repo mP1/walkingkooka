@@ -102,7 +102,7 @@ public final class ImmutableListTest extends ImmutableListTestCase<ImmutableList
         final List<String> immutable = Lists.immutable(from);
         assertEquals(true,
                 immutable instanceof ImmutableList,
-                () -> "from " + from + " reflect=" + immutable.getClass().getName() + " " + immutable);
+                () -> "from " + from + " type=" + immutable.getClass().getName() + " " + immutable);
         return immutable;
     }
 
