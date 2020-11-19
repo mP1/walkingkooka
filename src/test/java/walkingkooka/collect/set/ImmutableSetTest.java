@@ -102,7 +102,36 @@ public final class ImmutableSetTest extends ImmutableSetTestCase<ImmutableSet<?>
     }
 
     @Test
-    public void testImmutableSortedSet() {
+    public void testImmutableSortedSet1() {
+        final Set<String> set = Sets.sorted();
+        set.add("1a");
+
+        final Set<String> immutable = this.immutableAndCheck(set);
+        this.iterateAndCheck(immutable.iterator(), "1a");
+
+        this.containsAndCheck(set, "1a", true);
+        this.containsAndCheck(set, "1A", false);
+
+        this.containsAndCheck(set, "?", false);
+        ;
+    }
+
+    @Test
+    public void testImmutableSortedComparatorSet1() {
+        final Set<String> set = Sets.sorted(String.CASE_INSENSITIVE_ORDER);
+        set.add("1A");
+
+        final Set<String> immutable = this.immutableAndCheck(set);
+        this.iterateAndCheck(immutable.iterator(), "1A");
+
+        this.containsAndCheck(set, "1a", true);
+        this.containsAndCheck(set, "1A", true);
+
+        this.containsAndCheck(set, "?", false);
+    }
+
+    @Test
+    public void testImmutableSortedSetMany() {
         final Set<String> set = Sets.sorted();
         set.add("2b");
         set.add("3c");
@@ -122,7 +151,7 @@ public final class ImmutableSetTest extends ImmutableSetTestCase<ImmutableSet<?>
     }
 
     @Test
-    public void testImmutableSortedComparatorSet() {
+    public void testImmutableSortedComparatorSetMany() {
         final Set<String> set = Sets.sorted(String.CASE_INSENSITIVE_ORDER);
         set.add("2B");
         set.add("3C");
