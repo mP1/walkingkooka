@@ -17,7 +17,6 @@
 
 package walkingkooka.collect.list;
 
-import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.collect.iterable.Iterables;
 import walkingkooka.reflect.PublicStaticHelper;
 
@@ -51,7 +50,6 @@ final public class Lists implements PublicStaticHelper {
     /**
      * {@see CopyOnWriteArrayList}
      */
-    @GwtIncompatible("Maybe replace with regular ArrayList for J2cl")
     public static <T> CopyOnWriteArrayList<T> copyOnWrite() {
         return new CopyOnWriteArrayList<>();
     }
