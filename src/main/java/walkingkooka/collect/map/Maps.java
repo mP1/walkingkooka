@@ -253,6 +253,33 @@ final public class Maps implements PublicStaticHelper {
         return ImmutableMap.array(entries);
     }
 
+    /**
+     * A Map with 6 key/value pairs
+     */
+    static public <K, V> Map<K, V> of(final K key0,
+                                      final V value0,
+                                      final K key1,
+                                      final V value1,
+                                      final K key2,
+                                      final V value2,
+                                      final K key3,
+                                      final V value3,
+                                      final K key4,
+                                      final V value4,
+                                      final K key5,
+                                      final V value5) {
+        final Entry<K, V>[] entries = entriesArray(6);
+
+        entries[0] = entry(key0, value0);
+        entries[1] = entry(key1, value1);
+        entries[2] = entry(key2, value2);
+        entries[3] = entry(key3, value3);
+        entries[4] = entry(key4, value4);
+        entries[4] = entry(key5, value5);
+
+        return ImmutableMap.array(entries);
+    }
+
     private static <K, V> Entry<K, V>[] entriesArray(final int size) {
         //noinspection unchecked
         return new Entry[size];
