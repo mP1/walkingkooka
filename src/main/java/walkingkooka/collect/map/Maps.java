@@ -275,7 +275,7 @@ final public class Maps implements PublicStaticHelper {
         entries[2] = entry(key2, value2);
         entries[3] = entry(key3, value3);
         entries[4] = entry(key4, value4);
-        entries[4] = entry(key5, value5);
+        entries[5] = entry(key5, value5);
 
         return ImmutableMap.array(entries);
     }

@@ -48,6 +48,11 @@ final public class MapsTest implements PublicStaticHelperTesting<Maps>,
     final static String KEY5 = "E5";
     final static Integer VALUE5 = 55;
 
+    final static String KEY6 = "F6";
+    final static Integer VALUE6 = 66;
+
+    final static String KEY7 = "G7";
+    final static Integer VALUE7 = 77;
 
     @Test
     public void testOfKeyValue() {
@@ -67,6 +72,16 @@ final public class MapsTest implements PublicStaticHelperTesting<Maps>,
     @Test
     public void testOfKeyValue4() {
         this.checkType(Maps.of(KEY1, VALUE1, KEY2, VALUE2, KEY3, VALUE3, KEY4, VALUE4), ImmutableMapNonSingletonArray.class);
+    }
+
+    @Test
+    public void testOfKeyValue5() {
+        this.checkType(Maps.of(KEY1, VALUE1, KEY2, VALUE2, KEY3, VALUE3, KEY4, VALUE4, KEY5, VALUE5), ImmutableMapNonSingletonArray.class);
+    }
+
+    @Test
+    public void testOfKeyValue6() {
+        this.checkType(Maps.of(KEY1, VALUE1, KEY2, VALUE2, KEY3, VALUE3, KEY4, VALUE4, KEY5, VALUE5, KEY6, VALUE6), ImmutableMapNonSingletonArray.class);
     }
 
     @Test
