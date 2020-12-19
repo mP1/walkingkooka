@@ -19,6 +19,8 @@ package walkingkooka;
 
 import walkingkooka.text.CharSequences;
 
+import java.util.Objects;
+
 /**
  * An {@link IllegalArgumentException} that reports an invalid character within some text.
  */
@@ -83,4 +85,21 @@ public class InvalidCharacterException extends InvalidTextException {
     }
 
     private static final long serialVersionUID = 1L;
+
+    // Object...........................................................................................................
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getMessage());
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        return this == other || other instanceof InvalidCharacterException && this.equals0((InvalidCharacterException) other);
+    }
+
+    private boolean equals0(final InvalidCharacterException other) {
+        return this.text().equals(other.text()) &&
+                this.position() == other.position();
+    }
 }

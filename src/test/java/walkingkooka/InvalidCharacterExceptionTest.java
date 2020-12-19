@@ -26,7 +26,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class InvalidCharacterExceptionTest implements ThrowableTesting2<InvalidCharacterException> {
+public final class InvalidCharacterExceptionTest implements ThrowableTesting2<InvalidCharacterException>,
+        HashCodeEqualsDefinedTesting2<InvalidCharacterException> {
 
     private final static String TEXT = "abc!123";
     private final static int POSITION = 3;
@@ -185,6 +186,20 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
         assertEquals(position, exception.position(), "position");
     }
 
+    // equals...........................................................................................................
+
+    @Test
+    public void testDifferentText() {
+        this.checkNotEquals(new InvalidCharacterException(TEXT + " different", POSITION));
+    }
+
+    @Test
+    public void testDifferentPosition() {
+        this.checkNotEquals(new InvalidCharacterException(TEXT, POSITION + 1));
+    }
+
+    // ClassVisibility..................................................................................................
+
     @Override
     public Class<InvalidCharacterException> type() {
         return InvalidCharacterException.class;
@@ -193,5 +208,12 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
+    }
+
+    // equality.........................................................................................................
+
+    @Override
+    public InvalidCharacterException createObject() {
+        return new InvalidCharacterException(TEXT, POSITION);
     }
 }
