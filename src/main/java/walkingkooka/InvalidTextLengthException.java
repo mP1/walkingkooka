@@ -94,6 +94,10 @@ public class InvalidTextLengthException extends InvalidTextException {
                 " = " + CharSequences.quote(this.text);
     }
 
+    public String label() {
+        return this.label;
+    }
+
     private final String label;
 
     private static final long serialVersionUID = 1L;
