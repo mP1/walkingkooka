@@ -24,7 +24,8 @@ import walkingkooka.reflect.ThrowableTesting2;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<InvalidTextLengthException> {
+public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<InvalidTextLengthException>,
+        HashCodeEqualsDefinedTesting2<InvalidTextLengthException>{
 
     private final static String LABEL = "label123";
     private final static String TEXT = "abc!456";
@@ -130,6 +131,30 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<I
         assertEquals(max, exception.max(), max);
     }
 
+    // equals...........................................................................................................
+
+    @Test
+    public void testDifferentLabel() {
+        this.checkNotEquals(new InvalidTextLengthException("different", TEXT, MIN, MAX));
+    }
+
+    @Test
+    public void testDifferentText() {
+        this.checkNotEquals(new InvalidTextLengthException(LABEL, "different", MIN, MAX));
+    }
+
+    @Test
+    public void testDifferentMin() {
+        this.checkNotEquals(new InvalidTextLengthException(LABEL, TEXT, MIN + 1, MAX));
+    }
+
+    @Test
+    public void testDifferentMax() {
+        this.checkNotEquals(new InvalidTextLengthException(LABEL, TEXT, MIN, Integer.MAX_VALUE));
+    }
+
+    // ClassVisibility..................................................................................................
+
     @Override
     public Class<InvalidTextLengthException> type() {
         return InvalidTextLengthException.class;
@@ -138,5 +163,12 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<I
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
+    }
+
+    // equality.........................................................................................................
+
+    @Override
+    public InvalidTextLengthException createObject() {
+        return new InvalidTextLengthException(LABEL, TEXT, MIN, MAX);
     }
 }

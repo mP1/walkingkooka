@@ -97,4 +97,23 @@ public class InvalidTextLengthException extends InvalidTextException {
     private final String label;
 
     private static final long serialVersionUID = 1L;
+
+    // Object...........................................................................................................
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getMessage());
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        return this == other || other instanceof InvalidTextLengthException && this.equals0((InvalidTextLengthException) other);
+    }
+
+    private boolean equals0(final InvalidTextLengthException other) {
+        return this.label.equals(other.label) &&
+                this.text().equals(other.text()) &&
+                this.min() == other.min() &&
+                this.max() == other.max();
+    }
 }
