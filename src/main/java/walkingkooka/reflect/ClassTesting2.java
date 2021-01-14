@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Mixin with additional tests for {@link ClassTesting}
+ * Mixin with additional constructor related tests for {@link ClassTesting}
  */
 public interface ClassTesting2<T> extends ClassTesting<T> {
 
