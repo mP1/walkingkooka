@@ -17,7 +17,9 @@ below. Most if not all values and abstractions are immutable, functional and pro
 ## [*.collect](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/collect)
 
 - A collection of `List`, `Set`, `Map`, and `Stack` abstractions, may of which are immutable.
-- Many additional adaptors missing and factory methods from the JDK
+- Many additional adaptors missing from the JDK
+- Many factory methods are available for the various implementations.
+- For j2cl, these factory methods provide `Concurrent` replacements missing the supplied emulated JRE.
 
 
 
@@ -65,6 +67,13 @@ below. Most if not all values and abstractions are immutable, functional and pro
 ## [*.util](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/util)
 
 - Collection of misc interfaces and useful abstractions.
+
+
+
+## [Either](https://github.com/mP1/walkingkooka/tree/master/src/main/java/walkingkooka/Either.java)
+
+- Either is immutable and holds two values.
+- Numerous functional methods (map etc) are available to operate on either value.
 
 
 
