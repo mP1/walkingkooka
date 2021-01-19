@@ -11,7 +11,62 @@
 
 A very brief overview of some larger more powerful features and the small are available in this and child projects, 
 that do much much more leveraging the basic fundamentals present in this library. One example of the utility is presented
-below.
+below. Most if not all values and abstractions are immutable, functional and provide helpers to assist in creation of implementations.
+
+
+## [*.collect](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/collect)
+
+- A collection of `List`, `Set`, `Map`, and `Stack` abstractions, may of which are immutable.
+- Many additional adaptors missing and factory methods from the JDK
+
+
+
+## [*.predicate](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate)
+
+- Many additional `Predicate`(s).
+
+
+
+## [*.predicate.character](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/character)
+
+- A new interface `CharPredicate` replacing the need for `IntPredicate`.
+- Many useful and interesting implementations.
+
+
+## [*.reflect](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/reflect)
+
+- `ClassVisitor` advanced visitor over different members of a single class and its hierarchy.
+- `JavaVisibility` Object oriented abstraction of class and member visibilities with numerous useful operations.
+- New functional abstractions for many JDK class components, such as `Class`, `Field`, `Method` and more...
+- Several interfaces with defender methods (think mixin) that assist with testing class structure and members.
+
+
+
+## [*.stream.push](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/stream/push)
+
+- Brings `Stream` support from a `Consumer`.
+
+
+
+## [*.text](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/text)
+
+- `CaseSensitivity` Useful case sensitivity operations as useful as a parameter.
+- `CharSequences` Supports many of the useful `String` methods and more for `CharSequence`.
+
+
+
+## [*.text.cursor](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/text/cursor)
+
+- `TextCursor` provides a cursor that may be used to advance over text, one character at a time. 
+- `TextCursorSavePoint` Multiple save points may be created and used to reset the `TextCursor` at any time.
+- `TextCursorLineInfo` Describe the column, line position and more of the `TextCursor` within its text.
+
+
+## [*.util](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/util)
+
+- Collection of misc interfaces and useful abstractions.
+
+
 
 ## [ToStringBuilder](https://github.com/mP1/walkingkooka/tree/master/src/main/java/walkingkooka/ToStringBuilder.java)
 
@@ -24,15 +79,13 @@ skill defaults such as null and zero to produce better toString representations 
 
 Click [here](ToStringBuilder.md) for samples and a summary of features and goals.
 
-## Design
-A one line summary of design and implementation is that everything is immutable, functional with careful checks at all
-boundaries.
 
-Click [here](Design.md) to read about the opinions on design and java use in the system.
 
 ## Dependencies
 
 Only junit!
+
+
 
 ## Getting the source
 
