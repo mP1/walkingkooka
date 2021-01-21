@@ -70,6 +70,24 @@ below. Most if not all values and abstractions are immutable, functional and pro
 
 
 
+## [Context](https://github.com/mP1/walkingkooka/tree/master/src/main/java/walkingkooka/Context.java)
+
+Goals and problems attempting to solve:
+
+- A `Context` typically accompanies one or more other values which need some task to be performed.
+- JDK `NumberFormat` classes mix pattern with user locale settings `NumberFormatSymbol` which requires new instances in a multi-user environment or when settings changed.
+- JDK `DateFormat` include a `DateFormatSymbols`, `DateTimeFormatter` include numerous pattern customisations such as two-digit-year, Locale.
+- Complex assemblies of collaborators eg [Parser](https://github.com/mP1/walkingkooka-text-cursor-parser/blob/master/src/main/java/walkingkooka/text/cursor/parser/Parser.java) 
+  only including patterns for formatting and parsing do not need to change when user settings change, just pass in another `Context`.
+  
+
+
+Numerous projects provide specialised `Context` which add properties and methods to assist a task, eg the users `Locale` or number formatting symbols. Some examples include:
+- [DateTimeContext](https://github.com/mP1/walkingkooka-datetime/blob/master/src/main/java/walkingkooka/datetime/DateTimeContext.java) symbols, locale, month names and more. Simple another parameter accompanying the `LocalDate`.
+- [DecimalNumberContext](https://github.com/mP1/walkingkooka-math/blob/master/src/main/java/walkingkooka/math/DecimalNumberContext.java) symbols, locale, grouping separator count and more. Simple another parameter accompanying the `Number`.
+
+
+
 ## [Either](https://github.com/mP1/walkingkooka/tree/master/src/main/java/walkingkooka/Either.java)
 
 - Either is immutable and holds two values.
