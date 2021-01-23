@@ -108,17 +108,3 @@ Click [here](ToStringBuilder.md) for samples and a summary of features and goals
 
 
 
-## Dependencies
-
-Only junit!
-
-
-
-## Getting the source
-
-You can either download the source using the "ZIP" button at the top
-of the github page, or you can make a clone using git:
-
-```
-git clone git://github.com/mP1/walkingkooka.git
-```
