@@ -65,6 +65,8 @@ public abstract class Either<L, R> {
      */
     public abstract boolean isRight();
 
+    // getters..........................................................................................................
+
     /**
      * Only the left {@link Either} returns a value right will throw {@link java.util.NoSuchElementException}.
      */
@@ -74,6 +76,8 @@ public abstract class Either<L, R> {
      * Only the right {@link Either} returns a value left will throw {@link java.util.NoSuchElementException}.
      */
     public abstract R rightValue() throws NoSuchElementException;
+
+    // setters..........................................................................................................
 
     /**
      * Sets or replaces left {@link Either} value creating a new instance if the new value is different.
@@ -112,6 +116,8 @@ public abstract class Either<L, R> {
      */
     public abstract R orElseRight(final R elseValue);
 
+    // orElseGet........................................................................................................
+
     /**
      * If a left value is present return that or the {@link Supplier#get()}
      */
@@ -133,6 +139,8 @@ public abstract class Either<L, R> {
     }
 
     abstract R orElseRightGet0(final Supplier<? extends R> elseSupplier);
+
+    // orElseThrow.......................................................................................................
 
     /**
      * If a left value is present return that or throw the {@link Throwable} returned by {@link Supplier#get()}}
@@ -156,7 +164,7 @@ public abstract class Either<L, R> {
 
     abstract <X extends Throwable> R orElseRightThrow0(final Supplier<? extends X> exceptionSupplier) throws X;
 
-    private void checkSupplier(final Supplier<?> supplier) {
+    private static void checkSupplier(final Supplier<?> supplier) {
         Objects.requireNonNull(supplier, "supplier");
     }
 
