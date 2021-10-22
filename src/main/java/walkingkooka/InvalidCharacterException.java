@@ -22,7 +22,7 @@ import walkingkooka.text.CharSequences;
 import java.util.Objects;
 
 /**
- * An {@link IllegalArgumentException} that reports an invalid character within some text.
+ * An {@link RuntimeException} that reports an invalid character within some text.
  */
 public class InvalidCharacterException extends InvalidTextException {
 

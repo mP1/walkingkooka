@@ -23,7 +23,7 @@ import walkingkooka.text.Whitespace;
 import java.util.Objects;
 
 /**
- * An {@link IllegalArgumentException} that reports an {@link String} with an invalid length.
+ * An {@link RuntimeException} that reports an {@link String} with an invalid length.
  */
 public class InvalidTextLengthException extends InvalidTextException {
 
