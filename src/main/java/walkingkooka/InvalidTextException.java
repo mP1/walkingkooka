@@ -18,9 +18,9 @@
 package walkingkooka;
 
 /**
- * An {@link SystemException} that reports invalid text.
+ * An {@link IllegalArgumentException} that reports invalid text.
  */
-public abstract class InvalidTextException extends SystemException {
+public abstract class InvalidTextException extends IllegalArgumentException {
 
     InvalidTextException() {
         super();
