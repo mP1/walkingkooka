@@ -22,9 +22,14 @@ import org.junit.jupiter.api.Test;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.function.Supplier;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
  * Tag interface for all test interfaces that contain tests and related helpers as default/guard methods.
+ * Where possible tests should use the provided checkEquals and checkNotEquals rather than equivalent asserts.
  */
 public interface Testing {
 
@@ -59,5 +64,29 @@ public interface Testing {
         }
 
         return testName;
+    }
+
+    default void checkEquals(final Object expected, final Object actual) {
+        this.checkEquals(expected, actual, (String)null);
+    }
+
+    default void checkEquals(final Object expected, final Object actual, final String message) {
+        this.checkEquals(expected, actual, () -> message);
+    }
+
+    default void checkEquals(final Object expected, final Object actual, final Supplier<String> message) {
+        assertEquals(expected, actual, message);
+    }
+
+    default void checkNotEquals(final Object expected, final Object actual) {
+        this.checkNotEquals(expected, actual, (String) null);
+    }
+
+    default void checkNotEquals(final Object expected, final Object actual, final String message) {
+        this.checkNotEquals(expected, actual, () -> message);
+    }
+
+    default void checkNotEquals(final Object expected, final Object actual, final Supplier<String> message) {
+        assertNotEquals(expected, actual, message);
     }
 }
