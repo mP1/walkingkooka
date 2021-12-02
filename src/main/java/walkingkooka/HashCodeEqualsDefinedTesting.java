@@ -19,11 +19,8 @@ package walkingkooka;
 
 import walkingkooka.test.Testing;
 
-import java.util.Objects;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * A mixin that contains helpers for testing two objects {@link Object#equals(Object)} and {@link Object#hashCode()}}
@@ -31,35 +28,29 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public interface HashCodeEqualsDefinedTesting extends Testing {
 
     default void checkEquals(final Object expected, final Object actual) {
-        assertNotNull(expected, "Expected is null");
-        assertNotNull(actual, "Actual is null");
-
-        if (false == expected.equals(actual)) {
-            assertEquals(expected, actual);
-        }
-        if (false == actual.equals(expected)) {
-            assertEquals(expected, actual);
-        }
+        assertEquals(expected, actual);
+        assertEquals(actual, expected);
     }
 
     default void checkEqualsAndHashCode(final Object expected, final Object actual) {
         checkEquals(expected, actual);
 
-        assertEquals(expected.hashCode(),
+        assertEquals(
+                expected.hashCode(),
                 actual.hashCode(),
-                "objects that are equal should have equal hashcodes");
+                "objects that are equal should have equal hashcodes"
+        );
     }
 
     default void checkHashCode(final Object expected, final Object actual) {
-        assertEquals(expected.hashCode(),
+        assertEquals(
+                expected.hashCode(),
                 actual.hashCode(),
-                () -> expected + "\n" + actual);
+                () -> expected + "\n" + actual
+        );
     }
 
     default void checkNotEquals(final Object expected, final Object actual) {
-        Objects.requireNonNull(expected, "expected");
-        Objects.requireNonNull(actual, "actual");
-
         assertNotEquals(expected, actual);
         assertNotEquals(actual, expected);
     }
