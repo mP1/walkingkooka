@@ -33,7 +33,7 @@ final class CustomToStringPredicate<T> implements Predicate<T> {
 
         Predicate<T> result;
 
-        for (; ; ) {
+        do {
             if (predicate.toString().equals(toString)) {
                 result = predicate;
                 break;
@@ -46,8 +46,7 @@ final class CustomToStringPredicate<T> implements Predicate<T> {
                 wrap = custom.predicate;
             }
             result = new CustomToStringPredicate<>(wrap, toString);
-            break;
-        }
+        } while (false);
 
         return result;
     }

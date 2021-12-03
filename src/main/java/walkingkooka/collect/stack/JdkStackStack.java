@@ -108,7 +108,7 @@ final class JdkStackStack<T> implements Stack<T> {
     private boolean equals0(final Stack<T> stack) {
         boolean equals = false;
 
-        for (; ; ) {
+        do {
             // if stacks have different sizes they cannot be equal
             final java.util.Stack<T> items = this.stack;
             if (items.size() != stack.size()) {
@@ -125,8 +125,8 @@ final class JdkStackStack<T> implements Stack<T> {
             final Iterator<T> iterator1 = this.iterator();
             final Iterator<T> iterator2 = stack.iterator();
 
+            // if first is empty second must also be empty
             for (; ; ) {
-                // if first is empty second must also be empty
                 if (false == iterator1.hasNext()) {
                     equals = !iterator2.hasNext();
                     break;
@@ -140,8 +140,8 @@ final class JdkStackStack<T> implements Stack<T> {
                     break;
                 }
             }
-            break;
-        }
+        } while (false);
+
         return equals;
     }
 

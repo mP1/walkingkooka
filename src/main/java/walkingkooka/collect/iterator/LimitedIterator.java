@@ -40,7 +40,7 @@ final class LimitedIterator<E> implements Iterator<E> {
 
         LimitedIterator<E> result;
 
-        for (; ; ) {
+        do {
             Iterator<E> wrapped = iterator;
             if (iterator instanceof LimitedIterator) {
                 final LimitedIterator<E> limited = Cast.to(iterator);
@@ -51,8 +51,7 @@ final class LimitedIterator<E> implements Iterator<E> {
                 wrapped = limited.iterator;
             }
             result = new LimitedIterator<>(wrapped, count);
-            break;
-        }
+        } while (false);
 
         return result;
     }
