@@ -20,8 +20,6 @@ package walkingkooka.build;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class BuilderTestingTest implements BuilderTesting<Builder<String>, String> {
 
     @Test
@@ -38,7 +36,7 @@ public final class BuilderTestingTest implements BuilderTesting<Builder<String>,
         } catch (final AssertionError expected) {
             failed = true;
         }
-        assertEquals(true, failed);
+        this.checkEquals(true, failed);
     }
 
     @Test
@@ -60,7 +58,7 @@ public final class BuilderTestingTest implements BuilderTesting<Builder<String>,
         } catch (final AssertionError expected) {
             failed = true;
         }
-        assertEquals(true, failed);
+        this.checkEquals(true, failed);
     }
 
     @Test
@@ -71,7 +69,7 @@ public final class BuilderTestingTest implements BuilderTesting<Builder<String>,
         } catch (final AssertionError expected) {
             failed = true;
         }
-        assertEquals(true, failed);
+        this.checkEquals(true, failed);
     }
 
     @Test
@@ -82,7 +80,7 @@ public final class BuilderTestingTest implements BuilderTesting<Builder<String>,
         } catch (final AssertionError expected) {
             failed = true;
         }
-        assertEquals(true, failed);
+        this.checkEquals(true, failed);
     }
 
     @Test
@@ -98,7 +96,7 @@ public final class BuilderTestingTest implements BuilderTesting<Builder<String>,
         } catch (final AssertionError expected) {
             failed = true;
         }
-        assertEquals(true, failed);
+        this.checkEquals(true, failed);
     }
 
     @Test
@@ -109,7 +107,7 @@ public final class BuilderTestingTest implements BuilderTesting<Builder<String>,
         } catch (final AssertionError expected) {
             failed = true;
         }
-        assertEquals(true, failed);
+        this.checkEquals(true, failed);
     }
 
     private Builder<String> builder(final String product) {

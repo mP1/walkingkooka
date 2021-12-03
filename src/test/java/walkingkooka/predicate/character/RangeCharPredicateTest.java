@@ -32,7 +32,7 @@ public class RangeCharPredicateTest implements CharPredicateTesting<RangeCharPre
 
     @Test
     public void testWithSameStartAndEnd() {
-        assertEquals(CharPredicates.is('a'), this.createCharPredicate('a', 'a'));
+        this.checkEquals(CharPredicates.is('a'), this.createCharPredicate('a', 'a'));
     }
 
     @Test

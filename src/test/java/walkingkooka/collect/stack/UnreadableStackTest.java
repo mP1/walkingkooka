@@ -90,7 +90,7 @@ final public class UnreadableStackTest extends StackTestCase<UnreadableStack<Obj
                 return 123;
             }
         });
-        assertEquals(123, stack.hashCode());
+        this.checkEquals(123, stack.hashCode());
     }
 
     @Test

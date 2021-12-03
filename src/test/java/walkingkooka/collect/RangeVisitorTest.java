@@ -50,7 +50,7 @@ public final class RangeVisitorTest implements VisitorTesting<RangeVisitor<Integ
             }
         }.accept(range);
 
-        assertEquals(visited.toString(), "12");
+        this.checkEquals(visited.toString(), "12");
     }
 
     @Test
@@ -78,7 +78,7 @@ public final class RangeVisitorTest implements VisitorTesting<RangeVisitor<Integ
             }
         }.accept(range);
 
-        assertEquals(visited.toString(), "123");
+        this.checkEquals(visited.toString(), "123");
     }
 
     @Test
@@ -106,7 +106,7 @@ public final class RangeVisitorTest implements VisitorTesting<RangeVisitor<Integ
             }
         }.accept(range);
 
-        assertEquals(visited.toString(), "12");
+        this.checkEquals(visited.toString(), "12");
     }
 
     @Test
@@ -125,7 +125,7 @@ public final class RangeVisitorTest implements VisitorTesting<RangeVisitor<Integ
 
             @Override
             protected void singleton(final Integer value) {
-                assertEquals(Integer.valueOf(99), value, "value");
+                checkEquals(Integer.valueOf(99), value, "value");
                 visited.append("2");
             }
 
@@ -135,7 +135,7 @@ public final class RangeVisitorTest implements VisitorTesting<RangeVisitor<Integ
             }
         }.accept(range);
 
-        assertEquals(visited.toString(), "123");
+        this.checkEquals(visited.toString(), "123");
     }
 
     @Test
@@ -163,7 +163,7 @@ public final class RangeVisitorTest implements VisitorTesting<RangeVisitor<Integ
             }
         }.accept(range);
 
-        assertEquals(visited.toString(), "12");
+        this.checkEquals(visited.toString(), "12");
     }
 
     @Test
@@ -199,7 +199,7 @@ public final class RangeVisitorTest implements VisitorTesting<RangeVisitor<Integ
             }
         }.accept(range);
 
-        assertEquals(visited.toString(), "1234");
+        this.checkEquals(visited.toString(), "1234");
     }
 
     @Test
@@ -247,7 +247,7 @@ public final class RangeVisitorTest implements VisitorTesting<RangeVisitor<Integ
             }
         }.accept(range);
 
-        assertEquals(visited.toString(), "123456");
+        this.checkEquals(visited.toString(), "123456");
     }
 
     @Test
@@ -300,7 +300,7 @@ public final class RangeVisitorTest implements VisitorTesting<RangeVisitor<Integ
             }
         }.accept(range);
 
-        assertEquals(visited.toString(), "123456");
+        this.checkEquals(visited.toString(), "123456");
     }
 
     @Test
@@ -353,7 +353,7 @@ public final class RangeVisitorTest implements VisitorTesting<RangeVisitor<Integ
             }
         }.accept(range);
 
-        assertEquals(visited.toString(), "123456");
+        this.checkEquals(visited.toString(), "123456");
     }
 
     @Test
@@ -406,7 +406,7 @@ public final class RangeVisitorTest implements VisitorTesting<RangeVisitor<Integ
             }
         }.accept(range);
 
-        assertEquals(visited.toString(), "123456");
+        this.checkEquals(visited.toString(), "123456");
     }
 
     @Test
@@ -460,7 +460,7 @@ public final class RangeVisitorTest implements VisitorTesting<RangeVisitor<Integ
             }
         }.accept(range);
 
-        assertEquals(visited.toString(), "123456");
+        this.checkEquals(visited.toString(), "123456");
     }
 
     @Test
@@ -514,7 +514,7 @@ public final class RangeVisitorTest implements VisitorTesting<RangeVisitor<Integ
             }
         }.accept(range);
 
-        assertEquals(visited.toString(), "123456");
+        this.checkEquals(visited.toString(), "123456");
     }
 
     @Test

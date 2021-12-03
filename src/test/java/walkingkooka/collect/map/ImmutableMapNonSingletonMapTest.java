@@ -34,7 +34,7 @@ public final class ImmutableMapNonSingletonMapTest extends ImmutableMapTestCase3
         final ImmutableMapNonSingletonMap<String, Integer> immutable = ImmutableMapNonSingletonMap.with(ordered);
 
         ordered.clear();
-        assertEquals(ordered, immutable);
+        this.checkEquals(ordered, immutable);
 
         this.getAndCheckAbsent(immutable, KEY1);
     }

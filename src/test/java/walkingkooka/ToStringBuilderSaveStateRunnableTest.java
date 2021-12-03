@@ -44,10 +44,10 @@ public final class ToStringBuilderSaveStateRunnableTest extends ToStringBuilderT
                 .valueSeparator("val2")
                 .enable(ToStringBuilderOption.QUOTE);
 
-        assertNotEquals(toString, builder.toString(), "builder.toString");
+        this.checkNotEquals(toString, builder.toString(), "builder.toString");
 
         state.run();
-        assertEquals(toString, builder.toString(), "builder.toString");
+        this.checkEquals(toString, builder.toString(), "builder.toString");
 
         builder.labelSeparator("label2")
                 .separator("sep2")
@@ -55,7 +55,7 @@ public final class ToStringBuilderSaveStateRunnableTest extends ToStringBuilderT
                 .enable(ToStringBuilderOption.QUOTE);
 
         state.run();
-        assertEquals(toString, builder.toString(), "builder.toString");
+        this.checkEquals(toString, builder.toString(), "builder.toString");
     }
 
     @Test

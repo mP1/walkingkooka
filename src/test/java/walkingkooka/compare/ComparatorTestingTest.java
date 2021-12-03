@@ -37,7 +37,7 @@ public final class ComparatorTestingTest implements ComparatorTesting<Comparator
 
     @Test
     public void testCompare() {
-        assertEquals(COMPARATOR.compare(VALUE, MORE), this.compare(VALUE, MORE));
+        this.checkEquals(COMPARATOR.compare(VALUE, MORE), this.compare(VALUE, MORE));
     }
 
     // compareAndCheckLess..............................................................................................
@@ -252,7 +252,7 @@ public final class ComparatorTestingTest implements ComparatorTesting<Comparator
         } catch (final AssertionFailedError expected) {
             fail = true;
         }
-        assertEquals(true, fail);
+        this.checkEquals(true, fail);
     }
 
     // ComparatorTesting................................................................................................

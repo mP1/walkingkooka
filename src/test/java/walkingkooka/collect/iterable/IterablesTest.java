@@ -106,7 +106,7 @@ final public class IterablesTest implements PublicStaticHelperTesting<Iterables>
     }
 
     private void equalsAndCheck0(final Iterable<String> iterable, final Iterable<String> other, final boolean equals) {
-        assertEquals(equals, Iterables.equals(iterable, other, EQUIVALENCY), iterable + " AND " + other);
+        this.checkEquals(equals, Iterables.equals(iterable, other, EQUIVALENCY), iterable + " AND " + other);
     }
 
     @Override

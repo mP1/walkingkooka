@@ -136,7 +136,7 @@ public final class TypeNameTest extends PackageNameOrTypeNameJavaNameTestCase<Cl
     }
 
     private void withoutPackageNameAndCheck(final ClassName typeName, final String without) {
-        assertEquals(without, typeName.nameWithoutPackage(), "nameWithoutPackage");
+        this.checkEquals(without, typeName.nameWithoutPackage(), "nameWithoutPackage");
     }
 
     @Test
@@ -147,12 +147,12 @@ public final class TypeNameTest extends PackageNameOrTypeNameJavaNameTestCase<Cl
     private void packageAndCheck(final Class<?> type) {
         this.packageAndCheck(type.getName(), type.getPackage().getName());
 
-        assertEquals(PackageName.from(type.getPackage()), ClassName.with(type.getName()).parentPackage(), "parentPackage");
+        this.checkEquals(PackageName.from(type.getPackage()), ClassName.with(type.getName()).parentPackage(), "parentPackage");
     }
 
     private void packageAndCheck(final String name, final String pkg) {
         final ClassName typeName = ClassName.with(name);
-        assertEquals(PackageName.with(pkg), typeName.parentPackage(), "parentPackage");
+        this.checkEquals(PackageName.with(pkg), typeName.parentPackage(), "parentPackage");
 
     }
 

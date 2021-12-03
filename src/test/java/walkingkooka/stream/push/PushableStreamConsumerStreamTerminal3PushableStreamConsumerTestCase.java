@@ -84,9 +84,9 @@ public abstract class PushableStreamConsumerStreamTerminal3PushableStreamConsume
             i++;
         }
 
-        assertEquals(result,
+        this.checkEquals(result,
                 consumer.result(),
                 () -> "values: " + CharSequences.quoteAndEscape(commaSeperated) + " " + consumer);
-        assertEquals(consumedCount, i, () -> "consumed values count, values: " + CharSequences.quoteAndEscape(commaSeperated));
+        this.checkEquals(consumedCount, i, () -> "consumed values count, values: " + CharSequences.quoteAndEscape(commaSeperated));
     }
 }

@@ -54,7 +54,7 @@ public final class JavaVisibilityVisitorTest implements VisitorTesting<JavaVisib
             }
         }.accept(visibility);
 
-        assertEquals("132", b.toString());
+        this.checkEquals("132", b.toString());
     }
 
     @Test
@@ -109,7 +109,7 @@ public final class JavaVisibilityVisitorTest implements VisitorTesting<JavaVisib
             }
         }.accept(visibility);
 
-        assertEquals("132", b.toString());
+        this.checkEquals("132", b.toString());
     }
 
     @Test
@@ -165,7 +165,7 @@ public final class JavaVisibilityVisitorTest implements VisitorTesting<JavaVisib
             }
         }.accept(visibility);
 
-        assertEquals("132", b.toString());
+        this.checkEquals("132", b.toString());
     }
 
     @Test
@@ -220,7 +220,7 @@ public final class JavaVisibilityVisitorTest implements VisitorTesting<JavaVisib
             }
         }.accept(visibility);
 
-        assertEquals("132", b.toString());
+        this.checkEquals("132", b.toString());
     }
 
     @Test
@@ -254,7 +254,7 @@ public final class JavaVisibilityVisitorTest implements VisitorTesting<JavaVisib
                                final JavaVisibilityVisitor visitor) {
         this.visited = false;
         visitor.accept(visibility);
-        assertEquals(true, this.visited, () -> "" + visibility);
+        this.checkEquals(true, this.visited, () -> "" + visibility);
 
         new JavaVisibilityVisitor().accept(visibility);
     }

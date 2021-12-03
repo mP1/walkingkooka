@@ -18,11 +18,11 @@
 package walkingkooka.reflect;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.Testing;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class TypeNameTestingTest {
+public final class TypeNameTestingTest implements Testing {
 
     @Test
     public void testNonEmptyPrefixSuffix() {
@@ -143,7 +143,7 @@ public final class TypeNameTestingTest {
 
     @Test
     public void testSubtractPrefix() {
-        assertEquals("actPrefix", new TestSubtractPrefix().subtractTypeNamePrefix());
+        this.checkEquals("actPrefix", new TestSubtractPrefix().subtractTypeNamePrefix());
     }
 
     private static class TestSubtractPrefix implements TypeNameTesting<TestSubtractPrefix> {
@@ -191,7 +191,7 @@ public final class TypeNameTestingTest {
 
     @Test
     public void testSubtractSuffix() {
-        assertEquals("TestSubtra", new TestSubtractSuffix().subtractTypeNameSuffix());
+        this.checkEquals("TestSubtra", new TestSubtractSuffix().subtractTypeNameSuffix());
     }
 
     private static class TestSubtractSuffix implements TypeNameTesting<TestSubtractSuffix> {

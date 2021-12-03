@@ -27,13 +27,13 @@ import walkingkooka.reflect.IsMethodTestingTest.TestIsMethodMultipleTrue.TestHop
 import walkingkooka.reflect.IsMethodTestingTest.TestIsMethodPrefixCheck.TestCarrot;
 import walkingkooka.reflect.IsMethodTestingTest.TestIsMethodSuffixCheck.TestEggplant;
 import walkingkooka.reflect.IsMethodTestingTest.TestIsMethodThrows.TestJigsaw;
+import walkingkooka.test.Testing;
 
 import java.util.function.Predicate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class IsMethodTestingTest {
+public final class IsMethodTestingTest implements Testing {
 
     @Test
     public void testIsMethod() throws Exception {
@@ -372,7 +372,7 @@ public final class IsMethodTestingTest {
     }
 
     private void checkCall(final int expected) {
-        assertEquals(expected, call, "not all is methods called");
+        this.checkEquals(expected, call, "not all is methods called");
     }
 
     static int call = 0;

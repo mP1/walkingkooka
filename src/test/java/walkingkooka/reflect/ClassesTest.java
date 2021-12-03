@@ -120,7 +120,7 @@ public final class ClassesTest implements PublicStaticHelperTesting<Classes> {
 
     private void primitiveAndCheck(final Class<?> classs,
                                    final Class<?> expected) {
-        assertEquals(Optional.ofNullable(expected),
+        this.checkEquals(Optional.ofNullable(expected),
                 Classes.primitive(classs),
                 classs::getName);
     }
@@ -220,7 +220,7 @@ public final class ClassesTest implements PublicStaticHelperTesting<Classes> {
     private void wrapperAndCheck(final Class<?> classs,
                                  final Class<?> expected) {
 
-        assertEquals(Optional.ofNullable(expected),
+        this.checkEquals(Optional.ofNullable(expected),
                 Classes.wrapper(classs),
                 classs::getName);
     }

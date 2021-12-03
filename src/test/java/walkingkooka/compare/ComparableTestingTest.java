@@ -158,7 +158,7 @@ public final class ComparableTestingTest implements ComparableTesting {
         } catch (final AssertionFailedError expected) {
             fail = true;
         }
-        assertEquals(true, fail);
+        this.checkEquals(true, fail);
     }
 
     static class TestComparable implements Comparable<TestComparable> {

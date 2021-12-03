@@ -57,14 +57,14 @@ final public class OneIteratorTest extends IteratorTestCase<OneIterator<String>,
     @Test
     public void testNonNullValueToString() {
         final OneIterator<String> iterator = OneIterator.with(VALUE);
-        assertEquals(VALUE, iterator.toString());
+        this.checkEquals(VALUE, iterator.toString());
     }
 
     @Test
     public void testEmptyToString() {
         final OneIterator<String> iterator = OneIterator.with(null);
         iterator.next();
-        assertEquals("<empty>", iterator.toString());
+        this.checkEquals("<empty>", iterator.toString());
     }
 
     @Test

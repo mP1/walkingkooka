@@ -52,9 +52,9 @@ public class LineAndColumnTest implements ClassTesting2<LineAndColumn>,
     @Test
     public void testCreate() {
         final LineAndColumn a = this.create();
-        assertEquals(LINE_NUMBER, a.lineNumber(), "lineNumber");
-        assertEquals(COLUMN_NUMBER, a.columnNumber(), "columnNumber");
-        assertEquals(LINE, a.line(), "line");
+        this.checkEquals(LINE_NUMBER, a.lineNumber(), "lineNumber");
+        this.checkEquals(COLUMN_NUMBER, a.columnNumber(), "columnNumber");
+        this.checkEquals(LINE, a.line(), "line");
     }
 
     @Test
@@ -237,7 +237,7 @@ public class LineAndColumnTest implements ClassTesting2<LineAndColumn>,
     private void determineAndCheck(final String text, final String pos, final String line, final int lineNumber,
                                    final int column) {
         if (false == text.startsWith(pos)) {
-            assertEquals("Pos text must be at the start of text", text, pos);
+            this.checkEquals("Pos text must be at the start of text", text, pos);
         }
         this.determineAndCheck(text, pos.length(), line, lineNumber, column);
     }
@@ -245,9 +245,9 @@ public class LineAndColumnTest implements ClassTesting2<LineAndColumn>,
     private void determineAndCheck(final String text, final int pos, final String line, final int lineNumber,
                                    final int column) {
         final LineAndColumn info = LineAndColumn.determine(text, pos);
-        assertEquals(lineNumber, info.lineNumber(), "lineNumber");
-        assertEquals(column, info.columnNumber(), "column()");
-        assertEquals(line, info.line(), "line()");
+        this.checkEquals(lineNumber, info.lineNumber(), "lineNumber");
+        this.checkEquals(column, info.columnNumber(), "column()");
+        this.checkEquals(line, info.line(), "line()");
     }
 
     private LineAndColumn create() {

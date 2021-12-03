@@ -57,7 +57,7 @@ public final class MethodAttributesTest implements ClassTesting2<MethodAttribute
 
     private void methodAndCheck(final String name, final MethodAttributes... attributes) throws Exception {
         final Method method = MethodAttributesTestTest.class.getDeclaredMethod(name);
-        assertEquals(Sets.of(attributes), MethodAttributes.get(method));
+        this.checkEquals(Sets.of(attributes), MethodAttributes.get(method));
     }
 
     static abstract class MethodAttributesTestTest {

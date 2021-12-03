@@ -255,7 +255,7 @@ public final class ParseStringTestingTest implements ParseStringTesting<String> 
         } catch (final AssertionFailedError expected) {
             fail = true;
         }
-        assertEquals(true, fail);
+        this.checkEquals(true, fail);
     }
 
     @Override

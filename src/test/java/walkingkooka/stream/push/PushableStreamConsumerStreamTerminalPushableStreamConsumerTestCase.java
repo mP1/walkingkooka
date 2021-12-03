@@ -44,7 +44,7 @@ public abstract class PushableStreamConsumerStreamTerminalPushableStreamConsumer
 
     final void checkResult(final PushableStreamConsumerStreamTerminalPushableStreamConsumer<String, R> consumer,
                            final R expected) {
-        assertEquals(expected, consumer.result(), consumer::toString);
+        this.checkEquals(expected, consumer.result(), consumer::toString);
     }
 
     @Override

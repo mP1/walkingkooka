@@ -192,7 +192,7 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
     private void valueLengthAndCheck(final int length) {
         final ToStringBuilder builder = ToStringBuilder.empty();
         builder.valueLength(length);
-        assertEquals(length, builder.valueLength, "valueLength");
+        this.checkEquals(length, builder.valueLength, "valueLength");
     }
 
     @Test
@@ -206,7 +206,7 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
         builder.value("abcdef");
         builder.value("mnopq");
         builder.value(123456);
-        assertEquals("abcmno123", builder.build());
+        this.checkEquals("abcmno123", builder.build());
     }
 
     @Test
@@ -219,7 +219,7 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
 
         builder.valueLength(4);
         builder.value(new byte[]{'A', 'B', 'C', 'D', 'E'});
-        assertEquals("4142", builder.build());
+        this.checkEquals("4142", builder.build());
     }
 
     @Test
@@ -233,7 +233,7 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
         builder.value("x");
         builder.value(1);
         builder.value(2L);
-        assertEquals("x12", builder.build());
+        this.checkEquals("x12", builder.build());
     }
 
     @Test
@@ -254,7 +254,7 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
     private void globalLengthAndCheck(final int length) {
         final ToStringBuilder builder = ToStringBuilder.empty();
         builder.globalLength(length);
-        assertEquals(length, builder.globalLength, "globalLength");
+        this.checkEquals(length, builder.globalLength, "globalLength");
     }
 
     // UsesToStringBuilder..............................................................................................
@@ -270,7 +270,7 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
         this.buildAndCheckFull(this.createFullWithLabel()//
                 .value(builder -> {
                     builder.globalLength(5);
-                    assertEquals(5, builder.globalLength, "globalLength");
+                    this.checkEquals(5, builder.globalLength, "globalLength");
                     builder.value("IGNORED!");
                 }));
     }
@@ -282,7 +282,7 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
                 .value("1234567890") //
                 .value(builder -> {
                     builder.globalLength(100);
-                    assertEquals(builder.buffer.length() + 100,
+                    this.checkEquals(builder.buffer.length() + 100,
                             builder.globalLength,
                             "globalLength");
                     builder.value("abcdefghij");
@@ -297,12 +297,12 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
                 .value("1234567890") //
                 .value(builder -> {
                     builder.globalLength(5);
-                    assertEquals(builder.buffer.length() + 5,
+                    this.checkEquals(builder.buffer.length() + 5,
                             builder.globalLength,
                             "globalLength");
 
                     builder.globalLength(100);
-                    assertEquals(builder.buffer.length() + 100,
+                    this.checkEquals(builder.buffer.length() + 100,
                             builder.globalLength,
                             "globalLength");
 
@@ -316,8 +316,8 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
         this.buildAndCheck(this.builder(5, 10)//
                 .value(builder -> {
                     builder.valueLength(10);
-                    assertEquals(5, builder.globalLength, "globalLength");
-                    assertEquals(5, builder.valueLength, "valueLength");
+                    this.checkEquals(5, builder.globalLength, "globalLength");
+                    this.checkEquals(5, builder.valueLength, "valueLength");
                     builder.value("abcdefghij");
                 }), "abcde");
     }
@@ -328,8 +328,8 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
                 .valueLength(10)//
                 .value(builder -> {
                     builder.valueLength(5);
-                    assertEquals(10, builder.globalLength, "globalLength");
-                    assertEquals(5, builder.valueLength, "valueLength");
+                    this.checkEquals(10, builder.globalLength, "globalLength");
+                    this.checkEquals(5, builder.valueLength, "valueLength");
 
                     builder.value("abcdefghij");
                 }), "abcde");
@@ -341,8 +341,8 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
                 .valueLength(10)//
                 .value(builder -> {
                     builder.valueLength(5);
-                    assertEquals(10, builder.globalLength, "globalLength");
-                    assertEquals(5, builder.valueLength, "valueLength");
+                    this.checkEquals(10, builder.globalLength, "globalLength");
+                    this.checkEquals(5, builder.valueLength, "valueLength");
 
                     builder.value("abcdefghij");
                     builder.value("12345678");
@@ -356,8 +356,8 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
                 .value(builder -> {
                     builder.valueLength(4);
                     builder.valueLength(5);
-                    assertEquals(10, builder.globalLength, "globalLength");
-                    assertEquals(5, builder.valueLength, "valueLength");
+                    this.checkEquals(10, builder.globalLength, "globalLength");
+                    this.checkEquals(5, builder.valueLength, "valueLength");
 
                     builder.value("abcdefghij");
                     builder.value("12345678");
@@ -372,8 +372,8 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
                     builder.valueLength(4);
                     builder.valueLength(3);
                     builder.valueLength(5);
-                    assertEquals(10, builder.globalLength, "globalLength");
-                    assertEquals(5, builder.valueLength, "valueLength");
+                    this.checkEquals(10, builder.globalLength, "globalLength");
+                    this.checkEquals(5, builder.valueLength, "valueLength");
 
                     builder.value("abcdefghij");
                     builder.value("12345678");
@@ -387,8 +387,8 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
                 .valueLength(5)//
                 .value("1234567") //
                 .value(builder -> {
-                    assertEquals(5, builder.valueLength, "valueLength");
-                    assertEquals(builder.buffer.length() + 5,
+                    this.checkEquals(5, builder.valueLength, "valueLength");
+                    this.checkEquals(builder.buffer.length() + 5,
                             builder.globalLength,
                             "globalLength");
 
@@ -406,9 +406,9 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
                 .value("1234567") //
                 .value(builder -> {
                     builder.valueLength(6); //
-                    assertEquals(5, builder.valueLength, "valueLength"); // increase ignored.
+                    this.checkEquals(5, builder.valueLength, "valueLength"); // increase ignored.
 
-                    assertEquals(builder.buffer.length() + 5, builder.globalLength, "globalLength");
+                    this.checkEquals(builder.buffer.length() + 5, builder.globalLength, "globalLength");
 
                     builder.value("abcdefghij"); // expected "abcde" to be added.
                     builder.value("IGNORED");
@@ -466,7 +466,7 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
     @Test
     public void testBuildFrom() {
         final Object result = 1;
-        assertEquals(ToStringBuilder.buildFrom(this.usesToStringBuilder(result)),
+        this.checkEquals(ToStringBuilder.buildFrom(this.usesToStringBuilder(result)),
                 result.toString());
     }
 
@@ -529,7 +529,7 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
     private void buildAndCheck(final ToStringBuilder builder, final String expected) {
         final String built = builder.build();
         if (false == expected.equals(built)) {
-            assertEquals(format(expected),
+            this.checkEquals(format(expected),
                     format(built),
                     () -> "options=" + builder.options.toString());
         }

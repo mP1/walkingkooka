@@ -40,7 +40,7 @@ final public class CharSequenceTextCursorLineInfoTest implements ClassTesting2<C
         final CharSequenceTextCursorLineInfo info = CharSequenceTextCursorLineInfo
                 .with(TEXT, POS);
         assertSame(TEXT, info.text, "text");
-        assertEquals(POS, info.pos, "pos");
+        this.checkEquals(POS, info.pos, "pos");
         assertNull(info.lineAndColumn, "lineAndColumn");
     }
 
@@ -73,7 +73,7 @@ final public class CharSequenceTextCursorLineInfoTest implements ClassTesting2<C
                                   final int lineNumber,
                                   final int column) {
         if (false == text.startsWith(pos)) {
-            assertEquals("Pos text must be at the start of text", text, pos);
+            this.checkEquals("Pos text must be at the start of text", text, pos);
         }
         this.lineWithPosition(text, pos.length(), line, lineNumber, column);
     }
@@ -81,15 +81,15 @@ final public class CharSequenceTextCursorLineInfoTest implements ClassTesting2<C
     private void lineWithPosition(final String text, final int pos, final String line, final int lineNumber,
                                   final int column) {
         final CharSequenceTextCursorLineInfo info = CharSequenceTextCursorLineInfo.with(text, pos);
-        assertEquals(lineNumber, info.lineNumber(), "lineNumber=" + info);
-        assertEquals(column, info.column(), "column()=" + info);
-        assertEquals(line, info.text(), "text()=" + info);
+        this.checkEquals(lineNumber, info.lineNumber(), "lineNumber=" + info);
+        this.checkEquals(column, info.column(), "column()=" + info);
+        this.checkEquals(line, info.text(), "text()=" + info);
     }
 
     @Test
     public void testSummary() {
         final CharSequenceTextCursorLineInfo info = CharSequenceTextCursorLineInfo.with("line1\nline2", 8);
-        assertEquals("(3,2)", info.summary());
+        this.checkEquals("(3,2)", info.summary());
     }
 
     @Test

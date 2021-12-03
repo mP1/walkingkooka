@@ -40,7 +40,6 @@ import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -763,13 +762,13 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
     @Test
     public void testStreamSpliteratorCharacteristics() {
         final Spliterator<String> spliterator = this.createStream().spliterator();
-        assertEquals(0, spliterator.characteristics(), () -> "characteristics " + spliterator);
+        this.checkEquals(0, spliterator.characteristics(), () -> "characteristics " + spliterator);
     }
 
     @Test
     public void testStreamSpliteratorEstimatedSize() {
         final Spliterator<String> spliterator = this.createStream().spliterator();
-        assertEquals(Long.MAX_VALUE, spliterator.estimateSize(), () -> "estimateSize " + spliterator);
+        this.checkEquals(Long.MAX_VALUE, spliterator.estimateSize(), () -> "estimateSize " + spliterator);
     }
 
     @Test
@@ -783,7 +782,7 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
     public void testStreamSpliteratorGetExactSizeIfKnown() {
         final Spliterator<String> spliterator = this.createStream().spliterator();
 
-        assertEquals(-1, spliterator.getExactSizeIfKnown(), () -> "getExactSizeIfKnown " + spliterator);
+        this.checkEquals(-1L, spliterator.getExactSizeIfKnown(), () -> "getExactSizeIfKnown " + spliterator);
     }
 
     // closeable.......................................................................................................
@@ -858,7 +857,7 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         final Stream<String> stream = this.createStream()
                 .onClose(() -> this.closeableFired++);
         this.collectAndCheck(stream, this.values());
-        assertEquals(1, this.closeableFired, "Closeable not fired only once");
+        this.checkEquals(1, this.closeableFired, "Closeable not fired only once");
     }
 
     @Test
@@ -869,14 +868,14 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
                 .onClose(() -> this.closeableFired++)
                 .onClose(() -> this.closeableFired += 10);
         this.collectAndCheck(stream, this.values());
-        assertEquals(11, this.closeableFired, "Both closeables not fired only once");
+        this.checkEquals(11, this.closeableFired, "Both closeables not fired only once");
     }
 
     private int closeableFired;
 
     @Test
     public void testIsParallel() {
-        assertEquals(false, this.createStream().isParallel());
+        this.checkEquals(false, this.createStream().isParallel());
     }
 
     @Test
@@ -914,8 +913,8 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
                                             final PushableStreamConsumerCloseableCollection closeables,
                                             final PushableStreamConsumerStreamIntermediate... intermediates) {
         assertSame(starter, pushable.starter, "starter");
-        assertEquals(Lists.of(intermediates), pushable.intermediates, "intermediates");
-        assertEquals(closeables, pushable.closeables, "closeables");
+        this.checkEquals(Lists.of(intermediates), pushable.intermediates, "intermediates");
+        this.checkEquals(closeables, pushable.closeables, "closeables");
     }
 
     // toString..........................................................................................................

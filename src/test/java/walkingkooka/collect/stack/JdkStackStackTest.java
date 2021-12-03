@@ -52,14 +52,14 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
         final java.util.Stack<String> jdkStack = new java.util.Stack<>();
         jdkStack.push("1");
         jdkStack.push("2");
-        assertEquals(jdkStack, stack.stack, "items on wrapped jdk stack");
+        this.checkEquals(jdkStack, stack.stack, "items on wrapped jdk stack");
     }
 
     @Test
     public void testPushAllEmptyIterator() {
         final JdkStackStack<String> stack = JdkStackStack.create();
         assertSame(stack, stack.pushAll(Iterators.empty()), "this not returned");
-        assertEquals(new java.util.Stack<String>(), stack.stack, "wrapped jdk stack items");
+        this.checkEquals(new java.util.Stack<String>(), stack.stack, "wrapped jdk stack items");
     }
 
     @Test
@@ -72,7 +72,7 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
         final java.util.Stack<String> jdkStack = new java.util.Stack<>();
         jdkStack.push("1");
         jdkStack.push("2");
-        assertEquals(jdkStack, stack.stack, "items on wrapped jdk stack");
+        this.checkEquals(jdkStack, stack.stack, "items on wrapped jdk stack");
     }
 
     @Test
@@ -85,11 +85,11 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
         stack.push("2");
         this.checkSize(stack, 2);
 
-        assertEquals("2", stack.peek(), "peek");
-        assertEquals("2", stack.peek(), "peek again");
+        this.checkEquals("2", stack.peek(), "peek");
+        this.checkEquals("2", stack.peek(), "peek again");
 
         assertSame(stack, stack.pop(), "pop");
-        assertEquals("1", stack.peek(), "peek");
+        this.checkEquals("1", stack.peek(), "peek");
 
         assertSame(stack, stack.pop(), "pop last");
 
@@ -155,7 +155,7 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
         stack1.push("2");
         stack2.push("3");
         stack2.push("4");
-        assertNotEquals(stack1, stack2);
+        this.checkNotEquals(stack1, stack2);
     }
 
     @Test
@@ -166,7 +166,7 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
         stack1.push("2");
         stack2.push("1");
         stack2.push("2");
-        assertEquals(stack1, stack2);
+        this.checkEquals(stack1, stack2);
     }
 
     @Test

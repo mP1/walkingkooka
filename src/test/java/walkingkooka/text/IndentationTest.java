@@ -119,7 +119,7 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
     public void testOnlyWhitespace() {
         final String value = " \t";
         final Indentation indentation = Indentation.with(value);
-        assertEquals(value, indentation.value());
+        this.checkEquals(value, indentation.value());
     }
 
     @Test
@@ -172,22 +172,22 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
     @Test
     public void testCharAt() {
         final Indentation indentation = Indentation.with("0123");
-        assertEquals('0', indentation.charAt(0));
-        assertEquals('1', indentation.charAt(1));
-        assertEquals('2', indentation.charAt(2));
-        assertEquals('3', indentation.charAt(3));
+        this.checkEquals('0', indentation.charAt(0));
+        this.checkEquals('1', indentation.charAt(1));
+        this.checkEquals('2', indentation.charAt(2));
+        this.checkEquals('3', indentation.charAt(3));
     }
 
     @Test
     public void testLength() {
-        assertEquals(4, Indentation.with("0123").length());
+        this.checkEquals(4, Indentation.with("0123").length());
     }
 
     @Test
     public void testSubSequence() {
         final Indentation indentation = Indentation.with("0123");
-        assertEquals(Indentation.with("01"), indentation.subSequence(0, 2));
-        assertEquals(Indentation.with("1"), indentation.subSequence(1, 2));
+        this.checkEquals(Indentation.with("01"), indentation.subSequence(0, 2));
+        this.checkEquals(Indentation.with("1"), indentation.subSequence(1, 2));
     }
 
     @Test
@@ -207,7 +207,7 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
     }
 
     private void check(final Indentation indentation, final String value) {
-        assertEquals(value, indentation.value(), "value");
+        this.checkEquals(value, indentation.value(), "value");
     }
 
     private void checkConstant(final Indentation indentation, final int spaceCount) {

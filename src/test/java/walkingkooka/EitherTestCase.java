@@ -19,8 +19,6 @@ package walkingkooka;
 
 import walkingkooka.reflect.ClassTesting2;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public abstract class EitherTestCase<E extends Either<L, R>, L, R> implements ClassTesting2<E> {
 
     EitherTestCase() {
@@ -32,40 +30,40 @@ public abstract class EitherTestCase<E extends Either<L, R>, L, R> implements Cl
     // helpers..........................................................................................................
 
     final void checkValue(final Either<?, ?> either, final Object value) {
-        assertEquals(value, either.value(), "value");
+        this.checkEquals(value, either.value(), "value");
     }
 
     final <LL, RR> void orElseLeftAndCheck(final Either<LL, RR> either,
                                            final LL elseValue,
                                            final LL expected) {
-        assertEquals(expected, either.orElseLeft(elseValue), () -> either + " orElseLeft");
+        this.checkEquals(expected, either.orElseLeft(elseValue), () -> either + " orElseLeft");
     }
 
     final <LL, RR> void orElseLeftGetAndCheck(final Either<LL, RR> either,
                                               final LL elseValue,
                                               final LL expected) {
-        assertEquals(expected, either.orElseLeftGet(() -> elseValue), () -> either + " orElseLeftGet");
+        this.checkEquals(expected, either.orElseLeftGet(() -> elseValue), () -> either + " orElseLeftGet");
     }
 
     final <LL, RR> void orElseLeftThrowAndCheck(final Either<LL, RR> either,
                                                 final LL expected) {
-        assertEquals(expected, either.orElseLeftThrow(IllegalStateException::new), () -> either + " orElseLeftThrow");
+        this.checkEquals(expected, either.orElseLeftThrow(IllegalStateException::new), () -> either + " orElseLeftThrow");
     }
 
     final <LL, RR> void orElseRightAndCheck(final Either<LL, RR> either,
                                             final RR elseValue,
                                             final RR expected) {
-        assertEquals(expected, either.orElseRight(elseValue), () -> either + " orElseRight");
+        this.checkEquals(expected, either.orElseRight(elseValue), () -> either + " orElseRight");
     }
 
     final <LL, RR> void orElseRightGetAndCheck(final Either<LL, RR> either,
                                                final RR elseValue,
                                                final RR expected) {
-        assertEquals(expected, either.orElseRightGet(() -> elseValue), () -> either + " orElseRightGet");
+        this.checkEquals(expected, either.orElseRightGet(() -> elseValue), () -> either + " orElseRightGet");
     }
 
     final <LL, RR> void orElseRightThrowAndCheck(final Either<LL, RR> either,
                                                  final RR expected) {
-        assertEquals(expected, either.orElseRightThrow(IllegalStateException::new), () -> either + " orElseLeftThrow");
+        this.checkEquals(expected, either.orElseRightThrow(IllegalStateException::new), () -> either + " orElseLeftThrow");
     }
 }

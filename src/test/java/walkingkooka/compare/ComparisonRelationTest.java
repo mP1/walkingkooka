@@ -256,7 +256,7 @@ public final class ComparisonRelationTest implements ClassTesting2<ComparisonRel
     }
 
     private void symbolAndCheck(final ComparisonRelation relation, final String pattern) {
-        assertEquals(pattern, relation.symbol(), () -> "pattern for " + relation);
+        this.checkEquals(pattern, relation.symbol(), () -> "pattern for " + relation);
     }
 
     @Test
@@ -280,7 +280,7 @@ public final class ComparisonRelationTest implements ClassTesting2<ComparisonRel
         final ComparisonRelation inverted = relation.invert();
         final boolean invertedResult = inverted.predicate(value).test(value2);
 
-        assertNotEquals(result, invertedResult, () -> result + " inverted " + inverted + " " + value + " " + value2);
+        this.checkNotEquals(result, invertedResult, () -> result + " inverted " + inverted + " " + value + " " + value2);
     }
 
     @Test
@@ -305,7 +305,7 @@ public final class ComparisonRelationTest implements ClassTesting2<ComparisonRel
         final boolean result = relation.predicate(value).test(value2);
         final boolean swappedResult = relation.swap().predicate(value2).test(value);
 
-        assertEquals(result, swappedResult, () -> value + " " + relation + " " + value2);
+        this.checkEquals(result, swappedResult, () -> value + " " + relation + " " + value2);
     }
 
     @Test
@@ -354,21 +354,21 @@ public final class ComparisonRelationTest implements ClassTesting2<ComparisonRel
 
     // ??? Not sure why cant call default method...
     public void testTrue(final Predicate<Integer> predicate, final Integer value) {
-        assertEquals(true,
+        this.checkEquals(true,
                 predicate.test(value),
                 () -> predicate + " should match=" + CharSequences.quoteIfChars(value));
 
-        assertEquals(true,
+        this.checkEquals(true,
                 predicate.test(value.intValue()),
                 () -> predicate + " should match=" + CharSequences.quoteIfChars(value));
     }
 
     public void testFalse(final Predicate<Integer> predicate, final Integer value) {
-        assertEquals(false,
+        this.checkEquals(false,
                 predicate.test(value),
                 () -> predicate + " should not match=" + CharSequences.quoteIfChars(value));
 
-        assertEquals(false,
+        this.checkEquals(false,
                 predicate.test(value.intValue()),
                 () -> predicate + " should not match=" + CharSequences.quoteIfChars(value));
     }

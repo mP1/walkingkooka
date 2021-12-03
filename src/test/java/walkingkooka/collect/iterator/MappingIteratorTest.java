@@ -55,7 +55,7 @@ public final class MappingIteratorTest extends IteratorTestCase<MappingIterator<
         iterator.next();
         iterator.remove();
 
-        assertEquals(Lists.of("2", "3"), values);
+        this.checkEquals(Lists.of("2", "3"), values);
     }
 
     @Test

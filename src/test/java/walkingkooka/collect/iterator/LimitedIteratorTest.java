@@ -104,7 +104,7 @@ final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<
                 COUNT);
         iterator.next();
         iterator.remove();
-        assertEquals(Lists.of("2", "3"), source);
+        this.checkEquals(Lists.of("2", "3"), source);
 
         assertSame("2", iterator.next());
         assertFalse(iterator.hasNext());

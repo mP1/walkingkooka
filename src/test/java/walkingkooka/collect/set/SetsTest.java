@@ -40,12 +40,12 @@ final public class SetsTest implements PublicStaticHelperTesting<Sets> {
 
     @Test
     public void testOf() {
-        assertEquals(Sets.empty(), Sets.of());
+        this.checkEquals(Sets.empty(), Sets.of());
     }
 
     @Test
     public void testOfOneElement() {
-        assertEquals(Sets.of("element"), Sets.of("element"));
+        this.checkEquals(Sets.of("element"), Sets.of("element"));
     }
 
     @Test
@@ -58,7 +58,7 @@ final public class SetsTest implements PublicStaticHelperTesting<Sets> {
         list.add(object1);
         list.add(object2);
         list.add(object3);
-        assertEquals(list, new ArrayList<>(Sets.of(object1, object2, object3)));
+        this.checkEquals(list, new ArrayList<>(Sets.of(object1, object2, object3)));
     }
 
     // helpers

@@ -59,9 +59,9 @@ final public class ReverseIterableTest implements ClassTesting2<ReverseIterable<
         iterable.add("3");
 
         final Iterator<String> iterator = ReverseIterable.wrap(iterable).iterator();
-        assertEquals("3", iterator.next());
-        assertEquals("2", iterator.next());
-        assertEquals("1", iterator.next());
+        this.checkEquals("3", iterator.next());
+        this.checkEquals("2", iterator.next());
+        this.checkEquals("1", iterator.next());
         assertFalse(iterator.hasNext(), "iterator should be empty");
     }
 

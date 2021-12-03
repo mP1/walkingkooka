@@ -93,20 +93,20 @@ public final class StreamTestingTest implements StreamTesting<Stream<Integer>, I
 
     @Test
     public void testMax2() {
-        assertEquals(Optional.of(555),
+        this.checkEquals(Optional.of(555),
                 stream(1, 22, 33, 44, 555).max(Comparator.naturalOrder()));
     }
 
     @Test
     public void testMax3() {
-        assertEquals(Optional.of(555),
+        this.checkEquals(Optional.of(555),
                 stream(1, 22, 555, 44, 33).max(Comparator.naturalOrder()));
     }
 
     @SuppressWarnings("RedundantComparatorComparing")
     @Test
     public void testMax4() {
-        assertEquals(Optional.of(1),
+        this.checkEquals(Optional.of(1),
                 stream(1, 22, 555, 44, 33).max(Comparator.<Integer>naturalOrder().reversed()));
     }
 
@@ -122,20 +122,20 @@ public final class StreamTestingTest implements StreamTesting<Stream<Integer>, I
 
     @Test
     public void testMin2() {
-        assertEquals(Optional.of(1),
+        this.checkEquals(Optional.of(1),
                 stream(1, 22, 33, 44, 555).min(Comparator.naturalOrder()));
     }
 
     @Test
     public void testMin3() {
-        assertEquals(Optional.of(1),
+        this.checkEquals(Optional.of(1),
                 stream(555, 22, 1, 44, 33).min(Comparator.naturalOrder()));
     }
 
     @SuppressWarnings("RedundantComparatorComparing")
     @Test
     public void testMin4() {
-        assertEquals(Optional.of(555),
+        this.checkEquals(Optional.of(555),
                 stream(1, 22, 555, 44, 33).min(Comparator.<Integer>naturalOrder().reversed()));
     }
 

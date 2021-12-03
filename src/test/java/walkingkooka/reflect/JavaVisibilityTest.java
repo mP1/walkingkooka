@@ -47,7 +47,7 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
 
     private void checkClass(final Class<?> klass,
                             final JavaVisibility visibility) {
-        assertEquals(visibility, JavaVisibility.of(klass), klass.getName());
+        this.checkEquals(visibility, JavaVisibility.of(klass), klass.getName());
     }
 
     static protected class ProtectedClass {
@@ -80,7 +80,7 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
     private void checkConstructor(final Class<?> classs,
                                   final JavaVisibility visibility) throws Exception {
         final Constructor<?> constructor = classs.getDeclaredConstructor();
-        assertEquals(visibility,
+        this.checkEquals(visibility,
                 JavaVisibility.of(constructor),
                 constructor::toGenericString);
     }
@@ -125,7 +125,7 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
     private void checkMethod(final String methodName,
                              final JavaVisibility visibility) throws Exception {
         final Method method = JavaVisibilityTest.class.getDeclaredMethod(methodName);
-        assertEquals(visibility,
+        this.checkEquals(visibility,
                 JavaVisibility.of(method),
                 method::toGenericString);
     }
@@ -166,7 +166,7 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
 
     private void checkField(final String field,
                             final JavaVisibility visibility) throws Exception {
-        assertEquals(visibility,
+        this.checkEquals(visibility,
                 JavaVisibility.of(JavaVisibilityTest.class.getDeclaredField(field)),
                 field);
     }
@@ -256,7 +256,7 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
     private void isOrLessCheck(final JavaVisibility visibility,
                                final JavaVisibility other,
                                final boolean expected) {
-        assertEquals(expected,
+        this.checkEquals(expected,
                 visibility.isOrLess(other),
                 () -> visibility + " is less than " + other);
     }

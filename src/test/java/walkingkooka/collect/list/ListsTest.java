@@ -40,7 +40,7 @@ final public class ListsTest implements PublicStaticHelperTesting<Lists>,
     public void testArray() {
         final List<String> list = Lists.array();
         this.isImmutableAndCheck(list, false);
-        assertEquals(ArrayList.class, list.getClass(), "list class");
+        this.checkEquals(ArrayList.class, list.getClass(), "list class");
 
         list.add("1a");
     }
@@ -71,7 +71,7 @@ final public class ListsTest implements PublicStaticHelperTesting<Lists>,
 
         list.clear();
 
-        assertEquals(Lists.of("1a", "2b"), immutable, "defensive copy not taken");
+        this.checkEquals(Lists.of("1a", "2b"), immutable, "defensive copy not taken");
     }
 
     @Test
@@ -86,7 +86,7 @@ final public class ListsTest implements PublicStaticHelperTesting<Lists>,
     public void testLinked() {
         final List<String> list = Lists.linkedList();
         this.isImmutableAndCheck(list, false);
-        assertEquals(LinkedList.class, list.getClass(), "list class");
+        this.checkEquals(LinkedList.class, list.getClass(), "list class");
 
         list.add("1a");
     }
@@ -112,7 +112,7 @@ final public class ListsTest implements PublicStaticHelperTesting<Lists>,
 
         final List<String> immutable = Lists.of(array);
         this.isImmutableAndCheck(immutable, true);
-        assertEquals(Lists.of(a, b), immutable);
+        this.checkEquals(Lists.of(a, b), immutable);
     }
 
     @Test
@@ -123,7 +123,7 @@ final public class ListsTest implements PublicStaticHelperTesting<Lists>,
 
         final List<String> immutable = Lists.of(array);
         this.isImmutableAndCheck(immutable, true);
-        assertEquals(Lists.of(a, b), immutable);
+        this.checkEquals(Lists.of(a, b), immutable);
     }
 
     @Test
@@ -138,7 +138,7 @@ final public class ListsTest implements PublicStaticHelperTesting<Lists>,
         array[0] = "*";
         array[1] = "!";
 
-        assertEquals(Lists.of(a, b), immutable, "defensive copy not taken");
+        this.checkEquals(Lists.of(a, b), immutable, "defensive copy not taken");
     }
 
     @Test
@@ -157,11 +157,11 @@ final public class ListsTest implements PublicStaticHelperTesting<Lists>,
     @Test
     public void testVector() {
         final Vector<?> vector = Lists.vector();
-        assertEquals(Vector.class, vector.getClass(), "vector class");
+        this.checkEquals(Vector.class, vector.getClass(), "vector class");
     }
 
     private void isImmutableAndCheck(final List<?> list, final boolean expected) {
-        assertEquals(expected,
+        this.checkEquals(expected,
                 ImmutableList.isImmutable(list),
                 () -> "isImmutable " + list.getClass().getName() + "=" + list);
     }

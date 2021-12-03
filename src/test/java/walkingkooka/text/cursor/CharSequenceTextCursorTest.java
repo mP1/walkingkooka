@@ -38,8 +38,8 @@ final public class CharSequenceTextCursorTest implements ClassTesting2<CharSeque
     public void testFrom() {
         final String text = "text";
         final CharSequenceTextCursor cursor = CharSequenceTextCursor.with(text);
-        assertEquals(0, cursor.position, "positon");
-        assertEquals(text, cursor.text, "text");
+        this.checkEquals(0, cursor.position, "positon");
+        this.checkEquals(text, cursor.text, "text");
     }
 
     @Test

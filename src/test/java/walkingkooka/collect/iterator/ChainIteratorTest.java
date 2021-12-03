@@ -140,24 +140,24 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
         assertTrue(iterator.hasNext(), "hasNext from 1st iterator");
         assertSame("1", iterator.next(), "next from 1st iterator");
         iterator.remove();
-        assertEquals(Lists.of("2"), first, "element not removed from first iterator");
-        assertEquals(Lists.of("3", "4"), second, "second iterator should remain unmodified");
+        this.checkEquals(Lists.of("2"), first, "element not removed from first iterator");
+        this.checkEquals(Lists.of("3", "4"), second, "second iterator should remain unmodified");
 
         assertTrue(iterator.hasNext(), "hasNext from 1st iterator");
         assertSame("2", iterator.next(), "next from 1st iterator");
         iterator.remove();
-        assertEquals(Lists.empty(), first, "element not removed from first iterator");
-        assertEquals(Lists.of("3", "4"), second, "second iterator should remain unmodified");
+        this.checkEquals(Lists.empty(), first, "element not removed from first iterator");
+        this.checkEquals(Lists.of("3", "4"), second, "second iterator should remain unmodified");
 
         assertTrue(iterator.hasNext(), "hasNext from last iterator");
         assertSame("3", iterator.next(), "next from last iterator");
         iterator.remove();
-        assertEquals(Lists.of("4"), second, "element not removed from second iterator");
+        this.checkEquals(Lists.of("4"), second, "element not removed from second iterator");
 
         assertTrue(iterator.hasNext(), "hasNext from last iterator");
         assertSame("4", iterator.next(), "next from last iterator");
         iterator.remove();
-        assertEquals(Lists.empty(), second, "element not removed from second iterator");
+        this.checkEquals(Lists.empty(), second, "element not removed from second iterator");
     }
 
     @Test
@@ -213,7 +213,7 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
         iterator.next();
 
         iterator.remove();
-        assertEquals(Lists.of("3"), second, "second iterator source was not removed");
+        this.checkEquals(Lists.of("3"), second, "second iterator source was not removed");
         this.removeUnsupportedFails(iterator);
     }
 
@@ -234,8 +234,8 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
         assertTrue(iterator.hasNext(), "hasNext from 1st iterator");
         assertSame("2", iterator.next(), "next from 1st iterator");
         iterator.remove();
-        assertEquals(Lists.of("1"), first, "element not removed from first iterator");
-        assertEquals(Lists.of("3", "4"), second, "second iterator should remain unmodified");
+        this.checkEquals(Lists.of("1"), first, "element not removed from first iterator");
+        this.checkEquals(Lists.of("3", "4"), second, "second iterator should remain unmodified");
 
         assertTrue(iterator.hasNext(), "hasNext from last iterator");
         assertSame("3", iterator.next(), "next from last iterator");
@@ -243,7 +243,7 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
         assertTrue(iterator.hasNext(), "hasNext from last iterator");
         assertSame("4", iterator.next(), "next from last iterator");
         iterator.remove();
-        assertEquals(Lists.of("3"), second, "element not removed from second iterator");
+        this.checkEquals(Lists.of("3"), second, "element not removed from second iterator");
 
         this.nextFails(iterator);
         this.removeUnsupportedFails(iterator);

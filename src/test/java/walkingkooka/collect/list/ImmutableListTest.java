@@ -68,7 +68,7 @@ public final class ImmutableListTest extends ImmutableListTestCase<ImmutableList
     }
 
     private void isImmutableAndCheck(final List<?> list, final boolean expected) {
-        assertEquals(expected,
+        this.checkEquals(expected,
                 ImmutableList.isImmutable(list),
                 list::toString);
     }
@@ -100,7 +100,7 @@ public final class ImmutableListTest extends ImmutableListTestCase<ImmutableList
 
     private List<String> immutableAndCheck(final List<String> from) {
         final List<String> immutable = Lists.immutable(from);
-        assertEquals(true,
+        this.checkEquals(true,
                 immutable instanceof ImmutableList,
                 () -> "from " + from + " type=" + immutable.getClass().getName() + " " + immutable);
         return immutable;

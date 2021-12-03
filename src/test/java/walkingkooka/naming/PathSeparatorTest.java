@@ -49,13 +49,13 @@ final public class PathSeparatorTest implements ClassTesting2<PathSeparator>,
     @Test
     public void testRequiredLetterFails() {
         final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> PathSeparator.requiredAtStart('A'));
-        assertEquals(PathSeparator.invalidCharacter('A'), expected.getMessage());
+        this.checkEquals(PathSeparator.invalidCharacter('A'), expected.getMessage());
     }
 
     @Test
     public void testRequiredDigitFails() {
         final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> PathSeparator.requiredAtStart('1'));
-        assertEquals(PathSeparator.invalidCharacter('1'), expected.getMessage());
+        this.checkEquals(PathSeparator.invalidCharacter('1'), expected.getMessage());
     }
 
     @Test
@@ -80,9 +80,9 @@ final public class PathSeparatorTest implements ClassTesting2<PathSeparator>,
     private void check(final PathSeparator separator,
                        final char c,
                        final boolean required) {
-        assertEquals(c, separator.character(), "character");
-        assertEquals(String.valueOf(c), separator.string(), "string");
-        assertEquals(required, separator.isRequiredAtStart(), "requiredAtStart");
+        this.checkEquals(c, separator.character(), "character");
+        this.checkEquals(String.valueOf(c), separator.string(), "string");
+        this.checkEquals(required, separator.isRequiredAtStart(), "requiredAtStart");
     }
 
     @Test
@@ -93,13 +93,13 @@ final public class PathSeparatorTest implements ClassTesting2<PathSeparator>,
     @Test
     public void testNotRequiredLetterFails() {
         final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> PathSeparator.notRequiredAtStart('A'));
-        assertEquals(PathSeparator.invalidCharacter('A'), expected.getMessage());
+        this.checkEquals(PathSeparator.invalidCharacter('A'), expected.getMessage());
     }
 
     @Test
     public void testNotRequiredDigitFails() {
         final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> PathSeparator.notRequiredAtStart('1'));
-        assertEquals(PathSeparator.invalidCharacter('1'), expected.getMessage());
+        this.checkEquals(PathSeparator.invalidCharacter('1'), expected.getMessage());
     }
 
     @Test

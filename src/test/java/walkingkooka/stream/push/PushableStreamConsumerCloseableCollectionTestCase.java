@@ -48,7 +48,7 @@ public abstract class PushableStreamConsumerCloseableCollectionTestCase<C extend
                            final Runnable...expected) {
         final PushableStreamConsumerCloseableCollectionNonEmpty added = collection.add(add);
         assertNotSame(added, collection);
-        assertEquals(Lists.of(expected),
+        this.checkEquals(Lists.of(expected),
                 added.closeables,
                 () -> collection + " add " + add);
     }

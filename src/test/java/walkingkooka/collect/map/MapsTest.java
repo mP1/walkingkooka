@@ -166,7 +166,7 @@ final public class MapsTest implements PublicStaticHelperTesting<Maps>,
     }
 
     private void checkType(Map<String, Integer> immutable, final Class<?> type) {
-        assertEquals(type,
+        this.checkEquals(type,
                 immutable.getClass(),
                 () -> " reflect of " + immutable);
     }
@@ -184,7 +184,7 @@ final public class MapsTest implements PublicStaticHelperTesting<Maps>,
 
         final Map<String, Integer> readonly = Maps.readOnly(map);
         assertNotSame(readonly, map);
-        assertEquals(map, readonly);
+        this.checkEquals(map, readonly);
     }
 
     @Override
