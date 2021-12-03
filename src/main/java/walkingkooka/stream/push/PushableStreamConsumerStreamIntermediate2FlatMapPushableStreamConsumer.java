@@ -54,7 +54,7 @@ final class PushableStreamConsumerStreamIntermediate2FlatMapPushableStreamConsum
     // Object...........................................................................................................
 
     @Override
-    final void buildToString1(final ToStringBuilder builder) {
+    void buildToString1(final ToStringBuilder builder) {
         builder.label("flatmap");
         builder.value(this.mapper);
     }

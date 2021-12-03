@@ -50,7 +50,7 @@ final class PushableStreamConsumerStreamIntermediate2PeekPushableStreamConsumer<
     // Object...........................................................................................................
 
     @Override
-    final void buildToString1(final ToStringBuilder builder) {
+    void buildToString1(final ToStringBuilder builder) {
         builder.label("peek");
         builder.value(this.action);
     }

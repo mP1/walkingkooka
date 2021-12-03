@@ -59,7 +59,7 @@ final class PushableStreamConsumerStreamTerminal4AccumulatorPushableStreamConsum
      * Returns the REDUCE result if any is present.
      */
     @Override
-    final Optional<T> result() {
+    Optional<T> result() {
         return Optional.ofNullable(this.value);
     }
 

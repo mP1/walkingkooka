@@ -70,7 +70,7 @@ final class CharSequenceTextCursor implements TextCursor {
      * Tests if another character follows
      */
     @Override
-    final public boolean isEmpty() throws TextCursorException {
+    public boolean isEmpty() throws TextCursorException {
         return this.position >= this.text.length();
     }
 

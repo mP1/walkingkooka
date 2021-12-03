@@ -51,7 +51,7 @@ public final class FieldName extends JavaName<FieldName> {
     // Object...........................................................................................................
 
     @Override
-    final boolean canBeEqual(final Object other) {
+    boolean canBeEqual(final Object other) {
         return other instanceof FieldName;
     }
 

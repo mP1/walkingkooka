@@ -44,7 +44,7 @@ final class PushableStreamConsumerStreamIntermediate1SkipPushableStreamConsumer<
     // Object...........................................................................................................
 
     @Override
-    final String label() {
+    String label() {
         return "skip";
     }
 }

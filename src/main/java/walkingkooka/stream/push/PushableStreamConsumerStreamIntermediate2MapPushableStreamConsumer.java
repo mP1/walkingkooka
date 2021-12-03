@@ -50,7 +50,7 @@ final class PushableStreamConsumerStreamIntermediate2MapPushableStreamConsumer<T
     // Object...........................................................................................................
 
     @Override
-    final void buildToString1(final ToStringBuilder builder) {
+    void buildToString1(final ToStringBuilder builder) {
         builder.label("map");
         builder.value(this.mapper);
     }

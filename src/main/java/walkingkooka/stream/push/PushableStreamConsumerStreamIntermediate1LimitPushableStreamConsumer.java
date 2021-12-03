@@ -43,7 +43,7 @@ final class PushableStreamConsumerStreamIntermediate1LimitPushableStreamConsumer
     // Object...........................................................................................................
 
     @Override
-    final String label() {
+    String label() {
         return "limit";
     }
 }
