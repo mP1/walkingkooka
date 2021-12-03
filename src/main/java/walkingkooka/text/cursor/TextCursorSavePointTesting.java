@@ -148,7 +148,7 @@ public interface TextCursorSavePointTesting<S extends TextCursorSavePoint, C ext
 
         final String actual = save.toString();
         save.restore();
-        assertEquals("save " + cursor.toString(), actual);
+        assertEquals("save " + cursor, actual);
     }
 
     C createTextCursor(String text);

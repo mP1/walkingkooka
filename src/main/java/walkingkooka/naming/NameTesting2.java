@@ -170,7 +170,7 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> > extends 
                 final String text = new String(chars);
 
                 final InvalidCharacterException expected = assertThrows(InvalidCharacterException.class, () -> this.createName(text),
-                        () -> "Name text=" + CharSequences.quoteAndEscape(text).toString());
+                        () -> "Name text=" + CharSequences.quoteAndEscape(text));
                 final int j = i;
                 assertEquals(last,
                         expected.position(),
