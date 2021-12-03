@@ -200,8 +200,7 @@ public final class ClassName extends JavaName<ClassName> {
 
     // Object...........................................................................................................
 
-    @Override
-    final boolean canBeEqual(final Object other) {
+    @Override boolean canBeEqual(final Object other) {
         return other instanceof ClassName;
     }
 

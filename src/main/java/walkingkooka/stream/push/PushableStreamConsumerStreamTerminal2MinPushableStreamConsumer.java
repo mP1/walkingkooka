@@ -41,10 +41,9 @@ final class PushableStreamConsumerStreamTerminal2MinPushableStreamConsumer<T> ex
         super(comparator, closeables);
     }
 
-    @Override
-    final T compare(final int compare,
-                    final T previous,
-                    final T value) {
+    @Override T compare(final int compare,
+                        final T previous,
+                        final T value) {
         return compare < 0 ? previous : value;
     }
 
