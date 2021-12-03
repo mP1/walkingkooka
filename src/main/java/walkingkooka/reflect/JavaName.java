@@ -29,7 +29,7 @@ import walkingkooka.text.CharacterConstant;
 /**
  * Base class for several jdk component names.
  */
-abstract class JavaName<N extends JavaName> implements Name, Comparable<N> {
+abstract class JavaName<N extends JavaName<N>> implements Name, Comparable<N> {
 
     static void check(final String name) {
         CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name,
@@ -124,7 +124,7 @@ abstract class JavaName<N extends JavaName> implements Name, Comparable<N> {
 
     abstract boolean canBeEqual(final Object other);
 
-    private boolean equals0(final JavaName other) {
+    private boolean equals0(final JavaName<?> other) {
         return CASE_SENSITIVITY.equals(this.name, other.name);
     }
 
@@ -135,7 +135,7 @@ abstract class JavaName<N extends JavaName> implements Name, Comparable<N> {
 
     // Comparable .......................................................................................................
 
-    final int compareTo0(final JavaName other) {
+    final int compareTo0(final JavaName<?> other) {
         return CASE_SENSITIVITY.comparator().compare(this.name, other.name);
     }
 
