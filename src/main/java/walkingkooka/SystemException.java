@@ -28,6 +28,8 @@ import java.util.Objects;
  */
 public class SystemException extends RuntimeException {
 
+    private static final long serialVersionUID = 1L;
+
     protected SystemException() {
     }
 
