@@ -17,15 +17,17 @@
 
 package walkingkooka.locale;
 
+import walkingkooka.test.Testing;
+
 import java.util.Locale;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-public interface HasLocaleTesting {
+public interface HasLocaleTesting extends Testing {
 
     default void hasLocaleAndCheck(final HasLocale has, final Locale locale) {
-        assertEquals(locale,
+        this.checkEquals(
+                locale,
                 has.locale(),
-                () -> has + " locale()");
+                () -> has + " locale()"
+        );
     }
 }
