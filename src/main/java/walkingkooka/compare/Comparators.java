@@ -28,7 +28,7 @@ final public class Comparators implements PublicStaticHelper {
 
     public final static int EQUAL = 0;
 
-    public final static int MORE = +1;
+    public final static int MORE = 1;
 
     /**
      * {@see FakeComparator}
