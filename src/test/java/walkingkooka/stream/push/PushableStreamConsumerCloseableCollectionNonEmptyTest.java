@@ -84,7 +84,7 @@ public final class PushableStreamConsumerCloseableCollectionNonEmptyTest extends
                 .filter(p -> p instanceof TestCloseableRunnable)
                 .forEach(c -> ((TestCloseableRunnable) c).checkClosed());
 
-        assertEquals(1, this.closeCount);
+        this.checkEquals(1, this.closeCount);
     }
 
     private int closeCount;

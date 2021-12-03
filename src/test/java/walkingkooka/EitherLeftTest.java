@@ -34,7 +34,7 @@ public final class EitherLeftTest extends EitherTestCase2<EitherLeft<String, Int
 
     @Test
     public void testLeftValueFails() {
-        assertEquals(VALUE, this.createEither().leftValue());
+        this.checkEquals(VALUE, this.createEither().leftValue());
     }
 
     @Test
@@ -121,7 +121,7 @@ public final class EitherLeftTest extends EitherTestCase2<EitherLeft<String, Int
         final Either<String, Integer> left = this.createEither();
         final Either<Integer, String> swap = left.swap();
         this.checkValue(swap, VALUE);
-        assertEquals(EitherRight.class, swap.getClass(), "class");
+        this.checkEquals(EitherRight.class, swap.getClass(), "class");
     }
 
     // map..............................................................................................................
@@ -132,7 +132,7 @@ public final class EitherLeftTest extends EitherTestCase2<EitherLeft<String, Int
 
         final String different = "different-left";
         final Either<String, Integer> mapped = left.mapLeft((v) -> {
-            assertEquals(VALUE, v);
+            this.checkEquals(VALUE, v);
             return different;
         });
         this.checkValue(mapped, different);
@@ -149,7 +149,7 @@ public final class EitherLeftTest extends EitherTestCase2<EitherLeft<String, Int
     @Test
     public void testIfPresentLeft() {
         this.createEither().ifLeftPresent(this::consumeLeft);
-        assertEquals(VALUE, this.consumed, "value");
+        this.checkEquals(VALUE, this.consumed, "value");
     }
 
     @Test
@@ -164,7 +164,7 @@ public final class EitherLeftTest extends EitherTestCase2<EitherLeft<String, Int
     @Test
     public void testAcceptLeft() {
         this.createEither().accept(this::consumeLeft, this::acceptRight);
-        assertEquals(VALUE, this.consumed, "value");
+        this.checkEquals(VALUE, this.consumed, "value");
     }
 
     private void consumeLeft(final String left) {

@@ -190,7 +190,7 @@ public final class PublicStaticHelperTestingTest implements PublicStaticHelperTe
 
     @Test
     public final void testPublicStaticMethodsParameterAndReturnTypesArePublicFail() {
-        assertEquals(JavaVisibility.PACKAGE_PRIVATE, JavaVisibility.of(TestNonPublic.class));
+        this.checkEquals(JavaVisibility.PACKAGE_PRIVATE, JavaVisibility.of(TestNonPublic.class));
 
         assertThrows(AssertionError.class, () -> new TestPublicStaticMethodsParameterAndReturnTypesArePublicFail().testPublicStaticMethodsParameterAndReturnTypesArePublic());
     }
@@ -217,7 +217,7 @@ public final class PublicStaticHelperTestingTest implements PublicStaticHelperTe
 
     @Test
     public final void testPublicStaticMethodsParameterAndReturnTypesArePublicFail2() {
-        assertEquals(JavaVisibility.PACKAGE_PRIVATE, JavaVisibility.of(TestNonPublic.class));
+        this.checkEquals(JavaVisibility.PACKAGE_PRIVATE, JavaVisibility.of(TestNonPublic.class));
 
         assertThrows(AssertionError.class, () -> new TestPublicStaticMethodsParameterAndReturnTypesArePublicFail2().testPublicStaticMethodsParameterAndReturnTypesArePublic());
     }

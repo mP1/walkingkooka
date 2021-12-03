@@ -52,7 +52,7 @@ final public class SystemPropertyTest implements ClassTesting2<SystemProperty>,
     public void testGet() {
         final String name = "name";
         final SystemProperty property = SystemProperty.get(name);
-        assertEquals("name", property.value());
+        this.checkEquals("name", property.value());
     }
 
     @Test
@@ -68,7 +68,7 @@ final public class SystemPropertyTest implements ClassTesting2<SystemProperty>,
 
     @Test
     public void testUnknown() {
-        assertEquals(Optional.empty(),
+        this.checkEquals(Optional.empty(),
             SystemProperty.get(this.getClass().getName() + ".unknown")
                 .propertyValue());
     }
@@ -76,7 +76,7 @@ final public class SystemPropertyTest implements ClassTesting2<SystemProperty>,
     @Test
     public void testRequiredValue() {
         final SystemProperty property = SystemProperty.FILE_SEPARATOR;
-        assertEquals(property.propertyValue().orElse("FAIL!"),
+        this.checkEquals(property.propertyValue().orElse("FAIL!"),
             property.requiredPropertyValue(),
                 () -> "value of " + property);
     }
@@ -96,7 +96,7 @@ final public class SystemPropertyTest implements ClassTesting2<SystemProperty>,
 
         try {
             property.set(value);
-            assertEquals(Optional.of(value), property.propertyValue());
+            this.checkEquals(Optional.of(value), property.propertyValue());
         } catch (final SecurityException ignore) {
         }
     }
@@ -110,7 +110,7 @@ final public class SystemPropertyTest implements ClassTesting2<SystemProperty>,
         try {
             property.set(value);
             property.clear();
-            assertEquals(Optional.empty(), property.propertyValue());
+            this.checkEquals(Optional.empty(), property.propertyValue());
         } catch (final SecurityException ignore) {
         }
     }

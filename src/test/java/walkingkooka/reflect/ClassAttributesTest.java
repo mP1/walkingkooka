@@ -26,12 +26,12 @@ public final class ClassAttributesTest implements ClassTesting2<ClassAttributes>
 
     @Test
     public void testFinal() {
-        assertEquals(Sets.of(ClassAttributes.FINAL), ClassAttributes.get(this.getClass()));
+        this.checkEquals(Sets.of(ClassAttributes.FINAL), ClassAttributes.get(this.getClass()));
     }
 
     @Test
     public void testStatic() {
-        assertEquals(Sets.of(ClassAttributes.STATIC), ClassAttributes.get(TestStaticClass.class));
+        this.checkEquals(Sets.of(ClassAttributes.STATIC), ClassAttributes.get(TestStaticClass.class));
     }
 
     static class TestStaticClass {
@@ -39,7 +39,7 @@ public final class ClassAttributesTest implements ClassTesting2<ClassAttributes>
     
     @Test
     public void testAbstract() {
-        assertEquals(Sets.of(ClassAttributes.ABSTRACT), ClassAttributes.get(TestAbstractClass.class));
+        this.checkEquals(Sets.of(ClassAttributes.ABSTRACT), ClassAttributes.get(TestAbstractClass.class));
     }
 
     @SuppressWarnings("InnerClassMayBeStatic")
@@ -48,7 +48,7 @@ public final class ClassAttributesTest implements ClassTesting2<ClassAttributes>
 
     @Test
     public void testAbstractStatic() {
-        assertEquals(Sets.of(ClassAttributes.ABSTRACT, ClassAttributes.STATIC), ClassAttributes.get(TestAbstractStaticClass.class));
+        this.checkEquals(Sets.of(ClassAttributes.ABSTRACT, ClassAttributes.STATIC), ClassAttributes.get(TestAbstractStaticClass.class));
     }
 
     abstract static class TestAbstractStaticClass {

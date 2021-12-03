@@ -116,14 +116,14 @@ final public class OpenCheckerTest implements ClassTesting2<OpenChecker<Exceptio
     @Test
     public void testOpenToString() throws Thrown {
         final OpenChecker<Thrown> checker = OpenChecker.with(MESSAGE, THROWABLE_FACTORY);
-        assertEquals("Open", checker.toString());
+        this.checkEquals("Open", checker.toString());
     }
 
     @Test
     public void testClosedToString() throws Thrown {
         final OpenChecker<Thrown> checker = OpenChecker.with(MESSAGE, THROWABLE_FACTORY);
         checker.close();
-        assertEquals("Closed", checker.toString());
+        this.checkEquals("Closed", checker.toString());
     }
 
     @Override

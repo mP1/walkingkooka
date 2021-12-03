@@ -53,14 +53,14 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Strin
         final List<String> list = Lists.array();
         list.add("1");
         list.add("2");
-        assertEquals(list, stack.items, "items on wrapped list");
+        this.checkEquals(list, stack.items, "items on wrapped list");
     }
 
     @Test
     public void testPushAllEmptyIterator() {
         final ArrayListStack<String> stack = ArrayListStack.create();
         assertSame(stack, stack.pushAll(Iterators.empty()), "this not returned");
-        assertEquals(Lists.empty(), stack.items, "wrapped List items");
+        this.checkEquals(Lists.empty(), stack.items, "wrapped List items");
     }
 
     @Test
@@ -73,7 +73,7 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Strin
         final List<String> list = Lists.array();
         list.add("1");
         list.add("2");
-        assertEquals(list, stack.items, "items on wrapped list");
+        this.checkEquals(list, stack.items, "items on wrapped list");
     }
 
     @Test
@@ -85,11 +85,11 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Strin
 
         this.checkSize(stack, 2);
 
-        assertEquals("2", stack.peek(), "peek");
-        assertEquals("2", stack.peek(), "peek again");
+        this.checkEquals("2", stack.peek(), "peek");
+        this.checkEquals("2", stack.peek(), "peek again");
 
         assertSame(stack, stack.pop(), "pop");
-        assertEquals("1", stack.peek(), "peek");
+        this.checkEquals("1", stack.peek(), "peek");
 
         assertSame(stack, stack.pop(), "pop last");
 
@@ -114,11 +114,11 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Strin
         stack.push("3");
 
         final Iterator<String> iterator = stack.iterator();
-        assertEquals("1", iterator.next());
+        this.checkEquals("1", iterator.next());
         iterator.remove();
-        assertEquals("2", iterator.next());
+        this.checkEquals("2", iterator.next());
         iterator.remove();
-        assertEquals("3", iterator.next());
+        this.checkEquals("3", iterator.next());
         assertFalse(iterator.hasNext(), "iterator was NOT empty=" + iterator);
 
         assertSame("3", stack.peek());
@@ -154,7 +154,7 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Strin
         stack1.push("2");
         stack2.push("3");
         stack2.push("4");
-        assertNotEquals(stack1, stack2);
+        this.checkNotEquals(stack1, stack2);
     }
 
     @Test
@@ -165,7 +165,7 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Strin
         stack1.push("2");
         stack2.push("1");
         stack2.push("2");
-        assertEquals(stack1, stack2);
+        this.checkEquals(stack1, stack2);
     }
 
     @Test

@@ -42,7 +42,7 @@ final public class AnyCharPredicateTest implements CharPredicateTesting<AnyCharP
     @Test
     public void testWithEmptyString() {
         final CharPredicate predicate = AnyCharPredicate.with("");
-        assertNotEquals(AnyCharPredicate.class,
+        this.checkNotEquals(AnyCharPredicate.class,
                 predicate.getClass(),
                 "predicate must not be a AnyCharPredicate");
 
@@ -54,7 +54,7 @@ final public class AnyCharPredicateTest implements CharPredicateTesting<AnyCharP
     @Test
     public void testWithOneCharacterString() {
         final CharPredicate predicate = AnyCharPredicate.with("A");
-        assertNotEquals(AnyCharPredicate.class,
+        this.checkNotEquals(AnyCharPredicate.class,
                 predicate.getClass(),
                 "predicate must not be a AnyCharPredicate");
 

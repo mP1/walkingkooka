@@ -243,7 +243,7 @@ public final class BinaryTest implements HashCodeEqualsDefinedTesting2<Binary>,
     private void extractAndCheck(final Binary binary,
                                  final Range<Long> range,
                                  final Binary expected) {
-        assertEquals(expected,
+        this.checkEquals(expected,
                 binary.extract(range),
                 () -> binary + " extract " + range);
     }
@@ -307,7 +307,7 @@ public final class BinaryTest implements HashCodeEqualsDefinedTesting2<Binary>,
     }
 
     private void checkSize(final Binary binary, final int size) {
-        assertEquals(size, binary.size(), "size");
+        this.checkEquals(size, binary.size(), "size");
     }
 
     @Override

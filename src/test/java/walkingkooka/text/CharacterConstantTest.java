@@ -64,8 +64,8 @@ final public class CharacterConstantTest implements ClassTesting2<CharacterConst
     }
 
     private void check(final CharacterConstant constant, final char c) {
-        assertEquals(c, constant.character(), "character");
-        assertEquals(String.valueOf(c), constant.string(), "string");
+        this.checkEquals(c, constant.character(), "character");
+        this.checkEquals(String.valueOf(c), constant.string(), "string");
     }
 
     @Test

@@ -93,7 +93,7 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
                                  final int expected) {
         final int actual = sensitivity.compare(c, other);
         if (Comparators.normalize(expected) != Comparators.normalize(actual)) {
-            assertEquals(expected,
+            this.checkEquals(expected,
                     actual,
                     () -> sensitivity + " comparing " + CharSequences.quoteAndEscape(c) + "," + CharSequences.quoteAndEscape(other));
         }
@@ -137,7 +137,7 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
                                 final boolean expected) {
         final boolean result = sensitivity.equals(chars, otherChars);
         if (expected != result) {
-            assertEquals(expected,
+            this.checkEquals(expected,
                     result,
                     () -> sensitivity + " equals( " + CaseSensitivityTest.quote(chars) + "," + CaseSensitivityTest.quote(otherChars) + ")");
         }
@@ -281,7 +281,7 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
                                     final CharSequence otherChars, final boolean expected) {
         final boolean result = sensitivity.startsWith(chars, otherChars);
         if (expected != result) {
-            assertEquals(expected,
+            this.checkEquals(expected,
                     result,
                     () -> sensitivity + " startsWith( " + CaseSensitivityTest.quote(chars) + ","
                             + CaseSensitivityTest.quote(otherChars) + ")");
@@ -426,7 +426,7 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
                                   final CharSequence otherChars, final boolean expected) {
         final boolean result = sensitivity.endsWith(chars, otherChars);
         if (expected != result) {
-            assertEquals(expected,
+            this.checkEquals(expected,
                     result,
                     () -> sensitivity + " endsWith( " + CaseSensitivityTest.quote(chars) + "," + CaseSensitivityTest.quote(otherChars) + ")");
         }
@@ -702,7 +702,7 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
                                   final int expected) {
         final int result = sensitivity.indexOf(chars, searchFor);
         if (expected != result) {
-            assertEquals(expected,
+            this.checkEquals(expected,
                     result,
                     () -> sensitivity + " indexOf( " + CaseSensitivityTest.quote(chars) + ", " + CaseSensitivityTest.quote(searchFor) + ")");
         }
@@ -715,7 +715,7 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
                                        final int expected) {
         final int result = sensitivity.indexOf(chars, searchFor, offset);
         if (expected != result) {
-            assertEquals(expected,
+            this.checkEquals(expected,
                     result,
                     () -> sensitivity + " indexOf( " +
                             CaseSensitivityTest.quote(chars) + ", " +
@@ -993,7 +993,7 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
                                       final int expected) {
         final int result = sensitivity.lastIndexOf(chars, searchFor);
         if (expected != result) {
-            assertEquals(expected,
+            this.checkEquals(expected,
                     result,
                     () -> sensitivity + " lastIndexOf( " + CaseSensitivityTest.quote(chars) + ", " + CaseSensitivityTest.quote(searchFor) + ")");
         }
@@ -1006,7 +1006,7 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
                                            final int expected) {
         final int result = sensitivity.lastIndexOf(chars, searchFor, offset);
         if (expected != result) {
-            assertEquals(expected,
+            this.checkEquals(expected,
                     result,
                     () -> sensitivity + " lastIndexOf( " +
                             CaseSensitivityTest.quote(chars) + ", " +
@@ -1062,7 +1062,7 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
     private void hashAndCheck(final CaseSensitivity sensitivity,
                               final CharSequence chars,
                               final String result) {
-        assertEquals(sensitivity.hash(chars),
+        this.checkEquals(sensitivity.hash(chars),
                 null == result ? 0 : result.hashCode(),
                 () -> sensitivity + ".hash(" + CaseSensitivityTest.quote(chars) + ")");
     }
@@ -1263,14 +1263,14 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
     public void testSystemPropertyTrue() {
         CaseSensitivity.FILE_SYSTEM = null;
         CaseSensitivity.FILE_SYSTEM_PROPERTY.set(String.valueOf(Boolean.TRUE));
-        assertEquals(CaseSensitivity.SENSITIVE, CaseSensitivity.fileSystem());
+        this.checkEquals(CaseSensitivity.SENSITIVE, CaseSensitivity.fileSystem());
     }
 
     @Test
     public void testSystemPropertyFalse() {
         CaseSensitivity.FILE_SYSTEM = null;
         CaseSensitivity.FILE_SYSTEM_PROPERTY.set(String.valueOf(Boolean.FALSE));
-        assertEquals(CaseSensitivity.INSENSITIVE, CaseSensitivity.fileSystem());
+        this.checkEquals(CaseSensitivity.INSENSITIVE, CaseSensitivity.fileSystem());
     }
 
     @Test
@@ -1280,7 +1280,7 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
 
         final String osName = SystemProperty.OS_NAME.propertyValue().orElse("");
         if (osName.contains("OS X")) {
-            assertEquals(CaseSensitivity.SENSITIVE, CaseSensitivity.fileSystem());
+            this.checkEquals(CaseSensitivity.SENSITIVE, CaseSensitivity.fileSystem());
         }
     }
 

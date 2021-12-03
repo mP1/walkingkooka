@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.ThrowableTesting2;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<InvalidTextLengthException>,
@@ -146,10 +145,10 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<I
                        final String text,
                        final int min,
                        final int max) {
-        assertEquals(label, exception.label(), "label");
-        assertEquals(text, exception.text(), "text");
-        assertEquals(min, exception.min(), min);
-        assertEquals(max, exception.max(), max);
+        this.checkEquals(label, exception.label(), "label");
+        this.checkEquals(text, exception.text(), "text");
+        this.checkEquals(min, exception.min(), ()->  "min: " + min);
+        this.checkEquals(max, exception.max(), () -> "max: " + max);
     }
 
     // equals...........................................................................................................

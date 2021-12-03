@@ -60,7 +60,7 @@ public final class ImmutableMapTest extends ImmutableMapTestCase<ImmutableMap<St
     }
 
     private void immutableAndCheck(final Map<String, Integer> map, final boolean expected) {
-        assertEquals(expected,
+        this.checkEquals(expected,
                 ImmutableMap.isImmutable(map),
                 () -> "immutable " + map);
     }

@@ -40,7 +40,7 @@ public abstract class RangeBoundTestCase2<B extends RangeBound<Integer>> extends
     }
 
     final void valueAndCheck(final B bound, final Optional<Integer> value) {
-        assertEquals(value, bound.value(), () -> "value of " + bound);
+        this.checkEquals(value, bound.value(), () -> "value of " + bound);
     }
 
     @Test
@@ -61,8 +61,8 @@ public abstract class RangeBoundTestCase2<B extends RangeBound<Integer>> extends
 
     final void minAndCheck(final B bound, final RangeBound<Integer> other, final RangeBound<Integer> expected) {
         this.checkEither(bound, other, expected);
-        assertEquals(expected, bound.min(other), () -> bound + " lower " + other);
-        assertEquals(expected, other.min(bound), () -> bound + " lower " + other);
+        this.checkEquals(expected, bound.min(other), () -> bound + " lower " + other);
+        this.checkEquals(expected, other.min(bound), () -> bound + " lower " + other);
     }
 
     final void maxAndCheck(final RangeBound<Integer> other, final RangeBound<Integer> expected) {
@@ -71,8 +71,8 @@ public abstract class RangeBoundTestCase2<B extends RangeBound<Integer>> extends
 
     final void maxAndCheck(final B bound, final RangeBound<Integer> other, final RangeBound<Integer> expected) {
         this.checkEither(bound, other, expected);
-        assertEquals(expected, bound.max(other), () -> bound + " upper " + other);
-        assertEquals(expected, other.max(bound), () -> bound + " upper " + other);
+        this.checkEquals(expected, bound.max(other), () -> bound + " upper " + other);
+        this.checkEquals(expected, other.max(bound), () -> bound + " upper " + other);
     }
 
     private void checkEither(final B bound, final RangeBound<Integer> other, final RangeBound<Integer> expected) {

@@ -58,7 +58,7 @@ final public class AndNotCharPredicateTest extends LogicalCharPredicateTestCase<
     public void testBoth() {
         final CharPredicate left = CharPredicates.is('a');
         final CharPredicate right = CharPredicates.caseInsensitive('A');
-        assertNotEquals(left, right);
+        this.checkNotEquals(left, right);
         this.testFalse(AndNotCharPredicate.wrap(left, right), 'a');
     }
 
@@ -66,7 +66,7 @@ final public class AndNotCharPredicateTest extends LogicalCharPredicateTestCase<
     public void testNever() {
         final CharPredicate left = CharPredicates.is('a');
         final CharPredicate right = CharPredicates.is('b');
-        assertNotEquals(left, right);
+        this.checkNotEquals(left, right);
         this.testFalse(AndNotCharPredicate.wrap(left, right), 'z');
     }
 

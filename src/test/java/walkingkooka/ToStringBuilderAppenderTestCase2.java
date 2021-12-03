@@ -172,7 +172,7 @@ public abstract class ToStringBuilderAppenderTestCase2<A extends ToStringBuilder
     final void buildAndCheck(final ToStringBuilder builder, final String expected) {
         final String built = builder.build();
         if (false == expected.equals(built)) {
-            assertEquals(format(expected),
+            this.checkEquals(format(expected),
                     format(built),
                     () -> "options=" + builder.options.toString());
         }

@@ -438,7 +438,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     @Test
     public void testGreaterThanLessThanToString() {
-        assertEquals("[" + LOWER_VALUE + ".." + UPPER_VALUE + "]", greaterThanLessThan().toString());
+        this.checkEquals("[" + LOWER_VALUE + ".." + UPPER_VALUE + "]", greaterThanLessThan().toString());
     }
 
     private Range<Integer> greaterThanLessThan() {
@@ -479,7 +479,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     @Test
     public void testGreaterThanEqualsLessThanToString() {
-        assertEquals("(" + LOWER_VALUE + ".." + UPPER_VALUE + "]", greaterThanEqualsLessThan().toString());
+        this.checkEquals("(" + LOWER_VALUE + ".." + UPPER_VALUE + "]", greaterThanEqualsLessThan().toString());
     }
 
     private Range<Integer> greaterThanEqualsLessThan() {
@@ -520,7 +520,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     @Test
     public void testGreaterThanLessThanEqualsToString() {
-        assertEquals("[" + LOWER_VALUE + ".." + UPPER_VALUE + ")", greaterThanLessThanEquals().toString());
+        this.checkEquals("[" + LOWER_VALUE + ".." + UPPER_VALUE + ")", greaterThanLessThanEquals().toString());
     }
 
     private Range<Integer> greaterThanLessThanEquals() {
@@ -561,7 +561,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     @Test
     public void testGreaterThanEqualsLessThanEqualsToString() {
-        assertEquals("(" + LOWER_VALUE + ".." + UPPER_VALUE + ")", greaterThanEqualsLessThanEquals().toString());
+        this.checkEquals("(" + LOWER_VALUE + ".." + UPPER_VALUE + ")", greaterThanEqualsLessThanEquals().toString());
     }
 
     private Range<Integer> greaterThanEqualsLessThanEquals() {
@@ -609,8 +609,8 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
                              final RangeBound<Integer> lower,
                              final RangeBound<Integer> upper) {
         final Range<Integer> intersected = range.and(other);
-        assertEquals(lower, intersected.lower, () -> range + " and " + other + " lower");
-        assertEquals(upper, intersected.upper, () -> range + " and " + other + " upper");
+        this.checkEquals(lower, intersected.lower, () -> range + " and " + other + " lower");
+        this.checkEquals(upper, intersected.upper, () -> range + " and " + other + " upper");
     }
 
     // more tests ...................................................................................................
@@ -791,7 +791,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
     }
 
     private void isOverlappingAndCheck0(final Range<Integer> first, final Range<Integer> other, final boolean expected) {
-        assertEquals(expected, first.isOverlapping(other), () -> first + " " + other);
+        this.checkEquals(expected, first.isOverlapping(other), () -> first + " " + other);
 
         boolean and;
         try {
@@ -800,7 +800,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
         } catch (final Exception fail) {
             and = false;
         }
-        assertEquals(expected,
+        this.checkEquals(expected,
                 and,
                 () -> first + " and " + other + " doesnt match " + first + " isOverlapping " + other);
     }
@@ -841,7 +841,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
         final InvalidCharacterException thrown = assertThrows(InvalidCharacterException.class, () -> Range.parse(text, ':', (s) -> {
             throw new InvalidCharacterException("2!", 1);
         }));
-        assertEquals(text, thrown.text(), "text");
+        this.checkEquals(text, thrown.text(), "text");
     }
 
     @Test
@@ -876,7 +876,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     @Test
     public void testParseLowerAndUpperDifferentSeparator() {
-        assertEquals(Range.greaterThanEquals(123).and(Range.lessThanEquals(456)),
+        this.checkEquals(Range.greaterThanEquals(123).and(Range.lessThanEquals(456)),
                 Range.parse("123-456", '-', Integer::parseInt));
     }
 
@@ -1028,7 +1028,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
             }
         });
 
-        assertEquals(visited.toString(), "123456");
+        this.checkEquals(visited.toString(), "123456");
     }
 
     // Parse ........................................................................................................
@@ -1064,8 +1064,8 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
     }
 
     private void check(final Range<Integer> range, final RangeBound<Integer> lower, final RangeBound<Integer> upper) {
-        assertEquals(lower, range.lowerBound(), () -> "lower " + range);
-        assertEquals(upper, range.upperBound(), () -> "upper " + range);
+        this.checkEquals(lower, range.lowerBound(), () -> "lower " + range);
+        this.checkEquals(upper, range.upperBound(), () -> "upper " + range);
     }
 
     // ClassTesting.........................................................................................

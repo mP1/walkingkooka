@@ -62,7 +62,7 @@ final public class WhitespaceTest implements ClassTesting2<Whitespace>,
 
     @Test
     public void testSubSequence() {
-        assertEquals(Whitespace.with("\t"), Whitespace.with(" \t\r ").subSequence(1, 2));
+        this.checkEquals(Whitespace.with("\t"), Whitespace.with(" \t\r ").subSequence(1, 2));
     }
 
     @Override
@@ -100,7 +100,7 @@ final public class WhitespaceTest implements ClassTesting2<Whitespace>,
     }
 
     private void hasAndCheck(final String text, final boolean has) {
-        assertEquals(has,
+        this.checkEquals(has,
                 Whitespace.has(text),
                 CharSequences.quoteAndEscape(text) + " has whitespace");
     }

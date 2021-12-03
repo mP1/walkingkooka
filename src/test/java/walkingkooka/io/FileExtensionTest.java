@@ -80,7 +80,7 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     }
 
     private void fileExtensionAndCheck0(final String filename, final Optional<FileExtension> fileExtension) {
-        assertEquals(fileExtension,
+        this.checkEquals(fileExtension,
                 FileExtension.extract(filename),
                 () -> CharSequences.quoteAndEscape(filename) + " file extension");
     }
@@ -89,7 +89,7 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     public void testWith() {
         final String value = "txt";
         final FileExtension fileExtension = FileExtension.with(value);
-        assertEquals(value, fileExtension.value());
+        this.checkEquals(value, fileExtension.value());
     }
 
     @Test

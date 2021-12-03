@@ -39,7 +39,7 @@ public final class EitherTest extends EitherTestCase<Either<String, Integer>, St
 
     @Test
     public void testLeftThenMapLeftThenLeftValue() {
-        assertEquals("v1!",
+        this.checkEquals("v1!",
                 Either.left("v1")
                         .mapLeft(v -> v + "!")
                         .mapRight(v -> 555)
@@ -48,7 +48,7 @@ public final class EitherTest extends EitherTestCase<Either<String, Integer>, St
 
     @Test
     public void testRightThenMapRightThenRightValue() {
-        assertEquals("v1!",
+        this.checkEquals("v1!",
                 Either.right("v1")
                         .mapRight(v -> v + "!")
                         .mapLeft(v -> 555)
@@ -58,7 +58,7 @@ public final class EitherTest extends EitherTestCase<Either<String, Integer>, St
     @Test
     public void testLeftSwapAndSwap() {
         final Either<String, Integer> either = Either.left("abc");
-        assertEquals(either,
+        this.checkEquals(either,
                 either.swap()
         .swap());
     }
@@ -66,7 +66,7 @@ public final class EitherTest extends EitherTestCase<Either<String, Integer>, St
     @Test
     public void testRightSwapAndSwap() {
         final Either<Integer, String> either = Either.right("abc");
-        assertEquals(either,
+        this.checkEquals(either,
                 either.swap()
                         .swap());
     }

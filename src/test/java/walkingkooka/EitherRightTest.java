@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -39,7 +38,7 @@ public final class EitherRightTest extends EitherTestCase2<EitherRight<String, I
 
     @Test
     public void testRightValueFails() {
-        assertEquals(VALUE, this.createEither().rightValue());
+        this.checkEquals(VALUE, this.createEither().rightValue());
     }
 
     // setValue.........................................................................................................
@@ -131,7 +130,7 @@ public final class EitherRightTest extends EitherTestCase2<EitherRight<String, I
         final Either<String, Integer> right = this.createEither();
         final Either<Integer, String> swap = right.swap();
         this.checkValue(swap, VALUE);
-        assertEquals(EitherLeft.class, swap.getClass(), "class");
+        this.checkEquals(EitherLeft.class, swap.getClass(), "class");
     }
 
     // map..............................................................................................................
@@ -148,7 +147,7 @@ public final class EitherRightTest extends EitherTestCase2<EitherRight<String, I
 
         final Integer different = -1;
         final Either<String, Integer> mapped = right.mapRight((v) -> {
-            assertEquals(VALUE, v);
+            this.checkEquals(VALUE, v);
             return different;
         });
         this.checkValue(mapped, different);
@@ -166,7 +165,7 @@ public final class EitherRightTest extends EitherTestCase2<EitherRight<String, I
     @Test
     public void testIfPresentRight() {
         this.createEither().ifRightPresent(this::consumeRight);
-        assertEquals(VALUE, this.consumed, VALUE);
+        this.checkEquals(VALUE, this.consumed, () -> "" + VALUE);
     }
 
     // accept............................................................................................................
@@ -174,7 +173,7 @@ public final class EitherRightTest extends EitherTestCase2<EitherRight<String, I
     @Test
     public void testAcceptLeft() {
         this.createEither().accept(this::acceptLeft, this::consumeRight);
-        assertEquals(VALUE, this.consumed, "value");
+        this.checkEquals(VALUE, this.consumed, "value");
     }
 
     private void consumeRight(final Integer right) {

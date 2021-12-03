@@ -80,10 +80,10 @@ public final class FieldAttributesTest implements ClassTesting2<FieldAttributes>
         final Field field = this.getClass().getDeclaredField(name);
 
         final Set<FieldAttributes> set = Sets.of(attributes);
-        assertEquals(set, FieldAttributes.get(field));
+        this.checkEquals(set, FieldAttributes.get(field));
 
         for (FieldAttributes possible : FieldAttributes.values()) {
-            assertEquals(set.contains(possible),
+            this.checkEquals(set.contains(possible),
                     possible.is(field),
                     field::toGenericString);
         }

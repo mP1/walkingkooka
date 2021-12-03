@@ -92,21 +92,21 @@ final public class ArrayStackTest extends StackTestCase<ArrayStack<String>, Stri
     @Test
     public void testPop() {
         final Stack<String> with12 = ArrayStack.with("1").push("2");
-        assertEquals(ArrayStack.class, with12.getClass(), () -> "Stack should be a ArrayStack=" + with12);
+        this.checkEquals(ArrayStack.class, with12.getClass(), () -> "Stack should be a ArrayStack=" + with12);
 
         final Stack<String> popped = with12.pop();
-        assertEquals("1", popped.peek(), "peeked");
-        assertEquals(1, popped.size(), "size with 1 items");
+        this.checkEquals("1", popped.peek(), "peeked");
+        this.checkEquals(1, popped.size(), "size with 1 items");
     }
 
     @Test
     public void testPop2() {
         final Stack<String> stack = ArrayStack.with("1").push("2").push("3");
-        assertEquals(ArrayStack.class, stack.getClass(), () -> "Stack should be a ArrayStack=" + stack);
+        this.checkEquals(ArrayStack.class, stack.getClass(), () -> "Stack should be a ArrayStack=" + stack);
 
         final Stack<String> popped = stack.pop();
         this.checkSize(popped, 2);
-        assertEquals("3", stack.peek(), "peeked");
+        this.checkEquals("3", stack.peek(), "peeked");
     }
 
     @Test
@@ -123,22 +123,22 @@ final public class ArrayStackTest extends StackTestCase<ArrayStack<String>, Stri
         final ArrayStack<String> with12 = with1.push("2");
         final Stack<String> with12x3 = with12.pop().push("2*").push("3");
 
-        assertEquals("3", with12x3.peek());
+        this.checkEquals("3", with12x3.peek());
         final Stack<String> with12x = with12x3.pop();
-        assertEquals("2*", with12x.peek(), "peeking stack with 2 elements");
+        this.checkEquals("2*", with12x.peek(), "peeking stack with 2 elements");
 
         final Stack<String> with123b = with12x.push("3b");
-        assertEquals("3b", with123b.peek());
-        assertEquals("2*", with12x.peek(), "peeking stack with 2 elements");
+        this.checkEquals("3b", with123b.peek());
+        this.checkEquals("2*", with12x.peek(), "peeking stack with 2 elements");
 
         final Stack<String> with12again = with123b.pop();
-        assertEquals("2*", with12again.peek(), "peeking stack with 2 elements");
+        this.checkEquals("2*", with12again.peek(), "peeking stack with 2 elements");
 
         final Stack<String> with123b4 = with123b.push("4");
-        assertEquals("4", with123b4.peek(), "peeking stack with 4 elements");
+        this.checkEquals("4", with123b4.peek(), "peeking stack with 4 elements");
 
         final Stack<String> with123b4b = with123b.push("4b");
-        assertEquals("4b", with123b4b.peek(), "peeking stack with 4 elements");
+        this.checkEquals("4b", with123b4b.peek(), "peeking stack with 4 elements");
     }
 
     @Test
@@ -146,13 +146,13 @@ final public class ArrayStackTest extends StackTestCase<ArrayStack<String>, Stri
         final Stack<String> stack = ArrayStack.with("1").push("2").push("3");
         final Iterator<String> iterator = stack.iterator();
         assertTrue(iterator.hasNext(), "first pending not empty");
-        assertEquals("1", iterator.next(), "first");
+        this.checkEquals("1", iterator.next(), "first");
 
         assertTrue(iterator.hasNext(), "second pending not empty");
-        assertEquals("2", iterator.next(), "second");
+        this.checkEquals("2", iterator.next(), "second");
 
         assertTrue(iterator.hasNext(), "last pending not empty");
-        assertEquals("3", iterator.next(), "last");
+        this.checkEquals("3", iterator.next(), "last");
 
         assertFalse(iterator.hasNext(), "iterator was NOT empty=" + iterator);
     }
@@ -162,10 +162,10 @@ final public class ArrayStackTest extends StackTestCase<ArrayStack<String>, Stri
         final Stack<String> stack = ArrayStack.with("1").push("2").push("-popped-").pop();
         final Iterator<String> iterator = stack.iterator();
         assertTrue(iterator.hasNext(), "first pending not empty");
-        assertEquals("1", iterator.next(), "first");
+        this.checkEquals("1", iterator.next(), "first");
 
         assertTrue(iterator.hasNext(), "second pending not empty");
-        assertEquals("2", iterator.next(), "second");
+        this.checkEquals("2", iterator.next(), "second");
 
         assertFalse(iterator.hasNext(), "iterator was NOT empty=" + iterator);
     }
@@ -258,7 +258,7 @@ final public class ArrayStackTest extends StackTestCase<ArrayStack<String>, Stri
 
     private void check(final ArrayStack<String> stack, final int last, final String... array) {
         assertArrayEquals(array, stack.array, "array");
-        assertEquals(last, stack.last, "last");
+        this.checkEquals(last, stack.last, "last");
 
         this.checkSize(stack, array.length);
     }

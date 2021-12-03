@@ -97,9 +97,9 @@ public abstract class PushableStreamConsumerStreamIntermediate1PushableStreamCon
             i++;
         }
 
-        assertEquals(this.commaSeparated(expected),
+        this.checkEquals(this.commaSeparated(expected),
                 collected,
                 () -> "values: " + CharSequences.quoteAndEscape(commaSeperated) + " " + consumer);
-        assertEquals(consumedCount, i, () -> "consumed values count, values: " + CharSequences.quoteAndEscape(commaSeperated));
+        this.checkEquals(consumedCount, i, () -> "consumed values count, values: " + CharSequences.quoteAndEscape(commaSeperated));
     }
 }

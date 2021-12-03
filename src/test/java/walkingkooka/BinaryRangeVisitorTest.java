@@ -78,7 +78,7 @@ public final class BinaryRangeVisitorTest implements RangeVisitorTesting<BinaryR
     private void extractAndCheck(final Binary binary,
                                  final Range<Long> range,
                                  final Binary expected) {
-        assertEquals(expected,
+        this.checkEquals(expected,
                 BinaryRangeVisitor.extract(binary, range),
                 () -> binary + " range: " + range);
     }

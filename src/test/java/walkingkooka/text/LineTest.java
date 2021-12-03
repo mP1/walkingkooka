@@ -64,7 +64,7 @@ final public class LineTest implements ClassTesting2<Line>,
 
     private void createAndCheck(final String text) {
         final Line line = Line.with(text);
-        assertEquals(text, line.value(), "text value");
+        this.checkEquals(text, line.value(), "text value");
     }
 
     @Test

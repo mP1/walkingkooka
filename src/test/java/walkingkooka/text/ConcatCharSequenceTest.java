@@ -100,8 +100,8 @@ final public class ConcatCharSequenceTest implements ClassTesting2<ConcatCharSeq
     @Test
     public void testSubSequenceOverlap() {
         final ConcatCharSequence sub = Cast.to(ConcatCharSequence.with(FIRST, SECOND).subSequence(1, 6));
-        assertEquals(sub.first, "bc", "first");
-        assertEquals(sub.second, "123", "Second");
+        this.checkEquals(sub.first, "bc", "first");
+        this.checkEquals(sub.second, "123", "Second");
 
         this.checkEquals2(sub, "bc123");
     }
@@ -109,8 +109,8 @@ final public class ConcatCharSequenceTest implements ClassTesting2<ConcatCharSeq
     @Test
     public void testSubSequenceOverlap2() {
         final ConcatCharSequence sub = Cast.to(ConcatCharSequence.with(FIRST, SECOND).subSequence(2, 6));
-        assertEquals(sub.first, "c", "first");
-        assertEquals(sub.second, "123", "Second");
+        this.checkEquals(sub.first, "c", "first");
+        this.checkEquals(sub.second, "123", "Second");
 
         this.checkEquals2(sub, "c123");
     }
@@ -118,8 +118,8 @@ final public class ConcatCharSequenceTest implements ClassTesting2<ConcatCharSeq
     @Test
     public void testSubSequenceOverlap3() {
         final ConcatCharSequence sub = Cast.to(ConcatCharSequence.with(FIRST, SECOND).subSequence(2, 4));
-        assertEquals(sub.first, "c", "first");
-        assertEquals(sub.second, "1", "Second");
+        this.checkEquals(sub.first, "c", "first");
+        this.checkEquals(sub.second, "1", "Second");
 
         this.checkEquals2(sub, "c1");
     }

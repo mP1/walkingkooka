@@ -62,7 +62,7 @@ public abstract class PushableStreamConsumerStreamTerminal2PushableStreamConsume
             this.accept(consumer, value);
         }
 
-        assertEquals(expected,
+        this.checkEquals(expected,
                 consumer.result(),
                 () -> "Values " + CharSequences.quoteAndEscape(values));
     }

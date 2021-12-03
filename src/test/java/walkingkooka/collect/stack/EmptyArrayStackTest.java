@@ -40,7 +40,7 @@ final public class EmptyArrayStackTest extends StackTestCase<EmptyArrayStack<Obj
     public void testPush() {
         final ArrayStack<String> stack = Cast.to(EmptyArrayStack.instance().push("1"));
         assertArrayEquals(new Object[]{"1"}, stack.array, "array");
-        assertEquals(1, stack.last, "last");
+        this.checkEquals(1, stack.last, "last");
     }
 
     @Test
@@ -55,7 +55,7 @@ final public class EmptyArrayStackTest extends StackTestCase<EmptyArrayStack<Obj
                 = Cast.to(EmptyArrayStack.<String>instance().pushAll(Lists.of("1", "2", "3")
                 .iterator()));
         assertArrayEquals(new Object[]{"1", "2", "3"}, stack.array, "array");
-        assertEquals(3, stack.last, "last");
+        this.checkEquals(3, stack.last, "last");
     }
 
     @Test

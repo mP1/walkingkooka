@@ -218,8 +218,8 @@ final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
     private void check(final MissingBuilder missing, final String message, final int total,
                        final int missingCount) {
         this.buildAndCheck(missing, message);
-        assertEquals(total, missing.total(), "total");
-        assertEquals(missingCount, missing.missing(), "missing");
+        this.checkEquals(total, missing.total(), "total");
+        this.checkEquals(missingCount, missing.missing(), "missing");
     }
 
     @Override

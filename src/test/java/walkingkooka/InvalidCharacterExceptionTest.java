@@ -182,8 +182,8 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
     }
 
     private void check(final InvalidCharacterException exception, final String text, final int position) {
-        assertEquals(text, exception.text(), "text");
-        assertEquals(position, exception.position(), "position");
+        this.checkEquals(text, exception.text(), "text");
+        this.checkEquals(position, exception.position(), "position");
     }
 
     // equals...........................................................................................................

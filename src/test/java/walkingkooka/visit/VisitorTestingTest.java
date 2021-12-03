@@ -33,7 +33,7 @@ public final class VisitorTestingTest implements ClassTesting2<VisitorTesting> {
         } catch (final AssertionError expected) {
             failed = true;
         }
-        assertEquals(true, failed);
+        this.checkEquals(true, failed);
     }
 
     public static class TestInstanceCheckStaticFailsVisitor extends Visitor<TestVisitable> {
@@ -56,7 +56,7 @@ public final class VisitorTestingTest implements ClassTesting2<VisitorTesting> {
         } catch (final AssertionError expected) {
             failed = true;
         }
-        assertEquals(true, failed);
+        this.checkEquals(true, failed);
     }
 
     public static class TestProtectedMethodCheckPublicFailsVisitor extends Visitor<TestVisitable> {
@@ -79,7 +79,7 @@ public final class VisitorTestingTest implements ClassTesting2<VisitorTesting> {
         } catch (final AssertionError expected) {
             failed = true;
         }
-        assertEquals(true, failed);
+        this.checkEquals(true, failed);
     }
 
     public static class TestProtectedMethodCheckPackagePrivateFailsVisitor extends Visitor<TestVisitable> {
@@ -102,7 +102,7 @@ public final class VisitorTestingTest implements ClassTesting2<VisitorTesting> {
         } catch (final AssertionError expected) {
             failed = true;
         }
-        assertEquals(true, failed);
+        this.checkEquals(true, failed);
     }
 
     public static class TestSingleParameterCheckFailsVisitor0 extends Visitor<TestVisitable> {
@@ -125,7 +125,7 @@ public final class VisitorTestingTest implements ClassTesting2<VisitorTesting> {
         } catch (final AssertionError expected) {
             failed = true;
         }
-        assertEquals(true, failed);
+        this.checkEquals(true, failed);
     }
 
     public static class TestSingleParameterCheckFailsVisitor2 extends Visitor<TestVisitable> {
@@ -148,7 +148,7 @@ public final class VisitorTestingTest implements ClassTesting2<VisitorTesting> {
         } catch (final AssertionError expected) {
             failed = true;
         }
-        assertEquals(true, failed);
+        this.checkEquals(true, failed);
     }
 
     public static class TestMethodParameterTypesPublicCheckFailsVisitor extends Visitor<TestPackagePrivateVisitable> {
@@ -174,7 +174,7 @@ public final class VisitorTestingTest implements ClassTesting2<VisitorTesting> {
         } catch (final AssertionError expected) {
             failed = true;
         }
-        assertEquals(true, failed);
+        this.checkEquals(true, failed);
     }
 
     public static class TestMethodReturnTypeCheckFailsVisitor extends Visitor<TestPackagePrivateVisitable> {

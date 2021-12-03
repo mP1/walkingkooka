@@ -157,7 +157,7 @@ public final class PackageNameTest extends PackageNameOrTypeNameJavaNameTestCase
         final PackageName p3 = p.append(p2);
         this.checkValue(p3, "a1.b2.c3");
 
-        assertEquals(p, p3.parent(), "parent");
+        this.checkEquals(p, p3.parent(), "parent");
     }
 
     @Override

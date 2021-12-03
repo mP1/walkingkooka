@@ -53,9 +53,9 @@ final public class CharSequenceTextCursorSavePointTest implements ClassTesting2<
 
         final TextCursorLineInfo saveInfo = save.lineInfo();
         assertNotSame(info, saveInfo);
-        assertEquals(info.column(), saveInfo.column(), "save column");
-        assertEquals(info.lineNumber(), saveInfo.lineNumber(), "save lineNumber");
-        assertEquals(info.text(), saveInfo.text(), "save text");
+        this.checkEquals(info.column(), saveInfo.column(), "save column");
+        this.checkEquals(info.lineNumber(), saveInfo.lineNumber(), "save lineNumber");
+        this.checkEquals(info.text(), saveInfo.text(), "save text");
     }
 
     @Override

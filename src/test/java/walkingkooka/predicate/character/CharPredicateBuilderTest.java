@@ -211,10 +211,10 @@ final public class CharPredicateBuilderTest implements ClassTesting2<CharPredica
         builder.andNot(CharPredicates.is('A'));
 
         final CharPredicate predicate = builder.build();
-        assertEquals(false, predicate.test('A'), "'A' should not be matched");
-        assertEquals(true, predicate.test('B'), "'B' should be matched");
-        assertEquals(true, predicate.test('C'), "'C' should be matched");
-        assertEquals(false, predicate.test('Z'), "'Z' should be matched");
+        this.checkEquals(false, predicate.test('A'), "'A' should not be matched");
+        this.checkEquals(true, predicate.test('B'), "'B' should be matched");
+        this.checkEquals(true, predicate.test('C'), "'C' should be matched");
+        this.checkEquals(false, predicate.test('Z'), "'Z' should be matched");
     }
 
     // negate
