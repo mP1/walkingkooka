@@ -32,7 +32,7 @@ final class PushableStreamConsumerCloseableCollectionEmpty extends PushableStrea
     }
 
     @Override
-    final PushableStreamConsumerCloseableCollectionNonEmpty add0(final Runnable closeable) {
+    PushableStreamConsumerCloseableCollectionNonEmpty add0(final Runnable closeable) {
         return PushableStreamConsumerCloseableCollectionNonEmpty.with(Lists.of(closeable));
     }
 

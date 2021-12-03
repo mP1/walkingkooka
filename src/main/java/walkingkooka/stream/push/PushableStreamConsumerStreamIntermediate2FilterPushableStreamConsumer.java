@@ -51,7 +51,7 @@ final class PushableStreamConsumerStreamIntermediate2FilterPushableStreamConsume
     // Object...........................................................................................................
 
     @Override
-    final void buildToString1(final ToStringBuilder builder) {
+    void buildToString1(final ToStringBuilder builder) {
         builder.label("filter");
         builder.value(this.predicate);
     }

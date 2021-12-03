@@ -42,9 +42,9 @@ final class PushableStreamConsumerStreamTerminal2MaxPushableStreamConsumer<T> ex
     }
 
     @Override
-    final T compare(final int compare,
-                    final T previous,
-                    final T value) {
+    T compare(final int compare,
+              final T previous,
+              final T value) {
         return compare > 0 ? previous : value;
     }
 

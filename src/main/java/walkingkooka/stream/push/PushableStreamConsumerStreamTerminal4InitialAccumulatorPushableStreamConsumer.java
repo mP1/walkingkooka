@@ -53,7 +53,7 @@ final class PushableStreamConsumerStreamTerminal4InitialAccumulatorPushableStrea
      * Returns the REDUCE result if any is present.
      */
     @Override
-    final T result() {
+    T result() {
         return this.value;
     }
 
