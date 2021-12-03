@@ -68,7 +68,6 @@ public final class LineAndColumn {
 
         // find end of line...
         int end = length;
-        column = COLUMN_START;
         for (int j = startOfLine; j < length; j++) {
             final char c = chars.charAt(j);
             if (('\r' == c) || ('\n' == c)) {
