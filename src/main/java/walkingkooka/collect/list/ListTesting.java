@@ -21,7 +21,6 @@ import walkingkooka.collect.CollectionTesting;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface ListTesting extends CollectionTesting {
@@ -29,9 +28,11 @@ public interface ListTesting extends CollectionTesting {
     default <E> void getAndCheck(final List<E> list,
                                  final int index,
                                  final E element) {
-        assertEquals(element,
+        this.checkEquals(
+                element,
                 list.get(index),
-                () -> "get " + index + " from " + list);
+                () -> "get " + index + " from " + list
+        );
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")

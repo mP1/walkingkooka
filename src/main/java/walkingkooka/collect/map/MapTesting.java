@@ -18,12 +18,12 @@
 package walkingkooka.collect.map;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.Testing;
 import walkingkooka.text.CharSequences;
 
 import java.util.Map;
 import java.util.Map.Entry;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Interface with default methods which can be mixed in to assist testing of an {@link Map}.
  */
-public interface MapTesting<M extends Map<K, V>, K, V> {
+public interface MapTesting<M extends Map<K, V>, K, V> extends Testing {
 
     @Test
     default void testIteratorContainsKeyAndSize() {
@@ -117,9 +117,11 @@ public interface MapTesting<M extends Map<K, V>, K, V> {
     }
 
     default void getAndCheck(final Map<K, V> map, final K key, final V value) {
-        assertEquals(value,
+        this.checkEquals(
+                value,
                 map.get(key),
-                () -> "get " + CharSequences.quoteIfChars(key) + " from " + map);
+                () -> "get " + CharSequences.quoteIfChars(key) + " from " + map
+        );
         this.containsKeyAndCheck(map, key);
         this.containsValueAndCheck(map, value);
     }
@@ -129,14 +131,20 @@ public interface MapTesting<M extends Map<K, V>, K, V> {
     }
 
     default void getAndCheckAbsent(final Map<K, V> map, final Object key) {
-        assertEquals(null,
+        this.checkEquals(
+                null,
                 map.get(key),
-                () -> "get " + CharSequences.quoteIfChars(key) + " from " + map);
+                () -> "get " + CharSequences.quoteIfChars(key) + " from " + map
+        );
         this.containsKeyAndCheckAbsent(map, key);
     }
 
     default void isEmptyAndCheck(final Map<K, V> map, final boolean empty) {
-        assertEquals(empty, map.isEmpty(), () -> "isEmpty of " + map);
+        this.checkEquals(
+                empty,
+                map.isEmpty(),
+                () -> "isEmpty of " + map
+        );
     }
 
     default void putFails(final Map<K, V> map,
@@ -151,7 +159,11 @@ public interface MapTesting<M extends Map<K, V>, K, V> {
     }
 
     default void sizeAndCheck(final Map<K, V> map, final int size) {
-        assertEquals(size, map.size(), () -> "size of " + map);
+        this.checkEquals(
+                size,
+                map.size(),
+                () -> "size of " + map
+        );
         this.isEmptyAndCheck(map, 0 == size);
     }
 }

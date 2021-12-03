@@ -18,22 +18,22 @@
 package walkingkooka.collect.iterator;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.test.Testing;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Interface with default methods which can be mixed in to assist testing of an {@link Iterator}.
  */
-public interface IteratorTesting {
+public interface IteratorTesting extends Testing {
 
     default void hasNextCheckFalse(final Iterator<?> iterator) {
-        assertEquals(false,
+        this.checkEquals(false,
                 iterator.hasNext(),
                 () -> "iterator hasNext should have returned true: " + iterator);
     }
@@ -44,9 +44,11 @@ public interface IteratorTesting {
     }
 
     default void hasNextCheckTrue(final Iterator<?> iterator, final String message) {
-        assertEquals(true,
+        this.checkEquals(
+                true,
                 iterator.hasNext(),
-                message);
+                message
+        );
     }
 
     default void nextFails(final Iterator<?> iterator) {
@@ -75,13 +77,20 @@ public interface IteratorTesting {
 
         while (iterator.hasNext()) {
             final T next = iterator.next();
-            assertEquals(expected[i], next, "element " + i);
+
+            this.checkEquals(
+                    expected[i],
+                    next,
+                    "element " + i
+            );
             consumed.add(next);
             i++;
         }
-        assertEquals(Lists.of(expected),
+        this.checkEquals(
+                Lists.of(expected),
                 consumed,
-                iterator::toString);
+                iterator::toString
+        );
         this.nextFails(iterator);
     }
 
@@ -95,14 +104,22 @@ public interface IteratorTesting {
 
         while (i < expectedCount) {
             final T next = iterator.next();
-            assertEquals(expected[i], next, "element " + i);
+
+            this.checkEquals(
+                    expected[i],
+                    next,
+                    "element " + i
+            );
+
             consumed.add(next);
             i++;
         }
 
-        assertEquals(Lists.of(expected),
+        this.checkEquals(
+                Lists.of(expected),
                 consumed,
-                iterator::toString);
+                iterator::toString
+        );
         this.nextFails(iterator);
     }
 }

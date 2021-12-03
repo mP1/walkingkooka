@@ -17,26 +17,29 @@
 
 package walkingkooka.predicate;
 
+import walkingkooka.test.Testing;
 import walkingkooka.text.CharSequences;
 
 import java.util.function.Predicate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 /**
  * Mixing that helps test a {@link Predicate} and an argument.
  */
-public interface PredicateTesting {
+public interface PredicateTesting extends Testing {
 
     default <TT> void testTrue(final Predicate<TT> predicate, final TT value) {
-        assertEquals(true,
+        this.checkEquals(
+                true,
                 predicate.test(value),
-                () -> predicate + " should match=" + CharSequences.quoteIfChars(value));
+                () -> predicate + " should match=" + CharSequences.quoteIfChars(value)
+        );
     }
 
     default <TT> void testFalse(final Predicate<TT> predicate, final TT value) {
-        assertEquals(false,
+        this.checkEquals(
+                false,
                 predicate.test(value),
-                () -> predicate + " should not match=" + CharSequences.quoteIfChars(value));
+                () -> predicate + " should not match=" + CharSequences.quoteIfChars(value)
+        );
     }
 }

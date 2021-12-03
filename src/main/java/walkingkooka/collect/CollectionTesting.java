@@ -18,15 +18,15 @@
 package walkingkooka.collect;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.test.Testing;
 import walkingkooka.text.CharSequences;
 
 import java.util.Collection;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public interface CollectionTesting {
+public interface CollectionTesting extends Testing {
 
     default <E> void addFails(final Collection<E> collection,
                               final E add) {
@@ -37,25 +37,48 @@ public interface CollectionTesting {
 
         final List<E> after = Lists.array();
         after.addAll(collection);
-        assertEquals(before, after, () -> "add modified collection " + collection);
+
+        this.checkEquals(
+                before,
+                after,
+                () -> "add modified collection " + collection
+        );
     }
 
     default <E> void containsAndCheck(final Collection<E> collection,
                                       final E element) {
-        assertEquals(true, collection.contains(element), () -> collection + " should contain " + CharSequences.quoteIfChars(element));
-        assertEquals(true, collection.containsAll(Lists.of(element)),
-                () -> collection + " should NOT contain Collection of " + CharSequences.quoteIfChars(element));
+        this.checkEquals(
+                true,
+                collection.contains(element),
+                () -> collection + " should contain " + CharSequences.quoteIfChars(element)
+        );
+        this.checkEquals(
+                true,
+                collection.containsAll(Lists.of(element)),
+                () -> collection + " should NOT contain Collection of " + CharSequences.quoteIfChars(element)
+        );
     }
 
     default void containsAndCheckAbsent(final Collection<?> collection,
                                         final Object element) {
-        assertEquals(false, collection.contains(element), () -> collection + " should contain " + CharSequences.quoteIfChars(element));
-        assertEquals(false, collection.containsAll(Lists.of(element)),
-                () -> collection + " should NOT contain Collection of " + CharSequences.quoteIfChars(element));
+        this.checkEquals(
+                false,
+                collection.contains(element),
+                () -> collection + " should contain " + CharSequences.quoteIfChars(element)
+        );
+        this.checkEquals(
+                false,
+                collection.containsAll(Lists.of(element)),
+                () -> collection + " should NOT contain Collection of " + CharSequences.quoteIfChars(element)
+        );
     }
 
     default void isEmptyAndCheck(final Collection<?> collection, final boolean empty) {
-        assertEquals(empty, collection.isEmpty(), () -> "isEmpty of " + collection);
+        this.checkEquals(
+                empty,
+                collection.isEmpty(),
+                () -> "isEmpty of " + collection
+        );
     }
 
     default <E> void removeFails(final Collection<E> collection,
@@ -67,11 +90,19 @@ public interface CollectionTesting {
 
         final List<E> after = Lists.array();
         after.addAll(collection);
-        assertEquals(before, after, () -> "remove modified collection " + collection);
+        this.checkEquals(
+                before,
+                after,
+                () -> "remove modified collection " + collection
+        );
     }
 
     default void sizeAndCheck(final Collection<?> collection, final int size) {
-        assertEquals(size, collection.size(), () -> "size of " + collection);
+        this.checkEquals(
+                size,
+                collection.size(),
+                () -> "size of " + collection
+        );
         this.isEmptyAndCheck(collection, 0 == size);
     }
 }
