@@ -38,9 +38,11 @@ public interface NameTesting<N extends Name, C extends Comparable<C>> extends Co
 
     @Test
     default void testPublicClass() {
-        assertEquals(JavaVisibility.PUBLIC,
+        this.checkEquals(
+                JavaVisibility.PUBLIC,
                 this.typeVisibility(),
-                "Visibility of name");
+                "Visibility of name"
+        );
     }
 
     @Test
