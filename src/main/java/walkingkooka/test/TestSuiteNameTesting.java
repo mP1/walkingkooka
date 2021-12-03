@@ -19,7 +19,6 @@ package walkingkooka.test;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
@@ -35,7 +34,7 @@ public interface TestSuiteNameTesting<T> extends Testing {
         if (!test.endsWith("Test")) {
             fail("Test name " + test + " incorrect for " + type);
         }
-        assertEquals(test, type + "Test", () -> "Test name " + test + " incorrect for " + type);
+        this.checkEquals(test, type + "Test", () -> "Test name " + test + " incorrect for " + type);
     }
 
     /**

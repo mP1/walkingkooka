@@ -19,8 +19,6 @@ package walkingkooka.text;
 
 import walkingkooka.test.Testing;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public interface HasTextLengthTesting extends Testing {
 
     default void textLengthAndCheck(final HasTextLength has,
@@ -30,8 +28,10 @@ public interface HasTextLengthTesting extends Testing {
 
     default void textLengthAndCheck(final HasTextLength has,
                                     final int length) {
-        assertEquals(length,
+        this.checkEquals(
+                length,
                 has.textLength(),
-                () -> has.toString());
+                () -> has.toString()
+        );
     }
 }

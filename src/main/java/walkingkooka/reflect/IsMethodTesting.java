@@ -27,8 +27,6 @@ import java.util.Arrays;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 /**
  * Scans a class for one or more instance is methods. Only methods that match the class less a prefix and suffix should
  * return true.
@@ -50,14 +48,18 @@ public interface IsMethodTesting<T> extends Testing {
 
         final Method isMethod = object.getClass().getMethod(isMethodName);
         isMethod.setAccessible(true);
-        assertEquals(true,
+
+        this.checkEquals(
+                true,
                 isMethod.invoke(object),
-                () -> "Is method " + isMethod.toGenericString() + " should have returned true for " + object);
+                () -> "Is method " + isMethod.toGenericString() + " should have returned true for " + object
+        );
 
         final Predicate<String> filter = this.isMethodIgnoreMethodFilter();
 
         // all other is methods should return false.
-        assertEquals(Lists.empty(),
+        this.checkEquals(
+                Lists.empty(),
                 Arrays.stream(object.getClass().getMethods())
                         .filter(m -> !MethodAttributes.STATIC.is(m)) // filter static methods
                         .filter(m -> m.getName().startsWith("is")) // only process
@@ -75,7 +77,8 @@ public interface IsMethodTesting<T> extends Testing {
                         })
                         .map(Method::toGenericString)
                         .collect(Collectors.toList()),
-                "IsMethods that should have returned false but returned true.");
+                "IsMethods that should have returned false but returned true."
+        );
     }
 
     /**
