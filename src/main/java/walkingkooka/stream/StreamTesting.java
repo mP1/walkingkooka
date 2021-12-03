@@ -670,7 +670,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     // count........................................................................................................
 
-    default void countAndCheck(final Stream<T> stream, final int count) {
+    default void countAndCheck(final Stream<T> stream, final long count) {
         assertEquals(count,
                 stream.count(),
                 () -> "count from " + stream);
