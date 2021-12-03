@@ -40,8 +40,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -50,9 +48,11 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     @Test
     default void testValuesNotEmpty() {
         final List<T> values = this.values();
-        assertNotEquals(0,
+        this.checkNotEquals(
+                0,
                 values,
-                () -> "" + values);
+                () -> "" + values
+        );
     }
 
     // allMatch..........................................................................................................
@@ -582,25 +582,31 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     default void allMatchAndCheck(final Stream<T> stream,
                                   final Predicate<? super T> predicate,
                                   final boolean result) {
-        assertEquals(result,
+        this.checkEquals(
+                result,
                 stream.allMatch(predicate),
-                () -> stream + " allMatch");
+                () -> stream + " allMatch"
+        );
     }
 
     default void anyMatchAndCheck(final Stream<T> stream,
                                   final Predicate<? super T> predicate,
                                   final boolean result) {
-        assertEquals(result,
+        this.checkEquals(
+                result,
                 stream.anyMatch(predicate),
-                () -> stream + " anyMatch");
+                () -> stream + " anyMatch"
+        );
     }
 
     default void noneMatchAndCheck(final Stream<T> stream,
                                    final Predicate<? super T> predicate,
                                    final boolean result) {
-        assertEquals(result,
+        this.checkEquals(
+                result,
                 stream.noneMatch(predicate),
-                () -> stream + " anyMatch");
+                () -> stream + " anyMatch"
+        );
     }
 
     // collect........................................................................................................
@@ -651,7 +657,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     }
 
     default <U> void collectAndCheck(final Stream<T> stream, final List<U> values) {
-        assertEquals(values,
+        this.checkEquals(values,
                 stream.collect(Collectors.toList()),
                 () -> "collect(Collector.toList) from " + stream);
     }
@@ -663,7 +669,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 //        final BiConsumer<U, ? super T> accumulator = Cast.to(collector.accumulator());
 //        final BiConsumer<U, U> combiner = Cast.to(collector.combiner());
 //
-//        assertEquals(values,
+//        this.checkEquals(values,
 //                stream.collect(supplier, accumulator, combiner),
 //                () -> "collect(Supplier, BiConumer, BinaryOperator) from " + stream);
 //    }
@@ -671,9 +677,11 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     // count........................................................................................................
 
     default void countAndCheck(final Stream<T> stream, final long count) {
-        assertEquals(count,
+        this.checkEquals(
+                count,
                 stream.count(),
-                () -> "count from " + stream);
+                () -> "count from " + stream
+        );
     }
 
     // filter........................................................................................................
@@ -684,47 +692,55 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     }
 
     default void filterAndCheck(final Supplier<Stream<T>> stream, final List<T> values) {
-        assertEquals(values,
+        this.checkEquals(
+                values,
                 stream.get()
                         .filter(v -> {
-                            assertEquals(true, values.contains(v), "predicate argument not in values");
+                            this.checkEquals(true, values.contains(v), "predicate argument not in values");
                             return true;
                         })
                         .collect(Collectors.toList()),
-                () -> "filter(true) then collect(Collector.toList) from " + stream);
-        assertEquals(Lists.empty(),
+                () -> "filter(true) then collect(Collector.toList) from " + stream
+        );
+        this.checkEquals(
+                Lists.empty(),
                 stream.get()
                         .filter(Predicates.never())
                         .collect(Collectors.toList()),
-                () -> "filter(false) then collect(Collector.toList) from " + stream);
+                () -> "filter(false) then collect(Collector.toList) from " + stream
+        );
 
         final Predicate<T> keepOdd = (t) -> {
             final int index = values.indexOf(t);
-            assertNotEquals(-1, index, () -> "unknown value=" + CharSequences.quoteIfChars(t));
+            this.checkNotEquals(-1, index, () -> "unknown value=" + CharSequences.quoteIfChars(t));
             return (index & 1) == 0;
         };
 
-        assertEquals(values.stream()
+        this.checkEquals(
+                values.stream()
                         .filter(keepOdd)
                         .collect(Collectors.toList()),
                 stream.get()
                         .filter(keepOdd)
                         .collect(Collectors.toList()),
-                () -> "filter(odds) then collect(Collector.toList) from " + stream);
+                () -> "filter(odds) then collect(Collector.toList) from " + stream
+        );
 
         final Predicate<T> keepEven = (t) -> {
             final int index = values.indexOf(t);
-            assertNotEquals(-1, index, () -> "unknown value=" + CharSequences.quoteIfChars(t));
+            this.checkNotEquals(-1, index, () -> "unknown value=" + CharSequences.quoteIfChars(t));
             return (index & 1) == 1;
         };
 
-        assertEquals(values.stream()
+        this.checkEquals(
+                values.stream()
                         .filter(keepEven)
                         .collect(Collectors.toList()),
                 stream.get()
                         .filter(keepEven)
                         .collect(Collectors.toList()),
-                () -> "filter(evens) then collect(Collector.toList) from " + stream);
+                () -> "filter(evens) then collect(Collector.toList) from " + stream
+        );
     }
 
     // findFirst........................................................................................................
@@ -738,24 +754,31 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     }
 
     default void findFirstAndCheck(final Stream<T> stream, final Optional<T> first) {
-        assertEquals(first,
+        this.checkEquals(
+                first,
                 stream.findFirst(),
-                () -> "findFirst from " + stream);
+                () -> "findFirst from " + stream
+        );
     }
 
     // findAny........................................................................................................
 
     default void findAnyAndCheckNone(final Stream<T> stream) {
-        assertEquals(Optional.empty(),
+        this.checkEquals(
+                Optional.empty(),
                 stream.findAny(),
-                () -> "findAny from " + stream);
+                () -> "findAny from " + stream
+        );
     }
 
     default void findAnyAndCheck(final Stream<T> stream, final List<T> values) {
         final Optional<T> any = stream.findAny();
-        assertNotEquals(Optional.empty(),
+        
+        this.checkNotEquals(
+                Optional.empty(),
                 any,
-                () -> "findAny " + stream + " values: " + values);
+                () -> "findAny " + stream + " values: " + values
+        );
         assertTrue(values.contains(any.orElse(null)),
                 () -> "findAny from " + stream + " found " + any);
     }
@@ -775,9 +798,11 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         final Set<T> expected = Sets.ordered();
         expected.addAll(values);
 
-        assertEquals(expected,
+        this.checkEquals(
+                expected,
                 collected,
-                () -> "for each from " + stream);
+                () -> "for each from " + stream
+        );
     }
 
     // forEachOrdered........................................................................................................
@@ -792,9 +817,11 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
         stream.forEachOrdered(collected::add);
 
-        assertEquals(values,
+        this.checkEquals(
+                values,
                 collected,
-                () -> "for each from " + stream);
+                () -> "for each from " + stream
+        );
     }
 
     // iterator........................................................................................................
@@ -828,9 +855,11 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
             iteratorValues.add(i.next());
         }
 
-        assertEquals(values,
+        this.checkEquals(
+                values,
                 iteratorValues,
-                () -> "iterator from " + stream);
+                () -> "iterator from " + stream
+        );
     }
 
     // limit........................................................................................................
@@ -846,11 +875,13 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         for (int i = 0; i < to; i++) {
             final int limit = i;
 
-            assertEquals(values.subList(0, limit),
+            this.checkEquals(
+                    values.subList(0, limit),
                     stream.get()
                             .limit(i)
                             .collect(Collectors.toList()),
-                    () -> "limit " + limit + " then collect from " + stream);
+                    () -> "limit " + limit + " then collect from " + stream
+            );
         }
     }
 
@@ -860,9 +891,11 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     }
 
     default void limitAndCheck(final Stream<T> stream, final List<T> values) {
-        assertEquals(values,
+        this.checkEquals(
+                values,
                 stream.collect(Collectors.toList()),
-                () -> "limit then collect from " + stream);
+                () -> "limit then collect from " + stream
+        );
     }
 
     // max........................................................................................................
@@ -879,9 +912,11 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
                              final List<T> values) {
         final Optional<T> expected = values.stream()
                 .max(comparator);
-        assertEquals(expected,
+        this.checkEquals(
+                expected,
                 stream.max(comparator),
-                () -> "max " + comparator + " from " + stream + " with values: " + values);
+                () -> "max " + comparator + " from " + stream + " with values: " + values
+        );
     }
 
     // min........................................................................................................
@@ -898,9 +933,11 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
                              final List<T> values) {
         final Optional<T> expected = values.stream()
                 .min(comparator);
-        assertEquals(expected,
+        this.checkEquals(
+                expected,
                 stream.min(comparator),
-                () -> "min " + comparator + " from " + stream + " with values: " + values);
+                () -> "min " + comparator + " from " + stream + " with values: " + values
+        );
     }
 
     // peek........................................................................................................
@@ -915,9 +952,11 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
         this.collectAndCheck(stream.peek(collected::add), values);
 
-        assertEquals(values,
+        this.checkEquals(
+                values,
                 collected,
-                () -> "peek from " + stream);
+                () -> "peek from " + stream
+        );
     }
 
     // reduce(BinaryOperator)........................................................................................................
@@ -934,9 +973,11 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     default <TT> void reduceAndCheck(final Stream<TT> stream,
                                      final BinaryOperator<TT> reducer,
                                      final List<TT> values) {
-        assertEquals(values.stream().reduce(reducer),
+        this.checkEquals(
+                values.stream().reduce(reducer),
                 stream.reduce(reducer),
-                () -> "reduce " + stream);
+                () -> "reduce " + stream
+        );
     }
 
     // reduce(T, BinaryOperator)........................................................................................................
@@ -956,9 +997,11 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
                                      final TT initial,
                                      final BinaryOperator<TT> reducer,
                                      final List<TT> values) {
-        assertEquals(values.stream().reduce(initial, reducer),
+        this.checkEquals(
+                values.stream().reduce(initial, reducer),
                 stream.reduce(initial, reducer),
-                () -> "reduce " + CharSequences.quoteIfChars(initial) + " " + stream);
+                () -> "reduce " + CharSequences.quoteIfChars(initial) + " " + stream
+        );
     }
 
     // reduce(T, BinaryFunction, BinaryOperator)........................................................................
@@ -977,9 +1020,11 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
                                      final BiFunction<TT, TT, TT> reducer,
                                      final BinaryOperator<TT> combiner,
                                      final List<TT> values) {
-        assertEquals(values.stream().reduce(initial, reducer, combiner),
+        this.checkEquals(
+                values.stream().reduce(initial, reducer, combiner),
                 stream.reduce(initial, reducer, combiner),
-                () -> "reduce " + CharSequences.quoteIfChars(initial) + " " + stream);
+                () -> "reduce " + CharSequences.quoteIfChars(initial) + " " + stream
+        );
     }
 
     // skip........................................................................................................
@@ -995,11 +1040,13 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         for (int i = 0; i < to; i++) {
             final int skip = i;
 
-            assertEquals(values.subList(skip, to),
+            this.checkEquals(
+                    values.subList(skip, to),
                     stream.get()
                             .skip(skip)
                             .collect(Collectors.toList()),
-                    () -> "skip " + skip + " then collect from " + stream);
+                    () -> "skip " + skip + " then collect from " + stream
+            );
         }
     }
 
@@ -1009,9 +1056,11 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     }
 
     default void skipAndCheck(final Stream<T> stream, final List<T> values) {
-        assertEquals(values,
+        this.checkEquals(
+                values,
                 stream.collect(Collectors.toList()),
-                () -> "skip  then collect from " + stream);
+                () -> "skip  then collect from " + stream
+        );
     }
 
     // toArray........................................................................................................

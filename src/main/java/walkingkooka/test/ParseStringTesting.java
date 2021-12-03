@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.text.CharSequences;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
@@ -46,7 +45,8 @@ public interface ParseStringTesting<T> extends Testing {
 
     default T parseStringAndCheck(final String text, final T value) {
         final T parsed = this.parseString(text);
-        assertEquals(value,
+        this.checkEquals(
+                value,
                 parsed,
                 () -> "Parsing of " + CharSequences.quoteAndEscape(text) + " failed"
         );
@@ -89,9 +89,11 @@ public interface ParseStringTesting<T> extends Testing {
                                   final RuntimeException expected) {
         final RuntimeException expected2 = this.parseStringFailedExpected(expected);
         final RuntimeException thrown = assertThrows(expected.getClass(), () -> this.parseString(text));
-        assertEquals(expected2.getMessage(),
+        this.checkEquals(
+                expected2.getMessage(),
                 thrown.getMessage(),
-                () -> "Incorrect failure message for " + CharSequences.quoteAndEscape(text));
+                () -> "Incorrect failure message for " + CharSequences.quoteAndEscape(text)
+        );
     }
 
     /**
