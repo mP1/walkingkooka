@@ -50,7 +50,8 @@ public final class MethodName extends JavaName<MethodName> {
 
     // Object...........................................................................................................
 
-    @Override final boolean canBeEqual(final Object other) {
+    @Override
+    boolean canBeEqual(final Object other) {
         return other instanceof MethodName;
     }
 

@@ -516,7 +516,7 @@ final class PushableStreamConsumerStream<T> implements Stream<T>,
     /**
      * Appends another intermediate op to this stream returning a new stream, leaving the original unmodified.
      */
-    final PushableStreamConsumerStream<?> appendIntermediate(final PushableStreamConsumerStreamIntermediate intermediate) {
+    PushableStreamConsumerStream<?> appendIntermediate(final PushableStreamConsumerStreamIntermediate intermediate) {
         final List<PushableStreamConsumerStreamIntermediate> copy = this.copyIntermediates();
         copy.add(intermediate);
         return this.replace(this.closeables, copy);
