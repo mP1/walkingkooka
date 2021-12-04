@@ -64,7 +64,7 @@ final class PushableStreamConsumerStreamTerminalForEachOrderedPushableStreamCons
     }
 
     @Override
-    final void buildToString1(final ToStringBuilder builder) {
+    void buildToString1(final ToStringBuilder builder) {
         builder.label("forEachOrdered");
         builder.value(this.action);
     }
