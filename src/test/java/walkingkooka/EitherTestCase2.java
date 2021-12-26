@@ -38,13 +38,17 @@ public abstract class EitherTestCase2<E extends Either<L, R>, L, R> extends Eith
     // setValue.........................................................................................................
 
     @Test
-    public final void testSetLeftValueNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createEither().setLeftValue(null));
+    public final void testSetLeftValueNull() {
+        final Either<L, R> either = this.createEither()
+                .setLeftValue(null);
+        this.checkEquals(null, either.leftValue(), "left");
     }
 
     @Test
-    public final void testSetRightValueNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createEither().setRightValue(null));
+    public final void testSetRightValueNull() {
+        final Either<L, R> either = this.createEither()
+                .setRightValue(null);
+        this.checkEquals(null, either.rightValue(), "right");
     }
 
     // orElseGet.........................................................................................................

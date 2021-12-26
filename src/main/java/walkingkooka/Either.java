@@ -35,7 +35,6 @@ public abstract class Either<L, R> {
      * Creates a new {@link Either} with a left value.
      */
     public static <L, R> Either<L, R> left(final L value) {
-        checkValue(value);
         return EitherLeft.withLeft(value);
     }
 
@@ -43,12 +42,7 @@ public abstract class Either<L, R> {
      * Creates a new {@link Either} with a right value.
      */
     public static <L, R> Either<L, R> right(R value) {
-        checkValue(value);
         return EitherRight.withRight(value);
-    }
-
-    static void checkValue(final Object value) {
-        Objects.requireNonNull(value, "value");
     }
 
     Either() {
@@ -83,7 +77,6 @@ public abstract class Either<L, R> {
      * Sets or replaces left {@link Either} value creating a new instance if the new value is different.
      */
     public final Either<L, R> setLeftValue(final L value) {
-        checkValue(value);
         return this.setLeftValue0(value);
     }
 
@@ -93,7 +86,6 @@ public abstract class Either<L, R> {
      * Sets or replaces right {@link Either} value creating a new instance if the new value is different.
      */
     public final Either<L, R> setRightValue(final R value) {
-        checkValue(value);
         return this.setRightValue0(value);
     }
 

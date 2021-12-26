@@ -20,21 +20,20 @@ package walkingkooka;
 import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.JavaVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public final class EitherTest extends EitherTestCase<Either<String, Integer>, String, Integer> {
 
     // with.............................................................................................................
 
     @Test
-    public void testLeftNullValueFails() {
-        assertThrows(NullPointerException.class, () -> Either.left(null));
+    public void testLeftNullValue() {
+        final Either<Void, Void> either = Either.left(null);
+        this.checkEquals(null, either.leftValue(), "left");
     }
 
     @Test
-    public void testRightNullValueFails() {
-        assertThrows(NullPointerException.class, () -> Either.right(null));
+    public void testRightNullValue() {
+        final Either<Void, Void> either = Either.right(null);
+        this.checkEquals(null, either.rightValue(), "right");
     }
 
     @Test
