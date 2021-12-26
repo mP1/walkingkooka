@@ -26,7 +26,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
- * An {@link Either} that holds a non null value on the right side.
+ * An {@link Either} that holds a value on the right side.
  */
 final class EitherRight<L, R> extends Either<L, R> {
 
