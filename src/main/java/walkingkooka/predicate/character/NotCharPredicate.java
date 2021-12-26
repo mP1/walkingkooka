@@ -35,7 +35,7 @@ final class NotCharPredicate implements CharPredicate,
     }
 
     private static CharPredicate not(final CharPredicate predicate) {
-        final Notable not = Cast.to(predicate);
+        final Notable<?> not = Cast.to(predicate);
         return Cast.to(not.negate());
     }
 

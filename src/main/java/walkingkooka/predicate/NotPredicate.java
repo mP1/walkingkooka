@@ -35,7 +35,7 @@ final class NotPredicate<T> implements Predicate<T>,
     }
 
     private static <T> Predicate<T> not(final Predicate<T> predicate) {
-        final Notable not = Cast.to(predicate);
+        final Notable<?> not = Cast.to(predicate);
         return Cast.to(not.negate());
     }
 
