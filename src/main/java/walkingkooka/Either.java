@@ -26,7 +26,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
- * An either requires a single non null value which maybe on the left or right but not both or none.
+ * An either requires a single value which maybe on the left or right but not both or none.
  * One noticable method missing is a filter, because the concept of NONE is not supported.
  */
 public abstract class Either<L, R> {
