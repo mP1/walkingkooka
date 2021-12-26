@@ -24,7 +24,7 @@ final public class Paths implements PublicStaticHelper {
     /**
      * {@see FakePath}
      */
-    public static Path fake() {
+    public static Path<FakePath, FakeName> fake() {
         return FakePath.create();
     }
 
