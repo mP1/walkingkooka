@@ -20,6 +20,7 @@ package walkingkooka;
 import walkingkooka.text.CharSequences;
 
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -68,7 +69,7 @@ final class EitherRight<L, R> extends Either<L, R> {
 
     @Override
     Either<L, R> setRightValue0(final R value) throws NoSuchElementException {
-        return this.value.equals(value) ?
+        return Objects.equals(this.value, value) ?
                 this :
                 new EitherRight<>(value);
     }

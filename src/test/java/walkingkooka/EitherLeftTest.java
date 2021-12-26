@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -43,6 +42,12 @@ public final class EitherLeftTest extends EitherTestCase2<EitherLeft<String, Int
     }
 
     // setValue.........................................................................................................
+
+    @Test
+    public void testSetLeftValueNullSame() {
+        final EitherLeft<String, Integer> either = EitherLeft.withLeft(null);
+        assertSame(either, either.setLeftValue(null));
+    }
 
     @Test
     public void testSetLeftValueSame() {
