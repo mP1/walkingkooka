@@ -34,7 +34,7 @@ final public class Lists implements PublicStaticHelper {
     /**
      * Registers a {@link List} type as immutable.
      */
-    public static void registerImmutableType(final Class<? extends List<?>> type) {
+    public static void registerImmutableType(final Class<List> type) {
         synchronized (ImmutableList.TYPES) {
             ImmutableList.TYPES.add(type);
         }
