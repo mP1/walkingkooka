@@ -1,0 +1,599 @@
+/*
+ * Copyright 2019 Miroslav Pokorny (github.com/mP1)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+package walkingkooka.text;
+
+import org.junit.jupiter.api.Test;
+import walkingkooka.ToStringTesting;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.predicate.PredicateTesting2;
+import walkingkooka.reflect.ClassTesting;
+import walkingkooka.reflect.JavaVisibility;
+
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+public final class GlobPatternTest implements ClassTesting<GlobPattern>,
+        PredicateTesting2<GlobPattern, CharSequence>,
+        ToStringTesting<GlobPattern> {
+
+    // parse............................................................................................................
+
+    @Test
+    public void testParseNullPatternFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> {
+                    GlobPattern.parse(null, '!', CaseSensitivity.SENSITIVE);
+                }
+        );
+    }
+
+    @Test
+    public void testParseEmptyCaseInensitive() {
+        assertSame(
+                GlobPattern.EMPTY_CASE_INSENSITIVE,
+                GlobPattern.parse("", '~', CaseSensitivity.INSENSITIVE)
+        );
+    }
+
+    @Test
+    public void testParseEmptyCaseSensitive() {
+        assertSame(
+                GlobPattern.EMPTY_CASE_SENSITIVE,
+                GlobPattern.parse("", '~', CaseSensitivity.SENSITIVE)
+        );
+    }
+
+    @Test
+    public void testParseTextLiteral() {
+        this.parseAndCheck(
+                "Hello",
+                '~',
+                CaseSensitivity.SENSITIVE,
+                GlobPatternComponent.textLiteral("Hello")
+        );
+    }
+
+    @Test
+    public void testParseTextLiteralWithEscape() {
+        this.parseAndCheck(
+                "Hello~*",
+                '~',
+                CaseSensitivity.SENSITIVE,
+                GlobPatternComponent.textLiteral("Hello*")
+        );
+    }
+
+    @Test
+    public void testParseQuestionMark() {
+        this.parseAndCheck(
+                "?",
+                '~',
+                CaseSensitivity.SENSITIVE,
+                GlobPatternComponent.wildcard(1, 1)
+        );
+    }
+
+    @Test
+    public void testParseStar() {
+        this.parseAndCheck(
+                "*",
+                '~',
+                CaseSensitivity.SENSITIVE,
+                GlobPatternComponent.wildcard(0, GlobPatternComponent.STAR_MAX)
+        );
+    }
+
+    @Test
+    public void testParseQuestionMark2() {
+        this.parseAndCheck(
+                "??",
+                '~',
+                CaseSensitivity.SENSITIVE,
+                GlobPatternComponent.wildcard(2, 2)
+        );
+    }
+
+    @Test
+    public void testParseQuestionMark3() {
+        this.parseAndCheck(
+                "???",
+                '~',
+                CaseSensitivity.SENSITIVE,
+                GlobPatternComponent.wildcard(3, 3)
+        );
+    }
+
+    @Test
+    public void testParseStar2() {
+        this.parseAndCheck(
+                "**",
+                '~',
+                CaseSensitivity.SENSITIVE,
+                GlobPatternComponent.wildcard(0, GlobPatternComponent.STAR_MAX)
+        );
+    }
+
+    @Test
+    public void testParseQuestionStar() {
+        this.parseAndCheck(
+                "?*",
+                '~',
+                CaseSensitivity.SENSITIVE,
+                GlobPatternComponent.wildcard(1, GlobPatternComponent.STAR_MAX)
+        );
+    }
+
+    @Test
+    public void testParseStarQuestion() {
+        this.parseAndCheck(
+                "*?",
+                '~',
+                CaseSensitivity.SENSITIVE,
+                GlobPatternComponent.wildcard(1, GlobPatternComponent.STAR_MAX)
+        );
+    }
+
+    @Test
+    public void testParseQuestionStarQuestion() {
+        this.parseAndCheck(
+                "?*?",
+                '~',
+                CaseSensitivity.SENSITIVE,
+                GlobPatternComponent.wildcard(2, GlobPatternComponent.STAR_MAX)
+        );
+    }
+
+    @Test
+    public void testParseQuestionText() {
+        this.parseAndCheck(
+                "?Hello",
+                '~',
+                CaseSensitivity.SENSITIVE,
+                GlobPatternComponent.wildcard(1, 1),
+                GlobPatternComponent.textLiteral("Hello")
+        );
+    }
+
+    @Test
+    public void testParseStarText() {
+        this.parseAndCheck(
+                "*Hello",
+                '~',
+                CaseSensitivity.SENSITIVE,
+                GlobPatternComponent.wildcard(0, GlobPatternComponent.STAR_MAX),
+                GlobPatternComponent.textLiteral("Hello")
+        );
+    }
+
+    @Test
+    public void testParseTextQuestion() {
+        this.parseAndCheck(
+                "Hello?",
+                '~',
+                CaseSensitivity.SENSITIVE,
+                GlobPatternComponent.textLiteral("Hello"),
+                GlobPatternComponent.wildcard(1, 1)
+        );
+    }
+
+    @Test
+    public void testParseTextQuestionTextStar() {
+        this.parseAndCheck(
+                "Hello?123*",
+                '~',
+                CaseSensitivity.SENSITIVE,
+                GlobPatternComponent.textLiteral("Hello"),
+                GlobPatternComponent.wildcard(1, 1),
+                GlobPatternComponent.textLiteral("123"),
+                GlobPatternComponent.wildcard(0, GlobPatternComponent.STAR_MAX)
+        );
+    }
+
+    @Test
+    public void testParseTextIncludesEscapeQuestion() {
+        this.parseAndCheck(
+                "Hello~?",
+                '~',
+                CaseSensitivity.SENSITIVE,
+                GlobPatternComponent.textLiteral("Hello?")
+        );
+    }
+
+    private void parseAndCheck(final String pattern,
+                               final char escape,
+                               final CaseSensitivity sensitivity,
+                               final GlobPatternComponent...component) {
+        GlobPattern.setNext(Lists.of(component));
+
+        final GlobPattern parsed = GlobPattern.parse(pattern, escape, sensitivity);
+
+        final GlobPatternComponent expectedFirst = new GlobPattern(component[0], sensitivity, pattern)
+                .first;
+
+        this.checkEquals(
+                parsed.first,
+                expectedFirst,
+                () -> "parse " + CharSequences.quoteAndEscape(pattern) + " escape: " + CharSequences.quoteIfChars(escape) + " " + sensitivity
+        );
+    }
+
+    // Predicate........................................................................................................
+
+    @Test
+    public void testTestTextOneCharacter() {
+        this.testAndCheck(
+                "A",
+                "a",
+                true
+        );
+    }
+
+    @Test
+    public void testTestTextOneDifferentCharacter() {
+        this.testAndCheck(
+                "A",
+                "!",
+                false
+        );
+    }
+
+    @Test
+    public void testTestTextManyCharacters() {
+        this.testAndCheck(
+                "abc",
+                "abc",
+                true
+        );
+    }
+
+    @Test
+    public void testTestTextWithNumbers() {
+        this.testAndCheck(
+                "abc123",
+                "abc123",
+                true
+        );
+    }
+
+    @Test
+    public void testTestTextDifferentCaseUnimportant() {
+        this.testAndCheck(
+                "ABC",
+                "abc",
+                true
+        );
+    }
+
+    @Test
+    public void testTestTextDifferentCaseSignificant() {
+        this.testAndCheck(
+                "ABC",
+                CaseSensitivity.SENSITIVE,
+                "abc",
+                false
+        );
+    }
+
+    @Test
+    public void testTestQuestion() {
+        this.testAndCheck(
+                "?",
+                "A",
+                true
+        );
+    }
+
+    @Test
+    public void testTestQuestion2() {
+        this.testAndCheck(
+                "??",
+                "AB",
+                true
+        );
+    }
+
+    @Test
+    public void testTestQuestionExtraText() {
+        this.testAndCheck(
+                "?",
+                "AB",
+                false
+        );
+    }
+
+    @Test
+    public void testTestQuestionExtraText2() {
+        this.testAndCheck(
+                "??",
+                "ABC",
+                false
+        );
+    }
+
+    @Test
+    public void testTestQuestionExtraText3() {
+        this.testAndCheck(
+                "??",
+                "ABCD",
+                false
+        );
+    }
+
+    @Test
+    public void testTestStar() {
+        this.testAndCheck(
+                "*",
+                "A",
+                true
+        );
+    }
+
+    @Test
+    public void testTestStar2() {
+        this.testAndCheck(
+                "*",
+                "AB",
+                true
+        );
+    }
+
+    @Test
+    public void testTestStar3() {
+        this.testAndCheck(
+                "*",
+                "ABc123",
+                true
+        );
+    }
+
+    @Test
+    public void testTestStarTextStar() {
+        this.testAndCheck(
+                "*Hello*",
+                "123Hello456",
+                true
+        );
+    }
+
+    @Test
+    public void testTestStarTextStarFalse() {
+        this.testAndCheck(
+                "*Hello*",
+                "123Hell456",
+                false
+        );
+    }
+
+    @Test
+    public void testTestHyphenQuestion() {
+        this.testAndCheck(
+                "-?",
+                "-1",
+                true
+        );
+    }
+
+    @Test
+    public void testTestHyphenQuestionFalse() {
+        this.testAndCheck(
+                "-?",
+                "-12",
+                false
+        );
+    }
+
+    @Test
+    public void testTestHyphenQuestionFalse2() {
+        this.testAndCheck(
+                "-?",
+                "-123",
+                false
+        );
+    }
+
+    @Test
+    public void testTestQuestionHyphenQuestion() {
+        this.testAndCheck(
+                "?-?",
+                "1-2",
+                true
+        );
+    }
+
+    @Test
+    public void testTestQuestion3HyphenQuestion2() {
+        this.testAndCheck(
+                "???-??",
+                "123-45",
+                true
+        );
+    }
+
+    @Test
+    public void testTestQuestion3HyphenQuestion2False() {
+        this.testAndCheck(
+                "???-??",
+                "123-456",
+                false
+        );
+    }
+
+    @Test
+    public void testTestQuestion3HyphenQuestion2False2() {
+        this.testAndCheck(
+                "???-??",
+                "0123-45",
+                false
+        );
+    }
+
+    @Test
+    public void testWildcardFilenameWithExtension() {
+        this.testAndCheck(
+                "*.txt",
+                "file123.txt",
+                true
+        );
+    }
+
+    @Test
+    public void testWildcardFilenameWithExtension2() {
+        this.testAndCheck(
+                "*.txt",
+                "file123.wrong",
+                false
+        );
+    }
+
+    @Test
+    public void testWildcardFilenameWithExtension3() {
+        this.testAndCheck(
+                "*.txt",
+                "file123.txt2",
+                false
+        );
+    }
+
+    @Test
+    public void testWildcardFilenameWithExtension4() {
+        this.testAndCheck(
+                "?*.txt",
+                "file123.txt",
+                true
+        );
+    }
+
+    @Test
+    public void testWildcardFilenameWithExtension5() {
+        this.testAndCheck(
+                "?*.txt",
+                ".txt",
+                false
+        );
+    }
+
+    @Test
+    public void testPathWithWildcards() {
+        this.testAndCheck(
+                "/user/Miroslav/*.txt",
+                "/user/Miroslav/passwords.txt",
+                true
+        );
+    }
+
+    @Test
+    public void testPathWithWildcards2() {
+        this.testAndCheck(
+                "/user/Miroslav/*.txt",
+                "/user/NotMe/passwords.txt",
+                false
+        );
+    }
+
+    @Test
+    public void testPathWithWildcards3() {
+        this.testAndCheck(
+                "/user/Miroslav/*.txt",
+                "/user/Miroslav/Hello.java",
+                false
+        );
+    }
+
+    @Test
+    public void testPathWithEscape() {
+        this.testAndCheck(
+                "/user/Miroslav/~**.txt",
+                "/user/Miroslav/*passwords.txt",
+                true
+        );
+    }
+
+    @Test
+    public void testPathWithEscape2() {
+        this.testAndCheck(
+                "/user/Miroslav/~**.txt",
+                "/user/Miroslav/passwords.txt",
+                false
+        );
+    }
+
+    private void testAndCheck(final String pattern,
+                              final CharSequence test,
+                              final boolean expected) {
+        this.testAndCheck(
+                pattern,
+                CaseSensitivity.INSENSITIVE,
+                test,
+                expected
+        );
+    }
+
+    private void testAndCheck(final String pattern,
+                              final CaseSensitivity sensitivity,
+                              final CharSequence test,
+                              final boolean expected) {
+        this.testAndCheck(
+                pattern,
+                '~',
+                sensitivity,
+                test,
+                expected
+        );
+    }
+
+    private void testAndCheck(final String pattern,
+                              final char escape,
+                              final CaseSensitivity sensitivity,
+                              final CharSequence test,
+                              final boolean expected) {
+        this.testAndCheck(
+                GlobPattern.parse(pattern, escape, sensitivity),
+                test,
+                expected
+        );
+    }
+
+    // Ignore
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
+    }
+
+    // ClassTesting.....................................................................................................
+
+    @Override
+    public Class<GlobPattern> type() {
+        return GlobPattern.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
+    }
+
+    // PredicateTesting.................................................................................................
+
+    @Override
+    public GlobPattern createPredicate() {
+        return GlobPattern.parse(
+                "Hello",
+                '~',
+                CaseSensitivity.SENSITIVE
+        );
+    }
+}

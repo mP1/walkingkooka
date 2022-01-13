@@ -59,6 +59,11 @@ public enum CaseSensitivity {
         }
 
         @Override
+        GlobPattern emptyGlobPattern() {
+            return GlobPattern.EMPTY_CASE_SENSITIVE;
+        }
+
+        @Override
         String toStringSuffix() {
             return "";
         }
@@ -86,6 +91,11 @@ public enum CaseSensitivity {
         @Override
         public <C extends CharSequence> Comparator<C> comparator() {
             return CaseSensitivityComparator.insensitive();
+        }
+
+        @Override
+        GlobPattern emptyGlobPattern() {
+            return GlobPattern.EMPTY_CASE_INSENSITIVE;
         }
 
         @Override
@@ -352,6 +362,36 @@ public enum CaseSensitivity {
     final public <C extends CharSequence> Predicate<C> predicateStartsWith(final C startsWith) {
         return CaseSensitivityStartsWithCharSequencePredicate.with(startsWith, this);
     }
+
+    /**
+     * Compiles the given pattern into a {@link GlobPattern} which then may be used to match patterns such as
+     * <pre>
+     * match all txt files under /user/Miroslav/documents/*.txt
+     * eg
+     * /user/Miroslav/documents/passwords.txt
+     *
+     * find all hidden txt files in /user/Miroslav/ where hidden files start with dot
+     * /user/Miroslav/.*.txt
+     *
+     * /user/Miroslav/A234.txt MATCHED
+     * /user/Miroslav/hello.exe NOT MATCHED
+     * *
+     * find all txt files that ignoring the first character but with a 234 in the 2nd/3rd/4th position of their filename
+     * /user/Miroslav/?234.txt
+     *
+     * /user/Miroslav/A234.txt MATCHED
+     * /user/Miroslav/Not.txt NOT MATCHED
+     * </pre>
+     */
+    final public GlobPattern globPattern(final String pattern,
+                                         final char escape) {
+        return GlobPattern.parse(pattern, escape, this);
+    }
+
+    /**
+     * Factory used exclusively by {@link GlobPattern#parse(String, char, CaseSensitivity)}
+     */
+    abstract GlobPattern emptyGlobPattern();
 
     /**
      * Handles the toString implementation of {@link CaseSensitivityCharSequencePredicateTemplate}
