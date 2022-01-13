@@ -27,19 +27,29 @@ import java.util.function.Predicate;
  */
 public interface PredicateTesting extends Testing {
 
-    default <TT> void testTrue(final Predicate<TT> predicate, final TT value) {
+    default <TT> void testAndCheck(final Predicate<TT> predicate,
+                                   final TT value,
+                                   final boolean expected) {
         this.checkEquals(
-                true,
+                expected,
                 predicate.test(value),
-                () -> predicate + " should match=" + CharSequences.quoteIfChars(value)
+                () -> predicate + " should " + (expected ? "match" : "NOT match") + " " + CharSequences.quoteIfChars(value)
+        );
+    }
+
+    default <TT> void testTrue(final Predicate<TT> predicate, final TT value) {
+        this.testAndCheck(
+                predicate,
+                value,
+                true
         );
     }
 
     default <TT> void testFalse(final Predicate<TT> predicate, final TT value) {
-        this.checkEquals(
-                false,
-                predicate.test(value),
-                () -> predicate + " should not match=" + CharSequences.quoteIfChars(value)
+        this.testAndCheck(
+                predicate,
+                value,
+                false
         );
     }
 }
