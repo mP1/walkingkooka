@@ -102,20 +102,37 @@ public enum CaseSensitivity {
     }
 
     /**
-     * Tests if the first {@link CharSequence} starts with the second.
+     * Tests if the first {@link CharSequence} starts with the second, starting at the given offset
      */
-    final public boolean startsWith(final CharSequence chars, final CharSequence startsWith) {
+    final public boolean startsWith(final CharSequence chars,
+                                    final CharSequence startsWith) {
+        return this.startsWith(
+                chars,
+                startsWith,
+                0
+        );
+    }
+
+    /**
+     * Tests if the first {@link CharSequence} starts with the second, starting at the given offset
+     */
+    final public boolean startsWith(final CharSequence chars,
+                                    final CharSequence startsWith,
+                                    final int offset) {
         Objects.requireNonNull(chars, "chars");
         Objects.requireNonNull(startsWith, "startsWith");
+        if (offset < 0 || offset > startsWith.length()) {
+            throw new StringIndexOutOfBoundsException(offset + " < 0 or > " + startsWith.length());
+        }
 
         boolean result = false;
 
         final int startsWithLength = startsWith.length();
-        if (startsWithLength <= chars.length()) {
+        if (offset + startsWithLength <= chars.length()) {
             result = true;
 
             for (int i = 0; i < startsWithLength; i++) {
-                final char c = chars.charAt(i);
+                final char c = chars.charAt(i + offset);
                 final char d = startsWith.charAt(i);
                 if (false == this.isEqual(c, d)) {
                     result = false;

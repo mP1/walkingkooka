@@ -27,7 +27,6 @@ import walkingkooka.util.SystemProperty;
 
 import java.util.function.Predicate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>,
@@ -277,14 +276,152 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
         this.startsWithAndCheck(CaseSensitivity.SENSITIVE, "apple", "AP@", false);
     }
 
-    private void startsWithAndCheck(final CaseSensitivity sensitivity, final CharSequence chars,
-                                    final CharSequence otherChars, final boolean expected) {
-        final boolean result = sensitivity.startsWith(chars, otherChars);
+    private void startsWithAndCheck(final CaseSensitivity sensitivity,
+                                    final CharSequence chars,
+                                    final CharSequence startsWith,
+                                    final boolean expected) {
+        final boolean result = sensitivity.startsWith(
+                chars,
+                startsWith
+        );
+
         if (expected != result) {
-            this.checkEquals(expected,
+            this.checkEquals(
+                    expected,
                     result,
-                    () -> sensitivity + " startsWith( " + CaseSensitivityTest.quote(chars) + ","
-                            + CaseSensitivityTest.quote(otherChars) + ")");
+                    () -> sensitivity +
+                            " startsWith( " +
+                            CaseSensitivityTest.quote(chars) +
+                            "," +
+                            CaseSensitivityTest.quote(startsWith) +
+                            ")"
+            );
+        }
+    }
+
+    @Test
+    public void testStarsWithSensitiveOffsetTrue() {
+        this.startsWithAndCheck(
+                CaseSensitivity.SENSITIVE,
+                "abcdef",
+                "cde",
+                2,
+                true
+        );
+    }
+
+    @Test
+    public void testStarsWithSensitiveOffsetFalse() {
+        this.startsWithAndCheck(
+                CaseSensitivity.SENSITIVE,
+                "abcdef",
+                "cde",
+                1,
+                false
+        );
+    }
+
+    @Test
+    public void testStarsWithSensitiveOffsetFalse2() {
+        this.startsWithAndCheck(
+                CaseSensitivity.SENSITIVE,
+                "abcdef",
+                "cdX",
+                2,
+                false
+        );
+    }
+
+    @Test
+    public void testStarsWithSensitiveOffsetIncomplete() {
+        this.startsWithAndCheck(
+                CaseSensitivity.SENSITIVE,
+                "abcdef",
+                "cdefg",
+                2,
+                false
+        );
+    }
+
+    @Test
+    public void testStarsWithInsensitiveOffsetTrue() {
+        this.startsWithAndCheck(
+                CaseSensitivity.INSENSITIVE,
+                "abcdef",
+                "CDE",
+                2,
+                true
+        );
+    }
+
+    @Test
+    public void testStarsWithInsensitiveOffsetTrue2() {
+        this.startsWithAndCheck(
+                CaseSensitivity.INSENSITIVE,
+                "abcdef",
+                "cdE",
+                2,
+                true
+        );
+    }
+
+    @Test
+    public void testStarsWithInsensitiveOffsetFalse() {
+        this.startsWithAndCheck(
+                CaseSensitivity.INSENSITIVE,
+                "abcdef",
+                "CDE",
+                1,
+                false
+        );
+    }
+
+    @Test
+    public void testStarsWithInsensitiveOffsetFalse2() {
+        this.startsWithAndCheck(
+                CaseSensitivity.INSENSITIVE,
+                "abcdef",
+                "CDX",
+                2,
+                false
+        );
+    }
+
+    @Test
+    public void testStarsWithInsensitiveOffsetIncomplete() {
+        this.startsWithAndCheck(
+                CaseSensitivity.INSENSITIVE,
+                "abcdef",
+                "CDEFG",
+                2,
+                false
+        );
+    }
+
+    private void startsWithAndCheck(final CaseSensitivity sensitivity,
+                                    final CharSequence chars,
+                                    final CharSequence startsWith,
+                                    final int offset,
+                                    final boolean expected) {
+        final boolean result = sensitivity.startsWith(
+                chars,
+                startsWith,
+                offset
+        );
+
+        if (expected != result) {
+            this.checkEquals(
+                    expected,
+                    result,
+                    () -> sensitivity +
+                            " startsWith( " +
+                            CaseSensitivityTest.quote(chars) +
+                            "," +
+                            CaseSensitivityTest.quote(startsWith) +
+                            "," +
+                            offset +
+                            ")"
+            );
         }
     }
 
