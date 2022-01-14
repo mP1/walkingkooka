@@ -22,8 +22,11 @@ import java.util.Objects;
 final class GlobPatternComponentWildcard extends GlobPatternComponent{
 
     static GlobPatternComponentWildcard with(final int min,
-                                         final int max) {
-        return new GlobPatternComponentWildcard(min, max);
+                                             final int max) {
+        return new GlobPatternComponentWildcard(
+                min,
+                max
+        );
     }
 
     private GlobPatternComponentWildcard(final int min,
@@ -49,7 +52,6 @@ final class GlobPatternComponentWildcard extends GlobPatternComponent{
         final GlobPatternComponent next = this.next;
 
         boolean match = false;
-        //int i = textPos + text.length();
         int i = end;
 
         while(i >= start) {
