@@ -35,6 +35,8 @@ abstract class GlobPatternComponent {
     GlobPatternComponent() {
     }
 
+    abstract boolean isOnlyTextLiteral();
+
     GlobPatternComponent next;
 
     abstract boolean test(final CharSequence text,
