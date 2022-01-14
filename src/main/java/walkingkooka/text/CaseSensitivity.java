@@ -121,7 +121,7 @@ public enum CaseSensitivity {
                                     final int offset) {
         Objects.requireNonNull(chars, "chars");
         Objects.requireNonNull(startsWith, "startsWith");
-        if (offset < 0 || offset > startsWith.length()) {
+        if (offset < 0 || offset >= chars.length()) {
             throw new StringIndexOutOfBoundsException(offset + " < 0 or > " + startsWith.length());
         }
 

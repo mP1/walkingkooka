@@ -28,6 +28,7 @@ import walkingkooka.util.SystemProperty;
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>,
         PredicateTesting {
@@ -297,6 +298,32 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
                             ")"
             );
         }
+    }
+
+    @Test
+    public void testStartsWithOffsetNegativeFails() {
+        assertThrows(
+                StringIndexOutOfBoundsException.class,
+                () ->
+                        CaseSensitivity.SENSITIVE.startsWith(
+                                "abc",
+                                "a",
+                                -1
+                        )
+        );
+    }
+
+    @Test
+    public void testStartsWithOffsetOutOfBoundsFails() {
+        assertThrows(
+                StringIndexOutOfBoundsException.class,
+                () ->
+                        CaseSensitivity.SENSITIVE.startsWith(
+                                "abc",
+                                "a",
+                                3
+                        )
+        );
     }
 
     @Test
