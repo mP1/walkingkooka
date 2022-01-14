@@ -35,14 +35,23 @@ final class GlobPatternComponentTextLiteral extends GlobPatternComponent{
         return this.next.isOnlyTextLiteral();
     }
 
+    // search...........................................................................................................
+
+    @Override
+    int searchMinLength() {
+        return this.text.length() + this.next.searchMinLength();
+    }
+
+    // test............................................................................................................
+
     @Override
     boolean test(final CharSequence text,
                  final int textPos,
-                 final CaseSensitivity caseSensitivity) {
+                 final GlobPatternContext context) {
         final String required = this.text;
 
         return textPos < text.length() &&
-                caseSensitivity.startsWith(
+                context.caseSensitivity.startsWith(
                         text,
                         required,
                         textPos
@@ -50,7 +59,7 @@ final class GlobPatternComponentTextLiteral extends GlobPatternComponent{
                 this.next.test(
                         text,
                         textPos + required.length(),
-                        caseSensitivity
+                        context
                 );
     }
 

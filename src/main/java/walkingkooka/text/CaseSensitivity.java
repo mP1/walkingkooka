@@ -393,6 +393,10 @@ public enum CaseSensitivity {
      */
     abstract GlobPattern emptyGlobPattern();
 
+    final GlobPatternContext globPatternSearchContext = GlobPatternContext.search(this);
+
+    final GlobPatternContext globPatternTestContext = GlobPatternContext.test(this);
+
     /**
      * Handles the toString implementation of {@link CaseSensitivityCharSequencePredicateTemplate}
      */

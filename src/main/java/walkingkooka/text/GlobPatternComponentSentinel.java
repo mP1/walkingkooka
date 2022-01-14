@@ -32,11 +32,22 @@ final class GlobPatternComponentSentinel extends GlobPatternComponent{
         return true;
     }
 
+    // search...........................................................................................................
+
+    @Override
+    int searchMinLength() {
+        return 0;
+    }
+
+    // test.............................................................................................................
+
     @Override
     boolean test(final CharSequence text,
                  final int textPos,
-                 final CaseSensitivity caseSensitivity) {
-        return textPos == text.length(); // since this is the last pattern component a match is true if the text is also consumed.
+                 final GlobPatternContext context) {
+        return context.requireAllText ?
+                textPos == text.length() : // since this is the last pattern component a match is true if the text is also consumed.
+                        true;
     }
 
     // Object..........................................................................................................
