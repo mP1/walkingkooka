@@ -282,6 +282,15 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
     // Predicate........................................................................................................
 
     @Test
+    public void testTestTextLiteralEmptyText() {
+        this.testAndCheck(
+                "A",
+                "",
+                false
+        );
+    }
+
+    @Test
     public void testTestTextOneCharacter() {
         this.testAndCheck(
                 "A",
@@ -337,6 +346,15 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
     }
 
     @Test
+    public void testTestQuestionEmptyText() {
+        this.testAndCheck(
+                "?",
+                "",
+                false
+        );
+    }
+
+    @Test
     public void testTestQuestion() {
         this.testAndCheck(
                 "?",
@@ -378,6 +396,15 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
                 "??",
                 "ABCD",
                 false
+        );
+    }
+
+    @Test
+    public void testTestStarEmptyText() {
+        this.testAndCheck(
+                "*",
+                "",
+                true
         );
     }
 
