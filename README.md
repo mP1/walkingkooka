@@ -54,6 +54,7 @@ below. Most if not all values and abstractions are immutable, functional and pro
 
 - `CaseSensitivity` Useful case sensitivity operations as useful as a parameter.
 - `CharSequences` Supports many of the useful `String` methods and more for `CharSequence`.
+- [GlobPattern](https://en.wikipedia.org/wiki/Glob_\(programming\)) May be used to match glob patterns where question mark matches a single char, and star zero or more, eg /user/Miroslav/*.txt (all text files under) or /user/Miroslav/???.txt (three letter txt files)
 
 
 
