@@ -34,6 +34,11 @@ final class GlobPatternComponentWildcard extends GlobPatternComponent{
     }
 
     @Override
+    boolean isOnlyTextLiteral() {
+        return false;
+    }
+
+    @Override
     boolean test(final CharSequence text,
                  final int textPos,
                  final CaseSensitivity caseSensitivity) {

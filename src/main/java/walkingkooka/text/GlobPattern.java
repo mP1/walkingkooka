@@ -187,6 +187,13 @@ public final class GlobPattern implements Predicate<CharSequence> {
         this.pattern = pattern;
     }
 
+    /**
+     * Returns true if this pattern is actually just a text literal without any wildcards.
+     */
+    public boolean isOnlyTextLiteral() {
+        return this.first.isOnlyTextLiteral();
+    }
+
     // Predicate.......................................................................................................
 
     @Override

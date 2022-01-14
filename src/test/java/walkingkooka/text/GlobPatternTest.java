@@ -233,6 +233,52 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
         );
     }
 
+    // isOnlyTextLiteral................................................................................................
+
+    @Test
+    public void testIsOnlyTextLiteralText() {
+        this.parseAndIsOnlyTextLiteralCheck("abc123", true);
+    }
+
+    @Test
+    public void testIsOnlyTextLiteralTextWithEscaped() {
+        this.parseAndIsOnlyTextLiteralCheck("abc ~* ~? 123", true);
+    }
+
+    @Test
+    public void testIsOnlyTextLiteralQuestion() {
+        this.parseAndIsOnlyTextLiteralCheck("?", false);
+    }
+
+    @Test
+    public void testIsOnlyTextLiteralStar() {
+        this.parseAndIsOnlyTextLiteralCheck("*", false);
+    }
+
+    @Test
+    public void testIsOnlyTextLiteralTextQuestionText() {
+        this.parseAndIsOnlyTextLiteralCheck("/dir/?.txt", false);
+    }
+
+    @Test
+    public void testIsOnlyTextLiteralTextStarText() {
+        this.parseAndIsOnlyTextLiteralCheck("/dir/*.txt", false);
+    }
+
+    private void parseAndIsOnlyTextLiteralCheck(final String pattern,
+                                                final boolean expected) {
+        this.checkEquals(
+                expected,
+                GlobPattern.parse(
+                                pattern,
+                                '~',
+                                CaseSensitivity.SENSITIVE
+                        )
+                        .isOnlyTextLiteral(),
+                () -> "parse " + CharSequences.quoteAndEscape(pattern) + " iOnlyTextLiteral()"
+        );
+    }
+
     // Predicate........................................................................................................
 
     @Test

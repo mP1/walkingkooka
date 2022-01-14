@@ -31,6 +31,11 @@ final class GlobPatternComponentTextLiteral extends GlobPatternComponent{
     }
 
     @Override
+    boolean isOnlyTextLiteral() {
+        return this.next.isOnlyTextLiteral();
+    }
+
+    @Override
     boolean test(final CharSequence text,
                  final int textPos,
                  final CaseSensitivity caseSensitivity) {
