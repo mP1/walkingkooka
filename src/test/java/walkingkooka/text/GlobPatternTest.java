@@ -279,6 +279,231 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
         );
     }
 
+    // search..........................................................................................................
+
+    @Test
+    public void testSearchStartPositionNegativeFails() {
+        this.searchStartPosFails("abc", -1);
+    }
+
+    @Test
+    public void testSearchStartPositionOutOfBoundsFails() {
+        this.searchStartPosFails("", 1);
+    }
+
+    @Test
+    public void testSearchStartPositionOutOfBoundsFails2() {
+        this.searchStartPosFails("abc", 4);
+    }
+
+    private void searchStartPosFails(final String text,
+                                     final int startPos) {
+        assertThrows(
+                StringIndexOutOfBoundsException.class,
+                () -> GlobPattern.parse("", '~', CaseSensitivity.SENSITIVE)
+                        .search(text, startPos)
+        );
+    }
+
+    @Test
+    public void testSearchEmptyPatternEmptyText() {
+        this.searchAndCheck(
+                "",
+                "",
+                0
+        );
+    }
+
+    @Test
+    public void testSearchStarEmpty() {
+        this.searchAndCheck(
+                "*",
+                "",
+                0
+        );
+    }
+
+    @Test
+    public void testSearchQuestionEmpty() {
+        this.searchAndCheck(
+                "?",
+                "",
+                -1
+        );
+    }
+
+    @Test
+    public void testSearchTextLiteralEmpty() {
+        this.searchAndCheck(
+                "",
+                "abc",
+                0
+        );
+    }
+
+    @Test
+    public void testSearchTextLiteralPartial() {
+        this.searchAndCheck(
+                "a",
+                "abc",
+                0
+        );
+    }
+
+    @Test
+    public void testSearchTextLiteralPartial2() {
+        this.searchAndCheck(
+                "b",
+                "abc",
+                1
+        );
+    }
+
+    @Test
+    public void testSearchTextLiteralPartial3() {
+        this.searchAndCheck(
+                "c",
+                "abcd",
+                2
+        );
+    }
+
+    @Test
+    public void testSearchTextLiteralPartial4() {
+        this.searchAndCheck(
+                "d",
+                "abcd",
+                3
+        );
+    }
+
+    // =SEARCH("the","The cat in the hat") // returns 1 (bias=1)
+    @Test
+    public void testSearch() {
+        this.searchAndCheck(
+                "the",
+                "The cat in the hat",
+                1 - 1
+        );
+    }
+
+    // = SEARCH("the","The cat in the hat",4) // returns 12
+    @Test
+    public void testSearch1() {
+        this.searchAndCheck(
+                "the",
+                "The cat in the hat",
+                3,
+                12 - 1
+        );
+    }
+
+    // SEARCH("?at","The cat in the hat") // returns 5
+    @Test
+    public void testSearch2() {
+        this.searchAndCheck(
+                "?at",
+                "The cat in the hat",
+                5 - 1
+        );
+    }
+
+    @Test
+    public void testSearch3() {
+        this.searchAndCheck(
+                "?AT",
+                "The cat in the hat",
+                5 - 1
+        );
+    }
+
+    // SEARCH("dog","The cat in the hat") // returns #VALUE!
+    @Test
+    public void testSearch4() {
+        this.searchAndCheck(
+                "dog",
+                "The cat in the hat",
+                -1
+        );
+    }
+
+    // SEARCH("a","Apple") // returns 1
+    @Test
+    public void testSearch5() {
+        this.searchAndCheck(
+                "a",
+                "Apple",
+                1 - 1
+        );
+    }
+
+    private void searchAndCheck(final String pattern,
+                                final CharSequence search,
+                                final int expected) {
+        this.searchAndCheck(
+                pattern,
+                search,
+                0,
+                expected
+        );
+    }
+
+    private void searchAndCheck(final String pattern,
+                                final CharSequence search,
+                                final int startPos,
+                                final int expected) {
+        this.searchAndCheck(
+                pattern,
+                CaseSensitivity.INSENSITIVE,
+                search,
+                startPos,
+                expected
+        );
+    }
+
+    private void searchAndCheck(final String pattern,
+                                final CaseSensitivity sensitivity,
+                                final CharSequence search,
+                                final int startPos,
+                                final int expected) {
+        this.searchAndCheck(
+                pattern,
+                '~',
+                sensitivity,
+                search,
+                startPos,
+                expected
+        );
+    }
+
+    private void searchAndCheck(final String pattern,
+                                final char escape,
+                                final CaseSensitivity sensitivity,
+                                final CharSequence search,
+                                final int startPos,
+                                final int expected) {
+        this.searchAndCheck(
+                GlobPattern.parse(pattern, escape, sensitivity),
+                search,
+                startPos,
+                expected
+        );
+    }
+
+    private void searchAndCheck(final GlobPattern pattern,
+                                final CharSequence search,
+                                final int startPos,
+                                final int expected) {
+        this.checkEquals(
+                expected,
+                pattern.search(
+                        search,
+                        startPos
+                ),
+                () -> "search " + pattern + " for " + CharSequences.quoteAndEscape(search) + " startPos=" + startPos
+        );
+    }
+
     // Predicate........................................................................................................
 
     @Test
@@ -635,11 +860,31 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
                               final CaseSensitivity sensitivity,
                               final CharSequence test,
                               final boolean expected) {
-        this.testAndCheck(
+        this.testAndCheck2(
                 GlobPattern.parse(pattern, escape, sensitivity),
                 test,
                 expected
         );
+    }
+
+    private void testAndCheck2(final GlobPattern pattern,
+                               final CharSequence test,
+                               final boolean expected) {
+        this.testAndCheck(
+                pattern,
+                test,
+                expected
+        );
+
+        // search should give 0 when test is true
+        if (expected) {
+            this.searchAndCheck(
+                    pattern,
+                    test,
+                    0,
+                    0
+            );
+        }
     }
 
     // Ignore

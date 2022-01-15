@@ -39,9 +39,18 @@ abstract class GlobPatternComponent {
 
     GlobPatternComponent next;
 
+    // search..........................................................................................................
+
+    /**
+     * Used to stop advancing the starting text position by searchStart.
+     */
+    abstract int searchMinLength();
+
+    // test............................................................................................................
+
     abstract boolean test(final CharSequence text,
                           final int textPos,
-                          final CaseSensitivity caseSensitivity);
+                          final GlobPatternContext context);
 
     // Object..........................................................................................................
 

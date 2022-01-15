@@ -194,6 +194,52 @@ public final class GlobPattern implements Predicate<CharSequence> {
         return this.first.isOnlyTextLiteral();
     }
 
+    // search..........................................................................................................
+
+    /**
+     * Attempts to locate the start of this pattern within the given text, returning -1 if none is found.
+     */
+    public int search(final CharSequence text,
+                      final int startPos) {
+        Objects.requireNonNull(text, "text");
+
+        final int textLength = text.length();
+        if(startPos < 0 || startPos > textLength) {
+            throw new StringIndexOutOfBoundsException("Invalid start " + startPos + " < 0 || > " + textLength);
+        }
+
+        int foundIndex = -1;
+
+        final GlobPatternComponent first = this.first;
+        final GlobPatternContext context = this.caseSensitivity.globPatternSearchContext;
+
+        if (first.test(
+                text,
+                startPos,
+                context)
+        ) {
+            foundIndex = startPos;
+        } else {
+            final int stop = textLength - first.searchMinLength();
+
+            int tryingStartIndex = startPos;
+
+            while (tryingStartIndex <= stop) {
+                if (first.test(
+                        text,
+                        tryingStartIndex,
+                        context)) {
+                    foundIndex = tryingStartIndex;
+                    break;
+                }
+
+                tryingStartIndex++;
+            }
+        }
+
+        return foundIndex;
+    }
+
     // Predicate.......................................................................................................
 
     @Override
@@ -203,7 +249,7 @@ public final class GlobPattern implements Predicate<CharSequence> {
         return this.first.test(
                 text,
                 0,
-                this.caseSensitivity
+                this.caseSensitivity.globPatternTestContext
         );
     }
 

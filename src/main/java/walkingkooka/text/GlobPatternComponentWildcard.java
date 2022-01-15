@@ -41,25 +41,39 @@ final class GlobPatternComponentWildcard extends GlobPatternComponent{
         return false;
     }
 
+    // search...........................................................................................................
+
+    @Override
+    int searchMinLength() {
+        return this.min + this.next.searchMinLength();
+    }
+
+    // test............................................................................................................
+
     @Override
     boolean test(final CharSequence text,
                  final int textPos,
-                 final CaseSensitivity caseSensitivity) {
+                 final GlobPatternContext context) {
         final int start = textPos + this.min;
-
-        final int max = this.max;
-        final int end = STAR_MAX == max ? text.length() : textPos + max;
-        final GlobPatternComponent next = this.next;
+        final int textLength = text.length();
 
         boolean match = false;
-        int i = end;
 
-        while(i >= start) {
-            match = next.test(text, i, caseSensitivity);
-            if(match) {
-                break;
+        if(start <= textLength) {
+
+            final int max = this.max;
+            final int end = STAR_MAX == max ? textLength : textPos + max;
+            final GlobPatternComponent next = this.next;
+
+            int i = end;
+
+            while (i >= start) {
+                match = next.test(text, i, context);
+                if (match) {
+                    break;
+                }
+                i--;
             }
-            i--;
         }
 
         return match;
