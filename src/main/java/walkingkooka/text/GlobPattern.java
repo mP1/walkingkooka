@@ -204,8 +204,18 @@ public final class GlobPattern implements Predicate<CharSequence> {
         Objects.requireNonNull(text, "text");
 
         final int textLength = text.length();
-        if(startPos < 0 || startPos > textLength) {
-            throw new StringIndexOutOfBoundsException("Invalid start " + startPos + " < 0 || > " + textLength);
+        switch (textLength) {
+            case 0:
+                // startPos = 0 is ok for empty string.
+                if (startPos < 0 || startPos > textLength) {
+                    throw new StringIndexOutOfBoundsException("Invalid start " + startPos + " < 0 || > " + textLength);
+                }
+                break;
+            default:
+                if (startPos < 0 || startPos >= textLength) {
+                    throw new StringIndexOutOfBoundsException("Invalid start " + startPos + " < 0 || >= " + textLength);
+                }
+                break;
         }
 
         int foundIndex = -1;
