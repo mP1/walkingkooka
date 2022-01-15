@@ -45,8 +45,13 @@ final class GlobPatternComponentWildcard extends GlobPatternComponent{
 
     @Override
     int searchMinLength() {
-        return this.min + this.next.searchMinLength();
+        if (-1 == this.searchMinLength) {
+            this.searchMinLength = this.min + this.next.searchMinLength();
+        }
+        return this.searchMinLength;
     }
+
+    private int searchMinLength = -1;
 
     // test............................................................................................................
 

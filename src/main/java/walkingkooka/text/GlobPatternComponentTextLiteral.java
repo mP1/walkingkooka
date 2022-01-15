@@ -39,8 +39,14 @@ final class GlobPatternComponentTextLiteral extends GlobPatternComponent{
 
     @Override
     int searchMinLength() {
-        return this.text.length() + this.next.searchMinLength();
+        if (-1 == this.searchMinLength) {
+            this.searchMinLength = this.text.length() + this.next.searchMinLength();
+        }
+
+        return this.searchMinLength;
     }
+
+    private int searchMinLength = -1;
 
     // test............................................................................................................
 
