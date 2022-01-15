@@ -490,6 +490,31 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
         );
     }
 
+    @Test
+    public void testSearchTwice() {
+        final GlobPattern pattern = GlobPattern.parse(
+                "/dir/file-?/*.txt",
+                '~',
+                CaseSensitivity.SENSITIVE
+        );
+
+        this.searchAndCheck(pattern, "/dir/file-1/big.txt", 0, 0);
+        this.searchAndCheck(pattern, "/dir/file-2/small.txt", 0, 0);
+    }
+
+
+    @Test
+    public void testSearchTwice2() {
+        final GlobPattern pattern = GlobPattern.parse(
+                "file-???-*.txt",
+                '~',
+                CaseSensitivity.SENSITIVE
+        );
+
+        this.searchAndCheck(pattern, "/dir/file-123-hello.txt", 0, 5);
+        this.searchAndCheck(pattern, "file-456-important.txt", 0, 0);
+    }
+
     private void searchAndCheck(final GlobPattern pattern,
                                 final CharSequence search,
                                 final int startPos,
