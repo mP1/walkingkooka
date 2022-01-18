@@ -32,6 +32,44 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 final public class CharSequencesTest implements PublicStaticHelperTesting<CharSequences>,
         ThrowableTesting {
 
+    // nullToEmpty.....................................................................................................
+
+    @Test
+    public void testNullToEmptyNull() {
+        this.nullToEmptyAndCheck(null, "");
+    }
+
+    @Test
+    public void testNullToEmptyEmpty() {
+        this.nullToEmptyAndCheck("");
+    }
+
+    @Test
+    public void testNullToEmptyWhitespace() {
+        this.nullToEmptyAndCheck(" \t\r");
+    }
+
+    @Test
+    public void testNullToEmptyNotEmpty() {
+        this.nullToEmptyAndCheck("abc123");
+    }
+
+    private void nullToEmptyAndCheck(final CharSequence chars) {
+        this.nullToEmptyAndCheck(
+                chars,
+                chars
+        );
+    }
+
+    private void nullToEmptyAndCheck(final CharSequence chars,
+                                     final CharSequence expected) {
+        this.checkEquals(
+                expected,
+                CharSequences.nullToEmpty(chars),
+                () -> "nullToEmpty " + CharSequences.quoteAndEscape(chars)
+        );
+    }
+
     // bigEndianHexDigits....................................................................
 
     @Test
