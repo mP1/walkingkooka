@@ -27,6 +27,15 @@ import java.util.Objects;
 final public class CharSequences implements PublicStaticHelper {
 
     /**
+     * Converts any nulls to empty string.
+     */
+    public static CharSequence nullToEmpty(final CharSequence chars) {
+        return null == chars ?
+                "" :
+                chars;
+    }
+
+    /**
      * Reads a {@link CharSequence} that contains pairs of hex digits representing individual bytes
      * which are returned in a byte[].
      */
