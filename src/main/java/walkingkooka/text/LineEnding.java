@@ -25,25 +25,33 @@ import java.util.Objects;
  */
 final public class LineEnding implements CharSequence {
 
+    private final static String CR_STRING = "\r";
+
     /**
      * Carriage return
      */
-    public final static LineEnding CR = new LineEnding("\r");
+    public final static LineEnding CR = new LineEnding(CR_STRING);
+
+    private final static String CRNL_STRING = "\r\n";
 
     /**
      * Carriage return new line
      */
-    public final static LineEnding CRNL = new LineEnding("\r\n");
+    public final static LineEnding CRNL = new LineEnding(CRNL_STRING);
+
+    private final static String NL_STRING = "\n";
 
     /**
      * New line
      */
-    public final static LineEnding NL = new LineEnding("\n");
+    public final static LineEnding NL = new LineEnding(NL_STRING);
+
+    private final static String NONE_STRING = "";
 
     /**
      * None
      */
-    public final static LineEnding NONE = new LineEnding("");
+    public final static LineEnding NONE = new LineEnding(NONE_STRING);
 
     /**
      * The actual system line ending.
@@ -59,25 +67,23 @@ final public class LineEnding implements CharSequence {
     public static LineEnding from(final String lineEnding) {
         Objects.requireNonNull(lineEnding, "lineEnding");
 
-        LineEnding result;
-        for (; ; ) {
-            if (lineEnding.equals(LineEnding.CR.value)) {
-                result = LineEnding.CR;
+        final LineEnding result;
+
+        switch (lineEnding) {
+            case CR_STRING:
+                result = CR;
                 break;
-            }
-            if (lineEnding.equals(LineEnding.CRNL.value)) {
-                result = LineEnding.CRNL;
+            case CRNL_STRING:
+                result = CRNL;
                 break;
-            }
-            if (lineEnding.equals(LineEnding.NL.value)) {
-                result = LineEnding.NL;
+            case NL_STRING:
+                result = NL;
                 break;
-            }
-            if (lineEnding.equals(LineEnding.NONE.value)) {
-                result = LineEnding.NONE;
+            case NONE_STRING:
+                result = NONE;
                 break;
-            }
-            throw new IllegalArgumentException("Unknown line endings=" + CharSequences.quoteAndEscape(lineEnding));
+            default:
+                throw new IllegalArgumentException("Unknown line endings=" + CharSequences.quoteAndEscape(lineEnding));
         }
 
         return result;
