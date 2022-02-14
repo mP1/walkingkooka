@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2019 Miroslav Pokorny (github.com/mP1)
  *
@@ -19,10 +20,11 @@ package walkingkooka.compare;
 
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
+import walkingkooka.Cast;
 
 import java.util.Comparator;
 
-public final class ComparatorTestingTest implements ComparatorTesting {
+public final class ComparatorTesting2Test implements ComparatorTesting2<Comparator<String>, String> {
 
     private final static String LESS = "abc";
     private final static String VALUE = "jkl";
@@ -30,70 +32,117 @@ public final class ComparatorTestingTest implements ComparatorTesting {
 
     private final static Comparator<String> COMPARATOR = String.CASE_INSENSITIVE_ORDER;
 
+    // compare..........................................................................................................
+
+    @Test
+    public void testCompare() {
+        this.checkEquals(
+                COMPARATOR.compare(VALUE, MORE),
+                this.compare(VALUE, MORE)
+        );
+    }
+
     // compareAndCheckLess..............................................................................................
 
     @Test
     public void testCompareAndCheckLess() {
-        this.compareAndCheckLess(COMPARATOR, VALUE, MORE);
+        this.compareAndCheckLess(VALUE, MORE);
     }
 
     @Test
     public void testCompareAndCheckLessFails() {
-        this.mustFail(() -> this.compareAndCheckLess(COMPARATOR, VALUE, LESS));
+        this.mustFail(() -> this.compareAndCheckLess(VALUE, LESS));
+    }
+
+    @Test
+    public void testComparatorCompareAndCheckLessFails() {
+        this.mustFail(
+                () -> this.compareAndCheckLess(VALUE, LESS)
+        );
     }
 
     // compareAndCheckEquals..............................................................................................
 
     @Test
     public void testCompareAndCheckEquals() {
-        this.compareAndCheckEquals(COMPARATOR, VALUE, VALUE);
+        this.compareAndCheckEquals(VALUE);
+    }
+
+    @Test
+    public void testCompareAndCheckEquals2() {
+        this.compareAndCheckEquals(VALUE, VALUE);
     }
 
     @Test
     public void testCompareAndCheckEqualsFails() {
-        this.mustFail(() -> this.compareAndCheckEquals(COMPARATOR, VALUE, MORE));
+        this.mustFail(
+                () -> this.compareAndCheckEquals(VALUE, MORE)
+        );
+    }
+
+    @Test
+    public void testComparatorCompareAndCheckEquals() {
+        this.compareAndCheckEquals(VALUE, VALUE);
+    }
+
+    @Test
+    public void testComparatorCompareAndCheckEqualsFails() {
+        this.mustFail(
+                () -> this.compareAndCheckEquals(VALUE, MORE)
+        );
     }
 
     // compareAndCheckMore..............................................................................................
 
     @Test
     public void testCompareAndCheckMore() {
-        this.compareAndCheckMore(COMPARATOR, VALUE, LESS);
+        this.compareAndCheckMore(VALUE, LESS);
     }
 
     @Test
     public void testCompareAndCheckMoreFails() {
-        this.mustFail(() -> this.compareAndCheckMore(COMPARATOR, VALUE, MORE));
+        this.mustFail(
+                () -> this.compareAndCheckMore(VALUE, MORE)
+        );
+    }
+
+    @Test
+    public void testComparatorCompareAndCheckMoreFails() {
+        this.mustFail(
+                () -> this.compareAndCheckMore(VALUE, MORE)
+        );
     }
 
     // comparatorArraySortAndCheck.......................................................................................
 
     @Test
-    public void testArraySortAndCheckUnevenParameterCount() {
+    public void testComparatorArraySortAndCheckUnevenParameterCount() {
         this.mustFail(() -> this.comparatorArraySortAndCheck(COMPARATOR, "A"));
     }
 
     @Test
-    public void testArraySortAndCheckUnevenParameterCount2() {
+    public void testComparatorArraySortAndCheckUnevenParameterCount2() {
         this.mustFail(() -> this.comparatorArraySortAndCheck(COMPARATOR, "A", "B", "C"));
     }
 
     @Test
-    public void testArraySortAndCheckComparator() {
-        this.comparatorArraySortAndCheck(
-                COMPARATOR,
-                "A", "Z", "B", "D", "C", "A", "B", "C", "D", "Z"
-        );
+    public void testComparatorArraySortAndCheck() {
+        this.comparatorArraySortAndCheck("A", "Z", "B", "D", "C",
+                "A", "B", "C", "D", "Z");
     }
 
     @Test
-    public void testArraySortAndCheckFails() {
-        this.mustFail(
-                () -> this.comparatorArraySortAndCheck(
-                        COMPARATOR,
-                "A", "Z", "B", "D", "C", "Z", "D", "C", "B", "A"
-                )
-        );
+    public void testComparatorArraySortAndCheckComparator() {
+        this.comparatorArraySortAndCheck(COMPARATOR,
+                "A", "Z", "B", "D", "C",
+                "A", "B", "C", "D", "Z");
+    }
+
+    @Test
+    public void testComparatorArraySortAndCheckFails() {
+        this.mustFail(() -> this.comparatorArraySortAndCheck(COMPARATOR,
+                "A", "Z", "B", "D", "C",
+                "Z", "D", "C", "B", "A"));
     }
 
     // compareAndCheck ..............................................................................................
@@ -101,17 +150,14 @@ public final class ComparatorTestingTest implements ComparatorTesting {
     @Test
     public void testCompareAndCheckAndMore() {
         this.compareAndCheck(
-                COMPARATOR,
                 VALUE,
                 MORE,
-                -1
-        );
+                -1);
     }
 
     @Test
     public void testCompareAndCheckAndMore2() {
         this.compareAndCheck(
-                COMPARATOR,
                 VALUE,
                 MORE,
                 -2
@@ -121,102 +167,31 @@ public final class ComparatorTestingTest implements ComparatorTesting {
     @Test
     public void testCompareAndCheckAndLess() {
         this.compareAndCheck(
-                COMPARATOR,
                 VALUE,
                 LESS,
-                1
-        );
+                1);
     }
 
     @Test
     public void testCompareAndCheckAndLess2() {
         this.compareAndCheck(
-                COMPARATOR,
                 VALUE,
                 LESS,
-                123
-        );
+                123);
     }
 
     @Test
     public void testCompareAndCheckAndEqual() {
         this.compareAndCheck(
-                COMPARATOR,
                 VALUE,
                 VALUE,
                 0
         );
     }
 
-    @Test
-    public void testCompareAndCheckAndMoreFail() {
-        this.mustFail(
-                () -> this.compareAndCheck(
-                        COMPARATOR,
-                VALUE,
-                LESS,
-                0)
-        );
-    }
+    @Override
+    public void testCheckToStringOverridden() {
 
-    @Test
-    public void testCompareAndCheckAndMoreFail2() {
-        this.mustFail(
-                () -> this.compareAndCheck(
-                COMPARATOR,
-                VALUE,
-                LESS,
-                -2
-        )
-        );
-    }
-
-    @Test
-    public void testCompareAndCheckAndEqualFail() {
-        this.mustFail(
-                () -> this.compareAndCheck(
-                        COMPARATOR,
-                VALUE,
-                LESS,
-                -2
-                )
-        );
-    }
-
-    @Test
-    public void testCompareAndCheckAndEqualFail2() {
-        this.mustFail(
-                () -> this.compareAndCheck(
-                        COMPARATOR,
-                VALUE,
-                LESS,
-                -1
-                )
-        );
-    }
-
-    @Test
-    public void testCompareAndCheckAndLessFail() {
-        this.mustFail(
-                () -> this.compareAndCheck(
-                        COMPARATOR,
-                VALUE,
-                MORE,
-                0
-                )
-        );
-    }
-
-    @Test
-    public void testCompareAndCheckLessFail2() {
-        this.mustFail(
-                () -> this.compareAndCheck(
-                        COMPARATOR,
-                VALUE,
-                MORE,
-                1
-                )
-        );
     }
 
     // helper...........................................................................................................
@@ -229,5 +204,17 @@ public final class ComparatorTestingTest implements ComparatorTesting {
             fail = true;
         }
         this.checkEquals(true, fail);
+    }
+
+    // ComparatorTesting................................................................................................
+
+    @Override
+    public Comparator<String> createComparator() {
+        return String.CASE_INSENSITIVE_ORDER;
+    }
+
+    @Override
+    public Class<Comparator<String>> type() {
+        return Cast.to(Comparator.class);
     }
 }
