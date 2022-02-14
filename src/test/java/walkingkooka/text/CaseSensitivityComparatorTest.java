@@ -19,12 +19,12 @@ package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.compare.ComparatorTesting;
+import walkingkooka.compare.ComparatorTesting2;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
 final public class CaseSensitivityComparatorTest implements ClassTesting2<CaseSensitivityComparator<CharSequence>>,
-        ComparatorTesting<CaseSensitivityComparator<CharSequence>, CharSequence> {
+        ComparatorTesting2<CaseSensitivityComparator<CharSequence>, CharSequence> {
 
     // constants
 
