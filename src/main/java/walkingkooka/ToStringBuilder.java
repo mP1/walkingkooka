@@ -714,9 +714,10 @@ final public class ToStringBuilder implements Builder<String> {
         }
     }
 
-    void appendSeparator() {
+    public ToStringBuilder appendSeparator() {
         this.buffer.append(this.separator);
         this.mode = ToStringBuilderMode.NONE;
+        return this;
     }
 
     public ToStringBuilder appendValueSeparator() {
