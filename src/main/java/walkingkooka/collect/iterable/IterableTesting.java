@@ -18,12 +18,14 @@
 package walkingkooka.collect.iterable;
 
 import walkingkooka.ToStringTesting;
+import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.reflect.TypeNameTesting;
 
 /**
  * Mixin interface for testing {@link Iterable}
  */
-public interface IterableTesting<I extends Iterable<T>, T> extends ToStringTesting<I>,
+public interface IterableTesting<I extends Iterable<T>, T> extends IteratorTesting,
+        ToStringTesting<I>,
         TypeNameTesting<I> {
 
     I createIterable();
