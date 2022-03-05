@@ -20,10 +20,10 @@ package walkingkooka.collect;
 /**
  * An interface that includes a {@link Range} getter.
  */
-public interface HasRange<R extends Range<C>, C extends Comparable<C>> {
+public interface HasRange<C extends Comparable<C>> {
 
     /**
      * Returns the {@link Range}
      */
-    R range();
+    Range<C> range();
 }
