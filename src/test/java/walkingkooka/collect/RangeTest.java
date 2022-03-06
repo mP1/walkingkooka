@@ -942,7 +942,7 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
     public void testParseInvalidLowerRangeFails() {
         this.parseStringFails(
                 "!1:2",
-                new IllegalArgumentException("java.lang.IllegalArgumentException: Invalid string=!1")
+                new IllegalArgumentException("Invalid string=!1")
         );
     }
 
@@ -950,7 +950,7 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
     public void testParseInvalidUpperRangeFails() {
         this.parseStringFails(
                 "1:!2",
-                new IllegalArgumentException("java.lang.IllegalArgumentException: Invalid string=!2")
+                new IllegalArgumentException("Invalid string=!2")
         );
     }
 
