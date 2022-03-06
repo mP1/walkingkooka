@@ -45,10 +45,25 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
         Objects.requireNonNull(factory, "factory");
 
         final int separatorIndex = text.indexOf(separator);
-        if (-1 == separatorIndex) {
-            throw new IllegalArgumentException("Missing separator " + CharSequences.quoteIfChars(separator) + " in " + CharSequences.quoteAndEscape(text));
-        }
+        return -1 == separatorIndex ?
+                singleton(
+                        parse1(
+                                text,
+                                0,
+                                text.length(),
+                                factory
+                        )
+                ) :
+                parse0(
+                        text,
+                        separatorIndex,
+                        factory
+                );
+    }
 
+    public static <C extends Comparable<C>> Range<C> parse0(final String text,
+                                                           final int separatorIndex,
+                                                           final Function<String, C> factory) {
         if (0 == separatorIndex) {
             throw new IllegalArgumentException("Empty lower range in " + CharSequences.quoteAndEscape(text));
         }
@@ -56,8 +71,8 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
             throw new IllegalArgumentException("Empty upper range in " + CharSequences.quoteAndEscape(text));
         }
 
-        final C left = parse0(text, 0, separatorIndex, factory);
-        final C right = parse0(text, separatorIndex + 1, text.length(), factory);
+        final C left = parse1(text, 0, separatorIndex, factory);
+        final C right = parse1(text, separatorIndex + 1, text.length(), factory);
         final int comparison = left.compareTo(right);
 
         return 0 == comparison ?
@@ -67,7 +82,7 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
                         createRange(right, left);
     }
 
-    private static <C extends Comparable<C>> C parse0(final String text,
+    private static <C extends Comparable<C>> C parse1(final String text,
                                                       final int start,
                                                       final int end,
                                                       final Function<String, C> factory) {
