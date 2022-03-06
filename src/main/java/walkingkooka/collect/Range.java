@@ -56,8 +56,15 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
             throw new IllegalArgumentException("Empty upper range in " + CharSequences.quoteAndEscape(text));
         }
 
-        return greaterThanEquals(parse0(text, 0, separatorIndex, factory))
-                .and(lessThanEquals(parse0(text, separatorIndex + 1, text.length(), factory)));
+        final C left = parse0(text, 0, separatorIndex, factory);
+        final C right = parse0(text, separatorIndex + 1, text.length(), factory);
+        final int comparison = left.compareTo(right);
+
+        return 0 == comparison ?
+                singleton(left) :
+                comparison < 0 ?
+                        createRange(left, right) :
+                        createRange(right, left);
     }
 
     private static <C extends Comparable<C>> C parse0(final String text,
@@ -71,6 +78,14 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
         } catch (final RuntimeException cause) {
             throw new IllegalArgumentException(cause);
         }
+    }
+
+    private static <C extends Comparable<C>> Range<C> createRange(final C lower,
+                                                                  final C upper) {
+        return greaterThanEquals(lower)
+                .and(
+                        lessThanEquals(upper)
+                );
     }
 
     /**
