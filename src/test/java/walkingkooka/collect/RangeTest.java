@@ -857,8 +857,23 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
     }
 
     @Test
-    public void testParseMissingSeparatorFails() {
-        this.parseStringFails("1", new IllegalArgumentException("Missing separator \':\' in \"1\""));
+    public void testParseMissingSeparator() {
+        this.parseStringAndCheck(
+                "A",
+                Range.singleton(
+                        new CaseInsensitiveString("A")
+                )
+        );
+    }
+
+    @Test
+    public void testParseMissingSeparator2() {
+        this.parseStringAndCheck(
+                "bcd",
+                Range.singleton(
+                        new CaseInsensitiveString("bcd")
+                )
+        );
     }
 
     @Test
