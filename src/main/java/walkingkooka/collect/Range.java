@@ -187,11 +187,12 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
 
         final RangeBound<C> lower = this.lower.max(other.lower);
         final RangeBound<C> upper = this.upper.min(other.upper);
-        return this.equals1(lower, upper) ?
+
+        return this.compareToEquals(lower, upper) ?
                 this :
-                other.equals1(lower, upper) ?
+                other.compareToEquals(lower, upper) ?
                         other :
-                        lower.equals(upper) ?
+                        lower.compareToEquals(upper) ?
                                 this.replace(lower, other) :
                                 this.replace0(lower, upper);
     }
@@ -297,6 +298,12 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
     private boolean equals1(final RangeBound<?> lower, final RangeBound<?> upper) {
         return this.lower.equals(lower) &&
                 this.upper.equals(upper);
+    }
+
+    private boolean compareToEquals(final RangeBound<?> lower,
+                                    final RangeBound<?> upper) {
+        return this.lower.compareToEquals(lower) &&
+                this.upper.compareToEquals(upper);
     }
 
     @Override

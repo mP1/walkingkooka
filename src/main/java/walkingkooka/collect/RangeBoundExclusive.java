@@ -17,6 +17,8 @@
 
 package walkingkooka.collect;
 
+import walkingkooka.Cast;
+
 /**
  * Represents a exclusive value within a {@link Range}
  */
@@ -140,7 +142,7 @@ final class RangeBoundExclusive<C extends Comparable<C>> extends RangeBoundExclu
         return INCLUSIVE_OPEN + lower.value + BETWEEN + this.value + EXCLUSIVE_CLOSE;
     }
 
-    // Object....................................................................
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEquals(final Object other) {

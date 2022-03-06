@@ -42,6 +42,19 @@ abstract class RangeBoundExclusiveInclusive<C extends Comparable<C>> extends Ran
         return Optional.of(this.value);
     }
 
+    // compareToEquals..................................................................................................
+
+    @Override
+    final boolean compareToEquals(final RangeBound<?> other) {
+        return this == other ||
+                this.canBeEquals(other) &&
+                        this.compareToEquals0(Cast.to(other));
+    }
+
+    private boolean compareToEquals0(final RangeBoundExclusiveInclusive<C> other) {
+        return this.value.compareTo(other.value) == 0;
+    }
+
     // Object...........................................................................................................
 
     @Override
