@@ -90,8 +90,14 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
             return factory.apply(text.substring(start, end));
         } catch (final InvalidCharacterException cause) {
             throw cause.setTextAndPosition(text, start);
+        } catch (final IllegalArgumentException cause) {
+            throw cause;
         } catch (final RuntimeException cause) {
-            throw new IllegalArgumentException(cause);
+            final String message = cause.getMessage();
+            throw new IllegalArgumentException(
+                    CharSequences.isNullOrEmpty(message) ? "Parsing " + CharSequences.quoteIfChars(text) + " failed" : message,
+                    cause
+            );
         }
     }
 
