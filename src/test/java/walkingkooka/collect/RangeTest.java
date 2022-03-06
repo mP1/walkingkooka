@@ -73,10 +73,62 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
 
     @Test
     public void testAndNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createPredicate().and(null));
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createPredicate().and(null)
+        );
     }
 
-    // all ..............................................................................................
+    @Test
+    public void testAndSame() {
+        this.andAndCheck(
+                "a",
+                "a",
+                "a:a"
+        );
+    }
+
+    @Test
+    public void testAndSame2() {
+        this.andAndCheck(
+                "Z",
+                "Z",
+                "Z:Z"
+        );
+    }
+
+    @Test
+    public void testAndEquivalent() {
+        this.andAndCheck(
+                "a",
+                "A",
+                "a"
+        );
+    }
+
+    @Test
+    public void testAndEquivalent2() {
+        this.andAndCheck(
+                "A",
+                "a",
+                "A"
+        );
+    }
+
+    private void andAndCheck(final String left,
+                             final String and,
+                             final String expected) {
+        this.checkEquals(
+                this.parseString(expected),
+                this.parseString(left)
+                        .and(
+                                this.parseString(and)
+                        ),
+                () -> left + " and " + and
+        );
+    }
+
+    // all .............................................................................................................
 
     @Test
     public void testAll() {

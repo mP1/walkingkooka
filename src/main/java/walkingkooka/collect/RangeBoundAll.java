@@ -151,7 +151,14 @@ final class RangeBoundAll<C extends Comparable<C>> extends RangeBound<C> {
         return ">=" + upper.value;
     }
 
-    // Object.................................................................................................
+    // compareToEquals..................................................................................................
+
+    @Override
+    boolean compareToEquals(final RangeBound<?> other) {
+        return other instanceof RangeBoundAll;
+    }
+
+    // Object...........................................................................................................
 
     @Override
     public int hashCode() {

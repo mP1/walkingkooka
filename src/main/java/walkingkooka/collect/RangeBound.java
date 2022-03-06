@@ -173,4 +173,10 @@ abstract public class RangeBound<C extends Comparable<C>> implements Value<Optio
 
     @Override
     public abstract boolean equals(final Object other);
+
+    /**
+     * Similar to {@link #equals(Object)} except the value is compared using {{@link Comparable#compareTo(Object)}} rather
+     * than equals.
+     */
+    abstract boolean compareToEquals(final RangeBound<?> other);
 }
