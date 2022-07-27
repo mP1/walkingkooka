@@ -169,21 +169,60 @@ final public class CharPredicates implements PublicStaticHelper {
                                                               final CharPredicate part) {
         CharSequences.failIfNullOrEmpty(chars, label);
         CharSequences.failIfNullOrEmpty(label, "label");
+
+        final int invalidChar = findInitialAndPartInvalidChar(
+                chars,
+                initial,
+                part
+        );
+
+        if (-1 != invalidChar) {
+            throw new InvalidCharacterException(
+                    chars.toString(),
+                    invalidChar
+            );
+        }
+    }
+
+    public static boolean isInitialAndPart(final String text,
+                                           final CharPredicate initial,
+                                           final CharPredicate part) {
+        return !CharSequences.isNullOrEmpty(text) &&
+                -1 == findInitialAndPartInvalidChar(
+                        text,
+                        initial,
+                        part
+                );
+    }
+
+    /**
+     * This helper does double duty and is used by both {@link #failIfNullOrEmptyOrInitialAndPartFalse(CharSequence, String, CharPredicate, CharPredicate)}
+     * and {@link #isInitialAndPart(String, CharPredicate, CharPredicate)}, the former throws when
+     * the result is not -1 and the latter returns false for a result of -1.
+     */
+    private static int findInitialAndPartInvalidChar(final CharSequence chars,
+                                                     final CharPredicate initial,
+                                                     final CharPredicate part) {
         Objects.requireNonNull(initial, "initial");
         Objects.requireNonNull(part, "part");
 
+        int result = -1;
+
         final char first = chars.charAt(0);
         if (!initial.test(first)) {
-            throw new InvalidCharacterException(chars.toString(), 0);
-        }
-
-        final int length = chars.length();
-        for (int i = 1; i < length; i++) {
-            final char c = chars.charAt(i);
-            if (!part.test(c)) {
-                throw new InvalidCharacterException(chars.toString(), i);
+            result = 0;
+        } else {
+            final int length = chars.length();
+            for (int i = 1; i < length; i++) {
+                final char c = chars.charAt(i);
+                if (!part.test(c)) {
+                    result = i;
+                    break;
+                }
             }
         }
+
+        return result;
     }
 
     /**

@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
+import walkingkooka.text.CharSequences;
 
 import java.lang.reflect.Method;
 
@@ -144,8 +145,7 @@ public final class CharPredicatesTest implements PublicStaticHelperTesting<CharP
         return CharPredicates.letter();
     }
 
-
-    // fail ..............................................................
+    // FailIfNullOrEmptyOrInitialAndPartFalse............ ..............................................................
 
     private final static CharPredicate PREDICATE = CharPredicates.fake();
 
@@ -209,6 +209,77 @@ public final class CharPredicatesTest implements PublicStaticHelperTesting<CharP
                 "TEXT",
                 CharPredicates.letter(),
                 CharPredicates.digit());
+    }
+
+    // isInitialOrPart..................................................................................................
+
+    @Test
+    public void testIsInitialAndPartNull() {
+        this.isInitialAndPartCheck(
+                null,
+                false
+        );
+    }
+
+    @Test
+    public void testIsInitialAndPartEmpty() {
+        this.isInitialAndPartCheck(
+                "",
+                false
+        );
+    }
+
+    @Test
+    public void testIsInitialAndPartInitialFail() {
+        this.isInitialAndPartCheck(
+                "!",
+                false
+        );
+    }
+
+    @Test
+    public void testIsInitialAndPartPartlFail() {
+        this.isInitialAndPartCheck(
+                "A!",
+                false
+        );
+    }
+
+    @Test
+    public void testIsInitialAndPartOneChar() {
+        this.isInitialAndPartCheck(
+                "A",
+                true
+        );
+    }
+
+    @Test
+    public void testIsInitialAndPartSeveralChars() {
+        this.isInitialAndPartCheck(
+                "A1",
+                true
+        );
+    }
+
+    @Test
+    public void testIsInitialAndPartSeveralChars2() {
+        this.isInitialAndPartCheck(
+                "A123",
+                true
+        );
+    }
+
+    private void isInitialAndPartCheck(final String text,
+                                       final boolean expected) {
+        this.checkEquals(
+                expected,
+                CharPredicates.isInitialAndPart(
+                        text,
+                        Character::isLetter,
+                        Character::isDigit
+                ),
+                () -> "isInitialAndPart(" + CharSequences.quoteAndEscape(text) + ", ALPHA, DIGITS)"
+        );
     }
 
     @Override
