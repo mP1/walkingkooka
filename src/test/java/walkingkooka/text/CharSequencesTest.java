@@ -70,6 +70,51 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
         );
     }
 
+    // failIfNullOrEmpty................................................................................................
+
+    @Test
+    public void testFailIfNullOrEmptyNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> CharSequences.failIfNullOrEmpty(null, "null-CharSequence")
+        );
+    }
+
+    @Test
+    public void testFailIfNullOrEmptyEmptyStringFails() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> CharSequences.failIfNullOrEmpty("", "empty-String")
+        );
+    }
+
+    @Test
+    public void testFailIfNullOrEmptyCharSequence() {
+        final CharSequence charSequence = "123";
+        assertSame(
+                charSequence,
+                CharSequences.failIfNullOrEmpty(charSequence, "1")
+        );
+    }
+
+    @Test
+    public void testFailIfNullOrEmptyString() {
+        final String string = "123";
+        assertSame(
+                string,
+                CharSequences.failIfNullOrEmpty(string, "1")
+        );
+    }
+
+    @Test
+    public void testFailIfNullOrEmptyStringBuilder() {
+        final StringBuilder stringBuilder = new StringBuilder("123");
+        assertSame(
+                stringBuilder,
+                CharSequences.failIfNullOrEmpty(stringBuilder, "1")
+        );
+    }
+
     // bigEndianHexDigits....................................................................
 
     @Test
