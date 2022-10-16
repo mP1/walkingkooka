@@ -339,10 +339,11 @@ final public class CharSequences implements PublicStaticHelper {
     /**
      * Fails if the chars are null or empty.
      */
-    public static void failIfNullOrEmpty(final CharSequence chars,
-                                         final String label) {
+    public static <C extends CharSequence> C failIfNullOrEmpty(final C chars,
+                                                               final String label) {
         failIfNullOrEmpty0(label, "label");
         failIfNullOrEmpty0(chars, label);
+        return chars;
     }
 
     private static void failIfNullOrEmpty0(final CharSequence chars,
