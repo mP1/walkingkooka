@@ -34,10 +34,10 @@ final public class OpenChecker<T extends Throwable> {
      */
     public static <T extends Throwable> OpenChecker<T> with(final String message,
                                                             final Function<String, T> throwableFactory) {
-        Whitespace.failIfNullOrEmptyOrWhitespace(message, "message");
-        Objects.requireNonNull(throwableFactory, "throwableFactory");
-
-        return new OpenChecker<>(message, throwableFactory);
+        return new OpenChecker<>(
+                Whitespace.failIfNullOrEmptyOrWhitespace(message, "message"),
+                Objects.requireNonNull(throwableFactory, "throwableFactory")
+        );
     }
 
     /**

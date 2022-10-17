@@ -46,8 +46,7 @@ public class SystemException extends RuntimeException {
     }
 
     private static String checkMessage(final String message) {
-        Whitespace.failIfNullOrEmptyOrWhitespace(message, "message");
-        return message;
+        return Whitespace.failIfNullOrEmptyOrWhitespace(message, "message");
     }
 
     private static Throwable checkCause(final Throwable cause) {
