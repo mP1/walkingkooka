@@ -30,7 +30,7 @@ import java.util.Objects;
  * The visibility of a {@link Class}, {@link Constructor}, {@link Method} or {@link Field}.
  */
 public enum JavaVisibility implements Visitable {
-    PUBLIC(4) {
+    PUBLIC(4, "public") {
         boolean testModifiers(final int modifiers) {
             return this.isPublic(modifiers);
         }
@@ -40,7 +40,7 @@ public enum JavaVisibility implements Visitable {
             visitor.visitPublic();
         }
     },
-    PROTECTED(3) {
+    PROTECTED(3, "protected") {
         boolean testModifiers(final int modifiers) {
             return this.isProtected(modifiers);
         }
@@ -50,7 +50,7 @@ public enum JavaVisibility implements Visitable {
             visitor.visitProtected();
         }
     },
-    PACKAGE_PRIVATE(2) {
+    PACKAGE_PRIVATE(2, "") {
         boolean testModifiers(final int modifiers) {
             return !(this.isPublic(modifiers) ||
                     this.isProtected(modifiers) ||
@@ -62,7 +62,7 @@ public enum JavaVisibility implements Visitable {
             visitor.visitPackagePrivate();
         }
     },
-    PRIVATE(1) {
+    PRIVATE(1, "private") {
         boolean testModifiers(final int modifiers) {
             return this.isPrivate(modifiers);
         }
@@ -73,11 +73,19 @@ public enum JavaVisibility implements Visitable {
         }
     };
 
-    JavaVisibility(final int priority) {
+    JavaVisibility(final int priority,
+                   final String javaKeyword) {
         this.priority = priority;
+        this.javaKeyword = javaKeyword;
     }
 
     private final int priority;
+
+    /**
+     * The java keyword that notes this visibility in a java source file. For package private this will be empty string,
+     * others are basically the name in lower case.
+     */
+    private final String javaKeyword;
 
     // reflect.............................................................................................................
 
@@ -86,6 +94,10 @@ public enum JavaVisibility implements Visitable {
      */
     public final boolean isOrLess(final JavaVisibility other) {
         return this.priority <= other.priority;
+    }
+
+    public final String javaKeyword() {
+        return this.javaKeyword;
     }
 
     // factory..........................................................................................................
