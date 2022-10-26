@@ -23,8 +23,6 @@ import walkingkooka.ToStringTesting;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
         ToStringTesting<JavaVisibility> {
 
@@ -259,6 +257,49 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
         this.checkEquals(expected,
                 visibility.isOrLess(other),
                 () -> visibility + " is less than " + other);
+    }
+
+    // javaKeyword......................................................................................................
+
+    @Test
+    public void testJavaKeywordPublic() {
+        this.javaKeywordCheck(
+                JavaVisibility.PUBLIC,
+                "public"
+        );
+    }
+
+    @Test
+    public void testJavaKeywordProtected() {
+        this.javaKeywordCheck(
+                JavaVisibility.PROTECTED,
+                "protected"
+        );
+    }
+
+    @Test
+    public void testJavaKeywordPackagePrivate() {
+        this.javaKeywordCheck(
+                JavaVisibility.PACKAGE_PRIVATE,
+                ""
+        );
+    }
+
+    @Test
+    public void testJavaKeywordPrivate() {
+        this.javaKeywordCheck(
+                JavaVisibility.PRIVATE,
+                "private"
+        );
+    }
+
+    private void javaKeywordCheck(final JavaVisibility visibility,
+                                  final String expected) {
+        this.checkEquals(
+                expected,
+                visibility.javaKeyword(),
+                () -> visibility.toString()
+        );
     }
 
     // ClassTesting.....................................................................................................
