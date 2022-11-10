@@ -20,8 +20,7 @@ package walkingkooka.collect.list;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.Arrays;
 
 public final class ImmutableListNonSingletonTest extends ImmutableListTestCase2<ImmutableListNonSingleton<String>> {
 
@@ -55,9 +54,10 @@ public final class ImmutableListNonSingletonTest extends ImmutableListTestCase2<
 
     @Test
     public void testIterator() {
-        final Iterator<String> elements = this.elements().iterator();
-
-        this.iterateAndCheck(this.createList().iterator(), elements.next(), elements.next());
+        this.iterateAndCheck(
+                this.createList().iterator(),
+                this.elements()
+        );
     }
 
     @Test
@@ -72,7 +72,10 @@ public final class ImmutableListNonSingletonTest extends ImmutableListTestCase2<
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createList(), this.elements().toString());
+        this.toStringAndCheck(
+                this.createList(),
+                Arrays.toString(this.elements())
+        );
     }
 
     @Override
@@ -80,11 +83,11 @@ public final class ImmutableListNonSingletonTest extends ImmutableListTestCase2<
         return ImmutableListNonSingleton.with(this.elements());
     }
 
-    private List<String> elements() {
-        final List<String> list = Lists.array();
-        list.add(ELEMENT1);
-        list.add(ELEMENT2);
-        return list;
+    private String[] elements() {
+        return new String[] {
+                ELEMENT1,
+                ELEMENT2
+        };
     }
 
     // ClassTesting.....................................................................................................

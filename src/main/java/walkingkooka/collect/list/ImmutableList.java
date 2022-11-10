@@ -17,6 +17,7 @@
 
 package walkingkooka.collect.list;
 
+import walkingkooka.Cast;
 import walkingkooka.collect.set.Sets;
 
 import java.util.AbstractList;
@@ -54,29 +55,26 @@ abstract class ImmutableList<T> extends AbstractList<T> {
 
         return isImmutable(list) ?
                 list :
-                copy(list);
+                prepare(list.toArray());
     }
 
     /**
-     * Copy to an ordered {@link List} keeping the original order for sorted or unsorted {@link List lists}.
+     * Takes a defensive copy of the list elements and returns a immutable list.
      */
-    private static <T> List<T> copy(final List<T> from) {
-        final List<T> to = Lists.array();
-        to.addAll(from);
-        return select(to);
-    }
+    static <T> List<T> prepare(final Object[] elements) {
+        final List<T> immutable;
 
-    static <T> List<T> select(final List<T> from) {
-        List<T> immutable;
-        switch (from.size()) {
+        switch (elements.length) {
             case 0:
                 immutable = Lists.empty();
                 break;
             case 1:
-                immutable = singleton(from.iterator().next());
+                immutable = singleton(
+                        Cast.to(elements[0])
+                );
                 break;
             default:
-                immutable = wrap(from);
+                immutable = nonSingleton(elements);
                 break;
         }
 
@@ -94,7 +92,7 @@ abstract class ImmutableList<T> extends AbstractList<T> {
     /**
      * Creates a {@link ImmutableListNonSingleton} with the given {@link List} which is not defensively copied.
      */
-    private static <T> ImmutableList<T> wrap(final List<T> wrap) {
+    private static <T> ImmutableList<T> nonSingleton(final Object[] wrap) {
         return ImmutableListNonSingleton.with(wrap);
     }
 }

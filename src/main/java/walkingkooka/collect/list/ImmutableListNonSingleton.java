@@ -17,46 +17,35 @@
 
 package walkingkooka.collect.list;
 
-import walkingkooka.collect.iterator.Iterators;
+import walkingkooka.Cast;
 
-import java.util.Iterator;
 import java.util.List;
 
 /**
- * A {@link List} presents a read only view of a defensively copied {@link List} given to it.
+ * A {@link List} presents a read only view of a previously defensively copied {@link List} given to it.
  */
 final class ImmutableListNonSingleton<T> extends ImmutableList<T> {
 
     /**
      * Returns a {@link List} which is immutable but does not make a copy of the given list which assumed to already be copied.
      */
-    static <T> ImmutableListNonSingleton<T> with(final List<T> notCopied) {
+    static <T> ImmutableListNonSingleton<T> with(final Object[] notCopied) {
         return new ImmutableListNonSingleton<>(notCopied);
     }
 
-    private ImmutableListNonSingleton(final List<T> list) {
+    private ImmutableListNonSingleton(final Object[] elements) {
         super();
-        this.list = list;
-    }
-
-    @Override
-    public boolean contains(final Object other) {
-        return this.list.contains(other);
+        this.elements = elements;
     }
 
     @Override
     public T get(final int index) {
-        return this.list.get(index);
-    }
-
-    @Override
-    public Iterator<T> iterator() {
-        return Iterators.readOnly(this.list.iterator());
+        return Cast.to(this.elements[index]);
     }
 
     @Override
     public int size() {
-        return this.list.size();
+        return this.elements.length;
     }
 
     @Override
@@ -64,10 +53,5 @@ final class ImmutableListNonSingleton<T> extends ImmutableList<T> {
         return false;
     }
 
-    private final List<T> list;
-
-    @Override
-    public String toString() {
-        return this.list.toString();
-    }
+    private final Object[] elements;
 }
