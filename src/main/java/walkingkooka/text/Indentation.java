@@ -44,6 +44,9 @@ final public class Indentation implements Value<String>, CharSequence {
         }
 
         EMPTY = indentations[0];
+        SPACES2 = indentations[2];
+        SPACES4 = indentations[4];
+
         SPACES = indentations;
     }
 
@@ -51,6 +54,16 @@ final public class Indentation implements Value<String>, CharSequence {
      * Holds an {@link Indentation} which is empty.
      */
     public final static Indentation EMPTY;
+
+    /**
+     * An {@link Indentation} with 2 spaces.
+     */
+    public final static Indentation SPACES2;
+
+    /**
+     * An {@link Indentation} with 4 spaces.
+     */
+    public final static Indentation SPACES4;
 
     /**
      * Holds indentations with 0 to {@link #SPACES_COUNT} spaces.
