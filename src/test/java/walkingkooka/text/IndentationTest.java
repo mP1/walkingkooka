@@ -81,8 +81,35 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
     }
 
     @Test
-    public void testEmpty() {
-        this.checkConstant(Indentation.with(""), 0);
+    public void testEmptyString() {
+        this.checkConstant(
+                Indentation.with(""),
+                0
+        );
+    }
+
+    @Test
+    public void testEmptyConstants() {
+        this.checkConstant(
+                Indentation.EMPTY,
+                0
+        );
+    }
+
+    @Test
+    public void testSpaces2() {
+        this.checkConstant(
+                Indentation.SPACES2,
+                2
+        );
+    }
+
+    @Test
+    public void testSpaces4() {
+        this.checkConstant(
+                Indentation.SPACES4,
+                4
+        );
     }
 
     @Test
