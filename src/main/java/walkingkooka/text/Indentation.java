@@ -30,21 +30,21 @@ final public class Indentation implements Value<String>, CharSequence {
     /**
      * The max length of the last constant.
      */
-    final static int COUNT = 30;
+    final static int SPACES_COUNT = 30;
 
     private final static char INDENTATION_CONSTANT_CHAR = ' ';
 
     static {
-        final Indentation[] indentations = new Indentation[Indentation.COUNT];
+        final Indentation[] indentations = new Indentation[Indentation.SPACES_COUNT];
         final StringBuilder b = new StringBuilder();
 
-        for (int i = 0; i < Indentation.COUNT; i++) {
+        for (int i = 0; i < Indentation.SPACES_COUNT; i++) {
             indentations[i] = new Indentation(b.toString());
             b.append(INDENTATION_CONSTANT_CHAR);
         }
 
         EMPTY = indentations[0];
-        CONSTANTS = indentations;
+        SPACES = indentations;
     }
 
     /**
@@ -53,14 +53,15 @@ final public class Indentation implements Value<String>, CharSequence {
     public final static Indentation EMPTY;
 
     /**
-     * Holds indentations with 0 to {@link #COUNT} spaces.
+     * Holds indentations with 0 to {@link #SPACES_COUNT} spaces.
      */
-    final static Indentation[] CONSTANTS;
+    final static Indentation[] SPACES;
 
     /**
      * Creates an {@link Indentation} with the given character repeated so many times.
      */
-    public static Indentation with(final char c, final int count) {
+    public static Indentation with(final char c,
+                                   final int count) {
         if ('\n' == c) {
             throw new IllegalArgumentException("Repeating character must not be NL");
         }
@@ -71,9 +72,9 @@ final public class Indentation implements Value<String>, CharSequence {
             throw new IllegalArgumentException("Count " + count + " must be greater than 0");
         }
 
-        Indentation indentation;
-        if ((' ' == c) && (count < Indentation.COUNT)) {
-            indentation = Indentation.CONSTANTS[count];
+        final Indentation indentation;
+        if ((' ' == c) && (count < Indentation.SPACES_COUNT)) {
+            indentation = Indentation.SPACES[count];
         } else {
             final char[] array = new char[count];
             Arrays.fill(array, c);
@@ -87,8 +88,8 @@ final public class Indentation implements Value<String>, CharSequence {
      */
     public static Indentation with(final String indentation) {
         Objects.requireNonNull(indentation, "");
-        check(indentation, '\n', "NL");
-        check(indentation, '\r', "CR");
+        checkCharacterAbsent(indentation, '\n', "NL");
+        checkCharacterAbsent(indentation, '\r', "CR");
 
         Indentation result;
 
@@ -97,7 +98,7 @@ final public class Indentation implements Value<String>, CharSequence {
             final int length = indentation.length();
 
             // too long can not be a constant
-            if (length > Indentation.COUNT) {
+            if (length > Indentation.SPACES_COUNT) {
                 result = new Indentation(indentation);
                 break;
             }
@@ -109,14 +110,16 @@ final public class Indentation implements Value<String>, CharSequence {
                     break Exit;
                 }
             }
-            result = Indentation.CONSTANTS[length];
+            result = Indentation.SPACES[length];
             break;
         }
 
         return result;
     }
 
-    private static void check(final String indentation, final char c, final String label) {
+    private static void checkCharacterAbsent(final String indentation,
+                                             final char c,
+                                             final String label) {
         if (indentation.indexOf(c) != -1) {
             throw new IllegalArgumentException(
                     "Indentation contains " + label + "=" + CharSequences.escape(indentation));
@@ -153,12 +156,12 @@ final public class Indentation implements Value<String>, CharSequence {
             final String value = this.value;
 
             // is a constant check if indentation is also a constant, might be able to return a constant.
-            if ((appendLength < Indentation.COUNT) && (Indentation.CONSTANTS[appendLength]
+            if ((appendLength < Indentation.SPACES_COUNT) && (Indentation.SPACES[appendLength]
                     == indentation)) {
                 final int length = value.length();
                 final int total = length + appendLength;
-                if ((total < Indentation.COUNT) && (Indentation.CONSTANTS[length] == this)) {
-                    result = Indentation.CONSTANTS[total];
+                if ((total < Indentation.SPACES_COUNT) && (Indentation.SPACES[length] == this)) {
+                    result = Indentation.SPACES[total];
                     break;
                 }
             }
@@ -184,7 +187,8 @@ final public class Indentation implements Value<String>, CharSequence {
     }
 
     @Override
-    public Indentation subSequence(final int start, final int end) {
+    public Indentation subSequence(final int start,
+                                   final int end) {
         final String value = this.value;
         final String subSequence = value.substring(start, end);
         return value.equals(subSequence) ? this : new Indentation(subSequence);
