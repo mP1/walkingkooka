@@ -25,7 +25,6 @@ import walkingkooka.reflect.JavaVisibility;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -94,7 +93,7 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
     @Test
     public void testStringIsConstants() {
         final StringBuilder b = new StringBuilder();
-        for (int i = 0; i < Indentation.COUNT; i++) {
+        for (int i = 0; i < Indentation.SPACES_COUNT; i++) {
             this.checkConstant(Indentation.with(b.toString()), i);
             b.append(' ');
         }
@@ -102,14 +101,14 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
 
     @Test
     public void testRepeatSpaceReturnsConstants() {
-        for (int i = 0; i < Indentation.COUNT; i++) {
+        for (int i = 0; i < Indentation.SPACES_COUNT; i++) {
             this.checkConstant(Indentation.with(' ', i), i);
         }
     }
 
     @Test
     public void testSpaceButTooLong() {
-        final char[] a = new char[1 + Indentation.COUNT];
+        final char[] a = new char[1 + Indentation.SPACES_COUNT];
         Arrays.fill(a, ' ');
         final String value = new String(a);
         this.check(Indentation.with(value), value);
@@ -211,7 +210,7 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
     }
 
     private void checkConstant(final Indentation indentation, final int spaceCount) {
-        assertSame(Indentation.CONSTANTS[spaceCount], indentation, "constant not returned");
+        assertSame(Indentation.SPACES[spaceCount], indentation, "constant not returned");
     }
 
     @Override
