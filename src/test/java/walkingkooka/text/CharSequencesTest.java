@@ -19,12 +19,15 @@ package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 import walkingkooka.reflect.ThrowableTesting;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -881,6 +884,88 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
     @Test
     public void testQuoteIfCharsChar() {
         quoteIfCharsAndCheck('\n', "'\\n'");
+    }
+
+    @Test
+    public void testQuoteIfCharsList() {
+        this.quoteIfCharsAndCheck(
+                Lists.of(
+                        11,
+                        "Hello",
+                        null
+                ),
+                Lists.of(
+                        11,
+                        "\"Hello\"",
+                        null
+                ).toString()
+        );
+    }
+
+    @Test
+    public void testQuoteIfCharsMap() {
+        this.quoteIfCharsAndCheck(
+                Maps.of(
+                        11,
+                        22,
+                        "Key33",
+                        "Value44",
+                        "Key55",
+                        Optional.of(
+                                "Value66"
+                        )
+                ),
+                Maps.of(
+                        "11",
+                        22,
+                        "\"Key33\"",
+                        "\"Value44\"",
+                        "\"Key55\"",
+                        "\"Value66\""
+                ).toString()
+        );
+    }
+
+    @Test
+    public void testQuoteIfCharsEmptyOptional() {
+        this.quoteIfCharsAndCheck(
+                Optional.empty(),
+                "null"
+        );
+    }
+
+    @Test
+    public void testQuoteIfCharsOptionalString() {
+        this.quoteIfCharsAndCheck(
+                Optional.of("Hello"),
+                "\"Hello\""
+        );
+    }
+
+    @Test
+    public void testQuoteIfCharsOptionalNonString() {
+        this.quoteIfCharsAndCheck(
+                Optional.of(123),
+                "123"
+        );
+    }
+
+    @Test
+    public void testQuoteIfCharsOptionalList() {
+        this.quoteIfCharsAndCheck(
+                Optional.of(
+                        Lists.of(
+                                11,
+                                "Hello",
+                                null
+                        )
+                ),
+                Lists.of(
+                        "11",
+                        "\"Hello\"",
+                        null
+                ).toString()
+        );
     }
 
     private void quoteIfCharsAndCheck(final Object chars, final String expected) {
