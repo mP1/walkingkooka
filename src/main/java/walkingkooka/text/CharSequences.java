@@ -18,11 +18,17 @@
 package walkingkooka.text;
 
 import javaemul.internal.annotations.GwtIncompatible;
+import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.reflect.PublicStaticHelper;
 
 import java.io.Reader;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 final public class CharSequences implements PublicStaticHelper {
 
@@ -511,7 +517,8 @@ final public class CharSequences implements PublicStaticHelper {
 
     /**
      * Quotes and escapes {@link CharSequence}, {@link char[]} or {@link Character}. The later is
-     * surrounded in single quotes and the others in double quotes. It is ok to pass in null.
+     * surrounded in single quotes and the others in double quotes. It is ok to pass in null. Note quoting is recursive
+     * elements in {@link Collection}, keys and values within a {@link Map} are also quoted if possible.
      */
     public static CharSequence quoteIfChars(final Object object) {
         CharSequence result;
@@ -529,11 +536,40 @@ final public class CharSequences implements PublicStaticHelper {
                 result = "'" + CharSequences.escape(String.valueOf(object)) + '\'';
                 break;
             }
+            if (object instanceof Optional) {
+                final Optional<?> optional = Cast.to(object);
+                result = quoteIfChars(
+                        optional.orElse(null)
+                );
+                break;
+            }
+            if (object instanceof Collection) {
+                final Collection<?> collecton = Cast.to(object);
+                result = collecton.stream()
+                        .map(CharSequences::quoteIfChars)
+                        .collect(Collectors.joining(", ", "[", "]"));
+                break;
+            }
+            if (object instanceof Map) {
+                final Map<?, ?> map = Cast.to(object);
+
+                result = map.entrySet()
+                        .stream()
+                        .map(CharSequences::quoteIfCharMapEntry)
+                        .collect(Collectors.joining(", ", "{", "}"));
+                break;
+            }
             result = String.valueOf(object);
             break;
         }
 
         return result;
+    }
+
+    private static CharSequence quoteIfCharMapEntry(final Entry<?, ?> entry) {
+        return quoteIfChars(entry.getKey()) +
+                "=" +
+                quoteIfChars(entry.getValue());
     }
 
     /**
