@@ -225,10 +225,34 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
     // repeat............................................................................................................
 
     @Test
-    public void testRepeatWithZeroFails() {
+    public void testRepeatWithLessThanZeroFails() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> Indentation.SPACES2.repeat(0)
+                () -> Indentation.SPACES2.repeat(-1)
+        );
+    }
+
+    @Test
+    public void testRepeatWithLessThanZeroFails2() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> Indentation.SPACES2.repeat(-2)
+        );
+    }
+
+    @Test
+    public void testRepeatZero() {
+        assertSame(
+                Indentation.EMPTY,
+                Indentation.SPACES2.repeat(0)
+        );
+    }
+
+    @Test
+    public void testRepeatZero2() {
+        assertSame(
+                Indentation.EMPTY,
+                Indentation.with("abc").repeat(0)
         );
     }
 

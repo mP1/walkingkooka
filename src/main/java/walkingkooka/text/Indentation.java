@@ -148,29 +148,36 @@ final public class Indentation implements Value<String>, CharSequence {
     }
 
     /**
-     * Returns a {@link Indentation} that is a multiple of the given count. A count of zero or less will throw a
+     * Returns a {@link Indentation} that is a multiple of the given count. A count of less than zero will throw a
      * {@link IllegalArgumentException}.
      */
     public Indentation repeat(final int count) {
-        if (count <= 0) {
-            throw new IllegalArgumentException("Invalid count " + count + " < 1");
+        final Indentation indentation;
+        switch (count) {
+            case 0:
+                indentation = EMPTY;
+                break;
+            case 1:
+                indentation = this;
+                break;
+            default:
+                if (count < 0) {
+                    throw new IllegalArgumentException("Invalid count " + count + " < 0");
+                }
+
+                final String value = this.value;
+
+                final StringBuilder b = new StringBuilder(value.length() * count);
+
+                for (int i = 0; i < count; i++) {
+                    b.append(value);
+                }
+
+                indentation = with(b.toString());
+                break;
         }
 
-        return 1 == count ?
-                this :
-                repeatMany(count);
-    }
-
-    private Indentation repeatMany(final int count) {
-        final String value = this.value;
-
-        final StringBuilder b = new StringBuilder(value.length() * count);
-
-        for (int i = 0; i < count; i++) {
-            b.append(value);
-        }
-
-        return with(b.toString());
+        return indentation;
     }
 
     /**
