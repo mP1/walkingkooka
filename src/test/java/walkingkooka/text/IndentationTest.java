@@ -222,6 +222,45 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
         assertSame(indentation, indentation.subSequence(0, 4));
     }
 
+    // repeat............................................................................................................
+
+    @Test
+    public void testRepeatWithZeroFails() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> Indentation.SPACES2.repeat(0)
+        );
+    }
+
+    @Test
+    public void testRepeatWithOne() {
+        assertSame(
+                Indentation.SPACES2,
+                Indentation.SPACES2.repeat(1)
+        );
+    }
+
+    @Test
+    public void testRepeatWithOne2() {
+        final Indentation indentation = Indentation.with("abc");
+
+        assertSame(
+                indentation,
+                indentation.repeat(1)
+        );
+    }
+
+    @Test
+    public void testRepeatMoreThanOne() {
+        final Indentation indentation = Indentation.with("abc");
+        this.check(
+                indentation.repeat(3),
+                "abcabcabc"
+        );
+    }
+
+    // toString.........................................................................................................
+
     @Test
     public void testToStringEmpty() {
         this.toStringAndCheck(Indentation.with(""), "");
