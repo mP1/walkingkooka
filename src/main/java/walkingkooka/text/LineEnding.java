@@ -17,41 +17,34 @@
 
 package walkingkooka.text;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
  * A possible line ending. Note it is not possible to create instances only the available constants
  * or singletons may be used. Identity checking is always safe.
  */
-final public class LineEnding implements CharSequence {
-
-    private final static String CR_STRING = "\r";
+public enum LineEnding implements CharSequence {
 
     /**
      * Carriage return
      */
-    public final static LineEnding CR = new LineEnding(CR_STRING);
-
-    private final static String CRNL_STRING = "\r\n";
+    CR("\r"),
 
     /**
      * Carriage return new line
      */
-    public final static LineEnding CRNL = new LineEnding(CRNL_STRING);
-
-    private final static String NL_STRING = "\n";
+    CRNL("\r\n"),
 
     /**
      * New line
      */
-    public final static LineEnding NL = new LineEnding(NL_STRING);
-
-    private final static String NONE_STRING = "";
+    NL("\n"),
 
     /**
      * None
      */
-    public final static LineEnding NONE = new LineEnding(NONE_STRING);
+    NONE("");
 
     /**
      * The actual system line ending.
@@ -67,34 +60,20 @@ final public class LineEnding implements CharSequence {
     public static LineEnding from(final String lineEnding) {
         Objects.requireNonNull(lineEnding, "lineEnding");
 
-        final LineEnding result;
-
-        switch (lineEnding) {
-            case CR_STRING:
-                result = CR;
-                break;
-            case CRNL_STRING:
-                result = CRNL;
-                break;
-            case NL_STRING:
-                result = NL;
-                break;
-            case NONE_STRING:
-                result = NONE;
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown line endings=" + CharSequences.quoteAndEscape(lineEnding));
-        }
-
-        return result;
+        return Arrays.stream(values())
+                .filter(le -> le.value.equals(lineEnding))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Unknown line endings=" + CharSequences.quoteAndEscape(lineEnding)));
     }
 
     /**
      * Private constructor
      */
-    private LineEnding(final String value) {
+    LineEnding(final String value) {
         this.value = value;
     }
+
+    // CharSequences....................................................................................................
 
     @Override
     public int length() {
@@ -113,23 +92,6 @@ final public class LineEnding implements CharSequence {
     }
 
     private final String value;
-
-    // Object...........................................................................................................
-
-    @Override
-    public int hashCode() {
-        return this.value.hashCode();
-    }
-
-    @Override
-    public boolean equals(final Object other) {
-        return (this == other) || ((other instanceof LineEnding)
-                && this.equals0((LineEnding) other));
-    }
-
-    private boolean equals0(final LineEnding other) {
-        return this.value.equals(other.value);
-    }
 
     /**
      * Dumps the actual {@link String} holding the line ending characters.
