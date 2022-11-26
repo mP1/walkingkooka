@@ -17,6 +17,7 @@
 
 package walkingkooka.text;
 
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.Value;
 
 import java.util.Arrays;
@@ -101,8 +102,8 @@ final public class Indentation implements Value<String>, CharSequence {
      */
     public static Indentation with(final String indentation) {
         Objects.requireNonNull(indentation, "");
-        checkCharacterAbsent(indentation, '\n', "NL");
-        checkCharacterAbsent(indentation, '\r', "CR");
+        checkCharacterAbsent(indentation, '\n');
+        checkCharacterAbsent(indentation, '\r');
 
         Indentation result;
 
@@ -131,11 +132,13 @@ final public class Indentation implements Value<String>, CharSequence {
     }
 
     private static void checkCharacterAbsent(final String indentation,
-                                             final char c,
-                                             final String label) {
-        if (indentation.indexOf(c) != -1) {
-            throw new IllegalArgumentException(
-                    "Indentation contains " + label + "=" + CharSequences.escape(indentation));
+                                             final char c) {
+        final int pos = indentation.indexOf(c);
+        if (-1 != pos) {
+            throw new InvalidCharacterException(
+                    indentation,
+                    pos
+            );
         }
     }
 
