@@ -111,7 +111,7 @@ final public class Indentation implements Value<String>, CharSequence {
             final int length = indentation.length();
 
             // too long can not be a constant
-            if (length > Indentation.SPACES_COUNT) {
+            if (length >= Indentation.SPACES_COUNT) {
                 result = new Indentation(indentation);
                 break;
             }

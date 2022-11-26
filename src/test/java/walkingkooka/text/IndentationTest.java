@@ -25,6 +25,7 @@ import walkingkooka.reflect.JavaVisibility;
 
 import java.util.Arrays;
 
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -78,6 +79,30 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
     @Test
     public void testStringIncludesNewLineFails() {
         assertThrows(IllegalArgumentException.class, () -> Indentation.with("with new line \n"));
+    }
+
+    @Test
+    public void testWithLessThanMaxSpaces() {
+        final int last = Indentation.SPACES_COUNT - 1;
+        assertSame(
+                Indentation.SPACES[last],
+                Indentation.with(' ', last)
+        );
+    }
+
+    @Test
+    public void testWithMaxSpaces() {
+        final String spaces = CharSequences.repeating(' ', Indentation.SPACES_COUNT).toString();
+
+        this.check(
+                Indentation.with(spaces),
+                spaces
+        );
+
+        assertNotSame(
+                Indentation.with(spaces),
+                Indentation.with(spaces)
+        );
     }
 
     @Test
