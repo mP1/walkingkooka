@@ -17,8 +17,6 @@
 
 package walkingkooka.collect;
 
-import walkingkooka.Cast;
-
 /**
  * Represents a exclusive value within a {@link Range}
  */
