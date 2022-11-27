@@ -17,15 +17,15 @@
 
 package walkingkooka.text;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public interface HasTextTesting extends HasTextLengthTesting {
 
     default void textAndCheck(final HasText has,
                               final String text) {
-        assertEquals(text,
+        this.checkEquals(
+                text,
                 has.text(),
-                () -> has.toString());
+                has::toString
+        );
         this.textLengthAndCheck(has, text);
     }
 }

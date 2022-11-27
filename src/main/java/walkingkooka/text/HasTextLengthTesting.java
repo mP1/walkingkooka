@@ -31,7 +31,7 @@ public interface HasTextLengthTesting extends Testing {
         this.checkEquals(
                 length,
                 has.textLength(),
-                () -> has.toString()
+                has::toString
         );
     }
 }
