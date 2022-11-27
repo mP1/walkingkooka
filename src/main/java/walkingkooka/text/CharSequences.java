@@ -217,7 +217,7 @@ final public class CharSequences implements PublicStaticHelper {
                     builder.append("\\0");
                     break;
                 case '\'':
-                    builder.append("\\\'");
+                    builder.append("\\'");
                     break;
                 case '\"':
                     builder.append("\\\"");
