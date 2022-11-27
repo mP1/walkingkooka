@@ -21,7 +21,7 @@ package walkingkooka.text;
 
 final class GlobPatternComponentSentinel extends GlobPatternComponent{
 
-    static GlobPatternComponentSentinel INSTANCE = new GlobPatternComponentSentinel();
+    static final GlobPatternComponentSentinel INSTANCE = new GlobPatternComponentSentinel();
 
     private GlobPatternComponentSentinel() {
         super();
