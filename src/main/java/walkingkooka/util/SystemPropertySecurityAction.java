@@ -41,7 +41,7 @@ final class SystemPropertySecurityAction implements StaticHelper {
     }
 
     static <T> T execute(final Supplier<T> action) {
-        return execute0(() -> action.get());
+        return execute0(action::get);
     }
 
     private static <T> T execute0(final PrivilegedAction<T> action) {
