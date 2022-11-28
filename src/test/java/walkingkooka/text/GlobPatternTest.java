@@ -18,6 +18,7 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.predicate.PredicateTesting2;
@@ -28,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class GlobPatternTest implements ClassTesting<GlobPattern>,
+        HashCodeEqualsDefinedTesting2<GlobPattern>,
         PredicateTesting2<GlobPattern, CharSequence>,
         ToStringTesting<GlobPattern> {
 
@@ -912,6 +914,43 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
         }
     }
 
+    // equals...........................................................................................................
+
+    @Test
+    public void testDifferentComponent() {
+        this.checkEquals(
+                new GlobPattern(
+                        GlobPatternComponent.wildcard(0, 2), // ignored by equals
+                        CaseSensitivity.SENSITIVE,
+                        "?"
+                )
+        );
+    }
+
+    @Test
+    public void testDifferentCaseSensitivity() {
+        this.checkNotEquals(
+                new GlobPattern(
+                        GlobPatternComponent.wildcard(0, 1),
+                        CaseSensitivity.INSENSITIVE,
+                        "?"
+                )
+        );
+    }
+
+    @Test
+    public void testDifferentPattern() {
+        this.checkNotEquals(
+                new GlobPattern(
+                        GlobPatternComponent.wildcard(0, 1),
+                        CaseSensitivity.SENSITIVE,
+                        "????"
+                )
+        );
+    }
+
+    // NameTesting......................................................................................................
+
     // Ignore
     public void testTypeNaming() {
         throw new UnsupportedOperationException();
@@ -927,6 +966,17 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
+    }
+
+    // HashCodeEqualsDefinedTesting2....................................................................................
+
+    @Override
+    public GlobPattern createObject() {
+        return new GlobPattern(
+                GlobPatternComponent.wildcard(0, 1),
+                CaseSensitivity.SENSITIVE,
+                "?"
+        );
     }
 
     // PredicateTesting.................................................................................................
