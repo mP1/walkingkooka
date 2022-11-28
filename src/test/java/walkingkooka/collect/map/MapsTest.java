@@ -26,13 +26,24 @@ import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class MapsTest implements PublicStaticHelperTesting<Maps>,
         IteratorTesting {
 
+    @SuppressWarnings("rawtypes")
+    @Test
+    public void testRegisterImmutableTypeNullFails() {
+        final Class<Map> type = null;
+
+        assertThrows(
+                NullPointerException.class,
+                () -> Maps.registerImmutableType(type)
+        );
+    }
+    
     final static String KEY1 = "a1";
     final static Integer VALUE1 = 111;
 

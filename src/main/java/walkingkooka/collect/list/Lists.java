@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Vector;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.BiPredicate;
@@ -34,7 +35,10 @@ final public class Lists implements PublicStaticHelper {
     /**
      * Registers a {@link List} type as immutable.
      */
-    public static void registerImmutableType(final Class<? extends List<?>> type) {
+    @SuppressWarnings("rawtypes")
+    public static void registerImmutableType(final Class<? extends List> type) {
+        Objects.requireNonNull(type, "type");
+
         synchronized (ImmutableList.TYPES) {
             ImmutableList.TYPES.add(type);
         }
