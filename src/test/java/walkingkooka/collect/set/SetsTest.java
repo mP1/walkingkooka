@@ -25,13 +25,24 @@ import walkingkooka.reflect.PublicStaticHelperTesting;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class SetsTest implements PublicStaticHelperTesting<Sets> {
 
     // tests
+
+    @SuppressWarnings("rawtypes")
+    @Test
+    public void testRegisterImmutableTypeNullFails() {
+        final Class<Set> type = null;
+
+        assertThrows(
+                NullPointerException.class,
+                () -> Sets.registerImmutableType(type)
+        );
+    }
 
     @Test
     public void testOfNullFails() {

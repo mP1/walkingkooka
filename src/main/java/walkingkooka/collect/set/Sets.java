@@ -35,7 +35,10 @@ final public class Sets implements PublicStaticHelper {
     /**
      * Registers a {@link Set} type as immutable.
      */
-    public static void registerImmutableType(final Class<? extends Set<?>> type) {
+    @SuppressWarnings("rawtypes")
+    public static void registerImmutableType(final Class<? extends Set> type) {
+        Objects.requireNonNull(type, "type");
+
         synchronized (ImmutableSet.TYPES) {
             ImmutableSet.TYPES.add(type);
         }

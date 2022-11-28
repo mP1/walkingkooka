@@ -28,7 +28,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -36,6 +35,17 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 final public class ListsTest implements PublicStaticHelperTesting<Lists>,
         IteratorTesting {
 
+    @SuppressWarnings("rawtypes")
+    @Test
+    public void testRegisterImmutableTypeNullFails() {
+        final Class<List> type = null;
+
+        assertThrows(
+                NullPointerException.class,
+                () -> Lists.registerImmutableType(type)
+        );
+    }
+    
     @Test
     public void testArray() {
         final List<String> list = Lists.array();
