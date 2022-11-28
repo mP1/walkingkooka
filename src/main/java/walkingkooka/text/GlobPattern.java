@@ -283,7 +283,7 @@ public final class GlobPattern implements Predicate<CharSequence> {
     }
 
     private boolean equals0(final GlobPattern other) {
-        return this.pattern.equals(pattern) &&
+        return this.pattern.equals(other.pattern) &&
                 this.caseSensitivity == other.caseSensitivity;
     }
 
