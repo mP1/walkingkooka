@@ -119,7 +119,7 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
     /**
      * The ALL singleton instance.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     private final static Range<?> ALL = new Range(RangeBound.all(), RangeBound.all());
 
     /**
