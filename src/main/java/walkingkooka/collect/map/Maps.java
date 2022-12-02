@@ -43,7 +43,7 @@ final public class Maps implements PublicStaticHelper {
      * Registers a {@link Map} type as immutable.
      */
     @SuppressWarnings("rawtypes")
-    public static void registerImmutableType(final Class<Map> type) {
+    public static void registerImmutableType(final Class<? extends Map> type) {
         Objects.requireNonNull(type, "type");
 
         synchronized (ImmutableMap.TYPES) {
