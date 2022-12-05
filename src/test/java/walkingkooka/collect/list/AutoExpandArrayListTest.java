@@ -19,12 +19,48 @@ package walkingkooka.collect.list;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.iterator.IteratorTesting;
 
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class AutoExpandArrayListTest implements ListTesting2<AutoExpandArrayList<String>, String> {
+public final class AutoExpandArrayListTest implements ListTesting2<AutoExpandArrayList<String>, String>, IteratorTesting {
+
+    @Test
+    public void testGetSize() {
+        final AutoExpandArrayList list = AutoExpandArrayList.empty();
+        this.getAndCheck(list, 0, null);
+    }
+
+    @Test
+    public void testGetGreaterThanSize() {
+        final AutoExpandArrayList list = AutoExpandArrayList.empty();
+        this.getAndCheck(list, 10, null);
+        this.sizeAndCheck(list, 0);
+    }
+
+    @Test
+    public void testSetAndGet() {
+        final AutoExpandArrayList list = AutoExpandArrayList.empty();
+        list.set(10, "!");
+
+        this.getAndCheck(list, 10, "!");
+        this.sizeAndCheck(list, 11);
+    }
+
+    @Test
+    public void testIterator() {
+        final AutoExpandArrayList list = AutoExpandArrayList.empty();
+        list.add("A");
+        list.add("B");
+        list.add("C");
+
+        this.iterateAndCheck(
+                list.iterator(),
+                "A", "B", "C"
+        );
+    }
 
     @Test
     public void testSetExpandsWhenEmpty() {
