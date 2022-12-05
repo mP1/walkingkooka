@@ -52,6 +52,13 @@ final public class Lists implements PublicStaticHelper {
     }
 
     /**
+     * {@see AutoExpandArrayList}
+     */
+    public static <T> List<T> autoExpandArray() {
+        return AutoExpandArrayList.empty();
+    }
+
+    /**
      * {@see CopyOnWriteArrayList}
      */
     public static <T> CopyOnWriteArrayList<T> copyOnWrite() {
