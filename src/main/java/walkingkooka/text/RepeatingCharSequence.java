@@ -80,9 +80,11 @@ final class RepeatingCharSequence extends CharSequence2<RepeatingCharSequence> {
 
     // properties
 
-    private final char c;
+    // both are shared with Indentation
 
-    private final int length;
+    final char c;
+
+    final int length;
 
     @Override
     String buildToString() {
