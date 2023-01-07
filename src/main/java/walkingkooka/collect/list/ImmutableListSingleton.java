@@ -21,6 +21,7 @@ import walkingkooka.collect.iterator.Iterators;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A {@link List} known to be immutable and holds a copy of any {@link List} given to it.
@@ -30,7 +31,7 @@ final class ImmutableListSingleton<T> extends ImmutableList<T> {
     /**
      * Returns a {@link List} which is immutable.
      */
-    static <T> ImmutableListSingleton<T> with(final T element) {
+    static <T> ImmutableListSingleton<T> withElement(final T element) {
         return new ImmutableListSingleton<>(element);
     }
 
@@ -44,7 +45,10 @@ final class ImmutableListSingleton<T> extends ImmutableList<T> {
 
     @Override
     public boolean contains(final Object other) {
-        return this.element.equals(other);
+        return Objects.equals(
+                this.element,
+                other
+        );
     }
 
     @Override
