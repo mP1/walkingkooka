@@ -86,7 +86,7 @@ abstract class ImmutableList<T> extends AbstractList<T> {
      * {@see ImmutableListSingleton}.
      */
     static <T> List<T> singleton(final T element) {
-        return ImmutableListSingleton.with(element);
+        return ImmutableListSingleton.withElement(element);
     }
 
     /**

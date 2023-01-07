@@ -42,18 +42,44 @@ public final class ImmutableListSingletonTest extends ImmutableListTestCase2<Imm
     }
 
     @Test
-    public void testContains() {
-        this.containsAndCheck(this.createList(), ELEMENT);
+    public void testContainsNotNull() {
+        this.containsAndCheck(
+                ImmutableListSingleton.withElement(ELEMENT),
+                ELEMENT
+        );
     }
 
     @Test
-    public void testContainsNot() {
-        this.containsAndCheckAbsent(this.createList(), "NOT!");
+    public void testContainsNull() {
+        this.containsAndCheck(
+                ImmutableListSingleton.withElement(null),
+                null
+        );
+    }
+
+    @Test
+    public void testContainsFalseNot() {
+        this.containsAndCheckAbsent(
+                this.createList(),
+                "NOT!"
+        );
+    }
+
+    @Test
+    public void testContainsFalseNotNull() {
+        this.containsAndCheckAbsent(
+                ImmutableListSingleton.withElement(null),
+                "NOT!"
+        );
     }
 
     @Test
     public void testGetNull() {
-        this.getAndCheck(ImmutableListSingleton.singleton(null),0,  null);
+        this.getAndCheck(
+                ImmutableListSingleton.withElement(null),
+                0,
+                null
+        );
     }
 
     @Test
@@ -83,7 +109,7 @@ public final class ImmutableListSingletonTest extends ImmutableListTestCase2<Imm
 
     @Override
     public ImmutableListSingleton<String> createList() {
-        return ImmutableListSingleton.with(ELEMENT);
+        return ImmutableListSingleton.withElement(ELEMENT);
     }
 
     // ClassTesting.....................................................................................................
