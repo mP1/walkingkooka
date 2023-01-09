@@ -54,6 +54,6 @@ final class GlobPatternContext implements Context {
 
     @Override
     public String toString() {
-        return this.caseSensitivity + " " + (this.requireAllText ? "match all": "");
+        return this.caseSensitivity + (this.requireAllText ? " match all": "");
     }
 }

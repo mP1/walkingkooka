@@ -17,11 +17,40 @@
 
 package walkingkooka.text;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.ContextTesting;
+import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class GlobPatternContextTest implements ClassTesting<GlobPatternContext>, ContextTesting<GlobPatternContext> {
+public final class GlobPatternContextTest implements ClassTesting<GlobPatternContext>, ContextTesting<GlobPatternContext>,
+        ToStringTesting<GlobPatternContext> {
+
+    @Test
+    public void testToStringSearch() {
+        this.toStringAndCheck(
+                GlobPatternContext.search(CaseSensitivity.SENSITIVE),
+                "SENSITIVE"
+        );
+    }
+
+    @Test
+    public void testToStringGreedy() {
+        this.toStringAndCheck(
+                GlobPatternContext.test(CaseSensitivity.SENSITIVE),
+                "SENSITIVE match all"
+        );
+    }
+
+    @Test
+    public void testToStringGreedyInsensitive() {
+        this.toStringAndCheck(
+                GlobPatternContext.test(CaseSensitivity.INSENSITIVE),
+                "INSENSITIVE match all"
+        );
+    }
+
+    // helpers..........................................................................................................
 
     @Override
     public void testTypeNaming() {
