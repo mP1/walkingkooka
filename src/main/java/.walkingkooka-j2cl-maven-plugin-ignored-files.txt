@@ -1,0 +1,33 @@
+#
+# reflect
+#
+# Filter everything except PublicStaticHelper & StaticHelper
+
+*/reflect/Class*
+*/reflect/Fake*
+*/reflect/Field*
+*/reflect/Java*
+*/reflect/Method*
+*/reflect/PackageName*
+
+#
+# text
+#
+*/text/*ReaderConsumingCharSequence*
+
+#
+# test
+# Filter everything but Fake
+#
+**/*Testing.*
+**/*Testing2.*
+
+#
+# util
+#
+# Properties and properties files are not supported by j2cl (yet?)
+**/Properties*
+
+# Filter SystemProperty and collaborators
+**/MissingSystemProperty*
+**/SystemProperty*

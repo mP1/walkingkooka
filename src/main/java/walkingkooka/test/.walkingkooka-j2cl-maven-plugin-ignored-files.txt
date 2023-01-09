@@ -1,4 +1,0 @@
-# Filter everything but Fake
-
-*Testing.*
-
