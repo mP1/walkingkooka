@@ -212,4 +212,15 @@ public enum CaseKind {
      */
     abstract char toBeginChunk(final int i,
                                final char c);
+
+    /**
+     * Turns the {@link Enum#name()} into its kebab equivalent.
+     */
+    public static String kebabEnumName(final Enum<?> value) {
+        Objects.requireNonNull(value, "value");
+
+        return value.name()
+                .toLowerCase()
+                .replace('_', '-');
+    }
 }

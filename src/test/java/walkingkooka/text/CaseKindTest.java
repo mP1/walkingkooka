@@ -21,6 +21,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
+import java.math.RoundingMode;
+
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -214,6 +216,33 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
                         to
                 ),
                 () -> from + " " + CharSequences.quoteAndEscape(text) + " TO " + to + " " + CharSequences.quoteAndEscape(expected)
+        );
+    }
+
+    // kebabEnumName....................................................................................................
+
+    @Test
+    public void testKebabEnumNameNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> CaseKind.kebabEnumName(null)
+        );
+    }
+
+    @Test
+    public void testKebanEnumName() {
+        this.checkEquals(
+                "half-up",
+                CaseKind.kebabEnumName(RoundingMode.HALF_UP)
+        );
+    }
+
+
+    @Test
+    public void testKebanEnumName2() {
+        this.checkEquals(
+                "floor",
+                CaseKind.kebabEnumName(RoundingMode.FLOOR)
         );
     }
 
