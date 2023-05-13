@@ -34,18 +34,23 @@ final class ChainIterator<E> implements Iterator<E> {
     static <E> Iterator<E> with(final Iterator<E>... iterators) {
         Objects.requireNonNull(iterators, "iterators");
 
-        final Iterator<E>[] copy = Arrays.copyOf(iterators, iterators.length); // GWT doesnt support Array.clone();
+        final int count = iterators.length;
         Iterator<E> result;
 
-        switch (copy.length) {
+        switch (count) {
             case 0:
                 result = Iterators.empty();
                 break;
             case 1:
-                result = copy[0];
+                result = iterators[0];
                 break;
             default:
-                result = new ChainIterator<>(copy);
+                result = new ChainIterator<>(
+                        Arrays.copyOf(
+                                iterators,
+                                count
+                        ) // GWT doesnt support Array.clone();
+                );
                 break;
         }
         return result;
