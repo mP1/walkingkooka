@@ -148,7 +148,7 @@ final class ChainIterator<E> implements Iterator<E> {
     public void remove() {
         final Iterator<E> remove = this.remove;
         if (null == remove) {
-            throw new UnsupportedOperationException("remove without next");
+            throw new IllegalStateException("remove without next");
         }
         this.remove = null;
         remove.remove();

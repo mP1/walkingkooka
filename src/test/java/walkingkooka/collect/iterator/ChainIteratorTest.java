@@ -143,8 +143,8 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
     }
 
     @Test
-    public void testRemoveWithoutNext() {
-        this.removeUnsupportedFails(this.createIterator());
+    public void testRemoveWithoutNextFails() {
+        this.removeWithoutNextFails(this.createIterator());
     }
 
     @Test
@@ -235,7 +235,7 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
 
         iterator.remove();
         this.checkEquals(Lists.of("3"), second, "second iterator source was not removed");
-        this.removeUnsupportedFails(iterator);
+        this.removeWithoutNextFails(iterator);
     }
 
     @Test
@@ -267,7 +267,7 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
         this.checkEquals(Lists.of("3"), second, "element not removed from second iterator");
 
         this.nextFails(iterator);
-        this.removeUnsupportedFails(iterator);
+        this.removeWithoutNextFails(iterator);
     }
 
     @Test
