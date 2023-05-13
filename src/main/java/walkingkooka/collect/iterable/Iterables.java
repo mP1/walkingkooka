@@ -45,6 +45,13 @@ final public class Iterables implements PublicStaticHelper {
     }
 
     /**
+     * {@see EmptyIterable}
+     */
+    public static <T> Iterable<T> empty() {
+        return EmptyIterable.instance();
+    }
+    
+    /**
      * {@see FakeIterable}
      */
     public static <T> Iterable<T> fake() {
