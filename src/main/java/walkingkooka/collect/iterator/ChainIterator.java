@@ -23,43 +23,51 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 /**
- * An {@link Iterator} that chains two {@link Iterator iterators together}. When the first becomes
- * empty the next is called.
+ * An {@link Iterator} that zero or more {@link Iterator iterators} into one sequence of values.
  */
 final class ChainIterator<E> implements Iterator<E> {
 
     /**
-     * Creates an {@link ChainIterator} from two {@link Iterators}.
+     * Creates an {@link ChainIterator} from the given {@link Iterator iterators.}
      */
     @SuppressWarnings("unchecked")
-    static <E> Iterator<E> with(final Iterator<E> first,
-                                final Iterator<E>... iterators) {
-        Objects.requireNonNull(first, "first");
+    static <E> Iterator<E> with(final Iterator<E>... iterators) {
         Objects.requireNonNull(iterators, "iterators");
 
-        return iterators.length == 0 ?
-                first :
-                new ChainIterator<>(first, Arrays.copyOf(iterators, iterators.length));
+        final Iterator<E>[] copy = Arrays.copyOf(iterators, iterators.length); // GWT doesnt support Array.clone();
+        Iterator<E> result;
+
+        switch (copy.length) {
+            case 0:
+                result = Iterators.empty();
+                break;
+            case 1:
+                result = copy[0];
+                break;
+            default:
+                result = new ChainIterator<>(copy);
+                break;
+        }
+        return result;
     }
 
     /**
      * Private constructor use static factory.
      */
-    private ChainIterator(final Iterator<E> first,
-                          final Iterator<E>[] iterators) {
+    private ChainIterator(final Iterator<E>[] iterators) {
         super();
-        this.current = first;
         this.iterators = iterators;
         this.next = 0;
+        this.loadNext();
     }
 
     /**
-     * Tests if another element is available. If the current iterator is empty the next is checked
-     * etc.
+     * Tests if another element is available. If the current iterator is empty then the next {@link Iterator} is used.
      */
     @Override
     public boolean hasNext() {
         boolean hasNext = false;
+
         Iterator<E> current = this.current;
 
         for (; ; ) {
@@ -111,7 +119,7 @@ final class ChainIterator<E> implements Iterator<E> {
     private final Iterator<E>[] iterators;
 
     /**
-     * An index that points to the next {@link Iterator}.
+     * The index that points to the next {@link Iterator}.
      */
     private int next;
 
@@ -142,8 +150,7 @@ final class ChainIterator<E> implements Iterator<E> {
     }
 
     /**
-     * The {@link Iterator} that is called when removed. THis is set after each next but cleared by
-     * remove.
+     * The {@link Iterator} that is called when removed. This is set after each next but cleared by remove.
      */
     private Iterator<E> remove;
 

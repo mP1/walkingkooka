@@ -24,7 +24,6 @@ import walkingkooka.collect.list.Lists;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -40,15 +39,18 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
 
     // tests
 
-    @SuppressWarnings("unchecked")
     @Test
-    public void testWithNullFirstFails() {
-        assertThrows(NullPointerException.class, () -> ChainIterator.with(null, SECOND));
+    public void testWithNullIteratorsFails() {
+        assertThrows(NullPointerException.class, () -> ChainIterator.with(null));
     }
 
     @Test
-    public void testWithNullIteratorsFails() {
-        assertThrows(NullPointerException.class, () -> ChainIterator.with(FIRST, null));
+    public void testWithZero() {
+        //noinspection unchecked
+        assertSame(
+                Iterators.empty(),
+                ChainIterator.with()
+        );
     }
 
     @Test
@@ -59,7 +61,26 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
     }
 
     @Test
-    public void testConsume() {
+    public void testConsumeEmpty() {
+        this.iterateAndCheck(
+                ChainIterator.with()
+        );
+    }
+
+    @Test
+    public void testConsumeOne() {
+        final String element = "*1*";
+
+        this.iterateAndCheck(
+                ChainIterator.with(
+                        Iterators.one(element)
+                ),
+                element
+        );
+    }
+
+    @Test
+    public void testConsumeSeveral() {
         final List<String> first = Lists.array();
         first.add("1");
         first.add("2");
