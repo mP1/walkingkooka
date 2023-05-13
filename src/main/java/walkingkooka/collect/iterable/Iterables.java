@@ -45,6 +45,13 @@ final public class Iterables implements PublicStaticHelper {
     }
 
     /**
+     * {@see ChainIterable}
+     */
+    public static <T> Iterable<T> chain(final Iterable<T>... iterables) {
+        return ChainIterable.with(iterables);
+    }
+
+    /**
      * {@see EmptyIterable}
      */
     public static <T> Iterable<T> empty() {
