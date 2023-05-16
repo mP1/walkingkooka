@@ -22,6 +22,7 @@ import walkingkooka.reflect.PublicStaticHelper;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 final public class Iterators implements PublicStaticHelper {
 
@@ -89,6 +90,17 @@ final public class Iterators implements PublicStaticHelper {
      */
     public static <E> Iterator<E> one(final E value) {
         return OneIterator.with(value);
+    }
+
+    /**
+     * {@see PredicatedIterator}
+     */
+    public static <E> Iterator<E> predicated(final Iterator<E> iterator,
+                                             final Predicate<E> filter) {
+        return PredicatedIterator.with(
+                iterator,
+                filter
+        );
     }
 
     /**
