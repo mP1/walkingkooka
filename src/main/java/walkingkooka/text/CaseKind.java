@@ -56,7 +56,7 @@ public enum CaseKind {
     },
 
     /**
-     * Text is separated by a dash or minute, note text is not lower-cased.<code>abc-def-ghi</code>
+     * Text is separated by a dash or minus-sign, note text is not lower-cased.<code>abc-def-ghi</code>
      */
     KEBAB {
         @Override
