@@ -188,8 +188,20 @@ public enum CaseKind {
                     i++;
                 }
             } else {
+                if(0 == i) {
+                    b.append(
+                            to.destBegin(
+                                    i,
+                                    this.sourceBegin(
+                                            i,
+                                            text.charAt(i)
+                                    )
+                            )
+                    );
+                } else {
+                    b.append(c);
+                }
                 i++;
-                b.append(c);
             }
         }
 
