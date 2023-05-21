@@ -84,6 +84,35 @@ public enum CaseKind {
     }, // lowerToUpper, // dash
 
     /**
+     * Text is separated by a space, note text case is not changed<code>first second third</code>. This pattern
+     * follows normal text but without capitalizing the first word of the sentence.
+     */
+    NORMAL {
+        @Override
+        boolean isEndOfChunk(final int i,
+                             final char c) {
+            return Character.isWhitespace(c);
+        }
+
+        @Override
+        void insertSeparator(final StringBuilder b) {
+            b.append(' ');
+        }
+
+        @Override
+        char sourceBegin(final int i,
+                         final char c) {
+            return c; // no change
+        }
+
+        @Override
+        char destBegin(final int i,
+                       final char c) {
+            return c; // no change
+        }
+    },
+
+    /**
      * Text that follows the Pascal way of naming variables, words have no separator, and the first letter of each chunk is
      * capitalized, and other characters lower cased.
      * <code>AbcDef</code>
@@ -218,7 +247,7 @@ public enum CaseKind {
      * Snake and Kebab will return true.
      */
     final boolean shouldIgnoreSeparator() {
-        return KEBAB == this || SNAKE == this;
+        return KEBAB == this || NORMAL == this || SNAKE == this;
     }
 
     /**
