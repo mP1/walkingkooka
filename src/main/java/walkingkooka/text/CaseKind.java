@@ -37,14 +37,14 @@ public enum CaseKind {
         }
 
         @Override
-        char fromBeginChunk(final int i,
-                            final char c) {
+        char sourceBegin(final int i,
+                         final char c) {
             return Character.toLowerCase(c);
         }
 
         @Override
-        char toBeginChunk(final int i,
-                          final char c) {
+        char destBegin(final int i,
+                       final char c) {
             return i == 0 ?
                     Character.toLowerCase(c) :
                     Character.toUpperCase(c);
@@ -65,14 +65,14 @@ public enum CaseKind {
         }
 
         @Override
-        char fromBeginChunk(final int i,
-                            final char c) {
+        char sourceBegin(final int i,
+                         final char c) {
             return c;
         }
 
         @Override
-        char toBeginChunk(final int i,
-                          final char c) {
+        char destBegin(final int i,
+                       final char c) {
             return c;
         }
     }, // lowerToUpper, // dash
@@ -91,14 +91,14 @@ public enum CaseKind {
         }
 
         @Override
-        char fromBeginChunk(final int i,
-                            final char c) {
+        char sourceBegin(final int i,
+                         final char c) {
             return Character.toLowerCase(c);
         }
 
         @Override
-        char toBeginChunk(final int i,
-                          final char c) {
+        char destBegin(final int i,
+                       final char c) {
             return Character.toUpperCase(c);
         }
     }, // lowerToUpper
@@ -117,14 +117,14 @@ public enum CaseKind {
         }
 
         @Override
-        char fromBeginChunk(final int i,
-                            final char c) {
+        char sourceBegin(final int i,
+                         final char c) {
             return c;
         }
 
         @Override
-        char toBeginChunk(final int i,
-                          final char c) {
+        char destBegin(final int i,
+                       final char c) {
             return c;
         }
     }; // lowerToUpper
@@ -153,7 +153,7 @@ public enum CaseKind {
             final char c = text.charAt(i);
 
             if (this.isEndOfChunk(i, c)) {
-                if(this.ignoreSeparator()) {
+                if(this.shouldIgnoreSeparator()) {
                     i++;
                 }
 
@@ -163,9 +163,9 @@ public enum CaseKind {
                     }
 
                     b.append(
-                            to.toBeginChunk(
+                            to.destBegin(
                                     i,
-                                    this.fromBeginChunk(
+                                    this.sourceBegin(
                                             i,
                                             text.charAt(i)
                                     )
@@ -190,9 +190,9 @@ public enum CaseKind {
                                   final char c);
 
     /**
-     * Snake and Keban will return true.
+     * Snake and Kebab will return true.
      */
-    final boolean ignoreSeparator() {
+    final boolean shouldIgnoreSeparator() {
         return KEBAB == this || SNAKE == this;
     }
 
@@ -204,14 +204,14 @@ public enum CaseKind {
     /**
      * eg: camel case will lower case the letter.
      */
-    abstract char fromBeginChunk(final int i,
-                                 final char c);
+    abstract char sourceBegin(final int i,
+                              final char c);
 
     /**
      * eg: camel case will upper case the letter
      */
-    abstract char toBeginChunk(final int i,
-                               final char c);
+    abstract char destBegin(final int i,
+                            final char c);
 
     /**
      * Turns the {@link Enum#name()} into its kebab equivalent.
