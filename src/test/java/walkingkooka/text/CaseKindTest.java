@@ -147,6 +147,26 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
     }
 
     @Test
+    public void testKebabToNormal() {
+        this.changeAndCheck(
+                CaseKind.KEBAB,
+                "abc-def",
+                CaseKind.NORMAL,
+                "abc def"
+        );
+    }
+
+    @Test
+    public void testKebabToNormal2() {
+        this.changeAndCheck(
+                CaseKind.KEBAB,
+                "ABC-DEF",
+                CaseKind.NORMAL,
+                "ABC DEF"
+        );
+    }
+
+    @Test
     public void testKebabToPascal() {
         this.changeAndCheck(
                 CaseKind.KEBAB,
@@ -183,6 +203,36 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
                 "ABC-DEF",
                 CaseKind.SNAKE,
                 "ABC_DEF"
+        );
+    }
+
+    @Test
+    public void testNormalToCamel() {
+        this.changeAndCheck(
+                CaseKind.NORMAL,
+                "abc def",
+                CaseKind.CAMEL,
+                "abcDef"
+        );
+    }
+
+    @Test
+    public void testNormalToKebab() {
+        this.changeAndCheck(
+                CaseKind.NORMAL,
+                "abc def",
+                CaseKind.KEBAB,
+                "abc-def"
+        );
+    }
+
+    @Test
+    public void testNormalToPascal() {
+        this.changeAndCheck(
+                CaseKind.NORMAL,
+                "abc def",
+                CaseKind.PASCAL,
+                "AbcDef"
         );
     }
 
