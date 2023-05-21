@@ -23,7 +23,11 @@ import java.util.Objects;
  * Utility to change text in one case format to a new format.
  */
 public enum CaseKind {
-    // abcDef
+    /**
+     * A naming standard where text words are joined with no separator, with all chunks except the first having the
+     * first character capitalized and other text lower-cased.
+     * <code>abcDefGhi</code>
+     */
     CAMEL {
         @Override
         boolean isEndOfChunk(final int i,
@@ -51,7 +55,9 @@ public enum CaseKind {
         }
     },
 
-    // abc-def
+    /**
+     * Text is separated by a dash or minute, note text is not lower-cased.<code>abc-def-ghi</code>
+     */
     KEBAB {
         @Override
         boolean isEndOfChunk(final int i,
@@ -77,7 +83,11 @@ public enum CaseKind {
         }
     }, // lowerToUpper, // dash
 
-    // AbcDef
+    /**
+     * Text that follows the Pascal way of naming variables, words have no separator, and the first letter of each chunk is
+     * capitalized, and other characters lower cased.
+     * <code>AbcDef</code>
+     */
     PASCAL {
         @Override
         boolean isEndOfChunk(final int i,
@@ -103,7 +113,10 @@ public enum CaseKind {
         }
     }, // lowerToUpper
 
-    // abc_def
+    /**
+     * A kind of text where words are separated by underscores. Note text characters are not converted to upper case.<br>
+     * <code>abc_def</code>
+     */
     SNAKE {
         @Override
         boolean isEndOfChunk(final int i,
