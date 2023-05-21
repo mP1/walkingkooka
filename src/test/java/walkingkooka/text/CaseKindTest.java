@@ -137,6 +137,26 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
     }
 
     @Test
+    public void testKebabToCamel() {
+        this.changeAndCheck(
+                CaseKind.KEBAB,
+                "abc-def",
+                CaseKind.CAMEL,
+                "abcDef"
+        );
+    }
+
+    @Test
+    public void testKebabToPascal() {
+        this.changeAndCheck(
+                CaseKind.KEBAB,
+                "abc-def",
+                CaseKind.PASCAL,
+                "AbcDef"
+        );
+    }
+
+    @Test
     public void testKebabToSnake() {
         this.changeAndCheck(
                 CaseKind.KEBAB,
@@ -183,6 +203,16 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
                 "Abc",
                 CaseKind.CAMEL,
                 "abc"
+        );
+    }
+
+    @Test
+    public void testPascalToKebab() {
+        this.changeAndCheck(
+                CaseKind.PASCAL,
+                "AbcDef",
+                CaseKind.KEBAB,
+                "abc-def"
         );
     }
 
