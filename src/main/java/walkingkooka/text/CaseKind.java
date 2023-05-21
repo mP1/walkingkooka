@@ -197,7 +197,7 @@ public enum CaseKind {
     }
 
     /**
-     * eg: snake will return true when an underscore is encountered.
+     * eg: {@link #SNAKE} will return true when an underscore is encountered.
      */
     abstract boolean isEndOfChunk(final int i,
                                   final char c);
@@ -210,18 +210,18 @@ public enum CaseKind {
     }
 
     /**
-     * eg: snake will append an underscore.
+     * eg: {@link #SNAKE} will append an underscore.
      */
     abstract void insertSeparator(final StringBuilder b);
 
     /**
-     * eg: camel case will lower case the letter.
+     * eg: {@link #CAMEL} will lower case the letter.
      */
     abstract char sourceBegin(final int i,
                               final char c);
 
     /**
-     * eg: camel case will upper case the letter
+     * eg: {@link #CAMEL} will upper case the letter
      */
     abstract char destBegin(final int i,
                             final char c);
