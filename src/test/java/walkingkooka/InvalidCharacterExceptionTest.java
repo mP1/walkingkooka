@@ -20,13 +20,15 @@ package walkingkooka;
 import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.ThrowableTesting2;
+import walkingkooka.text.HasTextTesting;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class InvalidCharacterExceptionTest implements ThrowableTesting2<InvalidCharacterException>,
-        HashCodeEqualsDefinedTesting2<InvalidCharacterException> {
+        HashCodeEqualsDefinedTesting2<InvalidCharacterException>,
+        HasTextTesting {
 
     private final static String TEXT = "abc!123";
     private final static int POSITION = 3;
