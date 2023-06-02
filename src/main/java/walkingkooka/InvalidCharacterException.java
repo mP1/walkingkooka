@@ -28,19 +28,43 @@ public class InvalidCharacterException extends InvalidTextException {
 
     public InvalidCharacterException(final String text,
                                      final int position) {
+        this(
+                text,
+                position,
+                ""
+        );
+    }
+
+    private InvalidCharacterException(final String text,
+                                     final int position,
+                                      final String appendToMessage) {
         super();
         checkText(text, position);
         this.text = text;
         this.position = position;
+        this.appendToMessage = appendToMessage;
     }
 
     public InvalidCharacterException(final String text,
                                      final int position,
                                      final Throwable cause) {
+        this(
+                text,
+                position,
+                "",
+                cause
+        );
+    }
+
+    private InvalidCharacterException(final String text,
+                                     final int position,
+                                     final String appendToMessage,
+                                     final Throwable cause) {
         super(cause);
         checkText(text, position);
         this.text = text;
         this.position = position;
+        this.appendToMessage = appendToMessage;
     }
 
     private static void checkText(final String text, final int position) {
@@ -59,14 +83,11 @@ public class InvalidCharacterException extends InvalidTextException {
     public InvalidCharacterException setTextAndPosition(final String text, final int position) {
         return this.text.equals(text) && this.position == position ?
                 this :
-                this.replace(text, position);
-    }
-
-    private InvalidCharacterException replace(final String text, final int position) {
-        final Throwable cause = this.getCause();
-        return null != cause ?
-                new InvalidCharacterException(text, position, cause) :
-                new InvalidCharacterException(text, position);
+                this.replace(
+                        text,
+                        position,
+                        this.appendToMessage
+                );
     }
 
     private final String text;
@@ -81,8 +102,41 @@ public class InvalidCharacterException extends InvalidTextException {
     public String getMessage() {
         return "Invalid character " + CharSequences.quoteIfChars(this.text.charAt(this.position)) +
                 " at " + this.position +
-                " in " + CharSequences.quote(this.text);
+                " in " + CharSequences.quote(this.text) +
+                this.appendToMessage;
     }
+
+    /**
+     * Appends some text to the generic {@link #getMessage()}. This is useful when the invalid position may belong
+     * to a specific line within a large amount of text.
+     */
+    public InvalidCharacterException appendToMessage(final String appendToMessage) {
+        Objects.requireNonNull(appendToMessage, "appendToMessage");
+
+        return this.appendToMessage.equals(appendToMessage) ?
+                this :
+                this.replace(
+                        this.text,
+                        this.position,
+                        appendToMessage
+                );
+    }
+
+    /**
+     * This is some extra text appended to the generic Invalid character message.
+     */
+    // @VisibleForTesting
+    final String appendToMessage;
+
+    private InvalidCharacterException replace(final String text,
+                                              final int position,
+                                              final String appendToMessage) {
+        final Throwable cause = this.getCause();
+        return null != cause ?
+                new InvalidCharacterException(text, position, appendToMessage, cause) :
+                new InvalidCharacterException(text, position, appendToMessage);
+    }
+
 
     private static final long serialVersionUID = 1L;
 
