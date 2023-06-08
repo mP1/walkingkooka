@@ -193,7 +193,47 @@ public enum CaseKind {
                        final char c) {
             return Character.toUpperCase(c);
         }
-    }; // lowerToUpper
+    }, // lowerToUpper
+
+    /**
+     * Text is separated by a space, with the first letter capitalized and remaining letters left unchanged.
+     * <pre>
+     * abc def
+     * Abc Def
+     *
+     * SNAKE_SNAKE2
+     * Snake Snake2
+     * </pre>
+     */
+    TITLE {
+        @Override
+        boolean isEndOfChunk(final int i,
+                             final char c) {
+            return Character.isWhitespace(c);
+        }
+
+        @Override
+        void insertSeparator(final StringBuilder b) {
+            b.append(' ');
+        }
+
+        @Override
+        char nonBegin(final char c) {
+            return Character.toLowerCase(c);
+        }
+
+        @Override
+        char sourceBegin(final int i,
+                         final char c) {
+            return c; // no change
+        }
+
+        @Override
+        char destBegin(final int i,
+                       final char c) {
+            return Character.toUpperCase(c);
+        }
+    };
 
     public final String change(final String text,
                                final CaseKind to) {
@@ -275,7 +315,7 @@ public enum CaseKind {
      * Snake and Kebab will return true.
      */
     final boolean shouldIgnoreSeparator() {
-        return KEBAB == this || NORMAL == this || SNAKE == this;
+        return TITLE == this || KEBAB == this || NORMAL == this || SNAKE == this;
     }
 
     /**

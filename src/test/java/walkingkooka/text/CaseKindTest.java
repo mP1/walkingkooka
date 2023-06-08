@@ -77,6 +77,16 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
     }
 
     @Test
+    public void testCamelToNormal() {
+        this.changeAndCheck(
+                CaseKind.CAMEL,
+                "abc",
+                CaseKind.NORMAL,
+                "abc"
+        );
+    }
+
+    @Test
     public void testCamelToPascal() {
         this.changeAndCheckBothWays(
                 CaseKind.CAMEL,
@@ -133,6 +143,16 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
                 "abcDefGhi",
                 CaseKind.SNAKE,
                 "ABC_DEF_GHI"
+        );
+    }
+
+    @Test
+    public void testCamelToTitle() {
+        this.changeAndCheck(
+                CaseKind.CAMEL,
+                "abc",
+                CaseKind.TITLE,
+                "Abc"
         );
     }
 
@@ -237,6 +257,16 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
     }
 
     @Test
+    public void testNormalToTitle() {
+        this.changeAndCheck(
+                CaseKind.NORMAL,
+                "abc def",
+                CaseKind.TITLE,
+                "Abc Def"
+        );
+    }
+
+    @Test
     public void testPascalToCamel() {
         this.changeAndCheckBothWays(
                 CaseKind.PASCAL,
@@ -257,12 +287,42 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
     }
 
     @Test
+    public void testPascalToTitle() {
+        this.changeAndCheck(
+                CaseKind.PASCAL,
+                "AbcDef",
+                CaseKind.TITLE,
+                "Abc Def"
+        );
+    }
+
+    @Test
     public void testPascalToKebab() {
         this.changeAndCheckBothWays(
                 CaseKind.PASCAL,
                 "AbcDef",
                 CaseKind.KEBAB,
                 "abc-def"
+        );
+    }
+
+    @Test
+    public void testTitleToNormal() {
+        this.changeAndCheck(
+                CaseKind.TITLE,
+                "Abc def",
+                CaseKind.NORMAL,
+                "abc def"
+        );
+    }
+
+    @Test
+    public void testTitleToNormal2() {
+        this.changeAndCheck(
+                CaseKind.TITLE,
+                "URL def",
+                CaseKind.NORMAL,
+                "url def"
         );
     }
 
