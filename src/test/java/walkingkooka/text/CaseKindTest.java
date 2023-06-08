@@ -66,7 +66,7 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
     public void testEmpty() {
         for (final CaseKind from : CaseKind.values()) {
             for (final CaseKind to : CaseKind.values()) {
-                this.changeAndCheck(
+                this.changeAndCheckBothWays(
                         from,
                         "",
                         to,
@@ -78,7 +78,7 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
 
     @Test
     public void testCamelToPascal() {
-        this.changeAndCheck(
+        this.changeAndCheckBothWays(
                 CaseKind.CAMEL,
                 "abc",
                 CaseKind.PASCAL,
@@ -88,7 +88,7 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
 
     @Test
     public void testCamelToPascal2() {
-        this.changeAndCheck(
+        this.changeAndCheckBothWays(
                 CaseKind.CAMEL,
                 "abcDef",
                 CaseKind.PASCAL,
@@ -98,7 +98,7 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
 
     @Test
     public void testCamelToKebab() {
-        this.changeAndCheck(
+        this.changeAndCheckBothWays(
                 CaseKind.CAMEL,
                 "abc",
                 CaseKind.KEBAB,
@@ -108,7 +108,7 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
 
     @Test
     public void testCamelToKebab2() {
-        this.changeAndCheck(
+        this.changeAndCheckBothWays(
                 CaseKind.CAMEL,
                 "abcDef",
                 CaseKind.KEBAB,
@@ -118,7 +118,7 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
 
     @Test
     public void testCamelToSnake() {
-        this.changeAndCheck(
+        this.changeAndCheckBothWays(
                 CaseKind.CAMEL,
                 "abcDef",
                 CaseKind.SNAKE,
@@ -128,7 +128,7 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
 
     @Test
     public void testCamelToSnake2() {
-        this.changeAndCheck(
+        this.changeAndCheckBothWays(
                 CaseKind.CAMEL,
                 "abcDefGhi",
                 CaseKind.SNAKE,
@@ -138,7 +138,7 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
 
     @Test
     public void testKebabToCamel() {
-        this.changeAndCheck(
+        this.changeAndCheckBothWays(
                 CaseKind.KEBAB,
                 "abc-def",
                 CaseKind.CAMEL,
@@ -148,7 +148,7 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
 
     @Test
     public void testKebabToNormal() {
-        this.changeAndCheck(
+        this.changeAndCheckBothWays(
                 CaseKind.KEBAB,
                 "abc-def",
                 CaseKind.NORMAL,
@@ -158,7 +158,7 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
 
     @Test
     public void testKebabToNormal2() {
-        this.changeAndCheck(
+        this.changeAndCheckBothWays(
                 CaseKind.KEBAB,
                 "ABC-DEF",
                 CaseKind.NORMAL,
@@ -168,7 +168,7 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
 
     @Test
     public void testKebabToPascal() {
-        this.changeAndCheck(
+        this.changeAndCheckBothWays(
                 CaseKind.KEBAB,
                 "abc-def",
                 CaseKind.PASCAL,
@@ -178,7 +178,7 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
 
     @Test
     public void testKebabToSnake() {
-        this.changeAndCheck(
+        this.changeAndCheckBothWays(
                 CaseKind.KEBAB,
                 "abc-def",
                 CaseKind.SNAKE,
@@ -188,7 +188,7 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
 
     @Test
     public void testKebabToSnake2() {
-        this.changeAndCheck(
+        this.changeAndCheckBothWays(
                 CaseKind.KEBAB,
                 "abc-def-g",
                 CaseKind.SNAKE,
@@ -198,7 +198,7 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
 
     @Test
     public void testKebabToSnake3() {
-        this.changeAndCheck(
+        this.changeAndCheckBothWays(
                 CaseKind.KEBAB,
                 "ABC-DEF",
                 CaseKind.SNAKE,
@@ -208,7 +208,7 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
 
     @Test
     public void testNormalToCamel() {
-        this.changeAndCheck(
+        this.changeAndCheckBothWays(
                 CaseKind.NORMAL,
                 "abc def",
                 CaseKind.CAMEL,
@@ -218,7 +218,7 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
 
     @Test
     public void testNormalToKebab() {
-        this.changeAndCheck(
+        this.changeAndCheckBothWays(
                 CaseKind.NORMAL,
                 "abc def",
                 CaseKind.KEBAB,
@@ -228,7 +228,7 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
 
     @Test
     public void testNormalToPascal() {
-        this.changeAndCheck(
+        this.changeAndCheckBothWays(
                 CaseKind.NORMAL,
                 "abc def",
                 CaseKind.PASCAL,
@@ -238,7 +238,7 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
 
     @Test
     public void testPascalToCamel() {
-        this.changeAndCheck(
+        this.changeAndCheckBothWays(
                 CaseKind.PASCAL,
                 "A",
                 CaseKind.CAMEL,
@@ -248,7 +248,7 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
 
     @Test
     public void testPascalToCamel2() {
-        this.changeAndCheck(
+        this.changeAndCheckBothWays(
                 CaseKind.PASCAL,
                 "Abc",
                 CaseKind.CAMEL,
@@ -258,7 +258,7 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
 
     @Test
     public void testPascalToKebab() {
-        this.changeAndCheck(
+        this.changeAndCheckBothWays(
                 CaseKind.PASCAL,
                 "AbcDef",
                 CaseKind.KEBAB,
@@ -266,18 +266,18 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
         );
     }
 
-    private void changeAndCheck(final CaseKind from,
-                                final String fromText,
-                                final CaseKind to,
-                                final String toText) {
-        this.changeAndCheck0(
+    private void changeAndCheckBothWays(final CaseKind from,
+                                        final String fromText,
+                                        final CaseKind to,
+                                        final String toText) {
+        this.changeAndCheck(
                 from,
                 fromText,
                 to,
                 toText
         );
 
-        this.changeAndCheck0(
+        this.changeAndCheck(
                 to,
                 toText,
                 from,
@@ -285,10 +285,10 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
         );
     }
 
-    private void changeAndCheck0(final CaseKind from,
-                                 final String text,
-                                 final CaseKind to,
-                                 final String expected) {
+    private void changeAndCheck(final CaseKind from,
+                                final String text,
+                                final CaseKind to,
+                                final String expected) {
         this.checkEquals(
                 expected,
                 from.change(
