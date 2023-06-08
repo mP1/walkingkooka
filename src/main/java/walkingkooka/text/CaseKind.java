@@ -41,6 +41,11 @@ public enum CaseKind {
         }
 
         @Override
+        char nonBegin(final char c) {
+            return Character.toLowerCase(c);
+        }
+
+        @Override
         char sourceBegin(final int i,
                          final char c) {
             return Character.toLowerCase(c);
@@ -56,7 +61,7 @@ public enum CaseKind {
     },
 
     /**
-     * Text is separated by a dash or minus-sign, note text is not lower-cased.<code>abc-def-ghi</code>
+     * Text is separated by a dash or minus-sign, note ALL text is lower-cased.<code>abc-def-ghi</code>
      */
     KEBAB {
         @Override
@@ -71,21 +76,25 @@ public enum CaseKind {
         }
 
         @Override
+        char nonBegin(final char c) {
+            return Character.toLowerCase(c);
+        }
+
+        @Override
         char sourceBegin(final int i,
                          final char c) {
-            return c;
+            return Character.toLowerCase(c);
         }
 
         @Override
         char destBegin(final int i,
                        final char c) {
-            return c;
+            return Character.toLowerCase(c);
         }
     }, // lowerToUpper, // dash
 
     /**
-     * Text is separated by a space, note text case is not changed<code>first second third</code>. This pattern
-     * follows normal text but without capitalizing the first word of the sentence.
+     * Text is separated by a space, with the source text converted to lower case text.
      */
     NORMAL {
         @Override
@@ -100,15 +109,20 @@ public enum CaseKind {
         }
 
         @Override
+        char nonBegin(final char c) {
+            return Character.toLowerCase(c);
+        }
+
+        @Override
         char sourceBegin(final int i,
                          final char c) {
-            return c; // no change
+            return Character.toLowerCase(c);
         }
 
         @Override
         char destBegin(final int i,
                        final char c) {
-            return c; // no change
+            return Character.toLowerCase(c);
         }
     },
 
@@ -130,6 +144,11 @@ public enum CaseKind {
         }
 
         @Override
+        char nonBegin(final char c) {
+            return Character.toLowerCase(c);
+        }
+
+        @Override
         char sourceBegin(final int i,
                          final char c) {
             return Character.toLowerCase(c);
@@ -143,7 +162,7 @@ public enum CaseKind {
     }, // lowerToUpper
 
     /**
-     * A kind of text where words are separated by underscores. Note text characters are not converted to upper case.<br>
+     * A kind of text where words are separated by underscores. Note text characters is upper case when the target.<br>
      * <code>abc_def</code>
      */
     SNAKE {
@@ -159,15 +178,20 @@ public enum CaseKind {
         }
 
         @Override
+        char nonBegin(final char c) {
+            return Character.toUpperCase(c);
+        }
+
+        @Override
         char sourceBegin(final int i,
                          final char c) {
-            return c;
+            return Character.toUpperCase(c);
         }
 
         @Override
         char destBegin(final int i,
                        final char c) {
-            return c;
+            return Character.toUpperCase(c);
         }
     }; // lowerToUpper
 
@@ -228,7 +252,11 @@ public enum CaseKind {
                             )
                     );
                 } else {
-                    b.append(c);
+                    b.append(
+                            to.nonBegin(
+                                    this.nonBegin(c)
+                            )
+                    );
                 }
                 i++;
             }
@@ -260,6 +288,11 @@ public enum CaseKind {
      */
     abstract char sourceBegin(final int i,
                               final char c);
+
+    /**
+     * Non begin character. Some kinds will lower case this, eg CAMEL, where only the first is upper-cased, with the rest lower cased.
+     */
+    abstract char nonBegin(char c);
 
     /**
      * eg: {@link #CAMEL} will upper case the letter

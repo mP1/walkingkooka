@@ -122,7 +122,7 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
                 CaseKind.CAMEL,
                 "abcDef",
                 CaseKind.SNAKE,
-                "abc_def"
+                "ABC_DEF"
         );
     }
 
@@ -132,7 +132,7 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
                 CaseKind.CAMEL,
                 "abcDefGhi",
                 CaseKind.SNAKE,
-                "abc_def_ghi"
+                "ABC_DEF_GHI"
         );
     }
 
@@ -158,11 +158,11 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
 
     @Test
     public void testKebabToNormal2() {
-        this.changeAndCheckBothWays(
+        this.changeAndCheck(
                 CaseKind.KEBAB,
                 "ABC-DEF",
                 CaseKind.NORMAL,
-                "ABC DEF"
+                "abc def"
         );
     }
 
@@ -178,11 +178,11 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
 
     @Test
     public void testKebabToSnake() {
-        this.changeAndCheckBothWays(
+        this.changeAndCheck(
                 CaseKind.KEBAB,
-                "abc-def",
+                "ABC-DEF",
                 CaseKind.SNAKE,
-                "abc_def"
+                "ABC_DEF"
         );
     }
 
@@ -192,7 +192,7 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
                 CaseKind.KEBAB,
                 "abc-def-g",
                 CaseKind.SNAKE,
-                "abc_def_g"
+                "ABC_DEF_G"
         );
     }
 
@@ -200,7 +200,7 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
     public void testKebabToSnake3() {
         this.changeAndCheckBothWays(
                 CaseKind.KEBAB,
-                "ABC-DEF",
+                "abc-def",
                 CaseKind.SNAKE,
                 "ABC_DEF"
         );
