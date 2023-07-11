@@ -26,11 +26,9 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 /**
  * An interface for testing {@link Comparable comparables}. Many compareTo methods are
- * available that compare andassert the result.
+ * available that compare andcheck the result.
  */
 public interface ComparableTesting extends HashCodeEqualsDefinedTesting {
 
@@ -71,14 +69,14 @@ public interface ComparableTesting extends HashCodeEqualsDefinedTesting {
         final List<C> sorted = list.subList(values.length / 2, values.length);
         unsorted.sort(Comparator.naturalOrder());
 
-        assertEquals(sorted,
+        this.checkEquals(sorted,
                 unsorted,
                 () -> "sort " + unsorted);
     }
 
     default void compareResultCheck(final String message, final int expected, final int actual) {
         if (Comparators.normalize(expected) != Comparators.normalize(actual)) {
-            assertEquals(expected, actual, message);
+            this.checkEquals(expected, actual, message);
         }
     }
 }

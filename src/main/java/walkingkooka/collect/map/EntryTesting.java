@@ -23,8 +23,6 @@ import walkingkooka.reflect.TypeNameTesting;
 
 import java.util.Map.Entry;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 /**
  * Mixing interface that provides methods to test a {@link Entry}
  */
@@ -45,11 +43,11 @@ public interface EntryTesting<E extends Entry<K, V>, K, V> extends ToStringTesti
     }
 
     default void getKeyAndCheck(final Entry<K, V> entry, final K key) {
-        assertEquals(key, entry.getKey(), "key from " + entry);
+        this.checkEquals(key, entry.getKey(), "key from " + entry);
     }
 
     default void getValueAndCheck(final Entry<K, V> entry, final V value) {
-        assertEquals(value, entry.getValue(), "Value from " + entry);
+        this.checkEquals(value, entry.getValue(), "Value from " + entry);
     }
 
     // TypeNameTesting .........................................................................................

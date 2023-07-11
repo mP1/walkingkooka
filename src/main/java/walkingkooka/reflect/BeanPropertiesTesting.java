@@ -17,19 +17,18 @@
 
 package walkingkooka.reflect;
 
+import walkingkooka.test.Testing;
+
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 /**
  * Mixing interface that provides helpers to test bean properties.
  */
-public interface BeanPropertiesTesting {
+public interface BeanPropertiesTesting extends Testing {
 
     /**
      * Checks that all properties do not return null.
@@ -45,13 +44,18 @@ public interface BeanPropertiesTesting {
         final List<Method> properties = Arrays.stream(object.getClass().getMethods())
                 .filter(filter)
                 .collect(Collectors.toList());
-        assertNotEquals(0,
+        this.checkNotEquals(
+                0,
                 properties.size(),
-                "Found zero properties for type=" + object.getClass().getName());
+                () -> "Found zero properties for type=" + object.getClass().getName()
+        );
         for (Method method : properties) {
             method.setAccessible(true);
-            assertNotNull(method.invoke(object),
-                    () -> "null should not have been returned by " + method + " for " + object);
+            this.checkNotEquals(
+                    null,
+                    method.invoke(object),
+                    () -> "null should not have been returned by " + method + " for " + object
+            );
         }
     }
 }

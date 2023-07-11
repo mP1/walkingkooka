@@ -19,8 +19,6 @@ package walkingkooka.text.cursor;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Mixin that introduces tests and helpers to test {@link TextCursorSavePoint} implementations.
@@ -37,7 +35,11 @@ public interface TextCursorSavePointTesting<S extends TextCursorSavePoint, C ext
         cursor.next();
         this.atAndCheck(cursor, '2');
 
-        assertNotNull(cursor.save(), "SavePointTestCase");
+        this.checkNotEquals(
+                null,
+                cursor.save(),
+                "SavePointTestCase"
+        );
     }
 
     @Test
@@ -148,13 +150,13 @@ public interface TextCursorSavePointTesting<S extends TextCursorSavePoint, C ext
 
         final String actual = save.toString();
         save.restore();
-        assertEquals("save " + cursor, actual);
+        this.checkEquals("save " + cursor, actual);
     }
 
     C createTextCursor(String text);
 
     default void checkTextBetween(final TextCursorSavePoint save, final String expected) {
         final String actual = save.textBetween().toString();
-        assertEquals(expected, actual, () -> "textBetween=" + save);
+        this.checkEquals(expected, actual, () -> "textBetween=" + save);
     }
 }

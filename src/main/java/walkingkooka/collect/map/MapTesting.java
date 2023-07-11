@@ -24,9 +24,7 @@ import walkingkooka.text.CharSequences;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Interface with default methods which can be mixed in to assist testing of an {@link Map}.
@@ -85,8 +83,11 @@ public interface MapTesting<M extends Map<K, V>, K, V> extends Testing {
     }
 
     default void containsKeyAndCheck(final Map<K, V> map, final K key) {
-        assertTrue(map.containsKey(key),
-                () -> map + " should contain key " + CharSequences.quoteIfChars(key));
+        this.checkEquals(
+                true,
+                map.containsKey(key),
+                () -> map + " should contain key " + CharSequences.quoteIfChars(key)
+        );
     }
 
     default void containsKeyAndCheckAbsent(final Object key) {
@@ -94,8 +95,11 @@ public interface MapTesting<M extends Map<K, V>, K, V> extends Testing {
     }
 
     default void containsKeyAndCheckAbsent(final Map<K, V> map, final Object key) {
-        assertFalse(map.containsKey(key),
-                () -> map + " should contain key " + CharSequences.quoteIfChars(key));
+        this.checkEquals(
+                false,
+                map.containsKey(key),
+                () -> map + " should contain key " + CharSequences.quoteIfChars(key)
+        );
     }
 
     default void containsValueAndCheck(final V value) {
@@ -103,13 +107,19 @@ public interface MapTesting<M extends Map<K, V>, K, V> extends Testing {
     }
 
     default void containsValueAndCheck(final Map<K, V> map, final V value) {
-        assertTrue(map.containsValue(value),
-                () -> map + " should contain value " + CharSequences.quoteIfChars(value));
+        this.checkEquals(
+                true,
+                map.containsValue(value),
+                () -> map + " should contain value " + CharSequences.quoteIfChars(value)
+        );
     }
 
     default void containsValueAndCheckAbsent(final Map<K, V> map, final V value) {
-        assertFalse(map.containsValue(value),
-                () -> map + " should contain value " + CharSequences.quoteIfChars(value));
+        this.checkEquals(
+                false,
+                map.containsValue(value),
+                () -> map + " should contain value " + CharSequences.quoteIfChars(value)
+        );
     }
 
     default void getAndCheck(final K key, final V value) {
@@ -150,12 +160,18 @@ public interface MapTesting<M extends Map<K, V>, K, V> extends Testing {
     default void putFails(final Map<K, V> map,
                           final K key,
                           final V value) {
-        assertThrows(UnsupportedOperationException.class, () -> map.put(key, value));
+        assertThrows(
+                UnsupportedOperationException.class,
+                () -> map.put(key, value)
+        );
     }
 
     default void removeFails(final Map<K, V> map,
                              final K key) {
-        assertThrows(UnsupportedOperationException.class, () -> map.remove(key));
+        assertThrows(
+                UnsupportedOperationException.class,
+                () -> map.remove(key)
+        );
     }
 
     default void sizeAndCheck(final Map<K, V> map, final int size) {

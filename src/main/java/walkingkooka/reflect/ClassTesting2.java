@@ -17,15 +17,12 @@
 
 package walkingkooka.reflect;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.Fake;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.stream.Collectors;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Mixin with additional constructor related tests for {@link ClassTesting}
@@ -37,7 +34,7 @@ public interface ClassTesting2<T> extends ClassTesting<T> {
         final Class<T> type = this.type();
         if (!Fake.class.isAssignableFrom(type)) {
             if (!ClassAttributes.ABSTRACT.is(type) && ClassAttributes.FINAL.is(type)) {
-                assertEquals("",
+                this.checkEquals("",
                         Arrays.stream(type.getDeclaredConstructors())
                                 .filter(c -> JavaVisibility.PRIVATE != JavaVisibility.of(c))
                                 .map(Constructor::toGenericString)
@@ -59,11 +56,13 @@ public interface ClassTesting2<T> extends ClassTesting<T> {
                 ClassAttributes.FINAL.is(type) ?
                         JavaVisibility.PRIVATE :
                         JavaVisibility.PACKAGE_PRIVATE;
-        Assertions.assertEquals("",
+        this.checkEquals(
+                "",
                 Arrays.stream(this.type().getDeclaredConstructors())
                         .filter(c -> false == JavaVisibility.of(c).isOrLess(sameOrLess))
                         .map(Constructor::toGenericString)
                         .collect(Collectors.joining(", ")),
-                () -> "Found several constructors that are not " + sameOrLess + " for type " + type.getName());
+                () -> "Found several constructors that are not " + sameOrLess + " for type " + type.getName()
+        );
     }
 }

@@ -29,7 +29,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
@@ -45,7 +44,7 @@ public interface VisitorTesting<V extends Visitor<T>, T>
      */
     @Test
     default void testAllConstructorsVisibility() {
-        assertEquals(Lists.empty(),
+        this.checkEquals(Lists.empty(),
                 Arrays.stream(this.type().getConstructors())
                         .filter(c -> JavaVisibility.PROTECTED != JavaVisibility.of(c))
                         .collect(Collectors.toList()));
@@ -69,7 +68,7 @@ public interface VisitorTesting<V extends Visitor<T>, T>
                 .collect(Collectors.toList());
 
         // because of generics two accept methods will be present accept(Object) and accept(N)
-        assertEquals(2,
+        this.checkEquals(2,
                 defaultAcceptMethods.size(),
                 () -> "visitor " + this.type().getName() + " should have only 1 default accept method=" + defaultAcceptMethods);
     }

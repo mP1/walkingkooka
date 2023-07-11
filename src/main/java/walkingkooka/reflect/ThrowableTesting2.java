@@ -21,8 +21,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 /**
  * An interface with default methods which may be mixed into a test.
  */
@@ -36,7 +34,7 @@ public interface ThrowableTesting2<T extends Throwable> extends ThrowableTesting
     default void testNoDefaultArgumentProtected() {
         Arrays.stream(this.type().getDeclaredConstructors())
                 .filter(c -> c.getParameterTypes().length == 0)
-                .forEach(c -> assertEquals(JavaVisibility.PROTECTED, JavaVisibility.of(c),
+                .forEach(c -> checkEquals(JavaVisibility.PROTECTED, JavaVisibility.of(c),
                         () -> "ctor visibility incorrect " + c));
     }
 
@@ -49,7 +47,7 @@ public interface ThrowableTesting2<T extends Throwable> extends ThrowableTesting
         Arrays.stream(type.getDeclaredConstructors())
                 .filter(c -> c.getParameterTypes().length != 0)
                 .forEach(c ->
-                        assertEquals(this.typeVisibility(),
+                        this.checkEquals(this.typeVisibility(),
                                 JavaVisibility.of(c),
                                 () -> "ctor visibility incorrect " + c));
     }

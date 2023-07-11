@@ -29,8 +29,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -152,7 +150,7 @@ public interface PathTesting<P extends Path<P, N>  & Comparable<P>, N extends Na
             actualNames.add(name);
         }
 
-        assertEquals(names, actualNames, () -> "names returned by iterator for " + path);
+        this.checkEquals(names, actualNames, () -> "names returned by iterator for " + path);
     }
 
     @Test
@@ -197,13 +195,13 @@ public interface PathTesting<P extends Path<P, N>  & Comparable<P>, N extends Na
     }
 
     default void rootCheck(final Path<?, ?> path) {
-        assertEquals(Optional.empty(), path.parent(), () -> "path must not be root=" + path);
-        assertEquals(true, path.isRoot(), () -> "path must not be root=" + path);
+        this.checkEquals(Optional.empty(), path.parent(), () -> "path must not be root=" + path);
+        this.checkEquals(true, path.isRoot(), () -> "path must not be root=" + path);
     }
 
     default void rootNotCheck(final Path<?, ?> path) {
-        assertNotEquals(Optional.empty(), path.parent(), () -> "path must not be root=" + path);
-        assertEquals(false, path.isRoot(), () -> "path must not be root=" + path);
+        this.checkNotEquals(Optional.empty(), path.parent(), () -> "path must not be root=" + path);
+        this.checkEquals(false, path.isRoot(), () -> "path must not be root=" + path);
     }
 
     default void valueCheck(final Path<?, ?> path) {
@@ -233,30 +231,30 @@ public interface PathTesting<P extends Path<P, N>  & Comparable<P>, N extends Na
     }
 
     default void valueCheck(final Path<?, ?> path, final String value) {
-        assertEquals(value, path.value(), "value of " + path);
+        this.checkEquals(value, path.value(), "value of " + path);
     }
 
     default void nameCheck(final P path, final N name) {
-        assertEquals(name, path.name(), () -> "name of " + path);
+        this.checkEquals(name, path.name(), () -> "name of " + path);
         this.nameCheck(path, name.value());
     }
 
     default void nameCheck(final Path<?, ?> path, final String value) {
-        assertEquals(value, path.name().value(), () -> "name of " + path);
+        this.checkEquals(value, path.name().value(), () -> "name of " + path);
     }
 
     default P parentCheck(final P path) {
         final Optional<P> parent = path.parent();
-        assertNotEquals(Optional.empty(), parent, () -> "parent of " + path);
+        this.checkNotEquals(Optional.empty(), parent, () -> "parent of " + path);
         return parent.get();
     }
 
     default void parentCheck(final P path, final P parent) {
-        assertEquals(parent, parentCheck(path), () -> "parent of " + path);
+        this.checkEquals(parent, parentCheck(path), () -> "parent of " + path);
     }
 
     default void parentCheck(final P path, final String value) {
-        assertEquals(value, parentCheck(path).value(), () -> "parent of " + path);
+        this.checkEquals(value, parentCheck(path).value(), () -> "parent of " + path);
     }
 
     default void parentSame(final P path, final P parent) {
@@ -264,7 +262,7 @@ public interface PathTesting<P extends Path<P, N>  & Comparable<P>, N extends Na
     }
 
     default void parentAbsentCheck(final Path<?, ?> path) {
-        assertEquals(Optional.empty(), path.parent(), () -> "parent of " + path);
+        this.checkEquals(Optional.empty(), path.parent(), () -> "parent of " + path);
     }
 
     default void nameSameCheck(final Path<?, ?> path, final Name name) {

@@ -20,6 +20,7 @@ package walkingkooka.visit;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.MethodAttributes;
+import walkingkooka.test.Testing;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -29,7 +30,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-final class VisitorTesting2 {
+final class VisitorTesting2 implements Testing {
 
     static void instanceCheck(final String methodName, final Class<? extends Visitor<?>> type) {
         allMethodsAndCheck(methodName,
@@ -77,9 +78,11 @@ final class VisitorTesting2 {
                 .filter(predicate.negate())
                 .collect(Collectors.toList());
 
-        assertEquals(Lists.empty(),
+        assertEquals(
+                Lists.empty(),
                 failed,
-                () -> "Several methods in " + type.getName() + " failed");
+                () -> "Several methods in " + type.getName() + " failed"
+        );
     }
 
     private VisitorTesting2() {

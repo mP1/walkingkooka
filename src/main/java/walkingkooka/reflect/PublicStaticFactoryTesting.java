@@ -69,10 +69,12 @@ public final class PublicStaticFactoryTesting {
                 .map(Method::toGenericString)
                 .collect(Collectors.joining(LineEnding.SYSTEM.toString()));
 
-        assertEquals(1,
+        assertEquals(
+                1,
                 factoryMethods.size(),
                 () -> "Expected only a single factory method called " + CharSequences.quote(factoryMethodName) +
-                        " for " + type + " on " + base.getName() + " but got " + factoryMethods + "\n" + publicStaticMethodsToString);
+                        " for " + type + " on " + base.getName() + " but got " + factoryMethods + "\n" + publicStaticMethodsToString
+        );
     }
 
     private static String factoryMethodNameSpecialFixup(final String name, final String suffix) {

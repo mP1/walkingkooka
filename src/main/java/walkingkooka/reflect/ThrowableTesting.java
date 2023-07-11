@@ -17,12 +17,12 @@
 
 package walkingkooka.reflect;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import walkingkooka.test.Testing;
 
 /**
  * An interface with default methods which may be mixed into a test.
  */
-public interface ThrowableTesting {
+public interface ThrowableTesting extends Testing {
 
     default void checkThrowable(final Throwable throwable, final String message, final Throwable cause) {
         this.checkMessage(throwable, message);
@@ -30,10 +30,10 @@ public interface ThrowableTesting {
     }
 
     default void checkMessage(final Throwable throwable, final String message) {
-        assertEquals(message, throwable.getMessage(), "message");
+        this.checkEquals(message, throwable.getMessage(), "message");
     }
 
     default void checkCause(final Throwable throwable, final Throwable cause) {
-        assertEquals(cause, throwable.getCause(), () -> "cause of " + throwable);
+        this.checkEquals(cause, throwable.getCause(), () -> "cause of " + throwable);
     }
 }

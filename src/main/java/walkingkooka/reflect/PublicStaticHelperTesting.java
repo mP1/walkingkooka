@@ -29,9 +29,7 @@ import java.util.Arrays;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Interface with default methods implementing tests and other test helpers.
@@ -42,14 +40,22 @@ public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends
     @Test
     default void testClassIsFinal() {
         final Class<H> type = this.type();
-        assertTrue(Modifier.isFinal(type.getModifiers()), () -> type.getName() + " is NOT final");
+        this.checkEquals(
+                true,
+                Modifier.isFinal(type.getModifiers()),
+                () -> type.getName() + " is NOT final"
+        );
     }
 
     @Test
     default void testOnlyConstructorIsPrivate() throws Exception {
         final Class<H> type = this.type();
         final Constructor<H> constructor = type.getDeclaredConstructor();
-        assertTrue(Modifier.isPrivate(constructor.getModifiers()), () -> type.getName() + " is NOT private");
+        this.checkEquals(
+                true,
+                Modifier.isPrivate(constructor.getModifiers()),
+                () -> type.getName() + " is NOT private"
+        );
     }
 
     @Test
@@ -60,7 +66,11 @@ public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends
 
         final InvocationTargetException cause = assertThrows(InvocationTargetException.class, constructor::newInstance);
         final Throwable target = cause.getTargetException();
-        assertTrue(target instanceof UnsupportedOperationException, "Expected UnsupportedOperationException but got " + target);
+        this.checkEquals(
+                true,
+                target instanceof UnsupportedOperationException,
+                "Expected UnsupportedOperationException but got " + target
+        );
     }
 
     @Test
@@ -104,7 +114,7 @@ public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends
     default void testContainsZeroInstanceFields() {
         final Class<H> type = this.type();
 
-        assertEquals("",
+        this.checkEquals("",
                 Arrays.stream(type.getDeclaredFields())
                         .filter(f -> false == f.getName().contains("jacoco"))
                         .filter(f -> false == FieldAttributes.get(f).contains(FieldAttributes.STATIC))
