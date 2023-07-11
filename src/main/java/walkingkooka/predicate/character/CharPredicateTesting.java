@@ -23,11 +23,10 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 /**
- * Mixin for any tests involving a {@link CharPredicate} that includes helpers to invoke and assert
+ * Mixin for any tests involving a {@link CharPredicate} that includes helpers to invoke and check
  * {@link CharPredicate#test(char)} results.
  */
 public interface CharPredicateTesting<P extends CharPredicate>
@@ -43,7 +42,7 @@ public interface CharPredicateTesting<P extends CharPredicate>
     @Test
     default void testNotNot() {
         final P predicate = this.createCharPredicate();
-        assertEquals(predicate, predicate.negate().negate());
+        this.checkEquals(predicate, predicate.negate().negate());
     }
 
     @Test

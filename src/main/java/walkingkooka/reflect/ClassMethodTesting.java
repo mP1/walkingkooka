@@ -69,9 +69,11 @@ final class ClassMethodTesting {
                     if (isMainMethod(method) || isEnumMethod(method)) {
                         continue;
                     }
-                    assertEquals(true,
+                    assertEquals(
+                            true,
                             JavaVisibility.of(method).isOrLess(JavaVisibility.PACKAGE_PRIVATE),
-                            () -> "Static methods should be private/package private " + method.toGenericString());
+                            () -> "Static methods should be private/package private " + method.toGenericString()
+                    );
                 }
                 if (overridable.contains(method)) {
                     continue;
@@ -80,9 +82,11 @@ final class ClassMethodTesting {
                     continue;
                 }
 
-                assertEquals(true,
+                assertEquals(
+                        true,
                         JavaVisibility.of(method).isOrLess(JavaVisibility.PACKAGE_PRIVATE),
-                        () -> "Instance methods not overriding public/protected methods should be private/package private " + method.toGenericString());
+                        () -> "Instance methods not overriding public/protected methods should be private/package private " + method.toGenericString()
+                );
             }
         }
     }

@@ -25,12 +25,11 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.text.CaseSensitivity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
- * Base class for testing a {@link Name} with mostly helpers to assert construction failure.
+ * Base class for testing a {@link Name} with mostly helpers to check construction failure.
  */
 public interface NameTesting<N extends Name, C extends Comparable<C>> extends ComparableTesting2<C>,
         ToStringTesting<N>,
@@ -132,7 +131,11 @@ public interface NameTesting<N extends Name, C extends Comparable<C>> extends Co
     }
 
     default void checkValue(final Name name, final String value) {
-        assertEquals(value, name.value(), "value");
+        this.checkEquals(
+                value,
+                name.value(),
+                "value"
+        );
     }
 
     Class<N> type();

@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * An interface for testing {@link Comparable comparables}. Many compareTo methods are
- * available that compare andassert the result.
+ * available that compare andcheck the result.
  */
 public interface ComparableTesting2<C extends Comparable<C>> extends ComparableTesting,
         HashCodeEqualsDefinedTesting2<C> {

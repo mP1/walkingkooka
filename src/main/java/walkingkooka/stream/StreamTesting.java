@@ -41,7 +41,6 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
@@ -779,8 +778,11 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
                 any,
                 () -> "findAny " + stream + " values: " + values
         );
-        assertTrue(values.contains(any.orElse(null)),
-                () -> "findAny from " + stream + " found " + any);
+        this.checkEquals(
+                true,
+                values.contains(any.orElse(null)),
+                () -> "findAny from " + stream + " found " + any
+        );
     }
 
     // forEach........................................................................................................
@@ -1071,9 +1073,11 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     }
 
     default void toArrayAndCheck(final Stream<T> stream, final List<T> values) {
-        assertArrayEquals(values.toArray(),
+        assertArrayEquals(
+                values.toArray(),
                 stream.toArray(),
-                () -> "toArray from " + stream);
+                () -> "toArray from " + stream
+        );
     }
 
     // toArray(IntFunction)........................................................................................................
@@ -1082,8 +1086,10 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     default void toArrayIntFunctionAndCheck(final Stream<T> stream,
                                             final IntFunction<T[]> generator,
                                             final T... values) {
-        assertArrayEquals(values,
+        assertArrayEquals(
+                values,
                 stream.toArray(),
-                () -> "toArray(IntFunction) from " + stream + " intFunction: " + generator);
+                () -> "toArray(IntFunction) from " + stream + " intFunction: " + generator
+        );
     }
 }

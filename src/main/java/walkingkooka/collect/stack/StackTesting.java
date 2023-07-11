@@ -24,7 +24,6 @@ import walkingkooka.reflect.TypeNameTesting;
 
 import java.util.EmptyStackException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
@@ -59,14 +58,14 @@ public interface StackTesting<S extends Stack<T>, T> extends HashCodeEqualsDefin
             jdkStack.push(t);
         }
 
-        checkHashCode(jdkStack, stack);
+        this.checkHashCode(jdkStack, stack);
     }
 
     S createStack();
 
     default void checkSize(final Stack<?> stack, final int size) {
-        assertEquals(0 == size, stack.isEmpty(), () -> stack + " isEmpty");
-        assertEquals(size, stack.size(), () -> stack + " size");
+        this.checkEquals(0 == size, stack.isEmpty(), () -> stack + " isEmpty");
+        this.checkEquals(size, stack.size(), () -> stack + " size");
     }
 
     @Override

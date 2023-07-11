@@ -21,8 +21,6 @@ import walkingkooka.text.CharSequences;
 
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 /**
  * Mixin interface for testing {@link Function}
  */
@@ -36,7 +34,7 @@ public interface FunctionTesting<F extends Function<T, R>, T, R> extends TypeNam
     default <TT, RR> void applyAndCheck(final Function<TT, RR> function,
                                         final TT input,
                                         final RR result) {
-        assertEquals(result,
+        this.checkEquals(result,
                 function.apply(input),
                 () -> "Wrong result for " + function + " for params: " + CharSequences.quoteIfChars(input));
     }

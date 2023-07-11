@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public interface TextCursorTesting2<C extends TextCursor>
@@ -194,9 +193,9 @@ public interface TextCursorTesting2<C extends TextCursor>
                                final int columnNumber) {
         final TextCursorLineInfo info = cursor.lineInfo();
 
-        assertEquals(text, info.text(), "text");
-        assertEquals(lineNumber, info.lineNumber(), "lineNumber");
-        assertEquals(columnNumber, info.column(), "column");
+        this.checkEquals(text, info.text(), "text");
+        this.checkEquals(lineNumber, info.lineNumber(), "lineNumber");
+        this.checkEquals(columnNumber, info.column(), "column");
     }
 
     // TypeNameTesting .........................................................................................

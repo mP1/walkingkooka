@@ -22,10 +22,8 @@ import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.TypeNameTesting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Base class for testing any {@link CharSequence} with most tests testing parameter validation.
@@ -37,7 +35,7 @@ public interface CharSequenceTesting<C extends CharSequence > extends HashCodeEq
     @Test
     default void testLengthAndToStringCompatible() {
         final C sequence = this.createCharSequence();
-        assertEquals(sequence.length(),
+        this.checkEquals(sequence.length(),
                 sequence.toString().length(),
                 () -> sequence + " length is different from that of toString()");
     }
@@ -51,7 +49,7 @@ public interface CharSequenceTesting<C extends CharSequence > extends HashCodeEq
             chars[i] = sequence.charAt(i);
         }
 
-        assertEquals(new String(chars), sequence.toString());
+        this.checkEquals(new String(chars), sequence.toString());
     }
 
     @Test
@@ -123,8 +121,11 @@ public interface CharSequenceTesting<C extends CharSequence > extends HashCodeEq
         final C sequence = this.createCharSequence();
 
         final int length = sequence.length();
-        assertTrue(length >= 1,
-                () -> "sequence length must be greater than equal to 1=" + CharSequences.quote(sequence.toString()));
+        this.checkEquals(
+                true,
+                length >= 1,
+                () -> "sequence length must be greater than equal to 1=" + CharSequences.quote(sequence.toString())
+        );
         this.checkEquals2(sequence.subSequence(length - 1, length - 1), "");
     }
 
@@ -146,7 +147,7 @@ public interface CharSequenceTesting<C extends CharSequence > extends HashCodeEq
     default void checkEquals2(final CharSequence actual, final char... c) {
         this.checkLength(actual, c.length);
         this.checkCharAt(actual, c);
-        assertEquals(new String(c), actual.toString(), "toString");
+        this.checkEquals(new String(c), actual.toString(), "toString");
     }
 
     default void checkLength(final int length) {
@@ -154,11 +155,11 @@ public interface CharSequenceTesting<C extends CharSequence > extends HashCodeEq
     }
 
     default void checkLength(final CharSequence chars, final int length) {
-        assertEquals(length, chars.length(), () -> "length of " + chars);
+        this.checkEquals(length, chars.length(), () -> "length of " + chars);
     }
 
     default void checkLength(final String message, final CharSequence chars, final int length) {
-        assertEquals(length, chars.length(), message);
+        this.checkEquals(length, chars.length(), message);
     }
 
     default void checkCharAt(final String c) {
@@ -191,7 +192,7 @@ public interface CharSequenceTesting<C extends CharSequence > extends HashCodeEq
     default void checkCharAt(final CharSequence chars, final int index, final char c) {
         final char d = chars.charAt(index);
         if (c != d) {
-            assertEquals(CharSequences.quoteAndEscape(c),
+            this.checkEquals(CharSequences.quoteAndEscape(c),
                     CharSequences.quoteAndEscape(chars.charAt(index)),
                     "Wrong char at " + index + " in " + chars);
         }

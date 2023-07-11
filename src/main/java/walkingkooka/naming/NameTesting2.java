@@ -25,11 +25,10 @@ import walkingkooka.text.CharSequences;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
- * Base class for testing a {@link Name} with mostly helpers to assert construction failure.
+ * Base class for testing a {@link Name} with mostly helpers to check construction failure.
  */
 public interface NameTesting2<N extends Name, C extends Comparable<C> > extends NameTesting<N, C> {
 
@@ -172,7 +171,7 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> > extends 
                 final InvalidCharacterException expected = assertThrows(InvalidCharacterException.class, () -> this.createName(text),
                         () -> "Name text=" + CharSequences.quoteAndEscape(text));
                 final int j = i;
-                assertEquals(last,
+                this.checkEquals(last,
                         expected.position(),
                         () -> "Incorrect position " + j + " reported for " + CharSequences.quoteAndEscape(text));
                 i++;

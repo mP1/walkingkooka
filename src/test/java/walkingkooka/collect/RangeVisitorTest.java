@@ -23,7 +23,6 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.visit.Visiting;
 import walkingkooka.visit.VisitorTesting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class RangeVisitorTest implements VisitorTesting<RangeVisitor<Integer>, Range<Integer>> {
@@ -125,7 +124,11 @@ public final class RangeVisitorTest implements VisitorTesting<RangeVisitor<Integ
 
             @Override
             protected void singleton(final Integer value) {
-                checkEquals(Integer.valueOf(99), value, "value");
+                checkEquals(
+                        Integer.valueOf(99),
+                        value,
+                        "value"
+                );
                 visited.append("2");
             }
 

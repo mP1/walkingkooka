@@ -34,11 +34,13 @@ final class PublicStaticHelperTesting2 {
     static void methodFilterAndCheckNone(final Class<?> type,
                                          final Predicate<Method> predicate,
                                          final String message) {
-        assertEquals(Lists.empty(),
+        assertEquals(
+                Lists.empty(),
                 Arrays.stream(type.getDeclaredMethods())
                         .filter(m -> !m.getName().startsWith("$")) // filter out any special methods like Jacoco's
                         .filter(predicate)
                         .collect(Collectors.toList()),
-                message);
+                message
+        );
     }
 }

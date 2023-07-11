@@ -17,24 +17,27 @@
 
 package walkingkooka.text.cursor;
 
+import walkingkooka.test.Testing;
+
 import java.util.Objects;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Mixin that is useful for testing several interfaces in the text.cursor package.
  */
-public interface TextCursorTesting<T> {
+public interface TextCursorTesting<T> extends Testing {
 
     default void checkEmpty(final TextCursor cursor) {
         this.checkEmpty(cursor, "Cursor not empty");
     }
 
     default void checkEmpty(final TextCursor cursor, final String message) {
-        assertEquals(true,
+        this.checkEquals(
+                true,
                 cursor.isEmpty(),
-                () -> message + '=' + cursor);
+                () -> message + '=' + cursor
+        );
     }
 
     default void checkNotEmpty(final TextCursor cursor) {
@@ -42,9 +45,11 @@ public interface TextCursorTesting<T> {
     }
 
     default void checkNotEmpty(final TextCursor cursor, final String message) {
-        assertEquals(false,
+        this.checkEquals(
+                false,
                 cursor.isEmpty(),
-                () -> "cursor not empty " + cursor);
+                () -> "cursor not empty " + cursor
+        );
     }
 
     default void moveNextFails(final TextCursor cursor) {
@@ -58,19 +63,26 @@ public interface TextCursorTesting<T> {
     default void atAndCheck(final TextCursor cursor, final char expected, final String message) {
         Objects.requireNonNull(cursor, "cursor");
 
-        assertEquals(expected,
+        this.checkEquals(
+                expected,
                 cursor.at(),
-                message + "=" + cursor);
+                message + "=" + cursor
+        );
     }
 
     default void atAndCheck(final char at, final char expected, final TextCursor cursor) {
-        assertEquals(expected,
+        this.checkEquals(
+                expected,
                 at,
                 () -> "Wrong character " + cursor);
     }
 
     default void atAndCheck(final char at, final char expected, final String message) {
-        assertEquals(expected, at, message);
+        this.checkEquals(
+                expected,
+                at,
+                message
+        );
     }
 
     default void atFails(final TextCursor cursor) {

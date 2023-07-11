@@ -23,8 +23,6 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 /**
  * Helpers to assist loading of files using the test.
  */
@@ -34,7 +32,11 @@ public interface ResourceTesting extends Testing {
         try (final ByteArrayOutputStream out = new ByteArrayOutputStream()) {
             final byte[] buffer = new byte[4096];
             try (final InputStream in = source.getResourceAsStream(resource)) {
-                assertNotNull(in, () -> "Resource " + source.getName() + "/" + resource + " not found");
+                this.checkNotEquals(
+                        null,
+                        in,
+                        () -> "Resource " + source.getName() + "/" + resource + " not found"
+                );
                 for (; ; ) {
                     final int count = in.read(buffer);
                     if (-1 == count) {

@@ -27,7 +27,6 @@ import java.lang.reflect.Field;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
@@ -51,9 +50,17 @@ public interface ConstantsTesting<T> extends Testing {
 
         final Field field2 = field;
         this.checkEquals(fieldType, field.getType(), "The field " + name + " is wrong the reflect");
-        assertTrue(FieldAttributes.STATIC.is(field), () -> "The field " + name + " must be static =" + field2);
+        this.checkEquals(
+                true,
+                FieldAttributes.STATIC.is(field),
+                () -> "The field " + name + " must be static =" + field2
+        );
         assertSame(JavaVisibility.PUBLIC, JavaVisibility.of(field), () -> "The field " + name + " must be public =" + field2);
-        assertTrue(FieldAttributes.FINAL.is(field), () -> "The field " + name + " must be final=" + field2);
+        this.checkEquals(
+                true,
+                FieldAttributes.FINAL.is(field),
+                () -> "The field " + name + " must be final=" + field2
+        );
     }
 
     /**

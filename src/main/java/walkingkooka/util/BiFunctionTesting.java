@@ -21,8 +21,6 @@ import walkingkooka.text.CharSequences;
 
 import java.util.function.BiFunction;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 /**
  * Mixing interface that provides methods to test a {@link BiFunction}
  */
@@ -33,7 +31,7 @@ public interface BiFunctionTesting<F extends BiFunction<T, U, R>, T, U, R> exten
     }
 
     default <TT, UU, RR> void applyAndCheck(final BiFunction<TT, UU, RR> function, final TT in1, final UU in2, final RR result) {
-        assertEquals(result,
+        this.checkEquals(result,
                 function.apply(in1, in2),
                 () -> "Wrong result for " + function + " for params: " + CharSequences.quoteIfChars(in1) + "," + CharSequences.quoteIfChars(in2));
     }

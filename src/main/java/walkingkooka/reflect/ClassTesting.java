@@ -26,8 +26,6 @@ import java.util.Arrays;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 /**
  * Mixin that contains a variety of helpers that test class structure related items.
  */
@@ -40,7 +38,7 @@ public interface ClassTesting<T> extends TestSuiteNameTesting<T> {
                 JavaVisibility.PUBLIC :
                 this.typeVisibility();
 
-        assertEquals(visibility,
+        this.checkEquals(visibility,
                 JavaVisibility.of(type),
                 () -> type.getName() + " visibility");
     }
@@ -67,7 +65,7 @@ public interface ClassTesting<T> extends TestSuiteNameTesting<T> {
                 .limit(1)
                 .count() == 1;
 
-        assertEquals(Lists.empty(),
+        this.checkEquals(Lists.empty(),
                 Arrays.stream(type.getMethods())
                         .filter(MethodAttributes.STATIC::is)
                         .filter(m -> Arrays.stream(m.getParameterTypes()).filter(invalidTypeTester).limit(1).count() == 1)

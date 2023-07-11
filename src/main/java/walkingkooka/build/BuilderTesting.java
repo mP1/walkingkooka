@@ -28,7 +28,6 @@ import walkingkooka.reflect.TypeNameTesting;
 import java.util.Objects;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
@@ -41,13 +40,13 @@ public interface BuilderTesting<B extends Builder<T>, T> extends ThrowableTestin
     @Test
     default void testBuilderProductTypePublic() {
         final Class<T> type = this.builderProductType();
-        assertEquals(JavaVisibility.PUBLIC,
+        this.checkEquals(JavaVisibility.PUBLIC,
                 JavaVisibility.of(type),
                 "Builder product type " + type.getName() + " is not public");
     }
 
     default void buildAndCheck(final Builder<T> builder, final T product) {
-        assertEquals(product, builder.build(), builder.toString());
+        this.checkEquals(product, builder.build(), builder.toString());
     }
 
     default void buildFails(final Builder<?> builder) {
@@ -87,7 +86,7 @@ public interface BuilderTesting<B extends Builder<T>, T> extends ThrowableTestin
             final Set<String> all = Sets.ordered();
             all.add(firstRequired);
             all.addAll(Lists.of(requireds));
-            assertEquals("Builder message missing properties", message, all.toString());
+            this.checkEquals("Builder message missing properties", message, all.toString());
         }
     }
 
