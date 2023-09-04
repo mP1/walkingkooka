@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.OptionalDouble;
+import java.util.OptionalInt;
 
 /**
  * A template class that handles "appending" a value of any type honouring the options and encodings set on the parent {@link ToStringBuilderOption}.
@@ -265,6 +266,11 @@ abstract class ToStringBuilderAppender<V> {
             if (value instanceof OptionalDouble) {
                 final OptionalDouble optional = Cast.to(value);
                 appender = doubleValue(optional.orElse(0L));
+                break;
+            }
+            if (value instanceof OptionalInt) {
+                final OptionalInt optional = Cast.to(value);
+                appender = intValue(optional.orElse(0));
                 break;
             }
 
