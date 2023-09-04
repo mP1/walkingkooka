@@ -30,6 +30,7 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
+import java.util.OptionalLong;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -501,6 +502,60 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
                 .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
                 .label("label1")
                 .value(OptionalInt.of(123));
+
+        this.buildAndCheck(
+                builder,
+                "label1=123"
+        );
+    }
+
+    // OptionalLong...................................................................................................
+
+    @Test
+    public void testOptionalLongEmpty() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .label("label1")
+                .value(OptionalLong.empty());
+
+        this.buildAndCheck(
+                builder,
+                ""
+        );
+    }
+
+    @Test
+    public void testOptionalLongZero() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .label("label1")
+                .value(OptionalLong.of(0));
+
+        this.buildAndCheck(
+                builder,
+                ""
+        );
+    }
+
+    @Test
+    public void testOptionalLongZeroSkipIfDefaultDisabled() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .label("label1")
+                .value(OptionalLong.of(0));
+
+        this.buildAndCheck(
+                builder,
+                "label1=0"
+        );
+    }
+
+    @Test
+    public void testOptionalLongNonZero() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .label("label1")
+                .value(OptionalLong.of(123));
 
         this.buildAndCheck(
                 builder,
