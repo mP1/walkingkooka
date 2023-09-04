@@ -28,6 +28,7 @@ import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.OptionalDouble;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -395,6 +396,60 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
         this.buildAndCheck(
                 builder,
                 "123"
+        );
+    }
+
+    // OptionalDouble...................................................................................................
+
+    @Test
+    public void testOptionalDoubleEmpty() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .label("label1")
+                .value(OptionalDouble.empty());
+
+        this.buildAndCheck(
+                builder,
+                ""
+        );
+    }
+
+    @Test
+    public void testOptionalDoubleZero() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .label("label1")
+                .value(OptionalDouble.of(0.0));
+
+        this.buildAndCheck(
+                builder,
+                ""
+        );
+    }
+
+    @Test
+    public void testOptionalDoubleZeroSkipIfDefaultDisabled() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .label("label1")
+                .value(OptionalDouble.of(0.0));
+
+        this.buildAndCheck(
+                builder,
+                "label1=0.0"
+        );
+    }
+
+    @Test
+    public void testOptionalDoubleNonZero() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .label("label1")
+                .value(OptionalDouble.of(123.5));
+
+        this.buildAndCheck(
+                builder,
+                "label1=123.5"
         );
     }
 
