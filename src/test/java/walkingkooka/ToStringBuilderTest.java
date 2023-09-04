@@ -29,6 +29,7 @@ import java.math.BigDecimal;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.OptionalDouble;
+import java.util.OptionalInt;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -450,6 +451,60 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
         this.buildAndCheck(
                 builder,
                 "label1=123.5"
+        );
+    }
+
+    // OptionalInt...................................................................................................
+
+    @Test
+    public void testOptionalIntEmpty() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .label("label1")
+                .value(OptionalInt.empty());
+
+        this.buildAndCheck(
+                builder,
+                ""
+        );
+    }
+
+    @Test
+    public void testOptionalIntZero() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .label("label1")
+                .value(OptionalInt.of(0));
+
+        this.buildAndCheck(
+                builder,
+                ""
+        );
+    }
+
+    @Test
+    public void testOptionalIntZeroSkipIfDefaultDisabled() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .label("label1")
+                .value(OptionalInt.of(0));
+
+        this.buildAndCheck(
+                builder,
+                "label1=0"
+        );
+    }
+
+    @Test
+    public void testOptionalIntNonZero() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .label("label1")
+                .value(OptionalInt.of(123));
+
+        this.buildAndCheck(
+                builder,
+                "label1=123"
         );
     }
 
