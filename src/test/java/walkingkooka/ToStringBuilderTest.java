@@ -29,7 +29,6 @@ import java.math.BigDecimal;
 import java.util.Enumeration;
 import java.util.Iterator;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -255,6 +254,148 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
         final ToStringBuilder builder = ToStringBuilder.empty();
         builder.globalLength(length);
         this.checkEquals(length, builder.globalLength, "globalLength");
+    }
+
+    // Optional.........................................................................................................
+
+    @Test
+    public void testOptionalNull() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .label("label1")
+                .value((Object) null);
+
+        this.buildAndCheck(
+                builder,
+                "label1=null"
+        );
+    }
+
+    @Test
+    public void testOptionalNonNull() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+                .label("label1")
+                .value("hello");
+
+        this.buildAndCheck(
+                builder,
+                "label1=\"hello\""
+        );
+    }
+
+    @Test
+    public void testOptionalBooleanFalse() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .label("label1")
+                .value(false);
+
+        this.buildAndCheck(
+                builder,
+                "label1=false"
+        );
+    }
+
+    @Test
+    public void testOptionalBooleanTrue() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .label("label1")
+                .value(true);
+
+        this.buildAndCheck(
+                builder,
+                "label1=true"
+        );
+    }
+
+    @Test
+    public void testOptionalNullSkipDefaults() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .label("label1")
+                .value((Object) null);
+
+        this.buildAndCheck(
+                builder,
+                ""
+        );
+    }
+
+    @Test
+    public void testOptionalFalseSkipDefaults() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .label("label1")
+                .value(false);
+
+        this.buildAndCheck(
+                builder,
+                ""
+        );
+    }
+
+    @Test
+    public void testOptionalTrueSkipDefaults() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .label("label1")
+                .value(true);
+
+        this.buildAndCheck(
+                builder,
+                "label1=true"
+        );
+    }
+
+    @Test
+    public void testOptionalZeroSkipDefaults() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .label("label1")
+                .value(0);
+
+        this.buildAndCheck(
+                builder,
+                ""
+        );
+    }
+
+    @Test
+    public void testOptionalNonZeroSkipDefaults() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .label("label1")
+                .value(123);
+
+        this.buildAndCheck(
+                builder,
+                "label1=123"
+        );
+    }
+
+    @Test
+    public void testOptionalWithoutLabelZeroSkipDefaults() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .value(0);
+
+        this.buildAndCheck(
+                builder,
+                ""
+        );
+    }
+
+    @Test
+    public void testOptionalWithoutLabelNonZeroSkipDefaults() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .value(123);
+
+        this.buildAndCheck(
+                builder,
+                "123"
+        );
     }
 
     // UsesToStringBuilder..............................................................................................
