@@ -28,6 +28,7 @@ import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
 import java.util.OptionalLong;
@@ -260,6 +261,32 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
     }
 
     // Optional.........................................................................................................
+
+    @Test
+    public void testOptionalEmpty() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .label("label1")
+                .value(Optional.empty());
+
+        this.buildAndCheck(
+                builder,
+                "label1=null"
+        );
+    }
+
+    @Test
+    public void testOptionalEmptySkipIfDefaultValue() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .label("label1")
+                .value(Optional.empty());
+
+        this.buildAndCheck(
+                builder,
+                ""
+        );
+    }
 
     @Test
     public void testOptionalNull() {
