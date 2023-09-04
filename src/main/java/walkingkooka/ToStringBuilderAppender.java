@@ -265,7 +265,7 @@ abstract class ToStringBuilderAppender<V> {
 
             if (value instanceof OptionalDouble) {
                 final OptionalDouble optional = Cast.to(value);
-                appender = doubleValue(optional.orElse(0L));
+                appender = doubleValue(optional.orElse(0.0));
                 break;
             }
             if (value instanceof OptionalInt) {
