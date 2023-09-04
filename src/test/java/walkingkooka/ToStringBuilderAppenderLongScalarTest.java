@@ -42,7 +42,7 @@ public final class ToStringBuilderAppenderLongScalarTest extends ToStringBuilder
     }
 
     @Test
-    public void testLongPrimitiveexWholeNumberWithAtoFLetters() {
+    public void testLongPrimitiveHexWholeNumberWithAtoFLetters() {
         final ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.HEX_WHOLE_NUMBERS);
 
