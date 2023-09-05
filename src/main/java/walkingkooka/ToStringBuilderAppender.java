@@ -99,7 +99,7 @@ abstract class ToStringBuilderAppender<V> {
     static ToStringBuilderAppender<?> doubleValue(final Double value) {
         return ToStringBuilderAppenderDoubleScalar.with(value);
     }
-
+    
     /**
      * {@see ToStringBuilderAppenderEntryScalar}
      */
@@ -209,8 +209,9 @@ abstract class ToStringBuilderAppender<V> {
             }
 
             if (value instanceof Optional) {
-                final Optional<?> optional = Cast.to(value);
-                appender = object(optional.orElse(null));
+                appender = optional(
+                        Cast.to(value)
+                );
                 break;
             }
             
@@ -265,18 +266,21 @@ abstract class ToStringBuilderAppender<V> {
             }
 
             if (value instanceof OptionalDouble) {
-                final OptionalDouble optional = Cast.to(value);
-                appender = doubleValue(optional.orElse(0.0));
+                appender = optionalDouble(
+                        Cast.to(value)
+                );
                 break;
             }
             if (value instanceof OptionalInt) {
-                final OptionalInt optional = Cast.to(value);
-                appender = intValue(optional.orElse(0));
+                appender = optionalInt(
+                        Cast.to(value)
+                );
                 break;
             }
             if (value instanceof OptionalLong) {
-                final OptionalLong optional = Cast.to(value);
-                appender = longValue(optional.orElse(0L));
+                appender = optionalLong(
+                        Cast.to(value)
+                );
                 break;
             }
 
@@ -291,6 +295,34 @@ abstract class ToStringBuilderAppender<V> {
      */
     private static ToStringBuilderAppender<?> objectArray(final Object[] value) {
         return iterable(Arrays.asList(value));
+    }
+
+    /**
+     * {@see ToStringBuilderAppenderOptionalVector}
+     */
+    static ToStringBuilderAppender<?> optional(final Optional<?> value) {
+        return ToStringBuilderAppenderOptionalVector.with(value);
+    }
+
+    /**
+     * {@see ToStringBuilderAppenderOptionalDoubleVector}
+     */
+    static ToStringBuilderAppender<?> optionalDouble(final OptionalDouble value) {
+        return ToStringBuilderAppenderOptionalDoubleVector.with(value);
+    }
+
+    /**
+     * {@see ToStringBuilderAppenderOptionalIntVector}
+     */
+    static ToStringBuilderAppender<?> optionalInt(final OptionalInt value) {
+        return ToStringBuilderAppenderOptionalIntVector.with(value);
+    }
+
+    /**
+     * {@see ToStringBuilderAppenderOptionalLongVector}
+     */
+    static ToStringBuilderAppender<?> optionalLong(final OptionalLong value) {
+        return ToStringBuilderAppenderOptionalLongVector.with(value);
     }
 
     /**

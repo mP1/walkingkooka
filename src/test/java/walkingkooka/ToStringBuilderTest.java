@@ -271,7 +271,7 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
 
         this.buildAndCheck(
                 builder,
-                "label1=null"
+                "label1="
         );
     }
 
@@ -433,13 +433,13 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
     @Test
     public void testOptionalDoubleEmpty() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
                 .label("label1")
                 .value(OptionalDouble.empty());
 
         this.buildAndCheck(
                 builder,
-                ""
+                "label1="
         );
     }
 
@@ -487,13 +487,13 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
     @Test
     public void testOptionalIntEmpty() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
                 .label("label1")
                 .value(OptionalInt.empty());
 
         this.buildAndCheck(
                 builder,
-                ""
+                "label1="
         );
     }
 
@@ -541,13 +541,13 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
     @Test
     public void testOptionalLongEmpty() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
                 .label("label1")
                 .value(OptionalLong.empty());
 
         this.buildAndCheck(
                 builder,
-                ""
+                "label1="
         );
     }
 
