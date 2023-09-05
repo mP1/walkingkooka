@@ -32,7 +32,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testLabelValueIncludesDefault() {
-        final ToStringBuilder b = this.builder();
+    ToStringBuilder b = this.builder();
         b.label(LABEL1);
         b.value(this.iterable(false, (byte) 0, (short) 0, 0, 0L, 0.0f, 0.0, ""));
 
@@ -49,7 +49,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testQuotesValueCharSequence() {
-        final ToStringBuilder b = this.builder();
+        ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.QUOTE);
         b.value(this.iterable("ABC", 'z'));
 
@@ -58,7 +58,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testLabelEmptyIterableLabelIterable() {
-        final ToStringBuilder b = this.builder();
+        ToStringBuilder b = this.builder();
 
         b.label(LABEL1);
         b.value(this.iterable(1, 2, 3));
@@ -78,7 +78,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testLabelEmptyList() {
-        final ToStringBuilder b = this.builder();
+        ToStringBuilder b = this.builder();
 
         b.label(LABEL1);
         b.value(Lists.empty());
@@ -93,7 +93,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testLabelList() {
-        final ToStringBuilder b = this.builder();
+        ToStringBuilder b = this.builder();
 
         b.label(LABEL1);
         b.value(Lists.of(LABEL2, VALUE));
@@ -104,7 +104,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testLabelListLabelEmptyListLabelList() {
-        final ToStringBuilder b = this.builder();
+        ToStringBuilder b = this.builder();
 
         b.label(LABEL1);
         b.value(Lists.of(1, 2, 3));
@@ -124,7 +124,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testLabelEmptyObject() {
-        final ToStringBuilder b = this.builder();
+        ToStringBuilder b = this.builder();
 
         b.label(LABEL1);
         b.value(array());
@@ -139,7 +139,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testLabelObject() {
-        final ToStringBuilder b = this.builder();
+        ToStringBuilder b = this.builder();
 
         b.label(LABEL1);
         b.value(array(LABEL2, VALUE));
@@ -150,7 +150,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testLabelObjectLabelEmptyObjectLabelObject() {
-        final ToStringBuilder b = this.builder();
+        ToStringBuilder b = this.builder();
 
         b.label(LABEL1);
         b.value(array(1, 2, 3));
@@ -174,7 +174,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testLabelSetLabelEmptySetLabelSet() {
-        final ToStringBuilder b = this.builder();
+        ToStringBuilder b = this.builder();
 
         b.label(LABEL1);
         b.value(Sets.of(1, 2, 3));
@@ -194,7 +194,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testLabelEmptyMap() {
-        final ToStringBuilder b = this.builder();
+        ToStringBuilder b = this.builder();
 
         b.label(LABEL1);
         b.value(Maps.empty());
@@ -209,7 +209,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testLabelMap() {
-        final ToStringBuilder b = this.builder();
+        ToStringBuilder b = this.builder();
 
         b.label(LABEL1);
         b.value(Maps.of(LABEL2, VALUE));
@@ -220,7 +220,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testLabelMapMultipleEntries() {
-        final ToStringBuilder b = this.builder();
+        ToStringBuilder b = this.builder();
         b.label(LABEL1);
         b.value(Maps.of("A", 1, "B", 2, "C", 3));
 
@@ -229,16 +229,16 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testLabelMapLabelEmptyMapLabelMap() {
-        final ToStringBuilder b = this.builder();
+        ToStringBuilder b = this.builder();
 
-        final String key1 = "key1";
-        final Object value1 = 1;
+        String key1 = "key1";
+        Object value1 = 1;
 
-        final String key2 = "key2";
-        final Object value2 = 2;
+        String key2 = "key2";
+        Object value2 = 2;
 
-        final String key3 = "key3";
-        final Object value3 = 3;
+        String key3 = "key3";
+        Object value3 = 3;
 
         b.label(LABEL1);
         b.value(Maps.of(key1, value1, key2, value2));
@@ -261,7 +261,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testValueIncludesDefault() {
-        final ToStringBuilder b = this.builder();
+        ToStringBuilder b = this.builder();
         b.label(LABEL1);
         b.value(new Object[]{false, (byte) 0, (short) 0, 0, 0L, 0.0f, 0.0, ""});
 
@@ -278,7 +278,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testBooleanWrapperArrayEnabledOneZeroIgnored() {
-        final ToStringBuilder b = this.builder();
+        ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.ONE_AND_ZERO_BOOLEAN_ARRAYS);
 
         b.label(LABEL1);
@@ -289,7 +289,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testQuotes() {
-        final ToStringBuilder b = this.builder();
+        ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.QUOTE);
         b.value(new Object[]{"ABC", 'z'});
 
@@ -298,7 +298,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testSurroundOptionalQuoted() {
-        final ToStringBuilder b = this.builder();
+        ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.QUOTE);
 
         b.surroundValues("((", "))");
@@ -309,7 +309,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testSurroundOptionalUnquoted() {
-        final ToStringBuilder b = this.builder();
+        ToStringBuilder b = this.builder();
         b.disable(ToStringBuilderOption.QUOTE);
 
         b.surroundValues("((", "))");
@@ -320,7 +320,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testSurroundBoolean() {
-        final ToStringBuilder b = this.builder();
+        ToStringBuilder b = this.builder();
         b.surroundValues("((", "))");
         b.value(new Object[]{true, false});
 
@@ -329,7 +329,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testSurroundByte() {
-        final ToStringBuilder b = this.builder();
+        ToStringBuilder b = this.builder();
         b.surroundValues("((", "))");
         b.value(new Object[]{Byte.valueOf("0"), Byte.MAX_VALUE});
 
@@ -338,7 +338,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testSurroundShort() {
-        final ToStringBuilder b = this.builder();
+        ToStringBuilder b = this.builder();
         b.surroundValues("((", "))");
         b.value(new Object[]{Short.valueOf("0"), Short.MAX_VALUE});
 
@@ -347,7 +347,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testSurroundInteger() {
-        final ToStringBuilder b = this.builder();
+        ToStringBuilder b = this.builder();
         b.surroundValues("((", "))");
         b.value(new Object[]{Integer.valueOf("0"), Integer.MAX_VALUE});
 
@@ -356,7 +356,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testSurroundLong() {
-        final ToStringBuilder b = this.builder();
+        ToStringBuilder b = this.builder();
         b.surroundValues("((", "))");
         b.value(new Object[]{0L, Long.MAX_VALUE});
 
@@ -365,7 +365,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testSurroundFloat() {
-        final ToStringBuilder b = this.builder();
+        ToStringBuilder b = this.builder();
         b.surroundValues("((", "))");
         b.value(new Object[]{0f, 1.25f});
 
@@ -374,7 +374,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testSurroundDouble() {
-        final ToStringBuilder b = this.builder();
+        ToStringBuilder b = this.builder();
         b.surroundValues("((", "))");
         b.value(new Object[]{0.0, 1.25});
 
@@ -382,22 +382,22 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
     }
 
     @Override
-    final Iterable<?> defaultValue() {
+    Iterable<?> defaultValue() {
         return null;
     }
 
     @Override
-    final String defaultValueToString(final Iterable<?> value) {
+    String defaultValueToString(final Iterable<?> value) {
         return "null";
     }
 
     @Override
-    final Iterable<?> value1() {
+    Iterable<?> value1() {
         return this.iterable(1);
     }
 
-    @Override
-    final Iterable<?> value2() {
+    @Override //
+    Iterable<?> value2() {
         return this.iterable(1, 22, "3abc");
     }
 
@@ -415,11 +415,13 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
         builder.value(value);
     }
 
-    @Override final String value1ToString() {
+    @Override //
+    String value1ToString() {
         return "1";
     }
 
-    @Override final String value2ToString(final String separator) {
+    @Override //
+    String value2ToString(final String separator) {
         return 1 + separator + 22 + separator + "3abc";
     }
 
