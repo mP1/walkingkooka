@@ -31,7 +31,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
     // Iterable.........................................................................................................
 
     @Test
-    public final void testLabelValueIncludesDefault() {
+    public void testLabelValueIncludesDefault() {
         final ToStringBuilder b = this.builder();
         b.label(LABEL1);
         b.value(this.iterable(false, (byte) 0, (short) 0, 0, 0L, 0.0f, 0.0, ""));
@@ -48,7 +48,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
     }
 
     @Test
-    public final void testQuotesValueCharSequence() {
+    public void testQuotesValueCharSequence() {
         final ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.QUOTE);
         b.value(this.iterable("ABC", 'z'));
@@ -57,7 +57,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
     }
 
     @Test
-    public final void testLabelEmptyIterableLabelIterable() {
+    public void testLabelEmptyIterableLabelIterable() {
         final ToStringBuilder b = this.builder();
 
         b.label(LABEL1);
@@ -77,7 +77,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
     // List..............................................................................................................
 
     @Test
-    public final void testLabelEmptyList() {
+    public void testLabelEmptyList() {
         final ToStringBuilder b = this.builder();
 
         b.label(LABEL1);
@@ -92,7 +92,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
     }
 
     @Test
-    public final void testLabelList() {
+    public void testLabelList() {
         final ToStringBuilder b = this.builder();
 
         b.label(LABEL1);
@@ -103,7 +103,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
     }
 
     @Test
-    public final void testLabelListLabelEmptyListLabelList() {
+    public void testLabelListLabelEmptyListLabelList() {
         final ToStringBuilder b = this.builder();
 
         b.label(LABEL1);
@@ -123,7 +123,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
     // Object[]..............................................................................................................
 
     @Test
-    public final void testLabelEmptyObject() {
+    public void testLabelEmptyObject() {
         final ToStringBuilder b = this.builder();
 
         b.label(LABEL1);
@@ -138,7 +138,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
     }
 
     @Test
-    public final void testLabelObject() {
+    public void testLabelObject() {
         final ToStringBuilder b = this.builder();
 
         b.label(LABEL1);
@@ -149,7 +149,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
     }
 
     @Test
-    public final void testLabelObjectLabelEmptyObjectLabelObject() {
+    public void testLabelObjectLabelEmptyObjectLabelObject() {
         final ToStringBuilder b = this.builder();
 
         b.label(LABEL1);
@@ -173,7 +173,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
     // Set..............................................................................................................
 
     @Test
-    public final void testLabelSetLabelEmptySetLabelSet() {
+    public void testLabelSetLabelEmptySetLabelSet() {
         final ToStringBuilder b = this.builder();
 
         b.label(LABEL1);
@@ -193,7 +193,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
     // Map..............................................................................................................
 
     @Test
-    public final void testLabelEmptyMap() {
+    public void testLabelEmptyMap() {
         final ToStringBuilder b = this.builder();
 
         b.label(LABEL1);
@@ -208,7 +208,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
     }
 
     @Test
-    public final void testLabelMap() {
+    public void testLabelMap() {
         final ToStringBuilder b = this.builder();
 
         b.label(LABEL1);
@@ -228,7 +228,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
     }
 
     @Test
-    public final void testLabelMapLabelEmptyMapLabelMap() {
+    public void testLabelMapLabelEmptyMapLabelMap() {
         final ToStringBuilder b = this.builder();
 
         final String key1 = "key1";
