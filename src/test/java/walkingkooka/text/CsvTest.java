@@ -23,6 +23,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.test.ParseStringTesting;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
 
@@ -135,7 +136,7 @@ public final class CsvTest implements ParseStringTesting<List<Integer>>, PublicS
         );
     }
 
-    private <T> void toCsvAndCheck(final List<T> values,
+    private <T> void toCsvAndCheck(final Collection<T> values,
                                    final Function<T, String> component,
                                    final String expected) {
         this.checkEquals(

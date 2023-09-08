@@ -21,6 +21,7 @@ import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.PublicStaticHelper;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
@@ -101,7 +102,7 @@ public final class Csv implements PublicStaticHelper {
     /**
      * THe inverse of the {link #parse}, turns the given values back into a CSV String.
      */
-    public static <T> String toCsv(final List<T> values,
+    public static <T> String toCsv(final Collection<T> values,
                                    final Function<T, String> component) {
         Objects.requireNonNull(values, "values");
         Objects.requireNonNull(component, "component");
