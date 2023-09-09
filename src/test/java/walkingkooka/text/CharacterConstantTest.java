@@ -64,6 +64,14 @@ final public class CharacterConstantTest implements ParseStringTesting<List<Inte
         this.checkCached(CharacterConstant.UPPER_BOUNDS);
     }
 
+    @Test
+    public void testCachedComma() {
+        assertSame(
+                CharacterConstant.COMMA,
+                CharacterConstant.with(',')
+        );
+    }
+
     private void checkCached(final char c) {
         final CharacterConstant constant = CharacterConstant.with(c);
         assertSame(constant, CharacterConstant.with(c), "not cached");
