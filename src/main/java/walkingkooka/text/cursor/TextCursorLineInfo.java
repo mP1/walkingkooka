@@ -17,10 +17,13 @@
 
 package walkingkooka.text.cursor;
 
+import walkingkooka.text.HasTextOffset;
+
 /**
  * A snapshot in time about the position of the {@link TextCursor}.
  */
-public interface TextCursorLineInfo extends TextCursorLike {
+public interface TextCursorLineInfo extends TextCursorLike,
+        HasTextOffset {
 
     /**
      * The entire line of text that the {@link TextCursor} is currently on. Note the text may include characters that were filtered and not returned by
@@ -42,4 +45,10 @@ public interface TextCursorLineInfo extends TextCursorLike {
      * Builds a string with with the column and line number separated by a comma and surrounded by parenthesis.
      */
     String summary();
+
+    /**
+     * Returns the text offset of the {@link TextCursor}, with the first character returning a textOffset of 0.
+     */
+    @Override
+    int textOffset();
 }
