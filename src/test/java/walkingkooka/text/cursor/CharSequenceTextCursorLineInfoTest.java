@@ -22,7 +22,6 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CharSequences;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -46,44 +45,85 @@ final public class CharSequenceTextCursorLineInfoTest implements ClassTesting2<C
 
     @Test
     public void testMiddleOfFirstLine() {
-        this.lineWithPosition("line", 1, "line", 1, 2);
+        this.lineWithPosition(
+                "line",
+                1,
+                "line",
+                1,
+                2,
+                1
+        );
     }
 
     @Test
     public void testSecondLineAfterNewLine() {
         final String prefix = "first\nl";
-        this.lineWithPosition(prefix + "ine\nafter", prefix, "line", 2, 2);
+        this.lineWithPosition(
+                prefix + "ine\nafter",
+                prefix,
+                "line",
+                2,
+                2,
+                prefix.length()
+        );
     }
 
     @Test
     public void testSecondLineAfterCarriageReturn() {
         final String prefix = "first\rl";
-        this.lineWithPosition(prefix + "ine\rafter", prefix, "line", 2, 2);
+        this.lineWithPosition(
+                prefix + "ine\rafter",
+                prefix,
+                "line",
+                2,
+                2,
+                prefix.length()
+        );
     }
 
     @Test
     public void testAfterLastChar() {
         final String text = "first\nsecond\rthird";
-        this.lineWithPosition(text, text.length() + 1, "third", 3, 6);
+        this.lineWithPosition(
+                text,
+                text.length() + 1,
+                "third",
+                3,
+                6,
+                text.length() + 1
+        );
     }
 
     private void lineWithPosition(final String text,
-                                  final String pos,
+                                  final String linePosition,
                                   final String line,
                                   final int lineNumber,
-                                  final int column) {
-        if (false == text.startsWith(pos)) {
-            this.checkEquals("Pos text must be at the start of text", text, pos);
+                                  final int column,
+                                  final int textOffset) {
+        if (false == text.startsWith(linePosition)) {
+            this.checkEquals("Pos text must be at the start of text", text, linePosition);
         }
-        this.lineWithPosition(text, pos.length(), line, lineNumber, column);
+        this.lineWithPosition(
+                text,
+                linePosition.length(),
+                line,
+                lineNumber,
+                column,
+                textOffset
+        );
     }
 
-    private void lineWithPosition(final String text, final int pos, final String line, final int lineNumber,
-                                  final int column) {
-        final CharSequenceTextCursorLineInfo info = CharSequenceTextCursorLineInfo.with(text, pos);
+    private void lineWithPosition(final String text,
+                                  final int linePosition,
+                                  final String line,
+                                  final int lineNumber,
+                                  final int column,
+                                  final int textOffset) {
+        final CharSequenceTextCursorLineInfo info = CharSequenceTextCursorLineInfo.with(text, linePosition);
         this.checkEquals(lineNumber, info.lineNumber(), "lineNumber=" + info);
         this.checkEquals(column, info.column(), "column()=" + info);
         this.checkEquals(line, info.text(), "text()=" + info);
+        this.checkEquals(textOffset, info.textOffset(), "textOffset()=" + info);
     }
 
     @Test

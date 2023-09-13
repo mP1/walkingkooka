@@ -86,6 +86,11 @@ final class CharSequenceTextCursorLineInfo implements TextCursorLineInfo {
         return '(' + String.valueOf(column) + ',' + lineNumber + ')';
     }
 
+    @Override
+    public int textOffset() {
+        return this.pos;
+    }
+
     // Object
 
     @Override

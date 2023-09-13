@@ -49,4 +49,9 @@ public class FakeTextCursorLineInfo implements TextCursorLineInfo, Fake {
     public String text() {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public int textOffset() {
+        throw new UnsupportedOperationException();
+    }
 }
