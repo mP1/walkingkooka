@@ -48,6 +48,13 @@ final public class TextCursors implements PublicStaticHelper {
     }
 
     /**
+     * {@see MaxPositionTextCursor}
+     */
+    public static MaxPositionTextCursor maxPosition(final TextCursor cursor) {
+        return MaxPositionTextCursor.with(cursor);
+    }
+
+    /**
      * Stop creation
      */
     private TextCursors() {
