@@ -17,46 +17,46 @@
 
 package walkingkooka.predicate;
 
-import walkingkooka.compare.ComparisonRelation;
+import walkingkooka.compare.CompareResult;
 
 import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
  * A {@link Predicate} that compares a fixed {@link Comparable} with the test value, returning true if the
- * {@link ComparisonRelation} is satisfied.
+ * {@link CompareResult} is satisfied.
  */
-final class ComparableComparisonRelationPredicate<C extends Comparable<C>> implements Predicate<C> {
+final class ComparableCompareResultPredicate<C extends Comparable<C>> implements Predicate<C> {
 
     /**
-     * Factory that creates a new {@link ComparableComparisonRelationPredicate}
+     * Factory that creates a new {@link ComparableCompareResultPredicate}
      */
-    static <C extends Comparable<C>> ComparableComparisonRelationPredicate<C> with(final ComparisonRelation relation,
-                                                                                   final C right) {
-        Objects.requireNonNull(relation, "relation");
+    static <C extends Comparable<C>> ComparableCompareResultPredicate<C> with(final CompareResult compareResult,
+                                                                              final C right) {
+        Objects.requireNonNull(compareResult, "compareResult");
         Objects.requireNonNull(right, "right");
 
-        return new ComparableComparisonRelationPredicate<>(relation, right);
+        return new ComparableCompareResultPredicate<>(compareResult, right);
     }
 
     /**
      * Private ctor use factory
      */
-    private ComparableComparisonRelationPredicate(final ComparisonRelation relation, final C right) {
+    private ComparableCompareResultPredicate(final CompareResult compareResult, final C right) {
         super();
-        this.relation = relation;
+        this.compareResult = compareResult;
         this.right = right;
     }
 
     @Override
     public boolean test(final C left) {
-        return relation.test(left.compareTo(this.right));
+        return compareResult.test(left.compareTo(this.right));
     }
 
     /**
-     * The {@link ComparisonRelation} that tests the {@link Comparable#compareTo(Object)}.
+     * The {@link CompareResult} that tests the {@link Comparable#compareTo(Object)}.
      */
-    private final ComparisonRelation relation;
+    private final CompareResult compareResult;
 
     /**
      * The right or first of the {@link Comparable#compareTo(Object)}
@@ -65,6 +65,6 @@ final class ComparableComparisonRelationPredicate<C extends Comparable<C>> imple
 
     @Override
     public String toString() {
-        return this.relation + " " + this.right;
+        return this.compareResult + " " + this.right;
     }
 }
