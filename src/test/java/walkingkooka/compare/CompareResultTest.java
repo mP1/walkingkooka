@@ -365,6 +365,134 @@ public final class CompareResultTest implements ClassTesting2<CompareResult>,
         );
     }
 
+    // value............................................................................................................
+
+    @Test
+    public void testValueLess() {
+        this.valueAndCheck(
+                CompareResult.LT,
+                "less",
+                "eq",
+                "greater",
+                "less"
+        );
+    }
+
+    @Test
+    public void testValueEq() {
+        this.valueAndCheck(
+                CompareResult.EQ,
+                "less",
+                "eq",
+                "greater",
+                "eq"
+        );
+    }
+
+    @Test
+    public void testValueGt() {
+        this.valueAndCheck(
+                CompareResult.GT,
+                "lt",
+                "eq",
+                "greater",
+                "greater"
+        );
+    }
+
+    @Test
+    public void testValueLessNull() {
+        this.valueAndCheck(
+                CompareResult.LT,
+                null,
+                "eq",
+                "greater",
+                null
+        );
+    }
+
+    @Test
+    public void testValueEqNull() {
+        this.valueAndCheck(
+                CompareResult.EQ,
+                "less",
+                null,
+                "greater",
+                null
+        );
+    }
+
+    @Test
+    public void testValueGtNull() {
+        this.valueAndCheck(
+                CompareResult.GT,
+                "lt",
+                "eq",
+                null,
+                null
+        );
+    }
+
+    private <T> void valueAndCheck(final CompareResult result,
+                                   final T less,
+                                   final T equal,
+                                   final T greater,
+                                   final T expected) {
+        this.checkEquals(
+                expected,
+                result.value(
+                        less,
+                        equal,
+                        greater
+                ),
+                () -> result + " less: " + less + " equal: " + equal + " greater: " + greater
+        );
+    }
+
+    @Test
+    public void testValueLTEFails() {
+        this.valueFails(
+                CompareResult.LTE,
+                1,
+                2,
+                3
+        );
+    }
+
+    @Test
+    public void testValueGTEFails() {
+        this.valueFails(
+                CompareResult.GTE,
+                1,
+                2,
+                3
+        );
+    }
+
+    @Test
+    public void testValueNEFails() {
+        this.valueFails(
+                CompareResult.NE,
+                1,
+                2,
+                3
+        );
+    }
+
+    private <T> void valueFails(final CompareResult result,
+                                final T less,
+                                final T equal,
+                                final T greater) {
+        assertThrows(
+                UnsupportedOperationException.class,
+                () -> result.value(
+                        less,
+                        equal,
+                        greater
+                )
+        );
+    }
+
     // Object...........................................................................................................
 
     @Test
