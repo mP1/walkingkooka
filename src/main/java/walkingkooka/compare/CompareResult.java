@@ -26,9 +26,9 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
- * The 6 standard {@link ComparisonRelation}.
+ * The 6 standard {@link CompareResult}.
  */
-public enum ComparisonRelation implements Predicate<Integer> {
+public enum CompareResult implements Predicate<Integer> {
 
     EQ("=") {
         @Override
@@ -37,7 +37,7 @@ public enum ComparisonRelation implements Predicate<Integer> {
         }
 
         @Override
-        public ComparisonRelation invert() {
+        public CompareResult invert() {
             return NE;
         }
 
@@ -45,7 +45,7 @@ public enum ComparisonRelation implements Predicate<Integer> {
          * Operand side does not affect test.
          */
         @Override
-        public ComparisonRelation swap() {
+        public CompareResult swap() {
             return this;
         }
     },
@@ -56,12 +56,12 @@ public enum ComparisonRelation implements Predicate<Integer> {
         }
 
         @Override
-        public ComparisonRelation invert() {
+        public CompareResult invert() {
             return LT;
         }
 
         @Override
-        public ComparisonRelation swap() {
+        public CompareResult swap() {
             return LTE;
         }
     },
@@ -72,12 +72,12 @@ public enum ComparisonRelation implements Predicate<Integer> {
         }
 
         @Override
-        public ComparisonRelation invert() {
+        public CompareResult invert() {
             return LTE;
         }
 
         @Override
-        public ComparisonRelation swap() {
+        public CompareResult swap() {
             return LT;
         }
     },
@@ -88,12 +88,12 @@ public enum ComparisonRelation implements Predicate<Integer> {
         }
 
         @Override
-        public ComparisonRelation invert() {
+        public CompareResult invert() {
             return GT;
         }
 
         @Override
-        public ComparisonRelation swap() {
+        public CompareResult swap() {
             return GTE;
         }
     },
@@ -104,12 +104,12 @@ public enum ComparisonRelation implements Predicate<Integer> {
         }
 
         @Override
-        public ComparisonRelation invert() {
+        public CompareResult invert() {
             return GTE;
         }
 
         @Override
-        public ComparisonRelation swap() {
+        public CompareResult swap() {
             return GT;
         }
     },
@@ -120,7 +120,7 @@ public enum ComparisonRelation implements Predicate<Integer> {
         }
 
         @Override
-        public ComparisonRelation invert() {
+        public CompareResult invert() {
             return EQ;
         }
 
@@ -128,12 +128,12 @@ public enum ComparisonRelation implements Predicate<Integer> {
          * Operand side does not affect test.
          */
         @Override
-        public ComparisonRelation swap() {
+        public CompareResult swap() {
             return this;
         }
     };
 
-    ComparisonRelation(final String symbol) {
+    CompareResult(final String symbol) {
         this.symbol = symbol;
     }
 
@@ -161,26 +161,26 @@ public enum ComparisonRelation implements Predicate<Integer> {
      * Returns a {@link Predicate} that uses the given value as the right of a comparison.
      */
     public <C extends Comparable<C>> Predicate<C> predicate(final C right) {
-        return Predicates.comparisonRelation(this, right);
+        return Predicates.compareResult(this, right);
     }
 
     /**
      * The inverted or opposite relation.
      */
-    abstract public ComparisonRelation invert();
+    abstract public CompareResult invert();
 
     /**
-     * Returns the {@link ComparisonRelation} when operands in a comparison sides are swapped.
+     * Returns the {@link CompareResult} when operands in a comparison sides are swapped.
      */
-    abstract public ComparisonRelation swap();
+    abstract public CompareResult swap();
 
     /**
-     * Finds a {@link ComparisonRelation} with the {@link String symbol} or throws a {@link IllegalArgumentException}.
+     * Finds a {@link CompareResult} with the {@link String symbol} or throws a {@link IllegalArgumentException}.
      */
-    public static ComparisonRelation findWithSymbol(final String symbol) {
+    public static CompareResult findWithSymbol(final String symbol) {
         Objects.requireNonNull(symbol);
 
-        return Arrays.stream(ComparisonRelation.values())
+        return Arrays.stream(CompareResult.values())
                 .filter(r -> r.symbol().equals(symbol))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Unable to find symbol " + CharSequences.quote(symbol)));

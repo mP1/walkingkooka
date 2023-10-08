@@ -18,7 +18,7 @@
 package walkingkooka.predicate;
 
 import javaemul.internal.annotations.GwtIncompatible;
-import walkingkooka.compare.ComparisonRelation;
+import walkingkooka.compare.CompareResult;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.CaseSensitivity;
@@ -75,11 +75,14 @@ final public class Predicates implements PublicStaticHelper {
     }
 
     /**
-     * {@see ComparableComparisonRelationPredicate}
+     * {@see ComparableCompareResultPredicate}
      */
-    public static <C extends Comparable<C>> Predicate<C> comparisonRelation(final ComparisonRelation relation,
-                                                                            final C right) {
-        return ComparableComparisonRelationPredicate.with(relation, right);
+    public static <C extends Comparable<C>> Predicate<C> compareResult(final CompareResult compareResult,
+                                                                       final C right) {
+        return ComparableCompareResultPredicate.with(
+                compareResult,
+                right
+        );
     }
 
     /**
