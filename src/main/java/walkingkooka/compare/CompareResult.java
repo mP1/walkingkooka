@@ -175,6 +175,16 @@ public enum CompareResult implements Predicate<Integer> {
     abstract public CompareResult swap();
 
     /**
+     * Returns the equivalent {@link CompareResult} given a {@link Comparable#compareTo(Object)} int result.
+     */
+    public static CompareResult intCompareResult(final int value) {
+        return 0 == value ?
+                EQ :
+                value < 0 ?
+                        LT : GT;
+    }
+
+    /**
      * Finds a {@link CompareResult} with the {@link String symbol} or throws a {@link IllegalArgumentException}.
      */
     public static CompareResult findWithSymbol(final String symbol) {
