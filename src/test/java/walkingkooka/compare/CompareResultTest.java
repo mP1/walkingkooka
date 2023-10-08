@@ -330,6 +330,43 @@ public final class CompareResultTest implements ClassTesting2<CompareResult>,
         }
     }
 
+    // intCompareResult.................................................................................................
+
+    @Test
+    public void testIntCompareResultZero() {
+        this.intCompareResultAndCheck(
+                0,
+                CompareResult.EQ
+        );
+    }
+
+    @Test
+    public void testIntCompareResultMinus() {
+        this.intCompareResultAndCheck(
+                Integer.compare(0, 1),
+                CompareResult.LT
+        );
+    }
+
+    @Test
+    public void testIntCompareResultPlus() {
+        this.intCompareResultAndCheck(
+                Integer.compare(1, 0),
+                CompareResult.GT
+        );
+    }
+
+    private void intCompareResultAndCheck(final int value,
+                                          final CompareResult expected) {
+        this.checkEquals(
+                expected,
+                CompareResult.intCompareResult(value),
+                () -> "" + value
+        );
+    }
+
+    // Object...........................................................................................................
+
     @Test
     public void testToString() {
         this.toStringAndCheck(CompareResult.EQ, "EQ");
