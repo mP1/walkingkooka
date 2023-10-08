@@ -175,6 +175,25 @@ public enum CompareResult implements Predicate<Integer> {
     abstract public CompareResult swap();
 
     /**
+     * A comparison operator that selects the value given a {@link CompareResult}. Values may be null.
+     */
+    public final <T> T value(final T less,
+                             final T equal,
+                             final T greater) {
+        return EQ == this ?
+                equal :
+                LT == this ?
+                        less :
+                        GT == this ?
+                                greater :
+                                uoe();
+    }
+
+    private static <T> T uoe() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
      * Returns the equivalent {@link CompareResult} given a {@link Comparable#compareTo(Object)} int result.
      */
     public static CompareResult intCompareResult(final int value) {
