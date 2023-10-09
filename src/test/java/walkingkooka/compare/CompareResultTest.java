@@ -23,7 +23,9 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CharSequences;
 
+import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -486,6 +488,145 @@ public final class CompareResultTest implements ClassTesting2<CompareResult>,
         assertThrows(
                 UnsupportedOperationException.class,
                 () -> result.value(
+                        less,
+                        equal,
+                        greater
+                )
+        );
+    }
+
+    // get............................................................................................................
+
+    @Test
+    public void testGetLess() {
+        this.getAndCheck(
+                CompareResult.LT,
+                () -> "less",
+                () -> "eq",
+                () -> "greater",
+                "less"
+        );
+    }
+
+    @Test
+    public void testGetEq() {
+        this.getAndCheck(
+                CompareResult.EQ,
+                () -> "less",
+                () -> "eq",
+                () -> "greater",
+                "eq"
+        );
+    }
+
+    @Test
+    public void testGetGt() {
+        this.getAndCheck(
+                CompareResult.GT,
+                () -> "lt",
+                () -> "eq",
+                () -> "greater",
+                "greater"
+        );
+    }
+
+    @Test
+    public void testGetLessNull() {
+        this.getAndCheck(
+                CompareResult.LT,
+                () -> null,
+                () -> "eq",
+                () -> "greater",
+                null
+        );
+    }
+
+    @Test
+    public void testGetEqNull() {
+        this.getAndCheck(
+                CompareResult.EQ,
+                () -> "less",
+                () -> null,
+                () -> "greater",
+                null
+        );
+    }
+
+    @Test
+    public void testGetGtNull() {
+        this.getAndCheck(
+                CompareResult.GT,
+                () -> "lt",
+                () -> "eq",
+                () -> null,
+                null
+        );
+    }
+
+    @Test
+    public void testGetEqContra() {
+        this.getAndCheck(
+                CompareResult.EQ,
+                () -> Optional.of(1.0),
+                () -> Optional.of(2L),
+                () -> Optional.of(3f),
+                Optional.of(2L)
+        );
+    }
+
+    private <T> void getAndCheck(final CompareResult result,
+                                 final Supplier<? extends T> less,
+                                 final Supplier<? extends T> equal,
+                                 final Supplier<? extends T> greater,
+                                 final T expected) {
+        this.checkEquals(
+                expected,
+                result.get(
+                        less,
+                        equal,
+                        greater
+                ),
+                () -> result + " less: " + less + " equal: " + equal + " greater: " + greater
+        );
+    }
+
+    @Test
+    public void testGetLteFails() {
+        this.getFails(
+                CompareResult.LTE,
+                () ->  1,
+                () ->   2,
+                () ->   3
+        );
+    }
+
+    @Test
+    public void testGetGteFails() {
+        this.getFails(
+                CompareResult.GTE,
+                () -> 1,
+                () -> 2,
+                () -> 3
+        );
+    }
+
+    @Test
+    public void testGetNeFails() {
+        this.getFails(
+                CompareResult.NE,
+                () -> 1,
+                () -> 2,
+                () -> 3
+        );
+    }
+
+    private <T> void getFails(final CompareResult result,
+                              final Supplier<? extends T> less,
+                              final Supplier<? extends T> equal,
+                              final Supplier<? extends T> greater) {
+        assertThrows(
+                UnsupportedOperationException.class,
+                () -> result.get(
                         less,
                         equal,
                         greater

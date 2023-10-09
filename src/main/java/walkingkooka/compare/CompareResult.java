@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Objects;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 /**
  * The 6 standard {@link CompareResult}.
@@ -186,6 +187,21 @@ public enum CompareResult implements Predicate<Integer> {
                         less :
                         GT == this ?
                                 greater :
+                                uoe();
+    }
+
+    /**
+     * Uses this to select one of the possible {@link Supplier suppliers}.
+     */
+    public final <T> T get(final Supplier<? extends T> less,
+                           final Supplier<? extends T> equal,
+                           final Supplier<? extends T> greater) {
+        return EQ == this ?
+                equal.get() :
+                LT == this ?
+                        less.get() :
+                        GT == this ?
+                                greater.get() :
                                 uoe();
     }
 
