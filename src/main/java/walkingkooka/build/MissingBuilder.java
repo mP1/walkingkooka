@@ -19,6 +19,9 @@ package walkingkooka.build;
 
 import walkingkooka.text.Whitespace;
 
+import java.util.Objects;
+import java.util.Optional;
+
 /**
  * A {@link Builder} that may be used to accumulate all the missing properties or values charSequence
  * something being built, less the boilerplate.
@@ -39,6 +42,18 @@ final public class MissingBuilder implements Builder<String> {
         super();
         this.missing = 0;
         this.message = new StringBuilder();
+    }
+
+    /**
+     * Records an error if the value is zero
+     */
+    public MissingBuilder addIfEmpty(final Optional<?> value, final String label) {
+        Objects.requireNonNull(value, "value");
+
+        return this.addIfFalse(
+                false == value.isPresent(),
+                label
+        );
     }
 
     /**
