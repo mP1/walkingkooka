@@ -21,6 +21,7 @@ import walkingkooka.text.Whitespace;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.OptionalDouble;
 import java.util.OptionalInt;
 import java.util.OptionalLong;
 
@@ -58,6 +59,18 @@ final public class MissingBuilder implements Builder<String> {
         );
     }
 
+    /**
+     * Records an error if the value is empty
+     */
+    public MissingBuilder addIfEmpty(final OptionalDouble value, final String label) {
+        Objects.requireNonNull(value, "value");
+
+        return this.addIfFalse(
+                value.isPresent(),
+                label
+        );
+    }
+    
     /**
      * Records an error if the value is empty
      */
