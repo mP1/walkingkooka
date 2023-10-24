@@ -24,6 +24,7 @@ import walkingkooka.reflect.ThrowableTesting;
 
 import java.util.Optional;
 import java.util.OptionalInt;
+import java.util.OptionalLong;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -122,6 +123,27 @@ final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
         this.check(missing, "A", 3, 1);
     }
 
+    // addIfEmpty......................................................................................................
+
+    @Test
+    public void testAddIfEmptyWithNullOptionalLongFails() {
+        final MissingBuilder missing = MissingBuilder.empty();
+        assertThrows(
+                NullPointerException.class,
+                () -> missing.addIfEmpty((OptionalLong)null, "optional")
+        );
+    }
+
+    @Test
+    public void testAddIfEmptyOptionalLongError() {
+        final MissingBuilder missing = MissingBuilder.empty();
+        missing.addIfEmpty(OptionalLong.empty(), "A");
+        missing.addIfEmpty(OptionalLong.of(22L), "B");
+        missing.addIfEmpty(OptionalLong.of(333L), "C");
+
+        this.check(missing, "A", 3, 1);
+    }
+    
     // addIfNull.......................................................................................................
 
     @Test
