@@ -95,7 +95,9 @@ final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
     public void testAddIfEmptyError() {
         final MissingBuilder missing = MissingBuilder.empty();
         missing.addIfEmpty(Optional.empty(), "A");
-        this.check(missing, "", 1, 0);
+        missing.addIfEmpty(Optional.of("B"), "B");
+        missing.addIfEmpty(Optional.of("C"), "C");
+        this.check(missing, "A", 3, 1);
     }
 
     // addIfNull.......................................................................................................
