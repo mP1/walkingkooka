@@ -51,7 +51,7 @@ final public class MissingBuilder implements Builder<String> {
         Objects.requireNonNull(value, "value");
 
         return this.addIfFalse(
-                false == value.isPresent(),
+                value.isPresent(),
                 label
         );
     }
