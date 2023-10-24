@@ -22,7 +22,8 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.ThrowableTesting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
@@ -79,7 +80,25 @@ final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
         this.check(missing, "a, b, c", 3, 3);
     }
 
-    // addIfNull
+    // addIfEmpty......................................................................................................
+
+    @Test
+    public void testAddIfEmptyWithNullOptionalFails() {
+        final MissingBuilder missing = MissingBuilder.empty();
+        assertThrows(
+                NullPointerException.class,
+                () -> missing.addIfEmpty(null, "optional")
+        );
+    }
+
+    @Test
+    public void testAddIfEmptyError() {
+        final MissingBuilder missing = MissingBuilder.empty();
+        missing.addIfEmpty(Optional.empty(), "A");
+        this.check(missing, "", 1, 0);
+    }
+
+    // addIfNull.......................................................................................................
 
     @Test
     public void testAddIfNullWithNullLabelFails() {
