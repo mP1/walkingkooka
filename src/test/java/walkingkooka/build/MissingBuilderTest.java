@@ -23,6 +23,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.ThrowableTesting;
 
 import java.util.Optional;
+import java.util.OptionalInt;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -87,7 +88,7 @@ final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
         final MissingBuilder missing = MissingBuilder.empty();
         assertThrows(
                 NullPointerException.class,
-                () -> missing.addIfEmpty(null, "optional")
+                () -> missing.addIfEmpty((Optional<?>)null, "optional")
         );
     }
 
@@ -97,6 +98,27 @@ final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
         missing.addIfEmpty(Optional.empty(), "A");
         missing.addIfEmpty(Optional.of("B"), "B");
         missing.addIfEmpty(Optional.of("C"), "C");
+        this.check(missing, "A", 3, 1);
+    }
+
+    // addIfEmpty......................................................................................................
+
+    @Test
+    public void testAddIfEmptyWithNullOptionalIntFails() {
+        final MissingBuilder missing = MissingBuilder.empty();
+        assertThrows(
+                NullPointerException.class,
+                () -> missing.addIfEmpty((OptionalInt)null, "optional")
+        );
+    }
+
+    @Test
+    public void testAddIfEmptyOptionalIntError() {
+        final MissingBuilder missing = MissingBuilder.empty();
+        missing.addIfEmpty(OptionalInt.empty(), "A");
+        missing.addIfEmpty(OptionalInt.of(22), "B");
+        missing.addIfEmpty(OptionalInt.of(333), "C");
+
         this.check(missing, "A", 3, 1);
     }
 

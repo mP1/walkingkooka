@@ -21,6 +21,7 @@ import walkingkooka.text.Whitespace;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.OptionalInt;
 
 /**
  * A {@link Builder} that may be used to accumulate all the missing properties or values charSequence
@@ -45,9 +46,21 @@ final public class MissingBuilder implements Builder<String> {
     }
 
     /**
-     * Records an error if the value is zero
+     * Records an error if the value is empty
      */
     public MissingBuilder addIfEmpty(final Optional<?> value, final String label) {
+        Objects.requireNonNull(value, "value");
+
+        return this.addIfFalse(
+                value.isPresent(),
+                label
+        );
+    }
+
+    /**
+     * Records an error if the value is empty
+     */
+    public MissingBuilder addIfEmpty(final OptionalInt value, final String label) {
         Objects.requireNonNull(value, "value");
 
         return this.addIfFalse(
