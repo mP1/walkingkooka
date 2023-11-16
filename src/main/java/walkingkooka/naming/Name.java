@@ -19,10 +19,16 @@ package walkingkooka.naming;
 
 import walkingkooka.Value;
 import walkingkooka.text.HasCaseSensitivity;
+import walkingkooka.text.HasText;
 
 /**
  * Interface implemented by names. Names are immutable and should also implement {@link Comparable}.
  */
 public interface Name extends Value<String>,
-        HasCaseSensitivity {
+        HasCaseSensitivity,
+        HasText {
+
+    default String text() {
+        return this.value();
+    }
 }
