@@ -54,7 +54,6 @@ final public class Maps implements PublicStaticHelper {
     /**
      * {@see ConcurrentHashMap}
      */
-    @GwtIncompatible("Maybe replace with regular HashMap for j2cl")
     static public <K, V> ConcurrentMap<K, V> concurrent() {
         return new ConcurrentHashMap<>();
     }
