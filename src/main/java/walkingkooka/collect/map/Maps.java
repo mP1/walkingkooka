@@ -35,7 +35,6 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 final public class Maps implements PublicStaticHelper {
 
@@ -54,7 +53,7 @@ final public class Maps implements PublicStaticHelper {
     /**
      * {@see ConcurrentHashMap}
      */
-    static public <K, V> ConcurrentMap<K, V> concurrent() {
+    static public <K, V> Map<K, V> concurrent() {
         return new ConcurrentHashMap<>();
     }
 
