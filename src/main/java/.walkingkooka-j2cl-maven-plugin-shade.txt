@@ -1,1 +1,2 @@
 walkingkooka.collect.list.j2cl.java.util.concurrent=java.util.concurrent
+walkingkooka.collect.map.j2cl.java.util.concurrent=java.util.concurrent
