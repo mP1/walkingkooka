@@ -36,7 +36,7 @@ import java.util.TreeMap;
 import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
-final public class Maps implements PublicStaticHelper {
+final public class Maps extends GwtMaps implements PublicStaticHelper {
 
     /**
      * Registers a {@link Map} type as immutable.
@@ -52,7 +52,9 @@ final public class Maps implements PublicStaticHelper {
 
     /**
      * {@see ConcurrentHashMap}
+     * This method is ignored, and will be replaced by the method it shadowes to return a {@link HashMap}.
      */
+    @GwtIncompatible
     static public <K, V> Map<K, V> concurrent() {
         return new ConcurrentHashMap<>();
     }

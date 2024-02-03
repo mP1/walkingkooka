@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2019 Miroslav Pokorny (github.com/mP1)
  *
@@ -16,9 +15,22 @@
  *
  */
 
-package walkingkooka.collect.map.j2cl.java.util.concurrent;
+package walkingkooka.collect.map;
 
 import java.util.HashMap;
+import java.util.Map;
 
-public class ConcurrentHashMap<K, V> extends HashMap<K, V> {
+/**
+ * This method contains shadowed methods which will be used when the equivalent static methods in {@link Maps}
+ * are ignored because of @GwtIncompatible.
+ */
+abstract class GwtMaps {
+
+    static public <K, V> Map<K, V> concurrent() {
+        return new HashMap<>();
+    }
+
+    GwtMaps() {
+        super(); // stop creation
+    }
 }
