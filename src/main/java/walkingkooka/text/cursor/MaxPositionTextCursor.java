@@ -30,7 +30,7 @@ import java.util.Objects;
  * }
  * </pre>
  */
-public class MaxPositionTextCursor implements TextCursor {
+public final class MaxPositionTextCursor implements TextCursor {
 
     static MaxPositionTextCursor with(final TextCursor cursor) {
         Objects.requireNonNull(cursor, "cursor");
