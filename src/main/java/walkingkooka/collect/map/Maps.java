@@ -151,7 +151,7 @@ final public class Maps extends GwtMaps implements PublicStaticHelper {
     /**
      * Factory that creates a {@link SortedMap} with the {@link Comparator} if present.
      */
-    private static <K, V> Map<K, V> sortedMap(final SortedMap<K, V> map) {
+    private static <K, V> SortedMap<K, V> sortedMap(final SortedMap<K, V> map) {
         return null == map.comparator() ?
                 sorted() :
                 sorted(map.comparator());
