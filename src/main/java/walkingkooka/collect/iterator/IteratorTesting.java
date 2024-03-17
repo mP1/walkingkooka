@@ -78,10 +78,11 @@ public interface IteratorTesting extends Testing {
         while (iterator.hasNext()) {
             final T next = iterator.next();
 
+            final int ii = i;
             this.checkEquals(
                     expected[i],
                     next,
-                    "element " + i
+                    () -> "element " + ii
             );
             consumed.add(next);
             i++;
@@ -105,10 +106,11 @@ public interface IteratorTesting extends Testing {
         while (i < expectedCount) {
             final T next = iterator.next();
 
+            final int ii = i;
             this.checkEquals(
                     expected[i],
                     next,
-                    "element " + i
+                    () -> "element " + ii
             );
 
             consumed.add(next);
