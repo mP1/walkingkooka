@@ -67,7 +67,33 @@ public final class IteratorTestingTest implements Testing {
                 failed
         );
     }
-    
+
+    @Test
+    public void testIterateAndCheckFail() {
+        final List<String> list = Lists.of(
+                "A1",
+                "B2",
+                "C3"
+        );
+
+        boolean failed = false;
+
+        try {
+            new TestIteratorTesting()
+                    .iterateAndCheck(
+                            list.iterator(),
+                            "A1",
+                            "B2"
+                    );
+        } catch (final AssertionFailedError expected) {
+            failed = true;
+        }
+        this.checkEquals(
+                true,
+                failed
+        );
+    }
+
     // iterateUsingHasNextAndCheck......................................................................................
 
     @Test
@@ -100,6 +126,32 @@ public final class IteratorTestingTest implements Testing {
                     .iterateUsingHasNextAndCheck(
                             list.iterator(),
                             "*"
+                    );
+        } catch (final AssertionFailedError expected) {
+            failed = true;
+        }
+        this.checkEquals(
+                true,
+                failed
+        );
+    }
+
+    @Test
+    public void testIterateUsingHasNextAndCheckFail() {
+        final List<String> list = Lists.of(
+                "A1",
+                "B2",
+                "C3"
+        );
+
+        boolean failed = false;
+
+        try {
+            new TestIteratorTesting()
+                    .iterateUsingHasNextAndCheck(
+                            list.iterator(),
+                            "A1",
+                            "B2"
                     );
         } catch (final AssertionFailedError expected) {
             failed = true;
