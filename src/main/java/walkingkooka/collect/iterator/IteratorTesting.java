@@ -78,12 +78,14 @@ public interface IteratorTesting extends Testing {
         while (iterator.hasNext()) {
             final T next = iterator.next();
 
-            final int ii = i;
-            this.checkEquals(
-                    expected[i],
-                    next,
-                    () -> "element " + ii
-            );
+            if(i < expected.length) {
+                final int ii = i;
+                this.checkEquals(
+                        expected[i],
+                        next,
+                        () -> "element " + ii
+                );
+            }
             consumed.add(next);
             i++;
         }
