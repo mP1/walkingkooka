@@ -191,7 +191,7 @@ public final class EitherRightTest extends EitherTestCase2<EitherRight<String, I
     // equality.........................................................................................................
 
     @Test
-    public void testDifferentValue() {
+    public void testEqualsDifferentValue() {
         this.checkNotEquals(EitherRight.withRight("different"));
     }
 

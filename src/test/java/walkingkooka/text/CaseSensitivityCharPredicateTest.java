@@ -43,7 +43,7 @@ final public class CaseSensitivityCharPredicateTest
     }
 
     @Test
-    public void testDifferentCaseSensitive() {
+    public void testEqualsDifferentCaseSensitive() {
         this.testFalseCaseSensitive('B');
     }
 
@@ -53,17 +53,17 @@ final public class CaseSensitivityCharPredicateTest
     }
 
     @Test
-    public void testDifferentCaseCaseInsensitive() {
+    public void testEqualsDifferentCaseCaseInsensitive() {
         this.testTrueCaseInsensitive('a');
     }
 
     @Test
-    public void testDifferentCaseInsensitive() {
+    public void testEqualsDifferentCaseInsensitive() {
         this.testFalseCaseInsensitive('z');
     }
 
     @Test
-    public void testDifferentCaseInsensitive2() {
+    public void testEqualsDifferentCaseInsensitive2() {
         this.testFalseCaseInsensitive('y');
     }
 

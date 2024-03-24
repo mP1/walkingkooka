@@ -29,7 +29,7 @@ final public class CaseSensitivityStartsWithCharSequencePredicateTest extends
     }
 
     @Test
-    public void testDifferentCaseCaseSensitive() {
+    public void testEqualsDifferentCaseCaseSensitive() {
         this.testFalseCaseSensitive("ABC", "abc def ghi");
     }
 
@@ -44,7 +44,7 @@ final public class CaseSensitivityStartsWithCharSequencePredicateTest extends
     }
 
     @Test
-    public void testDifferentCaseCaseInsensitive() {
+    public void testEqualsDifferentCaseCaseInsensitive() {
         this.testTrueCaseInsensitive("ABC", "abc def ghi");
     }
 

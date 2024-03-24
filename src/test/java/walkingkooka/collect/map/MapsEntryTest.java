@@ -53,12 +53,12 @@ public final class MapsEntryTest implements ClassTesting2<MapsEntry<String, Inte
     }
 
     @Test
-    public void testDifferentKey() {
+    public void testEqualsDifferentKey() {
         this.checkNotEquals(MapsEntry.with("different", VALUE));
     }
 
     @Test
-    public void testDifferentValue() {
+    public void testEqualsDifferentValue() {
         this.checkNotEquals(MapsEntry.with(KEY, 999));
     }
 

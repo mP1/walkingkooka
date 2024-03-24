@@ -21,8 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class PushableStreamConsumerCloseableCollectionNonEmptyTest extends PushableStreamConsumerCloseableCollectionTestCase<PushableStreamConsumerCloseableCollectionNonEmpty>
         implements HashCodeEqualsDefinedTesting2<PushableStreamConsumerCloseableCollectionNonEmpty> {
 
@@ -92,12 +90,12 @@ public final class PushableStreamConsumerCloseableCollectionNonEmptyTest extends
     // HashCodeEqualsDefined...........................................................................................
 
     @Test
-    public void testDifferentExtra() {
+    public void testEqualsDifferentExtra() {
         this.checkNotEquals(this.createCloseableCollection().add(this.different));
     }
 
     @Test
-    public void testDifferentClosed() {
+    public void testEqualsDifferentClosed() {
         final PushableStreamConsumerCloseableCollectionNonEmpty other = PushableStreamConsumerCloseableCollectionEmpty.empty().add(this.different);
         other.close();
 
@@ -105,7 +103,7 @@ public final class PushableStreamConsumerCloseableCollectionNonEmptyTest extends
     }
 
     @Test
-    public void testDifferent() {
+    public void testEqualsDifferent() {
         this.checkNotEquals(PushableStreamConsumerCloseableCollectionEmpty.empty().add(this.different));
     }
 

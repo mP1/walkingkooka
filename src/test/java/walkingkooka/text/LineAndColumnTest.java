@@ -23,7 +23,6 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class LineAndColumnTest implements ClassTesting2<LineAndColumn>,
@@ -257,22 +256,22 @@ public class LineAndColumnTest implements ClassTesting2<LineAndColumn>,
     // HashcodeEquality.................................................................................................
 
     @Test
-    public void testDifferentLineNumber() {
+    public void testEqualsDifferentLineNumber() {
         this.checkNotEquals(LineAndColumn.with(99 + LINE_NUMBER, COLUMN_NUMBER, LINE));
     }
 
     @Test
-    public void testDifferentColumnNumber() {
+    public void testEqualsDifferentColumnNumber() {
         this.checkNotEquals(LineAndColumn.with(LINE_NUMBER, 1 + COLUMN_NUMBER, LINE));
     }
 
     @Test
-    public void testDifferentLine() {
+    public void testEqualsDifferentLine() {
         this.checkNotEquals(LineAndColumn.with(LINE_NUMBER, COLUMN_NUMBER, "differentdifferentdifferentdifferent"));
     }
 
     @Test
-    public void testDifferentCase() {
+    public void testEqualsDifferentCase() {
         this.checkNotEquals(LineAndColumn.with(1, 2, "abc"), LineAndColumn.with(1, 2, "ABC"));
     }
 

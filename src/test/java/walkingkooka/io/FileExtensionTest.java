@@ -25,7 +25,6 @@ import walkingkooka.text.CharSequences;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class FileExtensionTest implements ComparableTesting2<FileExtension>,
@@ -93,7 +92,7 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     }
 
     @Test
-    public void testDifferent() {
+    public void testEqualsDifferent() {
         this.checkNotEquals(FileExtension.with("different"));
     }
 

@@ -285,12 +285,12 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
     // equals...........................................................................................................
 
     @Test
-    public void testDifferentText() {
+    public void testEqualsDifferentText() {
         this.checkNotEquals(new InvalidCharacterException(TEXT + " different", POSITION));
     }
 
     @Test
-    public void testDifferentPosition() {
+    public void testEqualsDifferentPosition() {
         this.checkNotEquals(new InvalidCharacterException(TEXT, POSITION + 1));
     }
 

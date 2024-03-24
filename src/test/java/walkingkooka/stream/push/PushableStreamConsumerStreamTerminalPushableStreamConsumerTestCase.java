@@ -19,8 +19,6 @@ package walkingkooka.stream.push;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public abstract class PushableStreamConsumerStreamTerminalPushableStreamConsumerTestCase<P extends PushableStreamConsumerStreamTerminalPushableStreamConsumer<String, R>, R> extends
         PushableStreamConsumerStreamPushableStreamConsumerTestCase2<P> {
 
@@ -29,7 +27,7 @@ public abstract class PushableStreamConsumerStreamTerminalPushableStreamConsumer
     }
 
     @Test
-    public final void testDifferentCloseables() {
+    public final void testEqualsDifferentCloseables() {
         this.createPushableStreamConsumer(PushableStreamConsumerCloseableCollection.empty().add(TestCloseableRunnable.with("different")));
     }
 

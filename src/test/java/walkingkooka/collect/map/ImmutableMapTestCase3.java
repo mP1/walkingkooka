@@ -82,7 +82,7 @@ public abstract class ImmutableMapTestCase3<M extends ImmutableMap<String, Integ
     }
 
     @Test
-    public final void testDifferent() {
+    public final void testEqualsDifferent() {
         this.checkNotEquals(this.createMap(KEY1, 777, KEY2, VALUE2));
     }
 

@@ -917,7 +917,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
     // equals...........................................................................................................
 
     @Test
-    public void testDifferentComponent() {
+    public void testEqualsDifferentComponent() {
         this.checkEquals(
                 new GlobPattern(
                         GlobPatternComponent.wildcard(0, 2), // ignored by equals
@@ -928,7 +928,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
     }
 
     @Test
-    public void testDifferentCaseSensitivity() {
+    public void testEqualsDifferentCaseSensitivity() {
         this.checkNotEquals(
                 new GlobPattern(
                         GlobPatternComponent.wildcard(0, 1),
@@ -939,7 +939,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
     }
 
     @Test
-    public void testDifferentPattern() {
+    public void testEqualsDifferentPattern() {
         this.checkNotEquals(
                 new GlobPattern(
                         GlobPatternComponent.wildcard(0, 1),

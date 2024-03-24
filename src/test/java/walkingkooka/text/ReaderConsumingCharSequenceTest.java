@@ -23,7 +23,6 @@ import walkingkooka.reflect.JavaVisibility;
 
 import java.io.StringReader;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -112,7 +111,7 @@ public class ReaderConsumingCharSequenceTest implements ClassTesting2<ReaderCons
      * respective {@link StringReader readers}.
      */
     @Test
-    public void testDifferentText() {
+    public void testEqualsDifferentText() {
         this.checkEquals(ReaderConsumingCharSequence.with(new StringReader("different"), 100));
     }
 
