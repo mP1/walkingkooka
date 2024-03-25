@@ -38,6 +38,16 @@ public interface CanBeEmptyTesting<C extends CanBeEmpty> extends Testing {
 
     default void isEmptyAndCheck(final C canBeEmpty,
                                  final boolean expected,
+                                 final String message) {
+        this.isEmptyAndCheck(
+                canBeEmpty,
+                expected,
+                () -> message
+        );
+    }
+
+    default void isEmptyAndCheck(final C canBeEmpty,
+                                 final boolean expected,
                                  final Supplier<String> message) {
         this.checkEquals(
                 expected,
