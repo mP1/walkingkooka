@@ -18,39 +18,57 @@
 package walkingkooka.text.cursor;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.CanBeEmptyTesting;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public interface TextCursorTesting2<C extends TextCursor>
-        extends TextCursorTesting<C>,
+        extends TextCursorTesting,
+        CanBeEmptyTesting<TextCursor>,
         TypeNameTesting<C> {
 
     @Test
     default void testIsEmptyNotEmpty() {
         final C cursor = this.createTextCursor("1");
-        this.checkNotEmpty(cursor);
+        this.isEmptyAndCheck(
+                cursor,
+                false
+        );
     }
 
     @Test
     default void testIsEmpty() {
         final C cursor = this.createTextCursor("");
-        this.checkEmpty(cursor);
+        this.isEmptyAndCheck(
+                cursor,
+                true
+        );
     }
 
     @Test
     default void testIsEmptyTwice() {
         final C cursor = this.createTextCursor("");
-        this.checkEmpty(cursor);
-        this.checkEmpty(cursor);
+        this.isEmptyAndCheck(
+                cursor,
+                true
+        );
+        this.isEmptyAndCheck(
+                cursor,
+                true
+        );
     }
 
     @Test
     default void testIsEmptyAfterNextAndEmpty() {
         final C cursor = this.createTextCursor("1");
         cursor.next();
-        this.checkEmpty(cursor, "cursor should be empty");
+        this.isEmptyAndCheck(
+                cursor,
+                true,
+                "cursor should be empty"
+        );
     }
 
     @Test
@@ -122,14 +140,20 @@ public interface TextCursorTesting2<C extends TextCursor>
         final TextCursor cursor = this.createTextCursor("1");
         cursor.next();
         cursor.end();
-        this.checkEmpty(cursor);
+        this.isEmptyAndCheck(
+                cursor,
+                true
+        );
     }
 
     @Test
     default void testEnd() {
         final TextCursor cursor = this.createTextCursor("1234567890");
         assertSame(cursor, cursor.end(), "cursor didnt return this");
-        this.checkEmpty(cursor);
+        this.isEmptyAndCheck(
+                cursor,
+                true
+        );
     }
 
     @Test
@@ -208,5 +232,12 @@ public interface TextCursorTesting2<C extends TextCursor>
     @Override
     default String typeNameSuffix() {
         return TextCursor.class.getSimpleName();
+    }
+
+    // CanBeEmptyTesting................................................................................................
+
+    @Override
+    default C createCanBeEmpty() {
+        return this.createTextCursor();
     }
 }

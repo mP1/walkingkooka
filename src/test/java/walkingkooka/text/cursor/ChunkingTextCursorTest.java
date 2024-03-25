@@ -30,7 +30,10 @@ public final class ChunkingTextCursorTest implements ClassTesting2<ChunkingTextC
     @Test
     public void testSingleChunk() {
         final TextCursor cursor = this.createTextCursor0("ABC");
-        this.checkNotEmpty(cursor);
+        this.isEmptyAndCheck(
+                cursor,
+                false
+        );
 
         this.atAndCheck(cursor, 'A');
         cursor.next();
@@ -39,26 +42,38 @@ public final class ChunkingTextCursorTest implements ClassTesting2<ChunkingTextC
         this.atAndCheck(cursor, 'C');
         cursor.next();
 
-        this.checkEmpty(cursor);
+        this.isEmptyAndCheck(
+                cursor,
+                true
+        );
     }
 
     @Test
     public void testMultipleChunks() {
         final TextCursor cursor = this.createTextCursor0("A", "B");
-        this.checkNotEmpty(cursor);
+        this.isEmptyAndCheck(
+                cursor,
+                false
+        );
 
         this.atAndCheck(cursor, 'A');
         cursor.next();
         this.atAndCheck(cursor, 'B');
         cursor.next();
 
-        this.checkEmpty(cursor);
+        this.isEmptyAndCheck(
+                cursor,
+                true
+        );
     }
 
     @Test
     public void testMultipleChunks2() {
         final TextCursor cursor = this.createTextCursor0("AB", "CD");
-        this.checkNotEmpty(cursor);
+        this.isEmptyAndCheck(
+                cursor,
+                false
+        );
 
         this.atAndCheck(cursor, 'A');
         cursor.next();
@@ -69,13 +84,19 @@ public final class ChunkingTextCursorTest implements ClassTesting2<ChunkingTextC
         this.atAndCheck(cursor, 'D');
         cursor.next();
 
-        this.checkEmpty(cursor);
+        this.isEmptyAndCheck(
+                cursor,
+                true
+        );
     }
 
     @Test
     public void testGraphSaveAndRestores() {
         final TextCursor cursor = this.createTextCursor0("A", "BC", "D");
-        this.checkNotEmpty(cursor);
+        this.isEmptyAndCheck(
+                cursor,
+                false
+        );
         this.atAndCheck(cursor, 'A');
         cursor.next();
 
@@ -88,7 +109,10 @@ public final class ChunkingTextCursorTest implements ClassTesting2<ChunkingTextC
         this.atAndCheck(cursor, 'D');
         cursor.next();
 
-        this.checkEmpty(cursor);
+        this.isEmptyAndCheck(
+                cursor,
+                true
+        );
 
         save.restore(); // BCD
 
@@ -102,7 +126,10 @@ public final class ChunkingTextCursorTest implements ClassTesting2<ChunkingTextC
         this.atAndCheck(cursor, 'D');
         cursor.next();
 
-        this.checkEmpty(cursor);
+        this.isEmptyAndCheck(
+                cursor,
+                true
+        );
 
         save.restore(); // CD
 
@@ -111,7 +138,10 @@ public final class ChunkingTextCursorTest implements ClassTesting2<ChunkingTextC
         this.atAndCheck(cursor, 'D');
         cursor.next();
 
-        this.checkEmpty(cursor);
+        this.isEmptyAndCheck(
+                cursor,
+                true
+        );
     }
 
     // toString.........................................................................................................
