@@ -154,22 +154,22 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<I
     // equals...........................................................................................................
 
     @Test
-    public void testDifferentLabel() {
+    public void testEqualsDifferentLabel() {
         this.checkNotEquals(new InvalidTextLengthException("different", TEXT, MIN, MAX));
     }
 
     @Test
-    public void testDifferentText() {
+    public void testEqualsDifferentText() {
         this.checkNotEquals(new InvalidTextLengthException(LABEL, "different", MIN, MAX));
     }
 
     @Test
-    public void testDifferentMin() {
+    public void testEqualsDifferentMin() {
         this.checkNotEquals(new InvalidTextLengthException(LABEL, TEXT, MIN + 1, MAX));
     }
 
     @Test
-    public void testDifferentMax() {
+    public void testEqualsDifferentMax() {
         this.checkNotEquals(new InvalidTextLengthException(LABEL, TEXT, MIN, Integer.MAX_VALUE));
     }
 

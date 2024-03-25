@@ -27,14 +27,14 @@ public final class GlobPatternComponentWildcardTest extends GlobPatternComponent
     private final static int MAX = 234;
 
     @Test
-    public void testDifferentMin() {
+    public void testEqualsDifferentMin() {
         this.checkNotEquals(
                 GlobPatternComponentWildcard.with(MIN + 1, MAX)
         );
     }
 
     @Test
-    public void testDifferentMax() {
+    public void testEqualsDifferentMax() {
         this.checkNotEquals(
                 GlobPatternComponentWildcard.with(MIN, 1 + MAX)
         );

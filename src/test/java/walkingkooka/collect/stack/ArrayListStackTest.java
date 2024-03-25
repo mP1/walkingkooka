@@ -26,9 +26,7 @@ import walkingkooka.collect.list.Lists;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -147,7 +145,7 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Strin
     }
 
     @Test
-    public void testDifferentItems() {
+    public void testEqualsDifferentItems() {
         final ArrayListStack<String> stack1 = ArrayListStack.create();
         final ArrayListStack<String> stack2 = ArrayListStack.create();
         stack1.push("1");

@@ -27,7 +27,6 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -284,7 +283,7 @@ public final class BinaryTest implements HashCodeEqualsDefinedTesting2<Binary>,
     // equals...........................................................................................................
 
     @Test
-    public void testDifferent() {
+    public void testEqualsDifferent() {
         this.checkNotEquals(Binary.with(new byte[]{4, 5, 6}));
     }
 

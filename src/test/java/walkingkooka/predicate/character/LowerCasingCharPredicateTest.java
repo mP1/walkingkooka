@@ -53,7 +53,7 @@ final public class LowerCasingCharPredicateTest
     }
 
     @Test
-    public void testDifferent() {
+    public void testEqualsDifferent() {
         this.testFalse('d');
     }
 
