@@ -26,31 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Mixin that is useful for testing several interfaces in the text.cursor package.
  */
-public interface TextCursorTesting<T> extends Testing {
-
-    default void checkEmpty(final TextCursor cursor) {
-        this.checkEmpty(cursor, "Cursor not empty");
-    }
-
-    default void checkEmpty(final TextCursor cursor, final String message) {
-        this.checkEquals(
-                true,
-                cursor.isEmpty(),
-                () -> message + '=' + cursor
-        );
-    }
-
-    default void checkNotEmpty(final TextCursor cursor) {
-        this.checkNotEmpty(cursor, "cursor not empty " + cursor);
-    }
-
-    default void checkNotEmpty(final TextCursor cursor, final String message) {
-        this.checkEquals(
-                false,
-                cursor.isEmpty(),
-                () -> "cursor not empty " + cursor
-        );
-    }
+public interface TextCursorTesting extends Testing {
 
     default void moveNextFails(final TextCursor cursor) {
         assertThrows(TextCursorException.class, cursor::next);

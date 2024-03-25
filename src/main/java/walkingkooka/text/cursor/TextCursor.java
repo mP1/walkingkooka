@@ -17,15 +17,12 @@
 
 package walkingkooka.text.cursor;
 
+import walkingkooka.CanBeEmpty;
+
 /**
  * A {@link TextCursor} represents a cursor that may only move forwards to read characters.
  */
-public interface TextCursor extends TextCursorLike {
-
-    /**
-     * Test if the cursor is empty at the current position. False means that the current character is available to be read by {@link #at()}.
-     */
-    boolean isEmpty() throws TextCursorException;
+public interface TextCursor extends TextCursorLike, CanBeEmpty {
 
     /**
      * Retrieves the character at the current location

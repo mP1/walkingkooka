@@ -22,7 +22,8 @@ import walkingkooka.ToStringTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class MaxPositionTextCursorTest implements TextCursorTesting<MaxPositionTextCursor>, ToStringTesting<MaxPositionTextCursor> {
+public final class MaxPositionTextCursorTest implements TextCursorTesting,
+        ToStringTesting<MaxPositionTextCursor> {
 
     @Test
     public void testWithNullTextCursorFails() {
