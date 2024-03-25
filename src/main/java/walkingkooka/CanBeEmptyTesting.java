@@ -18,6 +18,8 @@ package walkingkooka;
 
 import walkingkooka.test.Testing;
 
+import java.util.function.Supplier;
+
 /**
  * Mixing interface that provides methods to test a {@link CanBeEmpty}
  */
@@ -27,10 +29,20 @@ public interface CanBeEmptyTesting<C extends CanBeEmpty> extends Testing {
 
     default void isEmptyAndCheck(final C canBeEmpty,
                                  final boolean expected) {
+        this.isEmptyAndCheck(
+                canBeEmpty,
+                expected,
+                () -> canBeEmpty.toString()
+        );
+    }
+
+    default void isEmptyAndCheck(final C canBeEmpty,
+                                 final boolean expected,
+                                 final Supplier<String> message) {
         this.checkEquals(
                 expected,
                 canBeEmpty.isEmpty(),
-                () -> canBeEmpty.toString()
+                message
         );
     }
 }
