@@ -59,6 +59,15 @@ public final class TemporalFieldComparatorTest implements ComparatorTesting2<Tem
     }
 
     @Test
+    public void testCompareNanoOfSecondLess() {
+        this.compareAndCheckLess(
+                TemporalFieldComparator.with(ChronoField.NANO_OF_SECOND),
+                LocalTime.of(12, 1, 1, 100),
+                LocalDateTime.of(2000, 12, 22, 12, 58, 59, 200)
+        );
+    }
+
+    @Test
     public void testCompareMonthEqual() {
         this.compareAndCheckEquals(
                 LocalDate.of(1999, 12, 31),

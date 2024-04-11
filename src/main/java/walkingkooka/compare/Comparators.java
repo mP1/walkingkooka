@@ -72,6 +72,13 @@ final public class Comparators implements PublicStaticHelper {
 
     private final static Comparator<Temporal> MONTH_OF_YEAR = TemporalFieldComparator.with(ChronoField.MONTH_OF_YEAR);
 
+    public static Comparator<Temporal> nanoOfSecond() {
+        return NANO_OF_SECOND;
+    }
+
+    private final static Comparator<Temporal> NANO_OF_SECOND = TemporalFieldComparator.with(ChronoField.NANO_OF_SECOND);
+
+
     /**
      * {@see NormalizingCharSequenceComparator}
      */

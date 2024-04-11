@@ -121,6 +121,15 @@ final public class ComparatorsTest implements PublicStaticHelperTesting<Comparat
     }
 
     @Test
+    public void testCompareNanoOfSecond() {
+        this.compareAndCheckLess(
+                Comparators.nanoOfSecond(),
+                LocalTime.of(12, 1, 1, 100),
+                LocalDateTime.of(2000, 12, 22, 12, 58, 59, 200)
+        );
+    }
+
+    @Test
     public void testCompareSecondOfMinute() {
         this.compareAndCheckLess(
                 Comparators.secondOfMinute(),
