@@ -20,6 +20,8 @@ package walkingkooka.compare;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.reflect.PublicStaticHelper;
 
+import java.time.temporal.Temporal;
+import java.time.temporal.TemporalField;
 import java.util.Comparator;
 
 final public class Comparators implements PublicStaticHelper {
@@ -57,6 +59,13 @@ final public class Comparators implements PublicStaticHelper {
      */
     public static int normalize(final long value) {
         return 0 == value ? 0 : value < 0 ? -1 : +1;
+    }
+
+    /**
+     * {@see TemporalComparator}
+     */
+    public static Comparator<Temporal> temporal(final TemporalField field) {
+        return TemporalComparator.with(field);
     }
 
     /**
