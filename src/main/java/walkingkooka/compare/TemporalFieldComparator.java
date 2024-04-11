@@ -28,15 +28,15 @@ import java.util.Objects;
  * A {@link Comparator} that may be used to support java.time objects using a particular field. Examples include supporting
  * times by minutes.
  */
-final class TemporalComparator<T extends Temporal> implements Comparator<T> {
+final class TemporalFieldComparator<T extends Temporal> implements Comparator<T> {
 
-    static <T extends Temporal> TemporalComparator<T> with(final TemporalField field) {
-        return new TemporalComparator<>(
+    static <T extends Temporal> TemporalFieldComparator<T> with(final TemporalField field) {
+        return new TemporalFieldComparator<>(
                 Objects.requireNonNull(field, "field")
         );
     }
 
-    public TemporalComparator(final TemporalField field) {
+    public TemporalFieldComparator(final TemporalField field) {
         this.field = field;
     }
 
@@ -58,10 +58,10 @@ final class TemporalComparator<T extends Temporal> implements Comparator<T> {
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof TemporalComparator && this.equals0(Cast.to(other));
+                other instanceof TemporalFieldComparator && this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final TemporalComparator<?> other) {
+    private boolean equals0(final TemporalFieldComparator<?> other) {
         return this.field.equals(other.field);
     }
 
