@@ -62,10 +62,10 @@ final public class Comparators implements PublicStaticHelper {
     }
 
     /**
-     * {@see TemporalComparator}
+     * {@see TemporalFieldComparator}
      */
-    public static Comparator<Temporal> temporal(final TemporalField field) {
-        return TemporalComparator.with(field);
+    public static Comparator<Temporal> temporalField(final TemporalField field) {
+        return TemporalFieldComparator.with(field);
     }
 
     /**

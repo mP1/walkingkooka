@@ -29,21 +29,21 @@ import java.time.temporal.TemporalField;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class TemporalComparatorTest implements ComparatorTesting2<TemporalComparator<LocalDate>, LocalDate>,
-        HashCodeEqualsDefinedTesting2<TemporalComparator<LocalDate>> {
+public final class TemporalFieldComparatorTest implements ComparatorTesting2<TemporalFieldComparator<LocalDate>, LocalDate>,
+        HashCodeEqualsDefinedTesting2<TemporalFieldComparator<LocalDate>> {
 
     @Test
     public void testWithNullFieldFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> TemporalComparator.with(null)
+                () -> TemporalFieldComparator.with(null)
         );
     }
 
     @Test
     public void testCompareDayEqual() {
         this.compareAndCheckEquals(
-                TemporalComparator.with(ChronoField.DAY_OF_MONTH),
+                TemporalFieldComparator.with(ChronoField.DAY_OF_MONTH),
                 LocalDate.of(1999, 1, 31),
                 LocalDate.of(2000, 12, 31)
         );
@@ -52,7 +52,7 @@ public final class TemporalComparatorTest implements ComparatorTesting2<Temporal
     @Test
     public void testCompareDayLess() {
         this.compareAndCheckLess(
-                TemporalComparator.with(ChronoField.DAY_OF_MONTH),
+                TemporalFieldComparator.with(ChronoField.DAY_OF_MONTH),
                 LocalDate.of(1999, 1, 1),
                 LocalDate.of(2000, 12, 22)
         );
@@ -77,7 +77,7 @@ public final class TemporalComparatorTest implements ComparatorTesting2<Temporal
     @Test
     public void testCompareTimeMinutesLess() {
         this.compareAndCheckLess(
-                TemporalComparator.with(ChronoField.MINUTE_OF_HOUR),
+                TemporalFieldComparator.with(ChronoField.MINUTE_OF_HOUR),
                 LocalTime.of(12, 1, 11),
                 LocalTime.of(13, 22, 9)
         );
@@ -86,7 +86,7 @@ public final class TemporalComparatorTest implements ComparatorTesting2<Temporal
     @Test
     public void testCompareTimeAndDateTimeMinutesLess() {
         this.compareAndCheckLess(
-                TemporalComparator.with(ChronoField.MINUTE_OF_HOUR),
+                TemporalFieldComparator.with(ChronoField.MINUTE_OF_HOUR),
                 LocalTime.of(12, 1, 11),
                 LocalDateTime.of(2000, 12, 31, 13, 22, 9)
         );
@@ -95,8 +95,8 @@ public final class TemporalComparatorTest implements ComparatorTesting2<Temporal
     @Test
     public void testEqualsDifferent() {
         this.checkNotEquals(
-                TemporalComparator.with(ChronoField.MONTH_OF_YEAR),
-                TemporalComparator.with(ChronoField.YEAR)
+                TemporalFieldComparator.with(ChronoField.MONTH_OF_YEAR),
+                TemporalFieldComparator.with(ChronoField.YEAR)
         );
     }
 
@@ -105,23 +105,23 @@ public final class TemporalComparatorTest implements ComparatorTesting2<Temporal
         final TemporalField field = ChronoField.DAY_OF_MONTH;
 
         this.toStringAndCheck(
-                TemporalComparator.with(field),
+                TemporalFieldComparator.with(field),
                 field.toString()
         );
     }
 
     @Override
-    public TemporalComparator<LocalDate> createComparator() {
-        return TemporalComparator.with(ChronoField.MONTH_OF_YEAR);
+    public TemporalFieldComparator<LocalDate> createComparator() {
+        return TemporalFieldComparator.with(ChronoField.MONTH_OF_YEAR);
     }
 
     @Override
-    public TemporalComparator<LocalDate> createObject() {
+    public TemporalFieldComparator<LocalDate> createObject() {
         return this.createComparator();
     }
 
     @Override
-    public Class<TemporalComparator<LocalDate>> type() {
-        return Cast.to(TemporalComparator.class);
+    public Class<TemporalFieldComparator<LocalDate>> type() {
+        return Cast.to(TemporalFieldComparator.class);
     }
 }
