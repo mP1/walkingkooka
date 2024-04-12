@@ -101,6 +101,21 @@ final public class Comparators implements PublicStaticHelper {
         return 0 == value ? 0 : value < 0 ? -1 : +1;
     }
 
+    /**
+     * {@see NullAwareComparatorAfter}
+     */
+    public static <T> Comparator<T> nullAfter(final Comparator<T> comparator) {
+        return NullAwareComparatorAfter.with(comparator);
+    }
+
+    /**
+     * {@see NullAwareComparatorBefore}
+     */
+    public static <T> Comparator<T> nullBefore(final Comparator<T> comparator) {
+        return NullAwareComparatorBefore.with(comparator);
+    }
+
+    
     public static Comparator<Temporal> secondOfMinute() {
         return SECOND_OF_MINUTE;
     }
