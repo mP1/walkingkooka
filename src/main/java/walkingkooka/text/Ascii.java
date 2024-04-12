@@ -20,7 +20,7 @@ package walkingkooka.text;
 import walkingkooka.reflect.PublicStaticHelper;
 
 /**
- * A collect of utilities related to ASCII.<br> Constants taken from <a>http://en.wikipedia.org/wiki/Control_character</a>
+ * A collect of utilities related to ASCII.<br> Constants taken from <a href="http://en.wikipedia.org/wiki/Control_character">Control_character</a>
  */
 final public class Ascii implements PublicStaticHelper {
 
