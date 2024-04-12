@@ -25,7 +25,7 @@ import java.util.Optional;
 final class ToStringBuilderAppenderOptionalVector<T> extends ToStringBuilderAppenderVector<Optional<T>> {
 
     static <T> ToStringBuilderAppenderOptionalVector<T> with(final Optional<T> value) {
-        return new ToStringBuilderAppenderOptionalVector(value);
+        return new ToStringBuilderAppenderOptionalVector<>(value);
     }
 
     private ToStringBuilderAppenderOptionalVector(final Optional<T> value) {
