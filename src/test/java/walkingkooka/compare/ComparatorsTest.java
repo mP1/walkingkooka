@@ -22,9 +22,6 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 final public class ComparatorsTest implements PublicStaticHelperTesting<Comparators>,
         ComparatorTesting {
@@ -70,80 +67,6 @@ final public class ComparatorsTest implements PublicStaticHelperTesting<Comparat
                 expected,
                 (long) Comparators.normalize(value),
                 "Normalize (long)" + value
-        );
-    }
-
-    // comparators......................................................................................................
-
-    @Test
-    public void testCompareDayOfMonth() {
-        this.compareAndCheckLess(
-                Comparators.dayOfMonth(),
-                LocalDate.of(2000, 12, 1),
-                LocalDateTime.of(2000, 12, 12, 12, 58, 59)
-        );
-    }
-
-    @Test
-    public void testCompareHourOfAmpm() {
-        this.compareAndCheckLess(
-                Comparators.hourOfAmPm(),
-                LocalTime.of(13, 59, 58),
-                LocalDateTime.of(2000, 12, 12, 11, 58, 59)
-        );
-    }
-
-    @Test
-    public void testCompareHourOfDay() {
-        this.compareAndCheckLess(
-                Comparators.hourOfDay(),
-                LocalTime.of(1, 59, 58),
-                LocalDateTime.of(2000, 12, 12, 12, 58, 59)
-        );
-    }
-
-    @Test
-    public void testCompareMinuteOfHour() {
-        this.compareAndCheckLess(
-                Comparators.minuteOfHour(),
-                LocalTime.of(12, 1, 58),
-                LocalDateTime.of(2000, 12, 12, 12, 58, 59)
-        );
-    }
-
-    @Test
-    public void testCompareMonthOfYear() {
-        this.compareAndCheckLess(
-                Comparators.monthOfYear(),
-                LocalDate.of(2000, 1, 31),
-                LocalDateTime.of(2000, 12, 12, 12, 58, 59)
-        );
-    }
-
-    @Test
-    public void testCompareNanoOfSecond() {
-        this.compareAndCheckLess(
-                Comparators.nanoOfSecond(),
-                LocalTime.of(12, 1, 1, 100),
-                LocalDateTime.of(2000, 12, 22, 12, 58, 59, 200)
-        );
-    }
-
-    @Test
-    public void testCompareSecondOfMinute() {
-        this.compareAndCheckLess(
-                Comparators.secondOfMinute(),
-                LocalTime.of(12, 58, 1),
-                LocalDateTime.of(2000, 12, 12, 12, 58, 59)
-        );
-    }
-
-    @Test
-    public void testCompareYear() {
-        this.compareAndCheckLess(
-                Comparators.year(),
-                LocalDate.of(1999, 1, 31),
-                LocalDateTime.of(2000, 1, 31, 12, 58, 59)
         );
     }
 
