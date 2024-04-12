@@ -36,7 +36,7 @@ final class XmlCharPredicate implements CharPredicate {
     // CharPredicate
 
     /**
-     * <a>http://www.w3.org/TR/xml/#charsets}</a>
+     * <a href="http://www.w3.org/TR/xml/#charsets}">w3c xml charsets</a>
      *
      * <pre>
      * Char     ::=    #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
