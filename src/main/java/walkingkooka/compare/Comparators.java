@@ -20,9 +20,6 @@ package walkingkooka.compare;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.reflect.PublicStaticHelper;
 
-import java.time.temporal.ChronoField;
-import java.time.temporal.Temporal;
-import java.time.temporal.TemporalField;
 import java.util.Comparator;
 
 final public class Comparators implements PublicStaticHelper {
@@ -33,51 +30,12 @@ final public class Comparators implements PublicStaticHelper {
 
     public final static int MORE = 1;
 
-    public static Comparator<Temporal> dayOfMonth() {
-        return DAY_OF_MONTH;
-    }
-
-    private final static Comparator<Temporal> DAY_OF_MONTH = TemporalFieldComparator.with(ChronoField.DAY_OF_MONTH);
-
-
     /**
      * {@see FakeComparator}
      */
     public static <T> Comparator<T> fake() {
         return FakeComparator.create();
     }
-
-
-    public static Comparator<Temporal> hourOfAmPm() {
-        return HOUR_OF_AMPM;
-    }
-
-    private final static Comparator<Temporal> HOUR_OF_AMPM = TemporalFieldComparator.with(ChronoField.HOUR_OF_AMPM);
-
-    public static Comparator<Temporal> hourOfDay() {
-        return HOUR_OF_DAY;
-    }
-
-    private final static Comparator<Temporal> HOUR_OF_DAY = TemporalFieldComparator.with(ChronoField.HOUR_OF_DAY);
-
-    public static Comparator<Temporal> minuteOfHour() {
-        return MINUTE_OF_HOUR;
-    }
-
-    private final static Comparator<Temporal> MINUTE_OF_HOUR = TemporalFieldComparator.with(ChronoField.MINUTE_OF_HOUR);
-
-    public static Comparator<Temporal> monthOfYear() {
-        return MONTH_OF_YEAR;
-    }
-
-    private final static Comparator<Temporal> MONTH_OF_YEAR = TemporalFieldComparator.with(ChronoField.MONTH_OF_YEAR);
-
-    public static Comparator<Temporal> nanoOfSecond() {
-        return NANO_OF_SECOND;
-    }
-
-    private final static Comparator<Temporal> NANO_OF_SECOND = TemporalFieldComparator.with(ChronoField.NANO_OF_SECOND);
-
 
     /**
      * {@see NormalizingCharSequenceComparator}
@@ -114,26 +72,6 @@ final public class Comparators implements PublicStaticHelper {
     public static <T> Comparator<T> nullBefore(final Comparator<T> comparator) {
         return NullAwareComparatorBefore.with(comparator);
     }
-
-    
-    public static Comparator<Temporal> secondOfMinute() {
-        return SECOND_OF_MINUTE;
-    }
-
-    private final static Comparator<Temporal> SECOND_OF_MINUTE = TemporalFieldComparator.with(ChronoField.SECOND_OF_MINUTE);
-
-    /**
-     * {@see TemporalFieldComparator}
-     */
-    public static Comparator<Temporal> temporalField(final TemporalField field) {
-        return TemporalFieldComparator.with(field);
-    }
-    
-    public static Comparator<Temporal> year() {
-        return YEAR;
-    }
-    
-    private final static Comparator<Temporal> YEAR = TemporalFieldComparator.with(ChronoField.YEAR);
 
     /**
      * Stop creation
