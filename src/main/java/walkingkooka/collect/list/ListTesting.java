@@ -54,4 +54,21 @@ public interface ListTesting extends CollectionTesting {
                 "set " + index + " with " + element
         );
     }
+
+    default <E> void setAndGetCheck(final List<E> list,
+                                    final int index,
+                                    final E element,
+                                    final E replaced) {
+        this.setAndCheck(
+                list,
+                index,
+                element,
+                replaced
+        );
+        this.getAndCheck(
+                list,
+                index,
+                element
+        );
+    }
 }
