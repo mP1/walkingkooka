@@ -40,4 +40,18 @@ public interface ListTesting extends CollectionTesting {
                               final int index) {
         assertThrows(IndexOutOfBoundsException.class, () -> list.get(index));
     }
+
+    default <E> void setAndCheck(final List<E> list,
+                                 final int index,
+                                 final E element,
+                                 final E replaced) {
+        this.checkEquals(
+                replaced,
+                list.set(
+                        index,
+                        element
+                ),
+                "set " + index + " with " + element
+        );
+    }
 }
