@@ -18,6 +18,7 @@
 package walkingkooka.collect.list;
 
 import walkingkooka.collect.CollectionTesting;
+import walkingkooka.text.CharSequences;
 
 import java.util.List;
 
@@ -39,6 +40,30 @@ public interface ListTesting extends CollectionTesting {
     default <E> void getFails(final List<E> list,
                               final int index) {
         assertThrows(IndexOutOfBoundsException.class, () -> list.get(index));
+    }
+
+    default <E> void removeIndexAndCheck(final List<E> list,
+                                         final int index,
+                                         final E removed) {
+        this.checkEquals(
+                removed,
+                list.remove(
+                        index
+                ),
+                "remove " + index
+        );
+    }
+
+    default <E> void removeElementAndCheck(final List<E> list,
+                                           final Object element,
+                                           final boolean removed) {
+        this.checkEquals(
+                removed,
+                list.remove(
+                        element
+                ),
+                "remove " + CharSequences.quoteIfChars(element)
+        );
     }
 
     default <E> void setAndCheck(final List<E> list,
