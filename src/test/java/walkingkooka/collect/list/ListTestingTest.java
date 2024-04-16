@@ -47,6 +47,15 @@ public final class ListTestingTest implements ListTesting {
     }
 
     @Test
+    public void testSetFails() {
+        this.setFails(
+                Lists.of("1a"),
+                0,
+                "*NEW*"
+        );
+    }
+
+    @Test
     public void testRemoveIndexFails() {
         this.removeIndexFails(
                 Lists.of("1a"),
