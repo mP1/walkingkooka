@@ -20,6 +20,8 @@ package walkingkooka.collect.list;
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ListTestingTest implements ListTesting {
@@ -42,5 +44,72 @@ public final class ListTestingTest implements ListTesting {
     @Test
     public void testGetFailsDoesntFail() {
         assertThrows(AssertionFailedError.class, () -> this.getFails(Lists.of("a1", "b2", "c3"), 2));
+    }
+
+    @Test
+    public void testRemoveIndexAndCheck() {
+        final List<String> list = Lists.array();
+        list.add("A1");
+        list.add("B2");
+        list.add("C3");
+
+        this.removeIndexAndCheck(
+                list,
+                1,
+                "B2"
+        );
+
+        this.checkEquals(
+                Lists.of(
+                        "A1",
+                        "C3"
+                ),
+                list
+        );
+    }
+
+    @Test
+    public void testRemoveElementAndCheck() {
+        final List<String> list = Lists.array();
+        list.add("A1");
+        list.add("B2");
+        list.add("C3");
+
+        this.removeElementAndCheck(
+                list,
+                "B2",
+                true
+        );
+
+        this.checkEquals(
+                Lists.of(
+                        "A1",
+                        "C3"
+                ),
+                list
+        );
+    }
+
+    @Test
+    public void testRemoveElementAndCheckUnknownElement() {
+        final List<String> list = Lists.array();
+        list.add("A1");
+        list.add("B2");
+        list.add("C3");
+
+        this.removeElementAndCheck(
+                list,
+                "?Unknown???",
+                false
+        );
+
+        this.checkEquals(
+                Lists.of(
+                        "A1",
+                        "B2",
+                        "C3"
+                ),
+                list
+        );
     }
 }
