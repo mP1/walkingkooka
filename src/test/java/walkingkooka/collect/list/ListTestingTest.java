@@ -47,6 +47,14 @@ public final class ListTestingTest implements ListTesting {
     }
 
     @Test
+    public void testRemoveIndexFails() {
+        this.removeIndexFails(
+                Lists.of("1a"),
+                0
+        );
+    }
+
+    @Test
     public void testRemoveIndexAndCheck() {
         final List<String> list = Lists.array();
         list.add("A1");
