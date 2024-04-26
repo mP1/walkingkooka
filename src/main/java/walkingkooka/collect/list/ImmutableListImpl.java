@@ -21,6 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.set.Sets;
 
 import java.util.AbstractList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -37,7 +38,7 @@ abstract class ImmutableListImpl<T> extends AbstractList<T> {
 
     static {
         TYPES.add(List.class);
-        TYPES.add(Lists.empty().getClass());
+        TYPES.add(Collections.emptyList().getClass());
     }
 
     /**
