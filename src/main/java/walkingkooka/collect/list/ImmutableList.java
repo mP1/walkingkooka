@@ -52,7 +52,7 @@ public interface ImmutableList<E> extends List<E> {
                 list.set(right, leftElement);
                 list.set(left, rightElement);
 
-                swapped = this.setElements(swapped);
+                swapped = this.setElements(list);
             }
         }
 
