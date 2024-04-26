@@ -22,7 +22,7 @@ import walkingkooka.Cast;
 
 import java.util.Collections;
 
-public final class ImmutableListImplSingletonTest extends ImmutableListImplTestCase2<ImmutableListImplSingleton<String>> {
+public final class ImmutableListImplSingletonTest extends ImmutableListImplNotEmptyTestCase<ImmutableListImplSingleton<String>> {
 
     private final static String ELEMENT = "*element*";
 
