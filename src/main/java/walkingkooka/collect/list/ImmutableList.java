@@ -36,10 +36,13 @@ public interface ImmutableList<E> extends List<E> {
     ImmutableList<E> setElements(final List<E> elements);
 
     /**
-     * Helper that throws {@link UnsupportedOperationException}.
+     * Useful setElements for classes that cannot easily create another instance with the new elements.
      */
-    default ImmutableList<E> immutableListUnsupportedOperationException() {
-        throw new UnsupportedOperationException();
+    default ImmutableList<E> setElementsFailIfDifferent(final List<E> elements) {
+        if (false == this.equals(elements)) {
+            throw new UnsupportedOperationException();
+        }
+        return this;
     }
 
     /**
