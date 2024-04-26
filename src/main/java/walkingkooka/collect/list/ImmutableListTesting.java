@@ -20,8 +20,19 @@ package walkingkooka.collect.list;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends ListTesting2<L, E> {
+
+    @Test
+    default void testSetElementsNullFails() {
+        final ImmutableList<E> immutableList = this.createList();
+
+        assertThrows(
+                NullPointerException.class,
+                () -> immutableList.setElements(null)
+        );
+    }
 
     @Test
     default void testSetElementsSame() {
