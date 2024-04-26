@@ -28,7 +28,7 @@ import java.util.Set;
 /**
  * Base class for all immutable {@link List} returned by {@link Lists}.
  */
-abstract class ImmutableList<T> extends AbstractList<T> {
+abstract class ImmutableListImpl<T> extends AbstractList<T> {
 
     /**
      * A registry of immutable {@link List} types.
@@ -44,7 +44,7 @@ abstract class ImmutableList<T> extends AbstractList<T> {
      * Returns true if the {@link List} is immutable. This may not detect all but tries to attempt a few known to {@link List}.
      */
     static boolean isImmutable(final List<?> list) {
-        return list instanceof ImmutableList || TYPES.contains(list.getClass());
+        return list instanceof ImmutableListImpl || TYPES.contains(list.getClass());
     }
 
     /**
@@ -86,13 +86,13 @@ abstract class ImmutableList<T> extends AbstractList<T> {
      * {@see ImmutableListSingleton}.
      */
     static <T> List<T> singleton(final T element) {
-        return ImmutableListSingleton.withElement(element);
+        return ImmutableListImplSingleton.withElement(element);
     }
 
     /**
-     * Creates a {@link ImmutableListNonSingleton} with the given {@link List} which is not defensively copied.
+     * Creates a {@link ImmutableListImplNonSingleton} with the given {@link List} which is not defensively copied.
      */
-    private static <T> ImmutableList<T> nonSingleton(final Object[] wrap) {
-        return ImmutableListNonSingleton.with(wrap);
+    private static <T> ImmutableListImpl<T> nonSingleton(final Object[] wrap) {
+        return ImmutableListImplNonSingleton.with(wrap);
     }
 }

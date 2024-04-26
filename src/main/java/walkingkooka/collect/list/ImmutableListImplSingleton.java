@@ -26,19 +26,19 @@ import java.util.Objects;
 /**
  * A {@link List} known to be immutable and holds a copy of any {@link List} given to it.
  */
-final class ImmutableListSingleton<T> extends ImmutableList<T> {
+final class ImmutableListImplSingleton<T> extends ImmutableListImpl<T> {
 
     /**
      * Returns a {@link List} which is immutable.
      */
-    static <T> ImmutableListSingleton<T> withElement(final T element) {
-        return new ImmutableListSingleton<>(element);
+    static <T> ImmutableListImplSingleton<T> withElement(final T element) {
+        return new ImmutableListImplSingleton<>(element);
     }
 
     /**
      * Private ctor use factory
      */
-    private ImmutableListSingleton(final T element) {
+    private ImmutableListImplSingleton(final T element) {
         super();
         this.element = element;
     }

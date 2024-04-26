@@ -24,11 +24,11 @@ import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class ImmutableListTestCase2<S extends ImmutableList<String>> extends ImmutableListTestCase<S>
+public abstract class ImmutableListImplTestCase2<S extends ImmutableListImpl<String>> extends ImmutableListImplTestCase<S>
         implements ListTesting2<S, String>,
         IteratorTesting {
 
-    ImmutableListTestCase2() {
+    ImmutableListImplTestCase2() {
         super();
     }
 

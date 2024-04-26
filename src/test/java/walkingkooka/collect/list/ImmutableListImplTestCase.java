@@ -23,10 +23,10 @@ import walkingkooka.reflect.TypeNameTesting;
 
 import java.util.List;
 
-public abstract class ImmutableListTestCase<T> implements ClassTesting2<T>,
+public abstract class ImmutableListImplTestCase<T> implements ClassTesting2<T>,
         TypeNameTesting<T> {
 
-    ImmutableListTestCase() {
+    ImmutableListImplTestCase() {
         super();
     }
 
