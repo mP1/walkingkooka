@@ -29,7 +29,7 @@ import java.util.Set;
 /**
  * Base class for all immutable {@link List} returned by {@link Lists}.
  */
-abstract class ImmutableListImpl<T> extends AbstractList<T> {
+abstract class ImmutableListImpl<T> extends AbstractList<T> implements ImmutableList<T> {
 
     /**
      * A registry of immutable {@link List} types.
@@ -102,5 +102,13 @@ abstract class ImmutableListImpl<T> extends AbstractList<T> {
      */
     private static <T> ImmutableListImpl<T> nonSingleton(final Object[] wrap) {
         return ImmutableListImplNonSingleton.with(wrap);
+    }
+
+    @Override
+    public ImmutableList<T> setElements(final List<T> elements) {
+        Objects.requireNonNull(elements, "elements");
+
+        final ImmutableListImpl<T> copy = prepare(elements.toArray());
+        return null;
     }
 }
