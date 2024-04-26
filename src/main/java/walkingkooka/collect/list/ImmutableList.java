@@ -40,6 +40,7 @@ public interface ImmutableList<E> extends List<E> {
      */
     default ImmutableList<E> setElementsFailIfDifferent(final List<E> elements) {
         if (false == this.equals(elements)) {
+            Objects.requireNonNull(elements, "elements");
             throw new UnsupportedOperationException();
         }
         return this;
