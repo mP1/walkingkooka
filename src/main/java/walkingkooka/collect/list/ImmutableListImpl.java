@@ -105,10 +105,12 @@ abstract class ImmutableListImpl<T> extends AbstractList<T> implements Immutable
     }
 
     @Override
-    public ImmutableList<T> setElements(final List<T> elements) {
+    public final ImmutableList<T> setElements(final List<T> elements) {
         Objects.requireNonNull(elements, "elements");
 
         final ImmutableListImpl<T> copy = prepare(elements.toArray());
-        return null;
+        return this.equals(copy) ?
+                this:
+                copy;
     }
 }
