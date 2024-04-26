@@ -24,7 +24,7 @@ import walkingkooka.collect.iterator.IteratorTesting;
 import java.util.Collections;
 
 public final class ImmutableListImplEmptyTest extends ImmutableListImplTestCase<ImmutableListImplEmpty<String>>
-        implements ListTesting2<ImmutableListImplEmpty<String>, String>,
+        implements ImmutableListTesting<ImmutableListImplEmpty<String>, String>,
         IteratorTesting {
 
     private final static String ELEMENT = "*element*";
@@ -81,6 +81,20 @@ public final class ImmutableListImplEmptyTest extends ImmutableListImplTestCase<
         this.sizeAndCheck(
                 this.createList(),
                 0
+        );
+    }
+
+    @Test
+    public void testAppendNew() {
+        final String appended = "appended123";
+
+        this.appendAndNewAndCheck(
+                ImmutableListImplEmpty.empty(),
+                appended,
+                (ImmutableList)
+                        ImmutableListImpl.with(
+                        Lists.of(appended)
+                )
         );
     }
 
