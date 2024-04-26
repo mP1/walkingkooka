@@ -35,6 +35,12 @@ public interface ImmutableList<E> extends List<E> {
      */
     ImmutableList<E> setElements(final List<E> elements);
 
+    /**
+     * Helper that throws {@link UnsupportedOperationException}.
+     */
+    default ImmutableList<E> immutableListUnsupportedOperationException() {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Swaps the two elements at the given index.
