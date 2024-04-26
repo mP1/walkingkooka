@@ -61,12 +61,12 @@ abstract class ImmutableListImpl<T> extends AbstractList<T> {
     /**
      * Takes a defensive copy of the list elements and returns a immutable list.
      */
-    static <T> List<T> prepare(final Object[] elements) {
-        final List<T> immutable;
+    static <T> ImmutableListImpl<T> prepare(final Object[] elements) {
+        final ImmutableListImpl<T> immutable;
 
         switch (elements.length) {
             case 0:
-                immutable = Lists.empty();
+                immutable = empty();
                 break;
             case 1:
                 immutable = singleton(
@@ -83,9 +83,16 @@ abstract class ImmutableListImpl<T> extends AbstractList<T> {
 
 
     /**
+     * {@see ImmutableListImplEmpty}.
+     */
+    static <T> ImmutableListImpl<T> empty() {
+        return ImmutableListImplEmpty.empty();
+    }
+
+    /**
      * {@see ImmutableListSingleton}.
      */
-    static <T> List<T> singleton(final T element) {
+    static <T> ImmutableListImpl<T> singleton(final T element) {
         return ImmutableListImplSingleton.withElement(element);
     }
 
