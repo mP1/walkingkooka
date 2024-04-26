@@ -20,12 +20,8 @@ package walkingkooka.collect.list;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.iterator.IteratorTesting;
 
-import java.util.Iterator;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public abstract class ImmutableListImplTestCase2<S extends ImmutableListImpl<String>> extends ImmutableListImplTestCase<S>
-        implements ListTesting2<S, String>,
+        implements ImmutableListTesting<S, String>,
         IteratorTesting {
 
     ImmutableListImplTestCase2() {
@@ -38,9 +34,16 @@ public abstract class ImmutableListImplTestCase2<S extends ImmutableListImpl<Str
     }
 
     @Test
-    public final void testIteratorRemoveFails() {
-        final Iterator<String> iterator = this.createList().iterator();
-        iterator.next();
-        assertThrows(UnsupportedOperationException.class, iterator::remove);
+    public final void testAppendNew() {
+        final String appended = "appended123";
+
+        this.appendAndNewAndCheck(
+                ImmutableListImplEmpty.empty(),
+                appended,
+                (ImmutableList)
+                        ImmutableListImpl.with(
+                                Lists.of(appended)
+                        )
+        );
     }
 }
