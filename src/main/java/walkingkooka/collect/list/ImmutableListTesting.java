@@ -17,5 +17,30 @@
 
 package walkingkooka.collect.list;
 
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertSame;
+
 public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends ListTesting2<L, E> {
+
+    @Test
+    default void testSetElementsSame() {
+        final ImmutableList<E> immutableList = this.createList();
+
+        assertSame(
+                immutableList,
+                immutableList.setElements(
+                        immutableList.toList()
+                )
+        );
+    }
+
+    @Test
+    default void testSwapSameIndices() {
+        final ImmutableList<E> immutableList = this.createList();
+        assertSame(
+                immutableList,
+                immutableList.swap(0, 0)
+        );
+    }
 }
