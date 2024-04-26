@@ -39,8 +39,8 @@ final public class Lists implements PublicStaticHelper {
     public static void registerImmutableType(final Class<? extends List> type) {
         Objects.requireNonNull(type, "type");
 
-        synchronized (ImmutableList.TYPES) {
-            ImmutableList.TYPES.add(type);
+        synchronized (ImmutableListImpl.TYPES) {
+            ImmutableListImpl.TYPES.add(type);
         }
     }
 
@@ -83,7 +83,7 @@ final public class Lists implements PublicStaticHelper {
      * Returns a {@link List} that is immutable, making a defensive copy if necessary.
      */
     public static <E> List<E> immutable(final List<E> list) {
-        return ImmutableList.with(list);
+        return ImmutableListImpl.with(list);
     }
 
     /**
@@ -97,7 +97,7 @@ final public class Lists implements PublicStaticHelper {
      * {@see ImmutableList#singleton}.
      */
     public static <T> List<T> of(final T item) {
-        return ImmutableList.singleton(item);
+        return ImmutableListImpl.singleton(item);
     }
 
     /**
@@ -105,7 +105,7 @@ final public class Lists implements PublicStaticHelper {
      */
     @SafeVarargs
     public static <T> List<T> of(final T... items) {
-        return ImmutableList.prepare(
+        return ImmutableListImpl.prepare(
                 Arrays.copyOf(
                         items,
                         items.length
@@ -117,7 +117,7 @@ final public class Lists implements PublicStaticHelper {
      * Returns a read only view of the given list. If the list is modified then the read only view will also contain different elements.
      */
     public static <T> List<T> readOnly(final List<T> list) {
-        return ImmutableList.isImmutable(list) ?
+        return ImmutableListImpl.isImmutable(list) ?
                 list :
                 Collections.unmodifiableList(list);
     }

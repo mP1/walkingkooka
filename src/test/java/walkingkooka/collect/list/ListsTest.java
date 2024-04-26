@@ -57,7 +57,7 @@ final public class ListsTest implements PublicStaticHelperTesting<Lists>,
 
     @Test
     public void testImmutableNullListFails() {
-        assertThrows(NullPointerException.class, () -> ImmutableList.with(null));
+        assertThrows(NullPointerException.class, () -> ImmutableListImpl.with(null));
     }
 
     @Test
@@ -172,7 +172,7 @@ final public class ListsTest implements PublicStaticHelperTesting<Lists>,
 
     private void isImmutableAndCheck(final List<?> list, final boolean expected) {
         this.checkEquals(expected,
-                ImmutableList.isImmutable(list),
+                ImmutableListImpl.isImmutable(list),
                 () -> "isImmutable " + list.getClass().getName() + "=" + list);
     }
 

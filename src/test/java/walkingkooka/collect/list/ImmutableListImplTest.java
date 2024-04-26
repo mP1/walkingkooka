@@ -26,10 +26,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class ImmutableListTest extends ImmutableListTestCase<ImmutableList<?>> implements IteratorTesting {
+public final class ImmutableListImplTest extends ImmutableListImplTestCase<ImmutableListImpl<?>> implements IteratorTesting {
 
     // isImmutable......................................................................................................
 
@@ -69,7 +68,7 @@ public final class ImmutableListTest extends ImmutableListTestCase<ImmutableList
 
     private void isImmutableAndCheck(final List<?> list, final boolean expected) {
         this.checkEquals(expected,
-                ImmutableList.isImmutable(list),
+                ImmutableListImpl.isImmutable(list),
                 list::toString);
     }
 
@@ -101,7 +100,7 @@ public final class ImmutableListTest extends ImmutableListTestCase<ImmutableList
     private List<String> immutableAndCheck(final List<String> from) {
         final List<String> immutable = Lists.immutable(from);
         this.checkEquals(true,
-                immutable instanceof ImmutableList,
+                immutable instanceof ImmutableListImpl,
                 () -> "from " + from + " type=" + immutable.getClass().getName() + " " + immutable);
         return immutable;
     }
@@ -109,7 +108,7 @@ public final class ImmutableListTest extends ImmutableListTestCase<ImmutableList
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<ImmutableList<?>> type() {
-        return Cast.to(ImmutableList.class);
+    public Class<ImmutableListImpl<?>> type() {
+        return Cast.to(ImmutableListImpl.class);
     }
 }

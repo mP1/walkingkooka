@@ -22,18 +22,18 @@ import walkingkooka.Cast;
 
 import java.util.Collections;
 
-public final class ImmutableListSingletonTest extends ImmutableListTestCase2<ImmutableListSingleton<String>> {
+public final class ImmutableListImplSingletonTest extends ImmutableListImplTestCase2<ImmutableListImplSingleton<String>> {
 
     private final static String ELEMENT = "*element*";
 
     @Test
     public void testWithNonNull() {
-        ImmutableListSingleton.singleton(ELEMENT);
+        ImmutableListImplSingleton.singleton(ELEMENT);
     }
 
     @Test
     public void testWithNull() {
-        ImmutableListSingleton.singleton(null);
+        ImmutableListImplSingleton.singleton(null);
     }
 
     @Test
@@ -44,7 +44,7 @@ public final class ImmutableListSingletonTest extends ImmutableListTestCase2<Imm
     @Test
     public void testContainsNotNull() {
         this.containsAndCheck(
-                ImmutableListSingleton.withElement(ELEMENT),
+                ImmutableListImplSingleton.withElement(ELEMENT),
                 ELEMENT
         );
     }
@@ -52,7 +52,7 @@ public final class ImmutableListSingletonTest extends ImmutableListTestCase2<Imm
     @Test
     public void testContainsNull() {
         this.containsAndCheck(
-                ImmutableListSingleton.withElement(null),
+                ImmutableListImplSingleton.withElement(null),
                 null
         );
     }
@@ -68,7 +68,7 @@ public final class ImmutableListSingletonTest extends ImmutableListTestCase2<Imm
     @Test
     public void testContainsFalseNotNull() {
         this.containsAndCheckAbsent(
-                ImmutableListSingleton.withElement(null),
+                ImmutableListImplSingleton.withElement(null),
                 "NOT!"
         );
     }
@@ -76,7 +76,7 @@ public final class ImmutableListSingletonTest extends ImmutableListTestCase2<Imm
     @Test
     public void testGetNull() {
         this.getAndCheck(
-                ImmutableListSingleton.withElement(null),
+                ImmutableListImplSingleton.withElement(null),
                 0,
                 null
         );
@@ -108,14 +108,14 @@ public final class ImmutableListSingletonTest extends ImmutableListTestCase2<Imm
     }
 
     @Override
-    public ImmutableListSingleton<String> createList() {
-        return ImmutableListSingleton.withElement(ELEMENT);
+    public ImmutableListImplSingleton<String> createList() {
+        return ImmutableListImplSingleton.withElement(ELEMENT);
     }
 
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<ImmutableListSingleton<String>> type() {
-        return Cast.to(ImmutableListSingleton.class);
+    public Class<ImmutableListImplSingleton<String>> type() {
+        return Cast.to(ImmutableListImplSingleton.class);
     }
 }

@@ -24,16 +24,16 @@ import java.util.List;
 /**
  * A {@link List} presents a read only view of a previously defensively copied {@link List} given to it.
  */
-final class ImmutableListNonSingleton<T> extends ImmutableList<T> {
+final class ImmutableListImplNonSingleton<T> extends ImmutableListImpl<T> {
 
     /**
      * Returns a {@link List} which is immutable but does not make a copy of the given list which assumed to already be copied.
      */
-    static <T> ImmutableListNonSingleton<T> with(final Object[] notCopied) {
-        return new ImmutableListNonSingleton<>(notCopied);
+    static <T> ImmutableListImplNonSingleton<T> with(final Object[] notCopied) {
+        return new ImmutableListImplNonSingleton<>(notCopied);
     }
 
-    private ImmutableListNonSingleton(final Object[] elements) {
+    private ImmutableListImplNonSingleton(final Object[] elements) {
         super();
         this.elements = elements;
     }
