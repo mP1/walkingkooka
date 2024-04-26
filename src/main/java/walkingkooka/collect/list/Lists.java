@@ -66,10 +66,10 @@ final public class Lists implements PublicStaticHelper {
     }
 
     /**
-     * {@see Collections#emptyList()}
+     * {@see ImmutableListImplEmpty.empty()}
      */
     public static <T> List<T> empty() {
-        return Collections.emptyList();
+        return ImmutableListImplEmpty.empty();
     }
 
     /**
