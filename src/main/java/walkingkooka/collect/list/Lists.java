@@ -55,7 +55,7 @@ final public class Lists implements PublicStaticHelper {
     /**
      * {@see ImmutableListImplEmpty.empty()}
      */
-    public static <T> List<T> empty() {
+    public static <T> ImmutableList<T> empty() {
         return ImmutableListImplEmpty.empty();
     }
 
