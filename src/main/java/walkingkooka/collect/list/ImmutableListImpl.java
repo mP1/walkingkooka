@@ -29,13 +29,13 @@ import java.util.Objects;
 abstract class ImmutableListImpl<T> extends AbstractList<T> implements ImmutableList<T> {
 
     /**
-     * Returns a {@link List} which is immutable including copying elements if necessary.
+     * Returns a {@link ImmutableList} which is immutable including copying elements if necessary.
      */
-    static <T> List<T> with(final List<T> list) {
+    static <T> ImmutableList<T> with(final List<T> list) {
         Objects.requireNonNull(list, "list");
 
         return list instanceof ImmutableList ?
-                list :
+                Cast.to(list) :
                 prepare(list.toArray());
     }
 

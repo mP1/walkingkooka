@@ -67,9 +67,9 @@ final public class Lists implements PublicStaticHelper {
     }
 
     /**
-     * Returns a {@link List} that is immutable, making a defensive copy if necessary.
+     * Returns a {@link ImmutableList} that is immutable, making a defensive copy if necessary.
      */
-    public static <E> List<E> immutable(final List<E> list) {
+    public static <E> ImmutableList<E> immutable(final List<E> list) {
         return ImmutableListImpl.with(list);
     }
 
