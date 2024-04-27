@@ -35,17 +35,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 final public class ListsTest implements PublicStaticHelperTesting<Lists>,
         IteratorTesting {
 
-    @SuppressWarnings("rawtypes")
-    @Test
-    public void testRegisterImmutableTypeNullFails() {
-        final Class<List> type = null;
-
-        assertThrows(
-                NullPointerException.class,
-                () -> Lists.registerImmutableType(type)
-        );
-    }
-    
     @Test
     public void testArray() {
         final List<String> list = Lists.array();
@@ -170,9 +159,11 @@ final public class ListsTest implements PublicStaticHelperTesting<Lists>,
         this.checkEquals(Vector.class, vector.getClass(), "vector class");
     }
 
-    private void isImmutableAndCheck(final List<?> list, final boolean expected) {
-        this.checkEquals(expected,
-                ImmutableListImpl.isImmutable(list),
+    private void isImmutableAndCheck(final List<?> list,
+                                     final boolean expected) {
+        this.checkEquals(
+                expected,
+                list instanceof ImmutableList,
                 () -> "isImmutable " + list.getClass().getName() + "=" + list);
     }
 

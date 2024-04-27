@@ -25,24 +25,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Vector;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.BiPredicate;
 
 final public class Lists implements PublicStaticHelper {
-
-    /**
-     * Registers a {@link List} type as immutable.
-     */
-    @SuppressWarnings("rawtypes")
-    public static void registerImmutableType(final Class<? extends List> type) {
-        Objects.requireNonNull(type, "type");
-
-        synchronized (ImmutableListImpl.TYPES) {
-            ImmutableListImpl.TYPES.add(type);
-        }
-    }
 
     /**
      * {@see ArrayList}
@@ -117,7 +104,7 @@ final public class Lists implements PublicStaticHelper {
      * Returns a read only view of the given list. If the list is modified then the read only view will also contain different elements.
      */
     public static <T> List<T> readOnly(final List<T> list) {
-        return ImmutableListImpl.isImmutable(list) ?
+        return list instanceof ImmutableList ?
                 list :
                 Collections.unmodifiableList(list);
     }
