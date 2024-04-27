@@ -18,13 +18,10 @@
 package walkingkooka.collect.list;
 
 import walkingkooka.Cast;
-import walkingkooka.collect.set.Sets;
 
 import java.util.AbstractList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * Base class for all immutable {@link List} returned by {@link Lists}.
@@ -32,29 +29,12 @@ import java.util.Set;
 abstract class ImmutableListImpl<T> extends AbstractList<T> implements ImmutableList<T> {
 
     /**
-     * A registry of immutable {@link List} types.
-     */
-    final static Set<Class<?>> TYPES = Sets.hash();
-
-    static {
-        TYPES.add(List.class);
-        TYPES.add(Collections.emptyList().getClass());
-    }
-
-    /**
-     * Returns true if the {@link List} is immutable. This may not detect all but tries to attempt a few known to {@link List}.
-     */
-    static boolean isImmutable(final List<?> list) {
-        return list instanceof ImmutableListImpl || TYPES.contains(list.getClass());
-    }
-
-    /**
      * Returns a {@link List} which is immutable including copying elements if necessary.
      */
     static <T> List<T> with(final List<T> list) {
         Objects.requireNonNull(list, "list");
 
-        return isImmutable(list) ?
+        return list instanceof ImmutableList ?
                 list :
                 prepare(list.toArray());
     }
