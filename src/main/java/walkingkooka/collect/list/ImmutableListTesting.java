@@ -27,10 +27,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends ListTesting2<L, E> {
 
-    default void appendAndNewAndCheck(final ImmutableList<E> list,
-                                      final E appended,
-                                      final ImmutableList<E> expected) {
-        final ImmutableList<E> appendAndNew = list.appendAndNew(appended);
+    default void concatAndCheck(final ImmutableList<E> list,
+                                final E appended,
+                                final ImmutableList<E> expected) {
+        final ImmutableList<E> appendAndNew = list.concat(appended);
 
         assertNotSame(
                 appendAndNew,
@@ -39,7 +39,7 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
         this.checkEquals(
                 expected,
                 appendAndNew,
-                () -> list + " appendAndNew " + appended
+                () -> list + " concat " + appended
         );
 
         final List<E> toList = list.toList();
@@ -47,7 +47,7 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
         this.checkEquals(
                 toList,
                 appendAndNew,
-                () -> list + " appendAndNew " + appended
+                () -> list + " concat " + appended
         );
     }
 
