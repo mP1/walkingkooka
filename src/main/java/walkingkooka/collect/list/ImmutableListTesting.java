@@ -51,10 +51,10 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
         );
     }
 
-    default void removeAndNewAndCheck(final ImmutableList<E> list,
-                                      final int removed,
-                                      final ImmutableList<E> expected) {
-        final ImmutableList<E> removedAndNew = list.removeAndNew(removed);
+    default void removeAtIndexAndCheck(final ImmutableList<E> list,
+                                       final int removed,
+                                       final ImmutableList<E> expected) {
+        final ImmutableList<E> removedAndNew = list.removeAtIndex(removed);
 
         assertNotSame(
                 removedAndNew,
@@ -63,7 +63,7 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
         this.checkEquals(
                 expected,
                 removedAndNew,
-                () -> list + " removedAndNew " + removed
+                () -> list + " removeAtIndex " + removed
         );
 
         final List<E> toList = list.toList();
@@ -71,7 +71,7 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
         this.checkEquals(
                 toList,
                 removedAndNew,
-                () -> list + " removedAndNew " + removed
+                () -> list + " removeAtIndex " + removed
         );
     }
 
