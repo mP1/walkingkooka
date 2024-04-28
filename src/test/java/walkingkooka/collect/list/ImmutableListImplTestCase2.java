@@ -34,16 +34,15 @@ public abstract class ImmutableListImplTestCase2<S extends ImmutableListImpl<Str
     }
 
     @Test
-    public final void testAppendNew() {
+    public final void testConcat() {
         final String appended = "appended123";
 
-        this.appendAndNewAndCheck(
+        this.concatAndCheck(
                 ImmutableListImplEmpty.empty(),
                 appended,
-                (ImmutableList)
-                        ImmutableListImpl.with(
-                                Lists.of(appended)
-                        )
+                ImmutableListImpl.with(
+                        Lists.of(appended)
+                )
         );
     }
 }

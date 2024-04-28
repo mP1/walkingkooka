@@ -73,7 +73,7 @@ public interface ImmutableList<E> extends List<E> {
     /**
      * Returns a new instance of this {@link ImmutableList} with the element appended.
      */
-    default ImmutableList<E> appendAndNew(final E element) {
+    default ImmutableList<E> concat(final E element) {
         final List<E> list = this.toList();
         list.add(element);
 
