@@ -38,7 +38,7 @@ public abstract class ImmutableListImplNotEmptyTestCase<S extends ImmutableListI
         final List<String> list = immutableList.toList();
         list.remove(0);
 
-        this.removeAndNewAndCheck(
+        this.removeAtIndexAndCheck(
                 immutableList,
                 0,
                 (ImmutableList)
