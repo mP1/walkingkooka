@@ -75,27 +75,27 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
         );
     }
 
-    default void removeElementAndNewAndCheck(final ImmutableList<E> list,
-                                             final E removed,
-                                             final ImmutableList<E> expected) {
-        final ImmutableList<E> removedAndNew = list.removeElementAndNew(removed);
+    default void removeElementAndCheck(final ImmutableList<E> list,
+                                       final E remove,
+                                       final ImmutableList<E> expected) {
+        final ImmutableList<E> removed = list.removeElement(remove);
 
         assertNotSame(
-                removedAndNew,
+                removed,
                 list
         );
         this.checkEquals(
                 expected,
-                removedAndNew,
-                () -> list + " removeElementAndNew " + removed
+                removed,
+                () -> list + " removeElement " + remove
         );
 
         final List<E> toList = list.toList();
-        toList.remove(removed);
+        toList.remove(remove);
         this.checkEquals(
                 toList,
-                removedAndNew,
-                () -> list + " removeElementAndNew " + removed
+                removed,
+                () -> list + " removeElement " + remove
         );
     }
 

@@ -110,7 +110,7 @@ public interface ImmutableList<E> extends List<E> {
     /**
      * Returns an {@link ImmutableList} without the element at index.
      */
-    default ImmutableList<E> removeElementAndNew(final E element) {
+    default ImmutableList<E> removeElement(final E element) {
         final List<E> list = this.toList();
         final boolean removed = list.remove(element);
         return removed ?
