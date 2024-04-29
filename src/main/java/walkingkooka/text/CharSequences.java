@@ -30,6 +30,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * A collection of helpers that solve many little problems when working with {@link CharSequence}.
+ */
 final public class CharSequences implements PublicStaticHelper {
 
     /**
