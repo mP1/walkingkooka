@@ -28,6 +28,7 @@ import walkingkooka.reflect.ThrowableTesting;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -115,6 +116,166 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
         assertSame(
                 stringBuilder,
                 CharSequences.failIfNullOrEmpty(stringBuilder, "1")
+        );
+    }
+
+    // bestParse........................................................................................................
+
+    @Test
+    public void testBestParseWithNullTextFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> CharSequences.bestParse(
+                        null,
+                        Integer::parseInt
+                )
+        );
+    }
+
+    @Test
+    public void testBestParseWithNullParserFunctionFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> CharSequences.bestParse(
+                        "",
+                        null
+                )
+        );
+    }
+
+    @Test
+    public void testBestParseEmpty() {
+        this.bestParseAndCheck(
+                "",
+                Integer::parseInt,
+                0 // expected must be empty
+        );
+    }
+
+    @Test
+    public void testBestParseAll() {
+        this.bestParseAndCheck(
+                "1",
+                Integer::parseInt,
+                1 // expected must be empty
+        );
+    }
+
+    @Test
+    public void testBestParseAll2() {
+        this.bestParseAndCheck(
+                "12",
+                Integer::parseInt,
+                2 // expected must be empty
+        );
+    }
+
+    @Test
+    public void testBestParseAll3() {
+        this.bestParseAndCheck(
+                "123",
+                Integer::parseInt,
+                3 // expected must be empty
+        );
+    }
+
+    @Test
+    public void testBestParseThrowsInvalidCharacterException() {
+        final String text = "123.";
+
+        this.bestParseAndCheck(
+                text,
+                (t) -> {
+                    throw new InvalidCharacterException(
+                          t,
+                          t.indexOf('.')
+                    );
+                },
+                3 // expected must be empty
+        );
+    }
+
+    @Test
+    public void testBestParseRetries() {
+        this.bestParseAndCheck(
+                "123.",
+                Integer::parseInt,
+                '.' // expected must be empty
+        );
+    }
+
+    @Test
+    public void testBestParseRetries2() {
+        this.bestParseAndCheck(
+                "123.B",
+                Integer::parseInt,
+                '.' // expected must be empty
+        );
+    }
+
+    @Test
+    public void testBestParseRetries3() {
+        this.bestParseAndCheck(
+                "123.BC",
+                Integer::parseInt,
+                '.' // expected must be empty
+        );
+    }
+
+    @Test
+    public void testBestParseRetries4() {
+        this.bestParseAndCheck(
+                "123.BCD",
+                Integer::parseInt,
+                '.' // expected must be empty
+        );
+    }
+
+    @Test
+    public void testBestParseRetries5() {
+        this.bestParseAndCheck(
+                "1.",
+                Integer::parseInt,
+                '.' // expected must be empty
+        );
+    }
+
+    @Test
+    public void testBestParseRetriesMany() {
+        final int length = 21;
+        for (int i = 0; i < length; i++) {
+            this.bestParseAndCheck(
+                    CharSequences.padRight(
+                            "1.",
+                            length,
+                            'X'
+                    ).toString(),
+                    Integer::parseInt,
+                    '.' // expected must be empty
+            );
+        }
+    }
+
+    private void bestParseAndCheck(final String text,
+                                   final Function<String, Object> parser,
+                                   final char expected) {
+        this.bestParseAndCheck(
+                text,
+                parser,
+                text.indexOf(expected)
+        );
+    }
+
+    private void bestParseAndCheck(final String text,
+                                   final Function<String, Object> parser,
+                                   final int expected) {
+        this.checkEquals(
+                expected,
+                CharSequences.bestParse(
+                        text,
+                        parser
+                ),
+                () -> "bestParse " + CharSequences.quoteAndEscape(text)
         );
     }
 

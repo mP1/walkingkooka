@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -42,6 +43,62 @@ final public class CharSequences implements PublicStaticHelper {
         return null == chars ?
                 "" :
                 chars;
+    }
+
+    /**
+     * Tries to find the maximum length of the original text that was accepted by the provided parser. It does not
+     * actually return any result from the parser or throw any {@link RuntimeException} it only returns the maximum
+     * character position which will always be between 0 and the length of text.
+     */
+    public static int bestParse(final String text,
+                                final Function<String, Object> parser) {
+        Objects.requireNonNull(text, "text");
+        Objects.requireNonNull(parser, "parser");
+
+        int best = 0;
+
+        if (false == text.isEmpty()) {
+            final int max = text.length();
+
+            try {
+                parser.apply(text);
+                best = max;
+
+            } catch (final InvalidCharacterException invalidCharacterException) {
+                best = Math.max(
+                        0, // expected cant be less than 0
+                        invalidCharacterException.position()
+                );
+            } catch (final RuntimeException other) {
+                int trying = max / 2;
+                int lastTry = 0;
+
+                // a binary search to find the greatest successful parse attempt
+                do {
+                    lastTry = trying;
+                    try {
+                        parser.apply(
+                                text.substring(
+                                        0,
+                                        trying
+                                )
+                        );
+                        best = trying;
+                        trying = Math.min(
+                                max,
+                                Math.max(
+                                        trying + 1,
+                                        trying + (max - trying) / 2
+                                )
+                        );
+                    } catch (final RuntimeException cause) {
+                        trying = trying / 2;
+                    }
+                } while (trying > best && trying != lastTry);
+            }
+        }
+
+        return best;
     }
 
     /**
