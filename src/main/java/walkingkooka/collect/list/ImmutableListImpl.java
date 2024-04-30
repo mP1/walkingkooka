@@ -26,7 +26,7 @@ import java.util.Objects;
 /**
  * Base class for all immutable {@link List} returned by {@link Lists}.
  */
-abstract class ImmutableListImpl<T> extends AbstractList<T> implements ImmutableList<T> {
+abstract class ImmutableListImpl<T> extends AbstractList<T> implements ImmutableListDefaults<ImmutableList<T>, T>  {
 
     /**
      * Returns a {@link ImmutableList} which is immutable including copying elements if necessary.
