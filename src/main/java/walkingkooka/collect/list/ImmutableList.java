@@ -17,10 +17,8 @@
 
 package walkingkooka.collect.list;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * A {@link List} that is immutable but also contains a few would be mutator methods that return a new instance if required.
@@ -32,98 +30,47 @@ public interface ImmutableList<E> extends List<E> {
 
     /**
      * Factory method that should return a new list if the given elements are different.
+     * A default implementation of all other abstract methods is available by implementing {@link ImmutableListDefaults}.
+     * After that is done only this method needs to be implemented.
      */
     ImmutableList<E> setElements(final List<E> elements);
 
     /**
      * Useful setElements for classes that cannot easily create another instance with the new elements.
      */
-    default ImmutableList<E> setElementsFailIfDifferent(final List<E> elements) {
-        if (false == this.equals(elements)) {
-            Objects.requireNonNull(elements, "elements");
-            throw new UnsupportedOperationException();
-        }
-        return this;
-    }
+    ImmutableList<E> setElementsFailIfDifferent(final List<E> elements);
 
     /**
      * Swaps the two elements at the given index.
      */
-    default ImmutableList<E> swap(final int left,
-                                  final int right) {
-        ImmutableList<E> swapped = this;
-
-        if (left != right) {
-            final E leftElement = this.get(left);
-            final E rightElement = this.get(right);
-            if (false == Objects.equals(leftElement, rightElement)) {
-                // different need to return a new ImmutableList
-                final List<E> list = this.toList();
-                list.set(right, leftElement);
-                list.set(left, rightElement);
-
-                swapped = this.setElements(list);
-            }
-        }
-
-        return swapped;
-
-    }
+    ImmutableList<E> swap(final int left,
+                          final int right);
 
     /**
      * Returns a new instance of this {@link ImmutableList} with the element appended.
      */
-    default ImmutableList<E> concat(final E element) {
-        final List<E> list = this.toList();
-        list.add(element);
-
-        return this.setElements(list);
-    }
+    ImmutableList<E> concat(final E element);
 
     /**
      * Returns a new instance of this {@link ImmutableList} with the element appended.
      */
-    default ImmutableList<E> replace(final int index,
-                                     final E element) {
-        final List<E> list = this.toList();
-        final E replaced = list.set(
-                index,
-                element
-        );
-
-        return Objects.equals(
-                replaced,
-                element
-        ) ? this :
-                this.setElements(list);
-    }
+    ImmutableList<E> replace(final int index,
+                             final E element);
 
     /**
      * Returns an {@link ImmutableList} without the element at index.
      */
-    default ImmutableList<E> removeAtIndex(final int index) {
-        final List<E> list = this.toList();
-        list.remove(index);
-        return this.setElements(list);
-    }
+    ImmutableList<E> removeAtIndex(final int index);
 
     /**
      * Returns an {@link ImmutableList} without the element at index.
      */
-    default ImmutableList<E> removeElement(final E element) {
-        final List<E> list = this.toList();
-        final boolean removed = list.remove(element);
-        return removed ?
-                this.setElements(list) :
-                this;
-    }
+    ImmutableList<E> removeElement(final E element);
 
     /**
      * Returns a mutable {@link List} with the items in this list. Modifying the given list does not update the elements in this list.
      */
-    default List<E> toList() {
-        return new ArrayList<>(this);
-    }
+    List<E> toList();
 
     // List read only...................................................................................................
 
