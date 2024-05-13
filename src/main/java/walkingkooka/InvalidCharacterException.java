@@ -99,11 +99,28 @@ public class InvalidCharacterException extends InvalidTextException implements H
 
     private final int position;
 
+    /**
+     * <pre>
+     * Invalid character '/' at 1 in \"text\"
+     * </pre>
+     */
     @Override
     public String getMessage() {
         return "Invalid character " + CharSequences.quoteIfChars(this.text.charAt(this.position)) +
                 " at " + this.position +
                 " in " + CharSequences.quote(this.text) +
+                this.appendToMessage;
+    }
+
+    /**
+     * Returns invalid character at position with quoting the entire {@link #text()}
+     * <pre>
+     * Invalid character '/' at 1
+     * </pre>
+     */
+    public String getShortMessage() {
+        return "Invalid character " + CharSequences.quoteIfChars(this.text.charAt(this.position)) +
+                " at " + this.position +
                 this.appendToMessage;
     }
 

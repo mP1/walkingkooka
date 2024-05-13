@@ -246,6 +246,14 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
     }
 
     @Test
+    public void testGetShortMessage() {
+        checkShortMessage(
+                this.create(),
+                "Invalid character \'!\' at 3"
+        );
+    }
+
+    @Test
     public void testGetMessageEscapedCharacter() {
         checkMessage(new InvalidCharacterException("abc\"123", 3),
                 "Invalid character \'\\\"\' at 3 in \"abc\"123\"");
@@ -255,6 +263,18 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
     public void testGetMessageAfterSetTextAndPosition() {
         checkMessage(this.create().setTextAndPosition("@@" + TEXT, 2 + POSITION),
                 "Invalid character \'!\' at 5 in \"@@abc!123\"");
+    }
+
+    @Test
+    public void testGetShortMessageAfterSetTextAndPosition() {
+        checkShortMessage(
+                this.create()
+                        .setTextAndPosition(
+                                "ABCDEFG",
+                                5
+                        ),
+                "Invalid character 'F' at 5"
+        );
     }
 
     private InvalidCharacterException create() {
@@ -280,6 +300,15 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
         this.checkEquals(text, exception.text(), "text");
         this.checkEquals(position, exception.position(), "position");
         this.checkEquals(appendToMessage, exception.appendToMessage, "appendToMessage");
+    }
+
+    private void checkShortMessage(final InvalidCharacterException exception,
+                                   final String expected) {
+        this.checkEquals(
+                expected,
+                exception.getShortMessage(),
+                () -> "getShortMessage"
+        );
     }
 
     // equals...........................................................................................................
