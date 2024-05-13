@@ -31,6 +31,10 @@ import java.util.function.Predicate;
  */
 public final class GlobPattern implements Predicate<CharSequence> {
 
+    final static GlobPattern EMPTY_CASE_SENSITIVE = empty(CaseSensitivity.SENSITIVE);
+
+    final static GlobPattern EMPTY_CASE_INSENSITIVE = empty(CaseSensitivity.INSENSITIVE);
+
     static GlobPattern parse(final String pattern,
                              final char escape,
                              final CaseSensitivity caseSensitivity) {
@@ -41,10 +45,6 @@ public final class GlobPattern implements Predicate<CharSequence> {
                 caseSensitivity.emptyGlobPattern() :
                 parseNonEmpty(pattern, escape, caseSensitivity);
     }
-
-    final static GlobPattern EMPTY_CASE_SENSITIVE = empty(CaseSensitivity.SENSITIVE);
-
-    final static GlobPattern EMPTY_CASE_INSENSITIVE = empty(CaseSensitivity.INSENSITIVE);
 
     private static GlobPattern empty(final CaseSensitivity caseSensitivity) {
         return new GlobPattern(
