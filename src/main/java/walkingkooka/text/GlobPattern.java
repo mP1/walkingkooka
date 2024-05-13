@@ -48,7 +48,7 @@ public final class GlobPattern implements Predicate<CharSequence> {
 
     private static GlobPattern empty(final CaseSensitivity caseSensitivity) {
         return new GlobPattern(
-                GlobPatternComponent.SENTINEL,
+                GlobPatternComponentSentinel.INSTANCE,
                 caseSensitivity,
                 ""
         );
@@ -164,7 +164,7 @@ public final class GlobPattern implements Predicate<CharSequence> {
     static GlobPatternComponent setNext(final List<GlobPatternComponent> components) {
         // setNext on all components
         GlobPatternComponent component = null;
-        GlobPatternComponent next = GlobPatternComponent.SENTINEL;
+        GlobPatternComponent next = GlobPatternComponentSentinel.INSTANCE;
 
         int i = components.size() - 1;
         while( i >= 0) {
