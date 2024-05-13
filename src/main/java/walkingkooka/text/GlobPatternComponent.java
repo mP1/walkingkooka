@@ -21,8 +21,6 @@ abstract class GlobPatternComponent {
 
     final static int STAR_MAX = Integer.MAX_VALUE;
 
-    final static GlobPatternComponent SENTINEL = GlobPatternComponentSentinel.INSTANCE;
-
     static GlobPatternComponent textLiteral(final String text) {
         return GlobPatternComponentTextLiteral.with(text);
     }
