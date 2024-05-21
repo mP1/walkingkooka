@@ -17,6 +17,7 @@
 
 package walkingkooka.io;
 
+import walkingkooka.CanBeEmpty;
 import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.Value;
@@ -30,7 +31,8 @@ import java.util.Optional;
  */
 public final class FileExtension implements
         Comparable<FileExtension>,
-        Value<String> {
+        Value<String>,
+        CanBeEmpty {
 
     /**
      * Extracts the file extension if present from the given filename.
@@ -114,5 +116,12 @@ public final class FileExtension implements
     @Override
     public int compareTo(final FileExtension other) {
         return CASE_SENSITIVITY.comparator().compare(this.value, other.value);
+    }
+
+    // CanBeEmpty.......................................................................................................
+
+    @Override
+    public boolean isEmpty() {
+        return this.value.isEmpty();
     }
 }
