@@ -18,6 +18,7 @@
 package walkingkooka.io;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.CanBeEmptyTesting;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.ToStringTesting;
 import walkingkooka.compare.ComparableTesting2;
@@ -28,7 +29,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class FileExtensionTest implements ComparableTesting2<FileExtension>,
-        ToStringTesting<FileExtension> {
+        ToStringTesting<FileExtension>,
+        CanBeEmptyTesting<FileExtension> {
 
     @Test
     public void testWithNullFails() {
@@ -123,6 +125,31 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
         this.compareToArraySortAndCheck(txt, exe, png, bin,
                 bin, exe, png, txt);
     }
+
+    // CanBeEmpty.......................................................................................................
+
+    @Test
+    public void testCanBeEmptyEmpty() {
+        this.isEmptyAndCheck(
+                FileExtension.with(""),
+                true
+        );
+    }
+
+    @Test
+    public void testCanBeEmptyNotEmpty() {
+        this.isEmptyAndCheck(
+                FileExtension.with("txt"),
+                false
+        );
+    }
+
+    @Override
+    public FileExtension createCanBeEmpty() {
+        return FileExtension.with("txt");
+    }
+
+    // ToString.........................................................................................................
 
     @Test
     public void testToString() {
