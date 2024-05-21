@@ -36,14 +36,11 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     }
 
     @Test
-    public void testWithEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> FileExtension.with(""));
-    }
-
-    @Test
     public void testWithContainsDotFails() {
         assertThrows(InvalidCharacterException.class, () -> FileExtension.with("a.b"));
     }
+
+    // extract..........................................................................................................
 
     @Test
     public void testExtractNullFails() {
@@ -67,18 +64,23 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
 
     @Test
     public void testExtractEmpty() {
-        this.fileExtensionAndCheck("file.");
+        this.fileExtensionAndCheck(
+                "file.",
+                Optional.of(
+                        FileExtension.with("")
+                )
+        );
     }
 
     private void fileExtensionAndCheck(final String filename) {
-        this.fileExtensionAndCheck0(filename, Optional.empty());
+        this.fileExtensionAndCheck(filename, Optional.empty());
     }
 
     private void fileExtensionAndCheck(final String filename, final String fileExtension) {
-        this.fileExtensionAndCheck0(filename, Optional.of(FileExtension.with(fileExtension)));
+        this.fileExtensionAndCheck(filename, Optional.of(FileExtension.with(fileExtension)));
     }
 
-    private void fileExtensionAndCheck0(final String filename, final Optional<FileExtension> fileExtension) {
+    private void fileExtensionAndCheck(final String filename, final Optional<FileExtension> fileExtension) {
         this.checkEquals(fileExtension,
                 FileExtension.extract(filename),
                 () -> CharSequences.quoteAndEscape(filename) + " file extension");
