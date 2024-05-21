@@ -20,6 +20,7 @@ package walkingkooka.collect.enumeration;
 import walkingkooka.reflect.PublicStaticHelper;
 
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 
 public final class Enumerations implements PublicStaticHelper {
@@ -29,6 +30,13 @@ public final class Enumerations implements PublicStaticHelper {
      */
     public static <E> Enumeration<E> chain(final List<Enumeration<E>> enumerations) {
         return EnumerationChain.with(enumerations);
+    }
+
+    /**
+     * {@see IteratorEnumeration}
+     */
+    public static <E> Enumeration<E> iterator(final Iterator<E> iterator) {
+        return IteratorEnumeration.with(iterator);
     }
 
     /**
