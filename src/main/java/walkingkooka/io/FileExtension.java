@@ -21,7 +21,6 @@ import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.Value;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -40,16 +39,20 @@ public final class FileExtension implements
         Objects.requireNonNull(filename, "filename");
 
         final int dot = filename.lastIndexOf(DOT);
-        return Optional.ofNullable(-1 == dot || dot == filename.length() - 1 ?
-                null :
-                with(filename.substring(dot + 1)));
+        return Optional.ofNullable(
+                -1 == dot ?
+                        null :
+                        with(
+                                filename.substring(dot + 1)
+                        )
+        );
     }
 
     /**
      * Factory that creates a {@link FileExtension}
      */
     public static FileExtension with(final String value) {
-        CharSequences.failIfNullOrEmpty(value, "value");
+        Objects.requireNonNull(value, "value");
 
         final int dot = value.indexOf(DOT);
         if (dot != -1) {
