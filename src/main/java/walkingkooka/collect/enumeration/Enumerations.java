@@ -19,7 +19,17 @@ package walkingkooka.collect.enumeration;
 
 import walkingkooka.reflect.PublicStaticHelper;
 
+import java.util.Enumeration;
+import java.util.List;
+
 public final class Enumerations implements PublicStaticHelper {
+
+    /**
+     * {@link EnumerationChain}
+     */
+    public static <E> Enumeration<E> chain(final List<Enumeration<E>> enumerations) {
+        return EnumerationChain.with(enumerations);
+    }
 
     /**
      * Stop creation
