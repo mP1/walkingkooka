@@ -19,6 +19,7 @@ package walkingkooka.reflect;
 
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.io.FileExtension;
 
 import java.util.Map;
 import java.util.Objects;
@@ -155,6 +156,35 @@ public final class ClassName extends JavaName<ClassName> {
     private ClassName(final String name) {
         super(name);
     }
+
+    /**
+     * Builds the filename form of this class file.
+     */
+    public String filename() {
+        final StringBuilder filename = new StringBuilder();
+
+        final PackageName packageName = this.parentPackage();
+        if (false == PackageName.UNNAMED.equals(packageName)) {
+            filename.append(
+                    this.parentPackage()
+                            .filename()
+            );
+        }
+
+        filename.append('/')
+                .append(
+                        this.nameWithoutPackage()
+                                .replace('.', '$')
+                );
+        filename.append('.');
+        filename.append(ClassName.CLASS_FILE_EXTENSION.value());
+        return filename.toString();
+    }
+
+    /**
+     * Holds the typical file extension for a class file.
+     */
+    public final static FileExtension CLASS_FILE_EXTENSION = FileExtension.with("class");
 
     /**
      * Returns the class name without the package. This is equivalent to {@link Class#getSimpleName()}.

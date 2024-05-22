@@ -20,6 +20,7 @@ package walkingkooka.reflect;
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 
+import java.util.Map;
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -154,6 +155,43 @@ public final class ClassNameTest extends PackageNameOrTypeNameJavaNameTestCase<C
         this.checkEquals(PackageName.with(pkg), typeName.parentPackage(), "parentPackage");
 
     }
+
+    // filename.........................................................................................................
+
+    @Test
+    public void testFilenameWithJavaLangObject() {
+        this.filenameAndCheck(
+                "java.lang.Object",
+                "/java/lang/Object.class"
+        );
+    }
+
+    @Test
+    public void testFilenameWithJavaUtilMapEntry() {
+        this.filenameAndCheck(
+                Map.Entry.class.getName(),
+                "/java/util/Map$Entry.class"
+        );
+    }
+
+    private void filenameAndCheck(final String name,
+                                  final String expected) {
+        this.filenameAndCheck(
+                ClassName.with(name),
+                expected
+        );
+    }
+
+    private void filenameAndCheck(final ClassName name,
+                                  final String expected) {
+        this.checkEquals(
+                expected,
+                name.filename(),
+                () -> name + " filename"
+        );
+    }
+
+    // name.............................................................................................................
 
     @Override
     public ClassName createName(final String name) {
