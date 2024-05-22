@@ -120,6 +120,19 @@ final public class PackageName extends JavaName<PackageName> {
         return this == PackageName.UNNAMED;
     }
 
+    // filename.........................................................................................................
+
+    /**
+     * Returns the directory name of this package.
+     */
+    public String filename() {
+        return '/' +
+                this.name.replace(
+                '.',
+                '/'
+        );
+    }
+
     // Object.............................................................................................................
 
     @Override
