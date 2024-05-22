@@ -123,11 +123,10 @@ final public class PackageName extends JavaName<PackageName> {
     // filename.........................................................................................................
 
     /**
-     * Returns the directory name of this package.
+     * Returns the directory name of this package. As per {@link java.lang.ClassLoader#getResourceAsStream} the path will not contain a leading slash.
      */
     public String filename() {
-        return '/' +
-                this.name.replace(
+        return this.name.replace(
                 '.',
                 '/'
         );

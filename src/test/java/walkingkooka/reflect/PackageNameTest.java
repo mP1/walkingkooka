@@ -187,7 +187,7 @@ public final class PackageNameTest extends PackageNameOrTypeNameJavaNameTestCase
     public void testFilenameWithJavaLangObject() {
         this.filenameAndCheck(
                 "java.lang.Object",
-                "/java/lang"
+                "java/lang"
         );
     }
 
@@ -195,7 +195,7 @@ public final class PackageNameTest extends PackageNameOrTypeNameJavaNameTestCase
     public void testFilenameWithJavaUtilMapEntry() {
         this.filenameAndCheck(
                 Map.Entry.class.getName(),
-                "/java/util"
+                "java/util"
         );
     }
 
