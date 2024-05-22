@@ -66,6 +66,35 @@ public interface Testing {
         return testName;
     }
 
+    default void checkEquals(final byte[] expected,
+                             final byte[] actual) {
+        this.checkEquals(
+                expected,
+                actual,
+                (String)null
+        );
+    }
+
+    default void checkEquals(final byte[] expected,
+                             final byte[] actual,
+                             final String message) {
+        this.checkEquals(
+                expected,
+                actual,
+                () -> message
+        );
+    }
+
+    default void checkEquals(final byte[] expected,
+                             final byte[] actual,
+                             final Supplier<String> message) {
+        assertEquals(
+                expected,
+                actual,
+                message
+        );
+    }
+    
     default void checkEquals(final Object expected, final Object actual) {
         this.checkEquals(expected, actual, (String)null);
     }
