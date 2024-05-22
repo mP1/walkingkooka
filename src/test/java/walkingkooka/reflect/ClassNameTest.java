@@ -22,10 +22,9 @@ import walkingkooka.InvalidCharacterException;
 
 import java.util.function.Predicate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class TypeNameTest extends PackageNameOrTypeNameJavaNameTestCase<ClassName> {
+public final class ClassNameTest extends PackageNameOrTypeNameJavaNameTestCase<ClassName> {
 
     @Test
     public void testFromClassNullFails() {
@@ -35,7 +34,7 @@ public final class TypeNameTest extends PackageNameOrTypeNameJavaNameTestCase<Cl
     @Test
     public void testFromClass() {
         final ClassName p = ClassName.fromClass(this.getClass());
-        this.checkValue(p, "walkingkooka.reflect.TypeNameTest");
+        this.checkValue(p, "walkingkooka.reflect.ClassNameTest");
     }
 
     @Test
