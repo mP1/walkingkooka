@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -88,7 +89,7 @@ public interface Testing {
     default void checkEquals(final byte[] expected,
                              final byte[] actual,
                              final Supplier<String> message) {
-        assertEquals(
+        assertArrayEquals(
                 expected,
                 actual,
                 message
