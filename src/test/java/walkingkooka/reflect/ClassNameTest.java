@@ -174,6 +174,14 @@ public final class ClassNameTest extends PackageNameOrTypeNameJavaNameTestCase<C
         );
     }
 
+    @Test
+    public void testFilenameWithUnnamedPackageClass() {
+        this.filenameAndCheck(
+                "UnnamedPackageClass",
+                "/UnnamedPackageClass.class"
+        );
+    }
+
     private void filenameAndCheck(final String name,
                                   final String expected) {
         this.filenameAndCheck(
