@@ -162,7 +162,7 @@ public final class ClassNameTest extends PackageNameOrTypeNameJavaNameTestCase<C
     public void testFilenameWithJavaLangObject() {
         this.filenameAndCheck(
                 "java.lang.Object",
-                "/java/lang/Object.class"
+                "java/lang/Object.class"
         );
     }
 
@@ -170,7 +170,7 @@ public final class ClassNameTest extends PackageNameOrTypeNameJavaNameTestCase<C
     public void testFilenameWithJavaUtilMapEntry() {
         this.filenameAndCheck(
                 Map.Entry.class.getName(),
-                "/java/util/Map$Entry.class"
+                "java/util/Map$Entry.class"
         );
     }
 
@@ -178,7 +178,7 @@ public final class ClassNameTest extends PackageNameOrTypeNameJavaNameTestCase<C
     public void testFilenameWithUnnamedPackageClass() {
         this.filenameAndCheck(
                 "UnnamedPackageClass",
-                "/UnnamedPackageClass.class"
+                "UnnamedPackageClass.class"
         );
     }
 

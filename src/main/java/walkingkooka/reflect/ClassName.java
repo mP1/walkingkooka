@@ -169,13 +169,13 @@ public final class ClassName extends JavaName<ClassName> {
                     this.parentPackage()
                             .filename()
             );
+            filename.append('/');
         }
 
-        filename.append('/')
-                .append(
-                        this.nameWithoutPackage()
-                                .replace('.', '$')
-                );
+        filename.append(
+                this.nameWithoutPackage()
+                        .replace('.', '$')
+        );
         filename.append('.');
         filename.append(ClassName.CLASS_FILE_EXTENSION.value());
         return filename.toString();
