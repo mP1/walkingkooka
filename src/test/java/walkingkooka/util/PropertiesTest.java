@@ -22,11 +22,13 @@ import walkingkooka.CanBeEmptyTesting;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -405,6 +407,63 @@ public final class PropertiesTest implements ClassTesting<Properties>,
                                 key3,
                                 value3
                         )
+        );
+    }
+
+    // keys.............................................................................................................
+
+    @Test
+    public void testKeysWhenEmpty() {
+        this.keysAndCheck(
+                Properties.EMPTY
+        );
+    }
+
+    @Test
+    public void testKeysWhenNotEmpty() {
+        final PropertiesPath key = PropertiesPath.parse("key.111");
+
+        this.keysAndCheck(
+                Properties.EMPTY.set(
+                        key,
+                        "*value11*"
+                ),
+                key
+        );
+    }
+
+    @Test
+    public void testKeysWhenNotEmpty2() {
+        final PropertiesPath key1 = PropertiesPath.parse("key.111");
+        final PropertiesPath key2 = PropertiesPath.parse("key.222");
+
+        this.keysAndCheck(
+                Properties.EMPTY.set(
+                        key1,
+                        "*value11*"
+                ).set(
+                        key2,
+                        "*value22*"
+                ),
+                key1,
+                key2
+        );
+    }
+
+    private void keysAndCheck(final Properties properties,
+                              final PropertiesPath... expected) {
+        this.keysAndCheck(
+                properties,
+                Sets.of(expected)
+        );
+    }
+
+    private void keysAndCheck(final Properties properties,
+                              final Set<PropertiesPath> expected) {
+        this.checkEquals(
+                expected,
+                properties.keys(),
+                () -> properties.toString()
         );
     }
 

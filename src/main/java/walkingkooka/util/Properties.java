@@ -19,10 +19,12 @@ package walkingkooka.util;
 
 import walkingkooka.CanBeEmpty;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.collect.set.Sets;
 
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * An immutable key/value store of {@link String values}.
@@ -110,6 +112,13 @@ public final class Properties implements CanBeEmpty {
 
     private static PropertiesPath check(final PropertiesPath path) {
         return Objects.requireNonNull(path, "path");
+    }
+
+    /**
+     * Read-only view of the keys in this properties object.
+     */
+    public Set<PropertiesPath> keys() {
+        return Sets.readOnly(this.pathToValue.keySet());
     }
 
     /**
