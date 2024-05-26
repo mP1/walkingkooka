@@ -469,6 +469,18 @@ public final class PropertiesTest implements ClassTesting<Properties>,
         );
     }
 
+    @Test
+    public void testKeysReadOnly() {
+        assertThrows(
+                UnsupportedOperationException.class,
+                () -> Properties.EMPTY.set(
+                                PropertiesPath.parse("key.111"),
+                                "value111"
+                        ).keys()
+                        .clear()
+        );
+    }
+
     // values.............................................................................................................
 
     @Test
@@ -525,6 +537,18 @@ public final class PropertiesTest implements ClassTesting<Properties>,
                         properties.values()
                 ),
                 () -> properties.toString()
+        );
+    }
+
+    @Test
+    public void testValuesReadOnly() {
+        assertThrows(
+                UnsupportedOperationException.class,
+                () -> Properties.EMPTY.set(
+                        PropertiesPath.parse("key.111"),
+                        "value111"
+                ).values()
+                        .clear()
         );
     }
 
