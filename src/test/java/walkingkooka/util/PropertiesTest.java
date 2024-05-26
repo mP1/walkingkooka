@@ -18,6 +18,7 @@
 package walkingkooka.util;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.CanBeEmptyTesting;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.map.Maps;
@@ -33,7 +34,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class PropertiesTest implements ClassTesting<Properties>,
         HashCodeEqualsDefinedTesting2<Properties>,
-        ToStringTesting<Properties> {
+        ToStringTesting<Properties>,
+        CanBeEmptyTesting<Properties> {
 
     // get..............................................................................................................
 
@@ -404,6 +406,32 @@ public final class PropertiesTest implements ClassTesting<Properties>,
                                 value3
                         )
         );
+    }
+
+    // canBeEmpty.......................................................................................................
+
+    @Test
+    public void testIsEmptyWhenEmpty() {
+        this.isEmptyAndCheck(
+                Properties.EMPTY,
+                true
+        );
+    }
+
+    @Test
+    public void testIsEmptyWhenNotEmpty() {
+        this.isEmptyAndCheck(
+                Properties.EMPTY.set(
+                        PropertiesPath.parse("key.111"),
+                        "*value*111"
+                ),
+                false
+        );
+    }
+
+    @Override
+    public Properties createCanBeEmpty() {
+        return Properties.EMPTY;
     }
 
     // equals...........................................................................................................

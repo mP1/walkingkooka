@@ -17,6 +17,7 @@
 
 package walkingkooka.util;
 
+import walkingkooka.CanBeEmpty;
 import walkingkooka.collect.map.Maps;
 
 import java.util.Map;
@@ -26,7 +27,7 @@ import java.util.Optional;
 /**
  * An immutable key/value store of {@link String values}.
  */
-public final class Properties {
+public final class Properties implements CanBeEmpty {
 
     /**
      * An empty {@link Properties}.
@@ -109,6 +110,14 @@ public final class Properties {
 
     private static PropertiesPath check(final PropertiesPath path) {
         return Objects.requireNonNull(path, "path");
+    }
+
+    /**
+     * Returns true if this properties is empty.
+     */
+    @Override
+    public boolean isEmpty() {
+        return this.pathToValue.isEmpty();
     }
 
     // @VisibleForTesting
