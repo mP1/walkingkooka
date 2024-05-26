@@ -113,6 +113,13 @@ public final class Properties implements CanBeEmpty {
     }
 
     /**
+     * Returns the number of entries.
+     */
+    public int size() {
+        return this.pathToValue.size();
+    }
+
+    /**
      * Returns true if this properties is empty.
      */
     @Override

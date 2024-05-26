@@ -434,6 +434,36 @@ public final class PropertiesTest implements ClassTesting<Properties>,
         return Properties.EMPTY;
     }
 
+    // size.............................................................................................................
+
+    @Test
+    public void testSizeWhenEmpty() {
+        this.sizeAndCheck(
+                Properties.EMPTY,
+                0
+        );
+    }
+
+    @Test
+    public void testSizeWhenNotEmpty() {
+        this.sizeAndCheck(
+                Properties.EMPTY.set(
+                        PropertiesPath.parse("key.111"),
+                        "*value11*"
+                ),
+                1
+        );
+    }
+
+    private void sizeAndCheck(final Properties properties,
+                              final int expected) {
+        this.checkEquals(
+                expected,
+                properties.size(),
+                () -> properties.toString()
+        );
+    }
+
     // equals...........................................................................................................
 
     @Test
