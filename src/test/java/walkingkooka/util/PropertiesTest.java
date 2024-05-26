@@ -29,6 +29,7 @@ import walkingkooka.reflect.JavaVisibility;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
 
@@ -412,6 +413,106 @@ public final class PropertiesTest implements ClassTesting<Properties>,
         );
     }
 
+    // entries..........................................................................................................
+
+    @Test
+    public void testEntriesWhenEmpty() {
+        this.entriesAndCheck(
+                Properties.EMPTY
+        );
+    }
+
+    @Test
+    public void testEntriesWhenNotEmpty() {
+        final PropertiesPath key = PropertiesPath.parse("key.111");
+        final String value = "*value1*";
+
+        this.entriesAndCheck(
+                Properties.EMPTY.set(
+                        key,
+                        value
+                ),
+                Maps.entry(
+                        key,
+                        value
+                )
+        );
+    }
+
+    @Test
+    public void testEntriesWhenNotEmpty2() {
+        final PropertiesPath key1 = PropertiesPath.parse("key.111");
+        final PropertiesPath key2 = PropertiesPath.parse("key.222");
+
+        final String value1 = "*value1*";
+        final String value2 = "*value2*";
+
+        this.entriesAndCheck(
+                Properties.EMPTY.set(
+                        key1,
+                        value1
+                ).set(
+                        key2,
+                        value2
+                ),
+                Maps.entry(
+                        key1,
+                        value1
+                ),
+                Maps.entry(
+                        key2,
+                        value2
+                )
+        );
+    }
+
+    private void entriesAndCheck(final Properties properties,
+                                 final Entry<PropertiesPath, String>... expected) {
+        this.entriesAndCheck(
+                properties,
+                Sets.of(expected)
+        );
+    }
+
+    private void entriesAndCheck(final Properties properties,
+                                 final Set<Entry<PropertiesPath, String>> expected) {
+        final Map<PropertiesPath, String> expectedMap = Maps.sorted();
+        for(final Entry<PropertiesPath, String> entry : expected) {
+            expectedMap.put(
+                    entry.getKey(),
+                    entry.getValue()
+            );
+        }
+
+        final Map<PropertiesPath, String> actualMap = Maps.sorted();
+        for(final Entry<PropertiesPath, String> entry : properties.entries()) {
+            actualMap.put(
+                    entry.getKey(),
+                    entry.getValue()
+            );
+        }
+
+        // cant compare Set<Entry> because Entry.hashCode is not defined
+
+        this.checkEquals(
+                expectedMap,
+                actualMap,
+                () -> properties.toString()
+        );
+    }
+
+    @Test
+    public void testEntriesReadOnly() {
+        assertThrows(
+                UnsupportedOperationException.class,
+                () -> Properties.EMPTY.set(
+                                PropertiesPath.parse("key.111"),
+                                "value111"
+                        ).entries()
+                        .clear()
+        );
+    }
+    
     // keys.............................................................................................................
 
     @Test

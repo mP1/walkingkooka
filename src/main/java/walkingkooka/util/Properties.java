@@ -24,6 +24,7 @@ import walkingkooka.collect.set.Sets;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -114,6 +115,15 @@ public final class Properties implements CanBeEmpty {
 
     private static PropertiesPath check(final PropertiesPath path) {
         return Objects.requireNonNull(path, "path");
+    }
+
+    /**
+     * Read-only view of the entries in this properties object.
+     */
+    public Set<Entry<PropertiesPath, String>> entries() {
+        return Sets.readOnly(
+                this.pathToValue.entrySet()
+        );
     }
 
     /**
