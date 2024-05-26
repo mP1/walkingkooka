@@ -26,6 +26,8 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -463,6 +465,65 @@ public final class PropertiesTest implements ClassTesting<Properties>,
         this.checkEquals(
                 expected,
                 properties.keys(),
+                () -> properties.toString()
+        );
+    }
+
+    // values.............................................................................................................
+
+    @Test
+    public void testValuesWhenEmpty() {
+        this.valuesAndCheck(
+                Properties.EMPTY
+        );
+    }
+
+    @Test
+    public void testValuesWhenNotEmpty() {
+        final String value = "*value11*";
+
+        this.valuesAndCheck(
+                Properties.EMPTY.set(
+                        PropertiesPath.parse("key.111"),
+                        value
+                ),
+                value
+        );
+    }
+
+    @Test
+    public void testValuesWhenNotEmpty2() {
+        final String value1 = "*value11*";
+        final String value2 = "*value22*";
+
+        this.valuesAndCheck(
+                Properties.EMPTY.set(
+                        PropertiesPath.parse("key.111"),
+                        value1
+                ).set(
+                        PropertiesPath.parse("key.222"),
+                        value2
+                ),
+                value1,
+                value2
+        );
+    }
+
+    private void valuesAndCheck(final Properties properties,
+                                final String... expected) {
+        this.valuesAndCheck(
+                properties,
+                Sets.of(expected)
+        );
+    }
+
+    private void valuesAndCheck(final Properties properties,
+                                final Collection<String> expected) {
+        this.checkEquals(
+                new ArrayList<>(expected),
+                new ArrayList<>(
+                        properties.values()
+                ),
                 () -> properties.toString()
         );
     }
