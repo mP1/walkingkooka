@@ -17,6 +17,7 @@
 
 package walkingkooka.util;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Value;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
@@ -30,6 +31,7 @@ import java.util.Optional;
  * Represents a system property with methods to interact with values.<br>
  * <a href="https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html"></a>
  */
+@GwtIncompatible
 final public class SystemProperty implements Value<String> {
 
     /**
