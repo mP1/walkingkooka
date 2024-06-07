@@ -449,6 +449,7 @@ public enum CaseSensitivity {
                 .orElse(null);
     }
 
+    @GwtIncompatible
     private static CaseSensitivity fromSystemProperty0(final String systemPropertyValue) {
         return Boolean.parseBoolean(systemPropertyValue) ?
                 SENSITIVE :
