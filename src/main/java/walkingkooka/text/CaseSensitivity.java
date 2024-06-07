@@ -30,7 +30,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
- * May be used of an option and includes numerous helpful methods.
+ * Useful when text or {@link CharSequence} case sensitivity operations or awareness may be important or of some utility.
  */
 public enum CaseSensitivity {
 
