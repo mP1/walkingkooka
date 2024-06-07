@@ -25,9 +25,6 @@
 #
 # util
 #
-# Properties and properties files are not supported by j2cl (yet?)
-**/Properties*
-
 # Filter SystemProperty and collaborators
 **/MissingSystemProperty*
 **/SystemProperty*
