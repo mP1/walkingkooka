@@ -19,8 +19,8 @@ package walkingkooka.naming;
 
 
 import walkingkooka.Cast;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
 
 /**
@@ -35,13 +35,17 @@ final public class StringName implements Name,
     final static StringName ROOT = new StringName("");
 
     /**
-     * Factory that creates a {@link StringName}, only the root path has this name.
+     * Factory that creates a {@link StringName}
      */
     static StringName with(final String name) {
         Whitespace.failIfNullOrEmptyOrWhitespace(name, "name");
-        if (-1 != name.indexOf(StringPath.SEPARATOR.character())) {
-            throw new IllegalArgumentException("Name " + CharSequences.quote(name) +
-                    " cannot contain " + CharSequences.quoteIfChars(StringPath.SEPARATOR.character()));
+
+        final int invalid = name.indexOf(StringPath.SEPARATOR.character());
+        if (-1 != invalid) {
+            throw new InvalidCharacterException(
+                    name,
+                    invalid
+            );
         }
 
         return new StringName(name);
