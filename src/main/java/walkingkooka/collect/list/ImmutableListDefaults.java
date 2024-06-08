@@ -29,12 +29,17 @@ import java.util.Objects;
  */
 public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends ImmutableList<E> {
 
+    /**
+     * Would be setter, that creates a new instance if the new elements are different otherwise returns true.
+     */
     T setElements(final List<E> elements);
 
     /**
      * Useful setElements for classes that cannot easily create another instance with the new elements.
      */
     default T setElementsFailIfDifferent(final List<E> elements) {
+        Objects.requireNonNull(elements, "elements");
+
         if (false == this.equals(elements)) {
             Objects.requireNonNull(elements, "elements");
             throw new UnsupportedOperationException();
@@ -63,7 +68,6 @@ public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends Im
         }
 
         return (T)swapped;
-
     }
 
     /**
@@ -80,7 +84,7 @@ public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends Im
      * Returns a new instance of this {@link ImmutableList} with the element appended.
      */
     default T replace(final int index,
-                                     final E element) {
+                      final E element) {
         final List<E> list = this.toList();
         final E replaced = list.set(
                 index,
