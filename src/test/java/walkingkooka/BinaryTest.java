@@ -73,13 +73,13 @@ public final class BinaryTest implements CanBeEmptyTesting,
         assertSame(Binary.EMPTY, Binary.with(new byte[0]));
     }
 
-    // find.............................................................................................................
+    // indexOf..........................................................................................................
 
     @Test
-    public void testFindNullFindBytesFails() {
+    public void testIndexOfNullFindBytesFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> Binary.EMPTY.find(
+                () -> Binary.EMPTY.indexOf(
                         null,
                         0
                 )
@@ -87,10 +87,10 @@ public final class BinaryTest implements CanBeEmptyTesting,
     }
 
     @Test
-    public void testFindNullFindStartLessThanZeroFails() {
+    public void testIndexOfNullFindStartLessThanZeroFails() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> Binary.EMPTY.find(
+                () -> Binary.EMPTY.indexOf(
                         new byte[0],
                         -1
                 )
@@ -98,10 +98,10 @@ public final class BinaryTest implements CanBeEmptyTesting,
     }
 
     @Test
-    public void testFindNullFindStartAfterEndFails() {
+    public void testIndexOfNullFindStartAfterEndFails() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> Binary.EMPTY.find(
+                () -> Binary.EMPTY.indexOf(
                         new byte[1],
                         1
                 )
@@ -109,8 +109,8 @@ public final class BinaryTest implements CanBeEmptyTesting,
     }
 
     @Test
-    public void testFindEmptyFind() {
-        this.findAndCheck(
+    public void testIndexOfEmptyFind() {
+        this.indexOfAndCheck(
                 new byte[10],
                 new byte[0],
                 0,
@@ -119,8 +119,8 @@ public final class BinaryTest implements CanBeEmptyTesting,
     }
 
     @Test
-    public void testFindEmptyFindLengthGreaterThanBinary() {
-        this.findAndCheck(
+    public void testIndexOfEmptyFindLengthGreaterThanBinary() {
+        this.indexOfAndCheck(
                 new byte[1],
                 new byte[2],
                 0,
@@ -129,8 +129,8 @@ public final class BinaryTest implements CanBeEmptyTesting,
     }
 
     @Test
-    public void testFindNotFound() {
-        this.findAndCheck(
+    public void testIndexOfNotFound() {
+        this.indexOfAndCheck(
                 "0123456789",
                 "A",
                 0,
@@ -139,8 +139,8 @@ public final class BinaryTest implements CanBeEmptyTesting,
     }
 
     @Test
-    public void testFindNotFound2() {
-        this.findAndCheck(
+    public void testIndexOfNotFound2() {
+        this.indexOfAndCheck(
                 "0123456789",
                 "ABC",
                 0,
@@ -149,8 +149,8 @@ public final class BinaryTest implements CanBeEmptyTesting,
     }
 
     @Test
-    public void testFindSame() {
-        this.findAndCheck(
+    public void testIndexOfSame() {
+        this.indexOfAndCheck(
                 "abc",
                 "abc",
                 0,
@@ -159,8 +159,8 @@ public final class BinaryTest implements CanBeEmptyTesting,
     }
 
     @Test
-    public void testFindBeginning() {
-        this.findAndCheck(
+    public void testIndexOfBeginning() {
+        this.indexOfAndCheck(
                 "abcdef",
                 "abc",
                 0,
@@ -169,8 +169,8 @@ public final class BinaryTest implements CanBeEmptyTesting,
     }
 
     @Test
-    public void testFindMiddle() {
-        this.findAndCheck(
+    public void testIndexOfMiddle() {
+        this.indexOfAndCheck(
                 "abcdef",
                 "cde",
                 0,
@@ -179,8 +179,8 @@ public final class BinaryTest implements CanBeEmptyTesting,
     }
 
     @Test
-    public void testFindEnd() {
-        this.findAndCheck(
+    public void testIndexOfEnd() {
+        this.indexOfAndCheck(
                 "abcdef",
                 "def",
                 0,
@@ -189,8 +189,8 @@ public final class BinaryTest implements CanBeEmptyTesting,
     }
 
     @Test
-    public void testFindBeginningWithStartOffset() {
-        this.findAndCheck(
+    public void testIndexOfBeginningWithStartOffset() {
+        this.indexOfAndCheck(
                 "abcdef",
                 "abc",
                 1,
@@ -199,8 +199,8 @@ public final class BinaryTest implements CanBeEmptyTesting,
     }
 
     @Test
-    public void testFindMiddleWithStartOffset() {
-        this.findAndCheck(
+    public void testIndexOfMiddleWithStartOffset() {
+        this.indexOfAndCheck(
                 "abcdef",
                 "cde",
                 1,
@@ -209,8 +209,8 @@ public final class BinaryTest implements CanBeEmptyTesting,
     }
 
     @Test
-    public void testFindEndWithStartOffset() {
-        this.findAndCheck(
+    public void testIndexOfEndWithStartOffset() {
+        this.indexOfAndCheck(
                 "abcdef",
                 "def",
                 1,
@@ -218,41 +218,41 @@ public final class BinaryTest implements CanBeEmptyTesting,
         );
     }
 
-    private void findAndCheck(final String binaryAscii,
-                              final String findAscii,
-                              final int start,
-                              final int expected) {
-        this.findAndCheck(
+    private void indexOfAndCheck(final String binaryAscii,
+                                 final String bytesAscii,
+                                 final int start,
+                                 final int expected) {
+        this.indexOfAndCheck(
                 binaryAscii.getBytes(StandardCharsets.UTF_8),
-                findAscii.getBytes(StandardCharsets.UTF_8),
+                bytesAscii.getBytes(StandardCharsets.UTF_8),
                 start,
                 expected
         );
     }
 
-    private void findAndCheck(final byte[] binary,
-                              final byte[] find,
-                              final int start,
-                              final int expected) {
-        this.findAndCheck(
+    private void indexOfAndCheck(final byte[] binary,
+                                 final byte[] bytes,
+                                 final int start,
+                                 final int expected) {
+        this.indexOfAndCheck(
                 Binary.with(binary),
-                find,
+                bytes,
                 start,
                 expected
         );
     }
 
-    private void findAndCheck(final Binary binary,
-                              final byte[] find,
-                              final int start,
-                              final int expected) {
+    private void indexOfAndCheck(final Binary binary,
+                                 final byte[] bytes,
+                                 final int start,
+                                 final int expected) {
         this.checkEquals(
                 expected,
-                binary.find(
-                        find,
+                binary.indexOf(
+                        bytes,
                         start
                 ),
-                () -> "find " + Arrays.toString(find) + " start " + start
+                () -> "indexOf " + Arrays.toString(bytes) + " start " + start
         );
     }
 

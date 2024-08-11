@@ -66,12 +66,12 @@ public final class Binary implements Value<byte[]>,
     }
 
     /**
-     * Attempts to find the given bytes within this binary, returning the index of any match with -1 meaning it was not found.
+     * Attempts to find the starting index of the given bytes within this binary, returning the index of any match with -1 meaning it was not found.
      * This is useful for operations such as finding a multi-part boundary with a Binary.
      */
-    public int find(final byte[] find,
-                    final int start) {
-        Objects.requireNonNull(find, "find");
+    public int indexOf(final byte[] bytes,
+                       final int start) {
+        Objects.requireNonNull(bytes, "bytes");
 
         final byte[] binary = this.value;
         final int binaryLength = binary.length;
@@ -81,12 +81,12 @@ public final class Binary implements Value<byte[]>,
 
         int found = -1;
 
-        final int findLength = find.length;
+        final int findLength = bytes.length;
 
         // $find cannot be found if its longer than value.length
         if (findLength > 0 && findLength <= binary.length) {
             final byte[] copy = Arrays.copyOf(
-                    find,
+                    bytes,
                     findLength
             );
 
