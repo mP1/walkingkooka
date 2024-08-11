@@ -70,13 +70,17 @@ public final class Binary implements Value<byte[]>,
      * This is useful for operations such as finding a multi-part boundary with a Binary.
      */
     public int indexOf(final byte[] bytes,
-                       final int start) {
+                       final int start,
+                       final int end) {
         Objects.requireNonNull(bytes, "bytes");
 
         final byte[] binary = this.value;
         final int binaryLength = binary.length;
         if (start < 0 || start > binaryLength) {
             throw new IllegalArgumentException("Got " + start + " not within 0 and " + binaryLength);
+        }
+        if(end < start || end > binaryLength) {
+            throw new IllegalArgumentException("Got " + end + " not within " + start + " and " + binaryLength);
         }
 
         int found = -1;
@@ -90,7 +94,7 @@ public final class Binary implements Value<byte[]>,
                     findLength
             );
 
-            final int last = binaryLength - (findLength - 1);
+            final int last = end - (findLength - 1);
             final byte firstByte = copy[0];
 
             OuterLoop:

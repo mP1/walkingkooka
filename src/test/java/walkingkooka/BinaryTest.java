@@ -81,7 +81,8 @@ public final class BinaryTest implements CanBeEmptyTesting,
                 NullPointerException.class,
                 () -> Binary.EMPTY.indexOf(
                         null,
-                        0
+                        0, // start
+                        0 // end
                 )
         );
     }
@@ -92,7 +93,8 @@ public final class BinaryTest implements CanBeEmptyTesting,
                 IllegalArgumentException.class,
                 () -> Binary.EMPTY.indexOf(
                         new byte[0],
-                        -1
+                        -1, // start
+                        0 // end
                 )
         );
     }
@@ -103,7 +105,32 @@ public final class BinaryTest implements CanBeEmptyTesting,
                 IllegalArgumentException.class,
                 () -> Binary.EMPTY.indexOf(
                         new byte[1],
-                        1
+                        1, // start
+                        1 // end
+                )
+        );
+    }
+
+    @Test
+    public void testIndexOfNullEndBeforeStartFails() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> Binary.EMPTY.indexOf(
+                        new byte[10],
+                        1, // start
+                        0 // end
+                )
+        );
+    }
+
+    @Test
+    public void testIndexOfNullEndAfterEndFails() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> Binary.EMPTY.indexOf(
+                        new byte[10],
+                        1, // start
+                        10 // end
                 )
         );
     }
@@ -113,17 +140,8 @@ public final class BinaryTest implements CanBeEmptyTesting,
         this.indexOfAndCheck(
                 new byte[10],
                 new byte[0],
-                0,
-                -1
-        );
-    }
-
-    @Test
-    public void testIndexOfEmptyFindLengthGreaterThanBinary() {
-        this.indexOfAndCheck(
-                new byte[1],
-                new byte[2],
-                0,
+                0, // start
+                0, // end
                 -1
         );
     }
@@ -133,7 +151,8 @@ public final class BinaryTest implements CanBeEmptyTesting,
         this.indexOfAndCheck(
                 "0123456789",
                 "A",
-                0,
+                0, // start
+                10, // end
                 -1
         );
     }
@@ -143,7 +162,8 @@ public final class BinaryTest implements CanBeEmptyTesting,
         this.indexOfAndCheck(
                 "0123456789",
                 "ABC",
-                0,
+                0, // start
+                10, // end
                 -1
         );
     }
@@ -153,7 +173,8 @@ public final class BinaryTest implements CanBeEmptyTesting,
         this.indexOfAndCheck(
                 "abc",
                 "abc",
-                0,
+                0, // start
+                3, // end
                 0
         );
     }
@@ -163,7 +184,8 @@ public final class BinaryTest implements CanBeEmptyTesting,
         this.indexOfAndCheck(
                 "abcdef",
                 "abc",
-                0,
+                0, // start
+                6, // end
                 0
         );
     }
@@ -173,7 +195,8 @@ public final class BinaryTest implements CanBeEmptyTesting,
         this.indexOfAndCheck(
                 "abcdef",
                 "cde",
-                0,
+                0, // start
+                6, // end
                 2
         );
     }
@@ -183,7 +206,8 @@ public final class BinaryTest implements CanBeEmptyTesting,
         this.indexOfAndCheck(
                 "abcdef",
                 "def",
-                0,
+                0, // start
+                6, // end
                 3
         );
     }
@@ -193,7 +217,8 @@ public final class BinaryTest implements CanBeEmptyTesting,
         this.indexOfAndCheck(
                 "abcdef",
                 "abc",
-                1,
+                1, // start
+                6, // end
                 -1
         );
     }
@@ -203,7 +228,8 @@ public final class BinaryTest implements CanBeEmptyTesting,
         this.indexOfAndCheck(
                 "abcdef",
                 "cde",
-                1,
+                1, // start
+                6, // end
                 2
         );
     }
@@ -213,19 +239,33 @@ public final class BinaryTest implements CanBeEmptyTesting,
         this.indexOfAndCheck(
                 "abcdef",
                 "def",
-                1,
+                1, // start
+                6, // end
                 3
+        );
+    }
+
+    @Test
+    public void testIndexOfWithStartAndEnd() {
+        this.indexOfAndCheck(
+                "abcdefgh",
+                "def",
+                1, // start
+                5, // end
+                -1
         );
     }
 
     private void indexOfAndCheck(final String binaryAscii,
                                  final String bytesAscii,
                                  final int start,
+                                 final int end,
                                  final int expected) {
         this.indexOfAndCheck(
                 binaryAscii.getBytes(StandardCharsets.UTF_8),
                 bytesAscii.getBytes(StandardCharsets.UTF_8),
                 start,
+                end,
                 expected
         );
     }
@@ -233,11 +273,13 @@ public final class BinaryTest implements CanBeEmptyTesting,
     private void indexOfAndCheck(final byte[] binary,
                                  final byte[] bytes,
                                  final int start,
+                                 final int end,
                                  final int expected) {
         this.indexOfAndCheck(
                 Binary.with(binary),
                 bytes,
                 start,
+                end,
                 expected
         );
     }
@@ -245,14 +287,16 @@ public final class BinaryTest implements CanBeEmptyTesting,
     private void indexOfAndCheck(final Binary binary,
                                  final byte[] bytes,
                                  final int start,
+                                 final int end,
                                  final int expected) {
         this.checkEquals(
                 expected,
                 binary.indexOf(
                         bytes,
-                        start
+                        start,
+                        end
                 ),
-                () -> "indexOf " + Arrays.toString(bytes) + " start " + start
+                () -> "indexOf " + Arrays.toString(bytes) + " start " + start + " end " + end
         );
     }
 
