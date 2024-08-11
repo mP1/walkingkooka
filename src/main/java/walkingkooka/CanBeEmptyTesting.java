@@ -23,11 +23,9 @@ import java.util.function.Supplier;
 /**
  * Mixing interface that provides methods to test a {@link CanBeEmpty}
  */
-public interface CanBeEmptyTesting<C extends CanBeEmpty> extends Testing {
+public interface CanBeEmptyTesting extends Testing {
 
-    C createCanBeEmpty();
-
-    default void isEmptyAndCheck(final C canBeEmpty,
+    default void isEmptyAndCheck(final CanBeEmpty canBeEmpty,
                                  final boolean expected) {
         this.isEmptyAndCheck(
                 canBeEmpty,
@@ -36,7 +34,7 @@ public interface CanBeEmptyTesting<C extends CanBeEmpty> extends Testing {
         );
     }
 
-    default void isEmptyAndCheck(final C canBeEmpty,
+    default void isEmptyAndCheck(final CanBeEmpty canBeEmpty,
                                  final boolean expected,
                                  final String message) {
         this.isEmptyAndCheck(
@@ -46,7 +44,7 @@ public interface CanBeEmptyTesting<C extends CanBeEmpty> extends Testing {
         );
     }
 
-    default void isEmptyAndCheck(final C canBeEmpty,
+    default void isEmptyAndCheck(final CanBeEmpty canBeEmpty,
                                  final boolean expected,
                                  final Supplier<String> message) {
         this.checkEquals(

@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class FileExtensionTest implements ComparableTesting2<FileExtension>,
         ToStringTesting<FileExtension>,
-        CanBeEmptyTesting<FileExtension> {
+        CanBeEmptyTesting {
 
     @Test
     public void testWithNullFails() {
@@ -142,11 +142,6 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
                 FileExtension.with("txt"),
                 false
         );
-    }
-
-    @Override
-    public FileExtension createCanBeEmpty() {
-        return FileExtension.with("txt");
     }
 
     // ToString.........................................................................................................
