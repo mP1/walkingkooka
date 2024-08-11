@@ -31,7 +31,8 @@ import java.util.zip.GZIPOutputStream;
 /**
  * A {@link Value} that holds a byte array.
  */
-public final class Binary implements Value<byte[]> {
+public final class Binary implements Value<byte[]>,
+        CanBeEmpty {
 
     /**
      * A {@link Binary} with zero bytes.
@@ -153,6 +154,13 @@ public final class Binary implements Value<byte[]> {
      */
     public InputStream inputStream() {
         return new ByteArrayInputStream(this.value);
+    }
+
+    // CanBeEmpty.......................................................................................................
+
+    @Override
+    public boolean isEmpty() {
+        return 0 == this.size();
     }
 
     // Object...........................................................................................................
