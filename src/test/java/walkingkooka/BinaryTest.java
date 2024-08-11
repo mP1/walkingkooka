@@ -24,6 +24,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -69,6 +70,189 @@ public final class BinaryTest implements HashCodeEqualsDefinedTesting2<Binary>,
     @Test
     public void testWithZeroByteArray() {
         assertSame(Binary.EMPTY, Binary.with(new byte[0]));
+    }
+
+    // find.............................................................................................................
+
+    @Test
+    public void testFindNullFindBytesFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> Binary.EMPTY.find(
+                        null,
+                        0
+                )
+        );
+    }
+
+    @Test
+    public void testFindNullFindStartLessThanZeroFails() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> Binary.EMPTY.find(
+                        new byte[0],
+                        -1
+                )
+        );
+    }
+
+    @Test
+    public void testFindNullFindStartAfterEndFails() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> Binary.EMPTY.find(
+                        new byte[1],
+                        1
+                )
+        );
+    }
+
+    @Test
+    public void testFindEmptyFind() {
+        this.findAndCheck(
+                new byte[10],
+                new byte[0],
+                0,
+                -1
+        );
+    }
+
+    @Test
+    public void testFindEmptyFindLengthGreaterThanBinary() {
+        this.findAndCheck(
+                new byte[1],
+                new byte[2],
+                0,
+                -1
+        );
+    }
+
+    @Test
+    public void testFindNotFound() {
+        this.findAndCheck(
+                "0123456789",
+                "A",
+                0,
+                -1
+        );
+    }
+
+    @Test
+    public void testFindNotFound2() {
+        this.findAndCheck(
+                "0123456789",
+                "ABC",
+                0,
+                -1
+        );
+    }
+
+    @Test
+    public void testFindSame() {
+        this.findAndCheck(
+                "abc",
+                "abc",
+                0,
+                0
+        );
+    }
+
+    @Test
+    public void testFindBeginning() {
+        this.findAndCheck(
+                "abcdef",
+                "abc",
+                0,
+                0
+        );
+    }
+
+    @Test
+    public void testFindMiddle() {
+        this.findAndCheck(
+                "abcdef",
+                "cde",
+                0,
+                2
+        );
+    }
+
+    @Test
+    public void testFindEnd() {
+        this.findAndCheck(
+                "abcdef",
+                "def",
+                0,
+                3
+        );
+    }
+
+    @Test
+    public void testFindBeginningWithStartOffset() {
+        this.findAndCheck(
+                "abcdef",
+                "abc",
+                1,
+                -1
+        );
+    }
+
+    @Test
+    public void testFindMiddleWithStartOffset() {
+        this.findAndCheck(
+                "abcdef",
+                "cde",
+                1,
+                2
+        );
+    }
+
+    @Test
+    public void testFindEndWithStartOffset() {
+        this.findAndCheck(
+                "abcdef",
+                "def",
+                1,
+                3
+        );
+    }
+
+    private void findAndCheck(final String binaryAscii,
+                              final String findAscii,
+                              final int start,
+                              final int expected) {
+        this.findAndCheck(
+                binaryAscii.getBytes(StandardCharsets.UTF_8),
+                findAscii.getBytes(StandardCharsets.UTF_8),
+                start,
+                expected
+        );
+    }
+
+    private void findAndCheck(final byte[] binary,
+                              final byte[] find,
+                              final int start,
+                              final int expected) {
+        this.findAndCheck(
+                Binary.with(binary),
+                find,
+                start,
+                expected
+        );
+    }
+
+    private void findAndCheck(final Binary binary,
+                              final byte[] find,
+                              final int start,
+                              final int expected) {
+        this.checkEquals(
+                expected,
+                binary.find(
+                        find,
+                        start
+                ),
+                () -> "find " + Arrays.toString(find) + " start " + start
+        );
     }
 
     // extract.........................................................................................................

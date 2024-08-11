@@ -65,6 +65,55 @@ public final class Binary implements Value<byte[]> {
     }
 
     /**
+     * Attempts to find the given bytes within this binary, returning the index of any match with -1 meaning it was not found.
+     * This is useful for operations such as finding a multi-part boundary with a Binary.
+     */
+    public int find(final byte[] find,
+                    final int start) {
+        Objects.requireNonNull(find, "find");
+
+        final byte[] binary = this.value;
+        final int binaryLength = binary.length;
+        if (start < 0 || start > binaryLength) {
+            throw new IllegalArgumentException("Got " + start + " not within 0 and " + binaryLength);
+        }
+
+        int found = -1;
+
+        final int findLength = find.length;
+
+        // $find cannot be found if its longer than value.length
+        if (findLength > 0 && findLength <= binary.length) {
+            final byte[] copy = Arrays.copyOf(
+                    find,
+                    findLength
+            );
+
+            final int last = binaryLength - (findLength - 1);
+            final byte firstByte = copy[0];
+
+            OuterLoop:
+            for (int i = start; i < last; i++) {
+                if (firstByte == binary[i]) {
+                    found = i;
+
+                    for (int j = 1; j < findLength; j++) {
+                        if (copy[j] != binary[i + j]) {
+                            found = -1;
+                            break OuterLoop;
+                        }
+                    }
+
+                    // found!
+                    break;
+                }
+            }
+        }
+
+        return found;
+    }
+
+    /**
      * Extracts a {@link Binary} that matches the given {@link Range}.
      */
     public Binary extract(final Range<Long> range) {
