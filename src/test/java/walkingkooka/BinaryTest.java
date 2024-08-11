@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public final class BinaryTest implements CanBeEmptyTesting<Binary>,
+public final class BinaryTest implements CanBeEmptyTesting,
         HashCodeEqualsDefinedTesting2<Binary>,
         ToStringTesting<Binary> {
 
@@ -272,11 +272,6 @@ public final class BinaryTest implements CanBeEmptyTesting<Binary>,
                 Binary.with("abc".getBytes(Charset.defaultCharset())),
                 false
         );
-    }
-
-    @Override
-    public Binary createCanBeEmpty() {
-        return Binary.EMPTY;
     }
 
     // extract.........................................................................................................

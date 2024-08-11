@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 public interface TextCursorTesting2<C extends TextCursor>
         extends TextCursorTesting,
-        CanBeEmptyTesting<TextCursor>,
+        CanBeEmptyTesting,
         TypeNameTesting<C> {
 
     @Test
@@ -232,12 +232,5 @@ public interface TextCursorTesting2<C extends TextCursor>
     @Override
     default String typeNameSuffix() {
         return TextCursor.class.getSimpleName();
-    }
-
-    // CanBeEmptyTesting................................................................................................
-
-    @Override
-    default C createCanBeEmpty() {
-        return this.createTextCursor();
     }
 }
