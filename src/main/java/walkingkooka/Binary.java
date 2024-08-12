@@ -79,7 +79,7 @@ public final class Binary implements Value<byte[]>,
         if (start < 0 || start > binaryLength) {
             throw new IllegalArgumentException("Got " + start + " not within 0 and " + binaryLength);
         }
-        if(end < start || end > binaryLength) {
+        if (end < start || end > binaryLength) {
             throw new IllegalArgumentException("Got " + end + " not within " + start + " and " + binaryLength);
         }
 
@@ -97,7 +97,6 @@ public final class Binary implements Value<byte[]>,
             final int last = end - (findLength - 1);
             final byte firstByte = copy[0];
 
-            OuterLoop:
             for (int i = start; i < last; i++) {
                 if (firstByte == binary[i]) {
                     found = i;
@@ -105,12 +104,14 @@ public final class Binary implements Value<byte[]>,
                     for (int j = 1; j < findLength; j++) {
                         if (copy[j] != binary[i + j]) {
                             found = -1;
-                            break OuterLoop;
+                            break;
                         }
                     }
 
                     // found!
-                    break;
+                    if (-1 != found) {
+                        break;
+                    }
                 }
             }
         }
