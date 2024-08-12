@@ -180,6 +180,28 @@ public final class BinaryTest implements CanBeEmptyTesting,
     }
 
     @Test
+    public void testIndexOfFalseMatch() {
+        this.indexOfAndCheck(
+                "a123a1234",
+                "a1234",
+                0, // start
+                9, // end
+                4
+        );
+    }
+
+    @Test
+    public void testIndexOfFalseMatch2() {
+        this.indexOfAndCheck(
+                "a123a456",
+                "a456",
+                0, // start
+                8, // end
+                4
+        );
+    }
+
+    @Test
     public void testIndexOfBeginning() {
         this.indexOfAndCheck(
                 "abcdef",
