@@ -21,6 +21,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.text.CharSequences;
 
+import java.util.function.Function;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
@@ -43,8 +45,19 @@ public interface ParseStringTesting<T> extends Testing {
      */
     T parseString(final String text);
 
-    default T parseStringAndCheck(final String text, final T value) {
-        final T parsed = this.parseString(text);
+    default T parseStringAndCheck(final String text,
+                                  final T value) {
+        return this.parseStringAndCheck(
+                this::parseString,
+                text,
+                value
+        );
+    }
+
+    default <TT> TT parseStringAndCheck(final Function<String, TT> parser,
+                                        final String text,
+                                        final TT value) {
+        final TT parsed = parser.apply(text);
         this.checkEquals(
                 value,
                 parsed,
