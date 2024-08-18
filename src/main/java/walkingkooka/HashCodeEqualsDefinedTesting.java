@@ -27,11 +27,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
  */
 public interface HashCodeEqualsDefinedTesting extends Testing {
 
-    default void checkEquals(final Object expected, final Object actual) {
-        assertEquals(expected, actual);
-        assertEquals(actual, expected);
-    }
-
     default void checkEqualsAndHashCode(final Object expected, final Object actual) {
         checkEquals(expected, actual);
 
