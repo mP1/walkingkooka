@@ -20,7 +20,6 @@ package walkingkooka;
 import walkingkooka.test.Testing;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
  * A mixin that contains helpers for testing two objects {@link Object#equals(Object)} and {@link Object#hashCode()}}
@@ -43,10 +42,5 @@ public interface HashCodeEqualsDefinedTesting extends Testing {
                 actual.hashCode(),
                 () -> expected + "\n" + actual
         );
-    }
-
-    default void checkNotEquals(final Object expected, final Object actual) {
-        assertNotEquals(expected, actual);
-        assertNotEquals(actual, expected);
     }
 }
