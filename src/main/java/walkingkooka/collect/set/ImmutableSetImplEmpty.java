@@ -19,50 +19,60 @@ package walkingkooka.collect.set;
 
 import walkingkooka.collect.iterator.Iterators;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
 /**
- * A {@link Set} presents a read only view of a defensively copied {@link Set} given to it.
+ * A {@link Set} known to be immutable without any elements.
  */
-final class ImmutableSetNonSingleton<T> extends ImmutableSet<T> {
+final class ImmutableSetImplEmpty<E> extends ImmutableSetImpl<E> {
 
     /**
      * Returns a {@link Set} which is immutable including copying elements if necessary.
      */
-    static <T> ImmutableSetNonSingleton<T> withNonSingleton(final Set<T> notCopied) {
-        return new ImmutableSetNonSingleton<>(notCopied);
+    static <E> ImmutableSetImplEmpty<E> instance() {
+        return (ImmutableSetImplEmpty<E>)INSTANCE;
     }
 
-    private ImmutableSetNonSingleton(final Set<T> set) {
+    private final static ImmutableSetImplEmpty INSTANCE = new ImmutableSetImplEmpty<>();
+
+    /**
+     * Private ctor use factory
+     */
+    private ImmutableSetImplEmpty() {
         super();
-        this.set = set;
     }
 
     @Override
     public boolean contains(final Object other) {
-        return this.set.contains(other);
+        return false;
     }
 
     @Override
-    public Iterator<T> iterator() {
-        return Iterators.readOnly(this.set.iterator());
+    public Iterator<E> iterator() {
+        return Iterators.empty();
     }
 
     @Override
     public int size() {
-        return this.set.size();
+        return 0;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return true;
     }
-
-    private final Set<T> set;
 
     @Override
     public String toString() {
-        return this.set.toString();
+        return "[]";
+    }
+
+    // ImmutableSet.....................................................................................................
+
+    @Override
+    public Set<E> toSet() {
+        return new HashSet<>();
     }
 }

@@ -32,23 +32,12 @@ import java.util.TreeSet;
 import java.util.function.BiPredicate;
 
 final public class Sets implements PublicStaticHelper {
-    /**
-     * Registers a {@link Set} type as immutable.
-     */
-    @SuppressWarnings("rawtypes")
-    public static void registerImmutableType(final Class<? extends Set> type) {
-        Objects.requireNonNull(type, "type");
-
-        synchronized (ImmutableSet.TYPES) {
-            ImmutableSet.TYPES.add(type);
-        }
-    }
 
     /**
-     * {@see Collections#empty()}
+     * An empty {@link Set}
      */
     public static <T> Set<T> empty() {
-        return Collections.emptySet();
+        return ImmutableSetImpl.empty();
     }
 
     /**
@@ -70,8 +59,8 @@ final public class Sets implements PublicStaticHelper {
     /**
      * Returns a {@link Set} that is immutable, making a defensive copy if necessary.
      */
-    public static <E> Set<E> immutable(final Set<E> set) {
-        return ImmutableSet.with(set);
+    public static <E> ImmutableSet<E> immutable(final Set<E> set) {
+        return ImmutableSetImpl.with(set);
     }
 
     /**
@@ -85,7 +74,7 @@ final public class Sets implements PublicStaticHelper {
      * {@see Collections#singleton(Object)}
      */
     public static <T> Set<T> of(final T item) {
-        return ImmutableSet.singleton(item);
+        return ImmutableSetImpl.singleton(item);
     }
 
     /**
@@ -98,7 +87,8 @@ final public class Sets implements PublicStaticHelper {
 
         final Set<E> set = ordered();
         Collections.addAll(set, elements);
-        return ImmutableSet.copy(set);
+
+        return ImmutableSetImpl.with(set);
     }
 
     /**
@@ -112,7 +102,7 @@ final public class Sets implements PublicStaticHelper {
      * Returns a read only {@link Set} view, not an immutable set. The original may still be modified.
      */
     public static <T> Set<T> readOnly(final Set<T> set) {
-        return ImmutableSet.isImmutable(set) ?
+        return set instanceof ImmutableSet ?
                 set :
                 Collections.unmodifiableSet(set);
     }
