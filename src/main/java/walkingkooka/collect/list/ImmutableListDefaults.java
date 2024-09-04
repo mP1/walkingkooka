@@ -81,7 +81,7 @@ public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends Im
     }
 
     /**
-     * Returns a new instance of this {@link ImmutableList} with the element appended.
+     * Returns a new instance of this {@link ImmutableList} after replacing the element at the given index with the new.
      */
     default T replace(final int index,
                       final E element) {
@@ -108,7 +108,7 @@ public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends Im
     }
 
     /**
-     * Returns an {@link ImmutableList} without the element at index.
+     * Returns an {@link ImmutableList} without the given element.
      */
     default T removeElement(final E element) {
         final List<E> list = this.toList();
