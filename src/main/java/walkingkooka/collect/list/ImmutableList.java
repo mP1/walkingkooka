@@ -52,7 +52,7 @@ public interface ImmutableList<E> extends List<E> {
     ImmutableList<E> concat(final E element);
 
     /**
-     * Returns a new instance of this {@link ImmutableList} with the element appended.
+     * Returns a new instance of this {@link ImmutableList} after replacing the element at the given index with the new.
      */
     ImmutableList<E> replace(final int index,
                              final E element);
@@ -63,7 +63,7 @@ public interface ImmutableList<E> extends List<E> {
     ImmutableList<E> removeAtIndex(final int index);
 
     /**
-     * Returns an {@link ImmutableList} without the element at index.
+     * Returns an {@link ImmutableList} without the given element.
      */
     ImmutableList<E> removeElement(final E element);
 
