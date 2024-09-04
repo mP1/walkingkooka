@@ -20,13 +20,24 @@ package walkingkooka.collect.set;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-import java.util.Iterator;
-import java.util.Set;
+import java.util.Collections;
 
-public final class ImmutableSetNonSingletonTest extends ImmutableSetTestCase2<ImmutableSetNonSingleton<String>> {
+public final class ImmutableSetImplSingletonTest extends ImmutableSetImplTestCase2<ImmutableSetImplSingleton<String>> {
 
-    private final static String ELEMENT1 = "1a";
-    private final static String ELEMENT2 = "2b";
+    private final static String ELEMENT = "*element*";
+
+    @Test
+    public void testWithNull() {
+        this.checkEquals(ImmutableSetImplSingleton.withSingleton(null),
+                Collections.singleton(null));
+    }
+
+    @Test
+    public void testWithNonNull() {
+        final String value = "abc123";
+        this.checkEquals(ImmutableSetImplSingleton.withSingleton(value),
+                Collections.singleton(value));
+    }
 
     @Test
     public void testAddFails() {
@@ -35,52 +46,43 @@ public final class ImmutableSetNonSingletonTest extends ImmutableSetTestCase2<Im
 
     @Test
     public void testContains() {
-        this.containsAndCheck(this.createSet(), ELEMENT1);
+        this.containsAndCheck(this.createSet(), ELEMENT);
     }
 
     @Test
-    public void testContains2() {
-        this.containsAndCheck(this.createSet(), ELEMENT2);
+    public void testContainsNot() {
+        this.containsAndCheckAbsent(this.createSet(), "NOT!");
     }
 
     @Test
     public void testIterator() {
-        final Iterator<String> elements = this.elements().iterator();
-
-        this.iterateAndCheck(this.createSet().iterator(), elements.next(), elements.next());
+        this.iterateAndCheck(this.createSet().iterator(), ELEMENT);
     }
 
     @Test
     public void testRemoveFails() {
-        this.removeFails(this.createSet(), ELEMENT1);
+        this.removeFails(this.createSet(), ELEMENT);
     }
 
     @Test
     public void testSize() {
-        this.sizeAndCheck(this.createSet(), 2);
+        this.sizeAndCheck(this.createSet(), 1);
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createSet(), this.elements().toString());
+        this.toStringAndCheck(this.createSet(), Collections.singleton(ELEMENT).toString());
     }
 
     @Override
-    public ImmutableSetNonSingleton<String> createSet() {
-        return ImmutableSetNonSingleton.withNonSingleton(this.elements());
-    }
-
-    private Set<String> elements() {
-        final Set<String> set = Sets.ordered();
-        set.add(ELEMENT1);
-        set.add(ELEMENT2);
-        return set;
+    public ImmutableSetImplSingleton<String> createSet() {
+        return ImmutableSetImplSingleton.withSingleton(ELEMENT);
     }
 
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<ImmutableSetNonSingleton<String>> type() {
-        return Cast.to(ImmutableSetNonSingleton.class);
+    public Class<ImmutableSetImplSingleton<String>> type() {
+        return Cast.to(ImmutableSetImplSingleton.class);
     }
 }

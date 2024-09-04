@@ -21,66 +21,12 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.IteratorTesting;
 
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.TreeSet;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class ImmutableSetTest extends ImmutableSetTestCase<ImmutableSet<?>> implements IteratorTesting {
-
-    // isImmutable......................................................................................................
-
-    @Test
-    public void testIsImmutableHashSetFalse() {
-        this.isImmutableAndCheck(new HashSet<>(), false);
-    }
-
-    @Test
-    public void testIsImmutableTreeSetFalse() {
-        this.isImmutableAndCheck(new TreeSet<>(), false);
-    }
-
-    @Test
-    public void testIsImmutableEmptyTrue() {
-        this.isImmutableAndCheck(Sets.empty(), true);
-    }
-
-    @Test
-    public void testIsImmutableOneTrue() {
-        this.isImmutableAndCheck(Sets.of("only!"), true);
-    }
-
-    @Test
-    public void testIsImmutableImmutableSetTrue() {
-        this.isImmutableAndCheck(Sets.of("1a", "2b"), true);
-    }
-
-    @Test
-    public void testIsImmutableImmutableSetUnsortedTrue() {
-        final Set<String> set = Sets.hash();
-        set.add("1a");
-        set.add("2b");
-
-        this.isImmutableAndCheck(Sets.immutable(set), true);
-    }
-
-    @Test
-    public void testIsImmutableImmutableSetSortedTrue() {
-        final Set<String> set = Sets.sorted();
-        set.add("1a");
-        set.add("2b");
-
-        this.isImmutableAndCheck(Sets.immutable(set), true);
-    }
-
-    private void isImmutableAndCheck(final Set<?> set, final boolean expected) {
-        this.checkEquals(expected,
-                ImmutableSet.isImmutable(set),
-                set::toString);
-    }
+public final class ImmutableSetImplTest extends ImmutableSetImplTestCase<ImmutableSetImpl<?>> implements IteratorTesting {
 
     // immutable........................................................................................................
 
@@ -183,7 +129,7 @@ public final class ImmutableSetTest extends ImmutableSetTestCase<ImmutableSet<?>
     private Set<String> immutableAndCheck(final Set<String> from) {
         final Set<String> immutable = Sets.immutable(from);
         this.checkEquals(true,
-                immutable instanceof ImmutableSet,
+                immutable instanceof ImmutableSetImpl,
                 () -> "from " + from + " type=" + immutable.getClass().getName() + " " + immutable);
         return immutable;
     }
@@ -191,7 +137,7 @@ public final class ImmutableSetTest extends ImmutableSetTestCase<ImmutableSet<?>
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<ImmutableSet<?>> type() {
-        return Cast.to(ImmutableSet.class);
+    public Class<ImmutableSetImpl<?>> type() {
+        return Cast.to(ImmutableSetImpl.class);
     }
 }

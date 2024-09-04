@@ -19,6 +19,7 @@ package walkingkooka.collect.set;
 
 import walkingkooka.collect.iterator.Iterators;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
@@ -26,19 +27,19 @@ import java.util.Set;
 /**
  * A {@link Set} known to be immutable and holds a copy of any {@link Set} given to it.
  */
-final class ImmutableSetSingleton<T> extends ImmutableSet<T> {
+final class ImmutableSetImplSingleton<E> extends ImmutableSetImpl<E> {
 
     /**
      * Returns a {@link Set} which is immutable including copying elements if necessary.
      */
-    static <T> ImmutableSetSingleton<T> withSingleton(final T element) {
-        return new ImmutableSetSingleton<>(element);
+    static <E> ImmutableSetImplSingleton<E> withSingleton(final E element) {
+        return new ImmutableSetImplSingleton<>(element);
     }
 
     /**
      * Private ctor use factory
      */
-    private ImmutableSetSingleton(final T element) {
+    private ImmutableSetImplSingleton(final E element) {
         super();
         this.element = element;
     }
@@ -49,7 +50,7 @@ final class ImmutableSetSingleton<T> extends ImmutableSet<T> {
     }
 
     @Override
-    public Iterator<T> iterator() {
+    public Iterator<E> iterator() {
         return Iterators.one(this.element);
     }
 
@@ -68,5 +69,12 @@ final class ImmutableSetSingleton<T> extends ImmutableSet<T> {
         return "[" + this.element + "]";
     }
 
-    private final T element;
+    private final E element;
+
+    // ImmutableSet.....................................................................................................
+
+    @Override
+    public Set<E> toSet() {
+        return new HashSet<>(this);
+    }
 }

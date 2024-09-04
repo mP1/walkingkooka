@@ -17,135 +17,63 @@
 
 package walkingkooka.collect.set;
 
-import walkingkooka.Cast;
-
-import java.util.AbstractSet;
-import java.util.Objects;
 import java.util.Set;
-import java.util.SortedSet;
 
 /**
- * A {@link Set} known to be immutable and holds a copy of any {@link Set} given to it.
+ * A {@link Set} that is immutable but also contains a few would be mutator methods that return a new instance if required.
+ * Note the {@link java.util.Iterator} returned will also need to be made read-only.
  */
-abstract class ImmutableSet<T> extends AbstractSet<T> {
+public interface ImmutableSet<E> extends Set<E> {
+
+    // ImmutableSet....................................................................................................
 
     /**
-     * A registry of immutable {@link Set} types.
+     * Factory method that should return a new set if the given elements are different.
+     * A default implementation of all other abstract methods is available by implementing {@link ImmutableSetDefaults}.
+     * After that is done only this method needs to be implemented.
      */
-    final static Set<Class<?>> TYPES = Sets.hash();
-
-    static {
-        TYPES.add(Sets.empty().getClass());
-    }
+    ImmutableSet<E> setElements(final Set<E> elements);
 
     /**
-     * Returns true if the {@link Set} is immutable. This may not detect all but tries to attempt a few known to {@link Set}.
+     * Useful setElements for classes that cannot easily create another instance with the new elements.
      */
-    static boolean isImmutable(final Set<?> set) {
-        return set instanceof ImmutableSet || TYPES.contains(set.getClass());
-    }
+    ImmutableSet<E> setElementsFailIfDifferent(final Set<E> elements);
 
     /**
-     * Returns a {@link Set} which is immutable including copying elements if necessary.
+     * Returns a new instance of this {@link ImmutableSet} with the element appended.
      */
-    static <T> Set<T> with(final Set<T> set) {
-        Objects.requireNonNull(set, "set");
-
-        return isImmutable(set) ?
-                set :
-                copy(set);
-    }
+    ImmutableSet<E> concat(final E element);
 
     /**
-     * Copy to an ordered {@link Set} keeping the original order for sorted or unsorted {@link Set sets}.
+     * Returns an {@link ImmutableSet} without the given element.
      */
-    static <T> Set<T> copy(final Set<T> from) {
-        return from instanceof SortedSet ?
-                copySortedSet(from) :
-                copyUnsortedSet(from);
-    }
+    ImmutableSet<E> delete(final E element);
 
     /**
-     * Handles sorted sets by either returning empty or wrapping them to block modifications.
+     * Returns a new instance of this {@link ImmutableSet} after replacing.
      */
-    private static <T> Set<T> copySortedSet(final Set<T> from) {
-        final Set<T> to = sorted(Cast.to(from));
-        to.addAll(from);
-
-        Set<T> immutable;
-        switch (to.size()) {
-            case 0:
-                immutable = Sets.empty();
-                break;
-            default:
-                immutable = wrap(to);
-                break;
-        }
-
-        return immutable;
-    }
+    ImmutableSet<E> replace(final E oldElement,
+                            final E newElement);
 
     /**
-     * Handles {@link Set} that are not {@link SortedSet}.
+     * Returns a mutable {@link Set} with the items in this set. Modifying the given set does not update the elements in this set.
      */
-    private static <T> Set<T> copyUnsortedSet(final Set<T> from) {
-        final Set<T> to = from instanceof SortedSet ?
-                sorted(Cast.to(from)) :
-                Sets.ordered();
-        to.addAll(from);
+    Set<E> toSet();
 
-        Set<T> immutable;
-        switch (to.size()) {
-            case 0:
-                immutable = Sets.empty();
-                break;
-            case 1:
-                immutable = singleton(to.iterator().next());
-                break;
-            default:
-                immutable = wrap(to);
-                break;
-        }
+    // Set read only...................................................................................................
 
-        return immutable;
-    }
-
-    /**
-     * Factory that creates a new {@link SortedSet} with or without the same {@link java.util.Comparator}
-     */
-    private static <T> Set<T> sorted(final SortedSet<T> from) {
-        return null != from.comparator() ?
-                Sets.sorted(from.comparator()) :
-                Sets.sorted();
-    }
-
-    /**
-     * {@see ImmutableSetSingleton}.
-     */
-    static <T> Set<T> singleton(final T element) {
-        return ImmutableSetSingleton.withSingleton(element);
-    }
-
-    /**
-     * Creates a {@link ImmutableSetNonSingleton} with the given {@link Set} which is not defensively copied.
-     */
-    static <T> ImmutableSet<T> wrap(final Set<T> wrap) {
-        return ImmutableSetNonSingleton.withNonSingleton(wrap);
-    }
-
-    /**
-     * Package private to limit sub classing.
-     */
-    ImmutableSet() {
-        super();
+    @Override
+    default boolean add(E e) {
+        throw new UnsupportedOperationException();
     }
 
     @Override
-    abstract public boolean contains(final Object other);
+    default boolean remove(final Object o) {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
-    abstract public boolean isEmpty();
-
-    @Override
-    abstract public String toString();
+    default void clear() {
+        throw new UnsupportedOperationException();
+    }
 }
