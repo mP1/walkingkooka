@@ -47,40 +47,19 @@ abstract class ImmutableSetImpl<E> extends AbstractSet<E> implements ImmutableSe
 
         switch (elements.length) {
             case 0:
-                immutable = empty();
+                immutable = ImmutableSetImplEmpty.empty();
                 break;
             case 1:
-                immutable = singleton(
+                immutable = ImmutableSetImplSingleton.singleton(
                         Cast.to(elements[0])
                 );
                 break;
             default:
-                immutable = nonSingleton(elements);
+                immutable = ImmutableSetImplNonSingleton.nonSingleton(elements);
                 break;
         }
 
         return immutable;
-    }
-
-    /**
-     * {@see ImmutableSetImplEmpty}.
-     */
-    static <E> ImmutableSetImpl<E> empty() {
-        return ImmutableSetImplEmpty.instance();
-    }
-
-    /**
-     * {@see ImmutableSetSingleton}.
-     */
-    static <E> ImmutableSetImpl<E> singleton(final E element) {
-        return ImmutableSetImplSingleton.withSingleton(element);
-    }
-
-    /**
-     * Creates a {@link ImmutableSetImplNonSingleton} with the given {@link Set} which is not defensively copied.
-     */
-    private static <E> ImmutableSetImpl<E> nonSingleton(final Object[] wrap) {
-        return ImmutableSetImplNonSingleton.with(wrap);
     }
 
     @Override
@@ -102,9 +81,6 @@ abstract class ImmutableSetImpl<E> extends AbstractSet<E> implements ImmutableSe
 
     @Override
     abstract public boolean contains(final Object other);
-
-    @Override
-    abstract public boolean isEmpty();
 
     @Override
     abstract public String toString();

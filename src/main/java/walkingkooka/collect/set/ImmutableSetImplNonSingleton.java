@@ -34,7 +34,7 @@ final class ImmutableSetImplNonSingleton<E> extends ImmutableSetImpl<E> {
     /**
      * Returns a {@link Set} which is immutable including copying elements if necessary.
      */
-    static <T> ImmutableSetImplNonSingleton<T> with(final Object[] notCopied) {
+    static <T> ImmutableSetImplNonSingleton<T> nonSingleton(final Object[] notCopied) {
         return new ImmutableSetImplNonSingleton<>(notCopied);
     }
 

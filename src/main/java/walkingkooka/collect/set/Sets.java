@@ -37,7 +37,7 @@ final public class Sets implements PublicStaticHelper {
      * An empty {@link Set}
      */
     public static <T> Set<T> empty() {
-        return ImmutableSetImpl.empty();
+        return ImmutableSetImplEmpty.empty();
     }
 
     /**
@@ -74,7 +74,7 @@ final public class Sets implements PublicStaticHelper {
      * {@see Collections#singleton(Object)}
      */
     public static <T> Set<T> of(final T item) {
-        return ImmutableSetImpl.singleton(item);
+        return ImmutableSetImplSingleton.singleton(item);
     }
 
     /**
