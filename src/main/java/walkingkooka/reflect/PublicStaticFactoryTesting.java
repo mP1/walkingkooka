@@ -17,7 +17,7 @@
 
 package walkingkooka.reflect;
 
-import walkingkooka.collect.set.Sets;
+import walkingkooka.collect.set.SortedSets;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
 
@@ -58,12 +58,12 @@ public final class PublicStaticFactoryTesting {
 
         final Set<Method> publicStaticMethods = Arrays.stream(base.getMethods())
                 .filter(m -> MethodAttributes.STATIC.is(m) && JavaVisibility.PUBLIC == JavaVisibility.of(m))
-                .collect(Collectors.toCollection(() -> Sets.sorted(methodSorter)));
+                .collect(Collectors.toCollection(() -> SortedSets.tree(methodSorter)));
 
         final Set<Method> factoryMethods = publicStaticMethods.stream()
                 .filter(m -> m.getName().equals(factoryMethodName) &&
                         m.getReturnType().equals(type))
-                .collect(Collectors.toCollection(() -> Sets.sorted(methodSorter)));
+                .collect(Collectors.toCollection(() -> SortedSets.tree(methodSorter)));
 
         final String publicStaticMethodsToString = publicStaticMethods.stream()
                 .map(Method::toGenericString)
