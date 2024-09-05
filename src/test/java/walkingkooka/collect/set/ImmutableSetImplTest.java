@@ -49,7 +49,7 @@ public final class ImmutableSetImplTest extends ImmutableSetImplTestCase<Immutab
 
     @Test
     public void testImmutableSortedSet1() {
-        final Set<String> set = Sets.sorted();
+        final Set<String> set = SortedSets.tree();
         set.add("1a");
 
         final Set<String> immutable = this.immutableAndCheck(set);
@@ -64,7 +64,7 @@ public final class ImmutableSetImplTest extends ImmutableSetImplTestCase<Immutab
 
     @Test
     public void testImmutableSortedComparatorSet1() {
-        final Set<String> set = Sets.sorted(String.CASE_INSENSITIVE_ORDER);
+        final Set<String> set = SortedSets.tree(String.CASE_INSENSITIVE_ORDER);
         set.add("1A");
 
         final Set<String> immutable = this.immutableAndCheck(set);
@@ -78,7 +78,7 @@ public final class ImmutableSetImplTest extends ImmutableSetImplTestCase<Immutab
 
     @Test
     public void testImmutableSortedSetMany() {
-        final Set<String> set = Sets.sorted();
+        final Set<String> set = SortedSets.tree();
         set.add("2b");
         set.add("3c");
         set.add("1a");
@@ -98,7 +98,7 @@ public final class ImmutableSetImplTest extends ImmutableSetImplTestCase<Immutab
 
     @Test
     public void testImmutableSortedComparatorSetMany() {
-        final Set<String> set = Sets.sorted(String.CASE_INSENSITIVE_ORDER);
+        final Set<String> set = SortedSets.tree(String.CASE_INSENSITIVE_ORDER);
         set.add("2B");
         set.add("3C");
         set.add("1a");

@@ -21,13 +21,11 @@ import walkingkooka.collect.iterable.Iterables;
 import walkingkooka.reflect.PublicStaticHelper;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.NavigableSet;
 import java.util.Objects;
 import java.util.Set;
-import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.function.BiPredicate;
 
@@ -105,20 +103,6 @@ final public class Sets implements PublicStaticHelper {
         return set instanceof ImmutableSet ?
                 set :
                 Collections.unmodifiableSet(set);
-    }
-
-    /**
-     * {@see TreeSet}
-     */
-    public static <E> SortedSet<E> sorted() {
-        return new TreeSet<>();
-    }
-
-    /**
-     * {@see TreeSet}
-     */
-    public static <E> SortedSet<E> sorted(final Comparator<? super E> comparator) {
-        return new TreeSet<>(comparator);
     }
 
     /**
