@@ -31,7 +31,7 @@ final class ImmutableSetImplEmpty<E> extends ImmutableSetImpl<E> {
     /**
      * Returns a {@link Set} which is immutable including copying elements if necessary.
      */
-    static <E> ImmutableSetImplEmpty<E> instance() {
+    static <E> ImmutableSetImplEmpty<E> empty() {
         return (ImmutableSetImplEmpty<E>)INSTANCE;
     }
 
@@ -57,11 +57,6 @@ final class ImmutableSetImplEmpty<E> extends ImmutableSetImpl<E> {
     @Override
     public int size() {
         return 0;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return true;
     }
 
     @Override

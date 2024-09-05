@@ -28,15 +28,19 @@ public final class ImmutableSetImplSingletonTest extends ImmutableSetImplTestCas
 
     @Test
     public void testWithNull() {
-        this.checkEquals(ImmutableSetImplSingleton.withSingleton(null),
-                Collections.singleton(null));
+        this.checkEquals(
+                ImmutableSetImplSingleton.singleton(null),
+                Collections.singleton(null)
+        );
     }
 
     @Test
     public void testWithNonNull() {
         final String value = "abc123";
-        this.checkEquals(ImmutableSetImplSingleton.withSingleton(value),
-                Collections.singleton(value));
+        this.checkEquals(
+                ImmutableSetImplSingleton.singleton(value),
+                Collections.singleton(value)
+        );
     }
 
     @Test
@@ -76,7 +80,7 @@ public final class ImmutableSetImplSingletonTest extends ImmutableSetImplTestCas
 
     @Override
     public ImmutableSetImplSingleton<String> createSet() {
-        return ImmutableSetImplSingleton.withSingleton(ELEMENT);
+        return ImmutableSetImplSingleton.singleton(ELEMENT);
     }
 
     // ClassTesting.....................................................................................................

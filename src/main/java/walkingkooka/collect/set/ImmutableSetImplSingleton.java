@@ -32,7 +32,7 @@ final class ImmutableSetImplSingleton<E> extends ImmutableSetImpl<E> {
     /**
      * Returns a {@link Set} which is immutable including copying elements if necessary.
      */
-    static <E> ImmutableSetImplSingleton<E> withSingleton(final E element) {
+    static <E> ImmutableSetImplSingleton<E> singleton(final E element) {
         return new ImmutableSetImplSingleton<>(element);
     }
 
@@ -57,11 +57,6 @@ final class ImmutableSetImplSingleton<E> extends ImmutableSetImpl<E> {
     @Override
     public int size() {
         return 1;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return false;
     }
 
     @Override
