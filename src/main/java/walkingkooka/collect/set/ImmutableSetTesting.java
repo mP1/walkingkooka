@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public interface ImmutableSetTesting<L extends ImmutableSet<E>, E> extends SetTesting2<L, E> {
+public interface ImmutableSetTesting<S extends ImmutableSet<E>, E> extends SetTesting2<S, E> {
 
     default void concatAndCheck(final ImmutableSet<E> set,
                                 final E appended,
