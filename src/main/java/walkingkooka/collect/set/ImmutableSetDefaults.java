@@ -101,4 +101,15 @@ public interface ImmutableSetDefaults<S extends ImmutableSet<E>, E> extends Immu
                 this.setElements(set) :
                 (S)this;
     }
+
+    /**
+     * Returns a new instance of this {@link ImmutableSet} with the elements removed.
+     */
+    @Override
+    default S deleteAll(final Collection<E> elements) {
+        final Set<E> set = this.toSet();
+        set.removeAll(elements);
+
+        return this.setElements(set);
+    }
 }

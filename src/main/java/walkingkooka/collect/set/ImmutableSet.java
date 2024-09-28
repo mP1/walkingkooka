@@ -56,6 +56,11 @@ public interface ImmutableSet<E> extends Set<E> {
     ImmutableSet<E> delete(final E element);
 
     /**
+     * Returns an {@link ImmutableSet} without the given elements.
+     */
+    ImmutableSet<E> deleteAll(final Collection<E> elements);
+
+    /**
      * Returns a new instance of this {@link ImmutableSet} after replacing.
      */
     ImmutableSet<E> replace(final E oldElement,

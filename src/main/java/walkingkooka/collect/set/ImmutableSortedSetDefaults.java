@@ -99,4 +99,18 @@ public interface ImmutableSortedSetDefaults<S extends ImmutableSortedSet<E>, E> 
                 this
                 );
     }
+
+    /**
+     * Returns an {@link ImmutableSet} without all the given elements
+     */
+    @Override
+    default S deleteAll(final Collection<E> elements) {
+        final Set<E> set = this.toSet();
+        final boolean removed = set.removeAll(elements);
+        return (S)
+                (removed ?
+                        this.setElements(set) :
+                        this
+                );
+    }
 }
