@@ -17,6 +17,7 @@
 
 package walkingkooka.collect.set;
 
+import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
 
@@ -53,6 +54,17 @@ public interface ImmutableSetDefaults<S extends ImmutableSet<E>, E> extends Immu
     default S concat(final E element) {
         final Set<E> set = this.toSet();
         set.add(element);
+
+        return this.setElements(set);
+    }
+
+    /**
+     * Returns a new instance of this {@link ImmutableSet} with the elements added.
+     */
+    @Override
+    default S concatAll(final Collection<E> elements) {
+        final Set<E> set = this.toSet();
+        set.addAll(elements);
 
         return this.setElements(set);
     }

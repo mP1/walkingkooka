@@ -17,6 +17,7 @@
 
 package walkingkooka.collect.set;
 
+import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -43,6 +44,11 @@ public interface ImmutableSet<E> extends Set<E> {
      * Returns a new instance of this {@link ImmutableSet} with the element appended.
      */
     ImmutableSet<E> concat(final E element);
+
+    /**
+     * Returns a new instance of this {@link ImmutableSet} with the elements appended.
+     */
+    ImmutableSet<E> concatAll(final Collection<E> elements);
 
     /**
      * Returns an {@link ImmutableSet} without the given element.

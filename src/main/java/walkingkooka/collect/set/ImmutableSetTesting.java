@@ -19,6 +19,7 @@ package walkingkooka.collect.set;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Collection;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -48,6 +49,39 @@ public interface ImmutableSetTesting<S extends ImmutableSet<E>, E> extends SetTe
                 toSet,
                 afterConcat,
                 () -> set + " concat " + appended
+        );
+    }
+
+    @Test
+    default void testConcatAllWithNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createSet()
+                        .concatAll(null)
+        );
+    }
+
+    default void concatAllAndCheck(final ImmutableSet<E> set,
+                                   final Collection<E> appended,
+                                   final ImmutableSet<E> expected) {
+        final ImmutableSet<E> afterConcat = set.concatAll(appended);
+
+        assertNotSame(
+                afterConcat,
+                set
+        );
+        this.checkEquals(
+                expected,
+                afterConcat,
+                () -> set + " concatAll " + appended
+        );
+
+        final Set<E> toSet = set.toSet();
+        toSet.addAll(appended);
+        this.checkEquals(
+                toSet,
+                afterConcat,
+                () -> set + " concatAll " + appended
         );
     }
 
