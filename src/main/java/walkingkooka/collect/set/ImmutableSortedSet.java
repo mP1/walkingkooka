@@ -17,6 +17,7 @@
 
 package walkingkooka.collect.set;
 
+import java.util.Collection;
 import java.util.Set;
 import java.util.SortedSet;
 
@@ -29,6 +30,12 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>, SortedSet<E> {
      * Returns a new instance of this {@link ImmutableSet} with the element appended.
      */
     ImmutableSortedSet<E> concat(final E element);
+
+    /**
+     * Returns a new instance of this {@link ImmutableSet} with the elements appended.
+     */
+    @Override
+    ImmutableSortedSet<E> concatAll(final Collection<E> elements);
 
     /**
      * Returns an {@link ImmutableSet} without the given element.
