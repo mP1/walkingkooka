@@ -36,6 +36,7 @@ public interface ImmutableSetDefaults<S extends ImmutableSet<E>, E> extends Immu
     /**
      * Useful setElements for classes that cannot easily create another instance with the new elements.
      */
+    @Override
     default S setElementsFailIfDifferent(final Set<E> elements) {
         Objects.requireNonNull(elements, "elements");
 
@@ -48,6 +49,7 @@ public interface ImmutableSetDefaults<S extends ImmutableSet<E>, E> extends Immu
     /**
      * Returns a new instance of this {@link ImmutableSet} with the element added.
      */
+    @Override
     default S concat(final E element) {
         final Set<E> set = this.toSet();
         set.add(element);
@@ -58,6 +60,7 @@ public interface ImmutableSetDefaults<S extends ImmutableSet<E>, E> extends Immu
     /**
      * Returns a new instance of this {@link ImmutableSet} with the element replaced.
      */
+    @Override
     default S replace(final E oldElement,
                       final E newElement) {
         S result;
@@ -78,6 +81,7 @@ public interface ImmutableSetDefaults<S extends ImmutableSet<E>, E> extends Immu
     /**
      * Returns an {@link ImmutableSet} without the element
      */
+    @Override
     default S delete(final E element) {
         final Set<E> set = this.toSet();
         final boolean removed = set.remove(element);
