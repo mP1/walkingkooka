@@ -17,6 +17,7 @@
 
 package walkingkooka.collect.list;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -50,6 +51,11 @@ public interface ImmutableList<E> extends List<E> {
      * Returns a new instance of this {@link ImmutableList} with the element appended.
      */
     ImmutableList<E> concat(final E element);
+
+    /**
+     * Returns a new instance of this {@link ImmutableList} with the elements appended.
+     */
+    ImmutableList<E> concatAll(final Collection<E> elements);
 
     /**
      * Returns a new instance of this {@link ImmutableList} after replacing the element at the given index with the new.
