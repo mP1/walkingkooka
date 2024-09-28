@@ -37,6 +37,7 @@ public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends Im
     /**
      * Useful setElements for classes that cannot easily create another instance with the new elements.
      */
+    @Override
     default T setElementsFailIfDifferent(final List<E> elements) {
         Objects.requireNonNull(elements, "elements");
 
@@ -50,6 +51,7 @@ public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends Im
     /**
      * Swaps the two elements at the given index.
      */
+    @Override
     default T swap(final int left,
                    final int right) {
         ImmutableList<E> swapped = this;
@@ -73,6 +75,7 @@ public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends Im
     /**
      * Returns a new instance of this {@link ImmutableList} with the element appended.
      */
+    @Override
     default T concat(final E element) {
         final List<E> list = this.toList();
         list.add(element);
@@ -83,6 +86,7 @@ public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends Im
     /**
      * Returns a new instance of this {@link ImmutableList} after replacing the element at the given index with the new.
      */
+    @Override
     default T replace(final int index,
                       final E element) {
         final List<E> list = this.toList();
@@ -101,6 +105,7 @@ public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends Im
     /**
      * Returns an {@link ImmutableList} without the element at index.
      */
+    @Override
     default T removeAtIndex(final int index) {
         final List<E> list = this.toList();
         list.remove(index);
@@ -110,6 +115,7 @@ public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends Im
     /**
      * Returns an {@link ImmutableList} without the given element.
      */
+    @Override
     default T removeElement(final E element) {
         final List<E> list = this.toList();
         final boolean removed = list.remove(element);
@@ -121,6 +127,7 @@ public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends Im
     /**
      * Returns a mutable {@link List} with the items in this list. Modifying the given list does not update the elements in this list.
      */
+    @Override
     default List<E> toList() {
         return new ArrayList<>(this);
     }
