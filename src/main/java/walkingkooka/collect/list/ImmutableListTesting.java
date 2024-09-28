@@ -19,6 +19,7 @@ package walkingkooka.collect.list;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Collection;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -44,6 +45,39 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
 
         final List<E> toList = list.toList();
         toList.add(appended);
+        this.checkEquals(
+                toList,
+                afterConcat,
+                () -> list + " concat " + appended
+        );
+    }
+
+    @Test
+    default void testConcatAllWithNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createList()
+                        .concatAll(null)
+        );
+    }
+
+    default void concatAllAndCheck(final ImmutableList<E> list,
+                                   final Collection<E> appended,
+                                   final ImmutableList<E> expected) {
+        final ImmutableList<E> afterConcat = list.concatAll(appended);
+
+        assertNotSame(
+                afterConcat,
+                list
+        );
+        this.checkEquals(
+                expected,
+                afterConcat,
+                () -> list + " concat " + appended
+        );
+
+        final List<E> toList = list.toList();
+        toList.addAll(appended);
         this.checkEquals(
                 toList,
                 afterConcat,

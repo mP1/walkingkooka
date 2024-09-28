@@ -18,6 +18,7 @@
 package walkingkooka.collect.list;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -79,6 +80,18 @@ public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends Im
     default T concat(final E element) {
         final List<E> list = this.toList();
         list.add(element);
+
+        return this.setElements(list);
+    }
+
+    /**
+     * Returns a new instance of this {@link ImmutableList} with the elements appended.
+     */
+    default T concatAll(final Collection<E> elements) {
+        Objects.requireNonNull(elements, "elements");
+
+        final List<E> list = this.toList();
+        list.addAll(elements);
 
         return this.setElements(list);
     }
