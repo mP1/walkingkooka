@@ -62,6 +62,23 @@ abstract class ImmutableSetImpl<E> extends AbstractSet<E> implements ImmutableSe
         return immutable;
     }
 
+    /**
+     * Package private to limit sub classing.
+     */
+    ImmutableSetImpl() {
+        super();
+    }
+
+    // Set..............................................................................................................
+
+    @Override
+    abstract public boolean contains(final Object other);
+
+    @Override
+    abstract public String toString();
+
+    // ImmutableSet.....................................................................................................
+
     @Override
     public final ImmutableSet<E> setElements(final Set<E> elements) {
         Objects.requireNonNull(elements, "elements");
@@ -71,17 +88,4 @@ abstract class ImmutableSetImpl<E> extends AbstractSet<E> implements ImmutableSe
                 this:
                 copy;
     }
-
-    /**
-     * Package private to limit sub classing.
-     */
-    ImmutableSetImpl() {
-        super();
-    }
-
-    @Override
-    abstract public boolean contains(final Object other);
-
-    @Override
-    abstract public String toString();
 }
