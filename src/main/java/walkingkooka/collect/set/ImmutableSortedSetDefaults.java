@@ -32,6 +32,7 @@ public interface ImmutableSortedSetDefaults<S extends ImmutableSortedSet<E>, E> 
     /**
      * Useful setElements for classes that cannot easily create another instance with the new elements.
      */
+    @Override
     default S setElementsFailIfDifferent(final SortedSet<E> elements) {
         Objects.requireNonNull(elements, "elements");
 
@@ -44,6 +45,7 @@ public interface ImmutableSortedSetDefaults<S extends ImmutableSortedSet<E>, E> 
     /**
      * Returns a new instance of this {@link ImmutableSortedSet} with the element added.
      */
+    @Override
     default S concat(final E element) {
         final Set<E> set = this.toSet();
         set.add(element);
@@ -54,6 +56,7 @@ public interface ImmutableSortedSetDefaults<S extends ImmutableSortedSet<E>, E> 
     /**
      * Returns a new instance of this {@link ImmutableSortedSet} with the element replaced.
      */
+    @Override
     default S replace(final E oldElement,
                       final E newElement) {
         S result;
@@ -74,6 +77,7 @@ public interface ImmutableSortedSetDefaults<S extends ImmutableSortedSet<E>, E> 
     /**
      * Returns an {@link ImmutableSet} without the element
      */
+    @Override
     default S delete(final E element) {
         final Set<E> set = this.toSet();
         final boolean removed = set.remove(element);
