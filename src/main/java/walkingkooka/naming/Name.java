@@ -34,7 +34,7 @@ public interface Name extends Value<String>,
     /**
      * A {@link Comparator} for {@link Name} using the given {@link CaseSensitivity}.
      */
-    static Comparator<? extends Name> comparator(final CaseSensitivity caseSensitivity) {
+    static <T extends Name> Comparator<T> comparator(final CaseSensitivity caseSensitivity) {
         return NameComparator.with(caseSensitivity);
     }
 
