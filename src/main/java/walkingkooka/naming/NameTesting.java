@@ -24,6 +24,7 @@ import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.HasTextTesting;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -32,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Base class for testing a {@link Name} with mostly helpers to check construction failure.
  */
 public interface NameTesting<N extends Name, C extends Comparable<C>> extends ComparableTesting2<C>,
+        HasTextTesting,
         ToStringTesting<N>,
         TypeNameTesting<N> {
 
