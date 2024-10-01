@@ -38,6 +38,7 @@ public interface Name extends Value<String>,
         return NameComparator.with(caseSensitivity);
     }
 
+    @Override
     default String text() {
         return this.value();
     }
