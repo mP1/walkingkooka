@@ -69,7 +69,7 @@ public interface NameTesting<N extends Name, C extends Comparable<C>> extends Co
     // Comparable.................................................................................
 
     @Test
-    default void testDifferentText() {
+    default void testEqualsDifferentText() {
         this.checkNotEquals(this.createComparable(this.differentNameText()));
     }
 
