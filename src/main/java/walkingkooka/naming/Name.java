@@ -18,8 +18,11 @@
 package walkingkooka.naming;
 
 import walkingkooka.Value;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.HasCaseSensitivity;
 import walkingkooka.text.HasText;
+
+import java.util.Comparator;
 
 /**
  * Interface implemented by names. Names are immutable and should also implement {@link Comparable}.
@@ -27,6 +30,13 @@ import walkingkooka.text.HasText;
 public interface Name extends Value<String>,
         HasCaseSensitivity,
         HasText {
+
+    /**
+     * A {@link Comparator} for {@link Name} using the given {@link CaseSensitivity}.
+     */
+    static Comparator<? extends Name> comparator(final CaseSensitivity caseSensitivity) {
+        return NameComparator.with(caseSensitivity);
+    }
 
     default String text() {
         return this.value();
