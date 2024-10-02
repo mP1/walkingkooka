@@ -59,6 +59,8 @@ public interface ImmutableSortedSetDefaults<S extends ImmutableSortedSet<E>, E> 
      */
     @Override
     default S concatAll(final Collection<E> elements) {
+        Objects.requireNonNull(elements, "elements");
+
         final Set<E> set = this.toSet();
         set.addAll(elements);
 
@@ -105,6 +107,8 @@ public interface ImmutableSortedSetDefaults<S extends ImmutableSortedSet<E>, E> 
      */
     @Override
     default S deleteAll(final Collection<E> elements) {
+        Objects.requireNonNull(elements, "elements");
+
         final Set<E> set = this.toSet();
         final boolean removed = set.removeAll(elements);
         return (S)
