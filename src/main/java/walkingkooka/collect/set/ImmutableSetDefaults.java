@@ -63,6 +63,8 @@ public interface ImmutableSetDefaults<S extends ImmutableSet<E>, E> extends Immu
      */
     @Override
     default S concatAll(final Collection<E> elements) {
+        Objects.requireNonNull(elements, "elements");
+
         final Set<E> set = this.toSet();
         set.addAll(elements);
 
@@ -107,6 +109,8 @@ public interface ImmutableSetDefaults<S extends ImmutableSet<E>, E> extends Immu
      */
     @Override
     default S deleteAll(final Collection<E> elements) {
+        Objects.requireNonNull(elements, "elements");
+
         final Set<E> set = this.toSet();
         set.removeAll(elements);
 
