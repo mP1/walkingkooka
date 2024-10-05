@@ -19,7 +19,6 @@ package walkingkooka.collect.set;
 
 import java.util.Collection;
 import java.util.Objects;
-import java.util.Set;
 import java.util.SortedSet;
 
 /**
@@ -48,7 +47,7 @@ public interface ImmutableSortedSetDefaults<S extends ImmutableSortedSet<E>, E> 
      */
     @Override
     default S concat(final E element) {
-        final Set<E> set = this.toSet();
+        final SortedSet<E> set = this.toSet();
         set.add(element);
 
         return (S)this.setElements(set);
@@ -61,7 +60,7 @@ public interface ImmutableSortedSetDefaults<S extends ImmutableSortedSet<E>, E> 
     default S concatAll(final Collection<E> elements) {
         Objects.requireNonNull(elements, "elements");
 
-        final Set<E> set = this.toSet();
+        final SortedSet<E> set = this.toSet();
         set.addAll(elements);
 
         return (S)this.setElements(set);
@@ -78,7 +77,7 @@ public interface ImmutableSortedSetDefaults<S extends ImmutableSortedSet<E>, E> 
         if(Objects.equals(oldElement, newElement)) {
             result =  (S) this;
         } else {
-            final Set<E> set = this.toSet();
+            final SortedSet<E> set = this.toSet();
             set.remove(oldElement);
             set.add(newElement);
 
@@ -93,7 +92,7 @@ public interface ImmutableSortedSetDefaults<S extends ImmutableSortedSet<E>, E> 
      */
     @Override
     default S delete(final E element) {
-        final Set<E> set = this.toSet();
+        final SortedSet<E> set = this.toSet();
         final boolean removed = set.remove(element);
         return (S)
                 (removed ?
@@ -109,7 +108,7 @@ public interface ImmutableSortedSetDefaults<S extends ImmutableSortedSet<E>, E> 
     default S deleteAll(final Collection<E> elements) {
         Objects.requireNonNull(elements, "elements");
 
-        final Set<E> set = this.toSet();
+        final SortedSet<E> set = this.toSet();
         final boolean removed = set.removeAll(elements);
         return (S)
                 (removed ?
