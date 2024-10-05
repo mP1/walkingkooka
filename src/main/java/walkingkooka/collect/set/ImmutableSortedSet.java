@@ -78,4 +78,9 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>, SortedSet<E> {
      * Useful setElements for classes that cannot easily create another instance with the new elements.
      */
     ImmutableSortedSet<E> setElementsFailIfDifferent(final SortedSet<E> elements);
+
+    /**
+     * Returns a mutable {@link SortedSet} with the items in this set. Modifying the given set does not update the elements in this set.
+     */
+    SortedSet<E> toSet();
 }
