@@ -45,15 +45,14 @@ public interface ComparableTesting extends HashCodeEqualsDefinedTesting {
         this.compareToAndCheck(comparable1, comparable2, Comparators.MORE);
     }
 
-    default <T> void compareAndCheckNotEquals(final Comparator<T> comparator,
-                                              final T value1,
-                                              final T value2) {
-        final int result = comparator.compare(value1, value2);
+    default <C extends Comparable<C>> void compareAndCheckNotEquals(final C value1,
+                                                                    final C value2) {
+        final int result = value1.compareTo(value2);
         if (Comparators.EQUAL == Comparators.normalize(result)) {
             this.checkNotEquals(
                     result,
                     result,
-                    () -> CharSequences.quoteIfChars(value1) + " should not be EQUAL to " + CharSequences.quoteIfChars(value2) + " comparator=" + comparator
+                    () -> CharSequences.quoteIfChars(value1) + " should not be EQUAL to " + CharSequences.quoteIfChars(value2)
             );
         }
     }
