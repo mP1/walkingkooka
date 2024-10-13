@@ -62,7 +62,7 @@ public final class ComparableTestingTest implements ComparableTesting {
 
     @Test
     public void testCompareToAndCheckNotEquals() {
-        this.compareAndCheckNotEquals(
+        this.compareToAndCheckNotEquals(
                 "abc",
                 "xyz"
         );
@@ -71,7 +71,7 @@ public final class ComparableTestingTest implements ComparableTesting {
     @Test
     public void testCompareToAndCheckNotEqualsFails() {
         this.mustFail(
-                () -> this.compareAndCheckNotEquals(
+                () -> this.compareToAndCheckNotEquals(
                         "xyz",
                         "xyz"
                 )

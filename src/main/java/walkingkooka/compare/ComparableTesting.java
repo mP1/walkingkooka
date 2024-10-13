@@ -45,8 +45,8 @@ public interface ComparableTesting extends HashCodeEqualsDefinedTesting {
         this.compareToAndCheck(comparable1, comparable2, Comparators.MORE);
     }
 
-    default <C extends Comparable<C>> void compareAndCheckNotEquals(final C value1,
-                                                                    final C value2) {
+    default <C extends Comparable<C>> void compareToAndCheckNotEquals(final C value1,
+                                                                      final C value2) {
         final int result = value1.compareTo(value2);
         if (Comparators.EQUAL == Comparators.normalize(result)) {
             this.checkNotEquals(
