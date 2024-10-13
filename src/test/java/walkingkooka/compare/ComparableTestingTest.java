@@ -63,7 +63,6 @@ public final class ComparableTestingTest implements ComparableTesting {
     @Test
     public void testCompareToAndCheckNotEquals() {
         this.compareAndCheckNotEquals(
-                String.CASE_INSENSITIVE_ORDER,
                 "abc",
                 "xyz"
         );
@@ -73,9 +72,8 @@ public final class ComparableTestingTest implements ComparableTesting {
     public void testCompareToAndCheckNotEqualsFails() {
         this.mustFail(
                 () -> this.compareAndCheckNotEquals(
-                        String.CASE_INSENSITIVE_ORDER,
                         "xyz",
-                        "XYZ"
+                        "xyz"
                 )
         );
     }
