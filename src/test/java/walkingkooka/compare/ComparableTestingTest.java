@@ -20,8 +20,6 @@ package walkingkooka.compare;
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class ComparableTestingTest implements ComparableTesting {
 
     // compareToAndCheckLess............................................................................................
@@ -58,6 +56,28 @@ public final class ComparableTestingTest implements ComparableTesting {
     @Test
     public void testCompareToAndCheckMore2Fails() {
         this.mustFail(() -> this.compareToAndCheckMore("A", "B"));
+    }
+
+    // compareToAndCheckNotEquals...........................................................................................
+
+    @Test
+    public void testCompareToAndCheckNotEquals() {
+        this.compareAndCheckNotEquals(
+                String.CASE_INSENSITIVE_ORDER,
+                "abc",
+                "xyz"
+        );
+    }
+
+    @Test
+    public void testCompareToAndCheckNotEqualsFails() {
+        this.mustFail(
+                () -> this.compareAndCheckNotEquals(
+                        String.CASE_INSENSITIVE_ORDER,
+                        "xyz",
+                        "XYZ"
+                )
+        );
     }
 
     // compareToArraySortAndCheck.......................................................................................

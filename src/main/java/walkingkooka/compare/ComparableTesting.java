@@ -20,6 +20,7 @@ package walkingkooka.compare;
 import org.junit.jupiter.api.Assertions;
 import walkingkooka.HashCodeEqualsDefinedTesting;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.CharSequences;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,6 +43,19 @@ public interface ComparableTesting extends HashCodeEqualsDefinedTesting {
 
     default <C extends Comparable<C>> void compareToAndCheckMore(final C comparable1, final C comparable2) {
         this.compareToAndCheck(comparable1, comparable2, Comparators.MORE);
+    }
+
+    default <T> void compareAndCheckNotEquals(final Comparator<T> comparator,
+                                              final T value1,
+                                              final T value2) {
+        final int result = comparator.compare(value1, value2);
+        if (Comparators.EQUAL == Comparators.normalize(result)) {
+            this.checkNotEquals(
+                    result,
+                    result,
+                    () -> CharSequences.quoteIfChars(value1) + " should not be EQUAL to " + CharSequences.quoteIfChars(value2) + " comparator=" + comparator
+            );
+        }
     }
 
     default <C extends Comparable<C>> void compareToAndCheck(final C comparable1,
