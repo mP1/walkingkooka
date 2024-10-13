@@ -19,6 +19,7 @@ package walkingkooka.compare;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
+import walkingkooka.text.CharSequences;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -68,6 +69,19 @@ public interface ComparableTesting2<C extends Comparable<C>> extends ComparableT
 
         if (this.compareAndEqualsMatch()) {
             this.checkNotEquals(this.createComparable(), comparable);
+        }
+    }
+
+    default void compareToAndCheckNotEquals(final C otherComparable) {
+        final C comparable = this.createComparable();
+
+        final int result = comparable.compareTo(otherComparable);
+        if (Comparators.EQUAL == Comparators.normalize(result)) {
+            this.checkNotEquals(
+                    result,
+                    result,
+                    () -> CharSequences.quoteIfChars(comparable) + " should not be EQUAL to " + CharSequences.quoteIfChars(otherComparable)
+            );
         }
     }
 

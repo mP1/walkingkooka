@@ -21,8 +21,6 @@ import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
 import walkingkooka.compare.ComparableTesting2Test.TestComparable;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class ComparableTesting2Test implements ComparableTesting2<TestComparable> {
 
     // compareToAndCheckLess............................................................................................
@@ -59,6 +57,22 @@ public final class ComparableTesting2Test implements ComparableTesting2<TestComp
     @Test
     public void testCompareToAndCheckMoreFails() {
         this.mustFail(() -> this.compareToAndCheckMore(this.more()));
+    }
+
+    // compareToAndCheckNotEquals.......................................................................................
+
+    @Test
+    public void testCompareToAndCheckNotEquals() {
+        this.compareToAndCheckNotEquals(
+                this.less()
+        );
+    }
+
+    @Test
+    public void testCompareToAndCheckNotEqualsFails() {
+        this.mustFail(
+                () -> this.compareToAndCheckNotEquals(this.createComparable())
+        );
     }
 
     // helpers..........................................................................................................
