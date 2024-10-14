@@ -350,4 +350,14 @@ public enum CaseKind {
                 .toLowerCase()
                 .replace('_', '-');
     }
+
+    /**
+     * Helper that provides the often performed conversion of kebab case text to title case.
+     */
+    public static String kebabToTitle(final String text) {
+        return KEBAB.change(
+                text,
+                TITLE
+        );
+    }
 }

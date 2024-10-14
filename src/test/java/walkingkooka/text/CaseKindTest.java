@@ -227,6 +227,24 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
     }
 
     @Test
+    public void testKebabToTitle() {
+        this.changeAndCheckBothWays(
+                CaseKind.KEBAB,
+                "abc-def-ghi",
+                CaseKind.TITLE,
+                "Abc Def Ghi"
+        );
+    }
+
+    @Test
+    public void testStaticKebabToTitle() {
+        this.checkEquals(
+                "Abc Def Ghi",
+                CaseKind.kebabToTitle("abc-def-ghi")
+        );
+    }
+
+    @Test
     public void testNormalToCamel() {
         this.changeAndCheckBothWays(
                 CaseKind.NORMAL,
