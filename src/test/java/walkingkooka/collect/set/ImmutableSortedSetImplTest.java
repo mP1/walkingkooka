@@ -96,16 +96,7 @@ public final class ImmutableSortedSetImplTest implements ImmutableSortedSetTesti
         this.replaceAndCheck(
                 this.createSet(),
                 "*missing*",
-                "replaced2b",
-                ImmutableSortedSetImpl.with(
-                        new TreeSet<>(
-                                Sets.of(
-                                        "1a",
-                                        "2b",
-                                        "replaced2b" // *BUG* concat should not have happened
-                                )
-                        )
-                )
+                "replaced2b"
         );
     }
 

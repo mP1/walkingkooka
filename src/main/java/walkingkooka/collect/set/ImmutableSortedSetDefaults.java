@@ -72,16 +72,15 @@ public interface ImmutableSortedSetDefaults<S extends ImmutableSortedSet<E>, E> 
     @Override
     default S replace(final E oldElement,
                       final E newElement) {
-        S result;
+        S result = (S) this;
 
-        if(Objects.equals(oldElement, newElement)) {
-            result =  (S) this;
-        } else {
+        if (false == Objects.equals(oldElement, newElement)) {
             final SortedSet<E> set = this.toSet();
-            set.remove(oldElement);
-            set.add(newElement);
+            if (set.remove(oldElement)) {
+                set.add(newElement);
 
-            result = (S)this.setElements(set);
+                result = (S) this.setElements(set);
+            }
         }
 
         return result;

@@ -48,7 +48,8 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>, SortedSet<E> {
     ImmutableSortedSet<E> deleteAll(final Collection<E> elements);
 
     /**
-     * Returns a new instance of this {@link ImmutableSet} after replacing.
+     * Returns a new instance of this {@link ImmutableSet} after replacing.<br>
+     * If the oldElement does not exist the original {@link ImmutableSet} will be returned.
      */
     ImmutableSortedSet<E> replace(final E oldElement,
                                   final E newElement);

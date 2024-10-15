@@ -77,6 +77,19 @@ public interface ImmutableSortedSetTesting<S extends ImmutableSortedSet<E>, E> e
 
     default void replaceAndCheck(final ImmutableSortedSet<E> set,
                                  final E oldElement,
+                                 final E newElement) {
+        assertSame(
+                set,
+                set.replace(
+                        oldElement,
+                        newElement
+                ),
+                () -> set + " replaced " + oldElement + " with " + newElement
+        );
+    }
+
+    default void replaceAndCheck(final ImmutableSortedSet<E> set,
+                                 final E oldElement,
                                  final E newElement,
                                  final ImmutableSortedSet<E> expected) {
         final ImmutableSortedSet<E> afterReplace = set.replace(
