@@ -26,4 +26,11 @@ public interface CanBeEmpty {
      * Returns true if the value is empty.
      */
     boolean isEmpty();
+
+    /**
+     * Useful opposite of {@link #isEmpty()}
+     */
+    default boolean isNotEmpty() {
+        return false == this.isEmpty();
+    }
 }
