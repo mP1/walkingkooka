@@ -18,6 +18,7 @@
 package walkingkooka.collect.set;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.CanBeEmptyTesting;
 
 import java.util.Collection;
 import java.util.Set;
@@ -26,7 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public interface ImmutableSetTesting<S extends ImmutableSet<E>, E> extends SetTesting2<S, E> {
+public interface ImmutableSetTesting<S extends ImmutableSet<E>, E> extends SetTesting2<S, E>,
+        CanBeEmptyTesting {
 
     default void concatAndCheck(final ImmutableSet<E> set,
                                 final E appended,
