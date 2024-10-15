@@ -25,6 +25,8 @@ import java.util.function.Supplier;
  */
 public interface CanBeEmptyTesting extends Testing {
 
+    // isEmpty..........................................................................................................
+
     default void isEmptyAndCheck(final CanBeEmpty canBeEmpty,
                                  final boolean expected) {
         this.isEmptyAndCheck(
@@ -50,6 +52,37 @@ public interface CanBeEmptyTesting extends Testing {
         this.checkEquals(
                 expected,
                 canBeEmpty.isEmpty(),
+                message
+        );
+    }
+
+    // isNotEmpty..........................................................................................................
+
+    default void isNotEmptyAndCheck(final CanBeEmpty canBeEmpty,
+                                    final boolean expected) {
+        this.isNotEmptyAndCheck(
+                canBeEmpty,
+                expected,
+                () -> canBeEmpty.toString()
+        );
+    }
+
+    default void isNotEmptyAndCheck(final CanBeEmpty canBeEmpty,
+                                    final boolean expected,
+                                    final String message) {
+        this.isNotEmptyAndCheck(
+                canBeEmpty,
+                expected,
+                () -> message
+        );
+    }
+
+    default void isNotEmptyAndCheck(final CanBeEmpty canBeEmpty,
+                                    final boolean expected,
+                                    final Supplier<String> message) {
+        this.checkEquals(
+                expected,
+                canBeEmpty.isNotEmpty(),
                 message
         );
     }
