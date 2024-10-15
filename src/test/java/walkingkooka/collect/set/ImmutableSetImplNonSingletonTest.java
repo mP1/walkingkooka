@@ -64,6 +64,28 @@ public final class ImmutableSetImplNonSingletonTest extends ImmutableSetImplTest
     }
 
     @Test
+    public void testReplaceOld() {
+        final String newElement = "*newElement*";
+
+        this.replaceAndCheck(
+                ImmutableSetImplNonSingleton.with(
+                        Sets.of(
+                                ELEMENT1,
+                                ELEMENT2
+                        )
+                ),
+                ELEMENT1,
+                newElement,
+                ImmutableSetImplNonSingleton.with(
+                        Sets.of(
+                                newElement,
+                                ELEMENT2
+                        )
+                )
+        );
+    }
+
+    @Test
     public void testToString() {
         this.toStringAndCheck(
                 this.createSet(),

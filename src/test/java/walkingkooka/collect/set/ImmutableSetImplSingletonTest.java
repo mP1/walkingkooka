@@ -74,6 +74,20 @@ public final class ImmutableSetImplSingletonTest extends ImmutableSetImplTestCas
     }
 
     @Test
+    public void testReplaceOld() {
+        final String newElement = "*newElement*";
+
+        this.replaceAndCheck(
+                ImmutableSetImplSingleton.singleton(ELEMENT),
+                ELEMENT,
+                newElement,
+                ImmutableSetImplSingleton.with(
+                        Sets.of(newElement)
+                )
+        );
+    }
+
+    @Test
     public void testToString() {
         this.toStringAndCheck(this.createSet(), Collections.singleton(ELEMENT).toString());
     }
