@@ -63,6 +63,31 @@ public final class ImmutableSetImplNonSingletonTest extends ImmutableSetImplTest
         this.sizeAndCheck(this.createSet(), 2);
     }
 
+    // verify replace bug which *ALWAYS* concats
+    @Test
+    public void testReplaceOldMissing() {
+        final String newElement = "*newElement*";
+
+        this.replaceAndCheck(
+                ImmutableSetImplNonSingleton.with(
+                        Sets.of(
+                                ELEMENT1,
+                                ELEMENT2
+                        )
+                ),
+                "*missing*",
+                newElement,
+                ImmutableSetImplNonSingleton.with(
+                        Sets.of(
+                                ELEMENT1,
+                                ELEMENT2,
+                                newElement
+                        )
+                )
+        );
+    }
+
+
     @Test
     public void testReplaceOld() {
         final String newElement = "*newElement*";
