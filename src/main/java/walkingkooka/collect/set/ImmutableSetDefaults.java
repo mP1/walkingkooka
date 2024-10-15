@@ -77,16 +77,15 @@ public interface ImmutableSetDefaults<S extends ImmutableSet<E>, E> extends Immu
     @Override
     default S replace(final E oldElement,
                       final E newElement) {
-        S result;
+        S result = (S) this;
 
-        if(Objects.equals(oldElement, newElement)) {
-            result =  (S) this;
-        } else {
+        if (false == Objects.equals(oldElement, newElement)) {
             final Set<E> set = this.toSet();
-            set.remove(oldElement);
-            set.add(newElement);
+            if (set.remove(oldElement)) {
+                set.add(newElement);
 
-            result = this.setElements(set);
+                result = this.setElements(set);
+            }
         }
 
         return result;

@@ -142,6 +142,19 @@ public interface ImmutableSetTesting<S extends ImmutableSet<E>, E> extends SetTe
         );
     }
 
+
+    default void replaceAndCheck(final ImmutableSet<E> set,
+                                 final E oldElement,
+                                 final E newElement) {
+        assertSame(
+                set,
+                set.replace(
+                        oldElement,
+                        newElement
+                )
+        );
+    }
+
     default void replaceAndCheck(final ImmutableSet<E> set,
                                  final E oldElement,
                                  final E newElement,
