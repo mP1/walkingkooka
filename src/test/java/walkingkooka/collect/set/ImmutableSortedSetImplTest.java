@@ -91,6 +91,24 @@ public final class ImmutableSortedSetImplTest implements ImmutableSortedSetTesti
         );
     }
 
+    @Test
+    public void testReplaceOldMissing() {
+        this.replaceAndCheck(
+                this.createSet(),
+                "*missing*",
+                "replaced2b",
+                ImmutableSortedSetImpl.with(
+                        new TreeSet<>(
+                                Sets.of(
+                                        "1a",
+                                        "2b",
+                                        "replaced2b" // *BUG* concat should not have happened
+                                )
+                        )
+                )
+        );
+    }
+
     @Override
     public ImmutableSortedSetImpl<String> createSet() {
         return Cast.to(
