@@ -17,6 +17,8 @@
 
 package walkingkooka.collect.set;
 
+import walkingkooka.CanBeEmpty;
+
 import java.util.Collection;
 import java.util.Set;
 
@@ -24,7 +26,7 @@ import java.util.Set;
  * A {@link Set} that is immutable but also contains a few would be mutator methods that return a new instance if required.
  * Note the {@link java.util.Iterator} returned will also need to be made read-only.
  */
-public interface ImmutableSet<E> extends Set<E> {
+public interface ImmutableSet<E> extends Set<E>, CanBeEmpty {
 
     // ImmutableSet....................................................................................................
 
