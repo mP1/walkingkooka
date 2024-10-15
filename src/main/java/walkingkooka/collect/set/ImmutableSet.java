@@ -62,6 +62,7 @@ public interface ImmutableSet<E> extends Set<E> {
 
     /**
      * Returns a new instance of this {@link ImmutableSet} after replacing.
+     * If the oldElement does not exist the original {@link ImmutableSet} will be returned.
      */
     ImmutableSet<E> replace(final E oldElement,
                             final E newElement);

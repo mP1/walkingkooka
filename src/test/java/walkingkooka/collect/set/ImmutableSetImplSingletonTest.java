@@ -87,7 +87,6 @@ public final class ImmutableSetImplSingletonTest extends ImmutableSetImplTestCas
         );
     }
 
-    // verify replace bug which *ALWAYS* concats
     @Test
     public void testReplaceOldMissing() {
         final String newElement = "*newElement*";
@@ -95,13 +94,7 @@ public final class ImmutableSetImplSingletonTest extends ImmutableSetImplTestCas
         this.replaceAndCheck(
                 ImmutableSetImplSingleton.singleton(ELEMENT),
                 "missing",
-                newElement,
-                ImmutableSetImplNonSingleton.with(
-                        Sets.of(
-                                ELEMENT,
-                                newElement
-                        )
-                )
+                newElement
         );
     }
 
