@@ -17,13 +17,16 @@
 
 package walkingkooka.collect.stack;
 
+import walkingkooka.CanBeEmpty;
+
 import java.util.Iterator;
 
 /**
  * A pure stack without the legacy of {@link java.util.Stack} which extends {@link
  * java.util.Vector}.
  */
-public interface Stack<T> extends Iterable<T> {
+public interface Stack<T> extends Iterable<T>,
+        CanBeEmpty {
 
     /**
      * Peeks without removing the item at the top of the stack.
@@ -48,6 +51,7 @@ public interface Stack<T> extends Iterable<T> {
     /**
      * Tests if this stack is empty.
      */
+    @Override
     boolean isEmpty();
 
     /**
