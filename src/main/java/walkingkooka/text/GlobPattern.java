@@ -54,6 +54,10 @@ public final class GlobPattern implements Predicate<CharSequence> {
         );
     }
 
+    private final static char STAR = '*';
+
+    private final static char ANY_CHAR = '?';
+
     private static GlobPattern parseNonEmpty(final String pattern,
                                              final char escape,
                                              final CaseSensitivity caseSensitivity) {
@@ -82,15 +86,15 @@ public final class GlobPattern implements Predicate<CharSequence> {
                 continue;
             }
             switch(c) {
-                case '*':
-                case '?':
+                case STAR:
+                case ANY_CHAR:
                     addTextLiteralIfNecessary(
                             textLiteral,
                             components
                     );
 
 
-                    if('*' ==c) {
+                    if(STAR ==c) {
                         max = Integer.MAX_VALUE;
                     } else {
                         min++;
