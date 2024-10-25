@@ -76,6 +76,11 @@ public interface ImmutableList<E> extends List<E>, CanBeEmpty {
     ImmutableList<E> delete(final E element);
 
     /**
+     * Returns a new instance of this {@link ImmutableList} with the elements removed.
+     */
+    ImmutableList<E> deleteAll(final Collection<E> elements);
+
+    /**
      * Returns a mutable {@link List} with the items in this list. Modifying the given list does not update the elements in this list.
      */
     List<E> toList();
