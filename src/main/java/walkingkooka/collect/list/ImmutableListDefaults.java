@@ -129,7 +129,7 @@ public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends Im
      * Returns an {@link ImmutableList} without the given element.
      */
     @Override
-    default T removeElement(final E element) {
+    default T delete(final E element) {
         final List<E> list = this.toList();
         final boolean removed = list.remove(element);
         return removed ?
