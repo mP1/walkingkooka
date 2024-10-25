@@ -68,7 +68,7 @@ public interface ImmutableList<E> extends List<E>, CanBeEmpty {
     /**
      * Returns an {@link ImmutableList} without the element at index.
      */
-    ImmutableList<E> removeAtIndex(final int index);
+    ImmutableList<E> deleteAtIndex(final int index);
 
     /**
      * Returns an {@link ImmutableList} without the given element.

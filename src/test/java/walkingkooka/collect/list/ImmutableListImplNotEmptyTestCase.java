@@ -31,17 +31,17 @@ public abstract class ImmutableListImplNotEmptyTestCase<S extends ImmutableListI
     }
 
     @Test
-    public final void testRemoveNew() {
+    public final void testDeleteAtIndexNew() {
         final ImmutableListImpl<String> immutableList = this.createList();
         final String removed = immutableList.get(0);
 
         final List<String> list = immutableList.toList();
         list.remove(0);
 
-        this.removeAtIndexAndCheck(
+        this.deleteAtIndexAndCheck(
                 immutableList,
                 0,
-                (ImmutableList)
+                (ImmutableList<String>)
                         ImmutableListImpl.with(list)
         );
     }
