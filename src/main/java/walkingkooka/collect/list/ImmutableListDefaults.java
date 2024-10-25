@@ -119,7 +119,7 @@ public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends Im
      * Returns an {@link ImmutableList} without the element at index.
      */
     @Override
-    default T removeAtIndex(final int index) {
+    default T deleteAtIndex(final int index) {
         final List<E> list = this.toList();
         list.remove(index);
         return this.setElements(list);
