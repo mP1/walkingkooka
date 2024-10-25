@@ -111,10 +111,10 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
         );
     }
 
-    default void removeElementAndCheck(final ImmutableList<E> list,
-                                       final E remove,
-                                       final ImmutableList<E> expected) {
-        final ImmutableList<E> afterRemove = list.removeElement(remove);
+    default void deleteAndCheck(final ImmutableList<E> list,
+                                final E remove,
+                                final ImmutableList<E> expected) {
+        final ImmutableList<E> afterRemove = list.delete(remove);
 
         assertNotSame(
                 afterRemove,
@@ -123,7 +123,7 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
         this.checkEquals(
                 expected,
                 afterRemove,
-                () -> list + " removeElement " + remove
+                () -> list + " delete " + remove
         );
 
         final List<E> toList = list.toList();
@@ -131,7 +131,7 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
         this.checkEquals(
                 toList,
                 afterRemove,
-                () -> list + " removeElement " + remove
+                () -> list + " delete " + remove
         );
     }
 

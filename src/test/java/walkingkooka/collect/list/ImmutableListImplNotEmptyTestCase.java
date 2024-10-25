@@ -47,17 +47,17 @@ public abstract class ImmutableListImplNotEmptyTestCase<S extends ImmutableListI
     }
 
     @Test
-    public final void testRemoveElementNew() {
+    public final void testDeleteNew() {
         final ImmutableListImpl<String> immutableList = this.createList();
         final String removed = immutableList.get(0);
 
         final List<String> list = immutableList.toList();
         list.remove(0);
 
-        this.removeElementAndCheck(
+        this.deleteAndCheck(
                 immutableList,
                 removed,
-                (ImmutableList)
+                (ImmutableList<String>)
                         ImmutableListImpl.with(list)
         );
     }

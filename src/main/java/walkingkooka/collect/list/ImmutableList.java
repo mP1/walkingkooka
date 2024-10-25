@@ -73,7 +73,7 @@ public interface ImmutableList<E> extends List<E>, CanBeEmpty {
     /**
      * Returns an {@link ImmutableList} without the given element.
      */
-    ImmutableList<E> removeElement(final E element);
+    ImmutableList<E> delete(final E element);
 
     /**
      * Returns a mutable {@link List} with the items in this list. Modifying the given list does not update the elements in this list.
