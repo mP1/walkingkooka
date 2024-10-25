@@ -103,6 +103,15 @@ public final class ImmutableListImplSingletonTest extends ImmutableListImplNotEm
     }
 
     @Test
+    public void testDeleteAll() {
+        this.deleteAllAndCheck(
+                this.createList(),
+                Lists.of(ELEMENT),
+                Lists.empty()
+        );
+    }
+
+    @Test
     public void testToString() {
         this.toStringAndCheck(this.createList(), Collections.singleton(ELEMENT).toString());
     }

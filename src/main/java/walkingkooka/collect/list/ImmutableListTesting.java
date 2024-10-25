@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.CanBeEmptyTesting;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -132,6 +133,49 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
                 toList,
                 afterRemove,
                 () -> list + " delete " + remove
+        );
+    }
+
+    @Test
+    default void testDeleteAllWithNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createList()
+                        .deleteAll(null)
+        );
+    }
+
+    @Test
+    default void testDeleteAllWithEmptyCollection() {
+        final L list = this.createList();
+
+        assertSame(
+                list,
+                list.deleteAll(Collections.emptyList())
+        );
+    }
+
+    default void deleteAllAndCheck(final ImmutableList<E> list,
+                                   final Collection<E> appended,
+                                   final ImmutableList<E> expected) {
+        final ImmutableList<E> afterConcat = list.deleteAll(appended);
+
+        assertNotSame(
+                afterConcat,
+                list
+        );
+        this.checkEquals(
+                expected,
+                afterConcat,
+                () -> list + " deleteAll " + appended
+        );
+
+        final List<E> toList = list.toList();
+        toList.removeAll(appended);
+        this.checkEquals(
+                toList,
+                afterConcat,
+                () -> list + " deleteAll " + appended
         );
     }
 

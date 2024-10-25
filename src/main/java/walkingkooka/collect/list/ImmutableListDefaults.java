@@ -138,6 +138,18 @@ public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends Im
     }
 
     /**
+     * Returns a new instance of this {@link ImmutableList} with the elements removed.
+     */
+    default T deleteAll(final Collection<E> elements) {
+        Objects.requireNonNull(elements, "elements");
+
+        final List<E> list = this.toList();
+        list.removeAll(elements);
+
+        return this.setElements(list);
+    }
+
+    /**
      * Returns a mutable {@link List} with the items in this list. Modifying the given list does not update the elements in this list.
      */
     @Override
