@@ -23,6 +23,7 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.CaseSensitivity;
 
+import java.util.Collection;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -34,6 +35,14 @@ final public class Predicates implements PublicStaticHelper {
      */
     public static <T> Predicate<T> always() {
         return AlwaysPredicate.instance();
+    }
+
+    /**
+     * /**
+     * {@see AnyPredicate}.
+     */
+    public static <T> Predicate<T> any(final Collection<Predicate<T>> predicates) {
+        return AnyPredicate.with(predicates);
     }
 
     /**
