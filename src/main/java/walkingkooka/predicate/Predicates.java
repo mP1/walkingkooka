@@ -23,9 +23,12 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.CaseSensitivity;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 final public class Predicates implements PublicStaticHelper {
 
@@ -106,6 +109,30 @@ final public class Predicates implements PublicStaticHelper {
      */
     public static <T> Predicate<T> fake() {
         return FakePredicate.create();
+    }
+
+    /**
+     * Returns a {@link Predicate} that is composed of multiple glob expressions, with one for each token within the expression.
+     * The predicate returns true if any glob pattern is matched.
+     */
+    public static Predicate<CharSequence> globPatterns(final String expression,
+                                                       final CaseSensitivity caseSensitivity,
+                                                       final char escape) {
+        Objects.requireNonNull(expression, "expression");
+
+        return Predicates.any(
+                Arrays.stream(
+                                expression.split(" "))
+                        .filter(s -> s.length() > 0)
+                        .map(
+                                p ->
+                                        caseSensitivity.globPattern(
+                                                p,
+                                                escape
+                                        )
+                        ).distinct()
+                        .collect(Collectors.<Predicate<CharSequence>>toList())
+        );
     }
 
     /**

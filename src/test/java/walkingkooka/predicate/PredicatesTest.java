@@ -17,12 +17,93 @@
 
 package walkingkooka.predicate;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
+import walkingkooka.text.CaseSensitivity;
 
 import java.lang.reflect.Method;
 
-final public class PredicatesTest implements PublicStaticHelperTesting<Predicates> {
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+final public class PredicatesTest implements PublicStaticHelperTesting<Predicates>,
+        PredicateTesting {
+
+    // globsPatterns....................................................................................................
+
+    @Test
+    public void testGlobPatternsWithNullExpressionFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> Predicates.globPatterns(
+                        null,
+                        CaseSensitivity.SENSITIVE,
+                        '\\'
+                )
+        );
+    }
+
+    @Test
+    public void testGlobPatternsWithNullCaseSensitiveFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> Predicates.globPatterns(
+                        "*",
+                        null,
+                        '\\'
+                )
+        );
+    }
+
+    @Test
+    public void testGlobPatternsTestMatchCaseSensitive() {
+        this.testTrue(
+                Predicates.globPatterns(
+                        "*Match*",
+                        CaseSensitivity.SENSITIVE,
+                        '\\'
+                ),
+                "Match"
+        );
+    }
+
+    @Test
+    public void testGlobPatternsTestMatchCaseInsensitive() {
+        this.testTrue(
+                Predicates.globPatterns(
+                        "*Match*",
+                        CaseSensitivity.INSENSITIVE,
+                        '\\'
+                ),
+                "MATCH"
+        );
+    }
+
+    @Test
+    public void testGlobPatternsTestMatchMultipleTokens() {
+        this.testTrue(
+                Predicates.globPatterns(
+                        "*starts ends* *Match*",
+                        CaseSensitivity.INSENSITIVE,
+                        '\\'
+                ),
+                "111MATCH222"
+        );
+    }
+
+    @Test
+    public void testGlobPatternsTestNotMatch() {
+        this.testFalse(
+                Predicates.globPatterns(
+                        "*starts ends* *Match*",
+                        CaseSensitivity.INSENSITIVE,
+                        '\\'
+                ),
+                "Not!"
+        );
+    }
+    
+    // class............................................................................................................
 
     @Override
     public Class<Predicates> type() {
