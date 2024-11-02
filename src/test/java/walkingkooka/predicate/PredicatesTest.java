@@ -102,6 +102,20 @@ final public class PredicatesTest implements PublicStaticHelperTesting<Predicate
                 "Not!"
         );
     }
+
+    @Test
+    public void testGlobPatternsToString() {
+        final String pattern = "starts* *contains* ends* match 12345";
+
+        this.checkEquals(
+                pattern,
+                Predicates.globPatterns(
+                        pattern,
+                        CaseSensitivity.INSENSITIVE,
+                        '\\'
+                ).toString()
+        );
+    }
     
     // class............................................................................................................
 

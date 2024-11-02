@@ -114,24 +114,29 @@ final public class Predicates implements PublicStaticHelper {
     /**
      * Returns a {@link Predicate} that is composed of multiple glob expressions, with one for each token within the expression.
      * The predicate returns true if any glob pattern is matched.
+     * <br>
+     * Note the {@link Predicate#toString()} returned will return the original expression verbatim.
      */
     public static Predicate<CharSequence> globPatterns(final String expression,
                                                        final CaseSensitivity caseSensitivity,
                                                        final char escape) {
         Objects.requireNonNull(expression, "expression");
 
-        return Predicates.any(
-                Arrays.stream(
-                                expression.split(" "))
-                        .filter(s -> s.length() > 0)
-                        .map(
-                                p ->
-                                        caseSensitivity.globPattern(
-                                                p,
-                                                escape
-                                        )
-                        ).distinct()
-                        .collect(Collectors.<Predicate<CharSequence>>toList())
+        return Predicates.customToString(
+                Predicates.any(
+                        Arrays.stream(
+                                        expression.split(" "))
+                                .filter(s -> s.length() > 0)
+                                .map(
+                                        p ->
+                                                caseSensitivity.globPattern(
+                                                        p,
+                                                        escape
+                                                )
+                                ).distinct()
+                                .collect(Collectors.<Predicate<CharSequence>>toList())
+                ),
+                expression
         );
     }
 
