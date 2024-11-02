@@ -29,7 +29,9 @@ import java.util.function.Predicate;
  * <br>
  * <a href="https://en.wikipedia.org/wiki/Glob_(programming)">Glob</a>
  */
-public final class GlobPattern implements Predicate<CharSequence> {
+public final class GlobPattern implements Predicate<CharSequence>,
+        HasText,
+        HasCaseSensitivity{
 
     final static GlobPattern EMPTY_CASE_SENSITIVE = empty(CaseSensitivity.SENSITIVE);
 
@@ -201,6 +203,20 @@ public final class GlobPattern implements Predicate<CharSequence> {
         return this.first.isOnlyTextLiteral();
     }
 
+    @Override
+    public String text() {
+        return this.pattern;
+    }
+
+    private final String pattern;
+
+    @Override
+    public CaseSensitivity caseSensitivity() {
+        return this.caseSensitivity;
+    }
+
+    private final CaseSensitivity caseSensitivity;
+
     // search..........................................................................................................
 
     /**
@@ -272,8 +288,6 @@ public final class GlobPattern implements Predicate<CharSequence> {
 
     final GlobPatternComponent first;
 
-    private final CaseSensitivity caseSensitivity;
-
     // Object..........................................................................................................
 
     @Override
@@ -298,6 +312,4 @@ public final class GlobPattern implements Predicate<CharSequence> {
     public String toString() {
         return CharSequences.quoteAndEscape(this.pattern) + " " + this.caseSensitivity;
     }
-
-    private final String pattern;
 }
