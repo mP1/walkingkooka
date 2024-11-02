@@ -118,8 +118,7 @@ final public class Predicates implements PublicStaticHelper {
      * Note the {@link Predicate#toString()} returned will return the original expression verbatim.
      */
     public static Predicate<CharSequence> globPatterns(final String expression,
-                                                       final CaseSensitivity caseSensitivity,
-                                                       final char escape) {
+                                                       final CaseSensitivity caseSensitivity) {
         Objects.requireNonNull(expression, "expression");
 
         return Predicates.customToString(
@@ -129,10 +128,7 @@ final public class Predicates implements PublicStaticHelper {
                                 .filter(s -> s.length() > 0)
                                 .map(
                                         p ->
-                                                caseSensitivity.globPattern(
-                                                        p,
-                                                        escape
-                                                )
+                                                caseSensitivity.globPattern(p)
                                 ).distinct()
                                 .collect(Collectors.<Predicate<CharSequence>>toList())
                 ),

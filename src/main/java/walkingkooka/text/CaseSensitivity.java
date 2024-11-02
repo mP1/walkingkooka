@@ -392,13 +392,15 @@ public enum CaseSensitivity {
      * /user/Miroslav/Not.txt NOT MATCHED
      * </pre>
      */
-    final public GlobPattern globPattern(final String pattern,
-                                         final char escape) {
-        return GlobPattern.parse(pattern, escape, this);
+    final public GlobPattern globPattern(final String pattern) {
+        return GlobPattern.parse(
+                pattern,
+                this
+        );
     }
 
     /**
-     * Factory used exclusively by {@link GlobPattern#parse(String, char, CaseSensitivity)}
+     * Factory used exclusively by {@link GlobPattern#parse(String, CaseSensitivity)}
      */
     abstract GlobPattern emptyGlobPattern();
 

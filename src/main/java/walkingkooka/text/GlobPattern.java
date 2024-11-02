@@ -36,14 +36,16 @@ public final class GlobPattern implements Predicate<CharSequence> {
     final static GlobPattern EMPTY_CASE_INSENSITIVE = empty(CaseSensitivity.INSENSITIVE);
 
     static GlobPattern parse(final String pattern,
-                             final char escape,
                              final CaseSensitivity caseSensitivity) {
         Objects.requireNonNull(pattern, "pattern");
 
         // special case if pattern is empty
         return pattern.isEmpty() ?
                 caseSensitivity.emptyGlobPattern() :
-                parseNonEmpty(pattern, escape, caseSensitivity);
+                parseNonEmpty(
+                        pattern,
+                        caseSensitivity
+                );
     }
 
     private static GlobPattern empty(final CaseSensitivity caseSensitivity) {
@@ -58,8 +60,9 @@ public final class GlobPattern implements Predicate<CharSequence> {
 
     private final static char ANY_CHAR = '?';
 
+    private final static char ESCAPE = '\\';
+
     private static GlobPattern parseNonEmpty(final String pattern,
-                                             final char escape,
                                              final CaseSensitivity caseSensitivity) {
         final List<GlobPatternComponent> components = Lists.array();
         final int length = pattern.length();
@@ -104,7 +107,7 @@ public final class GlobPattern implements Predicate<CharSequence> {
                     }
                     break;
                 default:
-                    escaped = escape == c;
+                    escaped = ESCAPE == c;
                     if(!escaped) {
                         addWildcardIfNecessary(
                                 min,
