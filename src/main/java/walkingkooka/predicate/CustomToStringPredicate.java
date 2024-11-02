@@ -17,7 +17,6 @@
 package walkingkooka.predicate;
 
 import walkingkooka.Cast;
-import walkingkooka.text.Whitespace;
 
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -29,7 +28,7 @@ final class CustomToStringPredicate<T> implements Predicate<T> {
 
     static <T> Predicate<T> wrap(final Predicate<T> predicate, final String toString) {
         Objects.requireNonNull(predicate, "predicate");
-        Whitespace.failIfNullOrEmptyOrWhitespace(toString, "toString");
+        Objects.requireNonNull(toString, "toString");
 
         Predicate<T> result;
 
