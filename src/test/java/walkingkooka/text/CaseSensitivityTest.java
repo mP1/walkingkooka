@@ -1447,7 +1447,7 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
 
     @Test
     public void testGlobPattern() {
-        final GlobPattern glob = CaseSensitivity.INSENSITIVE.globPattern("*.txt", '~');
+        final GlobPattern glob = CaseSensitivity.INSENSITIVE.globPattern("*.txt");
 
         this.checkEquals(
                 true,

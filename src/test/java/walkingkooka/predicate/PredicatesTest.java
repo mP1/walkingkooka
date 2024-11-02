@@ -37,8 +37,7 @@ final public class PredicatesTest implements PublicStaticHelperTesting<Predicate
                 NullPointerException.class,
                 () -> Predicates.globPatterns(
                         null,
-                        CaseSensitivity.SENSITIVE,
-                        '\\'
+                        CaseSensitivity.SENSITIVE
                 )
         );
     }
@@ -49,8 +48,7 @@ final public class PredicatesTest implements PublicStaticHelperTesting<Predicate
                 NullPointerException.class,
                 () -> Predicates.globPatterns(
                         "*",
-                        null,
-                        '\\'
+                        null
                 )
         );
     }
@@ -60,8 +58,7 @@ final public class PredicatesTest implements PublicStaticHelperTesting<Predicate
         this.testTrue(
                 Predicates.globPatterns(
                         "*Match*",
-                        CaseSensitivity.SENSITIVE,
-                        '\\'
+                        CaseSensitivity.SENSITIVE
                 ),
                 "Match"
         );
@@ -72,8 +69,7 @@ final public class PredicatesTest implements PublicStaticHelperTesting<Predicate
         this.testTrue(
                 Predicates.globPatterns(
                         "*Match*",
-                        CaseSensitivity.INSENSITIVE,
-                        '\\'
+                        CaseSensitivity.INSENSITIVE
                 ),
                 "MATCH"
         );
@@ -84,8 +80,7 @@ final public class PredicatesTest implements PublicStaticHelperTesting<Predicate
         this.testTrue(
                 Predicates.globPatterns(
                         "*starts ends* *Match*",
-                        CaseSensitivity.INSENSITIVE,
-                        '\\'
+                        CaseSensitivity.INSENSITIVE
                 ),
                 "111MATCH222"
         );
@@ -96,8 +91,7 @@ final public class PredicatesTest implements PublicStaticHelperTesting<Predicate
         this.testFalse(
                 Predicates.globPatterns(
                         "*starts ends* *Match*",
-                        CaseSensitivity.INSENSITIVE,
-                        '\\'
+                        CaseSensitivity.INSENSITIVE
                 ),
                 "Not!"
         );
@@ -111,8 +105,7 @@ final public class PredicatesTest implements PublicStaticHelperTesting<Predicate
                 pattern,
                 Predicates.globPatterns(
                         pattern,
-                        CaseSensitivity.INSENSITIVE,
-                        '\\'
+                        CaseSensitivity.INSENSITIVE
                 ).toString()
         );
     }
