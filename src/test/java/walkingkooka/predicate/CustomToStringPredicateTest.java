@@ -44,16 +44,6 @@ public final class CustomToStringPredicateTest extends PredicateTestCase<CustomT
     }
 
     @Test
-    public void testWrapEmptyToStringFails() {
-        assertThrows(IllegalArgumentException.class, () -> CustomToStringPredicate.wrap(WRAPPED, ""));
-    }
-
-    @Test
-    public void testWrapWhitespaceToStringFails() {
-        assertThrows(IllegalArgumentException.class, () -> CustomToStringPredicate.wrap(WRAPPED, " \t"));
-    }
-
-    @Test
     public void testDoesntWrapEquivalentToString() {
         assertSame(WRAPPED, CustomToStringPredicate.wrap(WRAPPED, WRAPPED.toString()));
     }
@@ -65,6 +55,23 @@ public final class CustomToStringPredicateTest extends PredicateTestCase<CustomT
         assertNotSame(first, wrapped);
         assertSame(WRAPPED, wrapped.predicate, "wrapped predicate");
         assertSame(CUSTOM_TO_STRING, wrapped.toString, "wrapped toString");
+    }
+
+    @Test
+    public void testWithEmptyStringCustomString() {
+        final Predicate<String> first = CustomToStringPredicate.wrap(
+                WRAPPED,
+                ""
+        );
+        final CustomToStringPredicate<String> wrapped = Cast.to(CustomToStringPredicate.wrap(first, CUSTOM_TO_STRING));
+        assertNotSame(first, wrapped);
+        assertSame(WRAPPED, wrapped.predicate, "wrapped predicate");
+        assertSame(CUSTOM_TO_STRING, wrapped.toString, "wrapped toString");
+
+        this.checkEquals(
+                "",
+                first.toString()
+        );
     }
 
     @Override
