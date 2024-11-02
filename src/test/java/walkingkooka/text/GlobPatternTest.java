@@ -31,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class GlobPatternTest implements ClassTesting<GlobPattern>,
         HashCodeEqualsDefinedTesting2<GlobPattern>,
         PredicateTesting2<GlobPattern, CharSequence>,
+        HasTextTesting,
         ToStringTesting<GlobPattern> {
 
     // parse............................................................................................................
@@ -228,6 +229,17 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
                 parsed.first,
                 expectedFirst,
                 () -> "parse " + CharSequences.quoteAndEscape(pattern) + " " + sensitivity
+        );
+
+        this.textAndCheck(
+                parsed,
+                pattern
+        );
+
+        this.checkEquals(
+                sensitivity,
+                parsed.caseSensitivity(),
+                parsed::toString
         );
     }
 
