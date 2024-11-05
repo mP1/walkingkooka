@@ -18,6 +18,7 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.EmptyTextException;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -87,7 +88,7 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
     @Test
     public void testFailIfNullOrEmptyEmptyStringFails() {
         assertThrows(
-                IllegalArgumentException.class,
+                EmptyTextException.class,
                 () -> CharSequences.failIfNullOrEmpty("", "empty-String")
         );
     }
