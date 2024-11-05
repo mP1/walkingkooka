@@ -19,6 +19,7 @@ package walkingkooka.text;
 
 import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Cast;
+import walkingkooka.EmptyTextException;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.reflect.PublicStaticHelper;
 
@@ -416,7 +417,7 @@ final public class CharSequences implements PublicStaticHelper {
                                            final String label) {
         Objects.requireNonNull(chars, label);
         if (chars.length() == 0) {
-            throw new IllegalArgumentException(label + " is empty");
+            throw new EmptyTextException(label);
         }
     }
 
