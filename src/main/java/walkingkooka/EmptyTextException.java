@@ -49,7 +49,7 @@ public class EmptyTextException extends InvalidTextException {
 
     @Override
     public String getMessage() {
-        return "Empty text for " + CharSequences.quoteAndEscape(this.label);
+        return "Empty " + CharSequences.quoteAndEscape(this.label);
     }
 
     public String label() {

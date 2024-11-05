@@ -61,7 +61,7 @@ public final class EmptyTextExceptionTest implements ThrowableTesting2<EmptyText
     public void testGetMessage() {
         checkMessage(
                 this.create(),
-                "Empty text for \"label123\""
+                "Empty \"label123\""
         );
     }
 
