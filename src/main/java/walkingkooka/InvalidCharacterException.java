@@ -113,15 +113,14 @@ public class InvalidCharacterException extends InvalidTextException implements H
     }
 
     /**
-     * Returns invalid character at position with quoting the entire {@link #text()}
+     * Returns invalid character at position without any {@link #text} and {@link #appendToMessage}.
      * <pre>
      * Invalid character '/' at 1
      * </pre>
      */
     public String getShortMessage() {
         return "Invalid character " + CharSequences.quoteIfChars(this.text.charAt(this.position)) +
-                " at " + this.position +
-                this.appendToMessage;
+                " at " + this.position;
     }
 
     /**
