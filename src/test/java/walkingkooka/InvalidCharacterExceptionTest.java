@@ -254,6 +254,15 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
     }
 
     @Test
+    public void testGetShortMessageWithAppendMessage() {
+        checkShortMessage(
+                this.create()
+                        .appendToMessage("AppendToMessage333"),
+                "Invalid character \'!\' at 3"
+        );
+    }
+
+    @Test
     public void testGetMessageEscapedCharacter() {
         checkMessage(new InvalidCharacterException("abc\"123", 3),
                 "Invalid character \'\\\"\' at 3 in \"abc\"123\"");
