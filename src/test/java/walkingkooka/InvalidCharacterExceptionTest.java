@@ -258,7 +258,7 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
         checkShortMessage(
                 this.create()
                         .appendToMessage("AppendToMessage333"),
-                "Invalid character \'!\' at 3"
+                "Invalid character \'!\' at 3AppendToMessage333"
         );
     }
 
