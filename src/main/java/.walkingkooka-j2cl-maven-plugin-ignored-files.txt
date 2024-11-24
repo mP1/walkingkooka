@@ -1,14 +1,13 @@
 #
 # reflect
 #
-# Filter everything except PublicStaticHelper & StaticHelper
 
-*/reflect/Class*
+*/reflect/ClassAttributes*
+*/reflect/ClassVisitor*
 */reflect/Fake*
 */reflect/Field*
-*/reflect/Java*
+*/reflect/JavaVisibility*
 */reflect/Method*
-*/reflect/PackageName*
 
 #
 # text
