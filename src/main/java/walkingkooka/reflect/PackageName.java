@@ -17,6 +17,7 @@
 
 package walkingkooka.reflect;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CharacterConstant;
 
@@ -47,6 +48,7 @@ final public class PackageName extends JavaName<PackageName> {
     /**
      * Creates a {@link PackageName} for the given {@link Package}.
      */
+    @GwtIncompatible
     public static PackageName from(final Package pkg) {
         Objects.requireNonNull(pkg, "package");
         return new PackageName(pkg.getName());
