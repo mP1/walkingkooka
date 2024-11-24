@@ -138,11 +138,11 @@ public final class ClassName extends JavaName<ClassName> {
             throw new InvalidCharacterException(name, classStart - 1);
         }
 
-        if (!Character.isJavaIdentifierStart(name.charAt(classStart))) {
+        if (false == START.test(name.charAt(classStart))) {
             throw new InvalidCharacterException(name, classStart);
         }
         for (int i = classStart + 1; i < length; i++) {
-            if (!Character.isJavaIdentifierPart(name.charAt(i))) {
+            if (false == PART.test(name.charAt(i))) {
                 throw new InvalidCharacterException(name, i);
             }
         }
