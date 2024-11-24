@@ -32,10 +32,12 @@ import walkingkooka.text.CharacterConstant;
 abstract class JavaName<N extends JavaName<N>> implements Name, Comparable<N> {
 
     static void check(final String name) {
-        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name,
+        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(
+                name,
                 "name",
-                INITIAL,
-                PART);
+                START,
+                PART
+        );
         checkLength(name);
     }
 
@@ -76,12 +78,12 @@ abstract class JavaName<N extends JavaName<N>> implements Name, Comparable<N> {
                 continue;
             }
             if (PACKAGE_SEPARATOR.equals(wasPrevious)) {
-                if (false == Character.isJavaIdentifierStart(c)) {
+                if (false == START.test(c)) {
                     throw new InvalidCharacterException(name, i);
                 }
                 continue;
             }
-            if (false == Character.isJavaIdentifierPart(c)) {
+            if (false == PART.test(c)) {
                 throw new InvalidCharacterException(name, i);
             }
         }
@@ -92,8 +94,8 @@ abstract class JavaName<N extends JavaName<N>> implements Name, Comparable<N> {
         }
     }
 
-    private static final CharPredicate INITIAL = Character::isJavaIdentifierStart;
-    private static final CharPredicate PART = Character::isJavaIdentifierPart;
+    static final CharPredicate START = JavaNameIdentifier::isStart;
+    static final CharPredicate PART = JavaNameIdentifier::isPart;
 
     JavaName(final String name) {
         super();

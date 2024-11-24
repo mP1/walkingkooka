@@ -19,6 +19,7 @@ package walkingkooka.reflect;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
+import walkingkooka.predicate.character.CharPredicate;
 
 import java.util.Map;
 import java.util.function.Predicate;
@@ -26,6 +27,67 @@ import java.util.function.Predicate;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ClassNameTest extends PackageNameOrTypeNameJavaNameTestCase<ClassName> {
+
+    @Test
+    public void testCharacterIsIdentifierStartCount() {
+        int i = 0;
+        for(int j = 0; j <= Character.MAX_VALUE; j++) {
+            if(Character.isJavaIdentifierStart((char)j)) {
+                i++;
+            }
+        }
+
+        this.checkEquals(
+                48846,
+                i
+        );
+    }
+
+    @Test
+    public void testCharacterIsIdentifierPartCount() {
+        int i = 0;
+        for(int j = 0; j <= Character.MAX_VALUE; j++) {
+            if(Character.isJavaIdentifierPart((char)j)) {
+                i++;
+            }
+        }
+
+        this.checkEquals(
+                50559,
+                i
+        );
+    }
+
+    @Test
+    public void testCharacterIsIdentifierStart() {
+        base64(Character::isJavaIdentifierStart);
+    }
+
+    @Test
+    public void testCharacterIsIdentifierPart() {
+        base64(Character::isJavaIdentifierPart);
+    }
+
+    private void base64(final CharPredicate startOrPart) {
+        int i = 0;
+        int j = 0;
+        final StringBuilder b = new StringBuilder();
+
+
+        for (int k = 0; k <= Character.MAX_VALUE; k++) {
+            i = i * 2 + (startOrPart.test((char) k) ? 1 : 0);
+            j++;
+
+            if (6 == j) {
+                b.append(
+                        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".charAt(i)
+                );
+                j = 0;
+                i = 0;
+            }
+        }
+        System.out.println(b);
+    }
 
     @Test
     public void testFromClassNullFails() {
