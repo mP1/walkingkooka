@@ -74,6 +74,20 @@ public interface CharPredicate {
     }
 
     /**
+     * Fails if the chars are null or empty or any characters fail the {@link CharPredicate} test.
+     * It is assumed the {@link CharPredicate} have a meaningful toString as it is included in any exception messages.
+     */
+    default <T extends CharSequence> T failIfNullOrEmptyOrFalse(final String label,
+                                                                final T chars) {
+        CharSequences.failIfNullOrEmpty(chars, label);
+        CharSequences.failIfNullOrEmpty(label, "label");
+
+        this.checkCharacters(chars);
+
+        return chars;
+    }
+
+    /**
      * Checks that all characters pass the {@link CharPredicate} test.
      */
     private void checkCharacters(final CharSequence chars) {
