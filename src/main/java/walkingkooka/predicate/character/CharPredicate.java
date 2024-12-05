@@ -17,8 +17,11 @@
 
 package walkingkooka.predicate.character;
 
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.predicate.Predicates;
+import walkingkooka.text.CharSequences;
 
+import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -52,5 +55,35 @@ public interface CharPredicate {
 
     default CharPredicate setToString(final String toString) {
         return CharPredicates.toString(this, toString);
+    }
+
+    // failXXX..........................................................................................................
+
+    /**
+     * Fails if the chars are null or any characters fail the {@link CharPredicate} test.
+     * It is assumed the {@link CharPredicate} have a meaningful toString as it is included in any exception messages.
+     */
+    default <T extends CharSequence> T failIfNullOrFalse(final String label,
+                                                         final T chars) {
+        Objects.requireNonNull(chars, label);
+        CharSequences.failIfNullOrEmpty(label, "label");
+
+        this.checkCharacters(chars);
+
+        return chars;
+    }
+
+    /**
+     * Checks that all characters pass the {@link CharPredicate} test.
+     */
+    private void checkCharacters(final CharSequence chars) {
+        final int length = chars.length();
+
+        for (int i = 0; i < length; i++) {
+            final char c = chars.charAt(i);
+            if (false == this.test(c)) {
+                throw new InvalidCharacterException(chars.toString(), i);
+            }
+        }
     }
 }
