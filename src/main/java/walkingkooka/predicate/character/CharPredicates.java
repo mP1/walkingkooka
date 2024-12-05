@@ -118,34 +118,6 @@ final public class CharPredicates implements PublicStaticHelper {
     }
 
     /**
-     * Fails if the chars are null or empty or any characters fail the {@link CharPredicate} test.
-     * It is assumed the {@link CharPredicate} have a meaningful toString as it is included in any exception messages.
-     */
-    public static void failIfNullOrEmptyOrFalse(final CharSequence chars,
-                                                final String label,
-                                                final CharPredicate predicate) {
-        CharSequences.failIfNullOrEmpty(chars, label);
-        CharSequences.failIfNullOrEmpty(label, "label");
-        Objects.requireNonNull(predicate, "predicate");
-
-        checkCharacters(chars, predicate);
-    }
-
-    /**
-     * Checks that all characters pass the {@link CharPredicate} test.
-     */
-    private static void checkCharacters(final CharSequence chars,
-                                        final CharPredicate predicate) {
-        final int length = chars.length();
-        for (int i = 0; i < length; i++) {
-            final char c = chars.charAt(i);
-            if (!predicate.test(c)) {
-                throw new InvalidCharacterException(chars.toString(), i);
-            }
-        }
-    }
-
-    /**
      * Fails if the chars are null or empty or any characters fail the initial or part test.
      * It is assumed the {@link CharPredicate} have a meaningful toString as it is included in any exception messages.
      */
