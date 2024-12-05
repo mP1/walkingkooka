@@ -29,7 +29,7 @@ final public class Whitespace implements CharSequence {
      */
     public static <C extends CharSequence> C failIfNullOrEmptyOrWhitespace(final C chars,
                                                                            final String label) {
-        Objects.requireNonNull(chars, label);
+        CharSequences.failIfNullOrEmpty(chars, label);
         if (onlyWhitespace(chars)) {
             throw new IllegalArgumentException(
                     label + " contains only whitespace=" + CharSequences.quoteAndEscape(chars));
