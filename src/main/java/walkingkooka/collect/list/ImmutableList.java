@@ -22,6 +22,7 @@ import walkingkooka.CanBeEmpty;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * A {@link List} that is immutable but also contains a few would be mutator methods that return a new instance if required.
@@ -79,6 +80,11 @@ public interface ImmutableList<E> extends List<E>, CanBeEmpty {
      * Returns a new instance of this {@link ImmutableList} with the elements removed.
      */
     ImmutableList<E> deleteAll(final Collection<E> elements);
+
+    /**
+     * Returns a new instance of this {@link ImmutableList} after removing all elements matched by the {@link Predicate}.
+     */
+    ImmutableList<E> deleteIf(final Predicate<? super E> predicate);
 
     /**
      * Returns a mutable {@link List} with the items in this list. Modifying the given list does not update the elements in this list.
