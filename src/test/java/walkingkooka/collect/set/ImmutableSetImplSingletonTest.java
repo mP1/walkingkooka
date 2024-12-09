@@ -19,6 +19,7 @@ package walkingkooka.collect.set;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.predicate.Predicates;
 
 import java.util.Collections;
 
@@ -95,6 +96,15 @@ public final class ImmutableSetImplSingletonTest extends ImmutableSetImplTestCas
                 ImmutableSetImplSingleton.singleton(ELEMENT),
                 "missing",
                 newElement
+        );
+    }
+
+    @Test
+    public void testDeleteIf() {
+        this.deleteIfAndCheck(
+                this.createSet(),
+                Predicates.is(ELEMENT),
+                Sets.immutable(Sets.empty())
         );
     }
 

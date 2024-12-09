@@ -20,6 +20,7 @@ package walkingkooka.collect.set;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Predicate;
 
 /**
  * An interface which implements nearly all the {@link ImmutableSet}. References in code are no intended to reference
@@ -120,5 +121,20 @@ public interface ImmutableSetDefaults<S extends ImmutableSet<E>, E> extends Immu
         return removed ?
                 this.setElements(set) :
                 (S) this;
+    }
+
+    /**
+     * Returns a new instance of this {@link ImmutableSet} after removing all elements matched by the {@link Predicate}.
+     */
+    @Override
+    default S deleteIf(final Predicate<? super E> predicate) {
+        Objects.requireNonNull(predicate, "predicate");
+
+        final Set<E> set = this.toSet();
+        final boolean removed = set.removeIf(predicate);
+
+        return removed ?
+                this.setElements(set) :
+                (S)this;
     }
 }

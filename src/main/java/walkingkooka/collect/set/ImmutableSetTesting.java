@@ -19,9 +19,11 @@ package walkingkooka.collect.set;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.CanBeEmptyTesting;
+import walkingkooka.predicate.Predicates;
 
 import java.util.Collection;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -144,6 +146,52 @@ public interface ImmutableSetTesting<S extends ImmutableSet<E>, E> extends SetTe
         );
     }
 
+    // deleteIf.........................................................................................................
+
+    @Test
+    default void testDeleteIfWithNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createSet()
+                        .deleteIf(null)
+        );
+    }
+
+    @Test
+    default void testDeleteIfWithNeverPredicate() {
+        final S set = this.createSet();
+
+        assertSame(
+                set,
+                set.deleteIf(Predicates.never())
+        );
+    }
+
+    default void deleteIfAndCheck(final ImmutableSet<E> set,
+                                  final Predicate<? super E> predicate,
+                                  final ImmutableSet<E> expected) {
+        final ImmutableSet<E> afterConcat = set.deleteIf(predicate);
+
+        assertNotSame(
+                afterConcat,
+                set
+        );
+        this.checkEquals(
+                expected,
+                afterConcat,
+                () -> set + " deleteIf " + predicate
+        );
+
+        final Set<E> toSet = set.toSet();
+        toSet.removeIf(predicate);
+        this.checkEquals(
+                toSet,
+                afterConcat,
+                () -> set + " deleteIf " + predicate
+        );
+    }
+
+    // replace..........................................................................................................
 
     default void replaceAndCheck(final ImmutableSet<E> set,
                                  final E oldElement,
