@@ -20,6 +20,7 @@ package walkingkooka.collect.set;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.SortedSet;
+import java.util.function.Predicate;
 
 /**
  * An interface which implements nearly all the {@link ImmutableSortedSet}. References in code are no intended to reference
@@ -109,6 +110,19 @@ public interface ImmutableSortedSetDefaults<S extends ImmutableSortedSet<E>, E> 
 
         final SortedSet<E> set = this.toSet();
         final boolean removed = set.removeAll(elements);
+        return (S)
+                (removed ?
+                        this.setElements(set) :
+                        this
+                );
+    }
+
+    default S deleteIf(final Predicate<? super E> predicate) {
+        Objects.requireNonNull(predicate, "predicate");
+
+        final SortedSet<E> set = this.toSet();
+        final boolean removed = set.removeIf(predicate);
+
         return (S)
                 (removed ?
                         this.setElements(set) :

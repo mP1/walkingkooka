@@ -21,6 +21,7 @@ import walkingkooka.CanBeEmpty;
 
 import java.util.Collection;
 import java.util.Set;
+import java.util.function.Predicate;
 
 /**
  * A {@link Set} that is immutable but also contains a few would be mutator methods that return a new instance if required.
@@ -61,6 +62,11 @@ public interface ImmutableSet<E> extends Set<E>, CanBeEmpty {
      * Returns an {@link ImmutableSet} without the given elements.
      */
     ImmutableSet<E> deleteAll(final Collection<E> elements);
+
+    /**
+     * Returns a new instance of this {@link ImmutableSet} after removing all elements matched by the {@link Predicate}.
+     */
+    ImmutableSet<E> deleteIf(final Predicate<? super E> predicate);
 
     /**
      * Returns a new instance of this {@link ImmutableSet} after replacing.

@@ -19,6 +19,7 @@ package walkingkooka.collect.set;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.predicate.Predicates;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -98,6 +99,17 @@ public final class ImmutableSetImplNonSingletonTest extends ImmutableSetImplTest
                                 newElement,
                                 ELEMENT2
                         )
+                )
+        );
+    }
+
+    @Test
+    public void testDeleteIf() {
+        this.deleteIfAndCheck(
+                this.createSet(),
+                Predicates.is(ELEMENT1),
+                ImmutableSetImplNonSingleton.with(
+                        Sets.of(ELEMENT2)
                 )
         );
     }

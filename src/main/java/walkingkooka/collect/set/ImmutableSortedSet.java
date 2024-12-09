@@ -20,6 +20,7 @@ package walkingkooka.collect.set;
 import java.util.Collection;
 import java.util.Set;
 import java.util.SortedSet;
+import java.util.function.Predicate;
 
 /**
  * An immutable {@link SortedSet}.
@@ -49,6 +50,12 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>, SortedSet<E> {
      */
     @Override
     ImmutableSortedSet<E> deleteAll(final Collection<E> elements);
+
+    /**
+     * Returns a new instance of this {@link ImmutableSortedSet} after removing all elements matched by the {@link Predicate}.
+     */
+    @Override
+    ImmutableSortedSet<E> deleteIf(final Predicate<? super E> predicate);
 
     /**
      * Returns a new instance of this {@link ImmutableSet} after replacing.<br>
