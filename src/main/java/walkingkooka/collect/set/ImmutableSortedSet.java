@@ -29,6 +29,7 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>, SortedSet<E> {
     /**
      * Returns a new instance of this {@link ImmutableSet} with the element appended.
      */
+    @Override
     ImmutableSortedSet<E> concat(final E element);
 
     /**
@@ -40,17 +41,20 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>, SortedSet<E> {
     /**
      * Returns an {@link ImmutableSet} without the given element.
      */
+    @Override
     ImmutableSortedSet<E> delete(final E element);
 
     /**
      * Returns an {@link ImmutableSet} without the given elements.
      */
+    @Override
     ImmutableSortedSet<E> deleteAll(final Collection<E> elements);
 
     /**
      * Returns a new instance of this {@link ImmutableSet} after replacing.<br>
      * If the oldElement does not exist the original {@link ImmutableSet} will be returned.
      */
+    @Override
     ImmutableSortedSet<E> replace(final E oldElement,
                                   final E newElement);
 
@@ -83,5 +87,6 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>, SortedSet<E> {
     /**
      * Returns a mutable {@link SortedSet} with the items in this set. Modifying the given set does not update the elements in this set.
      */
+    @Override
     SortedSet<E> toSet();
 }
