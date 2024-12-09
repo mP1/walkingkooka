@@ -53,9 +53,11 @@ public interface ImmutableSetDefaults<S extends ImmutableSet<E>, E> extends Immu
     @Override
     default S concat(final E element) {
         final Set<E> set = this.toSet();
-        set.add(element);
+        final boolean added = set.add(element);
 
-        return this.setElements(set);
+        return added ?
+                this.setElements(set) :
+                (S) this;
     }
 
     /**
@@ -66,9 +68,11 @@ public interface ImmutableSetDefaults<S extends ImmutableSet<E>, E> extends Immu
         Objects.requireNonNull(elements, "elements");
 
         final Set<E> set = this.toSet();
-        set.addAll(elements);
+        final boolean added = set.addAll(elements);
 
-        return this.setElements(set);
+        return added ?
+                this.setElements(set) :
+                (S) this;
     }
 
     /**
