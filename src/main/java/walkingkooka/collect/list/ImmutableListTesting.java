@@ -136,6 +136,8 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
         );
     }
 
+    // deleteAll........................................................................................................
+
     @Test
     default void testDeleteAllWithNullFails() {
         assertThrows(
@@ -156,9 +158,9 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
     }
 
     default void deleteAllAndCheck(final ImmutableList<E> list,
-                                   final Collection<E> appended,
+                                   final Collection<E> delete,
                                    final ImmutableList<E> expected) {
-        final ImmutableList<E> afterConcat = list.deleteAll(appended);
+        final ImmutableList<E> afterConcat = list.deleteAll(delete);
 
         assertNotSame(
                 afterConcat,
@@ -167,15 +169,15 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
         this.checkEquals(
                 expected,
                 afterConcat,
-                () -> list + " deleteAll " + appended
+                () -> list + " deleteAll " + delete
         );
 
         final List<E> toList = list.toList();
-        toList.removeAll(appended);
+        toList.removeAll(delete);
         this.checkEquals(
                 toList,
                 afterConcat,
-                () -> list + " deleteAll " + appended
+                () -> list + " deleteAll " + delete
         );
     }
 
