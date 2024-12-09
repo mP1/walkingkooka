@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 /**
  * An interface which implements nearly all the {@link ImmutableList}. References in code are no intended to reference
@@ -135,6 +136,18 @@ public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends Im
         return removed ?
                 this.setElements(list) :
                 (T)this;
+    }
+
+    /**
+     * Returns a new instance of this {@link ImmutableList} after removing all elements matched by the {@link Predicate}.
+     */
+    default T deleteIf(final Predicate<? super E> predicate) {
+        Objects.requireNonNull(predicate, "predicate");
+
+        final List<E> list = this.toList();
+        list.removeIf(predicate);
+
+        return this.setElements(list);
     }
 
     /**

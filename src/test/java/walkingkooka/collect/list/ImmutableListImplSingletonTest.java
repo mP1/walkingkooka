@@ -19,6 +19,7 @@ package walkingkooka.collect.list;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.predicate.Predicates;
 
 import java.util.Collections;
 
@@ -107,6 +108,15 @@ public final class ImmutableListImplSingletonTest extends ImmutableListImplNotEm
         this.deleteAllAndCheck(
                 this.createList(),
                 Lists.of(ELEMENT),
+                Lists.empty()
+        );
+    }
+
+    @Test
+    public void testDeleteIf() {
+        this.deleteIfAndCheck(
+                this.createList(),
+                Predicates.is(ELEMENT),
                 Lists.empty()
         );
     }

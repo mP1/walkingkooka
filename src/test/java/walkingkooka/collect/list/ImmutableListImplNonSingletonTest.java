@@ -19,6 +19,7 @@ package walkingkooka.collect.list;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.predicate.Predicates;
 
 import java.util.Arrays;
 
@@ -96,6 +97,17 @@ public final class ImmutableListImplNonSingletonTest extends ImmutableListImplNo
                 this.createList(),
                 Lists.of(this.elements()),
                 Lists.empty()
+        );
+    }
+
+    @Test
+    public void testDeleteIf() {
+        this.deleteIfAndCheck(
+                this.createList(),
+                Predicates.is(ELEMENT1),
+                ImmutableListImplNonSingleton.with(
+                        Lists.of(ELEMENT2)
+                )
         );
     }
 

@@ -19,10 +19,12 @@ package walkingkooka.collect.list;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.CanBeEmptyTesting;
+import walkingkooka.predicate.Predicates;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -180,6 +182,53 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
                 () -> list + " deleteAll " + delete
         );
     }
+
+    // deleteIf.........................................................................................................
+
+    @Test
+    default void testDeleteIfWithNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createList()
+                        .deleteIf(null)
+        );
+    }
+
+    @Test
+    default void testDeleteIfWithNeverPredicate() {
+        final L list = this.createList();
+
+        assertSame(
+                list,
+                list.deleteIf(Predicates.never())
+        );
+    }
+
+    default void deleteIfAndCheck(final ImmutableList<E> list,
+                                  final Predicate<? super E> predicate,
+                                  final ImmutableList<E> expected) {
+        final ImmutableList<E> afterConcat = list.deleteIf(predicate);
+
+        assertNotSame(
+                afterConcat,
+                list
+        );
+        this.checkEquals(
+                expected,
+                afterConcat,
+                () -> list + " deleteIf " + predicate
+        );
+
+        final List<E> toList = list.toList();
+        toList.removeIf(predicate);
+        this.checkEquals(
+                toList,
+                afterConcat,
+                () -> list + " deleteIf " + predicate
+        );
+    }
+
+    // replace..........................................................................................................
 
     default void replaceAndCheck(final ImmutableList<E> list,
                                  final int index,
