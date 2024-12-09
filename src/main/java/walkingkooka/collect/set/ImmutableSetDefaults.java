@@ -111,8 +111,10 @@ public interface ImmutableSetDefaults<S extends ImmutableSet<E>, E> extends Immu
         Objects.requireNonNull(elements, "elements");
 
         final Set<E> set = this.toSet();
-        set.removeAll(elements);
+        final boolean removed = set.removeAll(elements);
 
-        return this.setElements(set);
+        return removed ?
+                this.setElements(set) :
+                (S) this;
     }
 }
