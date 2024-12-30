@@ -35,7 +35,7 @@ final class ImmutableSetImplEmpty<E> extends ImmutableSetImpl<E> {
         return (ImmutableSetImplEmpty<E>)INSTANCE;
     }
 
-    private final static ImmutableSetImplEmpty INSTANCE = new ImmutableSetImplEmpty<>();
+    private final static ImmutableSetImplEmpty<Object> INSTANCE = new ImmutableSetImplEmpty<>();
 
     /**
      * Private ctor use factory
