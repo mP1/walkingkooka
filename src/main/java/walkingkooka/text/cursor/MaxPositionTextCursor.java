@@ -69,7 +69,7 @@ public final class MaxPositionTextCursor implements TextCursor {
         return this.cursor.lineInfo();
     }
 
-    private TextCursor cursor;
+    private final TextCursor cursor;
 
     /**
      * Returns the highest position that the cursor advanced. This may be used to throw an accurate {@link walkingkooka.InvalidCharacterException}.
