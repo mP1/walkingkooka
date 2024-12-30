@@ -93,19 +93,6 @@ public interface ComparableTesting2<C extends Comparable<C>> extends ComparableT
         }
     }
 
-    default <CC extends Comparable<CC>> void compareToAndCheck(final CC comparable1,
-                                                               final CC comparable2,
-                                                               final int expected) {
-        this.compareResultCheck(comparable1 + " " + comparable2,
-                expected,
-                comparable1.compareTo(comparable2));
-        if (Comparators.EQUAL != expected) {
-            this.compareResultCheck("Swapping parameters and comparing did not return an inverted result.",
-                    -expected,
-                    comparable2.compareTo(comparable1));
-        }
-    }
-
     /**
      * When true indicates that {@link Object#equals(Object)} and {@link Comparable#compareTo(Object)} == 0 must match.
      */
