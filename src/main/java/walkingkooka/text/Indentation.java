@@ -124,13 +124,12 @@ final public class Indentation implements Value<String>, CharSequence {
         if (length >= Indentation.SPACES_COUNT) {
             result = new Indentation(indentation);
         } else {
-            Exit:
             for (int i = 0; i < length; i++) {
                 if (INDENTATION_CONSTANT_CHAR != indentation.charAt(i)) {
 
                     // includes something other than space can not be a constant.
                     result = new Indentation(indentation);
-                    break Exit;
+                    break;
                 }
             }
             if (null == result) {
