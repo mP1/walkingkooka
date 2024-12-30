@@ -30,7 +30,7 @@ final class NameComparator<N extends Name> implements Comparator<N> {
     static <N extends Name> NameComparator<N> with(final CaseSensitivity caseSensitivity) {
         Objects.requireNonNull(caseSensitivity, "caseSensitivity");
 
-        return new NameComparator<N>(
+        return new NameComparator<>(
                 caseSensitivity.comparator()
         );
     }

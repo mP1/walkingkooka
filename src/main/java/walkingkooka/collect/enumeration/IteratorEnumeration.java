@@ -11,7 +11,7 @@ final class IteratorEnumeration<E> implements Enumeration<E> {
 
     static <E> IteratorEnumeration<E> with(final Iterator<E> iterator) {
         Objects.requireNonNull(iterator, "iterator");
-        return new IteratorEnumeration<E>(iterator);
+        return new IteratorEnumeration<>(iterator);
     }
 
     /**
