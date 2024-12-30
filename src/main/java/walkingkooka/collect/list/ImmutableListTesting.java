@@ -307,7 +307,7 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
         this.checkEquals(
                 expected,
                 list.toList(),
-                () -> list.toString()
+                list::toString
         );
     }
 }

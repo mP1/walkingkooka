@@ -32,7 +32,7 @@ public interface CanBeEmptyTesting extends Testing {
         this.isEmptyAndCheck(
                 canBeEmpty,
                 expected,
-                () -> canBeEmpty.toString()
+                canBeEmpty::toString
         );
     }
 
@@ -63,7 +63,7 @@ public interface CanBeEmptyTesting extends Testing {
         this.isNotEmptyAndCheck(
                 canBeEmpty,
                 expected,
-                () -> canBeEmpty.toString()
+                canBeEmpty::toString
         );
     }
 

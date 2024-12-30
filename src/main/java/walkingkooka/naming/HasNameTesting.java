@@ -26,7 +26,7 @@ public interface HasNameTesting<N extends Name> extends Testing {
         this.checkEquals(
                 expected,
                 has.name(),
-                () -> has.toString()
+                has::toString
         );
     }
 }
