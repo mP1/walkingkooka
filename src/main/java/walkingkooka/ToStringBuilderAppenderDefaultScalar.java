@@ -30,7 +30,7 @@ final class ToStringBuilderAppenderDefaultScalar extends ToStringBuilderAppender
 
     @Override
     boolean isDefaultValue() {
-        return null == this.value || this.string.length() == 0; // null or empty may be skipped
+        return null == this.value || this.string.isEmpty(); // null or empty may be skipped
     }
 
     @Override
