@@ -125,7 +125,7 @@ final public class Predicates implements PublicStaticHelper {
                 Predicates.any(
                         Arrays.stream(
                                         expression.split(" "))
-                                .filter(s -> s.length() > 0)
+                                .filter(s -> !s.isEmpty())
                                 .map(
                                         p ->
                                                 caseSensitivity.globPattern(p)

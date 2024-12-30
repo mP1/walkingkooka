@@ -42,7 +42,7 @@ abstract class JavaName<N extends JavaName<N>> implements Name, Comparable<N> {
     }
 
     static void checkNotEmpty(final String name) {
-        if (0 == name.length()) {
+        if (name.isEmpty()) {
             throw new IllegalArgumentException("Empty name");
         }
     }
