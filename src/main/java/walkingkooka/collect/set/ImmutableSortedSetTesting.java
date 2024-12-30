@@ -145,7 +145,7 @@ public interface ImmutableSortedSetTesting<S extends ImmutableSortedSet<E>, E> e
         this.checkEquals(
                 expected,
                 set.toSet(),
-                () -> set.toString()
+                set::toString
         );
     }
 }

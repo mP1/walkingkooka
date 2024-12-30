@@ -78,6 +78,6 @@ abstract class JavaNameIdentifierEmulated {
             );
         }
 
-        return (char c) -> bitSet.get(c);
+        return bitSet::get;
     }
 }

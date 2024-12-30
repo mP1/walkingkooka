@@ -260,7 +260,7 @@ public interface ImmutableSetTesting<S extends ImmutableSet<E>, E> extends SetTe
         this.checkEquals(
                 expected,
                 set.toSet(),
-                () -> set.toString()
+                set::toString
         );
     }
 }

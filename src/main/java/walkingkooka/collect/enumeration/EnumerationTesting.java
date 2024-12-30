@@ -53,7 +53,7 @@ public interface EnumerationTesting extends Testing {
     default void nextElementFails(final Enumeration<?> enumeration) {
         assertThrows(
                 NoSuchElementException.class,
-                () -> enumeration.nextElement()
+                enumeration::nextElement
         );
     }
 

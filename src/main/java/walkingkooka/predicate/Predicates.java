@@ -126,10 +126,8 @@ final public class Predicates implements PublicStaticHelper {
                         Arrays.stream(
                                         expression.split(" "))
                                 .filter(s -> !s.isEmpty())
-                                .map(
-                                        p ->
-                                                caseSensitivity.globPattern(p)
-                                ).distinct()
+                                .map(caseSensitivity::globPattern)
+                                .distinct()
                                 .collect(Collectors.<Predicate<CharSequence>>toList())
                 ),
                 expression
