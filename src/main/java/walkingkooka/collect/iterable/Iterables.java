@@ -38,7 +38,7 @@ final public class Iterables implements PublicStaticHelper {
         final Iterator<T> iterator = iterable.iterator();
         final Iterator<T> otherIterator = other.iterator();
         while (equals && iterator.hasNext() && otherIterator.hasNext()) {
-            equals = equals && equivalency.test(iterator.next(), otherIterator.next());
+            equals = equivalency.test(iterator.next(), otherIterator.next());
         }
 
         return equals && !iterator.hasNext() && !otherIterator.hasNext();

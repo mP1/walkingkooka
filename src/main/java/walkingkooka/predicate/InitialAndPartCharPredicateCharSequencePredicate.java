@@ -70,7 +70,7 @@ final class InitialAndPartCharPredicateCharSequencePredicate implements Predicat
 
         final int length = chars.length();
         for (int i = 1; result && i < length; i++) {
-            result &= this.remaining.test(chars.charAt(i));
+            result = this.remaining.test(chars.charAt(i));
         }
 
         return result;
