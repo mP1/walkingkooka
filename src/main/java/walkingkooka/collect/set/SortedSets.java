@@ -34,10 +34,10 @@ final public class SortedSets implements PublicStaticHelper {
      * An empty {@link SortedSet}
      */
     public static <E> SortedSet<E> empty() {
-        return EMPTY;
+        return (SortedSet<E>)EMPTY;
     }
 
-    private final static SortedSet EMPTY = ImmutableSortedSetImpl.with(new TreeSet<>());
+    private final static SortedSet<?> EMPTY = ImmutableSortedSetImpl.with(new TreeSet<>());
 
     /**
      * Returns a {@link SortedSet} that is immutable, making a defensive copy if necessary.
