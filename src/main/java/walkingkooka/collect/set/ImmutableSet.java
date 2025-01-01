@@ -22,6 +22,8 @@ import walkingkooka.CanBeEmpty;
 import java.util.Collection;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * A {@link Set} that is immutable but also contains a few would be mutator methods that return a new instance if required.
@@ -95,5 +97,17 @@ public interface ImmutableSet<E> extends Set<E>, CanBeEmpty {
     @Override
     default void clear() {
         throw new UnsupportedOperationException();
+    }
+
+    // Collector........................................................................................................
+
+    /**
+     * A collector that returns an {@link ImmutableSet}.
+     */
+    static <EE> Collector<EE, ?, ImmutableSet<EE>> collector() {
+        return Collectors.collectingAndThen(
+                Collectors.toSet(),
+                Sets::immutable
+        );
     }
 }
