@@ -23,6 +23,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * A {@link List} that is immutable but also contains a few would be mutator methods that return a new instance if required.
@@ -108,5 +110,17 @@ public interface ImmutableList<E> extends List<E>, CanBeEmpty {
     @Override
     default E remove(int index) {
         throw new UnsupportedOperationException();
+    }
+
+    // Collector........................................................................................................
+
+    /**
+     * A collector that returns an {@link ImmutableList}.
+     */
+    static <EE> Collector<EE, ?, ImmutableList<EE>> collector() {
+        return Collectors.collectingAndThen(
+                Collectors.toList(),
+                Lists::immutable
+        );
     }
 }
