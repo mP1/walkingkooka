@@ -21,6 +21,8 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.function.Predicate;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * An immutable {@link SortedSet}.
@@ -96,4 +98,16 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>, SortedSet<E> {
      */
     @Override
     SortedSet<E> toSet();
+
+    // Collector........................................................................................................
+
+    /**
+     * A collector that returns an {@link ImmutableSortedSet}.
+     */
+    static <EE> Collector<EE, ?, ImmutableSortedSet<EE>> collector() {
+        return Collectors.collectingAndThen(
+                Collectors.toCollection(SortedSets::tree),
+                SortedSets::immutable
+        );
+    }
 }
