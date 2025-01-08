@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
 final public class CaseSensitivityContainsCharSequencePredicateTest extends
-        CaseSensitivityCharSequencePredicateTemplateTestCase<CaseSensitivityContainsCharSequencePredicate<String>> {
+    CaseSensitivityCharSequencePredicateTemplateTestCase<CaseSensitivityContainsCharSequencePredicate<String>> {
 
     @Test
     public void testSameCaseCaseSensitive() {

@@ -30,9 +30,9 @@ public interface CanBeEmptyTesting extends Testing {
     default void isEmptyAndCheck(final CanBeEmpty canBeEmpty,
                                  final boolean expected) {
         this.isEmptyAndCheck(
-                canBeEmpty,
-                expected,
-                canBeEmpty::toString
+            canBeEmpty,
+            expected,
+            canBeEmpty::toString
         );
     }
 
@@ -40,9 +40,9 @@ public interface CanBeEmptyTesting extends Testing {
                                  final boolean expected,
                                  final String message) {
         this.isEmptyAndCheck(
-                canBeEmpty,
-                expected,
-                () -> message
+            canBeEmpty,
+            expected,
+            () -> message
         );
     }
 
@@ -50,9 +50,9 @@ public interface CanBeEmptyTesting extends Testing {
                                  final boolean expected,
                                  final Supplier<String> message) {
         this.checkEquals(
-                expected,
-                canBeEmpty.isEmpty(),
-                message
+            expected,
+            canBeEmpty.isEmpty(),
+            message
         );
     }
 
@@ -61,9 +61,9 @@ public interface CanBeEmptyTesting extends Testing {
     default void isNotEmptyAndCheck(final CanBeEmpty canBeEmpty,
                                     final boolean expected) {
         this.isNotEmptyAndCheck(
-                canBeEmpty,
-                expected,
-                canBeEmpty::toString
+            canBeEmpty,
+            expected,
+            canBeEmpty::toString
         );
     }
 
@@ -71,9 +71,9 @@ public interface CanBeEmptyTesting extends Testing {
                                     final boolean expected,
                                     final String message) {
         this.isNotEmptyAndCheck(
-                canBeEmpty,
-                expected,
-                () -> message
+            canBeEmpty,
+            expected,
+            () -> message
         );
     }
 
@@ -81,9 +81,9 @@ public interface CanBeEmptyTesting extends Testing {
                                     final boolean expected,
                                     final Supplier<String> message) {
         this.checkEquals(
-                expected,
-                canBeEmpty.isNotEmpty(),
-                message
+            expected,
+            canBeEmpty.isNotEmpty(),
+            message
         );
     }
 }

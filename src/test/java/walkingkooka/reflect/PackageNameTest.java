@@ -186,24 +186,24 @@ public final class PackageNameTest extends PackageNameOrTypeNameJavaNameTestCase
     @Test
     public void testFilenameWithJavaLangObject() {
         this.filenameAndCheck(
-                "java.lang.Object",
-                "java/lang"
+            "java.lang.Object",
+            "java/lang"
         );
     }
 
     @Test
     public void testFilenameWithJavaUtilMapEntry() {
         this.filenameAndCheck(
-                Map.Entry.class.getName(),
-                "java/util"
+            Map.Entry.class.getName(),
+            "java/util"
         );
     }
 
     private void filenameAndCheck(final String name,
                                   final String expected) {
         this.filenameAndCheck(
-                ClassName.with(name).parentPackage(),
-                expected
+            ClassName.with(name).parentPackage(),
+            expected
         );
     }
 
@@ -214,14 +214,14 @@ public final class PackageNameTest extends PackageNameOrTypeNameJavaNameTestCase
     private void filenameAndCheck(final PackageName name,
                                   final String expected) {
         this.checkEquals(
-                expected,
-                name.filename(),
-                () -> name + " filename"
+            expected,
+            name.filename(),
+            () -> name + " filename"
         );
     }
 
     // Class............................................................................................................
-    
+
     @Override
     public Class<PackageName> type() {
         return PackageName.class;

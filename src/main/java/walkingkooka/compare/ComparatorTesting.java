@@ -41,9 +41,9 @@ public interface ComparatorTesting extends Testing {
     default <T> void compareAndCheckEquals(final Comparator<T> comparator,
                                            final T value) {
         this.compareAndCheckEquals(
-                comparator,
-                value,
-                value
+            comparator,
+            value,
+            value
         );
     }
 
@@ -51,10 +51,10 @@ public interface ComparatorTesting extends Testing {
                                            final T value1,
                                            final T value2) {
         this.compareAndCheck(
-                comparator,
-                value1,
-                value2,
-                Comparators.EQUAL
+            comparator,
+            value1,
+            value2,
+            Comparators.EQUAL
         );
     }
 
@@ -62,10 +62,10 @@ public interface ComparatorTesting extends Testing {
                                          final T value1,
                                          final T value2) {
         this.compareAndCheck(
-                comparator,
-                value1,
-                value2,
-                Comparators.MORE
+            comparator,
+            value1,
+            value2,
+            Comparators.MORE
         );
     }
 
@@ -84,9 +84,9 @@ public interface ComparatorTesting extends Testing {
         final int result = comparator.compare(value1, value2);
         if (Comparators.normalize(expected) != Comparators.normalize(result)) {
             this.checkEquals(
-                    expected,
-                    result,
-                    () -> "comparing " + CharSequences.quoteIfChars(value1) + " with " + CharSequences.quoteIfChars(value2) + " returned wrong result using " + comparator
+                expected,
+                result,
+                () -> "comparing " + CharSequences.quoteIfChars(value1) + " with " + CharSequences.quoteIfChars(value2) + " returned wrong result using " + comparator
             );
         }
     }
@@ -105,9 +105,9 @@ public interface ComparatorTesting extends Testing {
         unsorted.sort(comparator);
 
         this.checkEquals(
-                sorted,
-                unsorted,
-                () -> "sort " + unsorted
+            sorted,
+            unsorted,
+            () -> "sort " + unsorted
         );
     }
 }

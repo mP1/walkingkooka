@@ -30,8 +30,8 @@ import java.util.function.Predicate;
  * <a href="https://en.wikipedia.org/wiki/Glob_(programming)">Glob</a>
  */
 public final class GlobPattern implements Predicate<CharSequence>,
-        HasText,
-        HasCaseSensitivity{
+    HasText,
+    HasCaseSensitivity {
 
     final static GlobPattern EMPTY_CASE_SENSITIVE = empty(CaseSensitivity.SENSITIVE);
 
@@ -43,18 +43,18 @@ public final class GlobPattern implements Predicate<CharSequence>,
 
         // special case if pattern is empty
         return pattern.isEmpty() ?
-                caseSensitivity.emptyGlobPattern() :
-                parseNonEmpty(
-                        pattern,
-                        caseSensitivity
-                );
+            caseSensitivity.emptyGlobPattern() :
+            parseNonEmpty(
+                pattern,
+                caseSensitivity
+            );
     }
 
     private static GlobPattern empty(final CaseSensitivity caseSensitivity) {
         return new GlobPattern(
-                GlobPatternComponentSentinel.INSTANCE,
-                caseSensitivity,
-                ""
+            GlobPatternComponentSentinel.INSTANCE,
+            caseSensitivity,
+            ""
         );
     }
 
@@ -75,12 +75,12 @@ public final class GlobPattern implements Predicate<CharSequence>,
 
         boolean escaped = false;
 
-        for(int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             final char c = pattern.charAt(i);
-            if(escaped) {
-                if(min > 0 || max > 0) {
+            if (escaped) {
+                if (min > 0 || max > 0) {
                     components.add(
-                            GlobPatternComponent.wildcard(min, max)
+                        GlobPatternComponent.wildcard(min, max)
                     );
                     min = 0;
                     max = 0;
@@ -90,31 +90,31 @@ public final class GlobPattern implements Predicate<CharSequence>,
                 escaped = false;
                 continue;
             }
-            switch(c) {
+            switch (c) {
                 case STAR:
                 case ANY_CHAR:
                     addTextLiteralIfNecessary(
-                            textLiteral,
-                            components
+                        textLiteral,
+                        components
                     );
 
 
-                    if(STAR ==c) {
+                    if (STAR == c) {
                         max = Integer.MAX_VALUE;
                     } else {
                         min++;
-                        if(max < Integer.MAX_VALUE) {
+                        if (max < Integer.MAX_VALUE) {
                             max++;
                         }
                     }
                     break;
                 default:
                     escaped = ESCAPE == c;
-                    if(!escaped) {
+                    if (!escaped) {
                         addWildcardIfNecessary(
-                                min,
-                                max,
-                                components
+                            min,
+                            max,
+                            components
                         );
                         min = 0;
                         max = 0;
@@ -125,31 +125,30 @@ public final class GlobPattern implements Predicate<CharSequence>,
         }
 
         addTextLiteralIfNecessary(
-                textLiteral,
-                components
+            textLiteral,
+            components
         );
         addWildcardIfNecessary(
-                min,
-                max,
-                components
+            min,
+            max,
+            components
         );
-
 
 
         return new GlobPattern(
-                setNext(components), // will never be null
-                caseSensitivity,
-                pattern
+            setNext(components), // will never be null
+            caseSensitivity,
+            pattern
         );
     }
 
     private static void addTextLiteralIfNecessary(final StringBuilder textLiteral,
                                                   final List<GlobPatternComponent> components) {
-        if(textLiteral.length() > 0) {
+        if (textLiteral.length() > 0) {
             components.add(
-                    GlobPatternComponent.textLiteral(
-                            textLiteral.toString()
-                    )
+                GlobPatternComponent.textLiteral(
+                    textLiteral.toString()
+                )
             );
 
             textLiteral.setLength(0);
@@ -159,12 +158,12 @@ public final class GlobPattern implements Predicate<CharSequence>,
     private static void addWildcardIfNecessary(final int min,
                                                final int max,
                                                final List<GlobPatternComponent> components) {
-        if(min > 0 || max > 0) {
+        if (min > 0 || max > 0) {
             components.add(
-                    GlobPatternComponent.wildcard(
-                            min,
-                            max
-                    )
+                GlobPatternComponent.wildcard(
+                    min,
+                    max
+                )
             );
         }
     }
@@ -176,7 +175,7 @@ public final class GlobPattern implements Predicate<CharSequence>,
         GlobPatternComponent next = GlobPatternComponentSentinel.INSTANCE;
 
         int i = components.size() - 1;
-        while( i >= 0) {
+        while (i >= 0) {
             component = components.get(i);
             component.next = next;
 
@@ -247,9 +246,9 @@ public final class GlobPattern implements Predicate<CharSequence>,
         final GlobPatternContext context = this.caseSensitivity.globPatternSearchContext;
 
         if (first.test(
-                text,
-                startPos,
-                context)
+            text,
+            startPos,
+            context)
         ) {
             foundIndex = startPos;
         } else {
@@ -259,9 +258,9 @@ public final class GlobPattern implements Predicate<CharSequence>,
 
             while (tryingStartIndex <= stop) {
                 if (first.test(
-                        text,
-                        tryingStartIndex,
-                        context)) {
+                    text,
+                    tryingStartIndex,
+                    context)) {
                     foundIndex = tryingStartIndex;
                     break;
                 }
@@ -280,9 +279,9 @@ public final class GlobPattern implements Predicate<CharSequence>,
         Objects.requireNonNull(text, "text");
 
         return this.first.test(
-                text,
-                0,
-                this.caseSensitivity.globPatternTestContext
+            text,
+            0,
+            this.caseSensitivity.globPatternTestContext
         );
     }
 
@@ -293,19 +292,19 @@ public final class GlobPattern implements Predicate<CharSequence>,
     @Override
     public int hashCode() {
         return Objects.hash(
-                this.pattern,
-                this.caseSensitivity
+            this.pattern,
+            this.caseSensitivity
         );
     }
 
     @Override
     public boolean equals(final Object other) {
-        return other == this || other instanceof GlobPattern && this.equals0((GlobPattern)other);
+        return other == this || other instanceof GlobPattern && this.equals0((GlobPattern) other);
     }
 
     private boolean equals0(final GlobPattern other) {
         return this.pattern.equals(other.pattern) &&
-                this.caseSensitivity == other.caseSensitivity;
+            this.caseSensitivity == other.caseSensitivity;
     }
 
     @Override

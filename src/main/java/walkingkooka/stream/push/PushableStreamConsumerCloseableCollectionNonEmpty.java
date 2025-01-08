@@ -92,7 +92,7 @@ final class PushableStreamConsumerCloseableCollectionNonEmpty extends PushableSt
 
     private boolean equals0(final PushableStreamConsumerCloseableCollectionNonEmpty other) {
         return this.closeables.equals(other.closeables) &&
-                this.closed == other.closed;
+            this.closed == other.closed;
     }
 
     @Override

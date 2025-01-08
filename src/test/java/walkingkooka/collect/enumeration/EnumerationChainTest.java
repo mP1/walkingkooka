@@ -11,8 +11,8 @@ import java.util.Enumeration;
 import java.util.Vector;
 
 final public class EnumerationChainTest implements EnumerationTesting,
-        ClassTesting<EnumerationChain<String>>,
-        ToStringTesting<EnumerationChain<String>> {
+    ClassTesting<EnumerationChain<String>>,
+    ToStringTesting<EnumerationChain<String>> {
 
     public void testConsume() {
         final Vector<String> first = new Vector<>();
@@ -24,16 +24,16 @@ final public class EnumerationChainTest implements EnumerationTesting,
         second.add("4d");
 
         this.enumerateAndCheck(
-                EnumerationChain.with(
-                        Lists.of(
-                                first.elements(),
-                                second.elements()
-                        )
-                ),
-                "1a",
-                "2b",
-                "3c",
-                "4d"
+            EnumerationChain.with(
+                Lists.of(
+                    first.elements(),
+                    second.elements()
+                )
+            ),
+            "1a",
+            "2b",
+            "3c",
+            "4d"
         );
     }
 
@@ -47,18 +47,18 @@ final public class EnumerationChainTest implements EnumerationTesting,
         second.add("4d");
 
         this.enumerateAndCheck(
-                EnumerationChain.with(
-                        Lists.of(
-                                first.elements(),
-                                new Vector<String>().elements(),
-                                new Vector<String>().elements(),
-                                second.elements()
-                        )
-                ),
-                "1a",
-                "2b",
-                "3c",
-                "4d"
+            EnumerationChain.with(
+                Lists.of(
+                    first.elements(),
+                    new Vector<String>().elements(),
+                    new Vector<String>().elements(),
+                    second.elements()
+                )
+            ),
+            "1a",
+            "2b",
+            "3c",
+            "4d"
         );
     }
 
@@ -71,16 +71,16 @@ final public class EnumerationChainTest implements EnumerationTesting,
         second.add("4d");
 
         this.enumerateUsingHasMoreElementsAndCheck(
-                EnumerationChain.with(
-                        Lists.of(
-                                first.elements(),
-                                second.elements()
-                        )
-                ),
-                "1a",
-                "2b",
-                "3c",
-                "4d"
+            EnumerationChain.with(
+                Lists.of(
+                    first.elements(),
+                    second.elements()
+                )
+            ),
+            "1a",
+            "2b",
+            "3c",
+            "4d"
         );
     }
 
@@ -96,13 +96,13 @@ final public class EnumerationChainTest implements EnumerationTesting,
         final Enumeration<String> enumeration1 = first.elements();
 
         this.toStringAndCheck(
-                EnumerationChain.with(
-                        Lists.of(
-                                enumeration1,
-                                second.elements()
-                        )
-                ),
-                enumeration1 + "..."
+            EnumerationChain.with(
+                Lists.of(
+                    enumeration1,
+                    second.elements()
+                )
+            ),
+            enumeration1 + "..."
         );
     }
 
@@ -113,17 +113,17 @@ final public class EnumerationChainTest implements EnumerationTesting,
         second.add("1");
 
         final EnumerationChain<String> enumerator = EnumerationChain.with(
-                Lists.of(
-                        first.elements(),
-                        second.elements()
-                )
+            Lists.of(
+                first.elements(),
+                second.elements()
+            )
         );
         enumerator.nextElement();
         enumerator.hasMoreElements();
 
         toStringAndCheck(
-                enumerator.toString(),
-                ""
+            enumerator.toString(),
+            ""
         );
     }
 

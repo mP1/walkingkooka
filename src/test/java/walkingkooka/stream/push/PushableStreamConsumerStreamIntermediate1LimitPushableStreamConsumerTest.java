@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
 public final class PushableStreamConsumerStreamIntermediate1LimitPushableStreamConsumerTest extends
-        PushableStreamConsumerStreamIntermediate1PushableStreamConsumerTestCase<PushableStreamConsumerStreamIntermediate1LimitPushableStreamConsumer<String>> {
+    PushableStreamConsumerStreamIntermediate1PushableStreamConsumerTestCase<PushableStreamConsumerStreamIntermediate1LimitPushableStreamConsumer<String>> {
 
     @Test
     public void testLimit0() {
@@ -50,7 +50,7 @@ public final class PushableStreamConsumerStreamIntermediate1LimitPushableStreamC
 
     @Test
     public void testLimitEarlyFinish() {
-        this.acceptAndCheck(1, "a1,b2,c3",1, "a1", 1);
+        this.acceptAndCheck(1, "a1,b2,c3", 1, "a1", 1);
     }
 
     @Test

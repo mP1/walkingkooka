@@ -63,7 +63,7 @@ final class ObjectEqualityPredicate<T> implements Predicate<T> {
     @Override
     public boolean equals(final Object other) {
         return (this == other) || ((other instanceof ObjectEqualityPredicate)
-                && this.equals((ObjectEqualityPredicate<?>) other));
+            && this.equals((ObjectEqualityPredicate<?>) other));
     }
 
     private boolean equals(final ObjectEqualityPredicate<?> other) {

@@ -24,15 +24,15 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
 final public class CaseSensitivityComparatorTest implements ClassTesting2<CaseSensitivityComparator<CharSequence>>,
-        ComparatorTesting2<CaseSensitivityComparator<CharSequence>, CharSequence> {
+    ComparatorTesting2<CaseSensitivityComparator<CharSequence>, CharSequence> {
 
     // constants
 
     private final static CaseSensitivityComparator<CharSequence> SENSITIVE
-            = CaseSensitivityComparator.sensitive();
+        = CaseSensitivityComparator.sensitive();
 
     private final static CaseSensitivityComparator<CharSequence> INSENSITIVE
-            = CaseSensitivityComparator.insensitive();
+        = CaseSensitivityComparator.insensitive();
 
     // SENSITIVE
 
@@ -146,8 +146,8 @@ final public class CaseSensitivityComparatorTest implements ClassTesting2<CaseSe
         final String d4 = "d4";
 
         this.comparatorArraySortAndCheck(SENSITIVE,
-                d4, c3, a1, b2,
-                b2, a1, c3, d4);
+            d4, c3, a1, b2,
+            b2, a1, c3, d4);
     }
 
     @Test
@@ -158,8 +158,8 @@ final public class CaseSensitivityComparatorTest implements ClassTesting2<CaseSe
         final String d4 = "d4";
 
         this.comparatorArraySortAndCheck(INSENSITIVE,
-                d4, c3, a1, b2,
-                a1, b2, c3, d4);
+            d4, c3, a1, b2,
+            a1, b2, c3, d4);
     }
 
     // toString.........................................................................................................

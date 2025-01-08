@@ -23,22 +23,19 @@ abstract class ToStringBuilderAppenderScalar<V> extends ToStringBuilderAppender<
         super(value);
     }
 
-    @Override
-    final boolean shouldSkip(final ToStringBuilder builder) {
+    @Override final boolean shouldSkip(final ToStringBuilder builder) {
         return builder.option(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE) &&
-                (null == this.value ||
-                        this.isDefaultValue());
+            (null == this.value ||
+                this.isDefaultValue());
     }
 
     abstract boolean isDefaultValue();
 
-    @Override
-    final String before(final ToStringBuilder builder) {
+    @Override final String before(final ToStringBuilder builder) {
         return null; // no after
     }
 
-    @Override
-    final void after(final String after, final ToStringBuilder builder) {
+    @Override final void after(final String after, final ToStringBuilder builder) {
         // only arrays append after
     }
 }

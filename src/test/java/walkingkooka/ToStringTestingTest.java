@@ -61,7 +61,7 @@ public final class ToStringTestingTest implements ToStringTesting<StringBuilder>
     @Test
     public void testToStringCheckFails() {
         assertThrows(AssertionError.class, () ->
-                this.toStringAndCheck(new StringBuilder().append("123"), "different"));
+            this.toStringAndCheck(new StringBuilder().append("123"), "different"));
     }
 
     @Test
@@ -72,7 +72,7 @@ public final class ToStringTestingTest implements ToStringTesting<StringBuilder>
     @Test
     public void testToStringContainsCheckFails() {
         assertThrows(AssertionError.class, () ->
-                this.toStringContainsCheck(new StringBuilder().append("123456"), "1", "2", "missing")
+            this.toStringContainsCheck(new StringBuilder().append("123456"), "1", "2", "missing")
         );
     }
 

@@ -38,8 +38,8 @@ final public class ChainIterableTest implements IterableTesting<ChainIterable<St
     @Test
     public void testWithNullIterablesFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> ChainIterable.with(null)
+            NullPointerException.class,
+            () -> ChainIterable.with(null)
         );
     }
 
@@ -47,8 +47,8 @@ final public class ChainIterableTest implements IterableTesting<ChainIterable<St
     public void testWithZero() {
         //noinspection unchecked
         assertSame(
-                Iterables.empty(),
-                ChainIterable.with()
+            Iterables.empty(),
+            ChainIterable.with()
         );
     }
 
@@ -62,16 +62,16 @@ final public class ChainIterableTest implements IterableTesting<ChainIterable<St
     @Test
     public void testIterator() {
         this.checkEquals(
-                ChainIterableIterator.class,
-                this.createIterable().iterator().getClass()
+            ChainIterableIterator.class,
+            this.createIterable().iterator().getClass()
         );
     }
 
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createIterable(),
-                Lists.of(FIRST, SECOND).toString()
+            this.createIterable(),
+            Lists.of(FIRST, SECOND).toString()
         );
     }
 

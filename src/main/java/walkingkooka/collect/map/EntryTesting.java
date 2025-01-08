@@ -27,7 +27,7 @@ import java.util.Map.Entry;
  * Mixing interface that provides methods to test a {@link Entry}
  */
 public interface EntryTesting<E extends Entry<K, V>, K, V> extends ToStringTesting<E>,
-        TypeNameTesting<E> {
+    TypeNameTesting<E> {
 
     @Test
     default void testToString() {

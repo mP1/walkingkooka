@@ -99,7 +99,7 @@ abstract class ToStringBuilderAppender<V> {
     static ToStringBuilderAppender<?> doubleValue(final Double value) {
         return ToStringBuilderAppenderDoubleScalar.with(value);
     }
-    
+
     /**
      * {@see ToStringBuilderAppenderEntryScalar}
      */
@@ -210,11 +210,11 @@ abstract class ToStringBuilderAppender<V> {
 
             if (value instanceof Optional) {
                 appender = optional(
-                        Cast.to(value)
+                    Cast.to(value)
                 );
                 break;
             }
-            
+
             if (value instanceof Map) {
                 final Map<?, ?> map = Cast.to(value);
                 appender = iterable(map.entrySet());
@@ -267,19 +267,19 @@ abstract class ToStringBuilderAppender<V> {
 
             if (value instanceof OptionalDouble) {
                 appender = optionalDouble(
-                        Cast.to(value)
+                    Cast.to(value)
                 );
                 break;
             }
             if (value instanceof OptionalInt) {
                 appender = optionalInt(
-                        Cast.to(value)
+                    Cast.to(value)
                 );
                 break;
             }
             if (value instanceof OptionalLong) {
                 appender = optionalLong(
-                        Cast.to(value)
+                    Cast.to(value)
                 );
                 break;
             }

@@ -31,66 +31,66 @@ public final class IteratorTestingTest implements Testing {
     @Test
     public void testIterateAndCheck() {
         final List<String> list = Lists.of(
-                "A1",
-                "B2",
-                "C3"
+            "A1",
+            "B2",
+            "C3"
         );
 
         new TestIteratorTesting()
-                .iterateAndCheck(
-                        list.iterator(),
-                        list.toArray(new String[0])
-                );
+            .iterateAndCheck(
+                list.iterator(),
+                list.toArray(new String[0])
+            );
     }
 
     @Test
     public void testIterateAndCheckElementFail() {
         final List<String> list = Lists.of(
-                "A1",
-                "B2",
-                "C3"
+            "A1",
+            "B2",
+            "C3"
         );
 
         boolean failed = false;
 
         try {
             new TestIteratorTesting()
-                    .iterateAndCheck(
-                            list.iterator(),
-                            "*"
-                    );
+                .iterateAndCheck(
+                    list.iterator(),
+                    "*"
+                );
         } catch (final AssertionFailedError expected) {
             failed = true;
         }
         this.checkEquals(
-                true,
-                failed
+            true,
+            failed
         );
     }
 
     @Test
     public void testIterateAndCheckFail() {
         final List<String> list = Lists.of(
-                "A1",
-                "B2",
-                "C3"
+            "A1",
+            "B2",
+            "C3"
         );
 
         boolean failed = false;
 
         try {
             new TestIteratorTesting()
-                    .iterateAndCheck(
-                            list.iterator(),
-                            "A1",
-                            "B2"
-                    );
+                .iterateAndCheck(
+                    list.iterator(),
+                    "A1",
+                    "B2"
+                );
         } catch (final AssertionFailedError expected) {
             failed = true;
         }
         this.checkEquals(
-                true,
-                failed
+            true,
+            failed
         );
     }
 
@@ -99,66 +99,66 @@ public final class IteratorTestingTest implements Testing {
     @Test
     public void testIterateUsingHasNextAndCheck() {
         final List<String> list = Lists.of(
-                "A1",
-                "B2",
-                "C3"
+            "A1",
+            "B2",
+            "C3"
         );
 
         new TestIteratorTesting()
-                .iterateUsingHasNextAndCheck(
-                    list.iterator(),
-                    list.toArray(new String[0])
-                );
+            .iterateUsingHasNextAndCheck(
+                list.iterator(),
+                list.toArray(new String[0])
+            );
     }
 
     @Test
     public void testIterateUsingHasNextAndCheckElementFail() {
         final List<String> list = Lists.of(
-                "A1",
-                "B2",
-                "C3"
+            "A1",
+            "B2",
+            "C3"
         );
 
         boolean failed = false;
 
         try {
             new TestIteratorTesting()
-                    .iterateUsingHasNextAndCheck(
-                            list.iterator(),
-                            "*"
-                    );
+                .iterateUsingHasNextAndCheck(
+                    list.iterator(),
+                    "*"
+                );
         } catch (final AssertionFailedError expected) {
             failed = true;
         }
         this.checkEquals(
-                true,
-                failed
+            true,
+            failed
         );
     }
 
     @Test
     public void testIterateUsingHasNextAndCheckFail() {
         final List<String> list = Lists.of(
-                "A1",
-                "B2",
-                "C3"
+            "A1",
+            "B2",
+            "C3"
         );
 
         boolean failed = false;
 
         try {
             new TestIteratorTesting()
-                    .iterateUsingHasNextAndCheck(
-                            list.iterator(),
-                            "A1",
-                            "B2"
-                    );
+                .iterateUsingHasNextAndCheck(
+                    list.iterator(),
+                    "A1",
+                    "B2"
+                );
         } catch (final AssertionFailedError expected) {
             failed = true;
         }
         this.checkEquals(
-                true,
-                failed
+            true,
+            failed
         );
     }
 

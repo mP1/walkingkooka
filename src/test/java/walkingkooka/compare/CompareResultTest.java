@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class CompareResultTest implements ClassTesting2<CompareResult>,
-        PredicateTesting2<CompareResult, Integer> {
+    PredicateTesting2<CompareResult, Integer> {
 
     @Override
     public void testTypeNaming() {
@@ -337,33 +337,33 @@ public final class CompareResultTest implements ClassTesting2<CompareResult>,
     @Test
     public void testIntCompareResultZero() {
         this.intCompareResultAndCheck(
-                0,
-                CompareResult.EQ
+            0,
+            CompareResult.EQ
         );
     }
 
     @Test
     public void testIntCompareResultMinus() {
         this.intCompareResultAndCheck(
-                Integer.compare(0, 1),
-                CompareResult.LT
+            Integer.compare(0, 1),
+            CompareResult.LT
         );
     }
 
     @Test
     public void testIntCompareResultPlus() {
         this.intCompareResultAndCheck(
-                Integer.compare(1, 0),
-                CompareResult.GT
+            Integer.compare(1, 0),
+            CompareResult.GT
         );
     }
 
     private void intCompareResultAndCheck(final int value,
                                           final CompareResult expected) {
         this.checkEquals(
-                expected,
-                CompareResult.intCompareResult(value),
-                () -> "" + value
+            expected,
+            CompareResult.intCompareResult(value),
+            () -> "" + value
         );
     }
 
@@ -372,66 +372,66 @@ public final class CompareResultTest implements ClassTesting2<CompareResult>,
     @Test
     public void testValueLess() {
         this.valueAndCheck(
-                CompareResult.LT,
-                "less",
-                "eq",
-                "greater",
-                "less"
+            CompareResult.LT,
+            "less",
+            "eq",
+            "greater",
+            "less"
         );
     }
 
     @Test
     public void testValueEq() {
         this.valueAndCheck(
-                CompareResult.EQ,
-                "less",
-                "eq",
-                "greater",
-                "eq"
+            CompareResult.EQ,
+            "less",
+            "eq",
+            "greater",
+            "eq"
         );
     }
 
     @Test
     public void testValueGt() {
         this.valueAndCheck(
-                CompareResult.GT,
-                "lt",
-                "eq",
-                "greater",
-                "greater"
+            CompareResult.GT,
+            "lt",
+            "eq",
+            "greater",
+            "greater"
         );
     }
 
     @Test
     public void testValueLessNull() {
         this.valueAndCheck(
-                CompareResult.LT,
-                null,
-                "eq",
-                "greater",
-                null
+            CompareResult.LT,
+            null,
+            "eq",
+            "greater",
+            null
         );
     }
 
     @Test
     public void testValueEqNull() {
         this.valueAndCheck(
-                CompareResult.EQ,
-                "less",
-                null,
-                "greater",
-                null
+            CompareResult.EQ,
+            "less",
+            null,
+            "greater",
+            null
         );
     }
 
     @Test
     public void testValueGtNull() {
         this.valueAndCheck(
-                CompareResult.GT,
-                "lt",
-                "eq",
-                null,
-                null
+            CompareResult.GT,
+            "lt",
+            "eq",
+            null,
+            null
         );
     }
 
@@ -441,43 +441,43 @@ public final class CompareResultTest implements ClassTesting2<CompareResult>,
                                    final T greater,
                                    final T expected) {
         this.checkEquals(
-                expected,
-                result.value(
-                        less,
-                        equal,
-                        greater
-                ),
-                () -> result + " less: " + less + " equal: " + equal + " greater: " + greater
+            expected,
+            result.value(
+                less,
+                equal,
+                greater
+            ),
+            () -> result + " less: " + less + " equal: " + equal + " greater: " + greater
         );
     }
 
     @Test
     public void testValueLTEFails() {
         this.valueFails(
-                CompareResult.LTE,
-                1,
-                2,
-                3
+            CompareResult.LTE,
+            1,
+            2,
+            3
         );
     }
 
     @Test
     public void testValueGTEFails() {
         this.valueFails(
-                CompareResult.GTE,
-                1,
-                2,
-                3
+            CompareResult.GTE,
+            1,
+            2,
+            3
         );
     }
 
     @Test
     public void testValueNEFails() {
         this.valueFails(
-                CompareResult.NE,
-                1,
-                2,
-                3
+            CompareResult.NE,
+            1,
+            2,
+            3
         );
     }
 
@@ -486,12 +486,12 @@ public final class CompareResultTest implements ClassTesting2<CompareResult>,
                                 final T equal,
                                 final T greater) {
         assertThrows(
-                UnsupportedOperationException.class,
-                () -> result.value(
-                        less,
-                        equal,
-                        greater
-                )
+            UnsupportedOperationException.class,
+            () -> result.value(
+                less,
+                equal,
+                greater
+            )
         );
     }
 
@@ -500,77 +500,77 @@ public final class CompareResultTest implements ClassTesting2<CompareResult>,
     @Test
     public void testGetLess() {
         this.getAndCheck(
-                CompareResult.LT,
-                () -> "less",
-                () -> "eq",
-                () -> "greater",
-                "less"
+            CompareResult.LT,
+            () -> "less",
+            () -> "eq",
+            () -> "greater",
+            "less"
         );
     }
 
     @Test
     public void testGetEq() {
         this.getAndCheck(
-                CompareResult.EQ,
-                () -> "less",
-                () -> "eq",
-                () -> "greater",
-                "eq"
+            CompareResult.EQ,
+            () -> "less",
+            () -> "eq",
+            () -> "greater",
+            "eq"
         );
     }
 
     @Test
     public void testGetGt() {
         this.getAndCheck(
-                CompareResult.GT,
-                () -> "lt",
-                () -> "eq",
-                () -> "greater",
-                "greater"
+            CompareResult.GT,
+            () -> "lt",
+            () -> "eq",
+            () -> "greater",
+            "greater"
         );
     }
 
     @Test
     public void testGetLessNull() {
         this.getAndCheck(
-                CompareResult.LT,
-                () -> null,
-                () -> "eq",
-                () -> "greater",
-                null
+            CompareResult.LT,
+            () -> null,
+            () -> "eq",
+            () -> "greater",
+            null
         );
     }
 
     @Test
     public void testGetEqNull() {
         this.getAndCheck(
-                CompareResult.EQ,
-                () -> "less",
-                () -> null,
-                () -> "greater",
-                null
+            CompareResult.EQ,
+            () -> "less",
+            () -> null,
+            () -> "greater",
+            null
         );
     }
 
     @Test
     public void testGetGtNull() {
         this.getAndCheck(
-                CompareResult.GT,
-                () -> "lt",
-                () -> "eq",
-                () -> null,
-                null
+            CompareResult.GT,
+            () -> "lt",
+            () -> "eq",
+            () -> null,
+            null
         );
     }
 
     @Test
     public void testGetEqContra() {
         this.getAndCheck(
-                CompareResult.EQ,
-                () -> Optional.of(1.0),
-                () -> Optional.of(2L),
-                () -> Optional.of(3f),
-                Optional.of(2L)
+            CompareResult.EQ,
+            () -> Optional.of(1.0),
+            () -> Optional.of(2L),
+            () -> Optional.of(3f),
+            Optional.of(2L)
         );
     }
 
@@ -580,43 +580,43 @@ public final class CompareResultTest implements ClassTesting2<CompareResult>,
                                  final Supplier<? extends T> greater,
                                  final T expected) {
         this.checkEquals(
-                expected,
-                result.get(
-                        less,
-                        equal,
-                        greater
-                ),
-                () -> result + " less: " + less + " equal: " + equal + " greater: " + greater
+            expected,
+            result.get(
+                less,
+                equal,
+                greater
+            ),
+            () -> result + " less: " + less + " equal: " + equal + " greater: " + greater
         );
     }
 
     @Test
     public void testGetLteFails() {
         this.getFails(
-                CompareResult.LTE,
-                () ->  1,
-                () ->   2,
-                () ->   3
+            CompareResult.LTE,
+            () -> 1,
+            () -> 2,
+            () -> 3
         );
     }
 
     @Test
     public void testGetGteFails() {
         this.getFails(
-                CompareResult.GTE,
-                () -> 1,
-                () -> 2,
-                () -> 3
+            CompareResult.GTE,
+            () -> 1,
+            () -> 2,
+            () -> 3
         );
     }
 
     @Test
     public void testGetNeFails() {
         this.getFails(
-                CompareResult.NE,
-                () -> 1,
-                () -> 2,
-                () -> 3
+            CompareResult.NE,
+            () -> 1,
+            () -> 2,
+            () -> 3
         );
     }
 
@@ -625,12 +625,12 @@ public final class CompareResultTest implements ClassTesting2<CompareResult>,
                               final Supplier<? extends T> equal,
                               final Supplier<? extends T> greater) {
         assertThrows(
-                UnsupportedOperationException.class,
-                () -> result.get(
-                        less,
-                        equal,
-                        greater
-                )
+            UnsupportedOperationException.class,
+            () -> result.get(
+                less,
+                equal,
+                greater
+            )
         );
     }
 
@@ -659,21 +659,21 @@ public final class CompareResultTest implements ClassTesting2<CompareResult>,
     // ??? Not sure why cant call default method...
     public void testTrue(final Predicate<Integer> predicate, final Integer value) {
         this.checkEquals(true,
-                predicate.test(value),
-                () -> predicate + " should match=" + CharSequences.quoteIfChars(value));
+            predicate.test(value),
+            () -> predicate + " should match=" + CharSequences.quoteIfChars(value));
 
         this.checkEquals(true,
-                predicate.test(value.intValue()),
-                () -> predicate + " should match=" + CharSequences.quoteIfChars(value));
+            predicate.test(value.intValue()),
+            () -> predicate + " should match=" + CharSequences.quoteIfChars(value));
     }
 
     public void testFalse(final Predicate<Integer> predicate, final Integer value) {
         this.checkEquals(false,
-                predicate.test(value),
-                () -> predicate + " should not match=" + CharSequences.quoteIfChars(value));
+            predicate.test(value),
+            () -> predicate + " should not match=" + CharSequences.quoteIfChars(value));
 
         this.checkEquals(false,
-                predicate.test(value.intValue()),
-                () -> predicate + " should not match=" + CharSequences.quoteIfChars(value));
+            predicate.test(value.intValue()),
+            () -> predicate + " should not match=" + CharSequences.quoteIfChars(value));
     }
 }

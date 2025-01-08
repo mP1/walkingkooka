@@ -20,8 +20,6 @@ package walkingkooka.reflect;
 import org.junit.jupiter.api.Test;
 import walkingkooka.visit.Visiting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor> {
 
     // Class............................................................................................................
@@ -80,7 +78,7 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
         }.accept(Object.class);
 
         this.checkEquals(",start class:Object,end class:Object",
-                b.toString());
+            b.toString());
     }
 
     @Test
@@ -121,7 +119,7 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
         }.accept(TestSub.class);
 
         this.checkEquals(",start: Sub,start super: Object,start: Object,end: Object,end super: Object,end: Sub",
-                b.toString());
+            b.toString());
     }
 
     @Test
@@ -154,7 +152,7 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
         }.accept(TestSub.class);
 
         this.checkEquals(",start class:Sub,start super:Object,start class:Object,end class:Object,end super:Object,end class:Sub",
-                b.toString());
+            b.toString());
     }
 
     static class TestSub {
@@ -190,7 +188,7 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
         }.accept(TestSub2.class);
 
         this.checkEquals(",start class:Sub2,start super:Sub,start class:Sub,start super:Object,start class:Object,end class:Object,end super:Object,end class:Sub,end super:Sub,end class:Sub2",
-                b.toString());
+            b.toString());
     }
 
     @Test
@@ -245,7 +243,7 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
         }.accept(TestImplIntf.class);
 
         this.checkEquals(",start class:ImplIntf,start super:Object,start class:Object,end class:Object,end super:Object,start impl:Intf,start class:Intf,end class:Intf,end impl:Intf,end class:ImplIntf",
-                b.toString());
+            b.toString());
     }
 
     @Test
@@ -289,7 +287,7 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
         }.accept(TestImplIntf.class);
 
         this.checkEquals(",start class:ImplIntf,start super:Object,start class:Object,end class:Object,end super:Object,start intf:Intf,start class:Intf,end class:Intf,end intf:Intf,end class:ImplIntf",
-                b.toString());
+            b.toString());
     }
 
     @Test
@@ -345,7 +343,7 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
         }.accept(TestImplIntf2.class);
 
         this.checkEquals(",start class:ImplIntf2,start super:ImplIntf,start class:ImplIntf,start super:Object,start class:Object,end class:Object,end super:Object,start intf:Intf,start class:Intf,end class:Intf,end intf:Intf,end class:ImplIntf,end super:ImplIntf,start intf:Intf2,start class:Intf2,end class:Intf2,end intf:Intf2,end class:ImplIntf2",
-                b.toString());
+            b.toString());
     }
 
     static class TestImplIntf2 extends TestImplIntf implements TestIntf2 {
@@ -408,7 +406,7 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
         }.accept(Object[].class);
 
         this.checkEquals(",start class:Object[],start super:Object,start class:Object,end class:Object,end super:Object,start intf:Cloneable,start class:Cloneable,end class:Cloneable,end intf:Cloneable,start intf:Serializable,start class:Serializable,end class:Serializable,end intf:Serializable,start array-comp:Object,start class:Object,end class:Object,end array-comp:Object,end class:Object[]",
-                b.toString());
+            b.toString());
     }
 
     @Test

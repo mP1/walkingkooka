@@ -26,8 +26,8 @@ import walkingkooka.text.CharSequences;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class CharPredicateCharSequencePredicateTest
-        extends PredicateTestCase<CharPredicateCharSequencePredicate, CharSequence>
-        implements HashCodeEqualsDefinedTesting2<CharPredicateCharSequencePredicate> {
+    extends PredicateTestCase<CharPredicateCharSequencePredicate, CharSequence>
+    implements HashCodeEqualsDefinedTesting2<CharPredicateCharSequencePredicate> {
 
     // constants
 

@@ -42,8 +42,8 @@ final public class CharSequences implements PublicStaticHelper {
      */
     public static CharSequence nullToEmpty(final CharSequence chars) {
         return null == chars ?
-                "" :
-                chars;
+            "" :
+            chars;
     }
 
     /**
@@ -67,8 +67,8 @@ final public class CharSequences implements PublicStaticHelper {
 
             } catch (final InvalidCharacterException invalidCharacterException) {
                 best = Math.max(
-                        0, // expected cant be less than 0
-                        invalidCharacterException.position()
+                    0, // expected cant be less than 0
+                    invalidCharacterException.position()
                 );
             } catch (final RuntimeException other) {
                 int trying = max / 2;
@@ -79,18 +79,18 @@ final public class CharSequences implements PublicStaticHelper {
                     lastTry = trying;
                     try {
                         parser.apply(
-                                text.substring(
-                                        0,
-                                        trying
-                                )
+                            text.substring(
+                                0,
+                                trying
+                            )
                         );
                         best = trying;
                         trying = Math.min(
-                                max,
-                                Math.max(
-                                        trying + 1,
-                                        trying + (max - trying) / 2
-                                )
+                            max,
+                            Math.max(
+                                trying + 1,
+                                trying + (max - trying) / 2
+                            )
                         );
                     } catch (final RuntimeException cause) {
                         trying = trying / 2;
@@ -154,8 +154,8 @@ final public class CharSequences implements PublicStaticHelper {
         final int length = chars.length();
         if (length > 0) {
             result = new StringBuilder().append(Character.toUpperCase(chars.charAt(0)))
-                    .append(chars, 1, length)
-                    .toString();
+                .append(chars, 1, length)
+                .toString();
         }
         return result;
     }
@@ -251,8 +251,8 @@ final public class CharSequences implements PublicStaticHelper {
      */
     public static CharSequence escape(final CharSequence chars) {
         return null == chars ?
-                null :
-                escape0(chars);
+            null :
+            escape0(chars);
     }
 
     private static CharSequence escape0(final CharSequence chars) {
@@ -429,8 +429,8 @@ final public class CharSequences implements PublicStaticHelper {
      */
     public static int hash(final CharSequence chars) {
         return null == chars ?
-                0 :
-                hash0(chars);
+            0 :
+            hash0(chars);
     }
 
     private static int hash0(final CharSequence chars) {
@@ -502,8 +502,8 @@ final public class CharSequences implements PublicStaticHelper {
 
         final int requiredPadding = length - chars.length();
         return requiredPadding == 0 ?
-                chars :
-                concat(repeating(pad, requiredPadding), chars);
+            chars :
+            concat(repeating(pad, requiredPadding), chars);
     }
 
     /**
@@ -519,8 +519,8 @@ final public class CharSequences implements PublicStaticHelper {
 
         final int requiredPadding = length - chars.length();
         return requiredPadding == 0 ?
-                chars :
-                concat(chars, repeating(pad, requiredPadding));
+            chars :
+            concat(chars, repeating(pad, requiredPadding));
     }
 
     /**
@@ -544,12 +544,12 @@ final public class CharSequences implements PublicStaticHelper {
     private static CharSequence quoteAndEscape2(final CharSequence chars) {
         final int length = chars.length();
         final boolean quoted = length > 1 &&
-                startsWith(chars, "\"") &&
-                endsWith(chars, "\"");
+            startsWith(chars, "\"") &&
+            endsWith(chars, "\"");
 
         return "\"" +
-                escape(quoted ? chars.subSequence(1, length - 1) : chars) +
-                '"';
+            escape(quoted ? chars.subSequence(1, length - 1) : chars) +
+            '"';
     }
 
     /**
@@ -600,24 +600,24 @@ final public class CharSequences implements PublicStaticHelper {
             if (object instanceof Optional) {
                 final Optional<?> optional = Cast.to(object);
                 result = quoteIfChars(
-                        optional.orElse(null)
+                    optional.orElse(null)
                 );
                 break;
             }
             if (object instanceof Collection) {
                 final Collection<?> collecton = Cast.to(object);
                 result = collecton.stream()
-                        .map(CharSequences::quoteIfChars)
-                        .collect(Collectors.joining(", ", "[", "]"));
+                    .map(CharSequences::quoteIfChars)
+                    .collect(Collectors.joining(", ", "[", "]"));
                 break;
             }
             if (object instanceof Map) {
                 final Map<?, ?> map = Cast.to(object);
 
                 result = map.entrySet()
-                        .stream()
-                        .map(CharSequences::quoteIfCharMapEntry)
-                        .collect(Collectors.joining(", ", "{", "}"));
+                    .stream()
+                    .map(CharSequences::quoteIfCharMapEntry)
+                    .collect(Collectors.joining(", ", "{", "}"));
                 break;
             }
             result = String.valueOf(object);
@@ -629,8 +629,8 @@ final public class CharSequences implements PublicStaticHelper {
 
     private static CharSequence quoteIfCharMapEntry(final Entry<?, ?> entry) {
         return quoteIfChars(entry.getKey()) +
-                "=" +
-                quoteIfChars(entry.getValue());
+            "=" +
+            quoteIfChars(entry.getValue());
     }
 
     /**
@@ -712,9 +712,9 @@ final public class CharSequences implements PublicStaticHelper {
         final int positiveToIndex = length + to;
         if (positiveToIndex < from) {
             throw new StringIndexOutOfBoundsException(toIndexBeforeFromIndex(
-                    from,
-                    to,
-                    length));
+                from,
+                to,
+                length));
         }
         return sequence.subSequence(from, positiveToIndex);
     }
@@ -801,8 +801,8 @@ final public class CharSequences implements PublicStaticHelper {
      */
     public static CharSequence unescape(final CharSequence chars) {
         return null == chars ?
-                null :
-                unescape0(chars);
+            null :
+            unescape0(chars);
     }
 
     private static CharSequence unescape0(final CharSequence chars) {
@@ -872,7 +872,7 @@ final public class CharSequences implements PublicStaticHelper {
                         }
                         i = i + 4;
                         builder.append((char) ((firstValue * 0x1000) + (secondValue * 0x0100)
-                                + (thirdValue * 0x10) + fourthValue));
+                            + (thirdValue * 0x10) + fourthValue));
                         break;
                     default:
                         builder.append(c);

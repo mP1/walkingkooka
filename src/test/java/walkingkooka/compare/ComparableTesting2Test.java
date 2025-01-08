@@ -64,14 +64,14 @@ public final class ComparableTesting2Test implements ComparableTesting2<TestComp
     @Test
     public void testCompareToAndCheckNotEquals() {
         this.compareToAndCheckNotEquals(
-                this.less()
+            this.less()
         );
     }
 
     @Test
     public void testCompareToAndCheckNotEqualsFails() {
         this.mustFail(
-                () -> this.compareToAndCheckNotEquals(this.createComparable())
+            () -> this.compareToAndCheckNotEquals(this.createComparable())
         );
     }
 

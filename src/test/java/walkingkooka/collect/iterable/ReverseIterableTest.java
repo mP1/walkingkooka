@@ -26,13 +26,12 @@ import walkingkooka.reflect.JavaVisibility;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ReverseIterableTest implements ClassTesting2<ReverseIterable<String>>,
-        IterableTesting<ReverseIterable<String>, String> {
+    IterableTesting<ReverseIterable<String>, String> {
 
     // constants
 

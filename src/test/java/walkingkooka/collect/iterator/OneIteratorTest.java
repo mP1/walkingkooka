@@ -20,8 +20,6 @@ package walkingkooka.collect.iterator;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 final public class OneIteratorTest extends IteratorTestCase<OneIterator<String>, String> {
 
     // constants
@@ -35,7 +33,7 @@ final public class OneIteratorTest extends IteratorTestCase<OneIterator<String>,
     @Test
     public void testNullValueHasNext() {
         this.iterateUsingHasNextAndCheck(OneIterator.with(NULL),
-                NULL);
+            NULL);
     }
 
     @Test
@@ -46,7 +44,7 @@ final public class OneIteratorTest extends IteratorTestCase<OneIterator<String>,
     @Test
     public void testNonNullValueHasNext() {
         this.iterateUsingHasNextAndCheck(OneIterator.with(VALUE),
-                VALUE);
+            VALUE);
     }
 
     @Test

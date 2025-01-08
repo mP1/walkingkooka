@@ -37,8 +37,7 @@ abstract class PushableStreamConsumerStreamIntermediate1 extends PushableStreamC
         return Long.hashCode(this.value);
     }
 
-    @Override
-    final boolean equals0(final Object other) {
+    @Override final boolean equals0(final Object other) {
         return this.equals1(Cast.to(other));
     }
 

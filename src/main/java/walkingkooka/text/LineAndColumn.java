@@ -82,8 +82,8 @@ public final class LineAndColumn {
         final int lineLength = line.length();
         if (lineLength > 0) {
             column = column <= lineLength ?
-                    column :
-                    lineLength + 1;
+                column :
+                lineLength + 1;
         }
 
         return new LineAndColumn(lineNumber, column, line);
@@ -139,8 +139,8 @@ public final class LineAndColumn {
 
     private boolean equals0(final LineAndColumn other) {
         return this.lineNumber() == other.lineNumber() &&
-                this.columnNumber() == other.columnNumber() &&
-                this.line().equals(other.line());
+            this.columnNumber() == other.columnNumber() &&
+            this.line().equals(other.line());
     }
 
     @Override

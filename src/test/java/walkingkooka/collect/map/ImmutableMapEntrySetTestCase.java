@@ -23,7 +23,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 public abstract class ImmutableMapEntrySetTestCase<S extends ImmutableMapEntrySet<Entry<String, Integer>>> extends ImmutableMapTestCase<S>
-        implements TypeNameTesting<S> {
+    implements TypeNameTesting<S> {
 
     ImmutableMapEntrySetTestCase() {
         super();

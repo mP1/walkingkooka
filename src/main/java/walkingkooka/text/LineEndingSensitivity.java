@@ -38,17 +38,17 @@ public enum LineEndingSensitivity {
         @Override
         public boolean equals(final CharSequence left, final CharSequence right) {
             return CharSequences.equals(
-                    normalize(left),
-                    normalize(right)
+                normalize(left),
+                normalize(right)
             );
         }
 
         private String normalize(final CharSequence chars) {
             return null == chars ?
-                    null :
-                    chars.toString()
-                            .replace(LineEnding.CRNL, LineEnding.NL)
-                            .replace(LineEnding.CR, LineEnding.NL);
+                null :
+                chars.toString()
+                    .replace(LineEnding.CRNL, LineEnding.NL)
+                    .replace(LineEnding.CR, LineEnding.NL);
 
         }
     };

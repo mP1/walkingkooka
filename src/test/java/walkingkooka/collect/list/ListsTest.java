@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ListsTest implements PublicStaticHelperTesting<Lists>,
-        IteratorTesting {
+    IteratorTesting {
 
     @Test
     public void testArray() {
@@ -162,9 +162,9 @@ final public class ListsTest implements PublicStaticHelperTesting<Lists>,
     private void isImmutableAndCheck(final List<?> list,
                                      final boolean expected) {
         this.checkEquals(
-                expected,
-                list instanceof ImmutableList,
-                () -> "isImmutable " + list.getClass().getName() + "=" + list);
+            expected,
+            list instanceof ImmutableList,
+            () -> "isImmutable " + list.getClass().getName() + "=" + list);
     }
 
     @Override

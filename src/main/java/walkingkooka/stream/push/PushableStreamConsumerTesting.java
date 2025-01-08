@@ -21,7 +21,7 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting2;
 
 public interface PushableStreamConsumerTesting<C extends PushableStreamConsumer<T>, T> extends ClassTesting2<C>,
-        ToStringTesting<C> {
+    ToStringTesting<C> {
 
     /**
      * Factory that creates a {@link PushableStreamConsumer}
@@ -31,8 +31,8 @@ public interface PushableStreamConsumerTesting<C extends PushableStreamConsumer<
     default void checkIsFinished(final PushableStreamConsumer<?> consumer,
                                  final boolean finished) {
         this.checkEquals(finished,
-                consumer.isFinished(),
-                consumer::toString);
+            consumer.isFinished(),
+            consumer::toString);
     }
 
     default void accept(final PushableStreamConsumer<T> consumer,

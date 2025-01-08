@@ -40,16 +40,14 @@ abstract class LogicalCharPredicate implements CharPredicate {
 
     // Object
 
-    @Override
-    final public int hashCode() {
+    @Override final public int hashCode() {
         return Objects.hash(this.left, this.right);
     }
 
     @Override
-    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
-    final public boolean equals(final Object other) {
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass") final public boolean equals(final Object other) {
         return other == this ||
-                (this.canBeEqualType(other) && this.equals0((LogicalCharPredicate) other));
+            (this.canBeEqualType(other) && this.equals0((LogicalCharPredicate) other));
     }
 
     /**
@@ -61,8 +59,7 @@ abstract class LogicalCharPredicate implements CharPredicate {
         return this.left.equals(other.left) && this.right.equals(other.right);
     }
 
-    @Override
-    final public String toString() {
+    @Override final public String toString() {
         return this.left + " " + this.operator() + " " + this.right;
     }
 

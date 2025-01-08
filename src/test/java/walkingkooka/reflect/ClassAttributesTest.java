@@ -20,8 +20,6 @@ package walkingkooka.reflect;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class ClassAttributesTest implements ClassTesting2<ClassAttributes> {
 
     @Test
@@ -36,7 +34,7 @@ public final class ClassAttributesTest implements ClassTesting2<ClassAttributes>
 
     static class TestStaticClass {
     }
-    
+
     @Test
     public void testAbstract() {
         this.checkEquals(Sets.of(ClassAttributes.ABSTRACT), ClassAttributes.get(TestAbstractClass.class));

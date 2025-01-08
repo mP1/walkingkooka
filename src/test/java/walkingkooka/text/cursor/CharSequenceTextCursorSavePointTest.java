@@ -21,11 +21,10 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 final public class CharSequenceTextCursorSavePointTest implements ClassTesting2<CharSequenceTextCursorSavePoint>,
-        TextCursorSavePointTesting<CharSequenceTextCursorSavePoint, CharSequenceTextCursor> {
+    TextCursorSavePointTesting<CharSequenceTextCursorSavePoint, CharSequenceTextCursor> {
 
     @Test
     public void testSaveAndRestoreWithFromAndTo() {

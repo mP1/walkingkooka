@@ -38,8 +38,8 @@ final class ToStringBuilderAppenderCharArrayVector extends ToStringBuilderAppend
         final char[] value = this.value;
 
         builder.appendCharSequence(null != value ?
-                        new String(value) :
-                        null,
-                '"');
+                new String(value) :
+                null,
+            '"');
     }
 }

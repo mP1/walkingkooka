@@ -68,8 +68,8 @@ final class Line implements Value<String>, CharSequence {
     public CharSequence subSequence(final int from, final int end) {
         final String value = this.value;
         return (0 == from) && (end == value.length()) ?
-                this :
-                new Line(value.subSequence(from, end).toString());
+            this :
+            new Line(value.subSequence(from, end).toString());
     }
 
     // Value

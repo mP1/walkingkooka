@@ -33,16 +33,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Base class for testing a {@link Name} with mostly helpers to check construction failure.
  */
 public interface NameTesting<N extends Name, C extends Comparable<C>> extends ComparableTesting2<C>,
-        HasTextTesting,
-        ToStringTesting<N>,
-        TypeNameTesting<N> {
+    HasTextTesting,
+    ToStringTesting<N>,
+    TypeNameTesting<N> {
 
     @Test
     default void testPublicClass() {
         this.checkEquals(
-                JavaVisibility.PUBLIC,
-                this.typeVisibility(),
-                "Visibility of name"
+            JavaVisibility.PUBLIC,
+            this.typeVisibility(),
+            "Visibility of name"
         );
     }
 
@@ -82,28 +82,28 @@ public interface NameTesting<N extends Name, C extends Comparable<C>> extends Co
 
         if (this.caseSensitivity() == CaseSensitivity.INSENSITIVE) {
             this.compareToAndCheckEquals(
-                    lower,
-                    upper);
+                lower,
+                upper);
         } else {
             this.compareToAndCheckLess(
-                    upper,
-                    lower);
+                upper,
+                lower);
         }
     }
 
     @Test
     default void testCompareLess() {
         this.compareToAndCheckLess(
-                this.createComparable(this.nameTextLess()),
-                this.createComparable(this.nameText()));
+            this.createComparable(this.nameTextLess()),
+            this.createComparable(this.nameText()));
     }
 
     @Test
     default void testCompareLessDifferentCase() {
         if (CaseSensitivity.INSENSITIVE == this.caseSensitivity()) {
             this.compareToAndCheckLess(
-                    this.createComparable(this.nameTextLess().toUpperCase()),
-                    this.createComparable(this.nameText().toLowerCase()));
+                this.createComparable(this.nameTextLess().toUpperCase()),
+                this.createComparable(this.nameText().toLowerCase()));
         }
     }
 
@@ -134,9 +134,9 @@ public interface NameTesting<N extends Name, C extends Comparable<C>> extends Co
 
     default void checkValue(final Name name, final String value) {
         this.checkEquals(
-                value,
-                name.value(),
-                "value"
+            value,
+            name.value(),
+            "value"
         );
     }
 

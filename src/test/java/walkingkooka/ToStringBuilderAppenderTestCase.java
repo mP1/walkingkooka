@@ -22,7 +22,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 
 public abstract class ToStringBuilderAppenderTestCase<A extends ToStringBuilderAppender<V>, V> implements ClassTesting2<A>,
-        TypeNameTesting<A> {
+    TypeNameTesting<A> {
 
     ToStringBuilderAppenderTestCase() {
         super();

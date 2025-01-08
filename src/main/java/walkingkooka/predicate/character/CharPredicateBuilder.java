@@ -29,7 +29,7 @@ import java.util.Objects;
  * methods.
  */
 final public class CharPredicateBuilder
-        implements Builder<CharPredicate>, Copyable<CharPredicateBuilder> {
+    implements Builder<CharPredicate>, Copyable<CharPredicateBuilder> {
 
     /**
      * Creates a new {@link CharPredicateBuilder}
@@ -133,8 +133,8 @@ final public class CharPredicateBuilder
      */
     public CharPredicateBuilder toString(final String toString) {
         this.toString = Whitespace.failIfNullOrEmptyOrWhitespace(
-                toString,
-                "toString"
+            toString,
+            "toString"
         );
         return this;
     }

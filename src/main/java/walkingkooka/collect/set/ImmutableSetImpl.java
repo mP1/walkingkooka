@@ -35,8 +35,8 @@ abstract class ImmutableSetImpl<E> extends AbstractSet<E> implements ImmutableSe
         Objects.requireNonNull(set, "set");
 
         return set instanceof ImmutableSet ?
-                Cast.to(set) :
-                prepare(set.toArray());
+            Cast.to(set) :
+            prepare(set.toArray());
     }
 
     /**
@@ -51,7 +51,7 @@ abstract class ImmutableSetImpl<E> extends AbstractSet<E> implements ImmutableSe
                 break;
             case 1:
                 immutable = ImmutableSetImplSingleton.singleton(
-                        Cast.to(elements[0])
+                    Cast.to(elements[0])
                 );
                 break;
             default:
@@ -85,7 +85,7 @@ abstract class ImmutableSetImpl<E> extends AbstractSet<E> implements ImmutableSe
 
         final ImmutableSetImpl<E> copy = prepare(elements.toArray());
         return this.equals(copy) ?
-                this:
-                copy;
+            this :
+            copy;
     }
 }

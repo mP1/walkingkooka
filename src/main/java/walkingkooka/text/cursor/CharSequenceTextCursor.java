@@ -139,7 +139,7 @@ final class CharSequenceTextCursor implements TextCursor {
 
         toString.append(" \"");
         toString.append(
-                CharSequences.escape(text.subSequence(Math.max(0, position - 7), Math.min(position, length))));
+            CharSequences.escape(text.subSequence(Math.max(0, position - 7), Math.min(position, length))));
 
         if (position < length) {
             toString.append("[");

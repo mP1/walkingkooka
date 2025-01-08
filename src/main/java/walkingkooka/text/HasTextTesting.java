@@ -22,9 +22,9 @@ public interface HasTextTesting extends HasTextLengthTesting {
     default void textAndCheck(final HasText has,
                               final String text) {
         this.checkEquals(
-                text,
-                has.text(),
-                has::toString
+            text,
+            has.text(),
+            has::toString
         );
         this.textLengthAndCheck(has, text);
     }

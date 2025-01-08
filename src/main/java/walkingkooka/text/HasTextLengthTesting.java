@@ -29,9 +29,9 @@ public interface HasTextLengthTesting extends Testing {
     default void textLengthAndCheck(final HasTextLength has,
                                     final int length) {
         this.checkEquals(
-                length,
-                has.textLength(),
-                has::toString
+            length,
+            has.textLength(),
+            has::toString
         );
     }
 }

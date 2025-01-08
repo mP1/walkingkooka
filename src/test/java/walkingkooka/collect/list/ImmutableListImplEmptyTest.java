@@ -29,63 +29,63 @@ public final class ImmutableListImplEmptyTest extends ImmutableListImplTestCase2
     @Test
     public void testAddFails() {
         this.addFails(
-                this.createList(),
-                "fails!!!"
+            this.createList(),
+            "fails!!!"
         );
     }
 
     @Test
     public void testContainsNotNull() {
         this.containsAndCheckAbsent(
-                ImmutableListImplEmpty.empty(),
-                "Hello"
+            ImmutableListImplEmpty.empty(),
+            "Hello"
         );
     }
 
     @Test
     public void testContainsNull() {
         this.containsAndCheckAbsent(
-                ImmutableListImplEmpty.empty(),
-                null
+            ImmutableListImplEmpty.empty(),
+            null
         );
     }
 
     @Test
     public void testGetInvalidIndexFails() {
         this.getFails(
-                this.createList(),
-                0
+            this.createList(),
+            0
         );
     }
 
     @Test
     public void testIterator() {
         this.iterateAndCheck(
-                this.createList().iterator()
+            this.createList().iterator()
         );
     }
 
     @Test
     public void testRemoveFails() {
         this.removeFails(
-                this.createList(),
-                ELEMENT
+            this.createList(),
+            ELEMENT
         );
     }
 
     @Test
     public void testSize() {
         this.sizeAndCheck(
-                this.createList(),
-                0
+            this.createList(),
+            0
         );
     }
 
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createList(),
-                Collections.emptyList().toString()
+            this.createList(),
+            Collections.emptyList().toString()
         );
     }
 

@@ -23,8 +23,7 @@ abstract class ToStringBuilderAppenderNonUsesToStringBuilderScalar<V> extends To
         super(value);
     }
 
-    @Override
-    final void append0(final ToStringBuilder builder) {
+    @Override final void append0(final ToStringBuilder builder) {
         this.appendLabelBeforeValueAfter(builder);
     }
 }

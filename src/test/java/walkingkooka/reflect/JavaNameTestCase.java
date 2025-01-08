@@ -52,15 +52,15 @@ public abstract class JavaNameTestCase<N extends JavaName<N>> implements NameTes
 
     final String matchingCharacters(final CharPredicate predicate) {
         return IntStream.range(Character.MIN_VALUE, 100)
-                .filter(i -> predicate.test((char) i))
-                .mapToObj(i -> String.valueOf((char) i))
-                .collect(Collectors.joining(""));
+            .filter(i -> predicate.test((char) i))
+            .mapToObj(i -> String.valueOf((char) i))
+            .collect(Collectors.joining(""));
     }
 
     final CharPredicate predicate(final int position) {
         return 0 == position ?
-                Character::isJavaIdentifierStart :
-                Character::isJavaIdentifierPart;
+            Character::isJavaIdentifierStart :
+            Character::isJavaIdentifierPart;
     }
 
     @Override

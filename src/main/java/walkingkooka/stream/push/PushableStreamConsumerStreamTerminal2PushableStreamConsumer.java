@@ -56,8 +56,8 @@ abstract class PushableStreamConsumerStreamTerminal2PushableStreamConsumer<T> ex
             this.value = next;
         } else {
             this.value = this.compare(this.comparator.compare(previous, next),
-                    previous,
-                    next);
+                previous,
+                next);
         }
     }
 
@@ -73,15 +73,13 @@ abstract class PushableStreamConsumerStreamTerminal2PushableStreamConsumer<T> ex
     /**
      * Returns the MAX or MIN as determined by the comparator and given values.
      */
-    @Override
-    final Optional<T> result() {
+    @Override final Optional<T> result() {
         return Optional.ofNullable(this.value);
     }
 
     private T value;
 
-    @Override
-    final void buildToString1(final ToStringBuilder builder) {
+    @Override final void buildToString1(final ToStringBuilder builder) {
         builder.label(this.label());
         builder.value(this.comparator);
         builder.value(this.value);

@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ToStringCharPredicateTest implements CharPredicateTesting<ToStringCharPredicate>,
-        HashCodeEqualsDefinedTesting2<ToStringCharPredicate> {
+    HashCodeEqualsDefinedTesting2<ToStringCharPredicate> {
 
     // constants
 
@@ -34,7 +34,7 @@ final public class ToStringCharPredicateTest implements CharPredicateTesting<ToS
     private final static char DIFFERENT = 2;
 
     private final static CharPredicate PREDICATE
-            = CharPredicates.is(MATCHED);
+        = CharPredicates.is(MATCHED);
 
     private final static String TOSTRING = "*toString*";
 
@@ -63,8 +63,8 @@ final public class ToStringCharPredicateTest implements CharPredicateTesting<ToS
     @Test
     public void testWrapPredicate() {
         final ToStringCharPredicate predicate
-                = Cast.to(ToStringCharPredicate.wrap(PREDICATE,
-                TOSTRING));
+            = Cast.to(ToStringCharPredicate.wrap(PREDICATE,
+            TOSTRING));
         assertSame(PREDICATE, predicate.predicate, "predicate");
         assertSame(TOSTRING, predicate.toString, "toString");
     }
@@ -72,8 +72,8 @@ final public class ToStringCharPredicateTest implements CharPredicateTesting<ToS
     @Test
     public void testWrapAnotherToStringCharPredicate() {
         final ToStringCharPredicate predicate
-                = Cast.to(ToStringCharPredicate.wrap(ToStringCharPredicate.wrap(PREDICATE,
-                "different"), TOSTRING));
+            = Cast.to(ToStringCharPredicate.wrap(ToStringCharPredicate.wrap(PREDICATE,
+            "different"), TOSTRING));
         assertSame(PREDICATE, predicate.predicate, "predicate");
         assertSame(TOSTRING, predicate.toString, "toString");
     }
@@ -112,7 +112,7 @@ final public class ToStringCharPredicateTest implements CharPredicateTesting<ToS
     @Override
     public ToStringCharPredicate createCharPredicate() {
         return Cast.to(ToStringCharPredicate.wrap(PREDICATE,
-                TOSTRING));
+            TOSTRING));
     }
 
     @Override

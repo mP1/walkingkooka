@@ -25,9 +25,9 @@ import java.util.function.Predicate;
  * A {@link Predicate} that always returns true regardless of input.
  */
 final class AlwaysPredicate<T> implements Predicate<T>,
-        Andable,
-        Orable,
-        Notable<Predicate<T>> {
+    Andable,
+    Orable,
+    Notable<Predicate<T>> {
 
     /**
      * Singleton

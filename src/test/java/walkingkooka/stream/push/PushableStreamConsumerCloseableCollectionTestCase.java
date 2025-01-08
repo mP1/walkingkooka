@@ -25,14 +25,13 @@ import walkingkooka.reflect.TypeNameTesting;
 import java.io.Closeable;
 import java.util.Collection;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class PushableStreamConsumerCloseableCollectionTestCase<C extends PushableStreamConsumerCloseableCollection>
-        extends PushableStreamConsumerTestCase<C>
-        implements ToStringTesting<C>,
-        TypeNameTesting<C> {
+    extends PushableStreamConsumerTestCase<C>
+    implements ToStringTesting<C>,
+    TypeNameTesting<C> {
 
     PushableStreamConsumerCloseableCollectionTestCase() {
         super();
@@ -45,12 +44,12 @@ public abstract class PushableStreamConsumerCloseableCollectionTestCase<C extend
 
     final void addAndCheck(final PushableStreamConsumerCloseableCollection collection,
                            final Runnable add,
-                           final Runnable...expected) {
+                           final Runnable... expected) {
         final PushableStreamConsumerCloseableCollectionNonEmpty added = collection.add(add);
         assertNotSame(added, collection);
         this.checkEquals(Lists.of(expected),
-                added.closeables,
-                () -> collection + " add " + add);
+            added.closeables,
+            () -> collection + " add " + add);
     }
 
     abstract C createCloseableCollection();

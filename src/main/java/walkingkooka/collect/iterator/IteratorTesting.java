@@ -34,20 +34,20 @@ public interface IteratorTesting extends Testing {
 
     default void hasNextCheckFalse(final Iterator<?> iterator) {
         this.checkEquals(false,
-                iterator.hasNext(),
-                () -> "iterator hasNext should have returned true: " + iterator);
+            iterator.hasNext(),
+            () -> "iterator hasNext should have returned true: " + iterator);
     }
 
     default void hasNextCheckTrue(final Iterator<?> iterator) {
         this.hasNextCheckTrue(iterator,
-                "iterator hasNext should have returned true: " + iterator);
+            "iterator hasNext should have returned true: " + iterator);
     }
 
     default void hasNextCheckTrue(final Iterator<?> iterator, final String message) {
         this.checkEquals(
-                true,
-                iterator.hasNext(),
-                message
+            true,
+            iterator.hasNext(),
+            message
         );
     }
 
@@ -78,21 +78,21 @@ public interface IteratorTesting extends Testing {
         while (iterator.hasNext()) {
             final T next = iterator.next();
 
-            if(i < expected.length) {
+            if (i < expected.length) {
                 final int ii = i;
                 this.checkEquals(
-                        expected[i],
-                        next,
-                        () -> "element " + ii
+                    expected[i],
+                    next,
+                    () -> "element " + ii
                 );
             }
             consumed.add(next);
             i++;
         }
         this.checkEquals(
-                Lists.of(expected),
-                consumed,
-                iterator::toString
+            Lists.of(expected),
+            consumed,
+            iterator::toString
         );
         this.nextFails(iterator);
     }
@@ -110,9 +110,9 @@ public interface IteratorTesting extends Testing {
 
             final int ii = i;
             this.checkEquals(
-                    expected[i],
-                    next,
-                    () -> "element " + ii
+                expected[i],
+                next,
+                () -> "element " + ii
             );
 
             consumed.add(next);
@@ -120,9 +120,9 @@ public interface IteratorTesting extends Testing {
         }
 
         this.checkEquals(
-                Lists.of(expected),
-                consumed,
-                iterator::toString
+            Lists.of(expected),
+            consumed,
+            iterator::toString
         );
         this.nextFails(iterator);
     }

@@ -28,53 +28,53 @@ import java.util.Iterator;
 import java.util.List;
 
 public final class IteratorEnumerationTest implements EnumerationTesting,
-        ClassTesting<IteratorEnumeration<String>>,
-        ToStringTesting<IteratorEnumeration<String>> {
+    ClassTesting<IteratorEnumeration<String>>,
+    ToStringTesting<IteratorEnumeration<String>> {
 
     public void testConsume() {
         final List<String> values = Lists.of(
-                "1a",
-                "2b",
-                "3c",
-                "4d"
+            "1a",
+            "2b",
+            "3c",
+            "4d"
         );
-        
+
         this.enumerateAndCheck(
-                IteratorEnumeration.with(
-                        values.iterator()
-                ),
-               values.toArray(new String[0])
+            IteratorEnumeration.with(
+                values.iterator()
+            ),
+            values.toArray(new String[0])
         );
     }
 
     public void testConsumeUsingHasMoreElements() {
         final List<String> values = Lists.of(
-                "1a",
-                "2b",
-                "3c",
-                "4d"
+            "1a",
+            "2b",
+            "3c",
+            "4d"
         );
 
         this.enumerateUsingHasMoreElementsAndCheck(
-                IteratorEnumeration.with(
-                        values.iterator()
-                ),
-                values.toArray(new String[0])
+            IteratorEnumeration.with(
+                values.iterator()
+            ),
+            values.toArray(new String[0])
         );
     }
 
     @Test
     public void testToString() {
         final Iterator<String> values = Lists.of(
-                "1a",
-                "2b",
-                "3c",
-                "4d"
+            "1a",
+            "2b",
+            "3c",
+            "4d"
         ).iterator();
 
         this.toStringAndCheck(
-                IteratorEnumeration.with(values),
-                values.toString()
+            IteratorEnumeration.with(values),
+            values.toString()
         );
     }
 

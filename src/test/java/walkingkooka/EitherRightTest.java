@@ -57,7 +57,7 @@ public final class EitherRightTest extends EitherTestCase2<EitherRight<String, I
         final EitherRight<String, Integer> either = EitherRight.withRight(null);
         assertSame(either, either.setRightValue(null));
     }
-    
+
     @Test
     public void testSetRightValueSame() {
         final EitherRight<String, Integer> either = this.createEither();

@@ -55,7 +55,7 @@ public enum MethodAttributes {
     SYNTHETIC {
         boolean test(final Method method) {
             return false == Arrays.equals(method.getGenericParameterTypes(), method.getParameterTypes()) ||
-                    method.isBridge();
+                method.isBridge();
 
         }
     };

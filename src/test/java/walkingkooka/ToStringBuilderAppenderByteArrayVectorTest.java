@@ -28,7 +28,7 @@ public final class ToStringBuilderAppenderByteArrayVectorTest extends ToStringBu
         b.value(new byte[]{0, 1, 2});
 
         this.buildAndCheck(b,
-                LABEL1 + LABEL_SEPARATOR + 0 + VALUE_SEPARATOR + 1 + VALUE_SEPARATOR + 2);
+            LABEL1 + LABEL_SEPARATOR + 0 + VALUE_SEPARATOR + 1 + VALUE_SEPARATOR + 2);
     }
 
     @Override
@@ -36,8 +36,7 @@ public final class ToStringBuilderAppenderByteArrayVectorTest extends ToStringBu
         return new byte[0];
     }
 
-    @Override
-    final String defaultValueToString(final byte[] value) {
+    @Override final String defaultValueToString(final byte[] value) {
         return "";
     }
 

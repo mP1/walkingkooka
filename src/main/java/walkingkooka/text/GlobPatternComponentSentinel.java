@@ -19,7 +19,7 @@
 
 package walkingkooka.text;
 
-final class GlobPatternComponentSentinel extends GlobPatternComponent{
+final class GlobPatternComponentSentinel extends GlobPatternComponent {
 
     static final GlobPatternComponentSentinel INSTANCE = new GlobPatternComponentSentinel();
 
@@ -46,8 +46,8 @@ final class GlobPatternComponentSentinel extends GlobPatternComponent{
                  final int textPos,
                  final GlobPatternContext context) {
         return context.requireAllText ?
-                textPos == text.length() : // since this is the last pattern component a match is true if the text is also consumed.
-                        true;
+            textPos == text.length() : // since this is the last pattern component a match is true if the text is also consumed.
+            true;
     }
 
     // Object..........................................................................................................

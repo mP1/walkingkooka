@@ -21,12 +21,11 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class WhitespaceTest implements ClassTesting2<Whitespace>,
-        CharSequenceTesting<Whitespace> {
+    CharSequenceTesting<Whitespace> {
 
     @Override
     public void testTypeNaming() {
@@ -101,8 +100,8 @@ final public class WhitespaceTest implements ClassTesting2<Whitespace>,
 
     private void hasAndCheck(final String text, final boolean has) {
         this.checkEquals(has,
-                Whitespace.has(text),
-                CharSequences.quoteAndEscape(text) + " has whitespace");
+            Whitespace.has(text),
+            CharSequences.quoteAndEscape(text) + " has whitespace");
     }
 
     @Test

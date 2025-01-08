@@ -32,7 +32,7 @@ final public class Whitespace implements CharSequence {
         CharSequences.failIfNullOrEmpty(chars, label);
         if (onlyWhitespace(chars)) {
             throw new IllegalArgumentException(
-                    label + " contains only whitespace=" + CharSequences.quoteAndEscape(chars));
+                label + " contains only whitespace=" + CharSequences.quoteAndEscape(chars));
         }
         return chars;
     }
@@ -96,8 +96,8 @@ final public class Whitespace implements CharSequence {
                 final char c = content.charAt(i);
                 if (false == Character.isWhitespace(c)) {
                     throw new IllegalArgumentException(
-                            "Found non whitespace character at " + i + "="
-                                    + CharSequences.quoteAndEscape(String.valueOf(c)));
+                        "Found non whitespace character at " + i + "="
+                            + CharSequences.quoteAndEscape(String.valueOf(c)));
                 }
             }
             whitespace = new Whitespace(content);
@@ -131,8 +131,8 @@ final public class Whitespace implements CharSequence {
         final String content = this.content;
         final int length = content.length();
         return (start == 0) && (end == length) ? this //
-                : (start == end) && (start < length) ? Whitespace.EMPTY //
-                : new Whitespace(content.subSequence(start, end).toString());
+            : (start == end) && (start < length) ? Whitespace.EMPTY //
+            : new Whitespace(content.subSequence(start, end).toString());
     }
 
     /**
@@ -150,7 +150,7 @@ final public class Whitespace implements CharSequence {
     @Override
     public boolean equals(final Object other) {
         return (this == other) || ((other instanceof Whitespace)
-                && this.equals((Whitespace) other));
+            && this.equals((Whitespace) other));
     }
 
     private boolean equals(final Whitespace other) {

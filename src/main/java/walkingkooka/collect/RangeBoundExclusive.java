@@ -76,15 +76,15 @@ final class RangeBoundExclusive<C extends Comparable<C>> extends RangeBoundExclu
     @Override
     RangeBound<C> min0(final RangeBoundExclusive<C> other) {
         return this.value.compareTo(other.value) <= 0 ?
-                this :
-                other;
+            this :
+            other;
     }
 
     @Override
     RangeBound<C> min0(final RangeBoundInclusive<C> other) {
         return this.value.compareTo(other.value) < 0 ?
-                this :
-                other;
+            this :
+            other;
     }
 
     @Override
@@ -95,15 +95,15 @@ final class RangeBoundExclusive<C extends Comparable<C>> extends RangeBoundExclu
     @Override
     RangeBound<C> max0(final RangeBoundExclusive<C> other) {
         return this.value.compareTo(other.value) >= 0 ?
-                this :
-                other;
+            this :
+            other;
     }
 
     @Override
     RangeBound<C> max0(final RangeBoundInclusive<C> other) {
         return this.value.compareTo(other.value) > 0 ?
-                this :
-                other;
+            this :
+            other;
     }
 
     // RangeVisitor.............................................................................................

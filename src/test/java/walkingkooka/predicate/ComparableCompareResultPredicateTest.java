@@ -32,16 +32,16 @@ public final class ComparableCompareResultPredicateTest extends PredicateTestCas
     @Test
     public void testWithNullCompareResultFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> ComparableCompareResultPredicate.with(null, MORE)
+            NullPointerException.class,
+            () -> ComparableCompareResultPredicate.with(null, MORE)
         );
     }
 
     @Test
     public void testWithNullRightComparableFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> ComparableCompareResultPredicate.with(CompareResult.EQ, null)
+            NullPointerException.class,
+            () -> ComparableCompareResultPredicate.with(CompareResult.EQ, null)
         );
     }
 

@@ -25,10 +25,10 @@ import walkingkooka.text.CaseSensitivity;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class StringNameTest implements ClassTesting2<StringName>,
-        NameTesting<StringName, StringName> {
+    NameTesting<StringName, StringName> {
 
     private final static String TEXT = "bcd123";
-    
+
     @Test
     public void testContainsSeparatorFails() {
         assertThrows(IllegalArgumentException.class, () -> StringName.with("name-" + StringPath.SEPARATOR.string()));
@@ -42,7 +42,7 @@ final public class StringNameTest implements ClassTesting2<StringName>,
         final StringName d4 = StringName.with("d4");
 
         this.compareToArraySortAndCheck(d4, a1, c3, b2,
-                a1, b2, c3, d4);
+            a1, b2, c3, d4);
     }
 
     @Override

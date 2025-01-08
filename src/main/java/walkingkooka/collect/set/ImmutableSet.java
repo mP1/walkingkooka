@@ -106,8 +106,8 @@ public interface ImmutableSet<E> extends Set<E>, CanBeEmpty {
      */
     static <EE> Collector<EE, ?, ImmutableSet<EE>> collector() {
         return Collectors.collectingAndThen(
-                Collectors.toSet(),
-                Sets::immutable
+            Collectors.toSet(),
+            Sets::immutable
         );
     }
 }

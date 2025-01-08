@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class CharSequenceTextCursorLineInfoTest implements ClassTesting2<CharSequenceTextCursorLineInfo>,
-        TextCursorLineInfoTesting<CharSequenceTextCursorLineInfo> {
+    TextCursorLineInfoTesting<CharSequenceTextCursorLineInfo> {
 
     private final static String TEXT = "123";
     private final static int POS = 1;
@@ -37,7 +37,7 @@ final public class CharSequenceTextCursorLineInfoTest implements ClassTesting2<C
     @Test
     public void testWith() {
         final CharSequenceTextCursorLineInfo info = CharSequenceTextCursorLineInfo
-                .with(TEXT, POS);
+            .with(TEXT, POS);
         assertSame(TEXT, info.text, "text");
         this.checkEquals(POS, info.pos, "pos");
         assertNull(info.lineAndColumn, "lineAndColumn");
@@ -46,12 +46,12 @@ final public class CharSequenceTextCursorLineInfoTest implements ClassTesting2<C
     @Test
     public void testMiddleOfFirstLine() {
         this.lineWithPosition(
-                "line",
-                1,
-                "line",
-                1,
-                2,
-                1
+            "line",
+            1,
+            "line",
+            1,
+            2,
+            1
         );
     }
 
@@ -59,12 +59,12 @@ final public class CharSequenceTextCursorLineInfoTest implements ClassTesting2<C
     public void testSecondLineAfterNewLine() {
         final String prefix = "first\nl";
         this.lineWithPosition(
-                prefix + "ine\nafter",
-                prefix,
-                "line",
-                2,
-                2,
-                prefix.length()
+            prefix + "ine\nafter",
+            prefix,
+            "line",
+            2,
+            2,
+            prefix.length()
         );
     }
 
@@ -72,12 +72,12 @@ final public class CharSequenceTextCursorLineInfoTest implements ClassTesting2<C
     public void testSecondLineAfterCarriageReturn() {
         final String prefix = "first\rl";
         this.lineWithPosition(
-                prefix + "ine\rafter",
-                prefix,
-                "line",
-                2,
-                2,
-                prefix.length()
+            prefix + "ine\rafter",
+            prefix,
+            "line",
+            2,
+            2,
+            prefix.length()
         );
     }
 
@@ -85,12 +85,12 @@ final public class CharSequenceTextCursorLineInfoTest implements ClassTesting2<C
     public void testAfterLastChar() {
         final String text = "first\nsecond\rthird";
         this.lineWithPosition(
-                text,
-                text.length() + 1,
-                "third",
-                3,
-                6,
-                text.length() + 1
+            text,
+            text.length() + 1,
+            "third",
+            3,
+            6,
+            text.length() + 1
         );
     }
 
@@ -104,12 +104,12 @@ final public class CharSequenceTextCursorLineInfoTest implements ClassTesting2<C
             this.checkEquals("Pos text must be at the start of text", text, linePosition);
         }
         this.lineWithPosition(
-                text,
-                linePosition.length(),
-                line,
-                lineNumber,
-                column,
-                textOffset
+            text,
+            linePosition.length(),
+            line,
+            lineNumber,
+            column,
+            textOffset
         );
     }
 
@@ -135,7 +135,7 @@ final public class CharSequenceTextCursorLineInfoTest implements ClassTesting2<C
     @Test
     public void testToString() {
         this.toStringAndCheck(CharSequenceTextCursorLineInfo.with(TEXT, 1),
-                "Line: " + LINE_NUMBER + "=" + CharSequences.quoteAndEscape(TEXT));
+            "Line: " + LINE_NUMBER + "=" + CharSequences.quoteAndEscape(TEXT));
     }
 
     // TextCursorLineInfoTesting................................................................................

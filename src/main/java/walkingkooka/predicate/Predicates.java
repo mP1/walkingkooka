@@ -92,8 +92,8 @@ final public class Predicates implements PublicStaticHelper {
     public static <C extends Comparable<C>> Predicate<C> compareResult(final CompareResult compareResult,
                                                                        final C right) {
         return ComparableCompareResultPredicate.with(
-                compareResult,
-                right
+            compareResult,
+            right
         );
     }
 
@@ -122,15 +122,15 @@ final public class Predicates implements PublicStaticHelper {
         Objects.requireNonNull(expression, "expression");
 
         return Predicates.customToString(
-                Predicates.any(
-                        Arrays.stream(
-                                        expression.split(" "))
-                                .filter(s -> !s.isEmpty())
-                                .map(caseSensitivity::globPattern)
-                                .distinct()
-                                .collect(Collectors.<Predicate<CharSequence>>toList())
-                ),
-                expression
+            Predicates.any(
+                Arrays.stream(
+                        expression.split(" "))
+                    .filter(s -> !s.isEmpty())
+                    .map(caseSensitivity::globPattern)
+                    .distinct()
+                    .collect(Collectors.<Predicate<CharSequence>>toList())
+            ),
+            expression
         );
     }
 
@@ -159,8 +159,8 @@ final public class Predicates implements PublicStaticHelper {
 
     @GwtIncompatible
     private final static Predicate<CharSequence> JAVA_IDENTIFIER = Predicates.initialAndPart(
-            Character::isJavaIdentifierStart,
-            Character::isJavaIdentifierPart);
+        Character::isJavaIdentifierStart,
+        Character::isJavaIdentifierPart);
 
     /**
      * {@see NeverPredicate}.

@@ -25,7 +25,7 @@ import java.util.Arrays;
  * An interface with default methods which may be mixed into a test.
  */
 public interface ThrowableTesting2<T extends Throwable> extends ThrowableTesting,
-        ClassTesting2<T> {
+    ClassTesting2<T> {
 
     /**
      * The no args ctor must be protected.
@@ -33,9 +33,9 @@ public interface ThrowableTesting2<T extends Throwable> extends ThrowableTesting
     @Test
     default void testNoDefaultArgumentProtected() {
         Arrays.stream(this.type().getDeclaredConstructors())
-                .filter(c -> c.getParameterTypes().length == 0)
-                .forEach(c -> checkEquals(JavaVisibility.PROTECTED, JavaVisibility.of(c),
-                        () -> "ctor visibility incorrect " + c));
+            .filter(c -> c.getParameterTypes().length == 0)
+            .forEach(c -> checkEquals(JavaVisibility.PROTECTED, JavaVisibility.of(c),
+                () -> "ctor visibility incorrect " + c));
     }
 
     /**
@@ -45,10 +45,10 @@ public interface ThrowableTesting2<T extends Throwable> extends ThrowableTesting
     default void testAllConstructorsVisibility() {
         final Class<T> type = this.type();
         Arrays.stream(type.getDeclaredConstructors())
-                .filter(c -> c.getParameterTypes().length != 0)
-                .forEach(c ->
-                        this.checkEquals(this.typeVisibility(),
-                                JavaVisibility.of(c),
-                                () -> "ctor visibility incorrect " + c));
+            .filter(c -> c.getParameterTypes().length != 0)
+            .forEach(c ->
+                this.checkEquals(this.typeVisibility(),
+                    JavaVisibility.of(c),
+                    () -> "ctor visibility incorrect " + c));
     }
 }

@@ -40,7 +40,7 @@ public interface ImmutableSortedSetDefaults<S extends ImmutableSortedSet<E>, E> 
         if (false == this.equals(elements)) {
             throw new UnsupportedOperationException();
         }
-        return (S)this;
+        return (S) this;
     }
 
     /**
@@ -51,7 +51,7 @@ public interface ImmutableSortedSetDefaults<S extends ImmutableSortedSet<E>, E> 
         final SortedSet<E> set = this.toSet();
         set.add(element);
 
-        return (S)this.setElements(set);
+        return (S) this.setElements(set);
     }
 
     /**
@@ -64,7 +64,7 @@ public interface ImmutableSortedSetDefaults<S extends ImmutableSortedSet<E>, E> 
         final SortedSet<E> set = this.toSet();
         set.addAll(elements);
 
-        return (S)this.setElements(set);
+        return (S) this.setElements(set);
     }
 
     /**
@@ -95,10 +95,10 @@ public interface ImmutableSortedSetDefaults<S extends ImmutableSortedSet<E>, E> 
         final SortedSet<E> set = this.toSet();
         final boolean removed = set.remove(element);
         return (S)
-                (removed ?
+            (removed ?
                 this.setElements(set) :
                 this
-                );
+            );
     }
 
     /**
@@ -111,10 +111,10 @@ public interface ImmutableSortedSetDefaults<S extends ImmutableSortedSet<E>, E> 
         final SortedSet<E> set = this.toSet();
         final boolean removed = set.removeAll(elements);
         return (S)
-                (removed ?
-                        this.setElements(set) :
-                        this
-                );
+            (removed ?
+                this.setElements(set) :
+                this
+            );
     }
 
     default S deleteIf(final Predicate<? super E> predicate) {
@@ -124,9 +124,9 @@ public interface ImmutableSortedSetDefaults<S extends ImmutableSortedSet<E>, E> 
         final boolean removed = set.removeIf(predicate);
 
         return (S)
-                (removed ?
-                        this.setElements(set) :
-                        this
-                );
+            (removed ?
+                this.setElements(set) :
+                this
+            );
     }
 }

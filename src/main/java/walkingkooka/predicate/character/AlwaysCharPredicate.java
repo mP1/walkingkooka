@@ -25,7 +25,7 @@ import walkingkooka.predicate.Orable;
  * A {@link CharPredicate} that always returns true regardless of input.
  */
 final class AlwaysCharPredicate
-        implements CharPredicate, Andable, Orable, Notable<CharPredicate> {
+    implements CharPredicate, Andable, Orable, Notable<CharPredicate> {
     /**
      * Singleton
      */

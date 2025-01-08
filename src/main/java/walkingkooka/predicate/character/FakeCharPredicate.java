@@ -23,7 +23,7 @@ import walkingkooka.test.Fake;
  * A {@link CharPredicate} where all methods throw {@link UnsupportedOperationException}
  */
 final class FakeCharPredicate implements CharPredicate,
-        Fake {
+    Fake {
 
     static FakeCharPredicate create() {
         return new FakeCharPredicate();

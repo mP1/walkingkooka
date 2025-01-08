@@ -23,7 +23,6 @@ import walkingkooka.text.CharSequences;
 import java.util.Comparator;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class PushableStreamConsumerStreamTerminal2PushableStreamConsumerTestCase<C extends PushableStreamConsumerStreamTerminal2PushableStreamConsumer<String>> extends PushableStreamConsumerStreamTerminalPushableStreamConsumerTestCase<C, Optional<String>> {
@@ -63,16 +62,15 @@ public abstract class PushableStreamConsumerStreamTerminal2PushableStreamConsume
         }
 
         this.checkEquals(expected,
-                consumer.result(),
-                () -> "Values " + CharSequences.quoteAndEscape(values));
+            consumer.result(),
+            () -> "Values " + CharSequences.quoteAndEscape(values));
     }
 
     final Comparator<String> comparator() {
         return String.CASE_INSENSITIVE_ORDER;
     }
 
-    @Override
-    final C createPushableStreamConsumer(final PushableStreamConsumerCloseableCollection closeables) {
+    @Override final C createPushableStreamConsumer(final PushableStreamConsumerCloseableCollection closeables) {
         return this.createPushableStreamStreamPushableStreamConsumer(this.comparator(), closeables);
     }
 

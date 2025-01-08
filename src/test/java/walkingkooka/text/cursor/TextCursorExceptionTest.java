@@ -31,7 +31,7 @@ final public class TextCursorExceptionTest implements StandardThrowableTesting<T
     public TextCursorException createThrowable(final String message, final Throwable cause) {
         return new TextCursorException(message, cause);
     }
-    
+
     @Override
     public Class<TextCursorException> type() {
         return TextCursorException.class;

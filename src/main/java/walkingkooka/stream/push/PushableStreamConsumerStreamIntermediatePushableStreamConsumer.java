@@ -47,8 +47,7 @@ abstract class PushableStreamConsumerStreamIntermediatePushableStreamConsumer<T>
 
     // Object...........................................................................................................
 
-    @Override
-    final void buildToString0(final ToStringBuilder builder) {
+    @Override final void buildToString0(final ToStringBuilder builder) {
         builder.separator(" ");
         this.buildToString1(builder);
         builder.value(this.next);

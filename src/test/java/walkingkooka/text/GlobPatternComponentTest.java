@@ -22,7 +22,7 @@ import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
 public final class GlobPatternComponentTest implements ClassTesting<GlobPatternComponent> {
-    
+
     @Override
     public Class<GlobPatternComponent> type() {
         return GlobPatternComponent.class;

@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface ImmutableSortedSetTesting<S extends ImmutableSortedSet<E>, E> extends SetTesting2<S, E>,
-        CanBeEmptyTesting {
+    CanBeEmptyTesting {
 
     default void concatAndCheck(final ImmutableSortedSet<E> set,
                                 final E appended,
@@ -35,21 +35,21 @@ public interface ImmutableSortedSetTesting<S extends ImmutableSortedSet<E>, E> e
         final ImmutableSortedSet<E> afterConcat = set.concat(appended);
 
         assertNotSame(
-                afterConcat,
-                set
+            afterConcat,
+            set
         );
         this.checkEquals(
-                expected,
-                afterConcat,
-                () -> set + " concat " + appended
+            expected,
+            afterConcat,
+            () -> set + " concat " + appended
         );
 
         final Set<E> toSet = set.toSet();
         toSet.add(appended);
         this.checkEquals(
-                toSet,
-                afterConcat,
-                () -> set + " concat " + appended
+            toSet,
+            afterConcat,
+            () -> set + " concat " + appended
         );
     }
 
@@ -59,21 +59,21 @@ public interface ImmutableSortedSetTesting<S extends ImmutableSortedSet<E>, E> e
         final ImmutableSortedSet<E> afterRemove = set.delete(remove);
 
         assertNotSame(
-                afterRemove,
-                set
+            afterRemove,
+            set
         );
         this.checkEquals(
-                expected,
-                afterRemove,
-                () -> set + " delete " + remove
+            expected,
+            afterRemove,
+            () -> set + " delete " + remove
         );
 
         final Set<E> toSet = set.toSet();
         toSet.remove(remove);
         this.checkEquals(
-                toSet,
-                afterRemove,
-                () -> set + " delete " + remove
+            toSet,
+            afterRemove,
+            () -> set + " delete " + remove
         );
     }
 
@@ -81,12 +81,12 @@ public interface ImmutableSortedSetTesting<S extends ImmutableSortedSet<E>, E> e
                                  final E oldElement,
                                  final E newElement) {
         assertSame(
-                set,
-                set.replace(
-                        oldElement,
-                        newElement
-                ),
-                () -> set + " replaced " + oldElement + " with " + newElement
+            set,
+            set.replace(
+                oldElement,
+                newElement
+            ),
+            () -> set + " replaced " + oldElement + " with " + newElement
         );
     }
 
@@ -95,18 +95,18 @@ public interface ImmutableSortedSetTesting<S extends ImmutableSortedSet<E>, E> e
                                  final E newElement,
                                  final ImmutableSortedSet<E> expected) {
         final ImmutableSortedSet<E> afterReplace = set.replace(
-                oldElement,
-                newElement
+            oldElement,
+            newElement
         );
 
         assertNotSame(
-                newElement,
-                set
+            newElement,
+            set
         );
         this.checkEquals(
-                expected,
-                afterReplace,
-                () -> set + " replaced " + oldElement + " with " + newElement
+            expected,
+            afterReplace,
+            () -> set + " replaced " + oldElement + " with " + newElement
         );
     }
 
@@ -115,8 +115,8 @@ public interface ImmutableSortedSetTesting<S extends ImmutableSortedSet<E>, E> e
         final ImmutableSortedSet<E> ImmutableSortedSet = this.createSet();
 
         assertThrows(
-                NullPointerException.class,
-                () -> ImmutableSortedSet.setElements(null)
+            NullPointerException.class,
+            () -> ImmutableSortedSet.setElements(null)
         );
     }
 
@@ -125,27 +125,27 @@ public interface ImmutableSortedSetTesting<S extends ImmutableSortedSet<E>, E> e
         final ImmutableSortedSet<E> ImmutableSortedSet = this.createSet();
 
         assertSame(
-                ImmutableSortedSet,
-                ImmutableSortedSet.setElements(
-                        ImmutableSortedSet.toSet()
-                )
+            ImmutableSortedSet,
+            ImmutableSortedSet.setElements(
+                ImmutableSortedSet.toSet()
+            )
         );
     }
 
     default void toSetAndCheck(final ImmutableSortedSet<E> set,
                                final E... expected) {
         this.toSetAndCheck(
-                set,
-                Sets.of(expected)
+            set,
+            Sets.of(expected)
         );
     }
 
     default void toSetAndCheck(final ImmutableSortedSet<E> set,
                                final Set<E> expected) {
         this.checkEquals(
-                expected,
-                set.toSet(),
-                set::toString
+            expected,
+            set.toSet(),
+            set::toString
         );
     }
 }

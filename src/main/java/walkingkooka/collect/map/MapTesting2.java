@@ -26,8 +26,8 @@ import java.util.Map;
  * Interface with default methods which can be mixed in to assist testing of an {@link Map}.
  */
 public interface MapTesting2<M extends Map<K, V>, K, V> extends MapTesting<M, K, V>,
-        ToStringTesting<M>,
-        TypeNameTesting<M> {
+    ToStringTesting<M>,
+    TypeNameTesting<M> {
 
     // TypeNameTesting .........................................................................................
 

@@ -23,8 +23,7 @@ abstract class ToStringBuilderAppenderArrayVector<V> extends ToStringBuilderAppe
         super(value);
     }
 
-    @Override
-    final boolean isEmpty() {
+    @Override final boolean isEmpty() {
         return null == this.value || 0 == this.length();
     }
 

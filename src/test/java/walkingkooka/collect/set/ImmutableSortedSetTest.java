@@ -33,17 +33,17 @@ public final class ImmutableSortedSetTest implements ClassTesting<ImmutableSorte
     @Test
     public void testCollector() {
         final Set<String> list = Sets.of(
-                "1A",
-                "2B",
-                "3C"
+            "1A",
+            "2B",
+            "3C"
         );
 
         final ImmutableSortedSet<String> collected = list.stream()
-                .collect(ImmutableSortedSet.collector());
+            .collect(ImmutableSortedSet.collector());
 
         this.checkEquals(
-                list,
-                collected
+            list,
+            collected
         );
     }
 

@@ -27,7 +27,7 @@ import java.util.Vector;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class EnumerationIteratorTest
-        extends IteratorTestCase<EnumerationIterator<Integer>, Integer> {
+    extends IteratorTestCase<EnumerationIterator<Integer>, Integer> {
 
     @Test
     public void testWithNullEnumerationFails() {
@@ -42,9 +42,9 @@ final public class EnumerationIteratorTest
         vector.add("3");
 
         this.iterateUsingHasNextAndCheck(EnumerationIterator.adapt(vector.elements()),
-                "1",
-                "2",
-                "3");
+            "1",
+            "2",
+            "3");
     }
 
     @Test

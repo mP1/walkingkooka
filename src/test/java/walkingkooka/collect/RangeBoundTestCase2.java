@@ -24,12 +24,11 @@ import walkingkooka.reflect.IsMethodTesting;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class RangeBoundTestCase2<B extends RangeBound<Integer>> extends RangeBoundTestCase<B>
-        implements IsMethodTesting<B>,
-        ToStringTesting<B> {
+    implements IsMethodTesting<B>,
+    ToStringTesting<B> {
 
     RangeBoundTestCase2() {
         super();

@@ -23,7 +23,7 @@ import walkingkooka.text.HasTextOffset;
  * A snapshot in time about the position of the {@link TextCursor}.
  */
 public interface TextCursorLineInfo extends TextCursorLike,
-        HasTextOffset {
+    HasTextOffset {
 
     /**
      * The entire line of text that the {@link TextCursor} is currently on. Note the text may include characters that were filtered and not returned by

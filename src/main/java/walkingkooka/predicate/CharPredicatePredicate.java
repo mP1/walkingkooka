@@ -67,7 +67,7 @@ final class CharPredicatePredicate implements Predicate<Character> {
     @Override
     public boolean equals(final Object other) {
         return (this == other) || ((other instanceof CharPredicatePredicate)
-                && this.equals((CharPredicatePredicate) other));
+            && this.equals((CharPredicatePredicate) other));
     }
 
     private boolean equals(final CharPredicatePredicate other) {

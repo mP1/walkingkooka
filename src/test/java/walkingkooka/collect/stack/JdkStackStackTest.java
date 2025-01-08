@@ -25,13 +25,11 @@ import walkingkooka.collect.list.Lists;
 
 import java.util.EmptyStackException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>, Object>
-        implements IteratorTesting {
+    implements IteratorTesting {
 
     @Test
     public void testCreate() {

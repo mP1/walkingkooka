@@ -83,13 +83,13 @@ final public class ReadOnlyStackTest extends StackTestCase<ReadOnlyStack<Object>
     public void testIterator() {
         final Iterator<Object> iterator = Iterators.fake();
         final Stack<Object> stack = ReadOnlyStack.wrap(//
-                new FakeStack<>() {
+            new FakeStack<>() {
 
-                    @Override
-                    public Iterator<Object> iterator() {
-                        return iterator;
-                    }
-                });
+                @Override
+                public Iterator<Object> iterator() {
+                    return iterator;
+                }
+            });
         assertSame(iterator, stack.iterator());
     }
 

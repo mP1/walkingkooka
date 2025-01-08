@@ -79,7 +79,7 @@ public final class MapTestingTest implements MapTesting<Map<String, Integer>, St
     @Test
     public void testRemoveFails() {
         assertThrows(UnsupportedOperationException.class, () -> Collections.singletonMap("key", "value")
-                .remove("key"));
+            .remove("key"));
     }
 
     @Override

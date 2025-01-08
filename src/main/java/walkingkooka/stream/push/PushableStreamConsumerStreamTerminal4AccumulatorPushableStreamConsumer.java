@@ -48,8 +48,8 @@ final class PushableStreamConsumerStreamTerminal4AccumulatorPushableStreamConsum
     @Override
     public void accept(final T value) {
         this.value = this.empty ?
-                value :
-                this.reducer.apply(this.value, value);
+            value :
+            this.reducer.apply(this.value, value);
         this.empty = false;
     }
 

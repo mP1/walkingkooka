@@ -25,8 +25,8 @@ public final class PushableStreamConsumerCloseableCollectionEmptyTest extends Pu
     public void testAdd() {
         final Runnable first = TestCloseableRunnable.with("first-add");
         this.addAndCheck(this.createCloseableCollection(),
-                first,
-                first);
+            first,
+            first);
     }
 
     @Test

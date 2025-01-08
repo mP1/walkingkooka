@@ -87,8 +87,8 @@ final public class Indentation implements Value<String>, CharSequence {
         }
 
         return withChar(
-                c,
-                count
+            c,
+            count
         );
     }
 
@@ -145,8 +145,8 @@ final public class Indentation implements Value<String>, CharSequence {
         final int pos = indentation.indexOf(c);
         if (-1 != pos) {
             throw new InvalidCharacterException(
-                    indentation,
-                    pos
+                indentation,
+                pos
             );
         }
     }
@@ -189,8 +189,8 @@ final public class Indentation implements Value<String>, CharSequence {
         final RepeatingCharSequence chars = (RepeatingCharSequence) this.value;
 
         return withChar(
-                chars.c,
-                chars.length * count
+            chars.c,
+            chars.length * count
         );
     }
 
@@ -230,7 +230,7 @@ final public class Indentation implements Value<String>, CharSequence {
 
             // is a constant check if indentation is also a constant, might be able to return a constant.
             if ((appendLength < Indentation.SPACES_COUNT) && (Indentation.SPACES[appendLength]
-                    == indentation)) {
+                == indentation)) {
                 final int length = value.length();
                 final int total = length + appendLength;
                 if ((total < Indentation.SPACES_COUNT) && (Indentation.SPACES[length] == this)) {
@@ -241,10 +241,10 @@ final public class Indentation implements Value<String>, CharSequence {
 
             // cannot be a constant
             result = new Indentation(
-                    new StringBuilder()
-                            .append(value)
-                            .append(indentationValue)
-                            .toString()
+                new StringBuilder()
+                    .append(value)
+                    .append(indentationValue)
+                    .toString()
             );
             break;
         }
@@ -285,8 +285,8 @@ final public class Indentation implements Value<String>, CharSequence {
                 break;
             case 1:
                 after = with(
-                        this.charAt(0),
-                        1
+                    this.charAt(0),
+                    1
                 );
                 break;
             default:
@@ -302,8 +302,8 @@ final public class Indentation implements Value<String>, CharSequence {
         final RepeatingCharSequence repeatingCharSequence = (RepeatingCharSequence) this.value;
 
         return withChar(
-                repeatingCharSequence.c,
-                count
+            repeatingCharSequence.c,
+            count
         );
     }
 
@@ -327,7 +327,7 @@ final public class Indentation implements Value<String>, CharSequence {
 
     @Override public boolean equals(final Object other) {
         return (this == other) || ((other instanceof Indentation)
-                && this.equals((Indentation) other));
+            && this.equals((Indentation) other));
     }
 
     private boolean equals(final Indentation other) {

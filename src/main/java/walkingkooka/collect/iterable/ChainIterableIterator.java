@@ -144,7 +144,7 @@ final class ChainIterableIterator<E> implements Iterator<E> {
     public String toString() {
         final Iterator<E> current = this.current;
         return null == current ?
-                "" :
-                this.next == this.iterables.length ? current.toString() : current + "...";
+            "" :
+            this.next == this.iterables.length ? current.toString() : current + "...";
     }
 }

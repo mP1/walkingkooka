@@ -26,10 +26,10 @@ final class NullAwareComparatorBefore<T> extends NullAwareComparator<T> {
 
     static <T> NullAwareComparatorBefore<T> with(final Comparator<T> comparator) {
         return comparator instanceof NullAwareComparatorBefore ?
-                Cast.to(comparator) :
-                new NullAwareComparatorBefore<>(
-                        Objects.requireNonNull(comparator, "comparator")
-                );
+            Cast.to(comparator) :
+            new NullAwareComparatorBefore<>(
+                Objects.requireNonNull(comparator, "comparator")
+            );
     }
 
     private NullAwareComparatorBefore(final Comparator<T> comparator) {

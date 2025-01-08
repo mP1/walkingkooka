@@ -26,8 +26,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ObjectEqualityPredicateTest
-        extends PredicateTestCase<ObjectEqualityPredicate<String>, String>
-        implements HashCodeEqualsDefinedTesting2<ObjectEqualityPredicate<String>> {
+    extends PredicateTestCase<ObjectEqualityPredicate<String>, String>
+    implements HashCodeEqualsDefinedTesting2<ObjectEqualityPredicate<String>> {
 
     final private static String MAGIC = "magic\n";
 
@@ -78,7 +78,7 @@ final public class ObjectEqualityPredicateTest
     @Test
     public void testToStringWithString() {
         this.toStringAndCheck(this.createPredicate(),
-                CharSequences.quoteAndEscape(MAGIC).toString());
+            CharSequences.quoteAndEscape(MAGIC).toString());
     }
 
     @Override

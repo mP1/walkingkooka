@@ -38,30 +38,30 @@ final class ClassMethodTesting {
      * If a method is not overridden it should be package private or private. Method names may include a trailing wildcard
      */
     static void testAllMethodsVisibility(final Class<?> type,
-                                         final String...ignoreMethodNames) {
+                                         final String... ignoreMethodNames) {
         if (JavaVisibility.PACKAGE_PRIVATE == JavaVisibility.of(type)) {
 
             final Set<String> ignoreMethodNamesSet = Sets.ordered();
             final List<String> prefixes = Lists.array();
 
             Arrays.stream(ignoreMethodNames)
-                    .forEach(methodName -> {
-                        if (methodName.endsWith("*")) {
-                            prefixes.add(methodName.substring(0, methodName.length() - 1));
-                        } else {
-                            ignoreMethodNamesSet.add(methodName);
-                        }
-                    });
+                .forEach(methodName -> {
+                    if (methodName.endsWith("*")) {
+                        prefixes.add(methodName.substring(0, methodName.length() - 1));
+                    } else {
+                        ignoreMethodNamesSet.add(methodName);
+                    }
+                });
 
             final Set<Method> overridable = overridableMethods(type);
 
             for (final Method method : type.getDeclaredMethods()) {
                 final String methodName = method.getName();
-                if(ignoreMethodNamesSet.contains(methodName)) {
+                if (ignoreMethodNamesSet.contains(methodName)) {
                     continue;
                 }
                 if (prefixes.stream()
-                        .anyMatch(methodName::startsWith)) {
+                    .anyMatch(methodName::startsWith)) {
                     continue;
                 }
 
@@ -70,9 +70,9 @@ final class ClassMethodTesting {
                         continue;
                     }
                     assertEquals(
-                            true,
-                            JavaVisibility.of(method).isOrLess(JavaVisibility.PACKAGE_PRIVATE),
-                            () -> "Static methods should be private/package private " + method.toGenericString()
+                        true,
+                        JavaVisibility.of(method).isOrLess(JavaVisibility.PACKAGE_PRIVATE),
+                        () -> "Static methods should be private/package private " + method.toGenericString()
                     );
                 }
                 if (overridable.contains(method)) {
@@ -83,9 +83,9 @@ final class ClassMethodTesting {
                 }
 
                 assertEquals(
-                        true,
-                        JavaVisibility.of(method).isOrLess(JavaVisibility.PACKAGE_PRIVATE),
-                        () -> "Instance methods not overriding public/protected methods should be private/package private " + method.toGenericString()
+                    true,
+                    JavaVisibility.of(method).isOrLess(JavaVisibility.PACKAGE_PRIVATE),
+                    () -> "Instance methods not overriding public/protected methods should be private/package private " + method.toGenericString()
                 );
             }
         }
@@ -96,7 +96,7 @@ final class ClassMethodTesting {
      */
     private static boolean isMainMethod(final Method method) {
         return method.getName().equals("main") &&
-                Arrays.equals(new Class[]{String[].class}, method.getParameterTypes());
+            Arrays.equals(new Class[]{String[].class}, method.getParameterTypes());
     }
 
     private static boolean isEnumMethod(final Method method) {
@@ -161,8 +161,8 @@ final class ClassMethodTesting {
         if (null != type && alreadyVisited.add(type)) {
             addMethods(type, methods);
             processClassAndImplementedInterfaces(type.getSuperclass(),
-                    alreadyVisited,
-                    methods);
+                alreadyVisited,
+                methods);
             processImplementedInterfaces(type, alreadyVisited, methods);
         }
     }
@@ -183,8 +183,8 @@ final class ClassMethodTesting {
             if (alreadyVisited.add(interfaceClass)) {
                 addMethods(interfaceClass, methods);
                 processImplementedInterfaces(interfaceClass,
-                        alreadyVisited,
-                        methods);
+                    alreadyVisited,
+                    methods);
             }
         }
     }

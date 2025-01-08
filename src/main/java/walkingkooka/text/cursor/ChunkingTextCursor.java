@@ -28,7 +28,7 @@ final class ChunkingTextCursor implements TextCursor {
     /**
      * Factory that creates a {@link TextCursor} using the provided {@link Iterator}
      */
-    static ChunkingTextCursor with(final Iterator<String>  chunks) {
+    static ChunkingTextCursor with(final Iterator<String> chunks) {
         Objects.requireNonNull(chunks, "chunks");
 
         return new ChunkingTextCursor(chunks);
@@ -63,7 +63,7 @@ final class ChunkingTextCursor implements TextCursor {
 
     private void fillIfCursorEmpty() {
         if (this.cursor.isEmpty()) {
-            if(this.chunks.hasNext()) {
+            if (this.chunks.hasNext()) {
                 this.text.append(this.chunks.next());
             }
         }

@@ -84,9 +84,9 @@ public interface MapTesting<M extends Map<K, V>, K, V> extends Testing {
 
     default void containsKeyAndCheck(final Map<K, V> map, final K key) {
         this.checkEquals(
-                true,
-                map.containsKey(key),
-                () -> map + " should contain key " + CharSequences.quoteIfChars(key)
+            true,
+            map.containsKey(key),
+            () -> map + " should contain key " + CharSequences.quoteIfChars(key)
         );
     }
 
@@ -96,9 +96,9 @@ public interface MapTesting<M extends Map<K, V>, K, V> extends Testing {
 
     default void containsKeyAndCheckAbsent(final Map<K, V> map, final Object key) {
         this.checkEquals(
-                false,
-                map.containsKey(key),
-                () -> map + " should contain key " + CharSequences.quoteIfChars(key)
+            false,
+            map.containsKey(key),
+            () -> map + " should contain key " + CharSequences.quoteIfChars(key)
         );
     }
 
@@ -108,17 +108,17 @@ public interface MapTesting<M extends Map<K, V>, K, V> extends Testing {
 
     default void containsValueAndCheck(final Map<K, V> map, final V value) {
         this.checkEquals(
-                true,
-                map.containsValue(value),
-                () -> map + " should contain value " + CharSequences.quoteIfChars(value)
+            true,
+            map.containsValue(value),
+            () -> map + " should contain value " + CharSequences.quoteIfChars(value)
         );
     }
 
     default void containsValueAndCheckAbsent(final Map<K, V> map, final V value) {
         this.checkEquals(
-                false,
-                map.containsValue(value),
-                () -> map + " should contain value " + CharSequences.quoteIfChars(value)
+            false,
+            map.containsValue(value),
+            () -> map + " should contain value " + CharSequences.quoteIfChars(value)
         );
     }
 
@@ -128,9 +128,9 @@ public interface MapTesting<M extends Map<K, V>, K, V> extends Testing {
 
     default void getAndCheck(final Map<K, V> map, final K key, final V value) {
         this.checkEquals(
-                value,
-                map.get(key),
-                () -> "get " + CharSequences.quoteIfChars(key) + " from " + map
+            value,
+            map.get(key),
+            () -> "get " + CharSequences.quoteIfChars(key) + " from " + map
         );
         this.containsKeyAndCheck(map, key);
         this.containsValueAndCheck(map, value);
@@ -142,18 +142,18 @@ public interface MapTesting<M extends Map<K, V>, K, V> extends Testing {
 
     default void getAndCheckAbsent(final Map<K, V> map, final Object key) {
         this.checkEquals(
-                null,
-                map.get(key),
-                () -> "get " + CharSequences.quoteIfChars(key) + " from " + map
+            null,
+            map.get(key),
+            () -> "get " + CharSequences.quoteIfChars(key) + " from " + map
         );
         this.containsKeyAndCheckAbsent(map, key);
     }
 
     default void isEmptyAndCheck(final Map<K, V> map, final boolean empty) {
         this.checkEquals(
-                empty,
-                map.isEmpty(),
-                () -> "isEmpty of " + map
+            empty,
+            map.isEmpty(),
+            () -> "isEmpty of " + map
         );
     }
 
@@ -161,24 +161,24 @@ public interface MapTesting<M extends Map<K, V>, K, V> extends Testing {
                           final K key,
                           final V value) {
         assertThrows(
-                UnsupportedOperationException.class,
-                () -> map.put(key, value)
+            UnsupportedOperationException.class,
+            () -> map.put(key, value)
         );
     }
 
     default void removeFails(final Map<K, V> map,
                              final K key) {
         assertThrows(
-                UnsupportedOperationException.class,
-                () -> map.remove(key)
+            UnsupportedOperationException.class,
+            () -> map.remove(key)
         );
     }
 
     default void sizeAndCheck(final Map<K, V> map, final int size) {
         this.checkEquals(
-                size,
-                map.size(),
-                () -> "size of " + map
+            size,
+            map.size(),
+            () -> "size of " + map
         );
         this.isEmptyAndCheck(map, 0 == size);
     }

@@ -50,9 +50,9 @@ public interface ComparableTesting extends HashCodeEqualsDefinedTesting {
         final int result = value1.compareTo(value2);
         if (Comparators.EQUAL == Comparators.normalize(result)) {
             this.checkNotEquals(
-                    result,
-                    result,
-                    () -> CharSequences.quoteIfChars(value1) + " should not be EQUAL to " + CharSequences.quoteIfChars(value2)
+                result,
+                result,
+                () -> CharSequences.quoteIfChars(value1) + " should not be EQUAL to " + CharSequences.quoteIfChars(value2)
             );
         }
     }
@@ -61,12 +61,12 @@ public interface ComparableTesting extends HashCodeEqualsDefinedTesting {
                                                              final C comparable2,
                                                              final int expected) {
         this.compareResultCheck(comparable1 + " " + comparable2,
-                expected,
-                comparable1.compareTo(comparable2));
+            expected,
+            comparable1.compareTo(comparable2));
         if (Comparators.EQUAL != expected) {
             this.compareResultCheck("Swapping parameters and comparing did not return an inverted result.",
-                    -expected,
-                    comparable2.compareTo(comparable1));
+                -expected,
+                comparable2.compareTo(comparable1));
         }
     }
 
@@ -83,8 +83,8 @@ public interface ComparableTesting extends HashCodeEqualsDefinedTesting {
         unsorted.sort(Comparator.naturalOrder());
 
         this.checkEquals(sorted,
-                unsorted,
-                () -> "sort " + unsorted);
+            unsorted,
+            () -> "sort " + unsorted);
     }
 
     default void compareResultCheck(final String message, final int expected, final int actual) {

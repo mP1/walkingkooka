@@ -23,8 +23,7 @@ public abstract class PushableStreamConsumerStreamIntermediate1TestCase<I extend
         super();
     }
 
-    @Override
-    final I createPushableStreamStreamIntermediate() {
+    @Override final I createPushableStreamStreamIntermediate() {
         return this.createPushableStreamStreamIntermediate(2);
     }
 

@@ -44,7 +44,7 @@ final public class CharacterConstant implements CharSequence {
 
     private static CharacterConstant[] fill() {
         final CharacterConstant[] constants = new CharacterConstant[
-                (CharacterConstant.UPPER_BOUNDS + 1) - CharacterConstant.LOWER_BOUNDS];
+            (CharacterConstant.UPPER_BOUNDS + 1) - CharacterConstant.LOWER_BOUNDS];
         for (char c = CharacterConstant.LOWER_BOUNDS; c < (CharacterConstant.UPPER_BOUNDS + 1); c++) {
             constants[c - CharacterConstant.LOWER_BOUNDS] = new CharacterConstant(c);
         }
@@ -56,8 +56,8 @@ final public class CharacterConstant implements CharSequence {
      */
     public static CharacterConstant with(final char c) {
         return (c >= CharacterConstant.LOWER_BOUNDS) && (c <= CharacterConstant.UPPER_BOUNDS) ?
-                CharacterConstant.CONSTANTS[c - CharacterConstant.LOWER_BOUNDS] :
-                new CharacterConstant(c);
+            CharacterConstant.CONSTANTS[c - CharacterConstant.LOWER_BOUNDS] :
+            new CharacterConstant(c);
     }
 
     /**
@@ -134,11 +134,11 @@ final public class CharacterConstant implements CharSequence {
             final char c = text.charAt(i);
             if (this.character == c) {
                 parse0(
-                        text,
-                        start,
-                        i,
-                        component,
-                        parsed
+                    text,
+                    start,
+                    i,
+                    component,
+                    parsed
                 );
 
                 start = i + 1;
@@ -148,11 +148,11 @@ final public class CharacterConstant implements CharSequence {
 
         if (start != length) {
             parse0(
-                    text,
-                    start,
-                    length,
-                    component,
-                    parsed
+                text,
+                start,
+                length,
+                component,
+                parsed
             );
         }
 
@@ -166,12 +166,12 @@ final public class CharacterConstant implements CharSequence {
                                    final List<T> parsed) {
         try {
             parsed.add(
-                    component.apply(text.substring(start, end))
+                component.apply(text.substring(start, end))
             );
         } catch (final InvalidCharacterException cause) {
             throw cause.setTextAndPosition(
-                    text,
-                    start + cause.position()
+                text,
+                start + cause.position()
             );
         } catch (final RuntimeException cause) {
             throw new IllegalArgumentException("Unable to parse " + CharSequences.quote(text) + ", " + cause.getMessage(), cause);
@@ -189,8 +189,8 @@ final public class CharacterConstant implements CharSequence {
         Objects.requireNonNull(component, "component");
 
         return values.stream()
-                .map(component)
-                .collect(Collectors.joining(this.string));
+            .map(component)
+            .collect(Collectors.joining(this.string));
     }
 
     // Object..........................................................................................................
@@ -203,7 +203,7 @@ final public class CharacterConstant implements CharSequence {
     @Override
     public boolean equals(final Object other) {
         return this == other || //
-                other instanceof CharacterConstant && this.equals0((CharacterConstant) other);
+            other instanceof CharacterConstant && this.equals0((CharacterConstant) other);
     }
 
     private boolean equals0(final CharacterConstant other) {

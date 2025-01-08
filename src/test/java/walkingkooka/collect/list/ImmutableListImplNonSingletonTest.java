@@ -45,7 +45,7 @@ public final class ImmutableListImplNonSingletonTest extends ImmutableListImplNo
 
     @Test
     public void testGetNull() {
-        this.getAndCheck(ImmutableListImplNonSingleton.with(Lists.of(null, ELEMENT2)),0,  null);
+        this.getAndCheck(ImmutableListImplNonSingleton.with(Lists.of(null, ELEMENT2)), 0, null);
     }
 
     @Test
@@ -56,8 +56,8 @@ public final class ImmutableListImplNonSingletonTest extends ImmutableListImplNo
     @Test
     public void testIterator() {
         this.iterateAndCheck(
-                this.createList().iterator(),
-                this.elements()
+            this.createList().iterator(),
+            this.elements()
         );
     }
 
@@ -78,44 +78,44 @@ public final class ImmutableListImplNonSingletonTest extends ImmutableListImplNo
         final String c = "3c";
 
         this.swapAndCheck(
-                (ImmutableList)
-                        ImmutableListImplNonSingleton.with(
-                                Lists.of(a, b, c)
-                        ),
-                1,
-                2,
-                (ImmutableList)
-                        ImmutableListImplNonSingleton.with(
-                                Lists.of(a, c, b)
-                        )
+            (ImmutableList)
+                ImmutableListImplNonSingleton.with(
+                    Lists.of(a, b, c)
+                ),
+            1,
+            2,
+            (ImmutableList)
+                ImmutableListImplNonSingleton.with(
+                    Lists.of(a, c, b)
+                )
         );
     }
 
     @Test
     public void testDeleteAll() {
         this.deleteAllAndCheck(
-                this.createList(),
-                Lists.of(this.elements()),
-                Lists.empty()
+            this.createList(),
+            Lists.of(this.elements()),
+            Lists.empty()
         );
     }
 
     @Test
     public void testDeleteIf() {
         this.deleteIfAndCheck(
-                this.createList(),
-                Predicates.is(ELEMENT1),
-                ImmutableListImplNonSingleton.with(
-                        Lists.of(ELEMENT2)
-                )
+            this.createList(),
+            Predicates.is(ELEMENT1),
+            ImmutableListImplNonSingleton.with(
+                Lists.of(ELEMENT2)
+            )
         );
     }
 
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createList(),
-                Arrays.toString(this.elements())
+            this.createList(),
+            Arrays.toString(this.elements())
         );
     }
 
@@ -125,9 +125,9 @@ public final class ImmutableListImplNonSingletonTest extends ImmutableListImplNo
     }
 
     private String[] elements() {
-        return new String[] {
-                ELEMENT1,
-                ELEMENT2
+        return new String[]{
+            ELEMENT1,
+            ELEMENT2
         };
     }
 

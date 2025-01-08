@@ -45,21 +45,21 @@ public interface ConstantsTesting<T> extends Testing {
             field = enclosingType.getDeclaredField(name);
         } catch (final Exception cause) {
             Assertions.fail("Cannot find public constant field of type " + enclosingType + " called "
-                    + name);
+                + name);
         }
 
         final Field field2 = field;
         this.checkEquals(fieldType, field.getType(), "The field " + name + " is wrong the reflect");
         this.checkEquals(
-                true,
-                FieldAttributes.STATIC.is(field),
-                () -> "The field " + name + " must be static =" + field2
+            true,
+            FieldAttributes.STATIC.is(field),
+            () -> "The field " + name + " must be static =" + field2
         );
         assertSame(JavaVisibility.PUBLIC, JavaVisibility.of(field), () -> "The field " + name + " must be public =" + field2);
         this.checkEquals(
-                true,
-                FieldAttributes.FINAL.is(field),
-                () -> "The field " + name + " must be final=" + field2
+            true,
+            FieldAttributes.FINAL.is(field),
+            () -> "The field " + name + " must be final=" + field2
         );
     }
 
@@ -84,8 +84,8 @@ public interface ConstantsTesting<T> extends Testing {
                 continue;
             }
             assertSame(JavaVisibility.PUBLIC,
-                    JavaVisibility.of(constant),
-                    () -> "Constant must be public " + constant.toGenericString());
+                JavaVisibility.of(constant),
+                () -> "Constant must be public " + constant.toGenericString());
             final T value = Cast.to(constant.get(null));
 
             // intentional duplicate ignore...

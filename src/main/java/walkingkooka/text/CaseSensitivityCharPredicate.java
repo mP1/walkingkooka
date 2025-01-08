@@ -58,12 +58,12 @@ final class CaseSensitivityCharPredicate implements CharPredicate {
     @Override
     public boolean equals(final Object other) {
         return (this == other) || ((other instanceof CaseSensitivityCharPredicate)
-                && this.equals0((CaseSensitivityCharPredicate) other));
+            && this.equals0((CaseSensitivityCharPredicate) other));
     }
 
     private boolean equals0(final CaseSensitivityCharPredicate other) {
         return (this.c == other.c) && //
-                (this.sensitivity == other.sensitivity);
+            (this.sensitivity == other.sensitivity);
     }
 
     @Override

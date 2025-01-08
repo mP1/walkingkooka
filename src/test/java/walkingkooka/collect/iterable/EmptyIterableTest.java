@@ -26,15 +26,15 @@ public final class EmptyIterableTest implements IterableTesting<EmptyIterable<Vo
     @Test
     public void testIterator() {
         this.iterateAndCheck(
-                this.createIterable().iterator()
+            this.createIterable().iterator()
         );
     }
 
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createIterable(),
-                Lists.empty().toString()
+            this.createIterable(),
+            Lists.empty().toString()
         );
     }
 

@@ -42,12 +42,11 @@ abstract class PushableStreamConsumerStreamIntermediate1PushableStreamConsumer<T
 
     // Object...........................................................................................................
 
-    @Override
-    final void buildToString1(final ToStringBuilder builder) {
+    @Override final void buildToString1(final ToStringBuilder builder) {
         final long counter = this.counter;
         final long limitOrSkip = this.limitOrSkip;
 
-        if(counter < limitOrSkip) {
+        if (counter < limitOrSkip) {
             builder.value(this.label() + " " + counter + "/" + limitOrSkip);
         }
     }

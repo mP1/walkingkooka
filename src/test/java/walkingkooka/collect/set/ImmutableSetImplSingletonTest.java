@@ -30,8 +30,8 @@ public final class ImmutableSetImplSingletonTest extends ImmutableSetImplTestCas
     @Test
     public void testWithNull() {
         this.checkEquals(
-                ImmutableSetImplSingleton.singleton(null),
-                Collections.singleton(null)
+            ImmutableSetImplSingleton.singleton(null),
+            Collections.singleton(null)
         );
     }
 
@@ -39,8 +39,8 @@ public final class ImmutableSetImplSingletonTest extends ImmutableSetImplTestCas
     public void testWithNonNull() {
         final String value = "abc123";
         this.checkEquals(
-                ImmutableSetImplSingleton.singleton(value),
-                Collections.singleton(value)
+            ImmutableSetImplSingleton.singleton(value),
+            Collections.singleton(value)
         );
     }
 
@@ -79,12 +79,12 @@ public final class ImmutableSetImplSingletonTest extends ImmutableSetImplTestCas
         final String newElement = "*newElement*";
 
         this.replaceAndCheck(
-                ImmutableSetImplSingleton.singleton(ELEMENT),
-                ELEMENT,
-                newElement,
-                ImmutableSetImplSingleton.with(
-                        Sets.of(newElement)
-                )
+            ImmutableSetImplSingleton.singleton(ELEMENT),
+            ELEMENT,
+            newElement,
+            ImmutableSetImplSingleton.with(
+                Sets.of(newElement)
+            )
         );
     }
 
@@ -93,18 +93,18 @@ public final class ImmutableSetImplSingletonTest extends ImmutableSetImplTestCas
         final String newElement = "*newElement*";
 
         this.replaceAndCheck(
-                ImmutableSetImplSingleton.singleton(ELEMENT),
-                "missing",
-                newElement
+            ImmutableSetImplSingleton.singleton(ELEMENT),
+            "missing",
+            newElement
         );
     }
 
     @Test
     public void testDeleteIf() {
         this.deleteIfAndCheck(
-                this.createSet(),
-                Predicates.is(ELEMENT),
-                Sets.immutable(Sets.empty())
+            this.createSet(),
+            Predicates.is(ELEMENT),
+            Sets.immutable(Sets.empty())
         );
     }
 

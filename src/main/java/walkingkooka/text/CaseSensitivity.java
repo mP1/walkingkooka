@@ -117,9 +117,9 @@ public enum CaseSensitivity {
     final public boolean startsWith(final CharSequence chars,
                                     final CharSequence startsWith) {
         return this.startsWith(
-                chars,
-                startsWith,
-                0
+            chars,
+            startsWith,
+            0
         );
     }
 
@@ -133,12 +133,12 @@ public enum CaseSensitivity {
         Objects.requireNonNull(startsWith, "startsWith");
 
         return offset >= 0 &&
-                offset < chars.length() &&
-                startsWith0(
-                        chars,
-                        startsWith,
-                        offset
-                );
+            offset < chars.length() &&
+            startsWith0(
+                chars,
+                startsWith,
+                offset
+            );
     }
 
     private boolean startsWith0(final CharSequence chars,
@@ -217,7 +217,7 @@ public enum CaseSensitivity {
         final int searchForLength = searchFor.length();
 
         if (searchForLength > 0 &&
-                searchForLength + offset <= length) {
+            searchForLength + offset <= length) {
 
             final int last = length - searchForLength + 1;
 
@@ -237,8 +237,8 @@ public enum CaseSensitivity {
      */
     final public int lastIndexOf(final CharSequence chars, final CharSequence searchFor) {
         return this.lastIndexOf(chars,
-                searchFor,
-                chars.length() - 1);
+            searchFor,
+            chars.length() - 1);
     }
 
     /**
@@ -394,8 +394,8 @@ public enum CaseSensitivity {
      */
     final public GlobPattern globPattern(final String pattern) {
         return GlobPattern.parse(
-                pattern,
-                this
+            pattern,
+            this
         );
     }
 
@@ -447,15 +447,15 @@ public enum CaseSensitivity {
     @GwtIncompatible
     private static CaseSensitivity fromSystemProperty() {
         return FILE_SYSTEM_PROPERTY.propertyValue()
-                .map(CaseSensitivity::fromSystemProperty0)
-                .orElse(null);
+            .map(CaseSensitivity::fromSystemProperty0)
+            .orElse(null);
     }
 
     @GwtIncompatible
     private static CaseSensitivity fromSystemProperty0(final String systemPropertyValue) {
         return Boolean.parseBoolean(systemPropertyValue) ?
-                SENSITIVE :
-                INSENSITIVE;
+            SENSITIVE :
+            INSENSITIVE;
     }
 
     /**
@@ -466,8 +466,8 @@ public enum CaseSensitivity {
         try {
             final String filename = "abc";
             return Paths.get(filename.toLowerCase()).equals(Paths.get(filename.toUpperCase())) ?
-                    INSENSITIVE :
-                    SENSITIVE;
+                INSENSITIVE :
+                SENSITIVE;
         } catch (final Exception cause) {
             throw new Error(cause);
         }

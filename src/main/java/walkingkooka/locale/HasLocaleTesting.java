@@ -25,9 +25,9 @@ public interface HasLocaleTesting extends Testing {
 
     default void hasLocaleAndCheck(final HasLocale has, final Locale locale) {
         this.checkEquals(
-                locale,
-                has.locale(),
-                () -> has + " locale()"
+            locale,
+            has.locale(),
+            () -> has + " locale()"
         );
     }
 }

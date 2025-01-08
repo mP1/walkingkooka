@@ -23,10 +23,9 @@ abstract class ToStringBuilderAppenderVector<V> extends ToStringBuilderAppender<
         super(value);
     }
 
-    @Override
-    final boolean shouldSkip(final ToStringBuilder builder) {
+    @Override final boolean shouldSkip(final ToStringBuilder builder) {
         return false == builder.option(ToStringBuilderOption.INLINE_ELEMENTS) ||
-                (this.isEmpty() && builder.option(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE));
+            (this.isEmpty() && builder.option(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE));
     }
 
     /**
@@ -34,8 +33,7 @@ abstract class ToStringBuilderAppenderVector<V> extends ToStringBuilderAppender<
      */
     abstract boolean isEmpty();
 
-    @Override
-    final String before(final ToStringBuilder builder) {
+    @Override final String before(final ToStringBuilder builder) {
         final String before = builder.before;
         if (null != before) {
             builder.buffer.append(before);
@@ -43,8 +41,7 @@ abstract class ToStringBuilderAppenderVector<V> extends ToStringBuilderAppender<
         return builder.after;
     }
 
-    @Override
-    final void after(final String after, final ToStringBuilder builder) {
+    @Override final void after(final String after, final ToStringBuilder builder) {
         if (null != after) {
             builder.append(after);
         }

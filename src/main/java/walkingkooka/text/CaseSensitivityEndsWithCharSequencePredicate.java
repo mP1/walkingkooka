@@ -24,13 +24,13 @@ import java.util.Objects;
  * String} which may or may not ignoring the case.
  */
 final class CaseSensitivityEndsWithCharSequencePredicate<C extends CharSequence>
-        extends CaseSensitivityCharSequencePredicateTemplate<C> {
+    extends CaseSensitivityCharSequencePredicateTemplate<C> {
 
     /**
      * Creates a {@link CaseSensitivityEndsWithCharSequencePredicate}
      */
     static <C extends CharSequence> CaseSensitivityEndsWithCharSequencePredicate<C> with(
-            final C startsWith, final CaseSensitivity sensitivity) {
+        final C startsWith, final CaseSensitivity sensitivity) {
         CharSequences.failIfNullOrEmpty(startsWith, "startsWith");
         Objects.requireNonNull(sensitivity, "sensitivity");
 

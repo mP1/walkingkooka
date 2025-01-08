@@ -40,24 +40,24 @@ public interface TextCursorTesting extends Testing {
         Objects.requireNonNull(cursor, "cursor");
 
         this.checkEquals(
-                expected,
-                cursor.at(),
-                message + "=" + cursor
+            expected,
+            cursor.at(),
+            message + "=" + cursor
         );
     }
 
     default void atAndCheck(final char at, final char expected, final TextCursor cursor) {
         this.checkEquals(
-                expected,
-                at,
-                () -> "Wrong character " + cursor);
+            expected,
+            at,
+            () -> "Wrong character " + cursor);
     }
 
     default void atAndCheck(final char at, final char expected, final String message) {
         this.checkEquals(
-                expected,
-                at,
-                message
+            expected,
+            at,
+            message
         );
     }
 

@@ -31,17 +31,17 @@ import java.util.TreeSet;
  * A {@link Set} known to be immutable and holds a copy of any {@link Set} given to it.
  */
 final class ImmutableSortedSetImpl<E> extends AbstractSet<E> implements ImmutableSortedSetDefaults<ImmutableSortedSet<E>, E>,
-        ImmutableSortedSet<E> {
+    ImmutableSortedSet<E> {
 
     /**
      * Returns a {@link ImmutableSortedSet} which is immutable including copying elements if necessary.
      */
     static <E> ImmutableSortedSet<E> with(final SortedSet<E> sortedSet) {
         return sortedSet instanceof ImmutableSortedSet ?
-                Cast.to(sortedSet) :
-                new ImmutableSortedSetImpl<>(
-                        new TreeSet<>(sortedSet)
-                );
+            Cast.to(sortedSet) :
+            new ImmutableSortedSetImpl<>(
+                new TreeSet<>(sortedSet)
+            );
     }
 
     /**
@@ -60,7 +60,7 @@ final class ImmutableSortedSetImpl<E> extends AbstractSet<E> implements Immutabl
     @Override
     public Iterator<E> iterator() {
         return Iterators.readOnly(
-                this.sortedSet.iterator()
+            this.sortedSet.iterator()
         );
     }
 
@@ -85,24 +85,24 @@ final class ImmutableSortedSetImpl<E> extends AbstractSet<E> implements Immutabl
     public SortedSet<E> subSet(final E fromElement,
                                final E toElement) {
         return with(
-                this.sortedSet.subSet(
-                        fromElement,
-                        toElement
-                )
+            this.sortedSet.subSet(
+                fromElement,
+                toElement
+            )
         );
     }
 
     @Override
     public SortedSet<E> headSet(final E toElement) {
         return with(
-                this.sortedSet.headSet(toElement)
+            this.sortedSet.headSet(toElement)
         );
     }
 
     @Override
     public SortedSet<E> tailSet(final E fromElement) {
         return with(
-                this.sortedSet.tailSet(fromElement)
+            this.sortedSet.tailSet(fromElement)
         );
     }
 
@@ -123,7 +123,7 @@ final class ImmutableSortedSetImpl<E> extends AbstractSet<E> implements Immutabl
     @Override
     public SortedSet<E> toSet() {
         return new TreeSet<>(
-                this.sortedSet
+            this.sortedSet
         );
     }
 
@@ -132,7 +132,7 @@ final class ImmutableSortedSetImpl<E> extends AbstractSet<E> implements Immutabl
         final ImmutableSortedSet<E> copy = with(elements);
 
         return this.equals(copy) ?
-                this :
-                copy;
+            this :
+            copy;
     }
 }

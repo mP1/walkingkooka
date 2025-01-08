@@ -43,41 +43,41 @@ public interface IsMethodTesting<T> extends Testing {
 
         // remove prefix and suffix and create is method name...
         final String isMethodName = "is" + CharSequences.capitalize(
-                name.substring(prefix.length(),
-                        name.length() - suffix.length()));
+            name.substring(prefix.length(),
+                name.length() - suffix.length()));
 
         final Method isMethod = object.getClass().getMethod(isMethodName);
         isMethod.setAccessible(true);
 
         this.checkEquals(
-                true,
-                isMethod.invoke(object),
-                () -> "Is method " + isMethod.toGenericString() + " should have returned true for " + object
+            true,
+            isMethod.invoke(object),
+            () -> "Is method " + isMethod.toGenericString() + " should have returned true for " + object
         );
 
         final Predicate<String> filter = this.isMethodIgnoreMethodFilter();
 
         // all other is methods should return false.
         this.checkEquals(
-                Lists.empty(),
-                Arrays.stream(object.getClass().getMethods())
-                        .filter(m -> !MethodAttributes.STATIC.is(m)) // filter static methods
-                        .filter(m -> m.getName().startsWith("is")) // only process
-                        .filter(m -> !m.getName().equals("isSymbol")) // special case ignore isSymbol
-                        .filter(m -> !m.getName().equals(isMethodName)) // skip isMethod for object.class
-                        .filter(m -> !filter.test(m.getName())) // skip special case
-                        .filter(m -> {
-                            try {
-                                m.setAccessible(true);
-                                return Boolean.TRUE.equals(m.invoke(object));
-                            } catch (final Exception cause) {
-                                cause.printStackTrace();
-                                throw new Error(cause);
-                            }
-                        })
-                        .map(Method::toGenericString)
-                        .collect(Collectors.toList()),
-                "IsMethods that should have returned false but returned true."
+            Lists.empty(),
+            Arrays.stream(object.getClass().getMethods())
+                .filter(m -> !MethodAttributes.STATIC.is(m)) // filter static methods
+                .filter(m -> m.getName().startsWith("is")) // only process
+                .filter(m -> !m.getName().equals("isSymbol")) // special case ignore isSymbol
+                .filter(m -> !m.getName().equals(isMethodName)) // skip isMethod for object.class
+                .filter(m -> !filter.test(m.getName())) // skip special case
+                .filter(m -> {
+                    try {
+                        m.setAccessible(true);
+                        return Boolean.TRUE.equals(m.invoke(object));
+                    } catch (final Exception cause) {
+                        cause.printStackTrace();
+                        throw new Error(cause);
+                    }
+                })
+                .map(Method::toGenericString)
+                .collect(Collectors.toList()),
+            "IsMethods that should have returned false but returned true."
         );
     }
 

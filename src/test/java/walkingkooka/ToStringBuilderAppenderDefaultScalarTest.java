@@ -26,8 +26,8 @@ public final class ToStringBuilderAppenderDefaultScalarTest extends ToStringBuil
         final ToStringBuilder builder = builder();
 
         builder.label(LABEL1)
-                .value((Object) null)
-                .value(1);
+            .value((Object) null)
+            .value(1);
 
         this.buildAndCheck(builder, "1");
     }

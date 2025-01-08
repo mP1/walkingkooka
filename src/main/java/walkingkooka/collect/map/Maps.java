@@ -101,8 +101,8 @@ final public class Maps extends GwtMaps implements PublicStaticHelper {
         Objects.requireNonNull(map, "map");
 
         return ImmutableMap.isImmutable(map) ?
-                map :
-                copyAndSelect(map);
+            map :
+            copyAndSelect(map);
     }
 
     /**
@@ -110,8 +110,8 @@ final public class Maps extends GwtMaps implements PublicStaticHelper {
      */
     private static <K, V> Map<K, V> copyAndSelect(final Map<K, V> map) {
         final Map<K, V> copy = map instanceof SortedMap ?
-                sortedMap(Cast.to(map)) :
-                ordered();
+            sortedMap(Cast.to(map)) :
+            ordered();
         copy.putAll(map);
 
         Map<K, V> immutable;
@@ -126,20 +126,20 @@ final public class Maps extends GwtMaps implements PublicStaticHelper {
             case 2:
                 final Iterator<Entry<K, V>> entries2 = copy.entrySet().iterator();
                 immutable = ImmutableMap.array(entries2.next(),
-                        entries2.next());
+                    entries2.next());
                 break;
             case 3:
                 final Iterator<Entry<K, V>> entries3 = copy.entrySet().iterator();
                 immutable = ImmutableMap.array(entries3.next(),
-                        entries3.next(),
-                        entries3.next());
+                    entries3.next(),
+                    entries3.next());
                 break;
             case 4:
                 final Iterator<Entry<K, V>> entries4 = copy.entrySet().iterator();
                 immutable = ImmutableMap.array(entries4.next(),
-                        entries4.next(),
-                        entries4.next(),
-                        entries4.next());
+                    entries4.next(),
+                    entries4.next(),
+                    entries4.next());
                 break;
             default:
                 immutable = ImmutableMap.map(copy);
@@ -153,8 +153,8 @@ final public class Maps extends GwtMaps implements PublicStaticHelper {
      */
     private static <K, V> SortedMap<K, V> sortedMap(final SortedMap<K, V> map) {
         return null == map.comparator() ?
-                sorted() :
-                sorted(map.comparator());
+            sorted() :
+            sorted(map.comparator());
     }
 
     /**
@@ -300,8 +300,8 @@ final public class Maps extends GwtMaps implements PublicStaticHelper {
      */
     static public <K, V> Map<K, V> readOnly(final Map<K, V> map) {
         return ImmutableMap.isImmutable(map) ?
-                map :
-                Collections.unmodifiableMap(map);
+            map :
+            Collections.unmodifiableMap(map);
     }
 
     /**

@@ -19,7 +19,6 @@ package walkingkooka.predicate.character;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class AndNotCharPredicateTest extends LogicalCharPredicateTestCase<AndNotCharPredicate> {
@@ -50,7 +49,7 @@ final public class AndNotCharPredicateTest extends LogicalCharPredicateTestCase<
     @Test
     public void testLeftTrueRightFalse2() {
         final CharPredicate p = CharPredicates.is('a')
-                .andNot(CharPredicates.is('d'));
+            .andNot(CharPredicates.is('d'));
         this.testTrue(p, 'a');
     }
 

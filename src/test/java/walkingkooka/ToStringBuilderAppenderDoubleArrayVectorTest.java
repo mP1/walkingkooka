@@ -28,7 +28,7 @@ public final class ToStringBuilderAppenderDoubleArrayVectorTest extends ToString
         b.value(new double[]{0.0, 1.0, 2.0});
 
         this.buildAndCheck(b,
-                LABEL1 + LABEL_SEPARATOR + 0.0 + VALUE_SEPARATOR + 1.0 + VALUE_SEPARATOR + 2.0);
+            LABEL1 + LABEL_SEPARATOR + 0.0 + VALUE_SEPARATOR + 1.0 + VALUE_SEPARATOR + 2.0);
     }
 
     @Override
@@ -36,8 +36,7 @@ public final class ToStringBuilderAppenderDoubleArrayVectorTest extends ToString
         return new double[0];
     }
 
-    @Override
-    final String defaultValueToString(final double[] value) {
+    @Override final String defaultValueToString(final double[] value) {
         return "";
     }
 

@@ -31,44 +31,44 @@ public final class NameTest implements ClassTesting<Name> {
     @Test
     public void testCheckLengthLessThanMin() {
         final InvalidTextLengthException thrown = assertThrows(
-                InvalidTextLengthException.class,
-                () -> Name.checkLength(
-                        "Label123",
-                        "A",
-                        2,
-                        3
-                )
+            InvalidTextLengthException.class,
+            () -> Name.checkLength(
+                "Label123",
+                "A",
+                2,
+                3
+            )
         );
         this.checkEquals(
-                thrown.getMessage(),
-                "Length 1 of \"Label123\" not between 2..3 = \"A\""
+            thrown.getMessage(),
+            "Length 1 of \"Label123\" not between 2..3 = \"A\""
         );
     }
 
     @Test
     public void testCheckLengthLessThanMax() {
         final InvalidTextLengthException thrown = assertThrows(
-                InvalidTextLengthException.class,
-                () -> Name.checkLength(
-                        "Label123",
-                        "ABCD",
-                        2,
-                        3
-                )
+            InvalidTextLengthException.class,
+            () -> Name.checkLength(
+                "Label123",
+                "ABCD",
+                2,
+                3
+            )
         );
         this.checkEquals(
-                thrown.getMessage(),
-                "Length 4 of \"Label123\" not between 2..3 = \"ABCD\""
+            thrown.getMessage(),
+            "Length 4 of \"Label123\" not between 2..3 = \"ABCD\""
         );
     }
 
     @Test
     public void testCheckLength() {
         Name.checkLength(
-                "Label123",
-                "AB",
-                2,
-                3
+            "Label123",
+            "AB",
+            2,
+            3
         );
     }
 

@@ -60,7 +60,7 @@ final class ImmutableSetImplNonSingleton<E> extends ImmutableSetImpl<E> {
     @Override
     public Iterator<E> iterator() {
         return Cast.to(
-                Iterators.array(this.elements)
+            Iterators.array(this.elements)
         );
     }
 
@@ -79,7 +79,7 @@ final class ImmutableSetImplNonSingleton<E> extends ImmutableSetImpl<E> {
     @Override
     public String toString() {
         return Arrays.asList(this.elements)
-                .toString();
+            .toString();
     }
 
     // ImmutableSet.....................................................................................................
@@ -87,9 +87,9 @@ final class ImmutableSetImplNonSingleton<E> extends ImmutableSetImpl<E> {
     @Override
     public Set<E> toSet() {
         return Cast.to(
-                new HashSet<>(
-                        Arrays.asList(this.elements)
-                )
+            new HashSet<>(
+                Arrays.asList(this.elements)
+            )
         );
     }
 }

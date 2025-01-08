@@ -23,8 +23,6 @@ import walkingkooka.collect.set.Sets;
 import java.lang.reflect.Field;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class FieldAttributesTest implements ClassTesting2<FieldAttributes> {
 
     @Test
@@ -84,8 +82,8 @@ public final class FieldAttributesTest implements ClassTesting2<FieldAttributes>
 
         for (FieldAttributes possible : FieldAttributes.values()) {
             this.checkEquals(set.contains(possible),
-                    possible.is(field),
-                    field::toGenericString);
+                possible.is(field),
+                field::toGenericString);
         }
     }
 

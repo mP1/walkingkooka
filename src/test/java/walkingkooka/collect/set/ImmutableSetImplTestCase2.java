@@ -26,10 +26,10 @@ import java.util.Iterator;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class ImmutableSetImplTestCase2<S extends ImmutableSetImpl<String>> extends ImmutableSetImplTestCase<S>
-        implements SetTesting2<S, String>,
-        HashCodeEqualsDefinedTesting2<S>,
-        IteratorTesting,
-        ImmutableSetTesting<S, String> {
+    implements SetTesting2<S, String>,
+    HashCodeEqualsDefinedTesting2<S>,
+    IteratorTesting,
+    ImmutableSetTesting<S, String> {
 
     ImmutableSetImplTestCase2() {
         super();

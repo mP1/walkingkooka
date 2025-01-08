@@ -173,7 +173,7 @@ final public class SystemProperty implements Value<String> {
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                (other instanceof SystemProperty && this.equals0((SystemProperty) other));
+            (other instanceof SystemProperty && this.equals0((SystemProperty) other));
     }
 
     private boolean equals0(final SystemProperty other) {

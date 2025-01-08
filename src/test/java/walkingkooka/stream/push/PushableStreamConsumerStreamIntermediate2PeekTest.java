@@ -40,7 +40,8 @@ public final class PushableStreamConsumerStreamIntermediate2PeekTest extends Pus
         return PushableStreamConsumerStreamIntermediate2Peek.with(ACTION);
     }
 
-    private final static Consumer<String> ACTION = (ignored) -> {};
+    private final static Consumer<String> ACTION = (ignored) -> {
+    };
 
     @Override
     public Class<PushableStreamConsumerStreamIntermediate2Peek> type() {

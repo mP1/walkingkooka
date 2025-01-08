@@ -51,8 +51,8 @@ final class ImmutableMapSingleton<K, V> extends ImmutableMap<K, V> {
         final Entry<K, V> entry = this.entry;
 
         return entry.getKey().equals(key) ?
-                entry.getValue() :
-                null;
+            entry.getValue() :
+            null;
     }
 
     @Override

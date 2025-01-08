@@ -26,7 +26,7 @@ import java.util.Objects;
  * Inverts the results returned by the wrapped {@link CharPredicate}.
  */
 final class NotCharPredicate implements CharPredicate,
-        Notable<CharPredicate> {
+    Notable<CharPredicate> {
 
     static CharPredicate wrap(final CharPredicate predicate) {
         Objects.requireNonNull(predicate, "predicate");
@@ -69,7 +69,7 @@ final class NotCharPredicate implements CharPredicate,
     @Override
     public boolean equals(final Object other) {
         return this == other
-                || other instanceof NotCharPredicate && equals0((NotCharPredicate) other);
+            || other instanceof NotCharPredicate && equals0((NotCharPredicate) other);
     }
 
     private boolean equals0(final NotCharPredicate other) {

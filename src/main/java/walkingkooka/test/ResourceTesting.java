@@ -33,9 +33,9 @@ public interface ResourceTesting extends Testing {
             final byte[] buffer = new byte[4096];
             try (final InputStream in = source.getResourceAsStream(resource)) {
                 this.checkNotEquals(
-                        null,
-                        in,
-                        () -> "Resource " + source.getName() + "/" + resource + " not found"
+                    null,
+                    in,
+                    () -> "Resource " + source.getName() + "/" + resource + " not found"
                 );
                 for (; ; ) {
                     final int count = in.read(buffer);

@@ -26,14 +26,13 @@ import walkingkooka.reflect.ThrowableTesting;
 
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class OpenCheckerTest implements ClassTesting2<OpenChecker<Exception>>,
-        ThrowableTesting,
-        ToStringTesting<OpenChecker<Exception>> {
+    ThrowableTesting,
+    ToStringTesting<OpenChecker<Exception>> {
 
     // constants
 

@@ -33,57 +33,57 @@ public final class CharPredicateTest implements ClassTesting<CharPredicate> {
     @Test
     public void testFailIfNullOrFalseWithNullLabelFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> PREDICATE.failIfNullOrFalse(
-                        null,
-                        "ABC"
-                )
+            NullPointerException.class,
+            () -> PREDICATE.failIfNullOrFalse(
+                null,
+                "ABC"
+            )
         );
     }
 
     @Test
     public void testFailIfNullOrFalseWithEmptyLabelFails() {
         assertThrows(
-                IllegalArgumentException.class,
-                () -> PREDICATE.failIfNullOrFalse(
-                        "",
-                        "ABC"
-                )
+            IllegalArgumentException.class,
+            () -> PREDICATE.failIfNullOrFalse(
+                "",
+                "ABC"
+            )
         );
     }
 
     @Test
     public void testFailIfNullOrFalseWithNullCharSequenceFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> PREDICATE.failIfNullOrFalse(
-                        "TEXT",
-                        null
-                )
+            NullPointerException.class,
+            () -> PREDICATE.failIfNullOrFalse(
+                "TEXT",
+                null
+            )
         );
     }
 
     @Test
     public void testFailIfNullOrFalseWithEmptyChars() {
         PREDICATE.failIfNullOrFalse(
-                "Label123",
-                ""
+            "Label123",
+            ""
         );
     }
 
     @Test
     public void testFailIfNullOrFalseTestFails() {
         assertThrows(
-                InvalidCharacterException.class,
-                () -> this.failIfNullOrFalse("98")
+            InvalidCharacterException.class,
+            () -> this.failIfNullOrFalse("98")
         );
     }
 
     @Test
     public void testFailIfNullOrFalseTestFails2() {
         assertThrows(
-                InvalidCharacterException.class,
-                () -> this.failIfNullOrFalse("A1")
+            InvalidCharacterException.class,
+            () -> this.failIfNullOrFalse("A1")
         );
     }
 
@@ -109,8 +109,8 @@ public final class CharPredicateTest implements ClassTesting<CharPredicate> {
 
     private void failIfNullOrFalse(final String text) {
         PREDICATE.failIfNullOrFalse(
-                "TEXT",
-                text
+            "TEXT",
+            text
         );
     }
 

@@ -32,7 +32,7 @@ final class ImmutableSetImplEmpty<E> extends ImmutableSetImpl<E> {
      * Returns a {@link Set} which is immutable including copying elements if necessary.
      */
     static <E> ImmutableSetImplEmpty<E> empty() {
-        return (ImmutableSetImplEmpty<E>)INSTANCE;
+        return (ImmutableSetImplEmpty<E>) INSTANCE;
     }
 
     private final static ImmutableSetImplEmpty<Object> INSTANCE = new ImmutableSetImplEmpty<>();

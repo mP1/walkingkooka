@@ -35,12 +35,12 @@ public interface ClassTesting<T> extends TestSuiteNameTesting<T> {
     default void testClassVisibility() {
         final Class<?> type = this.type();
         final JavaVisibility visibility = Fake.class.isAssignableFrom(type) ?
-                JavaVisibility.PUBLIC :
-                this.typeVisibility();
+            JavaVisibility.PUBLIC :
+            this.typeVisibility();
 
         this.checkEquals(visibility,
-                JavaVisibility.of(type),
-                () -> type.getName() + " visibility");
+            JavaVisibility.of(type),
+            () -> type.getName() + " visibility");
     }
 
     @Test
@@ -61,15 +61,15 @@ public interface ClassTesting<T> extends TestSuiteNameTesting<T> {
         final Class<T> type = this.type();
 
         final Predicate<Class<?>> invalidTypeTester = (t) -> Arrays.stream(invalidTypes)
-                .filter(i -> i.isAssignableFrom(t))
-                .limit(1)
-                .count() == 1;
+            .filter(i -> i.isAssignableFrom(t))
+            .limit(1)
+            .count() == 1;
 
         this.checkEquals(Lists.empty(),
-                Arrays.stream(type.getMethods())
-                        .filter(MethodAttributes.STATIC::is)
-                        .filter(m -> Arrays.stream(m.getParameterTypes()).filter(invalidTypeTester).limit(1).count() == 1)
-                        .collect(Collectors.toList()),
-                () -> type.getName() + " includes several methods with invalid parameter types " + Arrays.stream(invalidTypes).map(Class::getName).collect(Collectors.joining(",")));
+            Arrays.stream(type.getMethods())
+                .filter(MethodAttributes.STATIC::is)
+                .filter(m -> Arrays.stream(m.getParameterTypes()).filter(invalidTypeTester).limit(1).count() == 1)
+                .collect(Collectors.toList()),
+            () -> type.getName() + " includes several methods with invalid parameter types " + Arrays.stream(invalidTypes).map(Class::getName).collect(Collectors.joining(",")));
     }
 }

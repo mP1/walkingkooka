@@ -25,9 +25,9 @@ import walkingkooka.predicate.Orable;
  * A {@link CharPredicate} that always returns false.
  */
 final class NeverCharPredicate implements CharPredicate,
-        Andable,
-        Orable,
-        Notable<CharPredicate> {
+    Andable,
+    Orable,
+    Notable<CharPredicate> {
 
     /**
      * Singleton

@@ -45,41 +45,41 @@ public final class ImmutableListImplSingletonTest extends ImmutableListImplNotEm
     @Test
     public void testContainsNotNull() {
         this.containsAndCheck(
-                ImmutableListImplSingleton.withElement(ELEMENT),
-                ELEMENT
+            ImmutableListImplSingleton.withElement(ELEMENT),
+            ELEMENT
         );
     }
 
     @Test
     public void testContainsNull() {
         this.containsAndCheck(
-                ImmutableListImplSingleton.withElement(null),
-                null
+            ImmutableListImplSingleton.withElement(null),
+            null
         );
     }
 
     @Test
     public void testContainsFalseNot() {
         this.containsAndCheckAbsent(
-                this.createList(),
-                "NOT!"
+            this.createList(),
+            "NOT!"
         );
     }
 
     @Test
     public void testContainsFalseNotNull() {
         this.containsAndCheckAbsent(
-                ImmutableListImplSingleton.withElement(null),
-                "NOT!"
+            ImmutableListImplSingleton.withElement(null),
+            "NOT!"
         );
     }
 
     @Test
     public void testGetNull() {
         this.getAndCheck(
-                ImmutableListImplSingleton.withElement(null),
-                0,
-                null
+            ImmutableListImplSingleton.withElement(null),
+            0,
+            null
         );
     }
 
@@ -106,18 +106,18 @@ public final class ImmutableListImplSingletonTest extends ImmutableListImplNotEm
     @Test
     public void testDeleteAll() {
         this.deleteAllAndCheck(
-                this.createList(),
-                Lists.of(ELEMENT),
-                Lists.empty()
+            this.createList(),
+            Lists.of(ELEMENT),
+            Lists.empty()
         );
     }
 
     @Test
     public void testDeleteIf() {
         this.deleteIfAndCheck(
-                this.createList(),
-                Predicates.is(ELEMENT),
-                Lists.empty()
+            this.createList(),
+            Predicates.is(ELEMENT),
+            Lists.empty()
         );
     }
 

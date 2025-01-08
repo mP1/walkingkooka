@@ -56,13 +56,13 @@ final class TestCloseableRunnable implements Runnable {
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof TestCloseableRunnable &&
-                        this.equals0(Cast.to(other));
+            other instanceof TestCloseableRunnable &&
+                this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final TestCloseableRunnable other) {
         return this.toString.equals(other.toString) &&
-                this.closed== other.closed;
+            this.closed == other.closed;
     }
 
     @Override

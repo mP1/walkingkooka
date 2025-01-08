@@ -39,35 +39,35 @@ public final class EitherTest extends EitherTestCase<Either<String, Integer>, St
     @Test
     public void testLeftThenMapLeftThenLeftValue() {
         this.checkEquals("v1!",
-                Either.left("v1")
-                        .mapLeft(v -> v + "!")
-                        .mapRight(v -> 555)
-                        .leftValue());
+            Either.left("v1")
+                .mapLeft(v -> v + "!")
+                .mapRight(v -> 555)
+                .leftValue());
     }
 
     @Test
     public void testRightThenMapRightThenRightValue() {
         this.checkEquals("v1!",
-                Either.right("v1")
-                        .mapRight(v -> v + "!")
-                        .mapLeft(v -> 555)
-                        .rightValue());
+            Either.right("v1")
+                .mapRight(v -> v + "!")
+                .mapLeft(v -> 555)
+                .rightValue());
     }
 
     @Test
     public void testLeftSwapAndSwap() {
         final Either<String, Integer> either = Either.left("abc");
         this.checkEquals(either,
-                either.swap()
-        .swap());
+            either.swap()
+                .swap());
     }
 
     @Test
     public void testRightSwapAndSwap() {
         final Either<Integer, String> either = Either.right("abc");
         this.checkEquals(either,
-                either.swap()
-                        .swap());
+            either.swap()
+                .swap());
     }
 
     @Override

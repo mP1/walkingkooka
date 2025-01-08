@@ -22,7 +22,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 
 public abstract class RangeBoundTestCase<B extends RangeBound<Integer>> implements ClassTesting2<B>,
-        TypeNameTesting<B> {
+    TypeNameTesting<B> {
 
     RangeBoundTestCase() {
         super();

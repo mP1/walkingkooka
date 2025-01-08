@@ -25,7 +25,6 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CharSequences;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -33,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class CharPredicateBuilderTest implements ClassTesting2<CharPredicateBuilder>,
-        BuilderTesting<CharPredicateBuilder, CharPredicate> {
+    BuilderTesting<CharPredicateBuilder, CharPredicate> {
 
     // constants
 
@@ -181,14 +180,14 @@ final public class CharPredicateBuilderTest implements ClassTesting2<CharPredica
                 case 'E':
                     if (false == predicate.test(c)) {
                         Assertions.fail("Failed to predicate " + CharSequences.quoteAndEscape(c) + "="
-                                + predicate);
+                            + predicate);
                     }
                     break;
                 default:
                     if (predicate.test(c)) {
                         Assertions.fail(
-                                "Should not have matched " + CharSequences.quoteAndEscape(c) + "="
-                                        + predicate);
+                            "Should not have matched " + CharSequences.quoteAndEscape(c) + "="
+                                + predicate);
                     }
             }
         }

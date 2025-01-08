@@ -24,8 +24,6 @@ import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class ParseStringTestingTest implements ParseStringTesting<String> {
 
     @Test

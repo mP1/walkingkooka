@@ -75,12 +75,12 @@ final class MapsEntry<K, V> implements Map.Entry<K, V> {
     @Override
     public String toString() {
         return ToStringBuilder.empty()
-                .disable(ToStringBuilderOption.QUOTE)
-                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .labelSeparator("=")
-                .label(this.getKey().toString())
-                .surroundValues("[", "]")
-                .value(this.getValue())
-                .build();
+            .disable(ToStringBuilderOption.QUOTE)
+            .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .labelSeparator("=")
+            .label(this.getKey().toString())
+            .surroundValues("[", "]")
+            .value(this.getValue())
+            .build();
     }
 }

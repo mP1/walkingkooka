@@ -23,8 +23,8 @@ import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
 public abstract class GlobPatternComponentTestCase<C extends GlobPatternComponent> implements ClassTesting<C>,
-        HashCodeEqualsDefinedTesting2<C>,
-        ToStringTesting<C> {
+    HashCodeEqualsDefinedTesting2<C>,
+    ToStringTesting<C> {
 
     GlobPatternComponentTestCase() {
         super();

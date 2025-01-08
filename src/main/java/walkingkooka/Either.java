@@ -241,7 +241,7 @@ public abstract class Either<L, R> {
     @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     public final boolean equals(final Object other) {
         return this == other ||
-                this.canBeEquals(other) && this.value().equals(((Either<?, ?>) other).value());
+            this.canBeEquals(other) && this.value().equals(((Either<?, ?>) other).value());
     }
 
     abstract boolean canBeEquals(final Object other);

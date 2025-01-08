@@ -23,7 +23,6 @@ import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -297,8 +296,8 @@ final public class AsciiTest implements PublicStaticHelperTesting<Ascii> {
 
     private void isDigitAndCheck(final int c, final boolean expected) {
         this.checkEquals(expected,
-                Ascii.isDigit((char) c),
-                "isLetter " + CharSequences.quoteAndEscape((char) c));
+            Ascii.isDigit((char) c),
+            "isLetter " + CharSequences.quoteAndEscape((char) c));
     }
 
     // test

@@ -27,7 +27,7 @@ public final class BeanPropertiesTestingTest implements BeanPropertiesTesting {
     @Test
     public void testAllPropertiesNeverReturnNullCheck() throws Exception {
         this.allPropertiesNeverReturnNullCheck(new TestAllPropertiesNeverReturnNullCheck(),
-                Predicates.never());
+            Predicates.never());
     }
 
     static class TestAllPropertiesNeverReturnNullCheck {
@@ -40,7 +40,7 @@ public final class BeanPropertiesTestingTest implements BeanPropertiesTesting {
     @Test
     public void testAllPropertiesNeverReturnNullCheckFilter() throws Exception {
         this.allPropertiesNeverReturnNullCheck(new TestAllPropertiesNeverReturnNullCheckFilter(),
-                (m) -> m.getName().equals("propertyReturnsNull"));
+            (m) -> m.getName().equals("propertyReturnsNull"));
     }
 
     static class TestAllPropertiesNeverReturnNullCheckFilter {
@@ -57,8 +57,8 @@ public final class BeanPropertiesTestingTest implements BeanPropertiesTesting {
     @Test
     public void testAllPropertiesNeverReturnNullCheckFails() {
         assertThrows(AssertionError.class,
-                () -> this.allPropertiesNeverReturnNullCheck(new TestAllPropertiesNeverReturnNullCheckFails(),
-                        Predicates.never()));
+            () -> this.allPropertiesNeverReturnNullCheck(new TestAllPropertiesNeverReturnNullCheckFails(),
+                Predicates.never()));
     }
 
     static class TestAllPropertiesNeverReturnNullCheckFails {

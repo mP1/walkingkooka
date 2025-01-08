@@ -32,8 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class CharacterConstantTest implements ParseStringTesting<List<Integer>>,
-        ClassTesting2<CharacterConstant>,
-        CharSequenceTesting<CharacterConstant> {
+    ClassTesting2<CharacterConstant>,
+    CharSequenceTesting<CharacterConstant> {
 
     private final static char CHAR = 'a';
 
@@ -56,7 +56,7 @@ final public class CharacterConstantTest implements ParseStringTesting<List<Inte
     @Test
     public void testCachedBetweenBounds() {
         this.checkCached((char) ((CharacterConstant.LOWER_BOUNDS + CharacterConstant.UPPER_BOUNDS)
-                / 2));
+            / 2));
     }
 
     @Test
@@ -67,8 +67,8 @@ final public class CharacterConstantTest implements ParseStringTesting<List<Inte
     @Test
     public void testCachedComma() {
         assertSame(
-                CharacterConstant.COMMA,
-                CharacterConstant.with(',')
+            CharacterConstant.COMMA,
+            CharacterConstant.with(',')
         );
     }
 
@@ -94,88 +94,88 @@ final public class CharacterConstantTest implements ParseStringTesting<List<Inte
     @Test
     public void testParseEmpty() {
         this.parseStringAndCheck(
-                "",
-                Lists.empty()
+            "",
+            Lists.empty()
         );
     }
 
     @Test
     public void testParseFunctionFails() {
         this.parseStringFails(
-                "123,abc",
-                new IllegalArgumentException("Unable to parse \"123,abc\", For input string: \"abc\"")
+            "123,abc",
+            new IllegalArgumentException("Unable to parse \"123,abc\", For input string: \"abc\"")
         );
     }
 
     @Test
     public void testParseFunctionThrowsInvalidCharacterExceptionFails() {
         final InvalidCharacterException thrown = assertThrows(
-                InvalidCharacterException.class,
-                () -> CharacterConstant.with('.')
-                        .parse(
-                                "123,45*",
-                                (s) -> {
-                                    throw new InvalidCharacterException(s, 3);
-                                }
-                        )
+            InvalidCharacterException.class,
+            () -> CharacterConstant.with('.')
+                .parse(
+                    "123,45*",
+                    (s) -> {
+                        throw new InvalidCharacterException(s, 3);
+                    }
+                )
         );
         this.checkEquals(
-                "Invalid character ',' at 3 in \"123,45*\"",
-                thrown.getMessage()
+            "Invalid character ',' at 3 in \"123,45*\"",
+            thrown.getMessage()
         );
     }
 
     @Test
     public void testParseFunctionThrowsInvalidCharacterExceptionFails2() {
         final InvalidCharacterException thrown = assertThrows(
-                InvalidCharacterException.class,
-                () -> CharacterConstant.with(',')
-                        .parse(
-                                "123,45*",
-                                (s) -> {
-                                    if (s.equals("123")) {
-                                        return 123;
-                                    }
-                                    throw new InvalidCharacterException(s, 2);
-                                }
-                        )
+            InvalidCharacterException.class,
+            () -> CharacterConstant.with(',')
+                .parse(
+                    "123,45*",
+                    (s) -> {
+                        if (s.equals("123")) {
+                            return 123;
+                        }
+                        throw new InvalidCharacterException(s, 2);
+                    }
+                )
         );
         this.checkEquals(
-                "Invalid character '*' at 6 in \"123,45*\"",
-                thrown.getMessage()
+            "Invalid character '*' at 6 in \"123,45*\"",
+            thrown.getMessage()
         );
     }
 
     @Test
     public void testParseOne() {
         this.parseStringAndCheck(
-                "123",
-                Lists.of(
-                        123
-                )
+            "123",
+            Lists.of(
+                123
+            )
         );
     }
 
     @Test
     public void testParseTwo() {
         this.parseStringAndCheck(
-                "123,456",
-                Lists.of(
-                        123,
-                        456
-                )
+            "123,456",
+            Lists.of(
+                123,
+                456
+            )
         );
     }
 
     @Test
     public void testParseThree() {
         this.parseStringAndCheck(
-                "123,456,789",
-                Lists.of(
-                        123,
-                        456,
-                        789
-                )
+            "123,456,789",
+            Lists.of(
+                123,
+                456,
+                789
+            )
         );
     }
 
@@ -184,27 +184,27 @@ final public class CharacterConstantTest implements ParseStringTesting<List<Inte
     @Test
     public void testToSeparatedStringEmpty() {
         this.toSeparatedStringAndCheck(
-                Lists.empty(),
-                Function.identity(),
-                ""
+            Lists.empty(),
+            Function.identity(),
+            ""
         );
     }
 
     @Test
     public void testToSeparatedStringOne() {
         this.toSeparatedStringAndCheck(
-                Lists.of("abc"),
-                s -> CharSequences.quote(s).toString(),
-                "\"abc\""
+            Lists.of("abc"),
+            s -> CharSequences.quote(s).toString(),
+            "\"abc\""
         );
     }
 
     @Test
     public void testToSeparatedStringSeveral() {
         this.toSeparatedStringAndCheck(
-                Lists.of("abc", "def", "ghi"),
-                s -> CharSequences.quote(s).toString(),
-                "\"abc\",\"def\",\"ghi\""
+            Lists.of("abc", "def", "ghi"),
+            s -> CharSequences.quote(s).toString(),
+            "\"abc\",\"def\",\"ghi\""
         );
     }
 
@@ -212,12 +212,12 @@ final public class CharacterConstantTest implements ParseStringTesting<List<Inte
                                                final Function<T, String> component,
                                                final String expected) {
         this.checkEquals(
-                expected,
-                CharacterConstant.with(',')
-                        .toSeparatedString(
-                                values,
-                                component
-                        )
+            expected,
+            CharacterConstant.with(',')
+                .toSeparatedString(
+                    values,
+                    component
+                )
         );
     }
 
@@ -226,10 +226,10 @@ final public class CharacterConstantTest implements ParseStringTesting<List<Inte
     @Override
     public List<Integer> parseString(final String text) {
         return CharacterConstant.with(',')
-                .parse(
-                        text,
-                        Integer::parseInt
-                );
+            .parse(
+                text,
+                Integer::parseInt
+            );
     }
 
     @Override
@@ -247,7 +247,7 @@ final public class CharacterConstantTest implements ParseStringTesting<List<Inte
     @Test
     public void testEqualsDifferent() {
         this.checkNotEquals(CharacterConstant.with((char) (CHAR
-                + 1)));
+            + 1)));
     }
 
     @Test

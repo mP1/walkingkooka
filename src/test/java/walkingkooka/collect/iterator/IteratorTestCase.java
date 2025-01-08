@@ -28,7 +28,7 @@ import java.util.Iterator;
  * Base class for testing a {@link Iterator} with mostly parameter checking tests.
  */
 abstract public class IteratorTestCase<I extends Iterator<T>, T> implements ClassTesting2<I>,
-        IteratorTesting, ToStringTesting<I>, TypeNameTesting<I> {
+    IteratorTesting, ToStringTesting<I>, TypeNameTesting<I> {
 
     IteratorTestCase() {
         super();

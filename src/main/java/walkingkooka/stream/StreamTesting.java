@@ -48,9 +48,9 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     default void testValuesNotEmpty() {
         final List<T> values = this.values();
         this.checkNotEquals(
-                0,
-                values,
-                () -> "" + values
+            0,
+            values,
+            () -> "" + values
         );
     }
 
@@ -65,23 +65,23 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     @Test
     default void testAllMatchAllTrue() {
         this.allMatchAndCheck(this.createStream(),
-                Predicates.always(),
-                true);
+            Predicates.always(),
+            true);
     }
 
     @Test
     default void testAllMatchNoneFalse() {
         this.allMatchAndCheck(this.createStream(),
-                Predicates.never(),
-                false);
+            Predicates.never(),
+            false);
     }
 
     @Test
     default void testAllMatchNoneSome() {
         final List<T> values = this.values();
         this.allMatchAndCheck(this.createStream(),
-                (v) -> values.indexOf(v) < values.size() / 2,
-                false);
+            (v) -> values.indexOf(v) < values.size() / 2,
+            false);
     }
 
     // anyMatch..........................................................................................................
@@ -95,39 +95,39 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     @Test
     default void testAnyMatchAllTrue() {
         this.anyMatchAndCheck(this.createStream(),
-                Predicates.always(),
-                true);
+            Predicates.always(),
+            true);
     }
 
     @Test
     default void testAnyMatchNoneFalse() {
         this.anyMatchAndCheck(this.createStream(),
-                Predicates.never(),
-                false);
+            Predicates.never(),
+            false);
     }
 
     @Test
     default void testAnyMatchFirst() {
         final List<T> values = this.values();
         this.anyMatchAndCheck(this.createStream(),
-                (v) -> values.indexOf(v) == 0,
-                true);
+            (v) -> values.indexOf(v) == 0,
+            true);
     }
 
     @Test
     default void testAnyMatchMid() {
         final List<T> values = this.values();
         this.anyMatchAndCheck(this.createStream(),
-                (v) -> values.indexOf(v) == values.size() / 2,
-                true);
+            (v) -> values.indexOf(v) == values.size() / 2,
+            true);
     }
 
     @Test
     default void testAnyMatchLast() {
         final List<T> values = this.values();
         this.anyMatchAndCheck(this.createStream(),
-                (v) -> values.indexOf(v) == values.size() - 1,
-                true);
+            (v) -> values.indexOf(v) == values.size() - 1,
+            true);
     }
 
     // noneMatch..........................................................................................................
@@ -141,39 +141,39 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     @Test
     default void testNoneMatchAllTrue() {
         this.noneMatchAndCheck(this.createStream(),
-                Predicates.always(),
-                false);
+            Predicates.always(),
+            false);
     }
 
     @Test
     default void testNoneMatchNoneFalse() {
         this.noneMatchAndCheck(this.createStream(),
-                Predicates.never(),
-                true);
+            Predicates.never(),
+            true);
     }
 
     @Test
     default void testNoneMatchFirst() {
         final List<T> values = this.values();
         this.noneMatchAndCheck(this.createStream(),
-                (v) -> values.indexOf(v) == 0,
-                false);
+            (v) -> values.indexOf(v) == 0,
+            false);
     }
 
     @Test
     default void testNoneMatchMid() {
         final List<T> values = this.values();
         this.noneMatchAndCheck(this.createStream(),
-                (v) -> values.indexOf(v) == values.size() / 2,
-                false);
+            (v) -> values.indexOf(v) == values.size() / 2,
+            false);
     }
 
     @Test
     default void testNoneMatchLast() {
         final List<T> values = this.values();
         this.noneMatchAndCheck(this.createStream(),
-                (v) -> values.indexOf(v) == values.size() - 1,
-                false);
+            (v) -> values.indexOf(v) == values.size() - 1,
+            false);
     }
 
     // collect..........................................................................................................
@@ -211,8 +211,8 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         final T keep = values.get(0);
 
         this.collectAndCheck(this.createStream()
-                        .filter(v -> v.equals(keep)),
-                keep);
+                .filter(v -> v.equals(keep)),
+            keep);
     }
 
     @Test
@@ -221,10 +221,10 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         final T removed = values.get(0);
 
         this.collectAndCheck(this.createStream()
-                        .filter(v -> !v.equals(removed)),
-                values.stream()
-                        .filter(v -> !v.equals(removed))
-                        .collect(Collectors.toList()));
+                .filter(v -> !v.equals(removed)),
+            values.stream()
+                .filter(v -> !v.equals(removed))
+                .collect(Collectors.toList()));
     }
 
     @Test
@@ -234,8 +234,8 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         final T keep = values.get(values.size() / 2);
 
         this.collectAndCheck(this.createStream()
-                        .filter(v -> v.equals(keep)),
-                keep);
+                .filter(v -> v.equals(keep)),
+            keep);
     }
 
     @Test
@@ -244,10 +244,10 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         final T removed = values.get(values.size() / 2);
 
         this.collectAndCheck(this.createStream()
-                        .filter(v -> !v.equals(removed)),
-                values.stream()
-                        .filter(v -> !v.equals(removed))
-                        .collect(Collectors.toList()));
+                .filter(v -> !v.equals(removed)),
+            values.stream()
+                .filter(v -> !v.equals(removed))
+                .collect(Collectors.toList()));
     }
 
     @Test
@@ -257,8 +257,8 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         final T keep = values.get(values.size() - 1);
 
         this.collectAndCheck(this.createStream()
-                        .filter(v -> v.equals(keep)),
-                keep);
+                .filter(v -> v.equals(keep)),
+            keep);
     }
 
     @Test
@@ -267,10 +267,10 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         final T removed = values.get(values.size() - 1);
 
         this.collectAndCheck(this.createStream()
-                        .filter(v -> !v.equals(removed)),
-                values.stream()
-                        .filter(v -> !v.equals(removed))
-                        .collect(Collectors.toList()));
+                .filter(v -> !v.equals(removed)),
+            values.stream()
+                .filter(v -> !v.equals(removed))
+                .collect(Collectors.toList()));
     }
 
     // findFirst............................................................................................................
@@ -281,8 +281,8 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         final T find = values.get(0);
 
         this.findFirstAndCheck(this.createStream()
-                        .filter(Predicates.is(find)),
-                find);
+                .filter(Predicates.is(find)),
+            find);
     }
 
     @Test
@@ -291,8 +291,8 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         final T find = values.get(values.size() / 2);
 
         this.findFirstAndCheck(this.createStream()
-                        .filter(Predicates.is(find)),
-                find);
+                .filter(Predicates.is(find)),
+            find);
     }
 
     @Test
@@ -301,14 +301,14 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         final T find = values.get(values.size() - 1);
 
         this.findFirstAndCheck(this.createStream()
-                        .filter(Predicates.is(find)),
-                find);
+                .filter(Predicates.is(find)),
+            find);
     }
 
     @Test
     default void testFindFirstNone() {
         this.findFirstAndCheckNone(this.createStream()
-                .filter(Predicates.never()));
+            .filter(Predicates.never()));
     }
 
     // findAny............................................................................................................
@@ -319,8 +319,8 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         final T find = values.get(0);
 
         this.findAnyAndCheck(this.createStream()
-                        .filter(Predicates.is(find)),
-                values);
+                .filter(Predicates.is(find)),
+            values);
     }
 
     @Test
@@ -329,8 +329,8 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         final T find = values.get(values.size() / 2);
 
         this.findAnyAndCheck(this.createStream()
-                        .filter(Predicates.is(find)),
-                values);
+                .filter(Predicates.is(find)),
+            values);
     }
 
     @Test
@@ -339,14 +339,14 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         final T find = values.get(values.size() - 1);
 
         this.findAnyAndCheck(this.createStream()
-                        .filter(Predicates.is(find)),
-                values);
+                .filter(Predicates.is(find)),
+            values);
     }
 
     @Test
     default void testFindAnyNone() {
         this.findAnyAndCheckNone(this.createStream()
-                .filter(Predicates.never()));
+            .filter(Predicates.never()));
     }
 
     // forEach..........................................................................................................
@@ -405,7 +405,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     @SuppressWarnings("unchecked")
     default void testLimitZero() {
         this.limitAndCheck(this.createStream()
-                .limit(0));
+            .limit(0));
     }
 
     @Test
@@ -414,8 +414,8 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         final List<T> values = this.values();
 
         this.limitAndCheck(this.createStream()
-                        .limit(1),
-                values.get(0));
+                .limit(1),
+            values.get(0));
     }
 
     @Test
@@ -424,8 +424,8 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         final int last = values.size() - 1;
 
         this.limitAndCheck(this.createStream()
-                        .limit(last),
-                values.subList(0, last));
+                .limit(last),
+            values.subList(0, last));
     }
 
     @Test
@@ -433,8 +433,8 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         final List<T> values = this.values();
 
         this.limitAndCheck(this.createStream()
-                        .limit(values.size()),
-                values);
+                .limit(values.size()),
+            values);
     }
 
     @Test
@@ -442,7 +442,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         final List<T> values = this.values();
 
         this.limitAndCheck(this::createStream,
-                values);
+            values);
     }
 
     // skip..........................................................................................................
@@ -450,8 +450,8 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     @Test
     default void testSkipZero() {
         this.skipAndCheck(this.createStream()
-                        .skip(0),
-                this.values());
+                .skip(0),
+            this.values());
     }
 
     @Test
@@ -460,8 +460,8 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
         final int skip = 1;
         this.skipAndCheck(this.createStream()
-                        .skip(skip),
-                values.subList(skip, values.size()));
+                .skip(skip),
+            values.subList(skip, values.size()));
     }
 
     @Test
@@ -470,8 +470,8 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
         final int skip = values.size() - 1;
         this.skipAndCheck(this.createStream()
-                        .skip(skip),
-                values.subList(skip, values.size()));
+                .skip(skip),
+            values.subList(skip, values.size()));
     }
 
     @Test
@@ -480,7 +480,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         final List<T> values = this.values();
 
         this.skipAndCheck(this.createStream()
-                .skip(values.size()));
+            .skip(values.size()));
     }
 
     // skip.limit..........................................................................................................
@@ -496,9 +496,9 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         final List<T> values = this.values();
 
         this.skipAndCheck(this.createStream()
-                        .skip(0)
-                        .limit(values.size()),
-                this.values());
+                .skip(0)
+                .limit(values.size()),
+            this.values());
     }
 
     @Test
@@ -507,9 +507,9 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
         final int skip = 1;
         this.skipAndCheck(this.createStream()
-                        .skip(skip)
-                        .limit(values.size() - skip),
-                values.subList(skip, values.size()));
+                .skip(skip)
+                .limit(values.size() - skip),
+            values.subList(skip, values.size()));
     }
 
     @Test
@@ -518,9 +518,9 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
         final int skip = values.size() - 1;
         this.skipAndCheck(this.createStream()
-                        .skip(skip)
-                        .limit(values.size() - skip),
-                values.subList(skip, values.size()));
+                .skip(skip)
+                .limit(values.size() - skip),
+            values.subList(skip, values.size()));
     }
 
     @Test
@@ -529,8 +529,8 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         final List<T> values = this.values();
 
         this.skipAndCheck(this.createStream()
-                .skip(values.size())
-                .limit(0));
+            .skip(values.size())
+            .limit(0));
     }
 
     @Test
@@ -539,8 +539,8 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         final List<T> values = this.values();
 
         this.skipAndCheck(this.createStream()
-                .skip(values.size())
-                .limit(1));
+            .skip(values.size())
+            .limit(1));
     }
 
     @Test
@@ -582,9 +582,9 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
                                   final Predicate<? super T> predicate,
                                   final boolean result) {
         this.checkEquals(
-                result,
-                stream.allMatch(predicate),
-                () -> stream + " allMatch"
+            result,
+            stream.allMatch(predicate),
+            () -> stream + " allMatch"
         );
     }
 
@@ -592,9 +592,9 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
                                   final Predicate<? super T> predicate,
                                   final boolean result) {
         this.checkEquals(
-                result,
-                stream.anyMatch(predicate),
-                () -> stream + " anyMatch"
+            result,
+            stream.anyMatch(predicate),
+            () -> stream + " anyMatch"
         );
     }
 
@@ -602,9 +602,9 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
                                    final Predicate<? super T> predicate,
                                    final boolean result) {
         this.checkEquals(
-                result,
-                stream.noneMatch(predicate),
-                () -> stream + " anyMatch"
+            result,
+            stream.noneMatch(predicate),
+            () -> stream + " anyMatch"
         );
     }
 
@@ -614,8 +614,8 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     default void collectAndCheck(final Supplier<Stream<T>> stream, final T... values) {
         this.collectAndCheck(stream.get(), Lists.of(values));
         this.toArrayIntFunctionAndCheck(stream.get(),
-                (int size) -> Cast.to(Array.newInstance(values.getClass().getComponentType(), size)),
-                values);
+            (int size) -> Cast.to(Array.newInstance(values.getClass().getComponentType(), size)),
+            values);
     }
 
     default void collectAndCheck(final Supplier<Stream<T>> stream, final List<T> values) {
@@ -633,17 +633,17 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         this.limitAndCheck(stream.get(), values);
 
         this.findFirstAndCheck(stream.get(), values.stream()
-                .findFirst());
+            .findFirst());
         this.findAnyAndCheck(stream.get(), values);
         this.forEachAndCheck(stream.get(), values);
         this.forEachOrderedAndCheck(stream.get(), values);
 
         this.allMatchAndCheck(stream.get(),
-                values::contains,
-                true);
+            values::contains,
+            true);
         this.anyMatchAndCheck(stream.get(),
-                values::contains,
-                true);
+            values::contains,
+            true);
 
         this.filterAndCheck(stream, values);
     }
@@ -657,8 +657,8 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     default <U> void collectAndCheck(final Stream<T> stream, final List<U> values) {
         this.checkEquals(values,
-                stream.collect(Collectors.toList()),
-                () -> "collect(Collector.toList) from " + stream);
+            stream.collect(Collectors.toList()),
+            () -> "collect(Collector.toList) from " + stream);
     }
 
 //    default <U> void collectAndCheck2(final Stream<T> stream, final List<U> values) {
@@ -677,9 +677,9 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     default void countAndCheck(final Stream<T> stream, final long count) {
         this.checkEquals(
-                count,
-                stream.count(),
-                () -> "count from " + stream
+            count,
+            stream.count(),
+            () -> "count from " + stream
         );
     }
 
@@ -692,21 +692,21 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     default void filterAndCheck(final Supplier<Stream<T>> stream, final List<T> values) {
         this.checkEquals(
-                values,
-                stream.get()
-                        .filter(v -> {
-                            this.checkEquals(true, values.contains(v), "predicate argument not in values");
-                            return true;
-                        })
-                        .collect(Collectors.toList()),
-                () -> "filter(true) then collect(Collector.toList) from " + stream
+            values,
+            stream.get()
+                .filter(v -> {
+                    this.checkEquals(true, values.contains(v), "predicate argument not in values");
+                    return true;
+                })
+                .collect(Collectors.toList()),
+            () -> "filter(true) then collect(Collector.toList) from " + stream
         );
         this.checkEquals(
-                Lists.empty(),
-                stream.get()
-                        .filter(Predicates.never())
-                        .collect(Collectors.toList()),
-                () -> "filter(false) then collect(Collector.toList) from " + stream
+            Lists.empty(),
+            stream.get()
+                .filter(Predicates.never())
+                .collect(Collectors.toList()),
+            () -> "filter(false) then collect(Collector.toList) from " + stream
         );
 
         final Predicate<T> keepOdd = (t) -> {
@@ -716,13 +716,13 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         };
 
         this.checkEquals(
-                values.stream()
-                        .filter(keepOdd)
-                        .collect(Collectors.toList()),
-                stream.get()
-                        .filter(keepOdd)
-                        .collect(Collectors.toList()),
-                () -> "filter(odds) then collect(Collector.toList) from " + stream
+            values.stream()
+                .filter(keepOdd)
+                .collect(Collectors.toList()),
+            stream.get()
+                .filter(keepOdd)
+                .collect(Collectors.toList()),
+            () -> "filter(odds) then collect(Collector.toList) from " + stream
         );
 
         final Predicate<T> keepEven = (t) -> {
@@ -732,13 +732,13 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         };
 
         this.checkEquals(
-                values.stream()
-                        .filter(keepEven)
-                        .collect(Collectors.toList()),
-                stream.get()
-                        .filter(keepEven)
-                        .collect(Collectors.toList()),
-                () -> "filter(evens) then collect(Collector.toList) from " + stream
+            values.stream()
+                .filter(keepEven)
+                .collect(Collectors.toList()),
+            stream.get()
+                .filter(keepEven)
+                .collect(Collectors.toList()),
+            () -> "filter(evens) then collect(Collector.toList) from " + stream
         );
     }
 
@@ -754,9 +754,9 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     default void findFirstAndCheck(final Stream<T> stream, final Optional<T> first) {
         this.checkEquals(
-                first,
-                stream.findFirst(),
-                () -> "findFirst from " + stream
+            first,
+            stream.findFirst(),
+            () -> "findFirst from " + stream
         );
     }
 
@@ -764,24 +764,24 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     default void findAnyAndCheckNone(final Stream<T> stream) {
         this.checkEquals(
-                Optional.empty(),
-                stream.findAny(),
-                () -> "findAny from " + stream
+            Optional.empty(),
+            stream.findAny(),
+            () -> "findAny from " + stream
         );
     }
 
     default void findAnyAndCheck(final Stream<T> stream, final List<T> values) {
         final Optional<T> any = stream.findAny();
-        
+
         this.checkNotEquals(
-                Optional.empty(),
-                any,
-                () -> "findAny " + stream + " values: " + values
+            Optional.empty(),
+            any,
+            () -> "findAny " + stream + " values: " + values
         );
         this.checkEquals(
-                true,
-                values.contains(any.orElse(null)),
-                () -> "findAny from " + stream + " found " + any
+            true,
+            values.contains(any.orElse(null)),
+            () -> "findAny from " + stream + " found " + any
         );
     }
 
@@ -801,9 +801,9 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         expected.addAll(values);
 
         this.checkEquals(
-                expected,
-                collected,
-                () -> "for each from " + stream
+            expected,
+            collected,
+            () -> "for each from " + stream
         );
     }
 
@@ -820,9 +820,9 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         stream.forEachOrdered(collected::add);
 
         this.checkEquals(
-                values,
-                collected,
-                () -> "for each from " + stream
+            values,
+            collected,
+            () -> "for each from " + stream
         );
     }
 
@@ -858,9 +858,9 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         }
 
         this.checkEquals(
-                values,
-                iteratorValues,
-                () -> "iterator from " + stream
+            values,
+            iteratorValues,
+            () -> "iterator from " + stream
         );
     }
 
@@ -878,11 +878,11 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
             final int limit = i;
 
             this.checkEquals(
-                    values.subList(0, limit),
-                    stream.get()
-                            .limit(i)
-                            .collect(Collectors.toList()),
-                    () -> "limit " + limit + " then collect from " + stream
+                values.subList(0, limit),
+                stream.get()
+                    .limit(i)
+                    .collect(Collectors.toList()),
+                () -> "limit " + limit + " then collect from " + stream
             );
         }
     }
@@ -894,9 +894,9 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     default void limitAndCheck(final Stream<T> stream, final List<T> values) {
         this.checkEquals(
-                values,
-                stream.collect(Collectors.toList()),
-                () -> "limit then collect from " + stream
+            values,
+            stream.collect(Collectors.toList()),
+            () -> "limit then collect from " + stream
         );
     }
 
@@ -913,11 +913,11 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
                              final Comparator<T> comparator,
                              final List<T> values) {
         final Optional<T> expected = values.stream()
-                .max(comparator);
+            .max(comparator);
         this.checkEquals(
-                expected,
-                stream.max(comparator),
-                () -> "max " + comparator + " from " + stream + " with values: " + values
+            expected,
+            stream.max(comparator),
+            () -> "max " + comparator + " from " + stream + " with values: " + values
         );
     }
 
@@ -934,11 +934,11 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
                              final Comparator<T> comparator,
                              final List<T> values) {
         final Optional<T> expected = values.stream()
-                .min(comparator);
+            .min(comparator);
         this.checkEquals(
-                expected,
-                stream.min(comparator),
-                () -> "min " + comparator + " from " + stream + " with values: " + values
+            expected,
+            stream.min(comparator),
+            () -> "min " + comparator + " from " + stream + " with values: " + values
         );
     }
 
@@ -955,9 +955,9 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         this.collectAndCheck(stream.peek(collected::add), values);
 
         this.checkEquals(
-                values,
-                collected,
-                () -> "peek from " + stream
+            values,
+            collected,
+            () -> "peek from " + stream
         );
     }
 
@@ -968,17 +968,17 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
                                      final BinaryOperator<TT> reducer,
                                      final TT... values) {
         this.reduceAndCheck(stream,
-                reducer,
-                Lists.of(values));
+            reducer,
+            Lists.of(values));
     }
 
     default <TT> void reduceAndCheck(final Stream<TT> stream,
                                      final BinaryOperator<TT> reducer,
                                      final List<TT> values) {
         this.checkEquals(
-                values.stream().reduce(reducer),
-                stream.reduce(reducer),
-                () -> "reduce " + stream
+            values.stream().reduce(reducer),
+            stream.reduce(reducer),
+            () -> "reduce " + stream
         );
     }
 
@@ -990,9 +990,9 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
                                      final BinaryOperator<TT> reducer,
                                      final TT... values) {
         this.reduceAndCheck(stream,
-                initial,
-                reducer,
-                Lists.of(values));
+            initial,
+            reducer,
+            Lists.of(values));
     }
 
     default <TT> void reduceAndCheck(final Stream<TT> stream,
@@ -1000,14 +1000,14 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
                                      final BinaryOperator<TT> reducer,
                                      final List<TT> values) {
         this.checkEquals(
-                values.stream().reduce(initial, reducer),
-                stream.reduce(initial, reducer),
-                () -> "reduce " + CharSequences.quoteIfChars(initial) + " " + stream
+            values.stream().reduce(initial, reducer),
+            stream.reduce(initial, reducer),
+            () -> "reduce " + CharSequences.quoteIfChars(initial) + " " + stream
         );
     }
 
     // reduce(T, BinaryFunction, BinaryOperator)........................................................................
-    
+
     @SuppressWarnings("unchecked")
     default <TT> void reduceAndCheck(final Stream<TT> stream,
                                      final TT initial,
@@ -1023,9 +1023,9 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
                                      final BinaryOperator<TT> combiner,
                                      final List<TT> values) {
         this.checkEquals(
-                values.stream().reduce(initial, reducer, combiner),
-                stream.reduce(initial, reducer, combiner),
-                () -> "reduce " + CharSequences.quoteIfChars(initial) + " " + stream
+            values.stream().reduce(initial, reducer, combiner),
+            stream.reduce(initial, reducer, combiner),
+            () -> "reduce " + CharSequences.quoteIfChars(initial) + " " + stream
         );
     }
 
@@ -1043,11 +1043,11 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
             final int skip = i;
 
             this.checkEquals(
-                    values.subList(skip, to),
-                    stream.get()
-                            .skip(skip)
-                            .collect(Collectors.toList()),
-                    () -> "skip " + skip + " then collect from " + stream
+                values.subList(skip, to),
+                stream.get()
+                    .skip(skip)
+                    .collect(Collectors.toList()),
+                () -> "skip " + skip + " then collect from " + stream
             );
         }
     }
@@ -1059,9 +1059,9 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     default void skipAndCheck(final Stream<T> stream, final List<T> values) {
         this.checkEquals(
-                values,
-                stream.collect(Collectors.toList()),
-                () -> "skip  then collect from " + stream
+            values,
+            stream.collect(Collectors.toList()),
+            () -> "skip  then collect from " + stream
         );
     }
 
@@ -1074,9 +1074,9 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     default void toArrayAndCheck(final Stream<T> stream, final List<T> values) {
         assertArrayEquals(
-                values.toArray(),
-                stream.toArray(),
-                () -> "toArray from " + stream
+            values.toArray(),
+            stream.toArray(),
+            () -> "toArray from " + stream
         );
     }
 
@@ -1087,9 +1087,9 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
                                             final IntFunction<T[]> generator,
                                             final T... values) {
         assertArrayEquals(
-                values,
-                stream.toArray(),
-                () -> "toArray(IntFunction) from " + stream + " intFunction: " + generator
+            values,
+            stream.toArray(),
+            () -> "toArray(IntFunction) from " + stream + " intFunction: " + generator
         );
     }
 }

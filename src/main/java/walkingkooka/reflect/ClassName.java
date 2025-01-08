@@ -102,8 +102,8 @@ public final class ClassName extends JavaName<ClassName> {
         final String name = klass.getName();
         final ClassName typeName = CONSTANTS.get(name);
         return null != typeName ?
-                typeName :
-                new ClassName(klass.getName());
+            typeName :
+            new ClassName(klass.getName());
     }
 
     /**
@@ -115,8 +115,8 @@ public final class ClassName extends JavaName<ClassName> {
 
         final ClassName typeName = CONSTANTS.get(name);
         return null != typeName ?
-                typeName :
-                notConstant(name);
+            typeName :
+            notConstant(name);
     }
 
     /**
@@ -166,15 +166,15 @@ public final class ClassName extends JavaName<ClassName> {
         final PackageName packageName = this.parentPackage();
         if (false == PackageName.UNNAMED.equals(packageName)) {
             filename.append(
-                    this.parentPackage()
-                            .filename()
+                this.parentPackage()
+                    .filename()
             );
             filename.append('/');
         }
 
         filename.append(
-                this.nameWithoutPackage()
-                        .replace('.', '$')
+            this.nameWithoutPackage()
+                .replace('.', '$')
         );
         filename.append('.');
         filename.append(ClassName.CLASS_FILE_EXTENSION.value());

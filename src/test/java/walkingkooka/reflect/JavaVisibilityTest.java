@@ -24,7 +24,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
 public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
-        ToStringTesting<JavaVisibility> {
+    ToStringTesting<JavaVisibility> {
 
     // of(Class).......................................................................................................
 
@@ -79,8 +79,8 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
                                   final JavaVisibility visibility) throws Exception {
         final Constructor<?> constructor = classs.getDeclaredConstructor();
         this.checkEquals(visibility,
-                JavaVisibility.of(constructor),
-                constructor::toGenericString);
+            JavaVisibility.of(constructor),
+            constructor::toGenericString);
     }
 
     // of(Method)......................................................................................................
@@ -124,8 +124,8 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
                              final JavaVisibility visibility) throws Exception {
         final Method method = JavaVisibilityTest.class.getDeclaredMethod(methodName);
         this.checkEquals(visibility,
-                JavaVisibility.of(method),
-                method::toGenericString);
+            JavaVisibility.of(method),
+            method::toGenericString);
     }
 
     // of(Field)......................................................................................................
@@ -165,8 +165,8 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
     private void checkField(final String field,
                             final JavaVisibility visibility) throws Exception {
         this.checkEquals(visibility,
-                JavaVisibility.of(JavaVisibilityTest.class.getDeclaredField(field)),
-                field);
+            JavaVisibility.of(JavaVisibilityTest.class.getDeclaredField(field)),
+            field);
     }
 
     // isOrLess.........................................................................................................
@@ -255,8 +255,8 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
                                final JavaVisibility other,
                                final boolean expected) {
         this.checkEquals(expected,
-                visibility.isOrLess(other),
-                () -> visibility + " is less than " + other);
+            visibility.isOrLess(other),
+            () -> visibility + " is less than " + other);
     }
 
     // javaKeyword......................................................................................................
@@ -264,41 +264,41 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
     @Test
     public void testJavaKeywordPublic() {
         this.javaKeywordCheck(
-                JavaVisibility.PUBLIC,
-                "public"
+            JavaVisibility.PUBLIC,
+            "public"
         );
     }
 
     @Test
     public void testJavaKeywordProtected() {
         this.javaKeywordCheck(
-                JavaVisibility.PROTECTED,
-                "protected"
+            JavaVisibility.PROTECTED,
+            "protected"
         );
     }
 
     @Test
     public void testJavaKeywordPackagePrivate() {
         this.javaKeywordCheck(
-                JavaVisibility.PACKAGE_PRIVATE,
-                ""
+            JavaVisibility.PACKAGE_PRIVATE,
+            ""
         );
     }
 
     @Test
     public void testJavaKeywordPrivate() {
         this.javaKeywordCheck(
-                JavaVisibility.PRIVATE,
-                "private"
+            JavaVisibility.PRIVATE,
+            "private"
         );
     }
 
     private void javaKeywordCheck(final JavaVisibility visibility,
                                   final String expected) {
         this.checkEquals(
-                expected,
-                visibility.javaKeyword(),
-                () -> visibility.toString()
+            expected,
+            visibility.javaKeyword(),
+            () -> visibility.toString()
         );
     }
 

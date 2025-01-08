@@ -24,9 +24,9 @@ public interface HasNameTesting<N extends Name> extends Testing {
     default void nameAndCheck(final HasName<N> has,
                               final N expected) {
         this.checkEquals(
-                expected,
-                has.name(),
-                has::toString
+            expected,
+            has.name(),
+            has::toString
         );
     }
 }

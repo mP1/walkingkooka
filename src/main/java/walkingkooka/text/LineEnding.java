@@ -61,9 +61,9 @@ public enum LineEnding implements CharSequence {
         Objects.requireNonNull(lineEnding, "lineEnding");
 
         return Arrays.stream(values())
-                .filter(le -> le.value.equals(lineEnding))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Unknown line endings=" + CharSequences.quoteAndEscape(lineEnding)));
+            .filter(le -> le.value.equals(lineEnding))
+            .findFirst()
+            .orElseThrow(() -> new IllegalArgumentException("Unknown line endings=" + CharSequences.quoteAndEscape(lineEnding)));
     }
 
     /**

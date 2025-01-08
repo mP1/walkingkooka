@@ -31,32 +31,32 @@ public final class PathIteratorTest implements IteratorTesting, ClassTesting2<Pa
     @Test
     public void testRoot() {
         this.iterateAndCheck(Paths.string("/").iterator(),
-                StringName.ROOT);
+            StringName.ROOT);
     }
 
     @Test
     public void testNonRoot() {
         this.iterateAndCheck(Paths.string("/a1").iterator(),
-                StringName.ROOT,
-                Names.string("a1"));
+            StringName.ROOT,
+            Names.string("a1"));
     }
 
     @Test
     public void testNonRoot2() {
         this.iterateAndCheck(Paths.string("/a1/b2/c3").iterator(),
-                StringName.ROOT,
-                Names.string("a1"),
-                Names.string("b2"),
-                Names.string("c3"));
+            StringName.ROOT,
+            Names.string("a1"),
+            Names.string("b2"),
+            Names.string("c3"));
     }
 
     @Test
     public void testNonRootUsingHasNext() {
         this.iterateUsingHasNextAndCheck(Paths.string("/a1/b2/c3").iterator(),
-                StringName.ROOT,
-                Names.string("a1"),
-                Names.string("b2"),
-                Names.string("c3"));
+            StringName.ROOT,
+            Names.string("a1"),
+            Names.string("b2"),
+            Names.string("c3"));
     }
 
     @Test

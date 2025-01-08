@@ -63,18 +63,18 @@ public final class ComparableTestingTest implements ComparableTesting {
     @Test
     public void testCompareToAndCheckNotEquals() {
         this.compareToAndCheckNotEquals(
-                "abc",
-                "xyz"
+            "abc",
+            "xyz"
         );
     }
 
     @Test
     public void testCompareToAndCheckNotEqualsFails() {
         this.mustFail(
-                () -> this.compareToAndCheckNotEquals(
-                        "xyz",
-                        "xyz"
-                )
+            () -> this.compareToAndCheckNotEquals(
+                "xyz",
+                "xyz"
+            )
         );
     }
 
@@ -93,13 +93,13 @@ public final class ComparableTestingTest implements ComparableTesting {
     @Test
     public void testCompareToArraySortAndCheck() {
         this.compareToArraySortAndCheck("A", "Z", "B", "D", "C",
-                "A", "B", "C", "D", "Z");
+            "A", "B", "C", "D", "Z");
     }
 
     @Test
     public void testCompareToArraySortAndCheckFails() {
         this.mustFail(() -> this.compareToArraySortAndCheck("A", "Z", "B", "D", "C",
-                "Z", "D", "C", "B", "A"));
+            "Z", "D", "C", "B", "A"));
     }
 
     // compareResultCheck ..............................................................................................

@@ -26,7 +26,7 @@ import java.util.Iterator;
  * java.util.Vector}.
  */
 public interface Stack<T> extends Iterable<T>,
-        CanBeEmpty {
+    CanBeEmpty {
 
     /**
      * Peeks without removing the item at the top of the stack.

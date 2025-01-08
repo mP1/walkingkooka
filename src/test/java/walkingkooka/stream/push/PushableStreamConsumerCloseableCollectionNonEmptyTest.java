@@ -22,14 +22,14 @@ import walkingkooka.Cast;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 
 public final class PushableStreamConsumerCloseableCollectionNonEmptyTest extends PushableStreamConsumerCloseableCollectionTestCase<PushableStreamConsumerCloseableCollectionNonEmpty>
-        implements HashCodeEqualsDefinedTesting2<PushableStreamConsumerCloseableCollectionNonEmpty> {
+    implements HashCodeEqualsDefinedTesting2<PushableStreamConsumerCloseableCollectionNonEmpty> {
 
     @Test
     public void testAdd() {
         final Runnable second = TestCloseableRunnable.with("2");
         this.addAndCheck(this.createCloseableCollection(),
-                second,
-                this.first, second);
+            second,
+            this.first, second);
     }
 
     @Test
@@ -39,15 +39,15 @@ public final class PushableStreamConsumerCloseableCollectionNonEmptyTest extends
         final Runnable fourth = TestCloseableRunnable.with("4d");
 
         final PushableStreamConsumerCloseableCollectionNonEmpty collection = this.createCloseableCollection()
-                .add(second)
-                .add(third);
+            .add(second)
+            .add(third);
 
         this.addAndCheck(collection,
-                fourth,
-                this.first, second, third, fourth);
+            fourth,
+            this.first, second, third, fourth);
 
         collection.closeables
-                .forEach(c -> ((TestCloseableRunnable) c).checkNotClosed());
+            .forEach(c -> ((TestCloseableRunnable) c).checkNotClosed());
     }
 
     @Test
@@ -56,12 +56,12 @@ public final class PushableStreamConsumerCloseableCollectionNonEmptyTest extends
         final TestCloseableRunnable third = TestCloseableRunnable.with("3c");
 
         final PushableStreamConsumerCloseableCollectionNonEmpty collection = this.createCloseableCollection()
-                .add(second)
-                .add(third);
+            .add(second)
+            .add(third);
         collection.close();
 
         collection.closeables
-                .forEach(c -> ((TestCloseableRunnable) c).checkClosed());
+            .forEach(c -> ((TestCloseableRunnable) c).checkClosed());
     }
 
     @Test
@@ -69,18 +69,18 @@ public final class PushableStreamConsumerCloseableCollectionNonEmptyTest extends
         this.closeCount = 0;
 
         final PushableStreamConsumerCloseableCollectionNonEmpty collection = this.createCloseableCollection()
-                .add(() -> this.closeCount++);
+            .add(() -> this.closeCount++);
         collection.close();
 
         collection.closeables.stream()
-                .filter(p -> p instanceof TestCloseableRunnable)
-                .forEach(c -> ((TestCloseableRunnable) c).checkClosed());
+            .filter(p -> p instanceof TestCloseableRunnable)
+            .forEach(c -> ((TestCloseableRunnable) c).checkClosed());
 
         collection.close();
 
         collection.closeables.stream()
-                .filter(p -> p instanceof TestCloseableRunnable)
-                .forEach(c -> ((TestCloseableRunnable) c).checkClosed());
+            .filter(p -> p instanceof TestCloseableRunnable)
+            .forEach(c -> ((TestCloseableRunnable) c).checkClosed());
 
         this.checkEquals(1, this.closeCount);
     }
@@ -122,7 +122,7 @@ public final class PushableStreamConsumerCloseableCollectionNonEmptyTest extends
     @Override
     PushableStreamConsumerCloseableCollectionNonEmpty createCloseableCollection() {
         return PushableStreamConsumerCloseableCollectionEmpty.empty()
-                .add(this.first);
+            .add(this.first);
     }
 
     private final Runnable first = TestCloseableRunnable.with("1a");

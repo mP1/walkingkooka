@@ -19,7 +19,6 @@ package walkingkooka.util;
 
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.util.SystemPropertySecurityAction;
 
 public final class SystemPropertySecurityActionTest implements ClassTesting2<SystemPropertySecurityAction> {
 

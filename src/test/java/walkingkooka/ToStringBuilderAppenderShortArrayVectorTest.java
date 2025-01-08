@@ -45,8 +45,7 @@ public final class ToStringBuilderAppenderShortArrayVectorTest extends ToStringB
         return new short[0];
     }
 
-    @Override
-    final String defaultValueToString(final short[] value) {
+    @Override final String defaultValueToString(final short[] value) {
         return "";
     }
 

@@ -29,22 +29,22 @@ public final class GlobPatternComponentWildcardTest extends GlobPatternComponent
     @Test
     public void testEqualsDifferentMin() {
         this.checkNotEquals(
-                GlobPatternComponentWildcard.with(MIN + 1, MAX)
+            GlobPatternComponentWildcard.with(MIN + 1, MAX)
         );
     }
 
     @Test
     public void testEqualsDifferentMax() {
         this.checkNotEquals(
-                GlobPatternComponentWildcard.with(MIN, 1 + MAX)
+            GlobPatternComponentWildcard.with(MIN, 1 + MAX)
         );
     }
 
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createObject(),
-                "1..234"
+            this.createObject(),
+            "1..234"
         );
     }
 

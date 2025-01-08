@@ -22,12 +22,11 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class CharSequenceTextCursorTest implements ClassTesting2<CharSequenceTextCursor>,
-        TextCursorTesting2<CharSequenceTextCursor>,
-        ToStringTesting<CharSequenceTextCursor> {
+    TextCursorTesting2<CharSequenceTextCursor>,
+    ToStringTesting<CharSequenceTextCursor> {
 
     @Test
     public void testFromNullFails() {

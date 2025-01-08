@@ -24,14 +24,13 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.ThrowableTesting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class PathSeparatorTest implements ClassTesting2<PathSeparator>,
-        HashCodeEqualsDefinedTesting2<PathSeparator>,
-        ThrowableTesting,
-        ToStringTesting<PathSeparator> {
+    HashCodeEqualsDefinedTesting2<PathSeparator>,
+    ThrowableTesting,
+    ToStringTesting<PathSeparator> {
 
     // constants
 

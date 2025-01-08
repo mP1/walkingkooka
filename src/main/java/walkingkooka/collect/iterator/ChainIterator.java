@@ -46,10 +46,10 @@ final class ChainIterator<E> implements Iterator<E> {
                 break;
             default:
                 result = new ChainIterator<>(
-                        Arrays.copyOf(
-                                iterators,
-                                count
-                        ) // GWT doesnt support Array.clone();
+                    Arrays.copyOf(
+                        iterators,
+                        count
+                    ) // GWT doesnt support Array.clone();
                 );
                 break;
         }
@@ -166,7 +166,7 @@ final class ChainIterator<E> implements Iterator<E> {
     public String toString() {
         final Iterator<E> current = this.current;
         return null == current ?
-                "" :
-                this.next == this.iterators.length ? current.toString() : current + "...";
+            "" :
+            this.next == this.iterators.length ? current.toString() : current + "...";
     }
 }

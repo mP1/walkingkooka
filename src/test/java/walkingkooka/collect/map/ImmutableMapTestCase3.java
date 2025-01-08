@@ -24,8 +24,8 @@ import walkingkooka.collect.iterator.IteratorTesting;
 import java.util.Map;
 
 public abstract class ImmutableMapTestCase3<M extends ImmutableMap<String, Integer>> extends ImmutableMapTestCase2<M>
-        implements HashCodeEqualsDefinedTesting2<M>,
-        IteratorTesting {
+    implements HashCodeEqualsDefinedTesting2<M>,
+    IteratorTesting {
 
     ImmutableMapTestCase3() {
         super();

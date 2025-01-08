@@ -90,9 +90,9 @@ public final class CharPredicatesTest implements PublicStaticHelperTesting<CharP
 
     private void failIfNullOrEmptyOrInitialAndPartFalseAndCheck(final String text) {
         CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(text,
-                "TEXT",
-                CharPredicates.letter(),
-                CharPredicates.digit());
+            "TEXT",
+            CharPredicates.letter(),
+            CharPredicates.digit());
     }
 
     // isInitialOrPart..................................................................................................
@@ -100,69 +100,69 @@ public final class CharPredicatesTest implements PublicStaticHelperTesting<CharP
     @Test
     public void testIsInitialAndPartNull() {
         this.isInitialAndPartCheck(
-                null,
-                false
+            null,
+            false
         );
     }
 
     @Test
     public void testIsInitialAndPartEmpty() {
         this.isInitialAndPartCheck(
-                "",
-                false
+            "",
+            false
         );
     }
 
     @Test
     public void testIsInitialAndPartInitialFail() {
         this.isInitialAndPartCheck(
-                "!",
-                false
+            "!",
+            false
         );
     }
 
     @Test
     public void testIsInitialAndPartPartlFail() {
         this.isInitialAndPartCheck(
-                "A!",
-                false
+            "A!",
+            false
         );
     }
 
     @Test
     public void testIsInitialAndPartOneChar() {
         this.isInitialAndPartCheck(
-                "A",
-                true
+            "A",
+            true
         );
     }
 
     @Test
     public void testIsInitialAndPartSeveralChars() {
         this.isInitialAndPartCheck(
-                "A1",
-                true
+            "A1",
+            true
         );
     }
 
     @Test
     public void testIsInitialAndPartSeveralChars2() {
         this.isInitialAndPartCheck(
-                "A123",
-                true
+            "A123",
+            true
         );
     }
 
     private void isInitialAndPartCheck(final String text,
                                        final boolean expected) {
         this.checkEquals(
-                expected,
-                CharPredicates.isInitialAndPart(
-                        text,
-                        Character::isLetter,
-                        Character::isDigit
-                ),
-                () -> "isInitialAndPart(" + CharSequences.quoteAndEscape(text) + ", ALPHA, DIGITS)"
+            expected,
+            CharPredicates.isInitialAndPart(
+                text,
+                Character::isLetter,
+                Character::isDigit
+            ),
+            () -> "isInitialAndPart(" + CharSequences.quoteAndEscape(text) + ", ALPHA, DIGITS)"
         );
     }
 

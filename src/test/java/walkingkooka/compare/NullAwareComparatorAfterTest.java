@@ -27,16 +27,16 @@ public final class NullAwareComparatorAfterTest extends NullAwareComparatorTestC
     @Test
     public void testCompareNullLeft() {
         this.compareAndCheckMore(
-                null,
-                "Abc"
+            null,
+            "Abc"
         );
     }
 
     @Test
     public void testCompareNullRight() {
         this.compareAndCheckLess(
-                "Abc",
-                null
+            "Abc",
+            null
         );
     }
 
@@ -44,8 +44,8 @@ public final class NullAwareComparatorAfterTest extends NullAwareComparatorTestC
     public void testToString() {
         final Comparator<String> fake = Comparators.fake();
         this.toStringAndCheck(
-                NullAwareComparatorAfter.with(fake),
-                fake + " > null"
+            NullAwareComparatorAfter.with(fake),
+            fake + " > null"
         );
     }
 

@@ -22,8 +22,8 @@ import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.predicate.character.CharPredicateTesting;
 
 final public class CaseSensitivityCharPredicateTest
-        implements CharPredicateTesting<CaseSensitivityCharPredicate>,
-        HashCodeEqualsDefinedTesting2<CaseSensitivityCharPredicate> {
+    implements CharPredicateTesting<CaseSensitivityCharPredicate>,
+    HashCodeEqualsDefinedTesting2<CaseSensitivityCharPredicate> {
 
     // constants
 
@@ -80,20 +80,20 @@ final public class CaseSensitivityCharPredicateTest
     @Test
     public void testEqualsDifferentCaseSensitivity() {
         this.checkNotEquals(CaseSensitivityCharPredicate.with(
-                CHAR,
-                SENSITIVITY.invert()));
+            CHAR,
+            SENSITIVITY.invert()));
     }
 
     @Test
     public void testToStringCaseSensitive() {
         this.toStringAndCheck(this.createCharPredicate(),
-                "'A'");
+            "'A'");
     }
 
     @Test
     public void testToStringCaseInsensitive() {
         this.toStringAndCheck(this.createCharPredicateCaseInsensitive('A'),
-                "'A' (CaseInsensitive)");
+            "'A' (CaseInsensitive)");
     }
 
     @Override

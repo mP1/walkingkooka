@@ -44,7 +44,7 @@ public final class PublicStaticFactoryTesting {
                                            final Class<?> type) {
         final String name = type.getSimpleName();
         final String without = Character.toLowerCase(name.charAt(prefix.length())) +
-                name.substring(prefix.length() + 1, name.length() - suffix.length());
+            name.substring(prefix.length() + 1, name.length() - suffix.length());
 
         final String factoryMethodName = factoryMethodNameSpecialFixup(without, suffix);
 
@@ -57,23 +57,23 @@ public final class PublicStaticFactoryTesting {
         };
 
         final Set<Method> publicStaticMethods = Arrays.stream(base.getMethods())
-                .filter(m -> MethodAttributes.STATIC.is(m) && JavaVisibility.PUBLIC == JavaVisibility.of(m))
-                .collect(Collectors.toCollection(() -> SortedSets.tree(methodSorter)));
+            .filter(m -> MethodAttributes.STATIC.is(m) && JavaVisibility.PUBLIC == JavaVisibility.of(m))
+            .collect(Collectors.toCollection(() -> SortedSets.tree(methodSorter)));
 
         final Set<Method> factoryMethods = publicStaticMethods.stream()
-                .filter(m -> m.getName().equals(factoryMethodName) &&
-                        m.getReturnType().equals(type))
-                .collect(Collectors.toCollection(() -> SortedSets.tree(methodSorter)));
+            .filter(m -> m.getName().equals(factoryMethodName) &&
+                m.getReturnType().equals(type))
+            .collect(Collectors.toCollection(() -> SortedSets.tree(methodSorter)));
 
         final String publicStaticMethodsToString = publicStaticMethods.stream()
-                .map(Method::toGenericString)
-                .collect(Collectors.joining(LineEnding.SYSTEM.toString()));
+            .map(Method::toGenericString)
+            .collect(Collectors.joining(LineEnding.SYSTEM.toString()));
 
         assertEquals(
-                1,
-                factoryMethods.size(),
-                () -> "Expected only a single factory method called " + CharSequences.quote(factoryMethodName) +
-                        " for " + type + " on " + base.getName() + " but got " + factoryMethods + "\n" + publicStaticMethodsToString
+            1,
+            factoryMethods.size(),
+            () -> "Expected only a single factory method called " + CharSequences.quote(factoryMethodName) +
+                " for " + type + " on " + base.getName() + " but got " + factoryMethods + "\n" + publicStaticMethodsToString
         );
     }
 

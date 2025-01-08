@@ -29,7 +29,7 @@ final class CaseSensitivityStartsWithCharSequencePredicate<C extends CharSequenc
      * Creates a {@link CaseSensitivityStartsWithCharSequencePredicate}
      */
     static <C extends CharSequence> CaseSensitivityStartsWithCharSequencePredicate<C> with(
-            final C startsWith, final CaseSensitivity sensitivity) {
+        final C startsWith, final CaseSensitivity sensitivity) {
         CharSequences.failIfNullOrEmpty(startsWith, "startsWith");
         Objects.requireNonNull(sensitivity, "sensitivity");
 

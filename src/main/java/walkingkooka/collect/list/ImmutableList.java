@@ -119,8 +119,8 @@ public interface ImmutableList<E> extends List<E>, CanBeEmpty {
      */
     static <EE> Collector<EE, ?, ImmutableList<EE>> collector() {
         return Collectors.collectingAndThen(
-                Collectors.toList(),
-                Lists::immutable
+            Collectors.toList(),
+            Lists::immutable
         );
     }
 }

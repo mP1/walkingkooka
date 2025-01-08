@@ -31,25 +31,25 @@ public interface PredicateTesting extends Testing {
                                    final TT value,
                                    final boolean expected) {
         this.checkEquals(
-                expected,
-                predicate.test(value),
-                () -> predicate + " should " + (expected ? "match" : "NOT match") + " " + CharSequences.quoteIfChars(value)
+            expected,
+            predicate.test(value),
+            () -> predicate + " should " + (expected ? "match" : "NOT match") + " " + CharSequences.quoteIfChars(value)
         );
     }
 
     default <TT> void testTrue(final Predicate<TT> predicate, final TT value) {
         this.testAndCheck(
-                predicate,
-                value,
-                true
+            predicate,
+            value,
+            true
         );
     }
 
     default <TT> void testFalse(final Predicate<TT> predicate, final TT value) {
         this.testAndCheck(
-                predicate,
-                value,
-                false
+            predicate,
+            value,
+            false
         );
     }
 }

@@ -32,19 +32,19 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
     @Test
     public void testLabelValueIncludesDefault() {
-    ToStringBuilder b = this.builder();
+        ToStringBuilder b = this.builder();
         b.label(LABEL1);
         b.value(this.iterable(false, (byte) 0, (short) 0, 0, 0L, 0.0f, 0.0, ""));
 
         this.buildAndCheck(b,
-                LABEL1 + LABEL_SEPARATOR + false + VALUE_SEPARATOR +
-                        (byte) 0 + VALUE_SEPARATOR +
-                        (short) 0 + VALUE_SEPARATOR +
-                        0 + VALUE_SEPARATOR +
-                        0L + VALUE_SEPARATOR +
-                        0.0f + VALUE_SEPARATOR +
-                        0.0 + VALUE_SEPARATOR +
-                        "");
+            LABEL1 + LABEL_SEPARATOR + false + VALUE_SEPARATOR +
+                (byte) 0 + VALUE_SEPARATOR +
+                (short) 0 + VALUE_SEPARATOR +
+                0 + VALUE_SEPARATOR +
+                0L + VALUE_SEPARATOR +
+                0.0f + VALUE_SEPARATOR +
+                0.0 + VALUE_SEPARATOR +
+                "");
     }
 
     @Test
@@ -70,8 +70,8 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
         b.value(this.iterable(7, 8, 9));
 
         this.buildAndCheck(b,
-                LABEL1 + LABEL_SEPARATOR + 1 + VALUE_SEPARATOR + 2 + VALUE_SEPARATOR + 3 + SEPARATOR +
-                        LABEL3 + LABEL_SEPARATOR + 7 + VALUE_SEPARATOR + 8 + VALUE_SEPARATOR + 9);
+            LABEL1 + LABEL_SEPARATOR + 1 + VALUE_SEPARATOR + 2 + VALUE_SEPARATOR + 3 + SEPARATOR +
+                LABEL3 + LABEL_SEPARATOR + 7 + VALUE_SEPARATOR + 8 + VALUE_SEPARATOR + 9);
     }
 
     // List..............................................................................................................
@@ -88,7 +88,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
 
         this.buildAndCheck(b,
-                LABEL2 + LABEL_SEPARATOR + VALUE);
+            LABEL2 + LABEL_SEPARATOR + VALUE);
     }
 
     @Test
@@ -99,7 +99,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
         b.value(Lists.of(LABEL2, VALUE));
 
         this.buildAndCheck(b,
-                LABEL1 + LABEL_SEPARATOR + LABEL2 + VALUE_SEPARATOR + VALUE);
+            LABEL1 + LABEL_SEPARATOR + LABEL2 + VALUE_SEPARATOR + VALUE);
     }
 
     @Test
@@ -116,8 +116,8 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
         b.value(Lists.of(7, 8, 9));
 
         this.buildAndCheck(b,
-                LABEL1 + LABEL_SEPARATOR + 1 + VALUE_SEPARATOR + 2 + VALUE_SEPARATOR + 3 + SEPARATOR +
-                        LABEL3 + LABEL_SEPARATOR + 7 + VALUE_SEPARATOR + 8 + VALUE_SEPARATOR + 9);
+            LABEL1 + LABEL_SEPARATOR + 1 + VALUE_SEPARATOR + 2 + VALUE_SEPARATOR + 3 + SEPARATOR +
+                LABEL3 + LABEL_SEPARATOR + 7 + VALUE_SEPARATOR + 8 + VALUE_SEPARATOR + 9);
     }
 
     // Object[]..............................................................................................................
@@ -134,7 +134,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
 
         this.buildAndCheck(b,
-                LABEL2 + LABEL_SEPARATOR + VALUE);
+            LABEL2 + LABEL_SEPARATOR + VALUE);
     }
 
     @Test
@@ -145,7 +145,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
         b.value(array(LABEL2, VALUE));
 
         this.buildAndCheck(b,
-                LABEL1 + LABEL_SEPARATOR + LABEL2 + VALUE_SEPARATOR + VALUE);
+            LABEL1 + LABEL_SEPARATOR + LABEL2 + VALUE_SEPARATOR + VALUE);
     }
 
     @Test
@@ -162,8 +162,8 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
         b.value(array(7, 8, 9));
 
         this.buildAndCheck(b,
-                LABEL1 + LABEL_SEPARATOR + 1 + VALUE_SEPARATOR + 2 + VALUE_SEPARATOR + 3 + SEPARATOR +
-                        LABEL3 + LABEL_SEPARATOR + 7 + VALUE_SEPARATOR + 8 + VALUE_SEPARATOR + 9);
+            LABEL1 + LABEL_SEPARATOR + 1 + VALUE_SEPARATOR + 2 + VALUE_SEPARATOR + 3 + SEPARATOR +
+                LABEL3 + LABEL_SEPARATOR + 7 + VALUE_SEPARATOR + 8 + VALUE_SEPARATOR + 9);
     }
 
     private Object[] array(final Object... elements) {
@@ -186,8 +186,8 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
         b.value(Sets.of(7, 8, 9));
 
         this.buildAndCheck(b,
-                LABEL1 + LABEL_SEPARATOR + 1 + VALUE_SEPARATOR + 2 + VALUE_SEPARATOR + 3 + SEPARATOR +
-                        LABEL3 + LABEL_SEPARATOR + 7 + VALUE_SEPARATOR + 8 + VALUE_SEPARATOR + 9);
+            LABEL1 + LABEL_SEPARATOR + 1 + VALUE_SEPARATOR + 2 + VALUE_SEPARATOR + 3 + SEPARATOR +
+                LABEL3 + LABEL_SEPARATOR + 7 + VALUE_SEPARATOR + 8 + VALUE_SEPARATOR + 9);
     }
 
     // Map..............................................................................................................
@@ -204,7 +204,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
 
 
         this.buildAndCheck(b,
-                LABEL2 + LABEL_SEPARATOR + VALUE);
+            LABEL2 + LABEL_SEPARATOR + VALUE);
     }
 
     @Test
@@ -215,7 +215,7 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
         b.value(Maps.of(LABEL2, VALUE));
 
         this.buildAndCheck(b,
-                LABEL1 + LABEL_SEPARATOR + LABEL2 + LABEL_SEPARATOR + VALUE);
+            LABEL1 + LABEL_SEPARATOR + LABEL2 + LABEL_SEPARATOR + VALUE);
     }
 
     @Test
@@ -250,11 +250,11 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
         b.value(Maps.of(key3, value3));
 
         this.buildAndCheck(b,
-                LABEL1 + LABEL_SEPARATOR +
-                        key1 + LABEL_SEPARATOR + value1 + VALUE_SEPARATOR +
-                        key2 + LABEL_SEPARATOR + value2 + SEPARATOR +
-                        LABEL3 + LABEL_SEPARATOR +
-                        key3 + LABEL_SEPARATOR + value3);
+            LABEL1 + LABEL_SEPARATOR +
+                key1 + LABEL_SEPARATOR + value1 + VALUE_SEPARATOR +
+                key2 + LABEL_SEPARATOR + value2 + SEPARATOR +
+                LABEL3 + LABEL_SEPARATOR +
+                key3 + LABEL_SEPARATOR + value3);
     }
 
     // more.............................................................................................................
@@ -266,14 +266,14 @@ public final class ToStringBuilderAppenderIterableVectorTest extends ToStringBui
         b.value(new Object[]{false, (byte) 0, (short) 0, 0, 0L, 0.0f, 0.0, ""});
 
         this.buildAndCheck(b, LABEL1 + LABEL_SEPARATOR +
-                false + VALUE_SEPARATOR +
-                (byte) 0 + VALUE_SEPARATOR +
-                (short) 0 + VALUE_SEPARATOR +
-                0 + VALUE_SEPARATOR +
-                0L + VALUE_SEPARATOR +
-                0.0f + VALUE_SEPARATOR +
-                0.0 + VALUE_SEPARATOR +
-                "");
+            false + VALUE_SEPARATOR +
+            (byte) 0 + VALUE_SEPARATOR +
+            (short) 0 + VALUE_SEPARATOR +
+            0 + VALUE_SEPARATOR +
+            0L + VALUE_SEPARATOR +
+            0.0f + VALUE_SEPARATOR +
+            0.0 + VALUE_SEPARATOR +
+            "");
     }
 
     @Test

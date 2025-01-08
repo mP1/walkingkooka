@@ -54,7 +54,7 @@ import java.util.stream.Stream;
  * It feeds a {@link PushableStreamConsumer} to interact with a source which will push values.
  */
 final class PushableStreamConsumerStream<T> implements Stream<T>,
-        UsesToStringBuilder {
+    UsesToStringBuilder {
 
     /**
      * Factory that creates a new {@link PushableStreamConsumerStream} without any registered closeables and intermediate ops.
@@ -63,8 +63,8 @@ final class PushableStreamConsumerStream<T> implements Stream<T>,
         Objects.requireNonNull(starter, "starter");
 
         return new PushableStreamConsumerStream<>(starter,
-                PushableStreamConsumerCloseableCollection.empty(),
-                Lists.empty());
+            PushableStreamConsumerCloseableCollection.empty(),
+            Lists.empty());
     }
 
     // Testing
@@ -389,8 +389,8 @@ final class PushableStreamConsumerStream<T> implements Stream<T>,
                         final BiFunction<U, ? super T, U> accumulator,
                         final BinaryOperator<U> combiner) {
         return this.assembleStartAndReturnResult((closeables) -> Cast.to(PushableStreamConsumerStreamPushableStreamConsumer.reduceWithInitial(initial,
-                Cast.to(accumulator),
-                closeables)));
+            Cast.to(accumulator),
+            closeables)));
 
     }
 

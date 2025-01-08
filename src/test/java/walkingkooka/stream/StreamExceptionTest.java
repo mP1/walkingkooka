@@ -31,7 +31,7 @@ final public class StreamExceptionTest implements StandardThrowableTesting<Strea
     public StreamException createThrowable(final String message, final Throwable cause) {
         return new StreamException(message, cause);
     }
-    
+
     @Override
     public Class<StreamException> type() {
         return StreamException.class;

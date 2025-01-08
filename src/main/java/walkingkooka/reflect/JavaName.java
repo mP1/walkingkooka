@@ -33,10 +33,10 @@ abstract class JavaName<N extends JavaName<N>> implements Name, Comparable<N> {
 
     static void check(final String name) {
         CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(
-                name,
-                "name",
-                START,
-                PART
+            name,
+            "name",
+            START,
+            PART
         );
         checkLength(name);
     }
@@ -120,8 +120,8 @@ abstract class JavaName<N extends JavaName<N>> implements Name, Comparable<N> {
     @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     public boolean equals(final Object other) {
         return this == other ||
-                this.canBeEqual(other) &&
-                        this.equals0(Cast.to(other));
+            this.canBeEqual(other) &&
+                this.equals0(Cast.to(other));
     }
 
     abstract boolean canBeEqual(final Object other);

@@ -34,7 +34,8 @@ public final class PushableStreamConsumerStreamIntermediate2PeekPushableStreamCo
         return PushableStreamConsumerStreamIntermediate2PeekPushableStreamConsumer.with(this.action, next);
     }
 
-    private final Consumer<String> action = (ignored) -> {};
+    private final Consumer<String> action = (ignored) -> {
+    };
 
     @Override
     public Class<PushableStreamConsumerStreamIntermediate2PeekPushableStreamConsumer<String>> type() {

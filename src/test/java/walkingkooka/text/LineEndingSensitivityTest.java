@@ -28,20 +28,20 @@ public final class LineEndingSensitivityTest implements ClassTesting<LineEndingS
         final String text = "abc\ndef\rghi\r\n";
 
         this.equalsAndCheck(
-                LineEndingSensitivity.EXACT,
-                text,
-                text,
-                true
+            LineEndingSensitivity.EXACT,
+            text,
+            text,
+            true
         );
     }
 
     @Test
     public void testExactEqualsDifferentLineEndings() {
         this.equalsAndCheck(
-                LineEndingSensitivity.EXACT,
-                "abc\n",
-                "abc\r",
-                false
+            LineEndingSensitivity.EXACT,
+            "abc\n",
+            "abc\r",
+            false
         );
     }
 
@@ -51,30 +51,30 @@ public final class LineEndingSensitivityTest implements ClassTesting<LineEndingS
         final String text = "abc\ndef\rghi\r\n";
 
         this.equalsAndCheck(
-                LineEndingSensitivity.ANY,
-                text,
-                text,
-                true
+            LineEndingSensitivity.ANY,
+            text,
+            text,
+            true
         );
     }
 
     @Test
     public void testExactAnyDifferentLineEndings() {
         this.equalsAndCheck(
-                LineEndingSensitivity.ANY,
-                "abc\n",
-                "abc\r",
-                true
+            LineEndingSensitivity.ANY,
+            "abc\n",
+            "abc\r",
+            true
         );
     }
 
     @Test
     public void testExactAnyDifferentTextBetweenLineEndings() {
         this.equalsAndCheck(
-                LineEndingSensitivity.ANY,
-                "abc\n",
-                "abc123\n",
-                false
+            LineEndingSensitivity.ANY,
+            "abc\n",
+            "abc123\n",
+            false
         );
     }
 
@@ -83,9 +83,9 @@ public final class LineEndingSensitivityTest implements ClassTesting<LineEndingS
                                 final CharSequence right,
                                 final boolean expected) {
         this.checkEquals(
-                expected,
-                sensitivity.equals(left, right),
-                () -> sensitivity + ".equals " + CharSequences.quoteAndEscape(left) + " " + CharSequences.quoteAndEscape(right)
+            expected,
+            sensitivity.equals(left, right),
+            () -> sensitivity + ".equals " + CharSequences.quoteAndEscape(left) + " " + CharSequences.quoteAndEscape(right)
         );
     }
 

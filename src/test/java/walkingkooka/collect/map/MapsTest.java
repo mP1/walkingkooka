@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class MapsTest implements PublicStaticHelperTesting<Maps>,
-        IteratorTesting {
+    IteratorTesting {
 
     @SuppressWarnings("rawtypes")
     @Test
@@ -39,11 +39,11 @@ final public class MapsTest implements PublicStaticHelperTesting<Maps>,
         final Class<Map> type = null;
 
         assertThrows(
-                NullPointerException.class,
-                () -> Maps.registerImmutableType(type)
+            NullPointerException.class,
+            () -> Maps.registerImmutableType(type)
         );
     }
-    
+
     final static String KEY1 = "a1";
     final static Integer VALUE1 = 111;
 
@@ -178,8 +178,8 @@ final public class MapsTest implements PublicStaticHelperTesting<Maps>,
 
     private void checkType(Map<String, Integer> immutable, final Class<?> type) {
         this.checkEquals(type,
-                immutable.getClass(),
-                () -> " reflect of " + immutable);
+            immutable.getClass(),
+            () -> " reflect of " + immutable);
     }
 
     @Test

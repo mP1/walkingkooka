@@ -26,8 +26,8 @@ import walkingkooka.test.ParseStringTesting;
 import java.util.Set;
 
 final public class StringPathTest implements PathTesting<StringPath, StringName>,
-        ClassTesting2<StringPath>,
-        ParseStringTesting<StringPath> {
+    ClassTesting2<StringPath>,
+    ParseStringTesting<StringPath> {
 
     @Override
     public void testAllConstructorsVisibility() {

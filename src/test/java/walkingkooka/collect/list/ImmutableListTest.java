@@ -31,17 +31,17 @@ public final class ImmutableListTest implements ClassTesting<ImmutableList<Strin
     @Test
     public void testCollector() {
         final List<String> list = Lists.of(
-                "1A",
-                "2B",
-                "3C"
+            "1A",
+            "2B",
+            "3C"
         );
 
         final ImmutableList<String> collected = list.stream()
-                .collect(ImmutableList.collector());
+            .collect(ImmutableList.collector());
 
         this.checkEquals(
-                list,
-                collected
+            list,
+            collected
         );
     }
 

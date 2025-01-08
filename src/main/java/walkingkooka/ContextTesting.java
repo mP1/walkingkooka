@@ -22,7 +22,7 @@ import walkingkooka.reflect.TypeNameTesting;
  * Mixing interface that provides methods to test a {@link Context}
  */
 public interface ContextTesting<C extends Context> extends TypeNameTesting<C>,
-        ToStringTesting<C> {
+    ToStringTesting<C> {
 
     C createContext();
 

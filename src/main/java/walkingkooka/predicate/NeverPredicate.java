@@ -25,9 +25,9 @@ import java.util.function.Predicate;
  * A {@link Predicate} that always returns false.
  */
 final class NeverPredicate<T> implements Predicate<T>,
-        Andable,
-        Orable,
-        Notable<Predicate<T>> {
+    Andable,
+    Orable,
+    Notable<Predicate<T>> {
 
     /**
      * Singleton

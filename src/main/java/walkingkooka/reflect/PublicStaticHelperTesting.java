@@ -35,15 +35,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Interface with default methods implementing tests and other test helpers.
  */
 public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends ClassTesting2<H>,
-        TestSuiteNameTesting<H> {
+    TestSuiteNameTesting<H> {
 
     @Test
     default void testClassIsFinal() {
         final Class<H> type = this.type();
         this.checkEquals(
-                true,
-                Modifier.isFinal(type.getModifiers()),
-                () -> type.getName() + " is NOT final"
+            true,
+            Modifier.isFinal(type.getModifiers()),
+            () -> type.getName() + " is NOT final"
         );
     }
 
@@ -52,9 +52,9 @@ public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends
         final Class<H> type = this.type();
         final Constructor<H> constructor = type.getDeclaredConstructor();
         this.checkEquals(
-                true,
-                Modifier.isPrivate(constructor.getModifiers()),
-                () -> type.getName() + " is NOT private"
+            true,
+            Modifier.isPrivate(constructor.getModifiers()),
+            () -> type.getName() + " is NOT private"
         );
     }
 
@@ -67,17 +67,17 @@ public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends
         final InvocationTargetException cause = assertThrows(InvocationTargetException.class, constructor::newInstance);
         final Throwable target = cause.getTargetException();
         this.checkEquals(
-                true,
-                target instanceof UnsupportedOperationException,
-                "Expected UnsupportedOperationException but got " + target
+            true,
+            target instanceof UnsupportedOperationException,
+            "Expected UnsupportedOperationException but got " + target
         );
     }
 
     @Test
     default void testAllMethodsAreStatic() {
         PublicStaticHelperTesting2.methodFilterAndCheckNone(this.type(),
-                m -> false == MethodAttributes.STATIC.is(m),
-                "All methods must be static");
+            m -> false == MethodAttributes.STATIC.is(m),
+            "All methods must be static");
     }
 
     /**
@@ -86,8 +86,8 @@ public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends
     @Test
     default void testCheckVisibilityOfAllStaticMethods() {
         PublicStaticHelperTesting2.methodFilterAndCheckNone(this.type(),
-                m -> JavaVisibility.PROTECTED == JavaVisibility.of(m),
-                "All methods must be public or package private");
+            m -> JavaVisibility.PROTECTED == JavaVisibility.of(m),
+            "All methods must be public or package private");
     }
 
     /**
@@ -96,11 +96,11 @@ public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends
     @Test
     default void testPublicStaticMethodsParameterAndReturnTypesArePublic() {
         final Predicate<Method> publicReturnTypeAndParameters = (m) -> JavaVisibility.PUBLIC != JavaVisibility.of(m.getReturnType()) ||
-                Arrays.stream(m.getParameterTypes())
-                        .anyMatch(t -> JavaVisibility.PUBLIC != JavaVisibility.of(t));
+            Arrays.stream(m.getParameterTypes())
+                .anyMatch(t -> JavaVisibility.PUBLIC != JavaVisibility.of(t));
         PublicStaticHelperTesting2.methodFilterAndCheckNone(this.type(),
-                publicReturnTypeAndParameters,
-                "All method parameter and return type must be public");
+            publicReturnTypeAndParameters,
+            "All method parameter and return type must be public");
     }
 
     /**
@@ -115,11 +115,11 @@ public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends
         final Class<H> type = this.type();
 
         this.checkEquals("",
-                Arrays.stream(type.getDeclaredFields())
-                        .filter(f -> false == f.getName().contains("jacoco"))
-                        .filter(f -> false == FieldAttributes.get(f).contains(FieldAttributes.STATIC))
-                        .map(Field::toGenericString)
-                        .collect(Collectors.joining(",")));
+            Arrays.stream(type.getDeclaredFields())
+                .filter(f -> false == f.getName().contains("jacoco"))
+                .filter(f -> false == FieldAttributes.get(f).contains(FieldAttributes.STATIC))
+                .map(Field::toGenericString)
+                .collect(Collectors.joining(",")));
     }
 
     /**

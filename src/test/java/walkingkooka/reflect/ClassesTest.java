@@ -22,8 +22,6 @@ import org.junit.jupiter.api.Test;
 import java.lang.reflect.Method;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class ClassesTest implements PublicStaticHelperTesting<Classes> {
 
     // primitive........................................................................................................
@@ -121,8 +119,8 @@ public final class ClassesTest implements PublicStaticHelperTesting<Classes> {
     private void primitiveAndCheck(final Class<?> classs,
                                    final Class<?> expected) {
         this.checkEquals(Optional.ofNullable(expected),
-                Classes.primitive(classs),
-                classs::getName);
+            Classes.primitive(classs),
+            classs::getName);
     }
 
     // primitive........................................................................................................
@@ -221,8 +219,8 @@ public final class ClassesTest implements PublicStaticHelperTesting<Classes> {
                                  final Class<?> expected) {
 
         this.checkEquals(Optional.ofNullable(expected),
-                Classes.wrapper(classs),
-                classs::getName);
+            Classes.wrapper(classs),
+            classs::getName);
     }
 
     // ClassTesting.....................................................................................................

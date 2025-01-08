@@ -27,7 +27,6 @@ import walkingkooka.collect.list.Lists;
 import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -72,8 +71,8 @@ final public class ArrayStackTest extends StackTestCase<ArrayStack<String>, Stri
     @Test
     public void testPushAll() {
         final ArrayStack<String> stack
-                = Cast.to(EmptyArrayStack.<String>instance().pushAll(Lists.of("1", "2", "3")
-                .iterator()));
+            = Cast.to(EmptyArrayStack.<String>instance().pushAll(Lists.of("1", "2", "3")
+            .iterator()));
         this.check(stack, 3, "1", "2", "3");
     }
 
@@ -82,8 +81,8 @@ final public class ArrayStackTest extends StackTestCase<ArrayStack<String>, Stri
         final ArrayStack<String> stack12 = ArrayStack.with(new Object[]{"1", "2"});
         final ArrayStack<String> stack12345 = stack12.pushAll(Lists.of("3", "4", "5").iterator());
         assertNotSame(stack12,
-                stack12345,
-                "returned the original stack after pushing several items");
+            stack12345,
+            "returned the original stack after pushing several items");
 
         this.check(stack12345, 5, "1", "2", "3", "4", "5");
         this.check(stack12, 2, "1", "2");
@@ -216,7 +215,7 @@ final public class ArrayStackTest extends StackTestCase<ArrayStack<String>, Stri
     @Test
     public void testEqualsDifferentItemsAndDifferentStackType2() {
         checkNotEquals(this.createObject().push("2"),
-                Stacks.arrayList().push("1").push("different"));
+            Stacks.arrayList().push("1").push("different"));
     }
 
     @Test

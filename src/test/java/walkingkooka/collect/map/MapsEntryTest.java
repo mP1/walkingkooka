@@ -26,8 +26,8 @@ import walkingkooka.reflect.JavaVisibility;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class MapsEntryTest implements ClassTesting2<MapsEntry<String, Integer>>,
-        EntryTesting<MapsEntry<String, Integer>, String, Integer>,
-        HashCodeEqualsDefinedTesting2<MapsEntry<String, Integer>> {
+    EntryTesting<MapsEntry<String, Integer>, String, Integer>,
+    HashCodeEqualsDefinedTesting2<MapsEntry<String, Integer>> {
 
     private final static String KEY = "Key123";
     private final static Integer VALUE = 123;

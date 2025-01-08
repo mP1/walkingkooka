@@ -22,10 +22,8 @@ import walkingkooka.collect.Range;
 import walkingkooka.collect.RangeVisitorTesting;
 import walkingkooka.reflect.JavaVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class BinaryRangeVisitorTest implements RangeVisitorTesting<BinaryRangeVisitor, Long>,
-        ToStringTesting<BinaryRangeVisitor> {
+    ToStringTesting<BinaryRangeVisitor> {
 
     @Test
     public void testExtractAll() {
@@ -36,51 +34,51 @@ public final class BinaryRangeVisitorTest implements RangeVisitorTesting<BinaryR
     @Test
     public void testExtractSingleton() {
         this.extractAndCheck(Binary.with(new byte[]{0, 1, 2, 3}),
-                Range.singleton(2L),
-                Binary.with(new byte[]{2}));
+            Range.singleton(2L),
+            Binary.with(new byte[]{2}));
     }
 
     @Test
     public void testExtractBeforeEquals() {
         this.extractAndCheck(Binary.with(new byte[]{0, 1, 2, 3}),
-                Range.lessThanEquals(2L),
-                Binary.with(new byte[]{0, 1, 2}));
+            Range.lessThanEquals(2L),
+            Binary.with(new byte[]{0, 1, 2}));
     }
 
     @Test
     public void testExtractBefore() {
         this.extractAndCheck(Binary.with(new byte[]{0, 1, 2, 3}),
-                Range.lessThan(2L),
-                Binary.with(new byte[]{0, 1}));
+            Range.lessThan(2L),
+            Binary.with(new byte[]{0, 1}));
     }
 
     @Test
     public void testExtractAfterEquals() {
         this.extractAndCheck(Binary.with(new byte[]{0, 1, 2, 3, 4}),
-                Range.greaterThanEquals(2L),
-                Binary.with(new byte[]{2, 3, 4}));
+            Range.greaterThanEquals(2L),
+            Binary.with(new byte[]{2, 3, 4}));
     }
 
     @Test
     public void testExtractAfter() {
         this.extractAndCheck(Binary.with(new byte[]{0, 1, 2, 3, 4}),
-                Range.greaterThan(2L),
-                Binary.with(new byte[]{3, 4}));
+            Range.greaterThan(2L),
+            Binary.with(new byte[]{3, 4}));
     }
 
     @Test
     public void testExtractRange() {
         this.extractAndCheck(Binary.with(new byte[]{0, 1, 2, 3, 4, 5}),
-                Range.greaterThanEquals(2L).and(Range.lessThanEquals(4L)),
-                Binary.with(new byte[]{2, 3, 4}));
+            Range.greaterThanEquals(2L).and(Range.lessThanEquals(4L)),
+            Binary.with(new byte[]{2, 3, 4}));
     }
 
     private void extractAndCheck(final Binary binary,
                                  final Range<Long> range,
                                  final Binary expected) {
         this.checkEquals(expected,
-                BinaryRangeVisitor.extract(binary, range),
-                () -> binary + " range: " + range);
+            BinaryRangeVisitor.extract(binary, range),
+            () -> binary + " range: " + range);
     }
 
     @Test

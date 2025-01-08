@@ -28,44 +28,44 @@ public final class EnumerationTestingTest implements EnumerationTesting {
     @Test
     public void testHasMoreElementsAndCheckFalse() {
         this.hasMoreElementsAndCheck(
-                enumeration(),
-                false
+            enumeration(),
+            false
         );
     }
 
     @Test
     public void testHasMoreElementsAndCheckTrue() {
         this.hasMoreElementsAndCheck(
-                this.enumeration("A"),
-                true
+            this.enumeration("A"),
+            true
         );
     }
 
     @Test
     public void testNextElementAndCheck() {
         this.nextElementAndCheck(
-                enumeration("A"),
-                "A"
+            enumeration("A"),
+            "A"
         );
     }
 
     @Test
     public void testNextElementAndCheckTrue() {
         this.nextElementFails(
-                this.enumeration()
+            this.enumeration()
         );
     }
 
     @Test
     public void testEnumerateUsingHasMoreElementsAndCheck() {
         final String[] array = new String[]{
-                "1A",
-                "2B",
-                "3C"
+            "1A",
+            "2B",
+            "3C"
         };
         this.enumerateUsingHasMoreElementsAndCheck(
-                enumeration(array),
-                array
+            enumeration(array),
+            array
         );
     }
 
@@ -75,29 +75,29 @@ public final class EnumerationTestingTest implements EnumerationTesting {
 
         try {
             this.enumerateUsingHasMoreElementsAndCheck(
-                    enumeration("1A", "2B"),
-                    "1A"
+                enumeration("1A", "2B"),
+                "1A"
             );
         } catch (final AssertionFailedError expected) {
             thrown = true;
         }
 
         this.checkEquals(
-                true,
-                thrown
+            true,
+            thrown
         );
     }
 
     @Test
     public void testEnumerateAndCheck() {
         final String[] array = new String[]{
-                "1A",
-                "2B",
-                "3C"
+            "1A",
+            "2B",
+            "3C"
         };
         this.enumerateAndCheck(
-                enumeration(array),
-                array
+            enumeration(array),
+            array
         );
     }
 
@@ -107,16 +107,16 @@ public final class EnumerationTestingTest implements EnumerationTesting {
 
         try {
             this.enumerateAndCheck(
-                    enumeration("1A", "2B"),
-                    "1A"
+                enumeration("1A", "2B"),
+                "1A"
             );
         } catch (final AssertionFailedError expected) {
             thrown = true;
         }
 
         this.checkEquals(
-                true,
-                thrown
+            true,
+            thrown
         );
     }
 

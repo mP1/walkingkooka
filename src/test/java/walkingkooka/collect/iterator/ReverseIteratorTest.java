@@ -60,7 +60,7 @@ final public class ReverseIteratorTest extends IteratorTestCase<ReverseIterator<
     public void testReverseReversedIterator() {
         final Iterator<String> iterator = ReverseIterator.with(this.iterator("1", "2", "3"));
         assertFalse(iterator instanceof ReverseIterator,
-                "Iterator should not be a ReverseIterator=" + iterator.getClass().getName());
+            "Iterator should not be a ReverseIterator=" + iterator.getClass().getName());
         this.iterateAndCheck(iterator, "1", "2", "3");
     }
 

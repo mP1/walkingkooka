@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends ListTesting2<L, E>,
-        CanBeEmptyTesting {
+    CanBeEmptyTesting {
 
     default void concatAndCheck(final ImmutableList<E> list,
                                 final E appended,
@@ -39,30 +39,30 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
         final ImmutableList<E> afterConcat = list.concat(appended);
 
         assertNotSame(
-                afterConcat,
-                list
+            afterConcat,
+            list
         );
         this.checkEquals(
-                expected,
-                afterConcat,
-                () -> list + " concat " + appended
+            expected,
+            afterConcat,
+            () -> list + " concat " + appended
         );
 
         final List<E> toList = list.toList();
         toList.add(appended);
         this.checkEquals(
-                toList,
-                afterConcat,
-                () -> list + " concat " + appended
+            toList,
+            afterConcat,
+            () -> list + " concat " + appended
         );
     }
 
     @Test
     default void testConcatAllWithNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createList()
-                        .concatAll(null)
+            NullPointerException.class,
+            () -> this.createList()
+                .concatAll(null)
         );
     }
 
@@ -72,21 +72,21 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
         final ImmutableList<E> afterConcat = list.concatAll(appended);
 
         assertNotSame(
-                afterConcat,
-                list
+            afterConcat,
+            list
         );
         this.checkEquals(
-                expected,
-                afterConcat,
-                () -> list + " concat " + appended
+            expected,
+            afterConcat,
+            () -> list + " concat " + appended
         );
 
         final List<E> toList = list.toList();
         toList.addAll(appended);
         this.checkEquals(
-                toList,
-                afterConcat,
-                () -> list + " concat " + appended
+            toList,
+            afterConcat,
+            () -> list + " concat " + appended
         );
     }
 
@@ -96,21 +96,21 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
         final ImmutableList<E> afterRemove = list.deleteAtIndex(removed);
 
         assertNotSame(
-                afterRemove,
-                list
+            afterRemove,
+            list
         );
         this.checkEquals(
-                expected,
-                afterRemove,
-                () -> list + " deleteAtIndex " + removed
+            expected,
+            afterRemove,
+            () -> list + " deleteAtIndex " + removed
         );
 
         final List<E> toList = list.toList();
         toList.remove(removed);
         this.checkEquals(
-                toList,
-                afterRemove,
-                () -> list + " deleteAtIndex " + removed
+            toList,
+            afterRemove,
+            () -> list + " deleteAtIndex " + removed
         );
     }
 
@@ -120,21 +120,21 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
         final ImmutableList<E> afterRemove = list.delete(remove);
 
         assertNotSame(
-                afterRemove,
-                list
+            afterRemove,
+            list
         );
         this.checkEquals(
-                expected,
-                afterRemove,
-                () -> list + " delete " + remove
+            expected,
+            afterRemove,
+            () -> list + " delete " + remove
         );
 
         final List<E> toList = list.toList();
         toList.remove(remove);
         this.checkEquals(
-                toList,
-                afterRemove,
-                () -> list + " delete " + remove
+            toList,
+            afterRemove,
+            () -> list + " delete " + remove
         );
     }
 
@@ -143,9 +143,9 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
     @Test
     default void testDeleteAllWithNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createList()
-                        .deleteAll(null)
+            NullPointerException.class,
+            () -> this.createList()
+                .deleteAll(null)
         );
     }
 
@@ -154,8 +154,8 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
         final L list = this.createList();
 
         assertSame(
-                list,
-                list.deleteAll(Collections.emptyList())
+            list,
+            list.deleteAll(Collections.emptyList())
         );
     }
 
@@ -165,21 +165,21 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
         final ImmutableList<E> afterConcat = list.deleteAll(delete);
 
         assertNotSame(
-                afterConcat,
-                list
+            afterConcat,
+            list
         );
         this.checkEquals(
-                expected,
-                afterConcat,
-                () -> list + " deleteAll " + delete
+            expected,
+            afterConcat,
+            () -> list + " deleteAll " + delete
         );
 
         final List<E> toList = list.toList();
         toList.removeAll(delete);
         this.checkEquals(
-                toList,
-                afterConcat,
-                () -> list + " deleteAll " + delete
+            toList,
+            afterConcat,
+            () -> list + " deleteAll " + delete
         );
     }
 
@@ -188,9 +188,9 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
     @Test
     default void testDeleteIfWithNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createList()
-                        .deleteIf(null)
+            NullPointerException.class,
+            () -> this.createList()
+                .deleteIf(null)
         );
     }
 
@@ -199,8 +199,8 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
         final L list = this.createList();
 
         assertSame(
-                list,
-                list.deleteIf(Predicates.never())
+            list,
+            list.deleteIf(Predicates.never())
         );
     }
 
@@ -210,21 +210,21 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
         final ImmutableList<E> afterConcat = list.deleteIf(predicate);
 
         assertNotSame(
-                afterConcat,
-                list
+            afterConcat,
+            list
         );
         this.checkEquals(
-                expected,
-                afterConcat,
-                () -> list + " deleteIf " + predicate
+            expected,
+            afterConcat,
+            () -> list + " deleteIf " + predicate
         );
 
         final List<E> toList = list.toList();
         toList.removeIf(predicate);
         this.checkEquals(
-                toList,
-                afterConcat,
-                () -> list + " deleteIf " + predicate
+            toList,
+            afterConcat,
+            () -> list + " deleteIf " + predicate
         );
     }
 
@@ -237,13 +237,13 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
         final ImmutableList<E> afterReplace = list.replace(index, replace);
 
         assertNotSame(
-                replace,
-                list
+            replace,
+            list
         );
         this.checkEquals(
-                expected,
-                afterReplace,
-                () -> list + " replaced " + index + ", " + replace
+            expected,
+            afterReplace,
+            () -> list + " replaced " + index + ", " + replace
         );
     }
 
@@ -252,8 +252,8 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
         final ImmutableList<E> immutableList = this.createList();
 
         assertThrows(
-                NullPointerException.class,
-                () -> immutableList.setElements(null)
+            NullPointerException.class,
+            () -> immutableList.setElements(null)
         );
     }
 
@@ -262,10 +262,10 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
         final ImmutableList<E> immutableList = this.createList();
 
         assertSame(
-                immutableList,
-                immutableList.setElements(
-                        immutableList.toList()
-                )
+            immutableList,
+            immutableList.setElements(
+                immutableList.toList()
+            )
         );
     }
 
@@ -273,8 +273,8 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
     default void testSwapSameIndices() {
         final ImmutableList<E> immutableList = this.createList();
         assertSame(
-                immutableList,
-                immutableList.swap(0, 0)
+            immutableList,
+            immutableList.swap(0, 0)
         );
     }
 
@@ -284,30 +284,30 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
                               final ImmutableList<E> expected) {
         final ImmutableList<E> afterSwap = list.swap(left, right);
         assertNotSame(
-                afterSwap,
-                list
+            afterSwap,
+            list
         );
         this.checkEquals(
-                expected,
-                afterSwap,
-                () -> list + " swap " + left + ", " + right
+            expected,
+            afterSwap,
+            () -> list + " swap " + left + ", " + right
         );
     }
 
     default void toListAndCheck(final ImmutableList<E> list,
                                 final E... expected) {
         this.toListAndCheck(
-                list,
-                Lists.of(expected)
+            list,
+            Lists.of(expected)
         );
     }
 
     default void toListAndCheck(final ImmutableList<E> list,
                                 final List<E> expected) {
         this.checkEquals(
-                expected,
-                list.toList(),
-                list::toString
+            expected,
+            list.toList(),
+            list::toString
         );
     }
 }

@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class NotCharPredicateTest implements CharPredicateTesting<NotCharPredicate>,
-        HashCodeEqualsDefinedTesting2<NotCharPredicate> {
+    HashCodeEqualsDefinedTesting2<NotCharPredicate> {
 
     // constants
 
@@ -56,7 +56,7 @@ final public class NotCharPredicateTest implements CharPredicateTesting<NotCharP
     @Test
     public void testUnwrapsAlreadyWrapped() {
         assertSame(PREDICATE,
-                NotCharPredicate.wrap(this.createCharPredicate()));
+            NotCharPredicate.wrap(this.createCharPredicate()));
     }
 
     @Test

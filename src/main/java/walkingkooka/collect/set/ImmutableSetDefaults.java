@@ -45,7 +45,7 @@ public interface ImmutableSetDefaults<S extends ImmutableSet<E>, E> extends Immu
         if (false == this.equals(elements)) {
             throw new UnsupportedOperationException();
         }
-        return (S)this;
+        return (S) this;
     }
 
     /**
@@ -57,8 +57,8 @@ public interface ImmutableSetDefaults<S extends ImmutableSet<E>, E> extends Immu
         final boolean added = set.add(element);
 
         return added ?
-                this.setElements(set) :
-                (S) this;
+            this.setElements(set) :
+            (S) this;
     }
 
     /**
@@ -72,8 +72,8 @@ public interface ImmutableSetDefaults<S extends ImmutableSet<E>, E> extends Immu
         final boolean added = set.addAll(elements);
 
         return added ?
-                this.setElements(set) :
-                (S) this;
+            this.setElements(set) :
+            (S) this;
     }
 
     /**
@@ -104,8 +104,8 @@ public interface ImmutableSetDefaults<S extends ImmutableSet<E>, E> extends Immu
         final Set<E> set = this.toSet();
         final boolean removed = set.remove(element);
         return removed ?
-                this.setElements(set) :
-                (S)this;
+            this.setElements(set) :
+            (S) this;
     }
 
     /**
@@ -119,8 +119,8 @@ public interface ImmutableSetDefaults<S extends ImmutableSet<E>, E> extends Immu
         final boolean removed = set.removeAll(elements);
 
         return removed ?
-                this.setElements(set) :
-                (S) this;
+            this.setElements(set) :
+            (S) this;
     }
 
     /**
@@ -134,7 +134,7 @@ public interface ImmutableSetDefaults<S extends ImmutableSet<E>, E> extends Immu
         final boolean removed = set.removeIf(predicate);
 
         return removed ?
-                this.setElements(set) :
-                (S)this;
+            this.setElements(set) :
+            (S) this;
     }
 }

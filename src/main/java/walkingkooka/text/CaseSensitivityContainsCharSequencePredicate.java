@@ -29,7 +29,7 @@ final class CaseSensitivityContainsCharSequencePredicate<C extends CharSequence>
      * Creates a {@link CaseSensitivityContainsCharSequencePredicate}
      */
     static <C extends CharSequence> CaseSensitivityContainsCharSequencePredicate<C> with(
-            final C contains, final CaseSensitivity sensitivity) {
+        final C contains, final CaseSensitivity sensitivity) {
         CharSequences.failIfNullOrEmpty(contains, "contains");
         Objects.requireNonNull(sensitivity, "sensitivity");
 

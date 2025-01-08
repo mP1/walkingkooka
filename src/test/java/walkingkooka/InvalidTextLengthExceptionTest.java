@@ -24,7 +24,7 @@ import walkingkooka.reflect.ThrowableTesting2;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<InvalidTextLengthException>,
-        HashCodeEqualsDefinedTesting2<InvalidTextLengthException>{
+    HashCodeEqualsDefinedTesting2<InvalidTextLengthException> {
 
     private final static String LABEL = "label123";
     private final static String TEXT = "abc!456";
@@ -77,29 +77,29 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<I
     public void testWith() {
         final InvalidTextLengthException cause = this.create();
         check(cause,
-                LABEL,
-                TEXT,
-                MIN,
-                MAX);
+            LABEL,
+            TEXT,
+            MIN,
+            MAX);
     }
 
     @Test
     public void testWithEmptyText() {
         final InvalidTextLengthException cause = new InvalidTextLengthException(LABEL, "", 0, MAX);
         check(cause, LABEL,
-                "",
-                0,
-                MAX);
+            "",
+            0,
+            MAX);
     }
 
     @Test
     public void testWith2() {
         final InvalidTextLengthException cause = new InvalidTextLengthException(LABEL, "abc", 0, 4);
         check(cause,
-                LABEL,
-                "abc",
-                0,
-                4);
+            LABEL,
+            "abc",
+            0,
+            4);
     }
 
     @Test
@@ -107,10 +107,10 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<I
         final Throwable cause = new Exception();
         final InvalidTextLengthException thrown = new InvalidTextLengthException(LABEL, "abc", 0, 4, cause);
         check(thrown,
-                LABEL,
-                "abc",
-                0,
-                4);
+            LABEL,
+            "abc",
+            0,
+            4);
         this.checkCause(thrown, cause);
     }
 
@@ -118,22 +118,22 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<I
     public void testWithMinEqualsMax() {
         final InvalidTextLengthException cause = new InvalidTextLengthException(LABEL, "abcd", 4, 4);
         check(cause,
-                LABEL,
-                "abcd",
-                4,
-                4);
+            LABEL,
+            "abcd",
+            4,
+            4);
     }
 
     @Test
     public void testGetMessage() {
         checkMessage(this.create(),
-                "Length 7 of \"label123\" not between 2..5 = \"abc!456\"");
+            "Length 7 of \"label123\" not between 2..5 = \"abc!456\"");
     }
 
     @Test
     public void testGetMessageEscapedCharacter() {
         checkMessage(new InvalidTextLengthException(LABEL, "abc'xy", MIN, MAX),
-                "Length 6 of \"label123\" not between 2..5 = \"abc\'xy\"");
+            "Length 6 of \"label123\" not between 2..5 = \"abc\'xy\"");
     }
 
     private InvalidTextLengthException create() {
@@ -147,7 +147,7 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<I
                        final int max) {
         this.checkEquals(label, exception.label(), "label");
         this.checkEquals(text, exception.text(), "text");
-        this.checkEquals(min, exception.min(), ()->  "min: " + min);
+        this.checkEquals(min, exception.min(), () -> "min: " + min);
         this.checkEquals(max, exception.max(), () -> "max: " + max);
     }
 

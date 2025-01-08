@@ -39,8 +39,8 @@ final class AutoExpandArrayList<T> extends ArrayList<T> {
         checkIndex(index);
 
         return index >= this.size() ?
-                null :
-                super.get(index);
+            null :
+            super.get(index);
     }
 
     @Override
@@ -49,10 +49,10 @@ final class AutoExpandArrayList<T> extends ArrayList<T> {
         checkIndex(index);
 
         final T replaced;
-        if(index < size) {
+        if (index < size) {
             replaced = super.set(index, element);
         } else {
-            while(index > this.size()) {
+            while (index > this.size()) {
                 this.add(null);
             }
 
@@ -63,7 +63,7 @@ final class AutoExpandArrayList<T> extends ArrayList<T> {
     }
 
     private static void checkIndex(final int index) {
-        if(index < 0) {
+        if (index < 0) {
             throw new IndexOutOfBoundsException("Invalid index " + index + "< 0");
         }
     }

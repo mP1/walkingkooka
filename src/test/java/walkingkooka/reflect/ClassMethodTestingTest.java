@@ -253,9 +253,9 @@ public final class ClassMethodTestingTest implements ClassTesting<ClassMethodTes
     @Test
     protected void testAllMethodsVisibilityProtectedInstanceMethodFiltered() {
         ClassMethodTesting.testAllMethodsVisibility(testAllMethodsVisibilityProtectedInstanceMethodFiltered.class,
-                "startVisit*",
-                "endVisit*",
-                "visit*");
+            "startVisit*",
+            "endVisit*",
+            "visit*");
     }
 
     static class testAllMethodsVisibilityProtectedInstanceMethodFiltered {

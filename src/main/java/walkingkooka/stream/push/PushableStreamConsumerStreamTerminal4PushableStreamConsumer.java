@@ -29,7 +29,7 @@ import java.util.function.BiFunction;
 abstract class PushableStreamConsumerStreamTerminal4PushableStreamConsumer<T, R> extends PushableStreamConsumerStreamTerminalPushableStreamConsumer<T, R> {
 
     static void checkReducer(final BiFunction<?, ?, ?> reducer) {
-         Objects.requireNonNull(reducer,"reducer");
+        Objects.requireNonNull(reducer, "reducer");
     }
 
     /**
@@ -55,8 +55,7 @@ abstract class PushableStreamConsumerStreamTerminal4PushableStreamConsumer<T, R>
 
     T value;
 
-    @Override
-    final void buildToString1(final ToStringBuilder builder) {
+    @Override final void buildToString1(final ToStringBuilder builder) {
         builder.label("reduce");
         builder.value(this.reducer);
 

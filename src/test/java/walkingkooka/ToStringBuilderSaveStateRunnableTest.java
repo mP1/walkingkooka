@@ -21,28 +21,25 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
 public final class ToStringBuilderSaveStateRunnableTest extends ToStringBuilderTestCase<ToStringBuilderSaveStateRunnable>
-        implements ToStringTesting<ToStringBuilderSaveStateRunnable>,
-        TypeNameTesting<ToStringBuilderSaveStateRunnable> {
+    implements ToStringTesting<ToStringBuilderSaveStateRunnable>,
+    TypeNameTesting<ToStringBuilderSaveStateRunnable> {
 
     @Test
     public void testSaveAndRestoreState() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .labelSeparator("label1")
-                .separator("sep1")
-                .valueSeparator("val1")
-                .disable(ToStringBuilderOption.QUOTE);
+            .labelSeparator("label1")
+            .separator("sep1")
+            .valueSeparator("val1")
+            .disable(ToStringBuilderOption.QUOTE);
 
         final Runnable state = builder.saveState();
         final String toString = builder.toString();
 
         builder.labelSeparator("label2")
-                .separator("sep2")
-                .valueSeparator("val2")
-                .enable(ToStringBuilderOption.QUOTE);
+            .separator("sep2")
+            .valueSeparator("val2")
+            .enable(ToStringBuilderOption.QUOTE);
 
         this.checkNotEquals(toString, builder.toString(), "builder.toString");
 
@@ -50,9 +47,9 @@ public final class ToStringBuilderSaveStateRunnableTest extends ToStringBuilderT
         this.checkEquals(toString, builder.toString(), "builder.toString");
 
         builder.labelSeparator("label2")
-                .separator("sep2")
-                .valueSeparator("val2")
-                .enable(ToStringBuilderOption.QUOTE);
+            .separator("sep2")
+            .valueSeparator("val2")
+            .enable(ToStringBuilderOption.QUOTE);
 
         state.run();
         this.checkEquals(toString, builder.toString(), "builder.toString");
@@ -64,7 +61,7 @@ public final class ToStringBuilderSaveStateRunnableTest extends ToStringBuilderT
                 .labelSeparator("label1")
                 .separator("sep1")
                 .disable(ToStringBuilderOption.QUOTE).saveState(),
-                "labelSeparator=\"label1\" options=INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE separator=\"sep1\" valueSeparator=\", \"");
+            "labelSeparator=\"label1\" options=INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE separator=\"sep1\" valueSeparator=\", \"");
     }
 
     // ClassTesting.....................................................................................................

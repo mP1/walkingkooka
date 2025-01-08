@@ -28,15 +28,14 @@ import walkingkooka.reflect.JavaVisibility;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class SystemPropertyTest implements ClassTesting2<SystemProperty>,
-        ConstantsTesting<SystemProperty>,
-        HashCodeEqualsDefinedTesting2<SystemProperty>,
-        ToStringTesting<SystemProperty> {
+    ConstantsTesting<SystemProperty>,
+    HashCodeEqualsDefinedTesting2<SystemProperty>,
+    ToStringTesting<SystemProperty> {
 
     @Test
     public void testGetNullFails() {
@@ -78,7 +77,7 @@ final public class SystemPropertyTest implements ClassTesting2<SystemProperty>,
         final SystemProperty property = SystemProperty.FILE_SEPARATOR;
         this.checkEquals(property.propertyValue().orElse("FAIL!"),
             property.requiredPropertyValue(),
-                () -> "value of " + property);
+            () -> "value of " + property);
     }
 
     @Test
