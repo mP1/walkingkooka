@@ -48,7 +48,7 @@ final class ToStringBuilderAppenderOptionalDoubleVector extends ToStringBuilderA
         final OptionalDouble value = this.value;
         if (value.isPresent()) {
             builder.value(
-                    value.getAsDouble()
+                value.getAsDouble()
             );
         }
     }

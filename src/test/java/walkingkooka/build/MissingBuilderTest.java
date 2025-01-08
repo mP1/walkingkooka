@@ -30,8 +30,8 @@ import java.util.OptionalLong;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
-        BuilderTesting<MissingBuilder, String>,
-        ThrowableTesting {
+    BuilderTesting<MissingBuilder, String>,
+    ThrowableTesting {
 
     // constants
 
@@ -89,8 +89,8 @@ final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
     public void testAddIfEmptyWithNullOptionalFails() {
         final MissingBuilder missing = MissingBuilder.empty();
         assertThrows(
-                NullPointerException.class,
-                () -> missing.addIfEmpty((Optional<?>)null, "optional")
+            NullPointerException.class,
+            () -> missing.addIfEmpty((Optional<?>) null, "optional")
         );
     }
 
@@ -109,8 +109,8 @@ final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
     public void testAddIfEmptyWithNullOptionalDoubleFails() {
         final MissingBuilder missing = MissingBuilder.empty();
         assertThrows(
-                NullPointerException.class,
-                () -> missing.addIfEmpty((OptionalDouble)null, "optional")
+            NullPointerException.class,
+            () -> missing.addIfEmpty((OptionalDouble) null, "optional")
         );
     }
 
@@ -123,15 +123,15 @@ final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
 
         this.check(missing, "A", 3, 1);
     }
-    
+
     // addIfEmpty......................................................................................................
 
     @Test
     public void testAddIfEmptyWithNullOptionalIntFails() {
         final MissingBuilder missing = MissingBuilder.empty();
         assertThrows(
-                NullPointerException.class,
-                () -> missing.addIfEmpty((OptionalInt)null, "optional")
+            NullPointerException.class,
+            () -> missing.addIfEmpty((OptionalInt) null, "optional")
         );
     }
 
@@ -151,8 +151,8 @@ final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
     public void testAddIfEmptyWithNullOptionalLongFails() {
         final MissingBuilder missing = MissingBuilder.empty();
         assertThrows(
-                NullPointerException.class,
-                () -> missing.addIfEmpty((OptionalLong)null, "optional")
+            NullPointerException.class,
+            () -> missing.addIfEmpty((OptionalLong) null, "optional")
         );
     }
 
@@ -165,7 +165,7 @@ final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
 
         this.check(missing, "A", 3, 1);
     }
-    
+
     // addIfNull.......................................................................................................
 
     @Test

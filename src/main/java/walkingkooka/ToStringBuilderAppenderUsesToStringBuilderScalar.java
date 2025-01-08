@@ -40,7 +40,7 @@ final class ToStringBuilderAppenderUsesToStringBuilderScalar extends ToStringBui
     @Override
     void value(final ToStringBuilder builder) {
         final UsesToStringBuilder value = this.value;
-        if(null!=value) {
+        if (null != value) {
             builder.appendUsesToStringBuilder(value);
         }
     }

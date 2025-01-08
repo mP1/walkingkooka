@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Base class for all {@link Predicate} in this package.
  */
 abstract public class PredicateTestCase<P extends Predicate<T>, T> implements ClassTesting2<P>,
-        PredicateTesting2<P, T> {
+    PredicateTesting2<P, T> {
 
     PredicateTestCase() {
         super();

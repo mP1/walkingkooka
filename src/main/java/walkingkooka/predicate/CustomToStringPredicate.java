@@ -77,7 +77,7 @@ final class CustomToStringPredicate<T> implements Predicate<T> {
 
     private boolean equals0(final CustomToStringPredicate<?> other) {
         return this.predicate.equals(other.predicate) &&
-                this.toString.equals(other.toString);
+            this.toString.equals(other.toString);
     }
 
     @Override

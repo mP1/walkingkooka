@@ -35,16 +35,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Base class for testing a {@link Path} with mostly parameter checking tests.
  */
-public interface PathTesting<P extends Path<P, N>  & Comparable<P>, N extends Name> extends ComparableTesting2<P>,
-        ConstantsTesting<P>,
-        ToStringTesting<P>,
-        TypeNameTesting<P> {
+public interface PathTesting<P extends Path<P, N> & Comparable<P>, N extends Name> extends ComparableTesting2<P>,
+    ConstantsTesting<P>,
+    ToStringTesting<P>,
+    TypeNameTesting<P> {
 
     @Test
     default void testSeparatorConstant() {
         this.fieldPublicStaticCheck(this.type(),
-                "SEPARATOR",
-                PathSeparator.class);
+            "SEPARATOR",
+            PathSeparator.class);
     }
 
     @Test
@@ -69,8 +69,8 @@ public interface PathTesting<P extends Path<P, N>  & Comparable<P>, N extends Na
         final P parent = this.separator().isRequiredAtStart() ? this.root() : null;
         final N appended0 = this.createName(0);
         final P child0 = null != parent ?
-                parent.append(appended0) :
-                this.parsePath(appended0.value());
+            parent.append(appended0) :
+            this.parsePath(appended0.value());
 
         final N appended1 = this.createName(1);
         final P child1 = child0.append(appended1);
@@ -135,8 +135,7 @@ public interface PathTesting<P extends Path<P, N>  & Comparable<P>, N extends Na
         final N name3 = this.createName(2);
         final N name4 = this.createName(3);
 
-        @SuppressWarnings("unchecked")
-        final String fullPath4 = this.concat(name1, name2, name3, name4);
+        @SuppressWarnings("unchecked") final String fullPath4 = this.concat(name1, name2, name3, name4);
 
         final P path = this.parsePath(fullPath4);
 
@@ -211,8 +210,8 @@ public interface PathTesting<P extends Path<P, N>  & Comparable<P>, N extends Na
             names.add(p.name().value());
             p = p.parent().get();
         }
-        if(!p.separator().isRequiredAtStart()) {
-           names.add(p.name().value());
+        if (!p.separator().isRequiredAtStart()) {
+            names.add(p.name().value());
         }
 
         Collections.reverse(names);

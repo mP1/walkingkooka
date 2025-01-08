@@ -24,7 +24,7 @@ import walkingkooka.reflect.PublicStaticHelperTesting;
 import java.lang.reflect.Method;
 
 final public class ComparatorsTest implements PublicStaticHelperTesting<Comparators>,
-        ComparatorTesting {
+    ComparatorTesting {
 
     @Test
     public void testNormalizeIntZero() {
@@ -43,8 +43,8 @@ final public class ComparatorsTest implements PublicStaticHelperTesting<Comparat
 
     private void normalizeIntAndCheck(final int value, final int expected) {
         this.checkEquals(expected,
-                Comparators.normalize(value),
-                "Normalize (int)" + value);
+            Comparators.normalize(value),
+            "Normalize (int)" + value);
     }
 
     @Test
@@ -64,9 +64,9 @@ final public class ComparatorsTest implements PublicStaticHelperTesting<Comparat
 
     private void normalizeLongAndCheck(final long value, final long expected) {
         this.checkEquals(
-                expected,
-                (long) Comparators.normalize(value),
-                "Normalize (long)" + value
+            expected,
+            (long) Comparators.normalize(value),
+            "Normalize (long)" + value
         );
     }
 

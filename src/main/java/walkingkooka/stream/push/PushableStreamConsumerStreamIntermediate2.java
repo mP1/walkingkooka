@@ -26,13 +26,11 @@ abstract class PushableStreamConsumerStreamIntermediate2 extends PushableStreamC
         super();
     }
 
-    @Override
-    final long limit() {
+    @Override final long limit() {
         return NOT_LIMIT_OR_SKIP;
     }
 
-    @Override
-    final long skip() {
+    @Override final long skip() {
         return NOT_LIMIT_OR_SKIP;
     }
 }

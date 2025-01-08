@@ -24,7 +24,7 @@ import walkingkooka.reflect.ThrowableTesting2;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class EmptyTextExceptionTest implements ThrowableTesting2<EmptyTextException>,
-        HashCodeEqualsDefinedTesting2<EmptyTextException>{
+    HashCodeEqualsDefinedTesting2<EmptyTextException> {
 
     private final static String LABEL = "label123";
 
@@ -32,8 +32,8 @@ public final class EmptyTextExceptionTest implements ThrowableTesting2<EmptyText
     @Test
     public void testWithNullLabelFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> new EmptyTextException(null)
+            NullPointerException.class,
+            () -> new EmptyTextException(null)
         );
     }
 
@@ -41,8 +41,8 @@ public final class EmptyTextExceptionTest implements ThrowableTesting2<EmptyText
     public void testWith() {
         final EmptyTextException cause = this.create();
         check(
-                cause,
-                LABEL
+            cause,
+            LABEL
         );
     }
 
@@ -51,8 +51,8 @@ public final class EmptyTextExceptionTest implements ThrowableTesting2<EmptyText
         final Throwable cause = new Exception();
         final EmptyTextException thrown = new EmptyTextException(LABEL, cause);
         check(
-                thrown,
-                LABEL
+            thrown,
+            LABEL
         );
         this.checkCause(thrown, cause);
     }
@@ -60,8 +60,8 @@ public final class EmptyTextExceptionTest implements ThrowableTesting2<EmptyText
     @Test
     public void testGetMessage() {
         checkMessage(
-                this.create(),
-                "Empty \"label123\""
+            this.create(),
+            "Empty \"label123\""
         );
     }
 
@@ -79,7 +79,7 @@ public final class EmptyTextExceptionTest implements ThrowableTesting2<EmptyText
     @Test
     public void testEqualsDifferentLabel() {
         this.checkNotEquals(
-                new EmptyTextException("different")
+            new EmptyTextException("different")
         );
     }
 

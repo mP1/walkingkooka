@@ -35,8 +35,8 @@ final class UnreadableStack<T> implements Stack<T> {
         Objects.requireNonNull(stack, "stack");
 
         return stack instanceof UnreadableStack ?
-                Cast.to(stack) :
-                new UnreadableStack<>(stack);
+            Cast.to(stack) :
+            new UnreadableStack<>(stack);
     }
 
     /**
@@ -109,13 +109,13 @@ final class UnreadableStack<T> implements Stack<T> {
     @Override
     public boolean equals(final Object object) {
         return (this == object) ||
-                ((object instanceof Stack) && this.equals0((Cast.to(object))));
+            ((object instanceof Stack) && this.equals0((Cast.to(object))));
     }
 
     private boolean equals0(final Stack<?> stack) {
         return stack instanceof UnreadableStack ?
-                this.equals1(Cast.to(stack)) :
-                this.stack.equals(stack);
+            this.equals1(Cast.to(stack)) :
+            this.stack.equals(stack);
     }
 
     private boolean equals1(final UnreadableStack<?> stack) {

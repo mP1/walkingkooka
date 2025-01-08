@@ -31,14 +31,14 @@ public final class JavaNameIdentifierEmulatedTest implements ClassTesting<JavaNa
 
             if (JavaNameIdentifier.isStart(c) != JavaNameIdentifierEmulated.isStart(c)) {
                 diff.append(
-                        CharSequences.quoteIfChars(c)
+                    CharSequences.quoteIfChars(c)
                 );
             }
         }
 
         this.checkEquals(
-                "",
-                diff.toString()
+            "",
+            diff.toString()
         );
     }
 
@@ -51,14 +51,14 @@ public final class JavaNameIdentifierEmulatedTest implements ClassTesting<JavaNa
 
             if (JavaNameIdentifier.isPart(c) != JavaNameIdentifierEmulated.isPart(c)) {
                 diff.append(
-                        CharSequences.quoteIfChars(c)
+                    CharSequences.quoteIfChars(c)
                 );
             }
         }
 
         this.checkEquals(
-                "",
-                diff.toString()
+            "",
+            diff.toString()
         );
     }
 

@@ -37,8 +37,8 @@ public final class ComparatorTesting2Test implements ComparatorTesting2<Comparat
     @Test
     public void testCompare() {
         this.checkEquals(
-                COMPARATOR.compare(VALUE, MORE),
-                this.compare(VALUE, MORE)
+            COMPARATOR.compare(VALUE, MORE),
+            this.compare(VALUE, MORE)
         );
     }
 
@@ -57,7 +57,7 @@ public final class ComparatorTesting2Test implements ComparatorTesting2<Comparat
     @Test
     public void testComparatorCompareAndCheckLessFails() {
         this.mustFail(
-                () -> this.compareAndCheckLess(VALUE, LESS)
+            () -> this.compareAndCheckLess(VALUE, LESS)
         );
     }
 
@@ -76,7 +76,7 @@ public final class ComparatorTesting2Test implements ComparatorTesting2<Comparat
     @Test
     public void testCompareAndCheckEqualsFails() {
         this.mustFail(
-                () -> this.compareAndCheckEquals(VALUE, MORE)
+            () -> this.compareAndCheckEquals(VALUE, MORE)
         );
     }
 
@@ -88,7 +88,7 @@ public final class ComparatorTesting2Test implements ComparatorTesting2<Comparat
     @Test
     public void testComparatorCompareAndCheckEqualsFails() {
         this.mustFail(
-                () -> this.compareAndCheckEquals(VALUE, MORE)
+            () -> this.compareAndCheckEquals(VALUE, MORE)
         );
     }
 
@@ -102,14 +102,14 @@ public final class ComparatorTesting2Test implements ComparatorTesting2<Comparat
     @Test
     public void testCompareAndCheckMoreFails() {
         this.mustFail(
-                () -> this.compareAndCheckMore(VALUE, MORE)
+            () -> this.compareAndCheckMore(VALUE, MORE)
         );
     }
 
     @Test
     public void testComparatorCompareAndCheckMoreFails() {
         this.mustFail(
-                () -> this.compareAndCheckMore(VALUE, MORE)
+            () -> this.compareAndCheckMore(VALUE, MORE)
         );
     }
 
@@ -128,21 +128,21 @@ public final class ComparatorTesting2Test implements ComparatorTesting2<Comparat
     @Test
     public void testComparatorArraySortAndCheck() {
         this.comparatorArraySortAndCheck("A", "Z", "B", "D", "C",
-                "A", "B", "C", "D", "Z");
+            "A", "B", "C", "D", "Z");
     }
 
     @Test
     public void testComparatorArraySortAndCheckComparator() {
         this.comparatorArraySortAndCheck(COMPARATOR,
-                "A", "Z", "B", "D", "C",
-                "A", "B", "C", "D", "Z");
+            "A", "Z", "B", "D", "C",
+            "A", "B", "C", "D", "Z");
     }
 
     @Test
     public void testComparatorArraySortAndCheckFails() {
         this.mustFail(() -> this.comparatorArraySortAndCheck(COMPARATOR,
-                "A", "Z", "B", "D", "C",
-                "Z", "D", "C", "B", "A"));
+            "A", "Z", "B", "D", "C",
+            "Z", "D", "C", "B", "A"));
     }
 
     // compareAndCheck ..............................................................................................
@@ -150,42 +150,42 @@ public final class ComparatorTesting2Test implements ComparatorTesting2<Comparat
     @Test
     public void testCompareAndCheckAndMore() {
         this.compareAndCheck(
-                VALUE,
-                MORE,
-                -1);
+            VALUE,
+            MORE,
+            -1);
     }
 
     @Test
     public void testCompareAndCheckAndMore2() {
         this.compareAndCheck(
-                VALUE,
-                MORE,
-                -2
+            VALUE,
+            MORE,
+            -2
         );
     }
 
     @Test
     public void testCompareAndCheckAndLess() {
         this.compareAndCheck(
-                VALUE,
-                LESS,
-                1);
+            VALUE,
+            LESS,
+            1);
     }
 
     @Test
     public void testCompareAndCheckAndLess2() {
         this.compareAndCheck(
-                VALUE,
-                LESS,
-                123);
+            VALUE,
+            LESS,
+            123);
     }
 
     @Test
     public void testCompareAndCheckAndEqual() {
         this.compareAndCheck(
-                VALUE,
-                VALUE,
-                0
+            VALUE,
+            VALUE,
+            0
         );
     }
 

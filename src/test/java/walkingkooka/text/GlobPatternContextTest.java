@@ -24,29 +24,29 @@ import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
 public final class GlobPatternContextTest implements ClassTesting<GlobPatternContext>, ContextTesting<GlobPatternContext>,
-        ToStringTesting<GlobPatternContext> {
+    ToStringTesting<GlobPatternContext> {
 
     @Test
     public void testToStringSearch() {
         this.toStringAndCheck(
-                GlobPatternContext.search(CaseSensitivity.SENSITIVE),
-                "SENSITIVE"
+            GlobPatternContext.search(CaseSensitivity.SENSITIVE),
+            "SENSITIVE"
         );
     }
 
     @Test
     public void testToStringGreedy() {
         this.toStringAndCheck(
-                GlobPatternContext.test(CaseSensitivity.SENSITIVE),
-                "SENSITIVE match all"
+            GlobPatternContext.test(CaseSensitivity.SENSITIVE),
+            "SENSITIVE match all"
         );
     }
 
     @Test
     public void testToStringGreedyInsensitive() {
         this.toStringAndCheck(
-                GlobPatternContext.test(CaseSensitivity.INSENSITIVE),
-                "INSENSITIVE match all"
+            GlobPatternContext.test(CaseSensitivity.INSENSITIVE),
+            "INSENSITIVE match all"
         );
     }
 

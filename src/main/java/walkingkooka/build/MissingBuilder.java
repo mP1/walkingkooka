@@ -54,8 +54,8 @@ final public class MissingBuilder implements Builder<String> {
         Objects.requireNonNull(value, "value");
 
         return this.addIfFalse(
-                value.isPresent(),
-                label
+            value.isPresent(),
+            label
         );
     }
 
@@ -66,11 +66,11 @@ final public class MissingBuilder implements Builder<String> {
         Objects.requireNonNull(value, "value");
 
         return this.addIfFalse(
-                value.isPresent(),
-                label
+            value.isPresent(),
+            label
         );
     }
-    
+
     /**
      * Records an error if the value is empty
      */
@@ -78,8 +78,8 @@ final public class MissingBuilder implements Builder<String> {
         Objects.requireNonNull(value, "value");
 
         return this.addIfFalse(
-                value.isPresent(),
-                label
+            value.isPresent(),
+            label
         );
     }
 
@@ -90,8 +90,8 @@ final public class MissingBuilder implements Builder<String> {
         Objects.requireNonNull(value, "value");
 
         return this.addIfFalse(
-                value.isPresent(),
-                label
+            value.isPresent(),
+            label
         );
     }
 

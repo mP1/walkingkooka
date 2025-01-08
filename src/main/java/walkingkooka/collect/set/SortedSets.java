@@ -34,7 +34,7 @@ final public class SortedSets implements PublicStaticHelper {
      * An empty {@link SortedSet}
      */
     public static <E> SortedSet<E> empty() {
-        return (SortedSet<E>)EMPTY;
+        return (SortedSet<E>) EMPTY;
     }
 
     private final static SortedSet<?> EMPTY = ImmutableSortedSetImpl.with(new TreeSet<>());

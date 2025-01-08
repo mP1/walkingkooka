@@ -39,10 +39,10 @@ public abstract class ImmutableListImplNotEmptyTestCase<S extends ImmutableListI
         list.remove(0);
 
         this.deleteAtIndexAndCheck(
-                immutableList,
-                0,
-                (ImmutableList<String>)
-                        ImmutableListImpl.with(list)
+            immutableList,
+            0,
+            (ImmutableList<String>)
+                ImmutableListImpl.with(list)
         );
     }
 
@@ -55,21 +55,21 @@ public abstract class ImmutableListImplNotEmptyTestCase<S extends ImmutableListI
         list.remove(0);
 
         this.deleteAndCheck(
-                immutableList,
-                removed,
-                (ImmutableList<String>)
-                        ImmutableListImpl.with(list)
+            immutableList,
+            removed,
+            (ImmutableList<String>)
+                ImmutableListImpl.with(list)
         );
     }
-    
+
     @Test
     public final void testIteratorRemoveFails() {
         final Iterator<String> iterator = this.createList().iterator();
         iterator.next();
 
         assertThrows(
-                UnsupportedOperationException.class,
-                iterator::remove
+            UnsupportedOperationException.class,
+            iterator::remove
         );
     }
 }

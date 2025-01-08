@@ -23,9 +23,9 @@ import walkingkooka.collect.list.Lists;
 import java.util.List;
 
 public abstract class PushableStreamConsumerStreamPushableStreamConsumerTestCase2<P extends PushableStreamConsumerStreamPushableStreamConsumer<String>>
-        extends PushableStreamConsumerStreamPushableStreamConsumerTestCase<P>
-        implements PushableStreamConsumerTesting<P, String>,
-        ToStringTesting<P> {
+    extends PushableStreamConsumerStreamPushableStreamConsumerTestCase<P>
+    implements PushableStreamConsumerTesting<P, String>,
+    ToStringTesting<P> {
 
     PushableStreamConsumerStreamPushableStreamConsumerTestCase2() {
         super();
@@ -33,7 +33,7 @@ public abstract class PushableStreamConsumerStreamPushableStreamConsumerTestCase
 
     final List<String> commaSeparated(final String source) {
         return source.isEmpty() ?
-                Lists.empty() :
-                Lists.of(source.split(","));
+            Lists.empty() :
+            Lists.of(source.split(","));
     }
 }

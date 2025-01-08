@@ -24,7 +24,7 @@ import walkingkooka.UsesToStringBuilder;
  * Base class for all TERMINAL {@link PushableStreamConsumer}.
  */
 abstract class PushableStreamConsumerStreamTerminalPushableStreamConsumer<T, R> extends PushableStreamConsumerStreamPushableStreamConsumer<T>
-        implements UsesToStringBuilder {
+    implements UsesToStringBuilder {
 
     /**
      * Package private to limit sub classing.
@@ -46,8 +46,7 @@ abstract class PushableStreamConsumerStreamTerminalPushableStreamConsumer<T, R> 
 
     final PushableStreamConsumerCloseableCollection closeables;
 
-    @Override
-    final void buildToString0(final ToStringBuilder builder) {
+    @Override final void buildToString0(final ToStringBuilder builder) {
         this.buildToString1(builder);
 
         builder.label("closeables");

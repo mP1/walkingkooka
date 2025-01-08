@@ -41,10 +41,10 @@ final class ChainIterable<T> implements Iterable<T> {
                 break;
             default:
                 result = new ChainIterable<>(
-                        Arrays.copyOf(
-                                iterables,
-                                count
-                        ) // GWT doesnt support Array.clone();
+                    Arrays.copyOf(
+                        iterables,
+                        count
+                    ) // GWT doesnt support Array.clone();
                 );
                 break;
         }

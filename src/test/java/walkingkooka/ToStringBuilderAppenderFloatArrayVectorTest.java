@@ -28,7 +28,7 @@ public final class ToStringBuilderAppenderFloatArrayVectorTest extends ToStringB
         b.value(new float[]{0, 1, 2});
 
         this.buildAndCheck(b,
-                LABEL1 + LABEL_SEPARATOR + 0.0f + VALUE_SEPARATOR + 1.0f + VALUE_SEPARATOR + 2.0f);
+            LABEL1 + LABEL_SEPARATOR + 0.0f + VALUE_SEPARATOR + 1.0f + VALUE_SEPARATOR + 2.0f);
     }
 
     @Override
@@ -36,8 +36,7 @@ public final class ToStringBuilderAppenderFloatArrayVectorTest extends ToStringB
         return new float[0];
     }
 
-    @Override
-    final String defaultValueToString(final float[] value) {
+    @Override final String defaultValueToString(final float[] value) {
         return "";
     }
 

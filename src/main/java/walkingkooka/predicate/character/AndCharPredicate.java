@@ -32,12 +32,12 @@ final class AndCharPredicate extends LogicalCharPredicate {
         Objects.requireNonNull(right, "right CharPredicate");
 
         return left.equals(right) ?
-                left :
-                left instanceof Andable ?
-                        left.and(right) :
-                        right instanceof Andable ?
-                                right.and(left) :
-                                new AndCharPredicate(left, right);
+            left :
+            left instanceof Andable ?
+                left.and(right) :
+                right instanceof Andable ?
+                    right.and(left) :
+                    new AndCharPredicate(left, right);
     }
 
     /**

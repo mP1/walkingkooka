@@ -26,7 +26,7 @@ import java.util.Objects;
 /**
  * Base class for all immutable {@link List} returned by {@link Lists}.
  */
-abstract class ImmutableListImpl<T> extends AbstractList<T> implements ImmutableListDefaults<ImmutableList<T>, T>  {
+abstract class ImmutableListImpl<T> extends AbstractList<T> implements ImmutableListDefaults<ImmutableList<T>, T> {
 
     /**
      * Returns a {@link ImmutableList} which is immutable including copying elements if necessary.
@@ -35,8 +35,8 @@ abstract class ImmutableListImpl<T> extends AbstractList<T> implements Immutable
         Objects.requireNonNull(list, "list");
 
         return list instanceof ImmutableList ?
-                Cast.to(list) :
-                prepare(list.toArray());
+            Cast.to(list) :
+            prepare(list.toArray());
     }
 
     /**
@@ -51,7 +51,7 @@ abstract class ImmutableListImpl<T> extends AbstractList<T> implements Immutable
                 break;
             case 1:
                 immutable = singleton(
-                        Cast.to(elements[0])
+                    Cast.to(elements[0])
                 );
                 break;
             default:
@@ -90,7 +90,7 @@ abstract class ImmutableListImpl<T> extends AbstractList<T> implements Immutable
 
         final ImmutableListImpl<T> copy = prepare(elements.toArray());
         return this.equals(copy) ?
-                this:
-                copy;
+            this :
+            copy;
     }
 }

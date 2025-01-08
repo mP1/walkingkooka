@@ -28,8 +28,8 @@ import walkingkooka.reflect.JavaVisibility;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class NormalizingCharSequenceComparatorTest implements ClassTesting2<NormalizingCharSequenceComparator<String>>,
-        ComparatorTesting2<NormalizingCharSequenceComparator<String>, String>,
-        HashCodeEqualsDefinedTesting2<NormalizingCharSequenceComparator<String>> {
+    ComparatorTesting2<NormalizingCharSequenceComparator<String>, String>,
+    HashCodeEqualsDefinedTesting2<NormalizingCharSequenceComparator<String>> {
 
     // constants
 

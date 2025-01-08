@@ -22,8 +22,6 @@ import walkingkooka.Cast;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class ImmutableMapNonSingletonMapTest extends ImmutableMapTestCase3<ImmutableMapNonSingletonMap<String, Integer>> {
 
     @Test

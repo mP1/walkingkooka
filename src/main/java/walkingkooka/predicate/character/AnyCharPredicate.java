@@ -46,8 +46,8 @@ final class AnyCharPredicate implements CharPredicate {
                 break;
             default:
                 predicate
-                        = AnyCharPredicate.sortCheckAndRemoveDuplicatesThenCreate(chars.toCharArray(),
-                        length);
+                    = AnyCharPredicate.sortCheckAndRemoveDuplicatesThenCreate(chars.toCharArray(),
+                    length);
                 break;
         }
 
@@ -131,7 +131,7 @@ final class AnyCharPredicate implements CharPredicate {
     @Override
     public boolean equals(final Object other) {
         return (this == other) || ((other instanceof AnyCharPredicate)
-                && this.equals((AnyCharPredicate) other));
+            && this.equals((AnyCharPredicate) other));
     }
 
     private boolean equals(final AnyCharPredicate predicate) {

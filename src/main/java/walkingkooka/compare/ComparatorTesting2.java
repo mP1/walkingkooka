@@ -27,9 +27,9 @@ import java.util.Comparator;
  * Mixin that includes methods to help testing of a {@link Comparator}.
  */
 public interface ComparatorTesting2<C extends Comparator<T>, T>
-        extends ComparatorTesting,
-        ToStringTesting<C>,
-        TypeNameTesting<C> {
+    extends ComparatorTesting,
+    ToStringTesting<C>,
+    TypeNameTesting<C> {
 
     C createComparator();
 
@@ -41,34 +41,34 @@ public interface ComparatorTesting2<C extends Comparator<T>, T>
     default void compareAndCheckLess(final T value1,
                                      final T value2) {
         this.compareAndCheckLess(
-                this.createComparator(),
-                value1,
-                value2
+            this.createComparator(),
+            value1,
+            value2
         );
     }
 
     default void compareAndCheckEquals(final T value) {
         this.compareAndCheckEquals(
-                this.createComparator(),
-                value
+            this.createComparator(),
+            value
         );
     }
 
     default void compareAndCheckEquals(final T value1,
                                        final T value2) {
         this.compareAndCheckEquals(
-                this.createComparator(),
-                value1,
-                value2
+            this.createComparator(),
+            value1,
+            value2
         );
     }
 
     default void compareAndCheckMore(final T value1,
                                      final T value2) {
         this.compareAndCheckMore(
-                this.createComparator(),
-                value1,
-                value2
+            this.createComparator(),
+            value1,
+            value2
         );
     }
 
@@ -84,8 +84,8 @@ public interface ComparatorTesting2<C extends Comparator<T>, T>
     @SuppressWarnings("unchecked")
     default void comparatorArraySortAndCheck(final T... values) {
         this.comparatorArraySortAndCheck(
-                this.createComparator(),
-                values
+            this.createComparator(),
+            values
         );
     }
 

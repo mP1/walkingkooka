@@ -168,14 +168,14 @@ public abstract class ToStringBuilderAppenderVectorTestCase<A extends ToStringBu
 
     final ToStringBuilder builder() {
         return ToStringBuilder.empty().disable(ToStringBuilderOption.ESCAPE)
-                .disable(ToStringBuilderOption.HEX_BYTES)
-                .disable(ToStringBuilderOption.HEX_WHOLE_NUMBERS)
-                .enable(ToStringBuilderOption.INLINE_ELEMENTS)
-                .disable(ToStringBuilderOption.QUOTE)
-                .disable(ToStringBuilderOption.ONE_AND_ZERO_BOOLEAN_ARRAYS)
-                .labelSeparator(LABEL_SEPARATOR)
-                .valueSeparator(VALUE_SEPARATOR)
-                .separator(SEPARATOR);
+            .disable(ToStringBuilderOption.HEX_BYTES)
+            .disable(ToStringBuilderOption.HEX_WHOLE_NUMBERS)
+            .enable(ToStringBuilderOption.INLINE_ELEMENTS)
+            .disable(ToStringBuilderOption.QUOTE)
+            .disable(ToStringBuilderOption.ONE_AND_ZERO_BOOLEAN_ARRAYS)
+            .labelSeparator(LABEL_SEPARATOR)
+            .valueSeparator(VALUE_SEPARATOR)
+            .separator(SEPARATOR);
     }
 
     final V defaultValue2() {

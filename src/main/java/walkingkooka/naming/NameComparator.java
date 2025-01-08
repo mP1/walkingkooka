@@ -31,7 +31,7 @@ final class NameComparator<N extends Name> implements Comparator<N> {
         Objects.requireNonNull(caseSensitivity, "caseSensitivity");
 
         return new NameComparator<>(
-                caseSensitivity.comparator()
+            caseSensitivity.comparator()
         );
     }
 
@@ -43,8 +43,8 @@ final class NameComparator<N extends Name> implements Comparator<N> {
     public int compare(final N left,
                        final N right) {
         return this.comparator.compare(
-                left.value(),
-                right.value()
+            left.value(),
+            right.value()
         );
     }
 

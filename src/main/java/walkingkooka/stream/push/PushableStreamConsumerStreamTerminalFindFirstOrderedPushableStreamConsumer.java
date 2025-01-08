@@ -49,7 +49,7 @@ final class PushableStreamConsumerStreamTerminalFindFirstOrderedPushableStreamCo
 
     @Override
     public void accept(final T value) {
-        if(this.found) {
+        if (this.found) {
             throw new StreamException("First already found: " + CharSequences.quoteIfChars(this.first) + " new find: " + CharSequences.quoteIfChars(value));
         }
         this.first = value;

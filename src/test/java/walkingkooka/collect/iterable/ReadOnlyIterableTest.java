@@ -30,8 +30,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ReadOnlyIterableTest implements ClassTesting2<ReadOnlyIterable<String>>,
-        IterableTesting<ReadOnlyIterable<String>, String>,
-        IteratorTesting {
+    IterableTesting<ReadOnlyIterable<String>, String>,
+    IteratorTesting {
 
     // constants
 

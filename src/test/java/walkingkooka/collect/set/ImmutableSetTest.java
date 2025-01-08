@@ -32,17 +32,17 @@ public final class ImmutableSetTest implements ClassTesting<ImmutableSet<String>
     @Test
     public void testCollector() {
         final Set<String> list = Sets.of(
-                "1A",
-                "2B",
-                "3C"
+            "1A",
+            "2B",
+            "3C"
         );
 
         final ImmutableSet<String> collected = list.stream()
-                .collect(ImmutableSet.collector());
+            .collect(ImmutableSet.collector());
 
         this.checkEquals(
-                list,
-                collected
+            list,
+            collected
         );
     }
 

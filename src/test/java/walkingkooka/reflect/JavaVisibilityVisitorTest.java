@@ -22,7 +22,6 @@ import walkingkooka.visit.Visiting;
 import walkingkooka.visit.Visitor;
 import walkingkooka.visit.VisitorTesting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class JavaVisibilityVisitorTest implements VisitorTesting<JavaVisibilityVisitor, JavaVisibility> {
@@ -60,28 +59,28 @@ public final class JavaVisibilityVisitorTest implements VisitorTesting<JavaVisib
     @Test
     public void testVisitorPublic2() {
         this.visitAndCheck(JavaVisibility.PUBLIC,
-                new JavaVisibilityVisitor() {
+            new JavaVisibilityVisitor() {
 
-                    @Override
-                    protected void visitPublic() {
-                        visited = true;
-                    }
+                @Override
+                protected void visitPublic() {
+                    visited = true;
+                }
 
-                    @Override
-                    protected void visitProtected() {
-                        throw new UnsupportedOperationException();
-                    }
+                @Override
+                protected void visitProtected() {
+                    throw new UnsupportedOperationException();
+                }
 
-                    @Override
-                    protected void visitPackagePrivate() {
-                        throw new UnsupportedOperationException();
-                    }
+                @Override
+                protected void visitPackagePrivate() {
+                    throw new UnsupportedOperationException();
+                }
 
-                    @Override
-                    protected void visitPrivate() {
-                        throw new UnsupportedOperationException();
-                    }
-                });
+                @Override
+                protected void visitPrivate() {
+                    throw new UnsupportedOperationException();
+                }
+            });
     }
 
     @Test
@@ -115,28 +114,28 @@ public final class JavaVisibilityVisitorTest implements VisitorTesting<JavaVisib
     @Test
     protected void testVisitorProtected2() {
         this.visitAndCheck(JavaVisibility.PROTECTED,
-                new JavaVisibilityVisitor() {
+            new JavaVisibilityVisitor() {
 
-                    @Override
-                    protected void visitPublic() {
-                        throw new UnsupportedOperationException();
-                    }
+                @Override
+                protected void visitPublic() {
+                    throw new UnsupportedOperationException();
+                }
 
-                    @Override
-                    protected void visitProtected() {
-                        visited = true;
-                    }
+                @Override
+                protected void visitProtected() {
+                    visited = true;
+                }
 
-                    @Override
-                    protected void visitPackagePrivate() {
-                        throw new UnsupportedOperationException();
-                    }
+                @Override
+                protected void visitPackagePrivate() {
+                    throw new UnsupportedOperationException();
+                }
 
-                    @Override
-                    protected void visitPrivate() {
-                        throw new UnsupportedOperationException();
-                    }
-                });
+                @Override
+                protected void visitPrivate() {
+                    throw new UnsupportedOperationException();
+                }
+            });
     }
 
 
@@ -171,28 +170,28 @@ public final class JavaVisibilityVisitorTest implements VisitorTesting<JavaVisib
     @Test
     public void testVisitorPackagePrivate2() {
         this.visitAndCheck(JavaVisibility.PACKAGE_PRIVATE,
-                new JavaVisibilityVisitor() {
+            new JavaVisibilityVisitor() {
 
-                    @Override
-                    protected void visitPublic() {
-                        throw new UnsupportedOperationException();
-                    }
+                @Override
+                protected void visitPublic() {
+                    throw new UnsupportedOperationException();
+                }
 
-                    @Override
-                    protected void visitProtected() {
-                        throw new UnsupportedOperationException();
-                    }
+                @Override
+                protected void visitProtected() {
+                    throw new UnsupportedOperationException();
+                }
 
-                    @Override
-                    protected void visitPackagePrivate() {
-                        visited = true;
-                    }
+                @Override
+                protected void visitPackagePrivate() {
+                    visited = true;
+                }
 
-                    @Override
-                    protected void visitPrivate() {
-                        throw new UnsupportedOperationException();
-                    }
-                });
+                @Override
+                protected void visitPrivate() {
+                    throw new UnsupportedOperationException();
+                }
+            });
     }
 
     @Test
@@ -226,28 +225,28 @@ public final class JavaVisibilityVisitorTest implements VisitorTesting<JavaVisib
     @Test
     public void testVisitorPrivate2() {
         this.visitAndCheck(JavaVisibility.PRIVATE,
-                new JavaVisibilityVisitor() {
+            new JavaVisibilityVisitor() {
 
-                    @Override
-                    protected void visitPublic() {
-                        throw new UnsupportedOperationException();
-                    }
+                @Override
+                protected void visitPublic() {
+                    throw new UnsupportedOperationException();
+                }
 
-                    @Override
-                    protected void visitProtected() {
-                        throw new UnsupportedOperationException();
-                    }
+                @Override
+                protected void visitProtected() {
+                    throw new UnsupportedOperationException();
+                }
 
-                    @Override
-                    protected void visitPackagePrivate() {
-                        throw new UnsupportedOperationException();
-                    }
+                @Override
+                protected void visitPackagePrivate() {
+                    throw new UnsupportedOperationException();
+                }
 
-                    @Override
-                    protected void visitPrivate() {
-                        visited = true;
-                    }
-                });
+                @Override
+                protected void visitPrivate() {
+                    visited = true;
+                }
+            });
     }
 
     private void visitAndCheck(final JavaVisibility visibility,

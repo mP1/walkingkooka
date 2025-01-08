@@ -26,7 +26,7 @@ import java.util.function.Predicate;
  * A {@link Predicate} that inverts the result of the wrapped {@link Predicate}.
  */
 final class NotPredicate<T> implements Predicate<T>,
-        Notable<Predicate<T>> {
+    Notable<Predicate<T>> {
 
     static <T> Predicate<T> wrap(final Predicate<T> predicate) {
         Objects.requireNonNull(predicate, "predicate");

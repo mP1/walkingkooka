@@ -182,12 +182,12 @@ public enum CompareResult implements Predicate<Integer> {
                              final T equal,
                              final T greater) {
         return EQ == this ?
-                equal :
-                LT == this ?
-                        less :
-                        GT == this ?
-                                greater :
-                                uoe();
+            equal :
+            LT == this ?
+                less :
+                GT == this ?
+                    greater :
+                    uoe();
     }
 
     /**
@@ -197,12 +197,12 @@ public enum CompareResult implements Predicate<Integer> {
                            final Supplier<? extends T> equal,
                            final Supplier<? extends T> greater) {
         return EQ == this ?
-                equal.get() :
-                LT == this ?
-                        less.get() :
-                        GT == this ?
-                                greater.get() :
-                                uoe();
+            equal.get() :
+            LT == this ?
+                less.get() :
+                GT == this ?
+                    greater.get() :
+                    uoe();
     }
 
     private static <T> T uoe() {
@@ -214,9 +214,9 @@ public enum CompareResult implements Predicate<Integer> {
      */
     public static CompareResult intCompareResult(final int value) {
         return 0 == value ?
-                EQ :
-                value < 0 ?
-                        LT : GT;
+            EQ :
+            value < 0 ?
+                LT : GT;
     }
 
     /**
@@ -226,8 +226,8 @@ public enum CompareResult implements Predicate<Integer> {
         Objects.requireNonNull(symbol);
 
         return Arrays.stream(CompareResult.values())
-                .filter(r -> r.symbol().equals(symbol))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Unable to find symbol " + CharSequences.quote(symbol)));
+            .filter(r -> r.symbol().equals(symbol))
+            .findFirst()
+            .orElseThrow(() -> new IllegalArgumentException("Unable to find symbol " + CharSequences.quote(symbol)));
     }
 }

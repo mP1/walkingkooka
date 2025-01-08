@@ -49,17 +49,17 @@ public final class ListTestingTest implements ListTesting {
     @Test
     public void testSetFails() {
         this.setFails(
-                Lists.of("1a"),
-                0,
-                "*NEW*"
+            Lists.of("1a"),
+            0,
+            "*NEW*"
         );
     }
 
     @Test
     public void testRemoveIndexFails() {
         this.removeIndexFails(
-                Lists.of("1a"),
-                0
+            Lists.of("1a"),
+            0
         );
     }
 
@@ -71,17 +71,17 @@ public final class ListTestingTest implements ListTesting {
         list.add("C3");
 
         this.removeIndexAndCheck(
-                list,
-                1,
-                "B2"
+            list,
+            1,
+            "B2"
         );
 
         this.checkEquals(
-                Lists.of(
-                        "A1",
-                        "C3"
-                ),
-                list
+            Lists.of(
+                "A1",
+                "C3"
+            ),
+            list
         );
     }
 
@@ -93,17 +93,17 @@ public final class ListTestingTest implements ListTesting {
         list.add("C3");
 
         this.removeElementAndCheck(
-                list,
-                "B2",
-                true
+            list,
+            "B2",
+            true
         );
 
         this.checkEquals(
-                Lists.of(
-                        "A1",
-                        "C3"
-                ),
-                list
+            Lists.of(
+                "A1",
+                "C3"
+            ),
+            list
         );
     }
 
@@ -115,18 +115,18 @@ public final class ListTestingTest implements ListTesting {
         list.add("C3");
 
         this.removeElementAndCheck(
-                list,
-                "?Unknown???",
-                false
+            list,
+            "?Unknown???",
+            false
         );
 
         this.checkEquals(
-                Lists.of(
-                        "A1",
-                        "B2",
-                        "C3"
-                ),
-                list
+            Lists.of(
+                "A1",
+                "B2",
+                "C3"
+            ),
+            list
         );
     }
 }

@@ -62,8 +62,8 @@ final class EitherLeft<L, R> extends Either<L, R> {
     @Override
     Either<L, R> setLeftValue0(final L value) throws NoSuchElementException {
         return Objects.equals(this.value, value) ?
-                this :
-                new EitherLeft<>(value);
+            this :
+            new EitherLeft<>(value);
     }
 
     /**

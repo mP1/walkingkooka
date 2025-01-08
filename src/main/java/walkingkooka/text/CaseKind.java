@@ -55,8 +55,8 @@ public enum CaseKind {
         char destBegin(final int i,
                        final char c) {
             return i == 0 ?
-                    Character.toLowerCase(c) :
-                    Character.toUpperCase(c);
+                Character.toLowerCase(c) :
+                Character.toUpperCase(c);
         }
     },
 
@@ -241,11 +241,11 @@ public enum CaseKind {
         Objects.requireNonNull(to, "to");
 
         return text.isEmpty() || this == to ?
-                text :
-                change0(
-                        text,
-                        to
-                );
+            text :
+            change0(
+                text,
+                to
+            );
     }
 
     private String change0(final String text,
@@ -259,7 +259,7 @@ public enum CaseKind {
             final char c = text.charAt(i);
 
             if (this.isEndOfChunk(i, c)) {
-                if(this.shouldIgnoreSeparator()) {
+                if (this.shouldIgnoreSeparator()) {
                     i++;
                 }
 
@@ -269,33 +269,33 @@ public enum CaseKind {
                     }
 
                     b.append(
-                            to.destBegin(
-                                    i,
-                                    this.sourceBegin(
-                                            i,
-                                            text.charAt(i)
-                                    )
+                        to.destBegin(
+                            i,
+                            this.sourceBegin(
+                                i,
+                                text.charAt(i)
                             )
+                        )
                     );
 
                     i++;
                 }
             } else {
-                if(0 == i) {
+                if (0 == i) {
                     b.append(
-                            to.destBegin(
-                                    i,
-                                    this.sourceBegin(
-                                            i,
-                                            text.charAt(i)
-                                    )
+                        to.destBegin(
+                            i,
+                            this.sourceBegin(
+                                i,
+                                text.charAt(i)
                             )
+                        )
                     );
                 } else {
                     b.append(
-                            to.nonBegin(
-                                    this.nonBegin(c)
-                            )
+                        to.nonBegin(
+                            this.nonBegin(c)
+                        )
                     );
                 }
                 i++;
@@ -347,8 +347,8 @@ public enum CaseKind {
         Objects.requireNonNull(value, "value");
 
         return value.name()
-                .toLowerCase()
-                .replace('_', '-');
+            .toLowerCase()
+            .replace('_', '-');
     }
 
     /**
@@ -356,8 +356,8 @@ public enum CaseKind {
      */
     public static String kebabToTitle(final String text) {
         return KEBAB.change(
-                text,
-                TITLE
+            text,
+            TITLE
         );
     }
 }

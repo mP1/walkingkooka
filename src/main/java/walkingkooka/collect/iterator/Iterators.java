@@ -98,8 +98,8 @@ final public class Iterators implements PublicStaticHelper {
     public static <E> Iterator<E> predicated(final Iterator<E> iterator,
                                              final Predicate<E> filter) {
         return PredicatedIterator.with(
-                iterator,
-                filter
+            iterator,
+            filter
         );
     }
 

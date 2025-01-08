@@ -27,8 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NullAwareComparatorTestCase<C extends NullAwareComparator<String>> implements ComparatorTesting2<C, String>,
-        HashCodeEqualsDefinedTesting2<C>,
-        ToStringTesting<C> {
+    HashCodeEqualsDefinedTesting2<C>,
+    ToStringTesting<C> {
 
     NullAwareComparatorTestCase() {
         super();
@@ -37,8 +37,8 @@ public abstract class NullAwareComparatorTestCase<C extends NullAwareComparator<
     @Test
     public final void testWithNullComparatorFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createComparator(null)
+            NullPointerException.class,
+            () -> this.createComparator(null)
         );
     }
 
@@ -46,8 +46,8 @@ public abstract class NullAwareComparatorTestCase<C extends NullAwareComparator<
     public final void testWithDoesntDoubleWrap() {
         final C comparator = this.createComparator();
         assertSame(
-                comparator,
-                this.createComparator(comparator)
+            comparator,
+            this.createComparator(comparator)
         );
     }
 
@@ -55,35 +55,35 @@ public abstract class NullAwareComparatorTestCase<C extends NullAwareComparator<
     @Test
     public final void testCompareNullLeftNullRight() {
         this.compareAndCheckEquals(
-                this.createComparator(),
-                null,
-                null
+            this.createComparator(),
+            null,
+            null
         );
     }
 
     @Test
     public void testCompareNonNullLeftNonNullRight() {
         this.compareAndCheckEquals(
-                this.createComparator(String.CASE_INSENSITIVE_ORDER),
-                "abc",
-                "abc"
+            this.createComparator(String.CASE_INSENSITIVE_ORDER),
+            "abc",
+            "abc"
         );
     }
 
     @Test
     public void testCompareNonNullLeftNonNullRight2() {
         this.compareAndCheckLess(
-                this.createComparator(String.CASE_INSENSITIVE_ORDER),
-                "abc",
-                "XYZ"
+            this.createComparator(String.CASE_INSENSITIVE_ORDER),
+            "abc",
+            "XYZ"
         );
     }
 
     @Test
     public final void testEqualsDifferentComparator() {
         this.checkNotEquals(
-                this.createComparator(Comparators.fake()),
-                this.createComparator(Comparators.fake())
+            this.createComparator(Comparators.fake()),
+            this.createComparator(Comparators.fake())
         );
     }
 

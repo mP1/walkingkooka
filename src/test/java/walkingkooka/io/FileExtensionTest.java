@@ -29,8 +29,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class FileExtensionTest implements ComparableTesting2<FileExtension>,
-        ToStringTesting<FileExtension>,
-        CanBeEmptyTesting {
+    ToStringTesting<FileExtension>,
+    CanBeEmptyTesting {
 
     @Test
     public void testWithNullFails() {
@@ -67,10 +67,10 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     @Test
     public void testExtractEmpty() {
         this.fileExtensionAndCheck(
-                "file.",
-                Optional.of(
-                        FileExtension.with("")
-                )
+            "file.",
+            Optional.of(
+                FileExtension.with("")
+            )
         );
     }
 
@@ -84,8 +84,8 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
 
     private void fileExtensionAndCheck(final String filename, final Optional<FileExtension> fileExtension) {
         this.checkEquals(fileExtension,
-                FileExtension.extract(filename),
-                () -> CharSequences.quoteAndEscape(filename) + " file extension");
+            FileExtension.extract(filename),
+            () -> CharSequences.quoteAndEscape(filename) + " file extension");
     }
 
     @Test
@@ -123,7 +123,7 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
         final FileExtension png = FileExtension.with("png");
 
         this.compareToArraySortAndCheck(txt, exe, png, bin,
-                bin, exe, png, txt);
+            bin, exe, png, txt);
     }
 
     // CanBeEmpty.......................................................................................................
@@ -131,16 +131,16 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     @Test
     public void testCanBeEmptyEmpty() {
         this.isEmptyAndCheck(
-                FileExtension.with(""),
-                true
+            FileExtension.with(""),
+            true
         );
     }
 
     @Test
     public void testCanBeEmptyNotEmpty() {
         this.isEmptyAndCheck(
-                FileExtension.with("txt"),
-                false
+            FileExtension.with("txt"),
+            false
         );
     }
 

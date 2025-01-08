@@ -84,8 +84,8 @@ final class PathIterator<P extends Path<P, N>, N extends Name> implements Iterat
     @Override
     public String toString() {
         return IntStream.range(this.cursor, this.components.size())
-                .mapToObj(this::element)
-                .collect(Collectors.joining(this.separator.string()));
+            .mapToObj(this::element)
+            .collect(Collectors.joining(this.separator.string()));
     }
 
     private String element(final int i) {

@@ -122,8 +122,8 @@ final public class PathSeparator {
         final boolean atStart = this.character == path.charAt(0);
         if (this.requiredAtStart != atStart) {
             throw new IllegalArgumentException("Path " +
-                    (this.requiredAtStart ? "is missing" : "should not start with") +
-                    " " + CharSequences.quote(this.string) + " " + CharSequences.quote(path));
+                (this.requiredAtStart ? "is missing" : "should not start with") +
+                " " + CharSequences.quote(this.string) + " " + CharSequences.quote(path));
         }
     }
 
@@ -144,7 +144,7 @@ final public class PathSeparator {
 
     private boolean equals0(final PathSeparator other) {
         return (this.character == other.character) && //
-                (this.requiredAtStart == other.requiredAtStart);
+            (this.requiredAtStart == other.requiredAtStart);
     }
 
     /**

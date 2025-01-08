@@ -35,8 +35,8 @@ public interface FunctionTesting<F extends Function<T, R>, T, R> extends TypeNam
                                         final TT input,
                                         final RR result) {
         this.checkEquals(result,
-                function.apply(input),
-                () -> "Wrong result for " + function + " for params: " + CharSequences.quoteIfChars(input));
+            function.apply(input),
+            () -> "Wrong result for " + function + " for params: " + CharSequences.quoteIfChars(input));
     }
 
     F createFunction();

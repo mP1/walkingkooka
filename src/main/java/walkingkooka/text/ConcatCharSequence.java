@@ -38,10 +38,10 @@ final class ConcatCharSequence extends CharSequence2<ConcatCharSequence> {
     private static CharSequence with0(final CharSequence first,
                                       final CharSequence second) {
         return first.length() == 0 ?
-                second :
-                second.length() == 0 ?
-                        first :
-                        new ConcatCharSequence(first, second);
+            second :
+            second.length() == 0 ?
+                first :
+                new ConcatCharSequence(first, second);
     }
 
     /**
@@ -66,8 +66,8 @@ final class ConcatCharSequence extends CharSequence2<ConcatCharSequence> {
         final int firstEnd = first.length();
 
         return index < firstEnd ?
-                first.charAt(index) :
-                this.second.charAt(index - firstEnd);
+            first.charAt(index) :
+            this.second.charAt(index - firstEnd);
     }
 
     /**
@@ -79,10 +79,10 @@ final class ConcatCharSequence extends CharSequence2<ConcatCharSequence> {
         final int firstEnd = first.length();
 
         return end <= firstEnd ?
-                first.subSequence(start, end) :
-                start >= firstEnd ?
-                        this.second.subSequence(start - firstEnd, end - firstEnd) :
-                        with0(first.subSequence(start, firstEnd), this.second.subSequence(0, end - firstEnd));
+            first.subSequence(start, end) :
+            start >= firstEnd ?
+                this.second.subSequence(start - firstEnd, end - firstEnd) :
+                with0(first.subSequence(start, firstEnd), this.second.subSequence(0, end - firstEnd));
     }
 
     @Override
@@ -121,6 +121,6 @@ final class ConcatCharSequence extends CharSequence2<ConcatCharSequence> {
     @Override
     String buildToString() {
         return String.valueOf(this.first) +
-                this.second;
+            this.second;
     }
 }

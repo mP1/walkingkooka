@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * available that compare andcheck the result.
  */
 public interface ComparableTesting2<C extends Comparable<C>> extends ComparableTesting,
-        HashCodeEqualsDefinedTesting2<C> {
+    HashCodeEqualsDefinedTesting2<C> {
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test
@@ -78,9 +78,9 @@ public interface ComparableTesting2<C extends Comparable<C>> extends ComparableT
         final int result = comparable.compareTo(otherComparable);
         if (Comparators.EQUAL == Comparators.normalize(result)) {
             this.checkNotEquals(
-                    result,
-                    result,
-                    () -> CharSequences.quoteIfChars(comparable) + " should not be EQUAL to " + CharSequences.quoteIfChars(otherComparable)
+                result,
+                result,
+                () -> CharSequences.quoteIfChars(comparable) + " should not be EQUAL to " + CharSequences.quoteIfChars(otherComparable)
             );
         }
     }

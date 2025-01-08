@@ -122,15 +122,15 @@ public final class ImmutableSetImplTest extends ImmutableSetImplTestCase<Immutab
                                   final Object contains,
                                   final boolean expected) {
         this.checkEquals(expected,
-                set.contains(contains),
-                () -> set + " contains " + contains);
+            set.contains(contains),
+            () -> set + " contains " + contains);
     }
 
     private Set<String> immutableAndCheck(final Set<String> from) {
         final Set<String> immutable = Sets.immutable(from);
         this.checkEquals(true,
-                immutable instanceof ImmutableSetImpl,
-                () -> "from " + from + " type=" + immutable.getClass().getName() + " " + immutable);
+            immutable instanceof ImmutableSetImpl,
+            () -> "from " + from + " type=" + immutable.getClass().getName() + " " + immutable);
         return immutable;
     }
 

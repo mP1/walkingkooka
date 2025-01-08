@@ -31,7 +31,7 @@ final public class PushStreamExceptionTest implements StandardThrowableTesting<P
     public PushStreamException createThrowable(final String message, final Throwable cause) {
         return new PushStreamException(message, cause);
     }
-    
+
     @Override
     public Class<PushStreamException> type() {
         return PushStreamException.class;

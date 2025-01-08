@@ -29,9 +29,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Mixing that helps test a {@link Predicate} and an argument and some additional tests.
  */
 public interface PredicateTesting2<P extends Predicate<T>, T>
-        extends PredicateTesting,
-        ToStringTesting<P>,
-        TypeNameTesting<P> {
+    extends PredicateTesting,
+    ToStringTesting<P>,
+    TypeNameTesting<P> {
 
     @Test
     default void testTestNullFails() {

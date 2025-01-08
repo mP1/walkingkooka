@@ -34,15 +34,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Mixin interface for testing {@link Builder}
  */
 public interface BuilderTesting<B extends Builder<T>, T> extends ThrowableTesting,
-        ToStringTesting<B>,
-        TypeNameTesting<B> {
+    ToStringTesting<B>,
+    TypeNameTesting<B> {
 
     @Test
     default void testBuilderProductTypePublic() {
         final Class<T> type = this.builderProductType();
         this.checkEquals(JavaVisibility.PUBLIC,
-                JavaVisibility.of(type),
-                "Builder product type " + type.getName() + " is not public");
+            JavaVisibility.of(type),
+            "Builder product type " + type.getName() + " is not public");
     }
 
     default void buildAndCheck(final Builder<T> builder, final T product) {
@@ -58,7 +58,7 @@ public interface BuilderTesting<B extends Builder<T>, T> extends ThrowableTestin
 
         final BuilderException expected = assertThrows(BuilderException.class, builder::build);
         if (null != message) {
-           this.checkMessage(expected, message);
+            this.checkMessage(expected, message);
         }
     }
 

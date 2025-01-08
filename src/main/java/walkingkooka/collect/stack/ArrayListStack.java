@@ -128,7 +128,7 @@ final class ArrayListStack<T> implements Stack<T> {
     @Override
     public boolean equals(final Object object) {
         return (this == object) || //
-                ((object instanceof Stack) && this.equals(Cast.to(object)));
+            ((object instanceof Stack) && this.equals(Cast.to(object)));
     }
 
     /**
@@ -136,9 +136,9 @@ final class ArrayListStack<T> implements Stack<T> {
      */
     private boolean equals(final Stack<T> stack) {
         return (this.items.size() == stack.size()) && //
-                (stack instanceof ArrayListStack ?
-                        this.equals0(Cast.to(stack)) :
-                        this.equals1(stack));
+            (stack instanceof ArrayListStack ?
+                this.equals0(Cast.to(stack)) :
+                this.equals1(stack));
     }
 
     /**

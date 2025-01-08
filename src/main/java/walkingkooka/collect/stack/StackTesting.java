@@ -31,9 +31,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Mixin interface for testing a {@link Stack}.
  */
 public interface StackTesting<S extends Stack<T>, T> extends CanBeEmptyTesting,
-        HashCodeEqualsDefinedTesting2<S>,
-        ToStringTesting<S>,
-        TypeNameTesting<S> {
+    HashCodeEqualsDefinedTesting2<S>,
+    ToStringTesting<S>,
+    TypeNameTesting<S> {
 
     @Test
     default void testPeekWhenEmptyFails() {

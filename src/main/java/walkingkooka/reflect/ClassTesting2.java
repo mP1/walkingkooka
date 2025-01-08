@@ -35,11 +35,11 @@ public interface ClassTesting2<T> extends ClassTesting<T> {
         if (!Fake.class.isAssignableFrom(type)) {
             if (!ClassAttributes.ABSTRACT.is(type) && ClassAttributes.FINAL.is(type)) {
                 this.checkEquals("",
-                        Arrays.stream(type.getDeclaredConstructors())
-                                .filter(c -> JavaVisibility.PRIVATE != JavaVisibility.of(c))
-                                .map(Constructor::toGenericString)
-                                .collect(Collectors.joining(",")),
-                        () -> "All ctors must be private when class " + type.getName() + " is not abstract");
+                    Arrays.stream(type.getDeclaredConstructors())
+                        .filter(c -> JavaVisibility.PRIVATE != JavaVisibility.of(c))
+                        .map(Constructor::toGenericString)
+                        .collect(Collectors.joining(",")),
+                    () -> "All ctors must be private when class " + type.getName() + " is not abstract");
             }
         }
     }
@@ -52,17 +52,17 @@ public interface ClassTesting2<T> extends ClassTesting<T> {
         final Class<T> type = this.type();
 
         final JavaVisibility sameOrLess = Fake.class.isAssignableFrom(type) ?
-                JavaVisibility.PUBLIC :
-                ClassAttributes.FINAL.is(type) ?
-                        JavaVisibility.PRIVATE :
-                        JavaVisibility.PACKAGE_PRIVATE;
+            JavaVisibility.PUBLIC :
+            ClassAttributes.FINAL.is(type) ?
+                JavaVisibility.PRIVATE :
+                JavaVisibility.PACKAGE_PRIVATE;
         this.checkEquals(
-                "",
-                Arrays.stream(this.type().getDeclaredConstructors())
-                        .filter(c -> false == JavaVisibility.of(c).isOrLess(sameOrLess))
-                        .map(Constructor::toGenericString)
-                        .collect(Collectors.joining(", ")),
-                () -> "Found several constructors that are not " + sameOrLess + " for type " + type.getName()
+            "",
+            Arrays.stream(this.type().getDeclaredConstructors())
+                .filter(c -> false == JavaVisibility.of(c).isOrLess(sameOrLess))
+                .map(Constructor::toGenericString)
+                .collect(Collectors.joining(", ")),
+            () -> "Found several constructors that are not " + sameOrLess + " for type " + type.getName()
         );
     }
 }

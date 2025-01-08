@@ -30,17 +30,17 @@ public interface HashCodeEqualsDefinedTesting extends Testing {
         checkEquals(expected, actual);
 
         this.checkEquals(
-                expected.hashCode(),
-                actual.hashCode(),
-                "objects that are equal should have equal hashcodes"
+            expected.hashCode(),
+            actual.hashCode(),
+            "objects that are equal should have equal hashcodes"
         );
     }
 
     default void checkHashCode(final Object expected, final Object actual) {
         assertEquals(
-                expected.hashCode(),
-                actual.hashCode(),
-                () -> expected + "\n" + actual
+            expected.hashCode(),
+            actual.hashCode(),
+            () -> expected + "\n" + actual
         );
     }
 }

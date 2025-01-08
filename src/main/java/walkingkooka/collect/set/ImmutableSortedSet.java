@@ -70,7 +70,7 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>, SortedSet<E> {
     @Override
     default ImmutableSet<E> setElements(final Set<E> elements) {
         return this.setElements(
-                (SortedSet<E>) elements
+            (SortedSet<E>) elements
         );
     }
 
@@ -84,7 +84,7 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>, SortedSet<E> {
     @Override
     default ImmutableSet<E> setElementsFailIfDifferent(final Set<E> elements) {
         return this.setElementsFailIfDifferent(
-                (SortedSet<E>) elements
+            (SortedSet<E>) elements
         );
     }
 
@@ -106,8 +106,8 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>, SortedSet<E> {
      */
     static <EE> Collector<EE, ?, ImmutableSortedSet<EE>> collector() {
         return Collectors.collectingAndThen(
-                Collectors.toCollection(SortedSets::tree),
-                SortedSets::immutable
+            Collectors.toCollection(SortedSets::tree),
+            SortedSets::immutable
         );
     }
 }

@@ -27,7 +27,7 @@ public final class GlobPatternComponentTextLiteralTest extends GlobPatternCompon
     @Test
     public void testEqualsDifferentText() {
         this.checkNotEquals(
-                GlobPatternComponentTextLiteral.with("Different456")
+            GlobPatternComponentTextLiteral.with("Different456")
         );
     }
 

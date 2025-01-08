@@ -32,7 +32,7 @@ import java.util.zip.GZIPOutputStream;
  * A {@link Value} that holds a byte array.
  */
 public final class Binary implements Value<byte[]>,
-        CanBeEmpty {
+    CanBeEmpty {
 
     /**
      * A {@link Binary} with zero bytes.
@@ -90,8 +90,8 @@ public final class Binary implements Value<byte[]>,
         // $find cannot be found if its longer than value.length
         if (findLength > 0 && findLength <= binary.length) {
             final byte[] copy = Arrays.copyOf(
-                    bytes,
-                    findLength
+                bytes,
+                findLength
             );
 
             final int last = end - (findLength - 1);
@@ -136,8 +136,8 @@ public final class Binary implements Value<byte[]>,
             throw new IllegalArgumentException("Range out of bounds " + range + " for binary with size: " + size);
         }
         return 0 == lower && size == upper ?
-                this :
-                new Binary(Arrays.copyOfRange(this.value, lower, upper));
+            this :
+            new Binary(Arrays.copyOfRange(this.value, lower, upper));
     }
 
     /**

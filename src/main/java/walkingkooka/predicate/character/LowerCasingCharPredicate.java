@@ -32,8 +32,8 @@ final class LowerCasingCharPredicate implements CharPredicate {
         Objects.requireNonNull(predicate, "predicate");
 
         return predicate instanceof LowerCasingCharPredicate ?
-                predicate :
-                LowerCasingCharPredicate.wrapUnconditionally(predicate);
+            predicate :
+            LowerCasingCharPredicate.wrapUnconditionally(predicate);
     }
 
     private static CharPredicate wrapUnconditionally(final CharPredicate predicate) {
@@ -64,7 +64,7 @@ final class LowerCasingCharPredicate implements CharPredicate {
     @Override
     public boolean equals(final Object other) {
         return (this == other) || ((other instanceof LowerCasingCharPredicate)
-                && this.equals((LowerCasingCharPredicate) other));
+            && this.equals((LowerCasingCharPredicate) other));
     }
 
     private boolean equals(final LowerCasingCharPredicate other) {

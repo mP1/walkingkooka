@@ -34,54 +34,54 @@ final class VisitorTesting2 implements Testing {
 
     static void instanceCheck(final String methodName, final Class<? extends Visitor<?>> type) {
         allMethodsAndCheck(methodName,
-                type,
-                (m) -> !MethodAttributes.STATIC.is(m));
+            type,
+            (m) -> !MethodAttributes.STATIC.is(m));
     }
 
     static void protectedMethodCheck(final String methodName, final Class<? extends Visitor<?>> type) {
         allMethodsAndCheck(methodName,
-                type,
-                (m) -> JavaVisibility.PROTECTED == JavaVisibility.of(m));
+            type,
+            (m) -> JavaVisibility.PROTECTED == JavaVisibility.of(m));
     }
 
     static void singleParameterCheck(final String methodName, final Class<? extends Visitor<?>> type) {
         allMethodsAndCheck(methodName,
-                type,
-                (m) -> m.getParameterTypes().length == 1);
+            type,
+            (m) -> m.getParameterTypes().length == 1);
     }
 
     static void methodParameterTypesPublicCheck(final String methodName, final Class<? extends Visitor<?>> type) {
         allMethodsAndCheck(methodName,
-                type,
-                VisitorTesting2::allParametersTypesPublic);
+            type,
+            VisitorTesting2::allParametersTypesPublic);
     }
 
     private static boolean allParametersTypesPublic(final Method method) {
         return Arrays.stream(method.getParameterTypes())
-                .filter(t -> JavaVisibility.PUBLIC == JavaVisibility.of(t))
-                .count() == method.getParameterTypes().length;
+            .filter(t -> JavaVisibility.PUBLIC == JavaVisibility.of(t))
+            .count() == method.getParameterTypes().length;
     }
 
     static void methodReturnTypeVoidCheck(final String methodName,
                                           final Class<? extends Visitor<?>> type,
                                           final Class<?> returnType) {
         allMethodsAndCheck(methodName,
-                type,
-                (m) -> returnType == m.getReturnType());
+            type,
+            (m) -> returnType == m.getReturnType());
     }
 
     private static void allMethodsAndCheck(final String methodName,
                                            final Class<? extends Visitor<?>> type,
                                            final Predicate<Method> predicate) {
         final List<Method> failed = Arrays.stream(type.getDeclaredMethods())
-                .filter(m -> m.getName().equals(methodName))
-                .filter(predicate.negate())
-                .collect(Collectors.toList());
+            .filter(m -> m.getName().equals(methodName))
+            .filter(predicate.negate())
+            .collect(Collectors.toList());
 
         assertEquals(
-                Lists.empty(),
-                failed,
-                () -> "Several methods in " + type.getName() + " failed"
+            Lists.empty(),
+            failed,
+            () -> "Several methods in " + type.getName() + " failed"
         );
     }
 

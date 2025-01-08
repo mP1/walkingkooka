@@ -20,7 +20,7 @@ package walkingkooka.stream.push;
 import org.junit.jupiter.api.Test;
 
 public abstract class PushableStreamConsumerStreamTerminalPushableStreamConsumerTestCase<P extends PushableStreamConsumerStreamTerminalPushableStreamConsumer<String, R>, R> extends
-        PushableStreamConsumerStreamPushableStreamConsumerTestCase2<P> {
+    PushableStreamConsumerStreamPushableStreamConsumerTestCase2<P> {
 
     PushableStreamConsumerStreamTerminalPushableStreamConsumerTestCase() {
         super();

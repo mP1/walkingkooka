@@ -36,7 +36,7 @@ final class CaseSensitivityComparator<C extends CharSequence> implements Compara
     }
 
     private final static CaseSensitivityComparator<CharSequence> SENSITIVE
-            = new CaseSensitivityComparator<>(CaseSensitivity.SENSITIVE);
+        = new CaseSensitivityComparator<>(CaseSensitivity.SENSITIVE);
 
     /**
      * Type safe getter.
@@ -46,14 +46,14 @@ final class CaseSensitivityComparator<C extends CharSequence> implements Compara
     }
 
     private final static CaseSensitivityComparator<CharSequence> INSENSITIVE
-            = new CaseSensitivityComparator<>(CaseSensitivity.INSENSITIVE);
+        = new CaseSensitivityComparator<>(CaseSensitivity.INSENSITIVE);
 
     /**
      * Hides the horrible cast.
      */
     @SuppressWarnings("unchecked")
     private static <C extends CharSequence> CaseSensitivityComparator<C> cast(
-            final CaseSensitivityComparator<?> comparator) {
+        final CaseSensitivityComparator<?> comparator) {
         return (CaseSensitivityComparator<C>) comparator;
     }
 

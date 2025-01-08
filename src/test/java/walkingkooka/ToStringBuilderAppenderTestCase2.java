@@ -20,10 +20,8 @@ package walkingkooka;
 import org.junit.jupiter.api.Test;
 import walkingkooka.text.CharSequences;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public abstract class ToStringBuilderAppenderTestCase2<A extends ToStringBuilderAppender<V>, V> extends ToStringBuilderAppenderTestCase<A, V>
-        implements ToStringTesting<A> {
+    implements ToStringTesting<A> {
 
     final static String SEPARATOR = "< SEPARATOR >";
     final static String LABEL_SEPARATOR = "< LABEL1-SEPARATOR >";
@@ -173,8 +171,8 @@ public abstract class ToStringBuilderAppenderTestCase2<A extends ToStringBuilder
         final String built = builder.build();
         if (false == expected.equals(built)) {
             this.checkEquals(format(expected),
-                    format(built),
-                    () -> "options=" + builder.options.toString());
+                format(built),
+                () -> "options=" + builder.options.toString());
         }
     }
 

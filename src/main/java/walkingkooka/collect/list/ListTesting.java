@@ -30,9 +30,9 @@ public interface ListTesting extends CollectionTesting {
                                  final int index,
                                  final E element) {
         this.checkEquals(
-                element,
-                list.get(index),
-                () -> "get " + index + " from " + list
+            element,
+            list.get(index),
+            () -> "get " + index + " from " + list
         );
     }
 
@@ -46,19 +46,19 @@ public interface ListTesting extends CollectionTesting {
                               final int index,
                               final E element) {
         assertThrows(
-                RuntimeException.class,
-                () -> list.set(
-                        index,
-                        element
-                )
+            RuntimeException.class,
+            () -> list.set(
+                index,
+                element
+            )
         );
     }
 
     default <E> void removeIndexFails(final List<E> list,
                                       final int index) {
         assertThrows(
-                UnsupportedOperationException.class,
-                () -> list.remove(index)
+            UnsupportedOperationException.class,
+            () -> list.remove(index)
         );
     }
 
@@ -66,11 +66,11 @@ public interface ListTesting extends CollectionTesting {
                                          final int index,
                                          final E removed) {
         this.checkEquals(
-                removed,
-                list.remove(
-                        index
-                ),
-                "remove " + index
+            removed,
+            list.remove(
+                index
+            ),
+            "remove " + index
         );
     }
 
@@ -78,11 +78,11 @@ public interface ListTesting extends CollectionTesting {
                                            final Object element,
                                            final boolean removed) {
         this.checkEquals(
-                removed,
-                list.remove(
-                        element
-                ),
-                "remove " + CharSequences.quoteIfChars(element)
+            removed,
+            list.remove(
+                element
+            ),
+            "remove " + CharSequences.quoteIfChars(element)
         );
     }
 
@@ -91,12 +91,12 @@ public interface ListTesting extends CollectionTesting {
                                  final E element,
                                  final E replaced) {
         this.checkEquals(
-                replaced,
-                list.set(
-                        index,
-                        element
-                ),
-                "set " + index + " with " + element
+            replaced,
+            list.set(
+                index,
+                element
+            ),
+            "set " + index + " with " + element
         );
     }
 
@@ -105,15 +105,15 @@ public interface ListTesting extends CollectionTesting {
                                     final E element,
                                     final E replaced) {
         this.setAndCheck(
-                list,
-                index,
-                element,
-                replaced
+            list,
+            index,
+            element,
+            replaced
         );
         this.getAndCheck(
-                list,
-                index,
-                element
+            list,
+            index,
+            element
         );
     }
 }

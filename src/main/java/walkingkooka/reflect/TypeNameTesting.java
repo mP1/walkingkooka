@@ -48,14 +48,14 @@ public interface TypeNameTesting<T> extends Testing {
         }
 
         if (!typeNamePrefix().isEmpty() &&
-                false == name.startsWith(Fake.class.getSimpleName() + prefix) &&
-                false == name.startsWith(prefix)) {
+            false == name.startsWith(Fake.class.getSimpleName() + prefix) &&
+            false == name.startsWith(prefix)) {
             fail("type name " + CharSequences.quote(name) + " missing required prefix " + CharSequences.quote(prefix));
         }
 
         if (!typeNameSuffix().isEmpty() &&
-                false == name.endsWith(Fake.class.getSimpleName() + suffix) &&
-                false == name.endsWith(suffix)) {
+            false == name.endsWith(Fake.class.getSimpleName() + suffix) &&
+            false == name.endsWith(suffix)) {
             fail("type name " + CharSequences.quote(name) + " missing required suffix " + CharSequences.quote(suffix));
         }
     }

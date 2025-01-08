@@ -30,10 +30,10 @@ final class ToStringBuilderSaveStateRunnable implements Runnable {
                                                  final String valueSeparator,
                                                  final ToStringBuilder builder) {
         return new ToStringBuilderSaveStateRunnable(labelSeparator,
-                options,
-                separator,
-                valueSeparator,
-                builder);
+            options,
+            separator,
+            valueSeparator,
+            builder);
     }
 
     private ToStringBuilderSaveStateRunnable(final String labelSeparator,
@@ -68,10 +68,10 @@ final class ToStringBuilderSaveStateRunnable implements Runnable {
     @Override
     public String toString() {
         return ToStringBuilder.empty()
-                .label("labelSeparator").value(this.labelSeparator)
-                .label("options").value(this.options)
-                .label("separator").value(this.separator)
-                .label("valueSeparator").value(this.valueSeparator)
-                .build();
+            .label("labelSeparator").value(this.labelSeparator)
+            .label("options").value(this.options)
+            .label("separator").value(this.separator)
+            .label("valueSeparator").value(this.valueSeparator)
+            .build();
     }
 }

@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Base class for testing a {@link Name} with mostly helpers to check construction failure.
  */
-public interface NameTesting2<N extends Name, C extends Comparable<C> > extends NameTesting<N, C> {
+public interface NameTesting2<N extends Name, C extends Comparable<C>> extends NameTesting<N, C> {
 
     /**
      * All upper case ascii letters
@@ -71,23 +71,23 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> > extends 
      * All ascii characters
      */
     String ASCII = IntStream.rangeClosed(0, 127)
-            .mapToObj(c -> String.valueOf((char) c))
-            .collect(Collectors.joining(""));
+        .mapToObj(c -> String.valueOf((char) c))
+        .collect(Collectors.joining(""));
 
     /**
      * All control characters between 0 and 31 including tab, CR and NL.
      */
     String CONTROL = IntStream.rangeClosed(0, 31)
-            .mapToObj(i -> String.valueOf((char) i))
-            .collect(Collectors.joining(""));
+        .mapToObj(i -> String.valueOf((char) i))
+        .collect(Collectors.joining(""));
 
 
     /**
      * All ascii characters from space (32) to 127.
      */
     String ASCII_NON_CONTROL = IntStream.rangeClosed(32, 127)
-            .mapToObj(i -> String.valueOf((char) i))
-            .collect(Collectors.joining(""));
+        .mapToObj(i -> String.valueOf((char) i))
+        .collect(Collectors.joining(""));
 
     /**
      * <a href="https://tools.ietf.org/html/rfc2045#page-5"></a>
@@ -118,14 +118,14 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> > extends 
      * </pre>
      */
     String RFC2045 = subtract(ASCII,
-            CONTROL + WHITESPACE + RFC2045_TSPECIAL);
+        CONTROL + WHITESPACE + RFC2045_TSPECIAL);
 
     /**
      * All characters above 127 and 255.
      */
     String BYTE_NON_ASCII = IntStream.rangeClosed(128, 255)
-            .mapToObj(i -> String.valueOf((char) i))
-            .collect(Collectors.joining(""));
+        .mapToObj(i -> String.valueOf((char) i))
+        .collect(Collectors.joining(""));
 
     /**
      * Subtracts all subtract characters from text.
@@ -159,7 +159,7 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> > extends 
             final int last = i - 1;
             for (int j = 0; j < last; j++) {
                 chars[j] = this.possibleValidChars(j)
-                        .charAt(0);
+                    .charAt(0);
             }
 
             final String invalid = this.possibleInvalidChars(last);
@@ -169,11 +169,11 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> > extends 
                 final String text = new String(chars);
 
                 final InvalidCharacterException expected = assertThrows(InvalidCharacterException.class, () -> this.createName(text),
-                        () -> "Name text=" + CharSequences.quoteAndEscape(text));
+                    () -> "Name text=" + CharSequences.quoteAndEscape(text));
                 final int j = i;
                 this.checkEquals(last,
-                        expected.position(),
-                        () -> "Incorrect position " + j + " reported for " + CharSequences.quoteAndEscape(text));
+                    expected.position(),
+                    () -> "Incorrect position " + j + " reported for " + CharSequences.quoteAndEscape(text));
                 i++;
             }
         }
@@ -188,9 +188,9 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> > extends 
         final int max = Math.min(this.maxLength(), 99);
 
         final int longest = IntStream.rangeClosed(0, max)
-                .map(i -> this.possibleValidChars(i).length())
-                .max()
-                .orElse(0);
+            .map(i -> this.possibleValidChars(i).length())
+            .max()
+            .orElse(0);
 
         for (int i = min; i <= max; i++) {
             final char[] chars = new char[i];
@@ -211,8 +211,8 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> > extends 
         final int max = this.maxLength();
         if (max != Integer.MAX_VALUE) {
             final String chars = IntStream.rangeClosed(0, max + 1)
-                    .mapToObj(i -> String.valueOf(this.possibleValidChars(i).charAt(0)))
-                    .collect(Collectors.joining(""));
+                .mapToObj(i -> String.valueOf(this.possibleValidChars(i).charAt(0)))
+                .collect(Collectors.joining(""));
             assertThrows(InvalidTextLengthException.class, () -> this.createName(chars));
         }
     }

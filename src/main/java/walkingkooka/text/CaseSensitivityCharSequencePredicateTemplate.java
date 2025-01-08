@@ -50,7 +50,7 @@ abstract class CaseSensitivityCharSequencePredicateTemplate<C extends CharSequen
     @Override
     public final boolean equals(final Object other) {
         return (this == other) || (this.canBeEqual(other)
-                && this.equals0((CaseSensitivityCharSequencePredicateTemplate<?>) other));
+            && this.equals0((CaseSensitivityCharSequencePredicateTemplate<?>) other));
     }
 
     abstract boolean canBeEqual(Object other);

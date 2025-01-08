@@ -26,9 +26,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public abstract class ImmutableMapEntrySetTestCase2<S extends ImmutableMapEntrySet<Entry<String, Integer>>> extends ImmutableMapEntrySetTestCase<S>
-        implements SetTesting2<S, Entry<String, Integer>>,
-        IteratorTesting,
-        ToStringTesting<S> {
+    implements SetTesting2<S, Entry<String, Integer>>,
+    IteratorTesting,
+    ToStringTesting<S> {
 
     ImmutableMapEntrySetTestCase2() {
         super();
@@ -38,8 +38,8 @@ public abstract class ImmutableMapEntrySetTestCase2<S extends ImmutableMapEntryS
     public final void testIterate() {
         //noinspection unchecked
         this.iterateAndCheck(this.createSet().iterator(),
-                Maps.entry(KEY1, VALUE1),
-                Maps.entry(KEY2, VALUE2));
+            Maps.entry(KEY1, VALUE1),
+            Maps.entry(KEY2, VALUE2));
     }
 
     @Test

@@ -28,16 +28,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Base class for testing any {@link CharSequence} with most tests testing parameter validation.
  */
-public interface CharSequenceTesting<C extends CharSequence > extends HashCodeEqualsDefinedTesting2<C>,
-        ToStringTesting<C>,
-        TypeNameTesting<C> {
+public interface CharSequenceTesting<C extends CharSequence> extends HashCodeEqualsDefinedTesting2<C>,
+    ToStringTesting<C>,
+    TypeNameTesting<C> {
 
     @Test
     default void testLengthAndToStringCompatible() {
         final C sequence = this.createCharSequence();
         this.checkEquals(sequence.length(),
-                sequence.toString().length(),
-                () -> sequence + " length is different from that of toString()");
+            sequence.toString().length(),
+            () -> sequence + " length is different from that of toString()");
     }
 
     @Test
@@ -122,9 +122,9 @@ public interface CharSequenceTesting<C extends CharSequence > extends HashCodeEq
 
         final int length = sequence.length();
         this.checkEquals(
-                true,
-                length >= 1,
-                () -> "sequence length must be greater than equal to 1=" + CharSequences.quote(sequence.toString())
+            true,
+            length >= 1,
+            () -> "sequence length must be greater than equal to 1=" + CharSequences.quote(sequence.toString())
         );
         this.checkEquals2(sequence.subSequence(length - 1, length - 1), "");
     }
@@ -193,8 +193,8 @@ public interface CharSequenceTesting<C extends CharSequence > extends HashCodeEq
         final char d = chars.charAt(index);
         if (c != d) {
             this.checkEquals(CharSequences.quoteAndEscape(c),
-                    CharSequences.quoteAndEscape(chars.charAt(index)),
-                    "Wrong char at " + index + " in " + chars);
+                CharSequences.quoteAndEscape(chars.charAt(index)),
+                "Wrong char at " + index + " in " + chars);
         }
     }
 

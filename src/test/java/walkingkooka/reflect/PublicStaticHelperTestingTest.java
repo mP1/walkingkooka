@@ -22,7 +22,6 @@ import walkingkooka.reflect.PublicStaticHelperTestingTest.TestPublicStaticHelper
 
 import java.lang.reflect.Method;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class PublicStaticHelperTestingTest implements PublicStaticHelperTesting<TestPublicStaticHelperTesting> {

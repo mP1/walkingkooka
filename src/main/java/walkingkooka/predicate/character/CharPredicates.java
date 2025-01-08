@@ -129,15 +129,15 @@ final public class CharPredicates implements PublicStaticHelper {
         CharSequences.failIfNullOrEmpty(label, "label");
 
         final int invalidChar = findInitialAndPartInvalidChar(
-                chars,
-                initial,
-                part
+            chars,
+            initial,
+            part
         );
 
         if (-1 != invalidChar) {
             throw new InvalidCharacterException(
-                    chars.toString(),
-                    invalidChar
+                chars.toString(),
+                invalidChar
             );
         }
     }
@@ -146,11 +146,11 @@ final public class CharPredicates implements PublicStaticHelper {
                                            final CharPredicate initial,
                                            final CharPredicate part) {
         return !CharSequences.isNullOrEmpty(text) &&
-                -1 == findInitialAndPartInvalidChar(
-                        text,
-                        initial,
-                        part
-                );
+            -1 == findInitialAndPartInvalidChar(
+                text,
+                initial,
+                part
+            );
     }
 
     /**

@@ -38,7 +38,7 @@ public final class ToStringBuilderAppenderLongArrayVectorTest extends ToStringBu
         b.value(new long[]{0, 1, 2});
 
         this.buildAndCheck(b,
-                "0000000000000000" + VALUE_SEPARATOR +"0000000000000001" + VALUE_SEPARATOR + "0000000000000002");
+            "0000000000000000" + VALUE_SEPARATOR + "0000000000000001" + VALUE_SEPARATOR + "0000000000000002");
     }
 
     @Override
@@ -46,8 +46,7 @@ public final class ToStringBuilderAppenderLongArrayVectorTest extends ToStringBu
         return new long[0];
     }
 
-    @Override
-    final String defaultValueToString(final long[] value) {
+    @Override final String defaultValueToString(final long[] value) {
         return "";
     }
 

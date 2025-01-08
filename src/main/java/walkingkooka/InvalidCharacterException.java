@@ -30,14 +30,14 @@ public class InvalidCharacterException extends InvalidTextException implements H
     public InvalidCharacterException(final String text,
                                      final int position) {
         this(
-                text,
-                position,
-                ""
+            text,
+            position,
+            ""
         );
     }
 
     private InvalidCharacterException(final String text,
-                                     final int position,
+                                      final int position,
                                       final String appendToMessage) {
         super();
         checkText(text, position);
@@ -50,17 +50,17 @@ public class InvalidCharacterException extends InvalidTextException implements H
                                      final int position,
                                      final Throwable cause) {
         this(
-                text,
-                position,
-                "",
-                cause
+            text,
+            position,
+            "",
+            cause
         );
     }
 
     private InvalidCharacterException(final String text,
-                                     final int position,
-                                     final String appendToMessage,
-                                     final Throwable cause) {
+                                      final int position,
+                                      final String appendToMessage,
+                                      final Throwable cause) {
         super(cause);
         checkText(text, position);
         this.text = text;
@@ -72,8 +72,8 @@ public class InvalidCharacterException extends InvalidTextException implements H
         CharSequences.failIfNullOrEmpty(text, "text");
         if (position < 0 || position >= text.length()) {
             throw new IllegalArgumentException("Invalid position " + position + " not between 0 and " +
-                    text.length() + " in " +
-                    CharSequences.quoteAndEscape(text));
+                text.length() + " in " +
+                CharSequences.quoteAndEscape(text));
         }
     }
 
@@ -83,12 +83,12 @@ public class InvalidCharacterException extends InvalidTextException implements H
 
     public InvalidCharacterException setTextAndPosition(final String text, final int position) {
         return this.text.equals(text) && this.position == position ?
-                this :
-                this.replace(
-                        text,
-                        position,
-                        this.appendToMessage
-                );
+            this :
+            this.replace(
+                text,
+                position,
+                this.appendToMessage
+            );
     }
 
     private final String text;
@@ -107,9 +107,9 @@ public class InvalidCharacterException extends InvalidTextException implements H
     @Override
     public String getMessage() {
         return "Invalid character " + CharSequences.quoteIfChars(this.text.charAt(this.position)) +
-                " at " + this.position +
-                " in " + CharSequences.quote(this.text) +
-                this.appendToMessage;
+            " at " + this.position +
+            " in " + CharSequences.quote(this.text) +
+            this.appendToMessage;
     }
 
     /**
@@ -120,12 +120,12 @@ public class InvalidCharacterException extends InvalidTextException implements H
      */
     public String getShortMessage() {
         return "Invalid character " +
-                CharSequences.quoteIfChars(
-                        this.text.charAt(this.position)
-                ) +
-                " at " +
-                this.position +
-                this.appendToMessage;
+            CharSequences.quoteIfChars(
+                this.text.charAt(this.position)
+            ) +
+            " at " +
+            this.position +
+            this.appendToMessage;
     }
 
     /**
@@ -136,12 +136,12 @@ public class InvalidCharacterException extends InvalidTextException implements H
         Objects.requireNonNull(appendToMessage, "appendToMessage");
 
         return this.appendToMessage.equals(appendToMessage) ?
-                this :
-                this.replace(
-                        this.text,
-                        this.position,
-                        appendToMessage
-                );
+            this :
+            this.replace(
+                this.text,
+                this.position,
+                appendToMessage
+            );
     }
 
     /**
@@ -155,8 +155,8 @@ public class InvalidCharacterException extends InvalidTextException implements H
                                               final String appendToMessage) {
         final Throwable cause = this.getCause();
         return null != cause ?
-                new InvalidCharacterException(text, position, appendToMessage, cause) :
-                new InvalidCharacterException(text, position, appendToMessage);
+            new InvalidCharacterException(text, position, appendToMessage, cause) :
+            new InvalidCharacterException(text, position, appendToMessage);
     }
 
 
@@ -176,6 +176,6 @@ public class InvalidCharacterException extends InvalidTextException implements H
 
     private boolean equals0(final InvalidCharacterException other) {
         return this.text().equals(other.text()) &&
-                this.position() == other.position();
+            this.position() == other.position();
     }
 }

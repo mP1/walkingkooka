@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class CharSequencesTest implements PublicStaticHelperTesting<CharSequences>,
-        ThrowableTesting {
+    ThrowableTesting {
 
     // nullToEmpty.....................................................................................................
 
@@ -61,17 +61,17 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     private void nullToEmptyAndCheck(final CharSequence chars) {
         this.nullToEmptyAndCheck(
-                chars,
-                chars
+            chars,
+            chars
         );
     }
 
     private void nullToEmptyAndCheck(final CharSequence chars,
                                      final CharSequence expected) {
         this.checkEquals(
-                expected,
-                CharSequences.nullToEmpty(chars),
-                () -> "nullToEmpty " + CharSequences.quoteAndEscape(chars)
+            expected,
+            CharSequences.nullToEmpty(chars),
+            () -> "nullToEmpty " + CharSequences.quoteAndEscape(chars)
         );
     }
 
@@ -80,16 +80,16 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
     @Test
     public void testFailIfNullOrEmptyNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> CharSequences.failIfNullOrEmpty(null, "null-CharSequence")
+            NullPointerException.class,
+            () -> CharSequences.failIfNullOrEmpty(null, "null-CharSequence")
         );
     }
 
     @Test
     public void testFailIfNullOrEmptyEmptyStringFails() {
         assertThrows(
-                EmptyTextException.class,
-                () -> CharSequences.failIfNullOrEmpty("", "empty-String")
+            EmptyTextException.class,
+            () -> CharSequences.failIfNullOrEmpty("", "empty-String")
         );
     }
 
@@ -97,8 +97,8 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
     public void testFailIfNullOrEmptyCharSequence() {
         final CharSequence charSequence = "123";
         assertSame(
-                charSequence,
-                CharSequences.failIfNullOrEmpty(charSequence, "1")
+            charSequence,
+            CharSequences.failIfNullOrEmpty(charSequence, "1")
         );
     }
 
@@ -106,8 +106,8 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
     public void testFailIfNullOrEmptyString() {
         final String string = "123";
         assertSame(
-                string,
-                CharSequences.failIfNullOrEmpty(string, "1")
+            string,
+            CharSequences.failIfNullOrEmpty(string, "1")
         );
     }
 
@@ -115,8 +115,8 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
     public void testFailIfNullOrEmptyStringBuilder() {
         final StringBuilder stringBuilder = new StringBuilder("123");
         assertSame(
-                stringBuilder,
-                CharSequences.failIfNullOrEmpty(stringBuilder, "1")
+            stringBuilder,
+            CharSequences.failIfNullOrEmpty(stringBuilder, "1")
         );
     }
 
@@ -125,58 +125,58 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
     @Test
     public void testBestParseWithNullTextFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> CharSequences.bestParse(
-                        null,
-                        Integer::parseInt
-                )
+            NullPointerException.class,
+            () -> CharSequences.bestParse(
+                null,
+                Integer::parseInt
+            )
         );
     }
 
     @Test
     public void testBestParseWithNullParserFunctionFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> CharSequences.bestParse(
-                        "",
-                        null
-                )
+            NullPointerException.class,
+            () -> CharSequences.bestParse(
+                "",
+                null
+            )
         );
     }
 
     @Test
     public void testBestParseEmpty() {
         this.bestParseAndCheck(
-                "",
-                Integer::parseInt,
-                0 // expected must be empty
+            "",
+            Integer::parseInt,
+            0 // expected must be empty
         );
     }
 
     @Test
     public void testBestParseAll() {
         this.bestParseAndCheck(
-                "1",
-                Integer::parseInt,
-                1 // expected must be empty
+            "1",
+            Integer::parseInt,
+            1 // expected must be empty
         );
     }
 
     @Test
     public void testBestParseAll2() {
         this.bestParseAndCheck(
-                "12",
-                Integer::parseInt,
-                2 // expected must be empty
+            "12",
+            Integer::parseInt,
+            2 // expected must be empty
         );
     }
 
     @Test
     public void testBestParseAll3() {
         this.bestParseAndCheck(
-                "123",
-                Integer::parseInt,
-                3 // expected must be empty
+            "123",
+            Integer::parseInt,
+            3 // expected must be empty
         );
     }
 
@@ -185,59 +185,59 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
         final String text = "123.";
 
         this.bestParseAndCheck(
-                text,
-                (t) -> {
-                    throw new InvalidCharacterException(
-                          t,
-                          t.indexOf('.')
-                    );
-                },
-                3 // expected must be empty
+            text,
+            (t) -> {
+                throw new InvalidCharacterException(
+                    t,
+                    t.indexOf('.')
+                );
+            },
+            3 // expected must be empty
         );
     }
 
     @Test
     public void testBestParseRetries() {
         this.bestParseAndCheck(
-                "123.",
-                Integer::parseInt,
-                '.' // expected must be empty
+            "123.",
+            Integer::parseInt,
+            '.' // expected must be empty
         );
     }
 
     @Test
     public void testBestParseRetries2() {
         this.bestParseAndCheck(
-                "123.B",
-                Integer::parseInt,
-                '.' // expected must be empty
+            "123.B",
+            Integer::parseInt,
+            '.' // expected must be empty
         );
     }
 
     @Test
     public void testBestParseRetries3() {
         this.bestParseAndCheck(
-                "123.BC",
-                Integer::parseInt,
-                '.' // expected must be empty
+            "123.BC",
+            Integer::parseInt,
+            '.' // expected must be empty
         );
     }
 
     @Test
     public void testBestParseRetries4() {
         this.bestParseAndCheck(
-                "123.BCD",
-                Integer::parseInt,
-                '.' // expected must be empty
+            "123.BCD",
+            Integer::parseInt,
+            '.' // expected must be empty
         );
     }
 
     @Test
     public void testBestParseRetries5() {
         this.bestParseAndCheck(
-                "1.",
-                Integer::parseInt,
-                '.' // expected must be empty
+            "1.",
+            Integer::parseInt,
+            '.' // expected must be empty
         );
     }
 
@@ -246,13 +246,13 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
         final int length = 21;
         for (int i = 0; i < length; i++) {
             this.bestParseAndCheck(
-                    CharSequences.padRight(
-                            "1.",
-                            length,
-                            'X'
-                    ).toString(),
-                    Integer::parseInt,
-                    '.' // expected must be empty
+                CharSequences.padRight(
+                    "1.",
+                    length,
+                    'X'
+                ).toString(),
+                Integer::parseInt,
+                '.' // expected must be empty
             );
         }
     }
@@ -261,9 +261,9 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
                                    final Function<String, Object> parser,
                                    final char expected) {
         this.bestParseAndCheck(
-                text,
-                parser,
-                text.indexOf(expected)
+            text,
+            parser,
+            text.indexOf(expected)
         );
     }
 
@@ -271,12 +271,12 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
                                    final Function<String, Object> parser,
                                    final int expected) {
         this.checkEquals(
-                expected,
-                CharSequences.bestParse(
-                        text,
-                        parser
-                ),
-                () -> "bestParse " + CharSequences.quoteAndEscape(text)
+            expected,
+            CharSequences.bestParse(
+                text,
+                parser
+            ),
+            () -> "bestParse " + CharSequences.quoteAndEscape(text)
         );
     }
 
@@ -310,39 +310,39 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
     @Test
     public void testBigEndianHexDigitsTwoDigits() {
         this.bigEndianHexDigitsAndCheck("1F",
-                new byte[]{0x1f});
+            new byte[]{0x1f});
     }
 
     @Test
     public void testBigEndianHexDigitsTwoDigits2() {
         this.bigEndianHexDigitsAndCheck("1f",
-                new byte[]{0x1f});
+            new byte[]{0x1f});
     }
 
     @Test
     public void testBigEndianHexDigitsTwoDigitsLeadingZero() {
         this.bigEndianHexDigitsAndCheck("01",
-                new byte[]{0x01});
+            new byte[]{0x01});
     }
 
     @Test
     public void testBigEndianHexDigitsManyDigits() {
         this.bigEndianHexDigitsAndCheck("010203",
-                new byte[]{1, 2, 3});
+            new byte[]{1, 2, 3});
     }
 
     @Test
     public void testBigEndianHexDigitsManyDigits2() {
         this.bigEndianHexDigitsAndCheck("1234567890abcdef",
-                (byte) 0x12, (byte) 0x34, (byte) 0x56, (byte) 0x78, (byte) 0x90, (byte) 0xab, (byte) 0xcd, (byte) 0xef);
+            (byte) 0x12, (byte) 0x34, (byte) 0x56, (byte) 0x78, (byte) 0x90, (byte) 0xab, (byte) 0xcd, (byte) 0xef);
     }
 
     private void bigEndianHexDigitsAndCheck(final String hexDigits, final byte... expected) {
         final byte[] bytes = CharSequences.bigEndianHexDigits(hexDigits);
         if (false == Arrays.equals(expected, bytes)) {
             this.checkEquals("from " + CharSequences.quote(hexDigits),
-                    Arrays.toString(expected),
-                    Arrays.toString(bytes));
+                Arrays.toString(expected),
+                Arrays.toString(bytes));
         }
     }
 
@@ -375,8 +375,8 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     private void capitalizeAndCheck(final CharSequence chars, final String expected) {
         this.checkEquals(expected,
-                CharSequences.capitalize(chars).toString(),
-                "Capitalize " + CharSequences.quote(chars));
+            CharSequences.capitalize(chars).toString(),
+            "Capitalize " + CharSequences.quote(chars));
     }
 
     // copyCase .....................................................................................
@@ -446,9 +446,9 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     private void copyCaseAndCheck(final String chars, final String caseSource, final String expected) {
         this.checkEquals(
-                expected,
-                CharSequences.copyCase(chars, caseSource).toString(),
-                "copyCase " + CharSequences.quote(chars) + ", " + CharSequences.quote(caseSource)
+            expected,
+            CharSequences.copyCase(chars, caseSource).toString(),
+            "copyCase " + CharSequences.quote(chars) + ", " + CharSequences.quote(caseSource)
         );
     }
 
@@ -477,8 +477,8 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     private void endsWithAndCheck(final CharSequence chars, final String endsWith, final boolean result) {
         this.checkEquals(result,
-                CharSequences.endsWith(chars, endsWith),
-                CharSequences.quote(chars) + " ends with " + CharSequences.quote(endsWith));
+            CharSequences.endsWith(chars, endsWith),
+            CharSequences.quote(chars) + " ends with " + CharSequences.quote(endsWith));
     }
 
     // equals .......................................................................
@@ -506,8 +506,8 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     private void equalsAndCheck(final CharSequence chars, final String endsWith, final boolean result) {
         this.checkEquals(result,
-                CharSequences.equals(chars, endsWith),
-                CharSequences.quote(chars) + " equals " + CharSequences.quote(endsWith));
+            CharSequences.equals(chars, endsWith),
+            CharSequences.quote(chars) + " equals " + CharSequences.quote(endsWith));
     }
 
     // escape/unescape .......................................................................
@@ -569,11 +569,11 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     private void escapeUnescapeAndCheck(final CharSequence chars, final String expected) {
         this.checkEquals(expected,
-                CharSequences.escape(chars).toString(),
-                () -> "escape " + CharSequences.quote(chars));
+            CharSequences.escape(chars).toString(),
+            () -> "escape " + CharSequences.quote(chars));
         this.checkEquals(chars.toString(),
-                CharSequences.unescape(expected),
-                () -> "unescape " + CharSequences.quote(chars));
+            CharSequences.unescape(expected),
+            () -> "unescape " + CharSequences.quote(chars));
     }
 
     // hash.............................................................................................................
@@ -695,8 +695,8 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     private void indexOfAndCheck(final CharSequence chars, final String of, final int index) {
         this.checkEquals(index,
-                CharSequences.indexOf(chars, of),
-                () -> CharSequences.quote(chars) + "index of " + CharSequences.quote(of));
+            CharSequences.indexOf(chars, of),
+            () -> CharSequences.quote(chars) + "index of " + CharSequences.quote(of));
     }
 
     // isNullOrEmpty................................................
@@ -738,9 +738,9 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
     @Test
     public void testPadLeftPaddingNotRequired() {
         assertSame(CHARS,
-                CharSequences.padLeft(CHARS,
-                        CHARS.length(),
-                        PADDING));
+            CharSequences.padLeft(CHARS,
+                CHARS.length(),
+                PADDING));
     }
 
     @Test
@@ -762,7 +762,7 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
     public void testPadLeftSubSequenceExactlyWrapped() {
         final CharSequence sequence = this.padLeft();
         assertSame(CHARS,
-                sequence.subSequence(3, LENGTH));
+            sequence.subSequence(3, LENGTH));
     }
 
     @Test
@@ -792,14 +792,14 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
         final CharSequence sub = sequence.subSequence(start, end);
 
         this.checkEquals(expected,
-                sub.toString(),
-                () -> sequence + " sub sequence " + start + "," + end);
+            sub.toString(),
+            () -> sequence + " sub sequence " + start + "," + end);
     }
 
     private CharSequence padLeft() {
         return CharSequences.padLeft(CHARS,
-                LENGTH,
-                PADDING);
+            LENGTH,
+            PADDING);
     }
 
     // padRight................................................
@@ -817,17 +817,17 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
     @Test
     public void testPadRightPaddingNotRequired() {
         assertSame(CHARS,
-                CharSequences.padRight(CHARS,
-                        CHARS.length(),
-                        PADDING));
+            CharSequences.padRight(CHARS,
+                CHARS.length(),
+                PADDING));
     }
 
     @Test
     public void testPadRightLength() {
         this.checkEquals(LENGTH,
-                CharSequences.padRight(CHARS,
-                        LENGTH,
-                        PADDING).length());
+            CharSequences.padRight(CHARS,
+                LENGTH,
+                PADDING).length());
     }
 
     @Test
@@ -844,7 +844,7 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
     public void testPadRightSubSequenceExactlyWrapped() {
         final CharSequence sequence = this.padRight();
         assertSame(CHARS,
-                sequence.subSequence(0, CHARS.length()));
+            sequence.subSequence(0, CHARS.length()));
     }
 
     @Test
@@ -874,14 +874,14 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
         final CharSequence sub = sequence.subSequence(start, end);
 
         this.checkEquals(expected,
-                sub.toString(),
-                () -> sequence + " sub sequence " + start + "," + end);
+            sub.toString(),
+            () -> sequence + " sub sequence " + start + "," + end);
     }
 
     private CharSequence padRight() {
         return CharSequences.padRight(CHARS,
-                LENGTH,
-                PADDING);
+            LENGTH,
+            PADDING);
     }
 
     // quote and escape char ............................................................
@@ -903,8 +903,8 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     private void quoteAndEscapeCharAndCheck(final char c, final String expected) {
         this.checkEquals(expected,
-                CharSequences.quoteAndEscape(c).toString(),
-                "Escape " + CharSequences.quoteIfChars(c));
+            CharSequences.quoteAndEscape(c).toString(),
+            "Escape " + CharSequences.quoteIfChars(c));
     }
 
     // quote and escape CharSequence ............................................................
@@ -926,8 +926,8 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     private void quoteCharSequenceAndCheck(final CharSequence chars, final String expected) {
         this.checkEquals(expected,
-                CharSequences.quote(chars).toString(),
-                "Escape " + CharSequences.quote(chars));
+            CharSequences.quote(chars).toString(),
+            "Escape " + CharSequences.quote(chars));
     }
 
     // quote and escape ............................................................
@@ -1002,8 +1002,8 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     private void quoteAndEscapeCharSequenceAndCheck(final CharSequence chars, final String expected) {
         this.checkEquals(expected,
-                CharSequences.quoteAndEscape(chars),
-                "Escape " + CharSequences.quote(chars));
+            CharSequences.quoteAndEscape(chars),
+            "Escape " + CharSequences.quote(chars));
     }
 
     // quote if chars ................................................................................
@@ -1051,89 +1051,89 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
     @Test
     public void testQuoteIfCharsList() {
         this.quoteIfCharsAndCheck(
-                Lists.of(
-                        11,
-                        "Hello",
-                        null
-                ),
-                Lists.of(
-                        11,
-                        "\"Hello\"",
-                        null
-                ).toString()
+            Lists.of(
+                11,
+                "Hello",
+                null
+            ),
+            Lists.of(
+                11,
+                "\"Hello\"",
+                null
+            ).toString()
         );
     }
 
     @Test
     public void testQuoteIfCharsMap() {
         this.quoteIfCharsAndCheck(
-                Maps.of(
-                        11,
-                        22,
-                        "Key33",
-                        "Value44",
-                        "Key55",
-                        Optional.of(
-                                "Value66"
-                        )
-                ),
-                Maps.of(
-                        "11",
-                        22,
-                        "\"Key33\"",
-                        "\"Value44\"",
-                        "\"Key55\"",
-                        "\"Value66\""
-                ).toString()
+            Maps.of(
+                11,
+                22,
+                "Key33",
+                "Value44",
+                "Key55",
+                Optional.of(
+                    "Value66"
+                )
+            ),
+            Maps.of(
+                "11",
+                22,
+                "\"Key33\"",
+                "\"Value44\"",
+                "\"Key55\"",
+                "\"Value66\""
+            ).toString()
         );
     }
 
     @Test
     public void testQuoteIfCharsEmptyOptional() {
         this.quoteIfCharsAndCheck(
-                Optional.empty(),
-                "null"
+            Optional.empty(),
+            "null"
         );
     }
 
     @Test
     public void testQuoteIfCharsOptionalString() {
         this.quoteIfCharsAndCheck(
-                Optional.of("Hello"),
-                "\"Hello\""
+            Optional.of("Hello"),
+            "\"Hello\""
         );
     }
 
     @Test
     public void testQuoteIfCharsOptionalNonString() {
         this.quoteIfCharsAndCheck(
-                Optional.of(123),
-                "123"
+            Optional.of(123),
+            "123"
         );
     }
 
     @Test
     public void testQuoteIfCharsOptionalList() {
         this.quoteIfCharsAndCheck(
-                Optional.of(
-                        Lists.of(
-                                11,
-                                "Hello",
-                                null
-                        )
-                ),
+            Optional.of(
                 Lists.of(
-                        "11",
-                        "\"Hello\"",
-                        null
-                ).toString()
+                    11,
+                    "Hello",
+                    null
+                )
+            ),
+            Lists.of(
+                "11",
+                "\"Hello\"",
+                null
+            ).toString()
         );
     }
 
     private void quoteIfCharsAndCheck(final Object chars, final String expected) {
         this.checkEquals(expected,
-                CharSequences.quoteIfChars(chars),
-                "Quote if chars " + chars);
+            CharSequences.quoteIfChars(chars),
+            "Quote if chars " + chars);
     }
 
     // quote if necessary .................................................................................
@@ -1164,8 +1164,8 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     private void quoteIfNecessaryAndCheck(final CharSequence sequence, final String expected) {
         this.checkEquals(expected,
-                CharSequences.quoteIfNecessary(sequence).toString(),
-                "Quote if necessary \"" + sequence + "\" ");
+            CharSequences.quoteIfNecessary(sequence).toString(),
+            "Quote if necessary \"" + sequence + "\" ");
     }
 
     // startsWith.......................................................................................................
@@ -1216,8 +1216,8 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     private void startsWithAndCheck(final CharSequence chars, final String startsWith, final boolean result) {
         this.checkEquals(result,
-                CharSequences.startsWith(chars, startsWith),
-                CharSequences.quote(chars) + " starts with " + CharSequences.quote(startsWith));
+            CharSequences.startsWith(chars, startsWith),
+            CharSequences.quote(chars) + " starts with " + CharSequences.quote(startsWith));
     }
 
     // subSequence............................................................................................
@@ -1235,7 +1235,7 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
         final IndexOutOfBoundsException expected = assertThrows(IndexOutOfBoundsException.class, () -> CharSequences.subSequence(string, from, to));
         checkMessage(expected,
-                CharSequences.toIndexBeforeFromIndex(from, to, string.length()));
+            CharSequences.toIndexBeforeFromIndex(from, to, string.length()));
     }
 
     @Test
@@ -1260,8 +1260,8 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     private void subSequenceAndCheck(final String chars, final int from, final int to, final String expected) {
         this.checkEquals(expected,
-                CharSequences.subSequence(chars, from, to),
-                "subSequence of " + CharSequences.quote(chars) + " " + from + ".." + to);
+            CharSequences.subSequence(chars, from, to),
+            "subSequence of " + CharSequences.quote(chars) + " " + from + ".." + to);
     }
 
     // trim............................................................................................
@@ -1303,8 +1303,8 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
 
     private void trimAndCheck(final CharSequence sequence, final CharSequence expected) {
         this.checkEquals(expected,
-                CharSequences.trim(sequence),
-                () -> "trimming of " + CharSequences.quote(sequence.toString()));
+            CharSequences.trim(sequence),
+            () -> "trimming of " + CharSequences.quote(sequence.toString()));
     }
 
     // trimLeft ............................................................................................

@@ -19,9 +19,9 @@ final class EnumerationChain<E> implements Enumeration<E> {
         Objects.requireNonNull(enumerations, "enumerations");
 
         return new EnumerationChain<>(
-                Lists.immutable(
-                        enumerations
-                )
+            Lists.immutable(
+                enumerations
+            )
         );
     }
 
@@ -114,9 +114,9 @@ final class EnumerationChain<E> implements Enumeration<E> {
     public String toString() {
         final Enumeration<E> current = this.current;
         return null == current ?
-                "" :
-                this.next == this.enumerations.size() ?
-                        current.toString() :
-                        current + "...";
+            "" :
+            this.next == this.enumerations.size() ?
+                current.toString() :
+                current + "...";
     }
 }

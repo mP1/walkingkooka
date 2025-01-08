@@ -22,7 +22,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 
 public final class VisitorTesting2Test implements ClassTesting<VisitorTesting2>,
-        TypeNameTesting<VisitorTesting2> {
+    TypeNameTesting<VisitorTesting2> {
 
     // ClassTesting...........................................................................................
 

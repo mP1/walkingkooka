@@ -22,7 +22,7 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
 final public class EmptyCharSequenceTest implements ClassTesting2<EmptyCharSequence>,
-        CharSequenceTesting<EmptyCharSequence> {
+    CharSequenceTesting<EmptyCharSequence> {
 
     @Test
     public void testCharAtFails() {

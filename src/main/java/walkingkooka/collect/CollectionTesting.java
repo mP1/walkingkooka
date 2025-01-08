@@ -39,45 +39,45 @@ public interface CollectionTesting extends Testing {
         after.addAll(collection);
 
         this.checkEquals(
-                before,
-                after,
-                () -> "add modified collection " + collection
+            before,
+            after,
+            () -> "add modified collection " + collection
         );
     }
 
     default <E> void containsAndCheck(final Collection<E> collection,
                                       final E element) {
         this.checkEquals(
-                true,
-                collection.contains(element),
-                () -> collection + " should contain " + CharSequences.quoteIfChars(element)
+            true,
+            collection.contains(element),
+            () -> collection + " should contain " + CharSequences.quoteIfChars(element)
         );
         this.checkEquals(
-                true,
-                collection.containsAll(Lists.of(element)),
-                () -> collection + " should NOT contain Collection of " + CharSequences.quoteIfChars(element)
+            true,
+            collection.containsAll(Lists.of(element)),
+            () -> collection + " should NOT contain Collection of " + CharSequences.quoteIfChars(element)
         );
     }
 
     default void containsAndCheckAbsent(final Collection<?> collection,
                                         final Object element) {
         this.checkEquals(
-                false,
-                collection.contains(element),
-                () -> collection + " should contain " + CharSequences.quoteIfChars(element)
+            false,
+            collection.contains(element),
+            () -> collection + " should contain " + CharSequences.quoteIfChars(element)
         );
         this.checkEquals(
-                false,
-                collection.containsAll(Lists.of(element)),
-                () -> collection + " should NOT contain Collection of " + CharSequences.quoteIfChars(element)
+            false,
+            collection.containsAll(Lists.of(element)),
+            () -> collection + " should NOT contain Collection of " + CharSequences.quoteIfChars(element)
         );
     }
 
     default void isEmptyAndCheck(final Collection<?> collection, final boolean empty) {
         this.checkEquals(
-                empty,
-                collection.isEmpty(),
-                () -> "isEmpty of " + collection
+            empty,
+            collection.isEmpty(),
+            () -> "isEmpty of " + collection
         );
     }
 
@@ -91,17 +91,17 @@ public interface CollectionTesting extends Testing {
         final List<E> after = Lists.array();
         after.addAll(collection);
         this.checkEquals(
-                before,
-                after,
-                () -> "remove modified collection " + collection
+            before,
+            after,
+            () -> "remove modified collection " + collection
         );
     }
 
     default void sizeAndCheck(final Collection<?> collection, final int size) {
         this.checkEquals(
-                size,
-                collection.size(),
-                () -> "size of " + collection
+            size,
+            collection.size(),
+            () -> "size of " + collection
         );
         this.isEmptyAndCheck(collection, 0 == size);
     }

@@ -23,10 +23,8 @@ import walkingkooka.text.CharSequences;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public abstract class PushableStreamConsumerStreamIntermediate1PushableStreamConsumerTestCase<P extends PushableStreamConsumerStreamIntermediate1PushableStreamConsumer<String>>
-        extends PushableStreamConsumerStreamIntermediatePushableStreamConsumerTestCase<P> {
+    extends PushableStreamConsumerStreamIntermediatePushableStreamConsumerTestCase<P> {
 
     PushableStreamConsumerStreamIntermediate1PushableStreamConsumerTestCase() {
         super();
@@ -41,8 +39,7 @@ public abstract class PushableStreamConsumerStreamIntermediate1PushableStreamCon
         this.toStringAndCheck(consumer, NEXT_TOSTRING);
     }
 
-    @Override
-    final P createPushableStreamConsumer(final PushableStreamConsumer<String> next) {
+    @Override final P createPushableStreamConsumer(final PushableStreamConsumer<String> next) {
         return this.createPushableStreamConsumer(VALUE, next);
     }
 
@@ -54,11 +51,12 @@ public abstract class PushableStreamConsumerStreamIntermediate1PushableStreamCon
                               final String expected,
                               final int consumedCount) {
         this.acceptAndCheck(skipOrLimit,
-                commaSeperated,
-                Integer.MAX_VALUE,
-                expected,
-                consumedCount);
+            commaSeperated,
+            Integer.MAX_VALUE,
+            expected,
+            consumedCount);
     }
+
     final void acceptAndCheck(final long skipOrLimit,
                               final String commaSeperated,
                               final int finishedCollectedSize,
@@ -67,39 +65,39 @@ public abstract class PushableStreamConsumerStreamIntermediate1PushableStreamCon
         final List<String> collected = Lists.array();
 
         final P consumer = this.createPushableStreamConsumer(skipOrLimit,
-                new PushableStreamConsumer<>() {
-                    @Override
-                    public boolean isFinished() {
-                        return collected.size() >= finishedCollectedSize;
-                    }
+            new PushableStreamConsumer<>() {
+                @Override
+                public boolean isFinished() {
+                    return collected.size() >= finishedCollectedSize;
+                }
 
-                    @Override
-                    public void accept(final String s) {
-                        collected.add(s);
-                    }
+                @Override
+                public void accept(final String s) {
+                    collected.add(s);
+                }
 
-                    @Override
-                    public void close() {
+                @Override
+                public void close() {
 
-                    }
+                }
 
-                    @Override
-                    public String toString() {
-                        return (this.isFinished() ? "FINISHED" : "") + ", collected: " + collected;
-                    }
-                });
+                @Override
+                public String toString() {
+                    return (this.isFinished() ? "FINISHED" : "") + ", collected: " + collected;
+                }
+            });
 
         final List<String> values = this.commaSeparated(commaSeperated);
 
         int i = 0;
-        while(i < values.size() && false == consumer.isFinished()) {
+        while (i < values.size() && false == consumer.isFinished()) {
             consumer.accept(values.get(i));
             i++;
         }
 
         this.checkEquals(this.commaSeparated(expected),
-                collected,
-                () -> "values: " + CharSequences.quoteAndEscape(commaSeperated) + " " + consumer);
+            collected,
+            () -> "values: " + CharSequences.quoteAndEscape(commaSeperated) + " " + consumer);
         this.checkEquals(consumedCount, i, () -> "consumed values count, values: " + CharSequences.quoteAndEscape(commaSeperated));
     }
 }

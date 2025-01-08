@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class ArrayListStackTest extends StackTestCase<ArrayListStack<String>, String>
-        implements IteratorTesting {
+    implements IteratorTesting {
 
     @Test
     public void testCreate() {

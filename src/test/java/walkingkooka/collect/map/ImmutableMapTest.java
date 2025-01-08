@@ -22,8 +22,6 @@ import walkingkooka.Cast;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class ImmutableMapTest extends ImmutableMapTestCase<ImmutableMap<String, Integer>> {
 
     @Test
@@ -61,8 +59,8 @@ public final class ImmutableMapTest extends ImmutableMapTestCase<ImmutableMap<St
 
     private void immutableAndCheck(final Map<String, Integer> map, final boolean expected) {
         this.checkEquals(expected,
-                ImmutableMap.isImmutable(map),
-                () -> "immutable " + map);
+            ImmutableMap.isImmutable(map),
+            () -> "immutable " + map);
     }
 
     // ClassTesting.....................................................................................................

@@ -103,8 +103,8 @@ final class ReaderConsumingCharSequence implements CharSequence {
                 }
 
                 final int read = this.reader.read(buffer,
-                        0,
-                        buffer.length);
+                    0,
+                    buffer.length);
                 if (-1 == read) {
                     this.eof = true;
                     break;
@@ -127,8 +127,8 @@ final class ReaderConsumingCharSequence implements CharSequence {
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof ReaderConsumingCharSequence &&
-                        this.equals0(Cast.to(other));
+            other instanceof ReaderConsumingCharSequence &&
+                this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final ReaderConsumingCharSequence other) {

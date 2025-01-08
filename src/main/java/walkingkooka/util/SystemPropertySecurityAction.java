@@ -47,6 +47,7 @@ final class SystemPropertySecurityAction implements StaticHelper {
     private static <T> T execute0(final PrivilegedAction<T> action) {
         return AccessController.doPrivileged(action);
     }
+
     /**
      * Stop creation
      */

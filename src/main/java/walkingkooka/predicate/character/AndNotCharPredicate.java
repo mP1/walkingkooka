@@ -28,8 +28,8 @@ final class AndNotCharPredicate extends LogicalCharPredicate {
         Objects.requireNonNull(right, "right CharPredicate");
 
         return left.equals(right) ?
-                CharPredicates.never() :
-                new AndNotCharPredicate(left, right);
+            CharPredicates.never() :
+            new AndNotCharPredicate(left, right);
     }
 
     /**

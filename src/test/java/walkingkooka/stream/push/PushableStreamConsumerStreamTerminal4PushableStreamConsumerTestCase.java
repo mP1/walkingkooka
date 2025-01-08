@@ -35,8 +35,7 @@ public abstract class PushableStreamConsumerStreamTerminal4PushableStreamConsume
         assertThrows(NullPointerException.class, () -> this.createPushableStreamConsumer(null, this.closeables));
     }
 
-    @Override
-    final T createPushableStreamConsumer(final PushableStreamConsumerCloseableCollection closeables) {
+    @Override final T createPushableStreamConsumer(final PushableStreamConsumerCloseableCollection closeables) {
         return this.createPushableStreamConsumer(REDUCER, closeables);
     }
 

@@ -48,7 +48,7 @@ final class ToStringBuilderAppenderOptionalIntVector extends ToStringBuilderAppe
         final OptionalInt value = this.value;
         if (value.isPresent()) {
             builder.value(
-                    value.getAsInt()
+                value.getAsInt()
             );
         }
     }

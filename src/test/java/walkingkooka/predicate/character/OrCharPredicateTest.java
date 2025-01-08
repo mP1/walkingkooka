@@ -44,20 +44,20 @@ final public class OrCharPredicateTest extends LogicalCharPredicateTestCase<OrCh
     public void testWrapWithLeftNever() {
         final CharPredicate never = CharPredicates.never();
         assertSame(PREDICATE,
-                OrCharPredicate.wrap(never, PREDICATE));
+            OrCharPredicate.wrap(never, PREDICATE));
     }
 
     @Test
     public void testWrapWithRightNever() {
         final CharPredicate never = CharPredicates.never();
         assertSame(PREDICATE,
-                OrCharPredicate.wrap(PREDICATE, never));
+            OrCharPredicate.wrap(PREDICATE, never));
     }
 
     @Test
     public void testWrapWithSame() {
         assertSame(PREDICATE,
-                OrCharPredicate.wrap(PREDICATE, PREDICATE));
+            OrCharPredicate.wrap(PREDICATE, PREDICATE));
     }
 
     @Test
@@ -73,7 +73,7 @@ final public class OrCharPredicateTest extends LogicalCharPredicateTestCase<OrCh
     @Test
     public void testNeither() {
         final CharPredicate predicate = OrCharPredicate.wrap(this.not(this.is('m')),
-                this.not(CharPredicates.caseInsensitive('m')));
+            this.not(CharPredicates.caseInsensitive('m')));
         this.testFalse(predicate, 'm');
         this.testTrue(predicate, 'd');
     }
@@ -81,7 +81,7 @@ final public class OrCharPredicateTest extends LogicalCharPredicateTestCase<OrCh
     @Test
     public void testMatchNot2() {
         final CharPredicate predicate = OrCharPredicate.wrap(this.not(this.is('m')),
-                this.not(this.is('d')));
+            this.not(this.is('d')));
         this.testTrue(predicate, 'm');
         this.testTrue(predicate, 'd');
         this.testTrue(predicate, 'e');

@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
  * Mixin that introduces tests and helpers to test {@link TextCursorSavePoint} implementations.
  */
 public interface TextCursorSavePointTesting<S extends TextCursorSavePoint, C extends TextCursor>
-        extends TextCursorTesting {
+    extends TextCursorTesting {
 
     // tests
 
@@ -36,9 +36,9 @@ public interface TextCursorSavePointTesting<S extends TextCursorSavePoint, C ext
         this.atAndCheck(cursor, '2');
 
         this.checkNotEquals(
-                null,
-                cursor.save(),
-                "SavePointTestCase"
+            null,
+            cursor.save(),
+            "SavePointTestCase"
         );
     }
 

@@ -47,10 +47,10 @@ public final class ImmutableSetImplNonSingletonTest extends ImmutableSetImplTest
     @Test
     public void testIterator() {
         this.iterateAndCheck(
-                this.createSet()
-                        .iterator(),
-                ELEMENT1,
-                ELEMENT2
+            this.createSet()
+                .iterator(),
+            ELEMENT1,
+            ELEMENT2
         );
     }
 
@@ -69,14 +69,14 @@ public final class ImmutableSetImplNonSingletonTest extends ImmutableSetImplTest
         final String newElement = "*newElement*";
 
         this.replaceAndCheck(
-                ImmutableSetImplNonSingleton.with(
-                        Sets.of(
-                                ELEMENT1,
-                                ELEMENT2
-                        )
-                ),
-                "*missing*",
-                newElement
+            ImmutableSetImplNonSingleton.with(
+                Sets.of(
+                    ELEMENT1,
+                    ELEMENT2
+                )
+            ),
+            "*missing*",
+            newElement
         );
     }
 
@@ -86,44 +86,44 @@ public final class ImmutableSetImplNonSingletonTest extends ImmutableSetImplTest
         final String newElement = "*newElement*";
 
         this.replaceAndCheck(
-                ImmutableSetImplNonSingleton.with(
-                        Sets.of(
-                                ELEMENT1,
-                                ELEMENT2
-                        )
-                ),
-                ELEMENT1,
-                newElement,
-                ImmutableSetImplNonSingleton.with(
-                        Sets.of(
-                                newElement,
-                                ELEMENT2
-                        )
+            ImmutableSetImplNonSingleton.with(
+                Sets.of(
+                    ELEMENT1,
+                    ELEMENT2
                 )
+            ),
+            ELEMENT1,
+            newElement,
+            ImmutableSetImplNonSingleton.with(
+                Sets.of(
+                    newElement,
+                    ELEMENT2
+                )
+            )
         );
     }
 
     @Test
     public void testDeleteIf() {
         this.deleteIfAndCheck(
-                this.createSet(),
-                Predicates.is(ELEMENT1),
-                ImmutableSetImplNonSingleton.with(
-                        Sets.of(ELEMENT2)
-                )
+            this.createSet(),
+            Predicates.is(ELEMENT1),
+            ImmutableSetImplNonSingleton.with(
+                Sets.of(ELEMENT2)
+            )
         );
     }
 
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createSet(),
-                new HashSet<>(
-                        Arrays.asList(
-                                ELEMENT1,
-                                ELEMENT2
-                        )
-                ).toString()
+            this.createSet(),
+            new HashSet<>(
+                Arrays.asList(
+                    ELEMENT1,
+                    ELEMENT2
+                )
+            ).toString()
         );
     }
 
@@ -133,9 +133,9 @@ public final class ImmutableSetImplNonSingletonTest extends ImmutableSetImplTest
     }
 
     private String[] elements() {
-        return new String[] {
-                ELEMENT1,
-                ELEMENT2
+        return new String[]{
+            ELEMENT1,
+            ELEMENT2
         };
     }
 

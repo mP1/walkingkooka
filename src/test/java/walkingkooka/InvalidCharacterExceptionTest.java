@@ -27,8 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class InvalidCharacterExceptionTest implements ThrowableTesting2<InvalidCharacterException>,
-        HashCodeEqualsDefinedTesting2<InvalidCharacterException>,
-        HasTextTesting {
+    HashCodeEqualsDefinedTesting2<InvalidCharacterException>,
+    HasTextTesting {
 
     private final static String TEXT = "abc!123";
     private final static int POSITION = 3;
@@ -68,10 +68,10 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
     public void testWith() {
         final InvalidCharacterException cause = this.create();
         check(
-                cause,
-                TEXT,
-                POSITION,
-                "" // appendToMessage
+            cause,
+            TEXT,
+            POSITION,
+            "" // appendToMessage
         );
     }
 
@@ -80,10 +80,10 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
         final Exception cause = new Exception();
         final InvalidCharacterException thrown = this.create(cause);
         check(
-                thrown,
-                TEXT,
-                POSITION,
-                "" // appendToMessage
+            thrown,
+            TEXT,
+            POSITION,
+            "" // appendToMessage
         );
         checkCause(thrown, cause);
     }
@@ -133,10 +133,10 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
         assertNotSame(cause, different);
 
         this.check(
-                different,
-                text,
-                POSITION,
-                "" // appendToMessage
+            different,
+            text,
+            POSITION,
+            "" // appendToMessage
         );
 
         this.check(cause);
@@ -152,10 +152,10 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
         assertNotSame(cause, different);
 
         this.check(
-                different,
-                text,
-                POSITION,
-                "" // appendToMessage
+            different,
+            text,
+            POSITION,
+            "" // appendToMessage
         );
 
         this.checkCause(different, cause);
@@ -171,10 +171,10 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
         assertNotSame(cause, different);
 
         this.check(
-                different,
-                TEXT,
-                position,
-                "" // appendToMessage
+            different,
+            TEXT,
+            position,
+            "" // appendToMessage
         );
 
         this.check(cause);
@@ -189,10 +189,10 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
         assertNotSame(cause, different);
 
         this.check(
-                different,
-                text,
-                position,
-                "" // appendToMessage
+            different,
+            text,
+            position,
+            "" // appendToMessage
         );
 
         this.check(cause);
@@ -203,8 +203,8 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
         final InvalidCharacterException thrown = this.create();
 
         assertThrows(
-                NullPointerException.class,
-                () -> thrown.appendToMessage(null)
+            NullPointerException.class,
+            () -> thrown.appendToMessage(null)
         );
     }
 
@@ -212,8 +212,8 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
     public void testAppendToMessageSame() {
         final InvalidCharacterException thrown = this.create();
         assertSame(
-                thrown,
-                thrown.appendToMessage("")
+            thrown,
+            thrown.appendToMessage("")
         );
     }
 
@@ -227,15 +227,15 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
         assertNotSame(thrown, different);
 
         this.check(
-                different,
-                thrown.text(),
-                thrown.position(),
-                appendToMessage
+            different,
+            thrown.text(),
+            thrown.position(),
+            appendToMessage
         );
 
         this.checkMessage(
-                different,
-                thrown.getMessage() + appendToMessage
+            different,
+            thrown.getMessage() + appendToMessage
         );
     }
 
@@ -248,41 +248,41 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
     @Test
     public void testGetShortMessage() {
         checkShortMessage(
-                this.create(),
-                "Invalid character \'!\' at 3"
+            this.create(),
+            "Invalid character \'!\' at 3"
         );
     }
 
     @Test
     public void testGetShortMessageWithAppendMessage() {
         checkShortMessage(
-                this.create()
-                        .appendToMessage("AppendToMessage333"),
-                "Invalid character \'!\' at 3AppendToMessage333"
+            this.create()
+                .appendToMessage("AppendToMessage333"),
+            "Invalid character \'!\' at 3AppendToMessage333"
         );
     }
 
     @Test
     public void testGetMessageEscapedCharacter() {
         checkMessage(new InvalidCharacterException("abc\"123", 3),
-                "Invalid character \'\\\"\' at 3 in \"abc\"123\"");
+            "Invalid character \'\\\"\' at 3 in \"abc\"123\"");
     }
 
     @Test
     public void testGetMessageAfterSetTextAndPosition() {
         checkMessage(this.create().setTextAndPosition("@@" + TEXT, 2 + POSITION),
-                "Invalid character \'!\' at 5 in \"@@abc!123\"");
+            "Invalid character \'!\' at 5 in \"@@abc!123\"");
     }
 
     @Test
     public void testGetShortMessageAfterSetTextAndPosition() {
         checkShortMessage(
-                this.create()
-                        .setTextAndPosition(
-                                "ABCDEFG",
-                                5
-                        ),
-                "Invalid character 'F' at 5"
+            this.create()
+                .setTextAndPosition(
+                    "ABCDEFG",
+                    5
+                ),
+            "Invalid character 'F' at 5"
         );
     }
 
@@ -296,9 +296,9 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
 
     private void check(final InvalidCharacterException exception) {
         this.check(
-                exception,
-                TEXT, POSITION,
-                "" // appendToMessage
+            exception,
+            TEXT, POSITION,
+            "" // appendToMessage
         );
     }
 
@@ -314,9 +314,9 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
     private void checkShortMessage(final InvalidCharacterException exception,
                                    final String expected) {
         this.checkEquals(
-                expected,
-                exception.getShortMessage(),
-                () -> "getShortMessage"
+            expected,
+            exception.getShortMessage(),
+            () -> "getShortMessage"
         );
     }
 

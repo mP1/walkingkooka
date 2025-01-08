@@ -26,8 +26,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 /**
  * Uses the {@link List#stream()} to test all the helpers in {@link StreamTesting}.
  */
@@ -46,14 +44,14 @@ public final class StreamTestingTest implements StreamTesting<Stream<Integer>, I
     public void testFilter() {
         this.collectAndCheck(stream(11, 22, 33, 44, 55).filter(
                 (v) -> v < 33),
-                11, 22);
+            11, 22);
     }
 
     @Test
     public void testFilter2() {
         this.collectAndCheck(stream(11, 55, 22, 44, 33).filter(
                 (v) -> v < 33),
-                11, 22);
+            11, 22);
     }
 
     // filter, map, skip and collect.....................................................................................
@@ -61,10 +59,10 @@ public final class StreamTestingTest implements StreamTesting<Stream<Integer>, I
     @Test
     public void testFilterMapSkipAndCollect() {
         this.collectAndCheck(stream(11, 22, 33, 44, 55)
-                        .filter((v) -> v > 22) // 33, 44, 55
-                        .map(v -> v * 10) // 330, 440, 550
-                        .skip(1), // 440, 550
-                440, 550);
+                .filter((v) -> v > 22) // 33, 44, 55
+                .map(v -> v * 10) // 330, 440, 550
+                .skip(1), // 440, 550
+            440, 550);
     }
 
     // collect............................................................................................................
@@ -86,28 +84,28 @@ public final class StreamTestingTest implements StreamTesting<Stream<Integer>, I
     @Test
     public void testMax() {
         this.maxAndCheck(this.createStream(),
-                Comparator.<Integer>naturalOrder()
-                        .reversed(),
-                this.values());
+            Comparator.<Integer>naturalOrder()
+                .reversed(),
+            this.values());
     }
 
     @Test
     public void testMax2() {
         this.checkEquals(Optional.of(555),
-                stream(1, 22, 33, 44, 555).max(Comparator.naturalOrder()));
+            stream(1, 22, 33, 44, 555).max(Comparator.naturalOrder()));
     }
 
     @Test
     public void testMax3() {
         this.checkEquals(Optional.of(555),
-                stream(1, 22, 555, 44, 33).max(Comparator.naturalOrder()));
+            stream(1, 22, 555, 44, 33).max(Comparator.naturalOrder()));
     }
 
     @SuppressWarnings("RedundantComparatorComparing")
     @Test
     public void testMax4() {
         this.checkEquals(Optional.of(1),
-                stream(1, 22, 555, 44, 33).max(Comparator.<Integer>naturalOrder().reversed()));
+            stream(1, 22, 555, 44, 33).max(Comparator.<Integer>naturalOrder().reversed()));
     }
 
     // min............................................................................................................
@@ -115,28 +113,28 @@ public final class StreamTestingTest implements StreamTesting<Stream<Integer>, I
     @Test
     public void testMin() {
         this.minAndCheck(this.createStream(),
-                Comparator.<Integer>naturalOrder()
-                        .reversed(),
-                this.values());
+            Comparator.<Integer>naturalOrder()
+                .reversed(),
+            this.values());
     }
 
     @Test
     public void testMin2() {
         this.checkEquals(Optional.of(1),
-                stream(1, 22, 33, 44, 555).min(Comparator.naturalOrder()));
+            stream(1, 22, 33, 44, 555).min(Comparator.naturalOrder()));
     }
 
     @Test
     public void testMin3() {
         this.checkEquals(Optional.of(1),
-                stream(555, 22, 1, 44, 33).min(Comparator.naturalOrder()));
+            stream(555, 22, 1, 44, 33).min(Comparator.naturalOrder()));
     }
 
     @SuppressWarnings("RedundantComparatorComparing")
     @Test
     public void testMin4() {
         this.checkEquals(Optional.of(555),
-                stream(1, 22, 555, 44, 33).min(Comparator.<Integer>naturalOrder().reversed()));
+            stream(1, 22, 555, 44, 33).min(Comparator.<Integer>naturalOrder().reversed()));
     }
 
     // reduce............................................................................................................
@@ -144,21 +142,21 @@ public final class StreamTestingTest implements StreamTesting<Stream<Integer>, I
     @Test
     public void testReduceNothing() {
         this.reduceAndCheck(stream(),
-                StreamTestingTest::reducer);
+            StreamTestingTest::reducer);
     }
 
     @Test
     public void testReduceSingleValue() {
         this.reduceAndCheck(stream(1),
-                StreamTestingTest::reducer,
-                1);
+            StreamTestingTest::reducer,
+            1);
     }
 
     @Test
     public void testReduceManyValues() {
         this.reduceAndCheck(stream(1, 2, 3, 4),
-                StreamTestingTest::reducer,
-                1, 2, 3, 4);
+            StreamTestingTest::reducer,
+            1, 2, 3, 4);
     }
 
     // reduce............................................................................................................
@@ -166,24 +164,24 @@ public final class StreamTestingTest implements StreamTesting<Stream<Integer>, I
     @Test
     public void testReduceInitial() {
         this.reduceAndCheck(stream(),
-                1000,
-                StreamTestingTest::reducer);
+            1000,
+            StreamTestingTest::reducer);
     }
 
     @Test
     public void testReduceInitialAndSingleValue() {
         this.reduceAndCheck(stream(1),
-                1000,
-                StreamTestingTest::reducer,
-                1);
+            1000,
+            StreamTestingTest::reducer,
+            1);
     }
 
     @Test
     public void testReduceInitialManyValues() {
         this.reduceAndCheck(stream(1, 2, 3, 4),
-                1000,
-                StreamTestingTest::reducer,
-                1, 2, 3, 4);
+            1000,
+            StreamTestingTest::reducer,
+            1, 2, 3, 4);
     }
 
     private static Integer reducer(final Integer left, final Integer right) {

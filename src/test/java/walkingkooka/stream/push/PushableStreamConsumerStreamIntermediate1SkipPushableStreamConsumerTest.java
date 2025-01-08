@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
 public final class PushableStreamConsumerStreamIntermediate1SkipPushableStreamConsumerTest extends
-        PushableStreamConsumerStreamIntermediate1PushableStreamConsumerTestCase<PushableStreamConsumerStreamIntermediate1SkipPushableStreamConsumer<String>> {
+    PushableStreamConsumerStreamIntermediate1PushableStreamConsumerTestCase<PushableStreamConsumerStreamIntermediate1SkipPushableStreamConsumer<String>> {
 
     @Test
     public void testSkip0() {

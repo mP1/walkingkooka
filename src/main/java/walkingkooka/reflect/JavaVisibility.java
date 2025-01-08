@@ -53,8 +53,8 @@ public enum JavaVisibility implements Visitable {
     PACKAGE_PRIVATE(2, "") {
         boolean testModifiers(final int modifiers) {
             return !(this.isPublic(modifiers) ||
-                    this.isProtected(modifiers) ||
-                    this.isPrivate(modifiers));
+                this.isProtected(modifiers) ||
+                this.isPrivate(modifiers));
         }
 
         @Override

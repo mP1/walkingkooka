@@ -34,8 +34,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class BinaryTest implements CanBeEmptyTesting,
-        HashCodeEqualsDefinedTesting2<Binary>,
-        ToStringTesting<Binary> {
+    HashCodeEqualsDefinedTesting2<Binary>,
+    ToStringTesting<Binary> {
 
     @Test
     public void testWithNullFails() {
@@ -78,203 +78,203 @@ public final class BinaryTest implements CanBeEmptyTesting,
     @Test
     public void testIndexOfNullFindBytesFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> Binary.EMPTY.indexOf(
-                        null,
-                        0, // start
-                        0 // end
-                )
+            NullPointerException.class,
+            () -> Binary.EMPTY.indexOf(
+                null,
+                0, // start
+                0 // end
+            )
         );
     }
 
     @Test
     public void testIndexOfNullFindStartLessThanZeroFails() {
         assertThrows(
-                IllegalArgumentException.class,
-                () -> Binary.EMPTY.indexOf(
-                        new byte[0],
-                        -1, // start
-                        0 // end
-                )
+            IllegalArgumentException.class,
+            () -> Binary.EMPTY.indexOf(
+                new byte[0],
+                -1, // start
+                0 // end
+            )
         );
     }
 
     @Test
     public void testIndexOfNullFindStartAfterEndFails() {
         assertThrows(
-                IllegalArgumentException.class,
-                () -> Binary.EMPTY.indexOf(
-                        new byte[1],
-                        1, // start
-                        1 // end
-                )
+            IllegalArgumentException.class,
+            () -> Binary.EMPTY.indexOf(
+                new byte[1],
+                1, // start
+                1 // end
+            )
         );
     }
 
     @Test
     public void testIndexOfNullEndBeforeStartFails() {
         assertThrows(
-                IllegalArgumentException.class,
-                () -> Binary.EMPTY.indexOf(
-                        new byte[10],
-                        1, // start
-                        0 // end
-                )
+            IllegalArgumentException.class,
+            () -> Binary.EMPTY.indexOf(
+                new byte[10],
+                1, // start
+                0 // end
+            )
         );
     }
 
     @Test
     public void testIndexOfNullEndAfterEndFails() {
         assertThrows(
-                IllegalArgumentException.class,
-                () -> Binary.EMPTY.indexOf(
-                        new byte[10],
-                        1, // start
-                        10 // end
-                )
+            IllegalArgumentException.class,
+            () -> Binary.EMPTY.indexOf(
+                new byte[10],
+                1, // start
+                10 // end
+            )
         );
     }
 
     @Test
     public void testIndexOfEmptyFind() {
         this.indexOfAndCheck(
-                new byte[10],
-                new byte[0],
-                0, // start
-                0, // end
-                -1
+            new byte[10],
+            new byte[0],
+            0, // start
+            0, // end
+            -1
         );
     }
 
     @Test
     public void testIndexOfNotFound() {
         this.indexOfAndCheck(
-                "0123456789",
-                "A",
-                0, // start
-                10, // end
-                -1
+            "0123456789",
+            "A",
+            0, // start
+            10, // end
+            -1
         );
     }
 
     @Test
     public void testIndexOfNotFound2() {
         this.indexOfAndCheck(
-                "0123456789",
-                "ABC",
-                0, // start
-                10, // end
-                -1
+            "0123456789",
+            "ABC",
+            0, // start
+            10, // end
+            -1
         );
     }
 
     @Test
     public void testIndexOfSame() {
         this.indexOfAndCheck(
-                "abc",
-                "abc",
-                0, // start
-                3, // end
-                0
+            "abc",
+            "abc",
+            0, // start
+            3, // end
+            0
         );
     }
 
     @Test
     public void testIndexOfFalseMatch() {
         this.indexOfAndCheck(
-                "a123a1234",
-                "a1234",
-                0, // start
-                9, // end
-                4
+            "a123a1234",
+            "a1234",
+            0, // start
+            9, // end
+            4
         );
     }
 
     @Test
     public void testIndexOfFalseMatch2() {
         this.indexOfAndCheck(
-                "a123a456",
-                "a456",
-                0, // start
-                8, // end
-                4
+            "a123a456",
+            "a456",
+            0, // start
+            8, // end
+            4
         );
     }
 
     @Test
     public void testIndexOfBeginning() {
         this.indexOfAndCheck(
-                "abcdef",
-                "abc",
-                0, // start
-                6, // end
-                0
+            "abcdef",
+            "abc",
+            0, // start
+            6, // end
+            0
         );
     }
 
     @Test
     public void testIndexOfMiddle() {
         this.indexOfAndCheck(
-                "abcdef",
-                "cde",
-                0, // start
-                6, // end
-                2
+            "abcdef",
+            "cde",
+            0, // start
+            6, // end
+            2
         );
     }
 
     @Test
     public void testIndexOfEnd() {
         this.indexOfAndCheck(
-                "abcdef",
-                "def",
-                0, // start
-                6, // end
-                3
+            "abcdef",
+            "def",
+            0, // start
+            6, // end
+            3
         );
     }
 
     @Test
     public void testIndexOfBeginningWithStartOffset() {
         this.indexOfAndCheck(
-                "abcdef",
-                "abc",
-                1, // start
-                6, // end
-                -1
+            "abcdef",
+            "abc",
+            1, // start
+            6, // end
+            -1
         );
     }
 
     @Test
     public void testIndexOfMiddleWithStartOffset() {
         this.indexOfAndCheck(
-                "abcdef",
-                "cde",
-                1, // start
-                6, // end
-                2
+            "abcdef",
+            "cde",
+            1, // start
+            6, // end
+            2
         );
     }
 
     @Test
     public void testIndexOfEndWithStartOffset() {
         this.indexOfAndCheck(
-                "abcdef",
-                "def",
-                1, // start
-                6, // end
-                3
+            "abcdef",
+            "def",
+            1, // start
+            6, // end
+            3
         );
     }
 
     @Test
     public void testIndexOfWithStartAndEnd() {
         this.indexOfAndCheck(
-                "abcdefgh",
-                "def",
-                1, // start
-                5, // end
-                -1
+            "abcdefgh",
+            "def",
+            1, // start
+            5, // end
+            -1
         );
     }
 
@@ -284,11 +284,11 @@ public final class BinaryTest implements CanBeEmptyTesting,
                                  final int end,
                                  final int expected) {
         this.indexOfAndCheck(
-                binaryAscii.getBytes(StandardCharsets.UTF_8),
-                bytesAscii.getBytes(StandardCharsets.UTF_8),
-                start,
-                end,
-                expected
+            binaryAscii.getBytes(StandardCharsets.UTF_8),
+            bytesAscii.getBytes(StandardCharsets.UTF_8),
+            start,
+            end,
+            expected
         );
     }
 
@@ -298,11 +298,11 @@ public final class BinaryTest implements CanBeEmptyTesting,
                                  final int end,
                                  final int expected) {
         this.indexOfAndCheck(
-                Binary.with(binary),
-                bytes,
-                start,
-                end,
-                expected
+            Binary.with(binary),
+            bytes,
+            start,
+            end,
+            expected
         );
     }
 
@@ -312,13 +312,13 @@ public final class BinaryTest implements CanBeEmptyTesting,
                                  final int end,
                                  final int expected) {
         this.checkEquals(
-                expected,
-                binary.indexOf(
-                        bytes,
-                        start,
-                        end
-                ),
-                () -> "indexOf " + Arrays.toString(bytes) + " start " + start + " end " + end
+            expected,
+            binary.indexOf(
+                bytes,
+                start,
+                end
+            ),
+            () -> "indexOf " + Arrays.toString(bytes) + " start " + start + " end " + end
         );
     }
 
@@ -327,16 +327,16 @@ public final class BinaryTest implements CanBeEmptyTesting,
     @Test
     public void testCanBeEmptyWhenEmpty() {
         this.isEmptyAndCheck(
-                Binary.EMPTY,
-                true
+            Binary.EMPTY,
+            true
         );
     }
 
     @Test
     public void testCanBeEmptyWhenNotEmpty() {
         this.isEmptyAndCheck(
-                Binary.with("abc".getBytes(Charset.defaultCharset())),
-                false
+            Binary.with("abc".getBytes(Charset.defaultCharset())),
+            false
         );
     }
 
@@ -384,136 +384,136 @@ public final class BinaryTest implements CanBeEmptyTesting,
     @Test
     public void testExtractSingleton() {
         this.extractAndCheck(this.createObject(),
-                Range.singleton(1L),
-                Binary.with(new byte[]{11}));
+            Range.singleton(1L),
+            Binary.with(new byte[]{11}));
     }
 
     @Test
     public void testExtractSame() {
         this.extractAndCheck(this.createObject(),
-                Range.greaterThanEquals(0L).and(Range.lessThanEquals(4L)));
+            Range.greaterThanEquals(0L).and(Range.lessThanEquals(4L)));
     }
 
     @Test
     public void testExtractSame2() {
         this.extractAndCheck(this.createObject(),
-                Range.greaterThanEquals(0L).and(Range.lessThan(5L)));
+            Range.greaterThanEquals(0L).and(Range.lessThan(5L)));
     }
 
     @Test
     public void testExtractSame3() {
         this.extractAndCheck(this.createObject(),
-                Range.greaterThan(-1L).and(Range.lessThan(5L)));
+            Range.greaterThan(-1L).and(Range.lessThan(5L)));
     }
 
     @Test
     public void testExtractPartial() {
         this.extractAndCheck(this.createObject(),
-                Range.greaterThanEquals(1L).and(Range.lessThanEquals(3L)),
-                Binary.with(new byte[]{11, 22, 33}));
+            Range.greaterThanEquals(1L).and(Range.lessThanEquals(3L)),
+            Binary.with(new byte[]{11, 22, 33}));
     }
 
     @Test
     public void testExtractPartial2() {
         this.extractAndCheck(this.createObject(),
-                Range.greaterThan(1L).and(Range.lessThan(3L)),
-                Binary.with(new byte[]{22}));
+            Range.greaterThan(1L).and(Range.lessThan(3L)),
+            Binary.with(new byte[]{22}));
     }
 
     @Test
     public void testExtractPartial3() {
         this.extractAndCheck(this.createObject(),
-                Range.greaterThan(1L).and(Range.lessThan(4L)),
-                Binary.with(new byte[]{22, 33}));
+            Range.greaterThan(1L).and(Range.lessThan(4L)),
+            Binary.with(new byte[]{22, 33}));
     }
 
     @Test
     public void testExtractLowerBoundExclusive() {
         this.extractAndCheck(this.createObject(),
-                Range.greaterThan(0L),
-                Binary.with(new byte[]{11, 22, 33, 44}));
+            Range.greaterThan(0L),
+            Binary.with(new byte[]{11, 22, 33, 44}));
     }
 
     @Test
     public void testExtractLowerBoundExclusive1() {
         this.extractAndCheck(this.createObject(),
-                Range.greaterThan(2L),
-                Binary.with(new byte[]{33, 44}));
+            Range.greaterThan(2L),
+            Binary.with(new byte[]{33, 44}));
     }
 
     @Test
     public void testExtractLowerBoundExclusive2() {
         this.extractAndCheck(this.createObject(),
-                Range.greaterThan(-1L));
+            Range.greaterThan(-1L));
     }
 
     @Test
     public void testExtractLowerBoundInclusive() {
         this.extractAndCheck(this.createObject(),
-                Range.greaterThanEquals(2L),
-                Binary.with(new byte[]{22, 33, 44}));
+            Range.greaterThanEquals(2L),
+            Binary.with(new byte[]{22, 33, 44}));
     }
 
     @Test
     public void testExtractLowerBoundInclusive2() {
         this.extractAndCheck(this.createObject(),
-                Range.greaterThanEquals(0L));
+            Range.greaterThanEquals(0L));
     }
 
     @Test
     public void testExtractUpperBoundInclusive() {
         this.extractAndCheck(this.createObject(),
-                Range.lessThanEquals(1L),
-                Binary.with(new byte[]{0, 11}));
+            Range.lessThanEquals(1L),
+            Binary.with(new byte[]{0, 11}));
     }
 
     @Test
     public void testExtractUpperBoundInclusive2() {
         this.extractAndCheck(this.createObject(),
-                Range.lessThanEquals(3L),
-                Binary.with(new byte[]{0, 11, 22, 33}));
+            Range.lessThanEquals(3L),
+            Binary.with(new byte[]{0, 11, 22, 33}));
     }
 
     @Test
     public void testExtractUpperBoundInclusive3() {
         this.extractAndCheck(this.createObject(),
-                Range.lessThanEquals(this.size() - 1));
+            Range.lessThanEquals(this.size() - 1));
     }
 
     @Test
     public void testExtractUpperBoundExclusive() {
         this.extractAndCheck(this.createObject(),
-                Range.lessThan(2L),
-                Binary.with(new byte[]{0, 11}));
+            Range.lessThan(2L),
+            Binary.with(new byte[]{0, 11}));
     }
 
     @Test
     public void testExtractUpperBoundExclusive2() {
         this.extractAndCheck(this.createObject(),
-                Range.lessThan(4L),
-                Binary.with(new byte[]{0, 11, 22, 33}));
+            Range.lessThan(4L),
+            Binary.with(new byte[]{0, 11, 22, 33}));
     }
 
     @Test
     public void testExtractUpperBoundExclusive3() {
         this.extractAndCheck(this.createObject(),
-                Range.lessThan(this.size()));
+            Range.lessThan(this.size()));
     }
 
 
     private void extractAndCheck(final Binary binary,
                                  final Range<Long> range) {
         assertSame(binary,
-                binary.extract(range),
-                () -> binary + " extract " + range);
+            binary.extract(range),
+            () -> binary + " extract " + range);
     }
 
     private void extractAndCheck(final Binary binary,
                                  final Range<Long> range,
                                  final Binary expected) {
         this.checkEquals(expected,
-                binary.extract(range),
-                () -> binary + " extract " + range);
+            binary.extract(range),
+            () -> binary + " extract " + range);
     }
 
     // gzip.........................................................................................................

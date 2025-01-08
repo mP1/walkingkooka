@@ -32,7 +32,7 @@ import java.util.function.Predicate;
  * and then intersect them.
  */
 public final class Range<C extends Comparable<C>> implements Predicate<C>,
-        Visitable {
+    Visitable {
 
     /**
      * Assumes a character is a separator and uses the factory to create each component of the {@link Range}.
@@ -46,24 +46,24 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
 
         final int separatorIndex = text.indexOf(separator);
         return -1 == separatorIndex ?
-                singleton(
-                        parse1(
-                                text,
-                                0,
-                                text.length(),
-                                factory
-                        )
-                ) :
-                parse0(
-                        text,
-                        separatorIndex,
-                        factory
-                );
+            singleton(
+                parse1(
+                    text,
+                    0,
+                    text.length(),
+                    factory
+                )
+            ) :
+            parse0(
+                text,
+                separatorIndex,
+                factory
+            );
     }
 
     public static <C extends Comparable<C>> Range<C> parse0(final String text,
-                                                           final int separatorIndex,
-                                                           final Function<String, C> factory) {
+                                                            final int separatorIndex,
+                                                            final Function<String, C> factory) {
         if (0 == separatorIndex) {
             throw new IllegalArgumentException("Empty lower range in " + CharSequences.quoteAndEscape(text));
         }
@@ -76,10 +76,10 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
         final int comparison = left.compareTo(right);
 
         return 0 == comparison ?
-                singleton(left) :
-                comparison < 0 ?
-                        createRange(left, right) :
-                        createRange(right, left);
+            singleton(left) :
+            comparison < 0 ?
+                createRange(left, right) :
+                createRange(right, left);
     }
 
     private static <C extends Comparable<C>> C parse1(final String text,
@@ -95,8 +95,8 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
         } catch (final RuntimeException cause) {
             final String message = cause.getMessage();
             throw new IllegalArgumentException(
-                    CharSequences.isNullOrEmpty(message) ? "Parsing " + CharSequences.quoteIfChars(text) + " failed" : message,
-                    cause
+                CharSequences.isNullOrEmpty(message) ? "Parsing " + CharSequences.quoteIfChars(text) + " failed" : message,
+                cause
             );
         }
     }
@@ -104,9 +104,9 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
     private static <C extends Comparable<C>> Range<C> createRange(final C lower,
                                                                   final C upper) {
         return greaterThanEquals(lower)
-                .and(
-                        lessThanEquals(upper)
-                );
+            .and(
+                lessThanEquals(upper)
+            );
     }
 
     /**
@@ -195,12 +195,12 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
         final RangeBound<C> upper = this.upper.min(other.upper);
 
         return this.compareToEquals(lower, upper) ?
-                this :
-                other.compareToEquals(lower, upper) ?
-                        other :
-                        lower.compareToEquals(upper) ?
-                                this.replace(lower, other) :
-                                this.replace0(lower, upper);
+            this :
+            other.compareToEquals(lower, upper) ?
+                other :
+                lower.compareToEquals(upper) ?
+                    this.replace(lower, other) :
+                    this.replace0(lower, upper);
     }
 
     /**
@@ -257,7 +257,7 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
     @Override
     public boolean test(final C c) {
         return this.lower.lowerTest(c) &&
-                this.upper.upperTest(c);
+            this.upper.upperTest(c);
     }
 
     // isOverlapping.......................................................................................................
@@ -269,7 +269,7 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
         checkOther(other);
 
         return this.lower.max(other.lower)
-                .lessThanOrEqual(this.upper.min(other.upper));
+            .lessThanOrEqual(this.upper.min(other.upper));
     }
 
     // Visitor...............................................................................
@@ -293,8 +293,8 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof Range &&
-                        this.equals0(Cast.to(other));
+            other instanceof Range &&
+                this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final Range<?> other) {
@@ -303,13 +303,13 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
 
     private boolean equals1(final RangeBound<?> lower, final RangeBound<?> upper) {
         return this.lower.equals(lower) &&
-                this.upper.equals(upper);
+            this.upper.equals(upper);
     }
 
     private boolean compareToEquals(final RangeBound<?> lower,
                                     final RangeBound<?> upper) {
         return this.lower.compareToEquals(lower) &&
-                this.upper.compareToEquals(upper);
+            this.upper.compareToEquals(upper);
     }
 
     @Override

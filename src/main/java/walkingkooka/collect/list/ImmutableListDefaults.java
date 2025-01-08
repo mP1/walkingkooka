@@ -47,7 +47,7 @@ public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends Im
             Objects.requireNonNull(elements, "elements");
             throw new UnsupportedOperationException();
         }
-        return (T)this;
+        return (T) this;
     }
 
     /**
@@ -71,7 +71,7 @@ public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends Im
             }
         }
 
-        return (T)swapped;
+        return (T) swapped;
     }
 
     /**
@@ -105,15 +105,15 @@ public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends Im
                       final E element) {
         final List<E> list = this.toList();
         final E replaced = list.set(
-                index,
-                element
+            index,
+            element
         );
 
         return Objects.equals(
-                replaced,
-                element
-        ) ? (T)this :
-                this.setElements(list);
+            replaced,
+            element
+        ) ? (T) this :
+            this.setElements(list);
     }
 
     /**
@@ -134,8 +134,8 @@ public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends Im
         final List<E> list = this.toList();
         final boolean removed = list.remove(element);
         return removed ?
-                this.setElements(list) :
-                (T)this;
+            this.setElements(list) :
+            (T) this;
     }
 
     /**

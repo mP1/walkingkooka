@@ -93,10 +93,10 @@ final public class Lists implements PublicStaticHelper {
     @SafeVarargs
     public static <T> List<T> of(final T... items) {
         return ImmutableListImpl.prepare(
-                Arrays.copyOf(
-                        items,
-                        items.length
-                )
+            Arrays.copyOf(
+                items,
+                items.length
+            )
         );
     }
 
@@ -105,8 +105,8 @@ final public class Lists implements PublicStaticHelper {
      */
     public static <T> List<T> readOnly(final List<T> list) {
         return list instanceof ImmutableList ?
-                list :
-                Collections.unmodifiableList(list);
+            list :
+            Collections.unmodifiableList(list);
     }
 
     /**

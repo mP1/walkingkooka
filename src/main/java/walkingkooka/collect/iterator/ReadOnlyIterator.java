@@ -35,8 +35,8 @@ final class ReadOnlyIterator<T> implements Iterator<T> {
         Objects.requireNonNull(iterator, "iterator");
 
         return iterator instanceof ReadOnlyIterator ?
-                Cast.to(iterator) :
-                new ReadOnlyIterator<>(iterator);
+            Cast.to(iterator) :
+            new ReadOnlyIterator<>(iterator);
     }
 
     private ReadOnlyIterator(final Iterator<T> iterator) {

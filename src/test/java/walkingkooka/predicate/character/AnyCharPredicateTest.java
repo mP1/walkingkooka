@@ -22,11 +22,10 @@ import walkingkooka.Cast;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class AnyCharPredicateTest implements CharPredicateTesting<AnyCharPredicate>,
-        HashCodeEqualsDefinedTesting2<AnyCharPredicate>{
+    HashCodeEqualsDefinedTesting2<AnyCharPredicate> {
 
     // constants
 
@@ -43,8 +42,8 @@ final public class AnyCharPredicateTest implements CharPredicateTesting<AnyCharP
     public void testWithEmptyString() {
         final CharPredicate predicate = AnyCharPredicate.with("");
         this.checkNotEquals(AnyCharPredicate.class,
-                predicate.getClass(),
-                "predicate must not be a AnyCharPredicate");
+            predicate.getClass(),
+            "predicate must not be a AnyCharPredicate");
 
         for (int i = 0; i < Character.MAX_VALUE; i++) {
             this.testFalse(predicate, (char) i);
@@ -55,8 +54,8 @@ final public class AnyCharPredicateTest implements CharPredicateTesting<AnyCharP
     public void testWithOneCharacterString() {
         final CharPredicate predicate = AnyCharPredicate.with("A");
         this.checkNotEquals(AnyCharPredicate.class,
-                predicate.getClass(),
-                "predicate must not be a AnyCharPredicate");
+            predicate.getClass(),
+            "predicate must not be a AnyCharPredicate");
 
         for (int i = 0; i < Character.MAX_VALUE; i++) {
             if (i != 'A') {

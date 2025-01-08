@@ -31,30 +31,30 @@ public final class ClassNameTest extends PackageNameOrTypeNameJavaNameTestCase<C
     @Test
     public void testCharacterIsIdentifierStartCount() {
         int i = 0;
-        for(int j = 0; j <= Character.MAX_VALUE; j++) {
-            if(Character.isJavaIdentifierStart((char)j)) {
+        for (int j = 0; j <= Character.MAX_VALUE; j++) {
+            if (Character.isJavaIdentifierStart((char) j)) {
                 i++;
             }
         }
 
         this.checkEquals(
-                48846,
-                i
+            48846,
+            i
         );
     }
 
     @Test
     public void testCharacterIsIdentifierPartCount() {
         int i = 0;
-        for(int j = 0; j <= Character.MAX_VALUE; j++) {
-            if(Character.isJavaIdentifierPart((char)j)) {
+        for (int j = 0; j <= Character.MAX_VALUE; j++) {
+            if (Character.isJavaIdentifierPart((char) j)) {
                 i++;
             }
         }
 
         this.checkEquals(
-                50559,
-                i
+            50559,
+            i
         );
     }
 
@@ -80,7 +80,7 @@ public final class ClassNameTest extends PackageNameOrTypeNameJavaNameTestCase<C
 
             if (6 == j) {
                 b.append(
-                        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".charAt(i)
+                    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".charAt(i)
                 );
                 j = 0;
                 i = 0;
@@ -223,41 +223,41 @@ public final class ClassNameTest extends PackageNameOrTypeNameJavaNameTestCase<C
     @Test
     public void testFilenameWithJavaLangObject() {
         this.filenameAndCheck(
-                "java.lang.Object",
-                "java/lang/Object.class"
+            "java.lang.Object",
+            "java/lang/Object.class"
         );
     }
 
     @Test
     public void testFilenameWithJavaUtilMapEntry() {
         this.filenameAndCheck(
-                Map.Entry.class.getName(),
-                "java/util/Map$Entry.class"
+            Map.Entry.class.getName(),
+            "java/util/Map$Entry.class"
         );
     }
 
     @Test
     public void testFilenameWithUnnamedPackageClass() {
         this.filenameAndCheck(
-                "UnnamedPackageClass",
-                "UnnamedPackageClass.class"
+            "UnnamedPackageClass",
+            "UnnamedPackageClass.class"
         );
     }
 
     private void filenameAndCheck(final String name,
                                   final String expected) {
         this.filenameAndCheck(
-                ClassName.with(name),
-                expected
+            ClassName.with(name),
+            expected
         );
     }
 
     private void filenameAndCheck(final ClassName name,
                                   final String expected) {
         this.checkEquals(
-                expected,
-                name.filename(),
-                () -> name + " filename"
+            expected,
+            name.filename(),
+            () -> name + " filename"
         );
     }
 

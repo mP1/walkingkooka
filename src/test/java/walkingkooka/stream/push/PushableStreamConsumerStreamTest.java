@@ -45,8 +45,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class PushableStreamConsumerStreamTest implements StreamTesting<PushableStreamConsumerStream<String>, String>,
-        ToStringTesting<PushableStreamConsumerStream<String>>,
-        IteratorTesting {
+    ToStringTesting<PushableStreamConsumerStream<String>>,
+    IteratorTesting {
 
     @Test
     public void testStreamNullPushableStreamConsumerFails() {
@@ -58,8 +58,8 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
     public void testStream() {
         final Consumer<PushableStreamConsumer<String>> starter = this.starter();
         this.checkPushableStreamStream(PushableStreamConsumerStream.with(starter),
-                starter,
-                PushableStreamConsumerCloseableCollection.empty());
+            starter,
+            PushableStreamConsumerCloseableCollection.empty());
     }
 
     // Limit............................................................................................................
@@ -73,9 +73,9 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         assertNotSame(stream, stream2);
 
         this.checkPushableStreamStream(stream2,
-                starter,
-                PushableStreamConsumerCloseableCollection.empty(),
-                PushableStreamConsumerStreamIntermediate.limit(0));
+            starter,
+            PushableStreamConsumerCloseableCollection.empty(),
+            PushableStreamConsumerStreamIntermediate.limit(0));
     }
 
     @Test
@@ -87,8 +87,8 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         assertSame(stream, stream);
 
         this.checkPushableStreamStream(stream2,
-                starter,
-                PushableStreamConsumerCloseableCollection.empty());
+            starter,
+            PushableStreamConsumerCloseableCollection.empty());
     }
 
     @Test
@@ -102,9 +102,9 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         assertNotSame(stream, stream2);
 
         this.checkPushableStreamStream(stream2,
-                starter,
-                PushableStreamConsumerCloseableCollection.empty(),
-                PushableStreamConsumerStreamIntermediate.limit(limit));
+            starter,
+            PushableStreamConsumerCloseableCollection.empty(),
+            PushableStreamConsumerStreamIntermediate.limit(limit));
     }
 
     @Test
@@ -118,9 +118,9 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         assertNotSame(stream2, stream2.limit(0));
 
         this.checkPushableStreamStream(stream2,
-                starter,
-                PushableStreamConsumerCloseableCollection.empty(),
-                PushableStreamConsumerStreamIntermediate.limit(limit));
+            starter,
+            PushableStreamConsumerCloseableCollection.empty(),
+            PushableStreamConsumerStreamIntermediate.limit(limit));
     }
 
     @Test
@@ -134,9 +134,9 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         assertSame(stream2, stream2.skip(0));
 
         this.checkPushableStreamStream(stream2,
-                starter,
-                PushableStreamConsumerCloseableCollection.empty(),
-                PushableStreamConsumerStreamIntermediate.limit(limit));
+            starter,
+            PushableStreamConsumerCloseableCollection.empty(),
+            PushableStreamConsumerStreamIntermediate.limit(limit));
     }
 
     @Test
@@ -155,9 +155,9 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         assertNotSame(stream2, stream3);
 
         this.checkPushableStreamStream(stream3,
-                starter,
-                PushableStreamConsumerCloseableCollection.empty(),
-                PushableStreamConsumerStreamIntermediate.limit(limit1));
+            starter,
+            PushableStreamConsumerCloseableCollection.empty(),
+            PushableStreamConsumerStreamIntermediate.limit(limit1));
     }
 
     // Skip............................................................................................................
@@ -173,9 +173,9 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         assertNotSame(stream, stream2);
 
         this.checkPushableStreamStream(stream2,
-                starter,
-                PushableStreamConsumerCloseableCollection.empty(),
-                PushableStreamConsumerStreamIntermediate.skip(skip));
+            starter,
+            PushableStreamConsumerCloseableCollection.empty(),
+            PushableStreamConsumerStreamIntermediate.skip(skip));
     }
 
     @Test
@@ -191,10 +191,10 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         assertNotSame(stream2, stream3);
 
         this.checkPushableStreamStream(stream3,
-                starter,
-                PushableStreamConsumerCloseableCollection.empty(),
-                PushableStreamConsumerStreamIntermediate.skip(skip),
-                PushableStreamConsumerStreamIntermediate.limit(limit));
+            starter,
+            PushableStreamConsumerCloseableCollection.empty(),
+            PushableStreamConsumerStreamIntermediate.skip(skip),
+            PushableStreamConsumerStreamIntermediate.limit(limit));
     }
 
     @Test
@@ -208,9 +208,9 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         assertSame(stream2, stream2.skip(0));
 
         this.checkPushableStreamStream(stream2,
-                starter,
-                PushableStreamConsumerCloseableCollection.empty(),
-                PushableStreamConsumerStreamIntermediate.skip(skip));
+            starter,
+            PushableStreamConsumerCloseableCollection.empty(),
+            PushableStreamConsumerStreamIntermediate.skip(skip));
     }
 
     @Test
@@ -229,9 +229,9 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         assertNotSame(stream2, stream3);
 
         this.checkPushableStreamStream(stream3,
-                starter,
-                PushableStreamConsumerCloseableCollection.empty(),
-                PushableStreamConsumerStreamIntermediate.skip(skip1 + skip2));
+            starter,
+            PushableStreamConsumerCloseableCollection.empty(),
+            PushableStreamConsumerStreamIntermediate.skip(skip1 + skip2));
     }
 
     @Test
@@ -252,7 +252,7 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         final Consumer<PushableStreamConsumer<String>> starter = this.starter("1a", "2b", "3c", "4d", "5e");
         final PushableStreamConsumerStream<String> stream = PushableStreamConsumerStream.with(starter);
         final Stream<String> stream2 = stream.skip(1)
-                .skip(2);
+            .skip(2);
 
         this.collectAndCheck(stream2, "4d", "5e");
     }
@@ -270,18 +270,18 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         assertNotSame(stream, stream2);
 
         this.checkPushableStreamStream(stream2,
-                starter,
-                PushableStreamConsumerCloseableCollection.empty(),
-                PushableStreamConsumerStreamIntermediate.filter(filter));
+            starter,
+            PushableStreamConsumerCloseableCollection.empty(),
+            PushableStreamConsumerStreamIntermediate.filter(filter));
     }
 
     @Test
     public void testStreamFilterCollect() {
         final Consumer<PushableStreamConsumer<String>> starter = this.starter("1a", "2b!", "3c", "4d!");
         final PushableStreamConsumerStream<String> stream = PushableStreamConsumerStream.with(starter);
-        final Stream<String> stream2 = stream.filter((s)-> s.contains("!"));
+        final Stream<String> stream2 = stream.filter((s) -> s.contains("!"));
 
-        this.collectAndCheck(stream2,"2b!", "4d!");
+        this.collectAndCheck(stream2, "2b!", "4d!");
     }
 
     @Test
@@ -298,10 +298,10 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         final Stream<String> stream3 = stream2.filter(filter2);
 
         this.checkPushableStreamStream(stream3,
-                starter,
-                PushableStreamConsumerCloseableCollection.empty(),
-                PushableStreamConsumerStreamIntermediate.filter(filter1),
-                PushableStreamConsumerStreamIntermediate.filter(filter2));
+            starter,
+            PushableStreamConsumerCloseableCollection.empty(),
+            PushableStreamConsumerStreamIntermediate.filter(filter1),
+            PushableStreamConsumerStreamIntermediate.filter(filter2));
     }
 
     @Test
@@ -319,10 +319,10 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         assertNotSame(stream2, stream3);
 
         this.checkPushableStreamStream(stream3,
-                starter,
-                PushableStreamConsumerCloseableCollection.empty(),
-                PushableStreamConsumerStreamIntermediate.filter(filter),
-                PushableStreamConsumerStreamIntermediate.limit(limit));
+            starter,
+            PushableStreamConsumerCloseableCollection.empty(),
+            PushableStreamConsumerStreamIntermediate.filter(filter),
+            PushableStreamConsumerStreamIntermediate.limit(limit));
     }
 
     // map..........................................................................................................
@@ -338,9 +338,9 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         assertNotSame(stream, stream2);
 
         this.checkPushableStreamStream(stream2,
-                starter,
-                PushableStreamConsumerCloseableCollection.empty(),
-                PushableStreamConsumerStreamIntermediate.map(mapper));
+            starter,
+            PushableStreamConsumerCloseableCollection.empty(),
+            PushableStreamConsumerStreamIntermediate.map(mapper));
     }
 
     @Test
@@ -357,10 +357,10 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         final Stream<String> stream3 = stream2.map(mapper2);
 
         this.checkPushableStreamStream(stream3,
-                starter,
-                PushableStreamConsumerCloseableCollection.empty(),
-                PushableStreamConsumerStreamIntermediate.map(mapper1),
-                PushableStreamConsumerStreamIntermediate.map(mapper2));
+            starter,
+            PushableStreamConsumerCloseableCollection.empty(),
+            PushableStreamConsumerStreamIntermediate.map(mapper1),
+            PushableStreamConsumerStreamIntermediate.map(mapper2));
     }
 
     @Test
@@ -368,7 +368,7 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         final Consumer<PushableStreamConsumer<String>> starter = this.starter("1", "2", "3");
         final PushableStreamConsumerStream<String> stream = PushableStreamConsumerStream.with(starter);
         final Stream<String> stream2 = stream.map((s) -> s + "!")
-                .map((s) -> s + "@");
+            .map((s) -> s + "@");
 
         this.collectAndCheck(stream2, "1!@", "2!@", "3!@");
     }
@@ -388,10 +388,10 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         assertNotSame(stream2, stream3);
 
         this.checkPushableStreamStream(stream3,
-                starter,
-                PushableStreamConsumerCloseableCollection.empty(),
-                PushableStreamConsumerStreamIntermediate.map(mapper),
-                PushableStreamConsumerStreamIntermediate.limit(limit));
+            starter,
+            PushableStreamConsumerCloseableCollection.empty(),
+            PushableStreamConsumerStreamIntermediate.map(mapper),
+            PushableStreamConsumerStreamIntermediate.limit(limit));
     }
 
     @Test
@@ -399,7 +399,7 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         final Consumer<PushableStreamConsumer<String>> starter = this.starter("1a", "2b", "3c", "4f");
         final PushableStreamConsumerStream<String> stream = PushableStreamConsumerStream.with(starter);
         final Stream<String> stream2 = stream.map((s) -> s + "!")
-                .limit(3);
+            .limit(3);
 
         this.collectAndCheck(stream2, "1a!", "2b!", "3c!");
     }
@@ -421,8 +421,8 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         final PushableStreamConsumerStream<String> stream = PushableStreamConsumerStream.with(starter);
 
         assertArrayEquals(Lists.of(values).stream().mapToInt(Integer::parseInt).toArray(),
-                stream.mapToInt(Integer::parseInt).toArray(),
-                () -> stream + " values: " + Arrays.toString(values));
+            stream.mapToInt(Integer::parseInt).toArray(),
+            () -> stream + " values: " + Arrays.toString(values));
     }
 
     // mapToLong.........................................................................................................
@@ -442,8 +442,8 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         final PushableStreamConsumerStream<String> stream = PushableStreamConsumerStream.with(starter);
 
         assertArrayEquals(Lists.of(values).stream().mapToLong(Long::parseLong).toArray(),
-                stream.mapToLong(Long::parseLong).toArray(),
-                () -> stream + " values: " + Arrays.toString(values));
+            stream.mapToLong(Long::parseLong).toArray(),
+            () -> stream + " values: " + Arrays.toString(values));
     }
 
     // mapToDouble.........................................................................................................
@@ -463,8 +463,8 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         final PushableStreamConsumerStream<String> stream = PushableStreamConsumerStream.with(starter);
 
         assertArrayEquals(Lists.of(values).stream().mapToDouble(Double::parseDouble).toArray(),
-                stream.mapToDouble(Double::parseDouble).toArray(),
-                () -> stream + " values: " + Arrays.toString(values));
+            stream.mapToDouble(Double::parseDouble).toArray(),
+            () -> stream + " values: " + Arrays.toString(values));
     }
 
     // flatMap..........................................................................................................
@@ -480,9 +480,9 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         assertNotSame(stream, stream2);
 
         this.checkPushableStreamStream(stream2,
-                starter,
-                PushableStreamConsumerCloseableCollection.empty(),
-                PushableStreamConsumerStreamIntermediate.flatMap(Cast.to(mapper)));
+            starter,
+            PushableStreamConsumerCloseableCollection.empty(),
+            PushableStreamConsumerStreamIntermediate.flatMap(Cast.to(mapper)));
     }
 
     @Test
@@ -490,7 +490,7 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         final Function<String, Stream<String>> mapper = Stream::of;
 
         final Stream<String> stream2 = this.createStream("a1", "b2", "c3")
-                .flatMap(mapper);
+            .flatMap(mapper);
 
         this.collectAndCheck(stream2, "a1", "b2", "c3");
     }
@@ -500,7 +500,7 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         final Function<String, Stream<String>> mapper = Stream::of;
 
         final Stream<String> stream2 = this.createStream("a1", "b2", "c3")
-                .flatMap(mapper);
+            .flatMap(mapper);
 
         this.toArrayAndCheck(stream2, "a1", "b2", "c3");
     }
@@ -510,7 +510,7 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         final Function<String, Stream<String>> mapper = Stream::of;
 
         final Stream<String> stream2 = this.createStream("a1", null, "c3")
-                .flatMap(mapper);
+            .flatMap(mapper);
 
         this.collectAndCheck(stream2, "a1", null, "c3");
     }
@@ -520,7 +520,7 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         final Function<String, Stream<String>> mapper = (s) -> Arrays.stream(s.split(","));
 
         final Stream<String> stream2 = this.createStream("a1,a2,a3", "b", "c1,c2")
-                .flatMap(mapper);
+            .flatMap(mapper);
 
         this.collectAndCheck(stream2, "a1", "a2", "a3", "b", "c1", "c2");
     }
@@ -552,16 +552,16 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         final PushableStreamConsumerStream<String> stream = PushableStreamConsumerStream.with(starter);
 
         assertArrayEquals(Lists.of(values).stream().flatMapToInt(this::intStream).toArray(),
-                stream.flatMapToInt(this::intStream).toArray(),
-                () -> stream + " values: " + Arrays.toString(values));
+            stream.flatMapToInt(this::intStream).toArray(),
+            () -> stream + " values: " + Arrays.toString(values));
     }
 
     private IntStream intStream(final String value) {
         return CharSequences.isNullOrEmpty(value) ?
-                null :
-                IntStream.of(Arrays.stream(value.split(","))
-                        .mapToInt(Integer::parseInt)
-                        .toArray());
+            null :
+            IntStream.of(Arrays.stream(value.split(","))
+                .mapToInt(Integer::parseInt)
+                .toArray());
     }
 
     // flatMapToLong.........................................................................................................
@@ -591,16 +591,16 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         final PushableStreamConsumerStream<String> stream = PushableStreamConsumerStream.with(starter);
 
         assertArrayEquals(Lists.of(values).stream().flatMapToLong(this::longStream).toArray(),
-                stream.flatMapToLong(this::longStream).toArray(),
-                () -> stream + " values: " + Arrays.toString(values));
+            stream.flatMapToLong(this::longStream).toArray(),
+            () -> stream + " values: " + Arrays.toString(values));
     }
 
     private LongStream longStream(final String value) {
         return CharSequences.isNullOrEmpty(value) ?
-                null :
-                LongStream.of(Arrays.stream(value.split(","))
-                        .mapToLong(Long::parseLong)
-                        .toArray());
+            null :
+            LongStream.of(Arrays.stream(value.split(","))
+                .mapToLong(Long::parseLong)
+                .toArray());
     }
 
     // flatMapToDouble.........................................................................................................
@@ -630,18 +630,18 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         final PushableStreamConsumerStream<String> stream = PushableStreamConsumerStream.with(starter);
 
         assertArrayEquals(Lists.of(values).stream().flatMapToDouble(this::doubleStream).toArray(),
-                stream.flatMapToDouble(this::doubleStream).toArray(),
-                () -> stream + " values: " + Arrays.toString(values));
+            stream.flatMapToDouble(this::doubleStream).toArray(),
+            () -> stream + " values: " + Arrays.toString(values));
     }
 
     private DoubleStream doubleStream(final String value) {
         return CharSequences.isNullOrEmpty(value) ?
-                null :
-                DoubleStream.of(Arrays.stream(value.split(","))
-                        .mapToDouble(Double::parseDouble)
-                        .toArray());
+            null :
+            DoubleStream.of(Arrays.stream(value.split(","))
+                .mapToDouble(Double::parseDouble)
+                .toArray());
     }
-    
+
     // peek..........................................................................................................
 
     private final static Consumer<String> ACTION = (i) -> {
@@ -656,9 +656,9 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         assertNotSame(stream, stream2);
 
         this.checkPushableStreamStream(stream2,
-                starter,
-                PushableStreamConsumerCloseableCollection.empty(),
-                PushableStreamConsumerStreamIntermediate.peek(ACTION));
+            starter,
+            PushableStreamConsumerCloseableCollection.empty(),
+            PushableStreamConsumerStreamIntermediate.peek(ACTION));
     }
 
     @Test
@@ -674,10 +674,10 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         final Stream<String> stream3 = stream2.peek(action2);
 
         this.checkPushableStreamStream(stream3,
-                starter,
-                PushableStreamConsumerCloseableCollection.empty(),
-                PushableStreamConsumerStreamIntermediate.peek(ACTION),
-                PushableStreamConsumerStreamIntermediate.peek(action2));
+            starter,
+            PushableStreamConsumerCloseableCollection.empty(),
+            PushableStreamConsumerStreamIntermediate.peek(ACTION),
+            PushableStreamConsumerStreamIntermediate.peek(action2));
     }
 
     @Test
@@ -693,10 +693,10 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         assertNotSame(stream2, stream3);
 
         this.checkPushableStreamStream(stream3,
-                starter,
-                PushableStreamConsumerCloseableCollection.empty(),
-                PushableStreamConsumerStreamIntermediate.peek(ACTION),
-                PushableStreamConsumerStreamIntermediate.limit(limit));
+            starter,
+            PushableStreamConsumerCloseableCollection.empty(),
+            PushableStreamConsumerStreamIntermediate.peek(ACTION),
+            PushableStreamConsumerStreamIntermediate.limit(limit));
     }
 
     // reduce.......................................................................................................
@@ -704,15 +704,15 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
     @Test
     public void testStreamReduce() {
         this.reduceAndCheck(this.createStream("a1", "b2", "c3"),
-                (a, b) -> a + b,
-                "a1", "b2", "c3");
+            (a, b) -> a + b,
+            "a1", "b2", "c3");
     }
 
     @Test
     public void testStreamReduce2() {
         this.reduceAndCheck(this.createStream("a1", "b2", "c3"),
-                (a, b) -> a.toUpperCase() + b,
-                "a1", "b2", "c3");
+            (a, b) -> a.toUpperCase() + b,
+            "a1", "b2", "c3");
     }
 
     // reduce initial...................................................................................................
@@ -720,17 +720,17 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
     @Test
     public void testStreamReduceInitial() {
         this.reduceAndCheck(this.createStream("a1", "b2", "c3"),
-                "@",
-                (a, b) -> a + b,
-                "a1", "b2", "c3");
+            "@",
+            (a, b) -> a + b,
+            "a1", "b2", "c3");
     }
 
     @Test
     public void testStreamReduceInitial2() {
         this.reduceAndCheck(this.createStream("a1", "b2", "c3"),
-                "@",
-                (a, b) -> a.toUpperCase() + b,
-                "a1", "b2", "c3");
+            "@",
+            (a, b) -> a.toUpperCase() + b,
+            "a1", "b2", "c3");
     }
 
     // iterator.......................................................................................................
@@ -801,9 +801,9 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         assertNotSame(stream2, stream3);
 
         this.checkPushableStreamStream(stream3,
-                starter,
-                PushableStreamConsumerCloseableCollection.empty().add(closeable1),
-                PushableStreamConsumerStreamIntermediate.peek(ACTION));
+            starter,
+            PushableStreamConsumerCloseableCollection.empty().add(closeable1),
+            PushableStreamConsumerStreamIntermediate.peek(ACTION));
     }
 
     @Test
@@ -823,9 +823,9 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         assertNotSame(stream, stream4);
 
         this.checkPushableStreamStream(stream4,
-                starter,
-                PushableStreamConsumerCloseableCollection.empty().add(closeable1).add(closeable2),
-                PushableStreamConsumerStreamIntermediate.peek(ACTION));
+            starter,
+            PushableStreamConsumerCloseableCollection.empty().add(closeable1).add(closeable2),
+            PushableStreamConsumerStreamIntermediate.peek(ACTION));
     }
 
     @Test
@@ -845,9 +845,9 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         assertNotSame(stream3, stream4);
 
         this.checkPushableStreamStream(stream4,
-                starter,
-                PushableStreamConsumerCloseableCollection.empty().add(closeable1).add(closeable2),
-                PushableStreamConsumerStreamIntermediate.peek(ACTION));
+            starter,
+            PushableStreamConsumerCloseableCollection.empty().add(closeable1).add(closeable2),
+            PushableStreamConsumerStreamIntermediate.peek(ACTION));
     }
 
     @Test
@@ -855,7 +855,7 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         this.closeableFired = 0;
 
         final Stream<String> stream = this.createStream()
-                .onClose(() -> this.closeableFired++);
+            .onClose(() -> this.closeableFired++);
         this.collectAndCheck(stream, this.values());
         this.checkEquals(1, this.closeableFired, "Closeable not fired only once");
     }
@@ -865,8 +865,8 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         this.closeableFired = 0;
 
         final Stream<String> stream = this.createStream()
-                .onClose(() -> this.closeableFired++)
-                .onClose(() -> this.closeableFired += 10);
+            .onClose(() -> this.closeableFired++)
+            .onClose(() -> this.closeableFired += 10);
         this.collectAndCheck(stream, this.values());
         this.checkEquals(11, this.closeableFired, "Both closeables not fired only once");
     }
@@ -903,9 +903,9 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
                                            final PushableStreamConsumerCloseableCollection closeables,
                                            final PushableStreamConsumerStreamIntermediate... intermediates) {
         this.checkPushableStreamStream0(Cast.to(pushable),
-                starter,
-                closeables,
-                intermediates);
+            starter,
+            closeables,
+            intermediates);
     }
 
     private void checkPushableStreamStream0(final PushableStreamConsumerStream<String> pushable,
@@ -931,7 +931,7 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
 
         final Consumer<PushableStreamConsumer<String>> starter = this.starter();
         final Stream<String> stream = PushableStreamConsumerStream.with(starter)
-                .filter(filter);
+            .filter(filter);
 
         this.toStringAndCheck(stream, starter + " " + PushableStreamConsumerStreamIntermediate.filter(filter));
     }
@@ -943,8 +943,8 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
 
         final Consumer<PushableStreamConsumer<String>> starter = this.starter();
         final Stream<String> stream = PushableStreamConsumerStream.with(starter)
-                .filter(filter1)
-                .filter(filter2);
+            .filter(filter1)
+            .filter(filter2);
 
         this.toStringAndCheck(stream, starter + " filter " + filter1 + " filter " + filter2);
     }
@@ -953,7 +953,7 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
     public void testToStringLimit() {
         final Consumer<PushableStreamConsumer<String>> starter = this.starter();
         final Stream<String> stream = PushableStreamConsumerStream.with(starter)
-                .limit(123);
+            .limit(123);
 
         this.toStringAndCheck(stream, starter + " limit 123");
     }
@@ -962,8 +962,8 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
     public void testToStringSkipLimit() {
         final Consumer<PushableStreamConsumer<String>> starter = this.starter();
         final Stream<String> stream = PushableStreamConsumerStream.with(starter)
-                .limit(123)
-                .skip(45);
+            .limit(123)
+            .skip(45);
 
         this.toStringAndCheck(stream, starter + " limit 123 skip 45");
     }
@@ -973,7 +973,7 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         return PushableStreamConsumerStream.with(this.starter);
     }
 
-    private PushableStreamConsumerStream<String> createStream(final String...values) {
+    private PushableStreamConsumerStream<String> createStream(final String... values) {
         return PushableStreamConsumerStream.with(this.starter(values));
     }
 
@@ -1000,8 +1000,8 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
 
     private List<String> values(final String commaSeparated) {
         return commaSeparated.isEmpty() ?
-                Lists.empty() :
-                Arrays.asList(commaSeparated.split(","));
+            Lists.empty() :
+            Arrays.asList(commaSeparated.split(","));
     }
 
     // ClassTesting....................................................................................................

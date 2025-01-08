@@ -56,7 +56,7 @@ final class CharSequenceTextCursorSavePoint implements TextCursorSavePoint {
         final int position = this.position;
 
         return cursorPosition < position ? text.subSequence(cursorPosition, position)
-                : text.subSequence(position, cursorPosition);
+            : text.subSequence(position, cursorPosition);
     }
 
     @Override

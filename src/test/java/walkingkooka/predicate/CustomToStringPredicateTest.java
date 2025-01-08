@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CustomToStringPredicateTest extends PredicateTestCase<CustomToStringPredicate<String>, String>
-        implements HashCodeEqualsDefinedTesting2<CustomToStringPredicate<String>> {
+    implements HashCodeEqualsDefinedTesting2<CustomToStringPredicate<String>> {
 
     private final static String STRING = "abc";
     private final static Predicate<String> WRAPPED = Predicates.is(STRING);
@@ -60,8 +60,8 @@ public final class CustomToStringPredicateTest extends PredicateTestCase<CustomT
     @Test
     public void testWithEmptyStringCustomString() {
         final Predicate<String> first = CustomToStringPredicate.wrap(
-                WRAPPED,
-                ""
+            WRAPPED,
+            ""
         );
         final CustomToStringPredicate<String> wrapped = Cast.to(CustomToStringPredicate.wrap(first, CUSTOM_TO_STRING));
         assertNotSame(first, wrapped);
@@ -69,8 +69,8 @@ public final class CustomToStringPredicateTest extends PredicateTestCase<CustomT
         assertSame(CUSTOM_TO_STRING, wrapped.toString, "wrapped toString");
 
         this.checkEquals(
-                "",
-                first.toString()
+            "",
+            first.toString()
         );
     }
 

@@ -46,14 +46,14 @@ final class ImmutableListImplSingleton<T> extends ImmutableListImpl<T> {
     @Override
     public boolean contains(final Object other) {
         return Objects.equals(
-                this.element,
-                other
+            this.element,
+            other
         );
     }
 
     @Override
     public T get(final int index) {
-        if(index != 0) {
+        if (index != 0) {
             throw new IndexOutOfBoundsException("Index " + index + " out of bounds size=1");
         }
         return this.element;

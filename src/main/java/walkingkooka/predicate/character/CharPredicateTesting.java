@@ -30,8 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
  * {@link CharPredicate#test(char)} results.
  */
 public interface CharPredicateTesting<P extends CharPredicate>
-        extends ToStringTesting<P>,
-        TypeNameTesting<P> {
+    extends ToStringTesting<P>,
+    TypeNameTesting<P> {
 
     @Test
     default void testAnd() {

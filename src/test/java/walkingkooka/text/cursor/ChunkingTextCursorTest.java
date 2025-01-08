@@ -24,15 +24,15 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
 public final class ChunkingTextCursorTest implements ClassTesting2<ChunkingTextCursor>,
-        TextCursorTesting2<ChunkingTextCursor>,
-        ToStringTesting<ChunkingTextCursor> {
+    TextCursorTesting2<ChunkingTextCursor>,
+    ToStringTesting<ChunkingTextCursor> {
 
     @Test
     public void testSingleChunk() {
         final TextCursor cursor = this.createTextCursor0("ABC");
         this.isEmptyAndCheck(
-                cursor,
-                false
+            cursor,
+            false
         );
 
         this.atAndCheck(cursor, 'A');
@@ -43,8 +43,8 @@ public final class ChunkingTextCursorTest implements ClassTesting2<ChunkingTextC
         cursor.next();
 
         this.isEmptyAndCheck(
-                cursor,
-                true
+            cursor,
+            true
         );
     }
 
@@ -52,8 +52,8 @@ public final class ChunkingTextCursorTest implements ClassTesting2<ChunkingTextC
     public void testMultipleChunks() {
         final TextCursor cursor = this.createTextCursor0("A", "B");
         this.isEmptyAndCheck(
-                cursor,
-                false
+            cursor,
+            false
         );
 
         this.atAndCheck(cursor, 'A');
@@ -62,8 +62,8 @@ public final class ChunkingTextCursorTest implements ClassTesting2<ChunkingTextC
         cursor.next();
 
         this.isEmptyAndCheck(
-                cursor,
-                true
+            cursor,
+            true
         );
     }
 
@@ -71,8 +71,8 @@ public final class ChunkingTextCursorTest implements ClassTesting2<ChunkingTextC
     public void testMultipleChunks2() {
         final TextCursor cursor = this.createTextCursor0("AB", "CD");
         this.isEmptyAndCheck(
-                cursor,
-                false
+            cursor,
+            false
         );
 
         this.atAndCheck(cursor, 'A');
@@ -85,8 +85,8 @@ public final class ChunkingTextCursorTest implements ClassTesting2<ChunkingTextC
         cursor.next();
 
         this.isEmptyAndCheck(
-                cursor,
-                true
+            cursor,
+            true
         );
     }
 
@@ -94,8 +94,8 @@ public final class ChunkingTextCursorTest implements ClassTesting2<ChunkingTextC
     public void testGraphSaveAndRestores() {
         final TextCursor cursor = this.createTextCursor0("A", "BC", "D");
         this.isEmptyAndCheck(
-                cursor,
-                false
+            cursor,
+            false
         );
         this.atAndCheck(cursor, 'A');
         cursor.next();
@@ -110,8 +110,8 @@ public final class ChunkingTextCursorTest implements ClassTesting2<ChunkingTextC
         cursor.next();
 
         this.isEmptyAndCheck(
-                cursor,
-                true
+            cursor,
+            true
         );
 
         save.restore(); // BCD
@@ -127,8 +127,8 @@ public final class ChunkingTextCursorTest implements ClassTesting2<ChunkingTextC
         cursor.next();
 
         this.isEmptyAndCheck(
-                cursor,
-                true
+            cursor,
+            true
         );
 
         save.restore(); // CD
@@ -139,8 +139,8 @@ public final class ChunkingTextCursorTest implements ClassTesting2<ChunkingTextC
         cursor.next();
 
         this.isEmptyAndCheck(
-                cursor,
-                true
+            cursor,
+            true
         );
     }
 

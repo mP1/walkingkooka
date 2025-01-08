@@ -41,7 +41,7 @@ final class ImmutableMapNonSingletonArray<K, V> extends ImmutableMap<K, V> {
     @Override
     public boolean containsKey(final Object key) {
         return Arrays.stream(this.entrySet.entries)
-                .anyMatch(e -> e.getKey().equals(key));
+            .anyMatch(e -> e.getKey().equals(key));
     }
 
     @Override
@@ -60,7 +60,7 @@ final class ImmutableMapNonSingletonArray<K, V> extends ImmutableMap<K, V> {
     @Override
     public boolean containsValue(final Object value) {
         return Arrays.stream(this.entrySet.entries)
-                .anyMatch(e -> Objects.equals(e.getValue(), value));
+            .anyMatch(e -> Objects.equals(e.getValue(), value));
     }
 
     @Override

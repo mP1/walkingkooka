@@ -18,7 +18,7 @@
 package walkingkooka.stream.push;
 
 public abstract class PushableStreamConsumerStreamIntermediate2PushableStreamConsumerTestCase<P extends PushableStreamConsumerStreamIntermediate2PushableStreamConsumer<String>>
-extends PushableStreamConsumerStreamIntermediatePushableStreamConsumerTestCase<P> {
+    extends PushableStreamConsumerStreamIntermediatePushableStreamConsumerTestCase<P> {
 
     PushableStreamConsumerStreamIntermediate2PushableStreamConsumerTestCase() {
         super();

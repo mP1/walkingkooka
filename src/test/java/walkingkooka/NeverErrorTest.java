@@ -31,29 +31,29 @@ public final class NeverErrorTest implements StandardThrowableTesting<NeverError
     public void testUnsupportedEncodingException() {
         final UnsupportedEncodingException unsupported = new UnsupportedEncodingException("something");
         this.check(() -> NeverError.unsupportedEncodingException(unsupported),
-                "something",
-                unsupported);
+            "something",
+            unsupported);
     }
 
     @Test
     public void testUnexpectedMethodCall() {
         this.check(() -> NeverError.unexpectedMethodCall(this, "method1", 1, 2, 3),
-                "walkingkooka.NeverErrorTest.method1(1,2,3)",
-                null);
+            "walkingkooka.NeverErrorTest.method1(1,2,3)",
+            null);
     }
 
     @Test
     public void testUnhandledCase() {
         this.check(() -> NeverError.unhandledCase(this, "case-1", "case-2"),
-                "Unhandled value: NeverErrorTest only expected: \"case-1\",\"case-2\"",
-                null);
+            "Unhandled value: NeverErrorTest only expected: \"case-1\",\"case-2\"",
+            null);
     }
 
     @Test
     public void testUnhandledEnum() {
         this.check(() -> NeverError.unhandledEnum(TestEnum.A, TestEnum.B, TestEnum.C),
-                "Unhandled enum value: A only expected: B,C",
-                null);
+            "Unhandled enum value: A only expected: B,C",
+            null);
     }
 
     private void check(final Runnable thrower,

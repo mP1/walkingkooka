@@ -27,9 +27,9 @@ import java.util.function.Predicate;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class EitherTestCase2<E extends Either<L, R>, L, R> extends EitherTestCase<E, L, R>
-        implements HashCodeEqualsDefinedTesting2<E>,
-        IsMethodTesting<E>,
-        ToStringTesting<E> {
+    implements HashCodeEqualsDefinedTesting2<E>,
+    IsMethodTesting<E>,
+    ToStringTesting<E> {
 
     EitherTestCase2() {
         super();
@@ -40,14 +40,14 @@ public abstract class EitherTestCase2<E extends Either<L, R>, L, R> extends Eith
     @Test
     public final void testSetLeftValueNull() {
         final Either<L, R> either = this.createEither()
-                .setLeftValue(null);
+            .setLeftValue(null);
         this.checkEquals(null, either.leftValue(), "left");
     }
 
     @Test
     public final void testSetRightValueNull() {
         final Either<L, R> either = this.createEither()
-                .setRightValue(null);
+            .setRightValue(null);
         this.checkEquals(null, either.rightValue(), "right");
     }
 

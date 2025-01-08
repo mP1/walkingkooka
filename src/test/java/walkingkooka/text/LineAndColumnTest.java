@@ -26,8 +26,8 @@ import walkingkooka.reflect.JavaVisibility;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class LineAndColumnTest implements ClassTesting2<LineAndColumn>,
-        HashCodeEqualsDefinedTesting2<LineAndColumn>,
-        ToStringTesting<LineAndColumn> {
+    HashCodeEqualsDefinedTesting2<LineAndColumn>,
+    ToStringTesting<LineAndColumn> {
 
     private final static int LINE_NUMBER = 1;
     private final static int COLUMN_NUMBER = 2;

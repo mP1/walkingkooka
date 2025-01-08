@@ -33,7 +33,7 @@ final class NormalizingCharSequenceComparator<S extends CharSequence> implements
      * Creates a {@link NormalizingCharSequenceComparator}
      */
     static <S extends CharSequence> NormalizingCharSequenceComparator<S> with(
-            final CharPredicate predicate) {
+        final CharPredicate predicate) {
         Objects.requireNonNull(predicate, "predicate");
 
         return new NormalizingCharSequenceComparator<>(predicate);
@@ -126,7 +126,7 @@ final class NormalizingCharSequenceComparator<S extends CharSequence> implements
     @Override
     public boolean equals(final Object other) {
         return (this == other) || ((other instanceof NormalizingCharSequenceComparator)
-                && this.equals0((NormalizingCharSequenceComparator<?>) other));
+            && this.equals0((NormalizingCharSequenceComparator<?>) other));
     }
 
     private boolean equals0(final NormalizingCharSequenceComparator<?> other) {

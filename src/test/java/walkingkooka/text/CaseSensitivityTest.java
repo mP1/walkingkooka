@@ -30,7 +30,7 @@ import java.util.function.Predicate;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>,
-        PredicateTesting {
+    PredicateTesting {
 
     @Test
     public void testInvertSensitive() {
@@ -93,8 +93,8 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
         final int actual = sensitivity.compare(c, other);
         if (Comparators.normalize(expected) != Comparators.normalize(actual)) {
             this.checkEquals(expected,
-                    actual,
-                    () -> sensitivity + " comparing " + CharSequences.quoteAndEscape(c) + "," + CharSequences.quoteAndEscape(other));
+                actual,
+                () -> sensitivity + " comparing " + CharSequences.quoteAndEscape(c) + "," + CharSequences.quoteAndEscape(other));
         }
     }
 
@@ -137,8 +137,8 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
         final boolean result = sensitivity.equals(chars, otherChars);
         if (expected != result) {
             this.checkEquals(expected,
-                    result,
-                    () -> sensitivity + " equals( " + CaseSensitivityTest.quote(chars) + "," + CaseSensitivityTest.quote(otherChars) + ")");
+                result,
+                () -> sensitivity + " equals( " + CaseSensitivityTest.quote(chars) + "," + CaseSensitivityTest.quote(otherChars) + ")");
         }
     }
 
@@ -281,20 +281,20 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
                                     final CharSequence startsWith,
                                     final boolean expected) {
         final boolean result = sensitivity.startsWith(
-                chars,
-                startsWith
+            chars,
+            startsWith
         );
 
         if (expected != result) {
             this.checkEquals(
-                    expected,
-                    result,
-                    () -> sensitivity +
-                            " startsWith( " +
-                            CaseSensitivityTest.quote(chars) +
-                            "," +
-                            CaseSensitivityTest.quote(startsWith) +
-                            ")"
+                expected,
+                result,
+                () -> sensitivity +
+                    " startsWith( " +
+                    CaseSensitivityTest.quote(chars) +
+                    "," +
+                    CaseSensitivityTest.quote(startsWith) +
+                    ")"
             );
         }
     }
@@ -302,121 +302,121 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
     @Test
     public void testStartsWithOffsetNegativeFails() {
         this.startsWithAndCheck(
-                CaseSensitivity.SENSITIVE,
-                "abc",
-                "a",
-                -1,
-                false
+            CaseSensitivity.SENSITIVE,
+            "abc",
+            "a",
+            -1,
+            false
         );
     }
 
     @Test
     public void testStartsWithOffsetOutOfBounds() {
         this.startsWithAndCheck(
-                CaseSensitivity.SENSITIVE,
-                "abc",
-                "a",
-                3,
-                false
+            CaseSensitivity.SENSITIVE,
+            "abc",
+            "a",
+            3,
+            false
         );
     }
 
     @Test
     public void testStarsWithSensitiveOffsetTrue() {
         this.startsWithAndCheck(
-                CaseSensitivity.SENSITIVE,
-                "abcdef",
-                "cde",
-                2,
-                true
+            CaseSensitivity.SENSITIVE,
+            "abcdef",
+            "cde",
+            2,
+            true
         );
     }
 
     @Test
     public void testStarsWithSensitiveOffsetFalse() {
         this.startsWithAndCheck(
-                CaseSensitivity.SENSITIVE,
-                "abcdef",
-                "cde",
-                1,
-                false
+            CaseSensitivity.SENSITIVE,
+            "abcdef",
+            "cde",
+            1,
+            false
         );
     }
 
     @Test
     public void testStarsWithSensitiveOffsetFalse2() {
         this.startsWithAndCheck(
-                CaseSensitivity.SENSITIVE,
-                "abcdef",
-                "cdX",
-                2,
-                false
+            CaseSensitivity.SENSITIVE,
+            "abcdef",
+            "cdX",
+            2,
+            false
         );
     }
 
     @Test
     public void testStarsWithSensitiveOffsetIncomplete() {
         this.startsWithAndCheck(
-                CaseSensitivity.SENSITIVE,
-                "abcdef",
-                "cdefg",
-                2,
-                false
+            CaseSensitivity.SENSITIVE,
+            "abcdef",
+            "cdefg",
+            2,
+            false
         );
     }
 
     @Test
     public void testStarsWithInsensitiveOffsetTrue() {
         this.startsWithAndCheck(
-                CaseSensitivity.INSENSITIVE,
-                "abcdef",
-                "CDE",
-                2,
-                true
+            CaseSensitivity.INSENSITIVE,
+            "abcdef",
+            "CDE",
+            2,
+            true
         );
     }
 
     @Test
     public void testStarsWithInsensitiveOffsetTrue2() {
         this.startsWithAndCheck(
-                CaseSensitivity.INSENSITIVE,
-                "abcdef",
-                "cdE",
-                2,
-                true
+            CaseSensitivity.INSENSITIVE,
+            "abcdef",
+            "cdE",
+            2,
+            true
         );
     }
 
     @Test
     public void testStarsWithInsensitiveOffsetFalse() {
         this.startsWithAndCheck(
-                CaseSensitivity.INSENSITIVE,
-                "abcdef",
-                "CDE",
-                1,
-                false
+            CaseSensitivity.INSENSITIVE,
+            "abcdef",
+            "CDE",
+            1,
+            false
         );
     }
 
     @Test
     public void testStarsWithInsensitiveOffsetFalse2() {
         this.startsWithAndCheck(
-                CaseSensitivity.INSENSITIVE,
-                "abcdef",
-                "CDX",
-                2,
-                false
+            CaseSensitivity.INSENSITIVE,
+            "abcdef",
+            "CDX",
+            2,
+            false
         );
     }
 
     @Test
     public void testStarsWithInsensitiveOffsetIncomplete() {
         this.startsWithAndCheck(
-                CaseSensitivity.INSENSITIVE,
-                "abcdef",
-                "CDEFG",
-                2,
-                false
+            CaseSensitivity.INSENSITIVE,
+            "abcdef",
+            "CDEFG",
+            2,
+            false
         );
     }
 
@@ -426,23 +426,23 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
                                     final int offset,
                                     final boolean expected) {
         final boolean result = sensitivity.startsWith(
-                chars,
-                startsWith,
-                offset
+            chars,
+            startsWith,
+            offset
         );
 
         if (expected != result) {
             this.checkEquals(
-                    expected,
-                    result,
-                    () -> sensitivity +
-                            " startsWith( " +
-                            CaseSensitivityTest.quote(chars) +
-                            "," +
-                            CaseSensitivityTest.quote(startsWith) +
-                            "," +
-                            offset +
-                            ")"
+                expected,
+                result,
+                () -> sensitivity +
+                    " startsWith( " +
+                    CaseSensitivityTest.quote(chars) +
+                    "," +
+                    CaseSensitivityTest.quote(startsWith) +
+                    "," +
+                    offset +
+                    ")"
             );
         }
     }
@@ -586,8 +586,8 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
         final boolean result = sensitivity.endsWith(chars, otherChars);
         if (expected != result) {
             this.checkEquals(expected,
-                    result,
-                    () -> sensitivity + " endsWith( " + CaseSensitivityTest.quote(chars) + "," + CaseSensitivityTest.quote(otherChars) + ")");
+                result,
+                () -> sensitivity + " endsWith( " + CaseSensitivityTest.quote(chars) + "," + CaseSensitivityTest.quote(otherChars) + ")");
         }
     }
 
@@ -834,25 +834,25 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
 
         final int offset = searchFor.length();
         this.indexOfOffsetAndCheck(sensitivity,
-                new StringBuilder(searchFor).append(chars),
-                searchFor,
-                offset, // offset should skip initial $searchFor
-                offset + expected);
+            new StringBuilder(searchFor).append(chars),
+            searchFor,
+            offset, // offset should skip initial $searchFor
+            offset + expected);
     }
 
     private void indexOfFail(final CaseSensitivity sensitivity,
                              final CharSequence chars,
                              final CharSequence searchFor) {
         this.indexOfAndCheck0(sensitivity,
-                chars,
-                searchFor,
-                -1);
+            chars,
+            searchFor,
+            -1);
         // try with offset
         this.indexOfOffsetAndCheck(sensitivity,
-                new StringBuilder(searchFor).append(chars),
-                searchFor,
-                searchFor.length(), // offset should skip initial $searchFor
-                -1);
+            new StringBuilder(searchFor).append(chars),
+            searchFor,
+            searchFor.length(), // offset should skip initial $searchFor
+            -1);
     }
 
     private void indexOfAndCheck0(final CaseSensitivity sensitivity,
@@ -862,8 +862,8 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
         final int result = sensitivity.indexOf(chars, searchFor);
         if (expected != result) {
             this.checkEquals(expected,
-                    result,
-                    () -> sensitivity + " indexOf( " + CaseSensitivityTest.quote(chars) + ", " + CaseSensitivityTest.quote(searchFor) + ")");
+                result,
+                () -> sensitivity + " indexOf( " + CaseSensitivityTest.quote(chars) + ", " + CaseSensitivityTest.quote(searchFor) + ")");
         }
     }
 
@@ -875,11 +875,11 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
         final int result = sensitivity.indexOf(chars, searchFor, offset);
         if (expected != result) {
             this.checkEquals(expected,
-                    result,
-                    () -> sensitivity + " indexOf( " +
-                            CaseSensitivityTest.quote(chars) + ", " +
-                            CaseSensitivityTest.quote(searchFor) + ", " +
-                            offset + ")");
+                result,
+                () -> sensitivity + " indexOf( " +
+                    CaseSensitivityTest.quote(chars) + ", " +
+                    CaseSensitivityTest.quote(searchFor) + ", " +
+                    offset + ")");
         }
     }
 
@@ -1125,25 +1125,25 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
         // try with offset
 
         this.lastIndexOfOffsetAndCheck(sensitivity,
-                new StringBuilder(chars).append(searchFor),
-                searchFor,
-                chars.length() - 1,
-                expected);
+            new StringBuilder(chars).append(searchFor),
+            searchFor,
+            chars.length() - 1,
+            expected);
     }
 
     private void lastIndexOfFail(final CaseSensitivity sensitivity,
                                  final CharSequence chars,
                                  final CharSequence searchFor) {
         this.lastIndexOfAndCheck0(sensitivity,
-                chars,
-                searchFor,
-                -1);
+            chars,
+            searchFor,
+            -1);
         // try with offset
         this.lastIndexOfOffsetAndCheck(sensitivity,
-                new StringBuilder(chars.toString()).append(searchFor),
-                searchFor,
-                chars.length() - searchFor.length(), // offset should skip initial $searchFor
-                -1);
+            new StringBuilder(chars.toString()).append(searchFor),
+            searchFor,
+            chars.length() - searchFor.length(), // offset should skip initial $searchFor
+            -1);
     }
 
     private void lastIndexOfAndCheck0(final CaseSensitivity sensitivity,
@@ -1153,8 +1153,8 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
         final int result = sensitivity.lastIndexOf(chars, searchFor);
         if (expected != result) {
             this.checkEquals(expected,
-                    result,
-                    () -> sensitivity + " lastIndexOf( " + CaseSensitivityTest.quote(chars) + ", " + CaseSensitivityTest.quote(searchFor) + ")");
+                result,
+                () -> sensitivity + " lastIndexOf( " + CaseSensitivityTest.quote(chars) + ", " + CaseSensitivityTest.quote(searchFor) + ")");
         }
     }
 
@@ -1166,11 +1166,11 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
         final int result = sensitivity.lastIndexOf(chars, searchFor, offset);
         if (expected != result) {
             this.checkEquals(expected,
-                    result,
-                    () -> sensitivity + " lastIndexOf( " +
-                            CaseSensitivityTest.quote(chars) + ", " +
-                            CaseSensitivityTest.quote(searchFor) + ", " +
-                            offset + ")");
+                result,
+                () -> sensitivity + " lastIndexOf( " +
+                    CaseSensitivityTest.quote(chars) + ", " +
+                    CaseSensitivityTest.quote(searchFor) + ", " +
+                    offset + ")");
         }
     }
 
@@ -1222,8 +1222,8 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
                               final CharSequence chars,
                               final String result) {
         this.checkEquals(sensitivity.hash(chars),
-                null == result ? 0 : result.hashCode(),
-                () -> sensitivity + ".hash(" + CaseSensitivityTest.quote(chars) + ")");
+            null == result ? 0 : result.hashCode(),
+            () -> sensitivity + ".hash(" + CaseSensitivityTest.quote(chars) + ")");
     }
 
     private static CharSequence quote(final CharSequence chars) {
@@ -1392,7 +1392,7 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
 
     @Test
     public void testPredicateStartsWithInsensitiveTrue() {
-        this.testTrue(predicateStartsWithInsensitive(),  PREDICATE_STARTS_WITH_TEXT + ">");
+        this.testTrue(predicateStartsWithInsensitive(), PREDICATE_STARTS_WITH_TEXT + ">");
     }
 
     @Test
@@ -1450,13 +1450,13 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
         final GlobPattern glob = CaseSensitivity.INSENSITIVE.globPattern("*.txt");
 
         this.checkEquals(
-                true,
-                glob.test("matched.TXT")
+            true,
+            glob.test("matched.TXT")
         );
 
         this.checkEquals(
-                false,
-                glob.test("not.matched")
+            false,
+            glob.test("not.matched")
         );
     }
 

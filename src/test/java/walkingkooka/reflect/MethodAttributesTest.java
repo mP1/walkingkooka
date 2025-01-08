@@ -23,10 +23,8 @@ import walkingkooka.collect.set.Sets;
 
 import java.lang.reflect.Method;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class MethodAttributesTest implements ClassTesting2<MethodAttributes>,
-        ToStringTesting<MethodAttributes> {
+    ToStringTesting<MethodAttributes> {
 
     @Test
     public void testAbstract() throws Exception {
@@ -66,8 +64,7 @@ public final class MethodAttributesTest implements ClassTesting2<MethodAttribute
         final void finalMethod() {
         }
 
-        @SuppressWarnings("FinalStaticMethod")
-        final static void finalStaticMethod() {
+        @SuppressWarnings("FinalStaticMethod") final static void finalStaticMethod() {
         }
 
         void noneMethod() {

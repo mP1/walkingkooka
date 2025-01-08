@@ -24,93 +24,93 @@ import walkingkooka.collect.iterator.IteratorTesting;
 import java.util.TreeSet;
 
 public final class ImmutableSortedSetImplTest implements ImmutableSortedSetTesting<ImmutableSortedSetImpl<String>, String>,
-        IteratorTesting {
+    IteratorTesting {
 
     @Test
     public void testConcat() {
         this.concatAndCheck(
-                this.createSet(),
-                "appended3",
-                ImmutableSortedSetImpl.with(
-                        new TreeSet<>(
-                                Sets.of(
-                                        "1a",
-                                        "2b",
-                                        "appended3"
-                                )
-                        )
+            this.createSet(),
+            "appended3",
+            ImmutableSortedSetImpl.with(
+                new TreeSet<>(
+                    Sets.of(
+                        "1a",
+                        "2b",
+                        "appended3"
+                    )
                 )
+            )
         );
     }
 
     @Test
     public void testContains() {
         this.containsAndCheck(
-                this.createSet(),
-                "1a"
+            this.createSet(),
+            "1a"
         );
     }
 
     @Test
     public void testContainsAbsent() {
         this.containsAndCheckAbsent(
-                this.createCollection(),
-                "absent"
+            this.createCollection(),
+            "absent"
         );
     }
 
     @Test
     public void testDelete() {
         this.deleteAndCheck(
-                this.createSet(),
-                "2b",
-                ImmutableSortedSetImpl.with(
-                        new TreeSet<>(
-                                Sets.of(
-                                        "1a"
-                                )
-                        )
+            this.createSet(),
+            "2b",
+            ImmutableSortedSetImpl.with(
+                new TreeSet<>(
+                    Sets.of(
+                        "1a"
+                    )
                 )
+            )
         );
     }
 
     @Test
     public void testReplace() {
         this.replaceAndCheck(
-                this.createSet(),
-                "2b",
-                "replaced2b",
-                ImmutableSortedSetImpl.with(
-                        new TreeSet<>(
-                                Sets.of(
-                                        "1a",
-                                        "replaced2b"
-                                )
-                        )
+            this.createSet(),
+            "2b",
+            "replaced2b",
+            ImmutableSortedSetImpl.with(
+                new TreeSet<>(
+                    Sets.of(
+                        "1a",
+                        "replaced2b"
+                    )
                 )
+            )
         );
     }
 
     @Test
     public void testReplaceOldMissing() {
         this.replaceAndCheck(
-                this.createSet(),
-                "*missing*",
-                "replaced2b"
+            this.createSet(),
+            "*missing*",
+            "replaced2b"
         );
     }
 
     @Override
     public ImmutableSortedSetImpl<String> createSet() {
         return Cast.to(
-                ImmutableSortedSetImpl.with(
-                        new TreeSet<>(
-                                Sets.of(
-                                        "1a",
-                                        "2b"
-                                )
-                        )
+            ImmutableSortedSetImpl.with(
+                new TreeSet<>(
+                    Sets.of(
+                        "1a",
+                        "2b"
+                    )
                 )
+            )
         );
     }
 

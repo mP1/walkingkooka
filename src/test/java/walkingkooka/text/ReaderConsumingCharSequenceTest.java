@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ReaderConsumingCharSequenceTest implements ClassTesting2<ReaderConsumingCharSequence>,
-        CharSequenceTesting<ReaderConsumingCharSequence> {
+    CharSequenceTesting<ReaderConsumingCharSequence> {
 
     private final static int BUFFER_SIZE = 5;
 

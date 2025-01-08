@@ -46,8 +46,8 @@ public interface Testing {
             try {
                 final Class<?> klass = Class.forName(className);
                 final Optional<Method> possibleMethod = Arrays.stream(klass.getMethods())
-                        .filter(m -> m.getName().equals(methodName) && m.getParameterTypes().length == 0 && m.getReturnType() == Void.TYPE)
-                        .findFirst();
+                    .filter(m -> m.getName().equals(methodName) && m.getParameterTypes().length == 0 && m.getReturnType() == Void.TYPE)
+                    .findFirst();
                 if (possibleMethod.isPresent()) {
                     final Method method = possibleMethod.get();
                     if (method.isAnnotationPresent(Test.class)) {
@@ -70,9 +70,9 @@ public interface Testing {
     default void checkEquals(final byte[] expected,
                              final byte[] actual) {
         this.checkEquals(
-                expected,
-                actual,
-                (String)null
+            expected,
+            actual,
+            (String) null
         );
     }
 
@@ -80,9 +80,9 @@ public interface Testing {
                              final byte[] actual,
                              final String message) {
         this.checkEquals(
-                expected,
-                actual,
-                () -> message
+            expected,
+            actual,
+            () -> message
         );
     }
 
@@ -90,14 +90,14 @@ public interface Testing {
                              final byte[] actual,
                              final Supplier<String> message) {
         assertArrayEquals(
-                expected,
-                actual,
-                message
+            expected,
+            actual,
+            message
         );
     }
-    
+
     default void checkEquals(final Object expected, final Object actual) {
-        this.checkEquals(expected, actual, (String)null);
+        this.checkEquals(expected, actual, (String) null);
     }
 
     default void checkEquals(final Object expected, final Object actual, final String message) {

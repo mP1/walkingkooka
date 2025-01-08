@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class NotPredicateTest extends PredicateTestCase<NotPredicate<String>, String>
-        implements HashCodeEqualsDefinedTesting2<NotPredicate<String>> {
+    implements HashCodeEqualsDefinedTesting2<NotPredicate<String>> {
 
     // constants
 
@@ -50,7 +50,7 @@ final public class NotPredicateTest extends PredicateTestCase<NotPredicate<Strin
     @Test
     public void testWrapNotPredicate() {
         assertSame(PREDICATE,
-                NotPredicate.wrap(NotPredicate.wrap(PREDICATE)));
+            NotPredicate.wrap(NotPredicate.wrap(PREDICATE)));
     }
 
     @Test
@@ -92,7 +92,7 @@ final public class NotPredicateTest extends PredicateTestCase<NotPredicate<Strin
     }
 
     private static class TestNotablePredicate
-            implements Predicate<String>, Notable<Predicate<String>> {
+        implements Predicate<String>, Notable<Predicate<String>> {
 
         private TestNotablePredicate(final Predicate<String> predicate) {
             this.inverted = predicate;

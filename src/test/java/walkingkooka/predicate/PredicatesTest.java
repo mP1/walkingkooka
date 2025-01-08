@@ -27,73 +27,73 @@ import java.lang.reflect.Method;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class PredicatesTest implements PublicStaticHelperTesting<Predicates>,
-        PredicateTesting {
+    PredicateTesting {
 
     // globsPatterns....................................................................................................
 
     @Test
     public void testGlobPatternsWithNullExpressionFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> Predicates.globPatterns(
-                        null,
-                        CaseSensitivity.SENSITIVE
-                )
+            NullPointerException.class,
+            () -> Predicates.globPatterns(
+                null,
+                CaseSensitivity.SENSITIVE
+            )
         );
     }
 
     @Test
     public void testGlobPatternsWithNullCaseSensitiveFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> Predicates.globPatterns(
-                        "*",
-                        null
-                )
+            NullPointerException.class,
+            () -> Predicates.globPatterns(
+                "*",
+                null
+            )
         );
     }
 
     @Test
     public void testGlobPatternsTestMatchCaseSensitive() {
         this.testTrue(
-                Predicates.globPatterns(
-                        "*Match*",
-                        CaseSensitivity.SENSITIVE
-                ),
-                "Match"
+            Predicates.globPatterns(
+                "*Match*",
+                CaseSensitivity.SENSITIVE
+            ),
+            "Match"
         );
     }
 
     @Test
     public void testGlobPatternsTestMatchCaseInsensitive() {
         this.testTrue(
-                Predicates.globPatterns(
-                        "*Match*",
-                        CaseSensitivity.INSENSITIVE
-                ),
-                "MATCH"
+            Predicates.globPatterns(
+                "*Match*",
+                CaseSensitivity.INSENSITIVE
+            ),
+            "MATCH"
         );
     }
 
     @Test
     public void testGlobPatternsTestMatchMultipleTokens() {
         this.testTrue(
-                Predicates.globPatterns(
-                        "*starts ends* *Match*",
-                        CaseSensitivity.INSENSITIVE
-                ),
-                "111MATCH222"
+            Predicates.globPatterns(
+                "*starts ends* *Match*",
+                CaseSensitivity.INSENSITIVE
+            ),
+            "111MATCH222"
         );
     }
 
     @Test
     public void testGlobPatternsTestNotMatch() {
         this.testFalse(
-                Predicates.globPatterns(
-                        "*starts ends* *Match*",
-                        CaseSensitivity.INSENSITIVE
-                ),
-                "Not!"
+            Predicates.globPatterns(
+                "*starts ends* *Match*",
+                CaseSensitivity.INSENSITIVE
+            ),
+            "Not!"
         );
     }
 
@@ -102,14 +102,14 @@ final public class PredicatesTest implements PublicStaticHelperTesting<Predicate
         final String pattern = "starts* *contains* ends* match 12345";
 
         this.checkEquals(
+            pattern,
+            Predicates.globPatterns(
                 pattern,
-                Predicates.globPatterns(
-                        pattern,
-                        CaseSensitivity.INSENSITIVE
-                ).toString()
+                CaseSensitivity.INSENSITIVE
+            ).toString()
         );
     }
-    
+
     // class............................................................................................................
 
     @Override

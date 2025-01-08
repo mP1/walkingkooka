@@ -35,22 +35,22 @@ public final class PredicatedIteratorTest extends IteratorTestCase<PredicatedIte
     @Test
     public void testWithNullIteratorFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> PredicatedIterator.with(
-                        null,
-                        Predicates.fake()
-                )
+            NullPointerException.class,
+            () -> PredicatedIterator.with(
+                null,
+                Predicates.fake()
+            )
         );
     }
 
     @Test
     public void testWithNullPredicateFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> PredicatedIterator.with(
-                        ITERATOR,
-                        null
-                )
+            NullPointerException.class,
+            () -> PredicatedIterator.with(
+                ITERATOR,
+                null
+            )
         );
     }
 
@@ -59,136 +59,136 @@ public final class PredicatedIteratorTest extends IteratorTestCase<PredicatedIte
     @Test
     public void testKeepsAll() {
         this.iterateAndCheck(
-                PredicatedIterator.with(
-                        Lists.of(
-                                "1a",
-                                "2b",
-                                "3c"
-                        ).iterator(),
-                        Predicates.always()
-                ),
-                "1a",
-                "2b",
-                "3c"
+            PredicatedIterator.with(
+                Lists.of(
+                    "1a",
+                    "2b",
+                    "3c"
+                ).iterator(),
+                Predicates.always()
+            ),
+            "1a",
+            "2b",
+            "3c"
         );
     }
 
     @Test
     public void testKeepsAll2() {
         this.iterateUsingHasNextAndCheck(
-                PredicatedIterator.with(
-                        Lists.of(
-                                "1a",
-                                "2b",
-                                "3c"
-                        ).iterator(),
-                        Predicates.always()
-                ),
-                "1a",
-                "2b",
-                "3c"
+            PredicatedIterator.with(
+                Lists.of(
+                    "1a",
+                    "2b",
+                    "3c"
+                ).iterator(),
+                Predicates.always()
+            ),
+            "1a",
+            "2b",
+            "3c"
         );
     }
 
     @Test
     public void testKeepsNone() {
         this.iterateAndCheck(
-                PredicatedIterator.with(
-                        Lists.of(
-                                "1a",
-                                "2b",
-                                "3c"
-                        ).iterator(),
-                        Predicates.never()
-                )
+            PredicatedIterator.with(
+                Lists.of(
+                    "1a",
+                    "2b",
+                    "3c"
+                ).iterator(),
+                Predicates.never()
+            )
         );
     }
 
     @Test
     public void testKeepNone2() {
         this.iterateUsingHasNextAndCheck(
-                PredicatedIterator.with(
-                        Lists.of(
-                                "1a",
-                                "2b",
-                                "3c"
-                        ).iterator(),
-                        Predicates.never()
-                )
+            PredicatedIterator.with(
+                Lists.of(
+                    "1a",
+                    "2b",
+                    "3c"
+                ).iterator(),
+                Predicates.never()
+            )
         );
     }
 
     @Test
     public void testKeepSame() {
         this.iterateAndCheck(
-                PredicatedIterator.with(
-                        Lists.of(
-                                "1a",
-                                "2b!",
-                                "3c",
-                                "4d!"
-                        ).iterator(),
-                        (s) -> false == s.contains("!")
-                ),
-                "1a",
-                "3c"
+            PredicatedIterator.with(
+                Lists.of(
+                    "1a",
+                    "2b!",
+                    "3c",
+                    "4d!"
+                ).iterator(),
+                (s) -> false == s.contains("!")
+            ),
+            "1a",
+            "3c"
         );
     }
 
     @Test
     public void testKeepSame2() {
         this.iterateUsingHasNextAndCheck(
-                PredicatedIterator.with(
-                        Lists.of(
-                                "1a",
-                                "2b!",
-                                "3c",
-                                "4d!"
-                        ).iterator(),
-                        (s) -> false == s.contains("!")
-                ),
-                "1a",
-                "3c"
+            PredicatedIterator.with(
+                Lists.of(
+                    "1a",
+                    "2b!",
+                    "3c",
+                    "4d!"
+                ).iterator(),
+                (s) -> false == s.contains("!")
+            ),
+            "1a",
+            "3c"
         );
     }
 
     @Test
     public void testKeepSame3() {
         this.iterateAndCheck(
-                PredicatedIterator.with(
-                        Lists.of(
-                                "1a",
-                                "2b!",
-                                "3c",
-                                "4d!",
-                                "5e!",
-                                "6f"
-                        ).iterator(),
-                        (s) -> false == s.contains("!")
-                ),
-                "1a",
-                "3c",
-                "6f"
+            PredicatedIterator.with(
+                Lists.of(
+                    "1a",
+                    "2b!",
+                    "3c",
+                    "4d!",
+                    "5e!",
+                    "6f"
+                ).iterator(),
+                (s) -> false == s.contains("!")
+            ),
+            "1a",
+            "3c",
+            "6f"
         );
     }
 
     @Test
     public void testKeepSame4() {
         this.iterateUsingHasNextAndCheck(
-                PredicatedIterator.with(
-                        Lists.of(
-                                "1a",
-                                "2b!",
-                                "3c",
-                                "4d!",
-                                "5e!",
-                                "6f"
-                        ).iterator(),
-                        (s) -> false == s.contains("!")
-                ),
-                "1a",
-                "3c",
-                "6f"
+            PredicatedIterator.with(
+                Lists.of(
+                    "1a",
+                    "2b!",
+                    "3c",
+                    "4d!",
+                    "5e!",
+                    "6f"
+                ).iterator(),
+                (s) -> false == s.contains("!")
+            ),
+            "1a",
+            "3c",
+            "6f"
         );
     }
 
@@ -197,7 +197,7 @@ public final class PredicatedIteratorTest extends IteratorTestCase<PredicatedIte
     @Test
     public void testRemoveFails() {
         this.removeUnsupportedFails(
-                this.createIterator()
+            this.createIterator()
         );
     }
 
@@ -206,16 +206,16 @@ public final class PredicatedIteratorTest extends IteratorTestCase<PredicatedIte
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createIterator(),
-                ITERATOR.toString()
+            this.createIterator(),
+            ITERATOR.toString()
         );
     }
 
     @Override
     public PredicatedIterator<String> createIterator() {
         return PredicatedIterator.with(
-                ITERATOR,
-                Predicates.fake()
+            ITERATOR,
+            Predicates.fake()
         );
     }
 

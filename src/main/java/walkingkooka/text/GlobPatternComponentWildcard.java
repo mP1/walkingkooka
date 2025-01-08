@@ -19,13 +19,13 @@ package walkingkooka.text;
 
 import java.util.Objects;
 
-final class GlobPatternComponentWildcard extends GlobPatternComponent{
+final class GlobPatternComponentWildcard extends GlobPatternComponent {
 
     static GlobPatternComponentWildcard with(final int min,
                                              final int max) {
         return new GlobPatternComponentWildcard(
-                min,
-                max
+            min,
+            max
         );
     }
 
@@ -64,7 +64,7 @@ final class GlobPatternComponentWildcard extends GlobPatternComponent{
 
         boolean match = false;
 
-        if(start <= textLength) {
+        if (start <= textLength) {
 
             final int max = this.max;
             final int end = STAR_MAX == max ? textLength : textPos + max;
@@ -97,11 +97,11 @@ final class GlobPatternComponentWildcard extends GlobPatternComponent{
 
     @Override
     public boolean equals(final Object other) {
-        return other == this || other instanceof GlobPatternComponentWildcard && this.equals0((GlobPatternComponentWildcard)other);
+        return other == this || other instanceof GlobPatternComponentWildcard && this.equals0((GlobPatternComponentWildcard) other);
     }
 
     private boolean equals0(final GlobPatternComponentWildcard other) {
-        return  Objects.equals(this.next, other.next) && this.min == other.min && this.max == other.max;
+        return Objects.equals(this.next, other.next) && this.min == other.min && this.max == other.max;
     }
 
     @Override

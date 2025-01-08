@@ -80,7 +80,7 @@ public abstract class ClassVisitor extends Visitor<Class<?>> {
     private void traverseSuperClass(final Class<?> classs) {
         if (Object.class != classs) {
             final Class<?> superClass = classs.getSuperclass();
-            if(null!=superClass) {
+            if (null != superClass) {
                 if (Visiting.CONTINUE == this.startVisitSuperClass(superClass)) {
                     this.traverseClass(superClass);
                 }

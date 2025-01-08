@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringBuilder>
-        implements BuilderTesting<ToStringBuilder, String> {
+    implements BuilderTesting<ToStringBuilder, String> {
     // constants
 
     private final static Object NULL = null;
@@ -102,20 +102,20 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
     @Test
     public void testDefaults() {
         final String built = ToStringBuilder.empty()
-                .label("label1")
-                .value("value2")
-                .label("label2").value(Lists.of(1, 2, 3))
-                .build();
+            .label("label1")
+            .value("value2")
+            .label("label2").value(Lists.of(1, 2, 3))
+            .build();
 
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .labelSeparator("xxx")
-                .valueSeparator("yyyy")
-                .separator("zzzz");
+            .labelSeparator("xxx")
+            .valueSeparator("yyyy")
+            .separator("zzzz");
         assertSame(builder, builder.defaults());
 
         builder.label("label1")
-                .value("value2")
-                .label("label2").value(Lists.of(1, 2, 3));
+            .value("value2")
+            .label("label2").value(Lists.of(1, 2, 3));
 
         this.buildAndCheck(builder, built);
     }
@@ -125,54 +125,54 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
     @Test
     public void testValueAppendValueAppendValueSkipsSeparatorBecauseOfAppends() {
         this.buildAndCheck(ToStringBuilder.empty()//
-                        .separator("*")//
-                        .value(1)//
-                        .append(",")//
-                        .value(2)//
-                        .append(",")//
-                        .value(3), //
-                "1,2,3");
+                .separator("*")//
+                .value(1)//
+                .append(",")//
+                .value(2)//
+                .append(",")//
+                .value(3), //
+            "1,2,3");
     }
 
     @Test
     public void testValueValueValueInsertsSeparator() {
         this.buildAndCheck(ToStringBuilder.empty()//
-                        .separator("*")//
-                        .value(1)//
-                        .value(2)//
-                        .value(3), //
-                "1*2*3");
+                .separator("*")//
+                .value(1)//
+                .value(2)//
+                .value(3), //
+            "1*2*3");
     }
 
     @Test
     public void testLabelValueLabelValueInsertsDefaultSeparatorBetween() {
         this.buildAndCheck(ToStringBuilder.empty()//
-                        .label("label1")//
-                        .value(1)//
-                        .label("label2")//
-                        .value(2), //
-                "label1=1 label2=2");
+                .label("label1")//
+                .value(1)//
+                .label("label2")//
+                .value(2), //
+            "label1=1 label2=2");
     }
 
     @Test
     public void testLabelValueLabelValue2() {
         this.buildAndCheck(ToStringBuilder.empty()//
-                        .separator("*")//
-                        .label("label1")//
-                        .value(1)//
-                        .label("label2")//
-                        .value(2),//
-                "label1=1*label2=2");
+                .separator("*")//
+                .label("label1")//
+                .value(1)//
+                .label("label2")//
+                .value(2),//
+            "label1=1*label2=2");
     }
 
     @Test
     public void testLabelValueLabelNullValueLabelValue() {
         this.buildAndCheck(ToStringBuilder.empty()//
-                        .separator("*")//
-                        .label("label1").value(1)//
-                        .label("label2").value(NULL)//
-                        .label("label3").value(3), //
-                "label1=1*label3=3");
+                .separator("*")//
+                .label("label1").value(1)//
+                .label("label2").value(NULL)//
+                .label("label3").value(3), //
+            "label1=1*label3=3");
     }
 
     // valueLength and globalLength....................................................................................
@@ -265,166 +265,166 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
     @Test
     public void testOptionalEmpty() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .label("label1")
-                .value(Optional.empty());
+            .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .label("label1")
+            .value(Optional.empty());
 
         this.buildAndCheck(
-                builder,
-                "label1="
+            builder,
+            "label1="
         );
     }
 
     @Test
     public void testOptionalEmptySkipIfDefaultValue() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .label("label1")
-                .value(Optional.empty());
+            .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .label("label1")
+            .value(Optional.empty());
 
         this.buildAndCheck(
-                builder,
-                ""
+            builder,
+            ""
         );
     }
 
     @Test
     public void testOptionalNull() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .label("label1")
-                .value((Object) null);
+            .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .label("label1")
+            .value((Object) null);
 
         this.buildAndCheck(
-                builder,
-                "label1=null"
+            builder,
+            "label1=null"
         );
     }
 
     @Test
     public void testOptionalNonNull() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .label("label1")
-                .value("hello");
+            .label("label1")
+            .value("hello");
 
         this.buildAndCheck(
-                builder,
-                "label1=\"hello\""
+            builder,
+            "label1=\"hello\""
         );
     }
 
     @Test
     public void testOptionalBooleanFalse() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .label("label1")
-                .value(false);
+            .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .label("label1")
+            .value(false);
 
         this.buildAndCheck(
-                builder,
-                "label1=false"
+            builder,
+            "label1=false"
         );
     }
 
     @Test
     public void testOptionalBooleanTrue() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .label("label1")
-                .value(true);
+            .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .label("label1")
+            .value(true);
 
         this.buildAndCheck(
-                builder,
-                "label1=true"
+            builder,
+            "label1=true"
         );
     }
 
     @Test
     public void testOptionalNullSkipDefaults() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .label("label1")
-                .value((Object) null);
+            .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .label("label1")
+            .value((Object) null);
 
         this.buildAndCheck(
-                builder,
-                ""
+            builder,
+            ""
         );
     }
 
     @Test
     public void testOptionalFalseSkipDefaults() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .label("label1")
-                .value(false);
+            .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .label("label1")
+            .value(false);
 
         this.buildAndCheck(
-                builder,
-                ""
+            builder,
+            ""
         );
     }
 
     @Test
     public void testOptionalTrueSkipDefaults() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .label("label1")
-                .value(true);
+            .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .label("label1")
+            .value(true);
 
         this.buildAndCheck(
-                builder,
-                "label1=true"
+            builder,
+            "label1=true"
         );
     }
 
     @Test
     public void testOptionalZeroSkipDefaults() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .label("label1")
-                .value(0);
+            .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .label("label1")
+            .value(0);
 
         this.buildAndCheck(
-                builder,
-                ""
+            builder,
+            ""
         );
     }
 
     @Test
     public void testOptionalNonZeroSkipDefaults() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .label("label1")
-                .value(123);
+            .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .label("label1")
+            .value(123);
 
         this.buildAndCheck(
-                builder,
-                "label1=123"
+            builder,
+            "label1=123"
         );
     }
 
     @Test
     public void testOptionalWithoutLabelZeroSkipDefaults() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .value(0);
+            .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .value(0);
 
         this.buildAndCheck(
-                builder,
-                ""
+            builder,
+            ""
         );
     }
 
     @Test
     public void testOptionalWithoutLabelNonZeroSkipDefaults() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .value(123);
+            .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .value(123);
 
         this.buildAndCheck(
-                builder,
-                "123"
+            builder,
+            "123"
         );
     }
 
@@ -433,52 +433,52 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
     @Test
     public void testOptionalDoubleEmpty() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .label("label1")
-                .value(OptionalDouble.empty());
+            .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .label("label1")
+            .value(OptionalDouble.empty());
 
         this.buildAndCheck(
-                builder,
-                "label1="
+            builder,
+            "label1="
         );
     }
 
     @Test
     public void testOptionalDoubleZero() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .label("label1")
-                .value(OptionalDouble.of(0.0));
+            .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .label("label1")
+            .value(OptionalDouble.of(0.0));
 
         this.buildAndCheck(
-                builder,
-                ""
+            builder,
+            ""
         );
     }
 
     @Test
     public void testOptionalDoubleZeroSkipIfDefaultDisabled() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .label("label1")
-                .value(OptionalDouble.of(0.0));
+            .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .label("label1")
+            .value(OptionalDouble.of(0.0));
 
         this.buildAndCheck(
-                builder,
-                "label1=0.0"
+            builder,
+            "label1=0.0"
         );
     }
 
     @Test
     public void testOptionalDoubleNonZero() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .label("label1")
-                .value(OptionalDouble.of(123.5));
+            .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .label("label1")
+            .value(OptionalDouble.of(123.5));
 
         this.buildAndCheck(
-                builder,
-                "label1=123.5"
+            builder,
+            "label1=123.5"
         );
     }
 
@@ -487,52 +487,52 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
     @Test
     public void testOptionalIntEmpty() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .label("label1")
-                .value(OptionalInt.empty());
+            .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .label("label1")
+            .value(OptionalInt.empty());
 
         this.buildAndCheck(
-                builder,
-                "label1="
+            builder,
+            "label1="
         );
     }
 
     @Test
     public void testOptionalIntZero() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .label("label1")
-                .value(OptionalInt.of(0));
+            .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .label("label1")
+            .value(OptionalInt.of(0));
 
         this.buildAndCheck(
-                builder,
-                ""
+            builder,
+            ""
         );
     }
 
     @Test
     public void testOptionalIntZeroSkipIfDefaultDisabled() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .label("label1")
-                .value(OptionalInt.of(0));
+            .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .label("label1")
+            .value(OptionalInt.of(0));
 
         this.buildAndCheck(
-                builder,
-                "label1=0"
+            builder,
+            "label1=0"
         );
     }
 
     @Test
     public void testOptionalIntNonZero() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .label("label1")
-                .value(OptionalInt.of(123));
+            .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .label("label1")
+            .value(OptionalInt.of(123));
 
         this.buildAndCheck(
-                builder,
-                "label1=123"
+            builder,
+            "label1=123"
         );
     }
 
@@ -541,52 +541,52 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
     @Test
     public void testOptionalLongEmpty() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .label("label1")
-                .value(OptionalLong.empty());
+            .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .label("label1")
+            .value(OptionalLong.empty());
 
         this.buildAndCheck(
-                builder,
-                "label1="
+            builder,
+            "label1="
         );
     }
 
     @Test
     public void testOptionalLongZero() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .label("label1")
-                .value(OptionalLong.of(0));
+            .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .label("label1")
+            .value(OptionalLong.of(0));
 
         this.buildAndCheck(
-                builder,
-                ""
+            builder,
+            ""
         );
     }
 
     @Test
     public void testOptionalLongZeroSkipIfDefaultDisabled() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .label("label1")
-                .value(OptionalLong.of(0));
+            .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .label("label1")
+            .value(OptionalLong.of(0));
 
         this.buildAndCheck(
-                builder,
-                "label1=0"
+            builder,
+            "label1=0"
         );
     }
 
     @Test
     public void testOptionalLongNonZero() {
         final ToStringBuilder builder = ToStringBuilder.empty()
-                .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .label("label1")
-                .value(OptionalLong.of(123));
+            .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .label("label1")
+            .value(OptionalLong.of(123));
 
         this.buildAndCheck(
-                builder,
-                "label1=123"
+            builder,
+            "label1=123"
         );
     }
 
@@ -595,158 +595,158 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
     @Test
     public void testFullLabelValueUsesToStringBuilder() {
         this.buildAndCheckFull(this.createFullWithLabel()//
-                .value(this.usesToStringBuilder("1")));
+            .value(this.usesToStringBuilder("1")));
     }
 
     @Test
     public void testGlobalLengthValueFullValueUsesToStringBuilder() {
         this.buildAndCheckFull(this.createFullWithLabel()//
-                .value(builder -> {
-                    builder.globalLength(5);
-                    this.checkEquals(5, builder.globalLength, "globalLength");
-                    builder.value("IGNORED!");
-                }));
+            .value(builder -> {
+                builder.globalLength(5);
+                this.checkEquals(5, builder.globalLength, "globalLength");
+                builder.value("IGNORED!");
+            }));
     }
 
     @Test
     public void testGlobalLengthValueFullValueUsesToStringBuilder2() {
         this.buildAndCheck(this.builder()//
-                .globalLength(15)//
-                .value("1234567890") //
-                .value(builder -> {
-                    builder.globalLength(100);
-                    this.checkEquals(builder.buffer.length() + 100,
-                            builder.globalLength,
-                            "globalLength");
-                    builder.value("abcdefghij");
-                    builder.value("ignored");
-                }), "1234567890abcde");
+            .globalLength(15)//
+            .value("1234567890") //
+            .value(builder -> {
+                builder.globalLength(100);
+                this.checkEquals(builder.buffer.length() + 100,
+                    builder.globalLength,
+                    "globalLength");
+                builder.value("abcdefghij");
+                builder.value("ignored");
+            }), "1234567890abcde");
     }
 
     @Test
     public void testGlobalLengthValueFullValueUsesToStringBuilder3() {
         this.buildAndCheck(this.builder()//
-                .globalLength(15)//
-                .value("1234567890") //
-                .value(builder -> {
-                    builder.globalLength(5);
-                    this.checkEquals(builder.buffer.length() + 5,
-                            builder.globalLength,
-                            "globalLength");
+            .globalLength(15)//
+            .value("1234567890") //
+            .value(builder -> {
+                builder.globalLength(5);
+                this.checkEquals(builder.buffer.length() + 5,
+                    builder.globalLength,
+                    "globalLength");
 
-                    builder.globalLength(100);
-                    this.checkEquals(builder.buffer.length() + 100,
-                            builder.globalLength,
-                            "globalLength");
+                builder.globalLength(100);
+                this.checkEquals(builder.buffer.length() + 100,
+                    builder.globalLength,
+                    "globalLength");
 
-                    builder.value("abcdefghij");
-                    builder.value("ignored");
-                }), "1234567890abcde");
+                builder.value("abcdefghij");
+                builder.value("ignored");
+            }), "1234567890abcde");
     }
 
     @Test
     public void testGlobalLengthValueLengthValueFullValueUsesToStringBuilder() {
         this.buildAndCheck(this.builder(5, 10)//
-                .value(builder -> {
-                    builder.valueLength(10);
-                    this.checkEquals(5, builder.globalLength, "globalLength");
-                    this.checkEquals(5, builder.valueLength, "valueLength");
-                    builder.value("abcdefghij");
-                }), "abcde");
+            .value(builder -> {
+                builder.valueLength(10);
+                this.checkEquals(5, builder.globalLength, "globalLength");
+                this.checkEquals(5, builder.valueLength, "valueLength");
+                builder.value("abcdefghij");
+            }), "abcde");
     }
 
     @Test
     public void testGlobalLengthValueLengthValueFullValueUsesToStringBuilder2() {
         this.buildAndCheck(this.builder()//
-                .valueLength(10)//
-                .value(builder -> {
-                    builder.valueLength(5);
-                    this.checkEquals(10, builder.globalLength, "globalLength");
-                    this.checkEquals(5, builder.valueLength, "valueLength");
+            .valueLength(10)//
+            .value(builder -> {
+                builder.valueLength(5);
+                this.checkEquals(10, builder.globalLength, "globalLength");
+                this.checkEquals(5, builder.valueLength, "valueLength");
 
-                    builder.value("abcdefghij");
-                }), "abcde");
+                builder.value("abcdefghij");
+            }), "abcde");
     }
 
     @Test
     public void testGlobalLengthValueLengthValueFullValueUsesToStringBuilder3() {
         this.buildAndCheck(this.builder()//
-                .valueLength(10)//
-                .value(builder -> {
-                    builder.valueLength(5);
-                    this.checkEquals(10, builder.globalLength, "globalLength");
-                    this.checkEquals(5, builder.valueLength, "valueLength");
+            .valueLength(10)//
+            .value(builder -> {
+                builder.valueLength(5);
+                this.checkEquals(10, builder.globalLength, "globalLength");
+                this.checkEquals(5, builder.valueLength, "valueLength");
 
-                    builder.value("abcdefghij");
-                    builder.value("12345678");
-                }), "abcde12345");
+                builder.value("abcdefghij");
+                builder.value("12345678");
+            }), "abcde12345");
     }
 
     @Test
     public void testValueLengthUsesToStringBuilderValueLengthIncreases() {
         this.buildAndCheck(this.builder()//
-                .valueLength(10)//
-                .value(builder -> {
-                    builder.valueLength(4);
-                    builder.valueLength(5);
-                    this.checkEquals(10, builder.globalLength, "globalLength");
-                    this.checkEquals(5, builder.valueLength, "valueLength");
+            .valueLength(10)//
+            .value(builder -> {
+                builder.valueLength(4);
+                builder.valueLength(5);
+                this.checkEquals(10, builder.globalLength, "globalLength");
+                this.checkEquals(5, builder.valueLength, "valueLength");
 
-                    builder.value("abcdefghij");
-                    builder.value("12345678");
-                }), "abcde12345");
+                builder.value("abcdefghij");
+                builder.value("12345678");
+            }), "abcde12345");
     }
 
     @Test
     public void testValueLengthUsesToStringBuilderValueLengthDecreaseIncrease() {
         this.buildAndCheck(this.builder()//
-                .valueLength(10)//
-                .value(builder -> {
-                    builder.valueLength(4);
-                    builder.valueLength(3);
-                    builder.valueLength(5);
-                    this.checkEquals(10, builder.globalLength, "globalLength");
-                    this.checkEquals(5, builder.valueLength, "valueLength");
+            .valueLength(10)//
+            .value(builder -> {
+                builder.valueLength(4);
+                builder.valueLength(3);
+                builder.valueLength(5);
+                this.checkEquals(10, builder.globalLength, "globalLength");
+                this.checkEquals(5, builder.valueLength, "valueLength");
 
-                    builder.value("abcdefghij");
-                    builder.value("12345678");
-                }), "abcde12345");
+                builder.value("abcdefghij");
+                builder.value("12345678");
+            }), "abcde12345");
     }
 
     @Test
     public void testGlobalLengthValueLengthValueValueUsesToStringBuilderChops() {
         this.buildAndCheck(this.builder()//
-                .globalLength(15)//
-                .valueLength(5)//
-                .value("1234567") //
-                .value(builder -> {
-                    this.checkEquals(5, builder.valueLength, "valueLength");
-                    this.checkEquals(builder.buffer.length() + 5,
-                            builder.globalLength,
-                            "globalLength");
+            .globalLength(15)//
+            .valueLength(5)//
+            .value("1234567") //
+            .value(builder -> {
+                this.checkEquals(5, builder.valueLength, "valueLength");
+                this.checkEquals(builder.buffer.length() + 5,
+                    builder.globalLength,
+                    "globalLength");
 
-                    builder.value("abcdefghij"); // expected "abcde" to be added.
-                    builder.value("IGNORED");
-                })//
-                .value("1234567"), "12345abcde12345");
+                builder.value("abcdefghij"); // expected "abcde" to be added.
+                builder.value("IGNORED");
+            })//
+            .value("1234567"), "12345abcde12345");
     }
 
     @Test
     public void testGlobalLengthValueLengthValueValueUsesToStringBuilderChops2() {
         this.buildAndCheck(this.builder()//
-                .globalLength(15)//
-                .valueLength(5)//
-                .value("1234567") //
-                .value(builder -> {
-                    builder.valueLength(6); //
-                    this.checkEquals(5, builder.valueLength, "valueLength"); // increase ignored.
+            .globalLength(15)//
+            .valueLength(5)//
+            .value("1234567") //
+            .value(builder -> {
+                builder.valueLength(6); //
+                this.checkEquals(5, builder.valueLength, "valueLength"); // increase ignored.
 
-                    this.checkEquals(builder.buffer.length() + 5, builder.globalLength, "globalLength");
+                this.checkEquals(builder.buffer.length() + 5, builder.globalLength, "globalLength");
 
-                    builder.value("abcdefghij"); // expected "abcde" to be added.
-                    builder.value("IGNORED");
-                })//
-                .value("1234567"), "12345abcde12345");
+                builder.value("abcdefghij"); // expected "abcde" to be added.
+                builder.value("IGNORED");
+            })//
+            .value("1234567"), "12345abcde12345");
     }
 
     // special cases etc................................................................................................
@@ -754,8 +754,8 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
     @Test
     public void testValueBigDecimal() {
         this.buildAndCheck(this.builder()//
-                        .value(BigDecimal.valueOf(123.5)),
-                "123.5");
+                .value(BigDecimal.valueOf(123.5)),
+            "123.5");
     }
 
     @Test
@@ -777,16 +777,16 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
             }
         };
         this.buildAndCheck(this.builder()//
-                        .value(enumeration),
-                enumeration.toString());
+                .value(enumeration),
+            enumeration.toString());
     }
 
     @Test
     public void testValueIteratorNotConsumed() {
         final Iterator<String> iterator = Iterators.fake();
         this.buildAndCheck(this.builder()//
-                        .value(iterator),
-                iterator.toString());
+                .value(iterator),
+            iterator.toString());
     }
 
     // buildFrom
@@ -800,7 +800,7 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
     public void testBuildFrom() {
         final Object result = 1;
         this.checkEquals(ToStringBuilder.buildFrom(this.usesToStringBuilder(result)),
-                result.toString());
+            result.toString());
     }
 
     // ToString.......................................................................................................
@@ -808,33 +808,33 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
     @Test
     public void testToString() {
         this.toStringAndCheck(ToStringBuilder.empty()//
-                        .append("*value*"),
-                "[QUOTE, INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE, labelSeparator=\"=\", valueSeparator=\", \", separator=\" \", valueLength=900, globalLength=1000] 7=\"*value*\"");
+                .append("*value*"),
+            "[QUOTE, INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE, labelSeparator=\"=\", valueSeparator=\", \", separator=\" \", valueLength=900, globalLength=1000] 7=\"*value*\"");
     }
 
     @Test
     public void testToStringNonStandardSeparators() {
         this.toStringAndCheck(ToStringBuilder.empty()//
-                        .labelSeparator("@") //
-                        .valueSeparator("#") //
-                        .separator("$") //
-                        .append("*value*"),
-                "[QUOTE, INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE, labelSeparator=\"@\", valueSeparator=\"#\", separator=\"$\", valueLength=900, globalLength=1000] 7=\"*value*\"");
+                .labelSeparator("@") //
+                .valueSeparator("#") //
+                .separator("$") //
+                .append("*value*"),
+            "[QUOTE, INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE, labelSeparator=\"@\", valueSeparator=\"#\", separator=\"$\", valueLength=900, globalLength=1000] 7=\"*value*\"");
     }
 
     @Test
     public void testToStringWithEscapedCharacters() {
         this.toStringAndCheck(ToStringBuilder.empty()//
-                        .append("*tab \t*"),
-                "[QUOTE, INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE, labelSeparator=\"=\", valueSeparator=\", \", separator=\" \", valueLength=900, globalLength=1000] 7=\"*tab \\t*\"");
+                .append("*tab \t*"),
+            "[QUOTE, INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE, labelSeparator=\"=\", valueSeparator=\", \", separator=\" \", valueLength=900, globalLength=1000] 7=\"*tab \\t*\"");
     }
 
     @Test
     public void testToStringFull() {
         this.toStringAndCheck(ToStringBuilder.empty()//
-                        .append("1234567890abcdef")
-                        .globalLength(10),
-                "[QUOTE, INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE, labelSeparator=\"=\", valueSeparator=\", \", separator=\" \", FULL] 16=\"1234567890abcdef\"");
+                .append("1234567890abcdef")
+                .globalLength(10),
+            "[QUOTE, INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE, labelSeparator=\"=\", valueSeparator=\", \", separator=\" \", FULL] 16=\"1234567890abcdef\"");
     }
 
     @Override
@@ -863,8 +863,8 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
         final String built = builder.build();
         if (false == expected.equals(built)) {
             this.checkEquals(format(expected),
-                    format(built),
-                    () -> "options=" + builder.options.toString());
+                format(built),
+                () -> "options=" + builder.options.toString());
         }
     }
 
@@ -877,19 +877,19 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
      */
     private ToStringBuilder builder() {
         return ToStringBuilder.empty()//
-                .disable(ToStringBuilderOption.QUOTE)//
-                .separator("");
+            .disable(ToStringBuilderOption.QUOTE)//
+            .separator("");
     }
 
     private ToStringBuilder builder(final int valueLength, final int globalLength) {
         return this.builder()//
-                .valueLength(valueLength)//
-                .globalLength(globalLength);
+            .valueLength(valueLength)//
+            .globalLength(globalLength);
     }
 
     private ToStringBuilder builderFull() {
         return this.builder(FULL.length(), FULL.length())
-                .append(FULL);
+            .append(FULL);
     }
 
     private ToStringBuilder createFullWithLabel() {

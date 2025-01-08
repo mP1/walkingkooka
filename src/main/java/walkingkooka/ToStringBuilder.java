@@ -191,10 +191,10 @@ final public class ToStringBuilder implements Builder<String> {
      */
     public Runnable saveState() {
         return ToStringBuilderSaveStateRunnable.with(this.labelSeparator,
-                this.options,
-                this.separator,
-                this.valueSeparator,
-                this);
+            this.options,
+            this.separator,
+            this.valueSeparator,
+            this);
     }
 
     /**
@@ -840,9 +840,9 @@ final public class ToStringBuilder implements Builder<String> {
     ToStringBuilderOption numberEncoder() {
         final Set<ToStringBuilderOption> options = this.options;
         return options.contains(ToStringBuilderOption.HEX_BYTES) ?
-                ToStringBuilderOption.HEX_BYTES :
-                options.contains(ToStringBuilderOption.HEX_WHOLE_NUMBERS) ?
-                        ToStringBuilderOption.HEX_WHOLE_NUMBERS :
-                        ToStringBuilderOption.DEFAULT;
+            ToStringBuilderOption.HEX_BYTES :
+            options.contains(ToStringBuilderOption.HEX_WHOLE_NUMBERS) ?
+                ToStringBuilderOption.HEX_WHOLE_NUMBERS :
+                ToStringBuilderOption.DEFAULT;
     }
 }

@@ -36,8 +36,8 @@ final class PredicatedIterator<E> implements Iterator<E> {
         Objects.requireNonNull(predicate, "predicate");
 
         return new PredicatedIterator<>(
-                iterator,
-                predicate
+            iterator,
+            predicate
         );
     }
 

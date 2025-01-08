@@ -51,7 +51,7 @@ final public class ReadOnlyIteratorTest extends IteratorTestCase<ReadOnlyIterato
     public void testDoesntWrapReadOnlyIterator() {
         final Iterator<Void> iterator = Iterators.fake();
         final ReadOnlyIterator<Void> readOnly
-                = ReadOnlyIterator.wrap(ReadOnlyIterator.wrap(iterator));
+            = ReadOnlyIterator.wrap(ReadOnlyIterator.wrap(iterator));
         assertSame(iterator, readOnly.iterator, "iterator");
     }
 
@@ -68,7 +68,7 @@ final public class ReadOnlyIteratorTest extends IteratorTestCase<ReadOnlyIterato
     @Test
     public void testNext() {
         assertSame(ELEMENT,
-                this.iterator(ELEMENT).next());
+            this.iterator(ELEMENT).next());
     }
 
     @Test
@@ -79,7 +79,7 @@ final public class ReadOnlyIteratorTest extends IteratorTestCase<ReadOnlyIterato
     @Test
     public void testToString() {
         final Iterator<Object> iterator
-                = new ArrayList<>(Lists.of(ELEMENT)).iterator();
+            = new ArrayList<>(Lists.of(ELEMENT)).iterator();
         this.toStringAndCheck(ReadOnlyIterator.wrap(iterator), iterator.toString());
     }
 

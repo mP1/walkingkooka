@@ -28,25 +28,25 @@ public interface HashCodeEqualsDefinedTesting2<T> extends HashCodeEqualsDefinedT
     default void testHashCode() {
         final Object object = this.createObject();
         this.checkEquals(
-                object.hashCode(),
-                object.hashCode(),
-                () -> "repeated calls to hashCode should return same value: " + object
+            object.hashCode(),
+            object.hashCode(),
+            () -> "repeated calls to hashCode should return same value: " + object
         );
     }
 
     @Test
     default void testEqualsNullIsFalse() {
         this.checkNotEquals(
-                this.createObject(),
-                null
+            this.createObject(),
+            null
         );
     }
 
     @Test
     default void testEqualsDifferentType() {
         this.checkNotEquals(
-                this.createObject(),
-                new Object()
+            this.createObject(),
+            new Object()
         );
     }
 
@@ -75,8 +75,8 @@ public interface HashCodeEqualsDefinedTesting2<T> extends HashCodeEqualsDefinedT
 
     default void checkNotEquals(final Object actual) {
         this.checkNotEquals(
-                this.createObject(),
-                actual
+            this.createObject(),
+            actual
         );
     }
 }

@@ -35,9 +35,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * A mixin interface with tests and helpers to assist in testing a {@link Visitor}
  */
 public interface VisitorTesting<V extends Visitor<T>, T>
-        extends ClassTesting<V>,
-        ToStringTesting<V>,
-        TypeNameTesting<V> {
+    extends ClassTesting<V>,
+    ToStringTesting<V>,
+    TypeNameTesting<V> {
 
     /**
      * All visitors must have protected constructors.
@@ -45,9 +45,9 @@ public interface VisitorTesting<V extends Visitor<T>, T>
     @Test
     default void testAllConstructorsVisibility() {
         this.checkEquals(Lists.empty(),
-                Arrays.stream(this.type().getConstructors())
-                        .filter(c -> JavaVisibility.PROTECTED != JavaVisibility.of(c))
-                        .collect(Collectors.toList()));
+            Arrays.stream(this.type().getConstructors())
+                .filter(c -> JavaVisibility.PROTECTED != JavaVisibility.of(c))
+                .collect(Collectors.toList()));
     }
 
     @Test
@@ -64,13 +64,13 @@ public interface VisitorTesting<V extends Visitor<T>, T>
     @Test
     default void testSinglePublicAcceptMethod() {
         final List<Method> defaultAcceptMethods = Arrays.stream(this.type().getMethods())
-                .filter(m -> m.getName().startsWith("accept"))
-                .collect(Collectors.toList());
+            .filter(m -> m.getName().startsWith("accept"))
+            .collect(Collectors.toList());
 
         // because of generics two accept methods will be present accept(Object) and accept(N)
         this.checkEquals(2,
-                defaultAcceptMethods.size(),
-                () -> "visitor " + this.type().getName() + " should have only 1 default accept method=" + defaultAcceptMethods);
+            defaultAcceptMethods.size(),
+            () -> "visitor " + this.type().getName() + " should have only 1 default accept method=" + defaultAcceptMethods);
     }
 
     // startVisit ......................................................................................................

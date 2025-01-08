@@ -43,8 +43,8 @@ public class NeverError extends Error {
      */
     public static <T> T unexpectedMethodCall(final Object instance, final String method, final Object... parameters) {
         throw new NeverError(instance.getClass().getName() + "." + method + "(" + Arrays.stream(parameters)
-                .map(CharSequences::quoteIfChars)
-                .collect(Collectors.joining(",")) + ")");
+            .map(CharSequences::quoteIfChars)
+            .collect(Collectors.joining(",")) + ")");
     }
 
     /**
@@ -53,8 +53,8 @@ public class NeverError extends Error {
     @SafeVarargs
     public static <T> T unhandledCase(final T value, final T... expected) {
         throw new NeverError("Unhandled value: " + CharSequences.quoteIfChars(value) + " only expected: " + Arrays.stream(expected)
-                .map(CharSequences::quoteIfChars)
-                .collect(Collectors.joining(",")));
+            .map(CharSequences::quoteIfChars)
+            .collect(Collectors.joining(",")));
     }
 
     /**
@@ -63,8 +63,8 @@ public class NeverError extends Error {
     @SafeVarargs
     public static <E extends Enum<E>, T> T unhandledEnum(final E value, final E... expected) {
         throw new NeverError("Unhandled enum value: " + value + " only expected: " + Arrays.stream(expected)
-                .map(Enum::name)
-                .collect(Collectors.joining(",")));
+            .map(Enum::name)
+            .collect(Collectors.joining(",")));
     }
 
     private static String check(final String message) {

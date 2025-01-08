@@ -24,11 +24,10 @@ import walkingkooka.text.CharSequences;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class PushableStreamConsumerStreamTerminal3PushableStreamConsumerTestCase<P extends PushableStreamConsumerStreamTerminal3PushableStreamConsumer<String>> extends
-        PushableStreamConsumerStreamTerminalPushableStreamConsumerTestCase<P, Boolean> {
+    PushableStreamConsumerStreamTerminalPushableStreamConsumerTestCase<P, Boolean> {
 
     PushableStreamConsumerStreamTerminal3PushableStreamConsumerTestCase() {
         super();
@@ -55,8 +54,7 @@ public abstract class PushableStreamConsumerStreamTerminal3PushableStreamConsume
         this.toStringAndCheck(consumer, this.label() + " " + PREDICATE_TOSTRING + " true closeables: " + this.closeables.toString());
     }
 
-    @Override
-    final P createPushableStreamConsumer(final PushableStreamConsumerCloseableCollection closeables) {
+    @Override final P createPushableStreamConsumer(final PushableStreamConsumerCloseableCollection closeables) {
         return this.createPushableStreamStreamPushableStreamConsumer(PREDICATE, closeables);
     }
 
@@ -78,15 +76,15 @@ public abstract class PushableStreamConsumerStreamTerminal3PushableStreamConsume
         final List<String> values = this.commaSeparated(commaSeperated);
 
         int i = 0;
-        while(i < values.size() && false == consumer.isFinished()) {
+        while (i < values.size() && false == consumer.isFinished()) {
 
             this.accept(consumer, values.get(i));
             i++;
         }
 
         this.checkEquals(result,
-                consumer.result(),
-                () -> "values: " + CharSequences.quoteAndEscape(commaSeperated) + " " + consumer);
+            consumer.result(),
+            () -> "values: " + CharSequences.quoteAndEscape(commaSeperated) + " " + consumer);
         this.checkEquals(consumedCount, i, () -> "consumed values count, values: " + CharSequences.quoteAndEscape(commaSeperated));
     }
 }

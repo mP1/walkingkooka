@@ -125,9 +125,9 @@ public final class RangeVisitorTest implements VisitorTesting<RangeVisitor<Integ
             @Override
             protected void singleton(final Integer value) {
                 checkEquals(
-                        Integer.valueOf(99),
-                        value,
-                        "value"
+                    Integer.valueOf(99),
+                    value,
+                    "value"
                 );
                 visited.append("2");
             }

@@ -26,8 +26,8 @@ import java.util.Optional;
  * A {@link Path} that wraps a {@link String} which may contain any character.
  */
 final public class StringPath
-        implements Path<StringPath, StringName>,
-        Comparable<StringPath> {
+    implements Path<StringPath, StringName>,
+    Comparable<StringPath> {
 
     /**
      * {@link PathSeparator} instance
@@ -47,7 +47,7 @@ final public class StringPath
         try {
             StringPath result = ROOT;
 
-            if(path.length() > 1) {
+            if (path.length() > 1) {
                 for (String component : path.substring(1).split(SEPARATOR.string())) {
                     result = result.append(StringName.with(component));
                 }

@@ -25,8 +25,7 @@ abstract class ToStringBuilderAppenderArrayVector2<T> extends ToStringBuilderApp
 
     abstract int length();
 
-    @Override
-    final void value(final ToStringBuilder builder) {
+    @Override final void value(final ToStringBuilder builder) {
         this.prepareValue(builder);
 
         final int length = this.length();

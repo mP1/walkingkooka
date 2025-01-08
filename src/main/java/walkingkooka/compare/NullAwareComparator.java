@@ -36,12 +36,12 @@ abstract class NullAwareComparator<T> implements Comparator<T> {
         final boolean rightIsNull = null == right;
 
         return leftIsNull || rightIsNull ?
-                leftIsNull && rightIsNull ?
-                        Comparators.EQUAL :
-                        leftIsNull ?
-                                this.leftIsNull() :
-                                this.rightIsNull() :
-                this.comparator.compare(left, right);
+            leftIsNull && rightIsNull ?
+                Comparators.EQUAL :
+                leftIsNull ?
+                    this.leftIsNull() :
+                    this.rightIsNull() :
+            this.comparator.compare(left, right);
     }
 
     abstract int leftIsNull();

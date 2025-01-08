@@ -89,9 +89,9 @@ public class InvalidTextLengthException extends InvalidTextException {
     @Override
     public String getMessage() {
         return "Length " + this.text.length() +
-                " of " + CharSequences.quoteAndEscape(this.label) +
-                " not between " + this.min + ".." + this.max +
-                " = " + CharSequences.quote(this.text);
+            " of " + CharSequences.quoteAndEscape(this.label) +
+            " not between " + this.min + ".." + this.max +
+            " = " + CharSequences.quote(this.text);
     }
 
     public String label() {
@@ -116,8 +116,8 @@ public class InvalidTextLengthException extends InvalidTextException {
 
     private boolean equals0(final InvalidTextLengthException other) {
         return this.label.equals(other.label) &&
-                this.text().equals(other.text()) &&
-                this.min() == other.min() &&
-                this.max() == other.max();
+            this.text().equals(other.text()) &&
+            this.min() == other.min() &&
+            this.max() == other.max();
     }
 }

@@ -30,9 +30,9 @@ import java.util.Optional;
  * Represents the file extension with a filename.
  */
 public final class FileExtension implements
-        Comparable<FileExtension>,
-        Value<String>,
-        CanBeEmpty {
+    Comparable<FileExtension>,
+    Value<String>,
+    CanBeEmpty {
 
     /**
      * Extracts the file extension if present from the given filename.
@@ -42,11 +42,11 @@ public final class FileExtension implements
 
         final int dot = filename.lastIndexOf(DOT);
         return Optional.ofNullable(
-                -1 == dot ?
-                        null :
-                        with(
-                                filename.substring(dot + 1)
-                        )
+            -1 == dot ?
+                null :
+                with(
+                    filename.substring(dot + 1)
+                )
         );
     }
 
@@ -93,8 +93,8 @@ public final class FileExtension implements
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof FileExtension &&
-                        this.equals0(Cast.to(other));
+            other instanceof FileExtension &&
+                this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final FileExtension other) {

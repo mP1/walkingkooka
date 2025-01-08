@@ -27,16 +27,16 @@ public final class NameComparatorTest implements ComparatorTesting2<NameComparat
     @Test
     public void testCompareEqualDifferentCase() {
         this.compareAndCheckEquals(
-                Names.string("name1"),
-                Names.string("NAME1")
+            Names.string("name1"),
+            Names.string("NAME1")
         );
     }
 
     @Test
     public void testCompareLesslDifferentCase() {
         this.compareAndCheckLess(
-                Names.string("a1"),
-                Names.string("B2")
+            Names.string("a1"),
+            Names.string("B2")
         );
     }
 

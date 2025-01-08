@@ -35,25 +35,25 @@ public interface EnumerationTesting extends Testing {
     default void hasMoreElementsAndCheck(final Enumeration<?> enumeration,
                                          final boolean expected) {
         this.checkEquals(
-                expected,
-                enumeration.hasMoreElements(),
-                () -> "hasMoreElements " + enumeration
+            expected,
+            enumeration.hasMoreElements(),
+            () -> "hasMoreElements " + enumeration
         );
     }
 
     default <T> void nextElementAndCheck(final Enumeration<T> enumeration,
                                          final T expected) {
         this.checkEquals(
-                expected,
-                enumeration.nextElement(),
-                () -> "nextElement " + enumeration
+            expected,
+            enumeration.nextElement(),
+            () -> "nextElement " + enumeration
         );
     }
 
     default void nextElementFails(final Enumeration<?> enumeration) {
         assertThrows(
-                NoSuchElementException.class,
-                enumeration::nextElement
+            NoSuchElementException.class,
+            enumeration::nextElement
         );
     }
 
@@ -70,18 +70,18 @@ public interface EnumerationTesting extends Testing {
             if (i < expected.length) {
                 final int ii = i;
                 this.checkEquals(
-                        expected[i],
-                        next,
-                        () -> "element " + ii
+                    expected[i],
+                    next,
+                    () -> "element " + ii
                 );
             }
             consumed.add(next);
             i++;
         }
         this.checkEquals(
-                Lists.of(expected),
-                consumed,
-                enumeration::toString
+            Lists.of(expected),
+            consumed,
+            enumeration::toString
         );
         this.nextElementFails(enumeration);
     }
@@ -99,9 +99,9 @@ public interface EnumerationTesting extends Testing {
 
             final int ii = i;
             this.checkEquals(
-                    expected[i],
-                    next,
-                    () -> "element " + ii
+                expected[i],
+                next,
+                () -> "element " + ii
             );
 
             consumed.add(next);
@@ -109,9 +109,9 @@ public interface EnumerationTesting extends Testing {
         }
 
         this.checkEquals(
-                Lists.of(expected),
-                consumed,
-                enumeration::toString
+            Lists.of(expected),
+            consumed,
+            enumeration::toString
         );
         this.nextElementFails(enumeration);
     }

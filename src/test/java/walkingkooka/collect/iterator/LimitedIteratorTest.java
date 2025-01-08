@@ -25,7 +25,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -101,7 +100,7 @@ final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<
         source.add("2");
         source.add("3");
         final LimitedIterator<String> iterator = LimitedIterator.wrap(source.iterator(),
-                COUNT);
+            COUNT);
         iterator.next();
         iterator.remove();
         this.checkEquals(Lists.of("2", "3"), source);
@@ -118,9 +117,9 @@ final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<
     @Override
     public LimitedIterator<String> createIterator() {
         return LimitedIterator.wrap(Lists.of("1",
-                "2",
-                "should never be returned1",
-                "should never be returned2").iterator(), COUNT);
+            "2",
+            "should never be returned1",
+            "should never be returned2").iterator(), COUNT);
     }
 
     @Override

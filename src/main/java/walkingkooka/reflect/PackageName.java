@@ -61,8 +61,8 @@ final public class PackageName extends JavaName<PackageName> {
         Objects.requireNonNull(name, "name");
 
         return name.isEmpty() ?
-                UNNAMED :
-                notUnnamed(name);
+            UNNAMED :
+            notUnnamed(name);
     }
 
     private static PackageName notUnnamed(final String name) {
@@ -112,7 +112,7 @@ final public class PackageName extends JavaName<PackageName> {
         Objects.requireNonNull(pkg, "package");
 
         return this.isUnnamed() ? pkg
-                : pkg.isUnnamed() ? this : new PackageName(this.name + SEPARATOR + pkg.name);
+            : pkg.isUnnamed() ? this : new PackageName(this.name + SEPARATOR + pkg.name);
     }
 
     /**
@@ -129,8 +129,8 @@ final public class PackageName extends JavaName<PackageName> {
      */
     public String filename() {
         return this.name.replace(
-                '.',
-                '/'
+            '.',
+            '/'
         );
     }
 

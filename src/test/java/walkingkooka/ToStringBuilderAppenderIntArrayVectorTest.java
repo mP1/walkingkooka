@@ -28,7 +28,7 @@ public class ToStringBuilderAppenderIntArrayVectorTest extends ToStringBuilderAp
         b.value(new int[]{0, 1, 2});
 
         this.buildAndCheck(b,
-                LABEL1 + LABEL_SEPARATOR + 0 + VALUE_SEPARATOR + 1 + VALUE_SEPARATOR + 2);
+            LABEL1 + LABEL_SEPARATOR + 0 + VALUE_SEPARATOR + 1 + VALUE_SEPARATOR + 2);
     }
 
     @Test
@@ -46,8 +46,7 @@ public class ToStringBuilderAppenderIntArrayVectorTest extends ToStringBuilderAp
         return new int[0];
     }
 
-    @Override
-    final String defaultValueToString(final int[] value) {
+    @Override final String defaultValueToString(final int[] value) {
         return "";
     }
 

@@ -25,10 +25,10 @@ import walkingkooka.reflect.TypeNameTesting;
 import java.util.Map;
 
 public abstract class ImmutableMapTestCase2<M extends ImmutableMap<String, Integer>> extends ImmutableMapTestCase<M>
-        implements MapTesting<M, String, Integer>,
-        IteratorTesting,
-        ToStringTesting<M>,
-        TypeNameTesting<M> {
+    implements MapTesting<M, String, Integer>,
+    IteratorTesting,
+    ToStringTesting<M>,
+    TypeNameTesting<M> {
 
     ImmutableMapTestCase2() {
         super();

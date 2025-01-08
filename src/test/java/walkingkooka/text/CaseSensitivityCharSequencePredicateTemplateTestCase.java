@@ -26,9 +26,9 @@ import walkingkooka.reflect.JavaVisibility;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P extends CaseSensitivityCharSequencePredicateTemplate<String>>
-        implements ClassTesting2<P>,
-        PredicateTesting2<P, String>,
-        HashCodeEqualsDefinedTesting2<P> {
+    implements ClassTesting2<P>,
+    PredicateTesting2<P, String>,
+    HashCodeEqualsDefinedTesting2<P> {
 
     private static final String STRING = "#$%";
     private final static CaseSensitivity SENSITIVITY = CaseSensitivity.SENSITIVE;
@@ -48,12 +48,12 @@ abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P ext
 
     @Test final public void testToStringCaseSensitive() {
         this.toStringAndCheck(this.createPredicate(),
-                this.prefix() + CharSequences.quoteAndEscape(STRING));
+            this.prefix() + CharSequences.quoteAndEscape(STRING));
     }
 
     @Test final public void testToStringCaseInsensitive() {
         this.toStringAndCheck(this.createPredicateCaseInsensitivity(STRING),
-                this.prefix() + CharSequences.quoteAndEscape(STRING) + " (CaseInsensitive)");
+            this.prefix() + CharSequences.quoteAndEscape(STRING) + " (CaseInsensitive)");
     }
 
     @Override
@@ -108,8 +108,7 @@ abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P ext
         return JavaVisibility.PACKAGE_PRIVATE;
     }
 
-    @Override
-    final public P createObject() {
+    @Override final public P createObject() {
         return this.createPredicate(STRING, SENSITIVITY);
     }
 }

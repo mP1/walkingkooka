@@ -49,8 +49,8 @@ final class ToStringBuilderAppenderBooleanArrayVector extends ToStringBuilderApp
         final StringBuilder buffer = builder.buffer;
         for (final boolean value : this.value) {
             buffer.append(value ?
-                    ToStringBuilder.COMPACT_TRUE_VALUE :
-                    ToStringBuilder.COMPACT_FALSE_VALUE);
+                ToStringBuilder.COMPACT_TRUE_VALUE :
+                ToStringBuilder.COMPACT_FALSE_VALUE);
         }
         builder.mode = builder.mode.value();
     }
@@ -58,8 +58,8 @@ final class ToStringBuilderAppenderBooleanArrayVector extends ToStringBuilderApp
     @Override
     void append(int index, final ToStringBuilder builder) {
         builder.buffer.append(this.value[index] ?
-                ToStringBuilder.DEFAULT_TRUE_VALUE :
-                ToStringBuilder.DEFAULT_FALSE_VALUE);
+            ToStringBuilder.DEFAULT_TRUE_VALUE :
+            ToStringBuilder.DEFAULT_FALSE_VALUE);
         builder.mode = builder.mode.value();
     }
 }

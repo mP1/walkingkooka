@@ -31,7 +31,7 @@ final class AnyPredicate<T> implements Predicate<T> {
 
     static <T> AnyPredicate<T> with(final Collection<Predicate<T>> predicates) {
         return new AnyPredicate<>(
-                Objects.requireNonNull(predicates, "predicates")
+            Objects.requireNonNull(predicates, "predicates")
         );
     }
 
@@ -43,9 +43,9 @@ final class AnyPredicate<T> implements Predicate<T> {
     public boolean test(final T value) {
         boolean result = false;
 
-        for(final Predicate<T> predicate : this.predicates) {
+        for (final Predicate<T> predicate : this.predicates) {
             result = predicate.test(value);
-            if(result) {
+            if (result) {
                 break;
             }
         }
@@ -74,7 +74,7 @@ final class AnyPredicate<T> implements Predicate<T> {
     @Override
     public String toString() {
         return this.predicates.stream()
-                .map(Object::toString)
-                .collect(Collectors.joining(" | "));
+            .map(Object::toString)
+            .collect(Collectors.joining(" | "));
     }
 }

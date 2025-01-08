@@ -27,7 +27,7 @@ import walkingkooka.text.Whitespace;
  * A simple {@link Name} that accepts a {@link String} composed of any character.
  */
 final public class StringName implements Name,
-        Comparable<StringName> {
+    Comparable<StringName> {
 
     /**
      * Root singleton
@@ -43,8 +43,8 @@ final public class StringName implements Name,
         final int invalid = name.indexOf(StringPath.SEPARATOR.character());
         if (-1 != invalid) {
             throw new InvalidCharacterException(
-                    name,
-                    invalid
+                name,
+                invalid
             );
         }
 
@@ -72,8 +72,8 @@ final public class StringName implements Name,
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof StringName &&
-                        this.equals0(Cast.to(other));
+            other instanceof StringName &&
+                this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final StringName other) {

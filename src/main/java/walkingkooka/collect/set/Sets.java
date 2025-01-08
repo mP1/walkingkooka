@@ -101,8 +101,8 @@ final public class Sets implements PublicStaticHelper {
      */
     public static <T> Set<T> readOnly(final Set<T> set) {
         return set instanceof ImmutableSet ?
-                set :
-                Collections.unmodifiableSet(set);
+            set :
+            Collections.unmodifiableSet(set);
     }
 
     /**

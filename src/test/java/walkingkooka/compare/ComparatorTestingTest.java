@@ -81,18 +81,18 @@ public final class ComparatorTestingTest implements ComparatorTesting {
     @Test
     public void testArraySortAndCheckComparator() {
         this.comparatorArraySortAndCheck(
-                COMPARATOR,
-                "A", "Z", "B", "D", "C", "A", "B", "C", "D", "Z"
+            COMPARATOR,
+            "A", "Z", "B", "D", "C", "A", "B", "C", "D", "Z"
         );
     }
 
     @Test
     public void testArraySortAndCheckFails() {
         this.mustFail(
-                () -> this.comparatorArraySortAndCheck(
-                        COMPARATOR,
+            () -> this.comparatorArraySortAndCheck(
+                COMPARATOR,
                 "A", "Z", "B", "D", "C", "Z", "D", "C", "B", "A"
-                )
+            )
         );
     }
 
@@ -101,58 +101,58 @@ public final class ComparatorTestingTest implements ComparatorTesting {
     @Test
     public void testCompareAndCheckAndMore() {
         this.compareAndCheck(
-                COMPARATOR,
-                VALUE,
-                MORE,
-                -1
+            COMPARATOR,
+            VALUE,
+            MORE,
+            -1
         );
     }
 
     @Test
     public void testCompareAndCheckAndMore2() {
         this.compareAndCheck(
-                COMPARATOR,
-                VALUE,
-                MORE,
-                -2
+            COMPARATOR,
+            VALUE,
+            MORE,
+            -2
         );
     }
 
     @Test
     public void testCompareAndCheckAndLess() {
         this.compareAndCheck(
-                COMPARATOR,
-                VALUE,
-                LESS,
-                1
+            COMPARATOR,
+            VALUE,
+            LESS,
+            1
         );
     }
 
     @Test
     public void testCompareAndCheckAndLess2() {
         this.compareAndCheck(
-                COMPARATOR,
-                VALUE,
-                LESS,
-                123
+            COMPARATOR,
+            VALUE,
+            LESS,
+            123
         );
     }
 
     @Test
     public void testCompareAndCheckAndEqual() {
         this.compareAndCheck(
-                COMPARATOR,
-                VALUE,
-                VALUE,
-                0
+            COMPARATOR,
+            VALUE,
+            VALUE,
+            0
         );
     }
 
     @Test
     public void testCompareAndCheckAndMoreFail() {
         this.mustFail(
-                () -> this.compareAndCheck(
-                        COMPARATOR,
+            () -> this.compareAndCheck(
+                COMPARATOR,
                 VALUE,
                 LESS,
                 0)
@@ -162,60 +162,60 @@ public final class ComparatorTestingTest implements ComparatorTesting {
     @Test
     public void testCompareAndCheckAndMoreFail2() {
         this.mustFail(
-                () -> this.compareAndCheck(
+            () -> this.compareAndCheck(
                 COMPARATOR,
                 VALUE,
                 LESS,
                 -2
-        )
+            )
         );
     }
 
     @Test
     public void testCompareAndCheckAndEqualFail() {
         this.mustFail(
-                () -> this.compareAndCheck(
-                        COMPARATOR,
+            () -> this.compareAndCheck(
+                COMPARATOR,
                 VALUE,
                 LESS,
                 -2
-                )
+            )
         );
     }
 
     @Test
     public void testCompareAndCheckAndEqualFail2() {
         this.mustFail(
-                () -> this.compareAndCheck(
-                        COMPARATOR,
+            () -> this.compareAndCheck(
+                COMPARATOR,
                 VALUE,
                 LESS,
                 -1
-                )
+            )
         );
     }
 
     @Test
     public void testCompareAndCheckAndLessFail() {
         this.mustFail(
-                () -> this.compareAndCheck(
-                        COMPARATOR,
+            () -> this.compareAndCheck(
+                COMPARATOR,
                 VALUE,
                 MORE,
                 0
-                )
+            )
         );
     }
 
     @Test
     public void testCompareAndCheckLessFail2() {
         this.mustFail(
-                () -> this.compareAndCheck(
-                        COMPARATOR,
+            () -> this.compareAndCheck(
+                COMPARATOR,
                 VALUE,
                 MORE,
                 1
-                )
+            )
         );
     }
 

@@ -57,8 +57,8 @@ public final class AutoExpandArrayListTest implements ListTesting2<AutoExpandArr
         list.add("C");
 
         this.iterateAndCheck(
-                list.iterator(),
-                "A", "B", "C"
+            list.iterator(),
+            "A", "B", "C"
         );
     }
 
@@ -71,8 +71,8 @@ public final class AutoExpandArrayListTest implements ListTesting2<AutoExpandArr
         this.sizeAndCheck(list, 1);
 
         this.checkEquals(
-                Lists.of("A"),
-                list
+            Lists.of("A"),
+            list
         );
     }
 
@@ -85,8 +85,8 @@ public final class AutoExpandArrayListTest implements ListTesting2<AutoExpandArr
         this.sizeAndCheck(list, 2);
 
         this.checkEquals(
-                Lists.of(null, "B"),
-                list
+            Lists.of(null, "B"),
+            list
         );
     }
 
@@ -99,8 +99,8 @@ public final class AutoExpandArrayListTest implements ListTesting2<AutoExpandArr
         this.sizeAndCheck(list, 11);
 
         this.checkEquals(
-                Arrays.asList(null, null, null, null, null, null, null, null, null, null, "X"),
-                list
+            Arrays.asList(null, null, null, null, null, null, null, null, null, null, "X"),
+            list
         );
     }
 
@@ -114,8 +114,8 @@ public final class AutoExpandArrayListTest implements ListTesting2<AutoExpandArr
         this.sizeAndCheck(list, 3);
 
         this.checkEquals(
-                Lists.of("A", "B", "C"),
-                list
+            Lists.of("A", "B", "C"),
+            list
         );
     }
 
@@ -129,8 +129,8 @@ public final class AutoExpandArrayListTest implements ListTesting2<AutoExpandArr
         this.sizeAndCheck(list, 2);
 
         this.checkEquals(
-                Lists.of("!", "B"),
-                list
+            Lists.of("!", "B"),
+            list
         );
     }
 
@@ -145,8 +145,8 @@ public final class AutoExpandArrayListTest implements ListTesting2<AutoExpandArr
         this.sizeAndCheck(list, 4);
 
         this.checkEquals(
-                Lists.of("!", "B", null, "!!"),
-                list
+            Lists.of("!", "B", null, "!!"),
+            list
         );
     }
 
@@ -157,8 +157,8 @@ public final class AutoExpandArrayListTest implements ListTesting2<AutoExpandArr
         list.add("B");
 
         assertThrows(
-                IndexOutOfBoundsException.class,
-                () -> list.remove(2)
+            IndexOutOfBoundsException.class,
+            () -> list.remove(2)
         );
     }
 

@@ -23,7 +23,7 @@ import walkingkooka.reflect.TypeNameTesting;
 
 public abstract class PushableStreamConsumerStreamPushableStreamConsumerTestCase<P extends PushableStreamConsumerStreamPushableStreamConsumer<String>>
     implements ClassTesting2<P>,
-        TypeNameTesting<P> {
+    TypeNameTesting<P> {
 
     PushableStreamConsumerStreamPushableStreamConsumerTestCase() {
         super();

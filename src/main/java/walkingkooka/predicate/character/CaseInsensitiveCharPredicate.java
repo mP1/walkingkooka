@@ -83,7 +83,7 @@ final class CaseInsensitiveCharPredicate implements CharPredicate {
     @Override
     public boolean equals(final Object other) {
         return (this == other) || ((other instanceof CaseInsensitiveCharPredicate)
-                && this.equals((CaseInsensitiveCharPredicate) other));
+            && this.equals((CaseInsensitiveCharPredicate) other));
     }
 
     private boolean equals(final CaseInsensitiveCharPredicate other) {

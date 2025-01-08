@@ -24,11 +24,10 @@ import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.list.Lists;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class EmptyArrayStackTest extends StackTestCase<EmptyArrayStack<Object>, Object>
-        implements IteratorTesting {
+    implements IteratorTesting {
 
     @Test
     public void testCreate() {
@@ -52,8 +51,8 @@ final public class EmptyArrayStackTest extends StackTestCase<EmptyArrayStack<Obj
     @Test
     public void testPushAll() {
         final ArrayStack<String> stack
-                = Cast.to(EmptyArrayStack.<String>instance().pushAll(Lists.of("1", "2", "3")
-                .iterator()));
+            = Cast.to(EmptyArrayStack.<String>instance().pushAll(Lists.of("1", "2", "3")
+            .iterator()));
         assertArrayEquals(new Object[]{"1", "2", "3"}, stack.array, "array");
         this.checkEquals(3, stack.last, "last");
     }

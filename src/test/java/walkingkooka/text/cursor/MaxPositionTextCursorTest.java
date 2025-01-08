@@ -23,20 +23,20 @@ import walkingkooka.ToStringTesting;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class MaxPositionTextCursorTest implements TextCursorTesting,
-        ToStringTesting<MaxPositionTextCursor> {
+    ToStringTesting<MaxPositionTextCursor> {
 
     @Test
     public void testWithNullTextCursorFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> MaxPositionTextCursor.with(null)
+            NullPointerException.class,
+            () -> MaxPositionTextCursor.with(null)
         );
     }
 
     @Test
     public void testMax() {
         final MaxPositionTextCursor textCursor = MaxPositionTextCursor.with(
-                TextCursors.charSequence("ABC456")
+            TextCursors.charSequence("ABC456")
         );
 
         textCursor.next();
@@ -47,15 +47,15 @@ public final class MaxPositionTextCursorTest implements TextCursorTesting,
         textCursor.next();
 
         this.atAndCheck(
-                textCursor,
-                '4'
+            textCursor,
+            '4'
         );
 
         save.restore();
 
         this.checkEquals(
-                3,
-                textCursor.max()
+            3,
+            textCursor.max()
         );
     }
 
@@ -64,8 +64,8 @@ public final class MaxPositionTextCursorTest implements TextCursorTesting,
         final TextCursor wrapped = TextCursors.fake();
 
         this.toStringAndCheck(
-                MaxPositionTextCursor.with(wrapped),
-                wrapped.toString()
+            MaxPositionTextCursor.with(wrapped),
+            wrapped.toString()
         );
     }
 

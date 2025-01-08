@@ -42,8 +42,7 @@ abstract class PushableStreamConsumerStreamTerminal3PushableStreamConsumer<T> ex
     /**
      * Returns the result;
      */
-    @Override
-    final Boolean result() {
+    @Override final Boolean result() {
         return this.result;
     }
 
@@ -51,8 +50,7 @@ abstract class PushableStreamConsumerStreamTerminal3PushableStreamConsumer<T> ex
 
     boolean result;
 
-    @Override
-    final void buildToString1(final ToStringBuilder builder) {
+    @Override final void buildToString1(final ToStringBuilder builder) {
         builder.label(this.label());
         builder.value(this.predicate);
 

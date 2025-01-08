@@ -24,7 +24,7 @@ import walkingkooka.reflect.TypeNameTesting;
 import java.util.Set;
 
 public abstract class ImmutableSetImplTestCase<T> implements ClassTesting2<T>,
-        TypeNameTesting<T> {
+    TypeNameTesting<T> {
 
     ImmutableSetImplTestCase() {
         super();
@@ -43,7 +43,7 @@ public abstract class ImmutableSetImplTestCase<T> implements ClassTesting2<T>,
     public final String typeNamePrefix() {
         return "Immutable" + Set.class.getSimpleName();
     }
-    
+
     @Override
     public final String typeNameSuffix() {
         return "";

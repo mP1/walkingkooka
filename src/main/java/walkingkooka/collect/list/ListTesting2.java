@@ -24,7 +24,7 @@ import walkingkooka.reflect.TypeNameTesting;
 import java.util.List;
 
 public interface ListTesting2<L extends List<E>, E> extends ListTesting, CollectionTesting2<L, E>,
-        TypeNameTesting<L> {
+    TypeNameTesting<L> {
 
     @Test
     default void testGetNegativeIndexFails() {

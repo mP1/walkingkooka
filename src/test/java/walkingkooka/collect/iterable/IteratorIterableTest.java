@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class IteratorIterableTest implements ClassTesting2<IteratorIterable<Object>>,
-        IterableTesting<IteratorIterable<Object>, Object> {
+    IterableTesting<IteratorIterable<Object>, Object> {
 
     @Test
     public void testWithNullIteratorFails() {

@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface ImmutableSetTesting<S extends ImmutableSet<E>, E> extends SetTesting2<S, E>,
-        CanBeEmptyTesting {
+    CanBeEmptyTesting {
 
     default void concatAndCheck(final ImmutableSet<E> set,
                                 final E appended,
@@ -38,30 +38,30 @@ public interface ImmutableSetTesting<S extends ImmutableSet<E>, E> extends SetTe
         final ImmutableSet<E> afterConcat = set.concat(appended);
 
         assertNotSame(
-                afterConcat,
-                set
+            afterConcat,
+            set
         );
         this.checkEquals(
-                expected,
-                afterConcat,
-                () -> set + " concat " + appended
+            expected,
+            afterConcat,
+            () -> set + " concat " + appended
         );
 
         final Set<E> toSet = set.toSet();
         toSet.add(appended);
         this.checkEquals(
-                toSet,
-                afterConcat,
-                () -> set + " concat " + appended
+            toSet,
+            afterConcat,
+            () -> set + " concat " + appended
         );
     }
 
     @Test
     default void testConcatAllWithNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createSet()
-                        .concatAll(null)
+            NullPointerException.class,
+            () -> this.createSet()
+                .concatAll(null)
         );
     }
 
@@ -71,21 +71,21 @@ public interface ImmutableSetTesting<S extends ImmutableSet<E>, E> extends SetTe
         final ImmutableSet<E> afterConcat = set.concatAll(appended);
 
         assertNotSame(
-                afterConcat,
-                set
+            afterConcat,
+            set
         );
         this.checkEquals(
-                expected,
-                afterConcat,
-                () -> set + " concatAll " + appended
+            expected,
+            afterConcat,
+            () -> set + " concatAll " + appended
         );
 
         final Set<E> toSet = set.toSet();
         toSet.addAll(appended);
         this.checkEquals(
-                toSet,
-                afterConcat,
-                () -> set + " concatAll " + appended
+            toSet,
+            afterConcat,
+            () -> set + " concatAll " + appended
         );
     }
 
@@ -95,30 +95,30 @@ public interface ImmutableSetTesting<S extends ImmutableSet<E>, E> extends SetTe
         final ImmutableSet<E> afterRemove = set.delete(remove);
 
         assertNotSame(
-                afterRemove,
-                set
+            afterRemove,
+            set
         );
         this.checkEquals(
-                expected,
-                afterRemove,
-                () -> set + " delete " + remove
+            expected,
+            afterRemove,
+            () -> set + " delete " + remove
         );
 
         final Set<E> toSet = set.toSet();
         toSet.remove(remove);
         this.checkEquals(
-                toSet,
-                afterRemove,
-                () -> set + " delete " + remove
+            toSet,
+            afterRemove,
+            () -> set + " delete " + remove
         );
     }
 
     @Test
     default void testDeleteAllWithNullCollectionFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createSet()
-                        .deleteAll(null)
+            NullPointerException.class,
+            () -> this.createSet()
+                .deleteAll(null)
         );
     }
 
@@ -128,21 +128,21 @@ public interface ImmutableSetTesting<S extends ImmutableSet<E>, E> extends SetTe
         final ImmutableSet<E> afterRemove = set.deleteAll(remove);
 
         assertNotSame(
-                afterRemove,
-                set
+            afterRemove,
+            set
         );
         this.checkEquals(
-                expected,
-                afterRemove,
-                () -> set + " deleteAll " + remove
+            expected,
+            afterRemove,
+            () -> set + " deleteAll " + remove
         );
 
         final Set<E> toSet = set.toSet();
         toSet.removeAll(remove);
         this.checkEquals(
-                toSet,
-                afterRemove,
-                () -> set + " deleteAll " + remove
+            toSet,
+            afterRemove,
+            () -> set + " deleteAll " + remove
         );
     }
 
@@ -151,9 +151,9 @@ public interface ImmutableSetTesting<S extends ImmutableSet<E>, E> extends SetTe
     @Test
     default void testDeleteIfWithNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createSet()
-                        .deleteIf(null)
+            NullPointerException.class,
+            () -> this.createSet()
+                .deleteIf(null)
         );
     }
 
@@ -162,8 +162,8 @@ public interface ImmutableSetTesting<S extends ImmutableSet<E>, E> extends SetTe
         final S set = this.createSet();
 
         assertSame(
-                set,
-                set.deleteIf(Predicates.never())
+            set,
+            set.deleteIf(Predicates.never())
         );
     }
 
@@ -173,21 +173,21 @@ public interface ImmutableSetTesting<S extends ImmutableSet<E>, E> extends SetTe
         final ImmutableSet<E> afterConcat = set.deleteIf(predicate);
 
         assertNotSame(
-                afterConcat,
-                set
+            afterConcat,
+            set
         );
         this.checkEquals(
-                expected,
-                afterConcat,
-                () -> set + " deleteIf " + predicate
+            expected,
+            afterConcat,
+            () -> set + " deleteIf " + predicate
         );
 
         final Set<E> toSet = set.toSet();
         toSet.removeIf(predicate);
         this.checkEquals(
-                toSet,
-                afterConcat,
-                () -> set + " deleteIf " + predicate
+            toSet,
+            afterConcat,
+            () -> set + " deleteIf " + predicate
         );
     }
 
@@ -197,11 +197,11 @@ public interface ImmutableSetTesting<S extends ImmutableSet<E>, E> extends SetTe
                                  final E oldElement,
                                  final E newElement) {
         assertSame(
-                set,
-                set.replace(
-                        oldElement,
-                        newElement
-                )
+            set,
+            set.replace(
+                oldElement,
+                newElement
+            )
         );
     }
 
@@ -210,18 +210,18 @@ public interface ImmutableSetTesting<S extends ImmutableSet<E>, E> extends SetTe
                                  final E newElement,
                                  final ImmutableSet<E> expected) {
         final ImmutableSet<E> afterReplace = set.replace(
-                oldElement,
-                newElement
+            oldElement,
+            newElement
         );
 
         assertNotSame(
-                newElement,
-                set
+            newElement,
+            set
         );
         this.checkEquals(
-                expected,
-                afterReplace,
-                () -> set + " replaced " + oldElement + " with " + newElement
+            expected,
+            afterReplace,
+            () -> set + " replaced " + oldElement + " with " + newElement
         );
     }
 
@@ -230,8 +230,8 @@ public interface ImmutableSetTesting<S extends ImmutableSet<E>, E> extends SetTe
         final ImmutableSet<E> immutableSet = this.createSet();
 
         assertThrows(
-                NullPointerException.class,
-                () -> immutableSet.setElements(null)
+            NullPointerException.class,
+            () -> immutableSet.setElements(null)
         );
     }
 
@@ -240,27 +240,27 @@ public interface ImmutableSetTesting<S extends ImmutableSet<E>, E> extends SetTe
         final ImmutableSet<E> immutableSet = this.createSet();
 
         assertSame(
-                immutableSet,
-                immutableSet.setElements(
-                        immutableSet.toSet()
-                )
+            immutableSet,
+            immutableSet.setElements(
+                immutableSet.toSet()
+            )
         );
     }
 
     default void toSetAndCheck(final ImmutableSet<E> set,
                                final E... expected) {
         this.toSetAndCheck(
-                set,
-                Sets.of(expected)
+            set,
+            Sets.of(expected)
         );
     }
 
     default void toSetAndCheck(final ImmutableSet<E> set,
                                final Set<E> expected) {
         this.checkEquals(
-                expected,
-                set.toSet(),
-                set::toString
+            expected,
+            set.toSet(),
+            set::toString
         );
     }
 }

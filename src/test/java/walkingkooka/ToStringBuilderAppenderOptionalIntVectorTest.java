@@ -29,11 +29,11 @@ public final class ToStringBuilderAppenderOptionalIntVectorTest extends ToString
         final ToStringBuilder b = this.builder();
         b.disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE);
         b.label("Label123")
-                .value(OptionalInt.empty());
+            .value(OptionalInt.empty());
 
         this.buildAndCheck(
-                b,
-                "Label123" + LABEL_SEPARATOR
+            b,
+            "Label123" + LABEL_SEPARATOR
         );
     }
 
@@ -42,11 +42,11 @@ public final class ToStringBuilderAppenderOptionalIntVectorTest extends ToString
         final ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE);
         b.label("Label123")
-                .value(OptionalInt.empty());
+            .value(OptionalInt.empty());
 
         this.buildAndCheck(
-                b,
-                ""
+            b,
+            ""
         );
     }
 
@@ -55,11 +55,11 @@ public final class ToStringBuilderAppenderOptionalIntVectorTest extends ToString
         final ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE);
         b.label("Label123")
-                .value(Optional.of(123));
+            .value(Optional.of(123));
 
         this.buildAndCheck(
-                b,
-                "Label123" + LABEL_SEPARATOR + "123"
+            b,
+            "Label123" + LABEL_SEPARATOR + "123"
         );
     }
 

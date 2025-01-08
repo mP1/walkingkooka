@@ -35,8 +35,8 @@ final class ReadOnlyStack<T> implements Stack<T> {
         Objects.requireNonNull(stack, "stack");
 
         return stack instanceof ReadOnlyStack ?
-                Cast.to(stack) :
-                new ReadOnlyStack<>(stack);
+            Cast.to(stack) :
+            new ReadOnlyStack<>(stack);
     }
 
     /**
@@ -97,12 +97,12 @@ final class ReadOnlyStack<T> implements Stack<T> {
     @Override
     public boolean equals(final Object object) {
         return (this == object) || ((object instanceof Stack) && this.equals(Cast.<Stack<T>>to(
-                object)));
+            object)));
     }
 
     private boolean equals(final Stack<T> stack) {
         return ((stack instanceof ReadOnlyStack) && this.equals(Cast.to(stack)))
-                || this.stack.equals(stack);
+            || this.stack.equals(stack);
     }
 
     private boolean equals(final ReadOnlyStack<T> stack) {

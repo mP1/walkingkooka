@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class CharSequenceIteratorTest
-        extends IteratorTestCase<CharSequenceIterator, Character> {
+    extends IteratorTestCase<CharSequenceIterator, Character> {
 
     // constants
 
@@ -43,7 +43,7 @@ final public class CharSequenceIteratorTest
     @Test
     public void testConsume() {
         this.iterateAndCheck(this.createIterator(),
-                'A', 'B', 'C', '\t');
+            'A', 'B', 'C', '\t');
     }
 
     @Test

@@ -44,11 +44,10 @@ abstract class RangeBoundExclusiveInclusive<C extends Comparable<C>> extends Ran
 
     // compareToEquals..................................................................................................
 
-    @Override
-    final boolean compareToEquals(final RangeBound<?> other) {
+    @Override final boolean compareToEquals(final RangeBound<?> other) {
         return this == other ||
-                this.canBeEquals(other) &&
-                        this.compareToEquals0(Cast.to(other));
+            this.canBeEquals(other) &&
+                this.compareToEquals0(Cast.to(other));
     }
 
     private boolean compareToEquals0(final RangeBoundExclusiveInclusive<C> other) {
@@ -66,8 +65,8 @@ abstract class RangeBoundExclusiveInclusive<C extends Comparable<C>> extends Ran
     @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     public final boolean equals(final Object other) {
         return this == other ||
-                this.canBeEquals(other) &&
-                        this.equals0(Cast.to(other));
+            this.canBeEquals(other) &&
+                this.equals0(Cast.to(other));
     }
 
     abstract boolean canBeEquals(final Object other);

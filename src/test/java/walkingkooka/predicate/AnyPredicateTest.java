@@ -28,8 +28,8 @@ final public class AnyPredicateTest extends PredicateTestCase<AnyPredicate<Objec
     @Test
     public void testWithNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> AnyPredicate.with(null)
+            NullPointerException.class,
+            () -> AnyPredicate.with(null)
         );
     }
 
@@ -56,25 +56,25 @@ final public class AnyPredicateTest extends PredicateTestCase<AnyPredicate<Objec
     @Override
     public AnyPredicate<Object> createPredicate() {
         return AnyPredicate.with(
-                Lists.of(
-                        Predicates.is("1A"),
-                        Predicates.is("2B"),
-                        Predicates.is("3C")
-                )
+            Lists.of(
+                Predicates.is("1A"),
+                Predicates.is("2B"),
+                Predicates.is("3C")
+            )
         );
     }
 
     @Test
     public void testTestGenerics() {
         this.testTrue(
-                AnyPredicate.with(
-                        Lists.of(
-                                Predicates.is("1A"),
-                                Predicates.is((CharSequence) "2B"),
-                                Predicates.is("3C")
-                        )
-                ),
-                "3C"
+            AnyPredicate.with(
+                Lists.of(
+                    Predicates.is("1A"),
+                    Predicates.is((CharSequence) "2B"),
+                    Predicates.is("3C")
+                )
+            ),
+            "3C"
         );
     }
 
@@ -83,8 +83,8 @@ final public class AnyPredicateTest extends PredicateTestCase<AnyPredicate<Objec
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createPredicate(),
-                "\"1A\" | \"2B\" | \"3C\""
+            this.createPredicate(),
+            "\"1A\" | \"2B\" | \"3C\""
         );
     }
 

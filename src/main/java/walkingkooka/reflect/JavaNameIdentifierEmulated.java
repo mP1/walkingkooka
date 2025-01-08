@@ -53,28 +53,28 @@ abstract class JavaNameIdentifierEmulated {
             }
 
             bitSet.set(
-                    j++,
-                    0 != (k & 32)
+                j++,
+                0 != (k & 32)
             );
             bitSet.set(
-                    j++,
-                    0 != (k & 16)
+                j++,
+                0 != (k & 16)
             );
             bitSet.set(
-                    j++,
-                    0 != (k & 8)
+                j++,
+                0 != (k & 8)
             );
             bitSet.set(
-                    j++,
-                    0 != (k & 4)
+                j++,
+                0 != (k & 4)
             );
             bitSet.set(
-                    j++,
-                    0 != (k & 2)
+                j++,
+                0 != (k & 2)
             );
             bitSet.set(
-                    j++,
-                    0 != (k & 1)
+                j++,
+                0 != (k & 1)
             );
         }
 

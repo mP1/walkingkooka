@@ -26,8 +26,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class LowerCasingCharPredicateTest
-        implements CharPredicateTesting<LowerCasingCharPredicate>,
-        HashCodeEqualsDefinedTesting2<LowerCasingCharPredicate> {
+    implements CharPredicateTesting<LowerCasingCharPredicate>,
+    HashCodeEqualsDefinedTesting2<LowerCasingCharPredicate> {
 
     @Test
     public void testWrapNullPredicateFails() {
@@ -38,8 +38,8 @@ final public class LowerCasingCharPredicateTest
     public void testDoesNotReWrapLowerCasingCharPredicate() {
         final CharPredicate predicate = LowerCasingCharPredicate.wrap(CharPredicates.is('x'));
         assertSame(predicate,
-                LowerCasingCharPredicate.wrap(predicate),
-                "should not have rewrapped");
+            LowerCasingCharPredicate.wrap(predicate),
+            "should not have rewrapped");
     }
 
     @Test

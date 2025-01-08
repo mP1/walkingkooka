@@ -26,15 +26,15 @@ final class GlobPatternContext implements Context {
 
     static GlobPatternContext search(final CaseSensitivity caseSensitivity) {
         return new GlobPatternContext(
-                caseSensitivity,
-                false
+            caseSensitivity,
+            false
         );
     }
 
     static GlobPatternContext test(final CaseSensitivity caseSensitivity) {
         return new GlobPatternContext(
-                caseSensitivity,
-                true
+            caseSensitivity,
+            true
         );
     }
 
@@ -54,6 +54,6 @@ final class GlobPatternContext implements Context {
 
     @Override
     public String toString() {
-        return this.caseSensitivity + (this.requireAllText ? " match all": "");
+        return this.caseSensitivity + (this.requireAllText ? " match all" : "");
     }
 }

@@ -35,12 +35,12 @@ final class PublicStaticHelperTesting2 {
                                          final Predicate<Method> predicate,
                                          final String message) {
         assertEquals(
-                Lists.empty(),
-                Arrays.stream(type.getDeclaredMethods())
-                        .filter(m -> !m.getName().startsWith("$")) // filter out any special methods like Jacoco's
-                        .filter(predicate)
-                        .collect(Collectors.toList()),
-                message
+            Lists.empty(),
+            Arrays.stream(type.getDeclaredMethods())
+                .filter(m -> !m.getName().startsWith("$")) // filter out any special methods like Jacoco's
+                .filter(predicate)
+                .collect(Collectors.toList()),
+            message
         );
     }
 }

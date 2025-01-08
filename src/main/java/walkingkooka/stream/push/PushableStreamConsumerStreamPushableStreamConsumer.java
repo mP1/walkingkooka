@@ -33,7 +33,7 @@ import java.util.stream.Stream;
  * Base class for all {@link PushableStreamConsumer} including those returned by {@link PushableStreamConsumerStreamIntermediate#createWithNext(PushableStreamConsumer)}.
  */
 abstract class PushableStreamConsumerStreamPushableStreamConsumer<T> implements PushableStreamConsumer<T>,
-        UsesToStringBuilder {
+    UsesToStringBuilder {
 
     /**
      * {@see PushableStreamConsumerStreamTerminal3AllMatchPushableStreamConsumer}
@@ -42,7 +42,7 @@ abstract class PushableStreamConsumerStreamPushableStreamConsumer<T> implements 
                                                                                                final PushableStreamConsumerCloseableCollection closeables) {
         return PushableStreamConsumerStreamTerminal3AllMatchPushableStreamConsumer.with(predicate, closeables);
     }
-    
+
     /**
      * {@see PushableStreamConsumerStreamTerminal3AnyMatchPushableStreamConsumer}
      */
@@ -136,7 +136,7 @@ abstract class PushableStreamConsumerStreamPushableStreamConsumer<T> implements 
                                                                                                  final PushableStreamConsumerCloseableCollection closeables) {
         return PushableStreamConsumerStreamTerminal3NoneMatchPushableStreamConsumer.with(predicate, closeables);
     }
-    
+
     /**
      * {@see PushableStreamConsumerStreamIntermediate2PeekPushableStreamConsumer}
      */

@@ -31,7 +31,7 @@ final public class MissingSystemPropertyExceptionTest implements StandardThrowab
     public MissingSystemPropertyException createThrowable(final String message, final Throwable cause) {
         return new MissingSystemPropertyException(message, cause);
     }
-    
+
     @Override
     public Class<MissingSystemPropertyException> type() {
         return MissingSystemPropertyException.class;

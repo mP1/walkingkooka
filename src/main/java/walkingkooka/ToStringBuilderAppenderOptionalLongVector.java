@@ -49,7 +49,7 @@ final class ToStringBuilderAppenderOptionalLongVector extends ToStringBuilderApp
         final OptionalLong value = this.value;
         if (value.isPresent()) {
             builder.value(
-                    value.getAsLong()
+                value.getAsLong()
             );
         }
     }

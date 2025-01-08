@@ -20,7 +20,6 @@ package walkingkooka.predicate.character;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class AndCharPredicateTest extends LogicalCharPredicateTestCase<AndCharPredicate> {
@@ -100,7 +99,7 @@ final public class AndCharPredicateTest extends LogicalCharPredicateTestCase<And
     @Test
     public void testBothNotable() {
         final CharPredicate predicate = AndCharPredicate.wrap(this.not('a'),
-                this.not(CharPredicates.letter()));
+            this.not(CharPredicates.letter()));
         this.testFalse(predicate, 'a');
         this.testTrue(predicate, '1');
     }

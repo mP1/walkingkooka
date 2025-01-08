@@ -34,61 +34,61 @@ public final class ChainIterableIteratorTest implements IteratorTesting, ClassTe
     @Test
     public void testIterateHasNextAndNextOnly() {
         this.iterateUsingHasNextAndCheck(
-                this.createIterator(),
-                "1a", "2b", "3c"
+            this.createIterator(),
+            "1a", "2b", "3c"
         );
     }
 
     @Test
     public void testIterateHasNextAndNextOnly2() {
         this.iterateUsingHasNextAndCheck(
-                ChainIterableIterator.with(
-                        Lists.of("1a"),
-                        Lists.empty(),
-                        Lists.empty(),
-                        Lists.of("2b", "3c")
-                ),
-                "1a", "2b", "3c"
+            ChainIterableIterator.with(
+                Lists.of("1a"),
+                Lists.empty(),
+                Lists.empty(),
+                Lists.of("2b", "3c")
+            ),
+            "1a", "2b", "3c"
         );
     }
 
     @Test
     public void testIterateNextOnly() {
         this.iterateAndCheck(
-                this.createIterator(),
-                "1a", "2b", "3c"
+            this.createIterator(),
+            "1a", "2b", "3c"
         );
     }
 
     @Test
     public void testIterateNextOnly2() {
         this.iterateAndCheck(
-                ChainIterableIterator.with(
-                        Lists.of("1a"),
-                        Lists.empty(),
-                        Lists.empty(),
-                        Lists.of("2b", "3c")
-                ),
-                "1a", "2b", "3c"
+            ChainIterableIterator.with(
+                Lists.of("1a"),
+                Lists.empty(),
+                Lists.empty(),
+                Lists.of("2b", "3c")
+            ),
+            "1a", "2b", "3c"
         );
     }
 
     @Test
     public void testLazyIterator() {
         final Iterator<String> iterator = ChainIterableIterator.with(
-                Lists.of("1a"),
-                () -> {
-                    throw new UnsupportedOperationException();
-                }
+            Lists.of("1a"),
+            () -> {
+                throw new UnsupportedOperationException();
+            }
         );
 
         this.checkEquals(
-                "1a",
-                iterator.next()
+            "1a",
+            iterator.next()
         );
         assertThrows(
-                UnsupportedOperationException.class,
-                () -> iterator.next()
+            UnsupportedOperationException.class,
+            () -> iterator.next()
         );
     }
 
@@ -103,21 +103,21 @@ public final class ChainIterableIteratorTest implements IteratorTesting, ClassTe
         iterator.remove();
 
         this.checkEquals(
-                Lists.of("2b"),
-                iterable
+            Lists.of("2b"),
+            iterable
         );
 
         this.removeWithoutNextFails(
-                iterator
+            iterator
         );
     }
 
     private ChainIterableIterator<String> createIterator() {
         return ChainIterableIterator.with(
-                        Lists.of("1a"),
-                        Lists.empty(),
-                        Lists.of("2b", "3c")
-                );
+            Lists.of("1a"),
+            Lists.empty(),
+            Lists.of("2b", "3c")
+        );
     }
 
     // ClassTesting.....................................................................................................

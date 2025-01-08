@@ -20,7 +20,7 @@ package walkingkooka.stream.push;
 import walkingkooka.ToStringBuilder;
 
 public abstract class PushableStreamConsumerStreamIntermediatePushableStreamConsumerTestCase<P extends PushableStreamConsumerStreamIntermediatePushableStreamConsumer<String>>
-extends PushableStreamConsumerStreamPushableStreamConsumerTestCase2<P> {
+    extends PushableStreamConsumerStreamPushableStreamConsumerTestCase2<P> {
 
     PushableStreamConsumerStreamIntermediatePushableStreamConsumerTestCase() {
         super();

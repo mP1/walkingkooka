@@ -32,10 +32,10 @@ final class OrCharPredicate extends LogicalCharPredicate implements CharPredicat
         Objects.requireNonNull(right, "right CharPredicate");
 
         return left.equals(right) ?
-                left :
-                left instanceof Orable ?
-                        left.or(right) :
-                        right instanceof Orable ? right.or(left) : new OrCharPredicate(left, right);
+            left :
+            left instanceof Orable ?
+                left.or(right) :
+                right instanceof Orable ? right.or(left) : new OrCharPredicate(left, right);
     }
 
     /**

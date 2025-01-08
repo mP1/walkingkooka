@@ -29,8 +29,8 @@ import java.util.Comparator;
  * Interface implemented by names. Names are immutable and should also implement {@link Comparable}.
  */
 public interface Name extends Value<String>,
-        HasCaseSensitivity,
-        HasText {
+    HasCaseSensitivity,
+    HasText {
 
     /**
      * A {@link Comparator} for {@link Name} using the given {@link CaseSensitivity}.
@@ -50,10 +50,10 @@ public interface Name extends Value<String>,
         final int length = value.length();
         if (length < min || length >= max) {
             throw new InvalidTextLengthException(
-                    label,
-                    value,
-                    min,
-                    max
+                label,
+                value,
+                min,
+                max
             );
         }
         return value;

@@ -19,7 +19,7 @@ package walkingkooka.text;
 
 import java.util.Objects;
 
-final class GlobPatternComponentTextLiteral extends GlobPatternComponent{
+final class GlobPatternComponentTextLiteral extends GlobPatternComponent {
 
     static GlobPatternComponentTextLiteral with(final String text) {
         return new GlobPatternComponentTextLiteral(text);
@@ -57,16 +57,16 @@ final class GlobPatternComponentTextLiteral extends GlobPatternComponent{
         final String required = this.text;
 
         return textPos < text.length() &&
-                context.caseSensitivity.startsWith(
-                        text,
-                        required,
-                        textPos
-                ) &&
-                this.next.test(
-                        text,
-                        textPos + required.length(),
-                        context
-                );
+            context.caseSensitivity.startsWith(
+                text,
+                required,
+                textPos
+            ) &&
+            this.next.test(
+                text,
+                textPos + required.length(),
+                context
+            );
     }
 
     private final String text;
@@ -80,7 +80,7 @@ final class GlobPatternComponentTextLiteral extends GlobPatternComponent{
 
     @Override
     public boolean equals(final Object other) {
-        return other == this || other instanceof GlobPatternComponentTextLiteral && this.equals0((GlobPatternComponentTextLiteral)other);
+        return other == this || other instanceof GlobPatternComponentTextLiteral && this.equals0((GlobPatternComponentTextLiteral) other);
     }
 
     private boolean equals0(final GlobPatternComponentTextLiteral other) {

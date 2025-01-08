@@ -36,25 +36,25 @@ public interface BeanPropertiesTesting extends Testing {
     default void allPropertiesNeverReturnNullCheck(final Object object,
                                                    final Predicate<Method> skip) throws Exception {
         final Predicate<Method> filter = (method) -> !MethodAttributes.STATIC.is(method) &&
-                method.getReturnType() != Void.class &&
-                method.getParameterTypes().length == 0 &&
-                method.getDeclaringClass() != Object.class &&
-                !skip.test(method);
+            method.getReturnType() != Void.class &&
+            method.getParameterTypes().length == 0 &&
+            method.getDeclaringClass() != Object.class &&
+            !skip.test(method);
 
         final List<Method> properties = Arrays.stream(object.getClass().getMethods())
-                .filter(filter)
-                .collect(Collectors.toList());
+            .filter(filter)
+            .collect(Collectors.toList());
         this.checkNotEquals(
-                0,
-                properties.size(),
-                () -> "Found zero properties for type=" + object.getClass().getName()
+            0,
+            properties.size(),
+            () -> "Found zero properties for type=" + object.getClass().getName()
         );
         for (Method method : properties) {
             method.setAccessible(true);
             this.checkNotEquals(
-                    null,
-                    method.invoke(object),
-                    () -> "null should not have been returned by " + method + " for " + object
+                null,
+                method.invoke(object),
+                () -> "null should not have been returned by " + method + " for " + object
             );
         }
     }
