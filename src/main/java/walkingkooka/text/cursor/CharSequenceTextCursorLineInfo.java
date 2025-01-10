@@ -71,7 +71,7 @@ final class CharSequenceTextCursorLineInfo implements TextCursorLineInfo {
     }
 
     /**
-     * Builds a string with with the column and line number separated by a comma and surrounded by parenthesis.
+     * Builds a string with the column and line number separated by a comma and surrounded by parenthesis.
      */
     @Override
     public String summary() {

@@ -42,7 +42,7 @@ public interface TextCursorLineInfo extends TextCursorLike,
     int column();
 
     /**
-     * Builds a string with with the column and line number separated by a comma and surrounded by parenthesis.
+     * Builds a string with the column and line number separated by a comma and surrounded by parenthesis.
      */
     String summary();
 
