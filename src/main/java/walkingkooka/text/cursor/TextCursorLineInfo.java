@@ -17,7 +17,10 @@
 
 package walkingkooka.text.cursor;
 
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.text.HasTextOffset;
+
+import java.util.Optional;
 
 /**
  * A snapshot in time about the position of the {@link TextCursor}.
@@ -51,4 +54,22 @@ public interface TextCursorLineInfo extends TextCursorLike,
      */
     @Override
     int textOffset();
+
+    /**
+     * Builds a {@link InvalidCharacterException} from this {@link TextCursorLineInfo}.
+     * If the cursor has advanced past the end of the text, this returns an {@link Optional#empty()}.
+     */
+    default Optional<InvalidCharacterException> invalidCharacterException() {
+        final String text = this.text().toString();
+        final int textOffset = this.textOffset();
+
+        return Optional.ofNullable(
+            textOffset >= 0 && textOffset < text.length() ?
+                new InvalidCharacterException(
+                    text,
+                    textOffset
+                ) :
+                null
+        );
+    }
 }
