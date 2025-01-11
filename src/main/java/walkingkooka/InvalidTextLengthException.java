@@ -84,6 +84,7 @@ public class InvalidTextLengthException extends InvalidTextException {
         }
     }
 
+    @Override
     public String text() {
         return this.text;
     }

@@ -43,6 +43,7 @@ public class EmptyTextException extends InvalidTextException {
         CharSequences.failIfNullOrEmpty(label, "label");
     }
 
+    @Override
     public String text() {
         return "";
     }
