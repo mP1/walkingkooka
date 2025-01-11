@@ -35,6 +35,9 @@ public class InvalidTextLengthException extends InvalidTextException {
 
         final int length = text.length();
         if (length < min || length > max) {
+            if (0 == length) {
+                throw new EmptyTextException(label);
+            }
             throw new InvalidTextLengthException(label, text, min, max);
         }
         return text;
