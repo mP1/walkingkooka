@@ -18,6 +18,7 @@
 package walkingkooka.text.cursor;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.EmptyTextException;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
@@ -102,6 +103,74 @@ public final class TextCursorLineInfoTest implements ClassTesting<TextCursorLine
         this.checkEquals(
             expected,
             info.invalidCharacterException()
+        );
+    }
+
+    // emptyTextOrInvalidCharacterExceptionOrLast.......................................................................
+
+    private final static String EMPTY_TEXT = "EMPTY_TEXT_123";
+
+    @Test
+    public void testEmptyTextOrInvalidCharacterExceptionOrLastWhenTextEmpty() {
+        final String text = "";
+
+        this.emptyTextOrInvalidCharacterExceptionOrLastAndCheck(
+            TextCursors.charSequence(text)
+                .lineInfo(),
+            new EmptyTextException(EMPTY_TEXT)
+        );
+    }
+
+    @Test
+    public void testEmptyTextOrInvalidCharacterExceptionOrLastWhenStart() {
+        final String text = "ABC";
+
+        this.emptyTextOrInvalidCharacterExceptionOrLastAndCheck(
+            TextCursors.charSequence(text)
+                .lineInfo(),
+            new InvalidCharacterException(
+                text,
+                0
+            )
+        );
+    }
+
+    @Test
+    public void testEmptyTextOrInvalidCharacterExceptionOrLastWhenLastChar() {
+        final String text = "ABC";
+
+        this.emptyTextOrInvalidCharacterExceptionOrLastAndCheck(
+            TextCursors.charSequence(text)
+                .next()
+                .next()
+                .lineInfo(),
+            new InvalidCharacterException(
+                text,
+                2
+            )
+        );
+    }
+
+    @Test
+    public void testEmptyTextOrInvalidCharacterExceptionOrLastWhenTextCursorEmpty() {
+        final String text = "ABC";
+
+        this.emptyTextOrInvalidCharacterExceptionOrLastAndCheck(
+            TextCursors.charSequence(text)
+                .end()
+                .lineInfo(),
+            new InvalidCharacterException(
+                text,
+                2
+            )
+        );
+    }
+
+    private void emptyTextOrInvalidCharacterExceptionOrLastAndCheck(final TextCursorLineInfo info,
+                                                                    final IllegalArgumentException expected) {
+        this.checkEquals(
+            expected,
+            info.emptyTextOrInvalidCharacterExceptionOrLast(EMPTY_TEXT)
         );
     }
 
