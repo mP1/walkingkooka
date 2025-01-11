@@ -47,16 +47,12 @@ public interface Name extends Value<String>,
                               final String value,
                               final int min,
                               final int max) {
-        final int length = value.length();
-        if (length < min || length >= max) {
-            throw new InvalidTextLengthException(
-                label,
-                value,
-                min,
-                max
-            );
-        }
-        return value;
+        return InvalidTextLengthException.throwIfFail(
+            label,
+            value,
+            min,
+            max
+        );
     }
 
     @Override
