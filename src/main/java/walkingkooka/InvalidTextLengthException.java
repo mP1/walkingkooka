@@ -27,12 +27,25 @@ import java.util.Objects;
  */
 public class InvalidTextLengthException extends InvalidTextException {
 
+    public static String throwIfFail(final String label,
+                                     final String text,
+                                     final int min,
+                                     final int max) {
+        checkParameters(label, text, min, max);
+
+        final int length = text.length();
+        if (length < min || length > max) {
+            throw new InvalidTextLengthException(label, text, min, max);
+        }
+        return text;
+    }
+
     public InvalidTextLengthException(final String label,
                                       final String text,
                                       final int min,
                                       final int max) {
         super();
-        checkText(label, text, min, max);
+        checkParameters(label, text, min, max);
         this.label = label;
         this.text = text;
         this.min = min;
@@ -45,17 +58,17 @@ public class InvalidTextLengthException extends InvalidTextException {
                                       final int max,
                                       final Throwable cause) {
         super(cause);
-        checkText(label, text, min, max);
+        checkParameters(label, text, min, max);
         this.label = label;
         this.text = text;
         this.min = min;
         this.max = max;
     }
 
-    private static void checkText(final String label,
-                                  final String text,
-                                  final int min,
-                                  final int max) {
+    private static void checkParameters(final String label,
+                                        final String text,
+                                        final int min,
+                                        final int max) {
         Whitespace.failIfNullOrEmptyOrWhitespace(label, "label");
         Objects.requireNonNull(text, "text");
 

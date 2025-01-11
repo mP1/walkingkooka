@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.ThrowableTesting2;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<InvalidTextLengthException>,
@@ -30,6 +31,91 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<I
     private final static String TEXT = "abc!456";
     private final static int MIN = 2;
     private final static int MAX = 5;
+
+    // throwIfFail......................................................................................................
+
+    @Test
+    public void testThrowIfFailWhenTextLengthMin() {
+        final String text = "Hello";
+
+        assertSame(
+            text,
+            InvalidTextLengthException.throwIfFail(
+                "Label123",
+                text,
+                5,
+                20
+            )
+        );
+    }
+
+    @Test
+    public void testThrowIfFailWhenTextLengthMax() {
+        final String text = "Hello";
+
+        assertSame(
+            text,
+            InvalidTextLengthException.throwIfFail(
+                "Label123",
+                text,
+                0,
+                5
+            )
+        );
+    }
+
+    @Test
+    public void testThrowIfFailWhenTextLengthBetween() {
+        final String text = "Hello";
+
+        assertSame(
+            text,
+            InvalidTextLengthException.throwIfFail(
+                "Label123",
+                text,
+                1,
+                10
+            )
+        );
+    }
+
+    @Test
+    public void testThrowIfFailWhenLessThanMin() {
+        final InvalidTextLengthException thrown = assertThrows(
+            InvalidTextLengthException.class,
+            () -> InvalidTextLengthException.throwIfFail(
+                "Label123",
+                "Hello",
+                10,
+                20
+            )
+        );
+
+        this.checkMessage(
+            thrown,
+            "Length 5 of \"Label123\" not between 10..20 = \"Hello\""
+        );
+    }
+
+    @Test
+    public void testThrowIfFailWhenGreaterThanMax() {
+        final InvalidTextLengthException thrown = assertThrows(
+            InvalidTextLengthException.class,
+            () -> InvalidTextLengthException.throwIfFail(
+                "Label123",
+                "Hello",
+                1,
+                2
+            )
+        );
+
+        this.checkMessage(
+            thrown,
+            "Length 5 of \"Label123\" not between 1..2 = \"Hello\""
+        );
+    }
+
+    // with.............................................................................................................
 
     @SuppressWarnings("ThrowableNotThrown")
     @Test
