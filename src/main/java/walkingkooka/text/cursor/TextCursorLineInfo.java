@@ -17,7 +17,9 @@
 
 package walkingkooka.text.cursor;
 
+import walkingkooka.EmptyTextException;
 import walkingkooka.InvalidCharacterException;
+import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasTextOffset;
 
 import java.util.Optional;
@@ -65,11 +67,41 @@ public interface TextCursorLineInfo extends TextCursorLike,
 
         return Optional.ofNullable(
             textOffset >= 0 && textOffset < text.length() ?
-                new InvalidCharacterException(
+                this.invalidCharacterException(
                     text,
                     textOffset
                 ) :
                 null
+        );
+    }
+
+    /**
+     * Returns a {@link EmptyTextException} if the text is empty of a {@link InvalidCharacterException}.
+     * This is useful to provide an {@link IllegalArgumentException} to handle all text position cases.
+     */
+    default IllegalArgumentException emptyTextOrInvalidCharacterExceptionOrLast(final String emptyTextLabel) {
+        CharSequences.failIfNullOrEmpty(emptyTextLabel, "emptyTextLabel");
+
+        final String text = this.text()
+            .toString();
+        final int textOffset = this.textOffset();
+
+        return text.isEmpty() ?
+            new EmptyTextException(emptyTextLabel) :
+            this.invalidCharacterException()
+                .orElseGet(
+                    () -> this.invalidCharacterException(
+                        text,
+                        textOffset - 1
+                    )
+                );
+    }
+
+    private InvalidCharacterException invalidCharacterException(final String text,
+                                                                final int textOffset) {
+        return new InvalidCharacterException(
+            text,
+            textOffset
         );
     }
 }
