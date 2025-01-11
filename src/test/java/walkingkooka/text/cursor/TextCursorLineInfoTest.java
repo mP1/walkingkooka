@@ -29,6 +29,16 @@ public final class TextCursorLineInfoTest implements ClassTesting<TextCursorLine
     // invalidCharacterException........................................................................................
 
     @Test
+    public void testInvalidCharacterExceptionWhenEmpty() {
+        final String text = "";
+
+        this.invalidCharacterExceptionAndCheck(
+            TextCursors.charSequence(text)
+                .lineInfo()
+        );
+    }
+
+    @Test
     public void testInvalidCharacterExceptionWhenStart() {
         final String text = "ABC";
 
@@ -72,6 +82,12 @@ public final class TextCursorLineInfoTest implements ClassTesting<TextCursorLine
         );
     }
 
+    private void invalidCharacterExceptionAndCheck(final TextCursorLineInfo info) {
+        this.invalidCharacterExceptionAndCheck(
+            info,
+            Optional.empty()
+        );
+    }
 
     private void invalidCharacterExceptionAndCheck(final TextCursorLineInfo info,
                                                    final InvalidCharacterException expected) {
