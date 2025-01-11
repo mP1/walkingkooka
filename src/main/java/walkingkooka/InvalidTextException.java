@@ -17,10 +17,13 @@
 
 package walkingkooka;
 
+import walkingkooka.text.HasText;
+
 /**
  * An {@link IllegalArgumentException} that reports invalid text.
  */
-public abstract class InvalidTextException extends IllegalArgumentException {
+public abstract class InvalidTextException extends IllegalArgumentException
+    implements HasText {
 
     InvalidTextException() {
         super();

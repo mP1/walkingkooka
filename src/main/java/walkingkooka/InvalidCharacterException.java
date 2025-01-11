@@ -77,6 +77,7 @@ public class InvalidCharacterException extends InvalidTextException implements H
         }
     }
 
+    @Override
     public String text() {
         return this.text;
     }
