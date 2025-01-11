@@ -80,6 +80,24 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<I
     }
 
     @Test
+    public void testThrowIfFailWhenLessThanMinAndEmpty() {
+        final EmptyTextException thrown = assertThrows(
+            EmptyTextException.class,
+            () -> InvalidTextLengthException.throwIfFail(
+                "Label123",
+                "",
+                10,
+                20
+            )
+        );
+
+        this.checkMessage(
+            thrown,
+            "Empty \"Label123\""
+        );
+    }
+
+    @Test
     public void testThrowIfFailWhenLessThanMin() {
         final InvalidTextLengthException thrown = assertThrows(
             InvalidTextLengthException.class,
