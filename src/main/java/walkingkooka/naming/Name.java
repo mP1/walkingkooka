@@ -17,7 +17,6 @@
 
 package walkingkooka.naming;
 
-import walkingkooka.InvalidTextLengthException;
 import walkingkooka.Value;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.HasCaseSensitivity;
@@ -37,22 +36,6 @@ public interface Name extends Value<String>,
      */
     static <T extends Name> Comparator<T> comparator(final CaseSensitivity caseSensitivity) {
         return NameComparator.with(caseSensitivity);
-    }
-
-    /**
-     * Helper that verifies the name is between the given min/max, throwing a {@link InvalidTextLengthException} if
-     * the test fails.
-     */
-    static String checkLength(final String label,
-                              final String value,
-                              final int min,
-                              final int max) {
-        return InvalidTextLengthException.throwIfFail(
-            label,
-            value,
-            min,
-            max
-        );
     }
 
     @Override
