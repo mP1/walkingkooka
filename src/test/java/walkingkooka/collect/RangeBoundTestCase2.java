@@ -88,13 +88,12 @@ public abstract class RangeBoundTestCase2<B extends RangeBound<Integer>> extends
     }
 
     @Override
-    public final String isMethodTypeNamePrefix() {
-        return RangeBound.class.getSimpleName();
-    }
-
-    @Override
-    public final String isMethodTypeNameSuffix() {
-        return "";
+    public String toIsMethodName(final String typeName) {
+        return this.toIsMethodNameWithPrefixSuffix(
+            typeName,
+            RangeBound.class.getSimpleName(), // drop-prefix
+            "" // drop-suffix
+        );
     }
 
     @Override

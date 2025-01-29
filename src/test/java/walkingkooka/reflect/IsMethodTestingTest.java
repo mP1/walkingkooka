@@ -50,13 +50,12 @@ public final class IsMethodTestingTest implements Testing {
         }
 
         @Override
-        public String isMethodTypeNamePrefix() {
-            return "";
-        }
-
-        @Override
-        public String isMethodTypeNameSuffix() {
-            return "";
+        public String toIsMethodName(final String typeName) {
+            return this.toIsMethodNameWithPrefixSuffix(
+                typeName,
+                "",
+                ""
+            );
         }
 
         @Override
@@ -93,13 +92,12 @@ public final class IsMethodTestingTest implements Testing {
         }
 
         @Override
-        public String isMethodTypeNamePrefix() {
-            return "Test";
-        }
-
-        @Override
-        public String isMethodTypeNameSuffix() {
-            return "";
+        public String toIsMethodName(final String typeName) {
+            return this.toIsMethodNameWithPrefixSuffix(
+                typeName,
+                "Test",
+                ""
+            );
         }
 
         @Override
@@ -136,13 +134,12 @@ public final class IsMethodTestingTest implements Testing {
         }
 
         @Override
-        public String isMethodTypeNamePrefix() {
-            return "Test";
-        }
-
-        @Override
-        public String isMethodTypeNameSuffix() {
-            return "plant";
+        public String toIsMethodName(final String typeName) {
+            return this.toIsMethodNameWithPrefixSuffix(
+                typeName,
+                "Test",
+                "plant"
+            );
         }
 
         @Override
@@ -179,13 +176,12 @@ public final class IsMethodTestingTest implements Testing {
         }
 
         @Override
-        public String isMethodTypeNamePrefix() {
-            return "";
-        }
-
-        @Override
-        public String isMethodTypeNameSuffix() {
-            return "";
+        public String toIsMethodName(final String typeName) {
+            return this.toIsMethodNameWithPrefixSuffix(
+                typeName,
+                "",
+                ""
+            );
         }
 
         @Override
@@ -217,13 +213,12 @@ public final class IsMethodTestingTest implements Testing {
         }
 
         @Override
-        public String isMethodTypeNamePrefix() {
-            return "";
-        }
-
-        @Override
-        public String isMethodTypeNameSuffix() {
-            return "";
+        public String toIsMethodName(final String typeName) {
+            return this.toIsMethodNameWithPrefixSuffix(
+                typeName,
+                "",
+                ""
+            );
         }
 
         @Override
@@ -260,13 +255,12 @@ public final class IsMethodTestingTest implements Testing {
         }
 
         @Override
-        public String isMethodTypeNamePrefix() {
-            return "";
-        }
-
-        @Override
-        public String isMethodTypeNameSuffix() {
-            return "";
+        public String toIsMethodName(final String typeName) {
+            return this.toIsMethodNameWithPrefixSuffix(
+                typeName,
+                "",
+                ""
+            );
         }
 
         @Override
@@ -298,13 +292,12 @@ public final class IsMethodTestingTest implements Testing {
         }
 
         @Override
-        public String isMethodTypeNamePrefix() {
-            return "";
-        }
-
-        @Override
-        public String isMethodTypeNameSuffix() {
-            return "";
+        public String toIsMethodName(final String typeName) {
+            return this.toIsMethodNameWithPrefixSuffix(
+                typeName,
+                "",
+                ""
+            );
         }
 
         @Override
@@ -338,13 +331,12 @@ public final class IsMethodTestingTest implements Testing {
         }
 
         @Override
-        public String isMethodTypeNamePrefix() {
-            return "";
-        }
-
-        @Override
-        public String isMethodTypeNameSuffix() {
-            return "";
+        public String toIsMethodName(final String typeName) {
+            return this.toIsMethodNameWithPrefixSuffix(
+                typeName,
+                "",
+                ""
+            );
         }
 
         @Override
