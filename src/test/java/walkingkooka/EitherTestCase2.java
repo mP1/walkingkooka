@@ -141,13 +141,12 @@ public abstract class EitherTestCase2<E extends Either<L, R>, L, R> extends Eith
     }
 
     @Override
-    public String isMethodTypeNamePrefix() {
-        return Either.class.getSimpleName();
-    }
-
-    @Override
-    public String isMethodTypeNameSuffix() {
-        return "";
+    public String toIsMethodName(final String typeName) {
+        return this.toIsMethodNameWithPrefixSuffix(
+            typeName,
+            Either.class.getSimpleName(), // drop-prefix
+            "" // drop-suffix
+        );
     }
 
     @Override

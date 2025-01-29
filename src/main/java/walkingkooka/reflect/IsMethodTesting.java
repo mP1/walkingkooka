@@ -36,17 +36,15 @@ public interface IsMethodTesting<T> extends Testing {
     @Test
     default void testIsMethods() throws Exception {
         final T object = this.createIsMethodObject();
-        final String name = object.getClass().getSimpleName();
-
-        final String prefix = this.isMethodTypeNamePrefix();
-        final String suffix = this.isMethodTypeNameSuffix();
 
         // remove prefix and suffix and create is method name...
-        final String isMethodName = "is" + CharSequences.capitalize(
-            name.substring(prefix.length(),
-                name.length() - suffix.length()));
+        final String isMethodName = this.toIsMethodName(
+            object.getClass()
+                .getSimpleName()
+        );
 
-        final Method isMethod = object.getClass().getMethod(isMethodName);
+        final Method isMethod = object.getClass()
+            .getMethod(isMethodName);
         isMethod.setAccessible(true);
 
         this.checkEquals(
@@ -87,14 +85,27 @@ public interface IsMethodTesting<T> extends Testing {
     T createIsMethodObject();
 
     /**
-     * Common prefix that all classes share in their naming and should be removed prior to calculating is method name.
+     * Helper that transform the given {@link Class#getSimpleName()} to its isMethod name. Note the leading "is"
+     * should be included.
      */
-    String isMethodTypeNamePrefix();
+    String toIsMethodName(final String typeName);
 
-    /**
-     * Common suffix that all classes share in their naming and should be removed prior to calculating is method name.
-     */
-    String isMethodTypeNameSuffix();
+    default String toIsMethodNameWithPrefixSuffix(final String name,
+                                                  final String prefix,
+                                                  final String suffix) {
+        if (false == name.startsWith(prefix)) {
+            throw new IllegalArgumentException("Type " + CharSequences.quoteAndEscape(name) + " missing " + prefix);
+        }
+        if (false == name.endsWith(suffix)) {
+            throw new IllegalArgumentException("Type " + CharSequences.quoteAndEscape(name) + " missing " + suffix);
+        }
+
+        return "is" + CharSequences.capitalize(
+            name.substring(prefix.length(),
+                name.length() - suffix.length()
+            )
+        );
+    }
 
     /**
      * A {@link Predicate} that should match any is methods that should not be tested.
