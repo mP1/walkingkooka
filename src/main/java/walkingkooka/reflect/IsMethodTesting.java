@@ -90,19 +90,19 @@ public interface IsMethodTesting<T> extends Testing {
      */
     String toIsMethodName(final String typeName);
 
-    default String toIsMethodNameWithPrefixSuffix(final String name,
+    default String toIsMethodNameWithPrefixSuffix(final String typeName,
                                                   final String prefix,
                                                   final String suffix) {
-        if (false == name.startsWith(prefix)) {
-            throw new IllegalArgumentException("Type " + CharSequences.quoteAndEscape(name) + " missing " + prefix);
+        if (false == typeName.startsWith(prefix)) {
+            throw new IllegalArgumentException("Type " + CharSequences.quoteAndEscape(typeName) + " missing " + CharSequences.quoteAndEscape(prefix));
         }
-        if (false == name.endsWith(suffix)) {
-            throw new IllegalArgumentException("Type " + CharSequences.quoteAndEscape(name) + " missing " + suffix);
+        if (false == typeName.endsWith(suffix)) {
+            throw new IllegalArgumentException("Type " + CharSequences.quoteAndEscape(typeName) + " missing " + CharSequences.quoteAndEscape(suffix));
         }
 
         return "is" + CharSequences.capitalize(
-            name.substring(prefix.length(),
-                name.length() - suffix.length()
+            typeName.substring(prefix.length(),
+                typeName.length() - suffix.length()
             )
         );
     }
