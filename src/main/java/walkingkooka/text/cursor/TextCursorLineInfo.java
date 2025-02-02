@@ -67,7 +67,7 @@ public interface TextCursorLineInfo extends TextCursorLike,
 
         return Optional.ofNullable(
             textOffset >= 0 && textOffset < text.length() ?
-                this.invalidCharacterException(
+                new InvalidCharacterException(
                     text,
                     textOffset
                 ) :
@@ -90,18 +90,10 @@ public interface TextCursorLineInfo extends TextCursorLike,
             new EmptyTextException(emptyTextLabel) :
             this.invalidCharacterException()
                 .orElseGet(
-                    () -> this.invalidCharacterException(
+                    () -> new InvalidCharacterException(
                         text,
                         textOffset - 1
                     )
                 );
-    }
-
-    private InvalidCharacterException invalidCharacterException(final String text,
-                                                                final int textOffset) {
-        return new InvalidCharacterException(
-            text,
-            textOffset
-        );
     }
 }
