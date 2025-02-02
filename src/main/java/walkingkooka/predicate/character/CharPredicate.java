@@ -17,7 +17,6 @@
 
 package walkingkooka.predicate.character;
 
-import walkingkooka.InvalidCharacterException;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.text.CharSequences;
 
@@ -68,7 +67,10 @@ public interface CharPredicate {
         Objects.requireNonNull(chars, label);
         CharSequences.failIfNullOrEmpty(label, "label");
 
-        this.checkCharacters(chars);
+        CharPredicateHelper.checkCharacters(
+            this,
+            chars
+        );
 
         return chars;
     }
@@ -82,22 +84,11 @@ public interface CharPredicate {
         CharSequences.failIfNullOrEmpty(chars, label);
         CharSequences.failIfNullOrEmpty(label, "label");
 
-        this.checkCharacters(chars);
+        CharPredicateHelper.checkCharacters(
+            this,
+            chars
+        );
 
         return chars;
-    }
-
-    /**
-     * Checks that all characters pass the {@link CharPredicate} test.
-     */
-    private void checkCharacters(final CharSequence chars) {
-        final int length = chars.length();
-
-        for (int i = 0; i < length; i++) {
-            final char c = chars.charAt(i);
-            if (false == this.test(c)) {
-                throw new InvalidCharacterException(chars.toString(), i);
-            }
-        }
     }
 }
