@@ -192,8 +192,17 @@ final class PushableStreamConsumerStream<T> implements Stream<T>,
 
         final IntStream.Builder builder = IntStream.builder();
 
-        //noinspection ResultOfMethodCallIgnored
-        this.assembleStartAndReturnResult((closeables) -> PushableStreamConsumerStreamPushableStreamConsumer.forEach((t -> builder.accept(mapper.applyAsInt(t))), closeables));
+        this.assembleStartAndReturnResult(
+            (closeables) ->
+                PushableStreamConsumerStreamPushableStreamConsumer.forEach(
+                    (t ->
+                        builder.accept(
+                            mapper.applyAsInt(t)
+                        )
+                    ),
+                    closeables
+                )
+        );
 
         return builder.build();
     }
@@ -204,8 +213,14 @@ final class PushableStreamConsumerStream<T> implements Stream<T>,
 
         final LongStream.Builder builder = LongStream.builder();
 
-        //noinspection ResultOfMethodCallIgnored
-        this.assembleStartAndReturnResult((closeables) -> PushableStreamConsumerStreamPushableStreamConsumer.forEach((t -> builder.accept(mapper.applyAsLong(t))), closeables));
+        this.assembleStartAndReturnResult(
+            (closeables) ->
+                PushableStreamConsumerStreamPushableStreamConsumer.forEach(
+                    (t -> builder.accept(mapper.applyAsLong(t))
+                    ),
+                    closeables
+                )
+        );
 
         return builder.build();
     }
@@ -216,8 +231,13 @@ final class PushableStreamConsumerStream<T> implements Stream<T>,
 
         final DoubleStream.Builder builder = DoubleStream.builder();
 
-        //noinspection ResultOfMethodCallIgnored
-        this.assembleStartAndReturnResult((closeables) -> PushableStreamConsumerStreamPushableStreamConsumer.forEach((t -> builder.accept(mapper.applyAsDouble(t))), closeables));
+        this.assembleStartAndReturnResult(
+            (closeables) ->
+                PushableStreamConsumerStreamPushableStreamConsumer.forEach(
+                    (t -> builder.accept(mapper.applyAsDouble(t))),
+                    closeables
+                )
+        );
 
         return builder.build();
     }
@@ -235,13 +255,17 @@ final class PushableStreamConsumerStream<T> implements Stream<T>,
 
         final IntStream.Builder builder = IntStream.builder();
 
-        //noinspection ResultOfMethodCallIgnored
-        this.assembleStartAndReturnResult((closeables) -> PushableStreamConsumerStreamPushableStreamConsumer.forEach((t -> {
-            final IntStream stream = mapper.apply(t);
-            if (null != stream) {
-                stream.forEach(builder::add);
-            }
-        }), closeables));
+        this.assembleStartAndReturnResult(
+            (closeables) ->
+                PushableStreamConsumerStreamPushableStreamConsumer.forEach((t -> {
+                        final IntStream stream = mapper.apply(t);
+                        if (null != stream) {
+                            stream.forEach(builder::add);
+                        }
+                    }),
+                    closeables
+                )
+        );
 
         return builder.build();
     }
@@ -252,13 +276,19 @@ final class PushableStreamConsumerStream<T> implements Stream<T>,
 
         final LongStream.Builder builder = LongStream.builder();
 
-        //noinspection ResultOfMethodCallIgnored
-        this.assembleStartAndReturnResult((closeables) -> PushableStreamConsumerStreamPushableStreamConsumer.forEach((t -> {
-            final LongStream stream = mapper.apply(t);
-            if (null != stream) {
-                stream.forEach(builder::add);
-            }
-        }), closeables));
+        this.assembleStartAndReturnResult(
+            (closeables) ->
+                PushableStreamConsumerStreamPushableStreamConsumer.forEach(
+                    (t -> {
+                        final LongStream stream = mapper.apply(t);
+                        if (null != stream) {
+                            stream.forEach(builder::add);
+                        }
+                    }
+                    ),
+                    closeables
+                )
+        );
 
         return builder.build();
     }
@@ -269,13 +299,19 @@ final class PushableStreamConsumerStream<T> implements Stream<T>,
 
         final DoubleStream.Builder builder = DoubleStream.builder();
 
-        //noinspection ResultOfMethodCallIgnored
-        this.assembleStartAndReturnResult((closeables) -> PushableStreamConsumerStreamPushableStreamConsumer.forEach((t -> {
-            final DoubleStream stream = mapper.apply(t);
-            if (null != stream) {
-                stream.forEach(builder::add);
-            }
-        }), closeables));
+        this.assembleStartAndReturnResult(
+            (closeables) ->
+                PushableStreamConsumerStreamPushableStreamConsumer.forEach(
+                    (t -> {
+                        final DoubleStream stream = mapper.apply(t);
+                        if (null != stream) {
+                            stream.forEach(builder::add);
+                        }
+                    }
+                    ),
+                    closeables
+                )
+        );
 
         return builder.build();
     }
@@ -312,8 +348,13 @@ final class PushableStreamConsumerStream<T> implements Stream<T>,
 
     @Override
     public void forEachOrdered(final Consumer<? super T> action) {
-        //noinspection ResultOfMethodCallIgnored
-        this.assembleStartAndReturnResult((closeables) -> PushableStreamConsumerStreamPushableStreamConsumer.forEach(action, closeables));
+        this.assembleStartAndReturnResult(
+            (closeables) ->
+                PushableStreamConsumerStreamPushableStreamConsumer.forEach(
+                    action,
+                    closeables
+                )
+        );
     }
 
     // TERMINATOR: COLLECT ............................................................................................
