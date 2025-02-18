@@ -81,14 +81,14 @@ final public class Lists implements PublicStaticHelper {
     }
 
     /**
-     * {@see ImmutableList#singleton}.
+     * {@see ImmutableListImpl#singleton}.
      */
     public static <T> List<T> of(final T item) {
         return ImmutableListImpl.singleton(item);
     }
 
     /**
-     * {@see ImmutableList#wrap}
+     * {@see ImmutableListImpl#prepare}
      */
     @SafeVarargs
     public static <T> List<T> of(final T... items) {
