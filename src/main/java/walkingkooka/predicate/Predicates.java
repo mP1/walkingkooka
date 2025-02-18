@@ -115,7 +115,7 @@ final public class Predicates implements PublicStaticHelper {
      * Returns a {@link Predicate} that is composed of multiple glob expressions, with one for each token within the expression.
      * The predicate returns true if any glob pattern is matched.
      * <br>
-     * Note the {@link Predicate#toString()} returned will return the original expression verbatim.
+     * Note the {@link Object#toString()} returned will return the original expression verbatim.
      */
     public static Predicate<CharSequence> globPatterns(final String expression,
                                                        final CaseSensitivity caseSensitivity) {

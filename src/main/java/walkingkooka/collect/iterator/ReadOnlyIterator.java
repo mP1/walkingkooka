@@ -64,7 +64,7 @@ final class ReadOnlyIterator<T> implements Iterator<T> {
     final Iterator<T> iterator;
 
     /**
-     * Simply dumps the wrapped {@link Iterator#toString()}.
+     * Simply dumps the wrapped {@link Object#toString()}.
      */
     @Override
     public String toString() {
