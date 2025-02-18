@@ -83,19 +83,19 @@ final public class Lists implements PublicStaticHelper {
     /**
      * {@see ImmutableListImpl#singleton}.
      */
-    public static <T> List<T> of(final T item) {
-        return ImmutableListImpl.singleton(item);
+    public static <T> List<T> of(final T element) {
+        return ImmutableListImpl.singleton(element);
     }
 
     /**
      * {@see ImmutableListImpl#prepare}
      */
     @SafeVarargs
-    public static <T> List<T> of(final T... items) {
+    public static <T> List<T> of(final T... elements) {
         return ImmutableListImpl.prepare(
             Arrays.copyOf(
-                items,
-                items.length
+                elements,
+                elements.length
             )
         );
     }
