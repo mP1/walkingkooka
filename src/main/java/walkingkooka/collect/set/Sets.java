@@ -41,10 +41,14 @@ final public class Sets implements PublicStaticHelper {
     /**
      * Tests if both {@link Set} are equal using the {@link BiPredicate} to test each and every element.
      */
-    public static <T> boolean equals(final Set<T> Set,
-                                     final Set<T> other,
+    public static <T> boolean equals(final Set<T> left,
+                                     final Set<T> right,
                                      final BiPredicate<? super T, ? super T> equivalency) {
-        return Iterables.equals(Set, other, equivalency);
+        return Iterables.equals(
+            left,
+            right,
+            equivalency
+        );
     }
 
     /**
@@ -71,8 +75,8 @@ final public class Sets implements PublicStaticHelper {
     /**
      * {@see Collections#singleton(Object)}
      */
-    public static <T> Set<T> of(final T item) {
-        return ImmutableSetImplSingleton.singleton(item);
+    public static <T> Set<T> of(final T element) {
+        return ImmutableSetImplSingleton.singleton(element);
     }
 
     /**
