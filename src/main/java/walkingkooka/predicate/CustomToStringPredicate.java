@@ -22,7 +22,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
- * Wraps another {@link Predicate} replacing or ignoring its {@link Predicate#toString()} with the provided {@link String}.
+ * Wraps another {@link Predicate} replacing or ignoring its {@link Object#toString()} with the provided {@link String}.
  */
 final class CustomToStringPredicate<T> implements Predicate<T> {
 

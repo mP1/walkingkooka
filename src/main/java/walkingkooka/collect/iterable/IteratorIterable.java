@@ -58,7 +58,7 @@ final class IteratorIterable<T> implements Iterable<T> {
     private boolean given;
 
     /**
-     * Dumps the {@link Iterator#toString()}.
+     * Dumps the {@link Object#toString()}.
      */
     @Override
     public String toString() {

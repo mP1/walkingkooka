@@ -75,7 +75,7 @@ final class CharPredicatePredicate implements Predicate<Character> {
     }
 
     /**
-     * Dumps the wrapped {@link CharPredicate#toString()}.
+     * Dumps the wrapped {@link Object#toString()}.
      */
     @Override
     public String toString() {
