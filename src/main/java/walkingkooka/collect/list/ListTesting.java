@@ -36,10 +36,12 @@ public interface ListTesting extends CollectionTesting {
         );
     }
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     default <E> void getFails(final List<E> list,
                               final int index) {
-        assertThrows(IndexOutOfBoundsException.class, () -> list.get(index));
+        assertThrows(
+            IndexOutOfBoundsException.class,
+            () -> list.get(index)
+        );
     }
 
     default <E> void setFails(final List<E> list,

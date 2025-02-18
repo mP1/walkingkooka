@@ -56,7 +56,6 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     // allMatch..........................................................................................................
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test
     default void testAllMatchNullPredicateFails() {
         assertThrows(NullPointerException.class, () -> this.createStream().allMatch(null));
@@ -86,10 +85,13 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     // anyMatch..........................................................................................................
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test
     default void testAnyMatchNullPredicateFails() {
-        assertThrows(NullPointerException.class, () -> this.createStream().anyMatch(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createStream()
+                .anyMatch(null)
+        );
     }
 
     @Test
@@ -130,12 +132,15 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
             true);
     }
 
-    // noneMatch..........................................................................................................
+    // noneMatch........................................................................................................
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test
     default void testNoneMatchNullPredicateFails() {
-        assertThrows(NullPointerException.class, () -> this.createStream().noneMatch(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createStream()
+                .noneMatch(null)
+        );
     }
 
     @Test
@@ -178,10 +183,13 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     // collect..........................................................................................................
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test
     default void testCollectNullCollectorFails() {
-        assertThrows(NullPointerException.class, () -> this.createStream().collect(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createStream()
+                .collect(null)
+        );
     }
 
     @Test
@@ -198,10 +206,13 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     // filter............................................................................................................
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test
     default void testFilterNullPredicateFails() {
-        assertThrows(NullPointerException.class, () -> this.createStream().filter(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createStream()
+                .filter(null)
+        );
     }
 
     @Test
@@ -382,10 +393,13 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     // peek..........................................................................................................
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test
     default void testPeekNullConsumerFails() {
-        assertThrows(NullPointerException.class, () -> this.createStream().peek(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createStream()
+                .peek(null)
+        );
     }
 
     @Test
@@ -395,10 +409,13 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     // limit..........................................................................................................
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test
     default void testLimitInvalidMaxSizeFails() {
-        assertThrows(IllegalArgumentException.class, () -> this.createStream().limit(-1));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.createStream()
+                .limit(-1)
+        );
     }
 
     @Test
@@ -485,10 +502,13 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     // skip.limit..........................................................................................................
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test
     default void testSkipInvalidMaxSizeFails() {
-        assertThrows(IllegalArgumentException.class, () -> this.createStream().skip(-1));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.createStream()
+                .skip(-1)
+        );
     }
 
     @Test
@@ -550,18 +570,24 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     // max..........................................................................................................
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test
     default void testMaxNullComparatorFails() {
-        assertThrows(NullPointerException.class, () -> this.createStream().max(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createStream()
+                .max(null)
+        );
     }
 
     // min..........................................................................................................
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test
     default void testMinNullComparatorFails() {
-        assertThrows(NullPointerException.class, () -> this.createStream().min(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createStream()
+                .min(null)
+        );
     }
 
     // factory..........................................................................................................
