@@ -17,7 +17,6 @@
 
 package walkingkooka.collect.set;
 
-import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
 
 import java.util.AbstractSet;
@@ -37,11 +36,16 @@ final class ImmutableSortedSetImpl<E> extends AbstractSet<E> implements Immutabl
      * Returns a {@link ImmutableSortedSet} which is immutable including copying elements if necessary.
      */
     static <E> ImmutableSortedSet<E> with(final SortedSet<E> sortedSet) {
-        return sortedSet instanceof ImmutableSortedSet ?
-            Cast.to(sortedSet) :
-            new ImmutableSortedSetImpl<>(
-                new TreeSet<>(sortedSet)
-            );
+        ImmutableSortedSet<E> immutableSortedSet;
+
+        if (sortedSet instanceof ImmutableSortedSet) {
+            immutableSortedSet = (ImmutableSortedSet<E>) sortedSet;
+        } else {
+            final TreeSet<E> treeSet = new TreeSet<>(sortedSet.comparator());
+            treeSet.addAll(sortedSet);
+            immutableSortedSet = new ImmutableSortedSetImpl<>(treeSet);
+        }
+        return immutableSortedSet;
     }
 
     /**
