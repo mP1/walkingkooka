@@ -21,10 +21,46 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.IteratorTesting;
 
+import java.util.SortedSet;
 import java.util.TreeSet;
+
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class ImmutableSortedSetImplTest implements ImmutableSortedSetTesting<ImmutableSortedSetImpl<String>, String>,
     IteratorTesting {
+
+    @Test
+    public void testWithNoComparator() {
+        final SortedSet<String> sortedSet = new TreeSet<>();
+        sortedSet.add("a1");
+        sortedSet.add("b2");
+
+        final ImmutableSortedSet<String> immutableSortedSet = ImmutableSortedSetImpl.with(sortedSet);
+        assertSame(
+            sortedSet.comparator(),
+            immutableSortedSet.comparator(),
+            "comparator"
+        );
+    }
+
+    @Test
+    public void testWithComparator() {
+        final SortedSet<String> sortedSet = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+        sortedSet.add("a1");
+        sortedSet.add("b2");
+
+        final ImmutableSortedSet<String> immutableSortedSet = ImmutableSortedSetImpl.with(sortedSet);
+        assertSame(
+            sortedSet.comparator(),
+            immutableSortedSet.comparator(),
+            "comparator"
+        );
+
+        this.containsAndCheck(
+            immutableSortedSet,
+            "A1"
+        );
+    }
 
     @Test
     public void testConcat() {
