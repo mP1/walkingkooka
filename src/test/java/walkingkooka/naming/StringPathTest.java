@@ -37,14 +37,22 @@ final public class StringPathTest implements PathTesting<StringPath, StringName>
     public void testIfClassIsFinalIfAllConstructorsArePrivate() {
     }
 
+    // parse............. ..............................................................................................
+
     @Test
     public void testParseMissingRequiredLeadingSlashFails() {
-        this.parseStringFails("without-leading-slash", IllegalArgumentException.class);
+        this.parseStringFails(
+            "without-leading-slash",
+            IllegalArgumentException.class
+        );
     }
 
     @Test
     public void testParseEmptyComponentFails() {
-        this.parseStringFails("/before//after", IllegalArgumentException.class);
+        this.parseStringFails(
+            "/before//after",
+            IllegalArgumentException.class
+        );
     }
 
     @Test
@@ -86,6 +94,23 @@ final public class StringPathTest implements PathTesting<StringPath, StringName>
         this.parentAbsentCheck(path);
     }
 
+    @Override
+    public StringPath parseString(final String text) {
+        return StringPath.parse(text);
+    }
+
+    @Override
+    public RuntimeException parseStringFailedExpected(final RuntimeException expected) {
+        return expected;
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
+        return expected;
+    }
+
+    // appendXXX........................................................................................................
+
     @Test
     public void testAppendName() {
         final StringPath path = StringPath.parse("/one/two/three")
@@ -126,21 +151,6 @@ final public class StringPathTest implements PathTesting<StringPath, StringName>
         );
     }
 
-    @Test
-    public void testEqualsDifferentPath() {
-        this.checkNotEquals(StringPath.parse("/different"));
-    }
-
-    @Test
-    public void testCompareLess() {
-        this.compareToAndCheckLess(StringPath.parse("/zebra"));
-    }
-
-    @Test
-    public void testCompareMore() {
-        this.compareToAndCheckMore(StringPath.parse("/before"));
-    }
-
     @Override
     public StringPath root() {
         return StringPath.ROOT;
@@ -166,7 +176,24 @@ final public class StringPathTest implements PathTesting<StringPath, StringName>
         return StringPath.SEPARATOR;
     }
 
-    // ComparableTesting................................................................................................
+    // equals...........................................................................................................
+
+    @Test
+    public void testEqualsDifferentPath() {
+        this.checkNotEquals(StringPath.parse("/different"));
+    }
+
+    // compare..........................................................................................................
+
+    @Test
+    public void testCompareLess() {
+        this.compareToAndCheckLess(StringPath.parse("/zebra"));
+    }
+
+    @Test
+    public void testCompareMore() {
+        this.compareToAndCheckMore(StringPath.parse("/before"));
+    }
 
     @Override
     public StringPath createComparable() {
@@ -190,22 +217,5 @@ final public class StringPathTest implements PathTesting<StringPath, StringName>
     @Override
     public Set<StringPath> intentionalDuplicateConstants() {
         return Sets.empty();
-    }
-
-    // ParseStringTesting ..............................................................................................
-
-    @Override
-    public StringPath parseString(final String text) {
-        return StringPath.parse(text);
-    }
-
-    @Override
-    public RuntimeException parseStringFailedExpected(final RuntimeException expected) {
-        return expected;
-    }
-
-    @Override
-    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
-        return expected;
     }
 }
