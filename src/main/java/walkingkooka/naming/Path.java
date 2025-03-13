@@ -55,7 +55,7 @@ public interface Path<P extends Path<P, N>, N extends Name> extends Value<String
 
         P result = Cast.to(this);
 
-        for (N component : this) {
+        for (N component : path) {
             result = result.append(component);
         }
 
