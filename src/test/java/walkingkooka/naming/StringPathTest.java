@@ -87,6 +87,46 @@ final public class StringPathTest implements PathTesting<StringPath, StringName>
     }
 
     @Test
+    public void testAppendName() {
+        final StringPath path = StringPath.parse("/one/two/three")
+            .append(
+                StringName.with("four")
+            );
+        this.nameCheck(
+            path,
+            StringName.with("four")
+        );
+        this.valueCheck(
+            path,
+            "/one/two/three/four"
+        );
+        this.parentCheck(
+            path,
+            "/one/two/three"
+        );
+    }
+
+    @Test
+    public void testAppendPaths() {
+        final StringPath path = StringPath.parse("/one/two/three")
+            .append(
+                StringPath.parse("/four/five")
+            );
+        this.nameCheck(
+            path,
+            StringName.with("five")
+        );
+        this.valueCheck(
+            path,
+            "/one/two/three/four/five"
+        );
+        this.parentCheck(
+            path,
+            "/one/two/three/four"
+        );
+    }
+
+    @Test
     public void testEqualsDifferentPath() {
         this.checkNotEquals(StringPath.parse("/different"));
     }

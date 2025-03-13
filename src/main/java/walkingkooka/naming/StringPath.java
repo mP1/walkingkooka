@@ -33,10 +33,15 @@ final public class StringPath
      * {@link PathSeparator} instance
      */
     public final static PathSeparator SEPARATOR = PathSeparator.requiredAtStart('/');
+
     /**
      * Convenient constant holding the root.
      */
-    public final static StringPath ROOT = new StringPath(StringPath.SEPARATOR.string(), StringName.ROOT, Optional.empty());
+    public final static StringPath ROOT = new StringPath(
+        StringPath.SEPARATOR.string(),
+        StringName.ROOT,
+        Optional.empty()
+    );
 
     /**
      * Parses the {@link String} into a {@link StringPath}
@@ -76,24 +81,25 @@ final public class StringPath
     public StringPath append(final StringName name) {
         Objects.requireNonNull(name, "name");
 
-        if (StringName.ROOT.equals(name)) {
-            throw new IllegalArgumentException(StringPath.CANNOT_APPEND_ROOT_NAME);
-        }
-
-        final StringBuilder path = new StringBuilder();
-        if (false == this.isRoot()) {
-            path.append(this.path);
-        }
-        path.append(StringPath.SEPARATOR.character());
-        path.append(name.value());
-
-        return new StringPath(path.toString(), name, Optional.of(this));
+        return StringName.ROOT.equals(name) ?
+            this :
+            this.appendNonRootName(name);
     }
 
-    /**
-     * Thrown when attempting to add the root name to this {@link StringPath}.
-     */
-    private final static String CANNOT_APPEND_ROOT_NAME = "Cannot append root name.";
+    private StringPath appendNonRootName(final StringName name) {
+        final StringBuilder path = new StringBuilder();
+        path.append(this.path);
+        if (false == this.isRoot()) {
+            path.append(SEPARATOR);
+        }
+        path.append(name.value());
+
+        return new StringPath(
+            path.toString(), // path
+            name,
+            Optional.of(this) // parent
+        );
+    }
 
     @Override
     public String value() {
