@@ -146,17 +146,17 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
     }
 
     @Test
-    public void testAllTest() {
+    public void testTestAllTest() {
         this.testTrue(LOWER_VALUE);
     }
 
     @Test
-    public void testAllTest2() {
+    public void testTestAllTest2() {
         this.testTrue(ABOVE_LOWER_VALUE);
     }
 
     @Test
-    public void testAllToString() {
+    public void testToStringAll() {
         this.toStringAndCheck(Range.all(), "*");
     }
 
@@ -168,23 +168,35 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
     }
 
     @Test
-    public void testSingletonTestValueLess() {
-        this.testFalse(singleton(), BELOW_LOWER_VALUE);
+    public void testTestSingletonWithValueLess() {
+        this.testFalse(
+            singleton(),
+            BELOW_LOWER_VALUE
+        );
     }
 
     @Test
-    public void testSingletonTestValueEqual() {
-        this.testTrue(singleton(), LOWER_VALUE);
+    public void testTestSingletonWithValueEqual() {
+        this.testTrue(
+            singleton(),
+            LOWER_VALUE
+        );
     }
 
     @Test
-    public void testSingletonTestValueGreater() {
-        this.testFalse(singleton(), ABOVE_LOWER_VALUE);
+    public void testTestSingletonValueGreater() {
+        this.testFalse(
+            singleton(),
+            ABOVE_LOWER_VALUE
+        );
     }
 
     @Test
-    public void testSingletonToString() {
-        this.toStringAndCheck(singleton(), "" + LOWER_VALUE);
+    public void testToStringSingleton() {
+        this.toStringAndCheck(
+            singleton(),
+            "" + LOWER_VALUE
+        );
     }
 
     private static Range<CaseInsensitiveString> singleton() {
@@ -201,27 +213,42 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
 
     @Test
     public void testLessThanNullValueFails() {
-        assertThrows(NullPointerException.class, () -> Range.lessThan(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> Range.lessThan(null)
+        );
     }
 
     @Test
-    public void testLessThanTestValueLess() {
-        this.testTrue(lessThan(), BELOW_LOWER_VALUE);
+    public void testTestLessThanWithValueLess() {
+        this.testTrue(
+            lessThan(),
+            BELOW_LOWER_VALUE
+        );
     }
 
     @Test
-    public void testLessThanTestValueEqual() {
-        this.testFalse(lessThan(), LOWER_VALUE);
+    public void testTestLessThanWithValueEqual() {
+        this.testFalse(
+            lessThan(),
+            LOWER_VALUE
+        );
     }
 
     @Test
-    public void testLessThanTestValueGreater() {
-        this.testFalse(lessThan(), ABOVE_LOWER_VALUE);
+    public void testTestLessThanTestValueGreater() {
+        this.testFalse(
+            lessThan(),
+            ABOVE_LOWER_VALUE
+        );
     }
 
     @Test
-    public void testLessThanToString() {
-        this.toStringAndCheck(lessThan(), "<" + LOWER_VALUE);
+    public void testToStringLessThan() {
+        this.toStringAndCheck(
+            lessThan(),
+            "<" + LOWER_VALUE
+        );
     }
 
     private Range<CaseInsensitiveString> lessThan() {
@@ -231,34 +258,53 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
     // lessThanEquals ..................................................................................................
 
     @Test
-    public void testLessThanEquals() {
+    public void testTestLessThanEquals() {
         final int value = 123;
-        this.check(Range.lessThanEquals(value), RangeBound.all(), RangeBound.inclusive(value));
+        this.check(
+            Range.lessThanEquals(value),
+            RangeBound.all(),
+            RangeBound.inclusive(value)
+        );
     }
 
     @Test
     public void testLessThanEqualsNullValueFails() {
-        assertThrows(NullPointerException.class, () -> Range.lessThanEquals(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> Range.lessThanEquals(null)
+        );
     }
 
     @Test
-    public void testLessThanEqualsTestValueLess() {
-        this.testTrue(lessThanEquals(), BELOW_LOWER_VALUE);
+    public void testTestLessThanEqualsWithValueLess() {
+        this.testTrue(
+            lessThanEquals(),
+            BELOW_LOWER_VALUE
+        );
     }
 
     @Test
-    public void testLessThanEqualsTestValueEqual() {
-        this.testTrue(lessThanEquals(), LOWER_VALUE);
+    public void testTestLessThanEqualsTestWithValueEqual() {
+        this.testTrue(
+            lessThanEquals(),
+            LOWER_VALUE
+        );
     }
 
     @Test
-    public void testLessThanEqualsTestValueGreater() {
-        this.testFalse(lessThanEquals(), ABOVE_LOWER_VALUE);
+    public void testTestLessThanEqualsTestWithValueGreater() {
+        this.testFalse(
+            lessThanEquals(),
+            ABOVE_LOWER_VALUE
+        );
     }
 
     @Test
-    public void testLessThanEqualsToString() {
-        this.toStringAndCheck(lessThanEquals(), "<=" + LOWER_VALUE);
+    public void testToStringLessThanEquals() {
+        this.toStringAndCheck(
+            lessThanEquals(),
+            "<=" + LOWER_VALUE
+        );
     }
 
     private static Range<CaseInsensitiveString> lessThanEquals() {
@@ -275,27 +321,42 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
 
     @Test
     public void testGreaterThanNullValueFails() {
-        assertThrows(NullPointerException.class, () -> Range.greaterThan(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> Range.greaterThan(null)
+        );
     }
 
     @Test
-    public void testGreaterThanTestValueLess() {
-        this.testFalse(greaterThan(), BELOW_LOWER_VALUE);
+    public void testTestGreaterThanWithValueLess() {
+        this.testFalse(
+            greaterThan(),
+            BELOW_LOWER_VALUE
+        );
     }
 
     @Test
-    public void testGreaterThanTestValueEqual() {
-        this.testFalse(greaterThan(), LOWER_VALUE);
+    public void testTestGreaterThanWithValueEqual() {
+        this.testFalse(
+            greaterThan(),
+            LOWER_VALUE
+        );
     }
 
     @Test
-    public void testGreaterThanTestValueGreater() {
-        this.testTrue(greaterThan(), ABOVE_LOWER_VALUE);
+    public void testTestGreaterThanWithValueGreater() {
+        this.testTrue(
+            greaterThan(),
+            ABOVE_LOWER_VALUE
+        );
     }
 
     @Test
-    public void testGreaterThanToString() {
-        this.toStringAndCheck(greaterThan(), ">" + LOWER_VALUE);
+    public void testToStringGreaterThan() {
+        this.toStringAndCheck(
+            greaterThan(),
+            ">" + LOWER_VALUE
+        );
     }
 
     private static Range<CaseInsensitiveString> greaterThan() {
@@ -307,32 +368,51 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
     @Test
     public void testGreaterThanEquals() {
         final int value = 123;
-        this.check(Range.greaterThanEquals(value), RangeBound.inclusive(value), RangeBound.all());
+        this.check(
+            Range.greaterThanEquals(value),
+            RangeBound.inclusive(value),
+            RangeBound.all()
+        );
     }
 
     @Test
     public void testGreaterThanEqualsNullValueFails() {
-        assertThrows(NullPointerException.class, () -> Range.greaterThanEquals(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> Range.greaterThanEquals(null)
+        );
     }
 
     @Test
-    public void testGreaterThanEqualsTestValueLess() {
-        this.testFalse(greaterThanEquals(), BELOW_LOWER_VALUE);
+    public void testTestGreaterThanEqualsValueLess() {
+        this.testFalse(
+            greaterThanEquals(),
+            BELOW_LOWER_VALUE
+        );
     }
 
     @Test
-    public void testGreaterThanEqualsTestValueEqual() {
-        this.testTrue(greaterThanEquals(), LOWER_VALUE);
+    public void testTestGreaterThanEqualsValueEqual() {
+        this.testTrue(
+            greaterThanEquals(),
+            LOWER_VALUE
+        );
     }
 
     @Test
-    public void testGreaterThanEqualsTestValueGreater() {
-        this.testTrue(greaterThanEquals(), ABOVE_LOWER_VALUE);
+    public void testTestGreaterThanEqualsTestValueGreater() {
+        this.testTrue(
+            greaterThanEquals(),
+            ABOVE_LOWER_VALUE
+        );
     }
 
     @Test
-    public void testGreaterThanEqualsToString() {
-        this.toStringAndCheck(greaterThanEquals(), ">=" + LOWER_VALUE);
+    public void testToStringGreaterThanEquals() {
+        this.toStringAndCheck(
+            greaterThanEquals(),
+            ">=" + LOWER_VALUE
+        );
     }
 
     private static Range<CaseInsensitiveString> greaterThanEquals() {
