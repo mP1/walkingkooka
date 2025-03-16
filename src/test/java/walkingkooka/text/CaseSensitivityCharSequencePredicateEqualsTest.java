@@ -20,8 +20,8 @@ package walkingkooka.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-final public class CaseSensitivityCharSequencePredicateTest extends
-    CaseSensitivityCharSequencePredicateTemplateTestCase<CaseSensitivityCharSequencePredicate<String>> {
+final public class CaseSensitivityCharSequencePredicateEqualsTest extends
+    CaseSensitivityCharSequencePredicateTestCase<CaseSensitivityCharSequencePredicateEquals<String>> {
 
     @Override
     @Test
@@ -65,9 +65,9 @@ final public class CaseSensitivityCharSequencePredicateTest extends
     }
 
     @Override
-    CaseSensitivityCharSequencePredicate<String> createPredicate(final String chars,
-                                                                 final CaseSensitivity sensitivity) {
-        return CaseSensitivityCharSequencePredicate.with(chars, sensitivity);
+    CaseSensitivityCharSequencePredicateEquals<String> createPredicate(final String chars,
+                                                                       final CaseSensitivity sensitivity) {
+        return CaseSensitivityCharSequencePredicateEquals.with(chars, sensitivity);
     }
 
     @Override
@@ -76,7 +76,7 @@ final public class CaseSensitivityCharSequencePredicateTest extends
     }
 
     @Override
-    public Class<CaseSensitivityCharSequencePredicate<String>> type() {
-        return Cast.to(CaseSensitivityCharSequencePredicate.class);
+    public Class<CaseSensitivityCharSequencePredicateEquals<String>> type() {
+        return Cast.to(CaseSensitivityCharSequencePredicateEquals.class);
     }
 }

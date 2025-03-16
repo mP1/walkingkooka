@@ -20,8 +20,8 @@ package walkingkooka.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-final public class CaseSensitivityStartsWithCharSequencePredicateTest extends
-    CaseSensitivityCharSequencePredicateTemplateTestCase<CaseSensitivityStartsWithCharSequencePredicate<String>> {
+final public class CaseSensitivityCharSequencePredicateStartsWithTest extends
+    CaseSensitivityCharSequencePredicateTestCase<CaseSensitivityCharSequencePredicateStartsWith<String>> {
 
     @Test
     public void testSameCaseCaseSensitive() {
@@ -54,9 +54,9 @@ final public class CaseSensitivityStartsWithCharSequencePredicateTest extends
     }
 
     @Override
-    CaseSensitivityStartsWithCharSequencePredicate<String> createPredicate(final String chars,
+    CaseSensitivityCharSequencePredicateStartsWith<String> createPredicate(final String chars,
                                                                            final CaseSensitivity sensitivity) {
-        return CaseSensitivityStartsWithCharSequencePredicate.with(chars, sensitivity);
+        return CaseSensitivityCharSequencePredicateStartsWith.with(chars, sensitivity);
     }
 
     @Override
@@ -65,7 +65,7 @@ final public class CaseSensitivityStartsWithCharSequencePredicateTest extends
     }
 
     @Override
-    public Class<CaseSensitivityStartsWithCharSequencePredicate<String>> type() {
-        return Cast.to(CaseSensitivityStartsWithCharSequencePredicate.class);
+    public Class<CaseSensitivityCharSequencePredicateStartsWith<String>> type() {
+        return Cast.to(CaseSensitivityCharSequencePredicateStartsWith.class);
     }
 }

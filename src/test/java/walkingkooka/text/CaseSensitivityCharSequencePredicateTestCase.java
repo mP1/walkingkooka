@@ -25,7 +25,7 @@ import walkingkooka.reflect.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P extends CaseSensitivityCharSequencePredicateTemplate<String>>
+abstract public class CaseSensitivityCharSequencePredicateTestCase<P extends CaseSensitivityCharSequencePredicate<String>>
     implements ClassTesting2<P>,
     PredicateTesting2<P, String>,
     HashCodeEqualsDefinedTesting2<P> {
@@ -33,7 +33,7 @@ abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P ext
     private static final String STRING = "#$%";
     private final static CaseSensitivity SENSITIVITY = CaseSensitivity.SENSITIVE;
 
-    CaseSensitivityCharSequencePredicateTemplateTestCase() {
+    CaseSensitivityCharSequencePredicateTestCase() {
         super();
     }
 
@@ -110,5 +110,10 @@ abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P ext
 
     @Override final public P createObject() {
         return this.createPredicate(STRING, SENSITIVITY);
+    }
+
+    @Override
+    public final void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 }

@@ -17,44 +17,53 @@
 
 package walkingkooka.text;
 
-import java.util.Objects;
+import java.util.function.Predicate;
 
 /**
- * A {@link java.util.function.Predicate} that test any incoming {@link CharSequence} against a
- * {@link String} ignoring case.
+ * An abstract {@link Predicate} that test any {@link CharSequence} that start with the {@link
+ * CharSequence} ignoring the case.
  */
-final class CaseSensitivityCharSequencePredicate<C extends CharSequence> extends CaseSensitivityCharSequencePredicateTemplate<C> {
+abstract class CaseSensitivityCharSequencePredicate<C extends CharSequence> implements Predicate<C> {
 
     /**
-     * Creates a {@link CaseSensitivityCharSequencePredicate}
+     * Package private to limit sub classing.
      */
-    static <C extends CharSequence> CaseSensitivityCharSequencePredicate<C> with(final C chars,
-                                                                                 final CaseSensitivity sensitivity) {
-        Objects.requireNonNull(chars, "chars");
-        Objects.requireNonNull(sensitivity, "sensitivity");
-
-        return new CaseSensitivityCharSequencePredicate<>(chars, sensitivity);
+    CaseSensitivityCharSequencePredicate(final CharSequence chars,
+                                         final CaseSensitivity sensitivity) {
+        super();
+        this.chars = chars;
+        this.sensitivity = sensitivity;
     }
 
-    /**
-     * Private constructor use static factory.
-     */
-    private CaseSensitivityCharSequencePredicate(final C chars, final CaseSensitivity sensitivity) {
-        super(chars, sensitivity);
+    final CharSequence chars;
+
+    final CaseSensitivity sensitivity;
+
+    // Object...........................................................................................................
+
+    @Override
+    public final int hashCode() {
+        return this.sensitivity.hash(this.chars);
+    }
+
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
+    @Override
+    public final boolean equals(final Object other) {
+        return (this == other) || (this.canBeEqual(other)
+            && this.equals0((CaseSensitivityCharSequencePredicate<?>) other));
+    }
+
+    abstract boolean canBeEqual(Object other);
+
+    private boolean equals0(final CaseSensitivityCharSequencePredicate<?> other) {
+        final CaseSensitivity sensitivity = this.sensitivity;
+        return sensitivity.equals(this.chars, other.chars) && sensitivity == other.sensitivity;
     }
 
     @Override
-    public boolean test(final C value) {
-        return this.sensitivity.equals(value, this.chars);
+    public final String toString() {
+        return this.sensitivity.toString(this.toStringPrefix(), this.chars);
     }
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof CaseSensitivityCharSequencePredicate;
-    }
-
-    @Override
-    String toStringPrefix() {
-        return "";
-    }
+    abstract String toStringPrefix();
 }

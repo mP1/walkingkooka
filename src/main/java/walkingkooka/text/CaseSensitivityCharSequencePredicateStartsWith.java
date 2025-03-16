@@ -23,23 +23,23 @@ import java.util.Objects;
  * A {@link java.util.function.Predicate} that test any {@link CharSequence} that start with the
  * {@link CharSequence} ignoring the case.
  */
-final class CaseSensitivityStartsWithCharSequencePredicate<C extends CharSequence> extends CaseSensitivityCharSequencePredicateTemplate<C> {
+final class CaseSensitivityCharSequencePredicateStartsWith<C extends CharSequence> extends CaseSensitivityCharSequencePredicate<C> {
 
     /**
-     * Creates a {@link CaseSensitivityStartsWithCharSequencePredicate}
+     * Creates a {@link CaseSensitivityCharSequencePredicateStartsWith}
      */
-    static <C extends CharSequence> CaseSensitivityStartsWithCharSequencePredicate<C> with(
+    static <C extends CharSequence> CaseSensitivityCharSequencePredicateStartsWith<C> with(
         final C startsWith, final CaseSensitivity sensitivity) {
         CharSequences.failIfNullOrEmpty(startsWith, "startsWith");
         Objects.requireNonNull(sensitivity, "sensitivity");
 
-        return new CaseSensitivityStartsWithCharSequencePredicate<>(startsWith, sensitivity);
+        return new CaseSensitivityCharSequencePredicateStartsWith<>(startsWith, sensitivity);
     }
 
     /**
      * Private constructor use static factory.
      */
-    private CaseSensitivityStartsWithCharSequencePredicate(final C startsWith,
+    private CaseSensitivityCharSequencePredicateStartsWith(final C startsWith,
                                                            final CaseSensitivity sensitivity) {
         super(startsWith, sensitivity);
     }
@@ -51,7 +51,7 @@ final class CaseSensitivityStartsWithCharSequencePredicate<C extends CharSequenc
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof CaseSensitivityStartsWithCharSequencePredicate;
+        return other instanceof CaseSensitivityCharSequencePredicateStartsWith;
     }
 
     @Override
