@@ -24,33 +24,51 @@ final public class CaseSensitivityCharSequencePredicateStartsWithTest extends
     CaseSensitivityCharSequencePredicateTestCase<CaseSensitivityCharSequencePredicateStartsWith<String>> {
 
     @Test
-    public void testSameCaseCaseSensitive() {
-        this.testTrueCaseSensitive("abc", "abc def ghi");
+    public void testTestSameCaseCaseSensitive() {
+        this.testTrueCaseSensitive(
+            "abc",
+            "abc def ghi"
+        );
     }
 
     @Test
-    public void testEqualsDifferentCaseCaseSensitive() {
-        this.testFalseCaseSensitive("ABC", "abc def ghi");
+    public void testTestEqualsDifferentCaseCaseSensitive() {
+        this.testFalseCaseSensitive(
+            "ABC",
+            "abc def ghi"
+        );
     }
 
     @Test
-    public void testMissingCaseSensitive() {
-        this.testFalseCaseSensitive("xyz", "abc def ghi");
+    public void testTestMissingCaseSensitive() {
+        this.testFalseCaseSensitive(
+            "xyz",
+            "abc def ghi"
+        );
     }
 
     @Test
-    public void testSameCaseCaseInsensitive() {
-        this.testTrueCaseInsensitive("abc", "abc def ghi");
+    public void testTestSameCaseCaseInsensitive() {
+        this.testTrueCaseInsensitive(
+            "abc",
+            "abc def ghi"
+        );
     }
 
     @Test
-    public void testEqualsDifferentCaseCaseInsensitive() {
-        this.testTrueCaseInsensitive("ABC", "abc def ghi");
+    public void testTestEqualsDifferentCaseCaseInsensitive() {
+        this.testTrueCaseInsensitive(
+            "ABC",
+            "abc def ghi"
+        );
     }
 
     @Test
-    public void testMissingCaseInsensitive() {
-        this.testFalseCaseInsensitive("xyz", "abc def ghi");
+    public void testTestMissingCaseInsensitive() {
+        this.testFalseCaseInsensitive(
+            "xyz",
+            "abc def ghi"
+        );
     }
 
     @Override
@@ -63,6 +81,8 @@ final public class CaseSensitivityCharSequencePredicateStartsWithTest extends
     String prefix() {
         return "starts with ";
     }
+
+    // class............................................................................................................
 
     @Override
     public Class<CaseSensitivityCharSequencePredicateStartsWith<String>> type() {
