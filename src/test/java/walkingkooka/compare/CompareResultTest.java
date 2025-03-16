@@ -36,227 +36,349 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public final class CompareResultTest implements ClassTesting2<CompareResult>,
     PredicateTesting2<CompareResult, Integer> {
 
-    @Override
-    public void testTypeNaming() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testClassVisibility() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testAllMethodsVisibility() {
-        throw new UnsupportedOperationException();
-    }
-
-    // EQ................................................................
+    // EQ...............................................................................................................
 
     @Test
-    public void testEqNegative() {
-        this.testFalse2(CompareResult.EQ, Integer.MIN_VALUE);
+    public void testTestEqNegative() {
+        this.testFalse2(
+            CompareResult.EQ,
+            Integer.MIN_VALUE
+        );
     }
 
     @Test
-    public void testEqNegative2() {
-        this.testFalse2(CompareResult.EQ, -1);
+    public void testTestEqNegative2() {
+        this.testFalse2(
+            CompareResult.EQ,
+            -1
+        );
     }
 
     @Test
-    public void testEqZero() {
-        this.testTrue2(CompareResult.EQ, 0);
+    public void testTestEqZero() {
+        this.testTrue2(
+            CompareResult.EQ,
+            0
+        );
     }
 
     @Test
-    public void testEqPositive() {
-        this.testFalse2(CompareResult.EQ, +1);
+    public void testTestEqPositive() {
+        this.testFalse2(
+            CompareResult.EQ,
+            +1
+        );
     }
 
     @Test
-    public void testEqPositive2() {
-        this.testFalse2(CompareResult.EQ, Integer.MAX_VALUE);
+    public void testTestEqPositive2() {
+        this.testFalse2(
+            CompareResult.EQ,
+            Integer.MAX_VALUE
+        );
     }
 
-    // GT................................................................
+    // GT...............................................................................................................
 
     @Test
-    public void testGtNegative() {
-        this.testFalse2(CompareResult.GT, Integer.MIN_VALUE);
-    }
-
-    @Test
-    public void testGtNegative2() {
-        this.testFalse2(CompareResult.GT, -1);
-    }
-
-    @Test
-    public void testGtZero() {
-        this.testFalse2(CompareResult.GT, 0);
+    public void testTestGtNegative() {
+        this.testFalse2(
+            CompareResult.GT,
+            Integer.MIN_VALUE
+        );
     }
 
     @Test
-    public void testGtPositive() {
-        this.testTrue2(CompareResult.GT, +1);
+    public void testTestGtNegative2() {
+        this.testFalse2(
+            CompareResult.GT,
+            -1
+        );
     }
 
     @Test
-    public void testGtPositive2() {
-        this.testTrue2(CompareResult.GT, Integer.MAX_VALUE);
-    }
-
-    // GTE................................................................
-
-    @Test
-    public void testGteNegative() {
-        this.testFalse2(CompareResult.GTE, Integer.MIN_VALUE);
+    public void testTestGtZero() {
+        this.testFalse2(
+            CompareResult.GT,
+            0
+        );
     }
 
     @Test
-    public void testGteNegative2() {
-        this.testFalse2(CompareResult.GTE, -1);
+    public void testTestGtPositive() {
+        this.testTrue2(
+            CompareResult.GT,
+            +1
+        );
     }
 
     @Test
-    public void testGteZero() {
-        this.testTrue2(CompareResult.GTE, 0);
+    public void testTestGtPositive2() {
+        this.testTrue2(
+            CompareResult.GT,
+            Integer.MAX_VALUE
+        );
+    }
+
+    // GTE..............................................................................................................
+
+    @Test
+    public void testTestGteNegative() {
+        this.testFalse2(
+            CompareResult.GTE,
+            Integer.MIN_VALUE
+        );
     }
 
     @Test
-    public void testGtePositive() {
-        this.testTrue2(CompareResult.GTE, +1);
+    public void testTestGteNegative2() {
+        this.testFalse2(
+            CompareResult.GTE,
+            -1
+        );
     }
 
     @Test
-    public void testGtePositive2() {
-        this.testTrue2(CompareResult.GTE, Integer.MAX_VALUE);
-    }
-
-    // LT................................................................
-
-    @Test
-    public void testLtNegative() {
-        this.testTrue2(CompareResult.LT, Integer.MIN_VALUE);
+    public void testTestGteZero() {
+        this.testTrue2(
+            CompareResult.GTE,
+            0
+        );
     }
 
     @Test
-    public void testLtNegative2() {
-        this.testTrue2(CompareResult.LT, -1);
+    public void testTestGtePositive() {
+        this.testTrue2(
+            CompareResult.GTE,
+            +1
+        );
     }
 
     @Test
-    public void testLtZero() {
-        this.testFalse2(CompareResult.LT, 0);
+    public void testTestGtePositive2() {
+        this.testTrue2(
+            CompareResult.GTE, 
+            Integer.MAX_VALUE
+        );
+    }
+
+    // LT...............................................................................................................
+
+    @Test
+    public void testTestLtNegative() {
+        this.testTrue2(
+            CompareResult.LT,
+            Integer.MIN_VALUE
+        );
     }
 
     @Test
-    public void testLtPositive() {
-        this.testFalse2(CompareResult.LT, +1);
+    public void testTestLtNegative2() {
+        this.testTrue2(
+            CompareResult.LT,
+            -1
+        );
     }
 
     @Test
-    public void testLtPositive2() {
-        this.testFalse2(CompareResult.LT, Integer.MAX_VALUE);
-    }
-
-    // LTE................................................................
-
-    @Test
-    public void testLteNegative() {
-        this.testTrue2(CompareResult.LTE, Integer.MIN_VALUE);
+    public void testTestLtZero() {
+        this.testFalse2(
+            CompareResult.LT,
+            0
+        );
     }
 
     @Test
-    public void testLteNegative2() {
-        this.testTrue2(CompareResult.LTE, -1);
+    public void testTestLtPositive() {
+        this.testFalse2(
+            CompareResult.LT,
+            +1
+        );
     }
 
     @Test
-    public void testLteZero() {
-        this.testTrue2(CompareResult.LTE, 0);
+    public void testTestLtPositive2() {
+        this.testFalse2(
+            CompareResult.LT,
+            Integer.MAX_VALUE
+        );
+    }
+
+    // LTE..............................................................................................................
+
+    @Test
+    public void testTestLteNegative() {
+        this.testTrue2(
+            CompareResult.LTE,
+            Integer.MIN_VALUE
+        );
     }
 
     @Test
-    public void testLtePositive() {
-        this.testFalse2(CompareResult.LTE, +1);
+    public void testTestLteNegative2() {
+        this.testTrue2(
+            CompareResult.LTE,
+            -1
+        );
     }
 
     @Test
-    public void testLtePositive2() {
-        this.testFalse2(CompareResult.LTE, Integer.MAX_VALUE);
-    }
-
-    // NE................................................................
-
-    @Test
-    public void testNeNegative() {
-        this.testTrue2(CompareResult.NE, Integer.MIN_VALUE);
+    public void testTestLteZero() {
+        this.testTrue2(
+            CompareResult.LTE,
+            0
+        );
     }
 
     @Test
-    public void testNeNegative2() {
-        this.testTrue2(CompareResult.NE, -1);
+    public void testTestLtePositive() {
+        this.testFalse2(
+            CompareResult.LTE,
+            +1
+        );
     }
 
     @Test
-    public void testNeZero() {
-        this.testFalse2(CompareResult.NE, 0);
+    public void testTestLtePositive2() {
+        this.testFalse2(
+            CompareResult.LTE,
+            Integer.MAX_VALUE
+        );
+    }
+
+    // NE...............................................................................................................
+
+    @Test
+    public void testTestNeNegative() {
+        this.testTrue2(
+            CompareResult.NE,
+            Integer.MIN_VALUE
+        );
     }
 
     @Test
-    public void testNePositive() {
-        this.testTrue2(CompareResult.NE, +1);
+    public void testTestNeNegative2() {
+        this.testTrue2(
+            CompareResult.NE,
+            -1
+        );
     }
 
     @Test
-    public void testNePositive2() {
-        this.testTrue2(CompareResult.NE, Integer.MAX_VALUE);
+    public void testTestNeZero() {
+        this.testFalse2(
+            CompareResult.NE,
+            0
+        );
     }
 
-    // helpers............................................................
-
-    private void testTrue2(final CompareResult relation, final int value) {
-        this.testTrue(relation, value);
-        this.testFalse(relation.invert(), value);
+    @Test
+    public void testTestNePositive() {
+        this.testTrue2(
+            CompareResult.NE,
+            +1
+        );
     }
 
-    private void testFalse2(final CompareResult relation, final int value) {
-        this.testFalse(relation, value);
-        this.testTrue(relation.invert(), value);
+    @Test
+    public void testTestNePositive2() {
+        this.testTrue2(
+            CompareResult.NE, 
+            Integer.MAX_VALUE
+        );
+    }
+
+    // helpers..........................................................................................................
+
+    private void testTrue2(final CompareResult relation, 
+                           final int value) {
+        this.testTrue3(relation, value);
+        this.testFalse3(relation.invert(), value);
+    }
+
+    private void testFalse2(final CompareResult relation, 
+                            final int value) {
+        this.testFalse3(relation, value);
+        this.testTrue3(relation.invert(), value);
+    }
+
+    // ??? Not sure why cant call default method...
+    private void testTrue3(final Predicate<Integer> predicate,
+                           final Integer value) {
+        this.checkEquals(true,
+            predicate.test(value),
+            () -> predicate + " should match=" + CharSequences.quoteIfChars(value));
+
+        this.checkEquals(true,
+            predicate.test(value.intValue()),
+            () -> predicate + " should match=" + CharSequences.quoteIfChars(value));
+    }
+
+    private void testFalse3(final Predicate<Integer> predicate,
+                            final Integer value) {
+        this.checkEquals(false,
+            predicate.test(value),
+            () -> predicate + " should not match=" + CharSequences.quoteIfChars(value));
+
+        this.checkEquals(false,
+            predicate.test(value.intValue()),
+            () -> predicate + " should not match=" + CharSequences.quoteIfChars(value));
     }
 
     @Test
     public void testSymbolEQ() {
-        this.symbolAndCheck(CompareResult.EQ, "=");
+        this.symbolAndCheck(
+            CompareResult.EQ,
+            "="
+        );
     }
 
     @Test
     public void testSymbolGT() {
-        this.symbolAndCheck(CompareResult.GT, ">");
+        this.symbolAndCheck(
+            CompareResult.GT,
+            ">"
+        );
     }
 
     @Test
     public void testSymbolGTE() {
-        this.symbolAndCheck(CompareResult.GTE, ">=");
+        this.symbolAndCheck(
+            CompareResult.GTE,
+            ">=");
     }
 
     @Test
     public void testSymbolLT() {
-        this.symbolAndCheck(CompareResult.LT, "<");
+        this.symbolAndCheck(
+            CompareResult.LT,
+            "<"
+        );
     }
 
     @Test
     public void testSymbolLTE() {
-        this.symbolAndCheck(CompareResult.LTE, "<=");
+        this.symbolAndCheck(
+            CompareResult.LTE,
+            "<="
+        );
     }
 
     @Test
     public void testSymbolNE() {
-        this.symbolAndCheck(CompareResult.NE, "!=");
+        this.symbolAndCheck(
+            CompareResult.NE,
+            "!="
+        );
     }
 
-    private void symbolAndCheck(final CompareResult relation, final String pattern) {
-        this.checkEquals(pattern, relation.symbol(), () -> "pattern for " + relation);
+    private void symbolAndCheck(final CompareResult relation,
+                                final String pattern) {
+        this.checkEquals(
+            pattern, 
+            relation.symbol(),
+            () -> "pattern for " + relation
+        );
     }
 
     @Test
@@ -275,12 +397,18 @@ public final class CompareResultTest implements ClassTesting2<CompareResult>,
         }
     }
 
-    private void predicateAndInvertedPredicateTest(final CompareResult relation, final int value, final int value2) {
+    private void predicateAndInvertedPredicateTest(final CompareResult relation,
+                                                   final int value,
+                                                   final int value2) {
         final boolean result = relation.predicate(value).test(value2);
         final CompareResult inverted = relation.invert();
         final boolean invertedResult = inverted.predicate(value).test(value2);
 
-        this.checkNotEquals(result, invertedResult, () -> result + " inverted " + inverted + " " + value + " " + value2);
+        this.checkNotEquals(
+            result, 
+            invertedResult,
+            () -> result + " inverted " + inverted + " " + value + " " + value2
+        );
     }
 
     @Test
@@ -301,9 +429,14 @@ public final class CompareResultTest implements ClassTesting2<CompareResult>,
         }
     }
 
-    private void predicateAndSwappedPredicateTest(final CompareResult relation, final int value, final int value2) {
-        final boolean result = relation.predicate(value).test(value2);
-        final boolean swappedResult = relation.swap().predicate(value2).test(value);
+    private void predicateAndSwappedPredicateTest(final CompareResult relation,
+                                                  final int value,
+                                                  final int value2) {
+        final boolean result = relation.predicate(value)
+            .test(value2);
+        final boolean swappedResult = relation.swap()
+            .predicate(value2)
+            .test(value);
 
         this.checkEquals(result, swappedResult, () -> value + " " + relation + " " + value2);
     }
@@ -317,12 +450,18 @@ public final class CompareResultTest implements ClassTesting2<CompareResult>,
 
     @Test
     public void testFindWithSymbolNullFails() {
-        assertThrows(NullPointerException.class, () -> CompareResult.findWithSymbol(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> CompareResult.findWithSymbol(null)
+        );
     }
 
     @Test
     public void testFindWithSymbolUnknownFails() {
-        assertThrows(IllegalArgumentException.class, () -> CompareResult.findWithSymbol("?"));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> CompareResult.findWithSymbol("?")
+        );
     }
 
     @Test
@@ -646,6 +785,8 @@ public final class CompareResultTest implements ClassTesting2<CompareResult>,
         return CompareResult.EQ;
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<CompareResult> type() {
         return CompareResult.class;
@@ -656,24 +797,18 @@ public final class CompareResultTest implements ClassTesting2<CompareResult>,
         return JavaVisibility.PACKAGE_PRIVATE;
     }
 
-    // ??? Not sure why cant call default method...
-    public void testTrue(final Predicate<Integer> predicate, final Integer value) {
-        this.checkEquals(true,
-            predicate.test(value),
-            () -> predicate + " should match=" + CharSequences.quoteIfChars(value));
-
-        this.checkEquals(true,
-            predicate.test(value.intValue()),
-            () -> predicate + " should match=" + CharSequences.quoteIfChars(value));
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 
-    public void testFalse(final Predicate<Integer> predicate, final Integer value) {
-        this.checkEquals(false,
-            predicate.test(value),
-            () -> predicate + " should not match=" + CharSequences.quoteIfChars(value));
+    @Override
+    public void testClassVisibility() {
+        throw new UnsupportedOperationException();
+    }
 
-        this.checkEquals(false,
-            predicate.test(value.intValue()),
-            () -> predicate + " should not match=" + CharSequences.quoteIfChars(value));
+    @Override
+    public void testAllMethodsVisibility() {
+        throw new UnsupportedOperationException();
     }
 }
