@@ -24,33 +24,48 @@ final public class CaseSensitivityCharSequencePredicateEndsWithTest extends
     CaseSensitivityCharSequencePredicateTestCase<CaseSensitivityCharSequencePredicateEndsWith<String>> {
 
     @Test
-    public void testSameCaseCaseSensitive() {
+    public void testTestSameCaseCaseSensitive() {
         this.testTrueCaseSensitive("ghi", "abc def ghi");
     }
 
     @Test
-    public void testEqualsDifferentCaseCaseSensitive() {
-        this.testFalseCaseSensitive("GHI", "abc def ghi");
+    public void testTestEqualsDifferentCaseCaseSensitive() {
+        this.testFalseCaseSensitive(
+            "GHI",
+            "abc def ghi"
+        );
     }
 
     @Test
-    public void testMissingCaseSensitive() {
-        this.testFalseCaseSensitive("xyz", "abc def ghi");
+    public void testTestMissingCaseSensitive() {
+        this.testFalseCaseSensitive(
+            "xyz",
+            "abc def ghi"
+        );
     }
 
     @Test
-    public void testSameCaseCaseInsensitive() {
-        this.testTrueCaseInsensitive("ghi", "abc def ghi");
+    public void testTestSameCaseCaseInsensitive() {
+        this.testTrueCaseInsensitive(
+            "ghi",
+            "abc def ghi"
+        );
     }
 
     @Test
-    public void testEqualsDifferentCaseCaseInsensitive() {
-        this.testTrueCaseInsensitive("GHI", "abc def ghi");
+    public void testTestEqualsDifferentCaseCaseInsensitive() {
+        this.testTrueCaseInsensitive(
+            "GHI",
+            "abc def ghi"
+        );
     }
 
     @Test
-    public void testMissingCaseInsensitive() {
-        this.testFalseCaseInsensitive("xyz", "abc def ghi");
+    public void testTestMissingCaseInsensitive() {
+        this.testFalseCaseInsensitive(
+            "xyz",
+            "abc def ghi"
+        );
     }
 
     @Override
@@ -63,6 +78,8 @@ final public class CaseSensitivityCharSequencePredicateEndsWithTest extends
     String prefix() {
         return "ends with ";
     }
+
+    // class............................................................................................................
 
     @Override
     public Class<CaseSensitivityCharSequencePredicateEndsWith<String>> type() {
