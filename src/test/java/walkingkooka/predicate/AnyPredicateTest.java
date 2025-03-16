@@ -33,9 +33,9 @@ final public class AnyPredicateTest extends PredicateTestCase<AnyPredicate<Objec
         );
     }
 
-    @Override
-    public void testTestNullFails() {
-        throw new UnsupportedOperationException();
+    @Test
+    public void testTestNull() {
+        this.testFalse(null);
     }
 
     @Test

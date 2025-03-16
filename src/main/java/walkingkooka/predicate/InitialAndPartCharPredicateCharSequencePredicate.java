@@ -42,20 +42,20 @@ final class InitialAndPartCharPredicateCharSequencePredicate implements Predicat
 
     @Override
     public boolean test(final CharSequence chars) {
-        Objects.requireNonNull(chars, "chars");
+        boolean result = false;
 
-        boolean result;
-
-        switch (chars.length()) {
-            case 0:
-                result = false;
-                break;
-            case 1:
-                result = this.testInitial(chars);
-                break;
-            default:
-                result = this.testInitial(chars) && this.testRemaining(chars);
-                break;
+        if(null != chars) {
+            switch (chars.length()) {
+                case 0:
+                    result = false;
+                    break;
+                case 1:
+                    result = this.testInitial(chars);
+                    break;
+                default:
+                    result = this.testInitial(chars) && this.testRemaining(chars);
+                    break;
+            }
         }
 
         return result;

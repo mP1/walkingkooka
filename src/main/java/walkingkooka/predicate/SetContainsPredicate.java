@@ -19,7 +19,6 @@ package walkingkooka.predicate;
 
 import walkingkooka.collect.set.Sets;
 
-import java.util.Objects;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -45,7 +44,6 @@ final class SetContainsPredicate<T> implements Predicate<T> {
 
     @Override
     public boolean test(final T value) {
-        Objects.requireNonNull(value, "value");
         return this.set.contains(value);
     }
 

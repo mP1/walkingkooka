@@ -44,8 +44,10 @@ final class CaseSensitivityCharSequencePredicateEquals<C extends CharSequence> e
     }
 
     @Override
-    public boolean test(final C value) {
-        return this.sensitivity.equals(value, this.chars);
+    boolean testNonNull(final C value) {
+        return this.sensitivity.equals(value,
+                this.chars
+            );
     }
 
     @Override

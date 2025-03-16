@@ -63,9 +63,9 @@ final public class NotPredicateTest extends PredicateTestCase<NotPredicate<Strin
         assertSame(Predicates.always(), NotPredicate.wrap(Predicates.never()));
     }
 
-    @Override
-    public void testTestNullFails() {
-        // nop
+    @Test
+    public void testTestNull() {
+        this.testTrue(null);
     }
 
     @Test

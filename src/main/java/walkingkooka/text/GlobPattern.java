@@ -276,13 +276,12 @@ public final class GlobPattern implements Predicate<CharSequence>,
 
     @Override
     public boolean test(final CharSequence text) {
-        Objects.requireNonNull(text, "text");
-
-        return this.first.test(
-            text,
-            0,
-            this.caseSensitivity.globPatternTestContext
-        );
+        return null != text &&
+            this.first.test(
+                text,
+                0,
+                this.caseSensitivity.globPatternTestContext
+            );
     }
 
     final GlobPatternComponent first;
