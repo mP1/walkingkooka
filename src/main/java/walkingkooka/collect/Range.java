@@ -47,45 +47,24 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
         final int separatorIndex = text.indexOf(separator);
         return -1 == separatorIndex ?
             singleton(
-                parse1(
+                parseSingleton(
                     text,
                     0,
                     text.length(),
                     factory
                 )
             ) :
-            parse0(
+            parseLowerAndUpperBounds(
                 text,
                 separatorIndex,
                 factory
             );
     }
 
-    public static <C extends Comparable<C>> Range<C> parse0(final String text,
-                                                            final int separatorIndex,
-                                                            final Function<String, C> factory) {
-        if (0 == separatorIndex) {
-            throw new IllegalArgumentException("Empty lower range in " + CharSequences.quoteAndEscape(text));
-        }
-        if (text.length() - 1 == separatorIndex) {
-            throw new IllegalArgumentException("Empty upper range in " + CharSequences.quoteAndEscape(text));
-        }
-
-        final C left = parse1(text, 0, separatorIndex, factory);
-        final C right = parse1(text, separatorIndex + 1, text.length(), factory);
-        final int comparison = left.compareTo(right);
-
-        return 0 == comparison ?
-            singleton(left) :
-            comparison < 0 ?
-                createRange(left, right) :
-                createRange(right, left);
-    }
-
-    private static <C extends Comparable<C>> C parse1(final String text,
-                                                      final int start,
-                                                      final int end,
-                                                      final Function<String, C> factory) {
+    private static <C extends Comparable<C>> C parseSingleton(final String text,
+                                                              final int start,
+                                                              final int end,
+                                                              final Function<String, C> factory) {
         try {
             return factory.apply(text.substring(start, end));
         } catch (final InvalidCharacterException cause) {
@@ -95,11 +74,36 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
         } catch (final RuntimeException cause) {
             final String message = cause.getMessage();
             throw new IllegalArgumentException(
-                CharSequences.isNullOrEmpty(message) ? "Parsing " + CharSequences.quoteIfChars(text) + " failed" : message,
+                CharSequences.isNullOrEmpty(message) ?
+                    "Parsing " + CharSequences.quoteIfChars(text) + " failed" :
+                    message,
                 cause
             );
         }
     }
+
+    private static <C extends Comparable<C>> Range<C> parseLowerAndUpperBounds(final String text,
+                                                                               final int separatorIndex,
+                                                                               final Function<String, C> factory) {
+        if (0 == separatorIndex) {
+            throw new IllegalArgumentException("Empty lower range in " + CharSequences.quoteAndEscape(text));
+        }
+        if (text.length() - 1 == separatorIndex) {
+            throw new IllegalArgumentException("Empty upper range in " + CharSequences.quoteAndEscape(text));
+        }
+
+        final C left = parseSingleton(text, 0, separatorIndex, factory);
+        final C right = parseSingleton(text, separatorIndex + 1, text.length(), factory);
+        final int comparison = left.compareTo(right);
+
+        return 0 == comparison ?
+            singleton(left) :
+            comparison < 0 ?
+                createRange(left, right) :
+                createRange(right, left);
+    }
+
+
 
     private static <C extends Comparable<C>> Range<C> createRange(final C lower,
                                                                   final C upper) {
@@ -126,42 +130,50 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
      * A {@link Range} that holds a single value.
      */
     public static <C extends Comparable<C>> Range<C> singleton(final C value) {
-        return new Range<>(RangeBound.inclusive(value), RangeBound.inclusive(value));
+        return new Range<>(
+            RangeBound.inclusive(value),
+            RangeBound.inclusive(value)
+        );
     }
 
     /**
      * A {@link Range} that matches all values less than but not including the given value.
      */
     public static <C extends Comparable<C>> Range<C> lessThan(final C value) {
-        return new Range<>(RangeBound.all(), RangeBound.exclusive(value));
+        return new Range<>(
+            RangeBound.all(),
+            RangeBound.exclusive(value)
+        );
     }
 
     /**
      * A {@link Range} that matches all values less than and including the given value.
      */
     public static <C extends Comparable<C>> Range<C> lessThanEquals(final C value) {
-        return new Range<>(RangeBound.all(), RangeBound.inclusive(value));
+        return new Range<>(
+            RangeBound.all(),
+            RangeBound.inclusive(value)
+        );
     }
 
     /**
      * A {@link Range} that matches all values greater than but not including the given value.
      */
     public static <C extends Comparable<C>> Range<C> greaterThan(final C value) {
-        return new Range<>(RangeBound.exclusive(value), RangeBound.all());
+        return new Range<>(
+            RangeBound.exclusive(value),
+            RangeBound.all()
+        );
     }
 
     /**
      * A {@link Range} that matches all values greater than and including the given value.
      */
     public static <C extends Comparable<C>> Range<C> greaterThanEquals(final C value) {
-        return new Range<>(RangeBound.inclusive(value), RangeBound.all());
-    }
-
-    /**
-     * Checks that the other range is not null.
-     */
-    private static void checkOther(final Range<?> other) {
-        Objects.requireNonNull(other, "other");
+        return new Range<>(
+            RangeBound.inclusive(value),
+            RangeBound.all()
+        );
     }
 
     /**
@@ -172,13 +184,17 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
         Objects.requireNonNull(lower, "lower");
         Objects.requireNonNull(upper, "upper");
 
-        return new Range<>(lower, upper);
+        return new Range<>(
+            lower,
+            upper
+        );
     }
 
     /**
      * Private ctor use factory
      */
-    private Range(final RangeBound<C> lower, final RangeBound<C> upper) {
+    private Range(final RangeBound<C> lower,
+                  final RangeBound<C> upper) {
         super();
 
         this.lower = lower;
@@ -189,7 +205,7 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
      * Returns a {@link Range} that matches true to both {@link Range ranges}.
      */
     public Range<C> and(final Range<C> other) {
-        checkOther(other);
+        Objects.requireNonNull((Range<?>) other, "other");
 
         final RangeBound<C> lower = this.lower.max(other.lower);
         final RangeBound<C> upper = this.upper.min(other.upper);
@@ -206,7 +222,8 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
     /**
      * Creates a new {@link Range} after verifying the lower is less than the  upper bounds.
      */
-    private Range<C> replace(final RangeBound<C> lower, final Range<C> other) {
+    private Range<C> replace(final RangeBound<C> lower,
+                             final Range<C> other) {
         if (lower.isExclusive()) {
             throw new IllegalArgumentException("Invalid range bounds " + this + " < " + other);
         }
@@ -214,7 +231,8 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
         return new Range<>(lower, lower);
     }
 
-    private Range<C> replace0(final RangeBound<C> lower, final RangeBound<C> upper) {
+    private Range<C> replace0(final RangeBound<C> lower,
+                              final RangeBound<C> upper) {
         if (lower.equals(upper) && lower.isExclusive()) {
             throw new IllegalArgumentException("Invalid range bounds " + upper + " < " + lower);
         }
@@ -249,7 +267,7 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
 
     final RangeBound<C> upper;
 
-    // Predicate .............................................................................................
+    // Predicate .......................................................................................................
 
     /**
      * Returns true if the given value is within this range honouring the lower or upper bounds if either is present.
@@ -260,19 +278,21 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
             this.upper.upperTest(c);
     }
 
-    // isOverlapping.......................................................................................................
+    // isOverlapping....................................................................................................
 
     /**
      * Returns true if the two ranges overlap.
      */
     public boolean isOverlapping(final Range<C> other) {
-        checkOther(other);
+        Objects.requireNonNull((Range<?>) other, "other");
 
         return this.lower.max(other.lower)
-            .lessThanOrEqual(this.upper.min(other.upper));
+            .lessThanOrEqual(
+                this.upper.min(other.upper)
+            );
     }
 
-    // Visitor...............................................................................
+    // Visitor..........................................................................................................
 
     /**
      * Begins the visiting process.
@@ -283,7 +303,7 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
         visitor.traverse(this);
     }
 
-    // Object..........................................................................................................
+    // Object...........................................................................................................
 
     @Override
     public int hashCode() {
