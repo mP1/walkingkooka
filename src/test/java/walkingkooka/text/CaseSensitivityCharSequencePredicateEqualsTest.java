@@ -30,38 +30,59 @@ final public class CaseSensitivityCharSequencePredicateEqualsTest extends
     }
 
     @Test
-    public void testSameCaseCaseSensitive() {
-        this.testTrueCaseSensitive("abc", "abc");
+    public void testTestSameCaseCaseSensitive() {
+        this.testTrueCaseSensitive(
+            "abc",
+            "abc"
+        );
     }
 
     @Test
-    public void testEqualsDifferentCaseCaseSensitive() {
-        this.testFalseCaseSensitive("ABC", "abc");
+    public void testTestEqualsDifferentCaseCaseSensitive() {
+        this.testFalseCaseSensitive(
+            "ABC",
+            "abc"
+        );
     }
 
     @Test
-    public void testMissingCaseSensitive() {
-        this.testFalseCaseSensitive("xyz", "abc");
+    public void testTestMissingCaseSensitive() {
+        this.testFalseCaseSensitive(
+            "xyz",
+            "abc"
+        );
     }
 
     @Test
-    public void testSameCaseCaseInsensitive() {
-        this.testTrueCaseInsensitive("abc", "abc");
+    public void testTestSameCaseCaseInsensitive() {
+        this.testTrueCaseInsensitive(
+            "abc",
+            "abc"
+        );
     }
 
     @Test
-    public void testEqualsDifferentCaseCaseInsensitive() {
-        this.testTrueCaseInsensitive("ABC", "abc");
+    public void testTestEqualsDifferentCaseCaseInsensitive() {
+        this.testTrueCaseInsensitive(
+            "ABC",
+            "abc"
+        );
     }
 
     @Test
-    public void testMissingCaseInsensitive() {
-        this.testFalseCaseInsensitive("xyz", "abc");
+    public void testTestMissingCaseInsensitive() {
+        this.testFalseCaseInsensitive(
+            "xyz",
+            "abc"
+        );
     }
 
     @Test
-    public void testMustMatchEmpty() {
-        this.testTrueCaseInsensitive("", "");
+    public void testTestMustMatchEmpty() {
+        this.testTrueCaseInsensitive(
+            "",
+            ""
+        );
     }
 
     @Override
@@ -74,6 +95,8 @@ final public class CaseSensitivityCharSequencePredicateEqualsTest extends
     String prefix() {
         return "";
     }
+
+    // class............................................................................................................
 
     @Override
     public Class<CaseSensitivityCharSequencePredicateEquals<String>> type() {
