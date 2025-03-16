@@ -20,42 +20,43 @@ package walkingkooka.text;
 import java.util.Objects;
 
 /**
- * {@link java.util.function.Predicate} that test any {@link CharSequence} that contains a {@link
- * CharSequence} maybe ignoring the case.
+ * A {@link java.util.function.Predicate} that test any {@link CharSequence} that ends with a {@link
+ * String} which may or may not ignoring the case.
  */
-final class CaseSensitivityContainsCharSequencePredicate<C extends CharSequence> extends CaseSensitivityCharSequencePredicateTemplate<C> {
+final class CaseSensitivityCharSequencePredicateEndsWith<C extends CharSequence>
+    extends CaseSensitivityCharSequencePredicate<C> {
 
     /**
-     * Creates a {@link CaseSensitivityContainsCharSequencePredicate}
+     * Creates a {@link CaseSensitivityCharSequencePredicateEndsWith}
      */
-    static <C extends CharSequence> CaseSensitivityContainsCharSequencePredicate<C> with(
-        final C contains, final CaseSensitivity sensitivity) {
-        CharSequences.failIfNullOrEmpty(contains, "contains");
+    static <C extends CharSequence> CaseSensitivityCharSequencePredicateEndsWith<C> with(
+        final C startsWith, final CaseSensitivity sensitivity) {
+        CharSequences.failIfNullOrEmpty(startsWith, "startsWith");
         Objects.requireNonNull(sensitivity, "sensitivity");
 
-        return new CaseSensitivityContainsCharSequencePredicate<>(contains, sensitivity);
+        return new CaseSensitivityCharSequencePredicateEndsWith<>(startsWith, sensitivity);
     }
 
     /**
      * Private constructor use static factory.
      */
-    private CaseSensitivityContainsCharSequencePredicate(final C contains,
+    private CaseSensitivityCharSequencePredicateEndsWith(final C startsWith,
                                                          final CaseSensitivity sensitivity) {
-        super(contains, sensitivity);
+        super(startsWith, sensitivity);
     }
 
     @Override
     public boolean test(final C value) {
-        return this.sensitivity.contains(value, this.chars);
+        return this.sensitivity.endsWith(value, this.chars);
     }
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof CaseSensitivityContainsCharSequencePredicate;
+        return other instanceof CaseSensitivityCharSequencePredicateEndsWith;
     }
 
     @Override
     String toStringPrefix() {
-        return "contains ";
+        return "ends with ";
     }
 }

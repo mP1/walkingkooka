@@ -348,28 +348,28 @@ public enum CaseSensitivity {
      * Gets a {@link Predicate} that may or may not be case sensitive.
      */
     final public <C extends CharSequence> Predicate<C> predicate(final C chars) {
-        return CaseSensitivityCharSequencePredicate.with(chars, this);
+        return CaseSensitivityCharSequencePredicateEquals.with(chars, this);
     }
 
     /**
      * Gets a {@link Predicate} that may or may not be case sensitive.
      */
     final public <C extends CharSequence> Predicate<C> predicateContains(final C contains) {
-        return CaseSensitivityContainsCharSequencePredicate.with(contains, this);
+        return CaseSensitivityCharSequencePredicateContains.with(contains, this);
     }
 
     /**
      * Gets a {@link Predicate} that may or may not be case sensitive.
      */
     final public <C extends CharSequence> Predicate<C> predicateEndsWith(final C endsWith) {
-        return CaseSensitivityEndsWithCharSequencePredicate.with(endsWith, this);
+        return CaseSensitivityCharSequencePredicateEndsWith.with(endsWith, this);
     }
 
     /**
      * Gets a {@link Predicate} that may or may not be case sensitive.
      */
     final public <C extends CharSequence> Predicate<C> predicateStartsWith(final C startsWith) {
-        return CaseSensitivityStartsWithCharSequencePredicate.with(startsWith, this);
+        return CaseSensitivityCharSequencePredicateStartsWith.with(startsWith, this);
     }
 
     /**
@@ -409,7 +409,7 @@ public enum CaseSensitivity {
     final GlobPatternContext globPatternTestContext = GlobPatternContext.test(this);
 
     /**
-     * Handles the toString implementation of {@link CaseSensitivityCharSequencePredicateTemplate}
+     * Handles the toString implementation of {@link CaseSensitivityCharSequencePredicate}
      */
     final String toString(final String prefix, final CharSequence c) {
         return prefix + CharSequences.quote(c) + this.toStringSuffix();
