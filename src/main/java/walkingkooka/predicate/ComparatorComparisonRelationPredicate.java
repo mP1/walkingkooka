@@ -50,7 +50,10 @@ final class ComparableCompareResultPredicate<C extends Comparable<C>> implements
 
     @Override
     public boolean test(final C left) {
-        return compareResult.test(left.compareTo(this.right));
+        return null != left &&
+            this.compareResult.test(
+                left.compareTo(this.right)
+            );
     }
 
     /**

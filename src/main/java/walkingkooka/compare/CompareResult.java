@@ -143,7 +143,8 @@ public enum CompareResult implements Predicate<Integer> {
      */
     @Override
     public boolean test(final Integer integer) {
-        return this.test(integer.intValue());
+        return null != integer &&
+            this.test(integer.intValue());
     }
 
     public abstract boolean test(final int integer);

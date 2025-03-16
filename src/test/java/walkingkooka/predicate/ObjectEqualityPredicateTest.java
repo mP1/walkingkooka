@@ -44,9 +44,9 @@ final public class ObjectEqualityPredicateTest
         assertNotNull(predicate);
     }
 
-    @Override
-    public void testTestNullFails() {
-        // nop
+    @Test
+    public void testTestNull() {
+        this.testFalse(null);
     }
 
     @Test

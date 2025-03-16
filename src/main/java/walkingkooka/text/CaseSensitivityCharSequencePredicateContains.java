@@ -45,8 +45,11 @@ final class CaseSensitivityCharSequencePredicateContains<C extends CharSequence>
     }
 
     @Override
-    public boolean test(final C value) {
-        return this.sensitivity.contains(value, this.chars);
+    boolean testNonNull(final C value) {
+        return this.sensitivity.contains(
+            value,
+            this.chars
+        );
     }
 
     @Override

@@ -26,9 +26,9 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class AlwaysPredicateTest extends PredicateTestCase<AlwaysPredicate<Object>, Object> {
 
-    @Override
-    public void testTestNullFails() {
-        throw new UnsupportedOperationException();
+    @Test
+    public void testTestNull() {
+        this.testTrue(null);
     }
 
     @Test

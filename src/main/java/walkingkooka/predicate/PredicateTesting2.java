@@ -23,8 +23,6 @@ import walkingkooka.reflect.TypeNameTesting;
 
 import java.util.function.Predicate;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 /**
  * Mixing that helps test a {@link Predicate} and an argument and some additional tests.
  */
@@ -34,8 +32,8 @@ public interface PredicateTesting2<P extends Predicate<T>, T>
     TypeNameTesting<P> {
 
     @Test
-    default void testTestNullFails() {
-        assertThrows(NullPointerException.class, () -> this.test(null));
+    default void testTestWithNull() {
+        this.test(null);
     }
 
     P createPredicate();

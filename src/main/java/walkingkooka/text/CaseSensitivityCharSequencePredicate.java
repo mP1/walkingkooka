@@ -39,6 +39,15 @@ abstract class CaseSensitivityCharSequencePredicate<C extends CharSequence> impl
 
     final CaseSensitivity sensitivity;
 
+    // Predicate........................................................................................................
+
+    @Override
+    public final boolean test(final C value) {
+        return null != value && this.testNonNull(value);
+    }
+
+    abstract boolean testNonNull(final C value);
+
     // Object...........................................................................................................
 
     @Override

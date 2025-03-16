@@ -74,9 +74,9 @@ public final class CustomToStringPredicateTest extends PredicateTestCase<CustomT
         );
     }
 
-    @Override
-    public void testTestNullFails() {
-        throw new UnsupportedOperationException();
+    @Test
+    public void testTestNull() {
+        this.testFalse(null);
     }
 
     @Test

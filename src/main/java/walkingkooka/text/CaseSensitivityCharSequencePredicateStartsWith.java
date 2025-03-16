@@ -45,8 +45,11 @@ final class CaseSensitivityCharSequencePredicateStartsWith<C extends CharSequenc
     }
 
     @Override
-    public boolean test(final C value) {
-        return this.sensitivity.startsWith(value, this.chars);
+    boolean testNonNull(final C value) {
+        return this.sensitivity.startsWith(
+            value,
+            this.chars
+        );
     }
 
     @Override

@@ -48,8 +48,8 @@ final class CharPredicatePredicate implements Predicate<Character> {
 
     @Override
     public boolean test(final Character value) {
-        Objects.requireNonNull(value, "value");
-        return this.predicate.test(value);
+        return null != value &&
+            this.predicate.test(value);
     }
 
     /**

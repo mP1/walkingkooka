@@ -274,7 +274,8 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>,
      */
     @Override
     public boolean test(final C c) {
-        return this.lower.lowerTest(c) &&
+        return null != c &&
+            this.lower.lowerTest(c) &&
             this.upper.upperTest(c);
     }
 

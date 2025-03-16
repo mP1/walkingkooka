@@ -17,13 +17,10 @@
 
 package walkingkooka.predicate;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
 import java.util.function.Predicate;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Base class for all {@link Predicate} in this package.
@@ -33,11 +30,6 @@ abstract public class PredicateTestCase<P extends Predicate<T>, T> implements Cl
 
     PredicateTestCase() {
         super();
-    }
-
-    @Test
-    public void testTestNullFails() {
-        assertThrows(NullPointerException.class, () -> this.test(null));
     }
 
     @Override

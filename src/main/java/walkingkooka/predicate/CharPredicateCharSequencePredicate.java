@@ -40,14 +40,14 @@ final class CharPredicateCharSequencePredicate implements Predicate<CharSequence
 
     @Override
     public boolean test(final CharSequence charSequence) {
-        Objects.requireNonNull(charSequence, "charSequence");
-
         boolean test = false;
 
-        for (int i = 0; i < charSequence.length(); i++) {
-            test = this.predicate.test(charSequence.charAt(i));
-            if (!test) {
-                break;
+        if(null != charSequence) {
+            for (int i = 0; i < charSequence.length(); i++) {
+                test = this.predicate.test(charSequence.charAt(i));
+                if (false == test) {
+                    break;
+                }
             }
         }
 
