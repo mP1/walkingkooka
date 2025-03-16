@@ -51,7 +51,13 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
 
     @Test
     public void testWithNullLowerFails() {
-        assertThrows(NullPointerException.class, () -> Range.with(null, RangeBound.<CaseInsensitiveString>all()));
+        assertThrows(
+            NullPointerException.class,
+            () -> Range.with(
+                null,
+                RangeBound.<CaseInsensitiveString>all()
+            )
+        );
     }
 
     @Test
@@ -154,7 +160,7 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         this.toStringAndCheck(Range.all(), "*");
     }
 
-    // singleton ....................................................................................................
+    // singleton .......................................................................................................
 
     @Test
     public void testSingletonNullValueFails() {
@@ -185,7 +191,7 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         return Range.singleton(LOWER_VALUE);
     }
 
-    // lessThan ....................................................................................................
+    // lessThan ........................................................................................................
 
     @Test
     public void testLessThan() {
@@ -222,7 +228,7 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         return Range.lessThan(LOWER_VALUE);
     }
 
-    // lessThanEquals ....................................................................................................
+    // lessThanEquals ..................................................................................................
 
     @Test
     public void testLessThanEquals() {
@@ -259,7 +265,7 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         return Range.lessThanEquals(LOWER_VALUE);
     }
 
-    // greaterThan ....................................................................................................
+    // greaterThan .....................................................................................................
 
     @Test
     public void testGreaterThan() {
@@ -296,7 +302,7 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         return Range.greaterThan(LOWER_VALUE);
     }
 
-    // greaterThanEquals ....................................................................................................
+    // greaterThanEquals ...............................................................................................
 
     @Test
     public void testGreaterThanEquals() {
@@ -333,11 +339,11 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         return Range.greaterThanEquals(LOWER_VALUE);
     }
 
-    // and with all..........................................................................................
+    // and with all.....................................................................................................
 
     @Test
     public void testAndAllAndAll() {
-        andAllAndCheck(all());
+        andAllAndCheck(Range.all());
     }
 
     @Test
@@ -366,16 +372,16 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
     }
 
     private void andAllAndCheck(final Range<CaseInsensitiveString> range) {
-        final Range<CaseInsensitiveString> all = all();
+        final Range<CaseInsensitiveString> all = Range.all();
         assertSame(range, range.and(all), () -> range + " and with " + all);
         assertSame(range, all.and(range), () -> range + " and with " + all);
     }
 
-    // and with all..........................................................................................
+    // and with all.....................................................................................................
 
     @Test
     public void testAndSingletonAndAll() {
-        andSingletonAndCheck(all());
+        andSingletonAndCheck(Range.all());
     }
 
     @Test
@@ -412,213 +418,337 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         assertSame(singleton, singleton.and(range), () -> singleton + " and with " + range);
     }
 
-    // and invalid.......................................................
+    // and invalid......................................................................................................
 
     @Test
     public void testAndLessThanAndGreaterThanFails() {
-        assertThrows(IllegalArgumentException.class, () -> lessThan().and(greaterThan()));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> lessThan()
+                .and(greaterThan()
+                )
+        );
     }
 
     @Test
     public void testAndGreaterThanAndLessThanFails() {
-        assertThrows(IllegalArgumentException.class, () -> greaterThan().and(lessThan()));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> greaterThan().and(lessThan())
+        );
     }
 
     @Test
     public void testAndLessThanAndGreaterThanFails2() {
-        assertThrows(IllegalArgumentException.class, () -> Range.lessThan(122).and(Range.greaterThan(123)));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> Range.lessThan(122)
+                .and(
+                    Range.greaterThan(123)
+                )
+        );
     }
 
     @Test
     public void testAndLessThanEqualAndGreaterThanFails2() {
-        assertThrows(IllegalArgumentException.class, () -> Range.lessThanEquals(122).and(Range.greaterThan(123)));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> Range.lessThanEquals(122)
+                .and(
+                    Range.greaterThan(123)
+                )
+        );
     }
 
     @Test
     public void testAndLessThanEqualAndSingletonFails2() {
-        assertThrows(IllegalArgumentException.class, () -> Range.lessThanEquals(122).and(Range.singleton(123)));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> Range.lessThanEquals(122)
+                .and(
+                    Range.singleton(123)
+                )
+        );
     }
 
     @Test
     public void testAndSingletonAndGreaterThanFails2() {
-        assertThrows(IllegalArgumentException.class, () -> Range.singleton(122).and(Range.greaterThan(123)));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> Range.singleton(122)
+                .and(
+                    Range.greaterThan(123)
+                )
+        );
     }
 
     @Test
     public void testAndSingletonAndGreaterThanEqualsFails2() {
-        assertThrows(IllegalArgumentException.class, () -> Range.singleton(122).and(Range.greaterThanEquals(123)));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> Range.singleton(122)
+                .and(
+                    Range.greaterThanEquals(123)
+                )
+        );
     }
 
     @Test
     public void testAndNonOverlappingBoundedRangeBoundedRangeFails() {
-        assertThrows(IllegalArgumentException.class, () -> Range.greaterThan(222).and(Range.lessThan(333))
-            .and(Range.greaterThan(888).and(Range.lessThan(999))));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> Range.greaterThan(222)
+                .and(Range.lessThan(333)
+                ).and(
+                    Range.greaterThan(888)
+                        .and(Range.lessThan(999))
+                )
+        );
     }
 
     @Test
     public void testAndNonOverlappingBoundedRangeBoundedRangeFails2() {
-        assertThrows(IllegalArgumentException.class, () -> Range.greaterThan(222).and(Range.lessThan(333))
-            .and(Range.greaterThan(333).and(Range.lessThan(999))));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> Range.greaterThan(222)
+                .and(Range.lessThan(333)
+                ).and(Range.greaterThan(333)
+                    .and(Range.lessThan(999)
+                    )
+                )
+        );
     }
 
-    // and gt lt ......................................................................
+    // and gt lt ........................................................................................................
 
     @Test
-    public void testGreaterThanLessThan_Less() {
-        this.testFalse(greaterThanLessThan(), BELOW_LOWER_VALUE);
-    }
-
-    @Test
-    public void testGreaterThanLessThan_LowerValue() {
-        this.testFalse(greaterThanLessThan(), LOWER_VALUE);
-    }
-
-    @Test
-    public void testGreaterThanLessThan_LowerAfter() {
-        this.testTrue(greaterThanLessThan(), ABOVE_LOWER_VALUE);
-    }
-
-    @Test
-    public void testGreaterThanLessThan_UpperBefore() {
-        this.testTrue(greaterThanLessThan(), BELOW_UPPER_VALUE);
+    public void testTestGreaterThanLessThan_Less() {
+        this.testFalse(
+            greaterThanLessThan(),
+            BELOW_LOWER_VALUE
+        );
     }
 
     @Test
-    public void testGreaterThanLessThan_UpperValue() {
-        this.testFalse(greaterThanLessThan(), UPPER_VALUE);
+    public void testTestGreaterThanLessThan_LowerValue() {
+        this.testFalse(
+            greaterThanLessThan(),
+            LOWER_VALUE
+        );
     }
 
     @Test
-    public void testGreaterThanLessThan_Above() {
-        this.testFalse(greaterThanLessThan(), ABOVE_UPPER_VALUE);
+    public void testTestGreaterThanLessThan_LowerAfter() {
+        this.testTrue(
+            greaterThanLessThan(),
+            ABOVE_LOWER_VALUE
+        );
     }
 
     @Test
-    public void testGreaterThanLessThanToString() {
-        this.checkEquals("[" + LOWER_VALUE + ".." + UPPER_VALUE + "]", greaterThanLessThan().toString());
+    public void testTestGreaterThanLessThan_UpperBefore() {
+        this.testTrue(
+            greaterThanLessThan(), 
+            BELOW_UPPER_VALUE
+        );
+    }
+
+    @Test
+    public void testTestGreaterThanLessThan_UpperValue() {
+        this.testFalse(
+            greaterThanLessThan(),
+            UPPER_VALUE
+        );
+    }
+
+    @Test
+    public void testTestGreaterThanLessThan_Above() {
+        this.testFalse(
+            greaterThanLessThan(),
+            ABOVE_UPPER_VALUE
+        );
+    }
+
+    @Test
+    public void testTestGreaterThanLessThanToString() {
+        this.checkEquals(
+            "[" + LOWER_VALUE + ".." + UPPER_VALUE + "]",
+            greaterThanLessThan().toString()
+        );
     }
 
     private Range<CaseInsensitiveString> greaterThanLessThan() {
-        return Range.greaterThan(LOWER_VALUE).and(Range.lessThan(UPPER_VALUE));
+        return Range.greaterThan(LOWER_VALUE)
+            .and(Range.lessThan(UPPER_VALUE)
+            );
     }
 
-    // and gte lt ......................................................................
+    // and gte lt ......................................................................................................
 
     @Test
-    public void testGreaterThanEqualsLessThan_Less() {
+    public void testTestGreaterThanEqualsLessThan_Less() {
         this.testFalse(greaterThanEqualsLessThan(), BELOW_LOWER_VALUE);
     }
 
     @Test
-    public void testGreaterThanEqualsLessThan_LowerValue() {
+    public void testTestGreaterThanEqualsLessThan_LowerValue() {
         this.testTrue(greaterThanEqualsLessThan(), LOWER_VALUE);
     }
 
     @Test
-    public void testGreaterThanEqualsLessThan_LowerAfter() {
+    public void testTestGreaterThanEqualsLessThan_LowerAfter() {
         this.testTrue(greaterThanEqualsLessThan(), ABOVE_LOWER_VALUE);
     }
 
     @Test
-    public void testGreaterThanEqualsLessThan_UpperBefore() {
+    public void testTestGreaterThanEqualsLessThan_UpperBefore() {
         this.testTrue(greaterThanEqualsLessThan(), BELOW_UPPER_VALUE);
     }
 
     @Test
-    public void testGreaterThanEqualsLessThan_UpperValue() {
+    public void testTestGreaterThanEqualsLessThan_UpperValue() {
         this.testFalse(greaterThanEqualsLessThan(), UPPER_VALUE);
     }
 
     @Test
-    public void testGreaterThanEqualsLessThan_Above() {
+    public void testTestGreaterThanEqualsLessThan_Above() {
         this.testFalse(greaterThanEqualsLessThan(), ABOVE_UPPER_VALUE);
     }
 
     @Test
-    public void testGreaterThanEqualsLessThanToString() {
-        this.checkEquals("(" + LOWER_VALUE + ".." + UPPER_VALUE + "]", greaterThanEqualsLessThan().toString());
+    public void testTestGreaterThanEqualsLessThanToString() {
+        this.checkEquals(
+            "(" + LOWER_VALUE + ".." + UPPER_VALUE + "]",
+            greaterThanEqualsLessThan().toString()
+        );
     }
 
     private Range<CaseInsensitiveString> greaterThanEqualsLessThan() {
-        return Range.greaterThanEquals(LOWER_VALUE).and(Range.lessThan(UPPER_VALUE));
+        return Range.greaterThanEquals(LOWER_VALUE)
+            .and(Range.lessThan(UPPER_VALUE));
     }
 
-    // and gt lte ......................................................................
+    // and gt lte ......................................................................................................
 
     @Test
-    public void testGreaterThanLessThanEquals_Less() {
-        this.testFalse(greaterThanLessThanEquals(), BELOW_LOWER_VALUE);
-    }
-
-    @Test
-    public void testGreaterThanLessThanEquals_LowerValue() {
-        this.testFalse(greaterThanLessThanEquals(), LOWER_VALUE);
-    }
-
-    @Test
-    public void testGreaterThanLessThanEquals_LowerAfter() {
-        this.testTrue(greaterThanLessThanEquals(), ABOVE_LOWER_VALUE);
+    public void testTestGreaterThanLessThanEquals_Less() {
+        this.testFalse(
+            greaterThanLessThanEquals(), 
+            BELOW_LOWER_VALUE
+        );
     }
 
     @Test
-    public void testGreaterThanLessThanEquals_UpperBefore() {
-        this.testTrue(greaterThanLessThanEquals(), BELOW_UPPER_VALUE);
+    public void testTestGreaterThanLessThanEquals_LowerValue() {
+        this.testFalse(
+            greaterThanLessThanEquals(),
+            LOWER_VALUE
+        );
     }
 
     @Test
-    public void testGreaterThanLessThanEquals_UpperValue() {
-        this.testTrue(greaterThanLessThanEquals(), UPPER_VALUE);
+    public void testTestGreaterThanLessThanEquals_LowerAfter() {
+        this.testTrue(
+            greaterThanLessThanEquals(),
+            ABOVE_LOWER_VALUE
+        );
     }
 
     @Test
-    public void testGreaterThanLessThanEquals_Above() {
-        this.testFalse(greaterThanLessThanEquals(), ABOVE_UPPER_VALUE);
+    public void testTestGreaterThanLessThanEquals_UpperBefore() {
+        this.testTrue(
+            greaterThanLessThanEquals(),
+            BELOW_UPPER_VALUE
+        );
     }
 
     @Test
-    public void testGreaterThanLessThanEqualsToString() {
-        this.checkEquals("[" + LOWER_VALUE + ".." + UPPER_VALUE + ")", greaterThanLessThanEquals().toString());
+    public void testTestGreaterThanLessThanEquals_UpperValue() {
+        this.testTrue(
+            greaterThanLessThanEquals(),
+            UPPER_VALUE
+        );
+    }
+
+    @Test
+    public void testTestGreaterThanLessThanEquals_Above() {
+        this.testFalse(
+            greaterThanLessThanEquals(),
+            ABOVE_UPPER_VALUE
+        );
+    }
+
+    @Test
+    public void testTestGreaterThanLessThanEqualsToString() {
+        this.checkEquals(
+            "[" + LOWER_VALUE + ".." + UPPER_VALUE + ")",
+            greaterThanLessThanEquals().toString()
+        );
     }
 
     private Range<CaseInsensitiveString> greaterThanLessThanEquals() {
-        return Range.greaterThan(LOWER_VALUE).and(Range.lessThanEquals(UPPER_VALUE));
+        return Range.greaterThan(LOWER_VALUE)
+            .and(
+                Range.lessThanEquals(UPPER_VALUE)
+            );
     }
 
-    // and gte lte ......................................................................
+    // and gte lte .....................................................................................................
 
     @Test
-    public void testGreaterThanEqualsLessThanEquals_Less() {
-        this.testFalse(greaterThanEqualsLessThanEquals(), BELOW_LOWER_VALUE);
-    }
-
-    @Test
-    public void testGreaterThanEqualsLessThanEquals_LowerValue() {
-        this.testTrue(greaterThanEqualsLessThanEquals(), LOWER_VALUE);
-    }
-
-    @Test
-    public void testGreaterThanEqualsLessThanEquals_LowerAfter() {
-        this.testTrue(greaterThanEqualsLessThanEquals(), ABOVE_LOWER_VALUE);
+    public void testTestGreaterThanEqualsLessThanEquals_Less() {
+        this.testFalse(
+            greaterThanEqualsLessThanEquals(),
+            BELOW_LOWER_VALUE
+        );
     }
 
     @Test
-    public void testGreaterThanEqualsLessThanEquals_UpperBefore() {
-        this.testTrue(greaterThanEqualsLessThanEquals(), BELOW_UPPER_VALUE);
+    public void testTestGreaterThanEqualsLessThanEquals_LowerValue() {
+        this.testTrue(
+            greaterThanEqualsLessThanEquals(), 
+            LOWER_VALUE
+        );
     }
 
     @Test
-    public void testGreaterThanEqualsLessThanEquals_UpperValue() {
-        this.testTrue(greaterThanEqualsLessThanEquals(), UPPER_VALUE);
+    public void testTestGreaterThanEqualsLessThanEquals_LowerAfter() {
+        this.testTrue(
+            greaterThanEqualsLessThanEquals(),
+            ABOVE_LOWER_VALUE
+        );
     }
 
     @Test
-    public void testGreaterThanEqualsLessThanEquals_Above() {
-        this.testFalse(greaterThanEqualsLessThanEquals(), ABOVE_UPPER_VALUE);
+    public void testTestGreaterThanEqualsLessThanEquals_UpperBefore() {
+        this.testTrue(
+            greaterThanEqualsLessThanEquals(),
+            BELOW_UPPER_VALUE
+        );
     }
 
     @Test
-    public void testGreaterThanEqualsLessThanEqualsToString() {
-        this.checkEquals("(" + LOWER_VALUE + ".." + UPPER_VALUE + ")", greaterThanEqualsLessThanEquals().toString());
+    public void testTestGreaterThanEqualsLessThanEquals_UpperValue() {
+        this.testTrue(
+            greaterThanEqualsLessThanEquals(),
+            UPPER_VALUE
+        );
+    }
+
+    @Test
+    public void testTestGreaterThanEqualsLessThanEquals_Above() {
+        this.testFalse(
+            greaterThanEqualsLessThanEquals(),
+            ABOVE_UPPER_VALUE
+        );
+    }
+
+    @Test
+    public void testTestGreaterThanEqualsLessThanEqualsToString() {
+        this.checkEquals(
+            "(" + LOWER_VALUE + ".." + UPPER_VALUE + ")", 
+            greaterThanEqualsLessThanEquals().toString()
+        );
     }
 
     private Range<CaseInsensitiveString> greaterThanEqualsLessThanEquals() {
@@ -628,40 +758,58 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
             );
     }
 
-    // and..............................................................................................
+    @Override
+    public Range<CaseInsensitiveString> createPredicate() {
+        return Range.all();
+    }
+    
+    // and..............................................................................................................
 
     @Test
     public void testAndLower() {
-        this.andAndCheck(greaterThanEqualsLessThanEquals(),
-            Range.greaterThan(BELOW_LOWER_VALUE));
+        this.andAndCheck(
+            greaterThanEqualsLessThanEquals(),
+            Range.greaterThan(BELOW_LOWER_VALUE)
+        );
     }
 
     @Test
     public void testAndUpper() {
-        this.andAndCheck(greaterThanEqualsLessThanEquals(),
-            Range.lessThan(ABOVE_UPPER_VALUE));
+        this.andAndCheck(
+            greaterThanEqualsLessThanEquals(),
+            Range.lessThan(ABOVE_UPPER_VALUE)
+        );
     }
 
     @Test
     public void testAndLower2() {
         final Range<CaseInsensitiveString> range = greaterThanEqualsLessThanEquals();
-        this.andAndCheck(range,
+        this.andAndCheck(
+            range,
             Range.greaterThan(ABOVE_LOWER_VALUE),
             RangeBound.exclusive(ABOVE_LOWER_VALUE),
-            range.upper);
+            range.upper
+        );
     }
 
     @Test
     public void testAndUpper2() {
-        this.andAndCheck(greaterThanEqualsLessThanEquals(),
+        this.andAndCheck(
+            greaterThanEqualsLessThanEquals(),
             Range.lessThan(BELOW_UPPER_VALUE),
             greaterThanEquals().lower,
-            RangeBound.exclusive(BELOW_UPPER_VALUE));
+            RangeBound.exclusive(BELOW_UPPER_VALUE)
+        );
     }
 
     private void andAndCheck(final Range<CaseInsensitiveString> range,
                              final Range<CaseInsensitiveString> other) {
-        this.andAndCheck(range, other, range.lower, range.upper);
+        this.andAndCheck(
+            range,
+            other,
+            range.lower,
+            range.upper
+        );
     }
 
     private void andAndCheck(final Range<CaseInsensitiveString> range,
@@ -669,11 +817,20 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
                              final RangeBound<CaseInsensitiveString> lower,
                              final RangeBound<CaseInsensitiveString> upper) {
         final Range<CaseInsensitiveString> intersected = range.and(other);
-        this.checkEquals(lower, intersected.lower, () -> range + " and " + other + " lower");
-        this.checkEquals(upper, intersected.upper, () -> range + " and " + other + " upper");
+        
+        this.checkEquals(
+            lower, 
+            intersected.lower,
+            () -> range + " and " + other + " lower"
+        );
+        this.checkEquals(
+            upper,
+            intersected.upper,
+            () -> range + " and " + other + " upper"
+        );
     }
 
-    // more tests ...................................................................................................
+    // more tests ......................................................................................................
 
     @Test
     public void testMultipleValuesCharacters() {
@@ -710,11 +867,14 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         this.testFalse(range, "NUT");
     }
 
-    // isOverlapping.............................................................................................
+    // isOverlapping....................................................................................................
 
     @Test
     public void testIsOverlappingpingNullFails() {
-        assertThrows(NullPointerException.class, () -> Range.all().isOverlapping(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> Range.all().isOverlapping(null)
+        );
     }
 
     @Test
@@ -722,7 +882,8 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         this.isOverlappingAndCheck(
             Range.greaterThan(5),
             Range.lessThan(3),
-            false);
+            false
+        );
     }
 
     @Test
@@ -730,7 +891,8 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         this.isOverlappingAndCheck(
             Range.greaterThan(5),
             Range.lessThan(4),
-            false);
+            false
+        );
     }
 
     @Test
@@ -738,7 +900,8 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         this.isOverlappingAndCheck(
             Range.lessThan(55),
             Range.greaterThan(55),
-            false);
+            false)
+        ;
     }
 
     @Test
@@ -746,7 +909,8 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         this.isOverlappingAndCheck(
             Range.greaterThanEquals(5),
             Range.lessThanEquals(4),
-            false);
+            false
+        );
     }
 
     @Test
@@ -754,7 +918,8 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         this.isOverlappingAndCheck(
             Range.greaterThanEquals(66).and(Range.lessThan(99)),
             Range.lessThan(44),
-            false);
+            false
+        );
     }
 
     @Test
@@ -762,7 +927,8 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         this.isOverlappingAndCheck(
             Range.greaterThanEquals(55).and(Range.lessThan(99)),
             Range.lessThan(54),
-            false);
+            false
+        );
     }
 
     @Test
@@ -770,7 +936,8 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         this.isOverlappingAndCheck(
             Range.greaterThanEquals(55).and(Range.lessThan(99)),
             Range.greaterThanEquals(44).and(Range.lessThan(54)),
-            false);
+            false
+        );
     }
 
     @Test
@@ -778,7 +945,8 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         this.isOverlappingAndCheck(
             Range.singleton(44),
             Range.singleton(55),
-            false);
+            false
+        );
     }
 
     @Test
@@ -786,7 +954,8 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         this.isOverlappingAndCheck(
             Range.lessThan(44),
             Range.greaterThan(44),
-            false);
+            false
+        );
     }
 
     @Test
@@ -794,7 +963,8 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         this.isOverlappingAndCheck(
             Range.lessThanEquals(44),
             Range.greaterThan(44),
-            false);
+            false
+        );
     }
 
     @Test
@@ -802,7 +972,8 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         this.isOverlappingAndCheck(
             Range.lessThan(44),
             Range.greaterThanEquals(44),
-            false);
+            false
+        );
     }
 
     @Test
@@ -810,7 +981,8 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         this.isOverlappingAndCheck(
             Range.greaterThanEquals(55).and(Range.lessThan(99)),
             Range.greaterThanEquals(44).and(Range.lessThan(56)),
-            true); // at 55
+            true
+        ); // at 55
     }
 
     @Test
@@ -818,7 +990,8 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         this.isOverlappingAndCheck(
             Range.greaterThanEquals(55),
             Range.greaterThanEquals(44).and(Range.lessThanEquals(55)),
-            true); // at 55
+            true
+        ); // at 55
     }
 
     @Test
@@ -826,7 +999,8 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         this.isOverlappingAndCheck(
             Range.greaterThanEquals(55).and(Range.lessThan(99)),
             Range.greaterThanEquals(44),
-            true); // at >=55
+            true
+        ); // at >=55
     }
 
     @Test
@@ -834,7 +1008,8 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         this.isOverlappingAndCheck(
             Range.all(),
             Range.greaterThanEquals(44),
-            true); // at >=55
+            true
+        ); // at >=55
     }
 
     @Test
@@ -842,14 +1017,23 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         this.isOverlappingAndCheck(
             Range.singleton(55),
             Range.singleton(55),
-            true); // at 55
+            true
+        ); // at 55
     }
 
     private void isOverlappingAndCheck(final Range<Integer> first,
                                        final Range<Integer> other,
                                        final boolean expected) {
-        this.isOverlappingAndCheck0(first, other, expected);
-        this.isOverlappingAndCheck0(other, first, expected);
+        this.isOverlappingAndCheck0(
+            first,
+            other,
+            expected
+        );
+        this.isOverlappingAndCheck0(
+            other,
+            first,
+            expected
+        );
     }
 
     private void isOverlappingAndCheck0(final Range<Integer> first,
@@ -869,19 +1053,7 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
             () -> first + " and " + other + " doesnt match " + first + " isOverlapping " + other);
     }
 
-    // misc ...................................................................................................
-
-    @Override
-    public void testAllMethodsVisibility() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testTypeNaming() {
-        throw new UnsupportedOperationException();
-    }
-
-    // parse ....................................................................................................
+    // parse ...........................................................................................................
 
     @Test
     public void testParseNullTextFails() {
@@ -1044,106 +1216,182 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         );
     }
 
-    // HashCodeEqualsDefined.....................................................................................
+    public Range<CaseInsensitiveString> parseString(final String text) {
+        return Range.parse(
+            text,
+            ':',
+            CaseInsensitiveString::new
+        );
+    }
 
-    // all.....................................................................................
+    @Override
+    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
+        return expected;
+    }
+
+    @Override
+    public RuntimeException parseStringFailedExpected(final RuntimeException expected) {
+        return expected;
+    }
+
+    // hashCode/equals..................................................................................................
+
+    // all..............................................................................................................
 
     @Test
     public void testEqualsAllSingleton() {
-        this.checkNotEquals(Range.all(), Range.singleton(VALUE));
+        this.checkNotEquals(
+            Range.all(),
+            Range.singleton(VALUE)
+        );
     }
 
     @Test
     public void testEqualsAllLessThan() {
-        this.checkNotEquals(Range.all(), Range.lessThan(VALUE));
+        this.checkNotEquals(
+            Range.all(),
+            Range.lessThan(VALUE)
+        );
     }
 
     @Test
     public void testEqualsAllLessThanEquals() {
-        this.checkNotEquals(Range.all(), Range.lessThanEquals(VALUE));
+        this.checkNotEquals(
+            Range.all(),
+            Range.lessThanEquals(VALUE)
+        );
     }
 
     @Test
     public void testEqualsAllGreaterThan() {
-        this.checkNotEquals(Range.greaterThan(VALUE));
+        this.checkNotEquals(
+            Range.greaterThan(VALUE)
+        );
     }
 
     @Test
     public void testEqualsAllGreaterThanEquals() {
-        this.checkNotEquals(Range.all(), Range.greaterThanEquals(VALUE));
+        this.checkNotEquals(
+            Range.all(), 
+            Range.greaterThanEquals(VALUE)
+        );
     }
 
-    // lessThan.....................................................................................
+    // lessThan.........................................................................................................
 
     @Test
     public void testEqualsLessThan() {
         final Range<CaseInsensitiveString> range = Range.lessThanEquals(VALUE);
-        this.checkEqualsAndHashCode(range, range);
+        this.checkEqualsAndHashCode(
+            range,
+            range
+        );
     }
 
     @Test
     public void testEqualsLessThanAll() {
-        this.checkNotEquals(Range.lessThan(VALUE), Range.all());
+        this.checkNotEquals(
+            Range.lessThan(VALUE),
+            Range.all()
+        );
     }
 
     @Test
     public void testEqualsLessThanSingleton() {
-        this.checkNotEquals(Range.lessThan(VALUE), Range.singleton(VALUE));
+        this.checkNotEquals(
+            Range.lessThan(VALUE),
+            Range.singleton(VALUE)
+        );
     }
 
     @Test
     public void testEqualsLessThanLessThan() {
-        this.checkEqualsAndHashCode(Range.lessThan(VALUE), Range.lessThan(VALUE));
+        this.checkEqualsAndHashCode(
+            Range.lessThan(VALUE), 
+            Range.lessThan(VALUE)
+        );
     }
 
     @Test
     public void testEqualsLessThanLessThanEquals() {
-        this.checkNotEquals(Range.lessThan(VALUE), Range.lessThanEquals(VALUE));
+        this.checkNotEquals(
+            Range.lessThan(VALUE), 
+            Range.lessThanEquals(VALUE)
+        );
     }
 
     @Test
     public void testEqualsLessThanGreaterThan() {
-        this.checkNotEquals(Range.lessThan(VALUE), Range.greaterThan(VALUE));
+        this.checkNotEquals(
+            Range.lessThan(VALUE), 
+            Range.greaterThan(VALUE)
+        );
     }
 
     @Test
     public void testEqualsLessThanGreaterThanEquals() {
-        this.checkNotEquals(Range.lessThan(VALUE), Range.greaterThanEquals(VALUE));
+        this.checkNotEquals(
+            Range.lessThan(VALUE),
+            Range.greaterThanEquals(VALUE)
+        );
     }
 
-    // lessThan...........................................................................
+    // lessThan.........................................................................................................
 
     @Test
     public void testEqualsLessThanEqualsAll() {
-        this.checkNotEquals(Range.lessThanEquals(VALUE), Range.all());
+        this.checkNotEquals(
+            Range.lessThanEquals(VALUE),
+            Range.all()
+        );
     }
 
     @Test
     public void testEqualsLessThanEqualsSingleton() {
-        this.checkNotEquals(Range.lessThanEquals(VALUE), Range.singleton(VALUE));
+        this.checkNotEquals(
+            Range.lessThanEquals(VALUE),
+            Range.singleton(VALUE)
+        );
     }
 
     @Test
     public void testEqualsLessThanEqualsLessThan() {
-        this.checkNotEquals(Range.lessThanEquals(VALUE), Range.lessThan(VALUE));
+        this.checkNotEquals(
+            Range.lessThanEquals(VALUE),
+            Range.lessThan(VALUE)
+        );
     }
 
     @Test
     public void testEqualsLessThanEqualsLessThanEquals() {
-        this.checkEqualsAndHashCode(Range.lessThanEquals(VALUE), Range.lessThanEquals(VALUE));
+        this.checkEqualsAndHashCode(
+            Range.lessThanEquals(VALUE), 
+            Range.lessThanEquals(VALUE)
+        );
     }
 
     @Test
     public void testEqualsLessThanEqualsGreaterThan() {
-        this.checkNotEquals(Range.lessThanEquals(VALUE), Range.greaterThan(VALUE));
+        this.checkNotEquals(
+            Range.lessThanEquals(VALUE),
+            Range.greaterThan(VALUE)
+        );
     }
 
     @Test
     public void testEqualsLessThanEqualsGreaterThanEquals() {
-        this.checkNotEquals(Range.lessThanEquals(VALUE), Range.greaterThanEquals(VALUE));
+        this.checkNotEquals(
+            Range.lessThanEquals(VALUE),
+            Range.greaterThanEquals(VALUE)
+        );
     }
 
-    // RangeVisitor....................................................................................................
+    @Override
+    public Range<CaseInsensitiveString> createObject() {
+        return this.createPredicate();
+    }
+
+    // RangeVisitor.....................................................................................................
 
     @Test
     public void testAcceptGreaterThan() {
@@ -1195,41 +1443,7 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         this.checkEquals(visited.toString(), "123456");
     }
 
-    // Parse ........................................................................................................
-
-    public Range<CaseInsensitiveString> parseString(final String text) {
-        return Range.parse(
-            text,
-            ':',
-            CaseInsensitiveString::new
-        );
-    }
-
-    @Override
-    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
-        return expected;
-    }
-
-    @Override
-    public RuntimeException parseStringFailedExpected(final RuntimeException expected) {
-        return expected;
-    }
-
-    // helper...........................................................................................
-
-    @Override
-    public Range<CaseInsensitiveString> createPredicate() {
-        return Range.all();
-    }
-
-    @Override
-    public Range<CaseInsensitiveString> createObject() {
-        return this.createPredicate();
-    }
-
-    private static Range<CaseInsensitiveString> all() {
-        return Range.all();
-    }
+    // helper...........................................................................................................
 
     private <CC extends Comparable<CC>> void check(final Range<CC> range,
                                                    final RangeBound<CC> lower,
@@ -1246,7 +1460,7 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         );
     }
 
-    // ClassTesting.........................................................................................
+    // ClassTesting.....................................................................................................
 
     @Override
     public Class<Range<CaseInsensitiveString>> type() {
@@ -1256,6 +1470,16 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
+    }
+
+    @Override
+    public void testAllMethodsVisibility() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 
     /**
