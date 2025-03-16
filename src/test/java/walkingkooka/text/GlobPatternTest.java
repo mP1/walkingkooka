@@ -37,7 +37,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
     // parse............................................................................................................
 
     @Test
-    public void testParseNullPatternFails() {
+    public void testParseWithNullPatternFails() {
         assertThrows(
             NullPointerException.class,
             () -> {
@@ -50,7 +50,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
     }
 
     @Test
-    public void testParseEmptyCaseInsensitive() {
+    public void testParseWithEmptyCaseInsensitive() {
         assertSame(
             GlobPattern.EMPTY_CASE_INSENSITIVE,
             GlobPattern.parse(
@@ -61,7 +61,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
     }
 
     @Test
-    public void testParseEmptyCaseSensitive() {
+    public void testParseWithEmptyCaseSensitive() {
         assertSame(
             GlobPattern.EMPTY_CASE_SENSITIVE,
             GlobPattern.parse(
@@ -73,7 +73,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testParseTextLiteral() {
-        this.parseAndCheck(
+        this.parseAndTestCheck(
             "Hello",
             CaseSensitivity.SENSITIVE,
             GlobPatternComponent.textLiteral("Hello")
@@ -82,7 +82,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testParseTextLiteralWithEscape() {
-        this.parseAndCheck(
+        this.parseAndTestCheck(
             "Hello\\*",
             CaseSensitivity.SENSITIVE,
             GlobPatternComponent.textLiteral("Hello*")
@@ -91,7 +91,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testParseQuestionMark() {
-        this.parseAndCheck(
+        this.parseAndTestCheck(
             "?",
             CaseSensitivity.SENSITIVE,
             GlobPatternComponent.wildcard(1, 1)
@@ -100,7 +100,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testParseStar() {
-        this.parseAndCheck(
+        this.parseAndTestCheck(
             "*",
             CaseSensitivity.SENSITIVE,
             GlobPatternComponent.wildcard(0, GlobPatternComponent.STAR_MAX)
@@ -109,7 +109,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testParseQuestionMark2() {
-        this.parseAndCheck(
+        this.parseAndTestCheck(
             "??",
             CaseSensitivity.SENSITIVE,
             GlobPatternComponent.wildcard(2, 2)
@@ -118,7 +118,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testParseQuestionMark3() {
-        this.parseAndCheck(
+        this.parseAndTestCheck(
             "???",
             CaseSensitivity.SENSITIVE,
             GlobPatternComponent.wildcard(3, 3)
@@ -127,7 +127,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testParseStar2() {
-        this.parseAndCheck(
+        this.parseAndTestCheck(
             "**",
             CaseSensitivity.SENSITIVE,
             GlobPatternComponent.wildcard(0, GlobPatternComponent.STAR_MAX)
@@ -136,7 +136,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testParseQuestionStar() {
-        this.parseAndCheck(
+        this.parseAndTestCheck(
             "?*",
             CaseSensitivity.SENSITIVE,
             GlobPatternComponent.wildcard(1, GlobPatternComponent.STAR_MAX)
@@ -145,7 +145,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testParseStarQuestion() {
-        this.parseAndCheck(
+        this.parseAndTestCheck(
             "*?",
             CaseSensitivity.SENSITIVE,
             GlobPatternComponent.wildcard(1, GlobPatternComponent.STAR_MAX)
@@ -154,7 +154,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testParseQuestionStarQuestion() {
-        this.parseAndCheck(
+        this.parseAndTestCheck(
             "?*?",
             CaseSensitivity.SENSITIVE,
             GlobPatternComponent.wildcard(2, GlobPatternComponent.STAR_MAX)
@@ -163,7 +163,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testParseQuestionText() {
-        this.parseAndCheck(
+        this.parseAndTestCheck(
             "?Hello",
             CaseSensitivity.SENSITIVE,
             GlobPatternComponent.wildcard(1, 1),
@@ -173,7 +173,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testParseStarText() {
-        this.parseAndCheck(
+        this.parseAndTestCheck(
             "*Hello",
             CaseSensitivity.SENSITIVE,
             GlobPatternComponent.wildcard(0, GlobPatternComponent.STAR_MAX),
@@ -183,7 +183,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testParseTextQuestion() {
-        this.parseAndCheck(
+        this.parseAndTestCheck(
             "Hello?",
             CaseSensitivity.SENSITIVE,
             GlobPatternComponent.textLiteral("Hello"),
@@ -193,7 +193,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testParseTextQuestionTextStar() {
-        this.parseAndCheck(
+        this.parseAndTestCheck(
             "Hello?123*",
             CaseSensitivity.SENSITIVE,
             GlobPatternComponent.textLiteral("Hello"),
@@ -205,30 +205,33 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testParseTextIncludesEscapedQuestionMark() {
-        this.parseAndCheck(
+        this.parseAndTestCheck(
             "Hello\\?",
             CaseSensitivity.SENSITIVE,
             GlobPatternComponent.textLiteral("Hello?")
         );
     }
 
-    private void parseAndCheck(final String pattern,
-                               final CaseSensitivity sensitivity,
-                               final GlobPatternComponent... component) {
+    private void parseAndTestCheck(final String pattern,
+                                   final CaseSensitivity caseSensitivity,
+                                   final GlobPatternComponent... component) {
         GlobPattern.setNext(Lists.of(component));
 
         final GlobPattern parsed = GlobPattern.parse(
             pattern,
-            sensitivity
+            caseSensitivity
         );
 
-        final GlobPatternComponent expectedFirst = new GlobPattern(component[0], sensitivity, pattern)
-            .first;
+        final GlobPatternComponent expectedFirst = new GlobPattern(
+            component[0],
+            caseSensitivity,
+            pattern
+        ).first;
 
         this.checkEquals(
             parsed.first,
             expectedFirst,
-            () -> "parse " + CharSequences.quoteAndEscape(pattern) + " " + sensitivity
+            () -> "parse " + CharSequences.quoteAndEscape(pattern) + " " + caseSensitivity
         );
 
         this.textAndCheck(
@@ -237,7 +240,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
         );
 
         this.checkEquals(
-            sensitivity,
+            caseSensitivity,
             parsed.caseSensitivity(),
             parsed::toString
         );
@@ -247,32 +250,50 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testIsOnlyTextLiteralText() {
-        this.parseAndIsOnlyTextLiteralCheck("abc123", true);
+        this.parseAndIsOnlyTextLiteralCheck(
+            "abc123",
+            true
+        );
     }
 
     @Test
     public void testIsOnlyTextLiteralTextWithEscaped() {
-        this.parseAndIsOnlyTextLiteralCheck("abc \\* \\? 123", true);
+        this.parseAndIsOnlyTextLiteralCheck(
+            "abc \\* \\? 123",
+            true
+        );
     }
 
     @Test
     public void testIsOnlyTextLiteralQuestion() {
-        this.parseAndIsOnlyTextLiteralCheck("?", false);
+        this.parseAndIsOnlyTextLiteralCheck(
+            "?",
+            false
+        );
     }
 
     @Test
     public void testIsOnlyTextLiteralStar() {
-        this.parseAndIsOnlyTextLiteralCheck("*", false);
+        this.parseAndIsOnlyTextLiteralCheck(
+            "*",
+            false
+        );
     }
 
     @Test
     public void testIsOnlyTextLiteralTextQuestionText() {
-        this.parseAndIsOnlyTextLiteralCheck("/dir/?.txt", false);
+        this.parseAndIsOnlyTextLiteralCheck(
+            "/dir/?.txt",
+            false
+        );
     }
 
     @Test
     public void testIsOnlyTextLiteralTextStarText() {
-        this.parseAndIsOnlyTextLiteralCheck("/dir/*.txt", false);
+        this.parseAndIsOnlyTextLiteralCheck(
+            "/dir/*.txt",
+            false
+        );
     }
 
     private void parseAndIsOnlyTextLiteralCheck(final String pattern,
@@ -282,27 +303,35 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
             GlobPattern.parse(
                     pattern,
                     CaseSensitivity.SENSITIVE
-                )
-                .isOnlyTextLiteral(),
+                ).isOnlyTextLiteral(),
             () -> "parse " + CharSequences.quoteAndEscape(pattern) + " iOnlyTextLiteral()"
         );
     }
 
-    // search..........................................................................................................
+    // search...........................................................................................................
 
     @Test
     public void testSearchStartPositionNegativeFails() {
-        this.searchStartPosFails("abc", -1);
+        this.searchStartPosFails(
+            "abc",
+            -1
+        );
     }
 
     @Test
     public void testSearchStartPositionOutOfBoundsFails() {
-        this.searchStartPosFails("", 1);
+        this.searchStartPosFails(
+            "",
+            1
+        );
     }
 
     @Test
     public void testSearchStartPositionOutOfBoundsFails2() {
-        this.searchStartPosFails("abc", 4);
+        this.searchStartPosFails(
+            "abc",
+            4
+        );
     }
 
     private void searchStartPosFails(final String text,
@@ -529,7 +558,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testTestTextLiteralEmptyText() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "A",
             "",
             false
@@ -538,7 +567,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testTestTextOneCharacter() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "A",
             "a",
             true
@@ -547,7 +576,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testTestTextOneDifferentCharacter() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "A",
             "!",
             false
@@ -556,7 +585,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testTestTextManyCharacters() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "abc",
             "abc",
             true
@@ -565,7 +594,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testTestTextWithNumbers() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "abc123",
             "abc123",
             true
@@ -574,7 +603,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testTestTextDifferentCaseUnimportant() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "ABC",
             "abc",
             true
@@ -583,7 +612,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testTestTextDifferentCaseSignificant() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "ABC",
             CaseSensitivity.SENSITIVE,
             "abc",
@@ -593,7 +622,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testTestQuestionEmptyText() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "?",
             "",
             false
@@ -602,7 +631,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testTestQuestion() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "?",
             "A",
             true
@@ -611,7 +640,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testTestQuestion2() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "??",
             "AB",
             true
@@ -620,7 +649,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testTestQuestionExtraText() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "?",
             "AB",
             false
@@ -629,7 +658,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testTestQuestionExtraText2() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "??",
             "ABC",
             false
@@ -638,7 +667,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testTestQuestionExtraText3() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "??",
             "ABCD",
             false
@@ -647,7 +676,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testTestStarEmptyText() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "*",
             "",
             true
@@ -656,7 +685,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testTestStar() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "*",
             "A",
             true
@@ -665,7 +694,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testTestStar2() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "*",
             "AB",
             true
@@ -674,7 +703,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testTestStar3() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "*",
             "ABc123",
             true
@@ -683,7 +712,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testTestStarTextStar() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "*Hello*",
             "123Hello456",
             true
@@ -692,7 +721,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testTestStarTextStarFalse() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "*Hello*",
             "123Hell456",
             false
@@ -701,7 +730,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testTestHyphenQuestion() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "-?",
             "-1",
             true
@@ -710,7 +739,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testTestHyphenQuestionFalse() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "-?",
             "-12",
             false
@@ -719,7 +748,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testTestHyphenQuestionFalse2() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "-?",
             "-123",
             false
@@ -728,7 +757,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testTestQuestionHyphenQuestion() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "?-?",
             "1-2",
             true
@@ -737,7 +766,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testTestQuestion3HyphenQuestion2() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "???-??",
             "123-45",
             true
@@ -746,7 +775,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testTestQuestion3HyphenQuestion2False() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "???-??",
             "123-456",
             false
@@ -755,7 +784,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testTestQuestion3HyphenQuestion2False2() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "???-??",
             "0123-45",
             false
@@ -763,8 +792,8 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
     }
 
     @Test
-    public void testWildcardFilenameWithExtension() {
-        this.testAndCheck(
+    public void testTestWildcardFilenameWithExtension() {
+        this.parseThenTestAndCheck(
             "*.txt",
             "file123.txt",
             true
@@ -772,8 +801,8 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
     }
 
     @Test
-    public void testWildcardFilenameWithExtension2() {
-        this.testAndCheck(
+    public void testTestWildcardFilenameWithExtension2() {
+        this.parseThenTestAndCheck(
             "*.txt",
             "file123.wrong",
             false
@@ -781,8 +810,8 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
     }
 
     @Test
-    public void testWildcardFilenameWithExtension3() {
-        this.testAndCheck(
+    public void testTestWildcardFilenameWithExtension3() {
+        this.parseThenTestAndCheck(
             "*.txt",
             "file123.txt2",
             false
@@ -790,8 +819,8 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
     }
 
     @Test
-    public void testWildcardFilenameWithExtension4() {
-        this.testAndCheck(
+    public void testTestWildcardFilenameWithExtension4() {
+        this.parseThenTestAndCheck(
             "?*.txt",
             "file123.txt",
             true
@@ -799,8 +828,8 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
     }
 
     @Test
-    public void testWildcardFilenameWithExtension5() {
-        this.testAndCheck(
+    public void testTestWildcardFilenameWithExtension5() {
+        this.parseThenTestAndCheck(
             "?*.txt",
             ".txt",
             false
@@ -809,7 +838,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testPathWithWildcards() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "/user/Miroslav/*.txt",
             "/user/Miroslav/passwords.txt",
             true
@@ -818,7 +847,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testPathWithWildcards2() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "/user/Miroslav/*.txt",
             "/user/NotMe/passwords.txt",
             false
@@ -827,7 +856,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testPathWithWildcards3() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "/user/Miroslav/*.txt",
             "/user/Miroslav/Hello.java",
             false
@@ -836,7 +865,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testPathWithEscape() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "/user/Miroslav/\\**.txt",
             "/user/Miroslav/*passwords.txt",
             true
@@ -845,17 +874,17 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
 
     @Test
     public void testPathWithEscape2() {
-        this.testAndCheck(
+        this.parseThenTestAndCheck(
             "/user/Miroslav/\\**.txt",
             "/user/Miroslav/passwords.txt",
             false
         );
     }
 
-    private void testAndCheck(final String pattern,
-                              final CharSequence test,
-                              final boolean expected) {
-        this.testAndCheck(
+    private void parseThenTestAndCheck(final String pattern,
+                                       final CharSequence test,
+                                       final boolean expected) {
+        this.parseThenTestAndCheck(
             pattern,
             CaseSensitivity.INSENSITIVE,
             test,
@@ -863,10 +892,10 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
         );
     }
 
-    private void testAndCheck(final String pattern,
-                              final CaseSensitivity sensitivity,
-                              final CharSequence test,
-                              final boolean expected) {
+    private void parseThenTestAndCheck(final String pattern,
+                                       final CaseSensitivity sensitivity,
+                                       final CharSequence test,
+                                       final boolean expected) {
         this.testAndCheck2(
             GlobPattern.parse(
                 pattern,
@@ -895,6 +924,14 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
                 0
             );
         }
+    }
+
+    @Override
+    public GlobPattern createPredicate() {
+        return GlobPattern.parse(
+            "Hello",
+            CaseSensitivity.SENSITIVE
+        );
     }
 
     // equals...........................................................................................................
@@ -932,27 +969,6 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
         );
     }
 
-    // NameTesting......................................................................................................
-
-    // Ignore
-    public void testTypeNaming() {
-        throw new UnsupportedOperationException();
-    }
-
-    // ClassTesting.....................................................................................................
-
-    @Override
-    public Class<GlobPattern> type() {
-        return GlobPattern.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
-    }
-
-    // HashCodeEqualsDefinedTesting2....................................................................................
-
     @Override
     public GlobPattern createObject() {
         return new GlobPattern(
@@ -962,13 +978,20 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
         );
     }
 
-    // PredicateTesting.................................................................................................
+    // class.............................................................................................................
+
+    // Ignore
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
-    public GlobPattern createPredicate() {
-        return GlobPattern.parse(
-            "Hello",
-            CaseSensitivity.SENSITIVE
-        );
+    public Class<GlobPattern> type() {
+        return GlobPattern.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }
