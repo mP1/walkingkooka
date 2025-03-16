@@ -50,11 +50,6 @@ final class CaseSensitivityCharSequencePredicateContains<C extends CharSequence>
     }
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof CaseSensitivityCharSequencePredicateContains;
-    }
-
-    @Override
     String toStringPrefix() {
         return "contains ";
     }

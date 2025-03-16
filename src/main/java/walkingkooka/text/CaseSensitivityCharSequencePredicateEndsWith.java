@@ -51,11 +51,6 @@ final class CaseSensitivityCharSequencePredicateEndsWith<C extends CharSequence>
     }
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof CaseSensitivityCharSequencePredicateEndsWith;
-    }
-
-    @Override
     String toStringPrefix() {
         return "ends with ";
     }

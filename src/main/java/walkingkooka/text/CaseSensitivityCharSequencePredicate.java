@@ -49,20 +49,29 @@ abstract class CaseSensitivityCharSequencePredicate<C extends CharSequence> impl
     @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     @Override
     public final boolean equals(final Object other) {
-        return (this == other) || (this.canBeEqual(other)
-            && this.equals0((CaseSensitivityCharSequencePredicate<?>) other));
+        return (this == other) ||
+            null != other &&
+                this.getClass() == other.getClass() &&
+                this.equals0(
+                    (CaseSensitivityCharSequencePredicate<?>) other
+        );
     }
-
-    abstract boolean canBeEqual(Object other);
 
     private boolean equals0(final CaseSensitivityCharSequencePredicate<?> other) {
         final CaseSensitivity sensitivity = this.sensitivity;
-        return sensitivity.equals(this.chars, other.chars) && sensitivity == other.sensitivity;
+
+        return sensitivity.equals(
+            this.chars,
+            other.chars
+        ) && sensitivity == other.sensitivity;
     }
 
     @Override
     public final String toString() {
-        return this.sensitivity.toString(this.toStringPrefix(), this.chars);
+        return this.sensitivity.toString(
+            this.toStringPrefix(),
+            this.chars
+        );
     }
 
     abstract String toStringPrefix();
