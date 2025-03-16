@@ -50,11 +50,6 @@ final class CaseSensitivityCharSequencePredicateStartsWith<C extends CharSequenc
     }
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof CaseSensitivityCharSequencePredicateStartsWith;
-    }
-
-    @Override
     String toStringPrefix() {
         return "starts with ";
     }
