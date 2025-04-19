@@ -24,26 +24,54 @@ import walkingkooka.Cast;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
+import java.util.Comparator;
 import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class ImmutableSortedSetTest implements ClassTesting<ImmutableSortedSet<String>> {
 
     // collector........................................................................................................
 
     @Test
-    public void testCollector() {
-        final Set<String> list = Sets.of(
+    public void testCollectorWithNullComparator() {
+        final Set<String> set = Sets.of(
             "1A",
             "2B",
             "3C"
         );
 
-        final ImmutableSortedSet<String> collected = list.stream()
-            .collect(ImmutableSortedSet.collector());
+        final ImmutableSortedSet<String> collected = set.stream()
+            .collect(ImmutableSortedSet.collector(null));
 
         this.checkEquals(
-            list,
+            set,
             collected
+        );
+    }
+
+    @Test
+    public void testCollectorWithComparator() {
+        final Set<String> set = Sets.of(
+            "1A",
+            "2B",
+            "3C"
+        );
+
+        final Comparator<String> comparator = String.CASE_INSENSITIVE_ORDER;
+
+        final ImmutableSortedSet<String> collected = set.stream()
+            .collect(ImmutableSortedSet.collector(comparator));
+
+        this.checkEquals(
+            set,
+            collected
+        );
+
+        assertSame(
+            comparator,
+            collected.comparator(),
+            "comparator"
         );
     }
 
