@@ -18,6 +18,7 @@
 package walkingkooka.collect.set;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.function.Predicate;
@@ -104,9 +105,9 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>, SortedSet<E> {
     /**
      * A collector that returns an {@link ImmutableSortedSet}.
      */
-    static <EE> Collector<EE, ?, ImmutableSortedSet<EE>> collector() {
+    static <EE> Collector<EE, ?, ImmutableSortedSet<EE>> collector(final Comparator<? super EE> comparator) {
         return Collectors.collectingAndThen(
-            Collectors.toCollection(SortedSets::tree),
+            Collectors.toCollection(() -> SortedSets.tree(comparator)),
             SortedSets::immutable
         );
     }
