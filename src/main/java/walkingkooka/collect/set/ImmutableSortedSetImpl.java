@@ -126,9 +126,11 @@ final class ImmutableSortedSetImpl<E> extends AbstractSet<E> implements Immutabl
 
     @Override
     public SortedSet<E> toSet() {
-        return new TreeSet<>(
-            this.sortedSet
-        );
+        final SortedSet<E> sortedSet = this.sortedSet;
+
+        final TreeSet<E> treeSet = new TreeSet<>(sortedSet.comparator());
+        treeSet.addAll(sortedSet);
+        return treeSet;
     }
 
     @Override

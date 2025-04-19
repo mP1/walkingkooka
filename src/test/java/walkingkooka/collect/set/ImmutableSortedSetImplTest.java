@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.IteratorTesting;
 
+import java.util.Comparator;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -133,6 +134,44 @@ public final class ImmutableSortedSetImplTest implements ImmutableSortedSetTesti
             this.createSet(),
             "*missing*",
             "replaced2b"
+        );
+    }
+
+    @Test
+    public void testToSet() {
+        final SortedSet<String> sortedSet = new TreeSet<>();
+        sortedSet.add("a1");
+        sortedSet.add("b2");
+
+        this.toSetAndCheck(
+            ImmutableSortedSetImpl.with(sortedSet),
+            sortedSet
+        );
+    }
+
+    @Test
+    public void testToSetWithComparator() {
+        final Comparator<String> comparator = String.CASE_INSENSITIVE_ORDER;
+
+        final SortedSet<String> sortedSet = new TreeSet<>(comparator);
+        sortedSet.add("a1");
+        sortedSet.add("b2");
+
+        final ImmutableSortedSet<String> immutableSortedSet = ImmutableSortedSetImpl.with(sortedSet);
+
+        this.toSetAndCheck(
+            immutableSortedSet,
+            sortedSet
+        );
+
+        this.checkEquals(
+            comparator,
+            immutableSortedSet.comparator()
+        );
+
+        this.checkEquals(
+            comparator,
+            immutableSortedSet.toSet().comparator()
         );
     }
 
