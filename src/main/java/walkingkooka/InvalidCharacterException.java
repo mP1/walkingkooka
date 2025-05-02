@@ -18,14 +18,13 @@
 package walkingkooka;
 
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.HasText;
 
 import java.util.Objects;
 
 /**
  * An {@link IllegalArgumentException} that reports an invalid character within some text.
  */
-public class InvalidCharacterException extends InvalidTextException implements HasText {
+public class InvalidCharacterException extends InvalidTextException {
 
     public InvalidCharacterException(final String text,
                                      final int position) {
