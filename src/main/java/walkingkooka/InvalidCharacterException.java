@@ -32,18 +32,8 @@ public class InvalidCharacterException extends InvalidTextException implements H
         this(
             text,
             position,
-            ""
+            null
         );
-    }
-
-    private InvalidCharacterException(final String text,
-                                      final int position,
-                                      final String appendToMessage) {
-        super();
-        checkText(text, position);
-        this.text = text;
-        this.position = position;
-        this.appendToMessage = appendToMessage;
     }
 
     public InvalidCharacterException(final String text,
@@ -62,19 +52,17 @@ public class InvalidCharacterException extends InvalidTextException implements H
                                       final String appendToMessage,
                                       final Throwable cause) {
         super(cause);
-        checkText(text, position);
-        this.text = text;
-        this.position = position;
-        this.appendToMessage = appendToMessage;
-    }
 
-    private static void checkText(final String text, final int position) {
         CharSequences.failIfNullOrEmpty(text, "text");
         if (position < 0 || position >= text.length()) {
             throw new IllegalArgumentException("Invalid position " + position + " not between 0 and " +
                 text.length() + " in " +
                 CharSequences.quoteAndEscape(text));
         }
+
+        this.text = text;
+        this.position = position;
+        this.appendToMessage = appendToMessage;
     }
 
     /**
@@ -161,12 +149,14 @@ public class InvalidCharacterException extends InvalidTextException implements H
     private InvalidCharacterException replace(final String text,
                                               final int position,
                                               final String appendToMessage) {
-        final Throwable cause = this.getCause();
-        return null != cause ?
-            new InvalidCharacterException(text, position, appendToMessage, cause) :
-            new InvalidCharacterException(text, position, appendToMessage);
+        return
+            new InvalidCharacterException(
+                text,
+                position,
+                appendToMessage,
+                this.getCause()
+            );
     }
-
 
     private static final long serialVersionUID = 1L;
 
