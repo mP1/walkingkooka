@@ -20,6 +20,7 @@ package walkingkooka;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
+import java.util.OptionalInt;
 
 /**
  * An {@link IllegalArgumentException} that reports an invalid character within some text.
@@ -31,6 +32,21 @@ public class InvalidCharacterException extends InvalidTextException {
         this(
             text,
             position,
+            NO_COLUMN,
+            NO_LINE
+        );
+    }
+
+    public InvalidCharacterException(final String text,
+                                     final int position,
+                                     final OptionalInt column,
+                                     final OptionalInt line) {
+        this(
+            text,
+            position,
+            column,
+            line,
+            NO_APPEND_TO_MESSAGE,
             null
         );
     }
@@ -41,6 +57,8 @@ public class InvalidCharacterException extends InvalidTextException {
         this(
             text,
             position,
+            NO_COLUMN,
+            NO_LINE,
             NO_APPEND_TO_MESSAGE,
             cause
         );
@@ -48,6 +66,8 @@ public class InvalidCharacterException extends InvalidTextException {
 
     private InvalidCharacterException(final String text,
                                       final int position,
+                                      final OptionalInt column,
+                                      final OptionalInt line,
                                       final String appendToMessage,
                                       final Throwable cause) {
         super(cause);
@@ -61,6 +81,10 @@ public class InvalidCharacterException extends InvalidTextException {
 
         this.text = text;
         this.position = position;
+
+        this.column = column;
+        this.line = line;
+
         this.appendToMessage = appendToMessage;
     }
 
@@ -80,6 +104,54 @@ public class InvalidCharacterException extends InvalidTextException {
 
     private final int position;
 
+    // column & line....................................................................................................
+
+    public final static OptionalInt NO_COLUMN = OptionalInt.empty();
+
+    public final OptionalInt column() {
+        return this.column;
+    }
+
+    private final OptionalInt column;
+
+    public final static OptionalInt NO_LINE = OptionalInt.empty();
+
+    public final OptionalInt line() {
+        return this.line;
+    }
+
+    private final OptionalInt line;
+
+    public InvalidCharacterException setColumnAndLine(final int column,
+                                                      final int line) {
+        if (column < 1) {
+            throw new IllegalArgumentException("Invalid column " + column + " < 1");
+        }
+        if (line < 1) {
+            throw new IllegalArgumentException("Invalid line " + line + " < 1");
+        }
+
+        return this.setColumnAndLine0(
+            OptionalInt.of(column),
+            OptionalInt.of(line)
+        );
+    }
+
+    private InvalidCharacterException setColumnAndLine0(final OptionalInt column,
+                                                        final OptionalInt line) {
+
+        return this.column.equals(column) &&
+            this.line.equals(line) ?
+            this :
+            this.replace(
+                this.text,
+                this.position,
+                column,
+                line,
+                this.appendToMessage
+            );
+    }
+
     // HasText..........................................................................................................
 
     @Override
@@ -93,6 +165,8 @@ public class InvalidCharacterException extends InvalidTextException {
             this.replace(
                 text,
                 position,
+                NO_COLUMN, // new position means old column/line must be wrong so clear
+                NO_LINE,
                 this.appendToMessage
             );
     }
@@ -108,13 +182,9 @@ public class InvalidCharacterException extends InvalidTextException {
      */
     @Override
     public final String getMessage() {
-        return "Invalid character " +
-            CharSequences.quoteIfChars(
-                this.character()
-            ) +
-            " at " + this.position +
-            " in " + CharSequences.quote(this.text) +
-            this.appendToMessage;
+        return this.buildMessage(
+            true // includeAt
+        );
     }
 
     /**
@@ -124,30 +194,68 @@ public class InvalidCharacterException extends InvalidTextException {
      * </pre>
      */
     public final String getShortMessage() {
-        return "Invalid character " +
-            CharSequences.quoteIfChars(
-                this.character()
-            ) +
-            " at " +
-            this.position +
-            this.appendToMessage;
+        return this.buildMessage(
+            false // includeAt
+        );
     }
 
-    private final static String NO_APPEND_TO_MESSAGE = "";
+    private String buildMessage(final boolean includeInText) {
+        final StringBuilder b = new StringBuilder();
+
+        // Invalid character '/' at X in \"text\" $appendToMessage
+        b.append("Invalid character ");
+        b.append(
+            CharSequences.quoteIfChars(
+                this.character()
+            )
+        );
+        b.append(" at ");
+
+        final OptionalInt column = this.column();
+        if (column.isPresent()) {
+            b.append('(');
+            b.append(column.getAsInt());
+            b.append(',');
+            b.append(this.line.getAsInt());
+            b.append(')');
+        } else {
+            b.append(this.position);
+        }
+
+        if (includeInText) {
+            b.append(" in ");
+            b.append(
+                CharSequences.quote(this.text)
+            );
+        }
+
+        final String appendToMessage = this.appendToMessage;
+        if (false == appendToMessage.isEmpty()) {
+            b.append(' ')
+                .append(appendToMessage);
+        }
+
+        return b.toString();
+    }
+
+    // appendToMessage..................................................................................................
+
+    // @VisibleForTesting
+    final static String NO_APPEND_TO_MESSAGE = "";
 
     /**
      * Appends some text to the generic {@link #getMessage()}. This is useful when the invalid position may belong
      * to a specific line within a large amount of text.
      */
     public final InvalidCharacterException appendToMessage(final String appendToMessage) {
-        Objects.requireNonNull(appendToMessage, "appendToMessage");
-
         return this.appendToMessage.equals(appendToMessage) ?
             this :
             this.replace(
                 this.text,
                 this.position,
-                appendToMessage
+                this.column,
+                this.line,
+                Objects.requireNonNull(appendToMessage, "appendToMessage")
             );
     }
 
@@ -159,11 +267,15 @@ public class InvalidCharacterException extends InvalidTextException {
 
     private InvalidCharacterException replace(final String text,
                                               final int position,
+                                              final OptionalInt column,
+                                              final OptionalInt line,
                                               final String appendToMessage) {
         return
             new InvalidCharacterException(
                 text,
                 position,
+                column,
+                line,
                 appendToMessage,
                 this.getCause()
             );
@@ -175,7 +287,13 @@ public class InvalidCharacterException extends InvalidTextException {
 
     @Override
     public final int hashCode() {
-        return Objects.hash(this.getMessage());
+        return Objects.hash(
+            this.text,
+            this.position,
+            this.column,
+            this.line,
+            this.appendToMessage
+        );
     }
 
     @Override
@@ -184,7 +302,10 @@ public class InvalidCharacterException extends InvalidTextException {
     }
 
     private boolean equals0(final InvalidCharacterException other) {
-        return this.text().equals(other.text()) &&
-            this.position() == other.position();
+        return this.text.equals(other.text) &&
+            this.position == other.position &&
+            this.column.equals(other.column) &&
+            this.line.equals(other.line) &&
+            this.appendToMessage.equals(other.appendToMessage);
     }
 }

@@ -22,6 +22,8 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.ThrowableTesting2;
 import walkingkooka.text.HasTextTesting;
 
+import java.util.OptionalInt;
+
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -32,7 +34,6 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
 
     private final static String TEXT = "abc!123";
     private final static int POSITION = 3;
-
 
     // ICE includes 2 private ctors.
     @Override
@@ -93,7 +94,7 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
     @Test
     public void testWith() {
         final InvalidCharacterException cause = this.create();
-        check(
+        this.check(
             cause,
             TEXT,
             POSITION,
@@ -105,7 +106,7 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
     public void testWithCause() {
         final Exception cause = new Exception();
         final InvalidCharacterException thrown = this.create(cause);
-        check(
+        this.check(
             thrown,
             TEXT,
             POSITION,
@@ -272,6 +273,72 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
         this.check(cause);
     }
 
+    // setColumnAndLine.................................................................................................
+
+    @Test
+    public void testSetColumnAndLineWithSame() {
+        final int column = 2;
+        final int line = 3;
+
+        final InvalidCharacterException thrown = this.create()
+            .setColumnAndLine(
+                column,
+                line
+            );
+
+        assertSame(
+            thrown.setColumnAndLine(
+                column,
+                line
+            ),
+            thrown
+        );
+    }
+
+    @Test
+    public void testSetColumnAndLineDifferent() {
+        final InvalidCharacterException thrown = this.create();
+
+        final int column = 2;
+        final int line = 3;
+
+        final InvalidCharacterException different = thrown.setColumnAndLine(
+            column,
+            line
+        );
+        this.check(
+            different,
+            TEXT,
+            POSITION,
+            OptionalInt.of(column),
+            OptionalInt.of(line),
+            InvalidCharacterException.NO_APPEND_TO_MESSAGE
+        );
+    }
+
+    @Test
+    public void testSetColumnAndLineDifferentAndAppendToMessage() {
+        final InvalidCharacterException thrown = this.create();
+
+        final int column = 2;
+        final int line = 3;
+        final String appendToMessage = "appendToMessage123";
+
+        final InvalidCharacterException different = thrown.appendToMessage(appendToMessage)
+            .setColumnAndLine(
+                column,
+                line
+            );
+        this.check(
+            different,
+            TEXT,
+            POSITION,
+            OptionalInt.of(column),
+            OptionalInt.of(line),
+            appendToMessage
+        );
+    }
+
     // appendToMessage..................................................................................................
 
     @Test
@@ -306,12 +373,14 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
             different,
             thrown.text(),
             thrown.position(),
+            thrown.column(),
+            thrown.line(),
             appendToMessage
         );
 
         this.checkMessage(
             different,
-            thrown.getMessage() + appendToMessage
+            thrown.getMessage() + ' ' + appendToMessage
         );
     }
 
@@ -319,25 +388,60 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
 
     @Test
     public void testGetMessage() {
-        checkMessage(this.create(), "Invalid character \'!\' at 3 in \"abc!123\"");
+        checkMessage(
+            this.create(),
+            "Invalid character \'!\' at 3 in \"abc!123\""
+        );
+    }
+
+    @Test
+    public void testGetMessageWithColumnAndLine() {
+        checkMessage(
+            this.create()
+                .setColumnAndLine(
+                    4,
+                    5
+                ),
+            "Invalid character \'!\' at (4,5) in \"abc!123\""
+        );
     }
 
     // getShortMessage..................................................................................................
 
     @Test
     public void testGetShortMessage() {
-        checkShortMessage(
+        getShortMessageAndCheck(
             this.create(),
             "Invalid character \'!\' at 3"
         );
     }
 
     @Test
+    public void testGetShortMessageWithColumnAndLine() {
+        getShortMessageAndCheck(
+            this.create()
+                .setColumnAndLine(3, 4),
+            "Invalid character \'!\' at (3,4)"
+        );
+    }
+
+    @Test
     public void testGetShortMessageWithAppendMessage() {
-        checkShortMessage(
+        getShortMessageAndCheck(
             this.create()
                 .appendToMessage("AppendToMessage333"),
-            "Invalid character \'!\' at 3AppendToMessage333"
+            "Invalid character \'!\' at 3 AppendToMessage333"
+        );
+    }
+
+
+    @Test
+    public void testGetShortMessageWithAppendMessageAndColumnAndLine() {
+        getShortMessageAndCheck(
+            this.create()
+                .setColumnAndLine(3, 4)
+                .appendToMessage("AppendToMessage333"),
+            "Invalid character \'!\' at (3,4) AppendToMessage333"
         );
     }
 
@@ -355,7 +459,7 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
 
     @Test
     public void testGetShortMessageAfterSetTextAndPosition() {
-        checkShortMessage(
+        getShortMessageAndCheck(
             this.create()
                 .setTextAndPosition(
                     "ABCDEFG",
@@ -384,13 +488,31 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
         this.check(
             exception,
             TEXT, POSITION,
-            "" // appendToMessage
+            InvalidCharacterException.NO_COLUMN,
+            InvalidCharacterException.NO_LINE,
+            InvalidCharacterException.NO_APPEND_TO_MESSAGE
         );
     }
 
     private void check(final InvalidCharacterException exception,
                        final String text,
                        final int position,
+                       final String appendToMessage) {
+        this.check(
+            exception,
+            text,
+            position,
+            InvalidCharacterException.NO_COLUMN,
+            InvalidCharacterException.NO_LINE,
+            appendToMessage
+        );
+    }
+
+    private void check(final InvalidCharacterException exception,
+                       final String text,
+                       final int position,
+                       final OptionalInt column,
+                       final OptionalInt line,
                        final String appendToMessage) {
         this.textAndCheck(
             exception,
@@ -402,14 +524,24 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
             "position"
         );
         this.checkEquals(
+            column,
+            exception.column(),
+            "position"
+        );
+        this.checkEquals(
+            line,
+            exception.line(),
+            "line"
+        );
+        this.checkEquals(
             appendToMessage,
             exception.appendToMessage,
             "appendToMessage"
         );
     }
 
-    private void checkShortMessage(final InvalidCharacterException exception,
-                                   final String expected) {
+    private void getShortMessageAndCheck(final InvalidCharacterException exception,
+                                         final String expected) {
         this.checkEquals(
             expected,
             exception.getShortMessage(),
@@ -435,6 +567,31 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
             new InvalidCharacterException(
                 TEXT,
                 POSITION + 1
+            )
+        );
+    }
+
+    @Test
+    public void testEqualsDifferentColumnAndRow() {
+        this.checkNotEquals(
+            new InvalidCharacterException(
+                TEXT,
+                POSITION + 1
+            ).setColumnAndLine(
+                1,
+                2
+            )
+        );
+    }
+
+    @Test
+    public void testEqualsDifferentAppendToMessage() {
+        this.checkNotEquals(
+            new InvalidCharacterException(
+                TEXT,
+                POSITION + 1
+            ).appendToMessage(
+                "DifferentAppendToMessage123"
             )
         );
     }
