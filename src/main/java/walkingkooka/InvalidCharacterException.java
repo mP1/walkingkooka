@@ -68,14 +68,14 @@ public class InvalidCharacterException extends InvalidTextException implements H
     /**
      * Getter that returns the invalid character.
      */
-    public char character() {
+    public final char character() {
         return this.text.charAt(this.position);
     }
 
     /**
      * Getter that returns the position of the invalid character within {@link #text()}.
      */
-    public int position() {
+    public final int position() {
         return this.position;
     }
 
@@ -84,11 +84,11 @@ public class InvalidCharacterException extends InvalidTextException implements H
     // HasText..........................................................................................................
 
     @Override
-    public String text() {
+    public final String text() {
         return this.text;
     }
 
-    public InvalidCharacterException setTextAndPosition(final String text, final int position) {
+    public final InvalidCharacterException setTextAndPosition(final String text, final int position) {
         return this.text.equals(text) && this.position == position ?
             this :
             this.replace(
@@ -108,7 +108,7 @@ public class InvalidCharacterException extends InvalidTextException implements H
      * </pre>
      */
     @Override
-    public String getMessage() {
+    public final String getMessage() {
         return "Invalid character " +
             CharSequences.quoteIfChars(
                 this.character()
@@ -124,7 +124,7 @@ public class InvalidCharacterException extends InvalidTextException implements H
      * Invalid character '/' at 1
      * </pre>
      */
-    public String getShortMessage() {
+    public final String getShortMessage() {
         return "Invalid character " +
             CharSequences.quoteIfChars(
                 this.character()
@@ -138,7 +138,7 @@ public class InvalidCharacterException extends InvalidTextException implements H
      * Appends some text to the generic {@link #getMessage()}. This is useful when the invalid position may belong
      * to a specific line within a large amount of text.
      */
-    public InvalidCharacterException appendToMessage(final String appendToMessage) {
+    public final InvalidCharacterException appendToMessage(final String appendToMessage) {
         Objects.requireNonNull(appendToMessage, "appendToMessage");
 
         return this.appendToMessage.equals(appendToMessage) ?
@@ -173,12 +173,12 @@ public class InvalidCharacterException extends InvalidTextException implements H
     // Object...........................................................................................................
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return Objects.hash(this.getMessage());
     }
 
     @Override
-    public boolean equals(final Object other) {
+    public final boolean equals(final Object other) {
         return this == other || other instanceof InvalidCharacterException && this.equals0((InvalidCharacterException) other);
     }
 
