@@ -66,6 +66,13 @@ public class InvalidCharacterException extends InvalidTextException implements H
     }
 
     /**
+     * Getter that returns the invalid character.
+     */
+    public char character() {
+        return this.text.charAt(this.position);
+    }
+
+    /**
      * Getter that returns the position of the invalid character within {@link #text()}.
      */
     public int position() {
@@ -102,7 +109,10 @@ public class InvalidCharacterException extends InvalidTextException implements H
      */
     @Override
     public String getMessage() {
-        return "Invalid character " + CharSequences.quoteIfChars(this.text.charAt(this.position)) +
+        return "Invalid character " +
+            CharSequences.quoteIfChars(
+                this.character()
+            ) +
             " at " + this.position +
             " in " + CharSequences.quote(this.text) +
             this.appendToMessage;
@@ -117,7 +127,7 @@ public class InvalidCharacterException extends InvalidTextException implements H
     public String getShortMessage() {
         return "Invalid character " +
             CharSequences.quoteIfChars(
-                this.text.charAt(this.position)
+                this.character()
             ) +
             " at " +
             this.position +
