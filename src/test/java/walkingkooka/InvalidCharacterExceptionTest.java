@@ -40,28 +40,54 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
         throw new UnsupportedOperationException();
     }
 
+    // with.............................................................................................................
+
     @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithNullTextFails() {
-        assertThrows(NullPointerException.class, () -> new InvalidCharacterException(null, 3));
+        assertThrows(
+            NullPointerException.class,
+            () -> new InvalidCharacterException(
+                null,
+                3
+            )
+        );
     }
 
     @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithEmptyTextFails() {
-        assertThrows(IllegalArgumentException.class, () -> new InvalidCharacterException("", 3));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new InvalidCharacterException(
+                "",
+                3
+            )
+        );
     }
 
     @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithInvalidPositionFails() {
-        assertThrows(IllegalArgumentException.class, () -> new InvalidCharacterException(TEXT, -1));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new InvalidCharacterException(
+                TEXT,
+                -1
+            )
+        );
     }
 
     @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithInvalidPositionFails2() {
-        assertThrows(IllegalArgumentException.class, () -> new InvalidCharacterException(TEXT, TEXT.length()));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new InvalidCharacterException(
+                TEXT,
+                TEXT.length()
+            )
+        );
     }
 
     @Test
@@ -88,35 +114,71 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
         checkCause(thrown, cause);
     }
 
+    // setTextAndPosition...............................................................................................
+
     @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testSetTextAndPositionNullTextFails() {
-        assertThrows(NullPointerException.class, () -> this.create().setTextAndPosition(null, POSITION));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.create()
+                .setTextAndPosition(
+                    null,
+                    POSITION
+                )
+        );
     }
 
     @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testSetTextAndPositionEmptyTextFails() {
-        assertThrows(IllegalArgumentException.class, () -> this.create().setTextAndPosition("", POSITION));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.create()
+                .setTextAndPosition(
+                    "",
+                    POSITION
+                )
+        );
     }
 
     @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testSetTextAndPositionInvalidPositionFails() {
-        assertThrows(IllegalArgumentException.class, () -> this.create().setTextAndPosition(TEXT, -1));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.create()
+                .setTextAndPosition(
+                    TEXT,
+                    -1
+                )
+        );
     }
 
     @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testSetTextAndPositionInvalidPositionFails2() {
-        assertThrows(IllegalArgumentException.class, () -> this.create().setTextAndPosition(TEXT, TEXT.length() + 1));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.create()
+                .setTextAndPosition(
+                    TEXT,
+                    TEXT.length() + 1)
+        );
     }
 
     @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testSetTextAndPositionInvalidPositionFails3() {
         final String text = "abc";
-        assertThrows(IllegalArgumentException.class, () -> this.create().setTextAndPosition(text, text.length() + 1));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.create()
+                .setTextAndPosition(
+                    text,
+                    text.length() + 1
+                )
+        );
     }
 
     @Test
@@ -129,7 +191,10 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
     public void testSetTextAndPositionDifferentText() {
         final InvalidCharacterException cause = this.create();
         final String text = "different";
-        final InvalidCharacterException different = cause.setTextAndPosition(text, POSITION);
+        final InvalidCharacterException different = cause.setTextAndPosition(
+            text,
+            POSITION
+        );
         assertNotSame(cause, different);
 
         this.check(
@@ -148,7 +213,10 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
 
         final InvalidCharacterException thrown = this.create(cause);
         final String text = "different";
-        final InvalidCharacterException different = thrown.setTextAndPosition(text, POSITION);
+        final InvalidCharacterException different = thrown.setTextAndPosition(
+            text,
+            POSITION
+        );
         assertNotSame(cause, different);
 
         this.check(
@@ -167,7 +235,10 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
     public void testSetTextAndPositionDifferentPosition() {
         final InvalidCharacterException cause = this.create();
         final int position = 2;
-        final InvalidCharacterException different = cause.setTextAndPosition(TEXT, position);
+        final InvalidCharacterException different = cause.setTextAndPosition(
+            TEXT,
+            position
+        );
         assertNotSame(cause, different);
 
         this.check(
@@ -185,7 +256,10 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
         final InvalidCharacterException cause = this.create();
         final String text = "different";
         final int position = 1;
-        final InvalidCharacterException different = cause.setTextAndPosition(text, position);
+        final InvalidCharacterException different = cause.setTextAndPosition(
+            text,
+            position
+        );
         assertNotSame(cause, different);
 
         this.check(
@@ -197,6 +271,8 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
 
         this.check(cause);
     }
+
+    // appendToMessage..................................................................................................
 
     @Test
     public void testAppendToMessageNullFails() {
@@ -239,11 +315,14 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
         );
     }
 
+    // getMessage.......................................................................................................
 
     @Test
     public void testGetMessage() {
         checkMessage(this.create(), "Invalid character \'!\' at 3 in \"abc!123\"");
     }
+
+    // getShortMessage..................................................................................................
 
     @Test
     public void testGetShortMessage() {
@@ -287,11 +366,18 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
     }
 
     private InvalidCharacterException create() {
-        return new InvalidCharacterException(TEXT, POSITION);
+        return new InvalidCharacterException(
+            TEXT,
+            POSITION
+        );
     }
 
     private InvalidCharacterException create(final Throwable cause) {
-        return new InvalidCharacterException(TEXT, POSITION, cause);
+        return new InvalidCharacterException(
+            TEXT,
+            POSITION,
+            cause
+        );
     }
 
     private void check(final InvalidCharacterException exception) {
@@ -306,9 +392,20 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
                        final String text,
                        final int position,
                        final String appendToMessage) {
-        this.checkEquals(text, exception.text(), "text");
-        this.checkEquals(position, exception.position(), "position");
-        this.checkEquals(appendToMessage, exception.appendToMessage, "appendToMessage");
+        this.textAndCheck(
+            exception,
+            text
+        );
+        this.checkEquals(
+            position,
+            exception.position(),
+            "position"
+        );
+        this.checkEquals(
+            appendToMessage,
+            exception.appendToMessage,
+            "appendToMessage"
+        );
     }
 
     private void checkShortMessage(final InvalidCharacterException exception,
@@ -324,12 +421,30 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
 
     @Test
     public void testEqualsDifferentText() {
-        this.checkNotEquals(new InvalidCharacterException(TEXT + " different", POSITION));
+        this.checkNotEquals(
+            new InvalidCharacterException(
+                TEXT + " different",
+                POSITION
+            )
+        );
     }
 
     @Test
     public void testEqualsDifferentPosition() {
-        this.checkNotEquals(new InvalidCharacterException(TEXT, POSITION + 1));
+        this.checkNotEquals(
+            new InvalidCharacterException(
+                TEXT,
+                POSITION + 1
+            )
+        );
+    }
+
+    @Override
+    public InvalidCharacterException createObject() {
+        return new InvalidCharacterException(
+            TEXT,
+            POSITION
+        );
     }
 
     // ClassVisibility..................................................................................................
@@ -342,12 +457,5 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
-    }
-
-    // equality.........................................................................................................
-
-    @Override
-    public InvalidCharacterException createObject() {
-        return new InvalidCharacterException(TEXT, POSITION);
     }
 }
