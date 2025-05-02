@@ -64,12 +64,12 @@ public class InvalidCharacterException extends InvalidTextException {
         );
     }
 
-    private InvalidCharacterException(final String text,
-                                      final int position,
-                                      final OptionalInt column,
-                                      final OptionalInt line,
-                                      final String appendToMessage,
-                                      final Throwable cause) {
+    protected InvalidCharacterException(final String text,
+                                        final int position,
+                                        final OptionalInt column,
+                                        final OptionalInt line,
+                                        final String appendToMessage,
+                                        final Throwable cause) {
         super(cause);
 
         CharSequences.failIfNullOrEmpty(text, "text");
