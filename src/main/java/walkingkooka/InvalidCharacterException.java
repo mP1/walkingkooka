@@ -41,7 +41,7 @@ public class InvalidCharacterException extends InvalidTextException {
         this(
             text,
             position,
-            "",
+            NO_APPEND_TO_MESSAGE,
             cause
         );
     }
@@ -132,6 +132,8 @@ public class InvalidCharacterException extends InvalidTextException {
             this.position +
             this.appendToMessage;
     }
+
+    private final static String NO_APPEND_TO_MESSAGE = "";
 
     /**
      * Appends some text to the generic {@link #getMessage()}. This is useful when the invalid position may belong
