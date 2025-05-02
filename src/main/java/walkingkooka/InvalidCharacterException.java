@@ -241,7 +241,7 @@ public class InvalidCharacterException extends InvalidTextException {
     // appendToMessage..................................................................................................
 
     // @VisibleForTesting
-    final static String NO_APPEND_TO_MESSAGE = "";
+    public final static String NO_APPEND_TO_MESSAGE = "";
 
     /**
      * Appends some text to the generic {@link #getMessage()}. This is useful when the invalid position may belong
