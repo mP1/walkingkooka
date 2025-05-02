@@ -260,6 +260,13 @@ public class InvalidCharacterException extends InvalidTextException {
     }
 
     /**
+     * Getter that returns the {@link #appendToMessage}.
+     */
+    public String appendToMessage() {
+        return this.appendToMessage;
+    }
+
+    /**
      * This is some extra text appended to the generic Invalid character message.
      */
     // @VisibleForTesting
