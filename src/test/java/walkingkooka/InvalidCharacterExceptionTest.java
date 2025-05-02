@@ -339,6 +339,39 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
         );
     }
 
+    // clearColumnAndLine...............................................................................................
+
+    @Test
+    public void testClearColumnAndLineWhenAbsent() {
+        final InvalidCharacterException thrown = this.create();
+
+        assertSame(
+            thrown,
+            thrown.clearColumnAndLine()
+        );
+    }
+
+    @Test
+    public void testClearColumnAndLineWhenPresent() {
+        final InvalidCharacterException thrown = this.create();
+
+        final int column = 2;
+        final int line = 3;
+        final String appendToMessage = "appendToMessage123";
+
+        final InvalidCharacterException cleared = thrown.appendToMessage(appendToMessage)
+            .setColumnAndLine(
+                column,
+                line
+            ).clearColumnAndLine();
+        this.check(
+            cleared,
+            TEXT,
+            POSITION,
+            appendToMessage
+        );
+    }
+
     // appendToMessage..................................................................................................
 
     @Test
@@ -526,7 +559,7 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
         this.checkEquals(
             column,
             exception.column(),
-            "position"
+            "column"
         );
         this.checkEquals(
             line,
