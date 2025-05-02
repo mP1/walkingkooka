@@ -77,6 +77,17 @@ public class InvalidCharacterException extends InvalidTextException implements H
         }
     }
 
+    /**
+     * Getter that returns the position of the invalid character within {@link #text()}.
+     */
+    public int position() {
+        return this.position;
+    }
+
+    private final int position;
+
+    // HasText..........................................................................................................
+
     @Override
     public String text() {
         return this.text;
@@ -94,11 +105,7 @@ public class InvalidCharacterException extends InvalidTextException implements H
 
     private final String text;
 
-    public int position() {
-        return this.position;
-    }
-
-    private final int position;
+    // Throwable........................................................................................................
 
     /**
      * <pre>
