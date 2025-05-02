@@ -152,6 +152,22 @@ public class InvalidCharacterException extends InvalidTextException {
             );
     }
 
+    /**
+     * Removes any column and line if they are present.
+     */
+    public InvalidCharacterException clearColumnAndLine() {
+        // cant use setTextPosition with same text & position because that wont clear column/line
+        return this.column.isPresent() ?
+            this.replace(
+                this.text,
+                this.position,
+                NO_COLUMN, // new position means old column/line must be wrong so clear
+                NO_LINE,
+                this.appendToMessage
+            ) :
+            this;
+    }
+
     // HasText..........................................................................................................
 
     @Override
