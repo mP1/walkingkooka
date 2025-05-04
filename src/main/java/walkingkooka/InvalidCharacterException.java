@@ -27,6 +27,8 @@ import java.util.OptionalInt;
  */
 public class InvalidCharacterException extends InvalidTextException {
 
+    private static final long serialVersionUID = 1L;
+
     public InvalidCharacterException(final String text,
                                      final int position) {
         this(
@@ -303,8 +305,6 @@ public class InvalidCharacterException extends InvalidTextException {
                 this.getCause()
             );
     }
-
-    private static final long serialVersionUID = 1L;
 
     // Object...........................................................................................................
 
