@@ -411,7 +411,7 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
     public void testGetMessage() {
         checkMessage(
             this.create(),
-            "Invalid character \'!\' at 3 in \"abc!123\""
+            "Invalid character \'!\' at 3"
         );
     }
 
@@ -468,14 +468,16 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
 
     @Test
     public void testGetMessageEscapedCharacter() {
-        checkMessage(new InvalidCharacterException("abc\"123", 3),
-            "Invalid character \'\\\"\' at 3 in \"abc\"123\"");
+        checkMessage(
+            new InvalidCharacterException("abc\"123", 3),
+            "Invalid character \'\\\"\' at 3"
+        );
     }
 
     @Test
     public void testGetMessageAfterSetTextAndPosition() {
         checkMessage(this.create().setTextAndPosition("@@" + TEXT, 2 + POSITION),
-            "Invalid character \'!\' at 5 in \"@@abc!123\"");
+            "Invalid character \'!\' at 5");
     }
 
     @Test

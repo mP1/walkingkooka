@@ -233,13 +233,6 @@ public class InvalidCharacterException extends InvalidTextException {
             b.append(this.position);
         }
 
-        if (includeInText && false == columnAndLine) {
-            b.append(" in ");
-            b.append(
-                CharSequences.quote(this.text)
-            );
-        }
-
         final String appendToMessage = this.appendToMessage;
         if (false == appendToMessage.isEmpty()) {
             b.append(' ')
