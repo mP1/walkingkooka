@@ -24,6 +24,7 @@ import java.util.OptionalInt;
 
 /**
  * An {@link IllegalArgumentException} that reports an invalid character within some text.
+ * Note all would be setter methods return this, supporting chainging.
  */
 public class InvalidCharacterException extends InvalidTextException {
 
@@ -74,12 +75,10 @@ public class InvalidCharacterException extends InvalidTextException {
                                         final Throwable cause) {
         super(cause);
 
-        CharSequences.failIfNullOrEmpty(text, "text");
-        if (position < 0 || position >= text.length()) {
-            throw new IllegalArgumentException("Invalid position " + position + " not between 0 and " +
-                text.length() + " in " +
-                CharSequences.quoteAndEscape(text));
-        }
+        checkTextAndPosition(
+            text,
+            position
+        );
 
         this.text = text;
         this.position = position;
@@ -104,7 +103,20 @@ public class InvalidCharacterException extends InvalidTextException {
         return this.position;
     }
 
-    private final int position;
+    private int position;
+
+    private static void checkTextAndPosition(final String text,
+                                             final int position) {
+        CharSequences.failIfNullOrEmpty(text, "text");
+
+        if (position < 0 || position >= text.length()) {
+            throw new IllegalArgumentException(
+                "Invalid position " + position + " not between 0 and " +
+                    text.length() + " in " +
+                    CharSequences.quoteAndEscape(text)
+            );
+        }
+    }
 
     // column & line....................................................................................................
 
@@ -114,7 +126,7 @@ public class InvalidCharacterException extends InvalidTextException {
         return this.column;
     }
 
-    private final OptionalInt column;
+    private OptionalInt column;
 
     public final static OptionalInt NO_LINE = OptionalInt.empty();
 
@@ -122,7 +134,7 @@ public class InvalidCharacterException extends InvalidTextException {
         return this.line;
     }
 
-    private final OptionalInt line;
+    private OptionalInt line;
 
     public InvalidCharacterException setColumnAndLine(final int column,
                                                       final int line) {
@@ -133,41 +145,20 @@ public class InvalidCharacterException extends InvalidTextException {
             throw new IllegalArgumentException("Invalid line " + line + " < 1");
         }
 
-        return this.setColumnAndLine0(
-            OptionalInt.of(column),
-            OptionalInt.of(line)
-        );
-    }
+        this.column = OptionalInt.of(column);
+        this.line = OptionalInt.of(line);
 
-    private InvalidCharacterException setColumnAndLine0(final OptionalInt column,
-                                                        final OptionalInt line) {
-
-        return this.column.equals(column) &&
-            this.line.equals(line) ?
-            this :
-            this.replace(
-                this.text,
-                this.position,
-                column,
-                line,
-                this.appendToMessage
-            );
+        return this;
     }
 
     /**
      * Removes any column and line if they are present.
      */
     public InvalidCharacterException clearColumnAndLine() {
-        // cant use setTextPosition with same text & position because that wont clear column/line
-        return this.column.isPresent() ?
-            this.replace(
-                this.text,
-                this.position,
-                NO_COLUMN, // new position means old column/line must be wrong so clear
-                NO_LINE,
-                this.appendToMessage
-            ) :
-            this;
+        this.column = OptionalInt.empty();
+        this.line = OptionalInt.empty();
+
+        return this;
     }
 
     // HasText..........................................................................................................
@@ -177,19 +168,19 @@ public class InvalidCharacterException extends InvalidTextException {
         return this.text;
     }
 
-    public final InvalidCharacterException setTextAndPosition(final String text, final int position) {
-        return this.text.equals(text) && this.position == position ?
-            this :
-            this.replace(
-                text,
-                position,
-                NO_COLUMN, // new position means old column/line must be wrong so clear
-                NO_LINE,
-                this.appendToMessage
-            );
+    public final InvalidCharacterException setTextAndPosition(final String text,
+                                                              final int position) {
+        checkTextAndPosition(
+            text,
+            position
+        );
+        this.text = text;
+        this.position = position;
+
+        return this;
     }
 
-    private final String text;
+    private String text;
 
     // Throwable........................................................................................................
 
