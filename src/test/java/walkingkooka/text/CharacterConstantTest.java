@@ -120,7 +120,7 @@ final public class CharacterConstantTest implements ParseStringTesting<List<Inte
                 )
         );
         this.checkEquals(
-            "Invalid character ',' at 3 in \"123,45*\"",
+            "Invalid character ',' at 3",
             thrown.getMessage()
         );
     }
@@ -141,7 +141,7 @@ final public class CharacterConstantTest implements ParseStringTesting<List<Inte
                 )
         );
         this.checkEquals(
-            "Invalid character '*' at 6 in \"123,45*\"",
+            "Invalid character '*' at 6",
             thrown.getMessage()
         );
     }
