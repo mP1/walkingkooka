@@ -257,15 +257,12 @@ public class InvalidCharacterException extends InvalidTextException {
      * to a specific line within a large amount of text.
      */
     public final InvalidCharacterException appendToMessage(final String appendToMessage) {
-        return this.appendToMessage.equals(appendToMessage) ?
-            this :
-            this.replace(
-                this.text,
-                this.position,
-                this.column,
-                this.line,
-                Objects.requireNonNull(appendToMessage, "appendToMessage")
-            );
+        this.appendToMessage = Objects.requireNonNull(
+            appendToMessage,
+            "appendToMessage"
+        );
+
+        return this;
     }
 
     /**
@@ -279,23 +276,7 @@ public class InvalidCharacterException extends InvalidTextException {
      * This is some extra text appended to the generic Invalid character message.
      */
     // @VisibleForTesting
-    final String appendToMessage;
-
-    private InvalidCharacterException replace(final String text,
-                                              final int position,
-                                              final OptionalInt column,
-                                              final OptionalInt line,
-                                              final String appendToMessage) {
-        return
-            new InvalidCharacterException(
-                text,
-                position,
-                column,
-                line,
-                appendToMessage,
-                this.getCause()
-            );
-    }
+    String appendToMessage;
 
     // Object...........................................................................................................
 

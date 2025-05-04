@@ -391,23 +391,17 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
 
     @Test
     public void testAppendToMessageDifferent() {
-        final InvalidCharacterException thrown = this.create();
-
         final String appendToMessage = "AppendToMessage123";
-        final InvalidCharacterException different = thrown.appendToMessage(appendToMessage);
+        final InvalidCharacterException thrown = this.create()
+            .appendToMessage(appendToMessage);
 
         this.check(
-            different,
+            thrown,
             thrown.text(),
             thrown.position(),
             thrown.column(),
             thrown.line(),
             appendToMessage
-        );
-
-        this.checkMessage(
-            different,
-            thrown.getMessage() + ' ' + appendToMessage
         );
     }
 
