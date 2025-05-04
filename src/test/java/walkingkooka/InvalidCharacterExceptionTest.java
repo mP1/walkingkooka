@@ -24,7 +24,6 @@ import walkingkooka.text.HasTextTesting;
 
 import java.util.OptionalInt;
 
-import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -196,7 +195,7 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
             text,
             POSITION
         );
-        assertNotSame(cause, different);
+        assertSame(cause, different);
 
         this.check(
             different,
@@ -204,8 +203,6 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
             POSITION,
             "" // appendToMessage
         );
-
-        this.check(cause);
     }
 
     @Test
@@ -218,7 +215,6 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
             text,
             POSITION
         );
-        assertNotSame(cause, different);
 
         this.check(
             different,
@@ -228,8 +224,6 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
         );
 
         this.checkCause(different, cause);
-
-        this.check(thrown);
     }
 
     @Test
@@ -240,7 +234,7 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
             TEXT,
             position
         );
-        assertNotSame(cause, different);
+        assertSame(cause, different);
 
         this.check(
             different,
@@ -248,8 +242,6 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
             position,
             "" // appendToMessage
         );
-
-        this.check(cause);
     }
 
     @Test
@@ -261,7 +253,7 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
             text,
             position
         );
-        assertNotSame(cause, different);
+        assertSame(cause, different);
 
         this.check(
             different,
@@ -269,8 +261,6 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
             position,
             "" // appendToMessage
         );
-
-        this.check(cause);
     }
 
     // setColumnAndLine.................................................................................................
@@ -286,12 +276,13 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
                 line
             );
 
-        assertSame(
-            thrown.setColumnAndLine(
-                column,
-                line
-            ),
-            thrown
+        this.check(
+            thrown,
+            TEXT,
+            POSITION,
+            OptionalInt.of(column),
+            OptionalInt.of(line),
+            InvalidCharacterException.NO_APPEND_TO_MESSAGE
         );
     }
 
@@ -343,11 +334,16 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
 
     @Test
     public void testClearColumnAndLineWhenAbsent() {
-        final InvalidCharacterException thrown = this.create();
+        final InvalidCharacterException thrown = this.create()
+            .clearColumnAndLine();
 
-        assertSame(
+        this.check(
             thrown,
-            thrown.clearColumnAndLine()
+            TEXT,
+            POSITION,
+            InvalidCharacterException.NO_COLUMN,
+            InvalidCharacterException.NO_LINE,
+            InvalidCharacterException.NO_APPEND_TO_MESSAGE
         );
     }
 
@@ -399,8 +395,6 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
 
         final String appendToMessage = "AppendToMessage123";
         final InvalidCharacterException different = thrown.appendToMessage(appendToMessage);
-
-        assertNotSame(thrown, different);
 
         this.check(
             different,
