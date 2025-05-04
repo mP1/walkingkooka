@@ -423,7 +423,7 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
                     4,
                     5
                 ),
-            "Invalid character \'!\' at (4,5) in \"abc!123\""
+            "Invalid character \'!\' at (4,5)"
         );
     }
 

@@ -221,7 +221,9 @@ public class InvalidCharacterException extends InvalidTextException {
         b.append(" at ");
 
         final OptionalInt column = this.column();
-        if (column.isPresent()) {
+        final boolean columnAndLine = column.isPresent();
+
+        if (columnAndLine) {
             b.append('(');
             b.append(column.getAsInt());
             b.append(',');
@@ -231,7 +233,7 @@ public class InvalidCharacterException extends InvalidTextException {
             b.append(this.position);
         }
 
-        if (includeInText) {
+        if (includeInText && false == columnAndLine) {
             b.append(" in ");
             b.append(
                 CharSequences.quote(this.text)
