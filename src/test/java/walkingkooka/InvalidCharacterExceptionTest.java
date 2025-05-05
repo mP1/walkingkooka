@@ -427,38 +427,9 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
         );
     }
 
-    // getShortMessage..................................................................................................
-
     @Test
-    public void testGetShortMessage() {
-        getShortMessageAndCheck(
-            this.create(),
-            "Invalid character \'!\' at 3"
-        );
-    }
-
-    @Test
-    public void testGetShortMessageWithColumnAndLine() {
-        getShortMessageAndCheck(
-            this.create()
-                .setColumnAndLine(3, 4),
-            "Invalid character \'!\' at (3,4)"
-        );
-    }
-
-    @Test
-    public void testGetShortMessageWithAppendMessage() {
-        getShortMessageAndCheck(
-            this.create()
-                .appendToMessage("AppendToMessage333"),
-            "Invalid character \'!\' at 3 AppendToMessage333"
-        );
-    }
-
-
-    @Test
-    public void testGetShortMessageWithAppendMessageAndColumnAndLine() {
-        getShortMessageAndCheck(
+    public void testGetMessageWithAppendMessageAndColumnAndLine() {
+        this.checkMessage(
             this.create()
                 .setColumnAndLine(3, 4)
                 .appendToMessage("AppendToMessage333"),
@@ -476,19 +447,13 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
 
     @Test
     public void testGetMessageAfterSetTextAndPosition() {
-        checkMessage(this.create().setTextAndPosition("@@" + TEXT, 2 + POSITION),
-            "Invalid character \'!\' at 5");
-    }
-
-    @Test
-    public void testGetShortMessageAfterSetTextAndPosition() {
-        getShortMessageAndCheck(
+        checkMessage(
             this.create()
                 .setTextAndPosition(
-                    "ABCDEFG",
-                    5
+                    "@@" + TEXT,
+                    2 + POSITION
                 ),
-            "Invalid character 'F' at 5"
+            "Invalid character \'!\' at 5"
         );
     }
 
@@ -560,15 +525,6 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
             appendToMessage,
             exception.appendToMessage,
             "appendToMessage"
-        );
-    }
-
-    private void getShortMessageAndCheck(final InvalidCharacterException exception,
-                                         final String expected) {
-        this.checkEquals(
-            expected,
-            exception.getShortMessage(),
-            () -> "getShortMessage"
         );
     }
 
