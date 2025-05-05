@@ -191,24 +191,6 @@ public class InvalidCharacterException extends InvalidTextException {
      */
     @Override
     public final String getMessage() {
-        return this.buildMessage(
-            true // includeAt
-        );
-    }
-
-    /**
-     * Returns invalid character at position without any {@link #text}.
-     * <pre>
-     * Invalid character '/' at 1
-     * </pre>
-     */
-    public final String getShortMessage() {
-        return this.buildMessage(
-            false // includeAt
-        );
-    }
-
-    private String buildMessage(final boolean includeInText) {
         final StringBuilder b = new StringBuilder();
 
         // Invalid character '/' at X in \"text\" $appendToMessage
