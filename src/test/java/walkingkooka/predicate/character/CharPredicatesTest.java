@@ -25,6 +25,7 @@ import walkingkooka.text.CharSequences;
 
 import java.lang.reflect.Method;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CharPredicatesTest implements PublicStaticHelperTesting<CharPredicates> {
@@ -89,10 +90,15 @@ public final class CharPredicatesTest implements PublicStaticHelperTesting<CharP
     }
 
     private void failIfNullOrEmptyOrInitialAndPartFalseAndCheck(final String text) {
-        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(text,
-            "TEXT",
-            CharPredicates.letter(),
-            CharPredicates.digit());
+        assertSame(
+            text,
+            CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(
+                text,
+                "TEXT",
+                CharPredicates.letter(),
+                CharPredicates.digit()
+            )
+        );
     }
 
     // isInitialOrPart..................................................................................................

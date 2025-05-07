@@ -121,10 +121,10 @@ final public class CharPredicates implements PublicStaticHelper {
      * Fails if the chars are null or empty or any characters fail the initial or part test.
      * It is assumed the {@link CharPredicate} have a meaningful toString as it is included in any exception messages.
      */
-    public static void failIfNullOrEmptyOrInitialAndPartFalse(final CharSequence chars,
-                                                              final String label,
-                                                              final CharPredicate initial,
-                                                              final CharPredicate part) {
+    public static <C extends CharSequence> C failIfNullOrEmptyOrInitialAndPartFalse(final C chars,
+                                                                                    final String label,
+                                                                                    final CharPredicate initial,
+                                                                                    final CharPredicate part) {
         CharSequences.failIfNullOrEmpty(chars, label);
         CharSequences.failIfNullOrEmpty(label, "label");
 
@@ -140,6 +140,8 @@ final public class CharPredicates implements PublicStaticHelper {
                 invalidChar
             );
         }
+
+        return chars;
     }
 
     public static boolean isInitialAndPart(final String text,
