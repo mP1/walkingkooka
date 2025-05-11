@@ -121,14 +121,20 @@ public final class ImmutableListImplSingletonTest extends ImmutableListImplNotEm
         );
     }
 
-    @Test
-    public void testToString() {
-        this.toStringAndCheck(this.createList(), Collections.singleton(ELEMENT).toString());
-    }
-
     @Override
     public ImmutableListImplSingleton<String> createList() {
         return ImmutableListImplSingleton.withElement(ELEMENT);
+    }
+
+    // toString.........................................................................................................
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(
+            this.createList(),
+            Collections.singleton(ELEMENT)
+                .toString()
+        );
     }
 
     // ClassTesting.....................................................................................................
