@@ -20,11 +20,13 @@ package walkingkooka.collect.list;
 import org.junit.jupiter.api.Test;
 import walkingkooka.EndOfTextException;
 import walkingkooka.test.ParseStringTesting;
+import walkingkooka.text.HasTextTesting;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class CsvStringListTest implements ImmutableListTesting<CsvStringList, String>,
-    ParseStringTesting<CsvStringList> {
+    ParseStringTesting<CsvStringList>,
+    HasTextTesting {
 
     // setElements......................................................................................................
 
@@ -323,6 +325,86 @@ public final class CsvStringListTest implements ImmutableListTesting<CsvStringLi
     @Override
     public RuntimeException parseStringFailedExpected(final RuntimeException thrown) {
         return thrown;
+    }
+
+    // HasText..........................................................................................................
+
+    @Test
+    public void testTextWithEscapingUnnecessary() {
+        final String text = ",abc,def,,g";
+
+        this.textAndCheckAndParseCheck(
+            CsvStringList.parse(text),
+            text
+        );
+    }
+
+    @Test
+    public void testTextWithDoubleQuotes() {
+        this.textAndCheckAndParseCheck(
+            CsvStringList.EMPTY
+                .concat("a1")
+                .concat("\"Hello\""),
+            "a1,\"\"\"Hello\"\"\""
+        );
+    }
+
+    @Test
+    public void testTextWithComma() {
+        this.textAndCheckAndParseCheck(
+            CsvStringList.EMPTY
+                .concat("a1")
+                .concat("comma,"),
+            "a1,\"comma,\""
+        );
+    }
+
+    @Test
+    public void testTextWithCr() {
+        this.textAndCheckAndParseCheck(
+            CsvStringList.EMPTY
+                .concat("a1")
+                .concat("cr\r"),
+            "a1,\"cr\r" +
+                "\""
+        );
+    }
+
+    @Test
+    public void testTextWithNl() {
+        this.textAndCheckAndParseCheck(
+            CsvStringList.EMPTY
+                .concat("a1")
+                .concat("nl\n"),
+            "a1,\"nl\n" +
+                "\""
+        );
+    }
+
+    @Test
+    public void testTextMixed() {
+        this.textAndCheckAndParseCheck(
+            CsvStringList.EMPTY
+                .concat("a1")
+                .concat("Hello\"\r\n,Hello2")
+                .concat("nl\n"),
+            "a1,\"Hello\"\"\r\n,Hello2\",\"nl\n" +
+                "\""
+        );
+    }
+
+    private void textAndCheckAndParseCheck(final CsvStringList list,
+                                           final String expected) {
+        this.textAndCheck(
+            list,
+            expected
+        );
+
+        // should roundtrip
+        this.parseStringAndCheck(
+            expected,
+            list
+        );
     }
 
     // class............................................................................................................
