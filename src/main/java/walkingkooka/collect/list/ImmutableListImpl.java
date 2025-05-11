@@ -86,6 +86,11 @@ abstract class ImmutableListImpl<T> extends AbstractList<T> implements Immutable
     }
 
     @Override
+    public final void elementCheck(final T element) {
+        // nulls are allowed.
+    }
+
+    @Override
     public final ImmutableList<T> setElements(final List<T> elements) {
         Objects.requireNonNull(elements, "elements");
 

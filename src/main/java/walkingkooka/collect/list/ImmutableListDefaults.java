@@ -37,6 +37,11 @@ public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends Im
     T setElements(final List<E> elements);
 
     /**
+     * Guard used to test concat/replace element parameters.
+     */
+    void elementCheck(final E element);
+
+    /**
      * Useful setElements for classes that cannot easily create another instance with the new elements.
      */
     @Override
@@ -79,6 +84,8 @@ public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends Im
      */
     @Override
     default T concat(final E element) {
+        this.elementCheck(element);
+
         final List<E> list = this.toList();
         list.add(element);
 
@@ -103,6 +110,8 @@ public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends Im
     @Override
     default T replace(final int index,
                       final E element) {
+        this.elementCheck(element);
+
         final List<E> list = this.toList();
         final E replaced = list.set(
             index,
