@@ -63,6 +63,48 @@ public abstract class ImmutableListImplNotEmptyTestCase<S extends ImmutableListI
     }
 
     @Test
+    public final void testReplaceNull() {
+        final ImmutableListImpl<String> immutableList = this.createList();
+
+        final List<String> elements = immutableList.toList();
+
+        final String element = null;
+        elements.set(
+            0,
+            element
+        );
+
+        this.toListAndCheck(
+            immutableList.replace(
+                0,
+                element
+            ),
+            elements
+        );
+    }
+
+    @Test
+    public final void testReplaceNonNull() {
+        final ImmutableListImpl<String> immutableList = this.createList();
+
+        final List<String> elements = immutableList.toList();
+
+        final String element = "replaced555";
+        elements.set(
+            0,
+            element
+        );
+
+        this.toListAndCheck(
+            immutableList.replace(
+                0,
+                element
+            ),
+            elements
+        );
+    }
+
+    @Test
     public final void testIteratorRemoveFails() {
         final Iterator<String> iterator = this.createList().iterator();
         iterator.next();

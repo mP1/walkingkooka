@@ -23,6 +23,8 @@ import walkingkooka.predicate.Predicates;
 
 import java.util.Arrays;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
+
 public final class ImmutableListImplNonSingletonTest extends ImmutableListImplNotEmptyTestCase<ImmutableListImplNonSingleton<String>> {
 
     private final static String ELEMENT1 = "1a";
@@ -88,6 +90,16 @@ public final class ImmutableListImplNonSingletonTest extends ImmutableListImplNo
                 ImmutableListImplNonSingleton.with(
                     Lists.of(a, c, b)
                 )
+        );
+    }
+
+    @Test
+    public void testDeleteNull() {
+        final ImmutableListImplNonSingleton<String> list = this.createList();
+
+        assertSame(
+            list.delete(null),
+            list
         );
     }
 
