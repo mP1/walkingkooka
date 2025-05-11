@@ -134,6 +134,11 @@ final class ImmutableSortedSetImpl<E> extends AbstractSet<E> implements Immutabl
     }
 
     @Override
+    public void elementCheck(final E element) {
+        // NOP
+    }
+
+    @Override
     public ImmutableSortedSet<E> setElements(final SortedSet<E> elements) {
         final ImmutableSortedSet<E> copy = with(elements);
 

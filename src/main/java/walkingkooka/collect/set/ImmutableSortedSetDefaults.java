@@ -48,6 +48,8 @@ public interface ImmutableSortedSetDefaults<S extends ImmutableSortedSet<E>, E> 
      */
     @Override
     default S concat(final E element) {
+        this.elementCheck(element);
+
         final SortedSet<E> set = this.toSet();
         set.add(element);
 
@@ -73,6 +75,9 @@ public interface ImmutableSortedSetDefaults<S extends ImmutableSortedSet<E>, E> 
     @Override
     default S replace(final E oldElement,
                       final E newElement) {
+        this.elementCheck(oldElement);
+        this.elementCheck(newElement);
+
         S result = (S) this;
 
         if (false == Objects.equals(oldElement, newElement)) {
@@ -92,6 +97,8 @@ public interface ImmutableSortedSetDefaults<S extends ImmutableSortedSet<E>, E> 
      */
     @Override
     default S delete(final E element) {
+        this.elementCheck(element);
+
         final SortedSet<E> set = this.toSet();
         final boolean removed = set.remove(element);
         return (S)
@@ -129,4 +136,9 @@ public interface ImmutableSortedSetDefaults<S extends ImmutableSortedSet<E>, E> 
                 this
             );
     }
+
+    /**
+     * Guard used to test concat/replace element parameters.
+     */
+    void elementCheck(final E element);
 }
