@@ -21,6 +21,7 @@ import walkingkooka.EndOfTextException;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.NeverError;
 import walkingkooka.text.CharacterConstant;
+import walkingkooka.text.HasText;
 
 import java.util.AbstractList;
 import java.util.List;
@@ -29,7 +30,8 @@ import java.util.Objects;
 /**
  * An immutable list of String elements.
  */
-public final class CsvStringList extends AbstractList<String> implements ImmutableListDefaults<CsvStringList, String> {
+public final class CsvStringList extends AbstractList<String> implements ImmutableListDefaults<CsvStringList, String>,
+    HasText {
 
     /**
      * An empty {@link CsvStringList}
@@ -239,4 +241,47 @@ public final class CsvStringList extends AbstractList<String> implements Immutab
     }
 
     private final List<String> elements;
+
+    // HasText..........................................................................................................
+
+    /**
+     * Note elements with quotes, commas, CR or NL will be quoted and double quotes escaped.
+     */
+    @Override
+    public String text() {
+        return SEPARATOR.toSeparatedString(
+            this,
+            CsvStringList::escapeIfNecessary
+        );
+    }
+
+    private static String escapeIfNecessary(final String text) {
+        String result = text;
+
+        final int length = text.length();
+        for (int i = 0; i < length; i++) {
+            switch (text.charAt(i)) {
+                case DOUBLE_QUOTE_CHAR:
+                case CR_CHAR:
+                case NL_CHAR:
+                case SEPARATOR_CHAR:
+                    result = DOUBLE_QUOTE_STRING.concat(
+                        text.replace(
+                            DOUBLE_QUOTE_STRING,
+                            DOUBLE_DOUBLE_QUOTE_STRING
+                        )
+                    ).concat(DOUBLE_QUOTE_STRING);
+
+                    i = length;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return result;
+    }
+
+    private final static String DOUBLE_QUOTE_STRING = "\"";
+    private final static String DOUBLE_DOUBLE_QUOTE_STRING = "\"\"";
 }
