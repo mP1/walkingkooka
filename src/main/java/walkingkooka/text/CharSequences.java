@@ -148,14 +148,19 @@ final public class CharSequences implements PublicStaticHelper {
      * Capitalises the first character of the given {@link CharSequence}
      */
     public static CharSequence capitalize(final CharSequence chars) {
-        checkChars(chars);
+        Objects.requireNonNull(chars, "chars");
 
         CharSequence result = chars;
         final int length = chars.length();
         if (length > 0) {
-            result = new StringBuilder().append(Character.toUpperCase(chars.charAt(0)))
-                .append(chars, 1, length)
-                .toString();
+            result = new StringBuilder()
+                .append(
+                    Character.toUpperCase(chars.charAt(0))
+                ).append(
+                    chars,
+                    1,
+                    length
+                ).toString();
         }
         return result;
     }
@@ -165,7 +170,10 @@ final public class CharSequences implements PublicStaticHelper {
      */
     public static CharSequence concat(final CharSequence first,
                                       final CharSequence second) {
-        return ConcatCharSequence.with(first, second);
+        return ConcatCharSequence.with(
+            first,
+            second
+        );
     }
 
     /**
@@ -176,7 +184,7 @@ final public class CharSequences implements PublicStaticHelper {
      */
     public static CharSequence copyCase(final CharSequence chars,
                                         final CharSequence caseSource) {
-        checkChars(chars);
+        Objects.requireNonNull(chars, "chars");
         Objects.requireNonNull(caseSource, "caseSource");
 
         final StringBuilder b = new StringBuilder();
@@ -224,7 +232,7 @@ final public class CharSequences implements PublicStaticHelper {
      */
     public static boolean endsWith(final CharSequence chars,
                                    final String endsWith) {
-        checkChars(chars);
+        Objects.requireNonNull(chars, "chars");
         failIfNullOrEmpty(endsWith, "endsWith");
 
         boolean result = false;
@@ -252,10 +260,10 @@ final public class CharSequences implements PublicStaticHelper {
     public static CharSequence escape(final CharSequence chars) {
         return null == chars ?
             null :
-            escape0(chars);
+            escapeNonNull(chars);
     }
 
-    private static CharSequence escape0(final CharSequence chars) {
+    private static CharSequence escapeNonNull(final CharSequence chars) {
         final int length = chars.length();
         final StringBuilder builder = new StringBuilder((length * 10) / 9);
         for (int i = 0; i < length; i++) {
@@ -380,7 +388,7 @@ final public class CharSequences implements PublicStaticHelper {
      */
     public static boolean equals(final CharSequence chars,
                                  final CharSequence otherChars) {
-        checkChars(chars);
+        Objects.requireNonNull(chars, "chars");
         Objects.requireNonNull(otherChars, "otherChars");
 
         boolean equals = false;
@@ -430,10 +438,10 @@ final public class CharSequences implements PublicStaticHelper {
     public static int hash(final CharSequence chars) {
         return null == chars ?
             0 :
-            hash0(chars);
+            hashNonNull(chars);
     }
 
-    private static int hash0(final CharSequence chars) {
+    private static int hashNonNull(final CharSequence chars) {
         final int length = chars.length();
 
         int hash = 0;
@@ -450,7 +458,7 @@ final public class CharSequences implements PublicStaticHelper {
      */
     public static int indexOf(final CharSequence chars,
                               final String indexOf) {
-        checkChars(chars);
+        Objects.requireNonNull(chars, "chars");
         failIfNullOrEmpty(indexOf, "indexOf");
 
         int index = -1;
@@ -493,7 +501,7 @@ final public class CharSequences implements PublicStaticHelper {
     public static CharSequence padLeft(final CharSequence chars,
                                        final int length,
                                        final char pad) {
-        checkChars(chars);
+        Objects.requireNonNull(chars, "chars");
 
         final int charsLength = chars.length();
         if (length < charsLength) {
@@ -535,13 +543,15 @@ final public class CharSequences implements PublicStaticHelper {
      * newlines, carriage returns and double quotes.
      */
     public static CharSequence quoteAndEscape(final CharSequence chars) {
-        return null == chars ? null : CharSequences.quoteAndEscape2(chars);
+        return null == chars ?
+            null :
+            CharSequences.quoteAndEscapeNonNull(chars);
     }
 
     /**
      * Helper that combines {@link #escape} and adds double quotes if required and escapes.
      */
-    private static CharSequence quoteAndEscape2(final CharSequence chars) {
+    private static CharSequence quoteAndEscapeNonNull(final CharSequence chars) {
         final int length = chars.length();
         final boolean quoted = length > 1 &&
             startsWith(chars, "\"") &&
@@ -557,7 +567,15 @@ final public class CharSequences implements PublicStaticHelper {
      * by single quotes.
      */
     public static CharSequence quoteAndEscape(final char c) {
-        return concat("'", concat(escape(String.valueOf(c)), "'"));
+        return concat(
+            "'",
+            concat(
+                escape(
+                    String.valueOf(c)
+                ),
+                "'"
+            )
+        );
     }
 
     /**
@@ -586,15 +604,21 @@ final public class CharSequences implements PublicStaticHelper {
 
         for (; ; ) {
             if (object instanceof CharSequence) {
-                result = CharSequences.quoteAndEscape(String.valueOf(object));
+                result = CharSequences.quoteAndEscape(
+                    String.valueOf(object)
+                );
                 break;
             }
             if (object instanceof char[]) {
-                result = CharSequences.quoteAndEscape(new String((char[]) object));
+                result = CharSequences.quoteAndEscape(
+                    new String((char[]) object)
+                );
                 break;
             }
             if (object instanceof Character) {
-                result = "'" + CharSequences.escape(String.valueOf(object)) + '\'';
+                result = "'" + CharSequences.escape(
+                    String.valueOf(object)
+                ) + '\'';
                 break;
             }
             if (object instanceof Optional) {
@@ -608,7 +632,13 @@ final public class CharSequences implements PublicStaticHelper {
                 final Collection<?> collecton = Cast.to(object);
                 result = collecton.stream()
                     .map(CharSequences::quoteIfChars)
-                    .collect(Collectors.joining(", ", "[", "]"));
+                    .collect(
+                        Collectors.joining(
+                            ", ",
+                            "[",
+                            "]"
+                        )
+                    );
                 break;
             }
             if (object instanceof Map) {
@@ -617,7 +647,12 @@ final public class CharSequences implements PublicStaticHelper {
                 result = map.entrySet()
                     .stream()
                     .map(CharSequences::quoteIfCharMapEntry)
-                    .collect(Collectors.joining(", ", "{", "}"));
+                    .collect(Collectors.joining(
+                            ", ",
+                            "{",
+                            "}"
+                        )
+                    );
                 break;
             }
             result = String.valueOf(object);
@@ -656,7 +691,7 @@ final public class CharSequences implements PublicStaticHelper {
      */
     public static boolean startsWith(final CharSequence chars,
                                      final String startsWith) {
-        checkChars(chars);
+        Objects.requireNonNull(chars, "chars");
         failIfNullOrEmpty(startsWith, "startsWith");
 
         boolean result = false;
@@ -684,19 +719,29 @@ final public class CharSequences implements PublicStaticHelper {
     public static CharSequence subSequence(final CharSequence chars,
                                            final int from,
                                            final int to) {
-        checkChars(chars);
+        Objects.requireNonNull(chars, "chars");
 
         CharSequence subSequence;
         do {
             if (0 == to) {
-                subSequence = chars.subSequence(from, chars.length());
+                subSequence = chars.subSequence(
+                    from,
+                    chars.length()
+                );
                 break;
             }
             if (to > 0) {
-                subSequence = chars.subSequence(from, to);
+                subSequence = chars.subSequence(
+                    from,
+                    to
+                );
                 break;
             }
-            subSequence = subSequenceWithNegativeToIndex(chars, from, to);
+            subSequence = subSequenceWithNegativeToIndex(
+                chars,
+                from,
+                to
+            );
         } while (false);
 
         return subSequence;
@@ -711,12 +756,18 @@ final public class CharSequences implements PublicStaticHelper {
         final int length = sequence.length();
         final int positiveToIndex = length + to;
         if (positiveToIndex < from) {
-            throw new StringIndexOutOfBoundsException(toIndexBeforeFromIndex(
-                from,
-                to,
-                length));
+            throw new StringIndexOutOfBoundsException(
+                toIndexBeforeFromIndex(
+                    from,
+                    to,
+                    length
+                )
+            );
         }
-        return sequence.subSequence(from, positiveToIndex);
+        return sequence.subSequence(
+            from,
+            positiveToIndex
+        );
     }
 
     /**
@@ -730,28 +781,43 @@ final public class CharSequences implements PublicStaticHelper {
      * Trims whitespace from the left and end of the given {@link CharSequence}.
      */
     public static CharSequence trim(final CharSequence chars) {
-        checkChars(chars);
+        Objects.requireNonNull(chars, "chars");
 
         final int start = findNonWhitespaceStart(chars);
-        return chars.subSequence(start, findNonWhitespaceEnd(chars, start));
+        return chars.subSequence(
+            start,
+            findNonWhitespaceEnd(
+                chars,
+                start
+            )
+        );
     }
 
     /**
      * Trims whitespace from the left or beginning of the given {@link CharSequence}.
      */
     public static CharSequence trimLeft(final CharSequence chars) {
-        checkChars(chars);
+        Objects.requireNonNull(chars, "chars");
 
-        return chars.subSequence(findNonWhitespaceStart(chars), chars.length());
+        return chars.subSequence(
+            findNonWhitespaceStart(chars),
+            chars.length()
+        );
     }
 
     /**
      * Trims whitespace from the right or end of the given {@link CharSequence}.
      */
     public static CharSequence trimRight(final CharSequence chars) {
-        checkChars(chars);
+        Objects.requireNonNull(chars, "chars");
 
-        return chars.subSequence(0, findNonWhitespaceEnd(chars, 0));
+        return chars.subSequence(
+            0,
+            findNonWhitespaceEnd(
+                chars,
+                0
+            )
+        );
     }
 
     /**
@@ -847,32 +913,49 @@ final public class CharSequences implements PublicStaticHelper {
                         }
                         // \\u0000;
                         final char firstChar = chars.charAt(i);
-                        final int firstValue = Character.digit(firstChar, 16);
+                        final int firstValue = Character.digit(
+                            firstChar,
+                            16
+                        );
                         if (firstValue < 0) {
                             builder.append("\\u");
                             break;
                         }
                         final char secondChar = chars.charAt(i + 1);
-                        final int secondValue = Character.digit(secondChar, 16);
+                        final int secondValue = Character.digit(
+                            secondChar,
+                            16
+                        );
                         if (secondValue < 0) {
                             builder.append("\\u");
                             break;
                         }
                         final char thirdChar = chars.charAt(i + 2);
-                        final int thirdValue = Character.digit(thirdChar, 16);
+                        final int thirdValue = Character.digit(
+                            thirdChar,
+                            16
+                        );
                         if (thirdValue < 0) {
                             builder.append("\\u");
                             break;
                         }
                         final char fourthChar = chars.charAt(i + 3);
-                        final int fourthValue = Character.digit(fourthChar, 16);
+                        final int fourthValue = Character.digit(
+                            fourthChar,
+                            16
+                        );
                         if (fourthValue < 0) {
                             builder.append("\\u");
                             break;
                         }
                         i = i + 4;
-                        builder.append((char) ((firstValue * 0x1000) + (secondValue * 0x0100)
-                            + (thirdValue * 0x10) + fourthValue));
+                        builder.append(
+                            (char) ((firstValue * 0x1000) +
+                                (secondValue * 0x0100) +
+                                (thirdValue * 0x10) +
+                                fourthValue
+                            )
+                        );
                         break;
                     default:
                         builder.append(c);
@@ -887,10 +970,6 @@ final public class CharSequences implements PublicStaticHelper {
             }
         }
         return builder.toString();
-    }
-
-    private static void checkChars(final CharSequence chars) {
-        Objects.requireNonNull(chars, "chars");
     }
 
     /**
