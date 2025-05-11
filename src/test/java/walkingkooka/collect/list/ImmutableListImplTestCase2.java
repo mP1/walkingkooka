@@ -20,6 +20,8 @@ package walkingkooka.collect.list;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.iterator.IteratorTesting;
 
+import java.util.List;
+
 public abstract class ImmutableListImplTestCase2<S extends ImmutableListImpl<String>> extends ImmutableListImplTestCase<S>
     implements ImmutableListTesting<S, String>,
     IteratorTesting {
@@ -34,15 +36,30 @@ public abstract class ImmutableListImplTestCase2<S extends ImmutableListImpl<Str
     }
 
     @Test
-    public final void testConcat() {
-        final String appended = "appended123";
+    public final void testConcatNull() {
+        final ImmutableListImpl<String> immutableList = this.createList();
 
-        this.concatAndCheck(
-            ImmutableListImplEmpty.empty(),
-            appended,
-            ImmutableListImpl.with(
-                Lists.of(appended)
-            )
+        final List<String> elements = immutableList.toList();
+        elements.add(null);
+
+        this.toListAndCheck(
+            immutableList.concat(null),
+            elements
+        );
+    }
+
+    @Test
+    public final void testConcatNonNull() {
+        final ImmutableListImpl<String> immutableList = this.createList();
+
+        final List<String> elements = immutableList.toList();
+
+        final String element = "concated555";
+        elements.add(element);
+
+        this.toListAndCheck(
+            immutableList.concat(element),
+            elements
         );
     }
 }
