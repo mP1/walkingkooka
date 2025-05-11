@@ -80,6 +80,11 @@ abstract class ImmutableSetImpl<E> extends AbstractSet<E> implements ImmutableSe
     // ImmutableSet.....................................................................................................
 
     @Override
+    public final void elementCheck(final E element) {
+        // allow nulls
+    }
+
+    @Override
     public final ImmutableSet<E> setElements(final Set<E> elements) {
         Objects.requireNonNull(elements, "elements");
 

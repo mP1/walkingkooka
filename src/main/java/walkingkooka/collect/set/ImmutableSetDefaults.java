@@ -36,6 +36,11 @@ public interface ImmutableSetDefaults<S extends ImmutableSet<E>, E> extends Immu
     S setElements(final Set<E> elements);
 
     /**
+     * Guard used to test concat/replace element parameters.
+     */
+    void elementCheck(final E element);
+
+    /**
      * Useful setElements for classes that cannot easily create another instance with the new elements.
      */
     @Override
@@ -53,6 +58,8 @@ public interface ImmutableSetDefaults<S extends ImmutableSet<E>, E> extends Immu
      */
     @Override
     default S concat(final E element) {
+        this.elementCheck(element);
+
         final Set<E> set = this.toSet();
         final boolean added = set.add(element);
 
@@ -82,6 +89,9 @@ public interface ImmutableSetDefaults<S extends ImmutableSet<E>, E> extends Immu
     @Override
     default S replace(final E oldElement,
                       final E newElement) {
+        this.elementCheck(oldElement);
+        this.elementCheck(newElement);
+
         S result = (S) this;
 
         if (false == Objects.equals(oldElement, newElement)) {
@@ -101,6 +111,8 @@ public interface ImmutableSetDefaults<S extends ImmutableSet<E>, E> extends Immu
      */
     @Override
     default S delete(final E element) {
+        this.elementCheck(element);
+
         final Set<E> set = this.toSet();
         final boolean removed = set.remove(element);
         return removed ?

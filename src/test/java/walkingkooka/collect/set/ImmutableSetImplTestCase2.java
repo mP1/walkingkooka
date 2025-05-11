@@ -36,6 +36,12 @@ public abstract class ImmutableSetImplTestCase2<S extends ImmutableSetImpl<Strin
     }
 
     @Test
+    public void testConcatNullFails() {
+        this.createSet()
+            .concat(null);
+    }
+
+    @Test
     public final void testContainsAbsent() {
         this.containsAndCheckAbsent(this.createSet(), "!absent!");
     }
@@ -45,6 +51,24 @@ public abstract class ImmutableSetImplTestCase2<S extends ImmutableSetImpl<Strin
         final Iterator<String> iterator = this.createSet().iterator();
         iterator.next();
         assertThrows(UnsupportedOperationException.class, iterator::remove);
+    }
+
+    @Test
+    public void testReplaceNullOldElement() {
+        this.createSet()
+            .replace(
+                null,
+                "newElement"
+            );
+    }
+
+    @Test
+    public void testReplaceNullNewElement() {
+        this.createSet()
+            .replace(
+                "oldElement",
+                null
+            );
     }
 
     @Override
