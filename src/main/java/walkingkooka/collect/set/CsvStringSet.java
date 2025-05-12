@@ -47,40 +47,40 @@ public final class CsvStringSet extends AbstractSet<String>
      * https://www.ietf.org/rfc/rfc4180.txt
      */
     public static CsvStringSet parse(final String text) {
-        final SortedSet<String> elements = SortedSets.tree();
+        final SortedSet<String> strings = SortedSets.tree();
         Csv.parse(
             text,
-            elements::add
+            strings::add
         );
-        return elements.isEmpty() ?
+        return strings.isEmpty() ?
             EMPTY :
-            new CsvStringSet(elements);
+            new CsvStringSet(strings);
     }
 
     private CsvStringSet(final SortedSet<String> set) {
         super();
-        this.set = set;
+        this.strings = set;
     }
 
     @Override
     public Iterator<String> iterator() {
-        return Iterators.readOnly(this.set.iterator());
+        return Iterators.readOnly(this.strings.iterator());
     }
 
     @Override
     public int size() {
-        return this.set.size();
+        return this.strings.size();
     }
 
     @Override
     public SortedSet<String> toSet() {
-        return new TreeSet<>(this.set);
+        return new TreeSet<>(this.strings);
     }
 
     @Override
     public Comparator<String> comparator() {
         return Cast.to(
-            this.set.comparator()
+            this.strings.comparator()
         );
     }
 
@@ -88,7 +88,7 @@ public final class CsvStringSet extends AbstractSet<String>
     public SortedSet<String> subSet(final String from,
                                     final String to) {
         return this.setElements(
-            this.set.subSet(
+            this.strings.subSet(
                 from,
                 to
             )
@@ -98,46 +98,46 @@ public final class CsvStringSet extends AbstractSet<String>
     @Override
     public SortedSet<String> headSet(final String to) {
         return this.setElements(
-            this.set.headSet(to)
+            this.strings.headSet(to)
         );
     }
 
     @Override
     public SortedSet<String> tailSet(final String from) {
         return this.setElements(
-            this.set.tailSet(from)
+            this.strings.tailSet(from)
         );
     }
 
     @Override
     public String first() {
-        return this.set.first();
+        return this.strings.first();
     }
 
     @Override
     public String last() {
-        return this.set.last();
+        return this.strings.last();
     }
 
     @Override
-    public void elementCheck(final String element) {
-        Objects.requireNonNull(element, "element");
+    public void elementCheck(final String string) {
+        Objects.requireNonNull(string, "string");
     }
 
     @Override
-    public ImmutableSortedSet<String> setElements(final SortedSet<String> elements) {
+    public ImmutableSortedSet<String> setElements(final SortedSet<String> strings) {
         final CsvStringSet csvStringSet;
 
-        if (elements instanceof CsvStringSet) {
-            csvStringSet = (CsvStringSet) elements;
+        if (strings instanceof CsvStringSet) {
+            csvStringSet = (CsvStringSet) strings;
         } else {
             final SortedSet<String> copy = SortedSets.tree();
-            for (final String string : elements) {
-                Objects.requireNonNull(string, "includes null");
+            for (final String string : strings) {
+                Objects.requireNonNull(string, "includes null string");
                 copy.add(string);
             }
 
-            csvStringSet = this.set.equals(copy) ?
+            csvStringSet = this.strings.equals(copy) ?
                 this :
                 copy.isEmpty() ?
                     EMPTY :
@@ -147,12 +147,12 @@ public final class CsvStringSet extends AbstractSet<String>
         return csvStringSet;
     }
 
-    private final SortedSet<String> set;
+    private final SortedSet<String> strings;
 
     // HasText..........................................................................................................
 
     @Override
     public String text() {
-        return Csv.toCsv(this.set);
+        return Csv.toCsv(this.strings);
     }
 }
