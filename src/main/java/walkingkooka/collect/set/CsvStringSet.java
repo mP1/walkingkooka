@@ -57,9 +57,9 @@ public final class CsvStringSet extends AbstractSet<String>
             new CsvStringSet(strings);
     }
 
-    private CsvStringSet(final SortedSet<String> set) {
+    private CsvStringSet(final SortedSet<String> string) {
         super();
-        this.strings = set;
+        this.strings = string;
     }
 
     @Override
