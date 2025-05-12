@@ -81,9 +81,11 @@ public final class CsvStringList extends AbstractList<String> implements Immutab
         if (elements instanceof CsvStringList) {
             csvStringList = (CsvStringList) elements;
         } else {
-            final ImmutableList<String> copy = Lists.immutable(
-                Objects.requireNonNull(elements, "elements")
-            );
+            final List<String> copy = Lists.array();
+            for(final String element : elements) {
+                Objects.requireNonNull(elements, "includes null string");
+                copy.add(element);
+            }
             csvStringList = this.elements.equals(copy) ?
                 this :
                 copy.isEmpty() ?

@@ -23,12 +23,23 @@ import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.HasTextTesting;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CsvStringListTest implements ImmutableListTesting<CsvStringList, String>,
     ParseStringTesting<CsvStringList>,
     HasTextTesting {
 
     // setElements......................................................................................................
+
+    @Test
+    public void testSetElementsIncludesNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> CsvStringList.EMPTY.setElements(
+                Lists.of(null)
+            )
+        );
+    }
 
     @Test
     public void testSetElementsWithEmpty() {
