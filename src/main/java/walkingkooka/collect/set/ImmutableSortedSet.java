@@ -19,6 +19,7 @@ package walkingkooka.collect.set;
 
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.function.Predicate;
@@ -68,11 +69,23 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>, SortedSet<E> {
     ImmutableSortedSet<E> replace(final E oldElement,
                                   final E newElement);
 
+    /**
+     * Calls {@link #setElements(SortedSet)} creating a new {@link SortedSet} with the elements if necessary.
+     */
     @Override
     default ImmutableSet<E> setElements(final Set<E> elements) {
-        return this.setElements(
-            (SortedSet<E>) elements
-        );
+        Objects.requireNonNull(elements, "elements");
+
+        SortedSet<E> sortedSet;
+
+        if(elements instanceof SortedSet) {
+            sortedSet = (SortedSet<E>) elements;
+        } else {
+            sortedSet = SortedSets.tree();
+            sortedSet.addAll(elements);
+        }
+
+        return this.setElements(sortedSet);
     }
 
     /**
