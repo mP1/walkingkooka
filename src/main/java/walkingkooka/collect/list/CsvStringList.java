@@ -41,52 +41,52 @@ public final class CsvStringList extends AbstractList<String> implements Immutab
      * https://www.ietf.org/rfc/rfc4180.txt
      */
     public static CsvStringList parse(final String text) {
-        final List<String> elements = Lists.array();
+        final List<String> strings = Lists.array();
         Csv.parse(
             text,
-            elements::add
+            strings::add
         );
-        return elements.isEmpty() ?
+        return strings.isEmpty() ?
             EMPTY :
-            new CsvStringList(elements);
+            new CsvStringList(strings);
     }
 
     /**
      * Private ctor use #parse or any would be mutator methods.
      */
-    private CsvStringList(final List<String> elements) {
+    private CsvStringList(final List<String> strings) {
         super();
-        this.elements = elements;
+        this.strings = strings;
     }
 
     @Override
     public String get(final int index) {
-        return this.elements.get(index);
+        return this.strings.get(index);
     }
 
     @Override
     public int size() {
-        return this.elements.size();
+        return this.strings.size();
     }
 
     @Override
-    public void elementCheck(final String element) {
-        Objects.requireNonNull(element, "element");
+    public void elementCheck(final String string) {
+        Objects.requireNonNull(string, "string");
     }
 
     @Override
-    public CsvStringList setElements(final List<String> elements) {
+    public CsvStringList setElements(final List<String> strings) {
         CsvStringList csvStringList;
 
-        if (elements instanceof CsvStringList) {
-            csvStringList = (CsvStringList) elements;
+        if (strings instanceof CsvStringList) {
+            csvStringList = (CsvStringList) strings;
         } else {
             final List<String> copy = Lists.array();
-            for(final String element : elements) {
-                Objects.requireNonNull(elements, "includes null string");
-                copy.add(element);
+            for(final String string : strings) {
+                Objects.requireNonNull(strings, "includes null string");
+                copy.add(string);
             }
-            csvStringList = this.elements.equals(copy) ?
+            csvStringList = this.strings.equals(copy) ?
                 this :
                 copy.isEmpty() ?
                     EMPTY :
@@ -96,17 +96,17 @@ public final class CsvStringList extends AbstractList<String> implements Immutab
         return csvStringList;
     }
 
-    private final List<String> elements;
+    private final List<String> strings;
 
     // HasText..........................................................................................................
 
     /**
-     * Note elements with quotes, commas, CR or NL will be quoted and double quotes escaped.
+     * Note strings with quotes, commas, CR or NL will be quoted and double quotes escaped.
      */
     @Override
     public String text() {
         return Csv.toCsv(
-            this.elements
+            this.strings
         );
     }
 }
