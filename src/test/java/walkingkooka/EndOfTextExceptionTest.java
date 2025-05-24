@@ -42,7 +42,7 @@ public final class EndOfTextExceptionTest implements ThrowableTesting2<EndOfText
     @Test
     public void testWith() {
         final EndOfTextException cause = this.create();
-        check(
+        this.checkMessage(
             cause,
             MESSAGE
         );
@@ -52,7 +52,7 @@ public final class EndOfTextExceptionTest implements ThrowableTesting2<EndOfText
     public void testWithCause() {
         final Throwable cause = new Exception();
         final EndOfTextException thrown = new EndOfTextException(MESSAGE, cause);
-        check(
+        this.checkMessage(
             thrown,
             MESSAGE
         );
@@ -61,7 +61,7 @@ public final class EndOfTextExceptionTest implements ThrowableTesting2<EndOfText
 
     @Test
     public void testGetMessage() {
-        checkMessage(
+        this.checkMessage(
             this.create(),
             "message123"
         );
@@ -80,15 +80,6 @@ public final class EndOfTextExceptionTest implements ThrowableTesting2<EndOfText
         );
     }
 
-    private void check(final EndOfTextException exception,
-                       final String message) {
-        this.checkEquals(
-            message,
-            exception.getMessage(),
-            "message"
-        );
-    }
-
     // equals...........................................................................................................
 
     @Test
@@ -96,6 +87,11 @@ public final class EndOfTextExceptionTest implements ThrowableTesting2<EndOfText
         this.checkNotEquals(
             new EndOfTextException("different")
         );
+    }
+
+    @Override
+    public EndOfTextException createObject() {
+        return new EndOfTextException(MESSAGE);
     }
 
     // ClassVisibility..................................................................................................
@@ -108,12 +104,5 @@ public final class EndOfTextExceptionTest implements ThrowableTesting2<EndOfText
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
-    }
-
-    // equality.........................................................................................................
-
-    @Override
-    public EndOfTextException createObject() {
-        return new EndOfTextException(MESSAGE);
     }
 }
