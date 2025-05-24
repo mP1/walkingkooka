@@ -29,11 +29,20 @@ public abstract class TextException extends IllegalArgumentException
     implements HasText {
 
     TextException() {
-        this(null);
+        this((String)null);
+    }
+
+    TextException(final String message) {
+        this(message, null);
     }
 
     TextException(final Throwable cause) {
-        super(cause);
+        this(null, cause);
+    }
+
+    TextException(final String message,
+                  final Throwable cause) {
+        super(message, cause);
         this.label = NO_LABEL;
     }
 
