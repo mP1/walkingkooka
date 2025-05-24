@@ -140,43 +140,64 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<I
     @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithNullLabelFails() {
-        assertThrows(NullPointerException.class, () -> new InvalidTextLengthException(null, TEXT, MIN, MAX));
+        assertThrows(
+            NullPointerException.class,
+            () -> new InvalidTextLengthException(null, TEXT, MIN, MAX)
+        );
     }
 
     @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithEmptyLabelFails() {
-        assertThrows(IllegalArgumentException.class, () -> new InvalidTextLengthException("", TEXT, MIN, MAX));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new InvalidTextLengthException("", TEXT, MIN, MAX)
+        );
     }
 
     @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithWhitespaceLabelFails() {
-        assertThrows(IllegalArgumentException.class, () -> new InvalidTextLengthException(" ", TEXT, MIN, MAX));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new InvalidTextLengthException(" ", TEXT, MIN, MAX)
+        );
     }
 
     @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithNullTextFails() {
-        assertThrows(NullPointerException.class, () -> new InvalidTextLengthException(LABEL, null, MIN, MAX));
+        assertThrows(
+            NullPointerException.class,
+            () -> new InvalidTextLengthException(LABEL, null, MIN, MAX)
+        );
     }
 
     @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithInvalidMinFails() {
-        assertThrows(IllegalArgumentException.class, () -> new InvalidTextLengthException(LABEL, TEXT, -1, MAX));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new InvalidTextLengthException(LABEL, TEXT, -1, MAX)
+        );
     }
 
     @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithInvalidMinGreaterThanTextFails() {
-        assertThrows(IllegalArgumentException.class, () -> new InvalidTextLengthException(LABEL, TEXT, 6, MAX));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new InvalidTextLengthException(LABEL, TEXT, 6, MAX)
+        );
     }
 
     @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testWithInvalidMaxFails() {
-        assertThrows(IllegalArgumentException.class, () -> new InvalidTextLengthException(LABEL, TEXT, MIN, MIN - 1));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new InvalidTextLengthException(LABEL, TEXT, MIN, MIN - 1)
+        );
     }
 
     @Test
@@ -243,14 +264,23 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<I
 
     @Test
     public void testGetMessage() {
-        checkMessage(this.create(),
-            "Length 7 of \"label123\" not between 2..5 = \"abc!456\"");
+        this.checkMessage(
+            this.create(),
+            "Length 7 of \"label123\" not between 2..5 = \"abc!456\""
+        );
     }
 
     @Test
     public void testGetMessageEscapedCharacter() {
-        checkMessage(new InvalidTextLengthException(LABEL, "abc'xy", MIN, MAX),
-            "Length 6 of \"label123\" not between 2..5 = \"abc\'xy\"");
+        this.checkMessage(
+            new InvalidTextLengthException(
+                LABEL,
+                "abc'xy",
+                MIN,
+                MAX
+            ),
+            "Length 6 of \"label123\" not between 2..5 = \"abc\'xy\""
+        );
     }
 
     @Test
@@ -303,22 +333,55 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<I
 
     @Test
     public void testEqualsDifferentLabel() {
-        this.checkNotEquals(new InvalidTextLengthException("different", TEXT, MIN, MAX));
+        this.checkNotEquals(
+            new InvalidTextLengthException(
+                "differentLabel",
+                TEXT,
+                MIN,
+                MAX
+            )
+        );
     }
 
     @Test
     public void testEqualsDifferentText() {
-        this.checkNotEquals(new InvalidTextLengthException(LABEL, "different", MIN, MAX));
+        this.checkNotEquals(
+            new InvalidTextLengthException(
+                LABEL,
+                "differentText",
+                MIN,
+                MAX
+            )
+        );
     }
 
     @Test
     public void testEqualsDifferentMin() {
-        this.checkNotEquals(new InvalidTextLengthException(LABEL, TEXT, MIN + 1, MAX));
+        this.checkNotEquals(
+            new InvalidTextLengthException(
+                LABEL,
+                TEXT,
+                MIN + 1,
+                MAX
+            )
+        );
     }
 
     @Test
     public void testEqualsDifferentMax() {
-        this.checkNotEquals(new InvalidTextLengthException(LABEL, TEXT, MIN, Integer.MAX_VALUE));
+        this.checkNotEquals(
+            new InvalidTextLengthException(
+                LABEL,
+                TEXT,
+                MIN,
+                Integer.MAX_VALUE
+            )
+        );
+    }
+
+    @Override
+    public InvalidTextLengthException createObject() {
+        return new InvalidTextLengthException(LABEL, TEXT, MIN, MAX);
     }
 
     // ClassVisibility..................................................................................................
@@ -331,12 +394,5 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<I
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
-    }
-
-    // equality.........................................................................................................
-
-    @Override
-    public InvalidTextLengthException createObject() {
-        return new InvalidTextLengthException(LABEL, TEXT, MIN, MAX);
     }
 }
