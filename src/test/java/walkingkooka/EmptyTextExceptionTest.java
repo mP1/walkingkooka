@@ -21,6 +21,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.ThrowableTesting2;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class EmptyTextExceptionTest implements ThrowableTesting2<EmptyTextException>,
@@ -40,7 +42,7 @@ public final class EmptyTextExceptionTest implements ThrowableTesting2<EmptyText
     @Test
     public void testWith() {
         final EmptyTextException cause = this.create();
-        check(
+        this.labelCheck(
             cause,
             LABEL
         );
@@ -50,7 +52,7 @@ public final class EmptyTextExceptionTest implements ThrowableTesting2<EmptyText
     public void testWithCause() {
         final Throwable cause = new Exception();
         final EmptyTextException thrown = new EmptyTextException(LABEL, cause);
-        check(
+        this.labelCheck(
             thrown,
             LABEL
         );
@@ -65,13 +67,46 @@ public final class EmptyTextExceptionTest implements ThrowableTesting2<EmptyText
         );
     }
 
+    // setLabel.........................................................................................................
+
+    @Test
+    public void testSetLabelWithNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> new EmptyTextException(LABEL)
+                .setLabel(null)
+        );
+    }
+
+    @Test
+    public void testSetLabelWithEmptyFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> new EmptyTextException(LABEL)
+                .setLabel(Optional.empty())
+        );
+    }
+
+    @Test
+    public void testSetLabelWithEmptyStringFails() {
+        assertThrows(
+            EmptyTextException.class,
+            () -> new EmptyTextException(LABEL)
+                .setLabel(Optional.of(""))
+        );
+    }
+
     private EmptyTextException create() {
         return new EmptyTextException(LABEL);
     }
 
-    private void check(final EmptyTextException exception,
-                       final String label) {
-        this.checkEquals(label, exception.label(), "label");
+    private void labelCheck(final EmptyTextException exception,
+                            final String label) {
+        this.checkEquals(
+            Optional.of(label),
+            exception.label(),
+            "label"
+        );
     }
 
     // equals...........................................................................................................
@@ -81,6 +116,11 @@ public final class EmptyTextExceptionTest implements ThrowableTesting2<EmptyText
         this.checkNotEquals(
             new EmptyTextException("different")
         );
+    }
+
+    @Override
+    public EmptyTextException createObject() {
+        return new EmptyTextException(LABEL);
     }
 
     // ClassVisibility..................................................................................................
@@ -93,12 +133,5 @@ public final class EmptyTextExceptionTest implements ThrowableTesting2<EmptyText
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
-    }
-
-    // equality.........................................................................................................
-
-    @Override
-    public EmptyTextException createObject() {
-        return new EmptyTextException(LABEL);
     }
 }

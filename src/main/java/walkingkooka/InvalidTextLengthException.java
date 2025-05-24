@@ -21,6 +21,7 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * An {@link IllegalArgumentException} that reports an {@link String} with an invalid length.
@@ -47,12 +48,13 @@ public class InvalidTextLengthException extends InvalidTextException {
                                       final String text,
                                       final int min,
                                       final int max) {
-        super();
-        checkParameters(label, text, min, max);
-        this.label = label;
-        this.text = text;
-        this.min = min;
-        this.max = max;
+        this(
+            label,
+            text,
+            min,
+            max,
+            null // cause
+        );
     }
 
     public InvalidTextLengthException(final String label,
@@ -62,7 +64,8 @@ public class InvalidTextLengthException extends InvalidTextException {
                                       final Throwable cause) {
         super(cause);
         checkParameters(label, text, min, max);
-        this.label = label;
+
+        this.setLabel(Optional.of(label));
         this.text = text;
         this.min = min;
         this.max = max;
@@ -103,19 +106,40 @@ public class InvalidTextLengthException extends InvalidTextException {
 
     private final int max;
 
+    // Length 7 of "label123" not between 2 and 5 = "abc!456"
     @Override
     public String getMessage() {
-        return "Length " + this.text.length() +
-            " of " + CharSequences.quoteAndEscape(this.label) +
-            " not between " + this.min + ".." + this.max +
-            " = " + CharSequences.quote(this.text);
+        final StringBuilder b = new StringBuilder();
+        b.append("Length ")
+            .append(this.text.length())
+            .append(' ');
+
+        final String label = this.label()
+            .orElse(null);
+        if(null != label) {
+            b.append("of ")
+                .append(
+                    CharSequences.quoteAndEscape(label)
+                );
+        }
+
+        b.append(" not between ")
+            .append(this.min)
+            .append("..")
+            .append(this.max)
+            .append(" = ")
+            .append(
+                CharSequences.quote(this.text)
+            );
+
+        return b.toString();
     }
 
-    public String label() {
-        return this.label;
+    @Override
+    public InvalidTextLengthException setLabel(final Optional<String> label) {
+        this.label = checkLabel(label);
+        return this;
     }
-
-    private final String label;
 
     private static final long serialVersionUID = 1L;
 

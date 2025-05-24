@@ -20,6 +20,7 @@ package walkingkooka;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.OptionalInt;
 
 /**
@@ -118,6 +119,12 @@ public class InvalidCharacterException extends InvalidTextException {
         }
     }
 
+    @Override
+    public InvalidCharacterException setLabel(final Optional<String> label) {
+        this.label = checkLabel(label);
+        return this;
+    }
+
     // column & line....................................................................................................
 
     public final static OptionalInt NO_COLUMN = OptionalInt.empty();
@@ -194,7 +201,18 @@ public class InvalidCharacterException extends InvalidTextException {
         final StringBuilder b = new StringBuilder();
 
         // Invalid character '/' at X in \"text\" $appendToMessage
-        b.append("Invalid character ");
+        // Invalid XYZ character '/' at X in \"text\" $appendToMessage
+        b.append("Invalid ");
+
+        final String label = this.label()
+            .orElse(null);
+        if (null != label) {
+            b.append(
+                CharSequences.quoteAndEscape(label)
+            ).append(' ');
+        }
+
+        b.append("character ");
         b.append(
             CharSequences.quoteIfChars(
                 this.character()
