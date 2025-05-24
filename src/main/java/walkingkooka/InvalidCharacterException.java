@@ -218,19 +218,24 @@ public class InvalidCharacterException extends InvalidTextException {
                 this.character()
             )
         );
-        b.append(" at ");
 
         final OptionalInt column = this.column();
         final boolean columnAndLine = column.isPresent();
 
         if (columnAndLine) {
+            // SPACE at SPACE (column,line)
+            b.append(" at ");
             b.append('(');
             b.append(column.getAsInt());
             b.append(',');
             b.append(this.line.getAsInt());
             b.append(')');
         } else {
-            b.append(this.position);
+            if(this.text.length() > 1) {
+                // SPACE at SPACE position
+                b.append(" at ");
+                b.append(this.position);
+            }
         }
 
         final String appendToMessage = this.appendToMessage;

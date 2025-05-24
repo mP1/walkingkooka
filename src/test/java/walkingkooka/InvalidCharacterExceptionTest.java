@@ -409,7 +409,31 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
     // getMessage.......................................................................................................
 
     @Test
-    public void testGetMessage() {
+    public void testGetMessageWithPositionWhenOnlyCharacter() {
+        this.checkMessage(
+            new InvalidCharacterException(
+                "A",
+                0
+            ),
+            "Invalid character \'A\'"
+        );
+    }
+
+    @Test
+    public void testGetMessageWithPositionWhenOnlyCharacterAndSetLabel() {
+        this.checkMessage(
+            new InvalidCharacterException(
+                "B",
+                0
+            ).setLabel(
+                Optional.of("Hello")
+            ),
+            "Invalid \"Hello\" character \'B\'"
+        );
+    }
+
+    @Test
+    public void testGetMessageWithPosition() {
         checkMessage(
             this.create(),
             "Invalid character \'!\' at 3"
