@@ -25,7 +25,7 @@ import java.util.Optional;
 /**
  * An {@link IllegalArgumentException} that reports the end of text was encountered during processing.
  */
-public class EndOfTextException extends InvalidTextException {
+public class EndOfTextException extends TextException {
 
     private static final long serialVersionUID = 1L;
 

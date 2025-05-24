@@ -26,7 +26,7 @@ import java.util.Optional;
 /**
  * An {@link IllegalArgumentException} that reports an {@link String} with an invalid length.
  */
-public class InvalidTextLengthException extends InvalidTextException {
+public class InvalidTextLengthException extends TextException {
 
     public static String throwIfFail(final String label,
                                      final String text,

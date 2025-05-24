@@ -27,7 +27,7 @@ import java.util.OptionalInt;
  * An {@link IllegalArgumentException} that reports an invalid character within some text.
  * Note all would be setter methods return this, supporting chainging.
  */
-public class InvalidCharacterException extends InvalidTextException {
+public class InvalidCharacterException extends TextException {
 
     private static final long serialVersionUID = 1L;
 

@@ -23,16 +23,16 @@ import walkingkooka.text.HasText;
 import java.util.Optional;
 
 /**
- * An {@link IllegalArgumentException} that reports invalid text.
+ * An {@link IllegalArgumentException} that reports something was wrong with some given text.
  */
-public abstract class InvalidTextException extends IllegalArgumentException
+public abstract class TextException extends IllegalArgumentException
     implements HasText {
 
-    InvalidTextException() {
+    TextException() {
         this(null);
     }
 
-    InvalidTextException(final Throwable cause) {
+    TextException(final Throwable cause) {
         super(cause);
         this.label = NO_LABEL;
     }
@@ -59,7 +59,7 @@ public abstract class InvalidTextException extends IllegalArgumentException
         return label;
     }
 
-    public abstract InvalidTextException setLabel(final Optional<String> label);
+    public abstract TextException setLabel(final Optional<String> label);
 
     Optional<String> label;
 
