@@ -310,7 +310,8 @@ final public class Indentation implements Value<String>, CharSequence {
     /**
      * The raw {@link String} indentation value.
      */
-    @Override public String value() {
+    @Override
+    public String value() {
         return this.toString(); // maybe change to CharSequence
     }
 
@@ -319,18 +320,21 @@ final public class Indentation implements Value<String>, CharSequence {
      */
     private final CharSequence value;
 
-    // Object
+    // Object...........................................................................................................
 
-    @Override public int hashCode() {
+    @Override
+    public int hashCode() {
         return this.value.hashCode();
     }
 
-    @Override public boolean equals(final Object other) {
-        return (this == other) || ((other instanceof Indentation)
-            && this.equals((Indentation) other));
+    @Override
+    public boolean equals(final Object other) {
+        return this == other ||
+            other instanceof Indentation
+            && this.equals0((Indentation) other);
     }
 
-    private boolean equals(final Indentation other) {
+    private boolean equals0(final Indentation other) {
         return this.value.equals(other.value);
     }
 
