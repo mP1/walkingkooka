@@ -28,23 +28,19 @@ import java.util.Optional;
  */
 public class InvalidTextException extends TextException {
 
-    public InvalidTextException(final String label,
-                                final String message) {
+    public InvalidTextException(final String message) {
         this(
-            label,
             message,
             null
         );
     }
 
-    public InvalidTextException(final String label,
-                                final String message,
+    public InvalidTextException(final String message,
                                 final Throwable cause) {
-        super(message, cause);
-        this.label = checkNotEmptyLabel(
-            Optional.ofNullable(label)
+        super(
+            CharSequences.failIfNullOrEmpty(message, "message"),
+            cause
         );
-        CharSequences.failIfNullOrEmpty(message, "message");
     }
 
     @Override
@@ -54,7 +50,8 @@ public class InvalidTextException extends TextException {
 
     @Override
     public InvalidTextException setLabel(final Optional<String> label) {
-        throw new UnsupportedOperationException();
+        this.label = checkLabel(label);
+        return this;
     }
 
     private static final long serialVersionUID = 1L;

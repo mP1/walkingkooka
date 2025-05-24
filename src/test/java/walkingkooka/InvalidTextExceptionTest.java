@@ -29,38 +29,27 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class InvalidTextExceptionTest implements ThrowableTesting2<InvalidTextException>,
     HashCodeEqualsDefinedTesting2<InvalidTextException> {
 
-    private final static String LABEL = "label123";
+    private final static Optional<String> LABEL = Optional.of("label123");
 
     private final static String MESSAGE = "message123";
-
-    @SuppressWarnings("ThrowableNotThrown")
-    @Test
-    public void testWithNullLabelFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> new InvalidTextException(null, MESSAGE)
-        );
-    }
 
     @Test
     public void testWithNullMessageFails() {
         assertThrows(
             NullPointerException.class,
-            () -> new InvalidTextException(LABEL, null)
+            () -> new InvalidTextException(
+                null, // message
+                null // cause
+            )
         );
     }
 
     @Test
     public void testWith() {
         final InvalidTextException thrown = new InvalidTextException(
-            LABEL,
             MESSAGE
         );
 
-        this.labelCheck(
-            thrown,
-            LABEL
-        );
         this.checkMessage(
             thrown,
             MESSAGE
@@ -71,13 +60,12 @@ public final class InvalidTextExceptionTest implements ThrowableTesting2<Invalid
     public void testWithCause() {
         final Throwable cause = new Exception();
         final InvalidTextException thrown = new InvalidTextException(
-            LABEL,
             MESSAGE,
             cause
         );
         this.labelCheck(
             thrown,
-            LABEL
+            InvalidTextException.NO_LABEL
         );
         this.checkMessage(
             thrown,
@@ -92,20 +80,32 @@ public final class InvalidTextExceptionTest implements ThrowableTesting2<Invalid
     // setLabel.........................................................................................................
 
     @Test
-    public void testSetLabelFails() {
+    public void testSetLabelWithNullFails() {
         assertThrows(
-            UnsupportedOperationException.class,
-            () -> new InvalidTextException(LABEL, MESSAGE)
-                .setLabel(
-                    Optional.of("Hello")
-                )
+            NullPointerException.class,
+            () -> new InvalidTextException(MESSAGE)
+                .setLabel(null)
+        );
+    }
+
+    @Test
+    public void testSetLabel() {
+        final InvalidTextException thrown = new InvalidTextException(MESSAGE)
+            .setLabel(LABEL);
+        this.labelCheck(
+            thrown,
+            LABEL
+        );
+        this.checkMessage(
+            thrown,
+            MESSAGE
         );
     }
 
     private void labelCheck(final InvalidTextException exception,
-                            final String label) {
+                            final Optional<String> label) {
         this.checkEquals(
-            Optional.of(label),
+            label,
             exception.label(),
             "label"
         );
@@ -114,21 +114,27 @@ public final class InvalidTextExceptionTest implements ThrowableTesting2<Invalid
     // equals...........................................................................................................
 
     @Test
+    public void testEqualsDifferentMessage() {
+        this.checkNotEquals(
+            new InvalidTextException("differentMessage")
+        );
+    }
+
+    @Test
     public void testEqualsDifferentLabel() {
         this.checkNotEquals(
-            new InvalidTextException(
-                "differentLabel",
-                MESSAGE
-            )
+            new InvalidTextException(MESSAGE)
+                .setLabel(LABEL),
+            new InvalidTextException(MESSAGE)
+                .setLabel(
+                    Optional.of("differentLabel")
+                )
         );
     }
 
     @Override
     public InvalidTextException createObject() {
-        return new InvalidTextException(
-            LABEL,
-            MESSAGE
-        );
+        return new InvalidTextException(MESSAGE);
     }
 
     // ClassVisibility..................................................................................................
