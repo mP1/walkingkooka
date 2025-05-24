@@ -20,11 +20,11 @@ package walkingkooka;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class InvalidTextExceptionTest implements ClassTesting2<InvalidTextException> {
+public final class TextExceptionTest implements ClassTesting2<TextException> {
 
     @Override
-    public Class<InvalidTextException> type() {
-        return InvalidTextException.class;
+    public Class<TextException> type() {
+        return TextException.class;
     }
 
     @Override

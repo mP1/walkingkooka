@@ -25,7 +25,7 @@ import java.util.Optional;
 /**
  * An {@link IllegalArgumentException} that reports an {@link String} is empty when it should not be.
  */
-public class EmptyTextException extends InvalidTextException {
+public class EmptyTextException extends TextException {
 
     public EmptyTextException(final String label) {
         this(
