@@ -35,11 +35,13 @@ abstract class CharSequence2<C extends CharSequence2<C>> implements CharSequence
     /**
      * {@see CharSequence#charAt(int)}.
      */
-    @Override final public char charAt(final int index) {
+    @Override
+    final public char charAt(final int index) {
         final int length = this.length();
         if (index < 0 || index >= length) {
             throw new StringIndexOutOfBoundsException(
-                "Index " + index + " must be between 0 and " + length);
+                "Index " + index + " must be between 0 and " + length
+            );
         }
         return this.charAtIndex(index);
     }
@@ -49,11 +51,14 @@ abstract class CharSequence2<C extends CharSequence2<C>> implements CharSequence
      */
     abstract char charAtIndex(int index);
 
-    @Override final public CharSequence subSequence(final int start, final int end) {
+    @Override
+    final public CharSequence subSequence(final int start,
+                                          final int end) {
         final int length = this.length();
         if (start < 0 || start > end || end > length) {
             throw new StringIndexOutOfBoundsException(
-                "start " + start + ", end " + end + ", length " + length);
+                "start " + start + ", end " + end + ", length " + length
+            );
         }
 
         CharSequence result = this;
@@ -82,7 +87,8 @@ abstract class CharSequence2<C extends CharSequence2<C>> implements CharSequence
     /**
      * Lazily calculates the hash code and stores it for future retrieval.
      */
-    @Override final public int hashCode() {
+    @Override
+    final public int hashCode() {
         if (0 == this.hashCode) {
             this.hashCode = this.calculateHashCode();
         }
@@ -106,8 +112,10 @@ abstract class CharSequence2<C extends CharSequence2<C>> implements CharSequence
      * instances.
      */
     @Override
-    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass") final public boolean equals(final Object other) {
-        return this == other || this.canBeEqual(other) && this.equals0(Cast.to(other));
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
+    final public boolean equals(final Object other) {
+        return this == other ||
+            this.canBeEqual(other) && this.equals0(Cast.to(other));
     }
 
     /**
@@ -124,7 +132,8 @@ abstract class CharSequence2<C extends CharSequence2<C>> implements CharSequence
     /**
      * Checks a cached field and if null calls {@link #buildToString()}
      */
-    @Override final public String toString() {
+    @Override
+    final public String toString() {
         if (null == this.toString) {
             this.toString = this.buildToString();
         }
