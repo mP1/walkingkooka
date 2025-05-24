@@ -20,6 +20,7 @@ package walkingkooka;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * An {@link IllegalArgumentException} that reports an {@link String} is empty when it should not be.
@@ -27,20 +28,18 @@ import java.util.Objects;
 public class EmptyTextException extends InvalidTextException {
 
     public EmptyTextException(final String label) {
-        super();
-        checkLabel(label);
-        this.label = label;
+        this(
+            label,
+            null
+        );
     }
 
     public EmptyTextException(final String label,
                               final Throwable cause) {
         super(cause);
-        checkLabel(label);
-        this.label = label;
-    }
-
-    private static void checkLabel(final String label) {
-        CharSequences.failIfNullOrEmpty(label, "label");
+        this.setLabel(
+            Optional.ofNullable(label)
+        );
     }
 
     @Override
@@ -48,16 +47,21 @@ public class EmptyTextException extends InvalidTextException {
         return "";
     }
 
+    // Empty ABC
     @Override
     public String getMessage() {
-        return "Empty " + CharSequences.quoteAndEscape(this.label);
+        return "Empty " +
+            CharSequences.quoteAndEscape(
+                this.label()
+                    .get()
+            );
     }
 
-    public String label() {
-        return this.label;
+    @Override
+    public EmptyTextException setLabel(final Optional<String> label) {
+        this.label = checkNotEmptyLabel(label);
+        return this;
     }
-
-    private final String label;
 
     private static final long serialVersionUID = 1L;
 

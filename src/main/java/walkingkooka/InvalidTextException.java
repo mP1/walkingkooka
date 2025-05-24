@@ -17,7 +17,10 @@
 
 package walkingkooka;
 
+import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasText;
+
+import java.util.Optional;
 
 /**
  * An {@link IllegalArgumentException} that reports invalid text.
@@ -26,12 +29,39 @@ public abstract class InvalidTextException extends IllegalArgumentException
     implements HasText {
 
     InvalidTextException() {
-        super();
+        this(null);
     }
 
     InvalidTextException(final Throwable cause) {
         super(cause);
+        this.label = NO_LABEL;
     }
+
+    public final static Optional<String> NO_LABEL = Optional.empty();
+
+    public final Optional<String> label() {
+        return this.label;
+    }
+
+    static Optional<String> checkLabel(final Optional<String> label) {
+        if(label.isPresent()) {
+            checkNotEmptyLabel(label);
+        }
+
+        return label;
+    }
+
+    static Optional<String> checkNotEmptyLabel(final Optional<String> label) {
+        CharSequences.failIfNullOrEmpty(
+            label.orElse(null),
+            "label"
+        );
+        return label;
+    }
+
+    public abstract InvalidTextException setLabel(final Optional<String> label);
+
+    Optional<String> label;
 
     private static final long serialVersionUID = 1L;
 }

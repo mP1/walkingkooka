@@ -20,6 +20,7 @@ package walkingkooka;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * An {@link IllegalArgumentException} that reports the end of text was encountered during processing.
@@ -49,6 +50,12 @@ public class EndOfTextException extends InvalidTextException {
     }
 
     private final String message;
+
+    @Override
+    public EndOfTextException setLabel(final Optional<String> label) {
+        this.label = checkLabel(label);
+        return this;
+    }
 
     // Object...........................................................................................................
 

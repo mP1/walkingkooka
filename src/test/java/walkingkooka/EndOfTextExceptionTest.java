@@ -21,6 +21,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.ThrowableTesting2;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class EndOfTextExceptionTest implements ThrowableTesting2<EndOfTextException>,
@@ -67,6 +69,15 @@ public final class EndOfTextExceptionTest implements ThrowableTesting2<EndOfText
 
     private EndOfTextException create() {
         return new EndOfTextException(MESSAGE);
+    }
+
+    @Test
+    public void testGetMessageAfterSetNonEmptyLabel() {
+        this.checkMessage(
+            this.create()
+                .setLabel(Optional.of("Hello")),
+            MESSAGE
+        );
     }
 
     private void check(final EndOfTextException exception,

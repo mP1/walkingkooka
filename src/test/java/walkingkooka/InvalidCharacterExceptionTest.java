@@ -22,6 +22,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.ThrowableTesting2;
 import walkingkooka.text.HasTextTesting;
 
+import java.util.Optional;
 import java.util.OptionalInt;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -454,6 +455,34 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
                     2 + POSITION
                 ),
             "Invalid character \'!\' at 5"
+        );
+    }
+
+    @Test
+    public void testGetMessageAfterSetLabelWithEmpty() {
+        checkMessage(
+            this.create()
+                .setTextAndPosition(
+                    "@@" + TEXT,
+                    2 + POSITION
+                ).setLabel(
+                    Optional.empty()
+                ),
+            "Invalid character \'!\' at 5"
+        );
+    }
+
+    @Test
+    public void testGetMessageAfterSetLabelWithNotEmpty() {
+        checkMessage(
+            this.create()
+                .setTextAndPosition(
+                    "@@" + TEXT,
+                    2 + POSITION
+                ).setLabel(
+                    Optional.of("Hello")
+                ),
+            "Invalid \"Hello\" character \'!\' at 5"
         );
     }
 
