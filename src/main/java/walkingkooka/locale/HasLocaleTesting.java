@@ -23,9 +23,10 @@ import java.util.Locale;
 
 public interface HasLocaleTesting extends Testing {
 
-    default void hasLocaleAndCheck(final HasLocale has, final Locale locale) {
+    default void localeAndCheck(final HasLocale has,
+                                final Locale expected) {
         this.checkEquals(
-            locale,
+            expected,
             has.locale(),
             () -> has + " locale()"
         );

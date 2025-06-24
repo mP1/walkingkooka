@@ -27,16 +27,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public final class HasLocaleTestingTest implements HasLocaleTesting {
 
     @Test
-    public void testHasLocaleAndCheck() {
+    public void testLocaleAndCheck() {
         final Locale locale = Locale.ENGLISH;
-        this.hasLocaleAndCheck(() -> locale, locale);
+        this.localeAndCheck(() -> locale, locale);
     }
 
     @Test
-    public void testHasLocaleAndCheckFails() {
+    public void testLocaleAndCheckFails() {
         boolean failed = false;
         try {
-            this.hasLocaleAndCheck(() -> Locale.ENGLISH, Locale.FRANCE);
+            this.localeAndCheck(() -> Locale.ENGLISH, Locale.FRANCE);
         } catch (final AssertionFailedError expected) {
             failed = true;
         }
