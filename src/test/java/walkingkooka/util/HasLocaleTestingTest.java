@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.locale;
+package walkingkooka.util;
 
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;

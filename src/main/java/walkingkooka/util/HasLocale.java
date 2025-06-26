@@ -15,4 +15,17 @@
  *
  */
 
-package walkingkooka.locale;
+package walkingkooka.util;
+
+import java.util.Locale;
+
+/**
+ * Declares a {@link Locale} getter.
+ */
+public interface HasLocale {
+
+    /**
+     * The {@link Locale}
+     */
+    Locale locale();
+}

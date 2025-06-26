@@ -15,17 +15,20 @@
  *
  */
 
-package walkingkooka.locale;
+package walkingkooka.util;
+
+import walkingkooka.test.Testing;
 
 import java.util.Locale;
 
-/**
- * Declares a {@link Locale} getter.
- */
-public interface HasLocale {
+public interface HasLocaleTesting extends Testing {
 
-    /**
-     * The {@link Locale}
-     */
-    Locale locale();
+    default void localeAndCheck(final HasLocale has,
+                                final Locale expected) {
+        this.checkEquals(
+            expected,
+            has.locale(),
+            () -> has + " locale()"
+        );
+    }
 }
