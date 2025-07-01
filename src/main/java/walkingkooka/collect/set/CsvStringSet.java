@@ -85,7 +85,7 @@ public final class CsvStringSet extends AbstractSet<String>
     }
 
     @Override
-    public SortedSet<String> subSet(final String from,
+    public CsvStringSet subSet(final String from,
                                     final String to) {
         return this.setElements(
             this.strings.subSet(
@@ -96,14 +96,14 @@ public final class CsvStringSet extends AbstractSet<String>
     }
 
     @Override
-    public SortedSet<String> headSet(final String to) {
+    public CsvStringSet headSet(final String to) {
         return this.setElements(
             this.strings.headSet(to)
         );
     }
 
     @Override
-    public SortedSet<String> tailSet(final String from) {
+    public CsvStringSet tailSet(final String from) {
         return this.setElements(
             this.strings.tailSet(from)
         );
@@ -125,7 +125,7 @@ public final class CsvStringSet extends AbstractSet<String>
     }
 
     @Override
-    public ImmutableSortedSet<String> setElements(final SortedSet<String> strings) {
+    public CsvStringSet setElements(final SortedSet<String> strings) {
         final CsvStringSet csvStringSet;
 
         if (strings instanceof CsvStringSet) {
