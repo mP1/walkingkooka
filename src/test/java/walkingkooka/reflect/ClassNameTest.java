@@ -38,7 +38,7 @@ public final class ClassNameTest extends PackageNameOrTypeNameJavaNameTestCase<C
         }
 
         this.checkEquals(
-            48846,
+            48901,
             i
         );
     }
@@ -53,7 +53,7 @@ public final class ClassNameTest extends PackageNameOrTypeNameJavaNameTestCase<C
         }
 
         this.checkEquals(
-            50559,
+            50647,
             i
         );
     }
