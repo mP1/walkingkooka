@@ -18,6 +18,7 @@
 package walkingkooka.naming;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.CanBeEmptyTesting;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.iterable.Iterables;
 import walkingkooka.collect.list.Lists;
@@ -38,7 +39,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public interface PathTesting<P extends Path<P, N> & Comparable<P>, N extends Name> extends ComparableTesting2<P>,
     ConstantsTesting<P>,
     ToStringTesting<P>,
-    TypeNameTesting<P> {
+    TypeNameTesting<P>,
+    CanBeEmptyTesting {
 
     @Test
     default void testSeparatorConstant() {

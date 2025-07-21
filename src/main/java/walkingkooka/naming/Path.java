@@ -18,6 +18,7 @@
 package walkingkooka.naming;
 
 
+import walkingkooka.CanBeEmpty;
 import walkingkooka.Cast;
 import walkingkooka.Value;
 
@@ -28,7 +29,10 @@ import java.util.Optional;
 /**
  * A path is hierarchical composed of multiple names.
  */
-public interface Path<P extends Path<P, N>, N extends Name> extends Value<String>, HasName<N>, Iterable<N> {
+public interface Path<P extends Path<P, N>, N extends Name> extends Value<String>,
+    HasName<N>,
+    Iterable<N>,
+    CanBeEmpty {
 
     /**
      * Returns the parent {@link Path}. For a root this will return null.
@@ -80,4 +84,12 @@ public interface Path<P extends Path<P, N>, N extends Name> extends Value<String
      * Getter that returns the {@link PathSeparator}.
      */
     PathSeparator separator();
+
+    // CanBeEmpty.......................................................................................................
+
+    @Override
+    default boolean isEmpty() {
+        return this.value()
+            .isEmpty();
+    }
 }
