@@ -42,14 +42,20 @@ public interface PathTesting<P extends Path<P, N> & Comparable<P>, N extends Nam
 
     @Test
     default void testSeparatorConstant() {
-        this.fieldPublicStaticCheck(this.type(),
+        this.fieldPublicStaticCheck(
+            this.type(),
             "SEPARATOR",
-            PathSeparator.class);
+            PathSeparator.class
+        );
     }
 
     @Test
     default void testAppendNullNameFails() {
-        assertThrows(NullPointerException.class, () -> this.createPath().append((N) null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createPath()
+                .append((N) null)
+        );
     }
 
     @Test
@@ -125,7 +131,11 @@ public interface PathTesting<P extends Path<P, N> & Comparable<P>, N extends Nam
 
     @Test
     default void testAppendNullPathFails() {
-        assertThrows(NullPointerException.class, () -> this.createPath().append((P) null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createPath()
+                .append((P) null)
+        );
     }
 
     @Test
@@ -135,7 +145,12 @@ public interface PathTesting<P extends Path<P, N> & Comparable<P>, N extends Nam
         final N name3 = this.createName(2);
         final N name4 = this.createName(3);
 
-        @SuppressWarnings("unchecked") final String fullPath4 = this.concat(name1, name2, name3, name4);
+        @SuppressWarnings("unchecked") final String fullPath4 = this.concat(
+            name1,
+            name2,
+            name3,
+            name4
+        );
 
         final P path = this.parsePath(fullPath4);
 
@@ -149,7 +164,11 @@ public interface PathTesting<P extends Path<P, N> & Comparable<P>, N extends Nam
             actualNames.add(name);
         }
 
-        this.checkEquals(names, actualNames, () -> "names returned by iterator for " + path);
+        this.checkEquals(
+            names,
+            actualNames,
+            () -> "names returned by iterator for " + path
+        );
     }
 
     @Test
@@ -194,13 +213,29 @@ public interface PathTesting<P extends Path<P, N> & Comparable<P>, N extends Nam
     }
 
     default void rootCheck(final Path<?, ?> path) {
-        this.checkEquals(Optional.empty(), path.parent(), () -> "path must not be root=" + path);
-        this.checkEquals(true, path.isRoot(), () -> "path must not be root=" + path);
+        this.checkEquals(
+            Optional.empty(),
+            path.parent(),
+            () -> "path must not be root=" + path
+        );
+        this.checkEquals(
+            true,
+            path.isRoot(),
+            () -> "path must not be root=" + path
+        );
     }
 
     default void rootNotCheck(final Path<?, ?> path) {
-        this.checkNotEquals(Optional.empty(), path.parent(), () -> "path must not be root=" + path);
-        this.checkEquals(false, path.isRoot(), () -> "path must not be root=" + path);
+        this.checkNotEquals(
+            Optional.empty(),
+            path.parent(),
+            () -> "path must not be root=" + path
+        );
+        this.checkEquals(
+            false,
+            path.isRoot(),
+            () -> "path must not be root=" + path
+        );
     }
 
     default void valueCheck(final Path<?, ?> path) {
@@ -229,43 +264,90 @@ public interface PathTesting<P extends Path<P, N> & Comparable<P>, N extends Nam
         this.valueCheck(path, b.toString());
     }
 
-    default void valueCheck(final Path<?, ?> path, final String value) {
-        this.checkEquals(value, path.value(), "value of " + path);
+    default void valueCheck(final Path<?, ?> path,
+                            final String value) {
+        this.checkEquals(
+            value,
+            path.value(),
+            "value of " + path
+        );
     }
 
-    default void nameCheck(final P path, final N name) {
-        this.checkEquals(name, path.name(), () -> "name of " + path);
-        this.nameCheck(path, name.value());
+    default void nameCheck(final P path,
+                           final N name) {
+        this.checkEquals(
+            name,
+            path.name(),
+            () -> "name of " + path
+        );
+        this.nameCheck(
+            path,
+            name.value()
+        );
     }
 
-    default void nameCheck(final Path<?, ?> path, final String value) {
-        this.checkEquals(value, path.name().value(), () -> "name of " + path);
+    default void nameCheck(final Path<?, ?> path,
+                           final String value) {
+        this.checkEquals(
+            value,
+            path.name()
+                .value(),
+            () -> "name of " + path
+        );
     }
 
     default P parentCheck(final P path) {
         final Optional<P> parent = path.parent();
-        this.checkNotEquals(Optional.empty(), parent, () -> "parent of " + path);
+        this.checkNotEquals(
+            Optional.empty(),
+            parent,
+            () -> "parent of " + path
+        );
         return parent.get();
     }
 
-    default void parentCheck(final P path, final P parent) {
-        this.checkEquals(parent, parentCheck(path), () -> "parent of " + path);
+    default void parentCheck(final P path,
+                             final P parent) {
+        this.checkEquals(
+            parent,
+            parentCheck(path),
+            () -> "parent of " + path
+        );
     }
 
-    default void parentCheck(final P path, final String value) {
-        this.checkEquals(value, parentCheck(path).value(), () -> "parent of " + path);
+    default void parentCheck(final P path,
+                             final String value) {
+        this.checkEquals(
+            value,
+            parentCheck(path).value(),
+            () -> "parent of " + path
+        );
     }
 
-    default void parentSame(final P path, final P parent) {
-        assertSame(parent, parentCheck(path), () -> "parent of " + path);
+    default void parentSame(final P path,
+                            final P parent) {
+        assertSame(
+            parent,
+            parentCheck(path),
+            () -> "parent of " + path
+        );
     }
 
     default void parentAbsentCheck(final Path<?, ?> path) {
-        this.checkEquals(Optional.empty(), path.parent(), () -> "parent of " + path);
+        this.checkEquals(
+            Optional.empty(),
+            path.parent(),
+            () -> "parent of " + path
+        );
     }
 
-    default void nameSameCheck(final Path<?, ?> path, final Name name) {
-        assertSame(name, path.name(), "name of " + path);
+    default void nameSameCheck(final Path<?, ?> path,
+                               final Name name) {
+        assertSame(
+            name,
+            path.name(),
+            "name of " + path
+        );
     }
 
     // ComparableTesting2 ..............................................................................................
