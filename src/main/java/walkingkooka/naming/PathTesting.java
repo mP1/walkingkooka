@@ -296,6 +296,21 @@ public interface PathTesting<P extends Path<P, N> & Comparable<P>, N extends Nam
         );
     }
 
+    default void parentCheck(final P path,
+                             final Optional<P> expected) {
+        if (expected.isPresent()) {
+            this.parentCheck(
+                path,
+                expected.get()
+            );
+        } else {
+            this.parentAbsentCheck(
+                path
+            );
+        }
+        ;
+    }
+
     default P parentCheck(final P path) {
         final Optional<P> parent = path.parent();
         this.checkNotEquals(
