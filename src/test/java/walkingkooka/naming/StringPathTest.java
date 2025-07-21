@@ -176,6 +176,16 @@ final public class StringPathTest implements PathTesting<StringPath, StringName>
         return StringPath.SEPARATOR;
     }
 
+    // isStartsWithSeparator............................................................................................
+
+    @Test
+    public void testIsStartsWithSeparatorTrue() {
+        this.isStartsWithSeparatorAndCheck(
+            StringPath.parse("/a1"),
+            true
+        );
+    }
+
     // equals...........................................................................................................
 
     @Test

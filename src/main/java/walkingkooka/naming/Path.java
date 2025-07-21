@@ -47,6 +47,16 @@ public interface Path<P extends Path<P, N>, N extends Name> extends Value<String
     }
 
     /**
+     * Returns true if this path begins with the {@link #separator()}.
+     */
+    default boolean isStartsWithSeparator() {
+        final String value = this.value();
+        return value.length() > 0 &&
+            value.charAt(0) == this.separator()
+                .character();
+    }
+
+    /**
      * Appends or concatenates the given {@link Name} onto the end of this {@link Path} creating a new {@link Path}.
      */
     P append(N name);

@@ -367,6 +367,17 @@ public interface PathTesting<P extends Path<P, N> & Comparable<P>, N extends Nam
         );
     }
 
+    // isStartsWithSeparator............................................................................................
+
+    default void isStartsWithSeparatorAndCheck(final Path<?, ?> path,
+                                               final boolean expected) {
+        this.checkEquals(
+            expected,
+            path.isStartsWithSeparator(),
+            () -> "isStartsWithSeparatorAndCheck " + path
+        );
+    }
+
     // ComparableTesting2 ..............................................................................................
 
     default P createObject() {
