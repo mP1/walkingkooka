@@ -106,6 +106,11 @@ final class CharSequenceTextCursor implements TextCursor {
         return CharSequenceTextCursorLineInfo.with(this.text, this.position);
     }
 
+    @Override
+    public String text() {
+        return this.text.toString();
+    }
+
     /**
      * The entire {@link String} being moved about.
      */

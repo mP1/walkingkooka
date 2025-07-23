@@ -20,6 +20,7 @@ package walkingkooka.text.cursor;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.iterator.Iterators;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
@@ -142,6 +143,39 @@ public final class ChunkingTextCursorTest implements ClassTesting2<ChunkingTextC
             cursor,
             true
         );
+    }
+
+    @Test
+    public void testText() {
+        final String text1 = "1";
+        final String text2 = "2";
+        final String text3 = "3";
+
+        final ChunkingTextCursor cursor = ChunkingTextCursor.with(
+            Lists.of(
+                text1,
+                text2,
+                text3,
+                "456"
+            ).iterator()
+        );
+
+        cursor.next();
+        cursor.next();
+        cursor.next();
+
+        this.atAndCheck(
+            cursor,
+            '4'
+        );
+        cursor.next();
+
+        this.textAndCheck(
+            cursor,
+            "123456"
+        );
+
+
     }
 
     // toString.........................................................................................................

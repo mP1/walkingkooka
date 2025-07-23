@@ -18,11 +18,14 @@
 package walkingkooka.text.cursor;
 
 import walkingkooka.CanBeEmpty;
+import walkingkooka.text.HasText;
 
 /**
  * A {@link TextCursor} represents a cursor that may only move forwards to read characters.
  */
-public interface TextCursor extends TextCursorLike, CanBeEmpty {
+public interface TextCursor extends TextCursorLike,
+    CanBeEmpty,
+    HasText {
 
     /**
      * Retrieves the character at the current location

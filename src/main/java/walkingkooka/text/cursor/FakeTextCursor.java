@@ -61,4 +61,9 @@ public class FakeTextCursor implements TextCursor, Fake {
     public TextCursorSavePoint save() {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public String text() {
+        throw new UnsupportedOperationException();
+    }
 }
