@@ -95,6 +95,15 @@ final class ChunkingTextCursor implements TextCursor {
     private final TextCursor cursor;
 
     @Override
+    public String text() {
+        this.fillIfCursorEmpty();
+
+        return this.allText.toString() + this.cursor.text();
+    }
+
+    private final StringBuilder allText = new StringBuilder();
+
+    @Override
     public String toString() {
         return this.cursor.toString();
     }

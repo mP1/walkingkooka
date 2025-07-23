@@ -62,6 +62,15 @@ final public class CharSequenceTextCursorTest implements ClassTesting2<CharSeque
         this.lineInfoCheck(cursor, "text", 1, 2);
     }
 
+    @Test
+    public void testText() {
+        final String text = "Hello\nWorld\n";
+
+        this.textAndCheck(
+            CharSequenceTextCursor.with(text),
+            text
+        );
+    }
 
     @Test
     public void testToStringAtBeginning() {

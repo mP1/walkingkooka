@@ -21,12 +21,14 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.CanBeEmptyTesting;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.HasTextTesting;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public interface TextCursorTesting2<C extends TextCursor>
     extends TextCursorTesting,
     CanBeEmptyTesting,
+    HasTextTesting,
     TypeNameTesting<C> {
 
     @Test

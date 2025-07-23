@@ -69,6 +69,11 @@ public final class MaxPositionTextCursor implements TextCursor {
         return this.cursor.lineInfo();
     }
 
+    @Override
+    public String text() {
+        return this.cursor.text();
+    }
+
     private final TextCursor cursor;
 
     /**
