@@ -25,14 +25,14 @@ import java.util.Optional;
 
 public interface HasOptionalLocaleTesting extends Testing {
 
-    default void localeAndCheck(final HasLocale has) {
+    default void localeAndCheck(final HasOptionalLocale has) {
         this.localeAndCheck(
             has,
             Optional.empty()
         );
     }
 
-    default void localeAndCheck(final HasLocale has,
+    default void localeAndCheck(final HasOptionalLocale has,
                                 final Locale expected) {
         this.localeAndCheck(
             has,
@@ -40,7 +40,7 @@ public interface HasOptionalLocaleTesting extends Testing {
         );
     }
 
-    default void localeAndCheck(final HasLocale has,
+    default void localeAndCheck(final HasOptionalLocale has,
                                 final Optional<Locale> expected) {
         this.checkEquals(
             expected,
