@@ -21,8 +21,10 @@ package walkingkooka.naming;
 import walkingkooka.CanBeEmpty;
 import walkingkooka.Cast;
 import walkingkooka.Value;
+import walkingkooka.collect.list.Lists;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -74,6 +76,25 @@ public interface Path<P extends Path<P, N>, N extends Name> extends Value<String
         }
 
         return result;
+    }
+
+    /**
+     * Returns a {@link List} of {@link Name} with the ROOT as the first element.
+     */
+    default List<N> namesList() {
+        final List<N> names = Lists.array();
+        this.gatherNames(names);
+        return Lists.readOnly(names);
+    }
+
+    private void gatherNames(final List<N> names) {
+        Path<P, N> parent = this.parent()
+            .orElse(null);
+        if (null != parent) {
+            parent.gatherNames(names);
+        }
+
+        names.add(this.name());
     }
 
     /**
