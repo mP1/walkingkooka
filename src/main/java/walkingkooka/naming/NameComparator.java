@@ -17,6 +17,7 @@
 
 package walkingkooka.naming;
 
+import walkingkooka.Cast;
 import walkingkooka.text.CaseSensitivity;
 
 import java.util.Comparator;
@@ -30,13 +31,19 @@ final class NameComparator<N extends Name> implements Comparator<N> {
     static <N extends Name> NameComparator<N> with(final CaseSensitivity caseSensitivity) {
         Objects.requireNonNull(caseSensitivity, "caseSensitivity");
 
-        return new NameComparator<>(
-            caseSensitivity.comparator()
+        return Cast.to(
+            caseSensitivity == CaseSensitivity.SENSITIVE ?
+                SENSITIVE :
+                INSENSITIVE
         );
     }
 
-    private NameComparator(final Comparator<CharSequence> comparator) {
-        this.comparator = comparator;
+    private final static NameComparator<?> SENSITIVE = new NameComparator<>(CaseSensitivity.SENSITIVE);
+
+    private final static NameComparator<?> INSENSITIVE = new NameComparator<>(CaseSensitivity.INSENSITIVE);
+
+    private NameComparator(final CaseSensitivity caseSensitivity) {
+        this.comparator = caseSensitivity.comparator();
     }
 
     @Override
