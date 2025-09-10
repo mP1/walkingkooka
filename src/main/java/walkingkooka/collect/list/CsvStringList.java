@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * An immutable list of String elements.
+ * An immutable list of String elements. Note null elements are not allowed.
  */
 public final class CsvStringList extends AbstractList<String> implements ImmutableListDefaults<CsvStringList, String>,
     HasText {
