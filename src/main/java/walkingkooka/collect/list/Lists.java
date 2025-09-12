@@ -110,6 +110,13 @@ final public class Lists implements PublicStaticHelper {
     }
 
     /**
+     * {@see StringList}
+     */
+    public static StringList stringList() {
+        return StringList.EMPTY;
+    }
+
+    /**
      * {@see Vector}
      */
     public static <T> Vector<T> vector() {
