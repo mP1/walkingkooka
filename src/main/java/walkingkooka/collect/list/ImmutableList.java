@@ -39,12 +39,12 @@ public interface ImmutableList<E> extends List<E>, CanBeEmpty {
      * A default implementation of all other abstract methods is available by implementing {@link ImmutableListDefaults}.
      * After that is done only this method needs to be implemented.
      */
-    ImmutableList<E> setElements(final List<E> elements);
+    ImmutableList<E> setElements(final Collection<E> elements);
 
     /**
      * Useful setElements for classes that cannot easily create another instance with the new elements.
      */
-    ImmutableList<E> setElementsFailIfDifferent(final List<E> elements);
+    ImmutableList<E> setElementsFailIfDifferent(final Collection<E> elements);
 
     /**
      * Swaps the two elements at the given index.

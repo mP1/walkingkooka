@@ -34,7 +34,7 @@ public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends Im
     /**
      * Would be setter, that creates a new instance if the new elements are different otherwise returns true.
      */
-    T setElements(final List<E> elements);
+    T setElements(final Collection<E> elements);
 
     /**
      * Guard used to test concat/replace element parameters.
@@ -45,7 +45,7 @@ public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends Im
      * Useful setElements for classes that cannot easily create another instance with the new elements.
      */
     @Override
-    default T setElementsFailIfDifferent(final List<E> elements) {
+    default T setElementsFailIfDifferent(final Collection<E> elements) {
         Objects.requireNonNull(elements, "elements");
 
         if (false == this.equals(elements)) {

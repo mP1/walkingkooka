@@ -18,6 +18,7 @@
 package walkingkooka.collect.list;
 
 import java.util.AbstractList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,7 +38,7 @@ public final class BooleanList extends AbstractList<Boolean>
     /**
      * Factory that creates a {@link BooleanList} from the list of {@link Boolean booleans}.
      */
-    public static BooleanList with(final List<Boolean> booleans) {
+    public static BooleanList with(final Collection<Boolean> booleans) {
         Objects.requireNonNull(booleans, "booleans");
 
         BooleanList DateList;
@@ -83,7 +84,7 @@ public final class BooleanList extends AbstractList<Boolean>
     }
 
     @Override
-    public BooleanList setElements(final List<Boolean> booleans) {
+    public BooleanList setElements(final Collection<Boolean> booleans) {
         final BooleanList copy = with(booleans);
         return this.equals(copy) ?
             this :
