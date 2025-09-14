@@ -35,34 +35,8 @@ public final class BooleanList extends AbstractList<Boolean>
         Lists.empty()
     );
 
-    /**
-     * Factory that creates a {@link BooleanList} from the list of {@link Boolean booleans}.
-     */
-    public static BooleanList with(final Collection<Boolean> booleans) {
-        Objects.requireNonNull(booleans, "booleans");
-
-        BooleanList DateList;
-
-        if (booleans instanceof BooleanList) {
-            DateList = (BooleanList) booleans;
-        } else {
-            final List<Boolean> copy = Lists.array();
-            copy.addAll(booleans);
-
-            switch (booleans.size()) {
-                case 0:
-                    DateList = EMPTY;
-                    break;
-                default:
-                    DateList = new BooleanList(copy);
-                    break;
-            }
-        }
-
-        return DateList;
-    }
-
-    private BooleanList(final List<Boolean> booleans) {
+    // @VisibleForTesting
+    BooleanList(final List<Boolean> booleans) {
         this.booleans = booleans;
     }
 
@@ -85,9 +59,28 @@ public final class BooleanList extends AbstractList<Boolean>
 
     @Override
     public BooleanList setElements(final Collection<Boolean> booleans) {
-        final BooleanList copy = with(booleans);
-        return this.equals(copy) ?
+        BooleanList booleanList;
+
+        if (booleans instanceof BooleanList) {
+            booleanList = (BooleanList) booleans;
+        } else {
+            final List<Boolean> copy = Lists.array();
+            copy.addAll(
+                Objects.requireNonNull(booleans, "booleans")
+            );
+
+            switch (booleans.size()) {
+                case 0:
+                    booleanList = EMPTY;
+                    break;
+                default:
+                    booleanList = new BooleanList(copy);
+                    break;
+            }
+        }
+
+        return this.equals(booleanList) ?
             this :
-            copy;
+            booleanList;
     }
 }
