@@ -20,6 +20,7 @@ package walkingkooka.collect.set;
 import walkingkooka.collect.iterator.Iterators;
 
 import java.util.AbstractSet;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Set;
@@ -35,14 +36,18 @@ final class ImmutableSortedSetImpl<E> extends AbstractSet<E> implements Immutabl
     /**
      * Returns a {@link ImmutableSortedSet} which is immutable including copying elements if necessary.
      */
-    static <E> ImmutableSortedSet<E> with(final SortedSet<E> sortedSet) {
+    static <E> ImmutableSortedSet<E> with(final Collection<E> collection) {
         ImmutableSortedSet<E> immutableSortedSet;
 
-        if (sortedSet instanceof ImmutableSortedSet) {
-            immutableSortedSet = (ImmutableSortedSet<E>) sortedSet;
+        if (collection instanceof ImmutableSortedSet) {
+            immutableSortedSet = (ImmutableSortedSet<E>) collection;
         } else {
-            final TreeSet<E> treeSet = new TreeSet<>(sortedSet.comparator());
-            treeSet.addAll(sortedSet);
+            final TreeSet<E> treeSet = new TreeSet<>(
+                collection instanceof SortedSet ?
+                    ((SortedSet<E>) collection).comparator() :
+                    null
+            );
+            treeSet.addAll(collection);
             immutableSortedSet = new ImmutableSortedSetImpl<>(treeSet);
         }
         return immutableSortedSet;
@@ -139,7 +144,7 @@ final class ImmutableSortedSetImpl<E> extends AbstractSet<E> implements Immutabl
     }
 
     @Override
-    public ImmutableSortedSet<E> setElements(final SortedSet<E> elements) {
+    public ImmutableSortedSet<E> setElements(final Collection<E> elements) {
         final ImmutableSortedSet<E> copy = with(elements);
 
         return this.equals(copy) ?

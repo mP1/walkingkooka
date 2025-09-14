@@ -20,6 +20,7 @@ package walkingkooka.collect.set;
 import walkingkooka.Cast;
 
 import java.util.AbstractSet;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
 
@@ -31,12 +32,12 @@ abstract class ImmutableSetImpl<E> extends AbstractSet<E> implements ImmutableSe
     /**
      * Returns a {@link ImmutableSet} which is immutable including copying elements if necessary.
      */
-    static <E> ImmutableSet<E> with(final Set<E> set) {
-        Objects.requireNonNull(set, "set");
+    static <E> ImmutableSet<E> with(final Collection<E> collection) {
+        Objects.requireNonNull(collection, "collection");
 
-        return set instanceof ImmutableSet ?
-            Cast.to(set) :
-            prepare(set.toArray());
+        return collection instanceof ImmutableSet ?
+            Cast.to(collection) :
+            prepare(collection.toArray());
     }
 
     /**
@@ -85,7 +86,7 @@ abstract class ImmutableSetImpl<E> extends AbstractSet<E> implements ImmutableSe
     }
 
     @Override
-    public final ImmutableSet<E> setElements(final Set<E> elements) {
+    public final ImmutableSet<E> setElements(final Collection<E> elements) {
         Objects.requireNonNull(elements, "elements");
 
         final ImmutableSetImpl<E> copy = prepare(elements.toArray());

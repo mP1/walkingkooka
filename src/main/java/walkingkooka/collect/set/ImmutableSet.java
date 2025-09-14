@@ -38,12 +38,12 @@ public interface ImmutableSet<E> extends Set<E>, CanBeEmpty {
      * A default implementation of all other abstract methods is available by implementing {@link ImmutableSetDefaults}.
      * After that is done only this method needs to be implemented.
      */
-    ImmutableSet<E> setElements(final Set<E> elements);
+    ImmutableSet<E> setElements(final Collection<E> elements);
 
     /**
      * Useful setElements for classes that cannot easily create another instance with the new elements.
      */
-    ImmutableSet<E> setElementsFailIfDifferent(final Set<E> elements);
+    ImmutableSet<E> setElementsFailIfDifferent(final Collection<E> elements);
 
     /**
      * Returns a new instance of this {@link ImmutableSet} with the element appended.
