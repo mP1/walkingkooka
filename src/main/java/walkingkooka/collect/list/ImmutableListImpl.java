@@ -20,6 +20,7 @@ package walkingkooka.collect.list;
 import walkingkooka.Cast;
 
 import java.util.AbstractList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,12 +33,12 @@ abstract class ImmutableListImpl<T> extends AbstractList<T> implements Immutable
     /**
      * Returns a {@link ImmutableList} which is immutable including copying elements if necessary.
      */
-    static <T> ImmutableList<T> with(final List<T> list) {
-        Objects.requireNonNull(list, "list");
+    static <T> ImmutableList<T> with(final Collection<T> collection) {
+        Objects.requireNonNull(collection, "collection");
 
-        return list instanceof ImmutableList ?
-            Cast.to(list) :
-            prepare(list.toArray());
+        return collection instanceof ImmutableList ?
+            Cast.to(collection) :
+            prepare(collection.toArray());
     }
 
     /**
@@ -91,7 +92,7 @@ abstract class ImmutableListImpl<T> extends AbstractList<T> implements Immutable
     }
 
     @Override
-    public final ImmutableList<T> setElements(final List<T> elements) {
+    public final ImmutableList<T> setElements(final Collection<T> elements) {
         Objects.requireNonNull(elements, "elements");
 
         final ImmutableListImpl<T> copy = prepare(elements.toArray());

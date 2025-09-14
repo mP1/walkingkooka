@@ -21,6 +21,7 @@ import walkingkooka.text.Csv;
 import walkingkooka.text.HasText;
 
 import java.util.AbstractList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -75,7 +76,7 @@ public final class CsvStringList extends AbstractList<String> implements Immutab
     }
 
     @Override
-    public CsvStringList setElements(final List<String> strings) {
+    public CsvStringList setElements(final Collection<String> strings) {
         CsvStringList csvStringList;
 
         if (strings instanceof CsvStringList) {

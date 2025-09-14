@@ -18,6 +18,7 @@
 package walkingkooka.collect.list;
 
 import java.util.AbstractList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,7 +38,7 @@ public final class StringList extends AbstractList<String>
     /**
      * Factory that creates a {@link StringList} from the list of {@link String strings}.
      */
-    public static StringList with(final List<String> strings) {
+    public static StringList with(final Collection<String> strings) {
         Objects.requireNonNull(strings, "strings");
 
         StringList DateList;
@@ -85,7 +86,7 @@ public final class StringList extends AbstractList<String>
     }
 
     @Override
-    public StringList setElements(final List<String> strings) {
+    public StringList setElements(final Collection<String> strings) {
         final StringList copy = with(strings);
         return this.equals(copy) ?
             this :
