@@ -5,7 +5,6 @@ import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StringListTest implements ListTesting2<StringList, String>,
     ClassTesting<StringList>,
@@ -14,33 +13,6 @@ public class StringListTest implements ListTesting2<StringList, String>,
     private final static String STRING1 = "AAA";
 
     private final static String STRING2 = "BBB";
-
-    @Test
-    public void testWithNullFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> StringList.with(null)
-        );
-    }
-
-    @Test
-    public void testWithDoesntDoubleWrap() {
-        final StringList list = this.createList();
-        assertSame(
-            list,
-            StringList.with(list)
-        );
-    }
-
-    @Test
-    public void testWithEmpty() {
-        assertSame(
-            StringList.EMPTY,
-            StringList.with(
-                Lists.empty()
-            )
-        );
-    }
 
     // list.............................................................................................................
 
@@ -71,6 +43,33 @@ public class StringListTest implements ListTesting2<StringList, String>,
         );
     }
 
+    // setElements......................................................................................................
+
+    @Test
+    public void testWithDoesntDoubleWrap() {
+        final StringList list = this.createList();
+        assertSame(
+            list,
+            list.setElements(list)
+        );
+    }
+
+    @Test
+    public void testSetElementsWithEmpty() {
+        assertSame(
+            StringList.EMPTY,
+            new StringList(
+                Lists.of(
+                    "apple",
+                    "banana",
+                    "carrot"
+                )
+            ).setElements(Lists.empty())
+        );
+    }
+
+    // removeIndex......................................................................................................
+
     @Test
     public void testRemoveIndexFails() {
         final StringList list = this.createList();
@@ -99,7 +98,7 @@ public class StringListTest implements ListTesting2<StringList, String>,
             strings,
             1,
             (String) null,
-            StringList.with(
+            new StringList(
                 Lists.of(
                     STRING1,
                     null
@@ -110,7 +109,7 @@ public class StringListTest implements ListTesting2<StringList, String>,
 
     @Override
     public StringList createList() {
-        return StringList.with(
+        return new StringList(
             Lists.of(
                 STRING1,
                 STRING2
