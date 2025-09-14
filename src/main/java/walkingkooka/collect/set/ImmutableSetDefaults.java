@@ -33,7 +33,7 @@ public interface ImmutableSetDefaults<S extends ImmutableSet<E>, E> extends Immu
     /**
      * Would be setter, that creates a new instance if the new elements are different otherwise returns true.
      */
-    S setElements(final Set<E> elements);
+    S setElements(final Collection<E> elements);
 
     /**
      * Guard used to test concat/replace element parameters.
@@ -44,7 +44,7 @@ public interface ImmutableSetDefaults<S extends ImmutableSet<E>, E> extends Immu
      * Useful setElements for classes that cannot easily create another instance with the new elements.
      */
     @Override
-    default S setElementsFailIfDifferent(final Set<E> elements) {
+    default S setElementsFailIfDifferent(final Collection<E> elements) {
         Objects.requireNonNull(elements, "elements");
 
         if (false == this.equals(elements)) {

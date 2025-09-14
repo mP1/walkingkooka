@@ -19,7 +19,6 @@ package walkingkooka.collect.set;
 
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.function.Predicate;
 import java.util.stream.Collector;
@@ -72,7 +71,7 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>, SortedSet<E> {
      * Calls {@link #setElements(SortedSet)} creating a new {@link SortedSet} with the elements if necessary.
      */
     @Override
-    default ImmutableSet<E> setElements(final Set<E> elements) {
+    default ImmutableSet<E> setElements(final Collection<E> elements) {
         SortedSet<E> sortedSet;
 
         if(null == elements || elements instanceof SortedSet) {
@@ -85,24 +84,12 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>, SortedSet<E> {
         return this.setElements(sortedSet);
     }
 
-    /**
-     * Factory method that should return a new set if the given elements are different.
-     * A default implementation of all other abstract methods is available by implementing {@link ImmutableSetDefaults}.
-     * After that is done only this method needs to be implemented.
-     */
-    ImmutableSortedSet<E> setElements(final SortedSet<E> elements);
-
     @Override
-    default ImmutableSet<E> setElementsFailIfDifferent(final Set<E> elements) {
+    default ImmutableSet<E> setElementsFailIfDifferent(final Collection<E> elements) {
         return this.setElementsFailIfDifferent(
             (SortedSet<E>) elements
         );
     }
-
-    /**
-     * Useful setElements for classes that cannot easily create another instance with the new elements.
-     */
-    ImmutableSortedSet<E> setElementsFailIfDifferent(final SortedSet<E> elements);
 
     /**
      * Returns a mutable {@link SortedSet} with the items in this set. Modifying the given set does not update the elements in this set.

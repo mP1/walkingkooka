@@ -23,6 +23,7 @@ import walkingkooka.text.Csv;
 import walkingkooka.text.HasText;
 
 import java.util.AbstractSet;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Objects;
@@ -125,7 +126,7 @@ public final class CsvStringSet extends AbstractSet<String>
     }
 
     @Override
-    public CsvStringSet setElements(final SortedSet<String> strings) {
+    public CsvStringSet setElements(final Collection<String> strings) {
         final CsvStringSet csvStringSet;
 
         if (strings instanceof CsvStringSet) {

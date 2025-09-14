@@ -34,7 +34,7 @@ public interface ImmutableSortedSetDefaults<S extends ImmutableSortedSet<E>, E> 
      * Useful setElements for classes that cannot easily create another instance with the new elements.
      */
     @Override
-    default S setElementsFailIfDifferent(final SortedSet<E> elements) {
+    default S setElementsFailIfDifferent(final Collection<E> elements) {
         Objects.requireNonNull(elements, "elements");
 
         if (false == this.equals(elements)) {
