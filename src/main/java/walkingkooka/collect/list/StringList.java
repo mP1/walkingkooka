@@ -35,36 +35,8 @@ public final class StringList extends AbstractList<String>
         Lists.empty()
     );
 
-    /**
-     * Factory that creates a {@link StringList} from the list of {@link String strings}.
-     */
-    public static StringList with(final Collection<String> strings) {
-        Objects.requireNonNull(strings, "strings");
-
-        StringList DateList;
-
-        if (strings instanceof StringList) {
-            DateList = (StringList) strings;
-        } else {
-            final List<String> copy = Lists.array();
-            for (final String string : strings) {
-                copy.add(string);
-            }
-
-            switch (strings.size()) {
-                case 0:
-                    DateList = EMPTY;
-                    break;
-                default:
-                    DateList = new StringList(copy);
-                    break;
-            }
-        }
-
-        return DateList;
-    }
-
-    private StringList(final List<String> strings) {
+    // @VisibleForTesting
+    StringList(final List<String> strings) {
         this.strings = strings;
     }
 
@@ -87,9 +59,28 @@ public final class StringList extends AbstractList<String>
 
     @Override
     public StringList setElements(final Collection<String> strings) {
-        final StringList copy = with(strings);
-        return this.equals(copy) ?
+        Objects.requireNonNull(strings, "strings");
+
+        StringList stringList;
+
+        if (strings instanceof StringList) {
+            stringList = (StringList) strings;
+        } else {
+            final List<String> copy = Lists.array();
+            copy.addAll(strings);
+
+            switch (strings.size()) {
+                case 0:
+                    stringList = EMPTY;
+                    break;
+                default:
+                    stringList = new StringList(copy);
+                    break;
+            }
+        }
+
+        return this.equals(stringList) ?
             this :
-            copy;
+            stringList;
     }
 }
