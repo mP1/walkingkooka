@@ -50,12 +50,18 @@ public interface NameTesting<N extends Name, C extends Comparable<C>> extends Co
 
     @Test
     default void testNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createName(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createName(null)
+        );
     }
 
     @Test
     default void testEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> this.createName(""));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.createName("")
+        );
     }
 
     @Test
@@ -65,10 +71,50 @@ public interface NameTesting<N extends Name, C extends Comparable<C>> extends Co
 
     @Test
     default void testCaseSensitivity() {
-        assertSame(this.caseSensitivity(), this.createName(this.nameText()).caseSensitivity());
+        assertSame(
+            this.caseSensitivity(),
+            this.createName(this.nameText())
+                .caseSensitivity()
+        );
     }
 
-    // Comparable.................................................................................
+    N createName(final String name);
+
+    default C createComparable(final String name) {
+        return Cast.to(this.createName(name));
+    }
+
+    CaseSensitivity caseSensitivity();
+
+    String nameText();
+
+    String differentNameText();
+
+    String nameTextLess();
+
+    default void createNameAndCheck(final String value) {
+        final N name = this.createName(value);
+        this.checkValue(name, value);
+    }
+
+    default void checkValue(final Name name,
+                            final String value) {
+        this.checkEquals(
+            value,
+            name.value(),
+            "value"
+        );
+    }
+
+    // toString.........................................................................................................
+
+    @Test
+    default void testToString() {
+        final String nameText = this.nameText();
+        this.toStringAndCheck(this.createName(nameText), nameText);
+    }
+
+    // Comparable.......................................................................................................
 
     @Test
     default void testEqualsDifferentText() {
@@ -109,51 +155,18 @@ public interface NameTesting<N extends Name, C extends Comparable<C>> extends Co
         }
     }
 
-    @Test
-    default void testToString() {
-        final String nameText = this.nameText();
-        this.toStringAndCheck(this.createName(nameText), nameText);
+    @Override
+    default C createComparable() {
+        return Cast.to(this.createName(this.nameText()));
     }
 
-    N createName(final String name);
-
-    default C createComparable(final String name) {
-        return Cast.to(this.createName(name));
-    }
-
-    CaseSensitivity caseSensitivity();
-
-    String nameText();
-
-    String differentNameText();
-
-    String nameTextLess();
-
-    default void createNameAndCheck(final String value) {
-        final N name = this.createName(value);
-        this.checkValue(name, value);
-    }
-
-    default void checkValue(final Name name, final String value) {
-        this.checkEquals(
-            value,
-            name.value(),
-            "value"
-        );
-    }
+    // class............................................................................................................
 
     Class<N> type();
 
     default JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
     }
-
-    @Override
-    default C createComparable() {
-        return Cast.to(this.createName(this.nameText()));
-    }
-
-    // TypeNameTesting .........................................................................................
 
     @Override
     default String typeNamePrefix() {
