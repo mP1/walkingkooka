@@ -18,6 +18,7 @@
 package walkingkooka.naming;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.CanBeEmptyTesting;
 import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.compare.ComparableTesting2;
@@ -34,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public interface NameTesting<N extends Name, C extends Comparable<C>> extends ComparableTesting2<C>,
     HasTextTesting,
+    CanBeEmptyTesting,
     ToStringTesting<N>,
     TypeNameTesting<N> {
 

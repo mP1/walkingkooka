@@ -17,6 +17,7 @@
 
 package walkingkooka.naming;
 
+import walkingkooka.CanBeEmpty;
 import walkingkooka.Value;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.HasCaseSensitivity;
@@ -29,7 +30,8 @@ import java.util.Comparator;
  */
 public interface Name extends Value<String>,
     HasCaseSensitivity,
-    HasText {
+    HasText,
+    CanBeEmpty {
 
     /**
      * A {@link Comparator} for {@link Name} using the given {@link CaseSensitivity}.
@@ -41,5 +43,13 @@ public interface Name extends Value<String>,
     @Override
     default String text() {
         return this.value();
+    }
+
+    // CanBeEmpty.......................................................................................................
+
+    @Override
+    default boolean isEmpty() {
+        return this.text()
+            .isEmpty();
     }
 }
