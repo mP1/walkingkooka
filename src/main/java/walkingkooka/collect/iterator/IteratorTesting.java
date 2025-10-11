@@ -33,17 +33,22 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public interface IteratorTesting extends Testing {
 
     default void hasNextCheckFalse(final Iterator<?> iterator) {
-        this.checkEquals(false,
+        this.checkEquals(
+            false,
             iterator.hasNext(),
-            () -> "iterator hasNext should have returned true: " + iterator);
+            "iterator hasNext should have returned true: " + iterator
+        );
     }
 
     default void hasNextCheckTrue(final Iterator<?> iterator) {
-        this.hasNextCheckTrue(iterator,
-            "iterator hasNext should have returned true: " + iterator);
+        this.hasNextCheckTrue(
+            iterator,
+            "iterator hasNext should have returned true: " + iterator
+        );
     }
 
-    default void hasNextCheckTrue(final Iterator<?> iterator, final String message) {
+    default void hasNextCheckTrue(final Iterator<?> iterator,
+                                  final String message) {
         this.checkEquals(
             true,
             iterator.hasNext(),
@@ -52,19 +57,31 @@ public interface IteratorTesting extends Testing {
     }
 
     default void nextFails(final Iterator<?> iterator) {
-        this.nextFails("iterator.next must throw NoSuchElementException", iterator);
+        this.nextFails(
+            "iterator.next must throw NoSuchElementException",
+            iterator
+        );
     }
 
     default void nextFails(final String message, final Iterator<?> iterator) {
-        assertThrows(NoSuchElementException.class, iterator::next);
+        assertThrows(
+            NoSuchElementException.class,
+            iterator::next
+        );
     }
 
     default void removeWithoutNextFails(final Iterator<?> iterator) {
-        assertThrows(IllegalStateException.class, iterator::remove);
+        assertThrows(
+            IllegalStateException.class,
+            iterator::remove
+        );
     }
 
     default void removeUnsupportedFails(final Iterator<?> iterator) {
-        assertThrows(UnsupportedOperationException.class, iterator::remove);
+        assertThrows(
+            UnsupportedOperationException.class,
+            iterator::remove
+        );
     }
 
     @SuppressWarnings("unchecked")
