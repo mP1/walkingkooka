@@ -44,6 +44,22 @@ public final class IteratorTestingTest implements Testing {
     }
 
     @Test
+    public void testIterateAndCheckIncludesNull() {
+        final List<String> list = Lists.of(
+            "A1",
+            "B2",
+            null,
+            "D4"
+        );
+
+        new TestIteratorTesting()
+            .iterateAndCheck(
+                list.iterator(),
+                list
+            );
+    }
+
+    @Test
     public void testIterateAndCheckElementFail() {
         final List<String> list = Lists.of(
             "A1",

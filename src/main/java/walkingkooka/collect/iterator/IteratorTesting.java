@@ -101,16 +101,25 @@ public interface IteratorTesting extends Testing {
     default <T> void iterateAndCheck(final Iterator<T> iterator,
                                      final T... expected) {
 
+        this.iterateAndCheck(
+            iterator,
+            Lists.of(expected)
+        );
+    }
+
+    default <T> void iterateAndCheck(final Iterator<T> iterator,
+                                     final List<T> expected) {
+
         int i = 0;
         final List<T> consumed = Lists.array();
-        final int expectedCount = expected.length;
+        final int expectedCount = expected.size();
 
         while (i < expectedCount) {
             final T next = iterator.next();
 
             final int ii = i;
             this.checkEquals(
-                expected[i],
+                expected.get(i),
                 next,
                 () -> "element " + ii
             );
@@ -120,7 +129,7 @@ public interface IteratorTesting extends Testing {
         }
 
         this.checkEquals(
-            Lists.of(expected),
+            expected,
             consumed,
             iterator::toString
         );
