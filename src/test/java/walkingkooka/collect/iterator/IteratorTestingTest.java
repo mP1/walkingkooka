@@ -128,6 +128,22 @@ public final class IteratorTestingTest implements Testing {
     }
 
     @Test
+    public void testIterateUsingHasNextAndCheckIncludesNullElement() {
+        final List<String> list = Lists.of(
+            "A1",
+            "B2",
+            null,
+            "D4"
+        );
+
+        new TestIteratorTesting()
+            .iterateUsingHasNextAndCheck(
+                list.iterator(),
+                list
+            );
+    }
+
+    @Test
     public void testIterateUsingHasNextAndCheckElementFail() {
         final List<String> list = Lists.of(
             "A1",

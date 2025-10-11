@@ -87,6 +87,15 @@ public interface IteratorTesting extends Testing {
     @SuppressWarnings("unchecked")
     default <T> void iterateUsingHasNextAndCheck(final Iterator<T> iterator,
                                                  final T... expected) {
+        this.iterateUsingHasNextAndCheck(
+            iterator,
+            Lists.of(expected)
+        );
+    }
+
+    @SuppressWarnings("unchecked")
+    default <T> void iterateUsingHasNextAndCheck(final Iterator<T> iterator,
+                                                 final List<T> expected) {
         Objects.requireNonNull(iterator, "iterator");
 
         int i = 0;
@@ -95,10 +104,10 @@ public interface IteratorTesting extends Testing {
         while (iterator.hasNext()) {
             final T next = iterator.next();
 
-            if (i < expected.length) {
+            if (i < expected.size()) {
                 final int ii = i;
                 this.checkEquals(
-                    expected[i],
+                    expected.get(i),
                     next,
                     () -> "element " + ii
                 );
@@ -107,7 +116,7 @@ public interface IteratorTesting extends Testing {
             i++;
         }
         this.checkEquals(
-            Lists.of(expected),
+            expected,
             consumed,
             iterator::toString
         );
