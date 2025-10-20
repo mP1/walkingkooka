@@ -160,6 +160,36 @@ public final class CsvStringListTest implements ImmutableListTesting<CsvStringLi
     }
 
     @Test
+    public void testParseUnescapedTokenSpacesBefore() {
+        final String text = " A";
+
+        this.parseStringAndCheck(
+            text,
+            CsvStringList.EMPTY.concat(text)
+        );
+    }
+
+    @Test
+    public void testParseUnescapedTokenSpacesAfter() {
+        final String text = "A ";
+
+        this.parseStringAndCheck(
+            text,
+            CsvStringList.EMPTY.concat(text)
+        );
+    }
+
+    @Test
+    public void testParseUnescapedTokenSpacesBeforeAndAfter() {
+        final String text = "A ";
+
+        this.parseStringAndCheck(
+            text,
+            CsvStringList.EMPTY.concat(text)
+        );
+    }
+
+    @Test
     public void testParseUnescapedTokenUnescapedToken() {
         this.parseStringAndCheck(
             "abc,def",
@@ -175,6 +205,16 @@ public final class CsvStringListTest implements ImmutableListTesting<CsvStringLi
             CsvStringList.EMPTY.concat("abc")
                 .concat("def")
                 .concat("ghi")
+        );
+    }
+
+    @Test
+    public void testParseUnescapedTokenUnescapedTokenUnescapedTokenWithSpacesBeforeAndAfter() {
+        this.parseStringAndCheck(
+            " abc,def , ghi ",
+            CsvStringList.EMPTY.concat(" abc")
+                .concat("def ")
+                .concat(" ghi ")
         );
     }
 
