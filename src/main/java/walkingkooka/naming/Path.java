@@ -83,18 +83,11 @@ public interface Path<P extends Path<P, N>, N extends Name> extends Value<String
      */
     default List<N> namesList() {
         final List<N> names = Lists.array();
-        this.gatherNames(names);
+        PathHelper.gatherNames(
+            this,
+            names
+        );
         return Lists.readOnly(names);
-    }
-
-    private void gatherNames(final List<N> names) {
-        Path<P, N> parent = this.parent()
-            .orElse(null);
-        if (null != parent) {
-            parent.gatherNames(names);
-        }
-
-        names.add(this.name());
     }
 
     /**
