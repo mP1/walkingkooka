@@ -79,13 +79,19 @@ public interface Path<P extends Path<P, N>, N extends Name> extends Value<String
     default P append(final P path) {
         Objects.requireNonNull(path, "path");
 
-        P result = Cast.to(this);
+        P appended;
 
-        for (N component : path) {
-            result = result.append(component);
+        if (this.isRoot() || this.isEmpty()) {
+            appended = path;
+        } else {
+            appended = Cast.to(this);
+
+            for (N component : path) {
+                appended = appended.append(component);
+            }
         }
 
-        return result;
+        return appended;
     }
 
     /**
