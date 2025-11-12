@@ -37,6 +37,16 @@ public interface Path<P extends Path<P, N>, N extends Name> extends Value<String
     CanBeEmpty {
 
     /**
+     * Path segment for the current directory
+     */
+    String CURRENT = ".";
+
+    /**
+     * Path segment for the parent directory
+     */
+    String PARENT = "..";
+
+    /**
      * Returns the parent {@link Path}. For a root this will return null.
      */
     Optional<P> parent();
