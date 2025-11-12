@@ -25,6 +25,8 @@ import walkingkooka.test.ParseStringTesting;
 
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
+
 final public class StringPathTest implements PathTesting<StringPath, StringName>,
     ClassTesting2<StringPath>,
     ParseStringTesting<StringPath> {
@@ -148,6 +150,17 @@ final public class StringPathTest implements PathTesting<StringPath, StringName>
         this.parentCheck(
             path,
             "/one/two/three/four"
+        );
+    }
+
+    @Test
+    public void testAppendPathWhenRoot() {
+        final StringPath root = StringPath.ROOT;
+        final StringPath appended = StringPath.parse("/abc/def");
+
+        assertSame(
+            appended,
+            root.append(appended)
         );
     }
 
