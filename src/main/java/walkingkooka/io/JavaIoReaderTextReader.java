@@ -17,6 +17,7 @@
 
 package walkingkooka.io;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.util.OpenChecker;
 
 import java.io.IOException;
@@ -28,6 +29,7 @@ import java.util.Optional;
 /**
  * Wraps a {@link Reader}.
  */
+@GwtIncompatible
 final class JavaIoReaderTextReader implements TextReader {
 
     static JavaIoReaderTextReader with(final Reader reader) {
