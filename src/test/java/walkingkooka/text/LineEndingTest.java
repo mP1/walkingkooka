@@ -28,10 +28,57 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 final public class LineEndingTest implements ClassTesting2<LineEnding>,
     CharSequenceTesting<LineEnding> {
 
-    @Override
-    public void testTypeNaming() {
-        throw new UnsupportedOperationException();
+    // from.............................................................................................................
+
+    @Test
+    public void testFromNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> LineEnding.from(null)
+        );
     }
+
+    @Test
+    public void testFromUnknownFails() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> LineEnding.from("UNKNOWN LINE ENDING")
+        );
+    }
+
+    @Test
+    public void testFromCr() {
+        assertSame(
+            LineEnding.CR,
+            LineEnding.from("\r")
+        );
+    }
+
+    @Test
+    public void testFromCrNl() {
+        assertSame(
+            LineEnding.CRNL,
+            LineEnding.from("\r\n")
+        );
+    }
+
+    @Test
+    public void testFromNl() {
+        assertSame(
+            LineEnding.NL,
+            LineEnding.from("\n")
+        );
+    }
+
+    @Test
+    public void testFromEmpty() {
+        assertSame(
+            LineEnding.NONE,
+            LineEnding.from("")
+        );
+    }
+
+    // LineEnding.......................................................................................................
 
     @Test
     public void testCr() {
@@ -58,35 +105,12 @@ final public class LineEndingTest implements ClassTesting2<LineEnding>,
         assertNotSame(LineEnding.SYSTEM, LineEnding.NONE);
     }
 
-    @Test
-    public void testFromNullFails() {
-        assertThrows(NullPointerException.class, () -> LineEnding.from(null));
+    @Override
+    public LineEnding createCharSequence() {
+        return LineEnding.CR;
     }
 
-    @Test
-    public void testFromUnknownFails() {
-        assertThrows(IllegalArgumentException.class, () -> LineEnding.from("UNKNOWN LINE ENDING"));
-    }
-
-    @Test
-    public void testFromCr() {
-        assertSame(LineEnding.CR, LineEnding.from("\r"));
-    }
-
-    @Test
-    public void testFromCrNl() {
-        assertSame(LineEnding.CRNL, LineEnding.from("\r\n"));
-    }
-
-    @Test
-    public void testFromNl() {
-        assertSame(LineEnding.NL, LineEnding.from("\n"));
-    }
-
-    @Test
-    public void testFromEmpty() {
-        assertSame(LineEnding.NONE, LineEnding.from(""));
-    }
+    // Object...........................................................................................................
 
     @Test
     public void testEqualsDifferent() {
@@ -94,9 +118,11 @@ final public class LineEndingTest implements ClassTesting2<LineEnding>,
     }
 
     @Override
-    public LineEnding createCharSequence() {
-        return LineEnding.CR;
+    public LineEnding createObject() {
+        return this.createCharSequence();
     }
+
+    // class............................................................................................................
 
     @Override
     public Class<LineEnding> type() {
@@ -109,7 +135,7 @@ final public class LineEndingTest implements ClassTesting2<LineEnding>,
     }
 
     @Override
-    public LineEnding createObject() {
-        return this.createCharSequence();
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 }
