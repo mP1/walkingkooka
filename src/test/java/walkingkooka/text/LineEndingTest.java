@@ -20,62 +20,140 @@ package walkingkooka.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.test.ParseStringTesting;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class LineEndingTest implements ClassTesting2<LineEnding>,
-    CharSequenceTesting<LineEnding> {
+    CharSequenceTesting<LineEnding>,
+    ParseStringTesting<LineEnding> {
 
-    // from.............................................................................................................
+    // parse............................................................................................................
 
-    @Test
-    public void testFromNullFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> LineEnding.from(null)
-        );
+    @Override
+    public void testParseStringEmptyFails() {
+        throw new UnsupportedOperationException();
     }
 
     @Test
-    public void testFromUnknownFails() {
+    public void testParseUnknownFails() {
         assertThrows(
             IllegalArgumentException.class,
-            () -> LineEnding.from("UNKNOWN LINE ENDING")
+            () -> LineEnding.parse("UNKNOWN LINE ENDING")
         );
     }
 
     @Test
-    public void testFromCr() {
-        assertSame(
-            LineEnding.CR,
-            LineEnding.from("\r")
-        );
-    }
-
-    @Test
-    public void testFromCrNl() {
-        assertSame(
-            LineEnding.CRNL,
-            LineEnding.from("\r\n")
-        );
-    }
-
-    @Test
-    public void testFromNl() {
-        assertSame(
-            LineEnding.NL,
-            LineEnding.from("\n")
-        );
-    }
-
-    @Test
-    public void testFromEmpty() {
+    public void testParseEmpty() {
         assertSame(
             LineEnding.NONE,
-            LineEnding.from("")
+            LineEnding.parse("")
         );
+    }
+
+    @Test
+    public void testParseCrLowercase() {
+        this.parseStringAndCheck(
+            "cr",
+            LineEnding.CR
+        );
+    }
+
+    @Test
+    public void testParseCrUpperCase() {
+        this.parseStringAndCheck(
+            "CR",
+            LineEnding.CR
+        );
+    }
+
+    @Test
+    public void testParseBackslashCr() {
+        this.parseStringAndCheck(
+            "\r",
+            LineEnding.CR
+        );
+    }
+
+    @Test
+    public void testParseCrlfLowerCase() {
+        this.parseStringAndCheck(
+            "crlf",
+            LineEnding.CRNL
+        );
+    }
+
+    @Test
+    public void testParseCrNlUpperCase() {
+        this.parseStringAndCheck(
+            "CRLF",
+            LineEnding.CRNL
+        );
+    }
+
+    @Test
+    public void testParseBackslashCrBackslashNl() {
+        this.parseStringAndCheck(
+            "\r\n",
+            LineEnding.CRNL
+        );
+    }
+
+    @Test
+    public void testParseLfLowerCase() {
+        this.parseStringAndCheck(
+            "lf",
+            LineEnding.NL
+        );
+    }
+
+    @Test
+    public void testParseLfUpperCase() {
+        this.parseStringAndCheck(
+            "LF",
+            LineEnding.NL
+        );
+    }
+
+    @Test
+    public void testParseNlLowerCase() {
+        this.parseStringAndCheck(
+            "nl",
+            LineEnding.NL
+        );
+    }
+
+    @Test
+    public void testParseNlUpperCase() {
+        this.parseStringAndCheck(
+            "NL",
+            LineEnding.NL
+        );
+    }
+
+    @Test
+    public void testParseBackslashN() {
+        this.parseStringAndCheck(
+            "\n",
+            LineEnding.NL
+        );
+    }
+
+    @Override
+    public LineEnding parseString(final String text) {
+        return LineEnding.parse(text);
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
+        return expected;
+    }
+
+    @Override
+    public RuntimeException parseStringFailedExpected(final RuntimeException expected) {
+        return expected;
     }
 
     // LineEnding.......................................................................................................
