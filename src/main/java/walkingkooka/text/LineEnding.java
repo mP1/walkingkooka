@@ -24,7 +24,8 @@ import java.util.Objects;
  * A possible line ending. Note it is not possible to create instances only the available constants
  * or singletons may be used. Identity checking is always safe.
  */
-public enum LineEnding implements CharSequence {
+public enum LineEnding implements CharSequence,
+    HasLineEnding {
 
     /**
      * Carriage return
@@ -87,6 +88,13 @@ public enum LineEnding implements CharSequence {
      */
     LineEnding(final String value) {
         this.value = value;
+    }
+
+    // HasLineEnding....................................................................................................
+
+    @Override
+    public LineEnding lineEnding() {
+        return this;
     }
 
     // CharSequences....................................................................................................
