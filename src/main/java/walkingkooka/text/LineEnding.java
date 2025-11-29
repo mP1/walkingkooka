@@ -62,16 +62,20 @@ public enum LineEnding implements CharSequence {
 
         LineEnding lineEnding;
 
-        if ("crlf".equalsIgnoreCase(text)) {
-            lineEnding = LineEnding.CRNL;
+        if ("cr".equalsIgnoreCase(text)) {
+            lineEnding = LineEnding.CR;
         } else {
-            if ("lf".equalsIgnoreCase(text)) {
-                lineEnding = LineEnding.NL;
+            if ("crlf".equalsIgnoreCase(text)) {
+                lineEnding = LineEnding.CRNL;
             } else {
-                lineEnding = Arrays.stream(values())
-                    .filter(le -> le.value.equals(text))
-                    .findFirst()
-                    .orElseThrow(() -> new IllegalArgumentException("Unknown line ending " + CharSequences.quoteAndEscape(text)));
+                if ("lf".equalsIgnoreCase(text)) {
+                    lineEnding = LineEnding.NL;
+                } else {
+                    lineEnding = Arrays.stream(values())
+                        .filter(le -> le.name().equalsIgnoreCase(text) || le.value.equals(text))
+                        .findFirst()
+                        .orElseThrow(() -> new IllegalArgumentException("Unknown line ending " + CharSequences.quoteAndEscape(text)));
+                }
             }
         }
 
