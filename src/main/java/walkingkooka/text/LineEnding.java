@@ -52,18 +52,30 @@ public enum LineEnding implements CharSequence {
     //public final static LineEnding SYSTEM = from(SystemProperty.LINE_SEPARATOR.requiredPropertyValue());
     // j2cl SystemProperty is not supported due to AccessController usage. https://github.com/mP1/walkingkooka/issues/2438
     // default required because property will be absent https://github.com/mP1/walkingkooka/issues/2445
-    public final static LineEnding SYSTEM = from(System.getProperty("line.separator", "\n"));
+    public final static LineEnding SYSTEM = parse(System.getProperty("line.separator", "\n"));
 
     /**
-     * Returns the {@link LineEnding} for the given {@link String line ending}.
+     * Returns the {@link LineEnding} matching the Enum name, or the value or an alias, such as LF being equivalent to {@link #NL}.
      */
-    public static LineEnding from(final String lineEnding) {
-        Objects.requireNonNull(lineEnding, "lineEnding");
+    public static LineEnding parse(final String text) {
+        Objects.requireNonNull(text, "text");
 
-        return Arrays.stream(values())
-            .filter(le -> le.value.equals(lineEnding))
-            .findFirst()
-            .orElseThrow(() -> new IllegalArgumentException("Unknown line endings=" + CharSequences.quoteAndEscape(lineEnding)));
+        LineEnding lineEnding;
+
+        if ("crlf".equalsIgnoreCase(text)) {
+            lineEnding = LineEnding.CRNL;
+        } else {
+            if ("lf".equalsIgnoreCase(text)) {
+                lineEnding = LineEnding.NL;
+            } else {
+                lineEnding = Arrays.stream(values())
+                    .filter(le -> le.value.equals(text))
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalArgumentException("Unknown line ending " + CharSequences.quoteAndEscape(text)));
+            }
+        }
+
+        return lineEnding;
     }
 
     /**
