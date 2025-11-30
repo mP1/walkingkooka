@@ -25,21 +25,28 @@ import java.io.Reader;
 import java.io.UncheckedIOException;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 /**
- * Wraps a {@link Reader}.
+ * Wraps a {@link Reader}. The {@link Consumer} argument is intended to allow echoing of each character as it is consumed
+ * and buffered and is necessary when reading lines of text. Without the immediate echoing, the text for each line
+ * would not appear until the EOL such as CR or NL is entered.
  */
 @GwtIncompatible
 final class JavaIoReaderTextReader implements TextReader {
 
-    static JavaIoReaderTextReader with(final Reader reader) {
+    static JavaIoReaderTextReader with(final Reader reader,
+                                       final Consumer<Character> echo) {
         return new JavaIoReaderTextReader(
-            Objects.requireNonNull(reader, "reader")
+            Objects.requireNonNull(reader, "reader"),
+            Objects.requireNonNull(echo, "echo")
         );
     }
 
-    private JavaIoReaderTextReader(final Reader reader) {
+    private JavaIoReaderTextReader(final Reader reader,
+                                   final Consumer<Character> echo) {
         this.reader = reader;
+        this.echo = echo;
 
         this.openChecker = OpenChecker.with(
             "Terminal closed",
@@ -77,6 +84,7 @@ final class JavaIoReaderTextReader implements TextReader {
 
         if (max > 0) {
             final StringBuilder readText = new StringBuilder();
+            final Consumer<Character> echo = this.echo;
 
             // copy buffered characters....
             final StringBuilder buffer = this.buffer;
@@ -98,6 +106,7 @@ final class JavaIoReaderTextReader implements TextReader {
                         }
                     }
                     readText.append(c);
+                    echo.accept(c);
                 }
             }
 
@@ -130,7 +139,9 @@ final class JavaIoReaderTextReader implements TextReader {
                                     continue;
                                 }
                                 skipLf = false;
+
                                 readText.append(c);
+                                echo.accept(c);
                             }
                         } else {
                             sleep(stop - now);
@@ -159,6 +170,7 @@ final class JavaIoReaderTextReader implements TextReader {
 
         // check buffer might already have a line
         final StringBuilder buffer = this.buffer;
+        final Consumer<Character> echo = this.echo;
 
         final StringBuilder readLine = new StringBuilder();
         boolean skipLf = this.skipLf;
@@ -222,7 +234,9 @@ final class JavaIoReaderTextReader implements TextReader {
                             continue;
                         }
                         skipLf = false;
+
                         buffer.append(c);
+                        echo.accept(c);
                     }
                 } else {
                     sleep(stop - now);
@@ -244,6 +258,8 @@ final class JavaIoReaderTextReader implements TextReader {
     private final OpenChecker<IllegalStateException> openChecker;
 
     private final Reader reader;
+
+    private final Consumer<Character> echo;
 
     // @VisibleForTesting
     final StringBuilder buffer = new StringBuilder();

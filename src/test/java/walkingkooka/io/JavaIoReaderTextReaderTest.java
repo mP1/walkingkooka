@@ -24,11 +24,17 @@ import walkingkooka.reflect.JavaVisibility;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaIoReaderTextReader>,
     ToStringTesting<JavaIoReaderTextReader> {
+
+    /**
+     * A silent {@link Consumer}.
+     */
+    private final static Consumer<Character> ECHO = (c) -> {};
 
     // with.............................................................................................................
 
@@ -36,7 +42,21 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
     public void testWithNullReaderFails() {
         assertThrows(
             NullPointerException.class,
-            () -> JavaIoReaderTextReader.with(null)
+            () -> JavaIoReaderTextReader.with(
+                null,
+                ECHO
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullEchoFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> JavaIoReaderTextReader.with(
+                new StringReader(""),
+                null // echo
+            )
         );
     }
 
@@ -100,7 +120,8 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
                 public void close() {
 
                 }
-            }
+            },
+            ECHO
         );
 
         this.readTextAndCheck(
@@ -115,11 +136,22 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
                                   final int max,
                                   final long timeout,
                                   final String expected) {
+        final StringBuilder echo = new StringBuilder();
+
         this.readTextAndCheck(
-            this.createTextReader(reader),
+            this.createTextReader(
+                reader,
+                echo::append
+            ),
             max,
             timeout,
             expected
+        );
+
+        this.checkEquals(
+            expected,
+            echo.toString(),
+            "echo text"
         );
     }
 
@@ -127,8 +159,11 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
 
     @Test
     public void testReadLineMissingEol() {
+        final StringBuilder echo = new StringBuilder();
+
         final JavaIoReaderTextReader reader = this.readLineAndCheck(
             "abcdef",
+            echo::append,
             300
         );
         this.skipLfAndCheck(
@@ -138,13 +173,22 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
         this.bufferAndCheck(
             reader,
             "abc"
+        );
+
+        this.checkEquals(
+            "abc",
+            echo.toString(),
+            "echo"
         );
     }
 
     @Test
     public void testReadLineTimeout() {
+        final StringBuilder echo = new StringBuilder();
+
         final JavaIoReaderTextReader reader = this.readLineAndCheck(
             "abcdef\r",
+            echo::append,
             300
         );
         this.skipLfAndCheck(
@@ -154,13 +198,22 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
         this.bufferAndCheck(
             reader,
             "abc"
+        );
+
+        this.checkEquals(
+            "abc",
+            echo.toString(),
+            "echo"
         );
     }
 
     @Test
     public void testReadLineTimeout2() {
+        final StringBuilder echo = new StringBuilder();
+
         final JavaIoReaderTextReader reader = this.readLineAndCheck(
             "abcdef\n",
+            echo::append,
             300
         );
 
@@ -172,12 +225,21 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
             reader,
             "abc"
         );
+
+        this.checkEquals(
+            "abc",
+            echo.toString(),
+            "echo"
+        );
     }
 
     @Test
     public void testReadLineEmptyEndsWithCr() {
+        final StringBuilder echo = new StringBuilder();
+
         final JavaIoReaderTextReader reader = this.readLineAndCheck(
             "\rabc",
+            echo::append,
             100,
             ""
         );
@@ -189,13 +251,22 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
         this.bufferAndCheck(
             reader,
             ""
+        );
+
+        this.checkEquals(
+            "\r",
+            echo.toString(),
+            "echo"
         );
     }
 
     @Test
     public void testReadLineEndsWithCr() {
+        final StringBuilder echo = new StringBuilder();
+
         final JavaIoReaderTextReader reader = this.readLineAndCheck(
             "abc\rdef",
+            echo::append,
             400,
             "abc"
         );
@@ -207,13 +278,22 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
         this.bufferAndCheck(
             reader,
             ""
+        );
+
+        this.checkEquals(
+            "abc\r",
+            echo.toString(),
+            "echo"
         );
     }
 
     @Test
     public void testReadLineEmptyEndsWithCrNl() {
+        final StringBuilder echo = new StringBuilder();
+
         final JavaIoReaderTextReader reader = this.readLineAndCheck(
             "\r\nabc",
+            echo::append,
             400,
             ""
         );
@@ -226,12 +306,21 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
             reader,
             ""
         );
+
+        this.checkEquals(
+            "\r",
+            echo.toString(),
+            "echo"
+        );
     }
 
     @Test
     public void testReadLineEndsWithCrNl() {
+        final StringBuilder echo = new StringBuilder();
+
         final JavaIoReaderTextReader reader = this.readLineAndCheck(
             "abc\r\ndef",
+            echo::append,
             400,
             "abc"
         );
@@ -244,12 +333,21 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
             reader,
             ""
         );
+
+        this.checkEquals(
+            "abc\r",
+            echo.toString(),
+            "echo"
+        );
     }
 
     @Test
     public void testReadLineEmptyEndsWithNl() {
+        final StringBuilder echo = new StringBuilder();
+
         final JavaIoReaderTextReader reader = this.readLineAndCheck(
             "\nabc",
+            echo::append,
             100,
             ""
         );
@@ -262,12 +360,21 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
             reader,
             ""
         );
+
+        this.checkEquals(
+            "\n",
+            echo.toString(),
+            "echo"
+        );
     }
 
     @Test
     public void testReadLineEndsWithNl() {
+        final StringBuilder echo = new StringBuilder();
+
         final JavaIoReaderTextReader reader = this.readLineAndCheck(
             "abc\ndef",
+            echo::append,
             400,
             "abc"
         );
@@ -280,12 +387,21 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
             reader,
             ""
         );
+
+        this.checkEquals(
+            "abc\n",
+            echo.toString(),
+            "echo"
+        );
     }
 
     @Test
     public void testReadLineCrThenReadText() {
+        final StringBuilder echo = new StringBuilder();
+
         final JavaIoReaderTextReader reader = this.readLineAndCheck(
             "abc\rdefghijklmnopqrstuv",
+            echo::append,
             400,
             "abc"
         );
@@ -297,6 +413,12 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
         this.bufferAndCheck(
             reader,
             ""
+        );
+
+        this.checkEquals(
+            "abc\r",
+            echo.toString(),
+            "echo"
         );
 
         this.readTextAndCheck(
@@ -309,8 +431,11 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
 
     @Test
     public void testReadLineCrLfThenReadText() {
+        final StringBuilder echo = new StringBuilder();
+
         final JavaIoReaderTextReader reader = this.readLineAndCheck(
             "abc\r\ndefghijklmnopqrstuv",
+            echo::append,
             400,
             "abc"
         );
@@ -324,6 +449,12 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
             ""
         );
 
+        this.checkEquals(
+            "abc\r",
+            echo.toString(),
+            "echo"
+        );
+
         this.readTextAndCheck(
             reader,
             3,
@@ -334,8 +465,11 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
 
     @Test
     public void testReadLineLfThenReadText() {
+        final StringBuilder echo = new StringBuilder();
+
         final JavaIoReaderTextReader reader = this.readLineAndCheck(
             "abc\ndefghijklmnopqrstuv",
+            echo::append,
             400,
             "abc"
         );
@@ -349,6 +483,12 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
             ""
         );
 
+        this.checkEquals(
+            "abc\n",
+            echo.toString(),
+            "echo"
+        );
+
         this.readTextAndCheck(
             reader,
             3,
@@ -358,25 +498,30 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
     }
 
     private JavaIoReaderTextReader readLineAndCheck(final String text,
+                                                    final Consumer<Character> echo,
                                                     final long timeout) {
         return this.readLineAndCheck(
             text,
+            echo,
             timeout,
             Optional.empty()
         );
     }
 
     private JavaIoReaderTextReader readLineAndCheck(final String text,
+                                                    final Consumer<Character> echo,
                                                     final long timeout,
                                                     final String expected) {
         return this.readLineAndCheck(
             text,
+            echo,
             timeout,
             Optional.of(expected)
         );
     }
 
     private JavaIoReaderTextReader readLineAndCheck(final String text,
+                                                    final Consumer<Character> echo,
                                                     final long timeout,
                                                     final Optional<String> expected) {
         final JavaIoReaderTextReader reader = JavaIoReaderTextReader.with(
@@ -402,7 +547,8 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
                 public void close() {
 
                 }
-            }
+            },
+            echo
         );
 
         this.readLineAndCheck(
@@ -438,8 +584,17 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
     }
 
     private JavaIoReaderTextReader createTextReader(final String text) {
+        return this.createTextReader(
+            text,
+            ECHO
+        );
+    }
+
+    private JavaIoReaderTextReader createTextReader(final String text,
+                                                    final Consumer<Character> echo) {
         return JavaIoReaderTextReader.with(
-            new StringReader(text)
+            new StringReader(text),
+            echo
         );
     }
 
@@ -450,7 +605,10 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
         final Reader reader = new StringReader("hello");
 
         this.toStringAndCheck(
-            JavaIoReaderTextReader.with(reader),
+            JavaIoReaderTextReader.with(
+                reader,
+                ECHO
+            ),
             reader.toString()
         );
     }
