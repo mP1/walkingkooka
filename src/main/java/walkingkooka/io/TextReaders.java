@@ -21,6 +21,7 @@ import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.reflect.PublicStaticHelper;
 
 import java.io.Reader;
+import java.util.function.Consumer;
 
 public final class TextReaders implements PublicStaticHelper {
 
@@ -35,8 +36,12 @@ public final class TextReaders implements PublicStaticHelper {
      * {@see JavaIoReaderTextReader}
      */
     @GwtIncompatible
-    public static TextReader reader(final Reader reader) {
-        return JavaIoReaderTextReader.with(reader);
+    public static TextReader reader(final Reader reader,
+                                    final Consumer<Character> echo) {
+        return JavaIoReaderTextReader.with(
+            reader,
+            echo
+        );
     }
 
     /**
