@@ -101,7 +101,7 @@ final class JavaIoReaderTextReader implements TextReader {
                     final char c = buffer.charAt(i);
                     if (skipLf) {
                         skipLf = false;
-                        if ('\n' == c) {
+                        if (NL == c) {
                             continue;
                         }
                     }
@@ -134,7 +134,7 @@ final class JavaIoReaderTextReader implements TextReader {
 
                             for (int i = 0; i < readCount; i++) {
                                 final char c = readerBuffer[i];
-                                if (skipLf && '\n' == c) {
+                                if (skipLf && NL == c) {
                                     skipLf = false;
                                     continue;
                                 }
@@ -188,12 +188,12 @@ final class JavaIoReaderTextReader implements TextReader {
 
                 if (skipLf) {
                     skipLf = false;
-                    if ('\n' == c) {
+                    if (NL == c) {
                         continue;
                     }
                 }
 
-                if ('\n' == c || '\r' == c) {
+                if (NL == c || CR == c) {
                     // delete from buffer
                     buffer.delete(
                         0,
@@ -201,7 +201,7 @@ final class JavaIoReaderTextReader implements TextReader {
                     );
 
                     lineFound = true;
-                    skipLf = '\r' == c;
+                    skipLf = CR == c;
                     break WhileLineFoundNot;
                 }
 
@@ -229,7 +229,7 @@ final class JavaIoReaderTextReader implements TextReader {
 
                     for (int i = 0; i < readCount; i++) {
                         final char c = readerBuffer[i];
-                        if (skipLf && '\n' == c) {
+                        if (skipLf && NL == c) {
                             skipLf = false;
                             continue;
                         }
@@ -254,6 +254,9 @@ final class JavaIoReaderTextReader implements TextReader {
                 null
         );
     }
+
+    private static final char NL = '\n';
+    private static final char CR = '\r';
 
     private final OpenChecker<IllegalStateException> openChecker;
 
