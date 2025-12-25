@@ -148,10 +148,9 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
             expected
         );
 
-        this.checkEquals(
-            expected,
-            echo.toString(),
-            "echo text"
+        this.echoCheck(
+            echo,
+            expected
         );
     }
 
@@ -175,10 +174,9 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
             "abc"
         );
 
-        this.checkEquals(
-            "abc",
-            echo.toString(),
-            "echo"
+        this.echoCheck(
+            echo,
+            "abc"
         );
     }
 
@@ -200,10 +198,9 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
             "abc"
         );
 
-        this.checkEquals(
-            "abc",
-            echo.toString(),
-            "echo"
+        this.echoCheck(
+            echo,
+            "abc"
         );
     }
 
@@ -226,10 +223,9 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
             "abc"
         );
 
-        this.checkEquals(
-            "abc",
-            echo.toString(),
-            "echo"
+        this.echoCheck(
+            echo,
+            "abc"
         );
     }
 
@@ -253,10 +249,9 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
             ""
         );
 
-        this.checkEquals(
-            "\r",
-            echo.toString(),
-            "echo"
+        this.echoCheck(
+            echo,
+            "\r"
         );
     }
 
@@ -280,10 +275,9 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
             ""
         );
 
-        this.checkEquals(
-            "abc\r",
-            echo.toString(),
-            "echo"
+        this.echoCheck(
+            echo,
+            "abc\r"
         );
     }
 
@@ -307,10 +301,9 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
             ""
         );
 
-        this.checkEquals(
-            "\r",
-            echo.toString(),
-            "echo"
+        this.echoCheck(
+            echo,
+            "\r"
         );
     }
 
@@ -334,10 +327,9 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
             ""
         );
 
-        this.checkEquals(
-            "abc\r",
-            echo.toString(),
-            "echo"
+        this.echoCheck(
+            echo,
+            "abc\r"
         );
     }
 
@@ -361,10 +353,9 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
             ""
         );
 
-        this.checkEquals(
-            "\n",
-            echo.toString(),
-            "echo"
+        this.echoCheck(
+            echo,
+            "\n"
         );
     }
 
@@ -388,10 +379,9 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
             ""
         );
 
-        this.checkEquals(
-            "abc\n",
-            echo.toString(),
-            "echo"
+        this.echoCheck(
+            echo,
+            "abc\n"
         );
     }
 
@@ -415,10 +405,9 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
             ""
         );
 
-        this.checkEquals(
-            "abc\r",
-            echo.toString(),
-            "echo"
+        this.echoCheck(
+            echo,
+            "abc\r"
         );
 
         this.readTextAndCheck(
@@ -449,10 +438,9 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
             ""
         );
 
-        this.checkEquals(
-            "abc\r",
-            echo.toString(),
-            "echo"
+        this.echoCheck(
+            echo,
+            "abc\r"
         );
 
         this.readTextAndCheck(
@@ -483,10 +471,9 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
             ""
         );
 
-        this.checkEquals(
-            "abc\n",
-            echo.toString(),
-            "echo"
+        this.echoCheck(
+            echo,
+            "abc\n"
         );
 
         this.readTextAndCheck(
@@ -573,6 +560,15 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
         this.checkEquals(
             expected,
             reader.buffer.toString()
+        );
+    }
+
+    private void echoCheck(final StringBuilder echo,
+                           final String expected) {
+        this.checkEquals(
+            echo.toString(),
+            expected,
+            "echo"
         );
     }
 
