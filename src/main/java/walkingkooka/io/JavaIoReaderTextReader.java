@@ -99,6 +99,8 @@ final class JavaIoReaderTextReader implements TextReader {
 
                 for (int i = 0; i < copy; i++) {
                     final char c = buffer.charAt(i);
+                    echo.accept(c);
+
                     if (skipLf) {
                         skipLf = false;
                         if (NL == c) {
@@ -106,7 +108,6 @@ final class JavaIoReaderTextReader implements TextReader {
                         }
                     }
                     readText.append(c);
-                    echo.accept(c);
                 }
             }
 
@@ -134,6 +135,8 @@ final class JavaIoReaderTextReader implements TextReader {
 
                             for (int i = 0; i < readCount; i++) {
                                 final char c = readerBuffer[i];
+                                echo.accept(c);
+
                                 if (skipLf && NL == c) {
                                     skipLf = false;
                                     continue;
@@ -141,7 +144,6 @@ final class JavaIoReaderTextReader implements TextReader {
                                 skipLf = false;
 
                                 readText.append(c);
-                                echo.accept(c);
                             }
                         } else {
                             sleep(stop - now);
@@ -229,6 +231,8 @@ final class JavaIoReaderTextReader implements TextReader {
 
                     for (int i = 0; i < readCount; i++) {
                         final char c = readerBuffer[i];
+                        echo.accept(c);
+
                         if (skipLf && NL == c) {
                             skipLf = false;
                             continue;
@@ -236,7 +240,6 @@ final class JavaIoReaderTextReader implements TextReader {
                         skipLf = false;
 
                         buffer.append(c);
-                        echo.accept(c);
                     }
                 } else {
                     sleep(stop - now);
