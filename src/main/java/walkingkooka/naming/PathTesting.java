@@ -25,6 +25,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.reflect.ConstantsTesting;
 import walkingkooka.reflect.TypeNameTesting;
+import walkingkooka.text.HasTextTesting;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,6 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public interface PathTesting<P extends Path<P, N> & Comparable<P>, N extends Name> extends ComparableTesting2<P>,
     ConstantsTesting<P>,
+    HasTextTesting,
     ToStringTesting<P>,
     TypeNameTesting<P>,
     CanBeEmptyTesting {

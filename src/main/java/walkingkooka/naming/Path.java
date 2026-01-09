@@ -22,6 +22,7 @@ import walkingkooka.CanBeEmpty;
 import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.HasText;
 
 import java.util.Iterator;
 import java.util.List;
@@ -33,6 +34,7 @@ import java.util.Optional;
  */
 public interface Path<P extends Path<P, N>, N extends Name> extends Value<String>,
     HasName<N>,
+    HasText,
     Iterable<N>,
     CanBeEmpty {
 
@@ -131,5 +133,12 @@ public interface Path<P extends Path<P, N>, N extends Name> extends Value<String
     default boolean isEmpty() {
         return this.value()
             .isEmpty();
+    }
+
+    // HasText..........................................................................................................
+
+    @Override
+    default String text() {
+        return this.value();
     }
 }
