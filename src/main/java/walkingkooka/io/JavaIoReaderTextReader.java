@@ -89,7 +89,6 @@ final class JavaIoReaderTextReader implements TextReader {
             // copy buffered characters....
             final StringBuilder buffer = this.buffer;
             final int bufferLength = buffer.length();
-            boolean skipLf = this.skipLf;
 
             {
                 final int copy = Math.min(
@@ -101,8 +100,8 @@ final class JavaIoReaderTextReader implements TextReader {
                     final char c = buffer.charAt(i);
                     echo.accept(c);
 
-                    if (skipLf) {
-                        skipLf = false;
+                    if (this.skipLf) {
+                        this.skipLf = false;
                         if (NL == c) {
                             continue;
                         }
@@ -132,10 +131,10 @@ final class JavaIoReaderTextReader implements TextReader {
                             final char c = (char) characterOrEof;
                             echo.accept(c);
 
-                            if (skipLf && NL == c) {
-                                skipLf = false;
+                            if (this.skipLf && NL == c) {
+                                this.skipLf = false;
                             } else {
-                                skipLf = false;
+                                this.skipLf = false;
 
                                 readText.append(c);
 
@@ -162,7 +161,6 @@ final class JavaIoReaderTextReader implements TextReader {
             }
 
             text = readText.toString();
-            this.skipLf = skipLf;
         }
 
         return text;
