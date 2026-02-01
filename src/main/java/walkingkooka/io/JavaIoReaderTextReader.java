@@ -179,7 +179,6 @@ final class JavaIoReaderTextReader implements TextReader {
         final Consumer<Character> echo = this.echo;
 
         final StringBuilder readLine = new StringBuilder();
-        boolean skipLf = this.skipLf;
 
         boolean lineFound = false;
 
@@ -192,8 +191,8 @@ final class JavaIoReaderTextReader implements TextReader {
             for (int i = bufferScanStart; i < buffer.length(); i++) {
                 final char c = buffer.charAt(i);
 
-                if (skipLf) {
-                    skipLf = false;
+                if (this.skipLf) {
+                    this.skipLf = false;
                     if (NL == c) {
                         continue;
                     }
@@ -237,11 +236,11 @@ final class JavaIoReaderTextReader implements TextReader {
                         final char c = readerBuffer[i];
                         echo.accept(c);
 
-                        if (skipLf && NL == c) {
-                            skipLf = false;
+                        if (this.skipLf && NL == c) {
+                            this.skipLf = false;
                             continue;
                         }
-                        skipLf = false;
+                        this.skipLf = false;
 
                         buffer.append(c);
                     }
@@ -252,8 +251,6 @@ final class JavaIoReaderTextReader implements TextReader {
                 throw new UncheckedIOException(rethrow);
             }
         }
-
-        this.skipLf = skipLf;
 
         return Optional.ofNullable(
             lineFound ?
