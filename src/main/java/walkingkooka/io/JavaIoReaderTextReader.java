@@ -223,27 +223,24 @@ final class JavaIoReaderTextReader implements TextReader {
 
             // try and fill buffer
             final Reader reader = this.reader;
-            final char[] readerBuffer = new char[80];
 
             try {
                 if (reader.ready()) {
-                    final int readCount = reader.read(readerBuffer);
-                    if (-1 == readCount) {
+                    final int characterOrEof = reader.read();
+                    if (-1 == characterOrEof) {
                         break;
                     }
 
-                    for (int i = 0; i < readCount; i++) {
-                        final char c = readerBuffer[i];
-                        echo.accept(c);
+                    final char c = (char) characterOrEof;
+                    echo.accept(c);
 
-                        if (this.skipLf && NL == c) {
-                            this.skipLf = false;
-                            continue;
-                        }
+                    if (this.skipLf && NL == c) {
                         this.skipLf = false;
-
-                        buffer.append(c);
+                        continue;
                     }
+                    this.skipLf = false;
+
+                    buffer.append(c);
                 } else {
                     sleep(stop - now);
                 }
