@@ -116,40 +116,46 @@ final class JavaIoReaderTextReader implements TextReader {
 
             if (missingCount > 0) {
                 // need to read $reader with timeout blocking
-                long now = System.currentTimeMillis();
-                final long stop = now + timeout;
+                final long stop = System.currentTimeMillis() + timeout;
                 final Reader reader = this.reader;
-                final char[] readerBuffer = new char[80];
 
                 try {
-                    do {
+                    Loop:
+                    for (; ; ) {
+                        // try fill buffer one character at a time.
                         if (reader.ready()) {
-                            final int readCount = reader.read(
-                                readerBuffer,
-                                0,
-                                max - readText.length()
-                            );
-                            if (-1 == readCount) {
-                                break;
+                            final int characterOrEof = reader.read();
+                            if (-1 == characterOrEof) {
+                                break; // EOS give up.
                             }
 
-                            for (int i = 0; i < readCount; i++) {
-                                final char c = readerBuffer[i];
-                                echo.accept(c);
+                            final char c = (char) characterOrEof;
+                            echo.accept(c);
 
-                                if (skipLf && NL == c) {
-                                    skipLf = false;
-                                    continue;
-                                }
+                            if (skipLf && NL == c) {
+                                skipLf = false;
+                            } else {
                                 skipLf = false;
 
                                 readText.append(c);
+
+                                if (readText.length() >= max) {
+                                    break;
+                                }
+                            }
+
+                            if (stop - System.currentTimeMillis() <= 0) {
+                                break;
                             }
                         } else {
+                            // sleep when reader is NOT ready
+                            final long now = System.currentTimeMillis();
+                            if (stop - now <= 0) {
+                                break;
+                            }
                             sleep(stop - now);
                         }
-                        now = System.currentTimeMillis();
-                    } while (readText.length() < max && now < stop);
+                    }
                 } catch (final IOException rethrow) {
                     throw new UncheckedIOException(rethrow);
                 }
