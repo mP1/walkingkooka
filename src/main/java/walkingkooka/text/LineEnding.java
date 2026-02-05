@@ -25,7 +25,8 @@ import java.util.Objects;
  * or singletons may be used. Identity checking is always safe.
  */
 public enum LineEnding implements CharSequence,
-    HasLineEnding {
+    HasLineEnding,
+    HasText {
 
     /**
      * Carriage return
@@ -95,6 +96,13 @@ public enum LineEnding implements CharSequence,
     @Override
     public LineEnding lineEnding() {
         return this;
+    }
+
+    // HasText..........................................................................................................
+
+    @Override
+    public String text() {
+        return this.value;
     }
 
     // CharSequences....................................................................................................
