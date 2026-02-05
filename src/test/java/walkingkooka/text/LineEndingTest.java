@@ -29,7 +29,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 final public class LineEndingTest implements ClassTesting2<LineEnding>,
     CharSequenceTesting<LineEnding>,
     ParseStringTesting<LineEnding>,
-    HasLineEndingTesting{
+    HasLineEndingTesting,
+    HasTextTesting {
 
     // HasLineEnding....................................................................................................
 
@@ -199,6 +200,16 @@ final public class LineEndingTest implements ClassTesting2<LineEnding>,
     @Override
     public LineEnding createCharSequence() {
         return LineEnding.CR;
+    }
+
+    // HasText..........................................................................................................
+
+    @Test
+    public void testText() {
+        this.textAndCheck(
+            LineEnding.CRNL,
+            "\r\n"
+        );
     }
 
     // Object...........................................................................................................
