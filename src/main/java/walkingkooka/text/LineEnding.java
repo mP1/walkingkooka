@@ -61,7 +61,7 @@ public enum LineEnding implements CharSequence,
     public static LineEnding parse(final String text) {
         Objects.requireNonNull(text, "text");
 
-        LineEnding lineEnding;
+        final LineEnding lineEnding;
 
         if ("cr".equalsIgnoreCase(text)) {
             lineEnding = LineEnding.CR;
