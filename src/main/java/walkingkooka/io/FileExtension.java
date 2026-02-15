@@ -52,7 +52,7 @@ public final class FileExtension implements
         );
     }
 
-    public final static FileExtension JSON = FileExtension.with("json");
+    public final static FileExtension JSON = new FileExtension("json");
 
     /**
      * Factory that creates a {@link FileExtension}
