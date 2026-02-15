@@ -26,6 +26,7 @@ import walkingkooka.text.CharSequences;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class FileExtensionTest implements ComparableTesting2<FileExtension>,
@@ -111,6 +112,14 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
         assertThrows(
             InvalidCharacterException.class,
             () -> FileExtension.with("a.b")
+        );
+    }
+
+    @Test
+    public void testWithJson() {
+        assertSame(
+            FileExtension.JSON,
+            FileExtension.with("jsON")
         );
     }
 

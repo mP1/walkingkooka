@@ -34,6 +34,8 @@ public final class FileExtension implements
     Value<String>,
     CanBeEmpty {
 
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
+
     /**
      * Extracts the file extension if present from the given filename.
      */
@@ -50,6 +52,8 @@ public final class FileExtension implements
         );
     }
 
+    public final static FileExtension JSON = FileExtension.with("json");
+
     /**
      * Factory that creates a {@link FileExtension}
      */
@@ -61,7 +65,9 @@ public final class FileExtension implements
             throw new InvalidCharacterException(value, dot);
         }
 
-        return new FileExtension(value);
+        return CASE_SENSITIVITY.equals("json", value) ?
+            JSON :
+            new FileExtension(value);
     }
 
     public final static char SEPARATOR = '.';
@@ -110,8 +116,6 @@ public final class FileExtension implements
     }
 
     // Comparable..........................................................................................................
-
-    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 
     @Override
     public int compareTo(final FileExtension other) {
