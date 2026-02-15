@@ -32,21 +32,14 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     ToStringTesting<FileExtension>,
     CanBeEmptyTesting {
 
-    @Test
-    public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> FileExtension.with(null));
-    }
-
-    @Test
-    public void testWithContainsDotFails() {
-        assertThrows(InvalidCharacterException.class, () -> FileExtension.with("a.b"));
-    }
-
     // extract..........................................................................................................
 
     @Test
     public void testExtractNullFails() {
-        assertThrows(NullPointerException.class, () -> FileExtension.extract(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> FileExtension.extract(null)
+        );
     }
 
     @Test
@@ -56,7 +49,10 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
 
     @Test
     public void testExtractPresent() {
-        this.fileExtensionAndCheck("file.txt", "txt");
+        this.fileExtensionAndCheck(
+            "file.txt",
+            "txt"
+        );
     }
 
     @Test
@@ -75,25 +71,60 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     }
 
     private void fileExtensionAndCheck(final String filename) {
-        this.fileExtensionAndCheck(filename, Optional.empty());
+        this.fileExtensionAndCheck(
+            filename,
+            Optional.empty()
+        );
     }
 
-    private void fileExtensionAndCheck(final String filename, final String fileExtension) {
-        this.fileExtensionAndCheck(filename, Optional.of(FileExtension.with(fileExtension)));
+    private void fileExtensionAndCheck(final String filename,
+                                       final String fileExtension) {
+        this.fileExtensionAndCheck(
+            filename,
+            Optional.of(
+                FileExtension.with(fileExtension)
+            )
+        );
     }
 
-    private void fileExtensionAndCheck(final String filename, final Optional<FileExtension> fileExtension) {
-        this.checkEquals(fileExtension,
+    private void fileExtensionAndCheck(final String filename,
+                                       final Optional<FileExtension> fileExtension) {
+        this.checkEquals(
+            fileExtension,
             FileExtension.extract(filename),
-            () -> CharSequences.quoteAndEscape(filename) + " file extension");
+            () -> CharSequences.quoteAndEscape(filename) + " file extension"
+        );
+    }
+
+    // with.............................................................................................................
+
+    @Test
+    public void testWithNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> FileExtension.with(null)
+        );
+    }
+
+    @Test
+    public void testWithContainsDotFails() {
+        assertThrows(
+            InvalidCharacterException.class,
+            () -> FileExtension.with("a.b")
+        );
     }
 
     @Test
     public void testWith() {
         final String value = "txt";
         final FileExtension fileExtension = FileExtension.with(value);
-        this.checkEquals(value, fileExtension.value());
+        this.checkEquals(
+            value,
+            fileExtension.value()
+        );
     }
+
+    // hashCode/equals..................................................................................................
 
     @Test
     public void testEqualsDifferent() {
@@ -122,8 +153,15 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
         final FileExtension exe = FileExtension.with("exe");
         final FileExtension png = FileExtension.with("png");
 
-        this.compareToArraySortAndCheck(txt, exe, png, bin,
-            bin, exe, png, txt);
+        this.compareToArraySortAndCheck(
+            txt, exe, png, bin,
+            bin, exe, png, txt
+        );
+    }
+
+    @Override
+    public FileExtension createComparable() {
+        return FileExtension.with("txt");
     }
 
     // CanBeEmpty.......................................................................................................
@@ -148,13 +186,13 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createComparable(), "txt");
+        this.toStringAndCheck(
+            this.createComparable(),
+            "txt"
+        );
     }
 
-    @Override
-    public FileExtension createComparable() {
-        return FileExtension.with("txt");
-    }
+    // class............................................................................................................
 
     @Override
     public Class<FileExtension> type() {
