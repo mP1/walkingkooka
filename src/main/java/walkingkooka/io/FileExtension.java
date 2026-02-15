@@ -40,7 +40,7 @@ public final class FileExtension implements
     public static Optional<FileExtension> extract(final String filename) {
         Objects.requireNonNull(filename, "filename");
 
-        final int dot = filename.lastIndexOf(DOT);
+        final int dot = filename.lastIndexOf(SEPARATOR);
         return Optional.ofNullable(
             -1 == dot ?
                 null :
@@ -56,7 +56,7 @@ public final class FileExtension implements
     public static FileExtension with(final String value) {
         Objects.requireNonNull(value, "value");
 
-        final int dot = value.indexOf(DOT);
+        final int dot = value.indexOf(SEPARATOR);
         if (dot != -1) {
             throw new InvalidCharacterException(value, dot);
         }
@@ -64,7 +64,7 @@ public final class FileExtension implements
         return new FileExtension(value);
     }
 
-    private final static char DOT = '.';
+    public final static char SEPARATOR = '.';
 
     /**
      * Private ctor use public static methods.
