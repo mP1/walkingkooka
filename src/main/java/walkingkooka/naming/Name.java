@@ -19,17 +19,21 @@ package walkingkooka.naming;
 
 import walkingkooka.CanBeEmpty;
 import walkingkooka.Value;
+import walkingkooka.io.FileExtension;
+import walkingkooka.io.HasFileExtension;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.HasCaseSensitivity;
 import walkingkooka.text.HasText;
 
 import java.util.Comparator;
+import java.util.Optional;
 
 /**
  * Interface implemented by names. Names are immutable and should also implement {@link Comparable}.
  */
 public interface Name extends Value<String>,
     HasCaseSensitivity,
+    HasFileExtension,
     HasText,
     CanBeEmpty {
 
@@ -43,6 +47,15 @@ public interface Name extends Value<String>,
     @Override
     default String text() {
         return this.value();
+    }
+
+    // HasFileExtension.................................................................................................
+
+    @Override
+    default Optional<FileExtension> fileExtension() {
+        return FileExtension.extract(
+            this.value()
+        );
     }
 
     // CanBeEmpty.......................................................................................................
