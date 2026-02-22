@@ -20,12 +20,15 @@ package walkingkooka.naming;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.io.FileExtension;
+import walkingkooka.io.HasFileExtensionTesting;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
 import java.util.List;
 
-public class PathTest implements ClassTesting<Path<?, ?>> {
+public class PathTest implements HasFileExtensionTesting,
+    ClassTesting<Path<?, ?>> {
 
     @Test
     public void testNamesListWithRoot() {
@@ -59,6 +62,23 @@ public class PathTest implements ClassTesting<Path<?, ?>> {
         this.checkEquals(
             names,
             path.namesList()
+        );
+    }
+
+    // HasFileExtension.................................................................................................
+
+    @Test
+    public void testFileExtensionWithout() {
+        this.fileExtensionAndCheck(
+            Paths.string("/file")
+        );
+    }
+
+    @Test
+    public void testFileExtensionWithTxt() {
+        this.fileExtensionAndCheck(
+            Paths.string("/file.txt"),
+            FileExtension.TXT
         );
     }
 

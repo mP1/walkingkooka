@@ -23,6 +23,7 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.collect.iterable.Iterables;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.ComparableTesting2;
+import walkingkooka.io.HasFileExtensionTesting;
 import walkingkooka.reflect.ConstantsTesting;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.text.HasTextTesting;
@@ -40,6 +41,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public interface PathTesting<P extends Path<P, N> & Comparable<P>, N extends Name> extends ComparableTesting2<P>,
     ConstantsTesting<P>,
     HasTextTesting,
+    HasFileExtensionTesting,
     ToStringTesting<P>,
     TypeNameTesting<P>,
     CanBeEmptyTesting {

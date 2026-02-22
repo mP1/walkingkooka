@@ -22,6 +22,8 @@ import walkingkooka.CanBeEmpty;
 import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.io.FileExtension;
+import walkingkooka.io.HasFileExtension;
 import walkingkooka.text.HasText;
 
 import java.util.Iterator;
@@ -34,6 +36,7 @@ import java.util.Optional;
  */
 public interface Path<P extends Path<P, N>, N extends Name> extends Value<String>,
     HasName<N>,
+    HasFileExtension,
     HasText,
     Iterable<N>,
     CanBeEmpty {
@@ -126,6 +129,15 @@ public interface Path<P extends Path<P, N>, N extends Name> extends Value<String
      * Getter that returns the {@link PathSeparator}.
      */
     PathSeparator separator();
+
+    // HasFileExtension.................................................................................................
+
+    @Override
+    default Optional<FileExtension> fileExtension() {
+        return FileExtension.extract(
+            this.value()
+        );
+    }
 
     // CanBeEmpty.......................................................................................................
 
