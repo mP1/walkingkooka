@@ -17,10 +17,31 @@
 
 package walkingkooka.naming;
 
+import org.junit.jupiter.api.Test;
+import walkingkooka.io.FileExtension;
+import walkingkooka.io.HasFileExtensionTesting;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class NameTest implements ClassTesting<Name> {
+public final class NameTest implements HasFileExtensionTesting,
+    ClassTesting<Name> {
+
+    // HasFileExtension.................................................................................................
+
+    @Test
+    public void testFileExtensionWithout() {
+        this.fileExtensionAndCheck(
+            Names.string("file")
+        );
+    }
+
+    @Test
+    public void testFileExtensionWithTxt() {
+        this.fileExtensionAndCheck(
+            Names.string("file.txt"),
+            FileExtension.TXT
+        );
+    }
 
     // class............................................................................................................
 
