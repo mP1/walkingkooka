@@ -124,8 +124,16 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     }
 
     @Test
+    public void testWithTxt() {
+        assertSame(
+            FileExtension.TXT,
+            FileExtension.with("Txt")
+        );
+    }
+
+    @Test
     public void testWith() {
-        final String value = "txt";
+        final String value = "bin";
         final FileExtension fileExtension = FileExtension.with(value);
         this.checkEquals(
             value,

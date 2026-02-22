@@ -21,8 +21,10 @@ import walkingkooka.CanBeEmpty;
 import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.Value;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.text.CaseSensitivity;
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -52,7 +54,20 @@ public final class FileExtension implements
         );
     }
 
-    public final static FileExtension JSON = new FileExtension("json");
+    private final static Map<String, FileExtension> CONSTANTS = Maps.sorted(CASE_SENSITIVITY.comparator());
+
+    public final static FileExtension JSON = registerConstant("json");
+
+    public final static FileExtension TXT = registerConstant("txt");
+
+    private static FileExtension registerConstant(final String string) {
+        final FileExtension fileExtension = new FileExtension(string);
+        CONSTANTS.put(
+            string,
+            fileExtension
+        );
+        return fileExtension;
+    }
 
     /**
      * Factory that creates a {@link FileExtension}
@@ -65,8 +80,10 @@ public final class FileExtension implements
             throw new InvalidCharacterException(value, dot);
         }
 
-        return CASE_SENSITIVITY.equals("json", value) ?
-            JSON :
+        final FileExtension fileExtension = CONSTANTS.get(value);
+
+        return null != fileExtension ?
+            fileExtension :
             new FileExtension(value);
     }
 
