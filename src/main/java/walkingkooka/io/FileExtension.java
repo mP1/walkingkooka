@@ -58,6 +58,8 @@ public final class FileExtension implements
 
     public final static FileExtension JSON = registerConstant("json");
 
+    public final static FileExtension PROPERTIES = registerConstant("properties");
+
     public final static FileExtension TXT = registerConstant("txt");
 
     private static FileExtension registerConstant(final String string) {
