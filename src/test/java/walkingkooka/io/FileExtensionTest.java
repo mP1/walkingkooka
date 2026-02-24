@@ -124,6 +124,14 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     }
 
     @Test
+    public void testWithProperties() {
+        assertSame(
+            FileExtension.PROPERTIES,
+            FileExtension.with("properties")
+        );
+    }
+
+    @Test
     public void testWithTxt() {
         assertSame(
             FileExtension.TXT,
