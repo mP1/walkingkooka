@@ -21,17 +21,28 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.CanBeEmptyTesting;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.ToStringTesting;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.compare.ComparableTesting2;
+import walkingkooka.reflect.ConstantsTesting;
 import walkingkooka.text.CharSequences;
 
 import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class FileExtensionTest implements ComparableTesting2<FileExtension>,
+    ConstantsTesting<FileExtension>,
     ToStringTesting<FileExtension>,
     CanBeEmptyTesting {
+
+    // constants........................................................................................................
+
+    @Override
+    public Set<FileExtension> intentionalDuplicateConstants() {
+        return Sets.empty();
+    }
 
     // extract..........................................................................................................
 
