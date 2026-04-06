@@ -107,7 +107,8 @@ public final class CsvStringList extends AbstractList<String> implements Immutab
     @Override
     public String text() {
         return Csv.toCsv(
-            this.strings
+            this.strings,
+            Csv.SEPARATOR.character()
         );
     }
 }
