@@ -177,13 +177,18 @@ public final class Csv implements PublicStaticHelper {
         }
     }
 
-    public static String toCsv(final Collection<String> elements) {
+    public static String toCsv(final Collection<String> elements,
+                               final char separator) {
         Objects.requireNonNull(elements, "elements");
+        if('"' == separator) {
+            throw new IllegalArgumentException("Invalid separator character is \"\"\"");
+        }
 
-        return SEPARATOR.toSeparatedString(
-            elements,
-            Csv::escapeIfNecessary
-        );
+        return CharacterConstant.with(separator)
+            .toSeparatedString(
+                elements,
+                Csv::escapeIfNecessary
+            );
     }
 
     private static String escapeIfNecessary(final String text) {
@@ -221,7 +226,7 @@ public final class Csv implements PublicStaticHelper {
 
     private final static char DOUBLE_QUOTE_CHAR = '"';
     private final static char SEPARATOR_CHAR = ',';
-    private final static CharacterConstant SEPARATOR = CharacterConstant.COMMA;
+    public final static CharacterConstant SEPARATOR = CharacterConstant.COMMA;
 
     /**
      * Private ctor use public methods

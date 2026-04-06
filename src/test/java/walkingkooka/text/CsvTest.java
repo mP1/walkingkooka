@@ -17,12 +17,48 @@
 
 package walkingkooka.text;
 
+import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
+import java.util.List;
 
 public final class CsvTest implements PublicStaticHelperTesting<Csv> {
+
+    @Test
+    public void testToCsvWithComma() {
+        this.toCsvAndCheck(
+            Lists.of("11", "22", "33"),
+            ',',
+            "11,22,33"
+        );
+    }
+
+    @Test
+    public void testToCsvWithSemiColon() {
+        this.toCsvAndCheck(
+            Lists.of("11", "22", "33"),
+            ';',
+            "11;22;33"
+        );
+    }
+
+    private void toCsvAndCheck(final List<String> list,
+                               final char separator,
+                               final String expected) {
+        this.checkEquals(
+            expected,
+            Csv.toCsv(
+                list,
+                separator
+            ),
+            () -> list + " toCsv " + CharSequences.quoteIfChars(separator)
+        );
+    }
+
+    // class............................................................................................................
 
     @Override
     public Class<Csv> type() {

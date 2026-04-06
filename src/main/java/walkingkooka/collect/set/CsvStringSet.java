@@ -154,6 +154,9 @@ public final class CsvStringSet extends AbstractSet<String>
 
     @Override
     public String text() {
-        return Csv.toCsv(this.strings);
+        return Csv.toCsv(
+            this.strings,
+            Csv.SEPARATOR.character()
+        );
     }
 }
