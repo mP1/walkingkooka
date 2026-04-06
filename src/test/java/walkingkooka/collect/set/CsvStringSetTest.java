@@ -20,14 +20,14 @@ package walkingkooka.collect.set;
 import org.junit.jupiter.api.Test;
 import walkingkooka.EndOfTextException;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.text.HasTextTesting;
+import walkingkooka.text.HasTextWithSeparatorTesting;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CsvStringSetTest implements ImmutableSetTesting<CsvStringSet, String>,
     ParseStringTesting<CsvStringSet>,
-    HasTextTesting {
+    HasTextWithSeparatorTesting {
 
     // setElements......................................................................................................
 
@@ -404,17 +404,28 @@ public final class CsvStringSetTest implements ImmutableSetTesting<CsvStringSet,
         );
     }
 
-    private void textAndCheckAndParseCheck(final CsvStringSet list,
+    private void textAndCheckAndParseCheck(final CsvStringSet set,
                                            final String expected) {
         this.textAndCheck(
-            list,
+            set,
             expected
         );
 
         // should roundtrip
         this.parseStringAndCheck(
             expected,
-            list
+            set
+        );
+    }
+
+    // HasTextWithSeparator.............................................................................................
+
+    @Test
+    public void testHasTextWithSeparatorDifferentSeparator() {
+        this.textWithSeparatorAndCheck(
+            CsvStringSet.parse("aaa,bb,cc"),
+            ';',
+            "aaa;bb;cc"
         );
     }
 
