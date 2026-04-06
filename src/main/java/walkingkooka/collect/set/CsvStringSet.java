@@ -20,7 +20,7 @@ package walkingkooka.collect.set;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.text.Csv;
-import walkingkooka.text.HasText;
+import walkingkooka.text.HasTextWithSeparator;
 
 import java.util.AbstractSet;
 import java.util.Collection;
@@ -35,7 +35,7 @@ import java.util.TreeSet;
  */
 public final class CsvStringSet extends AbstractSet<String>
     implements ImmutableSortedSetDefaults<CsvStringSet, String>,
-    HasText {
+    HasTextWithSeparator {
 
     /**
      * An empty {@link CsvStringSet}
@@ -150,13 +150,21 @@ public final class CsvStringSet extends AbstractSet<String>
 
     private final SortedSet<String> strings;
 
-    // HasText..........................................................................................................
+    // HasTextWithSeparator.............................................................................................
 
     @Override
-    public String text() {
+    public char defaultTextSeparator() {
+        return Csv.SEPARATOR.character();
+    }
+
+    /**
+     * Note strings with quotes, commas, CR or NL will be quoted and double quotes escaped.
+     */
+    @Override
+    public String textWithSeparator(final char separator) {
         return Csv.toCsv(
             this.strings,
-            Csv.SEPARATOR.character()
+            separator
         );
     }
 }
