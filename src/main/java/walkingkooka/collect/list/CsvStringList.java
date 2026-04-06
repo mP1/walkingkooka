@@ -99,19 +99,6 @@ public final class CsvStringList extends AbstractList<String> implements Immutab
 
     private final List<String> strings;
 
-    // HasText..........................................................................................................
-
-    /**
-     * Note strings with quotes, commas, CR or NL will be quoted and double quotes escaped.
-     */
-    @Override
-    public String text() {
-        return Csv.toCsv(
-            this.strings,
-            Csv.SEPARATOR.character()
-        );
-    }
-
     // HasTextWithSeparator.............................................................................................
 
     @Override
@@ -119,6 +106,9 @@ public final class CsvStringList extends AbstractList<String> implements Immutab
         return Csv.SEPARATOR.character();
     }
 
+    /**
+     * Note strings with quotes, commas, CR or NL will be quoted and double quotes escaped.
+     */
     @Override
     public String textWithSeparator(final char separator) {
         return Csv.toCsv(
