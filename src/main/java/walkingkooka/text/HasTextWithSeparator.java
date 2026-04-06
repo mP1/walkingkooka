@@ -22,6 +22,13 @@ package walkingkooka.text;
  */
 public interface HasTextWithSeparator extends HasText {
 
+    @Override
+    default String text() {
+        return this.textWithSeparator(
+            this.defaultTextSeparator()
+        );
+    }
+
     /**
      * The default text separator.
      */
