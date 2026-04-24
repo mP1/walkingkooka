@@ -4,6 +4,7 @@ package walkingkooka.util;
 import org.junit.jupiter.api.Test;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
+import walkingkooka.ValueTesting;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
@@ -14,7 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class OptionalLocaleTest implements ClassTesting<OptionalLocale>,
     HashCodeEqualsDefinedTesting2<OptionalLocale>,
-    ToStringTesting<OptionalLocale> {
+    ToStringTesting<OptionalLocale>,
+    ValueTesting {
 
     private final static Optional<Locale> LOCALE = Optional.of(
         Locale.forLanguageTag("en-AU")
@@ -27,6 +29,26 @@ public final class OptionalLocaleTest implements ClassTesting<OptionalLocale>,
         assertThrows(
             NullPointerException.class,
             () -> OptionalLocale.with(null)
+        );
+    }
+
+    // value............................................................................................................
+
+    @Test
+    public void testValue() {
+        this.valueAndCheck(
+            OptionalLocale.with(LOCALE),
+            LOCALE
+        );
+    }
+
+    @Test
+    public void testValueWhenEmptyOptional() {
+        final Optional<Locale> locale = Optional.empty();
+
+        this.valueAndCheck(
+            OptionalLocale.with(locale),
+            locale
         );
     }
 
