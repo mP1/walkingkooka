@@ -61,7 +61,7 @@ final public class StringPathTest implements PathTesting<StringPath, StringName>
     public void testParseSlash() {
         final String value = "/";
         final StringPath path = StringPath.parse(value);
-        this.valueCheck(path, value);
+        this.valueAndCheck(path, value);
         this.rootCheck(path);
         this.nameCheck(path, StringName.ROOT);
         this.parentAbsentCheck(path);
@@ -71,7 +71,7 @@ final public class StringPathTest implements PathTesting<StringPath, StringName>
     public void testParseFlat() {
         final String value = "/path to";
         final StringPath path = StringPath.parse(value);
-        this.valueCheck(path, value);
+        this.valueAndCheck(path, value);
         this.rootNotCheck(path);
         this.nameCheck(path, StringName.with("path to"));
         this.parentSame(path, StringPath.ROOT);
@@ -81,7 +81,7 @@ final public class StringPathTest implements PathTesting<StringPath, StringName>
     public void testParseHierarchical() {
         final String value = "/path/to";
         final StringPath path = StringPath.parse(value);
-        this.valueCheck(path, value);
+        this.valueAndCheck(path, value);
         this.rootNotCheck(path);
         this.nameCheck(path, StringName.with("to"));
         this.parentCheck(path, "/path");
@@ -91,7 +91,7 @@ final public class StringPathTest implements PathTesting<StringPath, StringName>
     public void testRoot() {
         final StringPath path = StringPath.ROOT;
         this.rootCheck(path);
-        this.valueCheck(path, "/");
+        this.valueAndCheck(path, "/");
         this.nameSameCheck(path, StringName.ROOT);
         this.parentAbsentCheck(path);
     }
@@ -123,7 +123,7 @@ final public class StringPathTest implements PathTesting<StringPath, StringName>
             path,
             StringName.with("four")
         );
-        this.valueCheck(
+        this.valueAndCheck(
             path,
             "/one/two/three/four"
         );
@@ -143,7 +143,7 @@ final public class StringPathTest implements PathTesting<StringPath, StringName>
             path,
             StringName.with("five")
         );
-        this.valueCheck(
+        this.valueAndCheck(
             path,
             "/one/two/three/four/five"
         );
