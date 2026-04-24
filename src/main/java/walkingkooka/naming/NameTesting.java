@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.CanBeEmptyTesting;
 import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
+import walkingkooka.ValueTesting;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.io.HasFileExtensionTesting;
 import walkingkooka.reflect.JavaVisibility;
@@ -39,7 +40,8 @@ public interface NameTesting<N extends Name, C extends Comparable<C>> extends Co
     HasFileExtensionTesting,
     CanBeEmptyTesting,
     ToStringTesting<N>,
-    TypeNameTesting<N> {
+    TypeNameTesting<N>,
+    ValueTesting {
 
     @Test
     default void testPublicClass() {
@@ -101,10 +103,9 @@ public interface NameTesting<N extends Name, C extends Comparable<C>> extends Co
 
     default void checkValue(final Name name,
                             final String value) {
-        this.checkEquals(
-            value,
-            name.value(),
-            "value"
+        this.valueAndCheck(
+            name,
+            value
         );
     }
 
