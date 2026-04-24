@@ -20,6 +20,7 @@ package walkingkooka.naming;
 import org.junit.jupiter.api.Test;
 import walkingkooka.CanBeEmptyTesting;
 import walkingkooka.ToStringTesting;
+import walkingkooka.ValueTesting;
 import walkingkooka.collect.iterable.Iterables;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.ComparableTesting2;
@@ -44,7 +45,8 @@ public interface PathTesting<P extends Path<P, N> & Comparable<P>, N extends Nam
     HasFileExtensionTesting,
     ToStringTesting<P>,
     TypeNameTesting<P>,
-    CanBeEmptyTesting {
+    CanBeEmptyTesting,
+    ValueTesting {
 
     @Test
     default void testSeparatorConstant() {
@@ -73,7 +75,7 @@ public interface PathTesting<P extends Path<P, N> & Comparable<P>, N extends Nam
         this.parentCheck(child, parent);
         this.rootNotCheck(child);
         this.nameCheck(child, appended);
-        this.valueCheck(child);
+        this.valueAndCheck(child);
     }
 
     @Test
@@ -90,7 +92,7 @@ public interface PathTesting<P extends Path<P, N> & Comparable<P>, N extends Nam
         this.parentCheck(child1, child0);
         this.rootNotCheck(child1);
         this.nameCheck(child1, appended1);
-        this.valueCheck(child1);
+        this.valueAndCheck(child1);
     }
 
     @SuppressWarnings("unchecked")
@@ -106,17 +108,17 @@ public interface PathTesting<P extends Path<P, N> & Comparable<P>, N extends Nam
         final P four = this.parsePath(fullPath4);
         this.rootNotCheck(four);
         this.nameCheck(four, name4);
-        this.valueCheck(four, fullPath4);
+        this.valueAndCheck(four, fullPath4);
 
         final P three = this.parentCheck(four);
         this.rootNotCheck(three);
         this.nameCheck(three, name3);
-        this.valueCheck(three, concat(name1, name2, name3));
+        this.valueAndCheck(three, concat(name1, name2, name3));
 
         final P two = this.parentCheck(three);
         this.rootNotCheck(two);
         this.nameCheck(two, name2);
-        this.valueCheck(two, concat(name1, name2));
+        this.valueAndCheck(two, concat(name1, name2));
 
         final boolean required = this.separator().isRequiredAtStart();
 
@@ -127,7 +129,7 @@ public interface PathTesting<P extends Path<P, N> & Comparable<P>, N extends Nam
             this.rootCheck(one);
         }
         this.nameCheck(one, name1);
-        this.valueCheck(one, concat(name1));
+        this.valueAndCheck(one, concat(name1));
 
         if (required) {
             final P root = this.parentCheck(one);
@@ -244,7 +246,7 @@ public interface PathTesting<P extends Path<P, N> & Comparable<P>, N extends Nam
         );
     }
 
-    default void valueCheck(final Path<?, ?> path) {
+    default void valueAndCheck(final Path<?, ?> path) {
         final List<String> names = Lists.array();
         Path<?, ?> p = path;
         while (!p.isRoot()) {
@@ -267,16 +269,7 @@ public interface PathTesting<P extends Path<P, N> & Comparable<P>, N extends Nam
             b.append(name);
             add = true;
         }
-        this.valueCheck(path, b.toString());
-    }
-
-    default void valueCheck(final Path<?, ?> path,
-                            final String value) {
-        this.checkEquals(
-            value,
-            path.value(),
-            "value of " + path
-        );
+        this.valueAndCheck(path, b.toString());
     }
 
     default void nameCheck(final P path,
