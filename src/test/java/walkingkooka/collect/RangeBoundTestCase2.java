@@ -19,6 +19,7 @@ package walkingkooka.collect;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
+import walkingkooka.ValueTesting;
 import walkingkooka.reflect.IsMethodTesting;
 
 import java.util.Optional;
@@ -28,7 +29,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class RangeBoundTestCase2<B extends RangeBound<Integer>> extends RangeBoundTestCase<B>
     implements IsMethodTesting<B>,
-    ToStringTesting<B> {
+    ToStringTesting<B>,
+    ValueTesting {
 
     RangeBoundTestCase2() {
         super();
@@ -36,10 +38,6 @@ public abstract class RangeBoundTestCase2<B extends RangeBound<Integer>> extends
 
     final void valueAndCheck(final Optional<Integer> value) {
         this.valueAndCheck(this.createRangeBound(), value);
-    }
-
-    final void valueAndCheck(final B bound, final Optional<Integer> value) {
-        this.checkEquals(value, bound.value(), () -> "value of " + bound);
     }
 
     @Test
