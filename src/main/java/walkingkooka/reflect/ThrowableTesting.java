@@ -37,8 +37,13 @@ public interface ThrowableTesting extends Testing {
         );
     }
 
-    default void getMessageAndCheck(final Throwable throwable, final String message) {
-        this.checkEquals(message, throwable.getMessage(), "message");
+    default void getMessageAndCheck(final Throwable throwable,
+                                    final String message) {
+        this.checkEquals(
+            message,
+            throwable.getMessage(),
+            "message"
+        );
     }
 
     default void getCauseAndCheck(final Throwable throwable,
