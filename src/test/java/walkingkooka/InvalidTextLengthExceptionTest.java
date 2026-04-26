@@ -93,7 +93,7 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<I
             )
         );
 
-        this.checkMessage(
+        this.getMessageAndCheck(
             thrown,
             "Empty \"Label123\""
         );
@@ -111,7 +111,7 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<I
             )
         );
 
-        this.checkMessage(
+        this.getMessageAndCheck(
             thrown,
             "Length 5 of \"Label123\" not between 10..20 = \"Hello\""
         );
@@ -129,7 +129,7 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<I
             )
         );
 
-        this.checkMessage(
+        this.getMessageAndCheck(
             thrown,
             "Length 5 of \"Label123\" not between 1..2 = \"Hello\""
         );
@@ -264,7 +264,7 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<I
 
     @Test
     public void testGetMessage() {
-        this.checkMessage(
+        this.getMessageAndCheck(
             this.create(),
             "Length 7 of \"label123\" not between 2..5 = \"abc!456\""
         );
@@ -272,7 +272,7 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<I
 
     @Test
     public void testGetMessageEscapedCharacter() {
-        this.checkMessage(
+        this.getMessageAndCheck(
             new InvalidTextLengthException(
                 LABEL,
                 "abc'xy",
@@ -285,7 +285,7 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<I
 
     @Test
     public void testGetMessageAfterSetNonEmptyLabel() {
-        this.checkMessage(
+        this.getMessageAndCheck(
             new InvalidTextLengthException(
                 LABEL,
                 "abc'xy",

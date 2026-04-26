@@ -1234,7 +1234,7 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
         final String string = "string";
 
         final IndexOutOfBoundsException expected = assertThrows(IndexOutOfBoundsException.class, () -> CharSequences.subSequence(string, from, to));
-        checkMessage(expected,
+        getMessageAndCheck(expected,
             CharSequences.toIndexBeforeFromIndex(from, to, string.length()));
     }
 

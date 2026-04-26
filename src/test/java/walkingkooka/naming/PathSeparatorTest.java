@@ -42,7 +42,7 @@ final public class PathSeparatorTest implements ClassTesting2<PathSeparator>,
     @Test
     public void testRequiredControlSeparatorCharacterFails() {
         final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> PathSeparator.requiredAtStart('\n'));
-        checkMessage(expected, PathSeparator.invalidCharacter('\n'));
+        getMessageAndCheck(expected, PathSeparator.invalidCharacter('\n'));
     }
 
     @Test
