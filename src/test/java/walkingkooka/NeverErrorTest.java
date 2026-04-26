@@ -61,7 +61,7 @@ public final class NeverErrorTest implements StandardThrowableTesting<NeverError
                        final Throwable cause) {
         final NeverError expected = assertThrows(NeverError.class, thrower::run);
 
-        this.checkThrowable(expected, message, cause);
+        this.getMessageAndCauseAndCheck(expected, message, cause);
     }
 
     enum TestEnum {

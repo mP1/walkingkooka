@@ -41,7 +41,7 @@ public interface StandardThrowableTesting<T extends Throwable> extends Throwable
 
     @Test
     default void testWithMessage() {
-        this.checkThrowable(this.createThrowable(MESSAGE),
+        this.getMessageAndCauseAndCheck(this.createThrowable(MESSAGE),
             MESSAGE,
             null);
     }
@@ -68,7 +68,7 @@ public interface StandardThrowableTesting<T extends Throwable> extends Throwable
 
     @Test
     default void testWithMessageAndCause() {
-        this.checkThrowable(this.createThrowable(MESSAGE, CAUSE),
+        this.getMessageAndCauseAndCheck(this.createThrowable(MESSAGE, CAUSE),
             MESSAGE,
             CAUSE);
     }
