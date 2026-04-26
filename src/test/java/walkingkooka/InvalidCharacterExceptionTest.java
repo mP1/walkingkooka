@@ -410,7 +410,7 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
 
     @Test
     public void testGetMessageWithPositionWhenOnlyCharacter() {
-        this.checkMessage(
+        this.getMessageAndCheck(
             new InvalidCharacterException(
                 "A",
                 0
@@ -421,7 +421,7 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
 
     @Test
     public void testGetMessageWithPositionWhenOnlyCharacterAndSetLabel() {
-        this.checkMessage(
+        this.getMessageAndCheck(
             new InvalidCharacterException(
                 "B",
                 0
@@ -434,7 +434,7 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
 
     @Test
     public void testGetMessageWithPosition() {
-        checkMessage(
+        getMessageAndCheck(
             this.create(),
             "Invalid character \'!\' at 3"
         );
@@ -442,7 +442,7 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
 
     @Test
     public void testGetMessageWithColumnAndLine() {
-        checkMessage(
+        getMessageAndCheck(
             this.create()
                 .setColumnAndLine(
                     4,
@@ -454,7 +454,7 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
 
     @Test
     public void testGetMessageWithAppendMessageAndColumnAndLine() {
-        this.checkMessage(
+        this.getMessageAndCheck(
             this.create()
                 .setColumnAndLine(3, 4)
                 .appendToMessage("AppendToMessage333"),
@@ -464,7 +464,7 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
 
     @Test
     public void testGetMessageEscapedCharacter() {
-        checkMessage(
+        getMessageAndCheck(
             new InvalidCharacterException("abc\"123", 3),
             "Invalid character \'\\\"\' at 3"
         );
@@ -472,7 +472,7 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
 
     @Test
     public void testGetMessageAfterSetTextAndPosition() {
-        checkMessage(
+        getMessageAndCheck(
             this.create()
                 .setTextAndPosition(
                     "@@" + TEXT,
@@ -484,7 +484,7 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
 
     @Test
     public void testGetMessageAfterSetLabelWithEmpty() {
-        checkMessage(
+        getMessageAndCheck(
             this.create()
                 .setTextAndPosition(
                     "@@" + TEXT,
@@ -498,7 +498,7 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
 
     @Test
     public void testGetMessageAfterSetLabelWithNotEmpty() {
-        checkMessage(
+        getMessageAndCheck(
             this.create()
                 .setTextAndPosition(
                     "@@" + TEXT,

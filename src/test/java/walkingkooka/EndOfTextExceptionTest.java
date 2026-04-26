@@ -42,7 +42,7 @@ public final class EndOfTextExceptionTest implements ThrowableTesting2<EndOfText
     @Test
     public void testWith() {
         final EndOfTextException cause = this.create();
-        this.checkMessage(
+        this.getMessageAndCheck(
             cause,
             MESSAGE
         );
@@ -52,7 +52,7 @@ public final class EndOfTextExceptionTest implements ThrowableTesting2<EndOfText
     public void testWithCause() {
         final Throwable cause = new Exception();
         final EndOfTextException thrown = new EndOfTextException(MESSAGE, cause);
-        this.checkMessage(
+        this.getMessageAndCheck(
             thrown,
             MESSAGE
         );
@@ -61,7 +61,7 @@ public final class EndOfTextExceptionTest implements ThrowableTesting2<EndOfText
 
     @Test
     public void testGetMessage() {
-        this.checkMessage(
+        this.getMessageAndCheck(
             this.create(),
             "message123"
         );
@@ -73,7 +73,7 @@ public final class EndOfTextExceptionTest implements ThrowableTesting2<EndOfText
 
     @Test
     public void testGetMessageAfterSetNonEmptyLabel() {
-        this.checkMessage(
+        this.getMessageAndCheck(
             this.create()
                 .setLabel(Optional.of("Hello")),
             MESSAGE

@@ -50,7 +50,7 @@ public final class InvalidTextExceptionTest implements ThrowableTesting2<Invalid
             MESSAGE
         );
 
-        this.checkMessage(
+        this.getMessageAndCheck(
             thrown,
             MESSAGE
         );
@@ -67,7 +67,7 @@ public final class InvalidTextExceptionTest implements ThrowableTesting2<Invalid
             thrown,
             InvalidTextException.NO_LABEL
         );
-        this.checkMessage(
+        this.getMessageAndCheck(
             thrown,
             MESSAGE
         );
@@ -96,7 +96,7 @@ public final class InvalidTextExceptionTest implements ThrowableTesting2<Invalid
             thrown,
             LABEL
         );
-        this.checkMessage(
+        this.getMessageAndCheck(
             thrown,
             MESSAGE
         );
