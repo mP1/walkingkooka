@@ -247,7 +247,7 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<I
             0,
             4
         );
-        this.checkCause(thrown, cause);
+        this.getCauseAndCheck(thrown, cause);
     }
 
     @Test

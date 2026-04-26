@@ -71,7 +71,7 @@ public final class InvalidTextExceptionTest implements ThrowableTesting2<Invalid
             thrown,
             MESSAGE
         );
-        this.checkCause(
+        this.getCauseAndCheck(
             thrown,
             cause
         );

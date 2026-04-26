@@ -26,14 +26,19 @@ public interface ThrowableTesting extends Testing {
 
     default void checkThrowable(final Throwable throwable, final String message, final Throwable cause) {
         this.getMessageAndCheck(throwable, message);
-        this.checkCause(throwable, cause);
+        this.getCauseAndCheck(throwable, cause);
     }
 
     default void getMessageAndCheck(final Throwable throwable, final String message) {
         this.checkEquals(message, throwable.getMessage(), "message");
     }
 
-    default void checkCause(final Throwable throwable, final Throwable cause) {
-        this.checkEquals(cause, throwable.getCause(), () -> "cause of " + throwable);
+    default void getCauseAndCheck(final Throwable throwable,
+                                  final Throwable cause) {
+        this.checkEquals(
+            cause,
+            throwable.getCause(),
+            () -> "cause of " + throwable
+        );
     }
 }

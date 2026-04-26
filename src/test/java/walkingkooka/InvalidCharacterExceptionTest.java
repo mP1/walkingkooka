@@ -112,7 +112,7 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
             POSITION,
             "" // appendToMessage
         );
-        checkCause(thrown, cause);
+        getCauseAndCheck(thrown, cause);
     }
 
     // setTextAndPosition...............................................................................................
@@ -224,7 +224,7 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
             "" // appendToMessage
         );
 
-        this.checkCause(different, cause);
+        this.getCauseAndCheck(different, cause);
     }
 
     @Test
