@@ -56,7 +56,7 @@ public final class EmptyTextExceptionTest implements ThrowableTesting2<EmptyText
             thrown,
             LABEL
         );
-        this.checkCause(thrown, cause);
+        this.getCauseAndCheck(thrown, cause);
     }
 
     @Test

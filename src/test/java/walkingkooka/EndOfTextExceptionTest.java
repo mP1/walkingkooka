@@ -56,7 +56,7 @@ public final class EndOfTextExceptionTest implements ThrowableTesting2<EndOfText
             thrown,
             MESSAGE
         );
-        this.checkCause(thrown, cause);
+        this.getCauseAndCheck(thrown, cause);
     }
 
     @Test
