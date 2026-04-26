@@ -58,7 +58,7 @@ public interface BuilderTesting<B extends Builder<T>, T> extends ThrowableTestin
 
         final BuilderException expected = assertThrows(BuilderException.class, builder::build);
         if (null != message) {
-            this.checkMessage(expected, message);
+            this.getMessageAndCheck(expected, message);
         }
     }
 

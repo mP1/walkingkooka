@@ -299,7 +299,7 @@ final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
         missing.add("2");
 
         final BuilderException expected = assertThrows(BuilderException.class, () -> missing.failIfMissing(BEFORE));
-        checkMessage(expected, BEFORE + " 1, 2");
+        getMessageAndCheck(expected, BEFORE + " 1, 2");
     }
 
     private void check(final MissingBuilder missing, final String message, final int total,
