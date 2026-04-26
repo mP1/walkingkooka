@@ -24,9 +24,17 @@ import walkingkooka.test.Testing;
  */
 public interface ThrowableTesting extends Testing {
 
-    default void checkThrowable(final Throwable throwable, final String message, final Throwable cause) {
-        this.getMessageAndCheck(throwable, message);
-        this.getCauseAndCheck(throwable, cause);
+    default void getMessageAndCauseAndCheck(final Throwable throwable,
+                                            final String message,
+                                            final Throwable cause) {
+        this.getMessageAndCheck(
+            throwable,
+            message
+        );
+        this.getCauseAndCheck(
+            throwable,
+            cause
+        );
     }
 
     default void getMessageAndCheck(final Throwable throwable, final String message) {
