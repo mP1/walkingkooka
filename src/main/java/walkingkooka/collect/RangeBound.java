@@ -17,7 +17,7 @@
 
 package walkingkooka.collect;
 
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -25,7 +25,7 @@ import java.util.Optional;
 /**
  * One of three bounds of a {@link Range}
  */
-abstract public class RangeBound<C extends Comparable<C>> implements Value<Optional<C>> {
+abstract public class RangeBound<C extends Comparable<C>> implements HasValue<Optional<C>> {
 
     /**
      * {@see RangeBoundAll}

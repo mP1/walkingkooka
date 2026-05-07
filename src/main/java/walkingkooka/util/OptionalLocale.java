@@ -18,7 +18,7 @@
 package walkingkooka.util;
 
 import walkingkooka.Cast;
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -28,7 +28,7 @@ import java.util.Optional;
  * A typed {@link Optional} necessary because generic types are lost in java.
  * This class is intended to be a target when converting a cell to a {@link Locale} to patch cells.
  */
-public final class OptionalLocale implements Value<Optional<Locale>> {
+public final class OptionalLocale implements HasValue<Optional<Locale>> {
 
     public final static OptionalLocale EMPTY = new OptionalLocale(Optional.empty());
 

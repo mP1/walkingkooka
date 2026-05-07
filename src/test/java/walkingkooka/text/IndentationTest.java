@@ -18,9 +18,9 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.HasValueTesting;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
-import walkingkooka.ValueTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
@@ -34,7 +34,7 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
     CharSequenceTesting<Indentation>,
     HashCodeEqualsDefinedTesting2<Indentation>,
     ToStringTesting<Indentation>,
-    ValueTesting {
+    HasValueTesting {
 
     @Override
     public void testAllConstructorsVisibility() {

@@ -18,7 +18,7 @@
 package walkingkooka.util;
 
 import javaemul.internal.annotations.GwtIncompatible;
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
@@ -32,7 +32,7 @@ import java.util.Optional;
  * <a href="https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html"></a>
  */
 @GwtIncompatible
-final public class SystemProperty implements Value<String> {
+final public class SystemProperty implements HasValue<String> {
 
     /**
      * A cache of {@link SystemProperty} constants.

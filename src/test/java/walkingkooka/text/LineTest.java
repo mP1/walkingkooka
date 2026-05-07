@@ -18,7 +18,7 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.ValueTesting;
+import walkingkooka.HasValueTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class LineTest implements ClassTesting2<Line>,
     CharSequenceTesting<Line>,
-    ValueTesting {
+    HasValueTesting {
 
     @Override
     public void testTypeNaming() {

@@ -29,9 +29,9 @@ import java.util.Objects;
 import java.util.zip.GZIPOutputStream;
 
 /**
- * A {@link Value} that holds a byte array.
+ * A {@link HasValue} that holds a byte array.
  */
-public final class Binary implements Value<byte[]>,
+public final class Binary implements HasValue<byte[]>,
     CanBeEmpty {
 
     /**

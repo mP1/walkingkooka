@@ -17,19 +17,16 @@
 
 package walkingkooka;
 
-import walkingkooka.test.Testing;
+import org.junit.jupiter.api.Test;
 
-/**
- * A mixin that contains helpers for testing two objects {@link Object#equals(Object)} and {@link Object#hashCode()}}
- */
-public interface ValueTesting extends Testing {
+public final class HasValueTestingTest implements HasValueTesting {
 
-    default <T> void valueAndCheck(final Value<T> value,
-                                   final T expected) {
-        this.checkEquals(
-            expected,
-            value.value(),
-            value::toString
+    @Test
+    public void testValueAndCheck() {
+        final Number value = 123;
+        this.valueAndCheck(
+            () -> value,
+            value
         );
     }
 }

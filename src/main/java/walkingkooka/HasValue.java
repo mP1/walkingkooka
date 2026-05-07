@@ -18,9 +18,9 @@
 package walkingkooka;
 
 /**
- * A {@link Value} typically holds some other raw value with extra functionality
+ * A {@link HasValue} typically holds some other raw value with extra functionality
  */
-public interface Value<T> {
+public interface HasValue<T> {
 
     /**
      * Returns some value.

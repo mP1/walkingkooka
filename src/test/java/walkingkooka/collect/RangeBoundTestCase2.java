@@ -18,8 +18,8 @@
 package walkingkooka.collect;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.HasValueTesting;
 import walkingkooka.ToStringTesting;
-import walkingkooka.ValueTesting;
 import walkingkooka.reflect.IsMethodTesting;
 
 import java.util.Optional;
@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public abstract class RangeBoundTestCase2<B extends RangeBound<Integer>> extends RangeBoundTestCase<B>
     implements IsMethodTesting<B>,
     ToStringTesting<B>,
-    ValueTesting {
+    HasValueTesting {
 
     RangeBoundTestCase2() {
         super();
