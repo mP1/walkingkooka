@@ -19,8 +19,8 @@ package walkingkooka.io;
 
 import walkingkooka.CanBeEmpty;
 import walkingkooka.Cast;
+import walkingkooka.HasValue;
 import walkingkooka.InvalidCharacterException;
-import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.text.CaseSensitivity;
 
@@ -33,7 +33,7 @@ import java.util.Optional;
  */
 public final class FileExtension implements
     Comparable<FileExtension>,
-    Value<String>,
+    HasValue<String>,
     CanBeEmpty {
 
     private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;

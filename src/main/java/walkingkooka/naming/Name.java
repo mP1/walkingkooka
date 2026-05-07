@@ -18,7 +18,7 @@
 package walkingkooka.naming;
 
 import walkingkooka.CanBeEmpty;
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.io.FileExtension;
 import walkingkooka.io.HasFileExtension;
 import walkingkooka.text.CaseSensitivity;
@@ -31,7 +31,7 @@ import java.util.Optional;
 /**
  * Interface implemented by names. Names are immutable and should also implement {@link Comparable}.
  */
-public interface Name extends Value<String>,
+public interface Name extends HasValue<String>,
     HasCaseSensitivity,
     HasFileExtension,
     HasText,

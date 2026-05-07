@@ -20,7 +20,7 @@ package walkingkooka.naming;
 
 import walkingkooka.CanBeEmpty;
 import walkingkooka.Cast;
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.io.FileExtension;
 import walkingkooka.io.HasFileExtension;
@@ -34,7 +34,7 @@ import java.util.Optional;
 /**
  * A path is hierarchical composed of multiple names.
  */
-public interface Path<P extends Path<P, N>, N extends Name> extends Value<String>,
+public interface Path<P extends Path<P, N>, N extends Name> extends HasValue<String>,
     HasName<N>,
     HasFileExtension,
     HasText,

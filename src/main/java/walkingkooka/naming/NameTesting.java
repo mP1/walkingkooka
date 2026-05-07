@@ -20,8 +20,8 @@ package walkingkooka.naming;
 import org.junit.jupiter.api.Test;
 import walkingkooka.CanBeEmptyTesting;
 import walkingkooka.Cast;
+import walkingkooka.HasValueTesting;
 import walkingkooka.ToStringTesting;
-import walkingkooka.ValueTesting;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.io.HasFileExtensionTesting;
 import walkingkooka.reflect.JavaVisibility;
@@ -38,10 +38,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public interface NameTesting<N extends Name, C extends Comparable<C>> extends ComparableTesting2<C>,
     HasTextTesting,
     HasFileExtensionTesting,
+    HasValueTesting,
     CanBeEmptyTesting,
     ToStringTesting<N>,
-    TypeNameTesting<N>,
-    ValueTesting {
+    TypeNameTesting<N> {
 
     @Test
     default void testPublicClass() {

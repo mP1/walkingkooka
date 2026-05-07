@@ -17,14 +17,14 @@
 
 package walkingkooka.text;
 
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 
 import java.util.Objects;
 
 /**
  * A {@link CharSequence} that represents a line of text and cannot contain any line ending.
  */
-final class Line implements Value<String>, CharSequence {
+final class Line implements HasValue<String>, CharSequence {
     /**
      * Factory that creates a new {@link Line} providing the {@link String} has no {@link
      * LineEnding} characters within it.

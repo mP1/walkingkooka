@@ -17,16 +17,16 @@
 
 package walkingkooka.text;
 
+import walkingkooka.HasValue;
 import walkingkooka.InvalidCharacterException;
-import walkingkooka.Value;
 
 import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * A {@link Value} and {@link CharSequence} that holds the indentation that may be used by a printer.
+ * A {@link HasValue} and {@link CharSequence} that holds the indentation that may be used by a printer.
  */
-final public class Indentation implements Value<String>, CharSequence {
+final public class Indentation implements HasValue<String>, CharSequence {
 
     /**
      * The max length of the last constant.
