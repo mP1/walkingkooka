@@ -206,12 +206,6 @@ public class InvalidCharacterException extends TextException
             true  // includeLabel
         );
 
-        final String appendToMessage = this.appendToMessage;
-        if (false == appendToMessage.isEmpty()) {
-            b.append(' ')
-                .append(appendToMessage);
-        }
-
         return b.toString();
     }
 
@@ -299,9 +293,13 @@ public class InvalidCharacterException extends TextException
                 b.append(this.position);
             }
         }
+
+        final String appendToMessage = this.appendToMessage;
+        if (false == appendToMessage.isEmpty()) {
+            b.append(' ')
+                .append(appendToMessage);
+        }
     }
-
-
 
     // Object...........................................................................................................
 

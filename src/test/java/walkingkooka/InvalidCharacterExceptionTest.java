@@ -531,7 +531,7 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
                 "abc",
                 1
             ).appendToMessage("AppendToMessage123"),
-            "Invalid character 'b' at 1"
+            "Invalid character 'b' at 1 AppendToMessage123"
         );
     }
 
