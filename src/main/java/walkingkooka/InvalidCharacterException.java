@@ -27,7 +27,8 @@ import java.util.OptionalInt;
  * An {@link IllegalArgumentException} that reports an invalid character within some text.
  * Note all would be setter methods return this, supporting chainging.
  */
-public class InvalidCharacterException extends TextException {
+public class InvalidCharacterException extends TextException
+    implements HasShortMessage {
 
     private static final long serialVersionUID = 1L;
 
@@ -200,43 +201,10 @@ public class InvalidCharacterException extends TextException {
     public final String getMessage() {
         final StringBuilder b = new StringBuilder();
 
-        // Invalid character '/' at X in \"text\" $appendToMessage
-        // Invalid XYZ character '/' at X in \"text\" $appendToMessage
-        b.append("Invalid ");
-
-        final String label = this.label()
-            .orElse(null);
-        if (null != label) {
-            b.append(
-                CharSequences.quoteAndEscape(label)
-            ).append(' ');
-        }
-
-        b.append("character ");
-        b.append(
-            CharSequences.quoteIfChars(
-                this.character()
-            )
+        this.appendShortMessage(
+            b,
+            true  // includeLabel
         );
-
-        final OptionalInt column = this.column();
-        final boolean columnAndLine = column.isPresent();
-
-        if (columnAndLine) {
-            // SPACE at SPACE (column,line)
-            b.append(" at ");
-            b.append('(');
-            b.append(column.getAsInt());
-            b.append(',');
-            b.append(this.line.getAsInt());
-            b.append(')');
-        } else {
-            if(this.text.length() > 1) {
-                // SPACE at SPACE position
-                b.append(" at ");
-                b.append(this.position);
-            }
-        }
 
         final String appendToMessage = this.appendToMessage;
         if (false == appendToMessage.isEmpty()) {
@@ -277,6 +245,63 @@ public class InvalidCharacterException extends TextException {
      */
     // @VisibleForTesting
     String appendToMessage;
+
+    // HasShortMessage..................................................................................................
+
+    @Override
+    public String getShortMessage() {
+        final StringBuilder b = new StringBuilder();
+        this.appendShortMessage(
+            b,
+            false  // includeLabel
+        );
+        return b.toString();
+    }
+
+    private void appendShortMessage(final StringBuilder b,
+                                    final boolean includeLabel) {
+        // Invalid character '/' at X in \"text\" $appendToMessage
+        // Invalid XYZ character '/' at X in \"text\" $appendToMessage
+        b.append("Invalid ");
+
+        if(includeLabel) {
+            final String label = this.label()
+                .orElse(null);
+            if (null != label) {
+                b.append(
+                    CharSequences.quoteAndEscape(label)
+                ).append(' ');
+            }
+        }
+
+        b.append("character ");
+        b.append(
+            CharSequences.quoteIfChars(
+                this.character()
+            )
+        );
+
+        final OptionalInt column = this.column();
+        final boolean columnAndLine = column.isPresent();
+
+        if (columnAndLine) {
+            // SPACE at SPACE (column,line)
+            b.append(" at ");
+            b.append('(');
+            b.append(column.getAsInt());
+            b.append(',');
+            b.append(this.line.getAsInt());
+            b.append(')');
+        } else {
+            if(this.text.length() > 1) {
+                // SPACE at SPACE position
+                b.append(" at ");
+                b.append(this.position);
+            }
+        }
+    }
+
+
 
     // Object...........................................................................................................
 

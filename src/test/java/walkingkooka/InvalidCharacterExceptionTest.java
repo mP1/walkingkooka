@@ -30,7 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class InvalidCharacterExceptionTest implements ThrowableTesting2<InvalidCharacterException>,
     HashCodeEqualsDefinedTesting2<InvalidCharacterException>,
-    HasTextTesting {
+    HasTextTesting,
+    HasShortMessageTesting {
 
     private final static String TEXT = "abc!123";
     private final static int POSITION = 3;
@@ -507,6 +508,54 @@ public final class InvalidCharacterExceptionTest implements ThrowableTesting2<In
                     Optional.of("Hello")
                 ),
             "Invalid \"Hello\" character \'!\' at 5"
+        );
+    }
+
+    // HasShortMessage..................................................................................................
+
+    @Test
+    public void testGetShortMessage() {
+        this.getShortMessageAndCheck(
+            new InvalidCharacterException(
+                "abc",
+                1
+            ),
+            "Invalid character 'b' at 1"
+        );
+    }
+
+    @Test
+    public void testGetShortMessageAfterAppendToMessage() {
+        this.getShortMessageAndCheck(
+            new InvalidCharacterException(
+                "abc",
+                1
+            ).appendToMessage("AppendToMessage123"),
+            "Invalid character 'b' at 1"
+        );
+    }
+
+    @Test
+    public void testGetShortMessageAfterSetLabel() {
+        this.getShortMessageAndCheck(
+            new InvalidCharacterException(
+                "abc",
+                1
+            ).setLabel(
+                Optional.of("Label123")
+            ),
+            "Invalid character 'b' at 1"
+        );
+    }
+
+    @Test
+    public void testGetShortMessageAfterSetColumnAndLine() {
+        this.getShortMessageAndCheck(
+            new InvalidCharacterException(
+                "abc",
+                1
+            ).setColumnAndLine(1, 2),
+            "Invalid character 'b' at (1,2)"
         );
     }
 
