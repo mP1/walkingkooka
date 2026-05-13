@@ -17,12 +17,26 @@
 
 package walkingkooka;
 
+import java.util.Objects;
+
 /**
  * Mostly implemented by {@link Throwable} providing a shorter {@link Throwable#getMessage()},
  * which can be useful for text components that already display the text and it would be redundant
  * to also include the text in the error message
  */
 public interface HasShortMessage {
+
+    /**
+     * If the {@link Throwable} implements the {@link HasShortMessage} return the {@link #getShortMessage()} or
+     * {@link Throwable#getMessage()}.
+     */
+    static String getShortMessageOrMessage(final Throwable throwable) {
+        Objects.requireNonNull(throwable, "throwable");
+
+        return throwable instanceof HasShortMessage ?
+            ((HasShortMessage) throwable).getShortMessage() :
+            throwable.getMessage();
+    }
 
     /**
      * The short message
