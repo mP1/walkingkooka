@@ -21,6 +21,7 @@ package walkingkooka;
 import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.ThrowableTesting2;
+import walkingkooka.text.HasTextTesting;
 
 import java.util.Optional;
 
@@ -28,17 +29,21 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class InvalidTextExceptionTest implements ThrowableTesting2<InvalidTextException>,
     HasShortMessageTesting,
+    HasTextTesting,
     HashCodeEqualsDefinedTesting2<InvalidTextException> {
 
     private final static Optional<String> LABEL = Optional.of("label123");
 
     private final static String MESSAGE = "message123";
 
+    private final static String TEXT = "text123";
+
     @Test
     public void testWithNullMessageFails() {
         assertThrows(
             NullPointerException.class,
             () -> new InvalidTextException(
+                null, // text
                 null, // message
                 null // cause
             )
@@ -48,6 +53,7 @@ public final class InvalidTextExceptionTest implements ThrowableTesting2<Invalid
     @Test
     public void testWith() {
         final InvalidTextException thrown = new InvalidTextException(
+            TEXT,
             MESSAGE
         );
 
@@ -60,12 +66,18 @@ public final class InvalidTextExceptionTest implements ThrowableTesting2<Invalid
             thrown,
             MESSAGE
         );
+
+        this.textAndCheck(
+            thrown,
+            TEXT
+        );
     }
 
     @Test
     public void testWithCause() {
         final Throwable cause = new Exception();
         final InvalidTextException thrown = new InvalidTextException(
+            TEXT,
             MESSAGE,
             cause
         );
@@ -86,6 +98,11 @@ public final class InvalidTextExceptionTest implements ThrowableTesting2<Invalid
             thrown,
             MESSAGE
         );
+
+        this.textAndCheck(
+            thrown,
+            TEXT
+        );
     }
 
     // setLabel.........................................................................................................
@@ -94,15 +111,20 @@ public final class InvalidTextExceptionTest implements ThrowableTesting2<Invalid
     public void testSetLabelWithNullFails() {
         assertThrows(
             NullPointerException.class,
-            () -> new InvalidTextException(MESSAGE)
-                .setLabel(null)
+            () -> new InvalidTextException(
+                TEXT,
+                MESSAGE
+            ).setLabel(null)
         );
     }
 
     @Test
     public void testSetLabel() {
-        final InvalidTextException thrown = new InvalidTextException(MESSAGE)
-            .setLabel(LABEL);
+        final InvalidTextException thrown = new InvalidTextException(
+            TEXT,
+            MESSAGE
+        ).setLabel(LABEL);
+
         this.labelCheck(
             thrown,
             LABEL
@@ -127,16 +149,34 @@ public final class InvalidTextExceptionTest implements ThrowableTesting2<Invalid
     @Test
     public void testEqualsDifferentMessage() {
         this.checkNotEquals(
-            new InvalidTextException("differentMessage")
+            new InvalidTextException(
+                TEXT,
+                "differentMessage"
+            )
+        );
+    }
+
+    @Test
+    public void testEqualsDifferentText() {
+        this.checkNotEquals(
+            new InvalidTextException(
+                "Different " + TEXT,
+                "differentMessage"
+            )
         );
     }
 
     @Test
     public void testEqualsDifferentLabel() {
         this.checkNotEquals(
-            new InvalidTextException(MESSAGE)
-                .setLabel(LABEL),
-            new InvalidTextException(MESSAGE)
+            new InvalidTextException(
+                TEXT,
+                MESSAGE
+            ).setLabel(LABEL),
+            new InvalidTextException(
+                TEXT,
+                MESSAGE
+            )
                 .setLabel(
                     Optional.of("differentLabel")
                 )
@@ -145,7 +185,10 @@ public final class InvalidTextExceptionTest implements ThrowableTesting2<Invalid
 
     @Override
     public InvalidTextException createObject() {
-        return new InvalidTextException(MESSAGE);
+        return new InvalidTextException(
+            TEXT,
+            MESSAGE
+        );
     }
 
     // ClassVisibility..................................................................................................
