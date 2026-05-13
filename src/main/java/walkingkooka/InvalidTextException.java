@@ -26,7 +26,7 @@ import java.util.Optional;
  * An {@link IllegalArgumentException} that reports a message and the label it belongs too. Note the message and label
  * cannot be changed.
  */
-public class InvalidTextException extends TextException {
+public class InvalidTextException extends TextException implements HasShortMessage{
 
     public InvalidTextException(final String message) {
         this(
@@ -41,6 +41,8 @@ public class InvalidTextException extends TextException {
             CharSequences.failIfNullOrEmpty(message, "message"),
             cause
         );
+
+        this.message = message;
     }
 
     @Override
@@ -55,6 +57,15 @@ public class InvalidTextException extends TextException {
     }
 
     private static final long serialVersionUID = 1L;
+
+    // HasShortMessage..................................................................................................
+
+    @Override
+    public String getShortMessage() {
+        return this.message;
+    }
+
+    private final String message;
 
     // Object...........................................................................................................
 

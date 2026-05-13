@@ -27,6 +27,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class InvalidTextExceptionTest implements ThrowableTesting2<InvalidTextException>,
+    HasShortMessageTesting,
     HashCodeEqualsDefinedTesting2<InvalidTextException> {
 
     private final static Optional<String> LABEL = Optional.of("label123");
@@ -54,6 +55,11 @@ public final class InvalidTextExceptionTest implements ThrowableTesting2<Invalid
             thrown,
             MESSAGE
         );
+
+        this.getShortMessageAndCheck(
+            thrown,
+            MESSAGE
+        );
     }
 
     @Test
@@ -74,6 +80,11 @@ public final class InvalidTextExceptionTest implements ThrowableTesting2<Invalid
         this.getCauseAndCheck(
             thrown,
             cause
+        );
+
+        this.getShortMessageAndCheck(
+            thrown,
+            MESSAGE
         );
     }
 
