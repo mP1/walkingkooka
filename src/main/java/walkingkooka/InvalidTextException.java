@@ -28,26 +28,25 @@ import java.util.Optional;
  */
 public class InvalidTextException extends TextException implements HasShortMessage{
 
-    public InvalidTextException(final String message) {
+    public InvalidTextException(final String text,
+                                final String message) {
         this(
+            text,
             message,
             null
         );
     }
 
-    public InvalidTextException(final String message,
+    public InvalidTextException(final String text,
+                                final String message,
                                 final Throwable cause) {
         super(
-            CharSequences.failIfNullOrEmpty(message, "message"),
+            message,
             cause
         );
 
-        this.message = message;
-    }
-
-    @Override
-    public String text() {
-        return "";
+        this.message = CharSequences.failIfNullOrEmpty(message, "message");
+        this.text = text;
     }
 
     @Override
@@ -57,6 +56,15 @@ public class InvalidTextException extends TextException implements HasShortMessa
     }
 
     private static final long serialVersionUID = 1L;
+
+    // HasText..........................................................................................................
+
+    @Override
+    public String text() {
+        return this.text;
+    }
+
+    private final String text;
 
     // HasShortMessage..................................................................................................
 
@@ -71,7 +79,11 @@ public class InvalidTextException extends TextException implements HasShortMessa
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.getMessage());
+        return Objects.hash(
+            this.text,
+            this.message,
+            this.label
+        );
     }
 
     @Override
@@ -80,7 +92,8 @@ public class InvalidTextException extends TextException implements HasShortMessa
     }
 
     private boolean equals0(final InvalidTextException other) {
-        return this.getMessage().equals(other.getMessage()) &&
+        return this.message.equals(other.message) &&
+            Objects.equals(this.text, other.text) &&
             this.label.equals(other.label);
     }
 }
