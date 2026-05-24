@@ -24,6 +24,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.zip.GZIPOutputStream;
@@ -180,6 +181,16 @@ public final class Binary implements HasValue<byte[]>,
      */
     public InputStream inputStream() {
         return new ByteArrayInputStream(this.value);
+    }
+
+    /**
+     * Builds a {@link String} using the given {@link Charset}.
+     */
+    public String text(final Charset charset) {
+        return new String(
+            this.value,
+            Objects.requireNonNull(charset, "charset")
+        );
     }
 
     // CanBeEmpty.......................................................................................................
