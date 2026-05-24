@@ -550,6 +550,29 @@ public final class BinaryTest implements CanBeEmptyTesting,
         }
     }
 
+    // text.............................................................................................................
+
+    @Test
+    public void testTextWithNullCharsetFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> Binary.EMPTY.text(null)
+        );
+    }
+
+    @Test
+    public void testText() {
+        final String text = "ABC123";
+        final Charset charset = StandardCharsets.UTF_8;
+
+        this.checkEquals(
+            text,
+            Binary.with(
+                text.getBytes(charset)
+            ).text(charset)
+        );
+    }
+
     // HasBinary........................................................................................................
 
     @Test
