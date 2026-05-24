@@ -34,6 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class BinaryTest implements CanBeEmptyTesting,
+    HasBinaryTesting,
     HashCodeEqualsDefinedTesting2<Binary>,
     ToStringTesting<Binary> {
 
@@ -547,6 +548,16 @@ public final class BinaryTest implements CanBeEmptyTesting,
 
             assertArrayEquals(bytes, output.toByteArray());
         }
+    }
+
+    // HasBinary........................................................................................................
+
+    @Test
+    public void testBinary() {
+        assertSame(
+            Binary.EMPTY.binary(),
+            Binary.EMPTY
+        );
     }
 
     // equals...........................................................................................................

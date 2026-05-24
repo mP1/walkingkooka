@@ -32,7 +32,8 @@ import java.util.zip.GZIPOutputStream;
  * A {@link HasValue} that holds a byte array.
  */
 public final class Binary implements HasValue<byte[]>,
-    CanBeEmpty {
+    CanBeEmpty,
+    HasBinary {
 
     /**
      * A {@link Binary} with zero bytes.
@@ -186,5 +187,12 @@ public final class Binary implements HasValue<byte[]>,
     @Override
     public String toString() {
         return Arrays.toString(this.value);
+    }
+
+    // HasBinary........................................................................................................
+
+    @Override
+    public Binary binary() {
+        return this;
     }
 }
