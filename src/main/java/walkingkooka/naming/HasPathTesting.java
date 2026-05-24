@@ -25,8 +25,8 @@ import walkingkooka.test.Testing;
  */
 public interface HasPathTesting extends Testing {
 
-    default <P extends Path<P, ?>> void hasPathAndCheck(final HasPath<P> has,
-                                                        final P expected) {
+    default <P extends Path<P, ?>> void pathAndCheck(final HasPath<P> has,
+                                                     final P expected) {
         this.checkEquals(
             expected,
             has.path(),
