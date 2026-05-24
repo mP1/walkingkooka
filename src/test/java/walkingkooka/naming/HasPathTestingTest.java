@@ -22,10 +22,10 @@ import org.junit.jupiter.api.Test;
 public final class HasPathTestingTest implements HasPathTesting {
 
     @Test
-    public void testHasPath() {
+    public void testPathAndCheck() {
         final StringPath stringPath = Paths.string("/a/b/c/d");
 
-        this.hasPathAndCheck(
+        this.pathAndCheck(
             () -> stringPath,
             stringPath
         );
