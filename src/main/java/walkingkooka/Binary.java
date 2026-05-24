@@ -43,7 +43,14 @@ public final class Binary implements HasValue<byte[]>,
     public static Binary with(final byte[] value) {
         Objects.requireNonNull(value, "value");
 
-        return value.length == 0 ? EMPTY : new Binary(Arrays.copyOf(value, value.length));
+        return value.length == 0 ?
+            EMPTY :
+            new Binary(
+                Arrays.copyOf(
+                    value,
+                    value.length
+                )
+            );
     }
 
     private Binary(final byte[] value) {
@@ -53,7 +60,10 @@ public final class Binary implements HasValue<byte[]>,
 
     @Override
     public byte[] value() {
-        return Arrays.copyOf(this.value, this.value.length);
+        return Arrays.copyOf(
+            this.value,
+            this.value.length
+        );
     }
 
     // BinaryRangeVisitor
@@ -124,21 +134,31 @@ public final class Binary implements HasValue<byte[]>,
      * Extracts a {@link Binary} that matches the given {@link Range}.
      */
     public Binary extract(final Range<Long> range) {
-        return BinaryRangeVisitor.extract(this, range);
+        return BinaryRangeVisitor.extract(
+            this,
+            range
+        );
     }
 
     /**
      * Extracts and returns a {@link Binary} that matches the given bounds, returning this if possible.
      */
     // BinaryRangeVisitor
-    Binary extract0(final int lower, final int upper, final Range<Long> range) {
+    Binary extract0(final int lower,
+                    final int upper,
+                    final Range<Long> range) {
         final int size = this.size();
         if (lower < 0 || upper > size) {
             throw new IllegalArgumentException("Range out of bounds " + range + " for binary with size: " + size);
         }
         return 0 == lower && size == upper ?
             this :
-            new Binary(Arrays.copyOfRange(this.value, lower, upper));
+            new Binary(Arrays.copyOfRange(
+                this.value,
+                lower,
+                upper
+            )
+            );
     }
 
     /**
@@ -177,11 +197,16 @@ public final class Binary implements HasValue<byte[]>,
     }
 
     public boolean equals(final Object other) {
-        return this == other || other instanceof Binary && this.equals0((Binary) other);
+        return this == other ||
+            other instanceof Binary &&
+                this.equals0((Binary) other);
     }
 
     private boolean equals0(final Binary other) {
-        return Arrays.equals(this.value, other.value);
+        return Arrays.equals(
+            this.value,
+            other.value
+        );
     }
 
     @Override
