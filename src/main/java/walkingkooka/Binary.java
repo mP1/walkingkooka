@@ -19,6 +19,7 @@ package walkingkooka;
 
 import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.collect.Range;
+import walkingkooka.text.Ascii;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -220,10 +221,67 @@ public final class Binary implements HasValue<byte[]>,
         );
     }
 
+    /**
+     * Dumps two bytes in a row, the left holding the hex bytes separated by spaces and the right holding the ascii characters.
+     * <pre>
+     * 41 42 43 44 45 46 47 48 49 4a 4b 4c 4d 4e 4f 50 51 52 53 54 ABCDEFGHIJKLMNOPQRST
+     * </pre>
+     */
     @Override
     public String toString() {
-        return Arrays.toString(this.value);
+        final StringBuilder buffer = new StringBuilder();
+
+        final byte[] bytes = this.value;
+        final int length = bytes.length;
+
+        int i = 0;
+        while (i < length) {
+            final int rowCount = 20;
+
+            // hex bytes
+            // 12 SPACE 34 SPACE
+            for (int j = 0; j < rowCount; j++) {
+                final int k = i + j;
+
+                if (k < length) {
+                    final int b = 0xff & bytes[k];
+
+                    buffer.append(
+                        b < 0x10 ?
+                            ' ' :
+                            TO_HEX[b >> 4]
+                    ).append(
+                        TO_HEX[0xf & b]
+                    );
+                } else {
+                    buffer.append("  ");
+                }
+                buffer.append(' ');
+            }
+
+            for (int j = 0; j < rowCount; j++) {
+                final int k = i + j;
+
+                if (k < length) {
+                    final char c = (char)(0xff & bytes[k]);
+                    if(Ascii.isPrintable(c)) {
+                        buffer.append(c);
+                    } else {
+                        buffer.append('?');
+                    }
+                } else {
+                    buffer.append(' ');
+                }
+            }
+
+            i = i + rowCount;
+            buffer.append('\n');
+        }
+
+        return buffer.toString();
     }
+
+    private static char[] TO_HEX = "0123456789abcdef".toCharArray();
 
     // HasBinary........................................................................................................
 

@@ -687,9 +687,81 @@ public final class BinaryTest implements CanBeEmptyTesting,
     public void testToString() {
         this.toStringAndCheck(
             this.createObject(),
-            Arrays.toString(
-                this.value()
-            )
+            " 0  b 16 21 2c                                              ???!,               \n"
+        );
+    }
+
+    @Test
+    public void testToString1() {
+        this.toStringAndCheck(
+            Binary.with(
+                new byte[]{
+                    'A'
+                }
+            ),
+            "41                                                          A                   \n"
+        );
+    }
+
+    @Test
+    public void testToString2() {
+        this.toStringAndCheck(
+            Binary.with(
+                new byte[]{
+                    'A',
+                    'B'
+                }
+            ),
+            "41 42                                                       AB                  \n"
+        );
+    }
+
+    @Test
+    public void testToString3() {
+        this.toStringAndCheck(
+            Binary.with(
+                new byte[]{
+                    'A',
+                    'B',
+                    'C'
+                }
+            ),
+            "41 42 43                                                    ABC                 \n"
+        );
+    }
+
+    @Test
+    public void testToStringUnprintable() {
+        this.toStringAndCheck(
+            Binary.with(
+                new byte[]{
+                    0,
+                    1,
+                    'C'
+                }
+            ),
+            " 0  1 43                                                    ??C                 \n"
+        );
+    }
+
+    @Test
+    public void testToString20() {
+        this.toStringAndCheck(
+            Binary.with(
+                "ABCDEFGHIJKLMNOPQRST".getBytes(StandardCharsets.UTF_8)
+            ),
+            "41 42 43 44 45 46 47 48 49 4a 4b 4c 4d 4e 4f 50 51 52 53 54 ABCDEFGHIJKLMNOPQRST\n"
+        );
+    }
+
+    @Test
+    public void testToString40() {
+        this.toStringAndCheck(
+            Binary.with(
+                "ABCDEFGHIJKLMNOPQRSTABCDEFGHIJKLMNOPQRST".getBytes(StandardCharsets.UTF_8)
+            ),
+            "41 42 43 44 45 46 47 48 49 4a 4b 4c 4d 4e 4f 50 51 52 53 54 ABCDEFGHIJKLMNOPQRST\n" +
+                "41 42 43 44 45 46 47 48 49 4a 4b 4c 4d 4e 4f 50 51 52 53 54 ABCDEFGHIJKLMNOPQRST\n"
         );
     }
 
