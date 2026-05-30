@@ -38,9 +38,14 @@ public final class BinaryTest implements CanBeEmptyTesting,
     HashCodeEqualsDefinedTesting2<Binary>,
     ToStringTesting<Binary> {
 
+    // with.............................................................................................................
+
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> Binary.with(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> Binary.with(null)
+        );
     }
 
     @Test
@@ -66,12 +71,18 @@ public final class BinaryTest implements CanBeEmptyTesting,
         final byte[] value = binary.value();
         value[0] = (byte) 0xff;
 
-        assertArrayEquals(this.value(), binary.value());
+        assertArrayEquals(
+            this.value(),
+            binary.value()
+        );
     }
 
     @Test
     public void testWithZeroByteArray() {
-        assertSame(Binary.EMPTY, Binary.with(new byte[0]));
+        assertSame(
+            Binary.EMPTY,
+            Binary.with(new byte[0])
+        );
     }
 
     // indexOf..........................................................................................................
@@ -341,45 +352,65 @@ public final class BinaryTest implements CanBeEmptyTesting,
         );
     }
 
-    // extract.........................................................................................................
+    // extract..........................................................................................................
 
     @Test
     public void testExtractNullRangeFails() {
-        assertThrows(NullPointerException.class, () -> this.createObject().extract(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createObject()
+                .extract(null)
+        );
     }
 
     @Test
     public void testExtractInvalidLowerBoundFails() {
-        this.extractFails(Range.greaterThan(-2L));
+        this.extractFails(
+            Range.greaterThan(-2L)
+        );
     }
 
     @Test
     public void testExtractInvalidLowerBoundFails2() {
-        this.extractFails(Range.greaterThan(5L));
+        this.extractFails(
+            Range.greaterThan(5L)
+        );
     }
 
     @Test
     public void testExtractInvalidUpperBoundFails() {
-        this.extractFails(Range.lessThan(7L));
+        this.extractFails(
+            Range.lessThan(7L)
+        );
     }
 
     @Test
     public void testExtractInvalidUpperBoundFails2() {
-        this.extractFails(Range.lessThan(8L));
+        this.extractFails(
+            Range.lessThan(8L)
+        );
     }
 
     private void extractFails(final Range<Long> range) {
-        this.extractFails(this.createObject(), range);
+        this.extractFails(
+            this.createObject(),
+            range
+        );
     }
 
     private void extractFails(final Binary binary,
                               final Range<Long> range) {
-        assertThrows(IllegalArgumentException.class, () -> binary.extract(range));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> binary.extract(range)
+        );
     }
 
     @Test
     public void testExtractAll() {
-        this.extractAndCheck(this.createObject(), Range.all());
+        this.extractAndCheck(
+            Range.all()
+        );
     }
 
     @Test
@@ -391,133 +422,168 @@ public final class BinaryTest implements CanBeEmptyTesting,
 
     @Test
     public void testExtractSame() {
-        this.extractAndCheck(this.createObject(),
+        this.extractAndCheck(
             Range.greaterThanEquals(0L).and(Range.lessThanEquals(4L)));
     }
 
     @Test
     public void testExtractSame2() {
-        this.extractAndCheck(this.createObject(),
-            Range.greaterThanEquals(0L).and(Range.lessThan(5L)));
+        this.extractAndCheck(
+            Range.greaterThanEquals(0L).and(Range.lessThan(5L))
+        );
     }
 
     @Test
     public void testExtractSame3() {
-        this.extractAndCheck(this.createObject(),
-            Range.greaterThan(-1L).and(Range.lessThan(5L)));
+        this.extractAndCheck(
+            Range.greaterThan(-1L).and(Range.lessThan(5L))
+        );
     }
 
     @Test
     public void testExtractPartial() {
-        this.extractAndCheck(this.createObject(),
+        this.extractAndCheck(
             Range.greaterThanEquals(1L).and(Range.lessThanEquals(3L)),
-            Binary.with(new byte[]{11, 22, 33}));
+            Binary.with(new byte[]{11, 22, 33})
+        );
     }
 
     @Test
     public void testExtractPartial2() {
-        this.extractAndCheck(this.createObject(),
+        this.extractAndCheck(
             Range.greaterThan(1L).and(Range.lessThan(3L)),
-            Binary.with(new byte[]{22}));
+            Binary.with(new byte[]{22})
+        );
     }
 
     @Test
     public void testExtractPartial3() {
-        this.extractAndCheck(this.createObject(),
+        this.extractAndCheck(
             Range.greaterThan(1L).and(Range.lessThan(4L)),
-            Binary.with(new byte[]{22, 33}));
+            Binary.with(new byte[]{22, 33})
+        );
     }
 
     @Test
     public void testExtractLowerBoundExclusive() {
-        this.extractAndCheck(this.createObject(),
+        this.extractAndCheck(
             Range.greaterThan(0L),
-            Binary.with(new byte[]{11, 22, 33, 44}));
+            Binary.with(new byte[]{11, 22, 33, 44})
+        );
     }
 
     @Test
     public void testExtractLowerBoundExclusive1() {
-        this.extractAndCheck(this.createObject(),
+        this.extractAndCheck(
             Range.greaterThan(2L),
-            Binary.with(new byte[]{33, 44}));
+            Binary.with(new byte[]{33, 44})
+        );
     }
 
     @Test
     public void testExtractLowerBoundExclusive2() {
-        this.extractAndCheck(this.createObject(),
-            Range.greaterThan(-1L));
+        this.extractAndCheck(
+            Range.greaterThan(-1L)
+        );
     }
 
     @Test
     public void testExtractLowerBoundInclusive() {
-        this.extractAndCheck(this.createObject(),
+        this.extractAndCheck(
             Range.greaterThanEquals(2L),
-            Binary.with(new byte[]{22, 33, 44}));
+            Binary.with(new byte[]{22, 33, 44})
+        );
     }
 
     @Test
     public void testExtractLowerBoundInclusive2() {
-        this.extractAndCheck(this.createObject(),
-            Range.greaterThanEquals(0L));
+        this.extractAndCheck(
+            Range.greaterThanEquals(0L)
+        );
     }
 
     @Test
     public void testExtractUpperBoundInclusive() {
-        this.extractAndCheck(this.createObject(),
+        this.extractAndCheck(
             Range.lessThanEquals(1L),
-            Binary.with(new byte[]{0, 11}));
+            Binary.with(new byte[]{0, 11})
+        );
     }
 
     @Test
     public void testExtractUpperBoundInclusive2() {
-        this.extractAndCheck(this.createObject(),
+        this.extractAndCheck(
             Range.lessThanEquals(3L),
-            Binary.with(new byte[]{0, 11, 22, 33}));
+            Binary.with(new byte[]{0, 11, 22, 33})
+        );
     }
 
     @Test
     public void testExtractUpperBoundInclusive3() {
-        this.extractAndCheck(this.createObject(),
-            Range.lessThanEquals(this.size() - 1));
+        this.extractAndCheck(
+            Range.lessThanEquals(this.size() - 1)
+        );
     }
 
     @Test
     public void testExtractUpperBoundExclusive() {
-        this.extractAndCheck(this.createObject(),
+        this.extractAndCheck(
             Range.lessThan(2L),
-            Binary.with(new byte[]{0, 11}));
+            Binary.with(new byte[]{0, 11})
+        );
     }
 
     @Test
     public void testExtractUpperBoundExclusive2() {
-        this.extractAndCheck(this.createObject(),
+        this.extractAndCheck(
             Range.lessThan(4L),
-            Binary.with(new byte[]{0, 11, 22, 33}));
+            Binary.with(new byte[]{0, 11, 22, 33})
+        );
     }
 
     @Test
     public void testExtractUpperBoundExclusive3() {
-        this.extractAndCheck(this.createObject(),
-            Range.lessThan(this.size()));
+        this.extractAndCheck(
+            Range.lessThan(this.size())
+        );
     }
 
+    private void extractAndCheck(final Range<Long> range) {
+        this.extractAndCheck(
+            this.createObject(),
+            range
+        );
+    }
+
+    private void extractAndCheck(final Range<Long> range,
+                                 final Binary expected) {
+        this.extractAndCheck(
+            this.createObject(),
+            range,
+            expected
+        );
+    }
 
     private void extractAndCheck(final Binary binary,
                                  final Range<Long> range) {
-        assertSame(binary,
-            binary.extract(range),
-            () -> binary + " extract " + range);
+        this.extractAndCheck(
+            binary,
+            range,
+            binary
+        );
     }
 
     private void extractAndCheck(final Binary binary,
                                  final Range<Long> range,
                                  final Binary expected) {
-        this.checkEquals(expected,
+        this.checkEquals(
+            expected,
             binary.extract(range),
-            () -> binary + " extract " + range);
+            () -> binary + " extract " + range
+        );
     }
 
-    // gzip.........................................................................................................
+    // gzip.............................................................................................................
 
     @Test
     public void testGzip() throws IOException {
@@ -525,7 +591,10 @@ public final class BinaryTest implements CanBeEmptyTesting,
         final Binary binary = Binary.with(new byte[length]);
         final Binary gzipped = binary.gzip();
         assertNotSame(binary, gzipped);
-        assertTrue(gzipped.size() < length, () -> "gzipped " + gzipped.size() + " < " + length);
+        assertTrue(
+            gzipped.size() < length,
+            () -> "gzipped " + gzipped.size() + " < " + length
+        );
     }
 
     // InputStream......................................................................................................
@@ -590,11 +659,6 @@ public final class BinaryTest implements CanBeEmptyTesting,
         this.checkNotEquals(Binary.with(new byte[]{4, 5, 6}));
     }
 
-    @Test
-    public void testToString() {
-        this.toStringAndCheck(this.createObject(), Arrays.toString(this.value()));
-    }
-
     @Override
     public Binary createObject() {
         return Binary.with(this.value());
@@ -608,9 +672,28 @@ public final class BinaryTest implements CanBeEmptyTesting,
         return this.value().length;
     }
 
-    private void checkSize(final Binary binary, final int size) {
-        this.checkEquals(size, binary.size(), "size");
+    private void checkSize(final Binary binary,
+                           final int size) {
+        this.checkEquals(
+            size,
+            binary.size(),
+            "size"
+        );
     }
+
+    // toString.........................................................................................................
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(
+            this.createObject(),
+            Arrays.toString(
+                this.value()
+            )
+        );
+    }
+
+    // class............................................................................................................
 
     @Override
     public Class<Binary> type() {
