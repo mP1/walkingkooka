@@ -454,7 +454,7 @@ final public class CharSequences implements PublicStaticHelper {
     // indexOf..........................................................................................................
 
     /**
-     * Attempts to find the {@link CharSequence searchFor} within the {@link CharSequence}
+     * Attempts to find the {@link CharSequence indexOf} within the {@link CharSequence}
      */
     public static int indexOf(final CharSequence chars,
                               final String indexOf) {
