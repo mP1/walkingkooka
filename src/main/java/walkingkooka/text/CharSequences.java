@@ -629,8 +629,8 @@ final public class CharSequences implements PublicStaticHelper {
                 break;
             }
             if (object instanceof Collection) {
-                final Collection<?> collecton = Cast.to(object);
-                result = collecton.stream()
+                final Collection<?> collection = Cast.to(object);
+                result = collection.stream()
                     .map(CharSequences::quoteIfChars)
                     .collect(
                         Collectors.joining(
