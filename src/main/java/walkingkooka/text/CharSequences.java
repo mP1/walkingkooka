@@ -384,34 +384,6 @@ final public class CharSequences implements PublicStaticHelper {
     }
 
     /**
-     * Tests if two {@link CharSequences} are equal
-     */
-    public static boolean equals(final CharSequence chars,
-                                 final CharSequence otherChars) {
-        Objects.requireNonNull(chars, "chars");
-        Objects.requireNonNull(otherChars, "otherChars");
-
-        boolean equals = false;
-        final int length = chars.length();
-        final int otherLength = otherChars.length();
-
-        // must first be the same length
-        if (length == otherLength) {
-            equals = true;
-
-            // give up when a mis-match is encountered
-            for (int i = 0; i < length; i++) {
-                if (chars.charAt(i) != otherChars.charAt(i)) {
-                    equals = false;
-                    break;
-                }
-            }
-        }
-
-        return equals;
-    }
-
-    /**
      * Fails if the chars are null or empty.
      */
     public static <C extends CharSequence> C failIfNullOrEmpty(final C chars,
@@ -427,28 +399,6 @@ final public class CharSequences implements PublicStaticHelper {
         if (chars.length() == 0) {
             throw new EmptyTextException(label);
         }
-    }
-
-    // hash.............................................................................................................
-
-    /**
-     * Computes the hashcode for the given {@link CharSequence} iterating over the characters producing a value
-     * equal to {@link String#hashCode()} for the same characters.
-     */
-    public static int hash(final CharSequence chars) {
-        return null == chars ?
-            0 :
-            hashNonNull(chars);
-    }
-
-    private static int hashNonNull(final CharSequence chars) {
-        final int length = chars.length();
-
-        int hash = 0;
-        for (int i = 0; i < length; i++) {
-            hash = 31 * hash + chars.charAt(i);
-        }
-        return hash;
     }
 
     // indexOf..........................................................................................................

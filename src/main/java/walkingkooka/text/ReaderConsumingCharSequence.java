@@ -121,7 +121,7 @@ final class ReaderConsumingCharSequence implements CharSequence {
 
     @Override
     public int hashCode() {
-        return CharSequences.hash(this.content);
+        return CaseSensitivity.SENSITIVE.hash(this.content);
     }
 
     @Override
@@ -132,7 +132,10 @@ final class ReaderConsumingCharSequence implements CharSequence {
     }
 
     private boolean equals0(final ReaderConsumingCharSequence other) {
-        return CharSequences.equals(this.content, other.content);
+        return CaseSensitivity.SENSITIVE.equals(
+            this.content,
+            other.content
+        );
     }
 
     @Override
