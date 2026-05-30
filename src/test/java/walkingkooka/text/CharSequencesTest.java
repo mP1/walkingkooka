@@ -481,35 +481,6 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
             CharSequences.quote(chars) + " ends with " + CharSequences.quote(endsWith));
     }
 
-    // equals .......................................................................
-
-    @Test
-    public void testEqualsDifferentLength() {
-        final CharSequence test = "apple";
-        final String other = "different";
-        equalsAndCheck(test, other, false);
-    }
-
-    @Test
-    public void testEqualsSame() {
-        final CharSequence test = "apple";
-        final String other = "apple";
-        equalsAndCheck(test, other, true);
-    }
-
-    @Test
-    public void testEqualsDifferentCase() {
-        final CharSequence test = "apple";
-        final String other = "APPLE";
-        equalsAndCheck(test, other, false);
-    }
-
-    private void equalsAndCheck(final CharSequence chars, final String endsWith, final boolean result) {
-        this.checkEquals(result,
-            CharSequences.equals(chars, endsWith),
-            CharSequences.quote(chars) + " equals " + CharSequences.quote(endsWith));
-    }
-
     // escape/unescape .......................................................................
 
     @Test
@@ -574,19 +545,6 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
         this.checkEquals(chars.toString(),
             CharSequences.unescape(expected),
             () -> "unescape " + CharSequences.quote(chars));
-    }
-
-    // hash.............................................................................................................
-
-    @Test
-    public void testHashNull() {
-        this.checkEquals(0, CharSequences.hash(null));
-    }
-
-    @Test
-    public void testHashNonNull() {
-        final String text = "abc123";
-        this.checkEquals(text.hashCode(), CharSequences.hash(text));
     }
 
     // indexOf..........................................................................................................

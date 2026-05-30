@@ -27,7 +27,10 @@ public enum LineEndingSensitivity {
     EXACT {
         @Override
         public boolean equals(final CharSequence left, final CharSequence right) {
-            return CharSequences.equals(left, right);
+            return CaseSensitivity.SENSITIVE.equals(
+                left,
+                right
+            );
         }
     },
 
@@ -37,7 +40,7 @@ public enum LineEndingSensitivity {
     ANY {
         @Override
         public boolean equals(final CharSequence left, final CharSequence right) {
-            return CharSequences.equals(
+            return EXACT.equals(
                 normalize(left),
                 normalize(right)
             );
