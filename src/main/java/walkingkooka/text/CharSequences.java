@@ -401,43 +401,6 @@ final public class CharSequences implements PublicStaticHelper {
         }
     }
 
-    // indexOf..........................................................................................................
-
-    /**
-     * Attempts to find the {@link CharSequence indexOf} within the {@link CharSequence}
-     */
-    public static int indexOf(final CharSequence chars,
-                              final String indexOf) {
-        Objects.requireNonNull(chars, "chars");
-        failIfNullOrEmpty(indexOf, "indexOf");
-
-        int index = -1;
-        final int charLength = chars.length();
-        final int searchForLength = indexOf.length();
-        if ((charLength > 0) && (searchForLength > 0) && (searchForLength <= charLength)) {
-            final char firstCharOfTest = indexOf.charAt(0);
-            final int lastCharSequenceCharacterToCheck = (charLength - searchForLength) + 1;
-
-            for (int i = 0; i < lastCharSequenceCharacterToCheck; i++) {
-                if (firstCharOfTest == chars.charAt(i)) {
-                    index = i;
-                    for (int j = 1; j < searchForLength; j++) {
-                        final char c = chars.charAt(i + j);
-                        final char otherChar = indexOf.charAt(j);
-                        if (c != otherChar) {
-                            index = -1;
-                            break;
-                        }
-                    }
-                    if (-1 != index) {
-                        break;
-                    }
-                }
-            }
-        }
-        return index;
-    }
-
     /**
      * Helper that returns true if the given {@link CharSequence} is null or empty.
      */
