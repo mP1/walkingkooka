@@ -107,8 +107,9 @@ public enum CaseSensitivity {
     /**
      * Tests if the two {@link CharSequence} are equal respecting the current case sensitivity.
      */
-    final public boolean equals(final CharSequence chars, final CharSequence otherChars) {
-        return Comparators.EQUAL == this.comparator().compare(chars, otherChars);
+    final public boolean equals(final CharSequence left,
+                                final CharSequence right) {
+        return Comparators.EQUAL == this.comparator().compare(left, right);
     }
 
     /**
@@ -167,7 +168,8 @@ public enum CaseSensitivity {
      * Tests if the first {@link CharSequence} ends with the second {@link CharSequence} using the
      * current sensitivity.
      */
-    final public boolean endsWith(final CharSequence chars, final CharSequence endsWith) {
+    final public boolean endsWith(final CharSequence chars,
+                                  final CharSequence endsWith) {
         Objects.requireNonNull(chars, "chars");
         Objects.requireNonNull(endsWith, "endsWith");
 
@@ -194,21 +196,25 @@ public enum CaseSensitivity {
     /**
      * Tests if the search for {@link CharSequence} are present in the given {@link CharSequence}
      */
-    final public boolean contains(final CharSequence chars, final CharSequence searchFor) {
+    final public boolean contains(final CharSequence chars,
+                                  final CharSequence searchFor) {
         return -1 != this.indexOf(chars, searchFor);
     }
 
     /**
      * Attempts to find the first {@link CharSequence searchFor} within the {@link CharSequence}
      */
-    final public int indexOf(final CharSequence chars, final CharSequence searchFor) {
+    final public int indexOf(final CharSequence chars,
+                             final CharSequence searchFor) {
         return this.indexOf(chars, searchFor, 0);
     }
 
     /**
      * Attempts to find the first {@link CharSequence searchFor} within the {@link CharSequence}
      */
-    final public int indexOf(final CharSequence chars, final CharSequence searchFor, final int offset) {
+    final public int indexOf(final CharSequence chars,
+                             final CharSequence searchFor,
+                             final int offset) {
         Objects.requireNonNull(chars, "chars");
         Objects.requireNonNull(searchFor, "searchFor");
 
@@ -244,7 +250,9 @@ public enum CaseSensitivity {
     /**
      * Attempts to find the {@link CharSequence searchFor} within the {@link CharSequence}
      */
-    final public int lastIndexOf(final CharSequence chars, final CharSequence searchFor, final int offset) {
+    final public int lastIndexOf(final CharSequence chars,
+                                 final CharSequence searchFor,
+                                 final int offset) {
         Objects.requireNonNull(chars, "chars");
         Objects.requireNonNull(searchFor, "searchFor");
 
@@ -268,7 +276,9 @@ public enum CaseSensitivity {
     /**
      * Tests if the searchFor {@link CharSequence} is present at the given offset. No other scanning is performed.
      */
-    private boolean isPresent(final CharSequence chars, final CharSequence searchFor, final int offset) {
+    private boolean isPresent(final CharSequence chars,
+                              final CharSequence searchFor,
+                              final int offset) {
         final int length = searchFor.length();
 
         boolean equals = true;
@@ -288,8 +298,12 @@ public enum CaseSensitivity {
     /**
      * Tests the two characters for equality.
      */
-    final public boolean isEqual(final char c, final char other) {
-        return Comparators.EQUAL == this.compare(c, other);
+    final public boolean isEqual(final char left,
+                                 final char right) {
+        return Comparators.EQUAL == this.compare(
+            left,
+            right
+        );
     }
 
     /**
@@ -321,8 +335,10 @@ public enum CaseSensitivity {
     /**
      * Compares the two characters for equality.
      */
-    final public int compare(final char c, final char other) {
-        return this.maybeLowercase(c) - this.maybeLowercase(other);
+    final public int compare(final char left,
+                             final char right) {
+        return this.maybeLowercase(left) -
+            this.maybeLowercase(right);
     }
 
     /**
@@ -411,8 +427,11 @@ public enum CaseSensitivity {
     /**
      * Handles the toString implementation of {@link CaseSensitivityCharSequencePredicate}
      */
-    final String toString(final String prefix, final CharSequence c) {
-        return prefix + CharSequences.quote(c) + this.toStringSuffix();
+    final String toString(final String prefix,
+                          final CharSequence c) {
+        return prefix +
+            CharSequences.quote(c) +
+            this.toStringSuffix();
     }
 
     abstract String toStringSuffix();
