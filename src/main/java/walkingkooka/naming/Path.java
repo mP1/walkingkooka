@@ -34,7 +34,7 @@ import java.util.Optional;
 /**
  * A path is hierarchical composed of multiple names.
  */
-public interface Path<P extends Path<P, N>, N extends Name> extends HasValue<String>,
+public interface Path<P extends Path<P, N>, N extends PathName> extends HasValue<String>,
     HasName<N>,
     HasFileExtension,
     HasText,

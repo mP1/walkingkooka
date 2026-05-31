@@ -29,9 +29,9 @@ import java.util.stream.IntStream;
 /**
  * An {@link Iterator} that walks starting at the given {@link Path} to the root.
  */
-final class PathIterator<P extends Path<P, N>, N extends Name> implements Iterator<N> {
+final class PathIterator<P extends Path<P, N>, N extends PathName> implements Iterator<N> {
 
-    static <P extends Path<P, N>, N extends Name> PathIterator<P, N> with(final Path<P, N> path) {
+    static <P extends Path<P, N>, N extends PathName> PathIterator<P, N> with(final Path<P, N> path) {
         return new PathIterator<>(path);
     }
 
