@@ -20,7 +20,7 @@ package walkingkooka.naming;
 /**
  * Base class for testing a {@link Name} with mostly helpers to check construction failure.
  */
-public interface ValueNameTesting<N extends ValueName<V> & Comparable<N>, V> extends NameTesting<N> {
+public interface ValueNameTesting<N extends ValueName<V>, C extends Comparable<C>, V> extends NameTesting<N, C> {
 
     default void typeAndCheck(final N name,
                               final V expected) {

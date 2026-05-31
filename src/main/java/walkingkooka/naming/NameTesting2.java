@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Base class for testing a {@link Name} with mostly helpers to check construction failure.
  */
-public interface NameTesting2<N extends Name & Comparable<N>> extends NameTesting<N> {
+public interface NameTesting2<N extends Name, C extends Comparable<C>> extends NameTesting<N, C> {
 
     /**
      * All upper case ascii letters

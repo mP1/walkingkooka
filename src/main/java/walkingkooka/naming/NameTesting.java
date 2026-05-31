@@ -19,6 +19,7 @@ package walkingkooka.naming;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.CanBeEmptyTesting;
+import walkingkooka.Cast;
 import walkingkooka.HasValueTesting;
 import walkingkooka.ToStringTesting;
 import walkingkooka.compare.ComparableTesting2;
@@ -34,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Base class for testing a {@link Name} with mostly helpers to check construction failure.
  */
-public interface NameTesting<N extends Name & Comparable<N>> extends ComparableTesting2<N>,
+public interface NameTesting<N extends Name, C extends Comparable<C>> extends ComparableTesting2<C>,
     HasTextTesting,
     HasFileExtensionTesting,
     HasValueTesting,
@@ -83,8 +84,8 @@ public interface NameTesting<N extends Name & Comparable<N>> extends ComparableT
 
     N createName(final String name);
 
-    default N createComparable(final String name) {
-        return this.createName(name);
+    default C createComparable(final String name) {
+        return Cast.to(this.createName(name));
     }
 
     CaseSensitivity caseSensitivity();
@@ -119,8 +120,8 @@ public interface NameTesting<N extends Name & Comparable<N>> extends ComparableT
     default void testCompareDifferentCase() {
         final String value = this.nameText();
 
-        final N lower = this.createComparable(value.toLowerCase());
-        final N upper = this.createComparable(value.toUpperCase());
+        final C lower = this.createComparable(value.toLowerCase());
+        final C upper = this.createComparable(value.toUpperCase());
 
         if (this.caseSensitivity() == CaseSensitivity.INSENSITIVE) {
             this.compareToAndCheckEquals(
@@ -150,10 +151,8 @@ public interface NameTesting<N extends Name & Comparable<N>> extends ComparableT
     }
 
     @Override
-    default N createComparable() {
-        return this.createName(
-            this.nameText()
-        );
+    default C createComparable() {
+        return Cast.to(this.createName(this.nameText()));
     }
 
     // class............................................................................................................
