@@ -25,7 +25,7 @@ final public class Names implements PublicStaticHelper {
      * {@see FakeName}
      */
     public static Name fake() {
-        return FakeName.create();
+        return new FakeName();
     }
 
     /**
