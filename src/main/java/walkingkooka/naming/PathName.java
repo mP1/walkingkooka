@@ -17,10 +17,23 @@
 
 package walkingkooka.naming;
 
+import walkingkooka.io.FileExtension;
 import walkingkooka.io.HasFileExtension;
+
+import java.util.Optional;
 
 /**
  * A {@link Name} that may also be a component of a {@link Path}.
  */
-public interface PathName extends Name, HasFileExtension {
+public interface PathName extends Name,
+    HasFileExtension {
+
+    // HasFileExtension.................................................................................................
+
+    @Override
+    default Optional<FileExtension> fileExtension() {
+        return FileExtension.extract(
+            this.value()
+        );
+    }
 }
