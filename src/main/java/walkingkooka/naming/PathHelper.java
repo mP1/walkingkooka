@@ -26,8 +26,8 @@ import java.util.List;
  */
 final class PathHelper implements StaticHelper {
 
-    static <N extends Name> void gatherNames(final Path<?, N> path,
-                                             final List<N> names) {
+    static <N extends PathName> void gatherNames(final Path<?, N> path,
+                                                 final List<N> names) {
         Path<?, N> parent = path.parent()
             .orElse(null);
         if (null != parent) {

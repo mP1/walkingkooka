@@ -26,7 +26,7 @@ import walkingkooka.text.Whitespace;
 /**
  * A simple {@link Name} that accepts a {@link String} composed of any character.
  */
-final public class StringName implements Name,
+final public class StringName implements PathName,
     Comparable<StringName> {
 
     /**

@@ -24,7 +24,7 @@ import java.util.Optional;
 /**
  * A {@link Name} that always throws {@link UnsupportedOperationException}
  */
-final class FakePath implements Path<FakePath, FakeName>, Fake {
+final class FakePath implements Path<FakePath, FakePathName>, Fake {
 
     static FakePath create() {
         return new FakePath();
@@ -43,7 +43,7 @@ final class FakePath implements Path<FakePath, FakeName>, Fake {
     }
 
     @Override
-    public FakePath append(FakeName name) {
+    public FakePath append(final FakePathName name) {
         throw new UnsupportedOperationException();
     }
 
@@ -53,7 +53,7 @@ final class FakePath implements Path<FakePath, FakeName>, Fake {
     }
 
     @Override
-    public FakeName name() {
+    public FakePathName name() {
         throw new UnsupportedOperationException();
     }
 
