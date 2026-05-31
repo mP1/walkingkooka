@@ -99,6 +99,18 @@ public final class FileExtension implements
         this.value = value;
     }
 
+    /**
+     * Appends the given {@link FileExtension} to this one.
+     * <pre>
+     * style + txt -> style.txt
+     * </pre>
+     */
+    public FileExtension append(final FileExtension extension) {
+        Objects.requireNonNull(extension, "extension");
+
+        return new FileExtension(this.value + SEPARATOR + extension.value);
+    }
+
     // Value...........................................................................................................
 
     @Override

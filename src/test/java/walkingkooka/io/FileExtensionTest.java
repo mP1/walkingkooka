@@ -19,6 +19,7 @@ package walkingkooka.io;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.CanBeEmptyTesting;
+import walkingkooka.HasValueTesting;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.set.Sets;
@@ -34,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class FileExtensionTest implements ComparableTesting2<FileExtension>,
     ConstantsTesting<FileExtension>,
+    HasValueTesting,
     ToStringTesting<FileExtension>,
     CanBeEmptyTesting {
 
@@ -215,6 +217,25 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
         this.isEmptyAndCheck(
             FileExtension.with("txt"),
             false
+        );
+    }
+
+    // append...........................................................................................................
+
+    @Test
+    public void testAppendWithNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> FileExtension.TXT.append(null)
+        );
+    }
+
+    @Test
+    public void testAppend() {
+        this.valueAndCheck(
+            FileExtension.with("style")
+                .append(FileExtension.TXT),
+            "style.txt"
         );
     }
 
