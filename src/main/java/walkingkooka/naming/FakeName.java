@@ -25,14 +25,7 @@ import walkingkooka.text.CaseSensitivity;
  */
 public class FakeName implements Name, Fake {
 
-    static FakeName create() {
-        return new FakeName();
-    }
-
-    /**
-     * Stop creation
-     */
-    private FakeName() {
+    public FakeName() {
         super();
     }
 
