@@ -32,7 +32,7 @@ public final class FieldNameTest extends JavaNameTestCase<FieldName> {
     public void testFromField() throws Exception {
         final String name = "field123";
         final FieldName field = FieldName.from(this.getClass().getDeclaredField(name));
-        this.checkValue(field, name);
+        this.valueAndCheck(field, name);
     }
 
     @SuppressWarnings("unused")

@@ -39,7 +39,7 @@ public final class PackageNameTest extends PackageNameOrTypeNameJavaNameTestCase
     @Test
     public void testFromPackage() {
         final PackageName p = PackageName.from(this.getClass().getPackage());
-        this.checkValue(p, "walkingkooka.reflect");
+        this.valueAndCheck(p, "walkingkooka.reflect");
     }
 
     @Test
@@ -156,7 +156,7 @@ public final class PackageNameTest extends PackageNameOrTypeNameJavaNameTestCase
         final PackageName p = PackageName.with("a1.b2");
         final PackageName p2 = PackageName.with("c3");
         final PackageName p3 = p.append(p2);
-        this.checkValue(p3, "a1.b2.c3");
+        this.valueAndCheck(p3, "a1.b2.c3");
 
         this.checkEquals(p, p3.parent(), "parent");
     }
