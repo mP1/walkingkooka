@@ -25,7 +25,7 @@ import walkingkooka.text.CaseSensitivity;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class StringNameTest implements ClassTesting2<StringName>,
-    NameTesting<StringName, StringName> {
+    NameTesting<StringName> {
 
     private final static String TEXT = "bcd123";
 
