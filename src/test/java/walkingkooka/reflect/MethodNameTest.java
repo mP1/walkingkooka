@@ -32,7 +32,7 @@ public final class MethodNameTest extends JavaNameTestCase<MethodName> {
     public void testFromMethod() throws Exception {
         final String name = "testFromMethod";
         final MethodName method = MethodName.from(this.getClass().getDeclaredMethod(name));
-        this.checkValue(method, name);
+        this.valueAndCheck(method, name);
     }
 
     @Override

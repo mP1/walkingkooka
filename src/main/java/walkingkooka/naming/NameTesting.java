@@ -98,15 +98,7 @@ public interface NameTesting<N extends Name, C extends Comparable<C>> extends Co
 
     default void createNameAndCheck(final String value) {
         final N name = this.createName(value);
-        this.checkValue(name, value);
-    }
-
-    default void checkValue(final Name name,
-                            final String value) {
-        this.valueAndCheck(
-            name,
-            value
-        );
+        this.valueAndCheck(name, value);
     }
 
     // toString.........................................................................................................

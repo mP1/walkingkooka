@@ -97,7 +97,7 @@ public final class ClassNameTest extends PackageNameOrTypeNameJavaNameTestCase<C
     @Test
     public void testFromClass() {
         final ClassName p = ClassName.fromClass(this.getClass());
-        this.checkValue(p, "walkingkooka.reflect.ClassNameTest");
+        this.valueAndCheck(p, "walkingkooka.reflect.ClassNameTest");
     }
 
     @Test
