@@ -24,7 +24,7 @@ import walkingkooka.text.CaseSensitivity;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public abstract class JavaNameTestCase<N extends JavaName<N>> implements NameTesting2<N> {
+public abstract class JavaNameTestCase<N extends JavaName<N>> implements NameTesting2<N, N> {
 
     JavaNameTestCase() {
         super();
