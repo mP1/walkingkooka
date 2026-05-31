@@ -44,6 +44,8 @@ public interface Name extends HasValue<String>,
         return NameComparator.with(caseSensitivity);
     }
 
+    // HasText..........................................................................................................
+
     @Override
     default String text() {
         return this.value();
