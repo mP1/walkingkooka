@@ -355,7 +355,7 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     // Predicate........................................................................................................
 
     @Test
-    public void testTxtTestSame() {
+    public void testTestTxtTestSame() {
         this.testAndCheck2(
             "file1.txt",
             "file2.txt",
@@ -364,7 +364,7 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     }
 
     @Test
-    public void testTxtTestDifferent() {
+    public void testTestTxtTestDifferent() {
         this.testAndCheck2(
             "file3.txt",
             "file4.exe",
@@ -373,7 +373,7 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     }
 
     @Test
-    public void testTxtTestMoreSame() {
+    public void testTestTxtTestMoreSame() {
         this.testAndCheck2(
             "file5.txt",
             "file6.jan.txt",
@@ -382,7 +382,7 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     }
 
     @Test
-    public void testTxtTestLessSame() {
+    public void testTestTxtTestLessSame() {
         this.testAndCheck2(
             "file5.jan.txt",
             "file6.dec.txt",
@@ -391,7 +391,7 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     }
 
     @Test
-    public void testTxtTestMoreDifferent() {
+    public void testTestTxtTestMoreDifferent() {
         this.testAndCheck2(
             "file1.txt",
             "file2.diff1.diff2",
