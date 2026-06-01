@@ -24,6 +24,7 @@ import walkingkooka.InvalidCharacterException;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.compare.ComparableTesting2;
+import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.reflect.ConstantsTesting;
 import walkingkooka.text.CharSequences;
 
@@ -37,7 +38,8 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     ConstantsTesting<FileExtension>,
     HasValueTesting,
     ToStringTesting<FileExtension>,
-    CanBeEmptyTesting {
+    CanBeEmptyTesting,
+    PredicateTesting {
 
     // constants........................................................................................................
 
@@ -57,12 +59,20 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     }
 
     @Test
-    public void testExtractEmptyFilename() {
+    public void testExtractEmptyFilenameWithoutFileExtension() {
         this.fileExtensionAndCheck("");
     }
 
     @Test
-    public void testExtractPresent() {
+    public void testExtractEmptyFilenameWithFileExtension() {
+        this.fileExtensionAndCheck(
+            ".txt",
+            FileExtension.TXT
+        );
+    }
+
+    @Test
+    public void testExtractWithFileExtension() {
         this.fileExtensionAndCheck(
             "file.txt",
             "txt"
@@ -70,7 +80,16 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     }
 
     @Test
-    public void testExtractAbsent() {
+    public void testExtractWithFileExtension2() {
+        this.fileExtensionAndCheck(
+            "file.hello.txt",
+            FileExtension.with("hello")
+                .append(FileExtension.TXT)
+        );
+    }
+
+    @Test
+    public void testExtractWithoutFileExtension() {
         this.fileExtensionAndCheck("file-extension-absent");
     }
 
@@ -102,12 +121,30 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     }
 
     private void fileExtensionAndCheck(final String filename,
+                                       final FileExtension fileExtension) {
+        this.fileExtensionAndCheck(
+            filename,
+            Optional.of(fileExtension)
+        );
+    }
+
+    private void fileExtensionAndCheck(final String filename,
                                        final Optional<FileExtension> fileExtension) {
+        final Optional<FileExtension> actual = FileExtension.extract(filename);
+
         this.checkEquals(
             fileExtension,
-            FileExtension.extract(filename),
+            actual,
             () -> CharSequences.quoteAndEscape(filename) + " file extension"
         );
+
+        if (fileExtension.isPresent()) {
+            final int dot = filename.indexOf('.');
+            this.valueAndCheck(
+                fileExtension.get(),
+                filename.substring(dot + 1)
+            );
+        }
     }
 
     // with.............................................................................................................
@@ -167,6 +204,29 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
         this.valueAndCheck(
             fileExtension,
             value
+        );
+
+        this.parentAndCheck(fileExtension);
+    }
+
+    @Test
+    public void testConstantJson() {
+        this.parentAndCheck(
+            FileExtension.JSON
+        );
+    }
+
+    @Test
+    public void testConstantProperties() {
+        this.parentAndCheck(
+            FileExtension.PROPERTIES
+        );
+    }
+
+    @Test
+    public void testConstantTxt() {
+        this.parentAndCheck(
+            FileExtension.TXT
         );
     }
 
@@ -247,6 +307,32 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
         );
     }
 
+    // parent...........................................................................................................
+
+    private void parentAndCheck(final FileExtension fileExtension) {
+        this.parentAndCheck(
+            fileExtension,
+            FileExtension.NO_PARENT
+        );
+    }
+
+    private void parentAndCheck(final FileExtension fileExtension,
+                                final FileExtension parent) {
+        this.parentAndCheck(
+            fileExtension,
+            Optional.of(parent)
+        );
+    }
+
+    private void parentAndCheck(final FileExtension fileExtension,
+                                final Optional<FileExtension> expected) {
+        this.checkEquals(
+            expected,
+            fileExtension.parent(),
+            fileExtension::toString
+        );
+    }
+
     // ToString.........................................................................................................
 
     @Test
@@ -254,6 +340,74 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
         this.toStringAndCheck(
             this.createComparable(),
             "txt"
+        );
+    }
+
+    @Test
+    public void testToStringDoubleFileExtension() {
+        this.toStringAndCheck(
+            FileExtension.extract("file.tar.gz")
+                .get(),
+            "tar.gz"
+        );
+    }
+
+    // Predicate........................................................................................................
+
+    @Test
+    public void testTxtTestSame() {
+        this.testAndCheck2(
+            "file1.txt",
+            "file2.txt",
+            true
+        );
+    }
+
+    @Test
+    public void testTxtTestDifferent() {
+        this.testAndCheck2(
+            "file3.txt",
+            "file4.exe",
+            false
+        );
+    }
+
+    @Test
+    public void testTxtTestMoreSame() {
+        this.testAndCheck2(
+            "file5.txt",
+            "file6.jan.txt",
+            true
+        );
+    }
+
+    @Test
+    public void testTxtTestLessSame() {
+        this.testAndCheck2(
+            "file5.jan.txt",
+            "file6.dec.txt",
+            false
+        );
+    }
+
+    @Test
+    public void testTxtTestMoreDifferent() {
+        this.testAndCheck2(
+            "file1.txt",
+            "file2.diff1.diff2",
+            false
+        );
+    }
+
+    private void testAndCheck2(final String left,
+                              final String right,
+                              final boolean expected) {
+        this.testAndCheck(
+            FileExtension.extract(left)
+                .get(),
+            FileExtension.extract(right)
+                .get(),
+            expected
         );
     }
 
