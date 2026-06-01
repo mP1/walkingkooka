@@ -56,6 +56,8 @@ public final class FileExtension implements
 
     private final static Map<String, FileExtension> CONSTANTS = Maps.sorted(CASE_SENSITIVITY.comparator());
 
+    public final static FileExtension EMPTY = registerConstant("");
+
     public final static FileExtension JSON = registerConstant("json");
 
     public final static FileExtension PROPERTIES = registerConstant("properties");
