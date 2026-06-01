@@ -27,6 +27,7 @@ import walkingkooka.text.CaseSensitivity;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 /**
  * Represents the file extension with a filename.
@@ -34,7 +35,8 @@ import java.util.Optional;
 public final class FileExtension implements
     Comparable<FileExtension>,
     HasValue<String>,
-    CanBeEmpty {
+    CanBeEmpty,
+    Predicate<FileExtension> {
 
     private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 
@@ -44,15 +46,47 @@ public final class FileExtension implements
     public static Optional<FileExtension> extract(final String filename) {
         Objects.requireNonNull(filename, "filename");
 
-        final int dot = filename.lastIndexOf(SEPARATOR);
-        return Optional.ofNullable(
-            -1 == dot ?
-                null :
-                with(
-                    filename.substring(dot + 1)
+        FileExtension fileExtension = null;
+
+        final int start = filename.lastIndexOf(SEPARATOR);
+        if (-1 != start) {
+            fileExtension = extractNext(
+                filename,
+                start,
+                new FileExtension(
+                    filename.substring(start + 1), // after DOT to end of filename
+                    NO_PARENT
                 )
-        );
+            );
+        }
+
+        return Optional.ofNullable(fileExtension);
     }
+
+    private static FileExtension extractNext(final String filename,
+                                             final int end,
+                                             final FileExtension parent) {
+        final int start = filename.lastIndexOf(
+            SEPARATOR,
+            end - 1
+        );
+
+        return -1 == start ?
+            parent :
+            extractNext(
+                filename,
+                start,
+                new FileExtension(
+                    filename.substring(
+                        start + 1,
+                        end
+                    ),
+                    Optional.of(parent)
+                )
+            );
+    }
+
+    public final static Optional<FileExtension> NO_PARENT = Optional.empty();
 
     private final static Map<String, FileExtension> CONSTANTS = Maps.sorted(CASE_SENSITIVITY.comparator());
 
@@ -65,7 +99,10 @@ public final class FileExtension implements
     public final static FileExtension TXT = registerConstant("txt");
 
     private static FileExtension registerConstant(final String string) {
-        final FileExtension fileExtension = new FileExtension(string);
+        final FileExtension fileExtension = new FileExtension(
+            string,
+            NO_PARENT
+        );
         CONSTANTS.put(
             string,
             fileExtension
@@ -88,7 +125,10 @@ public final class FileExtension implements
 
         return null != fileExtension ?
             fileExtension :
-            new FileExtension(value);
+            new FileExtension(
+                value,
+                NO_PARENT
+            );
     }
 
     public final static char SEPARATOR = '.';
@@ -96,9 +136,11 @@ public final class FileExtension implements
     /**
      * Private ctor use public static methods.
      */
-    private FileExtension(final String value) {
+    private FileExtension(final String value,
+                          final Optional<FileExtension> parent) {
         super();
         this.value = value;
+        this.parent = parent;
     }
 
     /**
@@ -110,14 +152,29 @@ public final class FileExtension implements
     public FileExtension append(final FileExtension extension) {
         Objects.requireNonNull(extension, "extension");
 
-        return new FileExtension(this.value + SEPARATOR + extension.value);
+        return new FileExtension(
+            this.value,
+            Optional.of(extension)
+        );
     }
+
+    public Optional<FileExtension> parent() {
+        return this.parent;
+    }
+
+    private final Optional<FileExtension> parent;
 
     // Value...........................................................................................................
 
     @Override
     public String value() {
-        return this.value;
+        final String value = this.value;
+        final String parentOrNull = this.parent.map(FileExtension::value)
+            .orElse(null);
+
+        return null != parentOrNull ?
+            value + SEPARATOR + parentOrNull :
+            value;
     }
 
     private final String value;
@@ -126,7 +183,10 @@ public final class FileExtension implements
 
     @Override
     public int hashCode() {
-        return CASE_SENSITIVITY.hash(this.value);
+        return Objects.hash(
+            CASE_SENSITIVITY.hash(this.value),
+            this.parent
+        );
     }
 
     @Override
@@ -141,24 +201,90 @@ public final class FileExtension implements
     }
 
     /**
-     * Dumps the method name.
+     * Dumps the complete file extension, equivalent to {@link #value()}.
      */
     @Override
     public String toString() {
-        return this.value;
+        return this.value();
     }
 
-    // Comparable..........................................................................................................
+    // Comparable.......................................................................................................
 
     @Override
     public int compareTo(final FileExtension other) {
-        return CASE_SENSITIVITY.comparator().compare(this.value, other.value);
+        return CASE_SENSITIVITY.comparator()
+            .compare(
+                this.value(),
+                other.value()
+            );
     }
 
     // CanBeEmpty.......................................................................................................
 
     @Override
     public boolean isEmpty() {
-        return this.value.isEmpty();
+        return this.value().isEmpty();
+    }
+
+    // Predicate........................................................................................................
+
+    /**
+     * Used to test if this {@link FileExtension} matches another.
+     * <pre>
+     * FileExtension.extract("file1.txt)
+     *   .test(FileExtension.extract("file2.txt))
+     * true
+     *
+     * FileExtension.extract("file3.txt)
+     *   .test(FileExtension.extract("file4.dec.txt))
+     * true
+     *
+     * FileExtension.extract("file5.jan.txt)
+     *   .test(FileExtension.extract("file6.txt))
+     * false
+     *
+     * FileExtension.extract("file7.jan.txt)
+     *   .test(FileExtension.extract("file8.dec.txt))
+     * false
+     *
+     * </pre>
+     */
+    @Override
+    public boolean test(final FileExtension fileExtension) {
+        final int parentCount = this.parentCount();
+        int fileExtensionParentCount = fileExtension.parentCount();
+        FileExtension temp = fileExtension;
+
+        boolean test = parentCount <= fileExtensionParentCount;
+
+        if (test) {
+            while (parentCount != fileExtensionParentCount) {
+                fileExtensionParentCount--;
+                temp = temp.parent.orElse(null);
+            }
+
+            test = CASE_SENSITIVITY.equals(
+                this.value(),
+                temp.value()
+            );
+        }
+
+        return test;
+    }
+
+    private int parentCount() {
+        int count = 0;
+
+        FileExtension parentOrNull = this.parent.orElse(null);
+        while (null != parentOrNull) {
+            count++;
+
+            parentOrNull = parentOrNull.parent.orElse(null);
+            if (null == parentOrNull) {
+                break;
+            }
+        }
+
+        return count;
     }
 }
