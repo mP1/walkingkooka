@@ -156,9 +156,9 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     public void testWith() {
         final String value = "bin";
         final FileExtension fileExtension = FileExtension.with(value);
-        this.checkEquals(
-            value,
-            fileExtension.value()
+        this.valueAndCheck(
+            fileExtension,
+            value
         );
     }
 
