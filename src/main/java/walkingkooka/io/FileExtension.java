@@ -251,22 +251,26 @@ public final class FileExtension implements
      */
     @Override
     public boolean test(final FileExtension fileExtension) {
-        final int parentCount = this.parentCount();
-        int fileExtensionParentCount = fileExtension.parentCount();
-        FileExtension temp = fileExtension;
+        boolean test = null != fileExtension;
 
-        boolean test = parentCount <= fileExtensionParentCount;
+        if(test) {
+            final int parentCount = this.parentCount();
+            int fileExtensionParentCount = fileExtension.parentCount();
+            FileExtension temp = fileExtension;
 
-        if (test) {
-            while (parentCount != fileExtensionParentCount) {
-                fileExtensionParentCount--;
-                temp = temp.parent.orElse(null);
+            test = parentCount <= fileExtensionParentCount;
+
+            if (test) {
+                while (parentCount != fileExtensionParentCount) {
+                    fileExtensionParentCount--;
+                    temp = temp.parent.orElse(null);
+                }
+
+                test = CASE_SENSITIVITY.equals(
+                    this.value(),
+                    temp.value()
+                );
             }
-
-            test = CASE_SENSITIVITY.equals(
-                this.value(),
-                temp.value()
-            );
         }
 
         return test;

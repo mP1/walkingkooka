@@ -355,6 +355,15 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     // Predicate........................................................................................................
 
     @Test
+    public void testTestNullFalse() {
+        this.testAndCheck(
+            FileExtension.TXT,
+            null,
+            false
+        );
+    }
+
+    @Test
     public void testTestTxtTestSame() {
         this.testAndCheck2(
             "file1.txt",
