@@ -19,10 +19,10 @@ package walkingkooka.naming;
 
 import walkingkooka.test.Testing;
 
-public interface HasNameTesting<N extends Name> extends Testing {
+public interface HasNameTesting extends Testing {
 
-    default void nameAndCheck(final HasName<N> has,
-                              final N expected) {
+    default <N extends Name> void nameAndCheck(final HasName<N> has,
+                                               final N expected) {
         this.checkEquals(
             expected,
             has.name(),
