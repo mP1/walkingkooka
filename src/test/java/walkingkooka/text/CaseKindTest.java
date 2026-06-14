@@ -197,6 +197,38 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
     }
 
     @Test
+    public void testChangeKebabToSentence() {
+        this.changeAndCheckBothWays(
+            CaseKind.KEBAB,
+            "abc",
+            CaseKind.SENTENCE,
+            "Abc"
+        );
+    }
+
+    @Test
+    public void testChangeKebabToSentence2() {
+        this.changeAndCheckBothWays(
+            CaseKind.KEBAB,
+            "abc-def",
+            CaseKind.SENTENCE,
+            "Abc def"
+        );
+    }
+
+    @Test
+    public void testChangeKebabToSentence3() {
+        // wont roundtrip def -> Def (SENTENCE to KEBAB)
+
+        this.changeAndCheck(
+            CaseKind.KEBAB,
+            "abc-Def-Ghi",
+            CaseKind.SENTENCE,
+            "Abc def ghi"
+        );
+    }
+
+    @Test
     public void testChangeKebabToSnake() {
         this.changeAndCheck(
             CaseKind.KEBAB,
@@ -263,6 +295,26 @@ public final class CaseKindTest implements ClassTesting<CaseKind> {
             "abc def",
             CaseKind.PASCAL,
             "AbcDef"
+        );
+    }
+
+    @Test
+    public void testChangeNormalToSentence() {
+        this.changeAndCheck(
+            CaseKind.NORMAL,
+            "abc def",
+            CaseKind.SENTENCE,
+            "Abc def"
+        );
+    }
+
+    @Test
+    public void testChangeNormalToSentence2() {
+        this.changeAndCheck(
+            CaseKind.NORMAL,
+            "abc Def",
+            CaseKind.SENTENCE,
+            "Abc def"
         );
     }
 
