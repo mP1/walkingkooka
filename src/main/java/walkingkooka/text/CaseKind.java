@@ -162,6 +162,49 @@ public enum CaseKind {
     }, // lowerToUpper
 
     /**
+     * Text is separated by a space, with the first letter of each token is capitalized if its the first word, others
+     * are lower-cased and remaining letters left unchanged.
+     * <pre>
+     * abc def
+     * Abc def
+     *
+     * SNAKE_SNAKE2
+     * Snake snake2
+     * </pre>
+     */
+    SENTENCE {
+        @Override
+        boolean isEndOfChunk(final int i,
+                             final char c) {
+            return Character.isWhitespace(c);
+        }
+
+        @Override
+        void insertSeparator(final StringBuilder b) {
+            b.append(' ');
+        }
+
+        @Override
+        char nonBegin(final char c) {
+            return Character.toLowerCase(c);
+        }
+
+        @Override
+        char sourceBegin(final int i,
+                         final char c) {
+            return c; // no change
+        }
+
+        @Override
+        char destBegin(final int i,
+                       final char c) {
+            return 0 == i ?
+                Character.toUpperCase(c) :
+                Character.toLowerCase(c);
+        }
+    },
+
+    /**
      * A kind of text where words are separated by underscores. Note text characters is upper case when the target.<br>
      * <code>abc_def</code>
      */
@@ -315,7 +358,7 @@ public enum CaseKind {
      * Snake and Kebab will return true.
      */
     final boolean shouldIgnoreSeparator() {
-        return TITLE == this || KEBAB == this || NORMAL == this || SNAKE == this;
+        return SENTENCE == this || TITLE == this || KEBAB == this || NORMAL == this || SNAKE == this;
     }
 
     /**
