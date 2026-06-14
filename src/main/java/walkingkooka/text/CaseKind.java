@@ -242,14 +242,14 @@ public enum CaseKind {
 
         return text.isEmpty() || this == to ?
             text :
-            change0(
+            changeNonEmpty(
                 text,
                 to
             );
     }
 
-    private String change0(final String text,
-                           final CaseKind to) {
+    private String changeNonEmpty(final String text,
+                                  final CaseKind to) {
         final StringBuilder b = new StringBuilder();
 
         final int length = text.length();
