@@ -174,6 +174,14 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     }
 
     @Test
+    public void testWithExpression() {
+        assertSame(
+            FileExtension.EXPRESSION,
+            FileExtension.with("expression.txt")
+        );
+    }
+
+    @Test
     public void testWithJson() {
         assertSame(
             FileExtension.JSON,

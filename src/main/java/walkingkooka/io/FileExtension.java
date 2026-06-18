@@ -98,13 +98,25 @@ public final class FileExtension implements
 
     public final static FileExtension TXT = registerConstant("txt");
 
+    public final static FileExtension EXPRESSION = registerConstant(
+        new FileExtension(
+            "expression",
+            Optional.of(TXT)
+        )
+    );
+
     private static FileExtension registerConstant(final String string) {
-        final FileExtension fileExtension = new FileExtension(
-            string,
-            NO_PARENT
+        return registerConstant(
+            new FileExtension(
+                string,
+                NO_PARENT
+            )
         );
+    }
+
+    private static FileExtension registerConstant(final FileExtension fileExtension) {
         CONSTANTS.put(
-            string,
+            fileExtension.toString(),
             fileExtension
         );
         return fileExtension;
