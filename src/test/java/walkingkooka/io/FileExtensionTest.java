@@ -20,7 +20,6 @@ package walkingkooka.io;
 import org.junit.jupiter.api.Test;
 import walkingkooka.CanBeEmptyTesting;
 import walkingkooka.HasValueTesting;
-import walkingkooka.InvalidCharacterException;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.compare.ComparableTesting2;
@@ -151,14 +150,6 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
 
     // parse............................................................................................................
 
-    @Test
-    public void testParseContainsDotFails() {
-        assertThrows(
-            InvalidCharacterException.class,
-            () -> FileExtension.parse("a.b")
-        );
-    }
-
     @Override
     public void testParseStringEmptyFails() {
         throw new UnsupportedOperationException();
@@ -214,6 +205,42 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
         );
 
         this.parentAndCheck(fileExtension);
+    }
+
+    @Test
+    public void testParseWithDot() {
+        final String value = "bin1.bin2";
+        final FileExtension fileExtension = FileExtension.parse(value);
+        this.valueAndCheck(
+            fileExtension,
+            value
+        );
+
+        this.parentAndCheck(
+            fileExtension,
+            FileExtension.parse("bin2")
+        );
+    }
+
+    @Test
+    public void testParseWithDoubleDot() {
+        final String value = "bin1.bin2.bin3";
+        final FileExtension fileExtension = FileExtension.parse(value);
+        this.valueAndCheck(
+            fileExtension,
+            value
+        );
+
+        this.parentAndCheck(
+            fileExtension,
+            FileExtension.parse("bin2.bin3")
+        );
+
+        this.parentAndCheck(
+            fileExtension.parent()
+                .get(),
+            FileExtension.parse("bin3")
+        );
     }
 
     @Override
