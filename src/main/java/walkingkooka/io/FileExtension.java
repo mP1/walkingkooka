@@ -20,7 +20,6 @@ package walkingkooka.io;
 import walkingkooka.CanBeEmpty;
 import walkingkooka.Cast;
 import walkingkooka.HasValue;
-import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.text.CaseSensitivity;
 
@@ -128,17 +127,39 @@ public final class FileExtension implements
     public static FileExtension parse(final String value) {
         Objects.requireNonNull(value, "value");
 
+        return parseWithParent(
+            value,
+            NO_PARENT
+        );
+    }
+
+    private static FileExtension parseWithParent(final String value,
+                                                 final Optional<FileExtension> parent) {
+        Objects.requireNonNull(value, "value");
+
         FileExtension fileExtension = CONSTANTS.get(value);
         if (null == fileExtension) {
             final int dot = value.indexOf(SEPARATOR);
             if (dot != -1) {
-                throw new InvalidCharacterException(value, dot);
+                fileExtension = parseWithParent(
+                    value.substring(
+                        0,
+                        dot
+                    ),
+                    Optional.of(
+                        parse(
+                            value.substring(
+                                dot + 1
+                            )
+                        )
+                    )
+                );
+            } else {
+                fileExtension = new FileExtension(
+                    value,
+                    parent
+                );
             }
-
-            fileExtension = new FileExtension(
-                value,
-                NO_PARENT
-            );
         }
 
         return fileExtension;
