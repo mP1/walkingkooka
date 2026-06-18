@@ -184,7 +184,7 @@ public final class ClassName extends JavaName<ClassName> {
     /**
      * Holds the typical file extension for a class file.
      */
-    public final static FileExtension CLASS_FILE_EXTENSION = FileExtension.with("class");
+    public final static FileExtension CLASS_FILE_EXTENSION = FileExtension.parse("class");
 
     /**
      * Returns the class name without the package. This is equivalent to {@link Class#getSimpleName()}.
