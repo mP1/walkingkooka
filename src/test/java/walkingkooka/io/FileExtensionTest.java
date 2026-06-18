@@ -164,6 +164,14 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     }
 
     @Test
+    public void testParseClass() {
+        assertSame(
+            FileExtension.CLASS,
+            FileExtension.parse("class")
+        );
+    }
+
+    @Test
     public void testParseExpression() {
         assertSame(
             FileExtension.EXPRESSION,
