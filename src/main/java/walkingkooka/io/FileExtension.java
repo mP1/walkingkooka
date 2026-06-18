@@ -116,19 +116,20 @@ public final class FileExtension implements
     public static FileExtension with(final String value) {
         Objects.requireNonNull(value, "value");
 
-        final int dot = value.indexOf(SEPARATOR);
-        if (dot != -1) {
-            throw new InvalidCharacterException(value, dot);
-        }
+        FileExtension fileExtension = CONSTANTS.get(value);
+        if (null == fileExtension) {
+            final int dot = value.indexOf(SEPARATOR);
+            if (dot != -1) {
+                throw new InvalidCharacterException(value, dot);
+            }
 
-        final FileExtension fileExtension = CONSTANTS.get(value);
-
-        return null != fileExtension ?
-            fileExtension :
-            new FileExtension(
+            fileExtension = new FileExtension(
                 value,
                 NO_PARENT
             );
+        }
+
+        return fileExtension;
     }
 
     public final static char SEPARATOR = '.';
