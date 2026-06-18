@@ -26,6 +26,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.reflect.ConstantsTesting;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CharSequences;
 
 import java.util.Optional;
@@ -36,6 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class FileExtensionTest implements ComparableTesting2<FileExtension>,
     ConstantsTesting<FileExtension>,
+    ParseStringTesting<FileExtension>,
     HasValueTesting,
     ToStringTesting<FileExtension>,
     CanBeEmptyTesting,
@@ -83,7 +85,7 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     public void testExtractWithFileExtension2() {
         this.fileExtensionAndCheck(
             "file.hello.txt",
-            FileExtension.with("hello")
+            FileExtension.parse("hello")
                 .append(FileExtension.TXT)
         );
     }
@@ -98,7 +100,7 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
         this.fileExtensionAndCheck(
             "file.",
             Optional.of(
-                FileExtension.with("")
+                FileExtension.parse("")
             )
         );
     }
@@ -115,7 +117,7 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
         this.fileExtensionAndCheck(
             filename,
             Optional.of(
-                FileExtension.with(fileExtension)
+                FileExtension.parse(fileExtension)
             )
         );
     }
@@ -147,68 +149,65 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
         }
     }
 
-    // with.............................................................................................................
+    // parse............................................................................................................
 
     @Test
-    public void testWithNullFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> FileExtension.with(null)
-        );
-    }
-
-    @Test
-    public void testWithContainsDotFails() {
+    public void testParseContainsDotFails() {
         assertThrows(
             InvalidCharacterException.class,
-            () -> FileExtension.with("a.b")
+            () -> FileExtension.parse("a.b")
         );
     }
 
+    @Override
+    public void testParseStringEmptyFails() {
+        throw new UnsupportedOperationException();
+    }
+
     @Test
-    public void testWithEmpty() {
+    public void testParseEmpty() {
         assertSame(
             FileExtension.EMPTY,
-            FileExtension.with("")
+            FileExtension.parse("")
         );
     }
 
     @Test
-    public void testWithExpression() {
+    public void testParseExpression() {
         assertSame(
             FileExtension.EXPRESSION,
-            FileExtension.with("expression.txt")
+            FileExtension.parse("expression.txt")
         );
     }
 
     @Test
-    public void testWithJson() {
+    public void testParseJson() {
         assertSame(
             FileExtension.JSON,
-            FileExtension.with("jsON")
+            FileExtension.parse("jsON")
         );
     }
 
     @Test
-    public void testWithProperties() {
+    public void testParseProperties() {
         assertSame(
             FileExtension.PROPERTIES,
-            FileExtension.with("properties")
+            FileExtension.parse("properties")
         );
     }
 
     @Test
-    public void testWithTxt() {
+    public void testParseTxt() {
         assertSame(
             FileExtension.TXT,
-            FileExtension.with("Txt")
+            FileExtension.parse("Txt")
         );
     }
 
     @Test
-    public void testWith() {
+    public void testParse() {
         final String value = "bin";
-        final FileExtension fileExtension = FileExtension.with(value);
+        final FileExtension fileExtension = FileExtension.parse(value);
         this.valueAndCheck(
             fileExtension,
             value
@@ -216,6 +215,23 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
 
         this.parentAndCheck(fileExtension);
     }
+
+    @Override
+    public FileExtension parseString(final String text) {
+        return FileExtension.parse(text);
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> thrown) {
+        return thrown;
+    }
+
+    @Override
+    public RuntimeException parseStringFailedExpected(final RuntimeException thrown) {
+        return thrown;
+    }
+
+    // constants........................................................................................................
 
     @Test
     public void testConstantJson() {
@@ -242,30 +258,30 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
 
     @Test
     public void testEqualsDifferent() {
-        this.checkNotEquals(FileExtension.with("different"));
+        this.checkNotEquals(FileExtension.parse("different"));
     }
 
     @Test
     public void testEqualsDifferentCase() {
-        this.checkEquals(FileExtension.with("TXT"));
+        this.checkEquals(FileExtension.parse("TXT"));
     }
 
     @Test
     public void testCompareLess() {
-        this.compareToAndCheckLess(FileExtension.with("z"));
+        this.compareToAndCheckLess(FileExtension.parse("z"));
     }
 
     @Test
     public void testCompareLessCaseInsensitive() {
-        this.compareToAndCheckLess(FileExtension.with("Z"));
+        this.compareToAndCheckLess(FileExtension.parse("Z"));
     }
 
     @Test
     public void testCompareToArraySort() {
-        final FileExtension txt = FileExtension.with("txt");
-        final FileExtension bin = FileExtension.with("bin");
-        final FileExtension exe = FileExtension.with("exe");
-        final FileExtension png = FileExtension.with("png");
+        final FileExtension txt = FileExtension.parse("txt");
+        final FileExtension bin = FileExtension.parse("bin");
+        final FileExtension exe = FileExtension.parse("exe");
+        final FileExtension png = FileExtension.parse("png");
 
         this.compareToArraySortAndCheck(
             txt, exe, png, bin,
@@ -275,7 +291,7 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
 
     @Override
     public FileExtension createComparable() {
-        return FileExtension.with("txt");
+        return FileExtension.parse("txt");
     }
 
     // CanBeEmpty.......................................................................................................
@@ -283,7 +299,7 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     @Test
     public void testCanBeEmptyEmpty() {
         this.isEmptyAndCheck(
-            FileExtension.with(""),
+            FileExtension.parse(""),
             true
         );
     }
@@ -291,7 +307,7 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     @Test
     public void testCanBeEmptyNotEmpty() {
         this.isEmptyAndCheck(
-            FileExtension.with("txt"),
+            FileExtension.parse("txt"),
             false
         );
     }
@@ -309,7 +325,7 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     @Test
     public void testAppend() {
         this.valueAndCheck(
-            FileExtension.with("style")
+            FileExtension.parse("style")
                 .append(FileExtension.TXT),
             "style.txt"
         );

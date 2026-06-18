@@ -125,7 +125,7 @@ public final class FileExtension implements
     /**
      * Factory that creates a {@link FileExtension}
      */
-    public static FileExtension with(final String value) {
+    public static FileExtension parse(final String value) {
         Objects.requireNonNull(value, "value");
 
         FileExtension fileExtension = CONSTANTS.get(value);
