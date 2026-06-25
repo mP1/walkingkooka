@@ -24,7 +24,7 @@ below. Most if not all values and abstractions are immutable, functional and pro
 - Many factory methods are available for the various implementations.
 - Factory methods are available that provide a Concurrent implementations in a JRE but a regular when translated to javascript, which is single threaded anyway.
 
-## [*.comparator]
+## [*.comparator](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/compare)
 
 - NullAwareAfterComparator - wraps another comparator, so nulls sort *AFTER* non null sorted values.
 - NullAwareBeforeComparator - wraps another comparator, so nulls sort *BEFORE* non null sorted values.
