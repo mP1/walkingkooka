@@ -17,8 +17,18 @@
 
 package walkingkooka.text;
 
-import walkingkooka.collect.list.ImmutableListTesting;
+import java.util.Collection;
 
-public interface DelimeterStringImmutableListTesting<T extends DelimeterStringImmutableList> extends ImmutableListTesting<T, String>,
-    HasTextWithSeparatorTesting {
+/**
+ * Provides support for a {@link Collection} of {@link String} values with different delimiters.
+ */
+public enum DelimiterSeparatedValues {
+
+    CSV(Csv.SEPARATOR);
+
+    DelimiterSeparatedValues(final CharacterConstant character) {
+        this.character = character;
+    }
+
+    final CharacterConstant character;
 }
