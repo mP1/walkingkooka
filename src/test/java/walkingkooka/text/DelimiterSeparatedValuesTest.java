@@ -17,10 +17,34 @@
 
 package walkingkooka.text;
 
+import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.CsvStringList;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
+
 public final class DelimiterSeparatedValuesTest implements ClassTesting<DelimiterSeparatedValues> {
+
+    @Test
+    public void testCsvEmpty() {
+        assertSame(
+            CsvStringList.EMPTY,
+            DelimiterSeparatedValues.CSV.empty()
+        );
+    }
+
+    @Test
+    public void testCsvParse() {
+        final String string = "a,b,c";
+
+        this.checkEquals(
+            CsvStringList.parse(string),
+            DelimiterSeparatedValues.CSV.parse(string)
+        );
+    }
+
+    // class............................................................................................................
 
     @Override
     public Class<DelimiterSeparatedValues> type() {
