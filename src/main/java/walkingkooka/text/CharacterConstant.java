@@ -259,6 +259,46 @@ final public class CharacterConstant implements CharSequence {
         }
     }
 
+    public String toDelimiteredString(final Collection<String> elements) {
+        Objects.requireNonNull(elements, "elements");
+
+        final char separator = this.character;
+        if('"' == separator) {
+            throw new IllegalArgumentException("Invalid separator character is \"\"\"");
+        }
+
+        return CharacterConstant.with(separator)
+            .toSeparatedString(
+                elements,
+                this::escapeIfNecessary
+            );
+    }
+
+    private String escapeIfNecessary(final String text) {
+        String result = text;
+
+        final int length = text.length();
+        for (int i = 0; i < length; i++) {
+
+            final char c = text.charAt(i);
+            if(DOUBLE_QUOTE_CHAR == c || CR_CHAR == c || NL_CHAR == c || this.character == c) {
+                result = DOUBLE_QUOTE_STRING.concat(
+                    text.replace(
+                        DOUBLE_QUOTE_STRING,
+                        DOUBLE_DOUBLE_QUOTE_STRING
+                    )
+                ).concat(DOUBLE_QUOTE_STRING);
+
+                i = length;
+            }
+        }
+
+        return result;
+    }
+
+    private final static String DOUBLE_QUOTE_STRING = "\"";
+    private final static String DOUBLE_DOUBLE_QUOTE_STRING = "\"\"";
+
     private final static char CR_CHAR = '\r';
     private final static char NL_CHAR = '\n';
 

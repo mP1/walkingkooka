@@ -23,6 +23,7 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -79,6 +80,48 @@ final public class CharacterConstantTest implements ClassTesting2<CharacterConst
         this.checkEquals(String.valueOf(c), constant.string(), "string");
     }
 
+    // testToDelimiteredString..........................................................................................
+
+    @Test
+    public void testToDelimiteredStringWithSComma() {
+        this.toDelimiteredStringAndCheck(
+            ',',
+            Lists.of("11", "22", "33"),
+            "11,22,33"
+        );
+    }
+
+    @Test
+    public void testToDelimiteredStringWithSemiColon() {
+        this.toDelimiteredStringAndCheck(
+            ';',
+            Lists.of("11", "22", "33"),
+            "11;22;33"
+        );
+    }
+
+    private void toDelimiteredStringAndCheck(final char separator,
+                                             final List<String> list,
+                                             final String expected) {
+        this.toDelimiteredStringAndCheck(
+            CharacterConstant.with(separator),
+            list,
+            expected
+        );
+    }
+
+    private void toDelimiteredStringAndCheck(final CharacterConstant characterConstant,
+                                             final List<String> list,
+                                             final String expected) {
+        this.checkEquals(
+            expected,
+            characterConstant.toDelimiteredString(
+                list
+            ),
+            () -> list + " toDelimiteredString " + CharSequences.quoteIfChars(characterConstant.character())
+        );
+    }
+    
     // toSeparatedString............................................................................................................
 
     @Test
