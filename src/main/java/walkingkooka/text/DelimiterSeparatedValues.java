@@ -27,7 +27,7 @@ import java.util.Collection;
  */
 public enum DelimiterSeparatedValues {
 
-    CSV(Csv.SEPARATOR) {
+    CSV(CharacterConstant.COMMA) {
         @Override
         public CsvStringList empty() {
             return CsvStringList.EMPTY;
