@@ -62,5 +62,8 @@ public enum DelimiterSeparatedValues {
      */
     public abstract DelimiterStringImmutableList parse(final String string);
 
+    /**
+     * The delimiter character.
+     */
     final CharacterConstant character;
 }

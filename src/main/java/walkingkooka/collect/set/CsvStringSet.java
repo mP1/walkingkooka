@@ -19,6 +19,7 @@ package walkingkooka.collect.set;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
+import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.Csv;
 
 import java.util.AbstractSet;
@@ -48,10 +49,12 @@ public final class CsvStringSet extends AbstractSet<String>
      */
     public static CsvStringSet parse(final String text) {
         final SortedSet<String> strings = SortedSets.tree();
-        Csv.parse(
+
+        CharacterConstant.COMMA.parse(
             text,
             strings::add
         );
+
         return strings.isEmpty() ?
             EMPTY :
             new CsvStringSet(strings);
