@@ -66,6 +66,11 @@ final public class CharacterConstant implements CharSequence {
      */
     public final static CharacterConstant COMMA = with(',');
 
+    /**
+     * TAB
+     */
+    public final static CharacterConstant TAB = with('\t');
+
     private CharacterConstant(final char character) {
         super();
         this.character = character;

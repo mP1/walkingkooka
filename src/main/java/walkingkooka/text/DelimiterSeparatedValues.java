@@ -39,7 +39,7 @@ public enum DelimiterSeparatedValues {
         }
     },
 
-    TAB(CharacterConstant.with('\t')) {
+    TAB(CharacterConstant.TAB) {
         @Override
         public DelimiterStringImmutableList empty() {
             throw new UnsupportedOperationException();
