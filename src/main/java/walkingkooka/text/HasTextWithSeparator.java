@@ -25,17 +25,17 @@ public interface HasTextWithSeparator extends HasText {
     @Override
     default String text() {
         return this.textWithSeparator(
-            this.defaultTextSeparator()
+            this.separator()
         );
     }
 
     /**
      * The default text separator.
      */
-    char defaultTextSeparator();
+    char separator();
 
     /**
-     * Returns the text representation for this object using the given separator rather than default separator.
+     * Returns the text representation for this object using the given separator rather than {@link #separator}.
      * If the separator is not acceptable an {@link IllegalArgumentException} should be thrown.
      */
     String textWithSeparator(final char separator);
