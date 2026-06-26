@@ -15,13 +15,10 @@
  *
  */
 
-package walkingkooka.text;
+package walkingkooka.collect.list;
 
-import walkingkooka.collect.list.ImmutableList;
+import walkingkooka.text.HasTextWithSeparatorTesting;
 
-/**
- * An {@link ImmutableList} of {@link String string values} with a delimiter such as CSV
- */
-public interface DelimiterStringImmutableList extends ImmutableList<String>,
-    HasTextWithSeparator {
+public interface DelimiterStringImmutableListTesting<T extends DelimiterStringImmutableList> extends ImmutableListTesting<T, String>,
+    HasTextWithSeparatorTesting {
 }
