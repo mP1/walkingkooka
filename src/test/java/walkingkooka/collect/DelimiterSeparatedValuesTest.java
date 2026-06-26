@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.text;
+package walkingkooka.collect;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.CsvStringList;
