@@ -20,11 +20,11 @@ package walkingkooka.text;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class DelimeterSeparatedValuesTest implements ClassTesting<DelimeterSeparatedValues> {
+public final class DelimiterSeparatedValuesTest implements ClassTesting<DelimiterSeparatedValues> {
 
     @Override
-    public Class<DelimeterSeparatedValues> type() {
-        return DelimeterSeparatedValues.class;
+    public Class<DelimiterSeparatedValues> type() {
+        return DelimiterSeparatedValues.class;
     }
 
     @Override

@@ -17,18 +17,11 @@
 
 package walkingkooka.text;
 
-import java.util.Collection;
+import walkingkooka.collect.list.ImmutableList;
 
 /**
- * Provides support for a {@link Collection} of {@link String} values with different delimeters.
+ * An {@link ImmutableList} of {@link String string values} with a delimiter such as CSV
  */
-public enum DelimeterSeparatedValues {
-
-    CSV(Csv.SEPARATOR);
-
-    DelimeterSeparatedValues(final CharacterConstant character) {
-        this.character = character;
-    }
-
-    final CharacterConstant character;
+public interface DelimiterStringImmutableList extends ImmutableList<String>,
+    HasTextWithSeparator {
 }
