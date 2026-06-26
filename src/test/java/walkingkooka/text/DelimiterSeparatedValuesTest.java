@@ -44,6 +44,14 @@ public final class DelimiterSeparatedValuesTest implements ClassTesting<Delimite
         );
     }
 
+    @Test
+    public void testCsvCharacter() {
+        this.checkEquals(
+            ',',
+            DelimiterSeparatedValues.CSV.character()
+        );
+    }
+
     // class............................................................................................................
 
     @Override

@@ -63,6 +63,13 @@ public enum DelimiterSeparatedValues {
     public abstract DelimiterStringImmutableList parse(final String string);
 
     /**
+     * The delimitered character between values.
+     */
+    public final char character() {
+        return this.character.character();
+    }
+
+    /**
      * The delimiter character.
      */
     final CharacterConstant character;
