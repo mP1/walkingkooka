@@ -15,10 +15,12 @@
  *
  */
 
-package walkingkooka.text;
+package walkingkooka.collect;
 
 import walkingkooka.collect.list.CsvStringList;
 import walkingkooka.collect.list.DelimiterStringImmutableList;
+import walkingkooka.text.CharSequences;
+import walkingkooka.text.CharacterConstant;
 
 import java.util.Arrays;
 import java.util.Collection;
