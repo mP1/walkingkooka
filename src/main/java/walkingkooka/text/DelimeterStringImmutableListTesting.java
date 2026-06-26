@@ -19,5 +19,6 @@ package walkingkooka.text;
 
 import walkingkooka.collect.list.ImmutableListTesting;
 
-public interface DelimeterStringImmutableListTesting<T extends DelimeterStringImmutableList> extends ImmutableListTesting<T, String> {
+public interface DelimeterStringImmutableListTesting<T extends DelimeterStringImmutableList> extends ImmutableListTesting<T, String>,
+    HasTextWithSeparatorTesting {
 }
