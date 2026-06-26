@@ -20,7 +20,6 @@ package walkingkooka.collect.set;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.text.Csv;
-import walkingkooka.text.HasTextWithSeparator;
 
 import java.util.AbstractSet;
 import java.util.Collection;
@@ -34,8 +33,8 @@ import java.util.TreeSet;
  * A {@link SortedSet} of {@link String}. Note strings are case-sensitive.
  */
 public final class CsvStringSet extends AbstractSet<String>
-    implements ImmutableSortedSetDefaults<CsvStringSet, String>,
-    HasTextWithSeparator {
+    implements DelimiterStringImmutableSet,
+    ImmutableSortedSetDefaults<CsvStringSet, String> {
 
     /**
      * An empty {@link CsvStringSet}
