@@ -21,9 +21,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.collect.set.SortedSets;
 import walkingkooka.test.Testing;
 
 import java.lang.reflect.Field;
+import java.util.Locale;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -60,6 +62,41 @@ public interface ConstantsTesting<T> extends Testing {
             true,
             FieldAttributes.FINAL.is(field),
             () -> "The field " + name + " must be final=" + field2
+        );
+    }
+
+    @Test
+    default void testConstantsNamesAreUpperCased() {
+        final Set<Field> notUpperCased = SortedSets.tree(
+            (final Field left, final Field right) -> left.getName().compareTo(right.getName())
+        );
+
+        final Class<T> type = this.type();
+        for (final Field constant : type.getDeclaredFields()) {
+            if (false == constant.getType().equals(type)) {
+                continue;
+            }
+            if (false == FieldAttributes.STATIC.is(constant)) {
+                continue;
+            }
+            if (false == FieldAttributes.FINAL.is(constant)) {
+                continue;
+            }
+            assertSame(
+                JavaVisibility.PUBLIC,
+                JavaVisibility.of(constant),
+                () -> "Constant must be public " + constant.toGenericString()
+            );
+            final String name = constant.getName();
+
+            if (false == name.toUpperCase(Locale.ENGLISH).equals(name)) {
+                notUpperCased.add(constant);
+            }
+        }
+
+        this.checkEquals(
+            Sets.empty(),
+            notUpperCased
         );
     }
 

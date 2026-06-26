@@ -17,6 +17,7 @@
 
 package walkingkooka.reflect;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.set.Sets;
@@ -41,6 +42,54 @@ public final class ConstantsTestingTest implements ConstantsTesting<ConstantsTes
         assertThrows(AssertionError.class, () -> this.fieldPublicStaticCheck(ConstantsTestingTest.class, "unknownField", Object.class));
     }
 
+    // testConstantsNamesAreUpperCased..................................................................................
+
+    @Test
+    public void testConstantsNamesAreUpperCasedWithLowerFails() {
+        assertThrows(
+            AssertionError.class,
+            () -> new TestConstantsNamesAreUpperCasedWithLowerFails("")
+                .testConstantsNamesAreUpperCased()
+        );
+    }
+
+    @Disabled // required otherwise JUNIT will discover and attempt to run tests
+    final static class TestConstantsNamesAreUpperCasedWithLowerFails extends TestConstantsTestingTest<TestConstantsNamesAreUpperCasedWithLowerFails> {
+
+        public final static TestConstantsNamesAreUpperCasedWithLowerFails lower = null;
+
+        private TestConstantsNamesAreUpperCasedWithLowerFails(final String value) {
+            super(value);
+        }
+
+        @Override
+        public Set<TestConstantsNamesAreUpperCasedWithLowerFails> intentionalDuplicateConstants() {
+            return Sets.empty();
+        }
+    }
+
+    @Test
+    public void testConstantsNamesAreUpperCased() {
+        new TestConstantsNamesAreUpperCased("")
+            .testConstantsNamesAreUpperCased();
+    }
+
+    @Disabled
+    final static class TestConstantsNamesAreUpperCased extends TestConstantsTestingTest<TestConstantsNamesAreUpperCased> {
+
+        public final static TestConstantsNamesAreUpperCased UPPER_123 = null;
+
+        private TestConstantsNamesAreUpperCased(final String value) {
+            super(value);
+        }
+
+        @Override
+        public Set<TestConstantsNamesAreUpperCased> intentionalDuplicateConstants() {
+            return Sets.empty();
+        }
+    }
+
+
     // testConstantsAreUnique...........................................................................................
 
     @Test
@@ -48,6 +97,7 @@ public final class ConstantsTestingTest implements ConstantsTesting<ConstantsTes
         new testConstantsAreUniqueNotStaticFails("").testConstantsAreUnique();
     }
 
+    @Disabled
     static class testConstantsAreUniqueNotStaticFails extends TestConstantsTestingTest<testConstantsAreUniqueNotStaticFails> {
 
         public final testConstantsAreUniqueNotStaticFails NOT_STATIC = this;
@@ -67,6 +117,7 @@ public final class ConstantsTestingTest implements ConstantsTesting<ConstantsTes
         new TestConstantsAreUniqueUnique("").testConstantsAreUnique();
     }
 
+    @Disabled
     static class TestConstantsAreUniqueUnique extends TestConstantsTestingTest<TestConstantsAreUniqueUnique> {
 
         public final static TestConstantsAreUniqueUnique CONSTANT1 = new TestConstantsAreUniqueUnique("constant-1");
@@ -87,6 +138,7 @@ public final class ConstantsTestingTest implements ConstantsTesting<ConstantsTes
         assertThrows(AssertionError.class, () -> new TestConstantsAreUniqueNotFails("").testConstantsAreUnique());
     }
 
+    @Disabled
     static class TestConstantsAreUniqueNotFails extends TestConstantsTestingTest<TestConstantsAreUniqueNotFails> {
 
         public final static TestConstantsAreUniqueNotFails CONSTANT1 = new TestConstantsAreUniqueNotFails("constant-1");
@@ -108,6 +160,7 @@ public final class ConstantsTestingTest implements ConstantsTesting<ConstantsTes
         new TestConstantsAreUniqueFilter("").testConstantsAreUnique();
     }
 
+    @Disabled
     static class TestConstantsAreUniqueFilter extends TestConstantsTestingTest<TestConstantsAreUniqueFilter> {
 
         public final static TestConstantsAreUniqueFilter CONSTANT1 = new TestConstantsAreUniqueFilter("constant-1");
@@ -129,6 +182,7 @@ public final class ConstantsTestingTest implements ConstantsTesting<ConstantsTes
         assertThrows(AssertionError.class, () -> new TestConstantsAreUniqueFilterAndNotFails("").testConstantsAreUnique());
     }
 
+    @Disabled
     static class TestConstantsAreUniqueFilterAndNotFails extends TestConstantsTestingTest<TestConstantsAreUniqueFilterAndNotFails> {
 
         public final static TestConstantsAreUniqueFilterAndNotFails CONSTANT1 = new TestConstantsAreUniqueFilterAndNotFails("constant-1");
@@ -146,6 +200,7 @@ public final class ConstantsTestingTest implements ConstantsTesting<ConstantsTes
         }
     }
 
+    @Disabled
     static abstract class TestConstantsTestingTest<T extends TestConstantsTestingTest> implements ConstantsTesting<T> {
 
         TestConstantsTestingTest(final String value) {
