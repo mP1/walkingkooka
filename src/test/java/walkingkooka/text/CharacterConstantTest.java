@@ -18,21 +18,16 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ParseStringTesting;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class CharacterConstantTest implements ParseStringTesting<List<Integer>>,
-    ClassTesting2<CharacterConstant>,
+final public class CharacterConstantTest implements ClassTesting2<CharacterConstant>,
     CharSequenceTesting<CharacterConstant> {
 
     private final static char CHAR = 'a';
@@ -84,101 +79,6 @@ final public class CharacterConstantTest implements ParseStringTesting<List<Inte
         this.checkEquals(String.valueOf(c), constant.string(), "string");
     }
 
-    // parse............................................................................................................
-
-    @Override
-    public void testParseStringEmptyFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Test
-    public void testParseEmpty() {
-        this.parseStringAndCheck(
-            "",
-            Lists.empty()
-        );
-    }
-
-    @Test
-    public void testParseFunctionFails() {
-        this.parseStringFails(
-            "123,abc",
-            new IllegalArgumentException("Unable to parse \"123,abc\", For input string: \"abc\"")
-        );
-    }
-
-    @Test
-    public void testParseFunctionThrowsInvalidCharacterExceptionFails() {
-        final InvalidCharacterException thrown = assertThrows(
-            InvalidCharacterException.class,
-            () -> CharacterConstant.with('.')
-                .parse(
-                    "123,45*",
-                    (s) -> {
-                        throw new InvalidCharacterException(s, 3);
-                    }
-                )
-        );
-        this.checkEquals(
-            "Invalid character ',' at 3",
-            thrown.getMessage()
-        );
-    }
-
-    @Test
-    public void testParseFunctionThrowsInvalidCharacterExceptionFails2() {
-        final InvalidCharacterException thrown = assertThrows(
-            InvalidCharacterException.class,
-            () -> CharacterConstant.with(',')
-                .parse(
-                    "123,45*",
-                    (s) -> {
-                        if (s.equals("123")) {
-                            return 123;
-                        }
-                        throw new InvalidCharacterException(s, 2);
-                    }
-                )
-        );
-        this.checkEquals(
-            "Invalid character '*' at 6",
-            thrown.getMessage()
-        );
-    }
-
-    @Test
-    public void testParseOne() {
-        this.parseStringAndCheck(
-            "123",
-            Lists.of(
-                123
-            )
-        );
-    }
-
-    @Test
-    public void testParseTwo() {
-        this.parseStringAndCheck(
-            "123,456",
-            Lists.of(
-                123,
-                456
-            )
-        );
-    }
-
-    @Test
-    public void testParseThree() {
-        this.parseStringAndCheck(
-            "123,456,789",
-            Lists.of(
-                123,
-                456,
-                789
-            )
-        );
-    }
-
     // toSeparatedString............................................................................................................
 
     @Test
@@ -219,27 +119,6 @@ final public class CharacterConstantTest implements ParseStringTesting<List<Inte
                     component
                 )
         );
-    }
-
-    // ParseStringTesting...............................................................................................
-
-    @Override
-    public List<Integer> parseString(final String text) {
-        return CharacterConstant.with(',')
-            .parse(
-                text,
-                Integer::parseInt
-            );
-    }
-
-    @Override
-    public Class<? extends RuntimeException> parseStringFailedExpected(Class<? extends RuntimeException> expected) {
-        return expected;
-    }
-
-    @Override
-    public RuntimeException parseStringFailedExpected(final RuntimeException expected) {
-        return expected;
     }
 
     // Object..........................................................................................................
