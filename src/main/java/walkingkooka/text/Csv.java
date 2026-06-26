@@ -59,20 +59,18 @@ public final class Csv implements PublicStaticHelper {
 
             switch (mode) {
                 case MODE_FIRST_CHAR:
-                    switch (c) {
-                        case DOUBLE_QUOTE_CHAR:
-                            element = new StringBuilder();
-                            mode = MODE_INSIDE_QUOTED;
-                            break;
-                        case SEPARATOR_CHAR:
+                    if (DOUBLE_QUOTE_CHAR == c) {
+                        element = new StringBuilder();
+                        mode = MODE_INSIDE_QUOTED;
+                    } else {
+                        if (SEPARATOR_CHAR == c) {
                             mode = MODE_FIRST_CHAR;
                             elements.accept("");
-                            break;
-                        default:
+                        } else {
                             element = new StringBuilder()
                                 .append(c);
                             mode = MODE_RAW_TEXT;
-                            break;
+                        }
                     }
                     break;
                 case MODE_INSIDE_QUOTED:
@@ -87,58 +85,47 @@ public final class Csv implements PublicStaticHelper {
                     }
                     break;
                 case MODE_TERMINATING_QUOTE:
-                    switch (c) {
-                        case DOUBLE_QUOTE_CHAR:
-                            element.append(DOUBLE_QUOTE_CHAR);
-                            mode = MODE_INSIDE_QUOTED;
-                            break;
-                        case SEPARATOR_CHAR:
+                    if (DOUBLE_QUOTE_CHAR == c) {
+                        element.append(DOUBLE_QUOTE_CHAR);
+                        mode = MODE_INSIDE_QUOTED;
+                    } else {
+                        if (SEPARATOR_CHAR == c) {
                             // quote was terminating
                             elements.accept(element.toString());
                             mode = MODE_FIRST_CHAR;
-                            break;
-                        default:
+                        } else {
                             // trailing quote must be followed by separator or EOF, trailing spaces etc are an ICE.
                             throw new InvalidCharacterException(
                                 text,
                                 i
                             );
+                        }
                     }
                     break;
                 case MODE_SEPARATOR:
-                    switch (c) {
-                        case SEPARATOR_CHAR:
-                            elements.accept(element.toString());
-                            mode = MODE_FIRST_CHAR;
-                            break;
-                        default:
-                            // trailing quote must be followed by separator or EOF, trailing spaces etc are an ICE.
-                            throw new InvalidCharacterException(
-                                text,
-                                i
-                            );
+                    if (SEPARATOR_CHAR != c) {
+                        throw new InvalidCharacterException(
+                            text,
+                            i
+                        );
                     }
+                    elements.accept(element.toString());
+                    mode = MODE_FIRST_CHAR;
                     break;
                 case MODE_RAW_TEXT:
-                    switch (c) {
-                        // Fields containing line breaks (CRLF), double quotes, and commas
-                        // should be enclosed in double-quotes.  For example:
-                        case DOUBLE_QUOTE_CHAR:
-                        case CR_CHAR:
-                        case NL_CHAR:
-                            throw new InvalidCharacterException(
-                                text,
-                                i
-                            );
-                        case SEPARATOR_CHAR:
-                            elements.accept(
-                                element.toString()
-                            );
-                            mode = MODE_FIRST_CHAR;
-                            break;
-                        default:
-                            element.append(c);
-                            break;
+                    if (DOUBLE_QUOTE_CHAR == c || CR_CHAR == c || NL_CHAR == c) {
+                        throw new InvalidCharacterException(
+                            text,
+                            i
+                        );
+                    }
+                    if (SEPARATOR_CHAR == c) {
+                        elements.accept(
+                            element.toString()
+                        );
+                        mode = MODE_FIRST_CHAR;
+                    } else {
+                        element.append(c);
                     }
                     break;
                 default:
