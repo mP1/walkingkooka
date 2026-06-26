@@ -17,6 +17,9 @@
 
 package walkingkooka.text;
 
+import walkingkooka.collect.list.CsvStringList;
+import walkingkooka.collect.list.DelimiterStringImmutableList;
+
 import java.util.Collection;
 
 /**
@@ -24,11 +27,28 @@ import java.util.Collection;
  */
 public enum DelimiterSeparatedValues {
 
-    CSV(Csv.SEPARATOR);
+    CSV(Csv.SEPARATOR) {
+        @Override
+        public CsvStringList empty() {
+            return CsvStringList.EMPTY;
+        }
+
+        @Override
+        public CsvStringList parse(final String string) {
+            return CsvStringList.parse(string);
+        }
+    };
 
     DelimiterSeparatedValues(final CharacterConstant character) {
         this.character = character;
     }
+
+    public abstract DelimiterStringImmutableList empty();
+
+    /**
+     * Parses the {@link String} form such as a CSV into a {@link DelimiterStringImmutableList}.
+     */
+    public abstract DelimiterStringImmutableList parse(final String string);
 
     final CharacterConstant character;
 }
