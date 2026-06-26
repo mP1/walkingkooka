@@ -118,6 +118,7 @@ public final class Csv implements PublicStaticHelper {
                                 i
                             );
                     }
+                    break;
                 case MODE_RAW_TEXT:
                     switch (c) {
                         // Fields containing line breaks (CRLF), double quotes, and commas
