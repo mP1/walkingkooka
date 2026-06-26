@@ -104,7 +104,7 @@ public final class CsvStringList extends AbstractList<String> implements Delimit
     // HasTextWithSeparator.............................................................................................
 
     @Override
-    public char defaultTextSeparator() {
+    public char separator() {
         return Csv.SEPARATOR.character();
     }
 
