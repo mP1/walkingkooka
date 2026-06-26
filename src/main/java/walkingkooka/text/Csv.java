@@ -33,6 +33,9 @@ import java.util.function.Consumer;
  */
 public final class Csv implements PublicStaticHelper {
 
+    /**
+     * Parses the given {@link String}, adding each encountered element to the given {@link Consumer}.
+     */
     public static void parse(final String text,
                              final Consumer<String> elements) {
         Objects.requireNonNull(text, "text");
