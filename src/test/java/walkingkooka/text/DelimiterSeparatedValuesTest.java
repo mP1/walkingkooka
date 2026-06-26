@@ -23,8 +23,29 @@ import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class DelimiterSeparatedValuesTest implements ClassTesting<DelimiterSeparatedValues> {
+
+    // forCharacter.....................................................................................................
+
+    @Test
+    public void testForCharacterWithUnsupportedCharacterFails() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> DelimiterSeparatedValues.forCharacter('@')
+        );
+    }
+
+    @Test
+    public void testForCharacterWithComma() {
+        assertSame(
+            DelimiterSeparatedValues.CSV,
+            DelimiterSeparatedValues.forCharacter(',')
+        );
+    }
+
+    // csv..............................................................................................................
 
     @Test
     public void testCsvEmpty() {

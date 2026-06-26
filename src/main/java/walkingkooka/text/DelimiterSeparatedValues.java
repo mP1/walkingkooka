@@ -20,6 +20,7 @@ package walkingkooka.text;
 import walkingkooka.collect.list.CsvStringList;
 import walkingkooka.collect.list.DelimiterStringImmutableList;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 /**
@@ -73,4 +74,14 @@ public enum DelimiterSeparatedValues {
      * The delimiter character.
      */
     final CharacterConstant character;
+
+    /**
+     * Find the {@link DelimiterSeparatedValues} for the character if it is supported.
+     */
+    public static DelimiterSeparatedValues forCharacter(final char character) {
+        return Arrays.stream(values())
+            .filter((DelimiterSeparatedValues dsv) -> dsv.character() == character)
+            .findFirst()
+            .orElseThrow(() -> new IllegalArgumentException("Unsupported " + CharSequences.quoteIfChars(character)));
+    }
 }
