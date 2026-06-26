@@ -18,7 +18,6 @@
 package walkingkooka.collect.list;
 
 import walkingkooka.text.Csv;
-import walkingkooka.text.HasTextWithSeparator;
 
 import java.util.AbstractList;
 import java.util.Collection;
@@ -28,8 +27,8 @@ import java.util.Objects;
 /**
  * An immutable list of String elements. Note null elements are not allowed.
  */
-public final class CsvStringList extends AbstractList<String> implements ImmutableListDefaults<CsvStringList, String>,
-    HasTextWithSeparator {
+public final class CsvStringList extends AbstractList<String> implements DelimiterStringImmutableList,
+    ImmutableListDefaults<CsvStringList, String> {
 
     /**
      * An empty {@link CsvStringList}
