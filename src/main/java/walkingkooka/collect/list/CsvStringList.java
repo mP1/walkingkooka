@@ -18,7 +18,6 @@
 package walkingkooka.collect.list;
 
 import walkingkooka.text.CharacterConstant;
-import walkingkooka.text.Csv;
 
 import java.util.AbstractList;
 import java.util.Collection;
@@ -103,9 +102,11 @@ public final class CsvStringList extends AbstractList<String> implements Delimit
 
     // HasTextWithSeparator.............................................................................................
 
+    public final static CharacterConstant SEPARATOR = CharacterConstant.COMMA;
+
     @Override
     public char separator() {
-        return Csv.SEPARATOR.character();
+        return SEPARATOR.character();
     }
 
     /**
@@ -113,9 +114,7 @@ public final class CsvStringList extends AbstractList<String> implements Delimit
      */
     @Override
     public String textWithSeparator(final char separator) {
-        return Csv.toCsv(
-            this.strings,
-            separator
-        );
+        return CharacterConstant.with(separator)
+            .toDelimiteredString(this.strings);
     }
 }

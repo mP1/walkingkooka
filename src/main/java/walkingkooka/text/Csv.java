@@ -19,9 +19,6 @@ package walkingkooka.text;
 
 import walkingkooka.reflect.PublicStaticHelper;
 
-import java.util.Collection;
-import java.util.Objects;
-
 /**
  * Utilities to assist parsing CSV text or producing a CSV text from elements.
  * <br>
@@ -164,55 +161,6 @@ public final class Csv implements PublicStaticHelper {
 //        }
 //    }
 
-    public static String toCsv(final Collection<String> elements,
-                               final char separator) {
-        Objects.requireNonNull(elements, "elements");
-        if('"' == separator) {
-            throw new IllegalArgumentException("Invalid separator character is \"\"\"");
-        }
-
-        return CharacterConstant.with(separator)
-            .toSeparatedString(
-                elements,
-                Csv::escapeIfNecessary
-            );
-    }
-
-    private static String escapeIfNecessary(final String text) {
-        String result = text;
-
-        final int length = text.length();
-        for (int i = 0; i < length; i++) {
-            switch (text.charAt(i)) {
-                case DOUBLE_QUOTE_CHAR:
-                case CR_CHAR:
-                case NL_CHAR:
-                case SEPARATOR_CHAR:
-                    result = DOUBLE_QUOTE_STRING.concat(
-                        text.replace(
-                            DOUBLE_QUOTE_STRING,
-                            DOUBLE_DOUBLE_QUOTE_STRING
-                        )
-                    ).concat(DOUBLE_QUOTE_STRING);
-
-                    i = length;
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        return result;
-    }
-
-    private final static String DOUBLE_QUOTE_STRING = "\"";
-    private final static String DOUBLE_DOUBLE_QUOTE_STRING = "\"\"";
-
-    private final static char CR_CHAR = '\r';
-    private final static char NL_CHAR = '\n';
-
-    private final static char DOUBLE_QUOTE_CHAR = '"';
-    private final static char SEPARATOR_CHAR = ',';
     public final static CharacterConstant SEPARATOR = CharacterConstant.COMMA;
 
     /**

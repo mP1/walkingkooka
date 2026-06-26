@@ -20,7 +20,6 @@ package walkingkooka.collect.set;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.text.CharacterConstant;
-import walkingkooka.text.Csv;
 
 import java.util.AbstractSet;
 import java.util.Collection;
@@ -154,9 +153,11 @@ public final class CsvStringSet extends AbstractSet<String>
 
     // HasTextWithSeparator.............................................................................................
 
+    public final static CharacterConstant SEPARATOR = CharacterConstant.COMMA;
+
     @Override
     public char separator() {
-        return Csv.SEPARATOR.character();
+        return SEPARATOR.character();
     }
 
     /**
@@ -164,9 +165,7 @@ public final class CsvStringSet extends AbstractSet<String>
      */
     @Override
     public String textWithSeparator(final char separator) {
-        return Csv.toCsv(
-            this.strings,
-            separator
-        );
+        return CharacterConstant.with(separator)
+            .toDelimiteredString(this.strings);
     }
 }
