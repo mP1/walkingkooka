@@ -20,14 +20,12 @@ package walkingkooka.collect.list;
 import org.junit.jupiter.api.Test;
 import walkingkooka.EndOfTextException;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.text.HasTextWithSeparatorTesting;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CsvStringListTest implements ImmutableListTesting<CsvStringList, String>,
-    ParseStringTesting<CsvStringList>,
-    HasTextWithSeparatorTesting {
+public final class CsvStringListTest implements DelimiterStringImmutableListTesting<CsvStringList>,
+    ParseStringTesting<CsvStringList> {
 
     // setElements......................................................................................................
 
