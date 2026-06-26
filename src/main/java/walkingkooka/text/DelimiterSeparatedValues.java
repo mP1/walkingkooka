@@ -37,6 +37,18 @@ public enum DelimiterSeparatedValues {
         public CsvStringList parse(final String string) {
             return CsvStringList.parse(string);
         }
+    },
+
+    TAB(CharacterConstant.with('\t')) {
+        @Override
+        public DelimiterStringImmutableList empty() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public DelimiterStringImmutableList parse(final String string) {
+            throw new UnsupportedOperationException();
+        }
     };
 
     DelimiterSeparatedValues(final CharacterConstant character) {
