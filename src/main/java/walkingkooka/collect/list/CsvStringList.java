@@ -17,6 +17,7 @@
 
 package walkingkooka.collect.list;
 
+import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.Csv;
 
 import java.util.AbstractList;
@@ -42,10 +43,12 @@ public final class CsvStringList extends AbstractList<String> implements Delimit
      */
     public static CsvStringList parse(final String text) {
         final List<String> strings = Lists.array();
-        Csv.parse(
+
+        CharacterConstant.COMMA.parse(
             text,
             strings::add
         );
+
         return strings.isEmpty() ?
             EMPTY :
             new CsvStringList(strings);

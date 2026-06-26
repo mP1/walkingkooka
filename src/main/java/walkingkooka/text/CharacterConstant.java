@@ -17,8 +17,13 @@
 
 package walkingkooka.text;
 
+import walkingkooka.EndOfTextException;
+import walkingkooka.InvalidCharacterException;
+import walkingkooka.NeverError;
+
 import java.util.Collection;
 import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -109,6 +114,150 @@ final public class CharacterConstant implements CharSequence {
     private CharSequence failIndexOfOutBounds(final String message) {
         throw new StringIndexOutOfBoundsException(message);
     }
+
+    // parse............................................................................................................
+
+    /**
+     * Parses the given {@link String}, adding each encountered element to the given {@link Consumer}.
+     */
+    public void parse(final String text,
+                      final Consumer<String> elements) {
+        Objects.requireNonNull(text, "text");
+        Objects.requireNonNull(elements, "elements");
+
+        final char separatorChar = this.character;
+
+        final int MODE_FIRST_CHAR = 1;
+        final int MODE_INSIDE_QUOTED = 2;
+        final int MODE_TERMINATING_QUOTE = 3;
+        final int MODE_SEPARATOR = 4;
+        final int MODE_RAW_TEXT = 5;
+
+        int mode = MODE_FIRST_CHAR;
+
+        StringBuilder element = null;
+
+        int i = 0;
+        final int length = text.length();
+
+        while (i < length) {
+            final char c = text.charAt(i);
+
+            switch (mode) {
+                case MODE_FIRST_CHAR:
+                    if (DOUBLE_QUOTE_CHAR == c) {
+                        element = new StringBuilder();
+                        mode = MODE_INSIDE_QUOTED;
+                    } else {
+                        if (separatorChar == c) {
+                            mode = MODE_FIRST_CHAR;
+                            elements.accept("");
+                        } else {
+                            element = new StringBuilder()
+                                .append(c);
+                            mode = MODE_RAW_TEXT;
+                        }
+                    }
+                    break;
+                case MODE_INSIDE_QUOTED:
+                    switch (c) {
+                        // double quote could be end of quoted string or escaped double quote.
+                        case DOUBLE_QUOTE_CHAR:
+                            mode = MODE_TERMINATING_QUOTE;
+                            break;
+                        default:
+                            element.append(c);
+                            break;
+                    }
+                    break;
+                case MODE_TERMINATING_QUOTE:
+                    if (DOUBLE_QUOTE_CHAR == c) {
+                        element.append(DOUBLE_QUOTE_CHAR);
+                        mode = MODE_INSIDE_QUOTED;
+                    } else {
+                        if (separatorChar == c) {
+                            // quote was terminating
+                            elements.accept(element.toString());
+                            mode = MODE_FIRST_CHAR;
+                        } else {
+                            // trailing quote must be followed by separator or EOF, trailing spaces etc are an ICE.
+                            throw new InvalidCharacterException(
+                                text,
+                                i
+                            );
+                        }
+                    }
+                    break;
+                case MODE_SEPARATOR:
+                    if (separatorChar != c) {
+                        throw new InvalidCharacterException(
+                            text,
+                            i
+                        );
+                    }
+                    elements.accept(element.toString());
+                    mode = MODE_FIRST_CHAR;
+                    break;
+                case MODE_RAW_TEXT:
+                    if (DOUBLE_QUOTE_CHAR == c || CR_CHAR == c || NL_CHAR == c) {
+                        throw new InvalidCharacterException(
+                            text,
+                            i
+                        );
+                    }
+                    if (separatorChar == c) {
+                        elements.accept(
+                            element.toString()
+                        );
+                        mode = MODE_FIRST_CHAR;
+                    } else {
+                        element.append(c);
+                    }
+                    break;
+                default:
+                    NeverError.unhandledCase(
+                        mode,
+                        MODE_FIRST_CHAR,
+                        MODE_INSIDE_QUOTED,
+                        MODE_TERMINATING_QUOTE,
+                        MODE_SEPARATOR,
+                        MODE_RAW_TEXT
+                    );
+            }
+
+            i++;
+        }
+
+        // EOT
+        switch (mode) {
+            case MODE_FIRST_CHAR:
+                if (0 != i) {
+                    elements.accept("");
+                }
+                break;
+            case MODE_INSIDE_QUOTED:
+                throw new EndOfTextException("Missing terminating '\"\'");
+            case MODE_TERMINATING_QUOTE:
+            case MODE_SEPARATOR:
+            case MODE_RAW_TEXT:
+                elements.accept(element.toString());
+                break;
+            default:
+                NeverError.unhandledCase(
+                    mode,
+                    MODE_FIRST_CHAR,
+                    MODE_INSIDE_QUOTED,
+                    MODE_TERMINATING_QUOTE,
+                    MODE_SEPARATOR,
+                    MODE_RAW_TEXT
+                );
+        }
+    }
+
+    private final static char CR_CHAR = '\r';
+    private final static char NL_CHAR = '\n';
+
+    private final static char DOUBLE_QUOTE_CHAR = '"';
 
     // toSeparatedString..................................................................................................
 
