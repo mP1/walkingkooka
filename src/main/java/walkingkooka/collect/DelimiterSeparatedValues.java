@@ -20,6 +20,9 @@ package walkingkooka.collect;
 import walkingkooka.collect.list.CsvStringList;
 import walkingkooka.collect.list.DelimiterStringImmutableList;
 import walkingkooka.collect.list.TsvStringList;
+import walkingkooka.collect.set.CsvStringSet;
+import walkingkooka.collect.set.DelimiterStringImmutableSet;
+import walkingkooka.collect.set.TsvStringSet;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 
@@ -38,6 +41,11 @@ public enum DelimiterSeparatedValues {
         }
 
         @Override
+        public CsvStringSet emptySet() {
+            return CsvStringSet.EMPTY;
+        }
+        
+        @Override
         public CsvStringList parseList(final String string) {
             return CsvStringList.parse(string);
         }
@@ -47,6 +55,11 @@ public enum DelimiterSeparatedValues {
         @Override
         public TsvStringList emptyList() {
             return TsvStringList.EMPTY;
+        }
+
+        @Override
+        public TsvStringSet emptySet() {
+            return TsvStringSet.EMPTY;
         }
 
         @Override
@@ -60,6 +73,8 @@ public enum DelimiterSeparatedValues {
     }
 
     public abstract DelimiterStringImmutableList emptyList();
+
+    public abstract DelimiterStringImmutableSet emptySet();
 
     /**
      * Parses the {@link String} form such as a CSV into a {@link DelimiterStringImmutableList}.
