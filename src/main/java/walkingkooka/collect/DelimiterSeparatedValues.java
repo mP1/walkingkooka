@@ -19,6 +19,7 @@ package walkingkooka.collect;
 
 import walkingkooka.collect.list.CsvStringList;
 import walkingkooka.collect.list.DelimiterStringImmutableList;
+import walkingkooka.collect.list.TsvStringList;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 
@@ -44,13 +45,13 @@ public enum DelimiterSeparatedValues {
 
     TAB(CharacterConstant.TAB) {
         @Override
-        public DelimiterStringImmutableList empty() {
-            throw new UnsupportedOperationException();
+        public TsvStringList empty() {
+            return TsvStringList.EMPTY;
         }
 
         @Override
         public DelimiterStringImmutableList parse(final String string) {
-            throw new UnsupportedOperationException();
+            return TsvStringList.parse(string);
         }
     };
 
