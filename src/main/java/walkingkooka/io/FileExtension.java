@@ -93,6 +93,8 @@ public final class FileExtension implements
 
     public final static FileExtension CLASS = registerConstant("class");
 
+    public final static FileExtension CSV = registerConstant("csv");
+
     public final static FileExtension JSON = registerConstant("json");
 
     public final static FileExtension PROPERTIES = registerConstant("properties");
