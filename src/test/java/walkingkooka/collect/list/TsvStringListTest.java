@@ -24,8 +24,8 @@ import walkingkooka.test.ParseStringTesting;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class TabStringListTest implements DelimiterStringImmutableListTesting<TabStringList>,
-    ParseStringTesting<TabStringList> {
+public final class TsvStringListTest implements DelimiterStringImmutableListTesting<TsvStringList>,
+    ParseStringTesting<TsvStringList> {
 
     // setElements......................................................................................................
 
@@ -33,7 +33,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     public void testSetElementsIncludesNullFails() {
         assertThrows(
             NullPointerException.class,
-            () -> TabStringList.EMPTY.setElements(
+            () -> TsvStringList.EMPTY.setElements(
                 Lists.of(null)
             )
         );
@@ -42,8 +42,8 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     @Test
     public void testSetElementsWithEmpty() {
         assertSame(
-            TabStringList.EMPTY,
-            TabStringList.EMPTY.setElements(
+            TsvStringList.EMPTY,
+            TsvStringList.EMPTY.setElements(
                 Lists.of(
                     "1A"
                 )
@@ -53,21 +53,21 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
 
     @Test
     public void testSetElementsWithTabStringList() {
-        final TabStringList tabStringList = TabStringList.EMPTY.concat("abc");
+        final TsvStringList tsvStringList = TsvStringList.EMPTY.concat("abc");
 
         assertSame(
-            tabStringList,
-            TabStringList.EMPTY.setElements(
+            tsvStringList,
+            TsvStringList.EMPTY.setElements(
                 Lists.of(
                     "1A"
                 )
-            ).setElements(tabStringList)
+            ).setElements(tsvStringList)
         );
     }
 
     @Override
-    public TabStringList createList() {
-        return TabStringList.EMPTY;
+    public TsvStringList createList() {
+        return TsvStringList.EMPTY;
     }
 
     // ParseString......................................................................................................
@@ -81,7 +81,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     public void testParseEmptyString() {
         this.parseStringAndCheck(
             "",
-            TabStringList.EMPTY
+            TsvStringList.EMPTY
         );
     }
 
@@ -113,7 +113,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     public void testParseUnescapedAndEmptyToken() {
         this.parseStringAndCheck(
             "A\t",
-            TabStringList.EMPTY.concat("A")
+            TsvStringList.EMPTY.concat("A")
                 .concat("")
         );
     }
@@ -122,7 +122,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     public void testParseEmptyTokenEmptyToken() {
         this.parseStringAndCheck(
             "\t",
-            TabStringList.EMPTY.concat("")
+            TsvStringList.EMPTY.concat("")
                 .concat("")
         );
     }
@@ -131,7 +131,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     public void testParseEmptyTokenEmptyTokenEmptyToken() {
         this.parseStringAndCheck(
             "\t\t",
-            TabStringList.EMPTY.concat("")
+            TsvStringList.EMPTY.concat("")
                 .concat("")
                 .concat("")
         );
@@ -143,7 +143,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
 
         this.parseStringAndCheck(
             text,
-            TabStringList.EMPTY.concat(text)
+            TsvStringList.EMPTY.concat(text)
         );
     }
 
@@ -153,7 +153,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
 
         this.parseStringAndCheck(
             text,
-            TabStringList.EMPTY.concat(text)
+            TsvStringList.EMPTY.concat(text)
         );
     }
 
@@ -163,7 +163,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
 
         this.parseStringAndCheck(
             text,
-            TabStringList.EMPTY.concat(text)
+            TsvStringList.EMPTY.concat(text)
         );
     }
 
@@ -173,7 +173,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
 
         this.parseStringAndCheck(
             text,
-            TabStringList.EMPTY.concat(text)
+            TsvStringList.EMPTY.concat(text)
         );
     }
 
@@ -183,7 +183,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
 
         this.parseStringAndCheck(
             text,
-            TabStringList.EMPTY.concat(text)
+            TsvStringList.EMPTY.concat(text)
         );
     }
 
@@ -191,7 +191,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     public void testParseUnescapedTokenUnescapedToken() {
         this.parseStringAndCheck(
             "abc\tdef",
-            TabStringList.EMPTY.concat("abc")
+            TsvStringList.EMPTY.concat("abc")
                 .concat("def")
         );
     }
@@ -200,7 +200,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     public void testParseUnescapedTokenUnescapedTokenUnescapedToken() {
         this.parseStringAndCheck(
             "abc\tdef\tghi",
-            TabStringList.EMPTY.concat("abc")
+            TsvStringList.EMPTY.concat("abc")
                 .concat("def")
                 .concat("ghi")
         );
@@ -210,7 +210,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     public void testParseUnescapedTokenUnescapedTokenUnescapedTokenWithSpacesBeforeAndAfter() {
         this.parseStringAndCheck(
             " abc\tdef \t ghi ",
-            TabStringList.EMPTY.concat(" abc")
+            TsvStringList.EMPTY.concat(" abc")
                 .concat("def ")
                 .concat(" ghi ")
         );
@@ -236,7 +236,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     public void testParseEmptyQuotedToken() {
         this.parseStringAndCheck(
             "\"\"",
-            TabStringList.EMPTY.concat("")
+            TsvStringList.EMPTY.concat("")
         );
     }
 
@@ -244,7 +244,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     public void testParseQuotedToken() {
         this.parseStringAndCheck(
             "\"A\"",
-            TabStringList.EMPTY.concat("A")
+            TsvStringList.EMPTY.concat("A")
         );
     }
 
@@ -252,7 +252,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     public void testParseQuotedToken2() {
         this.parseStringAndCheck(
             "\"ABC\"",
-            TabStringList.EMPTY.concat("ABC")
+            TsvStringList.EMPTY.concat("ABC")
         );
     }
 
@@ -260,7 +260,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     public void testParseQuotedTokenWithEscapedDoubleQuote() {
         this.parseStringAndCheck(
             "\"\"\"\"",
-            TabStringList.EMPTY.concat("\"")
+            TsvStringList.EMPTY.concat("\"")
         );
     }
 
@@ -268,7 +268,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     public void testParseQuotedTokenWithEscapedDoubleQuote2() {
         this.parseStringAndCheck(
             "\"a\"\"b\"",
-            TabStringList.EMPTY.concat("a\"b")
+            TsvStringList.EMPTY.concat("a\"b")
         );
     }
 
@@ -276,7 +276,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     public void testParseQuotedTokenQuotedToken() {
         this.parseStringAndCheck(
             "\"abc\"\t\"def\"",
-            TabStringList.EMPTY.concat("abc")
+            TsvStringList.EMPTY.concat("abc")
                 .concat("def")
         );
     }
@@ -285,7 +285,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     public void testParseQuotedTokenQuotedTokenQuotedToken() {
         this.parseStringAndCheck(
             "\"abc\"\t\"def\"\t\"ghi\"",
-            TabStringList.EMPTY.concat("abc")
+            TsvStringList.EMPTY.concat("abc")
                 .concat("def")
                 .concat("ghi")
         );
@@ -311,7 +311,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     public void testParseQuotedWithTab() {
         this.parseStringAndCheck(
             "\"abc\t\"",
-            TabStringList.EMPTY.concat("abc\t")
+            TsvStringList.EMPTY.concat("abc\t")
         );
     }
 
@@ -319,7 +319,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     public void testParseQuotedWithCr() {
         this.parseStringAndCheck(
             "\"abc\r\"",
-            TabStringList.EMPTY.concat("abc\r")
+            TsvStringList.EMPTY.concat("abc\r")
         );
     }
 
@@ -327,7 +327,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     public void testParseQuotedWithNl() {
         this.parseStringAndCheck(
             "\"abc\n\"",
-            TabStringList.EMPTY.concat("abc\n")
+            TsvStringList.EMPTY.concat("abc\n")
         );
     }
 
@@ -335,7 +335,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     public void testParseQuotedAndUnquoted() {
         this.parseStringAndCheck(
             "\"abc\"\tdef",
-            TabStringList.EMPTY.concat("abc")
+            TsvStringList.EMPTY.concat("abc")
                 .concat("def")
         );
     }
@@ -344,7 +344,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     public void testParseQuotedAndUnquoted2() {
         this.parseStringAndCheck(
             "\"abc\"\t\"def\"\"ghi\"\tjkl",
-            TabStringList.EMPTY.concat("abc")
+            TsvStringList.EMPTY.concat("abc")
                 .concat("def\"ghi")
                 .concat("jkl")
         );
@@ -354,7 +354,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     public void testParseQuotedAndUnquoted3() {
         this.parseStringAndCheck(
             "\"abc\"\tdef\t\"ghi\"\"jkl\"\tmno",
-            TabStringList.EMPTY.concat("abc")
+            TsvStringList.EMPTY.concat("abc")
                 .concat("def")
                 .concat("ghi\"jkl")
                 .concat("mno")
@@ -362,8 +362,8 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     }
 
     @Override
-    public TabStringList parseString(final String text) {
-        return TabStringList.parse(text);
+    public TsvStringList parseString(final String text) {
+        return TsvStringList.parse(text);
     }
 
     @Override
@@ -383,7 +383,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
         final String text = "\tabc\tdef\t\tg";
 
         this.textAndCheckAndParseCheck(
-            TabStringList.parse(text),
+            TsvStringList.parse(text),
             text
         );
     }
@@ -391,7 +391,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     @Test
     public void testTextWithDoubleQuotes() {
         this.textAndCheckAndParseCheck(
-            TabStringList.EMPTY
+            TsvStringList.EMPTY
                 .concat("a1")
                 .concat("\"Hello\""),
             "a1\t\"\"\"Hello\"\"\""
@@ -401,7 +401,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     @Test
     public void testTextWithTab() {
         this.textAndCheckAndParseCheck(
-            TabStringList.EMPTY
+            TsvStringList.EMPTY
                 .concat("a1")
                 .concat("tab\t"),
             "a1\t\"tab\t\""
@@ -411,7 +411,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     @Test
     public void testTextWithCr() {
         this.textAndCheckAndParseCheck(
-            TabStringList.EMPTY
+            TsvStringList.EMPTY
                 .concat("a1")
                 .concat("cr\r"),
             "a1\t\"cr\r" +
@@ -422,7 +422,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     @Test
     public void testTextWithNl() {
         this.textAndCheckAndParseCheck(
-            TabStringList.EMPTY
+            TsvStringList.EMPTY
                 .concat("a1")
                 .concat("nl\n"),
             "a1\t\"nl\n" +
@@ -433,7 +433,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     @Test
     public void testTextMixed() {
         this.textAndCheckAndParseCheck(
-            TabStringList.EMPTY
+            TsvStringList.EMPTY
                 .concat("a1")
                 .concat("Hello\"\r\n\tHello2")
                 .concat("nl\n"),
@@ -442,7 +442,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
         );
     }
 
-    private void textAndCheckAndParseCheck(final TabStringList list,
+    private void textAndCheckAndParseCheck(final TsvStringList list,
                                            final String expected) {
         this.textAndCheck(
             list,
@@ -461,7 +461,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     @Test
     public void testHasTextWithSeparatorDifferentSeparator() {
         this.textWithSeparatorAndCheck(
-            TabStringList.parse("aaa\tbb\tcc"),
+            TsvStringList.parse("aaa\tbb\tcc"),
             ';',
             "aaa;bb;cc"
         );
@@ -470,7 +470,7 @@ public final class TabStringListTest implements DelimiterStringImmutableListTest
     // class............................................................................................................
 
     @Override
-    public Class<TabStringList> type() {
-        return TabStringList.class;
+    public Class<TsvStringList> type() {
+        return TsvStringList.class;
     }
 }
