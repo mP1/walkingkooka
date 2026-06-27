@@ -27,20 +27,20 @@ import java.util.Objects;
 /**
  * An immutable list of String elements. Note null elements are not allowed.
  */
-public final class TabStringList extends AbstractList<String> implements DelimiterStringImmutableList,
-    ImmutableListDefaults<TabStringList, String> {
+public final class TsvStringList extends AbstractList<String> implements DelimiterStringImmutableList,
+    ImmutableListDefaults<TsvStringList, String> {
 
     /**
-     * An empty {@link TabStringList}
+     * An empty {@link TsvStringList}
      */
-    public final static TabStringList EMPTY = new TabStringList(Lists.empty());
+    public final static TsvStringList EMPTY = new TsvStringList(Lists.empty());
 
     /**
      * Parses TSV text according to RFC 4180, replaces commas with tabs
      * <br>
      * https://www.ietf.org/rfc/rfc4180.txt
      */
-    public static TabStringList parse(final String text) {
+    public static TsvStringList parse(final String text) {
         final List<String> strings = Lists.array();
 
         SEPARATOR.parse(
@@ -50,13 +50,13 @@ public final class TabStringList extends AbstractList<String> implements Delimit
 
         return strings.isEmpty() ?
             EMPTY :
-            new TabStringList(strings);
+            new TsvStringList(strings);
     }
 
     /**
      * Private ctor use #parse or any would be mutator methods.
      */
-    private TabStringList(final List<String> strings) {
+    private TsvStringList(final List<String> strings) {
         super();
         this.strings = strings;
     }
@@ -77,11 +77,11 @@ public final class TabStringList extends AbstractList<String> implements Delimit
     }
 
     @Override
-    public TabStringList setElements(final Collection<String> strings) {
-        TabStringList tsvStringList;
+    public TsvStringList setElements(final Collection<String> strings) {
+        TsvStringList tsvStringList;
 
-        if (strings instanceof TabStringList) {
-            tsvStringList = (TabStringList) strings;
+        if (strings instanceof TsvStringList) {
+            tsvStringList = (TsvStringList) strings;
         } else {
             final List<String> copy = Lists.array();
             for(final String string : strings) {
@@ -92,7 +92,7 @@ public final class TabStringList extends AbstractList<String> implements Delimit
                 this :
                 copy.isEmpty() ?
                     EMPTY :
-                    new TabStringList(copy);
+                    new TsvStringList(copy);
         }
 
         return tsvStringList;
