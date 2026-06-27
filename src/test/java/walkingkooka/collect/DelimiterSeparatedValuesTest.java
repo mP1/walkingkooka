@@ -56,12 +56,12 @@ public final class DelimiterSeparatedValuesTest implements ClassTesting<Delimite
     }
 
     @Test
-    public void testCsvParse() {
+    public void testCsvParseList() {
         final String string = "a,b,c";
 
         this.checkEquals(
             CsvStringList.parse(string),
-            DelimiterSeparatedValues.CSV.parse(string)
+            DelimiterSeparatedValues.CSV.parseList(string)
         );
     }
 
