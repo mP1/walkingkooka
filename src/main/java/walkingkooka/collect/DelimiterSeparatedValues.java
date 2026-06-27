@@ -49,6 +49,11 @@ public enum DelimiterSeparatedValues {
         public CsvStringList parseList(final String string) {
             return CsvStringList.parse(string);
         }
+
+        @Override
+        public CsvStringSet parseSet(final String string) {
+            return CsvStringSet.parse(string);
+        }
     },
 
     TAB(CharacterConstant.TAB) {
@@ -66,6 +71,11 @@ public enum DelimiterSeparatedValues {
         public DelimiterStringImmutableList parseList(final String string) {
             return TsvStringList.parse(string);
         }
+
+        @Override
+        public DelimiterStringImmutableSet parseSet(final String string) {
+            return TsvStringSet.parse(string);
+        }
     };
 
     DelimiterSeparatedValues(final CharacterConstant character) {
@@ -80,6 +90,11 @@ public enum DelimiterSeparatedValues {
      * Parses the {@link String} form using the delimiter into a {@link DelimiterStringImmutableList}.
      */
     public abstract DelimiterStringImmutableList parseList(final String string);
+
+    /**
+     * Parses the {@link String} form using the delimiter into a {@link DelimiterStringImmutableSet}.
+     */
+    public abstract DelimiterStringImmutableSet parseSet(final String string);
 
     /**
      * The delimiter character between values.
