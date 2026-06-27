@@ -99,6 +99,8 @@ public final class FileExtension implements
 
     public final static FileExtension PROPERTIES = registerConstant("properties");
 
+    public final static FileExtension TAB = registerConstant("tab");
+
     public final static FileExtension TSV = registerConstant("tsv");
 
     public final static FileExtension TXT = registerConstant("txt");
