@@ -48,10 +48,10 @@ public final class DelimiterSeparatedValuesTest implements ClassTesting<Delimite
     // csv..............................................................................................................
 
     @Test
-    public void testCsvEmpty() {
+    public void testCsvEmptyList() {
         assertSame(
             CsvStringList.EMPTY,
-            DelimiterSeparatedValues.CSV.empty()
+            DelimiterSeparatedValues.CSV.emptyList()
         );
     }
 

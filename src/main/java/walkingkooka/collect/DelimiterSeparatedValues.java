@@ -33,7 +33,7 @@ public enum DelimiterSeparatedValues {
 
     CSV(CharacterConstant.COMMA) {
         @Override
-        public CsvStringList empty() {
+        public CsvStringList emptyList() {
             return CsvStringList.EMPTY;
         }
 
@@ -45,7 +45,7 @@ public enum DelimiterSeparatedValues {
 
     TAB(CharacterConstant.TAB) {
         @Override
-        public TsvStringList empty() {
+        public TsvStringList emptyList() {
             return TsvStringList.EMPTY;
         }
 
@@ -59,7 +59,7 @@ public enum DelimiterSeparatedValues {
         this.character = character;
     }
 
-    public abstract DelimiterStringImmutableList empty();
+    public abstract DelimiterStringImmutableList emptyList();
 
     /**
      * Parses the {@link String} form such as a CSV into a {@link DelimiterStringImmutableList}.
