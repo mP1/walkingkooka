@@ -38,7 +38,7 @@ public enum DelimiterSeparatedValues {
         }
 
         @Override
-        public CsvStringList parse(final String string) {
+        public CsvStringList parseList(final String string) {
             return CsvStringList.parse(string);
         }
     },
@@ -50,7 +50,7 @@ public enum DelimiterSeparatedValues {
         }
 
         @Override
-        public DelimiterStringImmutableList parse(final String string) {
+        public DelimiterStringImmutableList parseList(final String string) {
             return TsvStringList.parse(string);
         }
     };
@@ -64,7 +64,7 @@ public enum DelimiterSeparatedValues {
     /**
      * Parses the {@link String} form such as a CSV into a {@link DelimiterStringImmutableList}.
      */
-    public abstract DelimiterStringImmutableList parse(final String string);
+    public abstract DelimiterStringImmutableList parseList(final String string);
 
     /**
      * The delimiter character between values.
