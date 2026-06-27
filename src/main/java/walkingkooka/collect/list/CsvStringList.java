@@ -43,7 +43,7 @@ public final class CsvStringList extends AbstractList<String> implements Delimit
     public static CsvStringList parse(final String text) {
         final List<String> strings = Lists.array();
 
-        CharacterConstant.COMMA.parse(
+        SEPARATOR.parse(
             text,
             strings::add
         );
