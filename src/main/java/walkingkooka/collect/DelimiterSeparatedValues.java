@@ -77,7 +77,7 @@ public enum DelimiterSeparatedValues {
     public abstract DelimiterStringImmutableSet emptySet();
 
     /**
-     * Parses the {@link String} form such as a CSV into a {@link DelimiterStringImmutableList}.
+     * Parses the {@link String} form using the delimiter into a {@link DelimiterStringImmutableList}.
      */
     public abstract DelimiterStringImmutableList parseList(final String string);
 
