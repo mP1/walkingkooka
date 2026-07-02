@@ -74,6 +74,13 @@ final public class Comparators implements PublicStaticHelper {
     }
 
     /**
+     * {@see TextWithNumbersComparator}
+     */
+    public static Comparator<CharSequence> textWithNumbersComparator() {
+        return TextWithNumbersComparator.INSTANCE;
+    }
+
+    /**
      * Stop creation
      */
     private Comparators() {
