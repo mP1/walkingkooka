@@ -28,6 +28,8 @@ below. Most if not all values and abstractions are immutable, functional and pro
 
 - NullAwareAfterComparator - wraps another comparator, so nulls sort *AFTER* non null sorted values.
 - NullAwareBeforeComparator - wraps another comparator, so nulls sort *BEFORE* non null sorted values.
+- [textWithNumbersComparatorCaseInsensitive](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/compare/TextWithNumbersComparatorCaseInsensitive.java)
+- [textWithNumbersComparatorCaseSensitive](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/compare/TextWithNumbersComparatorCaseSensitive.java)
 
 ## [*.predicate](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate)
 

@@ -17,6 +17,9 @@
 
 package walkingkooka.compare;
 
+import walkingkooka.text.CaseKind;
+import walkingkooka.text.CaseSensitivity;
+
 import java.util.Comparator;
 import java.util.Objects;
 
@@ -33,20 +36,15 @@ import java.util.Objects;
  * A100 > A20
  * </pre>
  */
-final class TextWithNumbersComparator implements Comparator<CharSequence> {
+abstract class TextWithNumbersComparator implements Comparator<CharSequence> {
 
-    /**
-     * Singleton
-     */
-    final static TextWithNumbersComparator INSTANCE = new TextWithNumbersComparator();
-
-    private TextWithNumbersComparator() {
+    TextWithNumbersComparator() {
         super();
     }
 
     @Override
-    public int compare(final CharSequence left,
-                       final CharSequence right) {
+    public final int compare(final CharSequence left,
+                             final CharSequence right) {
         Objects.requireNonNull(left, "left");
         Objects.requireNonNull(right, "right");
 
@@ -75,7 +73,10 @@ final class TextWithNumbersComparator implements Comparator<CharSequence> {
 
             // left and right are NOT numbers compare characters
             if (-1 == leftNumberStart && -1 == rightNumberStart) {
-                result = left.charAt(leftPos) - right.charAt(rightPos);
+                result = this.compare(
+                    left.charAt(leftPos),
+                    right.charAt(rightPos)
+                );
                 leftPos++;
                 rightPos++;
                 continue;
@@ -122,6 +123,17 @@ final class TextWithNumbersComparator implements Comparator<CharSequence> {
 
         return result;
     }
+
+    final int compare(final char left,
+                      final char right) {
+        return this.caseSensitivity()
+            .compare(
+                left,
+                right
+            );
+    }
+
+    abstract CaseSensitivity caseSensitivity();
 
     private static int skipZeroDigits(final CharSequence text,
                                       final int pos) {
@@ -180,7 +192,18 @@ final class TextWithNumbersComparator implements Comparator<CharSequence> {
     // Object...........................................................................................................
 
     @Override
-    public String toString() {
-        return this.getClass().getSimpleName();
+    public final String toString() {
+        return TextWithNumbersComparator.class.getSimpleName() +
+            "(Case" +
+            CaseKind.TITLE.change(
+                this.caseSensitivity()
+                    .name(),
+                CaseKind.PASCAL
+            )
+            + ")";
     }
+
+    // class............................................................................................................
+
+
 }
