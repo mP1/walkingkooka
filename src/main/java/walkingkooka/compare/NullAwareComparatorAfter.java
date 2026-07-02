@@ -23,6 +23,9 @@ import walkingkooka.Cast;
 import java.util.Comparator;
 import java.util.Objects;
 
+/**
+ * This {@link Comparator} wraps another {@link Comparator}, so nulls sort *AFTER* non null sorted values.
+ */
 final class NullAwareComparatorAfter<T> extends NullAwareComparator<T> {
 
     static <T> NullAwareComparatorAfter<T> with(final Comparator<T> comparator) {
