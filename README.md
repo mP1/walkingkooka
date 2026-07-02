@@ -89,9 +89,14 @@ below. Most if not all values and abstractions are immutable, functional and pro
 
 ## [*.text](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/text)
 
-- CaseSensitivity Useful case sensitivity String to CharSequences, like startsWith, endsWidth, index, equals
-- CharSequences Supports many of the useful String methods and more for CharSequence using a CaseSensitivity
-- [GlobPattern](https://en.wikipedia.org/wiki/Glob_\(programming\)) May be used to match glob patterns where question mark matches a single char, and star zero or more, eg /user/Miroslav/*.txt (all text files under) or /user/Miroslav/???.txt (three letter txt files)
+- [Ascii](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/text/Ascii.java)
+- [CaseKind](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/text/CaseKind.java)
+- [CaseSensitivity](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/text/CaseSensitivity.java)
+- [CharSequences](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/text/CharSequences.java)
+- [GlobPattern](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/text/GlobPattern.java)
+- [Indentation](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/text/Indentation.java)
+- [LineEnding](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/text/LineEnding.java)
+- [Whitespace](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/text/Whitespace.java)
 
 ## [*.text.cursor](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/text/cursor)
 
