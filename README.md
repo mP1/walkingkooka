@@ -26,10 +26,10 @@ below. Most if not all values and abstractions are immutable, functional and pro
 
 ## [*.comparator](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/compare)
 
-- NullAwareAfterComparator - wraps another comparator, so nulls sort *AFTER* non null sorted values.
-- NullAwareBeforeComparator - wraps another comparator, so nulls sort *BEFORE* non null sorted values.
-- [textWithNumbersComparatorCaseInsensitive](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/compare/TextWithNumbersComparatorCaseInsensitive.java)
-- [textWithNumbersComparatorCaseSensitive](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/compare/TextWithNumbersComparatorCaseSensitive.java)
+- [nullAwareAfter](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/compare/NullAwareComparatorAfter.java)
+- [nullAwareBefore](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/compare/NullAwareComparatorBefore.java)
+- [textWithNumbersCaseInsensitive](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/compare/TextWithNumbersComparatorCaseInsensitive.java)
+- [textWithNumbersCaseSensitive](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/compare/TextWithNumbersComparatorCaseSensitive.java)
 
 ## [*.predicate](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate)
 
