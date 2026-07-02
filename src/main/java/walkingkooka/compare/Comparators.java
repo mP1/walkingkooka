@@ -74,10 +74,17 @@ final public class Comparators implements PublicStaticHelper {
     }
 
     /**
-     * {@see TextWithNumbersComparator}
+     * {@see TextWithNumbersComparatorCaseInsensitive}
      */
-    public static Comparator<CharSequence> textWithNumbersComparator() {
-        return TextWithNumbersComparator.INSTANCE;
+    public static Comparator<CharSequence> textWithNumbersComparatorCaseInsensitive() {
+        return TextWithNumbersComparatorCaseInsensitive.INSTANCE;
+    }
+
+    /**
+     * {@see TextWithNumbersComparatorCaseSensitive}
+     */
+    public static Comparator<CharSequence> textWithNumbersComparatorCaseSensitive() {
+        return TextWithNumbersComparatorCaseSensitive.INSTANCE;
     }
 
     /**

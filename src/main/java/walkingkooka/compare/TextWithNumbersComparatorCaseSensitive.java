@@ -1,0 +1,53 @@
+/*
+ * Copyright 2019 Miroslav Pokorny (github.com/mP1)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+package walkingkooka.compare;
+
+import walkingkooka.text.CaseSensitivity;
+
+import java.util.Comparator;
+
+/**
+ * A {@link Comparator} that supports comparing text with embedded numbers so letters with number sequences are sorted
+ * by the numeric value. Text without digits is compared lexicographically.
+ * <pre>
+ * abc < def
+ * ABC < DEF
+ * XYZ < xyz
+ *
+ * A123 > A45
+ * A123BC > A45BC
+ * A0001 == A1
+ * A100 > A20
+ * </pre>
+ */
+final class TextWithNumbersComparatorCaseSensitive extends TextWithNumbersComparator {
+
+    /**
+     * Singleton
+     */
+    final static TextWithNumbersComparatorCaseSensitive INSTANCE = new TextWithNumbersComparatorCaseSensitive();
+
+    private TextWithNumbersComparatorCaseSensitive() {
+        super();
+    }
+
+    @Override
+    CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.SENSITIVE;
+    }
+}
