@@ -51,8 +51,32 @@ below. Most if not all values and abstractions are immutable, functional and pro
 ## [*.predicate.character](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/character)
 
 - A new interface `CharPredicate` replacing the need for `IntPredicate`.
-- Many useful and interesting implementations.
 
+- [always](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/character/AlwaysCharPredicate.java)
+- [and](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/character/AndCharPredicate.java)
+- [andNot](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/character/AndNotCharPredicate.java)
+- [ascii](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/character/AsciiCharPredicate.java)
+- [asciiControl](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/character/AsciiControlCharPredicate.java)
+- [asciiPrintable](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/character/AsciiPrintableCharPredicate.java)
+- [any](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/character/AnyCharPredicate.java)
+- caseSensitive
+- caseInsensitive
+- [digit](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/character/DigitCharPredicate.java)
+- [endOfLine](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/character/EndOfLineCharPredicate.java)
+- is
+- [letter](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/character/LetterCharPredicate.java)
+- [letterOrDigit](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/character/LetterOrDigitCharPredicate.java)
+- [lowerCasing](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/character/LowerCasingCharPredicate.java)
+- [never](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/character/NeverCharPredicate.java)
+- [not](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/character/NotCharPredicate.java)
+- [or](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/character/OrCharPredicate.java)
+- [printable](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/character/PrintableCharPredicate.java)
+- [range](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/character/RangeCharPredicate.java)
+- [rfc2045Token](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/character/Rfc2045TokenCharPredicate.java)
+- [rfc2045TokenSpecial](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/character/Rfc2045TokenSpecialCharPredicate.java)
+- [toString](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/character/ToStringCharPredicate.java)
+- [whitespace](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/character/WhitespaceCharPredicate.java)
+- [xml](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/character/XmlCharPredicate.java)
 
 ## [*.reflect](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/reflect)
 
