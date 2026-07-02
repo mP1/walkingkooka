@@ -33,9 +33,20 @@ below. Most if not all values and abstractions are immutable, functional and pro
 
 ## [*.predicate](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate)
 
-- Many additional `Predicate`(s).
-
-
+- [always](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/AlwaysPredicate.java)
+- [any](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/AnyPredicate.java)
+- [charPredicate](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/CharPredicatePredicate.java)
+- [charSequence](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/CharPredicateCharSequencePredicate.java)
+- [charSequenceContains](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/charSequenceContains.java)
+- [charSequenceEndsWith](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/charSequenceEndsWith.java)
+- [charSequenceStartsWith](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/charSequenceStartsWith.java)
+- [customToString](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/CustomToStringPredicate.java)
+- [globPatterns](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/Predicates.java#L120)
+- [initialAndPart](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/InitialAndPartCharPredicateCharSequencePredicate.java)
+- [is](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/ObjectEqualityPredicate.java)
+- [javaIdentifier](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/Predicates.java#L153)
+- [never](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/NeverPredicate.java)
+- [setContains](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/SetContainsPredicate.java)
 
 ## [*.predicate.character](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/predicate/character)
 
