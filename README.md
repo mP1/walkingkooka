@@ -23,6 +23,7 @@ below. Most if not all values and abstractions are immutable, functional and pro
 
 ## [*.comparator](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/compare)
 
+- [customListCaseSensitive](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/compare/CustomListComparatorCaseSensitive.java)
 - [nullAwareAfter](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/compare/NullAwareComparatorAfter.java)
 - [nullAwareBefore](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/compare/NullAwareComparatorBefore.java)
 - [textWithNumbersCaseInsensitive](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/compare/TextWithNumbersComparatorCaseInsensitive.java)
