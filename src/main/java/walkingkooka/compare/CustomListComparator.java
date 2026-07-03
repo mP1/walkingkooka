@@ -80,7 +80,21 @@ abstract class CustomListComparator implements Comparator<CharSequence> {
     }
 
     private int customListItem(final CharSequence text) {
-        return this.customList.indexOf(text);
+        int index = -1;
+
+        final CaseSensitivity caseSensitivity = this.caseSensitivity();
+
+        int i = 0;
+        for (final CharSequence element : this.customList) {
+            if (caseSensitivity.equals(element, text)) {
+                index = i;
+                break;
+            }
+
+            i++;
+        }
+
+        return index;
     }
 
     private final List<CharSequence> customList;
