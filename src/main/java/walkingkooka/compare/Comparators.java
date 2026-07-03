@@ -21,6 +21,7 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.reflect.PublicStaticHelper;
 
 import java.util.Comparator;
+import java.util.List;
 
 final public class Comparators implements PublicStaticHelper {
     // constants
@@ -29,6 +30,13 @@ final public class Comparators implements PublicStaticHelper {
     public final static int EQUAL = 0;
 
     public final static int MORE = 1;
+
+    /**
+     * {@see CustomListComparatorCaseSensitive}
+     */
+    public static Comparator<CharSequence> customListCaseSensitive(final List<CharSequence> customList) {
+        return CustomListComparatorCaseSensitive.with(customList);
+    }
 
     /**
      * {@see FakeComparator}
