@@ -202,8 +202,4 @@ abstract class TextWithNumbersComparator implements Comparator<CharSequence> {
             )
             + ")";
     }
-
-    // class............................................................................................................
-
-
 }
