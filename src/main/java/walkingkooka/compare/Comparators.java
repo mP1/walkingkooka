@@ -32,6 +32,13 @@ final public class Comparators implements PublicStaticHelper {
     public final static int MORE = 1;
 
     /**
+     * {@see CustomListComparatorCaseInsensitive}
+     */
+    public static Comparator<CharSequence> customListCaseInsensitive(final List<CharSequence> customList) {
+        return CustomListComparatorCaseInsensitive.with(customList);
+    }
+
+    /**
      * {@see CustomListComparatorCaseSensitive}
      */
     public static Comparator<CharSequence> customListCaseSensitive(final List<CharSequence> customList) {
