@@ -21,6 +21,8 @@ package walkingkooka.naming;
 import walkingkooka.CanBeEmpty;
 import walkingkooka.Cast;
 import walkingkooka.HasValue;
+import walkingkooka.ToStringBuilder;
+import walkingkooka.UsesToStringBuilder;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.io.FileExtension;
 import walkingkooka.io.HasFileExtension;
@@ -39,7 +41,8 @@ public interface Path<P extends Path<P, N>, N extends PathName> extends HasValue
     HasFileExtension,
     HasText,
     Iterable<N>,
-    CanBeEmpty {
+    CanBeEmpty,
+    UsesToStringBuilder {
 
     /**
      * Path segment for the current directory
@@ -152,5 +155,12 @@ public interface Path<P extends Path<P, N>, N extends PathName> extends HasValue
     @Override
     default String text() {
         return this.value();
+    }
+
+    // UsesToStringBuilder..............................................................................................
+
+    @Override
+    default void buildToString(final ToStringBuilder builder) {
+        builder.append(this.value());
     }
 }
