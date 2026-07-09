@@ -281,7 +281,7 @@ public final class Binary implements HasValue<byte[]>,
         return buffer.toString();
     }
 
-    private static char[] TO_HEX = "0123456789abcdef".toCharArray();
+    private final static char[] TO_HEX = "0123456789abcdef".toCharArray();
 
     // HasBinary........................................................................................................
 
