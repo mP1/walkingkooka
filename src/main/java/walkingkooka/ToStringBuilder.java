@@ -801,7 +801,7 @@ final public class ToStringBuilder implements Builder<String> {
     // Object...........................................................................................................
 
     /**
-     * Dump the any set options followed by the {@link StringBuilder buffer}.
+     * Dump any set options followed by the {@link StringBuilder buffer}.
      */
     @Override
     public String toString() {
