@@ -31,129 +31,129 @@ import java.util.OptionalLong;
 abstract class ToStringBuilderAppender<V> {
 
     /**
-     * {@see ToStringBuilderAppenderBooleanArrayVector}
+     * {@see ToStringBuilderAppenderVectorArraySharedBoolean}
      */
     static ToStringBuilderAppender<?> booleanArray(final boolean[] value) {
-        return ToStringBuilderAppenderBooleanArrayVector.with(value);
+        return ToStringBuilderAppenderVectorArraySharedBoolean.with(value);
     }
 
     /**
-     * {@see ToStringBuilderAppenderBooleanScalar}
+     * {@see ToStringBuilderAppenderScalarSharedBoolean}
      */
     static ToStringBuilderAppender<?> booleanValue(final Boolean value) {
-        return ToStringBuilderAppenderBooleanScalar.with(value);
+        return ToStringBuilderAppenderScalarSharedBoolean.with(value);
     }
 
     /**
-     * {@see ToStringBuilderAppenderByteArrayVector}
+     * {@see ToStringBuilderAppenderVectorArrayShared2Byte}
      */
     static ToStringBuilderAppender<?> byteArray(final byte[] value) {
-        return ToStringBuilderAppenderByteArrayVector.with(value);
+        return ToStringBuilderAppenderVectorArrayShared2Byte.with(value);
     }
 
     /**
-     * {@see ToStringBuilderAppenderByteScalar}
+     * {@see ToStringBuilderAppenderScalarSharedByte}
      */
     static ToStringBuilderAppender<?> byteValue(final Byte value) {
-        return ToStringBuilderAppenderByteScalar.with(value);
+        return ToStringBuilderAppenderScalarSharedByte.with(value);
     }
 
     /**
-     * {@see ToStringBuilderAppenderCharArrayVector}
+     * {@see ToStringBuilderAppenderVectorArraySharedChar}
      */
     static ToStringBuilderAppender<?> charArray(final char[] value) {
-        return ToStringBuilderAppenderCharArrayVector.with(value);
+        return ToStringBuilderAppenderVectorArraySharedChar.with(value);
     }
 
     /**
-     * {@see ToStringBuilderAppenderCharScalar}
+     * {@see ToStringBuilderAppenderScalarSharedChar}
      */
     static ToStringBuilderAppender<?> charValue(final Character value) {
-        return ToStringBuilderAppenderCharScalar.with(value);
+        return ToStringBuilderAppenderScalarSharedChar.with(value);
     }
 
     /**
-     * {@see ToStringBuilderAppenderCharSequenceScalar}
+     * {@see ToStringBuilderAppenderScalarSharedCharSequence}
      */
     static ToStringBuilderAppender<?> charSequence(final CharSequence value) {
-        return ToStringBuilderAppenderCharSequenceScalar.with(value);
+        return ToStringBuilderAppenderScalarSharedCharSequence.with(value);
     }
 
     /**
-     * {@see ToStringBuilderAppenderDefaultScalar}
+     * {@see ToStringBuilderAppenderScalarSharedDefault}
      */
-    private static ToStringBuilderAppenderDefaultScalar defaultScalar(final Object value) {
-        return ToStringBuilderAppenderDefaultScalar.with(value);
+    private static ToStringBuilderAppenderScalarSharedDefault defaultScalar(final Object value) {
+        return ToStringBuilderAppenderScalarSharedDefault.with(value);
     }
 
     /**
-     * {@see ToStringBuilderAppenderDoubleArrayVector}
+     * {@see ToStringBuilderAppenderVectorArrayShared2Double}
      */
     static ToStringBuilderAppender<?> doubleArray(final double[] value) {
-        return ToStringBuilderAppenderDoubleArrayVector.with(value);
+        return ToStringBuilderAppenderVectorArrayShared2Double.with(value);
     }
 
     /**
-     * {@see ToStringBuilderAppenderDoubleScalar}
+     * {@see ToStringBuilderAppenderScalarSharedDouble}
      */
     static ToStringBuilderAppender<?> doubleValue(final Double value) {
-        return ToStringBuilderAppenderDoubleScalar.with(value);
+        return ToStringBuilderAppenderScalarSharedDouble.with(value);
     }
 
     /**
-     * {@see ToStringBuilderAppenderEntryScalar}
+     * {@see ToStringBuilderAppenderScalarSharedEntry}
      */
     private static ToStringBuilderAppender<?> entry(final Entry<?, ?> value) {
-        return ToStringBuilderAppenderEntryScalar.with(value);
+        return ToStringBuilderAppenderScalarSharedEntry.with(value);
     }
 
     /**
-     * {@see ToStringBuilderAppenderFloatArrayVector}
+     * {@see ToStringBuilderAppenderVectorArrayShared2Float}
      */
     static ToStringBuilderAppender<?> floatArray(final float[] value) {
-        return ToStringBuilderAppenderFloatArrayVector.with(value);
+        return ToStringBuilderAppenderVectorArrayShared2Float.with(value);
     }
 
     /**
-     * {@see ToStringBuilderAppenderDoubleScalar}
+     * {@see ToStringBuilderAppenderScalarSharedDouble}
      */
     static ToStringBuilderAppender<?> floatValue(final Float value) {
-        return ToStringBuilderAppenderDoubleScalar.with(null == value ? null : value.doubleValue());
+        return ToStringBuilderAppenderScalarSharedDouble.with(null == value ? null : value.doubleValue());
     }
 
     /**
-     * {@see ToStringBuilderAppenderIntArrayVector}
+     * {@see ToStringBuilderAppenderVectorArrayShared2Int}
      */
     static ToStringBuilderAppender<?> intArray(final int[] value) {
-        return ToStringBuilderAppenderIntArrayVector.with(value);
+        return ToStringBuilderAppenderVectorArrayShared2Int.with(value);
     }
 
     /**
-     * {@see ToStringBuilderAppenderIntScalar}
+     * {@see ToStringBuilderAppenderScalarSharedInt}
      */
     static ToStringBuilderAppender<?> intValue(final Integer value) {
-        return ToStringBuilderAppenderIntScalar.with(value);
+        return ToStringBuilderAppenderScalarSharedInt.with(value);
     }
 
     /**
-     * {@see ToStringBuilderAppenderIterableVector}
+     * {@see ToStringBuilderAppenderVectorIterable}
      */
     private static ToStringBuilderAppender<?> iterable(final Iterable<?> value) {
-        return ToStringBuilderAppenderIterableVector.with(value);
+        return ToStringBuilderAppenderVectorIterable.with(value);
     }
 
     /**
-     * {@see ToStringBuilderAppenderLongArrayVector}
+     * {@see ToStringBuilderAppenderVectorArrayShared2Long}
      */
     static ToStringBuilderAppender<?> longArray(final long[] value) {
-        return ToStringBuilderAppenderLongArrayVector.with(value);
+        return ToStringBuilderAppenderVectorArrayShared2Long.with(value);
     }
 
     /**
-     * {@see ToStringBuilderAppenderLongScalar}
+     * {@see ToStringBuilderAppenderScalarSharedLong}
      */
     static ToStringBuilderAppender<?> longValue(final Long value) {
-        return ToStringBuilderAppenderLongScalar.with(value);
+        return ToStringBuilderAppenderScalarSharedLong.with(value);
     }
 
     /**
@@ -298,52 +298,52 @@ abstract class ToStringBuilderAppender<V> {
     }
 
     /**
-     * {@see ToStringBuilderAppenderOptionalVector}
+     * {@see ToStringBuilderAppenderVectorOptional}
      */
     static ToStringBuilderAppender<?> optional(final Optional<?> value) {
-        return ToStringBuilderAppenderOptionalVector.with(value);
+        return ToStringBuilderAppenderVectorOptional.with(value);
     }
 
     /**
-     * {@see ToStringBuilderAppenderOptionalDoubleVector}
+     * {@see ToStringBuilderAppenderVectorOptionalDouble}
      */
     static ToStringBuilderAppender<?> optionalDouble(final OptionalDouble value) {
-        return ToStringBuilderAppenderOptionalDoubleVector.with(value);
+        return ToStringBuilderAppenderVectorOptionalDouble.with(value);
     }
 
     /**
-     * {@see ToStringBuilderAppenderOptionalIntVector}
+     * {@see ToStringBuilderAppenderVectorOptionalInt}
      */
     static ToStringBuilderAppender<?> optionalInt(final OptionalInt value) {
-        return ToStringBuilderAppenderOptionalIntVector.with(value);
+        return ToStringBuilderAppenderVectorOptionalInt.with(value);
     }
 
     /**
-     * {@see ToStringBuilderAppenderOptionalLongVector}
+     * {@see ToStringBuilderAppenderVectorOptionalLong}
      */
     static ToStringBuilderAppender<?> optionalLong(final OptionalLong value) {
-        return ToStringBuilderAppenderOptionalLongVector.with(value);
+        return ToStringBuilderAppenderVectorOptionalLong.with(value);
     }
 
     /**
-     * {@see ToStringBuilderAppenderShortArrayVector}
+     * {@see ToStringBuilderAppenderVectorArrayShared2Short}
      */
     static ToStringBuilderAppender<?> shortArray(final short[] value) {
-        return ToStringBuilderAppenderShortArrayVector.with(value);
+        return ToStringBuilderAppenderVectorArrayShared2Short.with(value);
     }
 
     /**
-     * {@see ToStringBuilderAppenderShortScalar}
+     * {@see ToStringBuilderAppenderScalarSharedShort}
      */
     static ToStringBuilderAppender<?> shortValue(final Short value) {
-        return ToStringBuilderAppenderShortScalar.with(value);
+        return ToStringBuilderAppenderScalarSharedShort.with(value);
     }
 
     /**
-     * {@see ToStringBuilderAppenderUsesToStringBuilderScalar}
+     * {@see ToStringBuilderAppenderScalarUsesToStringBuilder}
      */
     static ToStringBuilderAppender<?> usesToStringBuilder(final UsesToStringBuilder value) {
-        return ToStringBuilderAppenderUsesToStringBuilderScalar.with(value);
+        return ToStringBuilderAppenderScalarUsesToStringBuilder.with(value);
     }
 
     /**
