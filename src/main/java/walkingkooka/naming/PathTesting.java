@@ -307,7 +307,6 @@ public interface PathTesting<P extends Path<P, N> & Comparable<P>, N extends Pat
                 path
             );
         }
-        ;
     }
 
     default P parentCheck(final P path) {
