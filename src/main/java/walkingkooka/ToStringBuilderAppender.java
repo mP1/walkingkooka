@@ -378,7 +378,7 @@ abstract class ToStringBuilderAppender<V> {
         }
     }
 
-    void appendLabelBeforeValueAfterPostEmptyCheck(final ToStringBuilder builder) {
+    final void appendLabelBeforeValueAfterPostEmptyCheck(final ToStringBuilder builder) {
         final StringBuilder buffer = builder.buffer;
         final int beforeLength = buffer.length();
 
