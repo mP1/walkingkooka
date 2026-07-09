@@ -302,7 +302,8 @@ final public class ToStringBuilder implements Builder<String> {
      * [1, 2, 3]
      * </pre>
      */
-    public ToStringBuilder surroundValues(final String before, final String after) {
+    public ToStringBuilder surroundValues(final String before,
+                                          final String after) {
         Objects.requireNonNull(before, "before");
         Objects.requireNonNull(after, "after");
 
@@ -384,7 +385,8 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a boolean value.
      */
     public ToStringBuilder value(final boolean value) {
-        ToStringBuilderAppender.booleanValue(value).append(this);
+        ToStringBuilderAppender.booleanValue(value)
+            .append(this);
         return this;
     }
 
@@ -392,7 +394,8 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a boolean array.
      */
     public ToStringBuilder value(final boolean[] value) {
-        ToStringBuilderAppender.booleanArray(value).append(this);
+        ToStringBuilderAppender.booleanArray(value)
+            .append(this);
         return this;
     }
 
@@ -401,7 +404,8 @@ final public class ToStringBuilder implements Builder<String> {
      * enabled.
      */
     public ToStringBuilder value(final byte value) {
-        ToStringBuilderAppender.byteValue(value).append(this);
+        ToStringBuilderAppender.byteValue(value)
+            .append(this);
         return this;
     }
 
@@ -409,7 +413,8 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a byte array respecting any set {@link ToStringBuilderOption options}
      */
     public ToStringBuilder value(final byte[] value) {
-        ToStringBuilderAppender.byteArray(value).append(this);
+        ToStringBuilderAppender.byteArray(value)
+            .append(this);
         return this;
     }
 
@@ -417,7 +422,8 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a character.
      */
     public ToStringBuilder value(final char value) {
-        ToStringBuilderAppender.charValue(value).append(this);
+        ToStringBuilderAppender.charValue(value)
+            .append(this);
         return this;
     }
 
@@ -425,7 +431,8 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a char array.
      */
     public ToStringBuilder value(final char[] value) {
-        ToStringBuilderAppender.charArray(value).append(this);
+        ToStringBuilderAppender.charArray(value)
+            .append(this);
         return this;
     }
 
@@ -433,7 +440,8 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a double value
      */
     public ToStringBuilder value(final double value) {
-        ToStringBuilderAppender.doubleValue(value).append(this);
+        ToStringBuilderAppender.doubleValue(value)
+            .append(this);
         return this;
     }
 
@@ -441,7 +449,8 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a double array.
      */
     public ToStringBuilder value(final double[] value) {
-        ToStringBuilderAppender.doubleArray(value).append(this);
+        ToStringBuilderAppender.doubleArray(value)
+            .append(this);
         return this;
     }
 
@@ -449,7 +458,8 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a float value
      */
     public ToStringBuilder value(final float value) {
-        ToStringBuilderAppender.floatValue(value).append(this);
+        ToStringBuilderAppender.floatValue(value)
+            .append(this);
         return this;
     }
 
@@ -457,7 +467,8 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a float array.
      */
     public ToStringBuilder value(final float[] value) {
-        ToStringBuilderAppender.floatArray(value).append(this);
+        ToStringBuilderAppender.floatArray(value)
+            .append(this);
         return this;
     }
 
@@ -465,7 +476,8 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds an int value.
      */
     public ToStringBuilder value(final int value) {
-        ToStringBuilderAppender.intValue(value).append(this);
+        ToStringBuilderAppender.intValue(value)
+            .append(this);
         return this;
     }
 
@@ -473,7 +485,8 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a int array.
      */
     public ToStringBuilder value(final int[] value) {
-        ToStringBuilderAppender.intArray(value).append(this);
+        ToStringBuilderAppender.intArray(value)
+            .append(this);
         return this;
     }
 
@@ -481,7 +494,8 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a long value
      */
     public ToStringBuilder value(final long value) {
-        ToStringBuilderAppender.longValue(value).append(this);
+        ToStringBuilderAppender.longValue(value)
+            .append(this);
         return this;
     }
 
@@ -489,7 +503,8 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a long array.
      */
     public ToStringBuilder value(final long[] value) {
-        ToStringBuilderAppender.longArray(value).append(this);
+        ToStringBuilderAppender.longArray(value)
+            .append(this);
         return this;
     }
 
@@ -498,7 +513,8 @@ final public class ToStringBuilder implements Builder<String> {
      * ToStringBuilderOption options} are enabled.
      */
     public ToStringBuilder value(final CharSequence value) {
-        ToStringBuilderAppender.charSequence(value).append(this);
+        ToStringBuilderAppender.charSequence(value)
+            .append(this);
         return this;
     }
 
@@ -506,7 +522,8 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a new value.
      */
     public ToStringBuilder value(final Object value) {
-        ToStringBuilderAppender.object(value).append(this);
+        ToStringBuilderAppender.object(value)
+            .append(this);
         return this;
     }
 
@@ -515,7 +532,8 @@ final public class ToStringBuilder implements Builder<String> {
      * is true.
      */
     public ToStringBuilder value(final short value) {
-        ToStringBuilderAppender.shortValue(value).append(this);
+        ToStringBuilderAppender.shortValue(value)
+            .append(this);
         return this;
     }
 
@@ -523,7 +541,8 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a short array with a special test
      */
     public ToStringBuilder value(final short[] value) {
-        ToStringBuilderAppender.shortArray(value).append(this);
+        ToStringBuilderAppender.shortArray(value)
+            .append(this);
         return this;
     }
 
@@ -531,7 +550,8 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a {@link UsesToStringBuilder}.
      */
     public ToStringBuilder value(final UsesToStringBuilder value) {
-        ToStringBuilderAppender.usesToStringBuilder(value).append(this);
+        ToStringBuilderAppender.usesToStringBuilder(value)
+            .append(this);
         return this;
     }
 
@@ -617,7 +637,8 @@ final public class ToStringBuilder implements Builder<String> {
     /**
      * Appends the chars, escaping and quoting if they are enabled. This should only be executed by a {@link ToStringBuilderAppender}.
      */
-    void appendCharSequence(final CharSequence chars, final char quote) {
+    void appendCharSequence(final CharSequence chars,
+                            final char quote) {
         CharSequence append = chars;
 
         if (this.option(ToStringBuilderOption.ESCAPE)) {
@@ -778,7 +799,6 @@ final public class ToStringBuilder implements Builder<String> {
     public String build() {
         return this.buffer.toString();
     }
-
 
     /**
      * Tests if the {@link StringBuilder} is full returning the maximum number of characters left. A
