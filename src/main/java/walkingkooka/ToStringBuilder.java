@@ -652,9 +652,10 @@ final public class ToStringBuilder implements Builder<String> {
         }
 
         // if the buffer has become full remove label, separators etc and return true.
-        final boolean full = false;
+        boolean full = false;
         if (buffer.length() >= this.globalLength) {
             buffer.setLength(length);
+            full = true;
         }
 
         return full;
