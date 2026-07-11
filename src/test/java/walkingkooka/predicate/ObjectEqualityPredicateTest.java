@@ -23,7 +23,6 @@ import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ObjectEqualityPredicateTest
     extends PredicateTestCase<ObjectEqualityPredicate<String>, String>
@@ -34,19 +33,28 @@ final public class ObjectEqualityPredicateTest
     // tests
 
     @Test
-    public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> ObjectEqualityPredicate.with(null));
-    }
-
-    @Test
     public void testWith() {
         final ObjectEqualityPredicate<Object> predicate = ObjectEqualityPredicate.with("String");
         assertNotNull(predicate);
     }
 
     @Test
+    public void testWithNull() {
+        final ObjectEqualityPredicate<Object> predicate = ObjectEqualityPredicate.with(null);
+        assertNotNull(predicate);
+    }
+
+    @Test
     public void testTestNull() {
         this.testFalse(null);
+    }
+
+    @Test
+    public void testTestNullWhenNull() {
+        this.testTrue(
+            ObjectEqualityPredicate.with(null),
+            null
+        );
     }
 
     @Test

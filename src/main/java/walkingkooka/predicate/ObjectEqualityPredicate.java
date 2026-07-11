@@ -23,7 +23,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
- * A {@link Predicate} that test any value using {@link Object#equals(Object)}.
+ * A {@link Predicate} that test any value including using {@link Objects#equals(Object, Object)}
  */
 final class ObjectEqualityPredicate<T> implements Predicate<T> {
 
@@ -31,8 +31,6 @@ final class ObjectEqualityPredicate<T> implements Predicate<T> {
      * Creates a {@link ObjectEqualityPredicate}
      */
     static <T, U extends T> ObjectEqualityPredicate<T> with(final U value) {
-        Objects.requireNonNull(value, "value");
-
         return new ObjectEqualityPredicate<>(value);
     }
 
@@ -49,7 +47,10 @@ final class ObjectEqualityPredicate<T> implements Predicate<T> {
      */
     @Override
     public boolean test(final T value) {
-        return this.value.equals(value);
+        return Objects.equals(
+            this.value,
+            value
+        );
     }
 
     private final T value;
@@ -67,7 +68,10 @@ final class ObjectEqualityPredicate<T> implements Predicate<T> {
     }
 
     private boolean equals(final ObjectEqualityPredicate<?> other) {
-        return this.value.equals(other.value);
+        return Objects.equals(
+            this.value,
+            other.value
+        );
     }
 
     @Override
