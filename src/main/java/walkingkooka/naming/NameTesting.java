@@ -35,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Base class for testing a {@link Name} with mostly helpers to check construction failure.
  */
 public interface NameTesting<N extends Name, C extends Comparable<C>> extends ComparableTesting2<C>,
+    HasNameTesting,
     HasTextTesting,
     HasValueTesting,
     CanBeEmptyTesting,
@@ -77,6 +78,18 @@ public interface NameTesting<N extends Name, C extends Comparable<C>> extends Co
             this.caseSensitivity(),
             this.createName(this.nameText())
                 .caseSensitivity()
+        );
+    }
+
+    @Test
+    default void testName() {
+        final N name = this.createName(
+            this.nameText()
+        );
+
+        this.nameAndCheck(
+            name,
+            name
         );
     }
 
