@@ -30,6 +30,7 @@ import java.util.Comparator;
  */
 public interface Name extends HasValue<String>,
     HasCaseSensitivity,
+    HasName<Name>,
     HasText,
     CanBeEmpty {
 
@@ -38,6 +39,13 @@ public interface Name extends HasValue<String>,
      */
     static <T extends Name> Comparator<T> comparator(final CaseSensitivity caseSensitivity) {
         return NameComparator.with(caseSensitivity);
+    }
+
+    // HasName..........................................................................................................
+
+    @Override
+    default Name name() {
+        return this;
     }
 
     // HasText..........................................................................................................
