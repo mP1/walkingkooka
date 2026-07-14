@@ -19,4 +19,11 @@ package walkingkooka.text;
 
 public interface TextContextTesting extends HasIndentationTesting,
     HasLineEndingTesting {
+
+    TextPrinting TEXT_PRINTING = TextPrinting.with(
+        INDENTATION,
+        LINE_ENDING
+    );
+
+    TextContext TEXT_CONTEXT = TEXT_PRINTING;
 }

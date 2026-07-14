@@ -44,11 +44,6 @@ public final class BinaryTextPrintingTest implements BinaryTextContextTesting,
 
     private final static LineEnding DIFFERENT_LINE_ENDING = LineEnding.CR;
 
-    private final static TextPrinting TEXT_PRINTING = TextPrinting.with(
-        INDENTATION,
-        LINE_ENDING
-    );
-
     // with.............................................................................................................
 
     @Test
