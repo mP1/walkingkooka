@@ -38,8 +38,6 @@ public final class BinaryTextPrintingTest implements BinaryTextContextTesting,
 
     private final static Charset DIFFERENT_CHARSET = StandardCharsets.ISO_8859_1;
 
-    private final static Indentation INDENTATION = Indentation.SPACES2;
-
     private final static Indentation DIFFERENT_INDENTATION = Indentation.SPACES4;
 
     private final static LineEnding LINE_ENDING = LineEnding.NL;
