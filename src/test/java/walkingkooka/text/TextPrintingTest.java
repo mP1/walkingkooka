@@ -18,10 +18,14 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.HasCharsetTesting;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
+
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -29,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TextPrintingTest implements TextContextTesting,
     HashCodeEqualsDefinedTesting2<TextPrinting>,
+    HasCharsetTesting,
     ToStringTesting<TextPrinting>,
     ClassTesting<TextPrinting> {
 
@@ -78,6 +83,40 @@ public final class TextPrintingTest implements TextContextTesting,
 
         this.lineEndingAndCheck(
             textPrinting,
+            LINE_ENDING
+        );
+    }
+
+    // setCharset.......................................................................................................
+
+    @Test
+    public void testSetCharsetWithNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createObject()
+                .setCharset(null)
+        );
+    }
+
+    @Test
+    public void testSetCharset() {
+        final Charset charset = StandardCharsets.UTF_8;
+
+        final BinaryTextPrinting binaryTextPrinting = this.createObject()
+            .setCharset(charset);
+
+        this.charsetAndCheck(
+            binaryTextPrinting,
+            charset
+        );
+
+        this.indentationAndCheck(
+            binaryTextPrinting,
+            INDENTATION
+        );
+
+        this.lineEndingAndCheck(
+            binaryTextPrinting,
             LINE_ENDING
         );
     }

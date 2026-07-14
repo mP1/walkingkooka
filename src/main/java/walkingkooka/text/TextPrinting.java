@@ -20,6 +20,7 @@ package walkingkooka.text;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.UsesToStringBuilder;
 
+import java.nio.charset.Charset;
 import java.util.Objects;
 
 /**
@@ -42,6 +43,13 @@ public final class TextPrinting implements TextContext,
 
         this.indentation = indentation;
         this.lineEnding = lineEnding;
+    }
+
+    public BinaryTextPrinting setCharset(final Charset charset) {
+        return BinaryTextPrinting.with(
+            charset,
+            this
+        );
     }
 
     // HasIndentation...................................................................................................
