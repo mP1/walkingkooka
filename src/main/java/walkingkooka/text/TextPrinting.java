@@ -29,7 +29,7 @@ public final class TextPrinting implements TextContext,
     UsesToStringBuilder {
 
     public static TextPrinting with(final Indentation indentation,
-                                    LineEnding lineEnding) {
+                                    final LineEnding lineEnding) {
         return new TextPrinting(
             Objects.requireNonNull(indentation, "indentation"),
             Objects.requireNonNull(lineEnding, "lineEnding")
@@ -37,7 +37,7 @@ public final class TextPrinting implements TextContext,
     }
 
     private TextPrinting(final Indentation indentation,
-                         LineEnding lineEnding) {
+                         final LineEnding lineEnding) {
         super();
 
         this.indentation = indentation;
@@ -60,7 +60,7 @@ public final class TextPrinting implements TextContext,
             );
     }
 
-    private Indentation indentation;
+    private final Indentation indentation;
 
     // HasLineEnding....................................................................................................
 
@@ -78,7 +78,7 @@ public final class TextPrinting implements TextContext,
             );
     }
 
-    private LineEnding lineEnding;
+    private final LineEnding lineEnding;
 
     // Object...........................................................................................................
 
