@@ -36,11 +36,9 @@ final public class LineEndingTest implements ClassTesting2<LineEnding>,
 
     @Test
     public void testHasLineEnding() {
-        final LineEnding lineEnding = LineEnding.NL;
-
         this.lineEndingAndCheck(
-            lineEnding,
-            lineEnding
+            LINE_ENDING,
+            LINE_ENDING
         );
     }
 
