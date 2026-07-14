@@ -23,8 +23,6 @@ import walkingkooka.reflect.JavaVisibility;
 
 public final class TextContextDelegatorTest implements TextContextTesting, ClassTesting<TextContextDelegator> {
 
-    private final static LineEnding LINE_ENDING = LineEnding.NL;
-
     // TextContextDelegator.............................................................................................
 
     @Test

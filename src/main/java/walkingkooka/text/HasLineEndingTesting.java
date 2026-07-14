@@ -20,6 +20,8 @@ package walkingkooka.text;
 
 public interface HasLineEndingTesting extends HasTextLengthTesting {
 
+    LineEnding LINE_ENDING = LineEnding.NL;
+
     default void lineEndingAndCheck(final HasLineEnding has,
                                     final LineEnding expected) {
         this.checkEquals(
