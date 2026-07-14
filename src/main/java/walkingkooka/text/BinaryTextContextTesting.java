@@ -21,4 +21,6 @@ import walkingkooka.HasCharsetTesting;
 
 public interface BinaryTextContextTesting extends TextContextTesting,
     HasCharsetTesting {
+
+    BinaryTextContext BINARY_TEXT_CONTEXT = TEXT_PRINTING.setCharset(CHARSET);
 }
