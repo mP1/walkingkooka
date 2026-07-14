@@ -36,8 +36,6 @@ public final class BinaryTextPrintingTest implements BinaryTextContextTesting,
     ToStringTesting<BinaryTextPrinting>,
     ClassTesting<BinaryTextPrinting> {
 
-    private final static Charset CHARSET = StandardCharsets.UTF_8;
-
     private final static Charset DIFFERENT_CHARSET = StandardCharsets.ISO_8859_1;
 
     private final static Indentation INDENTATION = Indentation.SPACES2;
