@@ -21,8 +21,11 @@ package walkingkooka;
 import walkingkooka.test.Testing;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public interface HasCharsetTesting extends Testing {
+
+    Charset CHARSET = StandardCharsets.UTF_8;
 
     default void charsetAndCheck(final HasCharset has,
                                  final Charset expected) {

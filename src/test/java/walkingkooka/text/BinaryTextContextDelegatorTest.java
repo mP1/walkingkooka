@@ -22,12 +22,9 @@ import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
 public final class BinaryTextContextDelegatorTest implements BinaryTextContextTesting,
     ClassTesting<BinaryTextContextDelegator> {
-
-    private final static Charset CHARSET = StandardCharsets.UTF_8;
 
     private final static Indentation INDENTATION = Indentation.SPACES2;
 

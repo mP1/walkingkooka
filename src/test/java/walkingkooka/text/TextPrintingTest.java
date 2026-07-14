@@ -24,9 +24,6 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -100,14 +97,12 @@ public final class TextPrintingTest implements TextContextTesting,
 
     @Test
     public void testSetCharset() {
-        final Charset charset = StandardCharsets.UTF_8;
-
         final BinaryTextPrinting binaryTextPrinting = this.createObject()
-            .setCharset(charset);
+            .setCharset(CHARSET);
 
         this.charsetAndCheck(
             binaryTextPrinting,
-            charset
+            CHARSET
         );
 
         this.indentationAndCheck(
