@@ -23,6 +23,8 @@ import walkingkooka.test.Testing;
 
 public interface HasIndentationTesting extends Testing {
 
+    Indentation INDENTATION = Indentation.SPACES2;
+
     // indentation......................................................................................................
 
     default void indentationAndCheck(final HasIndentation has,

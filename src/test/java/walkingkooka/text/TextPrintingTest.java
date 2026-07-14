@@ -34,8 +34,6 @@ public final class TextPrintingTest implements TextContextTesting,
     ToStringTesting<TextPrinting>,
     ClassTesting<TextPrinting> {
 
-    private final static Indentation INDENTATION = Indentation.SPACES2;
-
     private final static Indentation DIFFERENT_INDENTATION = Indentation.SPACES4;
 
     private final static LineEnding LINE_ENDING = LineEnding.NL;
