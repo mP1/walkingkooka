@@ -25,6 +25,8 @@ public interface HasIndentationTesting extends Testing {
 
     Indentation INDENTATION = Indentation.SPACES2;
 
+    Indentation DIFFERENT_INDENTATION = Indentation.SPACES4;
+
     // indentation......................................................................................................
 
     default void indentationAndCheck(final HasIndentation has,
