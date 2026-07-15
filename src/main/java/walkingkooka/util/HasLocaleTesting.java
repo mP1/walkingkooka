@@ -25,6 +25,8 @@ public interface HasLocaleTesting extends Testing {
 
     Locale LOCALE = Locale.forLanguageTag("en-AU");
 
+    Locale DIFFERENT_LOCALE = Locale.forLanguageTag("en-NZ");
+
     default void localeAndCheck(final HasLocale has,
                                 final Locale expected) {
         this.checkEquals(
