@@ -22,6 +22,8 @@ public interface HasLineEndingTesting extends HasTextLengthTesting {
 
     LineEnding LINE_ENDING = LineEnding.NL;
 
+    LineEnding DIFFERENT_LINE_ENDING = LineEnding.CRNL;
+
     default void lineEndingAndCheck(final HasLineEnding has,
                                     final LineEnding expected) {
         this.checkEquals(
