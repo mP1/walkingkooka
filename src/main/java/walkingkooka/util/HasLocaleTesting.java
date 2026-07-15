@@ -23,6 +23,8 @@ import java.util.Locale;
 
 public interface HasLocaleTesting extends Testing {
 
+    Locale LOCALE = Locale.forLanguageTag("en-AU");
+
     default void localeAndCheck(final HasLocale has,
                                 final Locale expected) {
         this.checkEquals(
