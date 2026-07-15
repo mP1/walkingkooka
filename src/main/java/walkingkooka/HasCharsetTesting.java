@@ -27,6 +27,8 @@ public interface HasCharsetTesting extends Testing {
 
     Charset CHARSET = StandardCharsets.UTF_8;
 
+    Charset DIFFERENT_CHARSET = StandardCharsets.ISO_8859_1;
+
     default void charsetAndCheck(final HasCharset has,
                                  final Charset expected) {
         this.checkEquals(
