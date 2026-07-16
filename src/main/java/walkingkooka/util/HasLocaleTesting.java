@@ -20,10 +20,13 @@ package walkingkooka.util;
 import walkingkooka.test.Testing;
 
 import java.util.Locale;
+import java.util.Optional;
 
 public interface HasLocaleTesting extends Testing {
 
     Locale LOCALE = Locale.forLanguageTag("en-AU");
+
+    Optional<Locale> OPTIONAL_LOCALE = Optional.of(LOCALE);
 
     Locale DIFFERENT_LOCALE = Locale.forLanguageTag("en-NZ");
 
