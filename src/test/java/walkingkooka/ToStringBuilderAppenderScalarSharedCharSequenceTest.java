@@ -18,6 +18,8 @@
 package walkingkooka;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 
 public final class ToStringBuilderAppenderScalarSharedCharSequenceTest extends ToStringBuilderAppenderScalarTestCase<ToStringBuilderAppenderScalarSharedCharSequence, CharSequence> {
 
@@ -50,6 +52,40 @@ public final class ToStringBuilderAppenderScalarSharedCharSequenceTest extends T
     }
 
     @Test
+    public void testQuotedIndentation() {
+        final ToStringBuilder b = ToStringBuilder.empty();
+        b.enable(ToStringBuilderOption.QUOTE);
+
+        b.label(LABEL1);
+        b.value(Indentation.SPACES2);
+
+        this.buildAndCheck(b, LABEL1 + "=\"  \"");
+    }
+
+    @Test
+    public void testQuotedLineEnding() {
+        final ToStringBuilder b = ToStringBuilder.empty();
+        b.enable(ToStringBuilderOption.QUOTE);
+
+        b.label(LABEL1);
+        b.value(LineEnding.NL);
+
+        this.buildAndCheck(b, LABEL1 + "=\"\n\"");
+    }
+
+    @Test
+    public void testQuotedAndEscapedLineEnding() {
+        final ToStringBuilder b = ToStringBuilder.empty();
+        b.enable(ToStringBuilderOption.QUOTE);
+        b.enable(ToStringBuilderOption.ESCAPE);
+
+        b.label(LABEL1);
+        b.value(LineEnding.NL);
+
+        this.buildAndCheck(b, LABEL1 + "=\"\\n\"");
+    }
+
+    @Test
     public void testEscaped() {
         final ToStringBuilder b = ToStringBuilder.empty();
         b.disable(ToStringBuilderOption.QUOTE);
@@ -59,6 +95,18 @@ public final class ToStringBuilderAppenderScalarSharedCharSequenceTest extends T
         b.value("abc\n");
 
         this.buildAndCheck(b, LABEL1 + "=abc\\n");
+    }
+
+    @Test
+    public void testEscapedIndentation() {
+        final ToStringBuilder b = ToStringBuilder.empty();
+        b.disable(ToStringBuilderOption.QUOTE);
+        b.enable(ToStringBuilderOption.ESCAPE);
+
+        b.label(LABEL1);
+        b.value(Indentation.with('\t', 2));
+
+        this.buildAndCheck(b, LABEL1 + "=\\t\\t");
     }
 
     @Override
