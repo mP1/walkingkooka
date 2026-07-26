@@ -19,6 +19,8 @@ package walkingkooka;
 
 import walkingkooka.build.Builder;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 
 import java.util.EnumSet;
 import java.util.Map;
@@ -642,14 +644,30 @@ final public class ToStringBuilder implements Builder<String> {
         CharSequence append = chars;
 
         if (this.option(ToStringBuilderOption.ESCAPE)) {
-            append = CharSequences.escape(chars);
+            append = CharSequences.escape(
+                unwrapIfIndentationAndLineEnding(chars)
+            );
         }
         if (this.option(ToStringBuilderOption.QUOTE)) {
-            append = "" + quote + append + quote;
+            append = "" + quote +
+                unwrapIfIndentationAndLineEnding(append) +
+                quote;
         }
 
         this.buffer.append(append);
         this.mode = ToStringBuilderMode.VALUE;
+    }
+
+    /**
+     * Supports fetching the internal {@link String} for {@link Indentation} and {@link LineEnding} so they will be
+     * escaped & quoted rather than included literally if {@link ToStringBuilderOption#ESCAPE} or {@link ToStringBuilderOption#QUOTE}.
+     */
+    private static CharSequence unwrapIfIndentationAndLineEnding(final CharSequence chars) {
+        return chars instanceof Indentation ?
+            ((Indentation) chars).value() :
+            chars instanceof LineEnding ?
+                ((LineEnding) chars).toString() :
+                chars;
     }
 
     /**
