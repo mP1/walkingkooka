@@ -18,10 +18,12 @@
 package walkingkooka.collect.list;
 
 import walkingkooka.CanBeEmpty;
+import walkingkooka.collect.CanFirstOrEmpty;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -30,7 +32,20 @@ import java.util.stream.Collectors;
  * A {@link List} that is immutable but also contains a few would be mutator methods that return a new instance if required.
  * The {@link Iterator} and sub-lists will need to be made read only as necessary.
  */
-public interface ImmutableList<E> extends List<E>, CanBeEmpty {
+public interface ImmutableList<E> extends List<E>,
+    CanBeEmpty,
+    CanFirstOrEmpty<E> {
+
+    // CanFirstOrEmpty..................................................................................................
+
+    @Override
+    default Optional<E> firstOrEmpty() {
+        return Optional.ofNullable(
+            this.isEmpty() ?
+                null :
+                this.get(0)
+        );
+    }
 
     // ImmutableList....................................................................................................
 

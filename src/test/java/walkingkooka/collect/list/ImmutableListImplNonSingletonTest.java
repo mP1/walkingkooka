@@ -143,6 +143,16 @@ public final class ImmutableListImplNonSingletonTest extends ImmutableListImplNo
         };
     }
 
+    // CanFirstOrEmpty..................................................................................................
+
+    @Test
+    public void testFirstOrEmptyWhenEmpty() {
+        this.firstOrEmptyAndCheck(
+            this.createList(),
+            ELEMENT1
+        );
+    }
+
     // ClassTesting.....................................................................................................
 
     @Override

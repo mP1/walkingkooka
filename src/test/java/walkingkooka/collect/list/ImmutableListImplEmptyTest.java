@@ -94,6 +94,15 @@ public final class ImmutableListImplEmptyTest extends ImmutableListImplTestCase2
         return ImmutableListImplEmpty.empty();
     }
 
+    // CanFirstOrEmpty..................................................................................................
+
+    @Test
+    public void testFirstOrEmptyWhenEmpty() {
+        this.firstOrEmptyAndCheck(
+            StringList.EMPTY
+        );
+    }
+
     // ClassTesting.....................................................................................................
 
     @Override

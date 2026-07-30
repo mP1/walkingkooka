@@ -126,6 +126,16 @@ public final class ImmutableListImplSingletonTest extends ImmutableListImplNotEm
         return ImmutableListImplSingleton.withElement(ELEMENT);
     }
 
+    // CanFirstOrEmpty..................................................................................................
+
+    @Test
+    public void testFirstOrEmptyWhenEmpty() {
+        this.firstOrEmptyAndCheck(
+            this.createList(),
+            ELEMENT
+        );
+    }
+
     // toString.........................................................................................................
 
     @Test
