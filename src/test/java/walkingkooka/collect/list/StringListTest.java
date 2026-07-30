@@ -117,6 +117,27 @@ public class StringListTest implements ListTesting2<StringList, String>,
         );
     }
 
+    // CanFirstOrEmpty..................................................................................................
+
+    @Test
+    public void testFirstOrEmptyWhenEmpty() {
+        this.firstOrEmptyAndCheck(
+            StringList.EMPTY
+        );
+    }
+
+    @Test
+    public void testFirstOrEmptyWhenNotEmpty() {
+        final String first = "111";
+
+        this.firstOrEmptyAndCheck(
+            StringList.EMPTY.concat(
+                first
+            ).concat("222"),
+            first
+        );
+    }
+
     // class............................................................................................................
 
     @Override

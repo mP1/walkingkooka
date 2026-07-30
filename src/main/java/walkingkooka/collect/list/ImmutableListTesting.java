@@ -19,6 +19,7 @@ package walkingkooka.collect.list;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.CanBeEmptyTesting;
+import walkingkooka.collect.CanFirstOrEmptyTesting;
 import walkingkooka.predicate.Predicates;
 
 import java.util.Collection;
@@ -31,7 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends ListTesting2<L, E>,
-    CanBeEmptyTesting {
+    CanBeEmptyTesting,
+    CanFirstOrEmptyTesting {
 
     default void concatAndCheck(final ImmutableList<E> list,
                                 final E appended,

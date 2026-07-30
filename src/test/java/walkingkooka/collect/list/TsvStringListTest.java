@@ -467,6 +467,27 @@ public final class TsvStringListTest implements DelimiterStringImmutableListTest
         );
     }
 
+    // CanFirstOrEmpty..................................................................................................
+
+    @Test
+    public void testFirstOrEmptyWhenEmpty() {
+        this.firstOrEmptyAndCheck(
+            TsvStringList.EMPTY
+        );
+    }
+
+    @Test
+    public void testFirstOrEmptyWhenNotEmpty() {
+        final String first = "111";
+
+        this.firstOrEmptyAndCheck(
+            TsvStringList.EMPTY.concat(
+                first
+            ).concat("222"),
+            first
+        );
+    }
+
     // class............................................................................................................
 
     @Override

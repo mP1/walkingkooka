@@ -117,6 +117,35 @@ public class BooleanListTest implements ListTesting2<BooleanList, Boolean>,
         );
     }
 
+    // CanFirstOrEmpty..................................................................................................
+
+    @Test
+    public void testFirstOrEmptyWhenEmpty() {
+        this.firstOrEmptyAndCheck(
+            BooleanList.EMPTY
+        );
+    }
+
+    @Test
+    public void testFirstOrEmptyWhenNotEmptyTrue() {
+        this.firstOrEmptyAndCheck(
+            BooleanList.EMPTY.concat(
+                true
+            ),
+            true
+        );
+    }
+
+    @Test
+    public void testFirstOrEmptyWhenNotEmptyFalse() {
+        this.firstOrEmptyAndCheck(
+            BooleanList.EMPTY.concat(
+                false
+            ),
+            false
+        );
+    }
+
     // class............................................................................................................
 
     @Override

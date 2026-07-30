@@ -467,6 +467,27 @@ public final class CsvStringListTest implements DelimiterStringImmutableListTest
         );
     }
 
+    // CanFirstOrEmpty..................................................................................................
+
+    @Test
+    public void testFirstOrEmptyWhenEmpty() {
+        this.firstOrEmptyAndCheck(
+            CsvStringList.EMPTY
+        );
+    }
+
+    @Test
+    public void testFirstOrEmptyWhenNotEmpty() {
+        final String first = "111";
+
+        this.firstOrEmptyAndCheck(
+            CsvStringList.EMPTY.concat(
+                first
+            ).concat("222"),
+            first
+        );
+    }
+
     // class............................................................................................................
 
     @Override
