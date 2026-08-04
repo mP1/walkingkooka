@@ -17,12 +17,19 @@
 
 package walkingkooka.util;
 
+import walkingkooka.text.CaseSensitivity;
+
 import java.util.Locale;
 
 /**
  * Declares a {@link Locale} getter.
  */
 public interface HasLocale {
+
+    /**
+     * The preferred {@link CaseSensitivity} when comparing {@link Locale#toLanguageTag()}.
+     */
+    CaseSensitivity LOCALE_CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 
     /**
      * The {@link Locale}
