@@ -17,12 +17,37 @@
 
 package walkingkooka.collect;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
  * Helpful to safely retrieve the first element of a {@link java.util.Collection} if one exists.
  */
 public interface CanFirstOrEmpty<T> {
+
+    static <T> Optional<T> firstOrEmptyCollection(final Collection<T> collection) {
+        Objects.requireNonNull(collection, "collection");
+
+        Optional<T> firstOrEmpty;
+
+        if (collection instanceof CanFirstOrEmpty) {
+            firstOrEmpty = ((CanFirstOrEmpty) collection)
+                .firstOrEmpty();
+        } else {
+            firstOrEmpty = Optional.ofNullable(
+                collection.isEmpty() ?
+                    null :
+                    collection instanceof List ?
+                        ((List<T>) collection).get(0) :
+                        collection.iterator()
+                            .next()
+            );
+        }
+
+        return firstOrEmpty;
+    }
 
     /**
      * Returns the first element or empty.
