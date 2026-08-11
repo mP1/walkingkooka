@@ -89,7 +89,7 @@ final public class StringPath
     private StringPath appendNonRootName(final StringName name) {
         final StringBuilder path = new StringBuilder();
         path.append(this.path);
-        if (false == this.isRoot()) {
+        if (this.isNotRoot()) {
             path.append(SEPARATOR);
         }
         path.append(name.value());

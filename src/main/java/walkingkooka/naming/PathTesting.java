@@ -249,7 +249,7 @@ public interface PathTesting<P extends Path<P, N> & Comparable<P>, N extends Pat
     default void valueAndCheck(final Path<?, ?> path) {
         final List<String> names = Lists.array();
         Path<?, ?> p = path;
-        while (!p.isRoot()) {
+        while (p.isNotRoot()) {
             names.add(p.name().value());
             p = p.parent().get();
         }
