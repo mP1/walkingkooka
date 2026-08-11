@@ -67,6 +67,14 @@ public interface Path<P extends Path<P, N>, N extends PathName> extends HasValue
     }
 
     /**
+     * The inverse of {@link #isRoot()}.
+     */
+    default boolean isNotRoot() {
+        return this.parent()
+            .isPresent();
+    }
+
+    /**
      * Returns true if this path begins with the {@link #separator()}.
      */
     default boolean isStartsWithSeparator() {
