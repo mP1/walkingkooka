@@ -29,11 +29,6 @@ public class HasTextWithLineBreaksTestingTest implements HasTextWithLineBreaksTe
                 public String textWithLineBreaks(final LineEnding lineEnding) {
                     return "hello" + lineEnding + "world" + lineEnding;
                 }
-
-                @Override
-                public String text() {
-                    return "hello";
-                }
             },
             LineEnding.NL,
             "hello\nworld\n"
