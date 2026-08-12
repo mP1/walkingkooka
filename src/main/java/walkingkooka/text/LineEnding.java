@@ -57,6 +57,11 @@ public enum LineEnding implements CharSequence,
     public final static LineEnding SYSTEM = parse(System.getProperty("line.separator", "\n"));
 
     /**
+     * THe default terminal {@link LineEnding} for TTYs etc.
+     */
+    public final static LineEnding TERMINAL = CRNL;
+
+    /**
      * Returns the {@link LineEnding} matching the Enum name, or the value or an alias, such as LF being equivalent to {@link #NL}.
      */
     public static LineEnding parse(final String text) {
