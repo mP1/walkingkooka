@@ -21,6 +21,7 @@ import walkingkooka.CanBeEmpty;
 import walkingkooka.collect.CanFirstOrEmpty;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -102,6 +103,15 @@ public interface ImmutableList<E> extends List<E>,
      * Returns a new instance of this {@link ImmutableList} after removing all elements matched by the {@link Predicate}.
      */
     ImmutableList<E> deleteIf(final Predicate<? super E> predicate);
+
+    /**
+     * Returns a {@link ImmutableList} with the element order reversed.
+     */
+    default ImmutableList<E> reverse() {
+        final List<E> reversed = this.toList();
+        Collections.reverse(reversed);
+        return this.setElements(reversed);
+    }
 
     /**
      * Returns a mutable {@link List} with the items in this list. Modifying the given list does not update the elements in this list.

@@ -249,6 +249,21 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
         );
     }
 
+    // reversed.........................................................................................................
+
+    @Test
+    default void testReversed() {
+        final L immutableList = this.createList();
+        final List<E> list = immutableList.toList();
+        Collections.reverse(list);
+
+        this.checkEquals(
+            list,
+            immutableList.reverse(),
+            immutableList::toString
+        );
+    }
+
     @Test
     default void testSetElementsNullFails() {
         final ImmutableList<E> immutableList = this.createList();
