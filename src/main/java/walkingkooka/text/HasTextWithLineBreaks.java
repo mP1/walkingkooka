@@ -20,7 +20,7 @@ package walkingkooka.text;
 /**
  * An alternative interface to convert a value to text which may have multiple values with the given {@link LineEnding}.
  */
-public interface HasTextWithLineBreaks extends HasText {
+public interface HasTextWithLineBreaks {
 
     /**
      * Returns this value as text with the given {@link LineEnding}.
