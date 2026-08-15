@@ -17,10 +17,61 @@
 
 package walkingkooka;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
 public final class CanBeEmptyTest implements ClassTesting<CanBeEmpty> {
+
+    @Test
+    public void testMaybeCanBeEmptyWithNull() {
+        this.maybeCanBeEmptyAndCheck(
+            null,
+            false
+        );
+    }
+
+    @Test
+    public void testMaybeCanBeEmptyWithNotCanBeEmpty() {
+        this.maybeCanBeEmptyAndCheck(
+            1,
+            false
+        );
+    }
+
+    @Test
+    public void testMaybeCanBeEmptyWithCanBeEmptyFalse() {
+        this.maybeCanBeEmptyAndCheck(
+            new CanBeEmpty() {
+                @Override
+                public boolean isEmpty() {
+                    return false;
+                }
+            },
+            false
+        );
+    }
+
+    @Test
+    public void testMaybeCanBeEmptyWithCanBeEmptyTrue() {
+        this.maybeCanBeEmptyAndCheck(
+            new CanBeEmpty() {
+                @Override
+                public boolean isEmpty() {
+                    return true;
+                }
+            },
+            true
+        );
+    }
+
+    private void maybeCanBeEmptyAndCheck(final Object value,
+                                         final boolean expected) {
+        this.checkEquals(
+            expected,
+            CanBeEmpty.maybeCanBeEmpty(value)
+        );
+    }
 
     // class............................................................................................................
 

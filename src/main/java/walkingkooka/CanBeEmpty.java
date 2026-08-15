@@ -23,6 +23,14 @@ package walkingkooka;
 public interface CanBeEmpty {
 
     /**
+     * Null and type safe test if a value is NOT null and {@link CanBeEmpty} and returns true.
+     */
+    static boolean maybeCanBeEmpty(final Object maybe) {
+        return maybe instanceof CanBeEmpty &&
+            ((CanBeEmpty) maybe).isEmpty();
+    }
+
+    /**
      * Returns true if the value is empty.
      */
     boolean isEmpty();
