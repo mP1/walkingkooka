@@ -32,6 +32,51 @@ public final class ToStringBuilderAppenderScalarSharedDefaultTest extends ToStri
         this.buildAndCheck(builder, "1");
     }
 
+    @Test
+    public void testLabelValueCanBeEmptyFalse() {
+        final ToStringBuilder builder = builder();
+
+        builder.label(LABEL1)
+            .value(
+                new CanBeEmpty() {
+                    @Override
+                    public boolean isEmpty() {
+                        return false;
+                    }
+
+                    @Override
+                    public String toString() {
+                        return "CanBeEmpty=false";
+                    }
+                }
+            ).value(1);
+
+        this.buildAndCheck(
+            builder,
+            "Label1< LABEL1-SEPARATOR >CanBeEmpty=false< SEPARATOR >1"
+        );
+    }
+
+    @Test
+    public void testLabelValueCanBeEmptyTrue() {
+        final ToStringBuilder builder = builder();
+
+        builder.label(LABEL1)
+            .value(
+                new CanBeEmpty() {
+                    @Override
+                    public boolean isEmpty() {
+                        return true;
+                    }
+                }
+            ).value(1);
+
+        this.buildAndCheck(
+            builder,
+            "1"
+        );
+    }
+
     @Override
     void append(final ToStringBuilder builder, final Object value) {
         builder.append(value);

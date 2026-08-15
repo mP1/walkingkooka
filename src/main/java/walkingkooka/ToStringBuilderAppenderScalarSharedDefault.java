@@ -30,7 +30,13 @@ final class ToStringBuilderAppenderScalarSharedDefault extends ToStringBuilderAp
 
     @Override
     boolean isDefaultValue() {
-        return null == this.value || this.string.isEmpty(); // null or empty may be skipped
+        final Object value = this.value;
+        return null == value ||
+            this.string.isEmpty() ||
+            (
+                value instanceof CanBeEmpty &&
+                    ((CanBeEmpty) value).isEmpty()
+            ); // null or empty or CanBeEmpty#isEmpty() may be skipped
     }
 
     @Override
