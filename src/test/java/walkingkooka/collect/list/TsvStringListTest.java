@@ -20,12 +20,17 @@ package walkingkooka.collect.list;
 import org.junit.jupiter.api.Test;
 import walkingkooka.EndOfTextException;
 import walkingkooka.test.ParseStringTesting;
+import walkingkooka.text.HasTextWithLineBreaksAndCollectionString;
+import walkingkooka.text.HasTextWithLineBreaksAndCollectionStringTesting;
+
+import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TsvStringListTest implements DelimiterStringImmutableListTesting<TsvStringList>,
-    ParseStringTesting<TsvStringList> {
+    ParseStringTesting<TsvStringList>,
+    HasTextWithLineBreaksAndCollectionStringTesting {
 
     // setElements......................................................................................................
 
@@ -486,6 +491,13 @@ public final class TsvStringListTest implements DelimiterStringImmutableListTest
             ).concat("222"),
             first
         );
+    }
+
+    // HasTextWithLineBreaksAndCollectionString.........................................................................
+
+    @Override
+    public HasTextWithLineBreaksAndCollectionString createCollection(final Collection<String> strings) {
+        return TsvStringList.EMPTY.setElements(strings);
     }
 
     // class............................................................................................................
