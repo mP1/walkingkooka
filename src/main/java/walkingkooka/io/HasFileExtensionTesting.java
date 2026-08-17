@@ -31,6 +31,14 @@ public interface HasFileExtensionTesting extends Testing {
     }
 
     default void fileExtensionAndCheck(final HasFileExtension has,
+                                       final String expected) {
+        this.fileExtensionAndCheck(
+            has,
+            FileExtension.parse(expected)
+        );
+    }
+
+    default void fileExtensionAndCheck(final HasFileExtension has,
                                        final FileExtension expected) {
         this.fileExtensionAndCheck(
             has,
