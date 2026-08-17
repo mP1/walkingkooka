@@ -20,12 +20,15 @@ package walkingkooka.collect.list;
 import org.junit.jupiter.api.Test;
 import walkingkooka.EndOfTextException;
 import walkingkooka.test.ParseStringTesting;
+import walkingkooka.text.HasTextWithLineBreaksTesting;
+import walkingkooka.text.LineEnding;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CsvStringListTest implements DelimiterStringImmutableListTesting<CsvStringList>,
-    ParseStringTesting<CsvStringList> {
+    ParseStringTesting<CsvStringList>,
+    HasTextWithLineBreaksTesting {
 
     // setElements......................................................................................................
 
@@ -485,6 +488,43 @@ public final class CsvStringListTest implements DelimiterStringImmutableListTest
                 first
             ).concat("222"),
             first
+        );
+    }
+
+    // HasTextWithLineBreaks............................................................................................
+
+    @Test
+    public void testTextWithLineBreaksWithCr() {
+        this.textWithLineBreaksAndCheck(
+            CsvStringList.EMPTY.concat("111")
+                .concat("222"),
+            LineEnding.CR,
+            "111\r" +
+                "222\r"
+        );
+    }
+
+    @Test
+    public void testTextWithLineBreaksWithNl() {
+        this.textWithLineBreaksAndCheck(
+            CsvStringList.EMPTY.concat("111")
+                .concat("222"),
+            LineEnding.NL,
+            "111\n" +
+                "222\n"
+        );
+    }
+
+    @Test
+    public void testTextWithLineBreaksWithCommasAndOtherEscapedCharacters() {
+        this.textWithLineBreaksAndCheck(
+            StringList.EMPTY.concat("comma,")
+                .concat("double-quote\"")
+                .concat("333"),
+            LineEnding.NL,
+            "comma,\n" +
+                "double-quote\"\n" +
+                "333\n"
         );
     }
 
