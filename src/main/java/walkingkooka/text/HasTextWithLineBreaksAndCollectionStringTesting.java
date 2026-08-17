@@ -77,17 +77,19 @@ public interface HasTextWithLineBreaksAndCollectionStringTesting extends HasText
     }
 
     @Test
-    default void testTextWithLineBreaksWithCommasAndOtherEscapedCharacters() {
+    default void testTextWithLineBreaksWithCommasAndDoubleQuotes() {
+        // strings also sorted so SortedSets expectations will also pass
+
         this.textWithLineBreaksAndCheck(
             this.createCollection(
                 "comma,",
                 "double-quote\"",
-                "333"
+                "last"
             ),
             LineEnding.NL,
             "comma,\n" +
                 "double-quote\"\n" +
-                "333\n"
+                "last\n"
         );
     }
 
