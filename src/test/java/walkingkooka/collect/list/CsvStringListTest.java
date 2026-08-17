@@ -20,15 +20,16 @@ package walkingkooka.collect.list;
 import org.junit.jupiter.api.Test;
 import walkingkooka.EndOfTextException;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.text.HasTextWithLineBreaksTesting;
-import walkingkooka.text.LineEnding;
+import walkingkooka.text.HasTextWithLineBreaksTestingAndCollectionStringTesting;
+
+import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CsvStringListTest implements DelimiterStringImmutableListTesting<CsvStringList>,
     ParseStringTesting<CsvStringList>,
-    HasTextWithLineBreaksTesting {
+    HasTextWithLineBreaksTestingAndCollectionStringTesting {
 
     // setElements......................................................................................................
 
@@ -493,61 +494,9 @@ public final class CsvStringListTest implements DelimiterStringImmutableListTest
 
     // HasTextWithLineBreaks............................................................................................
 
-    @Test
-    public void testTextWithLineBreaksWithCr() {
-        this.textWithLineBreaksAndCheck(
-            CsvStringList.EMPTY.concat("111")
-                .concat("222"),
-            LineEnding.CR,
-            "111\r" +
-                "222\r"
-        );
-    }
-
-    @Test
-    public void testTextWithLineBreaksWithNl() {
-        this.textWithLineBreaksAndCheck(
-            CsvStringList.EMPTY.concat("111")
-                .concat("222"),
-            LineEnding.NL,
-            "111\n" +
-                "222\n"
-        );
-    }
-
-    @Test
-    public void testTextWithLineBreaksWithNlAndStringdIncludeCr() {
-        this.textWithLineBreaksAndCheck(
-            CsvStringList.EMPTY.concat("111\r")
-                .concat("222\r"),
-            LineEnding.NL,
-            "111\\r\n" +
-                "222\\r\n"
-        );
-    }
-
-    @Test
-    public void testTextWithLineBreaksWithNlAndStringdIncludeNl() {
-        this.textWithLineBreaksAndCheck(
-            CsvStringList.EMPTY.concat("111\n")
-                .concat("222\n"),
-            LineEnding.NL,
-            "111\\n\n" +
-                "222\\n\n"
-        );
-    }
-
-    @Test
-    public void testTextWithLineBreaksWithCommasAndOtherEscapedCharacters() {
-        this.textWithLineBreaksAndCheck(
-            StringList.EMPTY.concat("comma,")
-                .concat("double-quote\"")
-                .concat("333"),
-            LineEnding.NL,
-            "comma,\n" +
-                "double-quote\"\n" +
-                "333\n"
-        );
+    @Override
+    public CsvStringList createCollection(final Collection<String> strings) {
+        return CsvStringList.EMPTY.setElements(strings);
     }
 
     // class............................................................................................................
