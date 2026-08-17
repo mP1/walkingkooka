@@ -125,14 +125,15 @@ public final class CsvStringList extends AbstractList<String> implements Delimit
     // HasTextWithLineBreaks............................................................................................
 
     /**
-     * Note that elements are included verbatim, nothing is escaped. This means commas, quotes and eol characters will
-     * appear as they are without escaping
+     * Note that elements are included verbatim, nothing is escaped. This means commas, quotes will
+     * appear as they are without escaping, but CR and LF will be backslash escaped.
      */
     @Override
     public String textWithLineBreaks(final LineEnding lineEnding) {
         Objects.requireNonNull(lineEnding, "lineEnding");
 
         return this.strings.stream()
+            .map((String string) -> string.replace("\r", "\\r").replace("\n", "\\n"))
             .collect(
                 Collectors.joining(
                     lineEnding,

@@ -516,6 +516,28 @@ public final class CsvStringListTest implements DelimiterStringImmutableListTest
     }
 
     @Test
+    public void testTextWithLineBreaksWithNlAndStringdIncludeCr() {
+        this.textWithLineBreaksAndCheck(
+            CsvStringList.EMPTY.concat("111\r")
+                .concat("222\r"),
+            LineEnding.NL,
+            "111\\r\n" +
+                "222\\r\n"
+        );
+    }
+
+    @Test
+    public void testTextWithLineBreaksWithNlAndStringdIncludeNl() {
+        this.textWithLineBreaksAndCheck(
+            CsvStringList.EMPTY.concat("111\n")
+                .concat("222\n"),
+            LineEnding.NL,
+            "111\\n\n" +
+                "222\\n\n"
+        );
+    }
+
+    @Test
     public void testTextWithLineBreaksWithCommasAndOtherEscapedCharacters() {
         this.textWithLineBreaksAndCheck(
             StringList.EMPTY.concat("comma,")
