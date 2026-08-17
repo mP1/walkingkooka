@@ -3,12 +3,15 @@ package walkingkooka.collect.list;
 import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.text.HasTextWithLineBreaksTesting;
+import walkingkooka.text.LineEnding;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class StringListTest implements ListTesting2<StringList, String>,
     ClassTesting<StringList>,
-    ImmutableListTesting<StringList, String> {
+    ImmutableListTesting<StringList, String>,
+    HasTextWithLineBreaksTesting {
 
     private final static String STRING1 = "AAA";
 
@@ -135,6 +138,41 @@ public class StringListTest implements ListTesting2<StringList, String>,
                 first
             ).concat("222"),
             first
+        );
+    }
+
+    // HasTextWithLineBreaks............................................................................................
+
+    @Test
+    public void testTextWithLineBreaksWithCr() {
+        this.textWithLineBreaksAndCheck(
+            StringList.EMPTY.concat("111")
+                .concat("222"),
+            LineEnding.CR,
+            "111\r" +
+                "222\r"
+        );
+    }
+
+    @Test
+    public void testTextWithLineBreaksWithNl() {
+        this.textWithLineBreaksAndCheck(
+            StringList.EMPTY.concat("111")
+                .concat("222"),
+            LineEnding.NL,
+            "111\n" +
+                "222\n"
+        );
+    }
+
+    @Test
+    public void testTextWithLineBreaksWithELementsIncludingLineFeedAndLineFeedNl() {
+        this.textWithLineBreaksAndCheck(
+            StringList.EMPTY.concat("111\n")
+                .concat("222"),
+            LineEnding.NL,
+            "111\n\n" +
+                "222\n"
         );
     }
 

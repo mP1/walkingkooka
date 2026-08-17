@@ -17,16 +17,21 @@
 
 package walkingkooka.collect.list;
 
+import walkingkooka.text.HasTextWithLineBreaks;
+import walkingkooka.text.LineEnding;
+
 import java.util.AbstractList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * An immutable list of {@link String} that allows null elements.
  */
 public final class StringList extends AbstractList<String>
-    implements ImmutableListDefaults<StringList, String> {
+    implements ImmutableListDefaults<StringList, String>,
+    HasTextWithLineBreaks {
 
     /**
      * An empty {@link StringList}.
@@ -82,5 +87,24 @@ public final class StringList extends AbstractList<String>
         return this.equals(stringList) ?
             this :
             stringList;
+    }
+
+    // HasTextWithLineBreaks............................................................................................
+
+    /**
+     * Note that elements are included verbatim, nothing is escaped.
+     */
+    @Override
+    public String textWithLineBreaks(final LineEnding lineEnding) {
+        Objects.requireNonNull(lineEnding, "lineEnding");
+
+        return this.strings.stream()
+            .collect(
+                Collectors.joining(
+                    lineEnding,
+                    "",
+                    lineEnding
+                )
+            );
     }
 }
