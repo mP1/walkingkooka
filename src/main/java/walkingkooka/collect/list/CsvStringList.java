@@ -18,17 +18,21 @@
 package walkingkooka.collect.list;
 
 import walkingkooka.text.CharacterConstant;
+import walkingkooka.text.HasTextWithLineBreaks;
+import walkingkooka.text.LineEnding;
 
 import java.util.AbstractList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * An immutable list of String elements. Note null elements are not allowed.
  */
 public final class CsvStringList extends AbstractList<String> implements DelimiterStringImmutableList,
-    ImmutableListDefaults<CsvStringList, String> {
+    ImmutableListDefaults<CsvStringList, String>,
+    HasTextWithLineBreaks {
 
     /**
      * An empty {@link CsvStringList}
@@ -116,5 +120,25 @@ public final class CsvStringList extends AbstractList<String> implements Delimit
     public String textWithSeparator(final char separator) {
         return CharacterConstant.with(separator)
             .toDelimiteredString(this.strings);
+    }
+
+    // HasTextWithLineBreaks............................................................................................
+
+    /**
+     * Note that elements are included verbatim, nothing is escaped. This means commas, quotes and eol characters will
+     * appear as they are without escaping
+     */
+    @Override
+    public String textWithLineBreaks(final LineEnding lineEnding) {
+        Objects.requireNonNull(lineEnding, "lineEnding");
+
+        return this.strings.stream()
+            .collect(
+                Collectors.joining(
+                    lineEnding,
+                    "",
+                    lineEnding
+                )
+            );
     }
 }
