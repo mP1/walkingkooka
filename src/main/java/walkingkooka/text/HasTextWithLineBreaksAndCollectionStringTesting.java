@@ -22,7 +22,7 @@ import walkingkooka.collect.list.Lists;
 
 import java.util.Collection;
 
-public interface HasTextWithLineBreaksTestingAndCollectionStringTesting extends HasTextWithLineBreaksTesting {
+public interface HasTextWithLineBreaksAndCollectionStringTesting extends HasTextWithLineBreaksTesting {
 
     @Test
     default void testTextWithLineBreaksWithCr() {
