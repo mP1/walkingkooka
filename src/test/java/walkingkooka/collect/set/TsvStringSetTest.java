@@ -20,13 +20,19 @@ package walkingkooka.collect.set;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.EndOfTextException;
+import walkingkooka.collect.list.TsvStringList;
 import walkingkooka.test.ParseStringTesting;
+import walkingkooka.text.HasTextWithLineBreaksAndCollectionString;
+import walkingkooka.text.HasTextWithLineBreaksAndCollectionStringTesting;
+
+import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TsvStringSetTest implements DelimiterStringImmutableSetTesting<TsvStringSet>,
-    ParseStringTesting<TsvStringSet> {
+    ParseStringTesting<TsvStringSet>,
+    HasTextWithLineBreaksAndCollectionStringTesting {
 
     // setElements......................................................................................................
 
@@ -426,6 +432,13 @@ public final class TsvStringSetTest implements DelimiterStringImmutableSetTestin
             ';',
             "aaa;bb;cc"
         );
+    }
+
+    // HasTextWithLineBreaksAndCollectionString.........................................................................
+
+    @Override
+    public HasTextWithLineBreaksAndCollectionString createCollection(final Collection<String> strings) {
+        return TsvStringList.EMPTY.setElements(strings);
     }
 
     // class............................................................................................................
