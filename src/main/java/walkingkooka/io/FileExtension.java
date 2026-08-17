@@ -37,7 +37,7 @@ public final class FileExtension implements
     CanBeEmpty,
     Predicate<FileExtension> {
 
-    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
+    public final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 
     /**
      * Extracts the file extension if present from the given filename.
