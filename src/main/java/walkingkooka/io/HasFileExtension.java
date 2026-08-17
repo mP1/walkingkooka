@@ -22,4 +22,9 @@ import java.util.Optional;
 public interface HasFileExtension {
 
     Optional<FileExtension> fileExtension();
+
+    default FileExtension fileExtensionOrFail() {
+        return this.fileExtension()
+            .orElseThrow(() -> new IllegalArgumentException("Missing file extension"));
+    }
 }
