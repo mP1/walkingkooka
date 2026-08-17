@@ -18,6 +18,7 @@
 package walkingkooka.collect.list;
 
 import walkingkooka.text.CharacterConstant;
+import walkingkooka.text.HasTextWithLineBreaksAndCollectionString;
 
 import java.util.AbstractList;
 import java.util.Collection;
@@ -28,7 +29,8 @@ import java.util.Objects;
  * An immutable list of String elements. Note null elements are not allowed.
  */
 public final class TsvStringList extends AbstractList<String> implements DelimiterStringImmutableList,
-    ImmutableListDefaults<TsvStringList, String> {
+    ImmutableListDefaults<TsvStringList, String>,
+    HasTextWithLineBreaksAndCollectionString {
 
     /**
      * An empty {@link TsvStringList}
