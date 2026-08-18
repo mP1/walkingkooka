@@ -58,7 +58,7 @@ final public class ConcatCharSequenceTest implements ClassTesting2<ConcatCharSeq
 
     @Test
     public void testCharAt() {
-        this.checkCharAt(FIRST + SECOND);
+        this.charAtAndCheck(FIRST + SECOND);
     }
 
     @Test

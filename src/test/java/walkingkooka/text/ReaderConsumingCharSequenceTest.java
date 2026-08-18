@@ -50,10 +50,10 @@ public class ReaderConsumingCharSequenceTest implements ClassTesting2<ReaderCons
     public void testMultipleAt() {
         final String text = "abcdefghijklmnopqrstuvwxyz";
         final ReaderConsumingCharSequence chars = this.createCharSequence(text);
-        this.checkCharAt(chars, text);
+        this.charAtAndCheck(chars, text);
         this.checkEquals(true, chars.eof, "eof");
 
-        this.checkCharAt(chars, 1, 'b');
+        this.charAtAndCheck(chars, 1, 'b');
     }
 
     @Test
@@ -76,7 +76,7 @@ public class ReaderConsumingCharSequenceTest implements ClassTesting2<ReaderCons
     public void testSubSequenceAfterAt() {
         final String text = "abcdefghijklmnopqrstuvwxyz";
         final ReaderConsumingCharSequence chars = this.createCharSequence(text);
-        this.checkCharAt(chars, 13, text.charAt(13));
+        this.charAtAndCheck(chars, 13, text.charAt(13));
         this.checkSubSequence(chars, 0, 5, text.substring(0, 5));
         assertSame(false, chars.eof, "eof");
     }
