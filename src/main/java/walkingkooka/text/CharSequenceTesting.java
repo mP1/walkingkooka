@@ -58,7 +58,7 @@ public interface CharSequenceTesting<C extends CharSequence> extends HashCodeEqu
     }
 
     @Test
-    default void testInvalidIndexFails() {
+    default void testCharAtWithInvalidIndexFails() {
         this.charAtFails(Integer.MAX_VALUE);
     }
 
