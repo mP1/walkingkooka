@@ -60,7 +60,7 @@ public class ReaderConsumingCharSequenceTest implements ClassTesting2<ReaderCons
     public void testSubSequence() {
         final String text = "abcdefghijklmnopqrstuvwxyz";
         final ReaderConsumingCharSequence chars = this.createCharSequence(text);
-        this.checkSubSequence(chars, 0, 5, text.substring(0, 5));
+        this.subSequenceAndCheck(chars, 0, 5, text.substring(0, 5));
         this.checkEquals(false, chars.eof, "eof");
     }
 
@@ -68,7 +68,7 @@ public class ReaderConsumingCharSequenceTest implements ClassTesting2<ReaderCons
     public void testSubSequence2() {
         final String text = "abcdefghijklmnopqrstuvwxyz";
         final ReaderConsumingCharSequence chars = this.createCharSequence(text);
-        this.checkSubSequence(chars, 4, 7, text.substring(4, 7));
+        this.subSequenceAndCheck(chars, 4, 7, text.substring(4, 7));
         assertSame(false, chars.eof, "eof");
     }
 
@@ -77,7 +77,7 @@ public class ReaderConsumingCharSequenceTest implements ClassTesting2<ReaderCons
         final String text = "abcdefghijklmnopqrstuvwxyz";
         final ReaderConsumingCharSequence chars = this.createCharSequence(text);
         this.charAtAndCheck(chars, 13, text.charAt(13));
-        this.checkSubSequence(chars, 0, 5, text.substring(0, 5));
+        this.subSequenceAndCheck(chars, 0, 5, text.substring(0, 5));
         assertSame(false, chars.eof, "eof");
     }
 

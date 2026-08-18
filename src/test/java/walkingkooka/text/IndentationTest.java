@@ -400,7 +400,7 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
     public void testSubSequenceString() {
         final Indentation indentation = Indentation.with("0123");
 
-        this.checkSubSequence(
+        this.subSequenceAndCheck(
             indentation,
             0,
             1,
@@ -412,7 +412,7 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
     public void testSubSequenceString2() {
         final Indentation indentation = Indentation.with("0123");
 
-        this.checkSubSequence(
+        this.subSequenceAndCheck(
             indentation,
             1,
             3,
@@ -424,7 +424,7 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
     public void testSubSequenceChar() {
         final Indentation indentation = Indentation.with(' ', 3);
 
-        this.checkSubSequence(
+        this.subSequenceAndCheck(
             indentation,
             0,
             1,
@@ -436,7 +436,7 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
     public void testSubSequenceChar2() {
         final Indentation indentation = Indentation.with(' ', 3);
 
-        this.checkSubSequence(
+        this.subSequenceAndCheck(
             indentation,
             1,
             3,
