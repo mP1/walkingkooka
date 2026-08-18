@@ -56,7 +56,7 @@ final public class WhitespaceTest implements ClassTesting2<Whitespace>,
 
     @Test
     public void testCharAt() {
-        this.checkCharAt(" \t\r\n");
+        this.charAtAndCheck(" \t\r\n");
     }
 
     @Test

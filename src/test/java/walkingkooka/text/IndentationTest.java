@@ -340,7 +340,7 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
     public void testCharAtString() {
         final Indentation indentation = Indentation.with("0123");
 
-        this.checkCharAt(
+        this.charAtAndCheck(
             indentation,
             "0123"
         );
@@ -353,7 +353,7 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
             3
         );
 
-        this.checkCharAt(
+        this.charAtAndCheck(
             indentation,
             "   "
         );
@@ -366,15 +366,15 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
             3
         );
 
-        this.checkCharAt(
+        this.charAtAndCheck(
             indentation,
             'A'
         );
-        this.checkCharAt(
+        this.charAtAndCheck(
             indentation,
             'A'
         );
-        this.checkCharAt(
+        this.charAtAndCheck(
             indentation,
             'A'
         );
