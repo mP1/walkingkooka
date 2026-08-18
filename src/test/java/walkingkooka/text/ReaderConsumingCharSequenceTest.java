@@ -87,7 +87,7 @@ public class ReaderConsumingCharSequenceTest implements ClassTesting2<ReaderCons
     }
 
     @Override
-    public void testEmptySubSequence2() {
+    public void testSubSequenceEmpty2() {
         //nop
     }
 
