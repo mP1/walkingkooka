@@ -66,7 +66,7 @@ final public class WhitespaceTest implements ClassTesting2<Whitespace>,
 
     @Override
     @Test
-    public void testEmptySubSequence() {
+    public void testSubSequenceEmpty() {
         final Whitespace whitespace = this.createCharSequence();
         assertSame(Whitespace.EMPTY, whitespace.subSequence(2, 2));
     }

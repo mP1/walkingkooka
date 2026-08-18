@@ -79,12 +79,12 @@ public interface CharSequenceTesting<C extends CharSequence> extends HashCodeEqu
     }
 
     @Test
-    default void testNegativeSubSequenceFromIndexFails() {
+    default void testSubSequenceNegativeFromIndexFails() {
         this.subSequenceFails(-1, 0);
     }
 
     @Test
-    default void testInvalidSubSequenceFromIndexFails() {
+    default void testSubSequenceInvalidFromIndexFails() {
         final C sequence = this.createCharSequence();
         final int from = sequence.length();
         this.subSequenceFails(
@@ -95,7 +95,7 @@ public interface CharSequenceTesting<C extends CharSequence> extends HashCodeEqu
     }
 
     @Test
-    default void testNegativeSubSequenceToFails() {
+    default void testtestSubSequenceNegativeToFails() {
         this.subSequenceFails(0, -1);
     }
 
@@ -148,7 +148,7 @@ public interface CharSequenceTesting<C extends CharSequence> extends HashCodeEqu
     }
 
     @Test
-    default void testEmptySubSequence() {
+    default void testSubSequenceEmpty() {
         final C sequence = this.createCharSequence();
         this.checkEquals2(
             sequence.subSequence(0, 0),
@@ -157,7 +157,7 @@ public interface CharSequenceTesting<C extends CharSequence> extends HashCodeEqu
     }
 
     @Test
-    default void testEmptySubSequence2() {
+    default void testSubSequenceEmpty2() {
         final C sequence = this.createCharSequence();
 
         final int length = sequence.length();

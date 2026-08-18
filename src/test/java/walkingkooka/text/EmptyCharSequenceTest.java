@@ -47,13 +47,13 @@ final public class EmptyCharSequenceTest implements ClassTesting2<EmptyCharSeque
 
     @Override
     @Test
-    public void testEmptySubSequence() {
+    public void testSubSequenceEmpty() {
         // nop
     }
 
     @Override
     @Test
-    public void testEmptySubSequence2() {
+    public void testSubSequenceEmpty2() {
         // nop
     }
 
