@@ -53,7 +53,7 @@ public interface CharSequenceTesting<C extends CharSequence> extends HashCodeEqu
     }
 
     @Test
-    default void testNegativeIndexFails() {
+    default void testCharAtWithNegativeIndexFails() {
         this.charAtFails(-1);
     }
 
