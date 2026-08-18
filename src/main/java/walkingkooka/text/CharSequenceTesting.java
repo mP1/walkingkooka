@@ -49,7 +49,10 @@ public interface CharSequenceTesting<C extends CharSequence> extends HashCodeEqu
             chars[i] = sequence.charAt(i);
         }
 
-        this.checkEquals(new String(chars), sequence.toString());
+        this.checkEquals(
+            new String(chars),
+            sequence.toString()
+        );
     }
 
     @Test
@@ -66,8 +69,13 @@ public interface CharSequenceTesting<C extends CharSequence> extends HashCodeEqu
         this.charAtFails(this.createCharSequence(), index);
     }
 
-    default void charAtFails(final CharSequence sequence, final int index) {
-        assertThrows(Exception.class, () -> this.createCharSequence().charAt(index));
+    default void charAtFails(final CharSequence sequence,
+                             final int index) {
+        assertThrows(
+            Exception.class,
+            () -> this.createCharSequence()
+                .charAt(index)
+        );
     }
 
     @Test
@@ -79,7 +87,11 @@ public interface CharSequenceTesting<C extends CharSequence> extends HashCodeEqu
     default void testInvalidSubSequenceFromIndexFails() {
         final C sequence = this.createCharSequence();
         final int from = sequence.length();
-        this.subSequenceFails(sequence, from + 1, from);
+        this.subSequenceFails(
+            sequence,
+            from + 1,
+            from
+        );
     }
 
     @Test
@@ -87,33 +99,61 @@ public interface CharSequenceTesting<C extends CharSequence> extends HashCodeEqu
         this.subSequenceFails(0, -1);
     }
 
-    @Test default void testSubSequenceFromAfterToFails() {
+    @Test //
+    default void testSubSequenceFromAfterToFails() {
         this.subSequenceFails(1, 0);
     }
 
-    @Test default void testSubsequenceInvalidToIndexFails() {
+    @Test //
+    default void testSubsequenceInvalidToIndexFails() {
         final C sequence = this.createCharSequence();
-        this.subSequenceFails(sequence, 0, Integer.MAX_VALUE);
+        this.subSequenceFails(
+            sequence,
+            0,
+            Integer.MAX_VALUE
+        );
     }
 
-    default void subSequenceFails(final int from, final int to) {
-        this.subSequenceFails(this.createCharSequence(), from, to);
+    default void subSequenceFails(final int from,
+                                  final int to) {
+        this.subSequenceFails(
+            this.createCharSequence(),
+            from,
+            to
+        );
     }
 
-    default void subSequenceFails(final C sequence, final int from, final int to) {
-        assertThrows(StringIndexOutOfBoundsException.class, () -> sequence.subSequence(from, to));
+    default void subSequenceFails(final C sequence,
+                                  final int from,
+                                  final int to) {
+        assertThrows(
+            StringIndexOutOfBoundsException.class,
+            () -> sequence.subSequence(
+                from,
+                to
+            )
+        );
     }
 
     @Test
     default void testSubSequenceWithSameFromAndToReturnsThis() {
         final C sequence = this.createCharSequence();
-        assertSame(sequence, sequence.subSequence(0, sequence.length()));
+        assertSame(
+            sequence,
+            sequence.subSequence(
+                0,
+                sequence.length()
+            )
+        );
     }
 
     @Test
     default void testEmptySubSequence() {
         final C sequence = this.createCharSequence();
-        this.checkEquals2(sequence.subSequence(0, 0), "");
+        this.checkEquals2(
+            sequence.subSequence(0, 0),
+            ""
+        );
     }
 
     @Test
@@ -140,26 +180,49 @@ public interface CharSequenceTesting<C extends CharSequence> extends HashCodeEqu
      */
     C createCharSequence();
 
-    default void checkEquals2(final CharSequence actual, final String expected) {
-        this.checkEquals2(actual, expected.toCharArray());
+    default void checkEquals2(final CharSequence actual,
+                              final String expected) {
+        this.checkEquals2(
+            actual,
+            expected.toCharArray()
+        );
     }
 
-    default void checkEquals2(final CharSequence actual, final char... c) {
+    default void checkEquals2(final CharSequence actual,
+                              final char... c) {
         this.checkLength(actual, c.length);
         this.checkCharAt(actual, c);
-        this.checkEquals(new String(c), actual.toString(), "toString");
+        this.checkEquals(
+            new String(c),
+            actual.toString(),
+            "toString"
+        );
     }
 
     default void checkLength(final int length) {
-        this.checkLength(this.createCharSequence(), length);
+        this.checkLength(
+            this.createCharSequence(),
+            length
+        );
     }
 
-    default void checkLength(final CharSequence chars, final int length) {
-        this.checkEquals(length, chars.length(), () -> "length of " + chars);
+    default void checkLength(final CharSequence chars,
+                             final int length) {
+        this.checkEquals(
+            length,
+            chars.length(),
+            () -> "length of " + chars
+        );
     }
 
-    default void checkLength(final String message, final CharSequence chars, final int length) {
-        this.checkEquals(length, chars.length(), message);
+    default void checkLength(final String message,
+                             final CharSequence chars,
+                             final int length) {
+        this.checkEquals(
+            length,
+            chars.length(),
+            message
+        );
     }
 
     default void checkCharAt(final String c) {
@@ -170,31 +233,55 @@ public interface CharSequenceTesting<C extends CharSequence> extends HashCodeEqu
         this.checkCharAt(0, c);
     }
 
-    default void checkCharAt(final int index, final char... c) {
-        this.checkCharAt(this.createCharSequence(), index, c);
+    default void checkCharAt(final int index,
+                             final char... c) {
+        this.checkCharAt(
+            this.createCharSequence(),
+            index,
+            c
+        );
     }
 
-    default void checkCharAt(final CharSequence chars, final char... c) {
-        this.checkCharAt(chars, 0, c);
+    default void checkCharAt(final CharSequence chars,
+                             final char... c) {
+        this.checkCharAt(
+            chars,
+            0,
+            c
+        );
     }
 
-    default void checkCharAt(final CharSequence chars, final String c) {
-        this.checkCharAt(chars, c.toCharArray());
+    default void checkCharAt(final CharSequence chars,
+                             final String c) {
+        this.checkCharAt(
+            chars,
+            c.toCharArray()
+        );
     }
 
-    default void checkCharAt(final CharSequence chars, final int index, final char... c) {
+    default void checkCharAt(final CharSequence chars,
+                             final int index,
+                             final char... c) {
         final int length = c.length;
         for (int i = 0; i < length; i++) {
-            this.checkCharAt(chars, index + i, c[i]);
+            this.checkCharAt(
+                chars,
+                index + i,
+                c[i]
+            );
         }
     }
 
-    default void checkCharAt(final CharSequence chars, final int index, final char c) {
+    default void checkCharAt(final CharSequence chars,
+                             final int index,
+                             final char c) {
         final char d = chars.charAt(index);
         if (c != d) {
-            this.checkEquals(CharSequences.quoteAndEscape(c),
+            this.checkEquals(
+                CharSequences.quoteAndEscape(c),
                 CharSequences.quoteAndEscape(chars.charAt(index)),
-                "Wrong char at " + index + " in " + chars);
+                "Wrong char at " + index + " in " + chars
+            );
         }
     }
 
@@ -202,18 +289,28 @@ public interface CharSequenceTesting<C extends CharSequence> extends HashCodeEqu
         return CharSequences.escape(Character.toString(c)).toString();
     }
 
-    default void checkSubSequence(final int start, final int end, final String expected) {
-        this.checkSubSequence(this.createCharSequence(), start, end, expected);
+    default void checkSubSequence(final int start,
+                                  final int end,
+                                  final String expected) {
+        this.checkSubSequence(
+            this.createCharSequence(),
+            start,
+            end,
+            expected
+        );
     }
 
-    default void checkSubSequence(final CharSequence chars, final int start, final int end,
+    default void checkSubSequence(final CharSequence chars,
+                                  final int start,
+                                  final int end,
                                   final String expected) {
         final CharSequence sub = chars.subSequence(start, end);
+
         this.checkLength(sub, end - start);
         this.checkCharAt(sub, expected);
     }
 
-    // TypeNameTesting .........................................................................................
+    // class.................. .........................................................................................
 
     @Override
     default String typeNamePrefix() {
