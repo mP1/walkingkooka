@@ -63,7 +63,7 @@ final public class ConcatCharSequenceTest implements ClassTesting2<ConcatCharSeq
 
     @Test
     public void testLength() {
-        this.checkLength(LENGTH);
+        this.lengthAndCheck(LENGTH);
     }
 
     @Test

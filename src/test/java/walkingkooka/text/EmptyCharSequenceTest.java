@@ -31,7 +31,7 @@ final public class EmptyCharSequenceTest implements ClassTesting2<EmptyCharSeque
 
     @Test
     public void testLength() {
-        this.checkLength(0);
+        this.lengthAndCheck(0);
     }
 
     @Test

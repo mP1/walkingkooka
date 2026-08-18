@@ -190,7 +190,7 @@ public interface CharSequenceTesting<C extends CharSequence> extends HashCodeEqu
 
     default void checkEquals2(final CharSequence actual,
                               final char... c) {
-        this.checkLength(actual, c.length);
+        this.lengthAndCheck(actual, c.length);
         this.checkCharAt(actual, c);
         this.checkEquals(
             new String(c),
@@ -199,15 +199,15 @@ public interface CharSequenceTesting<C extends CharSequence> extends HashCodeEqu
         );
     }
 
-    default void checkLength(final int length) {
-        this.checkLength(
+    default void lengthAndCheck(final int length) {
+        this.lengthAndCheck(
             this.createCharSequence(),
             length
         );
     }
 
-    default void checkLength(final CharSequence chars,
-                             final int length) {
+    default void lengthAndCheck(final CharSequence chars,
+                                final int length) {
         this.checkEquals(
             length,
             chars.length(),
@@ -215,9 +215,9 @@ public interface CharSequenceTesting<C extends CharSequence> extends HashCodeEqu
         );
     }
 
-    default void checkLength(final String message,
-                             final CharSequence chars,
-                             final int length) {
+    default void lengthAndCheck(final String message,
+                                final CharSequence chars,
+                                final int length) {
         this.checkEquals(
             length,
             chars.length(),
@@ -306,7 +306,7 @@ public interface CharSequenceTesting<C extends CharSequence> extends HashCodeEqu
                                   final String expected) {
         final CharSequence sub = chars.subSequence(start, end);
 
-        this.checkLength(sub, end - start);
+        this.lengthAndCheck(sub, end - start);
         this.checkCharAt(sub, expected);
     }
 

@@ -382,7 +382,7 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
 
     @Test
     public void testLengthString() {
-        this.checkLength(
+        this.lengthAndCheck(
             Indentation.with("0123"),
             4
         );
@@ -390,7 +390,7 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
 
     @Test
     public void testLengthRepeatinSpace() {
-        this.checkLength(
+        this.lengthAndCheck(
             Indentation.with(' ', 4),
             4
         );

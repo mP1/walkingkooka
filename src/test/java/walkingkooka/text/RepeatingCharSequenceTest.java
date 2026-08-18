@@ -56,7 +56,7 @@ final public class RepeatingCharSequenceTest implements ClassTesting2<RepeatingC
 
     @Test
     public void testLength() {
-        this.checkLength(LENGTH);
+        this.lengthAndCheck(LENGTH);
     }
 
     @Test
