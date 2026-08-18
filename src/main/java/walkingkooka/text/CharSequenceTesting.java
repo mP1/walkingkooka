@@ -289,10 +289,10 @@ public interface CharSequenceTesting<C extends CharSequence> extends HashCodeEqu
         return CharSequences.escape(Character.toString(c)).toString();
     }
 
-    default void checkSubSequence(final int start,
-                                  final int end,
-                                  final String expected) {
-        this.checkSubSequence(
+    default void subSequenceAndCheck(final int start,
+                                     final int end,
+                                     final String expected) {
+        this.subSequenceAndCheck(
             this.createCharSequence(),
             start,
             end,
@@ -300,10 +300,10 @@ public interface CharSequenceTesting<C extends CharSequence> extends HashCodeEqu
         );
     }
 
-    default void checkSubSequence(final CharSequence chars,
-                                  final int start,
-                                  final int end,
-                                  final String expected) {
+    default void subSequenceAndCheck(final CharSequence chars,
+                                     final int start,
+                                     final int end,
+                                     final String expected) {
         final CharSequence sub = chars.subSequence(start, end);
 
         this.lengthAndCheck(sub, end - start);
