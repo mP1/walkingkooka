@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class RepeatingCharSequenceTest implements ClassTesting2<RepeatingCharSequence>,
-    CharSequenceTesting<RepeatingCharSequence> {
+    CharSequenceTesting2<RepeatingCharSequence> {
 
     // constants
 
@@ -47,11 +47,14 @@ final public class RepeatingCharSequenceTest implements ClassTesting2<RepeatingC
 
     @Test
     public void testCharAt() {
-        this.charAtAndCheck(CHAR,
+        this.charAtAndCheck(
+            this.createCharSequence(),
             CHAR,
             CHAR,
             CHAR,
-            CHAR);
+            CHAR,
+            CHAR
+        );
     }
 
     @Test

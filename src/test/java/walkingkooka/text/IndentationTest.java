@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class IndentationTest implements ClassTesting2<Indentation>,
-    CharSequenceTesting<Indentation>,
+    CharSequenceTesting2<Indentation>,
     HashCodeEqualsDefinedTesting2<Indentation>,
     ToStringTesting<Indentation>,
     HasValueTesting {
