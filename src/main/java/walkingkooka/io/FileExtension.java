@@ -275,20 +275,24 @@ public final class FileExtension implements
     /**
      * Used to test if this {@link FileExtension} matches another.
      * <pre>
-     * FileExtension.extract("file1.txt)
-     *   .test(FileExtension.extract("file2.txt))
+     * FileExtension.extract("file1.txt")
+     *   .test(FileExtension.extract("file2.txt")
+     * )
      * true
      *
-     * FileExtension.extract("file3.txt)
-     *   .test(FileExtension.extract("file4.dec.txt))
+     * FileExtension.extract("file3.txt")
+     *   .test(FileExtension.extract("file4.dec.txt")
+     * )
      * true
      *
-     * FileExtension.extract("file5.jan.txt)
-     *   .test(FileExtension.extract("file6.txt))
+     * FileExtension.extract("file5.jan.txt")
+     *   .test(FileExtension.extract("file6.txt")
+     * )
      * false
      *
-     * FileExtension.extract("file7.jan.txt)
-     *   .test(FileExtension.extract("file8.dec.txt))
+     * FileExtension.extract("file7.jan.txt")
+     *   .test(FileExtension.extract("file8.dec.txt")
+     * )
      * false
      *
      * </pre>
