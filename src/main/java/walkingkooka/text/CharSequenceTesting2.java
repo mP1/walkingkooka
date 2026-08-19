@@ -178,6 +178,13 @@ public interface CharSequenceTesting2<C extends CharSequence> extends CharSequen
         );
     }
 
+    default void charAtAndCheck(final char... c) {
+        this.charAtAndCheck(
+            this.createCharSequence(),
+            c
+        );
+    }
+
     default void charAtAndCheck(final CharSequence chars,
                                 final char... c) {
         this.charAtAndCheck(
