@@ -48,7 +48,6 @@ final public class RepeatingCharSequenceTest implements ClassTesting2<RepeatingC
     @Test
     public void testCharAt() {
         this.charAtAndCheck(
-            this.createCharSequence(),
             CHAR,
             CHAR,
             CHAR,
