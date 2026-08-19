@@ -67,29 +67,11 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>, SortedSet<E> {
     ImmutableSortedSet<E> replace(final E oldElement,
                                   final E newElement);
 
-    /**
-     * Returns an {@link ImmutableSet} creating a new instance with the given elements if necessary.
-     */
     @Override
-    default ImmutableSet<E> setElements(final Collection<E> elements) {
-        SortedSet<E> sortedSet;
-
-        if(null == elements || elements instanceof SortedSet) {
-            sortedSet = (SortedSet<E>) elements;
-        } else {
-            sortedSet = SortedSets.tree();
-            sortedSet.addAll(elements);
-        }
-
-        return this.setElements(sortedSet);
-    }
+    ImmutableSet<E> setElements(final Collection<E> elements);
 
     @Override
-    default ImmutableSet<E> setElementsFailIfDifferent(final Collection<E> elements) {
-        return this.setElementsFailIfDifferent(
-            (SortedSet<E>) elements
-        );
-    }
+    ImmutableSet<E> setElementsFailIfDifferent(final Collection<E> elements);
 
     /**
      * Returns a mutable {@link SortedSet} with the items in this set. Modifying the given set does not update the elements in this set.
