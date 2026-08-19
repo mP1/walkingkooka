@@ -68,6 +68,15 @@ public interface CharSequenceTesting2<C extends CharSequence> extends CharSequen
         this.charAtFails(Integer.MAX_VALUE);
     }
 
+    default void charAtAndCheck(final int index,
+                                final char... c) {
+        this.charAtAndCheck(
+            this.createCharSequence(),
+            index,
+            c
+        );
+    }
+
     default void charAtFails(final int index) {
         this.charAtFails(this.createCharSequence(), index);
     }
