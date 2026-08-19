@@ -51,7 +51,7 @@ public interface HasTextWithLineBreaksAndCollectionStringTesting extends HasText
     }
 
     @Test
-    default void testTextWithLineBreaksWithNlAndStringdIncludeCr() {
+    default void testTextWithLineBreaksWithNlAndStringIncludeCr() {
         this.textWithLineBreaksAndCheck(
             this.createCollection(
                 "111\r",
@@ -64,7 +64,7 @@ public interface HasTextWithLineBreaksAndCollectionStringTesting extends HasText
     }
 
     @Test
-    default void testTextWithLineBreaksWithNlAndStringdIncludeNl() {
+    default void testTextWithLineBreaksWithNlAndStringIncludeNl() {
         this.textWithLineBreaksAndCheck(
             this.createCollection(
                 "111\n",
