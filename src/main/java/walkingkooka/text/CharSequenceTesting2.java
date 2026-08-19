@@ -135,6 +135,17 @@ public interface CharSequenceTesting2<C extends CharSequence> extends CharSequen
         );
     }
 
+    default void subSequenceAndCheck(final int start,
+                                     final int end,
+                                     final String expected) {
+        this.subSequenceAndCheck(
+            this.createCharSequence(),
+            start,
+            end,
+            expected
+        );
+    }
+
     @Test
     default void testSubSequenceWithSameFromAndToReturnsThis() {
         final C sequence = this.createCharSequence();
