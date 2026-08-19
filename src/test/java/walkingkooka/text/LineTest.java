@@ -25,7 +25,7 @@ import walkingkooka.reflect.JavaVisibility;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class LineTest implements ClassTesting2<Line>,
-    CharSequenceTesting<Line>,
+    CharSequenceTesting2<Line>,
     HasValueTesting {
 
     @Override

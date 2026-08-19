@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ConcatCharSequenceTest implements ClassTesting2<ConcatCharSequence>,
-    CharSequenceTesting<ConcatCharSequence> {
+    CharSequenceTesting2<ConcatCharSequence> {
 
     // constants
 

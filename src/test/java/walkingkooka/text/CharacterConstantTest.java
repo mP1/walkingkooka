@@ -29,7 +29,7 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class CharacterConstantTest implements ClassTesting2<CharacterConstant>,
-    CharSequenceTesting<CharacterConstant> {
+    CharSequenceTesting2<CharacterConstant> {
 
     private final static char CHAR = 'a';
 

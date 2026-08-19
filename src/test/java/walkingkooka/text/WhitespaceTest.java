@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class WhitespaceTest implements ClassTesting2<Whitespace>,
-    CharSequenceTesting<Whitespace> {
+    CharSequenceTesting2<Whitespace> {
 
     @Override
     public void testTypeNaming() {

@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class LineEndingTest implements ClassTesting2<LineEnding>,
-    CharSequenceTesting<LineEnding>,
+    CharSequenceTesting2<LineEnding>,
     ParseStringTesting<LineEnding>,
     HasLineEndingTesting,
     HasTextTesting {
