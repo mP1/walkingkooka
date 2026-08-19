@@ -68,7 +68,7 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>, SortedSet<E> {
                                   final E newElement);
 
     /**
-     * Calls {@link #setElements(SortedSet)} creating a new {@link SortedSet} with the elements if necessary.
+     * Returns an {@link ImmutableSet} creating a new instance with the given elements if necessary.
      */
     @Override
     default ImmutableSet<E> setElements(final Collection<E> elements) {
