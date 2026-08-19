@@ -185,61 +185,8 @@ public interface CharSequenceTesting2<C extends CharSequence> extends CharSequen
         );
     }
 
-    default void charAtAndCheck(final CharSequence chars,
-                                final char... c) {
-        this.charAtAndCheck(
-            chars,
-            0,
-            c
-        );
-    }
-
-    default void charAtAndCheck(final CharSequence chars,
-                                final String c) {
-        this.charAtAndCheck(
-            chars,
-            c.toCharArray()
-        );
-    }
-
-    default void charAtAndCheck(final CharSequence chars,
-                                final int index,
-                                final char... c) {
-        final int length = c.length;
-        for (int i = 0; i < length; i++) {
-            this.charAtAndCheck(
-                chars,
-                index + i,
-                c[i]
-            );
-        }
-    }
-
-    default void charAtAndCheck(final CharSequence chars,
-                                final int index,
-                                final char c) {
-        final char d = chars.charAt(index);
-        if (c != d) {
-            this.checkEquals(
-                CharSequences.quoteAndEscape(c),
-                CharSequences.quoteAndEscape(chars.charAt(index)),
-                "Wrong char at " + index + " in " + chars
-            );
-        }
-    }
-
     default String toString(final char c) {
         return CharSequences.escape(Character.toString(c)).toString();
-    }
-
-    default void subSequenceAndCheck(final CharSequence chars,
-                                     final int start,
-                                     final int end,
-                                     final String expected) {
-        final CharSequence sub = chars.subSequence(start, end);
-
-        this.lengthAndCheck(sub, end - start);
-        this.charAtAndCheck(sub, expected);
     }
 
     // class............................................................................................................
