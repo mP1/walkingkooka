@@ -31,7 +31,8 @@ public final class CsvStringListTest implements DelimiterStringImmutableListTest
     ParseStringTesting<CsvStringList>,
     CanRemoveTrailingNullOrEmptyStringsTesting,
     HasCsvStringListTesting,
-    HasTextWithLineBreaksAndCollectionStringTesting {
+    HasTextWithLineBreaksAndCollectionStringTesting,
+    HasTsvStringListTesting {
 
     // setElements......................................................................................................
 
@@ -536,6 +537,18 @@ public final class CsvStringListTest implements DelimiterStringImmutableListTest
     @Override
     public CsvStringList createCollection(final Collection<String> strings) {
         return CsvStringList.EMPTY.setElements(strings);
+    }
+
+    // HasTsvStringList.................................................................................................
+
+    @Test
+    public void testTsvStringList() {
+        final String csv = "a,b,1";
+
+        this.tsvStringListAndCheck(
+            CsvStringList.parse(csv),
+            csv.replace(',', '\t')
+        );
     }
 
     // class............................................................................................................

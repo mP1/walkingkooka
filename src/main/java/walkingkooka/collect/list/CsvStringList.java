@@ -31,7 +31,8 @@ import java.util.Objects;
 public final class CsvStringList extends AbstractList<String> implements DelimiterStringImmutableList,
     ImmutableListDefaults<CsvStringList, String>,
     HasCsvStringList,
-    HasTextWithLineBreaksAndCollectionString {
+    HasTextWithLineBreaksAndCollectionString,
+    HasTsvStringList {
 
     /**
      * An empty {@link CsvStringList}
@@ -133,5 +134,12 @@ public final class CsvStringList extends AbstractList<String> implements Delimit
     public String textWithSeparator(final char separator) {
         return CharacterConstant.with(separator)
             .toDelimiteredString(this.strings);
+    }
+
+    // HasTsvStringList.................................................................................................
+
+    @Override
+    public TsvStringList tsvStringList() {
+        return TsvStringList.EMPTY.setElements(this);
     }
 }
