@@ -32,7 +32,8 @@ import java.util.stream.Collectors;
 public final class StringList extends AbstractList<String>
     implements ImmutableListDefaults<StringList, String>,
     HasCsvStringList,
-    HasTextWithLineBreaks {
+    HasTextWithLineBreaks,
+    HasTsvStringList {
 
     /**
      * An empty {@link StringList}.
@@ -114,5 +115,12 @@ public final class StringList extends AbstractList<String>
                     lineEnding
                 )
             );
+    }
+
+    // HasTsvStringList.................................................................................................
+
+    @Override
+    public TsvStringList tsvStringList() {
+        return TsvStringList.EMPTY.setElements(this);
     }
 }

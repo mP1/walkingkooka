@@ -13,7 +13,8 @@ public class StringListTest implements ListTesting2<StringList, String>,
     ClassTesting<StringList>,
     ImmutableListTesting<StringList, String>,
     HasCsvStringListTesting,
-    HasTextWithLineBreaksTesting {
+    HasTextWithLineBreaksTesting,
+    HasTsvStringListTesting {
 
     private final static String STRING1 = "AAA";
 
@@ -187,6 +188,18 @@ public class StringListTest implements ListTesting2<StringList, String>,
             LineEnding.NL,
             "111\n\n" +
                 "222\n"
+        );
+    }
+
+    // HasTsvStringList.................................................................................................
+
+    @Test
+    public void testTsvStringList() {
+        this.tsvStringListAndCheck(
+            StringList.EMPTY.concat("aaa")
+                .concat("bbb")
+                .concat("111"),
+            "aaa\tbbb\t111"
         );
     }
 
