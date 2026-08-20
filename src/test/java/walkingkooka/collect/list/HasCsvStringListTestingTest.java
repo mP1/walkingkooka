@@ -15,11 +15,9 @@
  *
  */
 
-package walkingkooka.text;
+package walkingkooka.collect.list;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.list.CsvStringList;
-import walkingkooka.collect.list.HasCsvStringListTesting;
 
 public final class HasCsvStringListTestingTest implements HasCsvStringListTesting {
 
