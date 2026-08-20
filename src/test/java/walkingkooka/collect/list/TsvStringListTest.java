@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TsvStringListTest implements DelimiterStringImmutableListTesting<TsvStringList>,
     ParseStringTesting<TsvStringList>,
-    CanRemoveTrailingEmptyStringsTesting,
+    CanRemoveTrailingNullOrEmptyStringsTesting,
     HasCsvStringListTesting,
     HasTextWithLineBreaksAndCollectionStringTesting,
     HasTsvStringListTesting {
@@ -464,26 +464,26 @@ public final class TsvStringListTest implements DelimiterStringImmutableListTest
         );
     }
 
-    // CanRemoveTrailingEmptyStrings....................................................................................
+    // CanRemoveTrailingNullOrEmptyStrings..............................................................................
 
     @Test
-    public void testCanRemoveTrailingEmptyStringsWhenNone() {
-        this.removeTrailingEmptyStringsAndCheck(
+    public void testCanRemoveTrailingNullOrEmptyStringsWhenNone() {
+        this.removeTrailingNullOrEmptyStringsAndCheck(
             this.parseString("aaa\tbbb\tccc")
         );
     }
 
     @Test
-    public void testCanRemoveTrailingEmptyStringsWhenSome() {
-        this.removeTrailingEmptyStringsAndCheck(
+    public void testCanRemoveTrailingNullOrEmptyStringsWhenSome() {
+        this.removeTrailingNullOrEmptyStringsAndCheck(
             this.parseString("aaa\tbbb\tccc\t"),
             this.parseString("aaa\tbbb\tccc")
         );
     }
 
     @Test
-    public void testCanRemoveTrailingEmptyStringsWhenSome2() {
-        this.removeTrailingEmptyStringsAndCheck(
+    public void testCanRemoveTrailingNullOrEmptyStringsWhenSome2() {
+        this.removeTrailingNullOrEmptyStringsAndCheck(
             this.parseString("aaa\tbbb\tccc\t\t\t"),
             this.parseString("aaa\tbbb\tccc")
         );

@@ -104,11 +104,11 @@ public final class TsvStringList extends AbstractList<String> implements Delimit
 
     private final List<String> strings;
 
-    // CanRemoveTrailingEmptyStrings....................................................................................
+    // CanRemoveTrailingNullOrEmptyStrings..............................................................................
 
     @Override
-    public TsvStringList removeTrailingEmptyStrings() {
-        return (TsvStringList) DelimiterStringImmutableList.super.removeTrailingEmptyStrings();
+    public TsvStringList removeTrailingNullOrEmptyStrings() {
+        return (TsvStringList) DelimiterStringImmutableList.super.removeTrailingNullOrEmptyStrings();
     }
 
     // HasCsvStringList.................................................................................................

@@ -19,12 +19,12 @@ package walkingkooka.collect.list;
 
 import walkingkooka.text.CharSequences;
 
-public interface CanRemoveTrailingEmptyStrings extends ImmutableList<String> {
+public interface CanRemoveTrailingNullOrEmptyStrings extends ImmutableList<String> {
 
     /**
      * Returns an instance with any trailing null or empty {@link String} removed.
      */
-    default ImmutableList<String> removeTrailingEmptyStrings() {
+    default ImmutableList<String> removeTrailingNullOrEmptyStrings() {
         int newSize = this.size();
 
         while (newSize > 0) {
