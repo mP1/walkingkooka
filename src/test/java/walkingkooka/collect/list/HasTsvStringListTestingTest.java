@@ -18,5 +18,17 @@
 
 package walkingkooka.collect.list;
 
+import org.junit.jupiter.api.Test;
+
 public final class HasTsvStringListTestingTest implements HasTsvStringListTesting {
+
+    @Test
+    public void testTsvStringList() {
+        final String text = "a,b,c,1,2,3";
+
+        this.tsvStringListAndCheck(
+            TsvStringList.parse(text),
+            text
+        );
+    }
 }
