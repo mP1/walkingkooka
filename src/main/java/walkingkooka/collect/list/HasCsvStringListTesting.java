@@ -15,9 +15,8 @@
  *
  */
 
-package walkingkooka.text;
+package walkingkooka.collect.list;
 
-import walkingkooka.collect.list.CsvStringList;
 import walkingkooka.test.Testing;
 
 public interface HasCsvStringListTesting extends Testing {

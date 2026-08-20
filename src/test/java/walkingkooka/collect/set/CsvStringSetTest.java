@@ -19,8 +19,8 @@ package walkingkooka.collect.set;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.EndOfTextException;
+import walkingkooka.collect.list.HasCsvStringListTesting;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.text.HasCsvStringListTesting;
 import walkingkooka.text.HasTextWithLineBreaksAndCollectionString;
 import walkingkooka.text.HasTextWithLineBreaksAndCollectionStringTesting;
 

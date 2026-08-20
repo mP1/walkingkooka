@@ -17,5 +17,7 @@
 
 package walkingkooka.text;
 
+import walkingkooka.collect.list.HasCsvStringListTesting;
+
 public final class HasCsvStringListTestingTest implements HasCsvStringListTesting {
 }

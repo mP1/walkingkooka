@@ -20,7 +20,6 @@ package walkingkooka.collect.list;
 import org.junit.jupiter.api.Test;
 import walkingkooka.EndOfTextException;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.text.HasCsvStringListTesting;
 import walkingkooka.text.HasTextWithLineBreaksAndCollectionStringTesting;
 
 import java.util.Collection;
