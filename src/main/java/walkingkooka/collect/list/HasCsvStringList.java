@@ -15,9 +15,7 @@
  *
  */
 
-package walkingkooka.text;
-
-import walkingkooka.collect.list.CsvStringList;
+package walkingkooka.collect.list;
 
 /**
  * Getter to get an equivalent {@link CsvStringList}.

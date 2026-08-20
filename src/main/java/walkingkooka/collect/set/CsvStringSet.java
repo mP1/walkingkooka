@@ -20,8 +20,8 @@ package walkingkooka.collect.set;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.list.CsvStringList;
+import walkingkooka.collect.list.HasCsvStringList;
 import walkingkooka.text.CharacterConstant;
-import walkingkooka.text.HasCsvStringList;
 import walkingkooka.text.HasTextWithLineBreaksAndCollectionString;
 
 import java.util.AbstractSet;

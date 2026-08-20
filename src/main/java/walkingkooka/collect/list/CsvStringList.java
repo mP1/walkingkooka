@@ -18,7 +18,6 @@
 package walkingkooka.collect.list;
 
 import walkingkooka.text.CharacterConstant;
-import walkingkooka.text.HasCsvStringList;
 import walkingkooka.text.HasTextWithLineBreaksAndCollectionString;
 
 import java.util.AbstractList;
