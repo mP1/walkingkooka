@@ -30,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TsvStringListTest implements DelimiterStringImmutableListTesting<TsvStringList>,
     ParseStringTesting<TsvStringList>,
+    HasCsvStringListTesting,
     HasTextWithLineBreaksAndCollectionStringTesting {
 
     // setElements......................................................................................................
@@ -458,6 +459,18 @@ public final class TsvStringListTest implements DelimiterStringImmutableListTest
         this.parseStringAndCheck(
             expected,
             list
+        );
+    }
+
+    // HasCsvStringList..................................................................................................
+
+    @Test
+    public void testCsvStringList() {
+        final String csv = "111\taaa\tbbb";
+
+        this.csvStringListAndCheck(
+            TsvStringList.parse(csv),
+            csv.replace('\t', ',')
         );
     }
 
