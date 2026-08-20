@@ -20,6 +20,7 @@ package walkingkooka.collect.set;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.EndOfTextException;
+import walkingkooka.collect.list.HasTsvStringListTesting;
 import walkingkooka.collect.list.TsvStringList;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.HasTextWithLineBreaksAndCollectionString;
@@ -32,7 +33,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TsvStringSetTest implements DelimiterStringImmutableSetTesting<TsvStringSet>,
     ParseStringTesting<TsvStringSet>,
-    HasTextWithLineBreaksAndCollectionStringTesting {
+    HasTextWithLineBreaksAndCollectionStringTesting,
+    HasTsvStringListTesting {
 
     // setElements......................................................................................................
 
@@ -439,6 +441,18 @@ public final class TsvStringSetTest implements DelimiterStringImmutableSetTestin
     @Override
     public HasTextWithLineBreaksAndCollectionString createCollection(final Collection<String> strings) {
         return TsvStringList.EMPTY.setElements(strings);
+    }
+
+    // HasTsvStringList.................................................................................................
+
+    @Test
+    public void testTsvStringList() {
+        final String tsv = "111\t222\taaa\tbbb";
+
+        this.tsvStringListAndCheck(
+            TsvStringSet.parse(tsv),
+            tsv
+        );
     }
 
     // class............................................................................................................
