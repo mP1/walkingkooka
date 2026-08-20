@@ -17,16 +17,18 @@
 
 package walkingkooka.collect.list;
 
+import walkingkooka.text.CharSequences;
+
 public interface CanRemoveTrailingEmptyStrings extends ImmutableList<String> {
 
     /**
-     * Returns an instance with any trailing empty {@link String} removed.
+     * Returns an instance with any trailing null or empty {@link String} removed.
      */
     default ImmutableList<String> removeTrailingEmptyStrings() {
         int newSize = this.size();
 
         while (newSize > 0) {
-            if (false == this.get(newSize - 1).isEmpty()) {
+            if (false == CharSequences.isNullOrEmpty(this.get(newSize - 1))) {
                 break;
             }
             newSize--;
