@@ -1,7 +1,6 @@
 package walkingkooka.collect.list;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.set.CsvStringSet;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.HasTextWithLineBreaksTesting;
@@ -148,11 +147,11 @@ public class StringListTest implements ListTesting2<StringList, String>,
 
     @Test
     public void testCsvStringList() {
-        final String csv = "aaa,bb,cc";
-
         this.csvStringListAndCheck(
-            CsvStringSet.parse(csv),
-            csv
+            StringList.EMPTY.concat("aaa")
+                .concat("bbb")
+                .concat("111"),
+            "aaa,bbb,111"
         );
     }
 
