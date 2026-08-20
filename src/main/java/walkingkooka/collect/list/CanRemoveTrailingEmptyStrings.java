@@ -17,12 +17,26 @@
 
 package walkingkooka.collect.list;
 
-import walkingkooka.text.HasTextWithSeparator;
+public interface CanRemoveTrailingEmptyStrings extends ImmutableList<String> {
 
-/**
- * An {@link ImmutableList} of {@link String string values} with a delimiter such as CSV
- */
-public interface DelimiterStringImmutableList extends ImmutableList<String>,
-    CanRemoveTrailingEmptyStrings,
-    HasTextWithSeparator {
+    /**
+     * Returns an instance with any trailing empty {@link String} removed.
+     */
+    default ImmutableList<String> removeTrailingEmptyStrings() {
+        int newSize = this.size();
+
+        while (newSize > 0) {
+            if (false == this.get(newSize - 1).isEmpty()) {
+                break;
+            }
+            newSize--;
+        }
+
+        return this.setElements(
+            this.subList(
+                0,
+                newSize
+            )
+        );
+    }
 }
