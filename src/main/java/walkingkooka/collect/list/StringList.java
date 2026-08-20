@@ -31,6 +31,7 @@ import java.util.stream.Collectors;
  */
 public final class StringList extends AbstractList<String>
     implements ImmutableListDefaults<StringList, String>,
+    HasCsvStringList,
     HasTextWithLineBreaks {
 
     /**
@@ -87,6 +88,13 @@ public final class StringList extends AbstractList<String>
         return this.equals(stringList) ?
             this :
             stringList;
+    }
+
+    // HasCsvStringList.................................................................................................
+
+    @Override
+    public CsvStringList csvStringList() {
+        return CsvStringList.EMPTY.setElements(this);
     }
 
     // HasTextWithLineBreaks............................................................................................
