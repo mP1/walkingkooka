@@ -29,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CsvStringListTest implements DelimiterStringImmutableListTesting<CsvStringList>,
     ParseStringTesting<CsvStringList>,
+    CanRemoveTrailingEmptyStringsTesting,
     HasCsvStringListTesting,
     HasTextWithLineBreaksAndCollectionStringTesting {
 
@@ -490,6 +491,31 @@ public final class CsvStringListTest implements DelimiterStringImmutableListTest
                 first
             ).concat("222"),
             first
+        );
+    }
+
+    // CanRemoveTrailingEmptyStrings....................................................................................
+
+    @Test
+    public void testCanRemoveTrailingEmptyStringsWhenNone() {
+        this.removeTrailingEmptyStringsAndCheck(
+            this.parseString("aaa,bbb,ccc")
+        );
+    }
+
+    @Test
+    public void testCanRemoveTrailingEmptyStringsWhenSome() {
+        this.removeTrailingEmptyStringsAndCheck(
+            this.parseString("aaa,bbb,ccc,"),
+            this.parseString("aaa,bbb,ccc")
+        );
+    }
+
+    @Test
+    public void testCanRemoveTrailingEmptyStringsWhenSome2() {
+        this.removeTrailingEmptyStringsAndCheck(
+            this.parseString("aaa,bbb,ccc,,,"),
+            this.parseString("aaa,bbb,ccc")
         );
     }
 

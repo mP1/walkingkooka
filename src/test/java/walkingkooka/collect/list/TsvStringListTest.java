@@ -30,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TsvStringListTest implements DelimiterStringImmutableListTesting<TsvStringList>,
     ParseStringTesting<TsvStringList>,
+    CanRemoveTrailingEmptyStringsTesting,
     HasCsvStringListTesting,
     HasTextWithLineBreaksAndCollectionStringTesting,
     HasTsvStringListTesting {
@@ -460,6 +461,31 @@ public final class TsvStringListTest implements DelimiterStringImmutableListTest
         this.parseStringAndCheck(
             expected,
             list
+        );
+    }
+
+    // CanRemoveTrailingEmptyStrings....................................................................................
+
+    @Test
+    public void testCanRemoveTrailingEmptyStringsWhenNone() {
+        this.removeTrailingEmptyStringsAndCheck(
+            this.parseString("aaa\tbbb\tccc")
+        );
+    }
+
+    @Test
+    public void testCanRemoveTrailingEmptyStringsWhenSome() {
+        this.removeTrailingEmptyStringsAndCheck(
+            this.parseString("aaa\tbbb\tccc\t"),
+            this.parseString("aaa\tbbb\tccc")
+        );
+    }
+
+    @Test
+    public void testCanRemoveTrailingEmptyStringsWhenSome2() {
+        this.removeTrailingEmptyStringsAndCheck(
+            this.parseString("aaa\tbbb\tccc\t\t\t"),
+            this.parseString("aaa\tbbb\tccc")
         );
     }
 
