@@ -19,6 +19,8 @@ package walkingkooka.collect.set;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
+import walkingkooka.collect.list.CsvStringList;
+import walkingkooka.collect.list.HasCsvStringList;
 import walkingkooka.collect.list.HasTsvStringList;
 import walkingkooka.collect.list.TsvStringList;
 import walkingkooka.text.CharacterConstant;
@@ -38,6 +40,7 @@ import java.util.TreeSet;
 public final class TsvStringSet extends AbstractSet<String>
     implements DelimiterStringImmutableSet,
     ImmutableSortedSetDefaults<TsvStringSet, String>,
+    HasCsvStringList,
     HasTextWithLineBreaksAndCollectionString,
     HasTsvStringList {
 
@@ -155,6 +158,13 @@ public final class TsvStringSet extends AbstractSet<String>
     }
 
     private final SortedSet<String> strings;
+
+    // HasCsvStringList.................................................................................................
+
+    @Override
+    public CsvStringList csvStringList() {
+        return CsvStringList.EMPTY.setElements(this);
+    }
 
     // HasTextWithSeparator.............................................................................................
 
