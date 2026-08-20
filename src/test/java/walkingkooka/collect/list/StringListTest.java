@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class StringListTest implements ListTesting2<StringList, String>,
     ClassTesting<StringList>,
+    CanRemoveTrailingEmptyStringsTesting,
     ImmutableListTesting<StringList, String>,
     HasCsvStringListTesting,
     HasTextWithLineBreaksTesting,
@@ -140,6 +141,54 @@ public class StringListTest implements ListTesting2<StringList, String>,
                 first
             ).concat("222"),
             first
+        );
+    }
+
+    // CanRemoveTrailingEmptyStrings....................................................................................
+
+    @Test
+    public void testCanRemoveTrailingEmptyStringsWhenNone() {
+        this.removeTrailingEmptyStringsAndCheck(
+            StringList.EMPTY.concat("aaa")
+                .concat("bbb")
+                .concat("111")
+        );
+    }
+
+    @Test
+    public void testCanRemoveTrailingEmptyStringsWhenSomeNull() {
+        final StringList stringList = StringList.EMPTY.concat("aaa")
+            .concat("bbb")
+            .concat("111");
+
+        this.removeTrailingEmptyStringsAndCheck(
+            stringList.concat(null),
+            stringList
+        );
+    }
+
+    @Test
+    public void testCanRemoveTrailingEmptyStringsWhenSomeEmpty() {
+        final StringList stringList = StringList.EMPTY.concat("aaa")
+            .concat("bbb")
+            .concat("111");
+
+        this.removeTrailingEmptyStringsAndCheck(
+            stringList.concat(""),
+            stringList
+        );
+    }
+
+    @Test
+    public void testCanRemoveTrailingEmptyStringsWhenSomeNullAndEmpty() {
+        final StringList stringList = StringList.EMPTY.concat("aaa")
+            .concat("bbb")
+            .concat("111");
+
+        this.removeTrailingEmptyStringsAndCheck(
+            stringList.concat("")
+                .concat(null),
+            stringList
         );
     }
 
