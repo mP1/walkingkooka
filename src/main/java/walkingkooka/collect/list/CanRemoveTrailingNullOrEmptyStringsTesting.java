@@ -23,29 +23,29 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public interface CanRemoveTrailingEmptyStringsTesting extends Testing {
+public interface CanRemoveTrailingNullOrEmptyStringsTesting extends Testing {
 
-    default void removeTrailingEmptyStringsAndCheck(final CanRemoveTrailingEmptyStrings can) {
+    default void removeTrailingNullOrEmptyStringsAndCheck(final CanRemoveTrailingNullOrEmptyStrings can) {
         assertSame(
             can,
-            can.removeTrailingEmptyStrings(),
+            can.removeTrailingNullOrEmptyStrings(),
             can::toString
         );
     }
 
-    default void removeTrailingEmptyStringsAndCheck(final CanRemoveTrailingEmptyStrings can,
-                                                    final String... expected) {
-        this.removeTrailingEmptyStringsAndCheck(
+    default void removeTrailingNullOrEmptyStringsAndCheck(final CanRemoveTrailingNullOrEmptyStrings can,
+                                                          final String... expected) {
+        this.removeTrailingNullOrEmptyStringsAndCheck(
             can,
             Lists.of(expected)
         );
     }
 
-    default void removeTrailingEmptyStringsAndCheck(final CanRemoveTrailingEmptyStrings can,
-                                                    final List<String> expected) {
+    default void removeTrailingNullOrEmptyStringsAndCheck(final CanRemoveTrailingNullOrEmptyStrings can,
+                                                          final List<String> expected) {
         this.checkEquals(
             expected,
-            can.removeTrailingEmptyStrings()
+            can.removeTrailingNullOrEmptyStrings()
         );
     }
 }

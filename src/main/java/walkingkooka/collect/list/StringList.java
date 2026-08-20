@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
  */
 public final class StringList extends AbstractList<String>
     implements ImmutableListDefaults<StringList, String>,
-    CanRemoveTrailingEmptyStrings,
+    CanRemoveTrailingNullOrEmptyStrings,
     HasCsvStringList,
     HasTextWithLineBreaks,
     HasTsvStringList {
@@ -92,11 +92,11 @@ public final class StringList extends AbstractList<String>
             stringList;
     }
 
-    // CanRemoveTrailingEmptyStrings....................................................................................
+    // CanRemoveTrailingNullOrEmptyStrings..............................................................................
 
     @Override
-    public StringList removeTrailingEmptyStrings() {
-        return (StringList) CanRemoveTrailingEmptyStrings.super.removeTrailingEmptyStrings();
+    public StringList removeTrailingNullOrEmptyStrings() {
+        return (StringList) CanRemoveTrailingNullOrEmptyStrings.super.removeTrailingNullOrEmptyStrings();
     }
 
     // HasCsvStringList.................................................................................................

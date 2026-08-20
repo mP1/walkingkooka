@@ -23,6 +23,6 @@ import walkingkooka.text.HasTextWithSeparator;
  * An {@link ImmutableList} of {@link String string values} with a delimiter such as CSV
  */
 public interface DelimiterStringImmutableList extends ImmutableList<String>,
-    CanRemoveTrailingEmptyStrings,
+    CanRemoveTrailingNullOrEmptyStrings,
     HasTextWithSeparator {
 }

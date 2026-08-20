@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class StringListTest implements ListTesting2<StringList, String>,
     ClassTesting<StringList>,
-    CanRemoveTrailingEmptyStringsTesting,
+    CanRemoveTrailingNullOrEmptyStringsTesting,
     ImmutableListTesting<StringList, String>,
     HasCsvStringListTesting,
     HasTextWithLineBreaksTesting,
@@ -144,11 +144,11 @@ public class StringListTest implements ListTesting2<StringList, String>,
         );
     }
 
-    // CanRemoveTrailingEmptyStrings....................................................................................
+    // CanRemoveTrailingNullOrEmptyStrings..............................................................................
 
     @Test
     public void testCanRemoveTrailingEmptyStringsWhenNone() {
-        this.removeTrailingEmptyStringsAndCheck(
+        this.removeTrailingNullOrEmptyStringsAndCheck(
             StringList.EMPTY.concat("aaa")
                 .concat("bbb")
                 .concat("111")
@@ -161,7 +161,7 @@ public class StringListTest implements ListTesting2<StringList, String>,
             .concat("bbb")
             .concat("111");
 
-        this.removeTrailingEmptyStringsAndCheck(
+        this.removeTrailingNullOrEmptyStringsAndCheck(
             stringList.concat(null),
             stringList
         );
@@ -173,7 +173,7 @@ public class StringListTest implements ListTesting2<StringList, String>,
             .concat("bbb")
             .concat("111");
 
-        this.removeTrailingEmptyStringsAndCheck(
+        this.removeTrailingNullOrEmptyStringsAndCheck(
             stringList.concat(""),
             stringList
         );
@@ -185,7 +185,7 @@ public class StringListTest implements ListTesting2<StringList, String>,
             .concat("bbb")
             .concat("111");
 
-        this.removeTrailingEmptyStringsAndCheck(
+        this.removeTrailingNullOrEmptyStringsAndCheck(
             stringList.concat("")
                 .concat(null),
             stringList
