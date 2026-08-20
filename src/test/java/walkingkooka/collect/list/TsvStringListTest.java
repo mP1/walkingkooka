@@ -31,7 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class TsvStringListTest implements DelimiterStringImmutableListTesting<TsvStringList>,
     ParseStringTesting<TsvStringList>,
     HasCsvStringListTesting,
-    HasTextWithLineBreaksAndCollectionStringTesting {
+    HasTextWithLineBreaksAndCollectionStringTesting,
+    HasTsvStringListTesting {
 
     // setElements......................................................................................................
 
@@ -511,6 +512,18 @@ public final class TsvStringListTest implements DelimiterStringImmutableListTest
     @Override
     public HasTextWithLineBreaksAndCollectionString createCollection(final Collection<String> strings) {
         return TsvStringList.EMPTY.setElements(strings);
+    }
+
+    // HasTsvStringList.................................................................................................
+
+    @Test
+    public void testTsvStringList() {
+        final TsvStringList list = TsvStringList.parse("111\t222\taaa\tbbb");
+
+        assertSame(
+            list.tsvStringList(),
+            list
+        );
     }
 
     // class............................................................................................................
