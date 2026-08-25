@@ -271,6 +271,14 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<I
     }
 
     @Test
+    public void testGetMessageWhenMinEqualsMax() {
+        this.getMessageAndCheck(
+            new InvalidTextLengthException(LABEL, "abc", 99, 99),
+            "Length 3 of \"label123\" expected 99 = \"abc\""
+        );
+    }
+
+    @Test
     public void testGetMessageEscapedCharacter() {
         this.getMessageAndCheck(
             new InvalidTextLengthException(

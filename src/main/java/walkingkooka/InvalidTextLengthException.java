@@ -107,29 +107,42 @@ public class InvalidTextLengthException extends TextException {
     private final int max;
 
     // Length 7 of "label123" not between 2 and 5 = "abc!456"
+    // Length 7 of "label123" expected 99 = "abc!456"
     @Override
     public String getMessage() {
         final StringBuilder b = new StringBuilder();
+
+        final String text = this.text;
+
         b.append("Length ")
-            .append(this.text.length())
+            .append(text.length())
             .append(' ');
 
         final String label = this.label()
             .orElse(null);
-        if(null != label) {
+        if (null != label) {
             b.append("of ")
                 .append(
                     CharSequences.quoteAndEscape(label)
                 );
         }
 
-        b.append(" not between ")
-            .append(this.min)
-            .append("..")
-            .append(this.max)
-            .append(" = ")
+        final int min = this.min;
+        final int max = this.max;
+
+        if (min != max) {
+            b.append(" not between ")
+                .append(min)
+                .append("..")
+                .append(max);
+        } else {
+            b.append(" expected ")
+                .append(min);
+        }
+
+        b.append(" = ")
             .append(
-                CharSequences.quote(this.text)
+                CharSequences.quote(text)
             );
 
         return b.toString();
