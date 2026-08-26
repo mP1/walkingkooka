@@ -33,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 final public class IndentationTest implements ClassTesting2<Indentation>,
     CharSequenceTesting2<Indentation>,
     HashCodeEqualsDefinedTesting2<Indentation>,
+    HasTextTesting,
     ToStringTesting<Indentation>,
     HasValueTesting {
 
@@ -210,6 +211,14 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
         this.checkConstant(
             Indentation.SPACES4,
             4
+        );
+    }
+
+    @Test
+    public void testText() {
+        this.textLengthAndCheck(
+            Indentation.with('\t', 2),
+            "\t\t"
         );
     }
 
