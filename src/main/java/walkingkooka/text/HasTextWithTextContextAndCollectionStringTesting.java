@@ -22,11 +22,11 @@ import walkingkooka.collect.list.Lists;
 
 import java.util.Collection;
 
-public interface HasTextWithLineBreaksAndCollectionStringTesting extends HasTextWithLineBreaksTesting {
+public interface HasTextWithTextContextAndCollectionStringTesting extends HasTextWithTextContextTesting {
 
     @Test
-    default void testTextWithLineBreaksWithCr() {
-        this.textWithLineBreaksAndCheck(
+    default void testTextWithTextContextWithCr() {
+        this.textWithTextContextAndCheck(
             this.createCollection(
                 "111",
                 "222"
@@ -38,8 +38,8 @@ public interface HasTextWithLineBreaksAndCollectionStringTesting extends HasText
     }
 
     @Test
-    default void testTextWithLineBreaksWithNl() {
-        this.textWithLineBreaksAndCheck(
+    default void testTextWithTextContextWithNl() {
+        this.textWithTextContextAndCheck(
             this.createCollection(
                 "111",
                 "222"
@@ -51,8 +51,8 @@ public interface HasTextWithLineBreaksAndCollectionStringTesting extends HasText
     }
 
     @Test
-    default void testTextWithLineBreaksWithNlAndStringIncludeCr() {
-        this.textWithLineBreaksAndCheck(
+    default void testTextWithTextContextWithNlAndStringIncludeCr() {
+        this.textWithTextContextAndCheck(
             this.createCollection(
                 "111\r",
                 "222\r"
@@ -64,8 +64,8 @@ public interface HasTextWithLineBreaksAndCollectionStringTesting extends HasText
     }
 
     @Test
-    default void testTextWithLineBreaksWithNlAndStringIncludeNl() {
-        this.textWithLineBreaksAndCheck(
+    default void testTextWithTextContextWithNlAndStringIncludeNl() {
+        this.textWithTextContextAndCheck(
             this.createCollection(
                 "111\n",
                 "222\n"
@@ -77,10 +77,10 @@ public interface HasTextWithLineBreaksAndCollectionStringTesting extends HasText
     }
 
     @Test
-    default void testTextWithLineBreaksWithCommasAndDoubleQuotes() {
+    default void testTextWithTextContextWithCommasAndDoubleQuotes() {
         // strings also sorted so SortedSets expectations will also pass
 
-        this.textWithLineBreaksAndCheck(
+        this.textWithTextContextAndCheck(
             this.createCollection(
                 "comma,",
                 "double-quote\"",
@@ -93,11 +93,11 @@ public interface HasTextWithLineBreaksAndCollectionStringTesting extends HasText
         );
     }
 
-    default HasTextWithLineBreaksAndCollectionString createCollection(final String... strings) {
+    default HasTextWithTextContextAndCollectionString createCollection(final String... strings) {
         return this.createCollection(
             Lists.of(strings)
         );
     }
 
-    HasTextWithLineBreaksAndCollectionString createCollection(final Collection<String> strings);
+    HasTextWithTextContextAndCollectionString createCollection(final Collection<String> strings);
 }

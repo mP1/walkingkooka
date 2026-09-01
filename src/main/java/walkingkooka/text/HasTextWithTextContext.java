@@ -17,17 +17,13 @@
 
 package walkingkooka.text;
 
-import walkingkooka.test.Testing;
+/**
+ * An alternative interface to convert a value to text which may have multiple values with the given {@link TextContext}.
+ */
+public interface HasTextWithTextContext {
 
-public interface HasTextWithLineBreaksTesting extends Testing {
-
-    default void textWithLineBreaksAndCheck(final HasTextWithLineBreaks has,
-                                            final LineEnding lineEnding,
-                                            final String expected) {
-        this.checkEquals(
-            expected,
-            has.textWithLineBreaks(lineEnding),
-            has::toString
-        );
-    }
+    /**
+     * Returns this value as text with the given {@link LineEnding}.
+     */
+    String textWithTextContext(final TextContext context);
 }
