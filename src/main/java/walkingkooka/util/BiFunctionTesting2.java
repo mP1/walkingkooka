@@ -16,27 +16,26 @@
  */
 package walkingkooka.util;
 
-import walkingkooka.test.Testing;
-import walkingkooka.text.CharSequences;
+import walkingkooka.ToStringTesting;
 
 import java.util.function.BiFunction;
 
 /**
  * Mixing interface that provides methods to test a {@link BiFunction}
  */
-public interface BiFunctionTesting extends Testing {
+public interface BiFunctionTesting2<F extends BiFunction<T, U, R>, T, U, R> extends BiFunctionTesting,
+    ToStringTesting<F> {
 
-    default <TT, UU, RR> void applyAndCheck(final BiFunction<TT, UU, RR> function,
-                                            final TT in1,
-                                            final UU in2,
-                                            final RR expected) {
-        this.checkEquals(
-            expected,
-            function.apply(
-                in1,
-                in2
-            ),
-            () -> "Wrong result for " + function + " for params: " + CharSequences.quoteIfChars(in1) + "," + CharSequences.quoteIfChars(in2)
+    default void applyAndCheck(final T in1,
+                               final U in2,
+                               final R expected) {
+        this.applyAndCheck(
+            this.createBiFunction(),
+            in1,
+            in2,
+            expected
         );
     }
+
+    F createBiFunction();
 }
