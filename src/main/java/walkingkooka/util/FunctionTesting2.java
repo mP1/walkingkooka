@@ -16,23 +16,36 @@
  */
 package walkingkooka.util;
 
-import walkingkooka.test.Testing;
-import walkingkooka.text.CharSequences;
+import walkingkooka.reflect.TypeNameTesting;
 
 import java.util.function.Function;
 
 /**
  * Mixin interface for testing {@link Function}
  */
-public interface FunctionTesting extends Testing {
+public interface FunctionTesting2<F extends Function<T, R>, T, R> extends FunctionTesting,
+    TypeNameTesting<F> {
 
-    default <TT, UU> void applyAndCheck(final Function<TT, UU> function,
-                                        final TT input,
-                                        final UU expected) {
-        this.checkEquals(
-            expected,
-            function.apply(input),
-            () -> "Wrong result for " + function + " for params: " + CharSequences.quoteIfChars(input)
+    default void applyAndCheck(final T input,
+                               final R expected) {
+        this.applyAndCheck(
+            this.createFunction(),
+            input,
+            expected
         );
+    }
+
+    F createFunction();
+
+    // TypeNameTesting .................................................................................................
+
+    @Override
+    default String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    default String typeNameSuffix() {
+        return Function.class.getSimpleName();
     }
 }
