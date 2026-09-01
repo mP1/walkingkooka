@@ -17,7 +17,7 @@
 
 package walkingkooka.collect.list;
 
-import walkingkooka.text.HasTextWithTextContext;
+import walkingkooka.text.HasMultiLineText;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.TextContext;
 
@@ -34,7 +34,7 @@ public final class StringList extends AbstractList<String>
     implements ImmutableListDefaults<StringList, String>,
     CanRemoveTrailingNullOrEmptyStrings,
     HasCsvStringList,
-    HasTextWithTextContext,
+    HasMultiLineText,
     HasTsvStringList {
 
     /**
@@ -107,13 +107,13 @@ public final class StringList extends AbstractList<String>
         return CsvStringList.EMPTY.setElements(this);
     }
 
-    // HasTextWithLineBreaks............................................................................................
+    // HasMultiLineText.................................................................................................
 
     /**
      * Note that elements are included verbatim, nothing is escaped.
      */
     @Override
-    public String textWithTextContext(final TextContext context) {
+    public String multiLineText(final TextContext context) {
         Objects.requireNonNull(context, "context");
 
         final LineEnding lineEnding = context.lineEnding();

@@ -24,7 +24,7 @@ import walkingkooka.collect.list.HasCsvStringList;
 import walkingkooka.collect.list.HasTsvStringList;
 import walkingkooka.collect.list.TsvStringList;
 import walkingkooka.text.CharacterConstant;
-import walkingkooka.text.HasTextWithTextContextAndCollectionString;
+import walkingkooka.text.HasMultiLineTextAndCollectionString;
 
 import java.util.AbstractSet;
 import java.util.Collection;
@@ -41,7 +41,7 @@ public final class CsvStringSet extends AbstractSet<String>
     implements DelimiterStringImmutableSet,
     ImmutableSortedSetDefaults<CsvStringSet, String>,
     HasCsvStringList,
-    HasTextWithTextContextAndCollectionString,
+    HasMultiLineTextAndCollectionString,
     HasTsvStringList {
 
     /**
