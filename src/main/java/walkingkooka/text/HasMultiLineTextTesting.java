@@ -19,12 +19,12 @@ package walkingkooka.text;
 
 import walkingkooka.test.Testing;
 
-public interface HasTextWithTextContextTesting extends Testing {
+public interface HasMultiLineTextTesting extends Testing {
 
-    default void textWithTextContextAndCheck(final HasTextWithTextContext has,
-                                             final LineEnding lineEnding,
-                                             final String expected) {
-        this.textWithTextContextAndCheck(
+    default void multiLineTextAndCheck(final HasMultiLineText has,
+                                       final LineEnding lineEnding,
+                                       final String expected) {
+        this.multiLineTextAndCheck(
             has,
             new FakeTextContext() {
                 @Override
@@ -36,12 +36,12 @@ public interface HasTextWithTextContextTesting extends Testing {
         );
     }
 
-    default void textWithTextContextAndCheck(final HasTextWithTextContext has,
-                                             final TextContext context,
-                                             final String expected) {
+    default void multiLineTextAndCheck(final HasMultiLineText has,
+                                       final TextContext context,
+                                       final String expected) {
         this.checkEquals(
             expected,
-            has.textWithTextContext(context),
+            has.multiLineText(context),
             has::toString
         );
     }

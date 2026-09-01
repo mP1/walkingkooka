@@ -24,8 +24,8 @@ import walkingkooka.collect.list.HasCsvStringListTesting;
 import walkingkooka.collect.list.HasTsvStringListTesting;
 import walkingkooka.collect.list.TsvStringList;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.text.HasTextWithTextContextAndCollectionString;
-import walkingkooka.text.HasTextWithTextContextAndCollectionStringTesting;
+import walkingkooka.text.HasMultiLineTextAndCollectionString;
+import walkingkooka.text.HasMultiLineTextAndCollectionStringTesting;
 
 import java.util.Collection;
 
@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class TsvStringSetTest implements DelimiterStringImmutableSetTesting<TsvStringSet>,
     ParseStringTesting<TsvStringSet>,
     HasCsvStringListTesting,
-    HasTextWithTextContextAndCollectionStringTesting,
+    HasMultiLineTextAndCollectionStringTesting,
     HasTsvStringListTesting {
 
     // setElements......................................................................................................
@@ -450,10 +450,10 @@ public final class TsvStringSetTest implements DelimiterStringImmutableSetTestin
         );
     }
 
-    // HasTextWithLineBreaksAndCollectionString.........................................................................
+    // HasMultiLineTextAndCollectionString..............................................................................
 
     @Override
-    public HasTextWithTextContextAndCollectionString createCollection(final Collection<String> strings) {
+    public HasMultiLineTextAndCollectionString createCollection(final Collection<String> strings) {
         return TsvStringList.EMPTY.setElements(strings);
     }
 

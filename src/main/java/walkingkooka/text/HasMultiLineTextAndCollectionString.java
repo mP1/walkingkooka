@@ -24,14 +24,14 @@ import java.util.stream.Collectors;
 /**
  * An alternative interface to convert a value to text which may have multiple values with the given {@link LineEnding}.
  */
-public interface HasTextWithTextContextAndCollectionString extends HasTextWithTextContext,
+public interface HasMultiLineTextAndCollectionString extends HasMultiLineText,
     Collection<String> {
 
     /**
-     * Returns this value as text with the given {@link HasTextWithTextContext}.
+     * Returns this value as text with the given {@link HasMultiLineText}.
      */
     @Override
-    default String textWithTextContext(final TextContext context) {
+    default String multiLineText(final TextContext context) {
         Objects.requireNonNull(context, "context");
 
         final LineEnding lineEnding = context.lineEnding();

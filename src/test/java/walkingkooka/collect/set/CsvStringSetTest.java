@@ -22,8 +22,8 @@ import walkingkooka.EndOfTextException;
 import walkingkooka.collect.list.HasCsvStringListTesting;
 import walkingkooka.collect.list.HasTsvStringListTesting;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.text.HasTextWithTextContextAndCollectionString;
-import walkingkooka.text.HasTextWithTextContextAndCollectionStringTesting;
+import walkingkooka.text.HasMultiLineTextAndCollectionString;
+import walkingkooka.text.HasMultiLineTextAndCollectionStringTesting;
 
 import java.util.Collection;
 
@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class CsvStringSetTest implements DelimiterStringImmutableSetTesting<CsvStringSet>,
     ParseStringTesting<CsvStringSet>,
     HasCsvStringListTesting,
-    HasTextWithTextContextAndCollectionStringTesting,
+    HasMultiLineTextAndCollectionStringTesting,
     HasTsvStringListTesting {
 
     // setElements......................................................................................................
@@ -448,10 +448,10 @@ public final class CsvStringSetTest implements DelimiterStringImmutableSetTestin
         );
     }
 
-    // HasTextWithLineBreaksAndCollectionString.........................................................................
+    // HasMultiLineTextAndCollectionString.........................................................................
 
     @Override
-    public HasTextWithTextContextAndCollectionString createCollection(final Collection<String> strings) {
+    public HasMultiLineTextAndCollectionString createCollection(final Collection<String> strings) {
         return CsvStringSet.EMPTY.setElements(strings);
     }
 

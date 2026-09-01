@@ -22,11 +22,11 @@ import walkingkooka.collect.list.Lists;
 
 import java.util.Collection;
 
-public interface HasTextWithTextContextAndCollectionStringTesting extends HasTextWithTextContextTesting {
+public interface HasMultiLineTextAndCollectionStringTesting extends HasMultiLineTextTesting {
 
     @Test
-    default void testTextWithTextContextWithCr() {
-        this.textWithTextContextAndCheck(
+    default void testMultiLineTextCr() {
+        this.multiLineTextAndCheck(
             this.createCollection(
                 "111",
                 "222"
@@ -38,8 +38,8 @@ public interface HasTextWithTextContextAndCollectionStringTesting extends HasTex
     }
 
     @Test
-    default void testTextWithTextContextWithNl() {
-        this.textWithTextContextAndCheck(
+    default void testMultiLineTextNl() {
+        this.multiLineTextAndCheck(
             this.createCollection(
                 "111",
                 "222"
@@ -51,8 +51,8 @@ public interface HasTextWithTextContextAndCollectionStringTesting extends HasTex
     }
 
     @Test
-    default void testTextWithTextContextWithNlAndStringIncludeCr() {
-        this.textWithTextContextAndCheck(
+    default void testMultiLineTextNlAndStringIncludeCr() {
+        this.multiLineTextAndCheck(
             this.createCollection(
                 "111\r",
                 "222\r"
@@ -64,8 +64,8 @@ public interface HasTextWithTextContextAndCollectionStringTesting extends HasTex
     }
 
     @Test
-    default void testTextWithTextContextWithNlAndStringIncludeNl() {
-        this.textWithTextContextAndCheck(
+    default void testMultiLineTextNlAndStringIncludeNl() {
+        this.multiLineTextAndCheck(
             this.createCollection(
                 "111\n",
                 "222\n"
@@ -77,10 +77,10 @@ public interface HasTextWithTextContextAndCollectionStringTesting extends HasTex
     }
 
     @Test
-    default void testTextWithTextContextWithCommasAndDoubleQuotes() {
+    default void testMultiLineTextCommasAndDoubleQuotes() {
         // strings also sorted so SortedSets expectations will also pass
 
-        this.textWithTextContextAndCheck(
+        this.multiLineTextAndCheck(
             this.createCollection(
                 "comma,",
                 "double-quote\"",
@@ -93,11 +93,11 @@ public interface HasTextWithTextContextAndCollectionStringTesting extends HasTex
         );
     }
 
-    default HasTextWithTextContextAndCollectionString createCollection(final String... strings) {
+    default HasMultiLineTextAndCollectionString createCollection(final String... strings) {
         return this.createCollection(
             Lists.of(strings)
         );
     }
 
-    HasTextWithTextContextAndCollectionString createCollection(final Collection<String> strings);
+    HasMultiLineTextAndCollectionString createCollection(final Collection<String> strings);
 }

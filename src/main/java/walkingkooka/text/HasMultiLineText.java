@@ -20,10 +20,10 @@ package walkingkooka.text;
 /**
  * An alternative interface to convert a value to text which may have multiple values with the given {@link TextContext}.
  */
-public interface HasTextWithTextContext {
+public interface HasMultiLineText {
 
     /**
      * Returns this value as text with the given {@link LineEnding}.
      */
-    String textWithTextContext(final TextContext context);
+    String multiLineText(final TextContext context);
 }
