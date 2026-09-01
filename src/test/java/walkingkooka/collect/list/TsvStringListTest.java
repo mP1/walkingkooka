@@ -20,8 +20,8 @@ package walkingkooka.collect.list;
 import org.junit.jupiter.api.Test;
 import walkingkooka.EndOfTextException;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.text.HasTextWithLineBreaksAndCollectionString;
-import walkingkooka.text.HasTextWithLineBreaksAndCollectionStringTesting;
+import walkingkooka.text.HasTextWithTextContextAndCollectionString;
+import walkingkooka.text.HasTextWithTextContextAndCollectionStringTesting;
 
 import java.util.Collection;
 
@@ -32,7 +32,7 @@ public final class TsvStringListTest implements DelimiterStringImmutableListTest
     ParseStringTesting<TsvStringList>,
     CanRemoveTrailingNullOrEmptyStringsTesting,
     HasCsvStringListTesting,
-    HasTextWithLineBreaksAndCollectionStringTesting,
+    HasTextWithTextContextAndCollectionStringTesting,
     HasTsvStringListTesting {
 
     // setElements......................................................................................................
@@ -536,7 +536,7 @@ public final class TsvStringListTest implements DelimiterStringImmutableListTest
     // HasTextWithLineBreaksAndCollectionString.........................................................................
 
     @Override
-    public HasTextWithLineBreaksAndCollectionString createCollection(final Collection<String> strings) {
+    public HasTextWithTextContextAndCollectionString createCollection(final Collection<String> strings) {
         return TsvStringList.EMPTY.setElements(strings);
     }
 

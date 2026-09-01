@@ -17,8 +17,9 @@
 
 package walkingkooka.collect.list;
 
-import walkingkooka.text.HasTextWithLineBreaks;
+import walkingkooka.text.HasTextWithTextContext;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.TextContext;
 
 import java.util.AbstractList;
 import java.util.Collection;
@@ -33,7 +34,7 @@ public final class StringList extends AbstractList<String>
     implements ImmutableListDefaults<StringList, String>,
     CanRemoveTrailingNullOrEmptyStrings,
     HasCsvStringList,
-    HasTextWithLineBreaks,
+    HasTextWithTextContext,
     HasTsvStringList {
 
     /**
@@ -112,8 +113,10 @@ public final class StringList extends AbstractList<String>
      * Note that elements are included verbatim, nothing is escaped.
      */
     @Override
-    public String textWithLineBreaks(final LineEnding lineEnding) {
-        Objects.requireNonNull(lineEnding, "lineEnding");
+    public String textWithTextContext(final TextContext context) {
+        Objects.requireNonNull(context, "context");
+
+        final LineEnding lineEnding = context.lineEnding();
 
         return this.strings.stream()
             .collect(

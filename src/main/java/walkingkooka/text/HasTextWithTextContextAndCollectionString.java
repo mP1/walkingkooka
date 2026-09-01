@@ -17,13 +17,33 @@
 
 package walkingkooka.text;
 
+import java.util.Collection;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 /**
  * An alternative interface to convert a value to text which may have multiple values with the given {@link LineEnding}.
  */
-public interface HasTextWithLineBreaks {
+public interface HasTextWithTextContextAndCollectionString extends HasTextWithTextContext,
+    Collection<String> {
 
     /**
-     * Returns this value as text with the given {@link LineEnding}.
+     * Returns this value as text with the given {@link HasTextWithTextContext}.
      */
-    String textWithLineBreaks(final LineEnding lineEnding);
+    @Override
+    default String textWithTextContext(final TextContext context) {
+        Objects.requireNonNull(context, "context");
+
+        final LineEnding lineEnding = context.lineEnding();
+
+        return this.stream()
+            .map((String string) -> string.replace("\r", "\\r").replace("\n", "\\n"))
+            .collect(
+                Collectors.joining(
+                    lineEnding,
+                    "",
+                    lineEnding
+                )
+            );
+    }
 }

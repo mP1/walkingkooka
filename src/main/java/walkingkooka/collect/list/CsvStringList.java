@@ -18,7 +18,7 @@
 package walkingkooka.collect.list;
 
 import walkingkooka.text.CharacterConstant;
-import walkingkooka.text.HasTextWithLineBreaksAndCollectionString;
+import walkingkooka.text.HasTextWithTextContextAndCollectionString;
 
 import java.util.AbstractList;
 import java.util.Collection;
@@ -31,7 +31,7 @@ import java.util.Objects;
 public final class CsvStringList extends AbstractList<String> implements DelimiterStringImmutableList,
     ImmutableListDefaults<CsvStringList, String>,
     HasCsvStringList,
-    HasTextWithLineBreaksAndCollectionString,
+    HasTextWithTextContextAndCollectionString,
     HasTsvStringList {
 
     /**

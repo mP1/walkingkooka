@@ -3,7 +3,7 @@ package walkingkooka.collect.list;
 import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.text.HasTextWithLineBreaksTesting;
+import walkingkooka.text.HasTextWithTextContextTesting;
 import walkingkooka.text.LineEnding;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -13,7 +13,7 @@ public class StringListTest implements ListTesting2<StringList, String>,
     CanRemoveTrailingNullOrEmptyStringsTesting,
     ImmutableListTesting<StringList, String>,
     HasCsvStringListTesting,
-    HasTextWithLineBreaksTesting,
+    HasTextWithTextContextTesting,
     HasTsvStringListTesting {
 
     private final static String STRING1 = "AAA";
@@ -208,7 +208,7 @@ public class StringListTest implements ListTesting2<StringList, String>,
 
     @Test
     public void testTextWithLineBreaksWithCr() {
-        this.textWithLineBreaksAndCheck(
+        this.textWithTextContextAndCheck(
             StringList.EMPTY.concat("111")
                 .concat("222"),
             LineEnding.CR,
@@ -219,7 +219,7 @@ public class StringListTest implements ListTesting2<StringList, String>,
 
     @Test
     public void testTextWithLineBreaksWithNl() {
-        this.textWithLineBreaksAndCheck(
+        this.textWithTextContextAndCheck(
             StringList.EMPTY.concat("111")
                 .concat("222"),
             LineEnding.NL,
@@ -230,7 +230,7 @@ public class StringListTest implements ListTesting2<StringList, String>,
 
     @Test
     public void testTextWithLineBreaksWithELementsIncludingLineFeedAndLineFeedNl() {
-        this.textWithLineBreaksAndCheck(
+        this.textWithTextContextAndCheck(
             StringList.EMPTY.concat("111\n")
                 .concat("222"),
             LineEnding.NL,

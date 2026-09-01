@@ -19,14 +19,16 @@ package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
 
-public class HasTextWithLineBreaksTestingTest implements HasTextWithLineBreaksTesting {
+public class HasTextWithLineBreaksTestingTest implements HasTextWithTextContextTesting {
 
     @Test
     public void testHasTextWithLineBreaksAndCheck() {
-        this.textWithLineBreaksAndCheck(
-            new HasTextWithLineBreaks() {
+        this.textWithTextContextAndCheck(
+            new HasTextWithTextContext() {
                 @Override
-                public String textWithLineBreaks(final LineEnding lineEnding) {
+                public String textWithTextContext(final TextContext context) {
+                    final LineEnding lineEnding = context.lineEnding();
+
                     return "hello" + lineEnding + "world" + lineEnding;
                 }
             },
