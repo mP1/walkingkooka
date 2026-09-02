@@ -25,5 +25,5 @@ public interface HasMultiLineText {
     /**
      * Returns this value as text with the given {@link LineEnding}.
      */
-    String multiLineText(final TextContext context);
+    MultiLineText multiLineText(final TextContext context);
 }

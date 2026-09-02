@@ -26,6 +26,16 @@ public interface HasMultiLineTextTesting extends Testing {
                                        final String expected) {
         this.multiLineTextAndCheck(
             has,
+            lineEnding,
+            MultiLineText.with(expected)
+        );
+    }
+
+    default void multiLineTextAndCheck(final HasMultiLineText has,
+                                       final LineEnding lineEnding,
+                                       final MultiLineText expected) {
+        this.multiLineTextAndCheck(
+            has,
             new FakeTextContext() {
                 @Override
                 public LineEnding lineEnding() {
@@ -39,6 +49,16 @@ public interface HasMultiLineTextTesting extends Testing {
     default void multiLineTextAndCheck(final HasMultiLineText has,
                                        final TextContext context,
                                        final String expected) {
+        this.multiLineTextAndCheck(
+            has,
+            context,
+            MultiLineText.with(expected)
+        );
+    }
+
+    default void multiLineTextAndCheck(final HasMultiLineText has,
+                                       final TextContext context,
+                                       final MultiLineText expected) {
         this.checkEquals(
             expected,
             has.multiLineText(context),
