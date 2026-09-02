@@ -26,10 +26,12 @@ public class HasMultiLineTextTestingTest implements HasMultiLineTextTesting {
         this.multiLineTextAndCheck(
             new HasMultiLineText() {
                 @Override
-                public String multiLineText(final TextContext context) {
+                public MultiLineText multiLineText(final TextContext context) {
                     final LineEnding lineEnding = context.lineEnding();
 
-                    return "hello" + lineEnding + "world" + lineEnding;
+                    return MultiLineText.with(
+                        "hello" + lineEnding + "world" + lineEnding
+                    );
                 }
             },
             LineEnding.NL,

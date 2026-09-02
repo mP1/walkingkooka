@@ -19,6 +19,7 @@ package walkingkooka.collect.list;
 
 import walkingkooka.text.HasMultiLineText;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.MultiLineText;
 import walkingkooka.text.TextContext;
 
 import java.util.AbstractList;
@@ -113,19 +114,21 @@ public final class StringList extends AbstractList<String>
      * Note that elements are included verbatim, nothing is escaped.
      */
     @Override
-    public String multiLineText(final TextContext context) {
+    public MultiLineText multiLineText(final TextContext context) {
         Objects.requireNonNull(context, "context");
 
         final LineEnding lineEnding = context.lineEnding();
 
-        return this.strings.stream()
+        return MultiLineText.with(
+            this.strings.stream()
             .collect(
                 Collectors.joining(
                     lineEnding,
                     "",
                     lineEnding
                 )
-            );
+            )
+        );
     }
 
     // HasTsvStringList.................................................................................................

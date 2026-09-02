@@ -31,19 +31,21 @@ public interface HasMultiLineTextAndCollectionString extends HasMultiLineText,
      * Returns this value as text with the given {@link HasMultiLineText}.
      */
     @Override
-    default String multiLineText(final TextContext context) {
+    default MultiLineText multiLineText(final TextContext context) {
         Objects.requireNonNull(context, "context");
 
         final LineEnding lineEnding = context.lineEnding();
 
-        return this.stream()
-            .map((String string) -> string.replace("\r", "\\r").replace("\n", "\\n"))
-            .collect(
-                Collectors.joining(
-                    lineEnding,
-                    "",
-                    lineEnding
+        return MultiLineText.with(
+            this.stream()
+                .map((String string) -> string.replace("\r", "\\r").replace("\n", "\\n"))
+                .collect(
+                    Collectors.joining(
+                        lineEnding,
+                        "",
+                        lineEnding
+                    )
                 )
-            );
+        );
     }
 }
