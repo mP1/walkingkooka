@@ -16,14 +16,12 @@
  */
 package walkingkooka;
 
-import walkingkooka.test.Testing;
-
 import java.nio.charset.Charset;
 
 /**
  * Mixing interface that provides methods to test a {@link CanBinary}
  */
-public interface CanBinaryTesting extends Testing {
+public interface CanBinaryTesting extends HasCharsetTesting {
 
     // binary...........................................................................................................
 
