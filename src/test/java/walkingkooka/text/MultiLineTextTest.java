@@ -20,7 +20,6 @@ package walkingkooka.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.CanBinaryTesting;
-import walkingkooka.HasCharsetTesting;
 import walkingkooka.HasValueTesting;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
@@ -30,7 +29,6 @@ import walkingkooka.reflect.JavaVisibility;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class MultiLineTextTest implements CanBinaryTesting,
-    HasCharsetTesting,
     HasValueTesting,
     HasTextTesting,
     HashCodeEqualsDefinedTesting2<MultiLineText>,
