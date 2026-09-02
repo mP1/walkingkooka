@@ -17,15 +17,19 @@
 
 package walkingkooka.text;
 
+import walkingkooka.Binary;
+import walkingkooka.CanBinary;
 import walkingkooka.Cast;
 import walkingkooka.HasValue;
 
+import java.nio.charset.Charset;
 import java.util.Objects;
 
 /**
  * A wrapper intended to hold the result of a {@link HasMultiLineText}.
  */
 public final class MultiLineText implements HasValue<String>,
+    CanBinary,
     HasText {
 
     public static MultiLineText with(final String text) {
@@ -54,6 +58,18 @@ public final class MultiLineText implements HasValue<String>,
     @Override
     public String text() {
         return this.value();
+    }
+
+    // CanBinary........................................................................................................
+
+    @Override
+    public Binary binary(final Charset charset) {
+        Objects.requireNonNull(charset, "charset");
+
+        return Binary.with(
+            this.text()
+                .getBytes(charset)
+        );
     }
 
     // Object...........................................................................................................
