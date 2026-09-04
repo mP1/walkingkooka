@@ -18,6 +18,7 @@
 package walkingkooka.reflect;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.test.TestSuiteNameTesting;
 
 import java.lang.reflect.Constructor;
@@ -29,6 +30,7 @@ import java.util.Arrays;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
@@ -75,7 +77,7 @@ public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends
 
     @Test
     default void testAllMethodsAreStatic() {
-        PublicStaticHelperTesting2.methodFilterAndCheckNone(this.type(),
+        this.methodFilterAndCheckNone(this.type(),
             m -> false == MethodAttributes.STATIC.is(m),
             "All methods must be static");
     }
@@ -85,7 +87,7 @@ public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends
      */
     @Test
     default void testCheckVisibilityOfAllStaticMethods() {
-        PublicStaticHelperTesting2.methodFilterAndCheckNone(this.type(),
+        this.methodFilterAndCheckNone(this.type(),
             m -> JavaVisibility.PROTECTED == JavaVisibility.of(m),
             "All methods must be public or package private");
     }
@@ -98,9 +100,22 @@ public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends
         final Predicate<Method> publicReturnTypeAndParameters = (m) -> JavaVisibility.PUBLIC != JavaVisibility.of(m.getReturnType()) ||
             Arrays.stream(m.getParameterTypes())
                 .anyMatch(t -> JavaVisibility.PUBLIC != JavaVisibility.of(t));
-        PublicStaticHelperTesting2.methodFilterAndCheckNone(this.type(),
+        this.methodFilterAndCheckNone(this.type(),
             publicReturnTypeAndParameters,
             "All method parameter and return type must be public");
+    }
+
+    private void methodFilterAndCheckNone(final Class<?> type,
+                                          final Predicate<Method> predicate,
+                                          final String message) {
+        assertEquals(
+            Lists.empty(),
+            Arrays.stream(type.getDeclaredMethods())
+                .filter(m -> !m.getName().startsWith("$")) // filter out any special methods like Jacoco's
+                .filter(predicate)
+                .collect(Collectors.toList()),
+            message
+        );
     }
 
     /**
