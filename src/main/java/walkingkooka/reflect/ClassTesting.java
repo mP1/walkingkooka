@@ -38,9 +38,11 @@ public interface ClassTesting<T> extends TestSuiteNameTesting<T> {
             JavaVisibility.PUBLIC :
             this.typeVisibility();
 
-        this.checkEquals(visibility,
+        this.checkEquals(
+            visibility,
             JavaVisibility.of(type),
-            () -> type.getName() + " visibility");
+            () -> type.getName() + " visibility"
+        );
     }
 
     @Test
@@ -49,7 +51,10 @@ public interface ClassTesting<T> extends TestSuiteNameTesting<T> {
     }
 
     default void allMethodsVisibilityCheck(final String... ignoreMethodNames) {
-        ClassMethodTesting.testAllMethodsVisibility(this.type(), ignoreMethodNames);
+        ClassMethodTesting.testAllMethodsVisibility(
+            this.type(),
+            ignoreMethodNames
+        );
     }
 
     JavaVisibility typeVisibility();
@@ -65,11 +70,13 @@ public interface ClassTesting<T> extends TestSuiteNameTesting<T> {
             .limit(1)
             .count() == 1;
 
-        this.checkEquals(Lists.empty(),
+        this.checkEquals(
+            Lists.empty(),
             Arrays.stream(type.getMethods())
                 .filter(MethodAttributes.STATIC::is)
                 .filter(m -> Arrays.stream(m.getParameterTypes()).filter(invalidTypeTester).limit(1).count() == 1)
                 .collect(Collectors.toList()),
-            () -> type.getName() + " includes several methods with invalid parameter types " + Arrays.stream(invalidTypes).map(Class::getName).collect(Collectors.joining(",")));
+            () -> type.getName() + " includes several methods with invalid parameter types " + Arrays.stream(invalidTypes).map(Class::getName).collect(Collectors.joining(","))
+        );
     }
 }
