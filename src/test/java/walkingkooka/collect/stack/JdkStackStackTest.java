@@ -34,7 +34,7 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
     @Test
     public void testCreate() {
         final Stack<Object> stack = JdkStackStack.create();
-        this.checkSize(stack, 0);
+        this.sizeAndCheck(stack, 0);
     }
 
     @Test
@@ -42,10 +42,10 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
         final JdkStackStack<String> stack = JdkStackStack.create();
 
         assertSame(stack, stack.push("1"), "this not returned");
-        this.checkSize(stack, 1);
+        this.sizeAndCheck(stack, 1);
 
         assertSame(stack, stack.push("2"), "this not returned");
-        this.checkSize(stack, 2);
+        this.sizeAndCheck(stack, 2);
 
         final java.util.Stack<String> jdkStack = new java.util.Stack<>();
         jdkStack.push("1");
@@ -65,7 +65,7 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
         final JdkStackStack<String> stack = JdkStackStack.create();
 
         assertSame(stack, stack.pushAll(Lists.of("1", "2").iterator()), "this was not returned");
-        this.checkSize(stack, 2);
+        this.sizeAndCheck(stack, 2);
 
         final java.util.Stack<String> jdkStack = new java.util.Stack<>();
         jdkStack.push("1");
@@ -78,10 +78,10 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
         final JdkStackStack<String> stack = JdkStackStack.create();
 
         stack.push("1");
-        this.checkSize(stack, 1);
+        this.sizeAndCheck(stack, 1);
 
         stack.push("2");
-        this.checkSize(stack, 2);
+        this.sizeAndCheck(stack, 2);
 
         this.checkEquals("2", stack.peek(), "peek");
         this.checkEquals("2", stack.peek(), "peek again");
@@ -91,7 +91,7 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
 
         assertSame(stack, stack.pop(), "pop last");
 
-        this.checkSize(stack, 0);
+        this.sizeAndCheck(stack, 0);
     }
 
     @Test
@@ -127,7 +127,7 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
 
         assertSame("3", stack.peek());
         stack.pop();
-        this.checkSize(stack, 2);
+        this.sizeAndCheck(stack, 2);
     }
 
     // HashCodeEqualsDefined ..................................................................................................

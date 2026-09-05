@@ -104,7 +104,7 @@ final public class ArrayStackTest extends StackTestCase<ArrayStack<String>, Stri
         this.checkEquals(ArrayStack.class, stack.getClass(), () -> "Stack should be a ArrayStack=" + stack);
 
         final Stack<String> popped = stack.pop();
-        this.checkSize(popped, 2);
+        this.sizeAndCheck(popped, 2);
         this.checkEquals("3", stack.peek(), "peeked");
     }
 
@@ -259,6 +259,6 @@ final public class ArrayStackTest extends StackTestCase<ArrayStack<String>, Stri
         assertArrayEquals(array, stack.array, "array");
         this.checkEquals(last, stack.last, "last");
 
-        this.checkSize(stack, array.length);
+        this.sizeAndCheck(stack, array.length);
     }
 }
