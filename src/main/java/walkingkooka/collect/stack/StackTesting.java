@@ -17,63 +17,12 @@
 
 package walkingkooka.collect.stack;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.CanBeEmptyTesting;
-import walkingkooka.HashCodeEqualsDefinedTesting2;
-import walkingkooka.ToStringTesting;
-import walkingkooka.reflect.TypeNameTesting;
-
-import java.util.EmptyStackException;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Mixin interface for testing a {@link Stack}.
  */
-public interface StackTesting<S extends Stack<T>, T> extends CanBeEmptyTesting,
-    HashCodeEqualsDefinedTesting2<S>,
-    ToStringTesting<S>,
-    TypeNameTesting<S> {
-
-    @Test
-    default void testPeekWhenEmptyFails() {
-        final Stack<String> stack = ArrayListStack.create();
-        assertThrows(
-            EmptyStackException.class,
-            stack::peek
-        );
-    }
-
-    @Test
-    default void testPopWhenEmptyFails() {
-        final Stack<String> stack = ArrayListStack.create();
-        assertThrows(
-            EmptyStackException.class,
-            stack::pop
-        );
-    }
-
-    @Test
-    default void testPushAllNullIteratorFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> this.createStack()
-                .pushAll(null)
-        );
-    }
-
-    @Test
-    default void testHashCodeAgainstJavaUtilStack() {
-        final S stack = this.createStack();
-        final java.util.Stack<T> jdkStack = new java.util.Stack<>();
-        for (final T t : stack) {
-            jdkStack.push(t);
-        }
-
-        this.checkHashCode(jdkStack, stack);
-    }
-
-    S createStack();
+public interface StackTesting extends CanBeEmptyTesting {
 
     default void checkSize(final Stack<?> stack,
                            final int size) {
@@ -87,22 +36,5 @@ public interface StackTesting<S extends Stack<T>, T> extends CanBeEmptyTesting,
             stack.size(),
             () -> stack + " size"
         );
-    }
-
-    @Override
-    default S createObject() {
-        return this.createStack();
-    }
-
-    // TypeNameTesting .................................................................................................
-
-    @Override
-    default String typeNamePrefix() {
-        return "";
-    }
-
-    @Override
-    default String typeNameSuffix() {
-        return Stack.class.getSimpleName();
     }
 }
