@@ -38,18 +38,28 @@ public interface StackTesting<S extends Stack<T>, T> extends CanBeEmptyTesting,
     @Test
     default void testPeekWhenEmptyFails() {
         final Stack<String> stack = ArrayListStack.create();
-        assertThrows(EmptyStackException.class, stack::peek);
+        assertThrows(
+            EmptyStackException.class,
+            stack::peek
+        );
     }
 
     @Test
     default void testPopWhenEmptyFails() {
         final Stack<String> stack = ArrayListStack.create();
-        assertThrows(EmptyStackException.class, stack::pop);
+        assertThrows(
+            EmptyStackException.class,
+            stack::pop
+        );
     }
 
     @Test
     default void testPushAllNullIteratorFails() {
-        assertThrows(NullPointerException.class, () -> this.createStack().pushAll(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createStack()
+                .pushAll(null)
+        );
     }
 
     @Test
@@ -65,9 +75,18 @@ public interface StackTesting<S extends Stack<T>, T> extends CanBeEmptyTesting,
 
     S createStack();
 
-    default void checkSize(final Stack<?> stack, final int size) {
-        this.checkEquals(0 == size, stack.isEmpty(), () -> stack + " isEmpty");
-        this.checkEquals(size, stack.size(), () -> stack + " size");
+    default void checkSize(final Stack<?> stack,
+                           final int size) {
+        this.checkEquals(
+            0 == size,
+            stack.isEmpty(),
+            () -> stack + " isEmpty"
+        );
+        this.checkEquals(
+            size,
+            stack.size(),
+            () -> stack + " size"
+        );
     }
 
     @Override
@@ -75,7 +94,7 @@ public interface StackTesting<S extends Stack<T>, T> extends CanBeEmptyTesting,
         return this.createStack();
     }
 
-    // TypeNameTesting .........................................................................................
+    // TypeNameTesting .................................................................................................
 
     @Override
     default String typeNamePrefix() {
