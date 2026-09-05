@@ -17,10 +17,27 @@
 
 package walkingkooka.collect.iterable;
 
-import walkingkooka.collect.iterator.IteratorTesting;
+import walkingkooka.ToStringTesting;
+import walkingkooka.reflect.TypeNameTesting;
 
 /**
  * Mixin interface for testing {@link Iterable}
  */
-public interface IterableTesting extends IteratorTesting {
+public interface IterableTesting2<I extends Iterable<T>, T> extends IterableTesting,
+    ToStringTesting<I>,
+    TypeNameTesting<I> {
+
+    I createIterable();
+
+    // TypeNameTesting .................................................................................................
+
+    @Override
+    default String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    default String typeNameSuffix() {
+        return Iterable.class.getSimpleName();
+    }
 }

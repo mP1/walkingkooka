@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ReverseIterableTest implements ClassTesting2<ReverseIterable<String>>,
-    IterableTesting<ReverseIterable<String>, String> {
+    IterableTesting2<ReverseIterable<String>, String> {
 
     // constants
 

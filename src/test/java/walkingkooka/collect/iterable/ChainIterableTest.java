@@ -25,7 +25,7 @@ import walkingkooka.collect.list.Lists;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class ChainIterableTest implements IterableTesting<ChainIterable<String>, String> {
+final public class ChainIterableTest implements IterableTesting2<ChainIterable<String>, String> {
 
     // constants
 
