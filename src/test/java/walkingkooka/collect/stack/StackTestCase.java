@@ -24,7 +24,7 @@ import walkingkooka.reflect.JavaVisibility;
  * Base class for testing a {@link Stack} in this package.
  */
 abstract public class StackTestCase<S extends Stack<T>, T> implements ClassTesting2<S>,
-    StackTesting<S, T> {
+    StackTesting2<S, T> {
 
     StackTestCase() {
         super();
