@@ -32,7 +32,7 @@ final public class EmptyArrayStackTest extends StackTestCase<EmptyArrayStack<Obj
     @Test
     public void testCreate() {
         final Stack<Object> stack = EmptyArrayStack.instance();
-        this.checkSize(stack, 0);
+        this.sizeAndCheck(stack, 0);
     }
 
     @Test

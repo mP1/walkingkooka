@@ -60,10 +60,10 @@ final public class ReadOnlyStackTest extends StackTestCase<ReadOnlyStack<Object>
     @Test
     public void testIsEmpty() {
         final ReadOnlyStack<Object> stack = this.createStack();
-        this.checkSize(stack, 1);
+        this.sizeAndCheck(stack, 1);
 
         stack.pop();
-        this.checkSize(stack, 0);
+        this.sizeAndCheck(stack, 0);
 
     }
 

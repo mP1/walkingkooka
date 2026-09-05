@@ -36,17 +36,17 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Strin
     @Test
     public void testCreate() {
         final Stack<String> stack = ArrayListStack.create();
-        this.checkSize(stack, 0);
+        this.sizeAndCheck(stack, 0);
     }
 
     @Test
     public void testPush() {
         final ArrayListStack<String> stack = ArrayListStack.create();
         assertSame(stack, stack.push("1"), "this not returned");
-        this.checkSize(stack, 1);
+        this.sizeAndCheck(stack, 1);
 
         assertSame(stack, stack.push("2"), "this not returned");
-        this.checkSize(stack, 2);
+        this.sizeAndCheck(stack, 2);
 
         final List<String> list = Lists.array();
         list.add("1");
@@ -66,7 +66,7 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Strin
         final ArrayListStack<String> stack = ArrayListStack.create();
         assertSame(stack, stack.pushAll(Lists.of("1", "2").iterator()), "this was not returned");
 
-        this.checkSize(stack, 2);
+        this.sizeAndCheck(stack, 2);
 
         final List<String> list = Lists.array();
         list.add("1");
@@ -81,7 +81,7 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Strin
         assertFalse(stack.isEmpty(), "isempty");
         stack.push("2");
 
-        this.checkSize(stack, 2);
+        this.sizeAndCheck(stack, 2);
 
         this.checkEquals("2", stack.peek(), "peek");
         this.checkEquals("2", stack.peek(), "peek again");
@@ -91,7 +91,7 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Strin
 
         assertSame(stack, stack.pop(), "pop last");
 
-        this.checkSize(stack, 0);
+        this.sizeAndCheck(stack, 0);
     }
 
     @Test

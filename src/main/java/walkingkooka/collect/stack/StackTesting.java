@@ -24,8 +24,8 @@ import walkingkooka.CanBeEmptyTesting;
  */
 public interface StackTesting extends CanBeEmptyTesting {
 
-    default void checkSize(final Stack<?> stack,
-                           final int size) {
+    default void sizeAndCheck(final Stack<?> stack,
+                              final int size) {
         this.checkEquals(
             0 == size,
             stack.isEmpty(),
