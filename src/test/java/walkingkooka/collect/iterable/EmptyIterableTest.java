@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 
-public final class EmptyIterableTest implements IterableTesting<EmptyIterable<Void>, Void> {
+public final class EmptyIterableTest implements IterableTesting2<EmptyIterable<Void>, Void> {
 
     @Test
     public void testIterator() {
