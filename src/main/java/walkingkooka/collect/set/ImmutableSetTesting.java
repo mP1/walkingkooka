@@ -244,7 +244,7 @@ public interface ImmutableSetTesting<S extends ImmutableSet<E>, E> extends SetTe
 
         this.setElementsAndCheck(
             immutableSet,
-            Lists.empty()
+            immutableSet.toSet()
         );
     }
 
@@ -272,7 +272,7 @@ public interface ImmutableSetTesting<S extends ImmutableSet<E>, E> extends SetTe
 
         if (elements.isEmpty()) {
             assertSame(
-                this.createSet(),
+                set,
                 actual
             );
         } else {
