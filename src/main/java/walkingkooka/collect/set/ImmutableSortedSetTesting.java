@@ -158,8 +158,9 @@ public interface ImmutableSortedSetTesting<S extends ImmutableSortedSet<E>, E> e
 
         if (set.equals(expected)) {
             assertSame(
-                set,
-                actual
+                expected,
+                actual,
+                () -> set + " setElements " + elements
             );
         } else {
             this.checkEquals(
