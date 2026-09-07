@@ -270,7 +270,7 @@ public interface ImmutableSetTesting<S extends ImmutableSet<E>, E> extends SetTe
                                      final ImmutableSet<E> expected) {
         final ImmutableSet<E> actual = set.setElements(elements);
 
-        if (elements.isEmpty()) {
+        if (set.equals(expected)) {
             assertSame(
                 set,
                 actual
