@@ -272,8 +272,9 @@ public interface ImmutableSetTesting<S extends ImmutableSet<E>, E> extends SetTe
 
         if (set.equals(expected)) {
             assertSame(
-                set,
-                actual
+                expected,
+                actual,
+                () -> set + " setElements " + elements
             );
         } else {
             this.checkEquals(
