@@ -19,6 +19,7 @@ package walkingkooka.collect.set;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.CanBeEmptyTesting;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.predicate.Predicates;
 
 import java.util.Collection;
@@ -225,6 +226,8 @@ public interface ImmutableSetTesting<S extends ImmutableSet<E>, E> extends SetTe
         );
     }
 
+    // setElements......................................................................................................
+
     @Test
     default void testSetElementsNullFails() {
         final ImmutableSet<E> immutableSet = this.createSet();
@@ -239,12 +242,46 @@ public interface ImmutableSetTesting<S extends ImmutableSet<E>, E> extends SetTe
     default void testSetElementsSame() {
         final ImmutableSet<E> immutableSet = this.createSet();
 
-        assertSame(
+        this.setElementsAndCheck(
             immutableSet,
-            immutableSet.setElements(
-                immutableSet.toSet()
-            )
+            Lists.empty()
         );
+    }
+
+    default void setElementsAndCheck(final ImmutableSet<E> set,
+                                     final E... elements) {
+        this.setElementsAndCheck(
+            set,
+            Lists.of(elements)
+        );
+    }
+
+    default void setElementsAndCheck(final ImmutableSet<E> set,
+                                     final Collection<E> elements) {
+        this.setElementsAndCheck(
+            set,
+            elements,
+            set
+        );
+    }
+
+    default void setElementsAndCheck(final ImmutableSet<E> set,
+                                     final Collection<E> elements,
+                                     final ImmutableSet<E> expected) {
+        final ImmutableSet<E> actual = set.setElements(elements);
+
+        if (elements.isEmpty()) {
+            assertSame(
+                this.createSet(),
+                actual
+            );
+        } else {
+            this.checkEquals(
+                expected,
+                actual,
+                () -> set + " setElements " + elements
+            );
+        }
     }
 
     default void toSetAndCheck(final ImmutableSet<E> set,
