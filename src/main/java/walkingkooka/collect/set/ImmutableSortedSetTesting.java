@@ -19,7 +19,9 @@ package walkingkooka.collect.set;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.CanBeEmptyTesting;
+import walkingkooka.collect.list.Lists;
 
+import java.util.Collection;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -110,26 +112,62 @@ public interface ImmutableSortedSetTesting<S extends ImmutableSortedSet<E>, E> e
         );
     }
 
+    // setElements......................................................................................................
+
     @Test
     default void testSetElementsNullFails() {
-        final ImmutableSortedSet<E> ImmutableSortedSet = this.createSet();
+        final ImmutableSet<E> immutableSet = this.createSet();
 
         assertThrows(
             NullPointerException.class,
-            () -> ImmutableSortedSet.setElements(null)
+            () -> immutableSet.setElements(null)
         );
     }
 
     @Test
     default void testSetElementsSame() {
-        final ImmutableSortedSet<E> ImmutableSortedSet = this.createSet();
+        final ImmutableSortedSet<E> immutableSortedSet = this.createSet();
 
-        assertSame(
-            ImmutableSortedSet,
-            ImmutableSortedSet.setElements(
-                ImmutableSortedSet.toSet()
-            )
+        this.setElementsAndCheck(
+            immutableSortedSet,
+            immutableSortedSet.toSet()
         );
+    }
+
+    default void setElementsAndCheck(final ImmutableSortedSet<E> set,
+                                     final E... elements) {
+        this.setElementsAndCheck(
+            set,
+            Lists.of(elements)
+        );
+    }
+
+    default void setElementsAndCheck(final ImmutableSortedSet<E> set,
+                                     final Collection<E> elements) {
+        this.setElementsAndCheck(
+            set,
+            elements,
+            set
+        );
+    }
+
+    default void setElementsAndCheck(final ImmutableSortedSet<E> set,
+                                     final Collection<E> elements,
+                                     final ImmutableSortedSet<E> expected) {
+        final ImmutableSortedSet<E> actual = set.setElements(elements);
+
+        if (set.equals(expected)) {
+            assertSame(
+                set,
+                actual
+            );
+        } else {
+            this.checkEquals(
+                expected,
+                actual,
+                () -> set + " setElements " + elements
+            );
+        }
     }
 
     default void toSetAndCheck(final ImmutableSortedSet<E> set,

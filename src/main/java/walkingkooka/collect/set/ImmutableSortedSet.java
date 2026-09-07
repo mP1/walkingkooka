@@ -68,10 +68,10 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>, SortedSet<E> {
                                   final E newElement);
 
     @Override
-    ImmutableSet<E> setElements(final Collection<E> elements);
+    ImmutableSortedSet<E> setElements(final Collection<E> elements);
 
     @Override
-    ImmutableSet<E> setElementsFailIfDifferent(final Collection<E> elements);
+    ImmutableSortedSet<E> setElementsFailIfDifferent(final Collection<E> elements);
 
     /**
      * Returns a mutable {@link SortedSet} with the items in this set. Modifying the given set does not update the elements in this set.
