@@ -107,7 +107,7 @@ public interface CharSequenceTesting2<C extends CharSequence> extends CharSequen
     }
 
     @Test
-    default void testtestSubSequenceNegativeToFails() {
+    default void testSubSequenceNegativeToFails() {
         this.subSequenceFails(0, -1);
     }
 
