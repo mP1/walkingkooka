@@ -20,10 +20,8 @@ package walkingkooka.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ContextTesting;
 import walkingkooka.ToStringTesting;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
 
-public final class GlobPatternContextTest implements ClassTesting<GlobPatternContext>, ContextTesting<GlobPatternContext>,
+public final class GlobPatternContextTest implements ContextTesting<GlobPatternContext>,
     ToStringTesting<GlobPatternContext> {
 
     @Test
@@ -74,10 +72,5 @@ public final class GlobPatternContextTest implements ClassTesting<GlobPatternCon
     @Override
     public Class<GlobPatternContext> type() {
         return GlobPatternContext.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
