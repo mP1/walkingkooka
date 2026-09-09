@@ -26,8 +26,7 @@ public interface ContextTesting<C extends Context> extends TypeNameTesting<C>,
 
     C createContext();
 
-
-    // TypeNameTesting......................................................................................
+    // class............................................................................................................
 
     @Override
     default String typeNamePrefix() {
