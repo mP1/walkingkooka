@@ -16,12 +16,14 @@
  */
 package walkingkooka;
 
+import walkingkooka.reflect.PackagePrivateClassTesting;
 import walkingkooka.reflect.TypeNameTesting;
 
 /**
  * Mixing interface that provides methods to test a {@link Context}
  */
-public interface ContextTesting<C extends Context> extends TypeNameTesting<C>,
+public interface ContextTesting<C extends Context> extends PackagePrivateClassTesting<C>,
+    TypeNameTesting<C>,
     ToStringTesting<C> {
 
     C createContext();
