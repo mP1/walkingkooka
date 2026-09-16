@@ -27,7 +27,7 @@ public final class CanBeEmptyTest implements ClassTesting<CanBeEmpty> {
     public void testMaybeCanBeEmptyWithNull() {
         this.maybeCanBeEmptyAndCheck(
             null,
-            false
+            true
         );
     }
 

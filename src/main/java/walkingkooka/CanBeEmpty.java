@@ -26,8 +26,9 @@ public interface CanBeEmpty {
      * Null and type safe test if a value is NOT null and {@link CanBeEmpty} and returns true.
      */
     static boolean maybeCanBeEmpty(final Object maybe) {
-        return maybe instanceof CanBeEmpty &&
-            ((CanBeEmpty) maybe).isEmpty();
+        return maybe instanceof CanBeEmpty ?
+            ((CanBeEmpty) maybe).isEmpty() :
+            null == maybe;
     }
 
     /**
