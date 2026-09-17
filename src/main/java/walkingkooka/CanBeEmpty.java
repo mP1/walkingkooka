@@ -32,6 +32,12 @@ public interface CanBeEmpty {
     }
 
     /**
+     * Inverts the result of {@link #maybeCanBeEmpty(Object)}
+     */
+    static boolean maybeCanBeNotEmpty(final Object maybe) {
+        return false == maybeCanBeEmpty(maybe);
+    }
+    /**
      * Returns true if the value is empty.
      */
     boolean isEmpty();
