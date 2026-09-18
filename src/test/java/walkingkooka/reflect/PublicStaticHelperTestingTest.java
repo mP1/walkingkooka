@@ -280,11 +280,6 @@ public final class PublicStaticHelperTestingTest implements PublicStaticHelperTe
     }
 
     @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
-    }
-
-    @Override
     public boolean canHavePublicTypes(final Method method) {
         return false;
     }
@@ -361,11 +356,6 @@ public final class PublicStaticHelperTestingTest implements PublicStaticHelperTe
 
         @Override
         public final void testIfClassIsFinalIfAllConstructorsArePrivate() {
-        }
-
-        @Override
-        public final JavaVisibility typeVisibility() {
-            return JavaVisibility.PUBLIC;
         }
     }
 }

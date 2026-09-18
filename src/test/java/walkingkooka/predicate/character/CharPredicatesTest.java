@@ -19,7 +19,6 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 import walkingkooka.text.CharSequences;
 
@@ -180,10 +179,5 @@ public final class CharPredicatesTest implements PublicStaticHelperTesting<CharP
     @Override
     public boolean canHavePublicTypes(Method method) {
         return false;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }

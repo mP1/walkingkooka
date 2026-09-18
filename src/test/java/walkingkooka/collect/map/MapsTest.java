@@ -19,7 +19,6 @@ package walkingkooka.collect.map;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.iterator.IteratorTesting;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
@@ -206,10 +205,5 @@ final public class MapsTest implements PublicStaticHelperTesting<Maps>,
     @Override
     public boolean canHavePublicTypes(final Method method) {
         return false;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }

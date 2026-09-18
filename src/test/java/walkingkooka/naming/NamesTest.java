@@ -17,7 +17,6 @@
 
 package walkingkooka.naming;
 
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
@@ -32,10 +31,5 @@ final public class NamesTest implements PublicStaticHelperTesting<Names> {
     @Override
     public boolean canHavePublicTypes(final Method method) {
         return false;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }

@@ -17,7 +17,6 @@
 
 package walkingkooka;
 
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
@@ -32,10 +31,5 @@ public final class CastTest implements PublicStaticHelperTesting<Cast> {
     @Override
     public Class<Cast> type() {
         return Cast.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }

@@ -19,7 +19,6 @@ package walkingkooka.collect.list;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.iterator.IteratorTesting;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
@@ -175,10 +174,5 @@ final public class ListsTest implements PublicStaticHelperTesting<Lists>,
     @Override
     public boolean canHavePublicTypes(final Method method) {
         return false;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }

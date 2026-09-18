@@ -36,7 +36,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Interface with default methods implementing tests and other test helpers.
  */
-public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends ClassTesting2<H>,
+public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends PublicClassTesting<H>,
+    ClassTesting2<H>,
     TestSuiteNameTesting<H> {
 
     @Test

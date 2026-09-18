@@ -234,9 +234,4 @@ public final class ClassesTest implements PublicStaticHelperTesting<Classes> {
     public boolean canHavePublicTypes(final Method method) {
         return false;
     }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
-    }
 }
