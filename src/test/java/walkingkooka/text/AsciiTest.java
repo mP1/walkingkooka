@@ -18,7 +18,6 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
@@ -305,11 +304,6 @@ final public class AsciiTest implements PublicStaticHelperTesting<Ascii> {
     @Override
     public Class<Ascii> type() {
         return Ascii.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     @Override

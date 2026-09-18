@@ -17,7 +17,6 @@
 
 package walkingkooka.io;
 
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
@@ -32,10 +31,5 @@ public final class TextReadersTest implements PublicStaticHelperTesting<TextRead
     @Override
     public Class<TextReaders> type() {
         return TextReaders.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }

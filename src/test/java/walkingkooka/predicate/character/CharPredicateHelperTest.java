@@ -17,24 +17,12 @@
 
 package walkingkooka.predicate.character;
 
-import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.reflect.PublicStaticHelperTesting;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 
-import java.lang.reflect.Method;
-
-public final class CharPredicateHelperTest implements PublicStaticHelperTesting<CharPredicateHelper> {
-    @Override
-    public boolean canHavePublicTypes(final Method method) {
-        return false;
-    }
+public final class CharPredicateHelperTest implements PackagePrivateClassTesting<CharPredicateHelper> {
 
     @Override
     public Class<CharPredicateHelper> type() {
         return CharPredicateHelper.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

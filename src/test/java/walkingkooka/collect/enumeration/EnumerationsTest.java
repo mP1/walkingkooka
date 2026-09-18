@@ -17,7 +17,6 @@
 
 package walkingkooka.collect.enumeration;
 
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
@@ -27,11 +26,6 @@ public final class EnumerationsTest implements PublicStaticHelperTesting<Enumera
     @Override
     public Class<Enumerations> type() {
         return Enumerations.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     @Override
