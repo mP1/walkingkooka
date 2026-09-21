@@ -27,6 +27,7 @@ import java.util.Objects;
  * A {@link HasValue} and {@link CharSequence} that holds the indentation that may be used by a printer.
  */
 final public class Indentation implements HasValue<String>,
+    HasIndentation,
     HasText,
     CharSequence {
 
@@ -321,6 +322,13 @@ final public class Indentation implements HasValue<String>,
      * Instance can be either a {@link RepeatingCharSequence} or a {@link String}.
      */
     private final CharSequence value;
+
+    // HasIndentation...................................................................................................
+
+    @Override
+    public Indentation indentation() {
+        return this;
+    }
 
     // HasText..........................................................................................................
 

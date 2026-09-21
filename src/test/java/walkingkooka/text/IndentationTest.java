@@ -33,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 final public class IndentationTest implements ClassTesting2<Indentation>,
     CharSequenceTesting2<Indentation>,
     HashCodeEqualsDefinedTesting2<Indentation>,
+    HasIndentationTesting,
     HasTextTesting,
     ToStringTesting<Indentation>,
     HasValueTesting {
@@ -571,6 +572,24 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
             Indentation.SPACES[spaceCount],
             indentation,
             "constant not returned"
+        );
+    }
+
+    // HasIndentation...................................................................................................
+
+    @Test
+    public void testIndentationWithEmpty() {
+        this.indentationAndCheck(
+            Indentation.EMPTY,
+            Indentation.EMPTY
+        );
+    }
+
+    @Test
+    public void testIndentationWithSpaces2() {
+        this.indentationAndCheck(
+            Indentation.SPACES2,
+            Indentation.SPACES2
         );
     }
 
