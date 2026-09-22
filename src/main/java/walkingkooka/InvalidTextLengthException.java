@@ -26,7 +26,8 @@ import java.util.Optional;
 /**
  * An {@link IllegalArgumentException} that reports an {@link String} with an invalid length.
  */
-public class InvalidTextLengthException extends TextException {
+public class InvalidTextLengthException extends TextException
+    implements HasShortMessage {
 
     public static String throwIfFail(final String label,
                                      final String text,
@@ -106,39 +107,20 @@ public class InvalidTextLengthException extends TextException {
 
     private final int max;
 
-    // Length 7 of "label123" not between 2 and 5 = "abc!456"
-    // Length 7 of "label123" expected 99 = "abc!456"
+    /**
+     * <pre>
+     * Length 7 of "label123" not between 2 and 5 = "abc!456"
+     * Length 7 of "label123" expected 99 = "abc!456"
+     * </pre>
+     */
     @Override
     public String getMessage() {
         final StringBuilder b = new StringBuilder();
 
-        final String text = this.text;
-
-        b.append("Length ")
-            .append(text.length())
-            .append(' ');
-
-        final String label = this.label()
-            .orElse(null);
-        if (null != label) {
-            b.append("of ")
-                .append(
-                    CharSequences.quoteAndEscape(label)
-                );
-        }
-
-        final int min = this.min;
-        final int max = this.max;
-
-        if (min != max) {
-            b.append(" not between ")
-                .append(min)
-                .append("..")
-                .append(max);
-        } else {
-            b.append(" expected ")
-                .append(min);
-        }
+        this.appendShortMessage(
+            b,
+            true // includeLabel
+        );
 
         b.append(" = ")
             .append(
@@ -155,6 +137,59 @@ public class InvalidTextLengthException extends TextException {
     }
 
     private static final long serialVersionUID = 1L;
+
+    // HasShortMessage..................................................................................................
+
+    /**
+     * Returns a message about the length and expected min/max but without any given label
+     * <pre>
+     * Length 7 not between 1..2
+     * Length 7 expected 5
+     * </pre>
+     */
+    @Override
+    public final String getShortMessage() {
+        final StringBuilder b = new StringBuilder();
+
+        this.appendShortMessage(
+            b,
+            false  // includeLabel
+        );
+
+        return b.toString();
+    }
+
+    private void appendShortMessage(final StringBuilder b,
+                                    final boolean includeLabel) {
+        b.append("Length ")
+            .append(
+                text.length()
+            );
+
+        if (includeLabel) {
+            final String label = this.label()
+                .orElse(null);
+            if (null != label) {
+                b.append(" of ")
+                    .append(
+                        CharSequences.quoteAndEscape(label)
+                    );
+            }
+        }
+
+        final int min = this.min;
+        final int max = this.max;
+
+        if (min != max) {
+            b.append(" not between ")
+                .append(min)
+                .append("..")
+                .append(max);
+        } else {
+            b.append(" expected ")
+                .append(min);
+        }
+    }
 
     // Object...........................................................................................................
 

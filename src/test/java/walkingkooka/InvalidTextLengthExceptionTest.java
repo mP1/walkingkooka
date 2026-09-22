@@ -27,7 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<InvalidTextLengthException>,
-    HashCodeEqualsDefinedTesting2<InvalidTextLengthException> {
+    HashCodeEqualsDefinedTesting2<InvalidTextLengthException>,
+    HasShortMessageTesting{
 
     private final static String LABEL = "label123";
     private final static String TEXT = "abc!456";
@@ -303,6 +304,22 @@ public final class InvalidTextLengthExceptionTest implements ThrowableTesting2<I
                 Optional.of("Hello")
             ),
             "Length 6 of \"Hello\" not between 2..5 = \"abc\'xy\""
+        );
+    }
+
+    @Test
+    public void testGetShortMessage() {
+        this.getShortMessageAndCheck(
+            this.create(),
+            "Length 7 not between 2..5"
+        );
+    }
+
+    @Test
+    public void testGetShortMessageMinEqualsMax() {
+        this.getShortMessageAndCheck(
+            new InvalidTextLengthException(LABEL, "abc", 99, 99),
+            "Length 3 expected 99"
         );
     }
 
