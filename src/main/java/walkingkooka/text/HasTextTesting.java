@@ -19,6 +19,13 @@ package walkingkooka.text;
 
 public interface HasTextTesting extends HasTextLengthTesting {
 
+    default void textAndCheck(final HasText has) {
+        this.textAndCheck(
+            has,
+            ""
+        );
+    }
+
     default void textAndCheck(final HasText has,
                               final String text) {
         this.checkEquals(
