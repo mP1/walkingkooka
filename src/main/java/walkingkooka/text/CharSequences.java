@@ -409,6 +409,13 @@ final public class CharSequences implements PublicStaticHelper {
     }
 
     /**
+     * Helper that returns true if the {@link CharSequence} is not null and not empty, or has one or more characters.
+     */
+    public static boolean isNotNullOrEmpty(final CharSequence chars) {
+        return false == isNullOrEmpty(chars);
+    }
+
+    /**
      * Returns a {@link CharSequence} that is of the requested length adding the pad character to fill remaining chars.
      */
     public static CharSequence padLeft(final CharSequence chars,

@@ -664,6 +664,12 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
             result,
             () -> chars + " isNullOrEmpty"
         );
+
+        this.checkEquals(
+            false == result,
+            CharSequences.isNotNullOrEmpty(chars),
+            () -> chars + " isNotNullOrEmpty"
+        );
     }
 
     // padLeft..........................................................................................................
