@@ -687,7 +687,7 @@ public final class BinaryTest implements CanBeEmptyTesting,
     public void testToString() {
         this.toStringAndCheck(
             this.createObject(),
-            " 0  b 16 21 2c                                              ???!,               \n"
+            "00 0b 16 21 2c                                              ???!,               \n"
         );
     }
 
@@ -740,7 +740,7 @@ public final class BinaryTest implements CanBeEmptyTesting,
                     'C'
                 }
             ),
-            " 0  1 43                                                    ??C                 \n"
+            "00 01 43                                                    ??C                 \n"
         );
     }
 

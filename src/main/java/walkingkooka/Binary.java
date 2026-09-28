@@ -248,7 +248,7 @@ public final class Binary implements HasValue<byte[]>,
 
                     buffer.append(
                         b < 0x10 ?
-                            ' ' :
+                            '0' :
                             TO_HEX[b >> 4]
                     ).append(
                         TO_HEX[0xf & b]
