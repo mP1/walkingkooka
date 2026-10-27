@@ -79,8 +79,13 @@ public interface NameTesting2<N extends Name, C extends Comparable<C>> extends N
      */
     String CONTROL = IntStream.rangeClosed(0, 31)
         .mapToObj(i -> String.valueOf((char) i))
-        .collect(Collectors.joining(""));
-
+        .collect(
+            Collectors.joining(
+                "", // delimiter
+                "", // before
+                "\u007f" // after BACKSPACE
+            )
+        );
 
     /**
      * All ascii characters from space (32) to 127.
