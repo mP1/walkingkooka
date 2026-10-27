@@ -17,6 +17,8 @@
 
 package walkingkooka.predicate.character;
 
+import walkingkooka.text.Ascii;
+
 /**
  * A {@link CharPredicate} that returns true only if the given character is printable and not a
  * control character such of carriage return.
@@ -37,7 +39,7 @@ final class PrintableCharPredicate implements CharPredicate {
 
     @Override
     public boolean test(final char c) {
-        return c >= ' ';
+        return c >= ' ' && Ascii.DELETE != c;
     }
 
     @Override
