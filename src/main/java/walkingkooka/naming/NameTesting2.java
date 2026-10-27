@@ -88,9 +88,9 @@ public interface NameTesting2<N extends Name, C extends Comparable<C>> extends N
         );
 
     /**
-     * All ascii characters from space (32) to 127.
+     * All ascii characters from space (32) to 126.
      */
-    String ASCII_NON_CONTROL = IntStream.rangeClosed(32, 127)
+    String ASCII_NON_CONTROL = IntStream.rangeClosed(32, 126)
         .mapToObj(i -> String.valueOf((char) i))
         .collect(Collectors.joining(""));
 
