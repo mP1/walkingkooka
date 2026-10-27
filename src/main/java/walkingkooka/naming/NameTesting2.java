@@ -220,8 +220,7 @@ public interface NameTesting2<N extends Name, C extends Comparable<C>> extends N
                 for (int k = 0; k < i; k++) {
                     final String possible = this.possibleValidChars(k);
                     chars[k] = possible.charAt(
-                        j %
-                            (possible.length() - 1)
+                        j %possible.length()
                     );
                 }
                 this.createName(new String(chars));
