@@ -29,6 +29,11 @@ final public class PrintableCharPredicateTest implements CharPredicateTesting<Pr
     }
 
     @Test
+    public void testTestDelete() {
+        this.testFalse('\u007f');
+    }
+
+    @Test
     public void testTestLetter() {
         this.testTrue('A');
     }
