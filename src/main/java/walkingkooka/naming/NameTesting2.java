@@ -190,7 +190,10 @@ public interface NameTesting2<N extends Name, C extends Comparable<C>> extends N
     @Test
     default void testNameValidChars() {
         final int min = this.minLength();
-        final int max = Math.min(this.maxLength(), 99);
+        final int max = Math.min(
+            this.maxLength(),
+            99
+        );
 
         final int longest = IntStream.rangeClosed(0, max)
             .map(i -> this.possibleValidChars(i).length())
@@ -204,7 +207,10 @@ public interface NameTesting2<N extends Name, C extends Comparable<C>> extends N
 
                 for (int k = 0; k < i; k++) {
                     final String possible = this.possibleValidChars(k);
-                    chars[k] = possible.charAt(j % (possible.length() - 1));
+                    chars[k] = possible.charAt(
+                        j %
+                            (possible.length() - 1)
+                    );
                 }
                 this.createName(new String(chars));
             }
@@ -216,9 +222,17 @@ public interface NameTesting2<N extends Name, C extends Comparable<C>> extends N
         final int max = this.maxLength();
         if (max != Integer.MAX_VALUE) {
             final String chars = IntStream.rangeClosed(0, max + 1)
-                .mapToObj(i -> String.valueOf(this.possibleValidChars(i).charAt(0)))
+                .mapToObj(
+                    i -> String.valueOf(
+                        this.possibleValidChars(i)
+                            .charAt(0)
+                    )
+                )
                 .collect(Collectors.joining(""));
-            assertThrows(InvalidTextLengthException.class, () -> this.createName(chars));
+            assertThrows(
+                InvalidTextLengthException.class,
+                () -> this.createName(chars)
+            );
         }
     }
 
