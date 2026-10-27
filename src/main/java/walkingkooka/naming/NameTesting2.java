@@ -145,7 +145,7 @@ public interface NameTesting2<N extends Name, C extends Comparable<C>> extends N
         return b.toString();
     }
 
-    // invalid / valid characters.........................................................................
+    // invalid / valid characters.......................................................................................
 
     @Test
     default void testNameInvalidCharFails() {
@@ -168,12 +168,17 @@ public interface NameTesting2<N extends Name, C extends Comparable<C>> extends N
                 chars[last] = c;
                 final String text = new String(chars);
 
-                final InvalidCharacterException expected = assertThrows(InvalidCharacterException.class, () -> this.createName(text),
-                    () -> "Name text=" + CharSequences.quoteAndEscape(text));
+                final InvalidCharacterException expected = assertThrows(
+                    InvalidCharacterException.class,
+                    () -> this.createName(text),
+                    () -> "Name text=" + CharSequences.quoteAndEscape(text)
+                );
                 final int j = i;
-                this.checkEquals(last,
+                this.checkEquals(
+                    last,
                     expected.position(),
-                    () -> "Incorrect position " + j + " reported for " + CharSequences.quoteAndEscape(text));
+                    () -> "Incorrect position " + j + " reported for " + CharSequences.quoteAndEscape(text)
+                );
                 i++;
             }
         }
