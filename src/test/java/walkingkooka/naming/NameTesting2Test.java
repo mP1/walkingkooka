@@ -38,6 +38,17 @@ public final class NameTesting2Test implements PublicClassTesting<NameTesting2<?
     }
 
     @Test
+    public void testRfc2045ConstantMissingBackspace() {
+        this.checkEquals(
+            -1,
+            NameTesting2.RFC2045.indexOf('\u007f'),
+            () -> CharSequences.quoteAndEscape(
+                NameTesting2.RFC2045
+            ).toString()
+        );
+    }
+
+    @Test
     public void testSubtract() {
         this.subtractAndCheck(
             "AB",
