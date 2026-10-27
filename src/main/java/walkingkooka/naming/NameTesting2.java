@@ -136,8 +136,15 @@ public interface NameTesting2<N extends Name, C extends Comparable<C>> extends N
         b.append(text);
 
         for (char c : subtract.toCharArray()) {
-            final int i = b.indexOf(String.valueOf(c));
-            if (-1 != i) {
+            final String characterString = String.valueOf(c);
+
+            while (b.length() > 0) {
+                final int i = b.indexOf(
+                    characterString
+                );
+                if (-1 == i) {
+                    break;
+                }
                 b.deleteCharAt(i);
             }
         }
