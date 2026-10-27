@@ -24,13 +24,44 @@ final public class AsciiPrintableCharPredicateTest
     implements CharPredicateTesting<AsciiPrintableCharPredicate> {
 
     @Test
-    public void testNull() {
+    public void testTestNull() {
         this.testFalse(Ascii.NUL);
     }
 
     @Test
-    public void testLetter() {
+    public void testTestCarriageReturn() {
+        this.testFalse('\r');
+    }
+
+    @Test
+    public void testTestNewLine() {
+        this.testFalse('\n');
+    }
+
+    @Test
+    public void testTestSpace() {
+        this.testTrue(' ');
+    }
+
+    @Test
+    public void testTestDelete() {
+        this.testFalse('\u007f');
+    }
+
+    @Test
+    public void testTestAsciiLetter() {
         this.testTrue('A');
+    }
+
+    @Test
+    public void testTestNonAsciiLetter() {
+        final char letter = '\u0200';
+
+        this.checkEquals(
+            true,
+            Character.isLetter(letter)
+        );
+        this.testFalse(letter);
     }
 
     @Test
