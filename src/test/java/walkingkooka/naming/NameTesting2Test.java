@@ -17,10 +17,58 @@
 
 package walkingkooka.naming;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.reflect.PublicClassTesting;
+import walkingkooka.text.CharSequences;
 
 public final class NameTesting2Test implements PublicClassTesting<NameTesting2<?, ?>> {
+
+    // subtract.........................................................................................................
+
+    @Test
+    public void testRfc2045ConstantMissingSpace() {
+        this.checkEquals(
+            -1,
+            NameTesting2.RFC2045.indexOf(' '),
+            () -> CharSequences.quoteAndEscape(
+                NameTesting2.RFC2045
+            ).toString()
+        );
+    }
+
+    @Test
+    public void testSubtract() {
+        this.subtractAndCheck(
+            "AB",
+            "B",
+            "A"
+        );
+    }
+
+    @Test
+    public void testSubtractWithRepeatedCharacter() {
+        this.subtractAndCheck(
+            "ABB",
+            "B",
+            "A"
+        );
+    }
+
+    private void subtractAndCheck(final String text,
+                                  final String subtract,
+                                  final String expected) {
+        this.checkEquals(
+            expected,
+            NameTesting2.subtract(
+                text,
+                subtract
+            ),
+            () -> CharSequences.quoteAndEscape(text) + " subtract " + CharSequences.quoteAndEscape(subtract)
+        );
+    }
+
+    // class............................................................................................................
 
     @Override
     public Class<NameTesting2<?, ?>> type() {
