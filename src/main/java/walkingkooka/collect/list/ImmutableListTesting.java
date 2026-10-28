@@ -35,6 +35,8 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
     CanBeEmptyTesting,
     CanFirstOrEmptyTesting {
 
+    // concat...........................................................................................................
+
     default void concatAndCheck(final ImmutableList<E> list,
                                 final E appended,
                                 final ImmutableList<E> expected) {
@@ -91,6 +93,8 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
             () -> list + " concat " + appended
         );
     }
+
+    // deleteAtIndex....................................................................................................
 
     default void deleteAtIndexAndCheck(final ImmutableList<E> list,
                                        final int removed,
@@ -264,6 +268,8 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
         );
     }
 
+    // setElements......................................................................................................
+
     @Test
     default void testSetElementsWithNullCollectionFails() {
         final ImmutableList<E> immutableList = this.createList();
@@ -296,6 +302,8 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
         );
     }
 
+    // swap.............................................................................................................
+
     @Test
     default void testSwapSameIndices() {
         final ImmutableList<E> immutableList = this.createList();
@@ -320,6 +328,8 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
             () -> list + " swap " + left + ", " + right
         );
     }
+
+    // toList...........................................................................................................
 
     default void toListAndCheck(final ImmutableList<E> list,
                                 final E... expected) {
