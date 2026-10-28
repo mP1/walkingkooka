@@ -275,7 +275,7 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
     }
 
     @Test
-    default void testSetElementsSame() {
+    default void testSetElementsWithSameChildren() {
         final ImmutableList<E> immutableList = this.createList();
 
         assertSame(
