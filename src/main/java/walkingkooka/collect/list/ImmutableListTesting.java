@@ -265,7 +265,7 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
     }
 
     @Test
-    default void testSetElementsNullFails() {
+    default void testSetElementsWithNullCollectionFails() {
         final ImmutableList<E> immutableList = this.createList();
 
         assertThrows(
