@@ -284,9 +284,10 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
     default void testSetElementsWithSameList() {
         final ImmutableList<E> immutableList = this.createList();
 
-        assertSame(
+        this.setElementsAndCheck(
             immutableList,
-            immutableList.setElements(immutableList)
+            immutableList,
+            immutableList
         );
     }
 
@@ -294,12 +295,31 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
     default void testSetElementsWithSameChildren() {
         final ImmutableList<E> immutableList = this.createList();
 
-        assertSame(
+        this.setElementsAndCheck(
             immutableList,
-            immutableList.setElements(
-                immutableList.toList()
-            )
+            immutableList.toList(),
+            immutableList
         );
+    }
+
+    default void setElementsAndCheck(final ImmutableList<E> list,
+                                     final Collection<E> elements,
+                                     final ImmutableList<E> expected) {
+        final ImmutableList<E> after = list.setElements(elements);
+
+        if (list.equals(expected)) {
+            assertSame(
+                expected,
+                after,
+                () -> list + " setElements " + elements
+            );
+        } else {
+            this.checkEquals(
+                expected,
+                after,
+                () -> list + " setElements " + elements
+            );
+        }
     }
 
     // swap.............................................................................................................
