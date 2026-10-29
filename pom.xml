@@ -158,6 +158,24 @@
             </plugin>
 
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <id>create walkingkooka-spreadsheet/temp</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>temp</classifier>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
                 <groupId>walkingkooka</groupId>
                 <artifactId>walkingkooka-gwt-archive-maker-maven-plugin</artifactId>
                 <version>1.0-SNAPSHOT</version>
@@ -223,27 +241,6 @@
                     <settingsFile>src/it/settings.xml</settingsFile>
                     <streamLogs>false</streamLogs>
                 </configuration>
-            </plugin>
-
-            <!-- dont want to include *.gwt.xml in *.jar -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.3.0</version>
-                <executions>
-                    <execution>
-                        <id>default-jar</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                        <configuration>
-                            <excludes>
-                                <exclude>**/*.gwt.xml</exclude>
-                            </excludes>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
 
             <!-- deploy walkingkooka:walkingkooka & walkingkooka:walkingkooka-gwt -->
