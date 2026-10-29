@@ -157,24 +157,27 @@
                 </executions>
             </plugin>
 
+            <!-- dont want to include *.gwt.xml in *.jar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.3.0</version>
                 <executions>
                     <execution>
-                        <id>create walkingkooka-spreadsheet/temp</id>
+                        <id>default-jar</id>
                         <phase>prepare-package</phase>
                         <goals>
                             <goal>jar</goal>
                         </goals>
                         <configuration>
-                            <classifier>temp</classifier>
+                            <excludes>
+                                <exclude>**/*.gwt.xml</exclude>
+                            </excludes>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-
+            
             <plugin>
                 <groupId>walkingkooka</groupId>
                 <artifactId>walkingkooka-gwt-archive-maker-maven-plugin</artifactId>
