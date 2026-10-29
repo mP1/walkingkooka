@@ -14,6 +14,7 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
+          maven-version: '3.9.13'
 
       - name: Maven dependency/resolve
         run: mvn dependency:resolve
