@@ -590,6 +590,58 @@ final public class ToStringBuilderTest extends ToStringBuilderTestCase<ToStringB
         );
     }
 
+    // ToStringBuilderSkippable.........................................................................................
+
+    @Test
+    public void testToStringBuilderSkippableFalse() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+            .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .label("label1")
+            .value(
+                new ToStringBuilderSkippable() {
+                    @Override
+                    public boolean isToStringBuilderSkippable() {
+                        return false;
+                    }
+
+                    @Override
+                    public String toString() {
+                        return "value1";
+                    }
+                }
+            );
+
+        this.buildAndCheck(
+            builder,
+            "label1=value1"
+        );
+    }
+
+    @Test
+    public void testToStringBuilderSkippableTrue() {
+        final ToStringBuilder builder = ToStringBuilder.empty()
+            .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .label("label1")
+            .value(
+                new ToStringBuilderSkippable() {
+                    @Override
+                    public boolean isToStringBuilderSkippable() {
+                        return true;
+                    }
+
+                    @Override
+                    public String toString() {
+                        return "value1";
+                    }
+                }
+            );
+
+        this.buildAndCheck(
+            builder,
+            ""
+        );
+    }
+
     // UsesToStringBuilder..............................................................................................
 
     @Test

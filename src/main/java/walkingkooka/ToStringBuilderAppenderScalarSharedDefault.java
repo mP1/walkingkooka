@@ -36,7 +36,12 @@ final class ToStringBuilderAppenderScalarSharedDefault extends ToStringBuilderAp
             (
                 value instanceof CanBeEmpty &&
                     ((CanBeEmpty) value).isEmpty()
-            ); // null or empty or CanBeEmpty#isEmpty() may be skipped
+            ) ||
+            (
+                value instanceof ToStringBuilderSkippable &&
+                    ((ToStringBuilderSkippable) value).isToStringBuilderSkippable()
+            )
+            ; // null or empty or CanBeEmpty#isEmpty() ToStringBuilderSkippable.isToStringBuilderSkippable() or may be skipped
     }
 
     @Override
