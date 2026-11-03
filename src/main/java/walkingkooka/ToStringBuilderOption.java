@@ -47,7 +47,8 @@ public enum ToStringBuilderOption {
     //
 
     /**
-     * Null, false, 0 or {@link CanBeEmpty#isEmpty()} = true values are ignored.
+     * Null, false, 0, {@link CanBeEmpty#isEmpty()} = true or {@link ToStringBuilderSkippable#isToStringBuilderSkippable()}
+     * values are ignored.
      */
     SKIP_IF_DEFAULT_VALUE,
     //
