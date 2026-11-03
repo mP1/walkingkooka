@@ -17,17 +17,13 @@
 
 package walkingkooka;
 
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 
-final public class ToStringBuilderModeTest extends ToStringBuilderTestCase<ToStringBuilderMode> {
+final public class ToStringBuilderModeTest extends ToStringBuilderTestCase<ToStringBuilderMode>
+    implements PackagePrivateClassTesting<ToStringBuilderMode> {
 
     @Override
     public Class<ToStringBuilderMode> type() {
         return ToStringBuilderMode.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
