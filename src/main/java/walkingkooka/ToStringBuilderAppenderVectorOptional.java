@@ -39,7 +39,7 @@ final class ToStringBuilderAppenderVectorOptional<T> extends ToStringBuilderAppe
 
     @Override
     boolean isEmpty() {
-        return false == this.value.isPresent();
+        return this.value.isEmpty();
     }
 
     @Override
