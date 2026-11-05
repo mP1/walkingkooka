@@ -59,7 +59,6 @@ public final class ImmutableSetImplTest extends ImmutableSetImplTestCase<Immutab
         this.containsAndCheck(set, "1A", false);
 
         this.containsAndCheck(set, "?", false);
-        ;
     }
 
     @Test
