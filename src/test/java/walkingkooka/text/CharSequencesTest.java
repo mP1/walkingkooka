@@ -626,6 +626,11 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
         this.escapeUnescapeAndCheck("apple\u001F;banana", "apple\\u001F;banana");
     }
 
+    @Test
+    public void testEscapeDelete() {
+        this.escapeUnescapeAndCheck("apple\u007f", "apple\\u007F");
+    }
+
     private void escapeUnescapeAndCheck(final CharSequence chars,
                                         final String expected) {
         this.checkEquals(
