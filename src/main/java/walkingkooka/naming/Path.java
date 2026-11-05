@@ -63,7 +63,7 @@ public interface Path<P extends Path<P, N>, N extends PathName> extends HasValue
      * returns true if this {@link Path} is the root.
      */
     default boolean isRoot() {
-        return false == this.parent().isPresent();
+        return this.parent().isEmpty();
     }
 
     /**
