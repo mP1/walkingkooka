@@ -91,7 +91,7 @@ public final class ToStringBuilderAppenderVectorArraySharedCharTest extends ToSt
         return new char[0];
     }
 
-    @Override final String defaultValueToString(final char[] value) {
+    @Override String defaultValueToString(final char[] value) {
         return "";
     }
 

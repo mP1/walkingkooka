@@ -45,7 +45,7 @@ public final class ToStringBuilderAppenderVectorArrayShared2ShortTest extends To
         return new short[0];
     }
 
-    @Override final String defaultValueToString(final short[] value) {
+    @Override String defaultValueToString(final short[] value) {
         return "";
     }
 

@@ -36,7 +36,7 @@ public final class ToStringBuilderAppenderVectorArrayShared2FloatTest extends To
         return new float[0];
     }
 
-    @Override final String defaultValueToString(final float[] value) {
+    @Override String defaultValueToString(final float[] value) {
         return "";
     }
 

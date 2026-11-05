@@ -153,7 +153,7 @@ final public class CharSequenceTextCursorLineInfoTest implements ClassTesting2<C
     }
 
     @Override
-    public final JavaVisibility typeVisibility() {
+    public JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

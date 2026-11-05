@@ -36,7 +36,7 @@ public final class ToStringBuilderAppenderVectorArrayShared2ByteTest extends ToS
         return new byte[0];
     }
 
-    @Override final String defaultValueToString(final byte[] value) {
+    @Override String defaultValueToString(final byte[] value) {
         return "";
     }
 

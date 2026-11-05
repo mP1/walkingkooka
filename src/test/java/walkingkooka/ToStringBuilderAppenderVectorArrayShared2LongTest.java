@@ -46,7 +46,7 @@ public final class ToStringBuilderAppenderVectorArrayShared2LongTest extends ToS
         return new long[0];
     }
 
-    @Override final String defaultValueToString(final long[] value) {
+    @Override String defaultValueToString(final long[] value) {
         return "";
     }
 

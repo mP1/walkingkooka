@@ -31,7 +31,7 @@ public final class PublicStaticHelperTestingTest implements PublicStaticHelperTe
     // testClassIsFinal.................................................................................................
 
     @Test
-    public final void testClassIsFinalFail() {
+    public void testClassIsFinalFail() {
         assertThrows(AssertionError.class, () -> new TestClassIsFinalFail().testClassIsFinal());
     }
 
@@ -58,7 +58,7 @@ public final class PublicStaticHelperTestingTest implements PublicStaticHelperTe
     // testOnlyConstructorIsPrivate.....................................................................................
 
     @Test
-    public final void testOnlyConstructorIsPrivateFail() {
+    public void testOnlyConstructorIsPrivateFail() {
         assertThrows(AssertionError.class, () -> new TestOnlyConstructorIsPrivateFail().testOnlyConstructorIsPrivate());
     }
 
@@ -85,7 +85,7 @@ public final class PublicStaticHelperTestingTest implements PublicStaticHelperTe
     // testDefaultConstructorThrowsUnsupportedOperationException.........................................................
 
     @Test
-    public final void testDefaultConstructorThrowsUnsupportedOperationExceptionFail() {
+    public void testDefaultConstructorThrowsUnsupportedOperationExceptionFail() {
         assertThrows(AssertionError.class, () -> new TestDefaultConstructorThrowsUnsupportedOperationExceptionFail().testDefaultConstructorThrowsUnsupportedOperationException());
     }
 
@@ -111,7 +111,7 @@ public final class PublicStaticHelperTestingTest implements PublicStaticHelperTe
     // testAllMethodsAreStatic..........................................................................................
 
     @Test
-    public final void testAllMethodsAreStaticFail() {
+    public void testAllMethodsAreStaticFail() {
         assertThrows(AssertionError.class, () -> new TestAllMethodsAreStaticFail().testAllMethodsAreStatic());
     }
 
@@ -137,7 +137,7 @@ public final class PublicStaticHelperTestingTest implements PublicStaticHelperTe
     // testCheckVisibilityOfAllStaticMethods............................................................................
 
     @Test
-    public final void testCheckVisibilityOfAllStaticMethodsFail() {
+    public void testCheckVisibilityOfAllStaticMethodsFail() {
         assertThrows(AssertionError.class, () -> new TestCheckVisibilityOfAllStaticMethodsFail().testCheckVisibilityOfAllStaticMethods());
     }
 
@@ -161,7 +161,7 @@ public final class PublicStaticHelperTestingTest implements PublicStaticHelperTe
     }
 
     @Test
-    public final void testCheckVisibilityOfAllStaticMethodsPrivate() {
+    public void testCheckVisibilityOfAllStaticMethodsPrivate() {
         new TestCheckVisibilityOfAllStaticMethodsPrivate().testCheckVisibilityOfAllStaticMethods();
     }
 
@@ -188,7 +188,7 @@ public final class PublicStaticHelperTestingTest implements PublicStaticHelperTe
     // testPublicStaticMethodsParameterAndReturnTypesArePublic..........................................................
 
     @Test
-    public final void testPublicStaticMethodsParameterAndReturnTypesArePublicFail() {
+    public void testPublicStaticMethodsParameterAndReturnTypesArePublicFail() {
         this.checkEquals(JavaVisibility.PACKAGE_PRIVATE, JavaVisibility.of(TestNonPublic.class));
 
         assertThrows(AssertionError.class, () -> new TestPublicStaticMethodsParameterAndReturnTypesArePublicFail().testPublicStaticMethodsParameterAndReturnTypesArePublic());
@@ -215,7 +215,7 @@ public final class PublicStaticHelperTestingTest implements PublicStaticHelperTe
     }
 
     @Test
-    public final void testPublicStaticMethodsParameterAndReturnTypesArePublicFail2() {
+    public void testPublicStaticMethodsParameterAndReturnTypesArePublicFail2() {
         this.checkEquals(JavaVisibility.PACKAGE_PRIVATE, JavaVisibility.of(TestNonPublic.class));
 
         assertThrows(AssertionError.class, () -> new TestPublicStaticMethodsParameterAndReturnTypesArePublicFail2().testPublicStaticMethodsParameterAndReturnTypesArePublic());
@@ -244,13 +244,13 @@ public final class PublicStaticHelperTestingTest implements PublicStaticHelperTe
     }
 
     @Override
-    public final void testTestNaming() {
+    public void testTestNaming() {
     }
 
     // testContainsPublicStaticMethodsOrField..........................................................................................
 
     @Test
-    public final void testContainsZeroInstanceFields() {
+    public void testContainsZeroInstanceFields() {
         assertThrows(AssertionError.class, () -> new TestContainsZeroInstanceFields().testContainsZeroInstanceFields());
     }
 

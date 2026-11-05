@@ -231,7 +231,7 @@ final public class StringPathTest implements PathTesting<StringPath, StringName>
     }
 
     @Override
-    public final JavaVisibility typeVisibility() {
+    public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
     }
 

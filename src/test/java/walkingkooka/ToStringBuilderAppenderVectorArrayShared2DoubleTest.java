@@ -36,7 +36,7 @@ public final class ToStringBuilderAppenderVectorArrayShared2DoubleTest extends T
         return new double[0];
     }
 
-    @Override final String defaultValueToString(final double[] value) {
+    @Override String defaultValueToString(final double[] value) {
         return "";
     }
 
