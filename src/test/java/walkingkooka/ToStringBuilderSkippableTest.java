@@ -17,10 +17,10 @@
 
 package walkingkooka;
 
-import walkingkooka.reflect.PackagePrivateClassTesting;
+import walkingkooka.reflect.PublicClassTesting;
 
 public final class ToStringBuilderSkippableTest extends ToStringBuilderTestCase<ToStringBuilderSkippable>
-    implements PackagePrivateClassTesting<ToStringBuilderSkippable> {
+    implements PublicClassTesting<ToStringBuilderSkippable> {
 
     @Override
     public Class<ToStringBuilderSkippable> type() {
