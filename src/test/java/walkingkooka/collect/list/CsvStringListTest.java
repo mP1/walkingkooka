@@ -526,7 +526,7 @@ public final class CsvStringListTest implements DelimiterStringImmutableListTest
     public void testCsvStringList() {
         final CsvStringList list = this.createList();
 
-        assertSame(
+        this.csvStringListAndCheck(
             list,
             list
         );
