@@ -375,6 +375,9 @@ final public class CharSequences implements PublicStaticHelper {
                 case 31:
                     builder.append("\\u001F");
                     break;
+                case 127: // DELETE
+                    builder.append("\\u007F");
+                    break;
                 default:
                     builder.append(c);
                     break;
