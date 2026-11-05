@@ -207,7 +207,7 @@ public final class PackageNameTest extends PackageNameOrTypeNameJavaNameTestCase
         );
     }
 
-    class Xyz {
+    static class Xyz {
 
     }
 
