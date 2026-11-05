@@ -61,7 +61,7 @@ public final class TextContextDelegatorTest implements TextContextTesting, Class
         }
     }
 
-    private final class TestTextContext implements TextContext {
+    private final static class TestTextContext implements TextContext {
         @Override
         public Indentation indentation() {
             return INDENTATION;
