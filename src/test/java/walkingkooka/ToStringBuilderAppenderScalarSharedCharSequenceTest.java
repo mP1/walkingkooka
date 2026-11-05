@@ -157,7 +157,7 @@ public final class ToStringBuilderAppenderScalarSharedCharSequenceTest extends T
     // ClassTesting......................................................................................................
 
     @Override
-    public final Class<ToStringBuilderAppenderScalarSharedCharSequence> type() {
+    public Class<ToStringBuilderAppenderScalarSharedCharSequence> type() {
         return ToStringBuilderAppenderScalarSharedCharSequence.class;
     }
 }
