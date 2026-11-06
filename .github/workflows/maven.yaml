@@ -1,0 +1,27 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the source code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Install Java and configure Maven 3.6.3
+      - name: Set up Maven 3.6.3
+        uses: s4u/setup-maven-action@v1.18.0
+        with:
+          java-version: '11'
+          maven-version: '3.6.3'
+
+      # Step 3: Execute the maven install command
+      - name: Build and install with Maven
+        run: mvn install -Dmaven.javadoc.skip=true -B -V -e
