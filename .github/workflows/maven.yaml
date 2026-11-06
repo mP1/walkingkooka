@@ -20,6 +20,7 @@ jobs:
         uses: s4u/setup-maven-action@v1.18.0
         with:
           java-version: '11'
+          distribution: 'temurin'
           maven-version: '3.6.3'
 
       # Step 3: Execute the maven install command
