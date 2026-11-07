@@ -20,10 +20,9 @@ package walkingkooka.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.compare.ComparatorTesting2;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 
-final public class CaseSensitivityComparatorTest implements ClassTesting2<CaseSensitivityComparator<CharSequence>>,
+final public class CaseSensitivityComparatorTest implements PackagePrivateClassTesting<CaseSensitivityComparator<CharSequence>>,
     ComparatorTesting2<CaseSensitivityComparator<CharSequence>, CharSequence> {
 
     // constants
@@ -179,13 +178,10 @@ final public class CaseSensitivityComparatorTest implements ClassTesting2<CaseSe
         return SENSITIVE;
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<CaseSensitivityComparator<CharSequence>> type() {
         return Cast.to(CaseSensitivityComparator.class);
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
