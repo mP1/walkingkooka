@@ -185,6 +185,16 @@ final public class CaseSensitivityTest implements PublicClassTesting<CaseSensiti
     }
 
     @Test
+    public void testEqualsSensitiveNotNullNullAndNull() {
+        this.equalsAndCheck(
+            CaseSensitivity.SENSITIVE,
+            "left",
+            null,
+            false
+        );
+    }
+
+    @Test
     public void testEqualsInsensitiveNullAndNotNull() {
         this.equalsAndCheck(
             CaseSensitivity.INSENSITIVE,

@@ -111,11 +111,13 @@ public enum CaseSensitivity {
                                 final CharSequence right) {
         return null == left ?
             null == right :
-            Comparators.EQUAL == this.comparator()
-                .compare(
-                    left,
-                    right
-                );
+            null == right ?
+                false :
+                Comparators.EQUAL == this.comparator()
+                    .compare(
+                        left,
+                        right
+                    );
     }
 
     /**
