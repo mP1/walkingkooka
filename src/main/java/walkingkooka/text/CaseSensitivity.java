@@ -105,11 +105,17 @@ public enum CaseSensitivity {
     };
 
     /**
-     * Tests if the two {@link CharSequence} are equal respecting the current case sensitivity.
+     * Tests if the two {@link CharSequence} which may be null are equal respecting the current case sensitivity.
      */
     final public boolean equals(final CharSequence left,
                                 final CharSequence right) {
-        return Comparators.EQUAL == this.comparator().compare(left, right);
+        return null == left ?
+            null == right :
+            Comparators.EQUAL == this.comparator()
+                .compare(
+                    left,
+                    right
+                );
     }
 
     /**
