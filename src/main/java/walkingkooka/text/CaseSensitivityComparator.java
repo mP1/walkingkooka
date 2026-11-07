@@ -70,12 +70,13 @@ final class CaseSensitivityComparator<C extends CharSequence> implements Compara
      * returned.
      */
     @Override
-    public int compare(final C chars, final C otherChars) {
-        Objects.requireNonNull(chars, "chars");
-        Objects.requireNonNull(otherChars, "otherChars");
+    public int compare(final C left,
+                       final C right) {
+        Objects.requireNonNull(left, "left");
+        Objects.requireNonNull(right, "right");
 
-        final int length = chars.length();
-        final int otherLength = otherChars.length();
+        final int length = left.length();
+        final int otherLength = right.length();
         final int shorter = Math.min(length, otherLength);
         final CaseSensitivity sensitivity = this.sensitivity;
 
@@ -83,7 +84,7 @@ final class CaseSensitivityComparator<C extends CharSequence> implements Compara
 
         // give up when a mis-match is encountered
         for (int i = 0; i < shorter; i++) {
-            value = sensitivity.compare(chars.charAt(i), otherChars.charAt(i));
+            value = sensitivity.compare(left.charAt(i), right.charAt(i));
             if (0 != value) {
                 break;
             }
