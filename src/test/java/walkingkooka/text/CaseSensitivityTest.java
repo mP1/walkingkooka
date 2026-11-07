@@ -21,15 +21,14 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.compare.Comparators;
 import walkingkooka.predicate.PredicateTesting;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.util.SystemProperty;
 
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>,
+final public class CaseSensitivityTest implements PublicClassTesting<CaseSensitivity>,
     PredicateTesting {
 
     // invert...........................................................................................................
@@ -2385,13 +2384,10 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
         CaseSensitivity.FILE_SYSTEM = null;
     }
 
+    // class............................................................................................................
+
     @Override
     public Class<CaseSensitivity> type() {
         return CaseSensitivity.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
