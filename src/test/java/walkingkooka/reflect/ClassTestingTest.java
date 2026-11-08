@@ -68,7 +68,7 @@ public final class ClassTestingTest {
 
     static class TestWithSubClassParameter extends ClassTestingTestTest<TestWithSubClassParameter> {
 
-        public static void publicStaticMethod(final HashMap param1) {
+        public static void publicStaticMethod(final HashMap<?, ?> param1) {
         }
 
         @Override
@@ -84,7 +84,7 @@ public final class ClassTestingTest {
 
     static class TestWithSuperClassParameter extends ClassTestingTestTest<TestWithSuperClassParameter> {
 
-        public static void publicStaticMethod(final Map param1) {
+        public static void publicStaticMethod(final Map<?, ?> param1) {
         }
 
         @Override
