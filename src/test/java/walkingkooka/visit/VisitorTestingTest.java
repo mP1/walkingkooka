@@ -18,10 +18,11 @@
 package walkingkooka.visit;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class VisitorTestingTest implements ClassTesting2<VisitorTesting> {
+public final class VisitorTestingTest implements ClassTesting2<VisitorTesting<?, ?>> {
 
     @Test
     public void testInstanceCheckStaticFails() {
@@ -194,8 +195,8 @@ public final class VisitorTestingTest implements ClassTesting2<VisitorTesting> {
     }
 
     @Override
-    public Class<VisitorTesting> type() {
-        return VisitorTesting.class;
+    public Class<VisitorTesting<?, ?>> type() {
+        return Cast.to(VisitorTesting.class);
     }
 
     @Override
