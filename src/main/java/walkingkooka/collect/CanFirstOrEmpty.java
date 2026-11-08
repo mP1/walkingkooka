@@ -28,14 +28,14 @@ import java.util.Optional;
 public interface CanFirstOrEmpty<T> {
 
     static <T> Optional<T> firstOrEmptyCollection(final Collection<T> collection) {
-        Objects.requireNonNull(collection, "collection");
-
         Optional<T> firstOrEmpty;
 
         if (collection instanceof CanFirstOrEmpty) {
             firstOrEmpty = ((CanFirstOrEmpty<T>) collection)
                 .firstOrEmpty();
         } else {
+            Objects.requireNonNull(collection, "collection");
+
             firstOrEmpty = Optional.ofNullable(
                 collection.isEmpty() ?
                     null :
