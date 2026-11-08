@@ -33,7 +33,7 @@ public interface CanFirstOrEmpty<T> {
         Optional<T> firstOrEmpty;
 
         if (collection instanceof CanFirstOrEmpty) {
-            firstOrEmpty = ((CanFirstOrEmpty) collection)
+            firstOrEmpty = ((CanFirstOrEmpty<T>) collection)
                 .firstOrEmpty();
         } else {
             firstOrEmpty = Optional.ofNullable(
