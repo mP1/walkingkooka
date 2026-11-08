@@ -80,16 +80,14 @@ public final class ImmutableListImplNonSingletonTest extends ImmutableListImplNo
         final String c = "3c";
 
         this.swapAndCheck(
-            (ImmutableList)
-                ImmutableListImplNonSingleton.with(
-                    Lists.of(a, b, c)
-                ),
+            ImmutableListImplNonSingleton.with(
+                Lists.of(a, b, c)
+            ),
             1,
             2,
-            (ImmutableList)
-                ImmutableListImplNonSingleton.with(
-                    Lists.of(a, c, b)
-                )
+            ImmutableListImplNonSingleton.with(
+                Lists.of(a, c, b)
+            )
         );
     }
 
