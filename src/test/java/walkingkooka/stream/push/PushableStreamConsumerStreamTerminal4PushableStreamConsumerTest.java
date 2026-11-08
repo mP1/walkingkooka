@@ -17,10 +17,12 @@
 
 package walkingkooka.stream.push;
 
-public final class PushableStreamConsumerStreamTerminal4PushableStreamConsumerTest extends PushableStreamConsumerTestCase<PushableStreamConsumerStreamTerminal4PushableStreamConsumer> {
+import walkingkooka.Cast;
+
+public final class PushableStreamConsumerStreamTerminal4PushableStreamConsumerTest extends PushableStreamConsumerTestCase<PushableStreamConsumerStreamTerminal4PushableStreamConsumer<?, ?>> {
 
     @Override
-    public Class<PushableStreamConsumerStreamTerminal4PushableStreamConsumer> type() {
-        return PushableStreamConsumerStreamTerminal4PushableStreamConsumer.class;
+    public Class<PushableStreamConsumerStreamTerminal4PushableStreamConsumer<?, ?>> type() {
+        return Cast.to(PushableStreamConsumerStreamTerminal4PushableStreamConsumer.class);
     }
 }
