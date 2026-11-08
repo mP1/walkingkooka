@@ -29,20 +29,20 @@ public final class AutoExpandArrayListTest implements ListTesting2<AutoExpandArr
 
     @Test
     public void testGetSize() {
-        final AutoExpandArrayList list = AutoExpandArrayList.empty();
+        final AutoExpandArrayList<String> list = AutoExpandArrayList.empty();
         this.getAndCheck(list, 0, null);
     }
 
     @Test
     public void testGetGreaterThanSize() {
-        final AutoExpandArrayList list = AutoExpandArrayList.empty();
+        final AutoExpandArrayList<String> list = AutoExpandArrayList.empty();
         this.getAndCheck(list, 10, null);
         this.sizeAndCheck(list, 0);
     }
 
     @Test
     public void testSetAndGet() {
-        final AutoExpandArrayList list = AutoExpandArrayList.empty();
+        final AutoExpandArrayList<String> list = AutoExpandArrayList.empty();
         list.set(10, "!");
 
         this.getAndCheck(list, 10, "!");
@@ -51,7 +51,7 @@ public final class AutoExpandArrayListTest implements ListTesting2<AutoExpandArr
 
     @Test
     public void testIterator() {
-        final AutoExpandArrayList list = AutoExpandArrayList.empty();
+        final AutoExpandArrayList<String> list = AutoExpandArrayList.empty();
         list.add("A");
         list.add("B");
         list.add("C");
@@ -64,7 +64,7 @@ public final class AutoExpandArrayListTest implements ListTesting2<AutoExpandArr
 
     @Test
     public void testSetExpandsWhenEmpty() {
-        final AutoExpandArrayList list = AutoExpandArrayList.empty();
+        final AutoExpandArrayList<String> list = AutoExpandArrayList.empty();
         list.set(0, "A");
 
         this.getAndCheck(list, 0, "A");
@@ -78,7 +78,7 @@ public final class AutoExpandArrayListTest implements ListTesting2<AutoExpandArr
 
     @Test
     public void testSetExpandsWhenEmpty2() {
-        final AutoExpandArrayList list = AutoExpandArrayList.empty();
+        final AutoExpandArrayList<String> list = AutoExpandArrayList.empty();
         list.set(1, "B");
 
         this.getAndCheck(list, 1, "B");
@@ -92,7 +92,7 @@ public final class AutoExpandArrayListTest implements ListTesting2<AutoExpandArr
 
     @Test
     public void testSetExpandsWhenEmpty3() {
-        final AutoExpandArrayList list = AutoExpandArrayList.empty();
+        final AutoExpandArrayList<String> list = AutoExpandArrayList.empty();
         list.set(10, "X");
 
         this.getAndCheck(list, 10, "X");
@@ -106,7 +106,7 @@ public final class AutoExpandArrayListTest implements ListTesting2<AutoExpandArr
 
     @Test
     public void testSetMany() {
-        final AutoExpandArrayList list = AutoExpandArrayList.empty();
+        final AutoExpandArrayList<String> list = AutoExpandArrayList.empty();
         list.set(1, "B");
         list.set(2, "C");
         list.set(0, "A");
@@ -121,7 +121,7 @@ public final class AutoExpandArrayListTest implements ListTesting2<AutoExpandArr
 
     @Test
     public void testAddAndSet() {
-        final AutoExpandArrayList list = AutoExpandArrayList.empty();
+        final AutoExpandArrayList<String> list = AutoExpandArrayList.empty();
         list.add("A");
         list.add("B");
         list.set(0, "!");
@@ -136,7 +136,7 @@ public final class AutoExpandArrayListTest implements ListTesting2<AutoExpandArr
 
     @Test
     public void testAddAndSet2() {
-        final AutoExpandArrayList list = AutoExpandArrayList.empty();
+        final AutoExpandArrayList<String> list = AutoExpandArrayList.empty();
         list.add("A");
         list.add("B");
         list.set(0, "!");
@@ -152,7 +152,7 @@ public final class AutoExpandArrayListTest implements ListTesting2<AutoExpandArr
 
     @Test
     public void testRemoveInvalidFails() {
-        final AutoExpandArrayList list = AutoExpandArrayList.empty();
+        final AutoExpandArrayList<String> list = AutoExpandArrayList.empty();
         list.add("A");
         list.add("B");
 
