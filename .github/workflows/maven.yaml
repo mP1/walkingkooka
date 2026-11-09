@@ -23,6 +23,9 @@ jobs:
           distribution: 'temurin'
           maven-version: '3.6.3'
 
+      - name: Maven dependency/resolve
+        run: mvn dependency:resolve -U
+
       # Step 3: Execute the maven install command
       - name: Build and install with Maven
         run: mvn install -Dmaven.javadoc.skip=true -B -V -e
