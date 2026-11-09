@@ -428,7 +428,7 @@ public final class ClassVisitorTest implements ClassVisitorTesting<ClassVisitor>
     }
 
 
-    private String name(final Class type) {
+    private String name(final Class<?> type) {
         final String typeName = type.getSimpleName();
         return typeName.substring(1 + Math.max(typeName.lastIndexOf('.'), typeName.lastIndexOf('$'))).replace("Test", "");
     }
