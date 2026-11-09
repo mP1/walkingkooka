@@ -268,14 +268,11 @@ final public class CaseSensitivityTest implements PublicClassTesting<CaseSensiti
                                 final CharSequence chars,
                                 final CharSequence otherChars,
                                 final boolean expected) {
-        final boolean result = sensitivity.equals(chars, otherChars);
-        if (expected != result) {
-            this.checkEquals(
-                expected,
-                result,
-                () -> sensitivity + " equals( " + quote(chars) + "," + quote(otherChars) + ")"
-            );
-        }
+        this.checkEquals(
+            expected,
+            sensitivity.equals(chars, otherChars),
+            () -> sensitivity + " equals( " + quote(chars) + "," + quote(otherChars) + ")"
+        );
     }
 
     // startsWith.......................................................................................................
@@ -546,23 +543,19 @@ final public class CaseSensitivityTest implements PublicClassTesting<CaseSensiti
                                     final CharSequence chars,
                                     final CharSequence startsWith,
                                     final boolean expected) {
-        final boolean result = sensitivity.startsWith(
-            chars,
-            startsWith
+        this.checkEquals(
+            expected,
+            sensitivity.startsWith(
+                chars,
+                startsWith
+            ),
+            () -> sensitivity +
+                " startsWith( " +
+                CaseSensitivityTest.quote(chars) +
+                "," +
+                CaseSensitivityTest.quote(startsWith) +
+                ")"
         );
-
-        if (expected != result) {
-            this.checkEquals(
-                expected,
-                result,
-                () -> sensitivity +
-                    " startsWith( " +
-                    CaseSensitivityTest.quote(chars) +
-                    "," +
-                    CaseSensitivityTest.quote(startsWith) +
-                    ")"
-            );
-        }
     }
 
     @Test
@@ -691,26 +684,22 @@ final public class CaseSensitivityTest implements PublicClassTesting<CaseSensiti
                                     final CharSequence startsWith,
                                     final int offset,
                                     final boolean expected) {
-        final boolean result = sensitivity.startsWith(
-            chars,
-            startsWith,
-            offset
+        this.checkEquals(
+            expected,
+            sensitivity.startsWith(
+                chars,
+                startsWith,
+                offset
+            ),
+            () -> sensitivity +
+                " startsWith( " +
+                CaseSensitivityTest.quote(chars) +
+                "," +
+                CaseSensitivityTest.quote(startsWith) +
+                "," +
+                offset +
+                ")"
         );
-
-        if (expected != result) {
-            this.checkEquals(
-                expected,
-                result,
-                () -> sensitivity +
-                    " startsWith( " +
-                    CaseSensitivityTest.quote(chars) +
-                    "," +
-                    CaseSensitivityTest.quote(startsWith) +
-                    "," +
-                    offset +
-                    ")"
-            );
-        }
     }
 
     // endsWith.........................................................................................................
@@ -981,14 +970,11 @@ final public class CaseSensitivityTest implements PublicClassTesting<CaseSensiti
                                   final CharSequence chars,
                                   final CharSequence otherChars,
                                   final boolean expected) {
-        final boolean result = sensitivity.endsWith(chars, otherChars);
-        if (expected != result) {
-            this.checkEquals(
-                expected,
-                result,
-                () -> sensitivity + " endsWith( " + CaseSensitivityTest.quote(chars) + "," + CaseSensitivityTest.quote(otherChars) + ")"
-            );
-        }
+        this.checkEquals(
+            expected,
+            sensitivity.endsWith(chars, otherChars),
+            () -> sensitivity + " endsWith( " + CaseSensitivityTest.quote(chars) + "," + CaseSensitivityTest.quote(otherChars) + ")"
+        );
     }
 
     // indexOf..........................................................................................................
@@ -1478,14 +1464,11 @@ final public class CaseSensitivityTest implements PublicClassTesting<CaseSensiti
                                   final CharSequence chars,
                                   final CharSequence searchFor,
                                   final int expected) {
-        final int result = sensitivity.indexOf(chars, searchFor);
-        if (expected != result) {
-            this.checkEquals(
-                expected,
-                result,
-                () -> sensitivity + " indexOf( " + CaseSensitivityTest.quote(chars) + ", " + CaseSensitivityTest.quote(searchFor) + ")"
-            );
-        }
+        this.checkEquals(
+            expected,
+            sensitivity.indexOf(chars, searchFor),
+            () -> sensitivity + " indexOf( " + CaseSensitivityTest.quote(chars) + ", " + CaseSensitivityTest.quote(searchFor) + ")"
+        );
     }
 
     private void indexOfOffsetAndCheck(final CaseSensitivity sensitivity,
@@ -1493,17 +1476,18 @@ final public class CaseSensitivityTest implements PublicClassTesting<CaseSensiti
                                        final CharSequence searchFor,
                                        final int offset,
                                        final int expected) {
-        final int result = sensitivity.indexOf(chars, searchFor, offset);
-        if (expected != result) {
-            this.checkEquals(
-                expected,
-                result,
-                () -> sensitivity + " indexOf( " +
-                    CaseSensitivityTest.quote(chars) + ", " +
-                    CaseSensitivityTest.quote(searchFor) + ", " +
-                    offset + ")"
-            );
-        }
+        this.checkEquals(
+            expected,
+            sensitivity.indexOf(
+                chars,
+                searchFor,
+                offset
+            ),
+            () -> sensitivity + " indexOf( " +
+                CaseSensitivityTest.quote(chars) + ", " +
+                CaseSensitivityTest.quote(searchFor) + ", " +
+                offset + ")"
+        );
     }
 
     // lastIndexOf INSENSITIVE .............///.........................................................................
@@ -2001,14 +1985,14 @@ final public class CaseSensitivityTest implements PublicClassTesting<CaseSensiti
                                       final CharSequence chars,
                                       final CharSequence searchFor,
                                       final int expected) {
-        final int result = sensitivity.lastIndexOf(chars, searchFor);
-        if (expected != result) {
-            this.checkEquals(
-                expected,
-                result,
-                () -> sensitivity + " lastIndexOf( " + CaseSensitivityTest.quote(chars) + ", " + CaseSensitivityTest.quote(searchFor) + ")"
-            );
-        }
+        this.checkEquals(
+            expected,
+            sensitivity.lastIndexOf(
+                chars,
+                searchFor
+            ),
+            () -> sensitivity + " lastIndexOf( " + CaseSensitivityTest.quote(chars) + ", " + CaseSensitivityTest.quote(searchFor) + ")"
+        );
     }
 
     private void lastIndexOfOffsetAndCheck(final CaseSensitivity sensitivity,
@@ -2016,17 +2000,18 @@ final public class CaseSensitivityTest implements PublicClassTesting<CaseSensiti
                                            final CharSequence searchFor,
                                            final int offset,
                                            final int expected) {
-        final int result = sensitivity.lastIndexOf(chars, searchFor, offset);
-        if (expected != result) {
-            this.checkEquals(
-                expected,
-                result,
-                () -> sensitivity + " lastIndexOf( " +
-                    CaseSensitivityTest.quote(chars) + ", " +
-                    CaseSensitivityTest.quote(searchFor) + ", " +
-                    offset + ")"
-            );
-        }
+        this.checkEquals(
+            expected,
+            sensitivity.lastIndexOf(
+                chars,
+                searchFor,
+                offset
+            ),
+            () -> sensitivity + " lastIndexOf( " +
+                CaseSensitivityTest.quote(chars) + ", " +
+                CaseSensitivityTest.quote(searchFor) + ", " +
+                offset + ")"
+        );
     }
 
     // hash insensitive.................................................................................................
