@@ -201,7 +201,7 @@ public final class ConstantsTestingTest implements ConstantsTesting<ConstantsTes
     }
 
     @Disabled
-    static abstract class TestConstantsTestingTest<T extends TestConstantsTestingTest> implements ConstantsTesting<T> {
+    static abstract class TestConstantsTestingTest<T extends TestConstantsTestingTest<T>> implements ConstantsTesting<T> {
 
         TestConstantsTestingTest(final String value) {
             this.value = value;
@@ -223,7 +223,7 @@ public final class ConstantsTestingTest implements ConstantsTesting<ConstantsTes
             return other instanceof TestConstantsTestingTest && this.equals0(Cast.to(other));
         }
 
-        private boolean equals0(final TestConstantsTestingTest other) {
+        private boolean equals0(final TestConstantsTestingTest<?> other) {
             return this.value.equals(other.value);
         }
 
