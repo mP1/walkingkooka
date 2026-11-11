@@ -18,14 +18,11 @@
 package walkingkooka.naming;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class StringNameTest implements ClassTesting2<StringName>,
-    NameTesting<StringName, StringName> {
+final public class StringNameTest implements NameTesting<StringName, StringName> {
 
     private final static String TEXT = "bcd123";
 
@@ -70,15 +67,10 @@ final public class StringNameTest implements ClassTesting2<StringName>,
         return "aa";
     }
 
-    // ClassTesting...................................................................................................
+    // Class............................................................................................................
 
     @Override
     public Class<StringName> type() {
         return StringName.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
