@@ -23,7 +23,7 @@ import walkingkooka.Cast;
 import walkingkooka.HasValueTesting;
 import walkingkooka.ToStringTesting;
 import walkingkooka.compare.ComparableTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.HasTextTesting;
@@ -39,17 +39,9 @@ public interface NameTesting<N extends Name, C extends Comparable<C>> extends Co
     HasTextTesting,
     HasValueTesting,
     CanBeEmptyTesting,
+    PublicClassTesting<N>,
     ToStringTesting<N>,
     TypeNameTesting<N> {
-
-    @Test
-    default void testPublicClass() {
-        this.checkEquals(
-            JavaVisibility.PUBLIC,
-            this.typeVisibility(),
-            "Visibility of name"
-        );
-    }
 
     @Test
     default void testNullFails() {
@@ -169,10 +161,6 @@ public interface NameTesting<N extends Name, C extends Comparable<C>> extends Co
     // class............................................................................................................
 
     Class<N> type();
-
-    default JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
-    }
 
     @Override
     default String typeNamePrefix() {
