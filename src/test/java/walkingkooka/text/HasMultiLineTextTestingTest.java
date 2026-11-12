@@ -33,6 +33,11 @@ public class HasMultiLineTextTestingTest implements HasMultiLineTextTesting {
                         "hello" + lineEnding + "world" + lineEnding
                     );
                 }
+
+                @Override
+                public String toString() {
+                    return "";
+                }
             },
             LineEnding.NL,
             "hello\nworld\n"

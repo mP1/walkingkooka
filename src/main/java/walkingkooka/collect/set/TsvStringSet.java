@@ -25,6 +25,7 @@ import walkingkooka.collect.list.HasTsvStringList;
 import walkingkooka.collect.list.TsvStringList;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.HasMultiLineTextAndCollectionString;
+import walkingkooka.text.TextContext;
 
 import java.util.AbstractSet;
 import java.util.Collection;
@@ -164,6 +165,14 @@ public final class TsvStringSet extends AbstractSet<String>
     @Override
     public CsvStringList csvStringList() {
         return CsvStringList.EMPTY.setElements(this);
+    }
+
+    // HasMultiLineText.................................................................................................
+
+    @Override
+    public CharSequence multiLineTextSeparator(final int i,
+                                               final TextContext context) {
+        return context.lineEnding();
     }
 
     // HasTextWithSeparator.............................................................................................
