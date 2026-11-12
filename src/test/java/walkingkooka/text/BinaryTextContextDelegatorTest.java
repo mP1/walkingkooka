@@ -26,8 +26,6 @@ import java.nio.charset.Charset;
 public final class BinaryTextContextDelegatorTest implements BinaryTextContextTesting,
     ClassTesting<BinaryTextContextDelegator> {
 
-    private final static LineEnding LINE_ENDING = LineEnding.NL;
-
     // BinaryTextContextDelegator.................................................................................
 
     @Test
