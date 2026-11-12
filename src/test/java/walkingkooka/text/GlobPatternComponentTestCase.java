@@ -19,19 +19,13 @@ package walkingkooka.text;
 
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 
-public abstract class GlobPatternComponentTestCase<C extends GlobPatternComponent> implements ClassTesting<C>,
+public abstract class GlobPatternComponentTestCase<C extends GlobPatternComponent> implements PackagePrivateClassTesting<C>,
     HashCodeEqualsDefinedTesting2<C>,
     ToStringTesting {
 
     GlobPatternComponentTestCase() {
         super();
-    }
-
-    @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
