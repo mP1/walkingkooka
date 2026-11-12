@@ -19,12 +19,10 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.HasCharsetTesting;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.PublicClassTesting;
-
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -32,14 +30,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BinaryTextPrintingTest implements BinaryTextContextTesting,
     HashCodeEqualsDefinedTesting2<BinaryTextPrinting>,
+    HasCharsetTesting,
+    HasIndentationTesting,
+    HasLineEndingTesting,
     ToStringTesting,
     PublicClassTesting<BinaryTextPrinting> {
-
-    private final static Charset DIFFERENT_CHARSET = StandardCharsets.ISO_8859_1;
-
-    private final static Indentation DIFFERENT_INDENTATION = Indentation.SPACES4;
-
-    private final static LineEnding DIFFERENT_LINE_ENDING = LineEnding.CR;
 
     // with.............................................................................................................
 
