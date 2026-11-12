@@ -5,15 +5,14 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.HasValueTesting;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 
 import java.util.Locale;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class OptionalLocaleTest implements ClassTesting<OptionalLocale>,
+public final class OptionalLocaleTest implements PublicClassTesting<OptionalLocale>,
     HashCodeEqualsDefinedTesting2<OptionalLocale>,
     ToStringTesting,
     HasValueTesting {
@@ -93,10 +92,5 @@ public final class OptionalLocaleTest implements ClassTesting<OptionalLocale>,
     @Override
     public Class<OptionalLocale> type() {
         return OptionalLocale.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
