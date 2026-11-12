@@ -21,8 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.HasValueTesting;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 
 import java.util.Arrays;
 
@@ -30,21 +29,13 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class IndentationTest implements ClassTesting2<Indentation>,
+final public class IndentationTest implements PublicClassTesting<Indentation>,
     CharSequenceTesting2<Indentation>,
     HashCodeEqualsDefinedTesting2<Indentation>,
     HasIndentationTesting,
     HasTextTesting,
     ToStringTesting,
     HasValueTesting {
-
-    @Override
-    public void testAllConstructorsVisibility() {
-    }
-
-    @Override
-    public void testIfClassIsFinalIfAllConstructorsArePrivate() {
-    }
 
     @Test
     public void testWithCarriageReturnRepeatingCharFails() {
@@ -612,11 +603,6 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
     @Override
     public Class<Indentation> type() {
         return Indentation.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     @Override
