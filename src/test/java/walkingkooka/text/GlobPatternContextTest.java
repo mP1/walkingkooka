@@ -22,7 +22,7 @@ import walkingkooka.ContextTesting;
 import walkingkooka.ToStringTesting;
 
 public final class GlobPatternContextTest implements ContextTesting<GlobPatternContext>,
-    ToStringTesting<GlobPatternContext> {
+    ToStringTesting {
 
     @Test
     public void testToStringSearch() {

@@ -23,7 +23,7 @@ import walkingkooka.reflect.TypeNameTesting;
 
 public abstract class PushableStreamConsumerStreamIntermediateTestCase<I extends PushableStreamConsumerStreamIntermediate> extends PushableStreamConsumerTestCase<I>
     implements HashCodeEqualsDefinedTesting2<I>,
-    ToStringTesting<I>,
+    ToStringTesting,
     TypeNameTesting<I> {
 
     PushableStreamConsumerStreamIntermediateTestCase() {

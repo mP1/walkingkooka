@@ -19,7 +19,6 @@ package walkingkooka.collect;
 
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
-import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.list.Lists;
 
@@ -73,25 +72,11 @@ public final class CollectionTesting2Test implements CollectionTesting2<List<Str
                     }
                 };
             }
-
-            @Override
-            public Class<List<String>> type() {
-                return Cast.to(List.class);
-            }
         }.testIteratorContainsAndCollection());
-    }
-
-    @Override
-    public void testCheckToStringOverridden() {
     }
 
     @Override
     public List<String> createCollection() {
         return Lists.of(ELEMENT1, ELEMENT2);
-    }
-
-    @Override
-    public Class<List<String>> type() {
-        return Cast.to(List.class);
     }
 }

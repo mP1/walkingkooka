@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BinaryTextPrintingTest implements BinaryTextContextTesting,
     HashCodeEqualsDefinedTesting2<BinaryTextPrinting>,
-    ToStringTesting<BinaryTextPrinting>,
+    ToStringTesting,
     ClassTesting<BinaryTextPrinting> {
 
     private final static Charset DIFFERENT_CHARSET = StandardCharsets.ISO_8859_1;

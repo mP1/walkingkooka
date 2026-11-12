@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class RangeBoundTestCase2<B extends RangeBound<Integer>> extends RangeBoundTestCase<B>
     implements IsMethodTesting<B>,
-    ToStringTesting<B>,
+    ToStringTesting,
     HasValueTesting {
 
     RangeBoundTestCase2() {

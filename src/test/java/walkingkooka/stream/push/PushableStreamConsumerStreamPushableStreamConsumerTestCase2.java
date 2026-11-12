@@ -25,7 +25,7 @@ import java.util.List;
 public abstract class PushableStreamConsumerStreamPushableStreamConsumerTestCase2<P extends PushableStreamConsumerStreamPushableStreamConsumer<String>>
     extends PushableStreamConsumerStreamPushableStreamConsumerTestCase<P>
     implements PushableStreamConsumerTesting<P, String>,
-    ToStringTesting<P> {
+    ToStringTesting {
 
     PushableStreamConsumerStreamPushableStreamConsumerTestCase2() {
         super();

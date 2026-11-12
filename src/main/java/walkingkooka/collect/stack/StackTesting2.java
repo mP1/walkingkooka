@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public interface StackTesting2<S extends Stack<T>, T> extends StackTesting,
     HashCodeEqualsDefinedTesting2<S>,
-    ToStringTesting<S>,
+    ToStringTesting,
     TypeNameTesting<S> {
 
     @Test

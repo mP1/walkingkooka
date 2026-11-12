@@ -24,7 +24,7 @@ import java.util.function.BiFunction;
  * Mixing interface that provides methods to test a {@link BiFunction}
  */
 public interface BiFunctionTesting2<F extends BiFunction<T, U, R>, T, U, R> extends BiFunctionTesting,
-    ToStringTesting<F> {
+    ToStringTesting {
 
     default void applyAndCheck(final T in1,
                                final U in2,

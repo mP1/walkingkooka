@@ -28,7 +28,7 @@ import java.util.Map.Entry;
 public abstract class ImmutableMapEntrySetTestCase2<S extends ImmutableMapEntrySet<Entry<String, Integer>>> extends ImmutableMapEntrySetTestCase<S>
     implements SetTesting2<S, Entry<String, Integer>>,
     IteratorTesting,
-    ToStringTesting<S> {
+    ToStringTesting {
 
     ImmutableMapEntrySetTestCase2() {
         super();

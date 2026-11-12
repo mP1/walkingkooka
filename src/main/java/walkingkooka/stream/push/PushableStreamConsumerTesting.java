@@ -21,7 +21,7 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting2;
 
 public interface PushableStreamConsumerTesting<C extends PushableStreamConsumer<T>, T> extends ClassTesting2<C>,
-    ToStringTesting<C> {
+    ToStringTesting {
 
     /**
      * Factory that creates a {@link PushableStreamConsumer}

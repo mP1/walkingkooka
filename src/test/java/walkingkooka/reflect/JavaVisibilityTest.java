@@ -24,7 +24,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
 public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
-    ToStringTesting<JavaVisibility> {
+    ToStringTesting {
 
     // of(Class).......................................................................................................
 

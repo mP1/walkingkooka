@@ -24,7 +24,7 @@ import walkingkooka.reflect.TypeNameTesting;
  */
 public interface ContextTesting<C extends Context> extends PackagePrivateClassTesting<C>,
     TypeNameTesting<C>,
-    ToStringTesting<C> {
+    ToStringTesting {
 
     C createContext();
 

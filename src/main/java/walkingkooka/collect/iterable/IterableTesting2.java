@@ -24,7 +24,7 @@ import walkingkooka.reflect.TypeNameTesting;
  * Mixin interface for testing {@link Iterable}
  */
 public interface IterableTesting2<I extends Iterable<T>, T> extends IterableTesting,
-    ToStringTesting<I>,
+    ToStringTesting,
     TypeNameTesting<I> {
 
     I createIterable();

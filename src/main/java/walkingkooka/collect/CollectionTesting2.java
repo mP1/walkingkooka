@@ -22,7 +22,8 @@ import walkingkooka.ToStringTesting;
 
 import java.util.Collection;
 
-public interface CollectionTesting2<C extends Collection<E>, E> extends CollectionTesting, ToStringTesting<C> {
+public interface CollectionTesting2<C extends Collection<E>, E> extends CollectionTesting,
+    ToStringTesting {
 
     @Test
     default void testContainsAbsent() {

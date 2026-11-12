@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class CharSequenceTextCursorTest implements ClassTesting2<CharSequenceTextCursor>,
     TextCursorTesting2<CharSequenceTextCursor>,
-    ToStringTesting<CharSequenceTextCursor> {
+    ToStringTesting {
 
     @Test
     public void testFromNullFails() {

@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class PushableStreamConsumerCloseableCollectionTestCase<C extends PushableStreamConsumerCloseableCollection>
     extends PushableStreamConsumerTestCase<C>
-    implements ToStringTesting<C>,
+    implements ToStringTesting,
     TypeNameTesting<C> {
 
     PushableStreamConsumerCloseableCollectionTestCase() {

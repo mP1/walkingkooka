@@ -22,7 +22,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 
 public final class ToStringBuilderSaveStateRunnableTest extends ToStringBuilderTestCase<ToStringBuilderSaveStateRunnable>
-    implements ToStringTesting<ToStringBuilderSaveStateRunnable>,
+    implements ToStringTesting,
     TypeNameTesting<ToStringBuilderSaveStateRunnable> {
 
     @Test

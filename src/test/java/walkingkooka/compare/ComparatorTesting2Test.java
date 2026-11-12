@@ -189,11 +189,6 @@ public final class ComparatorTesting2Test implements ComparatorTesting2<Comparat
         );
     }
 
-    @Override
-    public void testCheckToStringOverridden() {
-
-    }
-
     // helper...........................................................................................................
 
     private void mustFail(final Runnable run) {

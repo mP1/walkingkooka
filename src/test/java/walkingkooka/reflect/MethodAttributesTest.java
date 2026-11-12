@@ -24,7 +24,7 @@ import walkingkooka.collect.set.Sets;
 import java.lang.reflect.Method;
 
 public final class MethodAttributesTest implements ClassTesting2<MethodAttributes>,
-    ToStringTesting<MethodAttributes> {
+    ToStringTesting {
 
     @Test
     public void testAbstract() throws Exception {

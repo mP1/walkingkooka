@@ -43,7 +43,7 @@ public interface PathTesting<P extends Path<P, N> & Comparable<P>, N extends Pat
     ConstantsTesting<P>,
     HasTextTesting,
     HasFileExtensionTesting,
-    ToStringTesting<P>,
+    ToStringTesting,
     TypeNameTesting<P>,
     CanBeEmptyTesting,
     HasValueTesting {

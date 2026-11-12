@@ -38,7 +38,7 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
     ConstantsTesting<FileExtension>,
     ParseStringTesting<FileExtension>,
     HasValueTesting,
-    ToStringTesting<FileExtension>,
+    ToStringTesting,
     CanBeEmptyTesting,
     PredicateTesting {
 

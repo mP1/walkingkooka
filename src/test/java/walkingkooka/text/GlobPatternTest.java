@@ -32,7 +32,7 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
     HashCodeEqualsDefinedTesting2<GlobPattern>,
     PredicateTesting2<GlobPattern, CharSequence>,
     HasTextTesting,
-    ToStringTesting<GlobPattern> {
+    ToStringTesting {
 
     // parse............................................................................................................
 

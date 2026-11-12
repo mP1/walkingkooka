@@ -121,10 +121,6 @@ public final class BuilderTestingTest implements BuilderTesting<Builder<String>,
     }
 
     @Override
-    public void testCheckToStringOverridden() {
-    }
-
-    @Override
     public Builder<String> createBuilder() {
         throw new UnsupportedOperationException();
     }

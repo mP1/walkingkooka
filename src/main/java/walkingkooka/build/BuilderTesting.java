@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Mixin interface for testing {@link Builder}
  */
 public interface BuilderTesting<B extends Builder<T>, T> extends ThrowableTesting,
-    ToStringTesting<B>,
+    ToStringTesting,
     TypeNameTesting<B> {
 
     @Test

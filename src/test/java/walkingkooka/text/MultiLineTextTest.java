@@ -32,7 +32,7 @@ public final class MultiLineTextTest implements CanBinaryTesting,
     HasValueTesting,
     HasTextTesting,
     HashCodeEqualsDefinedTesting2<MultiLineText>,
-    ToStringTesting<MultiLineText>,
+    ToStringTesting,
     ClassTesting<MultiLineText> {
 
     @Test

@@ -27,7 +27,7 @@ import java.util.Map;
 public abstract class ImmutableMapTestCase2<M extends ImmutableMap<String, Integer>> extends ImmutableMapTestCase<M>
     implements MapTesting<M, String, Integer>,
     IteratorTesting,
-    ToStringTesting<M>,
+    ToStringTesting,
     TypeNameTesting<M> {
 
     ImmutableMapTestCase2() {

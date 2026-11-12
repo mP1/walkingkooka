@@ -29,7 +29,7 @@ import java.util.List;
 
 public final class IteratorEnumerationTest implements EnumerationTesting,
     ClassTesting<IteratorEnumeration<String>>,
-    ToStringTesting<IteratorEnumeration<String>> {
+    ToStringTesting {
 
     public void testConsume() {
         final List<String> values = Lists.of(
