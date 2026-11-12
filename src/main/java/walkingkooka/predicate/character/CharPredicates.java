@@ -34,52 +34,52 @@ final public class CharPredicates implements PublicStaticHelper {
     }
 
     /**
-     * {@see AlwaysCharPredicate}.
+     * {@see CharPredicateAlways}.
      */
     public static CharPredicate always() {
-        return AlwaysCharPredicate.INSTANCE;
+        return CharPredicateAlways.INSTANCE;
     }
 
     /**
-     * {@see AndCharPredicate}.
+     * {@see CharPredicateLogicalAnd}.
      */
     public static CharPredicate and(final CharPredicate left, final CharPredicate right) {
-        return AndCharPredicate.wrap(left, right);
+        return CharPredicateLogicalAnd.wrap(left, right);
     }
 
     /**
-     * {@see AndNotCharPredicate}.
+     * {@see CharPredicateLogicalAndNot}.
      */
     public static CharPredicate andNot(final CharPredicate left, final CharPredicate right) {
-        return AndNotCharPredicate.wrap(left, right);
+        return CharPredicateLogicalAndNot.wrap(left, right);
     }
 
     /**
-     * {@see AsciiCharPredicate}
+     * {@see CharPredicateAscii}
      */
     public static CharPredicate ascii() {
-        return AsciiCharPredicate.INSTANCE;
+        return CharPredicateAscii.INSTANCE;
     }
 
     /**
-     * {@see AsciiControlCharPredicate}
+     * {@see CharPredicateAsciiControl}
      */
     public static CharPredicate asciiControl() {
-        return AsciiControlCharPredicate.INSTANCE;
+        return CharPredicateAsciiControl.INSTANCE;
     }
 
     /**
-     * {@see AsciiPrintableCharPredicate}
+     * {@see CharPredicateAsciiPrintable}
      */
     public static CharPredicate asciiPrintable() {
-        return AsciiPrintableCharPredicate.INSTANCE;
+        return CharPredicateAsciiPrintable.INSTANCE;
     }
 
     /**
-     * {@see AnyCharPredicate}
+     * {@see CharPredicateAny}
      */
     public static CharPredicate any(final String chars) {
-        return AnyCharPredicate.with(chars);
+        return CharPredicateAny.with(chars);
     }
 
     /**
@@ -90,24 +90,24 @@ final public class CharPredicates implements PublicStaticHelper {
     }
 
     /**
-     * {@see CaseInsensitiveCharPredicate}.
+     * {@see CharPredicateCaseInsensitive}.
      */
     public static CharPredicate caseInsensitive(final CharPredicate predicate) {
-        return CaseInsensitiveCharPredicate.with(predicate);
+        return CharPredicateCaseInsensitive.with(predicate);
     }
 
     /**
-     * {@see DigitCharPredicate}.
+     * {@see CharPredicateDigit}.
      */
     public static CharPredicate digit() {
-        return DigitCharPredicate.INSTANCE;
+        return CharPredicateDigit.INSTANCE;
     }
 
     /**
-     * {@see EndOfLineCharPredicate}.
+     * {@see CharPredicateEndOfLine}.
      */
     public static CharPredicate endOfLine() {
-        return EndOfLineCharPredicate.INSTANCE;
+        return CharPredicateEndOfLine.INSTANCE;
     }
 
     /**
@@ -193,94 +193,94 @@ final public class CharPredicates implements PublicStaticHelper {
     }
 
     /**
-     * {@see LetterCharPredicate}.
+     * {@see CharPredicateLetter}.
      */
     public static CharPredicate letter() {
-        return LetterCharPredicate.INSTANCE;
+        return CharPredicateLetter.INSTANCE;
     }
 
     /**
-     * {@see LetterOrDigitCharPredicate}.
+     * {@see CharPredicateLetterOrDigit}.
      */
     public static CharPredicate letterOrDigit() {
-        return LetterOrDigitCharPredicate.INSTANCE;
+        return CharPredicateLetterOrDigit.INSTANCE;
     }
 
     /**
-     * {@see LowerCasingCharPredicate}.
+     * {@see CharPredicateLowerCasing}.
      */
     public static CharPredicate lowerCasing(final CharPredicate predicate) {
-        return LowerCasingCharPredicate.wrap(predicate);
+        return CharPredicateLowerCasing.wrap(predicate);
     }
 
     /**
-     * {@see NeverCharPredicate}.
+     * {@see CharPredicateNever}.
      */
     public static CharPredicate never() {
-        return NeverCharPredicate.INSTANCE;
+        return CharPredicateNever.INSTANCE;
     }
 
     /**
-     * {@see NotCharPredicate}.
+     * {@see CharPredicateNot}.
      */
     public static CharPredicate not(final CharPredicate charPredicate) {
-        return NotCharPredicate.wrap(charPredicate);
+        return CharPredicateNot.wrap(charPredicate);
     }
 
     /**
-     * {@see OrCharPredicate}.
+     * {@see CharPredicateLogicalOr}.
      */
     public static CharPredicate or(final CharPredicate left, final CharPredicate right) {
-        return OrCharPredicate.wrap(left, right);
+        return CharPredicateLogicalOr.wrap(left, right);
     }
 
     /**
-     * {@see PrintableCharPredicate}
+     * {@see CharPredicatePrintable}
      */
     public static CharPredicate printable() {
-        return PrintableCharPredicate.INSTANCE;
+        return CharPredicatePrintable.INSTANCE;
     }
 
     /**
-     * {@see RangeCharPredicate}
+     * {@see CharPredicateRange}
      */
     public static CharPredicate range(final char start, final char end) {
-        return RangeCharPredicate.with(start, end);
+        return CharPredicateRange.with(start, end);
     }
 
     /**
-     * {@see Rfc2045TokenCharPredicate}
+     * {@see CharPredicateRfc2045Token}
      */
     public static CharPredicate rfc2045Token() {
-        return Rfc2045TokenCharPredicate.INSTANCE;
+        return CharPredicateRfc2045Token.INSTANCE;
     }
 
     /**
-     * {@see Rfc2045TokenSpecialCharPredicate}
+     * {@see CharPredicateRfc2045TokenSpecial}
      */
     public static CharPredicate rfc2045TokenSpecial() {
-        return Rfc2045TokenSpecialCharPredicate.INSTANCE;
+        return CharPredicateRfc2045TokenSpecial.INSTANCE;
     }
 
     /**
-     * {@see ToStringCharPredicate}.
+     * {@see CharPredicateToString}.
      */
     public static CharPredicate toString(final CharPredicate predicate, final String toString) {
-        return ToStringCharPredicate.wrap(predicate, toString);
+        return CharPredicateToString.wrap(predicate, toString);
     }
 
     /**
-     * {@see WhitespaceCharPredicate}.
+     * {@see CharPredicateWhitespace}.
      */
     public static CharPredicate whitespace() {
-        return WhitespaceCharPredicate.INSTANCE;
+        return CharPredicateWhitespace.INSTANCE;
     }
 
     /**
-     * {@see XmlCharPredicate}.
+     * {@see CharPredicateXml}.
      */
     public static CharPredicate xml() {
-        return XmlCharPredicate.INSTANCE;
+        return CharPredicateXml.INSTANCE;
     }
 
     /**

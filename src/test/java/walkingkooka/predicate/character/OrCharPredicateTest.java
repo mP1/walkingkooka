@@ -22,7 +22,7 @@ import walkingkooka.Cast;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-final public class OrCharPredicateTest extends LogicalCharPredicateTestCase<OrCharPredicate> {
+final public class OrCharPredicateTest extends CharPredicateLogicalTestCase<CharPredicateLogicalOr> {
 
     private final static CharPredicate PREDICATE = CharPredicates.is('s');
 
@@ -31,48 +31,48 @@ final public class OrCharPredicateTest extends LogicalCharPredicateTestCase<OrCh
     @Test
     public void testWrapWithLeftAlways() {
         final CharPredicate always = CharPredicates.always();
-        assertSame(always, OrCharPredicate.wrap(always, PREDICATE));
+        assertSame(always, CharPredicateLogicalOr.wrap(always, PREDICATE));
     }
 
     @Test
     public void testWrapWithRightAlways() {
         final CharPredicate always = CharPredicates.always();
-        assertSame(always, OrCharPredicate.wrap(PREDICATE, always));
+        assertSame(always, CharPredicateLogicalOr.wrap(PREDICATE, always));
     }
 
     @Test
     public void testWrapWithLeftNever() {
         final CharPredicate never = CharPredicates.never();
         assertSame(PREDICATE,
-            OrCharPredicate.wrap(never, PREDICATE));
+            CharPredicateLogicalOr.wrap(never, PREDICATE));
     }
 
     @Test
     public void testWrapWithRightNever() {
         final CharPredicate never = CharPredicates.never();
         assertSame(PREDICATE,
-            OrCharPredicate.wrap(PREDICATE, never));
+            CharPredicateLogicalOr.wrap(PREDICATE, never));
     }
 
     @Test
     public void testWrapWithSame() {
         assertSame(PREDICATE,
-            OrCharPredicate.wrap(PREDICATE, PREDICATE));
+            CharPredicateLogicalOr.wrap(PREDICATE, PREDICATE));
     }
 
     @Test
     public void testLeftMatchesShortSkipsRight() {
-        this.testTrue(OrCharPredicate.wrap(this.is('m'), CharPredicates.fake()), 'm');
+        this.testTrue(CharPredicateLogicalOr.wrap(this.is('m'), CharPredicates.fake()), 'm');
     }
 
     @Test
     public void testRightTrue() {
-        this.testTrue(OrCharPredicate.wrap(this.is('d'), this.is('m')), 'm');
+        this.testTrue(CharPredicateLogicalOr.wrap(this.is('d'), this.is('m')), 'm');
     }
 
     @Test
     public void testNeither() {
-        final CharPredicate predicate = OrCharPredicate.wrap(this.not(this.is('m')),
+        final CharPredicate predicate = CharPredicateLogicalOr.wrap(this.not(this.is('m')),
             this.not(CharPredicates.caseInsensitive('m')));
         this.testFalse(predicate, 'm');
         this.testTrue(predicate, 'd');
@@ -80,7 +80,7 @@ final public class OrCharPredicateTest extends LogicalCharPredicateTestCase<OrCh
 
     @Test
     public void testMatchNot2() {
-        final CharPredicate predicate = OrCharPredicate.wrap(this.not(this.is('m')),
+        final CharPredicate predicate = CharPredicateLogicalOr.wrap(this.not(this.is('m')),
             this.not(this.is('d')));
         this.testTrue(predicate, 'm');
         this.testTrue(predicate, 'd');
@@ -96,12 +96,12 @@ final public class OrCharPredicateTest extends LogicalCharPredicateTestCase<OrCh
     }
 
     @Override
-    OrCharPredicate createCharPredicate(final CharPredicate left, final CharPredicate right) {
-        return Cast.to(OrCharPredicate.wrap(left, right));
+    CharPredicateLogicalOr createCharPredicate(final CharPredicate left, final CharPredicate right) {
+        return Cast.to(CharPredicateLogicalOr.wrap(left, right));
     }
 
     @Override
-    public Class<OrCharPredicate> type() {
-        return OrCharPredicate.class;
+    public Class<CharPredicateLogicalOr> type() {
+        return CharPredicateLogicalOr.class;
     }
 }
