@@ -1,15 +1,14 @@
 package walkingkooka.collect.list;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.text.HasMultiLineTextTesting;
 import walkingkooka.text.LineEnding;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class StringListTest implements ListTesting2<StringList, String>,
-    ClassTesting<StringList>,
+    PublicClassTesting<StringList>,
     CanRemoveTrailingNullOrEmptyStringsTesting,
     ImmutableListTesting<StringList, String>,
     HasCsvStringListTesting,
@@ -256,10 +255,5 @@ public class StringListTest implements ListTesting2<StringList, String>,
     @Override
     public Class<StringList> type() {
         return StringList.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
