@@ -18,10 +18,10 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 
-public final class TextContextDelegatorTest implements TextContextTesting, ClassTesting<TextContextDelegator> {
+public final class TextContextDelegatorTest implements TextContextTesting,
+    PublicClassTesting<TextContextDelegator> {
 
     // TextContextDelegator.............................................................................................
 
@@ -46,11 +46,6 @@ public final class TextContextDelegatorTest implements TextContextTesting, Class
     @Override
     public Class<TextContextDelegator> type() {
         return TextContextDelegator.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     private final class TestTextContextDelegator implements TextContextDelegator {
