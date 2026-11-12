@@ -1,13 +1,12 @@
 package walkingkooka.collect.list;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class BooleanListTest implements ListTesting2<BooleanList, Boolean>,
-    ClassTesting<BooleanList>,
+    PublicClassTesting<BooleanList>,
     ImmutableListTesting<BooleanList, Boolean> {
 
     private final static Boolean BOOLEAN1 = true;
@@ -151,10 +150,5 @@ public class BooleanListTest implements ListTesting2<BooleanList, Boolean>,
     @Override
     public Class<BooleanList> type() {
         return BooleanList.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
