@@ -34,8 +34,8 @@ final public class IndentationTest implements PublicClassTesting<Indentation>,
     HashCodeEqualsDefinedTesting2<Indentation>,
     HasIndentationTesting,
     HasTextTesting,
-    ToStringTesting,
-    HasValueTesting {
+    HasValueTesting,
+    ToStringTesting {
 
     @Test
     public void testWithCarriageReturnRepeatingCharFails() {
@@ -63,7 +63,7 @@ final public class IndentationTest implements PublicClassTesting<Indentation>,
 
     @Test
     public void testRepeatingCharacter() {
-        this.check(
+        this.valueAndCheck(
             Indentation.with('.', 3),
             "..."
         );
@@ -79,7 +79,7 @@ final public class IndentationTest implements PublicClassTesting<Indentation>,
 
     @Test
     public void testRepeatingSpaceMax() {
-        this.check(
+        this.valueAndCheck(
             Indentation.with(
                 ' ',
                 Indentation.SPACES_COUNT
@@ -93,7 +93,7 @@ final public class IndentationTest implements PublicClassTesting<Indentation>,
 
     @Test
     public void testRepeatingSpaceMoreMax() {
-        this.check(
+        this.valueAndCheck(
             Indentation.with(
                 ' ',
                 Indentation.SPACES_COUNT + 1
@@ -145,7 +145,7 @@ final public class IndentationTest implements PublicClassTesting<Indentation>,
             Indentation.SPACES_COUNT
         ).toString();
 
-        this.check(
+        this.valueAndCheck(
             Indentation.with(spaces),
             spaces
         );
@@ -163,7 +163,7 @@ final public class IndentationTest implements PublicClassTesting<Indentation>,
             Indentation.SPACES_COUNT + 1
         ).toString();
 
-        this.check(
+        this.valueAndCheck(
             Indentation.with(spaces),
             spaces
         );
@@ -215,13 +215,6 @@ final public class IndentationTest implements PublicClassTesting<Indentation>,
     }
 
     @Test
-    public void testEqualsDifferent() {
-        this.checkNotEquals(
-            Indentation.with("different")
-        );
-    }
-
-    @Test
     public void testStringIsConstants() {
         final StringBuilder b = new StringBuilder();
         for (int i = 0; i < Indentation.SPACES_COUNT; i++) {
@@ -249,7 +242,7 @@ final public class IndentationTest implements PublicClassTesting<Indentation>,
         Arrays.fill(a, ' ');
         final String value = new String(a);
 
-        this.check(
+        this.valueAndCheck(
             Indentation.with(value),
             value
         );
@@ -269,7 +262,7 @@ final public class IndentationTest implements PublicClassTesting<Indentation>,
     @Test
     public void testNonWhitespace() {
         final String value = "123";
-        this.check(
+        this.valueAndCheck(
             Indentation.with(value),
             value
         );
@@ -307,7 +300,7 @@ final public class IndentationTest implements PublicClassTesting<Indentation>,
         final Indentation indentation = Indentation.with("123");
         final Indentation append = Indentation.with("   ");
 
-        this.check(
+        this.valueAndCheck(
             indentation.append(append),
             "123   "
         );
@@ -317,7 +310,7 @@ final public class IndentationTest implements PublicClassTesting<Indentation>,
     public void testAppendNonConstantToConstant() {
         final Indentation indentation = Indentation.with("   ");
         final Indentation append = Indentation.with(" 12");
-        this.check(
+        this.valueAndCheck(
             indentation.append(append),
             "    12"
         );
@@ -329,7 +322,7 @@ final public class IndentationTest implements PublicClassTesting<Indentation>,
         final Indentation appended = Indentation.with("APPENDED");
         final Indentation result = indentation.append(appended);
 
-        this.check(
+        this.valueAndCheck(
             result,
             "..APPENDED"
         );
@@ -518,33 +511,15 @@ final public class IndentationTest implements PublicClassTesting<Indentation>,
     @Test
     public void testRepeatMoreThanOne() {
         final Indentation indentation = Indentation.with("abc");
-        this.check(
+        this.valueAndCheck(
             indentation.repeat(3),
             "abcabcabc"
         );
     }
 
-    // toString.........................................................................................................
-
-    @Test
-    public void testToStringEmpty() {
-        this.toStringAndCheck(
-            Indentation.with(""),
-            ""
-        );
-    }
-
-    @Test
-    public void testToString() {
-        this.toStringAndCheck(
-            Indentation.with("a1 "),
-            "a1 "
-        );
-    }
-
-    private void check(final Indentation indentation,
-                       final String value) {
-        this.valueAndCheck(
+    public void valueAndCheck(final Indentation indentation,
+                              final String value) {
+        HasValueTesting.super.valueAndCheck(
             indentation,
             value
         );
@@ -584,13 +559,6 @@ final public class IndentationTest implements PublicClassTesting<Indentation>,
         );
     }
 
-    // TypeNaming.......................................................................................................
-
-    @Override
-    public void testTypeNaming() {
-        throw new UnsupportedOperationException();
-    }
-
     // CharSequence.....................................................................................................
 
     @Override
@@ -598,7 +566,39 @@ final public class IndentationTest implements PublicClassTesting<Indentation>,
         return this.createObject();
     }
 
-    // ClassTesting.....................................................................................................
+    // hashCode/equals..................................................................................................
+
+    @Test
+    public void testEqualsDifferent() {
+        this.checkNotEquals(
+            Indentation.with("different")
+        );
+    }
+
+    @Override
+    public Indentation createObject() {
+        return Indentation.with("  ");
+    }
+
+    // toString.........................................................................................................
+
+    @Test
+    public void testToStringEmpty() {
+        this.toStringAndCheck(
+            Indentation.with(""),
+            ""
+        );
+    }
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(
+            Indentation.with("a1 "),
+            "a1 "
+        );
+    }
+
+    // Class............................................................................................................
 
     @Override
     public Class<Indentation> type() {
@@ -606,7 +606,7 @@ final public class IndentationTest implements PublicClassTesting<Indentation>,
     }
 
     @Override
-    public Indentation createObject() {
-        return Indentation.with("  ");
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 }
