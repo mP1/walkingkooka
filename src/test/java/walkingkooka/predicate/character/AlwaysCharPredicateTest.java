@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-final public class AlwaysCharPredicateTest implements CharPredicateTesting<AlwaysCharPredicate> {
+final public class AlwaysCharPredicateTest implements CharPredicateTesting2<AlwaysCharPredicate> {
 
     @Test
     public void testMatches() {

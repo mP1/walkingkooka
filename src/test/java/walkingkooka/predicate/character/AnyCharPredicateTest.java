@@ -24,7 +24,7 @@ import walkingkooka.HashCodeEqualsDefinedTesting2;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class AnyCharPredicateTest implements CharPredicateTesting<AnyCharPredicate>,
+final public class AnyCharPredicateTest implements CharPredicateTesting2<AnyCharPredicate>,
     HashCodeEqualsDefinedTesting2<AnyCharPredicate> {
 
     // constants

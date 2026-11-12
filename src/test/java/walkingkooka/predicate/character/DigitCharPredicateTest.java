@@ -19,7 +19,7 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 
-final public class DigitCharPredicateTest implements CharPredicateTesting<DigitCharPredicate> {
+final public class DigitCharPredicateTest implements CharPredicateTesting2<DigitCharPredicate> {
 
     @Test
     public void testLetter() {

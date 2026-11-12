@@ -19,7 +19,7 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 
-final public class EndOfLineCharPredicateTest implements CharPredicateTesting<EndOfLineCharPredicate> {
+final public class EndOfLineCharPredicateTest implements CharPredicateTesting2<EndOfLineCharPredicate> {
 
     @Test
     public void testCarriageReturn() {
