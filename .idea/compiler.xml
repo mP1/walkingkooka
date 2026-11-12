@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
+    <option name="DEFAULT_COMPILER" value="Eclipse" />
     <option name="BUILD_PROCESS_HEAP_SIZE" value="800" />
     <annotationProcessing>
       <profile name="Maven default annotation processors profile" enabled="true">
@@ -11,7 +12,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="walkingkooka" target="9" />
+      <module name="walkingkooka" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

@@ -29,7 +29,7 @@ import java.util.function.Consumer;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaIoReaderTextReader>,
-    ToStringTesting<JavaIoReaderTextReader> {
+    ToStringTesting {
 
     /**
      * A silent {@link Consumer}.

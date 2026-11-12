@@ -28,7 +28,7 @@ import java.util.function.Predicate;
  */
 public interface PredicateTesting2<P extends Predicate<T>, T>
     extends PredicateTesting,
-    ToStringTesting<P>,
+    ToStringTesting,
     TypeNameTesting<P> {
 
     @Test

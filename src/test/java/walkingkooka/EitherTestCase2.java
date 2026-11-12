@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public abstract class EitherTestCase2<E extends Either<L, R>, L, R> extends EitherTestCase<E, L, R>
     implements HashCodeEqualsDefinedTesting2<E>,
     IsMethodTesting<E>,
-    ToStringTesting<E> {
+    ToStringTesting {
 
     EitherTestCase2() {
         super();

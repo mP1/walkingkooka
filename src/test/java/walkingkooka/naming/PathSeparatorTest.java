@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 final public class PathSeparatorTest implements ClassTesting2<PathSeparator>,
     HashCodeEqualsDefinedTesting2<PathSeparator>,
     ThrowableTesting,
-    ToStringTesting<PathSeparator> {
+    ToStringTesting {
 
     // constants
 

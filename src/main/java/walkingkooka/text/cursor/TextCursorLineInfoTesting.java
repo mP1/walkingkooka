@@ -24,7 +24,7 @@ import walkingkooka.reflect.TypeNameTesting;
  * Mixin that introduces helpers and tests for {@link TextCursorLineInfo} implementations.
  */
 public interface TextCursorLineInfoTesting<L extends TextCursorLineInfo>
-    extends ToStringTesting<L>,
+    extends ToStringTesting,
     TypeNameTesting<L> {
 
     /**

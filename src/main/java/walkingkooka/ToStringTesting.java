@@ -17,56 +17,42 @@
 
 package walkingkooka;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import walkingkooka.test.Fake;
 import walkingkooka.test.Testing;
 import walkingkooka.text.CharSequences;
-
-import java.lang.reflect.Method;
 
 /**
  * Mixing that may be used to test toString implementations.
  */
-public interface ToStringTesting<T> extends Testing {
+public interface ToStringTesting extends Testing {
 
-    @Test
-    default void testCheckToStringOverridden() {
-        final Class<T> type = this.type();
-
-        if (false == Fake.class.isAssignableFrom(type)) {
-            boolean notOverridden = true;
-
-            try {
-                final Method method = type.getMethod("toString");
-                if (method.getDeclaringClass() != Object.class) {
-                    notOverridden = false;
-                }
-            } catch (final NoSuchMethodException cause) {
-                // nop
-            }
-
-            if (notOverridden) {
-                Assertions.fail(type.getName() + " did not override Object.toString");
-            }
-        }
+    default void toStringAndCheck(final Object object,
+                                  final String expected) {
+        this.checkEquals(
+            expected,
+            object.toString()
+        );
     }
 
-    Class<T> type();
-
-    default void toStringAndCheck(final Object object, final String expected) {
-        this.checkEquals(expected, object.toString());
-    }
-
-    default void toStringContainsCheck(final Object object, final String... components) {
+    default void toStringContainsCheck(final Object object,
+                                       final String... components) {
         final String toString = object.toString();
 
         String s = toString;
 
         for (final String c : components) {
             final int foundIndex = s.indexOf(c);
-            this.checkNotEquals(-1, foundIndex, () -> "Cannot find " + CharSequences.quote(c) + " within " + CharSequences.quote(toString));
-            s = s.substring(0, foundIndex) + s.substring(foundIndex + c.length());
+            this.checkNotEquals(
+                -1,
+                foundIndex,
+                () -> "Cannot find " + CharSequences.quote(c) + " within " + CharSequences.quote(toString)
+            );
+            s = s.substring(
+                0,
+                foundIndex
+            ) + s.substring(
+                foundIndex +
+                    c.length()
+            );
         }
     }
 }

@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.text.CharSequences;
 
 public abstract class ToStringBuilderAppenderTestCase2<A extends ToStringBuilderAppender<V>, V> extends ToStringBuilderAppenderTestCase<A, V>
-    implements ToStringTesting<A> {
+    implements ToStringTesting {
 
     final static String SEPARATOR = "< SEPARATOR >";
     final static String LABEL_SEPARATOR = "< LABEL1-SEPARATOR >";

@@ -18,34 +18,14 @@
 package walkingkooka;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.reflect.PublicClassTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ToStringTestingTest implements ToStringTesting<StringBuilder> {
+public final class ToStringTestingTest implements ToStringTesting,
+    PublicClassTesting<ToStringTesting> {
 
-    @Test
-    public void testCheckToStringOverriddenMissing() {
-        assertThrows(AssertionError.class, () -> new TestToStringMissing().testCheckToStringOverridden());
-    }
-
-    private static class TestToStringMissing implements ToStringTesting<TestToStringMissing> {
-        @Override
-        public Class<TestToStringMissing> type() {
-            return TestToStringMissing.class;
-        }
-    }
-
-    @Test
-    public void testCheckToStringOverriddenPresent() {
-        new TestToStringPresent().testCheckToStringOverridden();
-    }
-
-    private static class TestToStringPresent implements ToStringTesting<TestToStringPresent> {
-
-        @Override
-        public Class<TestToStringPresent> type() {
-            return TestToStringPresent.class;
-        }
+    private final static class TestToStringPresent implements ToStringTesting {
 
         @Override
         public String toString() {
@@ -76,8 +56,10 @@ public final class ToStringTestingTest implements ToStringTesting<StringBuilder>
         );
     }
 
+    // class............................................................................................................
+
     @Override
-    public Class<StringBuilder> type() {
-        return StringBuilder.class;
+    public Class<ToStringTesting> type() {
+        return ToStringTesting.class;
     }
 }

@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NullAwareComparatorTestCase<C extends NullAwareComparator<String>> implements ComparatorTesting2<C, String>,
     HashCodeEqualsDefinedTesting2<C>,
-    ToStringTesting<C> {
+    ToStringTesting {
 
     NullAwareComparatorTestCase() {
         super();

@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class OptionalLocaleTest implements ClassTesting<OptionalLocale>,
     HashCodeEqualsDefinedTesting2<OptionalLocale>,
-    ToStringTesting<OptionalLocale>,
+    ToStringTesting,
     HasValueTesting {
 
     private final static Optional<Locale> LOCALE = Optional.of(

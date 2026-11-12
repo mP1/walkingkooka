@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class TextPrintingTest implements TextContextTesting,
     HashCodeEqualsDefinedTesting2<TextPrinting>,
     HasCharsetTesting,
-    ToStringTesting<TextPrinting>,
+    ToStringTesting,
     ClassTesting<TextPrinting> {
 
     private final static Indentation DIFFERENT_INDENTATION = Indentation.SPACES4;

@@ -28,7 +28,7 @@ import java.util.Comparator;
  */
 public interface ComparatorTesting2<C extends Comparator<T>, T>
     extends ComparatorTesting,
-    ToStringTesting<C>,
+    ToStringTesting,
     TypeNameTesting<C> {
 
     C createComparator();

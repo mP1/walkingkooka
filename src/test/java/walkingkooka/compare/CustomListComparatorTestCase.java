@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class CustomListComparatorTestCase<C extends CustomListComparator> implements ComparatorTesting2<C, CharSequence>,
     HashCodeEqualsDefinedTesting2<C>,
-    ToStringTesting<C> {
+    ToStringTesting {
 
     final static String HI = "Hi";
 

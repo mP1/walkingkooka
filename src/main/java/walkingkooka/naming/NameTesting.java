@@ -40,7 +40,7 @@ public interface NameTesting<N extends Name, C extends Comparable<C>> extends Co
     HasValueTesting,
     CanBeEmptyTesting,
     PublicClassTesting<N>,
-    ToStringTesting<N>,
+    ToStringTesting,
     TypeNameTesting<N> {
 
     @Test

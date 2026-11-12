@@ -26,7 +26,7 @@ import walkingkooka.reflect.JavaVisibility;
 
 import java.util.Iterator;
 
-public final class PathIteratorTest implements IteratorTesting, ClassTesting2<PathIterator<StringPath, StringName>>, ToStringTesting<PathIterator<StringPath, StringName>> {
+public final class PathIteratorTest implements IteratorTesting, ClassTesting2<PathIterator<StringPath, StringName>>, ToStringTesting {
 
     @Test
     public void testRoot() {

@@ -261,12 +261,6 @@ public final class JavaVisibilityVisitorTest implements VisitorTesting<JavaVisib
     private boolean visited;
 
     @Override
-    public void testCheckToStringOverridden() {
-    }
-
-    // ClassTesting.....................................................................................................
-
-    @Override
     public JavaVisibilityVisitor createVisitor() {
         return new JavaVisibilityVisitor();
     }

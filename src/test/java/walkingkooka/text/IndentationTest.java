@@ -35,7 +35,7 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
     HashCodeEqualsDefinedTesting2<Indentation>,
     HasIndentationTesting,
     HasTextTesting,
-    ToStringTesting<Indentation>,
+    ToStringTesting,
     HasValueTesting {
 
     @Override

@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public interface VisitorTesting<V extends Visitor<T>, T>
     extends ClassTesting<V>,
-    ToStringTesting<V>,
+    ToStringTesting,
     TypeNameTesting<V> {
 
     /**

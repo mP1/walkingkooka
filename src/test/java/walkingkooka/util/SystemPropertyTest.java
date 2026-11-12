@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 final public class SystemPropertyTest implements ClassTesting2<SystemProperty>,
     ConstantsTesting<SystemProperty>,
     HashCodeEqualsDefinedTesting2<SystemProperty>,
-    ToStringTesting<SystemProperty> {
+    ToStringTesting {
 
     @Test
     public void testGetNullFails() {

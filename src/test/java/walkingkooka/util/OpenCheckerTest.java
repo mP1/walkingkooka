@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class OpenCheckerTest implements ClassTesting2<OpenChecker<Exception>>,
     ThrowableTesting,
-    ToStringTesting<OpenChecker<Exception>> {
+    ToStringTesting {
 
     // constants
 

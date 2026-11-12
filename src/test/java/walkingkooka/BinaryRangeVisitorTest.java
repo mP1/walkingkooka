@@ -23,7 +23,7 @@ import walkingkooka.collect.RangeVisitorTesting;
 import walkingkooka.reflect.JavaVisibility;
 
 public final class BinaryRangeVisitorTest implements RangeVisitorTesting<BinaryRangeVisitor, Long>,
-    ToStringTesting<BinaryRangeVisitor> {
+    ToStringTesting {
 
     @Test
     public void testExtractAll() {

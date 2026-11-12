@@ -45,7 +45,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class PushableStreamConsumerStreamTest implements StreamTesting<PushableStreamConsumerStream<String>, String>,
-    ToStringTesting<PushableStreamConsumerStream<String>>,
+    ToStringTesting,
     IteratorTesting {
 
     @Test
@@ -1002,12 +1002,5 @@ public final class PushableStreamConsumerStreamTest implements StreamTesting<Pus
         return commaSeparated.isEmpty() ?
             Lists.empty() :
             Arrays.asList(commaSeparated.split(","));
-    }
-
-    // ClassTesting....................................................................................................
-
-    @Override
-    public Class<PushableStreamConsumerStream<String>> type() {
-        return Cast.to(PushableStreamConsumerStream.class);
     }
 }

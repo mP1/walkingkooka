@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public interface CharSequenceTesting2<C extends CharSequence> extends CharSequenceTesting,
     HashCodeEqualsDefinedTesting2<C>,
-    ToStringTesting<C>,
+    ToStringTesting,
     TypeNameTesting<C> {
 
     @Test

@@ -12,7 +12,7 @@ import java.util.Vector;
 
 final public class EnumerationChainTest implements EnumerationTesting,
     ClassTesting<EnumerationChain<String>>,
-    ToStringTesting<EnumerationChain<String>> {
+    ToStringTesting {
 
     public void testConsume() {
         final Vector<String> first = new Vector<>();

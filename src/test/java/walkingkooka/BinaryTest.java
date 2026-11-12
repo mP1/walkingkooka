@@ -19,6 +19,7 @@ package walkingkooka;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
+import walkingkooka.reflect.PublicClassTesting;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -36,7 +37,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public final class BinaryTest implements CanBeEmptyTesting,
     HasBinaryTesting,
     HashCodeEqualsDefinedTesting2<Binary>,
-    ToStringTesting<Binary> {
+    PublicClassTesting<Binary>,
+    ToStringTesting {
 
     // with.............................................................................................................
 

@@ -26,7 +26,7 @@ import walkingkooka.reflect.JavaVisibility;
 
 public final class ChunkingTextCursorTest implements ClassTesting2<ChunkingTextCursor>,
     TextCursorTesting2<ChunkingTextCursor>,
-    ToStringTesting<ChunkingTextCursor> {
+    ToStringTesting {
 
     @Test
     public void testSingleChunk() {
