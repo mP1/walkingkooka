@@ -19,6 +19,7 @@ package walkingkooka.text.cursor;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.CanBeEmptyTesting;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasTextTesting;
@@ -29,6 +30,7 @@ public interface TextCursorTesting2<C extends TextCursor>
     extends TextCursorTesting,
     CanBeEmptyTesting,
     HasTextTesting,
+    PackagePrivateClassTesting<C>,
     TypeNameTesting<C> {
 
     @Test
@@ -224,7 +226,7 @@ public interface TextCursorTesting2<C extends TextCursor>
         this.checkEquals(columnNumber, info.column(), "column");
     }
 
-    // TypeNameTesting .........................................................................................
+    // class............................................................................................................
 
     @Override
     default String typeNamePrefix() {
