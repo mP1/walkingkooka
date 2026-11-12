@@ -21,8 +21,7 @@ package walkingkooka.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -34,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class BinaryTextPrintingTest implements BinaryTextContextTesting,
     HashCodeEqualsDefinedTesting2<BinaryTextPrinting>,
     ToStringTesting,
-    ClassTesting<BinaryTextPrinting> {
+    PublicClassTesting<BinaryTextPrinting> {
 
     private final static Charset DIFFERENT_CHARSET = StandardCharsets.ISO_8859_1;
 
@@ -323,10 +322,5 @@ public final class BinaryTextPrintingTest implements BinaryTextContextTesting,
     @Override
     public Class<BinaryTextPrinting> type() {
         return BinaryTextPrinting.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
