@@ -19,7 +19,6 @@ package walkingkooka.text;
 
 import java.util.Collection;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * An alternative interface to convert a value to text which may have multiple values with the given {@link LineEnding}.
@@ -34,18 +33,44 @@ public interface HasMultiLineTextAndCollectionString extends HasMultiLineText,
     default MultiLineText multiLineText(final TextContext context) {
         Objects.requireNonNull(context, "context");
 
-        final LineEnding lineEnding = context.lineEnding();
+        final StringBuilder b = new StringBuilder();
+
+        int i = -1;
+        for(String string : this) {
+            if(i >= 0) {
+                b.append(
+                    this.multiLineTextSeparator(
+                        i,
+                        context
+                    )
+                );
+            }
+            i++;
+
+            // escape eols.
+            b.append(
+                string.replace("\r", "\\r")
+                    .replace("\n", "\\n")
+            );
+        }
+
+        if(i >= 0) {
+            b.append(
+                this.multiLineTextSeparator(
+                    i,
+                    context
+                )
+            );
+        }
 
         return MultiLineText.with(
-            this.stream()
-                .map((String string) -> string.replace("\r", "\\r").replace("\n", "\\n"))
-                .collect(
-                    Collectors.joining(
-                        lineEnding,
-                        "",
-                        lineEnding
-                    )
-                )
+            b.toString()
         );
     }
+
+    /**
+     * Sub-classes must provide the separator inserted between values for the given nth element.
+     */
+    CharSequence multiLineTextSeparator(final int i,
+                                        final TextContext context);
 }

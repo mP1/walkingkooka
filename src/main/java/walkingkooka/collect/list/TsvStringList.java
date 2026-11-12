@@ -19,6 +19,7 @@ package walkingkooka.collect.list;
 
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.HasMultiLineTextAndCollectionString;
+import walkingkooka.text.TextContext;
 
 import java.util.AbstractList;
 import java.util.Collection;
@@ -116,6 +117,14 @@ public final class TsvStringList extends AbstractList<String> implements Delimit
     @Override
     public CsvStringList csvStringList() {
         return CsvStringList.EMPTY.setElements(this);
+    }
+
+    // HasMultiLineText.................................................................................................
+
+    @Override
+    public CharSequence multiLineTextSeparator(final int i,
+                                               final TextContext context) {
+        return context.lineEnding();
     }
 
     // HasTextWithSeparator.............................................................................................
