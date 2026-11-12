@@ -22,7 +22,7 @@ import walkingkooka.Cast;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class RangeCharPredicateTest implements CharPredicateTesting<RangeCharPredicate> {
+public class RangeCharPredicateTest implements CharPredicateTesting2<RangeCharPredicate> {
 
     @Test
     public void testWithStartAfterEndFails() {

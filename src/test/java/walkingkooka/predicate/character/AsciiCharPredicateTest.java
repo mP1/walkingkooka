@@ -19,7 +19,7 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 
-final public class AsciiCharPredicateTest implements CharPredicateTesting<AsciiCharPredicate> {
+final public class AsciiCharPredicateTest implements CharPredicateTesting2<AsciiCharPredicate> {
 
     @Test
     public void testAscii() {

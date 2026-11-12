@@ -23,7 +23,7 @@ import walkingkooka.HashCodeEqualsDefinedTesting2;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class LogicalCharPredicateTestCase<P extends LogicalCharPredicate>
-    implements CharPredicateTesting<P>,
+    implements CharPredicateTesting2<P>,
     HashCodeEqualsDefinedTesting2<P> {
 
     LogicalCharPredicateTestCase() {

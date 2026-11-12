@@ -22,7 +22,7 @@ import walkingkooka.Cast;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CaseInsensitiveCharPredicateTest implements CharPredicateTesting<CaseInsensitiveCharPredicate> {
+public final class CaseInsensitiveCharPredicateTest implements CharPredicateTesting2<CaseInsensitiveCharPredicate> {
 
     @Test
     public void testWithNullCharPredicateFails() {

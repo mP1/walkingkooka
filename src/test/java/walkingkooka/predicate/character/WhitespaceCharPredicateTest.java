@@ -19,7 +19,7 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 
-final public class WhitespaceCharPredicateTest implements CharPredicateTesting<WhitespaceCharPredicate> {
+final public class WhitespaceCharPredicateTest implements CharPredicateTesting2<WhitespaceCharPredicate> {
 
     @Test
     public void testWhitespace() {

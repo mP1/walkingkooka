@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class LowerCasingCharPredicateTest
-    implements CharPredicateTesting<LowerCasingCharPredicate>,
+    implements CharPredicateTesting2<LowerCasingCharPredicate>,
     HashCodeEqualsDefinedTesting2<LowerCasingCharPredicate> {
 
     @Test

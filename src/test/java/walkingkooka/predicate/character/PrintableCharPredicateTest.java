@@ -21,7 +21,7 @@ package walkingkooka.predicate.character;
 import org.junit.jupiter.api.Test;
 import walkingkooka.text.Ascii;
 
-final public class PrintableCharPredicateTest implements CharPredicateTesting<PrintableCharPredicate> {
+final public class PrintableCharPredicateTest implements CharPredicateTesting2<PrintableCharPredicate> {
 
     @Test
     public void testTestNull() {

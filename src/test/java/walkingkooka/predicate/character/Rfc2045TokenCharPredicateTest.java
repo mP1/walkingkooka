@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
  *                    ; to use within parameter values
  * </pre>
  */
-public final class Rfc2045TokenCharPredicateTest implements CharPredicateTesting<Rfc2045TokenCharPredicate> {
+public final class Rfc2045TokenCharPredicateTest implements CharPredicateTesting2<Rfc2045TokenCharPredicate> {
 
     @Test
     public void testNulCharFails() {

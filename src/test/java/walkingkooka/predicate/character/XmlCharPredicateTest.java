@@ -19,7 +19,7 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 
-final public class XmlCharPredicateTest implements CharPredicateTesting<XmlCharPredicate> {
+final public class XmlCharPredicateTest implements CharPredicateTesting2<XmlCharPredicate> {
 
     @Test
     public void testNul() {
