@@ -21,8 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.HasCharsetTesting;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -32,7 +31,7 @@ public final class TextPrintingTest implements TextContextTesting,
     HashCodeEqualsDefinedTesting2<TextPrinting>,
     HasCharsetTesting,
     ToStringTesting,
-    ClassTesting<TextPrinting> {
+    PublicClassTesting<TextPrinting> {
 
     // with.............................................................................................................
 
@@ -259,10 +258,5 @@ public final class TextPrintingTest implements TextContextTesting,
     @Override
     public Class<TextPrinting> type() {
         return TextPrinting.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
