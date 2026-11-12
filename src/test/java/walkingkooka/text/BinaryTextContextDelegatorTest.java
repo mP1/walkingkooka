@@ -18,13 +18,12 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 
 import java.nio.charset.Charset;
 
 public final class BinaryTextContextDelegatorTest implements BinaryTextContextTesting,
-    ClassTesting<BinaryTextContextDelegator> {
+    PublicClassTesting<BinaryTextContextDelegator> {
 
     // BinaryTextContextDelegator.................................................................................
 
@@ -57,11 +56,6 @@ public final class BinaryTextContextDelegatorTest implements BinaryTextContextTe
     @Override
     public Class<BinaryTextContextDelegator> type() {
         return BinaryTextContextDelegator.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     private final static class TestBinaryTextContextDelegator implements BinaryTextContextDelegator {
