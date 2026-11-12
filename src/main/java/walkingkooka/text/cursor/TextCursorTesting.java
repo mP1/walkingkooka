@@ -29,14 +29,24 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public interface TextCursorTesting extends Testing {
 
     default void moveNextFails(final TextCursor cursor) {
-        assertThrows(TextCursorException.class, cursor::next);
+        assertThrows(
+            TextCursorException.class,
+            cursor::next
+        );
     }
 
-    default void atAndCheck(final TextCursor cursor, final char expected) {
-        this.atAndCheck(cursor, expected, null);
+    default void atAndCheck(final TextCursor cursor,
+                            final char expected) {
+        this.atAndCheck(
+            cursor,
+            expected,
+            null
+        );
     }
 
-    default void atAndCheck(final TextCursor cursor, final char expected, final String message) {
+    default void atAndCheck(final TextCursor cursor,
+                            final char expected,
+                            final String message) {
         Objects.requireNonNull(cursor, "cursor");
 
         this.checkEquals(
@@ -46,14 +56,18 @@ public interface TextCursorTesting extends Testing {
         );
     }
 
-    default void atAndCheck(final char at, final char expected, final TextCursor cursor) {
+    default void atAndCheck(final char at,
+                            final char expected,
+                            final TextCursor cursor) {
         this.checkEquals(
             expected,
             at,
             () -> "Wrong character " + cursor);
     }
 
-    default void atAndCheck(final char at, final char expected, final String message) {
+    default void atAndCheck(final char at,
+                            final char expected,
+                            final String message) {
         this.checkEquals(
             expected,
             at,
@@ -62,6 +76,9 @@ public interface TextCursorTesting extends Testing {
     }
 
     default void atFails(final TextCursor cursor) {
-        assertThrows(TextCursorException.class, cursor::at);
+        assertThrows(
+            TextCursorException.class,
+            cursor::at
+        );
     }
 }
