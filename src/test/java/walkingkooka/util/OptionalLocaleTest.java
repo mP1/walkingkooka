@@ -14,12 +14,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class OptionalLocaleTest implements PublicClassTesting<OptionalLocale>,
     HashCodeEqualsDefinedTesting2<OptionalLocale>,
+    HasLocaleTesting,
     ToStringTesting,
     HasValueTesting {
 
-    private final static Optional<Locale> LOCALE = Optional.of(
-        Locale.forLanguageTag("en-AU")
-    );
 
     // with.............................................................................................................
 
@@ -36,8 +34,8 @@ public final class OptionalLocaleTest implements PublicClassTesting<OptionalLoca
     @Test
     public void testValue() {
         this.valueAndCheck(
-            OptionalLocale.with(LOCALE),
-            LOCALE
+            OptionalLocale.with(OPTIONAL_LOCALE),
+            OPTIONAL_LOCALE
         );
     }
 
@@ -56,17 +54,13 @@ public final class OptionalLocaleTest implements PublicClassTesting<OptionalLoca
     @Test
     public void testEqualsDifferent() {
         this.checkNotEquals(
-            OptionalLocale.with(
-                Optional.of(
-                    Locale.forLanguageTag("en-NZ")
-                )
-            )
+            OptionalLocale.with(OPTIONAL_DIFFERENT_LOCALE)
         );
     }
 
     @Override
     public OptionalLocale createObject() {
-        return OptionalLocale.with(LOCALE);
+        return OptionalLocale.with(OPTIONAL_LOCALE);
     }
 
     // toString.........................................................................................................
