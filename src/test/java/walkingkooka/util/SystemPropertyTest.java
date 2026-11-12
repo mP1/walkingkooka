@@ -21,9 +21,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.ConstantsTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 
 import java.util.Optional;
 import java.util.Set;
@@ -32,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class SystemPropertyTest implements ClassTesting2<SystemProperty>,
+final public class SystemPropertyTest implements PublicClassTesting<SystemProperty>,
     ConstantsTesting<SystemProperty>,
     HashCodeEqualsDefinedTesting2<SystemProperty>,
     ToStringTesting {
@@ -125,16 +124,11 @@ final public class SystemPropertyTest implements ClassTesting2<SystemProperty>,
         this.toStringAndCheck(SystemProperty.get(name), name);
     }
 
-    // ClassTesting.....................................................................................................
+    // Class............................................................................................................
 
     @Override
     public Class<SystemProperty> type() {
         return SystemProperty.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     // HashCodeEqualsDefinedTesting2.....................................................................................
