@@ -18,12 +18,12 @@
 package walkingkooka.io;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.reflect.ClassTesting;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface TextReaderTesting2<T extends TextReader> extends TextReaderTesting,
-    ClassTesting<T> {
+    PackagePrivateClassTesting<T> {
 
     // readLine.........................................................................................................
 
