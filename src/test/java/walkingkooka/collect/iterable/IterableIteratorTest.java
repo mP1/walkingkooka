@@ -32,14 +32,20 @@ final public class IterableIteratorTest implements PackagePrivateClassTesting<It
 
     @Test
     public void testWithNullIteratorFails() {
-        assertThrows(NullPointerException.class, () -> IterableIterator.with(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> IterableIterator.with(null)
+        );
     }
 
     @Test
     public void testIterable() {
         final Iterator<Object> iterator = this.createIterator();
         final IterableIterator<Object> iterable = IterableIterator.with(iterator);
-        assertSame(iterator, iterable.iterator());
+        assertSame(
+            iterator,
+            iterable.iterator()
+        );
     }
 
     @Test
@@ -47,13 +53,10 @@ final public class IterableIteratorTest implements PackagePrivateClassTesting<It
         final Iterable<Object> iterable = this.createIterable();
         iterable.iterator();
 
-        assertThrows(IllegalStateException.class, iterable::iterator);
-    }
-
-    @Test
-    public void testToString() {
-        final Iterator<Object> iterator = this.createIterator();
-        this.toStringAndCheck(IterableIterator.with(iterator), iterator.toString());
+        assertThrows(
+            IllegalStateException.class,
+            iterable::iterator
+        );
     }
 
     @Override
@@ -63,6 +66,15 @@ final public class IterableIteratorTest implements PackagePrivateClassTesting<It
 
     private Iterator<Object> createIterator() {
         return Iterators.array(new Object[]{"1", "2"});
+    }
+
+    @Test
+    public void testToString() {
+        final Iterator<Object> iterator = this.createIterator();
+        this.toStringAndCheck(
+            IterableIterator.with(iterator),
+            iterator.toString()
+        );
     }
 
     @Override
