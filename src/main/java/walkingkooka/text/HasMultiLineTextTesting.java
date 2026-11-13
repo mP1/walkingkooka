@@ -17,9 +17,7 @@
 
 package walkingkooka.text;
 
-import walkingkooka.test.Testing;
-
-public interface HasMultiLineTextTesting extends Testing {
+public interface HasMultiLineTextTesting extends TextContextTesting {
 
     default void multiLineTextAndCheck(final HasMultiLineText has,
                                        final LineEnding lineEnding,
