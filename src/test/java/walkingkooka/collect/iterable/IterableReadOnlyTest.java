@@ -21,15 +21,14 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 
 import java.util.Iterator;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class IterableReadOnlyTest implements ClassTesting2<IterableReadOnly<String>>,
+final public class IterableReadOnlyTest implements PackagePrivateClassTesting<IterableReadOnly<String>>,
     IterableTesting2<IterableReadOnly<String>, String>,
     IteratorTesting {
 
@@ -79,11 +78,6 @@ final public class IterableReadOnlyTest implements ClassTesting2<IterableReadOnl
     @Override
     public Class<IterableReadOnly<String>> type() {
         return Cast.to(IterableReadOnly.class);
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override
