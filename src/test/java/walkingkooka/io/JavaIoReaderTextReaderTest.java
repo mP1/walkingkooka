@@ -28,7 +28,7 @@ import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaIoReaderTextReader>,
+public final class JavaIoReaderTextReaderTest implements TextReaderTesting2<JavaIoReaderTextReader>,
     ToStringTesting {
 
     /**
@@ -572,7 +572,7 @@ public final class JavaIoReaderTextReaderTest implements TextReaderTesting<JavaI
         );
     }
 
-    // TextReaderTesting................................................................................................
+    // TextReaderTesting2................................................................................................
 
     @Override
     public JavaIoReaderTextReader createTextReader() {
