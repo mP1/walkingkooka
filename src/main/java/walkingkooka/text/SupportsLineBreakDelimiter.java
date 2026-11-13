@@ -53,4 +53,11 @@ public interface SupportsLineBreakDelimiter<T extends SupportsLineBreakDelimiter
      * Returns a {@link SupportsLineBreakDelimiter} without a link break at the given position.
      */
     T removeLineBreak(final int index);
+
+    default T setOrRemoveLineBreak(final int index,
+                                   final boolean lineBreak) {
+        return lineBreak ?
+            this.removeLineBreak(index) :
+            this.setLineBreak(index);
+    }
 }
