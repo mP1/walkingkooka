@@ -21,6 +21,15 @@ import walkingkooka.test.Testing;
 
 public interface HasTextSeparatorTesting extends Testing {
 
+    default void defaultTextSeparatorAndCheck(final HasTextSeparator has,
+                                              final CharSequence expected) {
+        this.checkEquals(
+            expected,
+            has.defaultTextSeparator(),
+            has::toString
+        );
+    }
+
     default void textSeparatorAndCheck(final HasTextSeparator has,
                                        final int index,
                                        final CharSequence expected) {
