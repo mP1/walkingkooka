@@ -313,7 +313,7 @@ final public class CharacterConstant implements CharSequence {
         return b.toString();
     }
 
-    private String escapeIfNecessary(final String text) {
+    String escapeIfNecessary(final String text) {
         String result = text;
 
         final int length = text.length();

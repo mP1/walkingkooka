@@ -17,10 +17,11 @@
 
 package walkingkooka.text;
 
-public interface HasTextWithSeparatorTesting extends HasTextTesting {
+public interface HasTextWithSeparatorTesting extends HasTextTesting,
+    HasTextSeparatorTesting {
 
     default void textWithSeparatorAndCheck(final HasTextWithSeparator has,
-                                           final char separator,
+                                           final CharSequence separator,
                                            final String text) {
         this.checkEquals(
             text,

@@ -20,23 +20,19 @@ package walkingkooka.text;
 /**
  * Almost identical to {@link HasText}, but accepts the separator.
  */
-public interface HasTextWithSeparator extends HasText {
+public interface HasTextWithSeparator extends HasText,
+    HasTextSeparator {
 
     @Override
     default String text() {
         return this.textWithSeparator(
-            this.separator()
+            this.defaultTextSeparator()
         );
     }
 
     /**
-     * The default text separator.
-     */
-    char separator();
-
-    /**
-     * Returns the text representation for this object using the given separator rather than {@link #separator}.
+     * Returns the text representation for this object using the given separator rather than {@link #textSeparator}.
      * If the separator is not acceptable an {@link IllegalArgumentException} should be thrown.
      */
-    String textWithSeparator(final char separator);
+    String textWithSeparator(final CharSequence separator);
 }

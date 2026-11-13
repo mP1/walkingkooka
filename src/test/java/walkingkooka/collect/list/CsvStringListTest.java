@@ -469,7 +469,7 @@ public final class CsvStringListTest implements DelimiterStringImmutableListTest
     public void testHasTextWithSeparatorDifferentSeparator() {
         this.textWithSeparatorAndCheck(
             CsvStringList.parse("aaa,bb,cc"),
-            ';',
+            ";",
             "aaa;bb;cc"
         );
     }
