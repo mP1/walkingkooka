@@ -18,11 +18,10 @@
 package walkingkooka.text;
 
 import walkingkooka.Cast;
-import walkingkooka.test.Testing;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public interface SupportsLineBreakDelimiterTesting extends Testing {
+public interface SupportsLineBreakDelimiterTesting extends HasLineBreakDelimiterTesting {
 
     default void lastLineBreakAndCheck(final SupportsLineBreakDelimiter<?> collection) {
         this.setLineBreakAndCheck(
@@ -33,16 +32,6 @@ public interface SupportsLineBreakDelimiterTesting extends Testing {
                     collection.size()
                 )
             )
-        );
-    }
-
-    default void lineBreakAndCheck(final SupportsLineBreakDelimiter<?> collection,
-                                   final int index,
-                                   final boolean expected) {
-        this.checkEquals(
-            expected,
-            collection.lineBreak(index),
-            () -> "index " + index
         );
     }
 

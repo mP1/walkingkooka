@@ -21,7 +21,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public interface SupportsLineBreakDelimiterTesting2<T extends SupportsLineBreakDelimiter<T>> extends SupportsLineBreakDelimiterTesting {
+public interface SupportsLineBreakDelimiterTesting2<T extends SupportsLineBreakDelimiter<T>> extends SupportsLineBreakDelimiterTesting,
+    HasLineBreakDelimiterTesting {
 
     // lastLineBreaks...................................................................................................
 
@@ -111,6 +112,10 @@ public interface SupportsLineBreakDelimiterTesting2<T extends SupportsLineBreakD
                 supportsLineBreakDelimiter.size()
             )
         );
+    }
+
+    default T createHasLineBreakDelimiter() {
+        return this.createSupportsLineBreakDelimiter();
     }
 
     T createSupportsLineBreakDelimiter();
