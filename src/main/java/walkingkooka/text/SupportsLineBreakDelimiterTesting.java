@@ -57,7 +57,7 @@ public interface SupportsLineBreakDelimiterTesting extends Testing {
             lineBreak
         );
 
-        if (after.equals(expected)) {
+        if (collection.equals(expected)) {
             assertSame(
                 expected,
                 after,
@@ -85,7 +85,7 @@ public interface SupportsLineBreakDelimiterTesting extends Testing {
             index
         );
 
-        if (after.equals(expected)) {
+        if (collection.equals(expected)) {
             assertSame(
                 expected,
                 after,
