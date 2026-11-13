@@ -189,8 +189,13 @@ public final class CsvStringSet extends AbstractSet<String>
      */
     @Override
     public String textWithSeparator(final char separator) {
+        final String stringSeparator = String.valueOf(separator);
+
         return CharacterConstant.with(separator)
-            .toDelimiteredString(this.strings);
+            .toDelimiteredString(
+                this.strings,
+                (int position) -> stringSeparator
+            );
     }
 
     // HasTsvStringList.................................................................................................

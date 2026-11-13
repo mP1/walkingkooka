@@ -21,9 +21,9 @@ import walkingkooka.EndOfTextException;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.NeverError;
 
-import java.util.Collection;
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.function.IntFunction;
 
 /**
  * Holds both a character and its {@link String} equivalent. This is ideal for constants that should
@@ -257,11 +257,38 @@ final public class CharacterConstant implements CharSequence {
         }
     }
 
-    public String toDelimiteredString(final Collection<String> elements) {
-        Objects.requireNonNull(elements, "elements");
+    public IntFunction<CharSequence> constantSeparator() {
+        if(null == this.constantSeparator) {
+            this.constantSeparator = new IntFunction<CharSequence>() {
 
-        final char separator = this.character;
-        if ('"' == separator) {
+                @Override
+                public CharSequence apply(final int value) {
+                    return CharacterConstant.this;
+                }
+
+                @Override
+                public String toString() {
+                    return CharacterConstant.this.toString();
+                }
+            };
+        }
+
+        return this.constantSeparator;
+    }
+
+    private IntFunction<CharSequence> constantSeparator;
+
+    /**
+     * Supports producing a {@link String} using the values, escaping them following CSV escaping rules.
+     * The function separator will be queried for the actual separator after each value, and should return something
+     * like a COMMA or {@link LineEnding}.
+     */
+    public String toDelimiteredString(final Iterable<String> values,
+                                      final IntFunction<CharSequence> separator) {
+        Objects.requireNonNull(values, "values");
+        Objects.requireNonNull(separator, "separator");
+
+        if ("\"".equals(separator.toString())) {
             throw new IllegalArgumentException("Invalid separator character is \"\"\"");
         }
 
@@ -269,9 +296,11 @@ final public class CharacterConstant implements CharSequence {
 
         int i = 0;
 
-        for (final String value : elements) {
+        for (final String value : values) {
             if (0 != i) {
-                b.append(this.character);
+                b.append(
+                    separator.apply(i - 1)
+                );
             }
 
             b.append(

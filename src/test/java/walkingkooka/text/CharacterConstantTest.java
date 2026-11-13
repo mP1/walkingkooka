@@ -22,7 +22,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-import java.util.List;
+import java.util.function.IntFunction;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -78,12 +78,12 @@ final public class CharacterConstantTest implements ClassTesting2<CharacterConst
         this.checkEquals(String.valueOf(c), constant.string(), "string");
     }
 
-    // testToDelimiteredString..........................................................................................
+    // toDelimiteredString..............................................................................................
 
     @Test
-    public void testToDelimiteredStringWithSComma() {
+    public void testToDelimiteredStringWithComma() {
         this.toDelimiteredStringAndCheck(
-            ',',
+            CharacterConstant.COMMA,
             Lists.of("11", "22", "33"),
             "11,22,33"
         );
@@ -92,31 +92,34 @@ final public class CharacterConstantTest implements ClassTesting2<CharacterConst
     @Test
     public void testToDelimiteredStringWithSemiColon() {
         this.toDelimiteredStringAndCheck(
-            ';',
+            CharacterConstant.with(';'),
             Lists.of("11", "22", "33"),
             "11;22;33"
         );
     }
 
-    private void toDelimiteredStringAndCheck(final char separator,
-                                             final List<String> list,
+    private void toDelimiteredStringAndCheck(final CharacterConstant characterConstant,
+                                             final Iterable<String> values,
                                              final String expected) {
         this.toDelimiteredStringAndCheck(
-            CharacterConstant.with(separator),
-            list,
+            characterConstant,
+            values,
+            characterConstant.constantSeparator(),
             expected
         );
     }
 
     private void toDelimiteredStringAndCheck(final CharacterConstant characterConstant,
-                                             final List<String> list,
+                                             final Iterable<String> values,
+                                             final IntFunction<CharSequence> separator,
                                              final String expected) {
         this.checkEquals(
             expected,
             characterConstant.toDelimiteredString(
-                list
+                values,
+                separator
             ),
-            () -> list + " toDelimiteredString " + CharSequences.quoteIfChars(characterConstant.character())
+            () -> characterConstant + " " + values + " " + separator
         );
     }
 
