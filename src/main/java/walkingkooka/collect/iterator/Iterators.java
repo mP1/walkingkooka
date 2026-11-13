@@ -60,7 +60,7 @@ final public class Iterators implements PublicStaticHelper {
      * {@see EnumerationIterator}
      */
     public static <E> Iterator<E> enumeration(final Enumeration<E> enumeration) {
-        return EnumerationIterator.adapt(enumeration);
+        return EnumerationIterator.with(enumeration);
     }
 
     /**

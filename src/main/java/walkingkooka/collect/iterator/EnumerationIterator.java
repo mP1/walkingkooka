@@ -26,7 +26,7 @@ import java.util.Objects;
  */
 final class EnumerationIterator<E> implements Iterator<E> {
 
-    static <E> EnumerationIterator<E> adapt(final Enumeration<E> enumeration) {
+    static <E> EnumerationIterator<E> with(final Enumeration<E> enumeration) {
         Objects.requireNonNull(enumeration, "enumeration");
 
         return new EnumerationIterator<>(enumeration);
