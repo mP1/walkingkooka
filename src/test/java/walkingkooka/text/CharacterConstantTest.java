@@ -22,9 +22,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -119,48 +117,6 @@ final public class CharacterConstantTest implements ClassTesting2<CharacterConst
                 list
             ),
             () -> list + " toDelimiteredString " + CharSequences.quoteIfChars(characterConstant.character())
-        );
-    }
-    
-    // toSeparatedString............................................................................................................
-
-    @Test
-    public void testToSeparatedStringEmpty() {
-        this.toSeparatedStringAndCheck(
-            Lists.empty(),
-            Function.identity(),
-            ""
-        );
-    }
-
-    @Test
-    public void testToSeparatedStringOne() {
-        this.toSeparatedStringAndCheck(
-            Lists.of("abc"),
-            s -> CharSequences.quote(s).toString(),
-            "\"abc\""
-        );
-    }
-
-    @Test
-    public void testToSeparatedStringSeveral() {
-        this.toSeparatedStringAndCheck(
-            Lists.of("abc", "def", "ghi"),
-            s -> CharSequences.quote(s).toString(),
-            "\"abc\",\"def\",\"ghi\""
-        );
-    }
-
-    private <T> void toSeparatedStringAndCheck(final Collection<T> values,
-                                               final Function<T, String> component,
-                                               final String expected) {
-        this.checkEquals(
-            expected,
-            CharacterConstant.with(',')
-                .toSeparatedString(
-                    values,
-                    component
-                )
         );
     }
 

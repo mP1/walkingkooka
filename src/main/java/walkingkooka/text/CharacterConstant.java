@@ -24,8 +24,6 @@ import walkingkooka.NeverError;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * Holds both a character and its {@link String} equivalent. This is ideal for constants that should
@@ -263,15 +261,27 @@ final public class CharacterConstant implements CharSequence {
         Objects.requireNonNull(elements, "elements");
 
         final char separator = this.character;
-        if('"' == separator) {
+        if ('"' == separator) {
             throw new IllegalArgumentException("Invalid separator character is \"\"\"");
         }
 
-        return CharacterConstant.with(separator)
-            .toSeparatedString(
-                elements,
-                this::escapeIfNecessary
+        final StringBuilder b = new StringBuilder();
+
+        int i = 0;
+
+        for (final String value : elements) {
+            if (0 != i) {
+                b.append(this.character);
+            }
+
+            b.append(
+                this.escapeIfNecessary(value)
             );
+
+            i++;
+        }
+
+        return b.toString();
     }
 
     private String escapeIfNecessary(final String text) {
@@ -303,21 +313,6 @@ final public class CharacterConstant implements CharSequence {
     private final static char NL_CHAR = '\n';
 
     private final static char DOUBLE_QUOTE_CHAR = '"';
-
-    // toSeparatedString..................................................................................................
-
-    /**
-     * THe inverse of the {link #parse}, turns the given values back into a CSV String.
-     */
-    public <T> String toSeparatedString(final Collection<T> values,
-                                        final Function<T, String> component) {
-        Objects.requireNonNull(values, "values");
-        Objects.requireNonNull(component, "component");
-
-        return values.stream()
-            .map(component)
-            .collect(Collectors.joining(this.string));
-    }
 
     // Object..........................................................................................................
 
