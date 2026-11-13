@@ -24,8 +24,7 @@ import walkingkooka.CanBinaryTesting;
 import walkingkooka.HasValueTesting;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -35,7 +34,7 @@ public final class MultiLineTextTest implements CanBinaryTesting,
     HasTextTesting,
     HashCodeEqualsDefinedTesting2<MultiLineText>,
     ToStringTesting,
-    ClassTesting<MultiLineText> {
+    PublicClassTesting<MultiLineText> {
 
     @Test
     public void testEmpty() {
@@ -145,10 +144,5 @@ public final class MultiLineTextTest implements CanBinaryTesting,
     @Override
     public Class<MultiLineText> type() {
         return MultiLineText.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
