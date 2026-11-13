@@ -141,8 +141,13 @@ public final class TsvStringList extends AbstractList<String> implements Delimit
      */
     @Override
     public String textWithSeparator(final char separator) {
+        final String stringSeparator = String.valueOf(separator);
+
         return CharacterConstant.with(separator)
-            .toDelimiteredString(this.strings);
+            .toDelimiteredString(
+                this.strings,
+                (int position) -> stringSeparator
+            );
     }
 
     // HasTsvStringList.................................................................................................
