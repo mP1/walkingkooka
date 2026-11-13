@@ -19,6 +19,7 @@ package walkingkooka.collect.iterable;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
@@ -26,28 +27,21 @@ import walkingkooka.reflect.JavaVisibility;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class ReverseIterableTest implements ClassTesting2<ReverseIterable<String>>,
-    IterableTesting2<ReverseIterable<String>, String> {
+final public class IterableReadOnlyTest implements ClassTesting2<IterableReadOnly<String>>,
+    IterableTesting2<IterableReadOnly<String>, String>,
+    IteratorTesting {
 
     // constants
 
-    private final static Iterable<String> ITERABLE = Iterables.fake();
+    private final static Iterable<String> ITERABLES = Iterables.fake();
 
     // tests
 
     @Test
     public void testWrapNullIterableFails() {
-        assertThrows(NullPointerException.class, () -> ReverseIterable.wrap(null));
-    }
-
-    @Test
-    public void testUnwrapReversedIterable() {
-        final Iterable<Object> iterable = Iterables.fake();
-        assertSame(iterable, ReverseIterable.wrap(ReverseIterable.wrap(iterable)));
+        assertThrows(NullPointerException.class, () -> IterableReadOnly.wrap(null));
     }
 
     @Test
@@ -57,30 +51,43 @@ final public class ReverseIterableTest implements ClassTesting2<ReverseIterable<
         iterable.add("2");
         iterable.add("3");
 
-        final Iterator<String> iterator = ReverseIterable.wrap(iterable).iterator();
-        this.checkEquals("3", iterator.next());
-        this.checkEquals("2", iterator.next());
-        this.checkEquals("1", iterator.next());
-        assertFalse(iterator.hasNext(), "iterator should be empty");
+        this.iterateAndCheck(IterableReadOnly.wrap(iterable).iterator(), "1", "2", "3");
+    }
+
+    @Test
+    public void testIteratorRemoveFails() {
+        final List<String> iterable = Lists.array();
+        iterable.add("1");
+        iterable.add("2");
+        iterable.add("3");
+
+        final Iterator<String> readOnly = IterableReadOnly.wrap(iterable).iterator();
+        this.iterateAndCheck(readOnly, "1", "2", "3");
+        this.removeUnsupportedFails(readOnly);
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createIterable(), ITERABLE.toString());
+        this.toStringAndCheck(IterableReadOnly.wrap(ITERABLES), ITERABLES.toString());
     }
 
     @Override
-    public ReverseIterable<String> createIterable() {
-        return Cast.to(ReverseIterable.wrap(ITERABLE));
+    public IterableReadOnly<String> createIterable() {
+        return IterableReadOnly.wrap(ITERABLES);
     }
 
     @Override
-    public Class<ReverseIterable<String>> type() {
-        return Cast.to(ReverseIterable.class);
+    public Class<IterableReadOnly<String>> type() {
+        return Cast.to(IterableReadOnly.class);
     }
 
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 }

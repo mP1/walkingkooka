@@ -17,45 +17,45 @@
 
 package walkingkooka.collect.iterable;
 
+import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
 
 import java.util.Iterator;
 import java.util.Objects;
 
 /**
- * A {@link Iterable} that wraps another {@link Iterable} blocking attempts to call {@link
- * Iterator#remove()}.
+ * An {@link Iterable} that wraps another returning an {@link Iterable} that returns items in
+ * reverse order.
  */
-final class ReadOnlyIterable<T> implements Iterable<T> {
+final class IterableReverse<T> implements Iterable<T> {
 
-    /**
-     * Wraps the given {@link Iterable}
-     */
-    static <T> ReadOnlyIterable<T> wrap(final Iterable<T> iterable) {
+    static <T> Iterable<T> wrap(final Iterable<T> iterable) {
         Objects.requireNonNull(iterable, "iterable");
 
-        return new ReadOnlyIterable<>(iterable);
+        Iterable<T> result;
+        if (iterable instanceof IterableReverse) {
+            final IterableReverse<T> iterableReverse = Cast.to(iterable);
+            result = iterableReverse.iterable;
+        } else {
+            result = new IterableReverse<>(iterable);
+        }
+
+        return result;
     }
 
     /**
-     * Private constructor use factory
+     * Private constructor use factory.
      */
-    private ReadOnlyIterable(final Iterable<T> iterable) {
+    private IterableReverse(final Iterable<T> iterable) {
         super();
         this.iterable = iterable;
     }
 
-    /**
-     * Wraps the {@link Iterator} so it is read only before returning it.
-     */
     @Override
     public Iterator<T> iterator() {
-        return Iterators.readOnly(this.iterable.iterator());
+        return Iterators.reverse(this.iterable.iterator());
     }
 
-    /**
-     * The wrapped {@link Iterable}.
-     */
     private final Iterable<T> iterable;
 
     @Override

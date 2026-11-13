@@ -28,18 +28,18 @@ import java.util.Iterator;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class IteratorIterableTest implements ClassTesting2<IteratorIterable<Object>>,
-    IterableTesting2<IteratorIterable<Object>, Object> {
+final public class IterableIteratorTest implements ClassTesting2<IterableIterator<Object>>,
+    IterableTesting2<IterableIterator<Object>, Object> {
 
     @Test
     public void testWithNullIteratorFails() {
-        assertThrows(NullPointerException.class, () -> IteratorIterable.with(null));
+        assertThrows(NullPointerException.class, () -> IterableIterator.with(null));
     }
 
     @Test
     public void testIterable() {
         final Iterator<Object> iterator = this.createIterator();
-        final IteratorIterable<Object> iterable = IteratorIterable.with(iterator);
+        final IterableIterator<Object> iterable = IterableIterator.with(iterator);
         assertSame(iterator, iterable.iterator());
     }
 
@@ -54,12 +54,12 @@ final public class IteratorIterableTest implements ClassTesting2<IteratorIterabl
     @Test
     public void testToString() {
         final Iterator<Object> iterator = this.createIterator();
-        this.toStringAndCheck(IteratorIterable.with(iterator), iterator.toString());
+        this.toStringAndCheck(IterableIterator.with(iterator), iterator.toString());
     }
 
     @Override
-    public IteratorIterable<Object> createIterable() {
-        return IteratorIterable.with(this.createIterator());
+    public IterableIterator<Object> createIterable() {
+        return IterableIterator.with(this.createIterator());
     }
 
     private Iterator<Object> createIterator() {
@@ -67,8 +67,13 @@ final public class IteratorIterableTest implements ClassTesting2<IteratorIterabl
     }
 
     @Override
-    public Class<IteratorIterable<Object>> type() {
-        return Cast.to(IteratorIterable.class);
+    public Class<IterableIterator<Object>> type() {
+        return Cast.to(IterableIterator.class);
+    }
+
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 
     @Override

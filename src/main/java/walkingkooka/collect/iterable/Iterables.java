@@ -45,17 +45,17 @@ final public class Iterables implements PublicStaticHelper {
     }
 
     /**
-     * {@see ChainIterable}
+     * {@see IterableChain}
      */
     public static <T> Iterable<T> chain(final Iterable<T>... iterables) {
-        return ChainIterable.with(iterables);
+        return IterableChain.with(iterables);
     }
 
     /**
-     * {@see EmptyIterable}
+     * {@see IterableEmpty}
      */
     public static <T> Iterable<T> empty() {
-        return EmptyIterable.instance();
+        return IterableEmpty.instance();
     }
 
     /**
@@ -66,24 +66,24 @@ final public class Iterables implements PublicStaticHelper {
     }
 
     /**
-     * {@see IteratorIterable}
+     * {@see IterableIterator}
      */
     public static <T> Iterable<T> iterator(final Iterator<T> iterator) {
-        return IteratorIterable.with(iterator);
+        return IterableIterator.with(iterator);
     }
 
     /**
-     * {@see ReadOnlyIterable}
+     * {@see IterableReadOnly}
      */
     public static <T> Iterable<T> readOnly(final Iterable<T> iterable) {
-        return ReadOnlyIterable.wrap(iterable);
+        return IterableReadOnly.wrap(iterable);
     }
 
     /**
-     * {@see ReverseIterable}
+     * {@see IterableReverse}
      */
     public static <T> Iterable<T> reverse(final Iterable<T> iterable) {
-        return ReverseIterable.wrap(iterable);
+        return IterableReverse.wrap(iterable);
     }
 
     /**

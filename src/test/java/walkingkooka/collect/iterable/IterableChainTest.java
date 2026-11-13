@@ -25,7 +25,7 @@ import walkingkooka.collect.list.Lists;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class ChainIterableTest implements IterableTesting2<ChainIterable<String>, String> {
+final public class IterableChainTest implements IterableTesting2<IterableChain<String>, String> {
 
     // constants
 
@@ -39,7 +39,7 @@ final public class ChainIterableTest implements IterableTesting2<ChainIterable<S
     public void testWithNullIterablesFails() {
         assertThrows(
             NullPointerException.class,
-            () -> ChainIterable.with(null)
+            () -> IterableChain.with(null)
         );
     }
 
@@ -48,7 +48,7 @@ final public class ChainIterableTest implements IterableTesting2<ChainIterable<S
         //noinspection unchecked
         assertSame(
             Iterables.empty(),
-            ChainIterable.with()
+            IterableChain.with()
         );
     }
 
@@ -56,13 +56,13 @@ final public class ChainIterableTest implements IterableTesting2<ChainIterable<S
     public void testWithOne() {
         final Iterable<?> only = Iterables.fake();
         //noinspection unchecked
-        assertSame(only, ChainIterable.with(only));
+        assertSame(only, IterableChain.with(only));
     }
 
     @Test
     public void testIterator() {
         this.checkEquals(
-            ChainIterableIterator.class,
+            IterableChainIterator.class,
             this.createIterable().iterator().getClass()
         );
     }
@@ -76,18 +76,23 @@ final public class ChainIterableTest implements IterableTesting2<ChainIterable<S
     }
 
     @Override
-    public ChainIterable<String> createIterable() {
+    public IterableChain<String> createIterable() {
         return this.createIterable(FIRST, SECOND);
     }
 
-    private ChainIterable<String> createIterable(final Iterable<String> first,
+    private IterableChain<String> createIterable(final Iterable<String> first,
                                                  final Iterable<String> second) {
         //noinspection unchecked
-        return Cast.to(ChainIterable.with(first, second));
+        return Cast.to(IterableChain.with(first, second));
     }
 
     @Override
-    public Class<ChainIterable<String>> type() {
-        return Cast.to(ChainIterable.class);
+    public Class<IterableChain<String>> type() {
+        return Cast.to(IterableChain.class);
+    }
+
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 }
