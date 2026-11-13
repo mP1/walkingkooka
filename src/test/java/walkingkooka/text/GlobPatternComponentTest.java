@@ -18,18 +18,12 @@
 
 package walkingkooka.text;
 
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 
-public final class GlobPatternComponentTest implements ClassTesting<GlobPatternComponent> {
+public final class GlobPatternComponentTest implements PackagePrivateClassTesting<GlobPatternComponent> {
 
     @Override
     public Class<GlobPatternComponent> type() {
         return GlobPatternComponent.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
