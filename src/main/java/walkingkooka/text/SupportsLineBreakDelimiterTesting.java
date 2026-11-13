@@ -72,6 +72,36 @@ public interface SupportsLineBreakDelimiterTesting extends Testing {
         );
     }
 
+    default <T extends SupportsLineBreakDelimiter<T>> void setOrRemoveLineBreakAndCheck(final T collection,
+                                                                                        final int index,
+                                                                                        final boolean lineBreak,
+                                                                                        final T expected) {
+        final T after = collection.setOrRemoveLineBreak(
+            index,
+            lineBreak
+        );
+
+        if (collection.equals(expected)) {
+            assertSame(
+                expected,
+                after,
+                () -> "setLineBreak " + index + " " + lineBreak
+            );
+        } else {
+            this.checkEquals(
+                expected,
+                after,
+                () -> "setLineBreak " + index + " " + lineBreak
+            );
+        }
+
+        this.lineBreakAndCheck(
+            after,
+            index,
+            lineBreak
+        );
+    }
+
     default <T extends SupportsLineBreakDelimiter<T>> void removeLineBreakAndCheck(final T collection,
                                                                                    final int index,
                                                                                    final T expected) {
