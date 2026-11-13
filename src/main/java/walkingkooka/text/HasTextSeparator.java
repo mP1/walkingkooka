@@ -25,6 +25,11 @@ package walkingkooka.text;
 public interface HasTextSeparator {
 
     /**
+     * Returns the default text separator, a {@link walkingkooka.collect.list.CsvStringList} will return a COMMA.
+     */
+    CharSequence defaultTextSeparator();
+
+    /**
      * Returns the separator for the given value identified by index.
      * All index values should be positive numbers.
      */
