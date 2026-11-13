@@ -31,7 +31,10 @@ final public class EnumerationIteratorTest
 
     @Test
     public void testWithNullEnumerationFails() {
-        assertThrows(NullPointerException.class, () -> EnumerationIterator.with(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> EnumerationIterator.with(null)
+        );
     }
 
     @Test
@@ -41,10 +44,12 @@ final public class EnumerationIteratorTest
         vector.add("2");
         vector.add("3");
 
-        this.iterateUsingHasNextAndCheck(EnumerationIterator.with(vector.elements()),
+        this.iterateUsingHasNextAndCheck(
+            EnumerationIterator.with(vector.elements()),
             "1",
             "2",
-            "3");
+            "3"
+        );
     }
 
     @Test
@@ -55,11 +60,6 @@ final public class EnumerationIteratorTest
         final EnumerationIterator<String> iterator = EnumerationIterator.with(vector.elements());
         iterator.next();
         this.removeUnsupportedFails(iterator);
-    }
-
-    @Test
-    public void testToString() {
-        this.toStringAndCheck(EnumerationIterator.with(ENUMERATION), ENUMERATION.toString());
     }
 
     @Override
@@ -78,6 +78,14 @@ final public class EnumerationIteratorTest
             throw new UnsupportedOperationException();
         }
     };
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(
+            EnumerationIterator.with(ENUMERATION),
+            ENUMERATION.toString()
+        );
+    }
 
     @Override
     public Class<EnumerationIterator<Integer>> type() {
