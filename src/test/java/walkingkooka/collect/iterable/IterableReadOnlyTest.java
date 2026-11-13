@@ -21,15 +21,13 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.reflect.PackagePrivateClassTesting;
 
 import java.util.Iterator;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class IterableReadOnlyTest implements PackagePrivateClassTesting<IterableReadOnly<String>>,
-    IterableTesting2<IterableReadOnly<String>, String>,
+final public class IterableReadOnlyTest implements IterableTesting2<IterableReadOnly<String>, String>,
     IteratorTesting {
 
     // constants

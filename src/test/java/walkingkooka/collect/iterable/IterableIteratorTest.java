@@ -20,15 +20,13 @@ package walkingkooka.collect.iterable;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
-import walkingkooka.reflect.PackagePrivateClassTesting;
 
 import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class IterableIteratorTest implements PackagePrivateClassTesting<IterableIterator<Object>>,
-    IterableTesting2<IterableIterator<Object>, Object> {
+final public class IterableIteratorTest implements IterableTesting2<IterableIterator<Object>, Object> {
 
     @Test
     public void testWithNullIteratorFails() {

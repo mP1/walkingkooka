@@ -20,7 +20,6 @@ package walkingkooka.collect.iterable;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
 import java.util.Iterator;
@@ -30,8 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class IterableReverseTest implements ClassTesting2<IterableReverse<String>>,
-    IterableTesting2<IterableReverse<String>, String> {
+final public class IterableReverseTest implements IterableTesting2<IterableReverse<String>, String> {
 
     // constants
 
