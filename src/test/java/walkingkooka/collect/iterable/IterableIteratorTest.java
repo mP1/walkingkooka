@@ -20,15 +20,14 @@ package walkingkooka.collect.iterable;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 
 import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class IterableIteratorTest implements ClassTesting2<IterableIterator<Object>>,
+final public class IterableIteratorTest implements PackagePrivateClassTesting<IterableIterator<Object>>,
     IterableTesting2<IterableIterator<Object>, Object> {
 
     @Test
@@ -74,10 +73,5 @@ final public class IterableIteratorTest implements ClassTesting2<IterableIterato
     @Override
     public void testTypeNaming() {
         throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
