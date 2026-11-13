@@ -29,7 +29,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ChainIterableIteratorTest implements IteratorTesting, ClassTesting<ChainIterableIterator<String>> {
+public final class IterableChainIteratorTest implements IteratorTesting, ClassTesting<IterableChainIterator<String>> {
 
     @Test
     public void testIterateHasNextAndNextOnly() {
@@ -42,7 +42,7 @@ public final class ChainIterableIteratorTest implements IteratorTesting, ClassTe
     @Test
     public void testIterateHasNextAndNextOnly2() {
         this.iterateUsingHasNextAndCheck(
-            ChainIterableIterator.with(
+            IterableChainIterator.with(
                 Lists.of("1a"),
                 Lists.empty(),
                 Lists.empty(),
@@ -63,7 +63,7 @@ public final class ChainIterableIteratorTest implements IteratorTesting, ClassTe
     @Test
     public void testIterateNextOnly2() {
         this.iterateAndCheck(
-            ChainIterableIterator.with(
+            IterableChainIterator.with(
                 Lists.of("1a"),
                 Lists.empty(),
                 Lists.empty(),
@@ -75,7 +75,7 @@ public final class ChainIterableIteratorTest implements IteratorTesting, ClassTe
 
     @Test
     public void testLazyIterator() {
-        final Iterator<String> iterator = ChainIterableIterator.with(
+        final Iterator<String> iterator = IterableChainIterator.with(
             Lists.of("1a"),
             () -> {
                 throw new UnsupportedOperationException();
@@ -98,7 +98,7 @@ public final class ChainIterableIteratorTest implements IteratorTesting, ClassTe
         iterable.add("1a");
         iterable.add("2b");
 
-        final Iterator<String> iterator = ChainIterableIterator.with(iterable);
+        final Iterator<String> iterator = IterableChainIterator.with(iterable);
         iterator.next();
         iterator.remove();
 
@@ -112,8 +112,8 @@ public final class ChainIterableIteratorTest implements IteratorTesting, ClassTe
         );
     }
 
-    private ChainIterableIterator<String> createIterator() {
-        return ChainIterableIterator.with(
+    private IterableChainIterator<String> createIterator() {
+        return IterableChainIterator.with(
             Lists.of("1a"),
             Lists.empty(),
             Lists.of("2b", "3c")
@@ -123,8 +123,8 @@ public final class ChainIterableIteratorTest implements IteratorTesting, ClassTe
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<ChainIterableIterator<String>> type() {
-        return Cast.to(ChainIterableIterator.class);
+    public Class<IterableChainIterator<String>> type() {
+        return Cast.to(IterableChainIterator.class);
     }
 
     @Override

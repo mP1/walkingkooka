@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * An {@link Iterable} that produces an {@link Iterator} that lazily chains all the {@link Iterator iterators}.
  */
-final class ChainIterable<T> implements Iterable<T> {
+final class IterableChain<T> implements Iterable<T> {
 
     static <T> Iterable<T> with(final Iterable<T>... iterables) {
         Objects.requireNonNull(iterables, "iterables");
@@ -40,7 +40,7 @@ final class ChainIterable<T> implements Iterable<T> {
                 result = iterables[0];
                 break;
             default:
-                result = new ChainIterable<>(
+                result = new IterableChain<>(
                     Arrays.copyOf(
                         iterables,
                         count
@@ -51,13 +51,13 @@ final class ChainIterable<T> implements Iterable<T> {
         return result;
     }
 
-    private ChainIterable(final Iterable<T>[] iterables) {
+    private IterableChain(final Iterable<T>[] iterables) {
         this.iterables = iterables;
     }
 
     @Override
     public Iterator<T> iterator() {
-        return ChainIterableIterator.with(this.iterables);
+        return IterableChainIterator.with(this.iterables);
     }
 
     private final Iterable<T>[] iterables;

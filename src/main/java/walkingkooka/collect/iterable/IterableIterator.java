@@ -17,49 +17,51 @@
 
 package walkingkooka.collect.iterable;
 
-import walkingkooka.Cast;
-import walkingkooka.collect.iterator.Iterators;
-
 import java.util.Iterator;
 import java.util.Objects;
 
 /**
- * An {@link Iterable} that wraps another returning an {@link Iterable} that returns items in
- * reverse order.
+ * An {@link Iterable} that returns an {@link Iterator} once. It is intended to be used with for
+ * each loops.
  */
-final class ReverseIterable<T> implements Iterable<T> {
+final class IterableIterator<T> implements Iterable<T> {
 
-    static <T> Iterable<T> wrap(final Iterable<T> iterable) {
-        Objects.requireNonNull(iterable, "iterable");
+    /**
+     * Creates a new {@link IterableIterator}.
+     */
+    static <T> IterableIterator<T> with(final Iterator<T> iterator) {
+        Objects.requireNonNull(iterator, "iterator");
 
-        Iterable<T> result;
-        if (iterable instanceof ReverseIterable) {
-            final ReverseIterable<T> reverseIterable = Cast.to(iterable);
-            result = reverseIterable.iterable;
-        } else {
-            result = new ReverseIterable<>(iterable);
-        }
-
-        return result;
+        return new IterableIterator<>(iterator);
     }
 
     /**
      * Private constructor use factory.
      */
-    private ReverseIterable(final Iterable<T> iterable) {
+    private IterableIterator(final Iterator<T> iterator) {
         super();
-        this.iterable = iterable;
+        this.iterator = iterator;
     }
 
     @Override
     public Iterator<T> iterator() {
-        return Iterators.reverse(this.iterable.iterator());
+        if (this.given) {
+            throw new IllegalStateException("Iterator can only be taken once");
+        }
+        final Iterator<T> iterator = this.iterator;
+        this.given = true;
+        return iterator;
     }
 
-    private final Iterable<T> iterable;
+    private final Iterator<T> iterator;
 
+    private boolean given;
+
+    /**
+     * Dumps the {@link Object#toString()}.
+     */
     @Override
     public String toString() {
-        return this.iterable.toString();
+        return this.iterator.toString();
     }
 }

@@ -17,36 +17,39 @@
 
 package walkingkooka.collect.iterable;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.collect.iterator.Iterators;
+import walkingkooka.collect.list.Lists;
 
-import java.util.Iterator;
+public final class IterableEmptyTest implements IterableTesting2<IterableEmpty<Void>, Void> {
 
-/**
- * An {@link Iterable} that returns an empty {@link Iterator}.
- */
-final class EmptyIterable<T> implements Iterable<T> {
-
-    static <T> EmptyIterable<T> instance() {
-        return Cast.to(INSTANCE);
+    @Test
+    public void testIterator() {
+        this.iterateAndCheck(
+            this.createIterable().iterator()
+        );
     }
 
-    /**
-     * Singleton instance
-     */
-    private final static EmptyIterable<?> INSTANCE = new EmptyIterable<>();
-
-    private EmptyIterable() {
-        super();
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(
+            this.createIterable(),
+            Lists.empty().toString()
+        );
     }
 
     @Override
-    public Iterator<T> iterator() {
-        return Iterators.empty();
+    public IterableEmpty<Void> createIterable() {
+        return IterableEmpty.instance();
     }
 
     @Override
-    public String toString() {
-        return "[]";
+    public Class<IterableEmpty<Void>> type() {
+        return Cast.to(IterableEmpty.class);
+    }
+
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 }

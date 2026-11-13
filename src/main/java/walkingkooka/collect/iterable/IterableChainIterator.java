@@ -21,22 +21,22 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * The lazy {@link Iterator} used by {@link walkingkooka.collect.iterable.ChainIterable}
+ * The lazy {@link Iterator} used by {@link IterableChain}
  */
-final class ChainIterableIterator<E> implements Iterator<E> {
+final class IterableChainIterator<E> implements Iterator<E> {
 
     /**
-     * Creates an {@link ChainIterableIterator} from the given {@link Iterator iterables.}
+     * Creates an {@link IterableChainIterator} from the given {@link Iterator iterables.}
      */
     @SuppressWarnings("unchecked")
-    static <E> ChainIterableIterator<E> with(final Iterable<E>... iterables) {
-        return new ChainIterableIterator<>(iterables);
+    static <E> IterableChainIterator<E> with(final Iterable<E>... iterables) {
+        return new IterableChainIterator<>(iterables);
     }
 
     /**
      * Private constructor use static factory.
      */
-    private ChainIterableIterator(final Iterable<E>[] iterables) {
+    private IterableChainIterator(final Iterable<E>[] iterables) {
         super();
         this.iterables = iterables;
         this.next = 0;

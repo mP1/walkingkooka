@@ -17,51 +17,49 @@
 
 package walkingkooka.collect.iterable;
 
+import walkingkooka.collect.iterator.Iterators;
+
 import java.util.Iterator;
 import java.util.Objects;
 
 /**
- * An {@link Iterable} that returns an {@link Iterator} once. It is intended to be used with for
- * each loops.
+ * A {@link Iterable} that wraps another {@link Iterable} blocking attempts to call {@link
+ * Iterator#remove()}.
  */
-final class IteratorIterable<T> implements Iterable<T> {
+final class IterableReadOnly<T> implements Iterable<T> {
 
     /**
-     * Creates a new {@link IteratorIterable}.
+     * Wraps the given {@link Iterable}
      */
-    static <T> IteratorIterable<T> with(final Iterator<T> iterator) {
-        Objects.requireNonNull(iterator, "iterator");
+    static <T> IterableReadOnly<T> wrap(final Iterable<T> iterable) {
+        Objects.requireNonNull(iterable, "iterable");
 
-        return new IteratorIterable<>(iterator);
+        return new IterableReadOnly<>(iterable);
     }
 
     /**
-     * Private constructor use factory.
+     * Private constructor use factory
      */
-    private IteratorIterable(final Iterator<T> iterator) {
+    private IterableReadOnly(final Iterable<T> iterable) {
         super();
-        this.iterator = iterator;
+        this.iterable = iterable;
     }
 
+    /**
+     * Wraps the {@link Iterator} so it is read only before returning it.
+     */
     @Override
     public Iterator<T> iterator() {
-        if (this.given) {
-            throw new IllegalStateException("Iterator can only be taken once");
-        }
-        final Iterator<T> iterator = this.iterator;
-        this.given = true;
-        return iterator;
+        return Iterators.readOnly(this.iterable.iterator());
     }
 
-    private final Iterator<T> iterator;
-
-    private boolean given;
-
     /**
-     * Dumps the {@link Object#toString()}.
+     * The wrapped {@link Iterable}.
      */
+    private final Iterable<T> iterable;
+
     @Override
     public String toString() {
-        return this.iterator.toString();
+        return this.iterable.toString();
     }
 }
