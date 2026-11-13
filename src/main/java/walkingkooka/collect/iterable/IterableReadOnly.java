@@ -31,7 +31,7 @@ final class IterableReadOnly<T> implements Iterable<T> {
     /**
      * Wraps the given {@link Iterable}
      */
-    static <T> IterableReadOnly<T> wrap(final Iterable<T> iterable) {
+    static <T> IterableReadOnly<T> with(final Iterable<T> iterable) {
         Objects.requireNonNull(iterable, "iterable");
 
         return new IterableReadOnly<>(iterable);
