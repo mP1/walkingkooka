@@ -32,6 +32,11 @@ public final class MultiLineText implements HasValue<String>,
     CanBinary,
     HasText {
 
+    /**
+     * A {@link MultiLineText} with no text.
+     */
+    public final static MultiLineText EMPTY = new MultiLineText("");
+
     public static MultiLineText with(final String text) {
         return new MultiLineText(
             Objects.requireNonNull(text, "text")

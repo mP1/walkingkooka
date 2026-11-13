@@ -36,6 +36,14 @@ public final class MultiLineTextTest implements CanBinaryTesting,
     ClassTesting<MultiLineText> {
 
     @Test
+    public void testEmpty() {
+        this.valueAndCheck(
+            MultiLineText.EMPTY,
+            ""
+        );
+    }
+
+    @Test
     public void testWithNullStringFails() {
         assertThrows(
             NullPointerException.class,
