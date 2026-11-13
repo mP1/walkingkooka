@@ -17,27 +17,13 @@
 
 package walkingkooka.io;
 
-import org.junit.jupiter.api.Test;
-import walkingkooka.reflect.ClassTesting;
+import walkingkooka.test.Testing;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-public interface TextReaderTesting<T extends TextReader> extends ClassTesting<T> {
+public interface TextReaderTesting extends Testing {
 
     // readLine.........................................................................................................
-
-    @Test
-    default void testReadLineWithNegativeTimeoutFails() {
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> this.createTextReader()
-                .readLine(
-                    -1
-                )
-        );
-    }
 
     default void readLineAndCheck(final TextReader textReader,
                                   final long timeout) {
@@ -69,30 +55,6 @@ public interface TextReaderTesting<T extends TextReader> extends ClassTesting<T>
 
     // readText.........................................................................................................
 
-    @Test
-    default void testReadTextWithNegativeMaxFails() {
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> this.createTextReader()
-                .readText(
-                    -1,
-                    1
-                )
-        );
-    }
-
-    @Test
-    default void testReadTextWithNegativeTimeoutFails() {
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> this.createTextReader()
-                .readText(
-                    0,
-                    -1
-                )
-        );
-    }
-
     default void readTextAndCheck(final TextReader textReader,
                                   final int max,
                                   final long timeout,
@@ -105,6 +67,4 @@ public interface TextReaderTesting<T extends TextReader> extends ClassTesting<T>
             )
         );
     }
-
-    T createTextReader();
 }
