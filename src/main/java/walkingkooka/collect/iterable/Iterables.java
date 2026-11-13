@@ -76,7 +76,7 @@ final public class Iterables implements PublicStaticHelper {
      * {@see IterableReadOnly}
      */
     public static <T> Iterable<T> readOnly(final Iterable<T> iterable) {
-        return IterableReadOnly.wrap(iterable);
+        return IterableReadOnly.with(iterable);
     }
 
     /**
