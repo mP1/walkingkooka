@@ -119,7 +119,7 @@ public final class StringList extends AbstractList<String>
 
         final LineEnding lineEnding = context.lineEnding();
 
-        return MultiLineText.with(
+        return MultiLineText.EMPTY.setText(
             this.strings.stream()
             .collect(
                 Collectors.joining(

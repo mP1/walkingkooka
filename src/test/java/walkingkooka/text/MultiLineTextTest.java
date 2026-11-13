@@ -26,6 +26,8 @@ import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.PublicClassTesting;
 
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class MultiLineTextTest implements CanBinaryTesting,
@@ -36,6 +38,8 @@ public final class MultiLineTextTest implements CanBinaryTesting,
     ToStringTesting,
     PublicClassTesting<MultiLineText> {
 
+    private final String VALUE = "Hello 123";
+
     @Test
     public void testEmpty() {
         this.valueAndCheck(
@@ -44,42 +48,78 @@ public final class MultiLineTextTest implements CanBinaryTesting,
         );
     }
 
+    // setText..........................................................................................................
+
     @Test
-    public void testWithNullStringFails() {
+    public void testSetTextNullStringFails() {
         assertThrows(
             NullPointerException.class,
-            () -> MultiLineText.with(null)
-        );
-    }
-
-    private final String VALUE = "Hello 123";
-
-    @Test
-    public void testWith() {
-        final MultiLineText multiLineText = MultiLineText.with(VALUE);
-        this.valueAndCheck(
-            multiLineText,
-            VALUE
-        );
-
-        this.textAndCheck(
-            multiLineText,
-            VALUE
+            () -> MultiLineText.EMPTY.setText(null)
         );
     }
 
     @Test
-    public void testWithEmptyString() {
+    public void testSetTextWithSame() {
+        this.setTextAndCheck(
+            new MultiLineText(VALUE),
+            VALUE,
+            new MultiLineText(VALUE)
+        );
+    }
+
+    @Test
+    public void testSetTextWithEmptyString() {
         final String value = "";
 
-        final MultiLineText multiLineText = MultiLineText.with(value);
+        this.setTextAndCheck(
+            MultiLineText.EMPTY,
+            value,
+            MultiLineText.EMPTY
+        );
+    }
+
+    @Test
+    public void testSetTextWithEmptyString2() {
+        this.setTextAndCheck(
+            new MultiLineText(VALUE),
+            "",
+            MultiLineText.EMPTY
+        );
+    }
+
+    @Test
+    public void testSetTextWithDifferent() {
+        this.setTextAndCheck(
+            new MultiLineText("first"),
+            VALUE,
+            new MultiLineText(VALUE)
+        );
+    }
+
+    private void setTextAndCheck(final MultiLineText multiLineText,
+                                 final String value,
+                                 final MultiLineText expected) {
+        final MultiLineText actual = multiLineText.setText(value);
+
+        if (multiLineText.equals(expected)) {
+            assertSame(
+                multiLineText,
+                actual
+            );
+        } else {
+            assertNotSame(
+                actual,
+                multiLineText
+            );
+        }
+
         this.valueAndCheck(
-            multiLineText,
+            actual,
             value
         );
 
         this.textAndCheck(
-            multiLineText,
+            actual,
             value
         );
     }
@@ -89,13 +129,13 @@ public final class MultiLineTextTest implements CanBinaryTesting,
     @Test
     public void testEqualsDifferentValue() {
         this.checkNotEquals(
-            MultiLineText.with("different")
+            new MultiLineText("different")
         );
     }
 
     @Override
     public MultiLineText createObject() {
-        return MultiLineText.with(VALUE);
+        return new MultiLineText(VALUE);
     }
 
     // toString.........................................................................................................
@@ -103,7 +143,7 @@ public final class MultiLineTextTest implements CanBinaryTesting,
     @Test
     public void testToString() {
         this.toStringAndCheck(
-            MultiLineText.with(VALUE),
+            this.createObject(),
             VALUE
         );
     }
@@ -113,7 +153,7 @@ public final class MultiLineTextTest implements CanBinaryTesting,
     @Test
     public void testCanBinary() {
         this.binaryAndCheck(
-            MultiLineText.with(VALUE),
+            this.createObject(),
             CHARSET,
             Binary.with(
                 VALUE.getBytes(CHARSET)
@@ -134,7 +174,7 @@ public final class MultiLineTextTest implements CanBinaryTesting,
     @Test
     public void testIsEmptyWhenNotEmpty() {
         this.isEmptyAndCheck(
-            MultiLineText.with("Hello"),
+            this.createObject(),
             false
         );
     }
