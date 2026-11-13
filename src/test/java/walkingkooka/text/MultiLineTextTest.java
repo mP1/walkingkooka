@@ -19,6 +19,7 @@ package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
+import walkingkooka.CanBeEmptyTesting;
 import walkingkooka.CanBinaryTesting;
 import walkingkooka.HasValueTesting;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
@@ -29,6 +30,7 @@ import walkingkooka.reflect.JavaVisibility;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class MultiLineTextTest implements CanBinaryTesting,
+    CanBeEmptyTesting,
     HasValueTesting,
     HasTextTesting,
     HashCodeEqualsDefinedTesting2<MultiLineText>,
@@ -117,6 +119,24 @@ public final class MultiLineTextTest implements CanBinaryTesting,
             Binary.with(
                 VALUE.getBytes(CHARSET)
             )
+        );
+    }
+
+    // CanBeEmpty......................................................................................................
+
+    @Test
+    public void testIsEmptyWhenEmpty() {
+        this.isEmptyAndCheck(
+            MultiLineText.EMPTY,
+            true
+        );
+    }
+
+    @Test
+    public void testIsEmptyWhenNotEmpty() {
+        this.isEmptyAndCheck(
+            MultiLineText.with("Hello"),
+            false
         );
     }
 

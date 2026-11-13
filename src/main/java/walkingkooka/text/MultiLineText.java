@@ -18,6 +18,7 @@
 package walkingkooka.text;
 
 import walkingkooka.Binary;
+import walkingkooka.CanBeEmpty;
 import walkingkooka.CanBinary;
 import walkingkooka.Cast;
 import walkingkooka.HasValue;
@@ -30,6 +31,7 @@ import java.util.Objects;
  */
 public final class MultiLineText implements HasValue<String>,
     CanBinary,
+    CanBeEmpty,
     HasText {
 
     /**
@@ -63,6 +65,14 @@ public final class MultiLineText implements HasValue<String>,
     @Override
     public String text() {
         return this.value();
+    }
+
+    // CanBeEmpty.......................................................................................................
+
+    @Override
+    public boolean isEmpty() {
+        return this.value()
+            .isEmpty();
     }
 
     // CanBinary........................................................................................................
