@@ -24,17 +24,17 @@ import java.util.Objects;
 /**
  * An {@link Enumeration} view of an {@link Iterator}.
  */
-final class IteratorEnumeration<E> implements Enumeration<E> {
+final class EnumerationIterator<E> implements Enumeration<E> {
 
-    static <E> IteratorEnumeration<E> with(final Iterator<E> iterator) {
+    static <E> EnumerationIterator<E> with(final Iterator<E> iterator) {
         Objects.requireNonNull(iterator, "iterator");
-        return new IteratorEnumeration<>(iterator);
+        return new EnumerationIterator<>(iterator);
     }
 
     /**
      * Private constructor use static factory
      */
-    private IteratorEnumeration(final Iterator<E> iterator) {
+    private EnumerationIterator(final Iterator<E> iterator) {
         super();
         this.iterator = iterator;
     }

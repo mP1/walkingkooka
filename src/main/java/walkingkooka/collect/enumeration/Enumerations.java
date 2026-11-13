@@ -33,10 +33,10 @@ public final class Enumerations implements PublicStaticHelper {
     }
 
     /**
-     * {@see IteratorEnumeration}
+     * {@see EnumerationIterator}
      */
     public static <E> Enumeration<E> iterator(final Iterator<E> iterator) {
-        return IteratorEnumeration.with(iterator);
+        return EnumerationIterator.with(iterator);
     }
 
     /**

@@ -27,8 +27,8 @@ import walkingkooka.reflect.JavaVisibility;
 import java.util.Iterator;
 import java.util.List;
 
-public final class IteratorEnumerationTest implements EnumerationTesting,
-    ClassTesting<IteratorEnumeration<String>>,
+public final class EnumerationIteratorTest implements EnumerationTesting,
+    ClassTesting<EnumerationIterator<String>>,
     ToStringTesting {
 
     public void testConsume() {
@@ -40,7 +40,7 @@ public final class IteratorEnumerationTest implements EnumerationTesting,
         );
 
         this.enumerateAndCheck(
-            IteratorEnumeration.with(
+            EnumerationIterator.with(
                 values.iterator()
             ),
             values.toArray(new String[0])
@@ -56,7 +56,7 @@ public final class IteratorEnumerationTest implements EnumerationTesting,
         );
 
         this.enumerateUsingHasMoreElementsAndCheck(
-            IteratorEnumeration.with(
+            EnumerationIterator.with(
                 values.iterator()
             ),
             values.toArray(new String[0])
@@ -73,14 +73,14 @@ public final class IteratorEnumerationTest implements EnumerationTesting,
         ).iterator();
 
         this.toStringAndCheck(
-            IteratorEnumeration.with(values),
+            EnumerationIterator.with(values),
             values.toString()
         );
     }
 
     @Override
-    public Class<IteratorEnumeration<String>> type() {
-        return Cast.to(IteratorEnumeration.class);
+    public Class<EnumerationIterator<String>> type() {
+        return Cast.to(EnumerationIterator.class);
     }
 
     @Override
