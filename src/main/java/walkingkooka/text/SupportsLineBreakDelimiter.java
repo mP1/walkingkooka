@@ -60,4 +60,9 @@ public interface SupportsLineBreakDelimiter<T extends SupportsLineBreakDelimiter
             this.removeLineBreak(index) :
             this.setLineBreak(index);
     }
+
+    /**
+     * Returns a {@link SupportsLineBreakDelimiter} with all line breaks cleared.
+     */
+    T clearAllLineBreaks();
 }
