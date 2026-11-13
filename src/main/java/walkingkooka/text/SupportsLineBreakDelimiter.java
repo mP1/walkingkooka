@@ -20,12 +20,8 @@ package walkingkooka.text;
 /**
  * Supports a collection of values to also support {@link LineEnding} as the separator rather than the normal separator.
  */
-public interface SupportsLineBreakDelimiter<T extends SupportsLineBreakDelimiter<T>> {
-
-    /**
-     * Returns the current size. Required to support {@link #lastLineBreak()}.
-     */
-    int size();
+public interface SupportsLineBreakDelimiter<T extends SupportsLineBreakDelimiter<T>>
+    extends HasLineBreakDelimiter {
 
     /**
      * Mark the last value as terminated by a line break rather than the default separator.
@@ -38,11 +34,6 @@ public interface SupportsLineBreakDelimiter<T extends SupportsLineBreakDelimiter
 
         return this.setLineBreak(position);
     }
-
-    /**
-     * Returns a boolean if the given position will use a {@link LineEnding} rather than the separator.
-     */
-    boolean lineBreak(final int index);
 
     /**
      * Returns a {@link SupportsLineBreakDelimiter} without a link break set to the true at the given position.
