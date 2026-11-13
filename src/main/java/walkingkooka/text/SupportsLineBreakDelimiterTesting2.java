@@ -72,10 +72,7 @@ public interface SupportsLineBreakDelimiterTesting2<T extends SupportsLineBreakD
         assertThrows(
             IllegalArgumentException.class,
             () -> this.createSupportsLineBreakDelimiter()
-                .setLineBreak(
-                    -1,
-                    false
-                )
+                .setLineBreak(-1)
         );
     }
 
@@ -86,8 +83,7 @@ public interface SupportsLineBreakDelimiterTesting2<T extends SupportsLineBreakD
         assertThrows(
             IllegalArgumentException.class,
             () -> supportsLineBreakDelimiter.setLineBreak(
-                supportsLineBreakDelimiter.size(),
-                false
+                supportsLineBreakDelimiter.size()
             )
         );
     }

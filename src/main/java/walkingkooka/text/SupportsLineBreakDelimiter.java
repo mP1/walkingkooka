@@ -36,10 +36,7 @@ public interface SupportsLineBreakDelimiter<T extends SupportsLineBreakDelimiter
             throw new IllegalStateException("Missing last value, cannot mark LineBreak");
         }
 
-        return this.setLineBreak(
-            position,
-            true
-        );
+        return this.setLineBreak(position);
     }
 
     /**
@@ -48,18 +45,12 @@ public interface SupportsLineBreakDelimiter<T extends SupportsLineBreakDelimiter
     boolean lineBreak(final int index);
 
     /**
-     * Returns a {@link SupportsLineBreakDelimiter} without a link break set to the boolean at the given position.
+     * Returns a {@link SupportsLineBreakDelimiter} without a link break set to the true at the given position.
      */
-    T setLineBreak(final int index,
-                   final boolean lineBreak);
+    T setLineBreak(final int index);
 
     /**
      * Returns a {@link SupportsLineBreakDelimiter} without a link break at the given position.
      */
-    default T removeLineBreak(final int index) {
-        return this.setLineBreak(
-            index,
-            false
-        );
-    }
+    T removeLineBreak(final int index);
 }
