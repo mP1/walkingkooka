@@ -18,6 +18,7 @@
 package walkingkooka.collect.iterable;
 
 import walkingkooka.ToStringTesting;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 import walkingkooka.reflect.TypeNameTesting;
 
 /**
@@ -25,6 +26,7 @@ import walkingkooka.reflect.TypeNameTesting;
  */
 public interface IterableTesting2<I extends Iterable<T>, T> extends IterableTesting,
     ToStringTesting,
+    PackagePrivateClassTesting<I>,
     TypeNameTesting<I> {
 
     I createIterable();
