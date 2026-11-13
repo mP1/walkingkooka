@@ -443,7 +443,7 @@ public final class CsvStringSetTest implements DelimiterStringImmutableSetTestin
     public void testHasTextWithSeparatorDifferentSeparator() {
         this.textWithSeparatorAndCheck(
             CsvStringSet.parse("aaa,bb,cc"),
-            ';',
+            ";",
             "aaa;bb;cc"
         );
     }

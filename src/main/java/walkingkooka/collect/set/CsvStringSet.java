@@ -180,19 +180,23 @@ public final class CsvStringSet extends AbstractSet<String>
     public final static CharacterConstant SEPARATOR = CharacterConstant.COMMA;
 
     @Override
-    public char separator() {
-        return SEPARATOR.character();
+    public CharSequence defaultTextSeparator() {
+        return SEPARATOR;
+    }
+
+    @Override
+    public CharSequence textSeparator(final int index) {
+        return SEPARATOR;
     }
 
     /**
      * Note strings with quotes, commas, CR or NL will be quoted and double quotes escaped.
      */
     @Override
-    public String textWithSeparator(final char separator) {
+    public String textWithSeparator(final CharSequence separator) {
         final String stringSeparator = String.valueOf(separator);
 
-        return CharacterConstant.with(separator)
-            .toDelimiteredString(
+        return SEPARATOR.toDelimiteredString(
                 this.strings,
                 (int position) -> stringSeparator
             );

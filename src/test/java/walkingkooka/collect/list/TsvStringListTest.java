@@ -507,7 +507,7 @@ public final class TsvStringListTest implements DelimiterStringImmutableListTest
     public void testHasTextWithSeparatorDifferentSeparator() {
         this.textWithSeparatorAndCheck(
             TsvStringList.parse("aaa\tbb\tcc"),
-            ';',
+            ";",
             "aaa;bb;cc"
         );
     }

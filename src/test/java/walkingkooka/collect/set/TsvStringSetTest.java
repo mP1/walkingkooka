@@ -445,7 +445,7 @@ public final class TsvStringSetTest implements DelimiterStringImmutableSetTestin
     public void testHasTextWithSeparatorDifferentSeparator() {
         this.textWithSeparatorAndCheck(
             TsvStringSet.parse("aaa\tbb\tcc"),
-            ';',
+            ";",
             "aaa;bb;cc"
         );
     }
