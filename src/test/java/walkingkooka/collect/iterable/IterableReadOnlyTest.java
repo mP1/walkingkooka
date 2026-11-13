@@ -40,7 +40,10 @@ final public class IterableReadOnlyTest implements PackagePrivateClassTesting<It
 
     @Test
     public void testWrapNullIterableFails() {
-        assertThrows(NullPointerException.class, () -> IterableReadOnly.wrap(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> IterableReadOnly.wrap(null)
+        );
     }
 
     @Test
@@ -50,7 +53,11 @@ final public class IterableReadOnlyTest implements PackagePrivateClassTesting<It
         iterable.add("2");
         iterable.add("3");
 
-        this.iterateAndCheck(IterableReadOnly.wrap(iterable).iterator(), "1", "2", "3");
+        this.iterateAndCheck(
+            IterableReadOnly.wrap(iterable)
+                .iterator(),
+            "1", "2", "3"
+        );
     }
 
     @Test
@@ -61,18 +68,24 @@ final public class IterableReadOnlyTest implements PackagePrivateClassTesting<It
         iterable.add("3");
 
         final Iterator<String> readOnly = IterableReadOnly.wrap(iterable).iterator();
-        this.iterateAndCheck(readOnly, "1", "2", "3");
+        this.iterateAndCheck(
+            readOnly,
+            "1", "2", "3"
+        );
         this.removeUnsupportedFails(readOnly);
-    }
-
-    @Test
-    public void testToString() {
-        this.toStringAndCheck(IterableReadOnly.wrap(ITERABLES), ITERABLES.toString());
     }
 
     @Override
     public IterableReadOnly<String> createIterable() {
         return IterableReadOnly.wrap(ITERABLES);
+    }
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(
+            IterableReadOnly.wrap(ITERABLES),
+            ITERABLES.toString()
+        );
     }
 
     @Override
