@@ -28,11 +28,9 @@ public interface SupportsLineBreakDelimiterTesting extends Testing {
         this.setLineBreakAndCheck(
             Cast.to(collection),
             collection.size(),
-            true,
             Cast.to(
                 collection.setLineBreak(
-                    collection.size(),
-                    true
+                    collection.size()
                 )
             )
         );
@@ -50,31 +48,27 @@ public interface SupportsLineBreakDelimiterTesting extends Testing {
 
     default <T extends SupportsLineBreakDelimiter<T>> void setLineBreakAndCheck(final T collection,
                                                                                 final int index,
-                                                                                final boolean lineBreak,
                                                                                 final T expected) {
-        final T after = collection.setLineBreak(
-            index,
-            lineBreak
-        );
+        final T after = collection.setLineBreak(index);
 
         if (collection.equals(expected)) {
             assertSame(
                 expected,
                 after,
-                () -> "setLineBreak " + index + " " + lineBreak
+                () -> "setLineBreak " + index
             );
         } else {
             this.checkEquals(
                 expected,
                 after,
-                () -> "setLineBreak " + index + " " + lineBreak
+                () -> "setLineBreak " + index
             );
         }
 
         this.lineBreakAndCheck(
             after,
             index,
-            lineBreak
+            true
         );
     }
 
