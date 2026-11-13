@@ -39,13 +39,8 @@ public final class MultiLineText implements HasValue<String>,
      */
     public final static MultiLineText EMPTY = new MultiLineText("");
 
-    public static MultiLineText with(final String text) {
-        return new MultiLineText(
-            Objects.requireNonNull(text, "text")
-        );
-    }
-
-    private MultiLineText(final String text) {
+    // @VisibileForTesting
+    MultiLineText(final String text) {
         super();
 
         this.text = text;
@@ -58,13 +53,21 @@ public final class MultiLineText implements HasValue<String>,
         return this.text;
     }
 
-    private final String text;
-
     // HasText..........................................................................................................
 
     @Override
     public String text() {
-        return this.value();
+        return this.text;
+    }
+
+    private final String text;
+
+    public MultiLineText setText(final String text) {
+        return this.text.equals(text) ?
+            this :
+            new MultiLineText(
+                Objects.requireNonNull(text, "text")
+            );
     }
 
     // CanBeEmpty.......................................................................................................

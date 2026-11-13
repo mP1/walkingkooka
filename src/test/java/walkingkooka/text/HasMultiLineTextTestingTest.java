@@ -29,7 +29,7 @@ public class HasMultiLineTextTestingTest implements HasMultiLineTextTesting {
                 public MultiLineText multiLineText(final TextContext context) {
                     final LineEnding lineEnding = context.lineEnding();
 
-                    return MultiLineText.with(
+                    return MultiLineText.EMPTY.setText(
                         "hello" + lineEnding + "world" + lineEnding
                     );
                 }

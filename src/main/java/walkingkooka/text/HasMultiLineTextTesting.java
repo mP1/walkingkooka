@@ -25,7 +25,7 @@ public interface HasMultiLineTextTesting extends TextContextTesting {
         this.multiLineTextAndCheck(
             has,
             lineEnding,
-            MultiLineText.with(expected)
+            MultiLineText.EMPTY.setText(expected)
         );
     }
 
@@ -50,7 +50,7 @@ public interface HasMultiLineTextTesting extends TextContextTesting {
         this.multiLineTextAndCheck(
             has,
             context,
-            MultiLineText.with(expected)
+            MultiLineText.EMPTY.setText(expected)
         );
     }
 

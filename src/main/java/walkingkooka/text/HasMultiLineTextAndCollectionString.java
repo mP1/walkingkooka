@@ -63,7 +63,7 @@ public interface HasMultiLineTextAndCollectionString extends HasMultiLineText,
             );
         }
 
-        return MultiLineText.with(
+        return MultiLineText.EMPTY.setText(
             b.toString()
         );
     }
