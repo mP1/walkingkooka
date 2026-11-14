@@ -24,7 +24,7 @@ import java.util.function.Predicate;
 /**
  * A {@link Predicate} that always returns false.
  */
-final class NeverPredicate<T> implements Predicate<T>,
+final class PredicateNever<T> implements Predicate<T>,
     Andable,
     Orable,
     Notable<Predicate<T>> {
@@ -32,16 +32,16 @@ final class NeverPredicate<T> implements Predicate<T>,
     /**
      * Singleton
      */
-    private final static NeverPredicate<Object> INSTANCE = new NeverPredicate<>();
+    private final static PredicateNever<Object> INSTANCE = new PredicateNever<>();
 
     /**
      * Type safe singleton getter.
      */
-    static <T> NeverPredicate<T> instance() {
-        return Cast.to(NeverPredicate.INSTANCE);
+    static <T> PredicateNever<T> instance() {
+        return Cast.to(PredicateNever.INSTANCE);
     }
 
-    private NeverPredicate() {
+    private PredicateNever() {
     }
 
     @Override

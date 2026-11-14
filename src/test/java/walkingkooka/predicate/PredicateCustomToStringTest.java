@@ -26,8 +26,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CustomToStringPredicateTest extends PredicateTestCase<CustomToStringPredicate<String>, String>
-    implements HashCodeEqualsDefinedTesting2<CustomToStringPredicate<String>> {
+public final class PredicateCustomToStringTest extends PredicateTestCase<PredicateCustomToString<String>, String>
+    implements HashCodeEqualsDefinedTesting2<PredicateCustomToString<String>> {
 
     private final static String STRING = "abc";
     private final static Predicate<String> WRAPPED = Predicates.is(STRING);
@@ -35,23 +35,23 @@ public final class CustomToStringPredicateTest extends PredicateTestCase<CustomT
 
     @Test
     public void testWrapNullPredicateFails() {
-        assertThrows(NullPointerException.class, () -> CustomToStringPredicate.wrap(null, CUSTOM_TO_STRING));
+        assertThrows(NullPointerException.class, () -> PredicateCustomToString.wrap(null, CUSTOM_TO_STRING));
     }
 
     @Test
     public void testWrapNullToStringFails() {
-        assertThrows(NullPointerException.class, () -> CustomToStringPredicate.wrap(WRAPPED, null));
+        assertThrows(NullPointerException.class, () -> PredicateCustomToString.wrap(WRAPPED, null));
     }
 
     @Test
     public void testDoesntWrapEquivalentToString() {
-        assertSame(WRAPPED, CustomToStringPredicate.wrap(WRAPPED, WRAPPED.toString()));
+        assertSame(WRAPPED, PredicateCustomToString.wrap(WRAPPED, WRAPPED.toString()));
     }
 
     @Test
     public void testUnwrapOtherCustomToStringPredicate() {
-        final Predicate<String> first = CustomToStringPredicate.wrap(WRAPPED, "different");
-        final CustomToStringPredicate<String> wrapped = Cast.to(CustomToStringPredicate.wrap(first, CUSTOM_TO_STRING));
+        final Predicate<String> first = PredicateCustomToString.wrap(WRAPPED, "different");
+        final PredicateCustomToString<String> wrapped = Cast.to(PredicateCustomToString.wrap(first, CUSTOM_TO_STRING));
         assertNotSame(first, wrapped);
         assertSame(WRAPPED, wrapped.predicate, "wrapped predicate");
         assertSame(CUSTOM_TO_STRING, wrapped.toString, "wrapped toString");
@@ -59,11 +59,11 @@ public final class CustomToStringPredicateTest extends PredicateTestCase<CustomT
 
     @Test
     public void testWithEmptyStringCustomString() {
-        final Predicate<String> first = CustomToStringPredicate.wrap(
+        final Predicate<String> first = PredicateCustomToString.wrap(
             WRAPPED,
             ""
         );
-        final CustomToStringPredicate<String> wrapped = Cast.to(CustomToStringPredicate.wrap(first, CUSTOM_TO_STRING));
+        final PredicateCustomToString<String> wrapped = Cast.to(PredicateCustomToString.wrap(first, CUSTOM_TO_STRING));
         assertNotSame(first, wrapped);
         assertSame(WRAPPED, wrapped.predicate, "wrapped predicate");
         assertSame(CUSTOM_TO_STRING, wrapped.toString, "wrapped toString");
@@ -91,12 +91,12 @@ public final class CustomToStringPredicateTest extends PredicateTestCase<CustomT
 
     @Test
     public void testEqualsDifferentWrappedPredicate() {
-        this.checkNotEquals(CustomToStringPredicate.wrap(Predicate.isEqual("different"), CUSTOM_TO_STRING));
+        this.checkNotEquals(PredicateCustomToString.wrap(Predicate.isEqual("different"), CUSTOM_TO_STRING));
     }
 
     @Test
     public void testEqualsDifferentCustomToString() {
-        this.checkNotEquals(CustomToStringPredicate.wrap(WRAPPED, "different"));
+        this.checkNotEquals(PredicateCustomToString.wrap(WRAPPED, "different"));
     }
 
     @Test
@@ -105,17 +105,17 @@ public final class CustomToStringPredicateTest extends PredicateTestCase<CustomT
     }
 
     @Override
-    public CustomToStringPredicate<String> createPredicate() {
-        return Cast.to(CustomToStringPredicate.wrap(WRAPPED, CUSTOM_TO_STRING));
+    public PredicateCustomToString<String> createPredicate() {
+        return Cast.to(PredicateCustomToString.wrap(WRAPPED, CUSTOM_TO_STRING));
     }
 
     @Override
-    public Class<CustomToStringPredicate<String>> type() {
-        return Cast.to(CustomToStringPredicate.class);
+    public Class<PredicateCustomToString<String>> type() {
+        return Cast.to(PredicateCustomToString.class);
     }
 
     @Override
-    public CustomToStringPredicate<String> createObject() {
+    public PredicateCustomToString<String> createObject() {
         return this.createPredicate();
     }
 }

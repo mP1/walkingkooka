@@ -24,9 +24,9 @@ import walkingkooka.text.CharSequences;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-final public class ObjectEqualityPredicateTest
-    extends PredicateTestCase<ObjectEqualityPredicate<String>, String>
-    implements HashCodeEqualsDefinedTesting2<ObjectEqualityPredicate<String>> {
+final public class PredicateObjectEqualityTest
+    extends PredicateTestCase<PredicateObjectEquality<String>, String>
+    implements HashCodeEqualsDefinedTesting2<PredicateObjectEquality<String>> {
 
     final private static String MAGIC = "magic\n";
 
@@ -34,13 +34,13 @@ final public class ObjectEqualityPredicateTest
 
     @Test
     public void testWith() {
-        final ObjectEqualityPredicate<Object> predicate = ObjectEqualityPredicate.with("String");
+        final PredicateObjectEquality<Object> predicate = PredicateObjectEquality.with("String");
         assertNotNull(predicate);
     }
 
     @Test
     public void testWithNull() {
-        final ObjectEqualityPredicate<Object> predicate = ObjectEqualityPredicate.with(null);
+        final PredicateObjectEquality<Object> predicate = PredicateObjectEquality.with(null);
         assertNotNull(predicate);
     }
 
@@ -52,7 +52,7 @@ final public class ObjectEqualityPredicateTest
     @Test
     public void testTestNullWhenNull() {
         this.testTrue(
-            ObjectEqualityPredicate.with(null),
+            PredicateObjectEquality.with(null),
             null
         );
     }
@@ -75,12 +75,12 @@ final public class ObjectEqualityPredicateTest
 
     @Test
     public void testTestEqualsDifferentValue() {
-        this.checkNotEquals(ObjectEqualityPredicate.with("different"));
+        this.checkNotEquals(PredicateObjectEquality.with("different"));
     }
 
     @Test
     public void testToStringWithNoneString() {
-        this.toStringAndCheck(ObjectEqualityPredicate.with(1L), "1");
+        this.toStringAndCheck(PredicateObjectEquality.with(1L), "1");
     }
 
     @Test
@@ -90,17 +90,17 @@ final public class ObjectEqualityPredicateTest
     }
 
     @Override
-    public ObjectEqualityPredicate<String> createPredicate() {
-        return Cast.to(ObjectEqualityPredicate.with(MAGIC));
+    public PredicateObjectEquality<String> createPredicate() {
+        return Cast.to(PredicateObjectEquality.with(MAGIC));
     }
 
     @Override
-    public Class<ObjectEqualityPredicate<String>> type() {
-        return Cast.to(ObjectEqualityPredicate.class);
+    public Class<PredicateObjectEquality<String>> type() {
+        return Cast.to(PredicateObjectEquality.class);
     }
 
     @Override
-    public ObjectEqualityPredicate<String> createObject() {
+    public PredicateObjectEquality<String> createObject() {
         return this.createPredicate();
     }
 }

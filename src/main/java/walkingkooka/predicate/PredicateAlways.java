@@ -24,7 +24,7 @@ import java.util.function.Predicate;
 /**
  * A {@link Predicate} that always returns true regardless of input.
  */
-final class AlwaysPredicate<T> implements Predicate<T>,
+final class PredicateAlways<T> implements Predicate<T>,
     Andable,
     Orable,
     Notable<Predicate<T>> {
@@ -32,16 +32,16 @@ final class AlwaysPredicate<T> implements Predicate<T>,
     /**
      * Singleton
      */
-    private final static AlwaysPredicate<Object> INSTANCE = new AlwaysPredicate<>();
+    private final static PredicateAlways<Object> INSTANCE = new PredicateAlways<>();
 
     /**
      * Type safe singleton getter.
      */
-    static <T> AlwaysPredicate<T> instance() {
-        return Cast.to(AlwaysPredicate.INSTANCE);
+    static <T> PredicateAlways<T> instance() {
+        return Cast.to(PredicateAlways.INSTANCE);
     }
 
-    private AlwaysPredicate() {
+    private PredicateAlways() {
     }
 
     @Override

@@ -26,23 +26,23 @@ import java.util.function.Predicate;
  * A {@link Predicate} that compares a fixed {@link Comparable} with the test value, returning true if the
  * {@link CompareResult} is satisfied.
  */
-final class ComparableCompareResultPredicate<C extends Comparable<C>> implements Predicate<C> {
+final class PredicateComparableCompareResult<C extends Comparable<C>> implements Predicate<C> {
 
     /**
-     * Factory that creates a new {@link ComparableCompareResultPredicate}
+     * Factory that creates a new {@link PredicateComparableCompareResult}
      */
-    static <C extends Comparable<C>> ComparableCompareResultPredicate<C> with(final CompareResult compareResult,
+    static <C extends Comparable<C>> PredicateComparableCompareResult<C> with(final CompareResult compareResult,
                                                                               final C right) {
         Objects.requireNonNull(compareResult, "compareResult");
         Objects.requireNonNull(right, "right");
 
-        return new ComparableCompareResultPredicate<>(compareResult, right);
+        return new PredicateComparableCompareResult<>(compareResult, right);
     }
 
     /**
      * Private ctor use factory
      */
-    private ComparableCompareResultPredicate(final CompareResult compareResult, final C right) {
+    private PredicateComparableCompareResult(final CompareResult compareResult, final C right) {
         super();
         this.compareResult = compareResult;
         this.right = right;

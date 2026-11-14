@@ -25,9 +25,9 @@ import walkingkooka.text.CharSequences;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class CharPredicateCharSequencePredicateTest
-    extends PredicateTestCase<CharPredicateCharSequencePredicate, CharSequence>
-    implements HashCodeEqualsDefinedTesting2<CharPredicateCharSequencePredicate> {
+final public class PredicateCharPredicateCharSequenceTest
+    extends PredicateTestCase<PredicateCharPredicateCharSequence, CharSequence>
+    implements HashCodeEqualsDefinedTesting2<PredicateCharPredicateCharSequence> {
 
     // constants
 
@@ -37,7 +37,7 @@ final public class CharPredicateCharSequencePredicateTest
 
     @Test
     public void testWithNullCharPredicateFails() {
-        assertThrows(NullPointerException.class, () -> CharPredicateCharSequencePredicate.with(null));
+        assertThrows(NullPointerException.class, () -> PredicateCharPredicateCharSequence.with(null));
     }
 
     @Test
@@ -62,7 +62,7 @@ final public class CharPredicateCharSequencePredicateTest
 
     @Test
     public void testEqualsDifferentPredicate() {
-        this.checkNotEquals(CharPredicateCharSequencePredicate.with(CharPredicates.any("different")));
+        this.checkNotEquals(PredicateCharPredicateCharSequence.with(CharPredicates.any("different")));
     }
 
     @Test
@@ -71,17 +71,17 @@ final public class CharPredicateCharSequencePredicateTest
     }
 
     @Override
-    public CharPredicateCharSequencePredicate createPredicate() {
-        return Cast.to(CharPredicateCharSequencePredicate.with(CharPredicates.any(CHARS)));
+    public PredicateCharPredicateCharSequence createPredicate() {
+        return Cast.to(PredicateCharPredicateCharSequence.with(CharPredicates.any(CHARS)));
     }
 
     @Override
-    public Class<CharPredicateCharSequencePredicate> type() {
-        return CharPredicateCharSequencePredicate.class;
+    public Class<PredicateCharPredicateCharSequence> type() {
+        return PredicateCharPredicateCharSequence.class;
     }
 
     @Override
-    public CharPredicateCharSequencePredicate createObject() {
+    public PredicateCharPredicateCharSequence createObject() {
         return this.createPredicate();
     }
 }

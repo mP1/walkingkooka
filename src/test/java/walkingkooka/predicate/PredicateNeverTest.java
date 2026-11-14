@@ -24,47 +24,47 @@ import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-final public class AlwaysPredicateTest extends PredicateTestCase<AlwaysPredicate<Object>, Object> {
+final public class PredicateNeverTest extends PredicateTestCase<PredicateNever<Object>, Object> {
 
     @Test
     public void testTestNull() {
-        this.testTrue(null);
+        this.testFalse(null);
     }
 
     @Test
-    public void testMatches() {
-        this.testTrue(new Object());
-    }
-
-    @Test
-    public void testAnd() {
-        final Predicate<Object> other = Predicates.fake();
-        assertSame(other, AlwaysPredicate.instance().and(other));
-    }
-
-    @Test
-    public void testNot() {
-        assertSame(Predicates.never(), AlwaysPredicate.instance().negate());
-    }
-
-    @Test
-    public void testOr() {
-        final AlwaysPredicate<Object> predicate = AlwaysPredicate.instance();
-        assertSame(predicate, predicate.or(Predicates.fake()));
+    public void testNotMatched() {
+        this.testFalse("not matched");
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(AlwaysPredicate.instance(), "*");
+        this.toStringAndCheck(PredicateNever.instance(), "<none>");
+    }
+
+    @Test
+    public void testAnd() {
+        final PredicateNever<Object> predicate = PredicateNever.instance();
+        assertSame(predicate, predicate.and(Predicates.fake()));
+    }
+
+    @Test
+    public void testNot() {
+        assertSame(Predicates.always(), PredicateNever.instance().negate());
+    }
+
+    @Test
+    public void testOr() {
+        final Predicate<Object> other = Predicates.fake();
+        assertSame(other, PredicateNever.instance().or(other));
     }
 
     @Override
-    public AlwaysPredicate<Object> createPredicate() {
-        return AlwaysPredicate.instance();
+    public PredicateNever<Object> createPredicate() {
+        return PredicateNever.instance();
     }
 
     @Override
-    public Class<AlwaysPredicate<Object>> type() {
-        return Cast.to(AlwaysPredicate.class);
+    public Class<PredicateNever<Object>> type() {
+        return Cast.to(PredicateNever.class);
     }
 }

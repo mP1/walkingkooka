@@ -25,11 +25,11 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SetContainsPredicateTest extends PredicateTestCase<SetContainsPredicate<String>, String> {
+public final class PredicateSetContainsTest extends PredicateTestCase<PredicateSetContains<String>, String> {
 
     @Test
     public void testWithNullSetFails() {
-        assertThrows(NullPointerException.class, () -> SetContainsPredicate.with(null));
+        assertThrows(NullPointerException.class, () -> PredicateSetContains.with(null));
     }
 
     @Test
@@ -37,7 +37,7 @@ public final class SetContainsPredicateTest extends PredicateTestCase<SetContain
         final Set<String> set = Sets.ordered();
         set.addAll(this.set());
 
-        final SetContainsPredicate<String> predicate = SetContainsPredicate.with(set);
+        final PredicateSetContains<String> predicate = PredicateSetContains.with(set);
         set.clear();
 
         this.testTrue(predicate, "A");
@@ -69,8 +69,8 @@ public final class SetContainsPredicateTest extends PredicateTestCase<SetContain
     }
 
     @Override
-    public SetContainsPredicate<String> createPredicate() {
-        return SetContainsPredicate.with(this.set());
+    public PredicateSetContains<String> createPredicate() {
+        return PredicateSetContains.with(this.set());
     }
 
     private Set<String> set() {
@@ -78,7 +78,7 @@ public final class SetContainsPredicateTest extends PredicateTestCase<SetContain
     }
 
     @Override
-    public Class<SetContainsPredicate<String>> type() {
-        return Cast.to(SetContainsPredicate.class);
+    public Class<PredicateSetContains<String>> type() {
+        return Cast.to(PredicateSetContains.class);
     }
 }

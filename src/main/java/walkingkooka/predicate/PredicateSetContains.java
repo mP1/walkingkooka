@@ -25,19 +25,19 @@ import java.util.function.Predicate;
 /**
  * A {@link Predicate} that returns true only if the value being tested exists in the {@link Set}.
  */
-final class SetContainsPredicate<T> implements Predicate<T> {
+final class PredicateSetContains<T> implements Predicate<T> {
 
     /**
-     * Factory that takes a copy of the {@link Set} and creates a new {@link SetContainsPredicate}
+     * Factory that takes a copy of the {@link Set} and creates a new {@link PredicateSetContains}
      */
-    static <T> SetContainsPredicate<T> with(final Set<T> set) {
-        return new SetContainsPredicate<>(Sets.immutable(set));
+    static <T> PredicateSetContains<T> with(final Set<T> set) {
+        return new PredicateSetContains<>(Sets.immutable(set));
     }
 
     /**
      * Private ctor use factory
      */
-    private SetContainsPredicate(final Set<T> set) {
+    private PredicateSetContains(final Set<T> set) {
         super();
         this.set = set;
     }
