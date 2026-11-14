@@ -24,15 +24,15 @@ import java.util.Objects;
 /**
  * Adaptor that presents an {@link Iterator} view of an {@link Enumeration}.
  */
-final class EnumerationIterator<E> implements Iterator<E> {
+final class IteratorEnumeration<E> implements Iterator<E> {
 
-    static <E> EnumerationIterator<E> with(final Enumeration<E> enumeration) {
+    static <E> IteratorEnumeration<E> with(final Enumeration<E> enumeration) {
         Objects.requireNonNull(enumeration, "enumeration");
 
-        return new EnumerationIterator<>(enumeration);
+        return new IteratorEnumeration<>(enumeration);
     }
 
-    private EnumerationIterator(final Enumeration<E> enumeration) {
+    private IteratorEnumeration(final Enumeration<E> enumeration) {
         super();
         this.enumeration = enumeration;
     }

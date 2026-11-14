@@ -26,31 +26,31 @@ import java.util.Objects;
 /**
  * An {@link Iterator} that includes an element limit for a wrapped {@link Iterator}.
  */
-final class LimitedIterator<E> implements Iterator<E> {
+final class IteratorLimited<E> implements Iterator<E> {
 
     /**
-     * Factory that creates a {@link LimitedIterator} skipping the with if the wrapped has a lesser
+     * Factory that creates a {@link IteratorLimited} skipping the with if the wrapped has a lesser
      * count.
      */
-    static <E> LimitedIterator<E> wrap(final Iterator<E> iterator, final int count) {
+    static <E> IteratorLimited<E> wrap(final Iterator<E> iterator, final int count) {
         Objects.requireNonNull(iterator, "iterator");
         if (count < 0) {
             throw new IllegalArgumentException("Count " + count + " must be greater than 0");
         }
 
-        LimitedIterator<E> result;
+        IteratorLimited<E> result;
 
         do {
             Iterator<E> wrapped = iterator;
-            if (iterator instanceof LimitedIterator) {
-                final LimitedIterator<E> limited = Cast.to(iterator);
+            if (iterator instanceof IteratorLimited) {
+                final IteratorLimited<E> limited = Cast.to(iterator);
                 if (count >= limited.countdown) {
                     result = limited;
                     break;
                 }
                 wrapped = limited.iterator;
             }
-            result = new LimitedIterator<>(wrapped, count);
+            result = new IteratorLimited<>(wrapped, count);
         } while (false);
 
         return result;
@@ -59,7 +59,7 @@ final class LimitedIterator<E> implements Iterator<E> {
     /**
      * Private constructor use factory.
      */
-    private LimitedIterator(final Iterator<E> iterator, final int count) {
+    private IteratorLimited(final Iterator<E> iterator, final int count) {
         super();
         this.iterator = iterator;
         this.countdown = count;

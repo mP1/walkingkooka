@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<String>, String> {
+final public class IteratorChainTest extends IteratorTestCase<IteratorChain<String>, String> {
 
     // constants
 
@@ -41,7 +41,7 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
 
     @Test
     public void testWithNullIteratorsFails() {
-        assertThrows(NullPointerException.class, () -> ChainIterator.with(null));
+        assertThrows(NullPointerException.class, () -> IteratorChain.with(null));
     }
 
     @Test
@@ -49,7 +49,7 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
         //noinspection unchecked
         assertSame(
             Iterators.empty(),
-            ChainIterator.with()
+            IteratorChain.with()
         );
     }
 
@@ -57,13 +57,13 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
     public void testWithOne() {
         final Iterator<?> only = Iterators.fake();
         //noinspection unchecked
-        assertSame(only, ChainIterator.with(only));
+        assertSame(only, IteratorChain.with(only));
     }
 
     @Test
     public void testConsumeEmpty() {
         this.iterateAndCheck(
-            ChainIterator.with()
+            IteratorChain.with()
         );
     }
 
@@ -72,7 +72,7 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
         final String element = "*1*";
 
         this.iterateAndCheck(
-            ChainIterator.with(
+            IteratorChain.with(
                 Iterators.one(element)
             ),
             element
@@ -88,7 +88,7 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
         second.add("3");
         second.add("4");
 
-        final ChainIterator<String> iterator = this.createIterator(first.iterator(),
+        final IteratorChain<String> iterator = this.createIterator(first.iterator(),
             second.iterator());
         assertTrue(iterator.hasNext(), "hasNext from 1st iterator");
         assertSame("1", iterator.next(), "next from 1st iterator");
@@ -116,7 +116,7 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
         second.add("3");
         second.add("4");
 
-        final ChainIterator<String> iterator = this.createIterator(first.iterator(), second.iterator());
+        final IteratorChain<String> iterator = this.createIterator(first.iterator(), second.iterator());
         assertSame("1", iterator.next(), "next from 1st iterator");
         assertSame("2", iterator.next(), "next from 1st iterator");
         assertSame("3", iterator.next(), "next from last iterator");
@@ -132,7 +132,7 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
         second.add("3");
         second.add("4");
 
-        final ChainIterator<String> iterator = this.createIterator(first.iterator(),
+        final IteratorChain<String> iterator = this.createIterator(first.iterator(),
             second.iterator());
         iterator.next();
         iterator.next();
@@ -156,7 +156,7 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
         second.add("3");
         second.add("4");
 
-        final ChainIterator<String> iterator = this.createIterator(first.iterator(),
+        final IteratorChain<String> iterator = this.createIterator(first.iterator(),
             second.iterator());
         assertTrue(iterator.hasNext(), "hasNext from 1st iterator");
         assertSame("1", iterator.next(), "next from 1st iterator");
@@ -186,7 +186,7 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
         final List<String> first = Lists.empty();
         final List<String> second = Lists.empty();
 
-        @SuppressWarnings("unchecked") final Iterator<String> iterator = ChainIterator.with(first.iterator(), second.iterator());
+        @SuppressWarnings("unchecked") final Iterator<String> iterator = IteratorChain.with(first.iterator(), second.iterator());
         this.hasNextCheckFalse(iterator);
         this.nextFails(iterator);
     }
@@ -196,7 +196,7 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
         final List<String> first = Lists.empty();
         final List<String> second = Lists.of("1");
 
-        final ChainIterator<String> iterator = this.createIterator(first.iterator(),
+        final IteratorChain<String> iterator = this.createIterator(first.iterator(),
             second.iterator());
         assertTrue(iterator.hasNext(), "hasNext from 2nd iterator");
         assertSame("1", iterator.next(), "next from 2nd iterator");
@@ -210,7 +210,7 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
         final List<String> first = Lists.empty();
         final List<String> second = Lists.of("1");
 
-        final ChainIterator<String> iterator = this.createIterator(first.iterator(),
+        final IteratorChain<String> iterator = this.createIterator(first.iterator(),
             second.iterator());
         assertSame("1", iterator.next(), "next from 2nd iterator");
 
@@ -225,7 +225,7 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
         second.add("3");
         second.add("4");
 
-        final ChainIterator<String> iterator = this.createIterator(first.iterator(),
+        final IteratorChain<String> iterator = this.createIterator(first.iterator(),
             second.iterator());
         iterator.next();
         iterator.next();
@@ -246,7 +246,7 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
         second.add("3");
         second.add("4");
 
-        final ChainIterator<String> iterator = this.createIterator(first.iterator(),
+        final IteratorChain<String> iterator = this.createIterator(first.iterator(),
             second.iterator());
         assertTrue(iterator.hasNext(), "hasNext from 1st iterator");
         assertSame("1", iterator.next(), "next from 1st iterator");
@@ -283,7 +283,7 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
         second.add("3");
 
         final Iterator<String> secondIterator = second.iterator();
-        final ChainIterator<String> iterator = this.createIterator(first.iterator(),
+        final IteratorChain<String> iterator = this.createIterator(first.iterator(),
             secondIterator);
         iterator.next();
         iterator.hasNext();
@@ -296,7 +296,7 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
     public void testToStringWhenEmpty() {
         final List<String> first = Lists.empty();
         final List<String> second = Lists.of("1");
-        final ChainIterator<String> iterator = this.createIterator(first.iterator(),
+        final IteratorChain<String> iterator = this.createIterator(first.iterator(),
             second.iterator());
         iterator.next();
         iterator.hasNext();
@@ -305,18 +305,18 @@ final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<Stri
     }
 
     @Override
-    public ChainIterator<String> createIterator() {
+    public IteratorChain<String> createIterator() {
         return this.createIterator(FIRST, SECOND);
     }
 
-    private ChainIterator<String> createIterator(final Iterator<String> first,
+    private IteratorChain<String> createIterator(final Iterator<String> first,
                                                  final Iterator<String> second) {
         //noinspection unchecked
-        return Cast.to(ChainIterator.with(first, second));
+        return Cast.to(IteratorChain.with(first, second));
     }
 
     @Override
-    public Class<ChainIterator<String>> type() {
-        return Cast.to(ChainIterator.class);
+    public Class<IteratorChain<String>> type() {
+        return Cast.to(IteratorChain.class);
     }
 }

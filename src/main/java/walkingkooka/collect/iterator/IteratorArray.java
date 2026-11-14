@@ -27,19 +27,19 @@ import java.util.Objects;
 /**
  * Provides an {@link Iterator} view over an array. Note the array is copied.
  */
-final class ArrayIterator<T> implements Iterator<T> {
+final class IteratorArray<T> implements Iterator<T> {
 
     @SafeVarargs
-    static <T> ArrayIterator<T> with(final T... items) {
+    static <T> IteratorArray<T> with(final T... items) {
         Objects.requireNonNull(items, "items");
 
-        return new ArrayIterator<>(Arrays.copyOf(items, items.length));
+        return new IteratorArray<>(Arrays.copyOf(items, items.length));
     }
 
     /**
      * Private constructor
      */
-    private ArrayIterator(final T[] items) {
+    private IteratorArray(final T[] items) {
         super();
         this.items = items;
         this.next = 0;

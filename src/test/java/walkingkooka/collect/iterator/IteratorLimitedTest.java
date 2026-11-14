@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<String>, String> {
+final public class IteratorLimitedTest extends IteratorTestCase<IteratorLimited<String>, String> {
 
     // constants
 
@@ -42,37 +42,37 @@ final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<
 
     @Test
     public void testWrapNullIteratorFails() {
-        assertThrows(NullPointerException.class, () -> LimitedIterator.wrap((Iterator<String>) null, COUNT));
+        assertThrows(NullPointerException.class, () -> IteratorLimited.wrap((Iterator<String>) null, COUNT));
     }
 
     @Test
     public void testWrapNegativeCountFails() {
-        assertThrows(IllegalArgumentException.class, () -> LimitedIterator.wrap(ITERATOR, -1));
+        assertThrows(IllegalArgumentException.class, () -> IteratorLimited.wrap(ITERATOR, -1));
     }
 
     @Test
     public void testWrapAnotherLimitedIteratorWithLessCount() {
-        final LimitedIterator<String> limited = this.createIterator();
-        assertSame(limited, LimitedIterator.wrap(limited, COUNT));
+        final IteratorLimited<String> limited = this.createIterator();
+        assertSame(limited, IteratorLimited.wrap(limited, COUNT));
     }
 
     @Test
     public void testWrapAnotherLimitedIteratorWithLessCount2() {
-        final LimitedIterator<String> limited = this.createIterator();
-        assertSame(limited, LimitedIterator.wrap(limited, COUNT + 1));
+        final IteratorLimited<String> limited = this.createIterator();
+        assertSame(limited, IteratorLimited.wrap(limited, COUNT + 1));
     }
 
     @Test
     public void testWrapAnotherLimitedIteratorWithMoreCount2() {
-        final LimitedIterator<String> limited = this.createIterator();
-        final LimitedIterator<String> limited2 = LimitedIterator.wrap(limited, 1);
+        final IteratorLimited<String> limited = this.createIterator();
+        final IteratorLimited<String> limited2 = IteratorLimited.wrap(limited, 1);
         assertSame(limited.iterator, limited2.iterator, "iterator");
         assertSame(1, limited2.countdown, "countdown");
     }
 
     @Test
     public void testExhaustUsingHasNextNext() {
-        final LimitedIterator<String> iterator = this.createIterator();
+        final IteratorLimited<String> iterator = this.createIterator();
         assertTrue(iterator.hasNext());
         assertSame("1", iterator.next());
 
@@ -86,7 +86,7 @@ final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<
 
     @Test
     public void testExhaustUsingNext() {
-        final LimitedIterator<String> iterator = this.createIterator();
+        final IteratorLimited<String> iterator = this.createIterator();
         assertSame("1", iterator.next());
         assertSame("2", iterator.next());
         this.nextFails(iterator);
@@ -99,7 +99,7 @@ final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<
         source.add("1-removed");
         source.add("2");
         source.add("3");
-        final LimitedIterator<String> iterator = LimitedIterator.wrap(source.iterator(),
+        final IteratorLimited<String> iterator = IteratorLimited.wrap(source.iterator(),
             COUNT);
         iterator.next();
         iterator.remove();
@@ -111,19 +111,19 @@ final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(LimitedIterator.wrap(ITERATOR, COUNT), "at most 2 " + ITERATOR);
+        this.toStringAndCheck(IteratorLimited.wrap(ITERATOR, COUNT), "at most 2 " + ITERATOR);
     }
 
     @Override
-    public LimitedIterator<String> createIterator() {
-        return LimitedIterator.wrap(Lists.of("1",
+    public IteratorLimited<String> createIterator() {
+        return IteratorLimited.wrap(Lists.of("1",
             "2",
             "should never be returned1",
             "should never be returned2").iterator(), COUNT);
     }
 
     @Override
-    public Class<LimitedIterator<String>> type() {
-        return Cast.to(LimitedIterator.class);
+    public Class<IteratorLimited<String>> type() {
+        return Cast.to(IteratorLimited.class);
     }
 }

@@ -20,7 +20,7 @@ package walkingkooka.collect.iterator;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-final public class OneIteratorTest extends IteratorTestCase<OneIterator<String>, String> {
+final public class IteratorOneTest extends IteratorTestCase<IteratorOne<String>, String> {
 
     // constants
 
@@ -32,59 +32,59 @@ final public class OneIteratorTest extends IteratorTestCase<OneIterator<String>,
 
     @Test
     public void testNullValueHasNext() {
-        this.iterateUsingHasNextAndCheck(OneIterator.with(NULL),
+        this.iterateUsingHasNextAndCheck(IteratorOne.with(NULL),
             NULL);
     }
 
     @Test
     public void testNullValueNext() {
-        this.iterateAndCheck(OneIterator.with(NULL), NULL);
+        this.iterateAndCheck(IteratorOne.with(NULL), NULL);
     }
 
     @Test
     public void testNonNullValueHasNext() {
-        this.iterateUsingHasNextAndCheck(OneIterator.with(VALUE),
+        this.iterateUsingHasNextAndCheck(IteratorOne.with(VALUE),
             VALUE);
     }
 
     @Test
     public void testNonNullValueNext() {
-        this.iterateAndCheck(OneIterator.with(VALUE), VALUE);
+        this.iterateAndCheck(IteratorOne.with(VALUE), VALUE);
     }
 
     @Test
     public void testNonNullValueToString() {
-        final OneIterator<String> iterator = OneIterator.with(VALUE);
+        final IteratorOne<String> iterator = IteratorOne.with(VALUE);
         this.checkEquals(VALUE, iterator.toString());
     }
 
     @Test
     public void testEmptyToString() {
-        final OneIterator<String> iterator = OneIterator.with(null);
+        final IteratorOne<String> iterator = IteratorOne.with(null);
         iterator.next();
         this.checkEquals("<empty>", iterator.toString());
     }
 
     @Test
     public void testWhenEmptyNextFails() {
-        final OneIterator<String> iterator = OneIterator.with(null);
+        final IteratorOne<String> iterator = IteratorOne.with(null);
         iterator.next();
         this.nextFails(iterator);
     }
 
     @Test
     public void testRemoveFails() {
-        final OneIterator<String> iterator = OneIterator.with(null);
+        final IteratorOne<String> iterator = IteratorOne.with(null);
         this.removeUnsupportedFails(iterator);
     }
 
     @Override
-    public OneIterator<String> createIterator() {
+    public IteratorOne<String> createIterator() {
         return null;
     }
 
     @Override
-    public Class<OneIterator<String>> type() {
-        return Cast.to(OneIterator.class);
+    public Class<IteratorOne<String>> type() {
+        return Cast.to(IteratorOne.class);
     }
 }

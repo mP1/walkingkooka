@@ -27,40 +27,40 @@ import java.util.function.Predicate;
 final public class Iterators implements PublicStaticHelper {
 
     /**
-     * {@see ArrayIterator}
+     * {@see IteratorArray}
      */
     @SafeVarargs
     public static <E> Iterator<E> array(final E... array) {
-        return ArrayIterator.with(array);
+        return IteratorArray.with(array);
     }
 
     /**
-     * {@see ChainIterator}
+     * {@see IteratorChain}
      */
     @SafeVarargs
     public static <E> Iterator<E> chain(final Iterator<E>... iterators) {
-        return ChainIterator.with(iterators);
+        return IteratorChain.with(iterators);
     }
 
     /**
-     * {@see CharSequenceIterator}
+     * {@see IteratorCharSequence}
      */
     public static Iterator<Character> characters(final CharSequence charSequence) {
-        return CharSequenceIterator.with(charSequence);
+        return IteratorCharSequence.with(charSequence);
     }
 
     /**
-     * {@see EmptyIterator}
+     * {@see IteratorEmpty}
      */
     public static <E> Iterator<E> empty() {
-        return EmptyIterator.instance();
+        return IteratorEmpty.instance();
     }
 
     /**
-     * {@see EnumerationIterator}
+     * {@see IteratorEnumeration}
      */
     public static <E> Iterator<E> enumeration(final Enumeration<E> enumeration) {
-        return EnumerationIterator.with(enumeration);
+        return IteratorEnumeration.with(enumeration);
     }
 
     /**
@@ -71,50 +71,50 @@ final public class Iterators implements PublicStaticHelper {
     }
 
     /**
-     * {@see LimitedIterator}
+     * {@see IteratorLimited}
      */
     public static <E> Iterator<E> limited(final Iterator<E> iterator, final int count) {
-        return LimitedIterator.wrap(iterator, count);
+        return IteratorLimited.wrap(iterator, count);
     }
 
     /**
-     * {@see MappingIterator}
+     * {@see IteratorMapping}
      */
     public static <S, D> Iterator<D> mapping(final Iterator<S> iterator,
                                              final Function<S, D> mapper) {
-        return MappingIterator.with(iterator, mapper);
+        return IteratorMapping.with(iterator, mapper);
     }
 
     /**
-     * {@see OneIterator}
+     * {@see IteratorOne}
      */
     public static <E> Iterator<E> one(final E value) {
-        return OneIterator.with(value);
+        return IteratorOne.with(value);
     }
 
     /**
-     * {@see PredicatedIterator}
+     * {@see IteratorPredicated}
      */
     public static <E> Iterator<E> predicated(final Iterator<E> iterator,
                                              final Predicate<E> filter) {
-        return PredicatedIterator.with(
+        return IteratorPredicated.with(
             iterator,
             filter
         );
     }
 
     /**
-     * {@see ReadOnlyIterator}
+     * {@see IteratorReadOnly}
      */
     public static <T> Iterator<T> readOnly(final Iterator<T> iterator) {
-        return ReadOnlyIterator.wrap(iterator);
+        return IteratorReadOnly.wrap(iterator);
     }
 
     /**
-     * {@see ReverseIterator}
+     * {@see IteratorReverse}
      */
     public static <E> Iterator<E> reverse(final Iterator<E> iterator) {
-        return ReverseIterator.with(iterator);
+        return IteratorReverse.with(iterator);
     }
 
     /**

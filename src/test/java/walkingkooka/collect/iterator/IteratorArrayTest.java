@@ -25,11 +25,11 @@ import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class ArrayIteratorTest extends IteratorTestCase<ArrayIterator<String>, String> {
+final public class IteratorArrayTest extends IteratorTestCase<IteratorArray<String>, String> {
 
     @Test
     public void testWithNullArrayFails() {
-        assertThrows(NullPointerException.class, () -> ArrayIterator.with((Object[]) null));
+        assertThrows(NullPointerException.class, () -> IteratorArray.with((Object[]) null));
     }
 
     @Test
@@ -45,7 +45,7 @@ final public class ArrayIteratorTest extends IteratorTestCase<ArrayIterator<Stri
     @Test
     public void testArrayCopied() {
         final String[] items = new String[]{"A", "B", "C"};
-        final Iterator<String> iterator = ArrayIterator.with(items);
+        final Iterator<String> iterator = IteratorArray.with(items);
         items[0] = "D";
         items[1] = "E";
         items[2] = "F";
@@ -60,7 +60,7 @@ final public class ArrayIteratorTest extends IteratorTestCase<ArrayIterator<Stri
 
     @Test
     public void testRemove() {
-        final ArrayIterator<String> iterator = this.createIterator();
+        final IteratorArray<String> iterator = this.createIterator();
         iterator.next();
         this.removeUnsupportedFails(iterator);
     }
@@ -72,7 +72,7 @@ final public class ArrayIteratorTest extends IteratorTestCase<ArrayIterator<Stri
 
     @Test
     public void testToStringPartiallyConsumed() {
-        final ArrayIterator<String> iterator = this.createIterator();
+        final IteratorArray<String> iterator = this.createIterator();
         iterator.next();
 
         this.toStringAndCheck(iterator, Lists.of("B", "C").toString());
@@ -80,7 +80,7 @@ final public class ArrayIteratorTest extends IteratorTestCase<ArrayIterator<Stri
 
     @Test
     public void testToStringWhenEmpty() {
-        final ArrayIterator<String> iterator = this.createIterator();
+        final IteratorArray<String> iterator = this.createIterator();
         iterator.next();
         iterator.next();
         iterator.next();
@@ -89,12 +89,12 @@ final public class ArrayIteratorTest extends IteratorTestCase<ArrayIterator<Stri
     }
 
     @Override
-    public ArrayIterator<String> createIterator() {
-        return ArrayIterator.with("A", "B", "C");
+    public IteratorArray<String> createIterator() {
+        return IteratorArray.with("A", "B", "C");
     }
 
     @Override
-    public Class<ArrayIterator<String>> type() {
-        return Cast.to(ArrayIterator.class);
+    public Class<IteratorArray<String>> type() {
+        return Cast.to(IteratorArray.class);
     }
 }

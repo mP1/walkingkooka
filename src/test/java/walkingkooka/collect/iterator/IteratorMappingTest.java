@@ -26,16 +26,16 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class MappingIteratorTest extends IteratorTestCase<MappingIterator<String, Integer>, Integer> {
+public final class IteratorMappingTest extends IteratorTestCase<IteratorMapping<String, Integer>, Integer> {
 
     @Test
     public void testWithNullIteratorFails() {
-        assertThrows(NullPointerException.class, () -> MappingIterator.<String, Integer>with(null, Integer::parseInt));
+        assertThrows(NullPointerException.class, () -> IteratorMapping.<String, Integer>with(null, Integer::parseInt));
     }
 
     @Test
     public void testWithNullMapperFunctionFails() {
-        assertThrows(NullPointerException.class, () -> MappingIterator.with(Iterators.array("11", "22", "33"), null));
+        assertThrows(NullPointerException.class, () -> IteratorMapping.with(Iterators.array("11", "22", "33"), null));
     }
 
     @Test
@@ -50,7 +50,7 @@ public final class MappingIteratorTest extends IteratorTestCase<MappingIterator<
         values.add("2");
         values.add("3");
 
-        final Iterator<Integer> iterator = MappingIterator.with(values.iterator(), Integer::parseInt);
+        final Iterator<Integer> iterator = IteratorMapping.with(values.iterator(), Integer::parseInt);
         iterator.next();
         iterator.remove();
 
@@ -63,8 +63,8 @@ public final class MappingIteratorTest extends IteratorTestCase<MappingIterator<
     }
 
     @Override
-    public MappingIterator<String, Integer> createIterator() {
-        return MappingIterator.with(this.wrappedIterator(), Integer::parseInt);
+    public IteratorMapping<String, Integer> createIterator() {
+        return IteratorMapping.with(this.wrappedIterator(), Integer::parseInt);
     }
 
     private Iterator<String> wrappedIterator() {
@@ -72,7 +72,7 @@ public final class MappingIteratorTest extends IteratorTestCase<MappingIterator<
     }
 
     @Override
-    public Class<MappingIterator<String, Integer>> type() {
-        return Cast.to(MappingIterator.class);
+    public Class<IteratorMapping<String, Integer>> type() {
+        return Cast.to(IteratorMapping.class);
     }
 }
