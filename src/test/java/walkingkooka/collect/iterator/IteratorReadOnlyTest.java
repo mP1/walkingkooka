@@ -37,14 +37,21 @@ final public class IteratorReadOnlyTest extends IteratorTestCase<IteratorReadOnl
 
     @Test
     public void testWithNullIteratorFails() {
-        assertThrows(NullPointerException.class, () -> IteratorReadOnly.with(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> IteratorReadOnly.with(null)
+        );
     }
 
     @Test
     public void testWith() {
         final Iterator<Void> iterator = Iterators.fake();
         final IteratorReadOnly<Void> readOnly = IteratorReadOnly.with(iterator);
-        assertSame(iterator, readOnly.iterator, "iterator");
+        assertSame(
+            iterator,
+            readOnly.iterator,
+            "iterator"
+        );
     }
 
     @Test
@@ -73,23 +80,33 @@ final public class IteratorReadOnlyTest extends IteratorTestCase<IteratorReadOnl
 
     @Test
     public void testRemove() {
-        this.removeUnsupportedFails(IteratorReadOnly.with(this.iterator(ELEMENT)));
-    }
-
-    @Test
-    public void testToString() {
-        final Iterator<Object> iterator
-            = new ArrayList<>(Lists.of(ELEMENT)).iterator();
-        this.toStringAndCheck(IteratorReadOnly.with(iterator), iterator.toString());
+        this.removeUnsupportedFails(
+            IteratorReadOnly.with(
+                this.iterator(ELEMENT)
+            )
+        );
     }
 
     private IteratorReadOnly<Object> iterator(final Object... strings) {
-        return IteratorReadOnly.with(new ArrayList<>(Lists.of(strings)).iterator());
+        return IteratorReadOnly.with(
+            new ArrayList<>(
+                Lists.of(strings)
+            ).iterator()
+        );
     }
 
     @Override
     public IteratorReadOnly<Object> createIterator() {
         return IteratorReadOnly.with(Iterators.fake());
+    }
+
+    @Test
+    public void testToString() {
+        final Iterator<Object> iterator = new ArrayList<>(Lists.of(ELEMENT)).iterator();
+        this.toStringAndCheck(
+            IteratorReadOnly.with(iterator),
+            iterator.toString()
+        );
     }
 
     @Override
