@@ -31,7 +31,7 @@ final class IteratorReadOnly<T> implements Iterator<T> {
     /**
      * Wraps the given {@link Iterator} only if it is not already a {@link IteratorReadOnly}
      */
-    static <T> IteratorReadOnly<T> wrap(final Iterator<T> iterator) {
+    static <T> IteratorReadOnly<T> with(final Iterator<T> iterator) {
         Objects.requireNonNull(iterator, "iterator");
 
         return iterator instanceof IteratorReadOnly ?
