@@ -36,14 +36,14 @@ final public class IteratorReadOnlyTest extends IteratorTestCase<IteratorReadOnl
     // tests
 
     @Test
-    public void testWrapNullIteratorFails() {
-        assertThrows(NullPointerException.class, () -> IteratorReadOnly.wrap(null));
+    public void testWithNullIteratorFails() {
+        assertThrows(NullPointerException.class, () -> IteratorReadOnly.with(null));
     }
 
     @Test
-    public void testWrap() {
+    public void testWith() {
         final Iterator<Void> iterator = Iterators.fake();
-        final IteratorReadOnly<Void> readOnly = IteratorReadOnly.wrap(iterator);
+        final IteratorReadOnly<Void> readOnly = IteratorReadOnly.with(iterator);
         assertSame(iterator, readOnly.iterator, "iterator");
     }
 
@@ -51,7 +51,7 @@ final public class IteratorReadOnlyTest extends IteratorTestCase<IteratorReadOnl
     public void testDoesntWrapReadOnlyIterator() {
         final Iterator<Void> iterator = Iterators.fake();
         final IteratorReadOnly<Void> readOnly
-            = IteratorReadOnly.wrap(IteratorReadOnly.wrap(iterator));
+            = IteratorReadOnly.with(IteratorReadOnly.with(iterator));
         assertSame(iterator, readOnly.iterator, "iterator");
     }
 
@@ -73,23 +73,23 @@ final public class IteratorReadOnlyTest extends IteratorTestCase<IteratorReadOnl
 
     @Test
     public void testRemove() {
-        this.removeUnsupportedFails(IteratorReadOnly.wrap(this.iterator(ELEMENT)));
+        this.removeUnsupportedFails(IteratorReadOnly.with(this.iterator(ELEMENT)));
     }
 
     @Test
     public void testToString() {
         final Iterator<Object> iterator
             = new ArrayList<>(Lists.of(ELEMENT)).iterator();
-        this.toStringAndCheck(IteratorReadOnly.wrap(iterator), iterator.toString());
+        this.toStringAndCheck(IteratorReadOnly.with(iterator), iterator.toString());
     }
 
     private IteratorReadOnly<Object> iterator(final Object... strings) {
-        return IteratorReadOnly.wrap(new ArrayList<>(Lists.of(strings)).iterator());
+        return IteratorReadOnly.with(new ArrayList<>(Lists.of(strings)).iterator());
     }
 
     @Override
     public IteratorReadOnly<Object> createIterator() {
-        return IteratorReadOnly.wrap(Iterators.fake());
+        return IteratorReadOnly.with(Iterators.fake());
     }
 
     @Override

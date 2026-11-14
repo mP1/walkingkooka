@@ -107,7 +107,7 @@ final public class Iterators implements PublicStaticHelper {
      * {@see IteratorReadOnly}
      */
     public static <T> Iterator<T> readOnly(final Iterator<T> iterator) {
-        return IteratorReadOnly.wrap(iterator);
+        return IteratorReadOnly.with(iterator);
     }
 
     /**
