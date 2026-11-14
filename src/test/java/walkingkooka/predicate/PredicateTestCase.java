@@ -36,4 +36,14 @@ abstract public class PredicateTestCase<P extends Predicate<T>, T> implements Cl
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
     }
+
+    @Override
+    public final String typeNamePrefix() {
+        return Predicate.class.getSimpleName();
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return "";
+    }
 }

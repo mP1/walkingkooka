@@ -26,16 +26,16 @@ import java.util.function.Predicate;
  * A {@link Predicate} that test a {@link CharSequence} using two predicates, the first requires the initial char to be
  * true and the second matches remaining characters.
  */
-final class InitialAndPartCharPredicateCharSequencePredicate implements Predicate<CharSequence> {
+final class PredicateInitialAndPartCharPredicateCharSequence implements Predicate<CharSequence> {
 
     static Predicate<CharSequence> with(final CharPredicate initial, final CharPredicate remaining) {
         Objects.requireNonNull(initial, "initial");
         Objects.requireNonNull(remaining, "remaining");
 
-        return initial.equals(remaining) ? Predicates.charSequence(initial) : new InitialAndPartCharPredicateCharSequencePredicate(initial, remaining);
+        return initial.equals(remaining) ? Predicates.charSequence(initial) : new PredicateInitialAndPartCharPredicateCharSequence(initial, remaining);
     }
 
-    private InitialAndPartCharPredicateCharSequencePredicate(final CharPredicate initial, final CharPredicate remaining) {
+    private PredicateInitialAndPartCharPredicateCharSequence(final CharPredicate initial, final CharPredicate remaining) {
         this.initial = initial;
         this.remaining = remaining;
     }
@@ -88,10 +88,10 @@ final class InitialAndPartCharPredicateCharSequencePredicate implements Predicat
 
     @Override
     public boolean equals(final Object other) {
-        return this == other || other instanceof InitialAndPartCharPredicateCharSequencePredicate && equals0((InitialAndPartCharPredicateCharSequencePredicate) other);
+        return this == other || other instanceof PredicateInitialAndPartCharPredicateCharSequence && equals0((PredicateInitialAndPartCharPredicateCharSequence) other);
     }
 
-    private boolean equals0(final InitialAndPartCharPredicateCharSequencePredicate other) {
+    private boolean equals0(final PredicateInitialAndPartCharPredicateCharSequence other) {
         return this.initial.equals(other.initial) && this.remaining.equals(other.remaining);
     }
 

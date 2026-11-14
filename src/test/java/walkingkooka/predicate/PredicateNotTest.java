@@ -29,8 +29,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final public class NotPredicateTest extends PredicateTestCase<NotPredicate<String>, String>
-    implements HashCodeEqualsDefinedTesting2<NotPredicate<String>> {
+final public class PredicateNotTest extends PredicateTestCase<PredicateNot<String>, String>
+    implements HashCodeEqualsDefinedTesting2<PredicateNot<String>> {
 
     // constants
 
@@ -44,23 +44,23 @@ final public class NotPredicateTest extends PredicateTestCase<NotPredicate<Strin
 
     @Test
     public void testWrapNullPredicateFails() {
-        assertThrows(NullPointerException.class, () -> NotPredicate.wrap(null));
+        assertThrows(NullPointerException.class, () -> PredicateNot.wrap(null));
     }
 
     @Test
     public void testWrapNotPredicate() {
         assertSame(PREDICATE,
-            NotPredicate.wrap(NotPredicate.wrap(PREDICATE)));
+            PredicateNot.wrap(PredicateNot.wrap(PREDICATE)));
     }
 
     @Test
     public void testWrapAlways() {
-        assertSame(Predicates.never(), NotPredicate.wrap(Predicates.always()));
+        assertSame(Predicates.never(), PredicateNot.wrap(Predicates.always()));
     }
 
     @Test
     public void testWrapNever() {
-        assertSame(Predicates.always(), NotPredicate.wrap(Predicates.never()));
+        assertSame(Predicates.always(), PredicateNot.wrap(Predicates.never()));
     }
 
     @Test
@@ -70,7 +70,7 @@ final public class NotPredicateTest extends PredicateTestCase<NotPredicate<Strin
 
     @Test
     public void testNotMatched() {
-        final Predicate<String> not = NotPredicate.wrap(PREDICATE);
+        final Predicate<String> not = PredicateNot.wrap(PREDICATE);
         assertNotSame(PREDICATE, not);
         assertTrue(PREDICATE.test(MATCHED));
         assertFalse(not.test(MATCHED));
@@ -79,7 +79,7 @@ final public class NotPredicateTest extends PredicateTestCase<NotPredicate<Strin
     @Test
     public void testMatched() {
         final Predicate<String> predicate = Predicates.is(MATCHED);
-        final Predicate<String> not = NotPredicate.wrap(predicate);
+        final Predicate<String> not = PredicateNot.wrap(predicate);
         assertNotSame(predicate, not);
         assertFalse(predicate.test(DIFFERENT));
         assertTrue(not.test(DIFFERENT));
@@ -88,7 +88,7 @@ final public class NotPredicateTest extends PredicateTestCase<NotPredicate<Strin
     @Test
     public void testWrapNotable() {
         final Predicate<String> notted = PREDICATE;
-        assertSame(notted, NotPredicate.wrap(new TestNotablePredicate(notted)));
+        assertSame(notted, PredicateNot.wrap(new TestNotablePredicate(notted)));
     }
 
     private static class TestNotablePredicate
@@ -113,31 +113,31 @@ final public class NotPredicateTest extends PredicateTestCase<NotPredicate<Strin
 
     @Test
     public void testEqualsDifferentWrapped() {
-        this.checkNotEquals(NotPredicate.wrap(Predicates.fake()));
+        this.checkNotEquals(PredicateNot.wrap(Predicates.fake()));
     }
 
     @Test
     public void testToString() {
         final Predicate<Object> predicate = Predicates.fake();
-        this.toStringAndCheck(NotPredicate.wrap(predicate), "!" + predicate);
+        this.toStringAndCheck(PredicateNot.wrap(predicate), "!" + predicate);
     }
 
     @Override
-    public NotPredicate<String> createPredicate() {
+    public PredicateNot<String> createPredicate() {
         return this.createPredicate(PREDICATE);
     }
 
-    private NotPredicate<String> createPredicate(final Predicate<String> predicate) {
-        return Cast.to(NotPredicate.wrap(predicate));
+    private PredicateNot<String> createPredicate(final Predicate<String> predicate) {
+        return Cast.to(PredicateNot.wrap(predicate));
     }
 
     @Override
-    public Class<NotPredicate<String>> type() {
-        return Cast.to(NotPredicate.class);
+    public Class<PredicateNot<String>> type() {
+        return Cast.to(PredicateNot.class);
     }
 
     @Override
-    public NotPredicate<String> createObject() {
+    public PredicateNot<String> createObject() {
         return this.createPredicate();
     }
 }

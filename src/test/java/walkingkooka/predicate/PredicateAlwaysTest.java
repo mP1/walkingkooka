@@ -24,47 +24,47 @@ import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-final public class NeverPredicateTest extends PredicateTestCase<NeverPredicate<Object>, Object> {
+final public class PredicateAlwaysTest extends PredicateTestCase<PredicateAlways<Object>, Object> {
 
     @Test
     public void testTestNull() {
-        this.testFalse(null);
+        this.testTrue(null);
     }
 
     @Test
-    public void testNotMatched() {
-        this.testFalse("not matched");
-    }
-
-    @Test
-    public void testToString() {
-        this.toStringAndCheck(NeverPredicate.instance(), "<none>");
+    public void testMatches() {
+        this.testTrue(new Object());
     }
 
     @Test
     public void testAnd() {
-        final NeverPredicate<Object> predicate = NeverPredicate.instance();
-        assertSame(predicate, predicate.and(Predicates.fake()));
+        final Predicate<Object> other = Predicates.fake();
+        assertSame(other, PredicateAlways.instance().and(other));
     }
 
     @Test
     public void testNot() {
-        assertSame(Predicates.always(), NeverPredicate.instance().negate());
+        assertSame(Predicates.never(), PredicateAlways.instance().negate());
     }
 
     @Test
     public void testOr() {
-        final Predicate<Object> other = Predicates.fake();
-        assertSame(other, NeverPredicate.instance().or(other));
+        final PredicateAlways<Object> predicate = PredicateAlways.instance();
+        assertSame(predicate, predicate.or(Predicates.fake()));
+    }
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(PredicateAlways.instance(), "*");
     }
 
     @Override
-    public NeverPredicate<Object> createPredicate() {
-        return NeverPredicate.instance();
+    public PredicateAlways<Object> createPredicate() {
+        return PredicateAlways.instance();
     }
 
     @Override
-    public Class<NeverPredicate<Object>> type() {
-        return Cast.to(NeverPredicate.class);
+    public Class<PredicateAlways<Object>> type() {
+        return Cast.to(PredicateAlways.class);
     }
 }

@@ -34,32 +34,32 @@ final public class Predicates implements PublicStaticHelper {
 
     /**
      * /**
-     * {@see AlwaysPredicate}.
+     * {@see PredicateAlways}.
      */
     public static <T> Predicate<T> always() {
-        return AlwaysPredicate.instance();
+        return PredicateAlways.instance();
     }
 
     /**
      * /**
-     * {@see AnyPredicate}.
+     * {@see PredicateAny}.
      */
     public static <T> Predicate<T> any(final Collection<Predicate<T>> predicates) {
-        return AnyPredicate.with(predicates);
+        return PredicateAny.with(predicates);
     }
 
     /**
-     * {@see CharPredicatePredicate}
+     * {@see PredicateCharPredicate}
      */
     public static Predicate<Character> charPredicate(final CharPredicate predicate) {
-        return CharPredicatePredicate.adapt(predicate);
+        return PredicateCharPredicate.adapt(predicate);
     }
 
     /**
-     * {@see CharPredicateCharSequencePredicate}
+     * {@see PredicateCharPredicateCharSequence}
      */
     public static Predicate<CharSequence> charSequence(final CharPredicate predicate) {
-        return CharPredicateCharSequencePredicate.with(predicate);
+        return PredicateCharPredicateCharSequence.with(predicate);
     }
 
     /**
@@ -87,21 +87,21 @@ final public class Predicates implements PublicStaticHelper {
     }
 
     /**
-     * {@see ComparableCompareResultPredicate}
+     * {@see PredicateComparableCompareResult}
      */
     public static <C extends Comparable<C>> Predicate<C> compareResult(final CompareResult compareResult,
                                                                        final C right) {
-        return ComparableCompareResultPredicate.with(
+        return PredicateComparableCompareResult.with(
             compareResult,
             right
         );
     }
 
     /**
-     * {@see CustomToStringPredicate}
+     * {@see PredicateCustomToString}
      */
     public static <T> Predicate<T> customToString(final Predicate<T> predicate, final String toString) {
-        return CustomToStringPredicate.wrap(predicate, toString);
+        return PredicateCustomToString.wrap(predicate, toString);
     }
 
     /**
@@ -135,17 +135,17 @@ final public class Predicates implements PublicStaticHelper {
     }
 
     /**
-     * {@see InitialAndPartCharPredicateCharSequencePredicate}
+     * {@see PredicateInitialAndPartCharPredicateCharSequence}
      */
     public static Predicate<CharSequence> initialAndPart(final CharPredicate initial, final CharPredicate remaining) {
-        return InitialAndPartCharPredicateCharSequencePredicate.with(initial, remaining);
+        return PredicateInitialAndPartCharPredicateCharSequence.with(initial, remaining);
     }
 
     /**
      * {@see ObjectEqualityMatcher}
      */
     public static <T> Predicate<T> is(final T value) {
-        return ObjectEqualityPredicate.with(value);
+        return PredicateObjectEquality.with(value);
     }
 
     /**
@@ -163,24 +163,24 @@ final public class Predicates implements PublicStaticHelper {
         Character::isJavaIdentifierPart);
 
     /**
-     * {@see NeverPredicate}.
+     * {@see PredicateNever}.
      */
     public static <T> Predicate<T> never() {
-        return NeverPredicate.instance();
+        return PredicateNever.instance();
     }
 
     /**
-     * {@see NotPredicate}.
+     * {@see PredicateNot}.
      */
     public static <T> Predicate<T> not(final Predicate<T> predicate) {
-        return NotPredicate.wrap(predicate);
+        return PredicateNot.wrap(predicate);
     }
 
     /**
-     * {@see SetContainsPredicate}
+     * {@see PredicateSetContains}
      */
     public static <T> Predicate<T> setContains(final Set<T> set) {
-        return SetContainsPredicate.with(set);
+        return PredicateSetContains.with(set);
     }
 
     /**

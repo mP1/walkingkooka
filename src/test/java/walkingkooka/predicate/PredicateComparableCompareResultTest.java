@@ -23,7 +23,7 @@ import walkingkooka.compare.CompareResult;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ComparableCompareResultPredicateTest extends PredicateTestCase<ComparableCompareResultPredicate<String>, String> {
+public final class PredicateComparableCompareResultTest extends PredicateTestCase<PredicateComparableCompareResult<String>, String> {
 
     private static final String LESS = "Z";
     private static final String EQUALS = "M";
@@ -33,7 +33,7 @@ public final class ComparableCompareResultPredicateTest extends PredicateTestCas
     public void testWithNullCompareResultFails() {
         assertThrows(
             NullPointerException.class,
-            () -> ComparableCompareResultPredicate.with(null, MORE)
+            () -> PredicateComparableCompareResult.with(null, MORE)
         );
     }
 
@@ -41,7 +41,7 @@ public final class ComparableCompareResultPredicateTest extends PredicateTestCas
     public void testWithNullRightComparableFails() {
         assertThrows(
             NullPointerException.class,
-            () -> ComparableCompareResultPredicate.with(CompareResult.EQ, null)
+            () -> PredicateComparableCompareResult.with(CompareResult.EQ, null)
         );
     }
 
@@ -163,16 +163,16 @@ public final class ComparableCompareResultPredicateTest extends PredicateTestCas
     }
 
     @Override
-    public ComparableCompareResultPredicate<String> createPredicate() {
+    public PredicateComparableCompareResult<String> createPredicate() {
         return this.createPredicate(CompareResult.EQ);
     }
 
-    private ComparableCompareResultPredicate<String> createPredicate(final CompareResult relation) {
-        return ComparableCompareResultPredicate.with(relation, EQUALS);
+    private PredicateComparableCompareResult<String> createPredicate(final CompareResult relation) {
+        return PredicateComparableCompareResult.with(relation, EQUALS);
     }
 
     @Override
-    public Class<ComparableCompareResultPredicate<String>> type() {
-        return Cast.to(ComparableCompareResultPredicate.class);
+    public Class<PredicateComparableCompareResult<String>> type() {
+        return Cast.to(PredicateComparableCompareResult.class);
     }
 }

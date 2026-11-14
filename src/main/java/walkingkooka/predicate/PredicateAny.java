@@ -27,15 +27,15 @@ import java.util.stream.Collectors;
 /**
  * A {@link Predicate} that returns true if any of the provided {@link Predicate#test(Object)} return true.
  */
-final class AnyPredicate<T> implements Predicate<T> {
+final class PredicateAny<T> implements Predicate<T> {
 
-    static <T> AnyPredicate<T> with(final Collection<Predicate<T>> predicates) {
-        return new AnyPredicate<>(
+    static <T> PredicateAny<T> with(final Collection<Predicate<T>> predicates) {
+        return new PredicateAny<>(
             Objects.requireNonNull(predicates, "predicates")
         );
     }
 
-    private AnyPredicate(final Collection<Predicate<T>> predicates) {
+    private PredicateAny(final Collection<Predicate<T>> predicates) {
         this.predicates = predicates;
     }
 
@@ -64,10 +64,10 @@ final class AnyPredicate<T> implements Predicate<T> {
 
     @Override
     public boolean equals(final Object other) {
-        return this == other || other instanceof AnyPredicate && this.equals0(Cast.to(other));
+        return this == other || other instanceof PredicateAny && this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final AnyPredicate<?> other) {
+    private boolean equals0(final PredicateAny<?> other) {
         return this.predicates.equals(other.predicates);
     }
 

@@ -24,7 +24,7 @@ import java.util.function.Predicate;
 /**
  * Wraps another {@link Predicate} replacing or ignoring its {@link Object#toString()} with the provided {@link String}.
  */
-final class CustomToStringPredicate<T> implements Predicate<T> {
+final class PredicateCustomToString<T> implements Predicate<T> {
 
     static <T> Predicate<T> wrap(final Predicate<T> predicate, final String toString) {
         Objects.requireNonNull(predicate, "predicate");
@@ -39,18 +39,18 @@ final class CustomToStringPredicate<T> implements Predicate<T> {
             }
 
             Predicate<T> wrap = predicate;
-            if (predicate instanceof CustomToStringPredicate) {
+            if (predicate instanceof PredicateCustomToString) {
                 // unwrap then re-wrap the predicate...
-                final CustomToStringPredicate<T> custom = Cast.to(wrap);
+                final PredicateCustomToString<T> custom = Cast.to(wrap);
                 wrap = custom.predicate;
             }
-            result = new CustomToStringPredicate<>(wrap, toString);
+            result = new PredicateCustomToString<>(wrap, toString);
         } while (false);
 
         return result;
     }
 
-    private CustomToStringPredicate(final Predicate<T> predicate, final String toString) {
+    private PredicateCustomToString(final Predicate<T> predicate, final String toString) {
         this.predicate = predicate;
         this.toString = toString;
     }
@@ -72,10 +72,10 @@ final class CustomToStringPredicate<T> implements Predicate<T> {
 
     @Override
     public boolean equals(final Object other) {
-        return this == other || other instanceof CustomToStringPredicate && this.equals0(Cast.to(other));
+        return this == other || other instanceof PredicateCustomToString && this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final CustomToStringPredicate<?> other) {
+    private boolean equals0(final PredicateCustomToString<?> other) {
         return this.predicate.equals(other.predicate) &&
             this.toString.equals(other.toString);
     }

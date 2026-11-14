@@ -23,13 +23,13 @@ import walkingkooka.collect.list.Lists;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class AnyPredicateTest extends PredicateTestCase<AnyPredicate<Object>, Object> {
+final public class PredicateAnyTest extends PredicateTestCase<PredicateAny<Object>, Object> {
 
     @Test
     public void testWithNullFails() {
         assertThrows(
             NullPointerException.class,
-            () -> AnyPredicate.with(null)
+            () -> PredicateAny.with(null)
         );
     }
 
@@ -54,8 +54,8 @@ final public class AnyPredicateTest extends PredicateTestCase<AnyPredicate<Objec
     }
 
     @Override
-    public AnyPredicate<Object> createPredicate() {
-        return AnyPredicate.with(
+    public PredicateAny<Object> createPredicate() {
+        return PredicateAny.with(
             Lists.of(
                 Predicates.is("1A"),
                 Predicates.is("2B"),
@@ -67,7 +67,7 @@ final public class AnyPredicateTest extends PredicateTestCase<AnyPredicate<Objec
     @Test
     public void testTestGenerics() {
         this.testTrue(
-            AnyPredicate.with(
+            PredicateAny.with(
                 Lists.of(
                     Predicates.is("1A"),
                     Predicates.is((CharSequence) "2B"),
@@ -91,7 +91,7 @@ final public class AnyPredicateTest extends PredicateTestCase<AnyPredicate<Objec
     // class............................................................................................................
 
     @Override
-    public Class<AnyPredicate<Object>> type() {
-        return Cast.to(AnyPredicate.class);
+    public Class<PredicateAny<Object>> type() {
+        return Cast.to(PredicateAny.class);
     }
 }

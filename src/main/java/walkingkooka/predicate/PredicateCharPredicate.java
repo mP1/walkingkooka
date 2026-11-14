@@ -23,37 +23,38 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
- * A {@link Predicate} that only returns true if all characters in any {@link CharSequence}
- * are matched by the {@link CharPredicate}.
+ * A {@link Predicate} adaptor that unwraps the {@link Character} and passes that char to a {@link
+ * CharPredicate}.
  */
-final class CharPredicateCharSequencePredicate implements Predicate<CharSequence> {
+final class PredicateCharPredicate implements Predicate<Character> {
 
-    static Predicate<CharSequence> with(final CharPredicate predicate) {
+    /**
+     * Creates a new {@link PredicateCharPredicate}
+     */
+    static PredicateCharPredicate adapt(final CharPredicate predicate) {
         Objects.requireNonNull(predicate, "predicate");
-
-        return new CharPredicateCharSequencePredicate(predicate);
+        return new PredicateCharPredicate(predicate);
     }
 
-    private CharPredicateCharSequencePredicate(final CharPredicate predicate) {
+    /**
+     * Private constructor use static factory
+     */
+    private PredicateCharPredicate(final CharPredicate predicate) {
+        super();
         this.predicate = predicate;
     }
 
+    // Predicate
+
     @Override
-    public boolean test(final CharSequence charSequence) {
-        boolean test = false;
-
-        if(null != charSequence) {
-            for (int i = 0; i < charSequence.length(); i++) {
-                test = this.predicate.test(charSequence.charAt(i));
-                if (false == test) {
-                    break;
-                }
-            }
-        }
-
-        return test;
+    public boolean test(final Character value) {
+        return null != value &&
+            this.predicate.test(value);
     }
 
+    /**
+     * The wrapped {@link CharPredicate}.
+     */
     private final CharPredicate predicate;
 
     // Object
@@ -65,13 +66,17 @@ final class CharPredicateCharSequencePredicate implements Predicate<CharSequence
 
     @Override
     public boolean equals(final Object other) {
-        return this == other || other instanceof CharPredicateCharSequencePredicate && equals0((CharPredicateCharSequencePredicate) other);
+        return (this == other) || ((other instanceof PredicateCharPredicate)
+            && this.equals((PredicateCharPredicate) other));
     }
 
-    private boolean equals0(final CharPredicateCharSequencePredicate other) {
+    private boolean equals(final PredicateCharPredicate other) {
         return this.predicate.equals(other.predicate);
     }
 
+    /**
+     * Dumps the wrapped {@link Object#toString()}.
+     */
     @Override
     public String toString() {
         return this.predicate.toString();

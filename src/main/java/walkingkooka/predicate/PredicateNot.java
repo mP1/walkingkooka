@@ -25,13 +25,13 @@ import java.util.function.Predicate;
 /**
  * A {@link Predicate} that inverts the result of the wrapped {@link Predicate}.
  */
-final class NotPredicate<T> implements Predicate<T>,
+final class PredicateNot<T> implements Predicate<T>,
     Notable<Predicate<T>> {
 
     static <T> Predicate<T> wrap(final Predicate<T> predicate) {
         Objects.requireNonNull(predicate, "predicate");
 
-        return predicate instanceof Notable ? not(predicate) : new NotPredicate<>(predicate);
+        return predicate instanceof Notable ? not(predicate) : new PredicateNot<>(predicate);
     }
 
     private static <T> Predicate<T> not(final Predicate<T> predicate) {
@@ -42,7 +42,7 @@ final class NotPredicate<T> implements Predicate<T>,
     /**
      * Private constructor
      */
-    private NotPredicate(final Predicate<T> predicate) {
+    private PredicateNot(final Predicate<T> predicate) {
         super();
         this.predicate = predicate;
     }
@@ -67,10 +67,10 @@ final class NotPredicate<T> implements Predicate<T>,
     }
 
     public boolean equals(final Object other) {
-        return this == other || other instanceof NotPredicate && equals0((NotPredicate<?>) other);
+        return this == other || other instanceof PredicateNot && equals0((PredicateNot<?>) other);
     }
 
-    private boolean equals0(final NotPredicate<?> other) {
+    private boolean equals0(final PredicateNot<?> other) {
         return this.predicate.equals(other.predicate);
     }
 

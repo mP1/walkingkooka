@@ -25,19 +25,19 @@ import java.util.function.Predicate;
 /**
  * A {@link Predicate} that test any value including using {@link Objects#equals(Object, Object)}
  */
-final class ObjectEqualityPredicate<T> implements Predicate<T> {
+final class PredicateObjectEquality<T> implements Predicate<T> {
 
     /**
-     * Creates a {@link ObjectEqualityPredicate}
+     * Creates a {@link PredicateObjectEquality}
      */
-    static <T, U extends T> ObjectEqualityPredicate<T> with(final U value) {
-        return new ObjectEqualityPredicate<>(value);
+    static <T, U extends T> PredicateObjectEquality<T> with(final U value) {
+        return new PredicateObjectEquality<>(value);
     }
 
     /**
      * Private constructor.
      */
-    private ObjectEqualityPredicate(final T value) {
+    private PredicateObjectEquality(final T value) {
         this.value = value;
     }
 
@@ -63,11 +63,11 @@ final class ObjectEqualityPredicate<T> implements Predicate<T> {
 
     @Override
     public boolean equals(final Object other) {
-        return (this == other) || ((other instanceof ObjectEqualityPredicate)
-            && this.equals((ObjectEqualityPredicate<?>) other));
+        return (this == other) || ((other instanceof PredicateObjectEquality)
+            && this.equals((PredicateObjectEquality<?>) other));
     }
 
-    private boolean equals(final ObjectEqualityPredicate<?> other) {
+    private boolean equals(final PredicateObjectEquality<?> other) {
         return Objects.equals(
             this.value,
             other.value

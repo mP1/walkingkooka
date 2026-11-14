@@ -25,20 +25,20 @@ import walkingkooka.predicate.character.CharPredicates;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class InitialAndPartCharPredicateCharSequencePredicateTest
-    extends PredicateTestCase<InitialAndPartCharPredicateCharSequencePredicate, CharSequence>
-    implements HashCodeEqualsDefinedTesting2<InitialAndPartCharPredicateCharSequencePredicate> {
+final public class PredicateInitialAndPartCharPredicateCharSequenceTest
+    extends PredicateTestCase<PredicateInitialAndPartCharPredicateCharSequence, CharSequence>
+    implements HashCodeEqualsDefinedTesting2<PredicateInitialAndPartCharPredicateCharSequence> {
 
     // tests
 
     @Test
     public void testWithNullInitialCharPredicateFails() {
-        assertThrows(NullPointerException.class, () -> InitialAndPartCharPredicateCharSequencePredicate.with(null, CharPredicates.never()));
+        assertThrows(NullPointerException.class, () -> PredicateInitialAndPartCharPredicateCharSequence.with(null, CharPredicates.never()));
     }
 
     @Test
     public void testWithNullRemainingCharPredicateFails() {
-        assertThrows(NullPointerException.class, () -> InitialAndPartCharPredicateCharSequencePredicate.with(CharPredicates.never(), null));
+        assertThrows(NullPointerException.class, () -> PredicateInitialAndPartCharPredicateCharSequence.with(CharPredicates.never(), null));
     }
 
     @Test
@@ -92,8 +92,8 @@ final public class InitialAndPartCharPredicateCharSequencePredicateTest
     }
 
     @Override
-    public InitialAndPartCharPredicateCharSequencePredicate createPredicate() {
-        return Cast.to(InitialAndPartCharPredicateCharSequencePredicate.with(this.initial(), this.part()));
+    public PredicateInitialAndPartCharPredicateCharSequence createPredicate() {
+        return Cast.to(PredicateInitialAndPartCharPredicateCharSequence.with(this.initial(), this.part()));
     }
 
     private CharPredicate initial() {
@@ -105,17 +105,17 @@ final public class InitialAndPartCharPredicateCharSequencePredicateTest
     }
 
     @Override
-    public Class<InitialAndPartCharPredicateCharSequencePredicate> type() {
-        return InitialAndPartCharPredicateCharSequencePredicate.class;
+    public Class<PredicateInitialAndPartCharPredicateCharSequence> type() {
+        return PredicateInitialAndPartCharPredicateCharSequence.class;
     }
 
     @Override
-    public InitialAndPartCharPredicateCharSequencePredicate createObject() {
+    public PredicateInitialAndPartCharPredicateCharSequence createObject() {
         return this.createPredicate();
     }
 
-    private InitialAndPartCharPredicateCharSequencePredicate createPredicate(final CharPredicate initial,
+    private PredicateInitialAndPartCharPredicateCharSequence createPredicate(final CharPredicate initial,
                                                                              final CharPredicate remaining) {
-        return Cast.to(InitialAndPartCharPredicateCharSequencePredicate.with(initial, remaining));
+        return Cast.to(PredicateInitialAndPartCharPredicateCharSequence.with(initial, remaining));
     }
 }

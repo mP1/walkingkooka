@@ -23,7 +23,7 @@ import walkingkooka.predicate.character.CharPredicates;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class CharPredicatePredicateTest extends PredicateTestCase<CharPredicatePredicate, Character> {
+final public class PredicateCharPredicateTest extends PredicateTestCase<PredicateCharPredicate, Character> {
 
     // constants
 
@@ -33,7 +33,7 @@ final public class CharPredicatePredicateTest extends PredicateTestCase<CharPred
 
     @Test
     public void testAdaptNullCharPredicateFails() {
-        assertThrows(NullPointerException.class, () -> CharPredicatePredicate.adapt(null));
+        assertThrows(NullPointerException.class, () -> PredicateCharPredicate.adapt(null));
     }
 
     @Test
@@ -52,12 +52,12 @@ final public class CharPredicatePredicateTest extends PredicateTestCase<CharPred
     }
 
     @Override
-    public CharPredicatePredicate createPredicate() {
-        return CharPredicatePredicate.adapt(PREDICATE);
+    public PredicateCharPredicate createPredicate() {
+        return PredicateCharPredicate.adapt(PREDICATE);
     }
 
     @Override
-    public Class<CharPredicatePredicate> type() {
-        return CharPredicatePredicate.class;
+    public Class<PredicateCharPredicate> type() {
+        return PredicateCharPredicate.class;
     }
 }
