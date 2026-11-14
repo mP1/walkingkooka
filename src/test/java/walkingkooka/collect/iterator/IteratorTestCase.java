@@ -17,9 +17,6 @@
 
 package walkingkooka.collect.iterator;
 
-import walkingkooka.ToStringTesting;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 
 import java.util.Iterator;
@@ -27,9 +24,7 @@ import java.util.Iterator;
 /**
  * Base class for testing a {@link Iterator} with mostly parameter checking tests.
  */
-abstract public class IteratorTestCase<I extends Iterator<T>, T> implements ClassTesting2<I>,
-    IteratorTesting,
-    ToStringTesting,
+abstract public class IteratorTestCase<I extends Iterator<T>, T> implements IteratorTesting2<I, T>,
     TypeNameTesting<I> {
 
     IteratorTestCase() {
@@ -37,11 +32,6 @@ abstract public class IteratorTestCase<I extends Iterator<T>, T> implements Clas
     }
 
     public abstract I createIterator();
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
-    }
 
     // TypeNameTesting .........................................................................................
 
