@@ -20,9 +20,6 @@ package walkingkooka.collect;
 import walkingkooka.collect.list.CsvStringList;
 import walkingkooka.collect.list.DelimiterStringImmutableList;
 import walkingkooka.collect.list.TsvStringList;
-import walkingkooka.collect.set.CsvStringSet;
-import walkingkooka.collect.set.DelimiterStringImmutableSet;
-import walkingkooka.collect.set.TsvStringSet;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 
@@ -39,20 +36,10 @@ public enum DelimiterSeparatedValues {
         public CsvStringList emptyList() {
             return CsvStringList.EMPTY;
         }
-
-        @Override
-        public CsvStringSet emptySet() {
-            return CsvStringSet.EMPTY;
-        }
         
         @Override
         public CsvStringList parseList(final String string) {
             return CsvStringList.parse(string);
-        }
-
-        @Override
-        public CsvStringSet parseSet(final String string) {
-            return CsvStringSet.parse(string);
         }
     },
 
@@ -63,18 +50,8 @@ public enum DelimiterSeparatedValues {
         }
 
         @Override
-        public TsvStringSet emptySet() {
-            return TsvStringSet.EMPTY;
-        }
-
-        @Override
         public DelimiterStringImmutableList parseList(final String string) {
             return TsvStringList.parse(string);
-        }
-
-        @Override
-        public DelimiterStringImmutableSet parseSet(final String string) {
-            return TsvStringSet.parse(string);
         }
     };
 
@@ -84,17 +61,10 @@ public enum DelimiterSeparatedValues {
 
     public abstract DelimiterStringImmutableList emptyList();
 
-    public abstract DelimiterStringImmutableSet emptySet();
-
     /**
      * Parses the {@link String} form using the delimiter into a {@link DelimiterStringImmutableList}.
      */
     public abstract DelimiterStringImmutableList parseList(final String string);
-
-    /**
-     * Parses the {@link String} form using the delimiter into a {@link DelimiterStringImmutableSet}.
-     */
-    public abstract DelimiterStringImmutableSet parseSet(final String string);
 
     /**
      * The delimiter character between values.
