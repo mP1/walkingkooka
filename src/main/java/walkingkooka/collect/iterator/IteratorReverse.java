@@ -31,27 +31,27 @@ import java.util.Objects;
  * copying all items from the source into a buffer and then iterating. The {@link #remove()} always
  * throws {@link UnsupportedOperationException}.
  */
-final class ReverseIterator<E> implements Iterator<E> {
+final class IteratorReverse<E> implements Iterator<E> {
 
     /**
      * Before copying performs a check just in case the given {@link Iterator} is a {@link
-     * ReverseIterator}. If it is then the iterator is unwrapped.
+     * IteratorReverse}. If it is then the iterator is unwrapped.
      */
     static <E> Iterator<E> with(final Iterator<E> iterator) {
         Objects.requireNonNull(iterator, "iterator");
 
         Iterator<E> result;
-        if (iterator instanceof ReverseIterator) {
-            final ReverseIterator<E> reverseIterator = Cast.to(iterator);
+        if (iterator instanceof IteratorReverse) {
+            final IteratorReverse<E> iteratorReverse = Cast.to(iterator);
 
             // return the Stack.iterator() and make it read only
-            result = Iterators.readOnly(reverseIterator.stack.iterator());
+            result = Iterators.readOnly(iteratorReverse.stack.iterator());
         } else {
             final Stack<E> stack = Stacks.jdk();
             while (iterator.hasNext()) {
                 stack.push(iterator.next());
             }
-            result = new ReverseIterator<>(stack);
+            result = new IteratorReverse<>(stack);
         }
         return result;
     }
@@ -59,7 +59,7 @@ final class ReverseIterator<E> implements Iterator<E> {
     /**
      * Private constructor use factory
      */
-    private ReverseIterator(final Stack<E> stack) {
+    private IteratorReverse(final Stack<E> stack) {
         super();
         this.stack = stack;
     }

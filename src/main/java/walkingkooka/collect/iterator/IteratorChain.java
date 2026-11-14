@@ -25,10 +25,10 @@ import java.util.Objects;
 /**
  * An {@link Iterator} that zero or more {@link Iterator iterators} into one sequence of values.
  */
-final class ChainIterator<E> implements Iterator<E> {
+final class IteratorChain<E> implements Iterator<E> {
 
     /**
-     * Creates an {@link ChainIterator} from the given {@link Iterator iterators.}
+     * Creates an {@link IteratorChain} from the given {@link Iterator iterators.}
      */
     @SuppressWarnings("unchecked")
     static <E> Iterator<E> with(final Iterator<E>... iterators) {
@@ -45,7 +45,7 @@ final class ChainIterator<E> implements Iterator<E> {
                 result = iterators[0];
                 break;
             default:
-                result = new ChainIterator<>(
+                result = new IteratorChain<>(
                     Arrays.copyOf(
                         iterators,
                         count
@@ -59,7 +59,7 @@ final class ChainIterator<E> implements Iterator<E> {
     /**
      * Private constructor use static factory.
      */
-    private ChainIterator(final Iterator<E>[] iterators) {
+    private IteratorChain(final Iterator<E>[] iterators) {
         super();
         this.iterators = iterators;
         this.next = 0;

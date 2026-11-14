@@ -17,27 +17,31 @@
 
 package walkingkooka.collect.iterator;
 
+import walkingkooka.Cast;
+
 import java.util.Iterator;
 import java.util.Objects;
-import java.util.function.Function;
 
 /**
- * An {@link Iterator} that applies a mapping {@link Function} to the values returned by the wrapped {@link Iterator}.
+ * An unmodifiable {@link Iterator}. All attempts to call {@link #remove()} will throw a {@link
+ * UnsupportedOperationException}.
  */
-final class MappingIterator<S, D> implements Iterator<D> {
+final class IteratorReadOnly<T> implements Iterator<T> {
 
-    static <S, D> MappingIterator<S, D> with(final Iterator<S> iterator,
-                                             final Function<S, D> mapper) {
+    /**
+     * Wraps the given {@link Iterator} only if it is not already a {@link IteratorReadOnly}
+     */
+    static <T> IteratorReadOnly<T> wrap(final Iterator<T> iterator) {
         Objects.requireNonNull(iterator, "iterator");
-        Objects.requireNonNull(mapper, "mapper");
 
-        return new MappingIterator<>(iterator, mapper);
+        return iterator instanceof IteratorReadOnly ?
+            Cast.to(iterator) :
+            new IteratorReadOnly<>(iterator);
     }
 
-    private MappingIterator(final Iterator<S> iterator,
-                            final Function<S, D> mapper) {
+    private IteratorReadOnly(final Iterator<T> iterator) {
+        super();
         this.iterator = iterator;
-        this.mapper = mapper;
     }
 
     @Override
@@ -46,22 +50,22 @@ final class MappingIterator<S, D> implements Iterator<D> {
     }
 
     @Override
-    public D next() {
-        return this.mapper.apply(this.iterator.next());
+    public T next() {
+        return this.iterator.next();
     }
-
-    /**
-     * Mapping function to each returned value.
-     */
-    private final Function<S, D> mapper;
 
     @Override
     public void remove() {
-        this.iterator.remove();
+        throw new UnsupportedOperationException();
     }
 
-    private final Iterator<S> iterator;
+    // properties
 
+    final Iterator<T> iterator;
+
+    /**
+     * Simply dumps the wrapped {@link Object#toString()}.
+     */
     @Override
     public String toString() {
         return this.iterator.toString();

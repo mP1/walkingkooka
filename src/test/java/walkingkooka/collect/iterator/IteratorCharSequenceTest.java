@@ -21,8 +21,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class CharSequenceIteratorTest
-    extends IteratorTestCase<CharSequenceIterator, Character> {
+final public class IteratorCharSequenceTest
+    extends IteratorTestCase<IteratorCharSequence, Character> {
 
     // constants
 
@@ -32,12 +32,12 @@ final public class CharSequenceIteratorTest
 
     @Test
     public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> CharSequenceIterator.with(null));
+        assertThrows(NullPointerException.class, () -> IteratorCharSequence.with(null));
     }
 
     @Test
     public void testConsumeEmpty() {
-        this.iterateAndCheck(CharSequenceIterator.with(""));
+        this.iterateAndCheck(IteratorCharSequence.with(""));
     }
 
     @Test
@@ -48,7 +48,7 @@ final public class CharSequenceIteratorTest
 
     @Test
     public void testRemoveFails() {
-        final CharSequenceIterator iterator = this.createIterator();
+        final IteratorCharSequence iterator = this.createIterator();
         iterator.next();
         this.removeUnsupportedFails(iterator);
     }
@@ -59,12 +59,12 @@ final public class CharSequenceIteratorTest
     }
 
     @Override
-    public CharSequenceIterator createIterator() {
-        return CharSequenceIterator.with(CHARS);
+    public IteratorCharSequence createIterator() {
+        return IteratorCharSequence.with(CHARS);
     }
 
     @Override
-    public Class<CharSequenceIterator> type() {
-        return CharSequenceIterator.class;
+    public Class<IteratorCharSequence> type() {
+        return IteratorCharSequence.class;
     }
 }

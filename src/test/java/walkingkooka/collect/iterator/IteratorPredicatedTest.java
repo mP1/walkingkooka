@@ -26,7 +26,7 @@ import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class PredicatedIteratorTest extends IteratorTestCase<PredicatedIterator<String>, String> {
+public final class IteratorPredicatedTest extends IteratorTestCase<IteratorPredicated<String>, String> {
 
     private final static Iterator<String> ITERATOR = Iterators.fake();
 
@@ -36,7 +36,7 @@ public final class PredicatedIteratorTest extends IteratorTestCase<PredicatedIte
     public void testWithNullIteratorFails() {
         assertThrows(
             NullPointerException.class,
-            () -> PredicatedIterator.with(
+            () -> IteratorPredicated.with(
                 null,
                 Predicates.fake()
             )
@@ -47,7 +47,7 @@ public final class PredicatedIteratorTest extends IteratorTestCase<PredicatedIte
     public void testWithNullPredicateFails() {
         assertThrows(
             NullPointerException.class,
-            () -> PredicatedIterator.with(
+            () -> IteratorPredicated.with(
                 ITERATOR,
                 null
             )
@@ -59,7 +59,7 @@ public final class PredicatedIteratorTest extends IteratorTestCase<PredicatedIte
     @Test
     public void testKeepsAll() {
         this.iterateAndCheck(
-            PredicatedIterator.with(
+            IteratorPredicated.with(
                 Lists.of(
                     "1a",
                     "2b",
@@ -76,7 +76,7 @@ public final class PredicatedIteratorTest extends IteratorTestCase<PredicatedIte
     @Test
     public void testKeepsAll2() {
         this.iterateUsingHasNextAndCheck(
-            PredicatedIterator.with(
+            IteratorPredicated.with(
                 Lists.of(
                     "1a",
                     "2b",
@@ -93,7 +93,7 @@ public final class PredicatedIteratorTest extends IteratorTestCase<PredicatedIte
     @Test
     public void testKeepsNone() {
         this.iterateAndCheck(
-            PredicatedIterator.with(
+            IteratorPredicated.with(
                 Lists.of(
                     "1a",
                     "2b",
@@ -107,7 +107,7 @@ public final class PredicatedIteratorTest extends IteratorTestCase<PredicatedIte
     @Test
     public void testKeepNone2() {
         this.iterateUsingHasNextAndCheck(
-            PredicatedIterator.with(
+            IteratorPredicated.with(
                 Lists.of(
                     "1a",
                     "2b",
@@ -121,7 +121,7 @@ public final class PredicatedIteratorTest extends IteratorTestCase<PredicatedIte
     @Test
     public void testKeepSame() {
         this.iterateAndCheck(
-            PredicatedIterator.with(
+            IteratorPredicated.with(
                 Lists.of(
                     "1a",
                     "2b!",
@@ -138,7 +138,7 @@ public final class PredicatedIteratorTest extends IteratorTestCase<PredicatedIte
     @Test
     public void testKeepSame2() {
         this.iterateUsingHasNextAndCheck(
-            PredicatedIterator.with(
+            IteratorPredicated.with(
                 Lists.of(
                     "1a",
                     "2b!",
@@ -155,7 +155,7 @@ public final class PredicatedIteratorTest extends IteratorTestCase<PredicatedIte
     @Test
     public void testKeepSame3() {
         this.iterateAndCheck(
-            PredicatedIterator.with(
+            IteratorPredicated.with(
                 Lists.of(
                     "1a",
                     "2b!",
@@ -175,7 +175,7 @@ public final class PredicatedIteratorTest extends IteratorTestCase<PredicatedIte
     @Test
     public void testKeepSame4() {
         this.iterateUsingHasNextAndCheck(
-            PredicatedIterator.with(
+            IteratorPredicated.with(
                 Lists.of(
                     "1a",
                     "2b!",
@@ -212,8 +212,8 @@ public final class PredicatedIteratorTest extends IteratorTestCase<PredicatedIte
     }
 
     @Override
-    public PredicatedIterator<String> createIterator() {
-        return PredicatedIterator.with(
+    public IteratorPredicated<String> createIterator() {
+        return IteratorPredicated.with(
             ITERATOR,
             Predicates.fake()
         );
@@ -222,7 +222,7 @@ public final class PredicatedIteratorTest extends IteratorTestCase<PredicatedIte
     // ClassTesting....................................................................................................
 
     @Override
-    public Class<PredicatedIterator<String>> type() {
-        return Cast.to(PredicatedIterator.class);
+    public Class<IteratorPredicated<String>> type() {
+        return Cast.to(IteratorPredicated.class);
     }
 }

@@ -27,7 +27,7 @@ import java.util.Iterator;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class ReadOnlyIteratorTest extends IteratorTestCase<ReadOnlyIterator<Object>, Object> {
+final public class IteratorReadOnlyTest extends IteratorTestCase<IteratorReadOnly<Object>, Object> {
 
     // constants
 
@@ -37,21 +37,21 @@ final public class ReadOnlyIteratorTest extends IteratorTestCase<ReadOnlyIterato
 
     @Test
     public void testWrapNullIteratorFails() {
-        assertThrows(NullPointerException.class, () -> ReadOnlyIterator.wrap(null));
+        assertThrows(NullPointerException.class, () -> IteratorReadOnly.wrap(null));
     }
 
     @Test
     public void testWrap() {
         final Iterator<Void> iterator = Iterators.fake();
-        final ReadOnlyIterator<Void> readOnly = ReadOnlyIterator.wrap(iterator);
+        final IteratorReadOnly<Void> readOnly = IteratorReadOnly.wrap(iterator);
         assertSame(iterator, readOnly.iterator, "iterator");
     }
 
     @Test
     public void testDoesntWrapReadOnlyIterator() {
         final Iterator<Void> iterator = Iterators.fake();
-        final ReadOnlyIterator<Void> readOnly
-            = ReadOnlyIterator.wrap(ReadOnlyIterator.wrap(iterator));
+        final IteratorReadOnly<Void> readOnly
+            = IteratorReadOnly.wrap(IteratorReadOnly.wrap(iterator));
         assertSame(iterator, readOnly.iterator, "iterator");
     }
 
@@ -73,27 +73,27 @@ final public class ReadOnlyIteratorTest extends IteratorTestCase<ReadOnlyIterato
 
     @Test
     public void testRemove() {
-        this.removeUnsupportedFails(ReadOnlyIterator.wrap(this.iterator(ELEMENT)));
+        this.removeUnsupportedFails(IteratorReadOnly.wrap(this.iterator(ELEMENT)));
     }
 
     @Test
     public void testToString() {
         final Iterator<Object> iterator
             = new ArrayList<>(Lists.of(ELEMENT)).iterator();
-        this.toStringAndCheck(ReadOnlyIterator.wrap(iterator), iterator.toString());
+        this.toStringAndCheck(IteratorReadOnly.wrap(iterator), iterator.toString());
     }
 
-    private ReadOnlyIterator<Object> iterator(final Object... strings) {
-        return ReadOnlyIterator.wrap(new ArrayList<>(Lists.of(strings)).iterator());
-    }
-
-    @Override
-    public ReadOnlyIterator<Object> createIterator() {
-        return ReadOnlyIterator.wrap(Iterators.fake());
+    private IteratorReadOnly<Object> iterator(final Object... strings) {
+        return IteratorReadOnly.wrap(new ArrayList<>(Lists.of(strings)).iterator());
     }
 
     @Override
-    public Class<ReadOnlyIterator<Object>> type() {
-        return Cast.to(ReadOnlyIterator.class);
+    public IteratorReadOnly<Object> createIterator() {
+        return IteratorReadOnly.wrap(Iterators.fake());
+    }
+
+    @Override
+    public Class<IteratorReadOnly<Object>> type() {
+        return Cast.to(IteratorReadOnly.class);
     }
 }

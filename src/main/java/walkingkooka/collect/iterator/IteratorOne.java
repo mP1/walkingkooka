@@ -17,50 +17,59 @@
 
 package walkingkooka.collect.iterator;
 
-import walkingkooka.Cast;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * An {@link Iterator} that is always empty.
+ * An {@link Iterator} with a single element which may be null. The {@link #remove()} always throws
+ * {@link UnsupportedOperationException}.
  */
-final class EmptyIterator<E> implements Iterator<E> {
+final class IteratorOne<E> implements Iterator<E> {
 
-    /**
-     * Type safe getter.
-     */
-    static <E> EmptyIterator<E> instance() {
-        return Cast.to(EmptyIterator.INSTANCE);
+    static <E> IteratorOne<E> with(final E value) {
+        return new IteratorOne<>(value);
     }
 
     /**
-     * Singleton
+     * Private constructor use factory.
      */
-    @SuppressWarnings("rawtypes")
-    private final static EmptyIterator INSTANCE = new EmptyIterator();
-
-    private EmptyIterator() {
+    private IteratorOne(final E value) {
         super();
+        this.value = value;
+        this.empty = false;
     }
 
     @Override
     public boolean hasNext() {
-        return false;
+        return false == this.empty;
     }
 
     @Override
     public E next() {
-        throw new NoSuchElementException();
+        if (this.empty) {
+            throw new NoSuchElementException();
+        }
+        this.empty = true;
+        return this.value;
     }
 
+    /**
+     * Will be true when the iterator is exhausted.
+     */
+    private boolean empty;
+
+    private final E value;
+
+    /**
+     * Always throws {@link UnsupportedOperationException}
+     */
     @Override
     public void remove() {
-        throw new IllegalStateException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public String toString() {
-        return "<empty>";
+        return this.empty ? "<empty>" : String.valueOf(this.value);
     }
 }

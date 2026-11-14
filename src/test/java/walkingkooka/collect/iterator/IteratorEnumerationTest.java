@@ -26,14 +26,14 @@ import java.util.Vector;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class EnumerationIteratorTest
-    extends IteratorTestCase<EnumerationIterator<Integer>, Integer> {
+final public class IteratorEnumerationTest
+    extends IteratorTestCase<IteratorEnumeration<Integer>, Integer> {
 
     @Test
     public void testWithNullEnumerationFails() {
         assertThrows(
             NullPointerException.class,
-            () -> EnumerationIterator.with(null)
+            () -> IteratorEnumeration.with(null)
         );
     }
 
@@ -45,7 +45,7 @@ final public class EnumerationIteratorTest
         vector.add("3");
 
         this.iterateUsingHasNextAndCheck(
-            EnumerationIterator.with(vector.elements()),
+            IteratorEnumeration.with(vector.elements()),
             "1",
             "2",
             "3"
@@ -57,14 +57,14 @@ final public class EnumerationIteratorTest
         final Vector<String> vector = Lists.vector();
         vector.add("1");
 
-        final EnumerationIterator<String> iterator = EnumerationIterator.with(vector.elements());
+        final IteratorEnumeration<String> iterator = IteratorEnumeration.with(vector.elements());
         iterator.next();
         this.removeUnsupportedFails(iterator);
     }
 
     @Override
-    public EnumerationIterator<Integer> createIterator() {
-        return EnumerationIterator.with(ENUMERATION);
+    public IteratorEnumeration<Integer> createIterator() {
+        return IteratorEnumeration.with(ENUMERATION);
     }
 
     private static final Enumeration<Integer> ENUMERATION = new Enumeration<>() {
@@ -82,13 +82,13 @@ final public class EnumerationIteratorTest
     @Test
     public void testToString() {
         this.toStringAndCheck(
-            EnumerationIterator.with(ENUMERATION),
+            IteratorEnumeration.with(ENUMERATION),
             ENUMERATION.toString()
         );
     }
 
     @Override
-    public Class<EnumerationIterator<Integer>> type() {
-        return Cast.to(EnumerationIterator.class);
+    public Class<IteratorEnumeration<Integer>> type() {
+        return Cast.to(IteratorEnumeration.class);
     }
 }

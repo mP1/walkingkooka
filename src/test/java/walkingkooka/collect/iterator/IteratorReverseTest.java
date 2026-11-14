@@ -27,13 +27,13 @@ import java.util.Iterator;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class ReverseIteratorTest extends IteratorTestCase<ReverseIterator<Object>, Object> {
+final public class IteratorReverseTest extends IteratorTestCase<IteratorReverse<Object>, Object> {
 
     // tests
 
     @Test
     public void testWithNullIteratorFails() {
-        assertThrows(NullPointerException.class, () -> ReverseIterator.with(null));
+        assertThrows(NullPointerException.class, () -> IteratorReverse.with(null));
     }
 
     @Test
@@ -58,28 +58,28 @@ final public class ReverseIteratorTest extends IteratorTestCase<ReverseIterator<
 
     @Test
     public void testReverseReversedIterator() {
-        final Iterator<String> iterator = ReverseIterator.with(this.iterator("1", "2", "3"));
-        assertFalse(iterator instanceof ReverseIterator,
-            "Iterator should not be a ReverseIterator=" + iterator.getClass().getName());
+        final Iterator<String> iterator = IteratorReverse.with(this.iterator("1", "2", "3"));
+        assertFalse(iterator instanceof IteratorReverse,
+            "Iterator should not be a IteratorReverse=" + iterator.getClass().getName());
         this.iterateAndCheck(iterator, "1", "2", "3");
     }
 
     @Test
     public void testRemove() {
-        this.removeUnsupportedFails(ReverseIterator.with(this.iterator("1")));
+        this.removeUnsupportedFails(IteratorReverse.with(this.iterator("1")));
     }
 
-    private ReverseIterator<String> iterator(final String... strings) {
-        return Cast.to(ReverseIterator.with(new ArrayList<>(Lists.of(strings)).iterator()));
-    }
-
-    @Override
-    public ReverseIterator<Object> createIterator() {
-        return Cast.to(ReverseIterator.with(Iterators.fake()));
+    private IteratorReverse<String> iterator(final String... strings) {
+        return Cast.to(IteratorReverse.with(new ArrayList<>(Lists.of(strings)).iterator()));
     }
 
     @Override
-    public Class<ReverseIterator<Object>> type() {
-        return Cast.to(ReverseIterator.class);
+    public IteratorReverse<Object> createIterator() {
+        return Cast.to(IteratorReverse.with(Iterators.fake()));
+    }
+
+    @Override
+    public Class<IteratorReverse<Object>> type() {
+        return Cast.to(IteratorReverse.class);
     }
 }

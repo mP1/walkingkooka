@@ -20,35 +20,35 @@ package walkingkooka.collect.iterator;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-final public class EmptyIteratorTest extends IteratorTestCase<EmptyIterator<Void>, Void> {
+final public class IteratorEmptyTest extends IteratorTestCase<IteratorEmpty<Void>, Void> {
 
     @Test
     public void testHasNext() {
-        this.hasNextCheckFalse(EmptyIterator.instance());
+        this.hasNextCheckFalse(IteratorEmpty.instance());
     }
 
     @Test
     public void testNext() {
-        this.nextFails(EmptyIterator.instance());
+        this.nextFails(IteratorEmpty.instance());
     }
 
     @Test
     public void testRemove() {
-        this.removeWithoutNextFails(EmptyIterator.instance());
+        this.removeWithoutNextFails(IteratorEmpty.instance());
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(EmptyIterator.instance(), "<empty>");
+        this.toStringAndCheck(IteratorEmpty.instance(), "<empty>");
     }
 
     @Override
-    public EmptyIterator<Void> createIterator() {
-        return EmptyIterator.instance();
+    public IteratorEmpty<Void> createIterator() {
+        return IteratorEmpty.instance();
     }
 
     @Override
-    public Class<EmptyIterator<Void>> type() {
-        return Cast.to(EmptyIterator.class);
+    public Class<IteratorEmpty<Void>> type() {
+        return Cast.to(IteratorEmpty.class);
     }
 }

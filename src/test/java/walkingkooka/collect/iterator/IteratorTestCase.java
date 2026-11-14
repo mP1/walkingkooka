@@ -47,11 +47,11 @@ abstract public class IteratorTestCase<I extends Iterator<T>, T> implements Clas
 
     @Override
     public final String typeNamePrefix() {
-        return "";
+        return Iterator.class.getSimpleName();
     }
 
     @Override
     public final String typeNameSuffix() {
-        return Iterator.class.getSimpleName();
+        return "";
     }
 }

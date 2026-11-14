@@ -25,23 +25,23 @@ import java.util.function.Predicate;
 /**
  * A {@link Iterator} that wraps another {@link Iterator} lazily filtering elements using the provided {@link Predicate}.
  */
-final class PredicatedIterator<E> implements Iterator<E> {
+final class IteratorPredicated<E> implements Iterator<E> {
 
     /**
-     * Creates a new {@link PredicatedIterator}
+     * Creates a new {@link IteratorPredicated}
      */
-    static <E> PredicatedIterator<E> with(final Iterator<E> iterator,
+    static <E> IteratorPredicated<E> with(final Iterator<E> iterator,
                                           final Predicate<E> predicate) {
         Objects.requireNonNull(iterator, "iterator");
         Objects.requireNonNull(predicate, "predicate");
 
-        return new PredicatedIterator<>(
+        return new IteratorPredicated<>(
             iterator,
             predicate
         );
     }
 
-    private PredicatedIterator(final Iterator<E> iterator,
+    private IteratorPredicated(final Iterator<E> iterator,
                                final Predicate<E> predicate) {
         this.iterator = iterator;
         this.predicate = predicate;

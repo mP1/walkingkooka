@@ -27,18 +27,18 @@ import java.util.Objects;
  * An {@link Iterator} that returns the individual {@link Character characters} from a {@link
  * CharSequence}.
  */
-final class CharSequenceIterator implements Iterator<Character> {
+final class IteratorCharSequence implements Iterator<Character> {
 
     /**
-     * Creates a new {@link CharSequenceIterator}
+     * Creates a new {@link IteratorCharSequence}
      */
-    static CharSequenceIterator with(final CharSequence charSequence) {
+    static IteratorCharSequence with(final CharSequence charSequence) {
         Objects.requireNonNull(charSequence, "charSequence");
 
-        return new CharSequenceIterator(charSequence);
+        return new IteratorCharSequence(charSequence);
     }
 
-    private CharSequenceIterator(final CharSequence charSequence) {
+    private IteratorCharSequence(final CharSequence charSequence) {
         super();
         this.charSequence = charSequence;
         this.i = 0;
