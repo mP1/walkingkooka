@@ -18,8 +18,10 @@
 package walkingkooka.collect.list;
 
 import walkingkooka.text.CharacterConstant;
-import walkingkooka.text.HasMultiLineTextAndCollectionString;
+import walkingkooka.text.HasMultiLineText;
 import walkingkooka.text.HasTextWithSeparator;
+import walkingkooka.text.MultiLineText;
+import walkingkooka.text.TextContext;
 
 import java.util.AbstractList;
 import java.util.List;
@@ -33,7 +35,7 @@ abstract class CsvTsvStringList<T extends ImmutableListDefaults<T, String>> exte
     DelimiterStringImmutableList,
     ImmutableListDefaults<T, String>,
     HasCsvStringList,
-    HasMultiLineTextAndCollectionString,
+    HasMultiLineText,
     HasTextWithSeparator,
     HasTsvStringList {
 
@@ -67,6 +69,55 @@ abstract class CsvTsvStringList<T extends ImmutableListDefaults<T, String>> exte
     @Override
     public final CsvStringList csvStringList() {
         return CsvStringList.EMPTY.setElements(this);
+    }
+
+    // HasMultiLineText.................................................................................................
+
+    /**
+     * Returns this value as text with the given {@link HasMultiLineText}.
+     */
+    @Override
+    public final MultiLineText multiLineText(final TextContext context) {
+        Objects.requireNonNull(context, "context");
+
+        final StringBuilder b = new StringBuilder();
+
+        int i = -1;
+        for (String string : this) {
+            if (i >= 0) {
+                b.append(
+                    this.multiLineTextSeparator(
+                        i,
+                        context
+                    )
+                );
+            }
+            i++;
+
+            // escape eols.
+            b.append(
+                string.replace("\r", "\\r")
+                    .replace("\n", "\\n")
+            );
+        }
+
+        if (i >= 0) {
+            b.append(
+                this.multiLineTextSeparator(
+                    i,
+                    context
+                )
+            );
+        }
+
+        return MultiLineText.EMPTY.setText(
+            b.toString()
+        );
+    }
+
+    private CharSequence multiLineTextSeparator(final int i,
+                                                final TextContext context) {
+        return context.lineEnding();
     }
 
     // HasTextWithSeparator.............................................................................................

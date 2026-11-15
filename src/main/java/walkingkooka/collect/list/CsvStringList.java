@@ -18,7 +18,6 @@
 package walkingkooka.collect.list;
 
 import walkingkooka.text.CharacterConstant;
-import walkingkooka.text.TextContext;
 
 import java.util.Collection;
 import java.util.List;
@@ -98,14 +97,6 @@ public final class CsvStringList extends CsvTsvStringList<CsvStringList> {
     @Override
     public CsvStringList removeTrailingNullOrEmptyStrings() {
         return (CsvStringList) super.removeTrailingNullOrEmptyStrings();
-    }
-
-    // HasMultiLineText.................................................................................................
-
-    @Override
-    public CharSequence multiLineTextSeparator(final int i,
-                                               final TextContext context) {
-        return context.lineEnding();
     }
 
     // HasTextWithSeparator.............................................................................................

@@ -19,9 +19,6 @@ package walkingkooka.collect.list;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.EndOfTextException;
-import walkingkooka.text.HasMultiLineTextAndCollectionString;
-
-import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -474,13 +471,6 @@ public final class TsvStringListTest extends CsvTsvStringListTestCase<TsvStringL
             ).concat("222"),
             first
         );
-    }
-
-    // HasMultiLineTextAndCollectionString..............................................................................
-
-    @Override
-    public HasMultiLineTextAndCollectionString createCollection(final Collection<String> strings) {
-        return TsvStringList.EMPTY.setElements(strings);
     }
 
     // HasTsvStringList.................................................................................................

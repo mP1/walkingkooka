@@ -19,7 +19,8 @@ package walkingkooka.collect.list;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.text.HasMultiLineTextAndCollectionStringTesting;
+import walkingkooka.text.HasMultiLineTextTesting;
+import walkingkooka.text.LineEnding;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -28,7 +29,7 @@ public abstract class CsvTsvStringListTestCase<T extends CsvTsvStringList<T>> im
     ParseStringTesting<T>,
     CanRemoveTrailingNullOrEmptyStringsTesting,
     HasCsvStringListTesting,
-    HasMultiLineTextAndCollectionStringTesting,
+    HasMultiLineTextTesting,
     HasTsvStringListTesting {
 
     CsvTsvStringListTestCase() {
@@ -75,6 +76,82 @@ public abstract class CsvTsvStringListTestCase<T extends CsvTsvStringList<T>> im
                     )
                 ).setElements(csvStringList)
         );
+    }
+
+    @Test
+    public final void testMultiLineTextCr() {
+        this.multiLineTextAndCheck(
+            this.createList(
+                "111",
+                "222"
+            ),
+            LineEnding.CR,
+            "111\r" +
+                "222\r"
+        );
+    }
+
+    @Test
+    public final void testMultiLineTextNl() {
+        this.multiLineTextAndCheck(
+            this.createList(
+                "111",
+                "222"
+            ),
+            LineEnding.NL,
+            "111\n" +
+                "222\n"
+        );
+    }
+
+    @Test
+    public final void testMultiLineTextNlAndStringIncludeCr() {
+        this.multiLineTextAndCheck(
+            this.createList(
+                "111\r",
+                "222\r"
+            ),
+            LineEnding.NL,
+            "111\\r\n" +
+                "222\\r\n"
+        );
+    }
+
+    @Test
+    public final void testMultiLineTextNlAndStringIncludeNl() {
+        this.multiLineTextAndCheck(
+            this.createList(
+                "111\n",
+                "222\n"
+            ),
+            LineEnding.NL,
+            "111\\n\n" +
+                "222\\n\n"
+        );
+    }
+
+    @Test
+    public final void testMultiLineTextCommasAndDoubleQuotes() {
+        // strings also sorted so SortedSets expectations will also pass
+
+        this.multiLineTextAndCheck(
+            this.createList(
+                "comma,",
+                "double-quote\"",
+                "last"
+            ),
+            LineEnding.NL,
+            "comma,\n" +
+                "double-quote\"\n" +
+                "last\n"
+        );
+    }
+
+    private T createList(final String... strings) {
+        return this.createList()
+            .setElements(
+                Lists.of(strings)
+            );
     }
 
     @Override

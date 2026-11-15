@@ -20,8 +20,6 @@ package walkingkooka.collect.list;
 import org.junit.jupiter.api.Test;
 import walkingkooka.EndOfTextException;
 
-import java.util.Collection;
-
 public final class CsvStringListTest extends CsvTsvStringListTestCase<CsvStringList> {
 
     @Override
@@ -472,13 +470,6 @@ public final class CsvStringListTest extends CsvTsvStringListTestCase<CsvStringL
             list,
             list
         );
-    }
-
-    // HasTextWithLineBreaks............................................................................................
-
-    @Override
-    public CsvStringList createCollection(final Collection<String> strings) {
-        return CsvStringList.EMPTY.setElements(strings);
     }
 
     // HasTsvStringList.................................................................................................
