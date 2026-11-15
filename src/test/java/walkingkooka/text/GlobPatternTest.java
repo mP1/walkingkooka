@@ -40,12 +40,10 @@ public final class GlobPatternTest implements ClassTesting<GlobPattern>,
     public void testParseWithNullPatternFails() {
         assertThrows(
             NullPointerException.class,
-            () -> {
-                GlobPattern.parse(
-                    null,
-                    CaseSensitivity.SENSITIVE
-                );
-            }
+            () -> GlobPattern.parse(
+                null,
+                CaseSensitivity.SENSITIVE
+            )
         );
     }
 
