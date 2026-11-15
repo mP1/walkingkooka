@@ -46,7 +46,7 @@ public interface SupportsLineBreakDelimiterTesting2<T extends SupportsLineBreakD
     @Test
     default void testSetLineBreakWithNegativeIndexFails() {
         assertThrows(
-            IllegalArgumentException.class,
+            IndexOutOfBoundsException.class,
             () -> this.createSupportsLineBreakDelimiter()
                 .setLineBreak(-1)
         );
@@ -57,9 +57,9 @@ public interface SupportsLineBreakDelimiterTesting2<T extends SupportsLineBreakD
         final T supportsLineBreakDelimiter = this.createSupportsLineBreakDelimiter();
 
         assertThrows(
-            IllegalArgumentException.class,
+            IndexOutOfBoundsException.class,
             () -> supportsLineBreakDelimiter.setLineBreak(
-                supportsLineBreakDelimiter.size()
+                supportsLineBreakDelimiter.size() + 1
             )
         );
     }
@@ -69,7 +69,7 @@ public interface SupportsLineBreakDelimiterTesting2<T extends SupportsLineBreakD
     @Test
     default void testRemoveLineBreakWithNegativeIndexFails() {
         assertThrows(
-            IllegalArgumentException.class,
+            IndexOutOfBoundsException.class,
             () -> this.createSupportsLineBreakDelimiter()
                 .removeLineBreak(
                     -1
@@ -82,9 +82,9 @@ public interface SupportsLineBreakDelimiterTesting2<T extends SupportsLineBreakD
         final T supportsLineBreakDelimiter = this.createSupportsLineBreakDelimiter();
 
         assertThrows(
-            IllegalArgumentException.class,
+            IndexOutOfBoundsException.class,
             () -> supportsLineBreakDelimiter.removeLineBreak(
-                supportsLineBreakDelimiter.size()
+                supportsLineBreakDelimiter.size() + 1
             )
         );
     }
