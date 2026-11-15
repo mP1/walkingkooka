@@ -28,7 +28,7 @@ public interface HasLineBreakDelimiterTesting2<T extends HasLineBreakDelimiter> 
     @Test
     default void testLineBreakWithNegativeIndexFails() {
         assertThrows(
-            IllegalArgumentException.class,
+            IndexOutOfBoundsException.class,
             () -> this.createHasLineBreakDelimiter()
                 .lineBreak(
                     -1
@@ -41,9 +41,9 @@ public interface HasLineBreakDelimiterTesting2<T extends HasLineBreakDelimiter> 
         final T hasLineBreakDelimiter = this.createHasLineBreakDelimiter();
 
         assertThrows(
-            IllegalArgumentException.class,
+            IndexOutOfBoundsException.class,
             () -> hasLineBreakDelimiter.lineBreak(
-                hasLineBreakDelimiter.size()
+                hasLineBreakDelimiter.size() + 1
             )
         );
     }
