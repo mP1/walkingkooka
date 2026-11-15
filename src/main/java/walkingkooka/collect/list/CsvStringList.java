@@ -19,6 +19,7 @@ package walkingkooka.collect.list;
 
 import walkingkooka.text.CharacterConstant;
 
+import java.util.BitSet;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -31,7 +32,10 @@ public final class CsvStringList extends CsvTsvStringList<CsvStringList> {
     /**
      * An empty {@link CsvStringList}
      */
-    public final static CsvStringList EMPTY = new CsvStringList(Lists.empty());
+    public final static CsvStringList EMPTY = new CsvStringList(
+        Lists.empty(),
+        null
+    );
 
     /**
      * Parses CSV text according to RFC 4180.
@@ -48,14 +52,25 @@ public final class CsvStringList extends CsvTsvStringList<CsvStringList> {
 
         return strings.isEmpty() ?
             EMPTY :
-            new CsvStringList(strings);
+            new CsvStringList(
+                strings
+            );
     }
 
-    /**
-     * Private ctor use #parse or any would be mutator methods.
-     */
     private CsvStringList(final List<String> strings) {
-        super(strings);
+        this(
+            strings,
+            null
+        );
+    }
+
+    // @VisibleForTesting
+    CsvStringList(final List<String> strings,
+                  final BitSet lineBreaks) {
+        super(
+            strings,
+            lineBreaks
+        );
     }
 
     @Override
@@ -68,12 +83,10 @@ public final class CsvStringList extends CsvTsvStringList<CsvStringList> {
             final List<String> copy;
 
             if (strings instanceof TsvStringList) {
-                copy = ((TsvStringList) strings)
-                    .strings;
-
-                csvStringList = copy.isEmpty() ?
-                    EMPTY :
-                    new CsvStringList(copy);
+                csvStringList = this.replaceStrings(
+                    ((TsvStringList) strings)
+                        .strings
+                );
             } else {
                 copy = Lists.array();
                 for (final String string : strings) {
@@ -83,13 +96,20 @@ public final class CsvStringList extends CsvTsvStringList<CsvStringList> {
 
                 csvStringList = this.strings.equals(copy) ?
                     this :
-                    copy.isEmpty() ?
-                        EMPTY :
-                        new CsvStringList(copy);
+                    this.replaceStrings(copy);
             }
         }
 
         return csvStringList;
+    }
+
+    private CsvStringList replaceStrings(final List<String> strings) {
+        return strings.isEmpty() ?
+            EMPTY :
+            new CsvStringList(
+                strings,
+                this.lineBreaks
+            );
     }
 
     // CanRemoveTrailingNullOrEmptyStrings..............................................................................
@@ -106,5 +126,13 @@ public final class CsvStringList extends CsvTsvStringList<CsvStringList> {
     @Override
     CharacterConstant characterConstant() {
         return SEPARATOR;
+    }
+
+    @Override
+    CsvStringList replaceLineBreaks(final BitSet lineBreaks) {
+        return new CsvStringList(
+            this.strings,
+            lineBreaks
+        );
     }
 }
