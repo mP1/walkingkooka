@@ -63,8 +63,7 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
         final int MODE_NL_OR_FIRST_CHAR = 2;
         final int MODE_INSIDE_QUOTED = 3;
         final int MODE_TERMINATING_QUOTE = 4;
-        final int MODE_SEPARATOR = 5;
-        final int MODE_RAW_TEXT = 6;
+        final int MODE_RAW_TEXT = 5;
 
         int mode = MODE_FIRST_CHAR;
 
@@ -151,18 +150,6 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
                         }
                     }
                     break;
-                case MODE_SEPARATOR:
-                    if (separatorChar != c) {
-                        throw new InvalidCharacterException(
-                            text,
-                            i
-                        );
-                    }
-                    strings.add(
-                        element.toString()
-                    );
-                    mode = MODE_FIRST_CHAR;
-                    break;
                 case MODE_RAW_TEXT:
                     switch (c) {
                         case DOUBLE_QUOTE_CHAR:
@@ -207,7 +194,6 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
                         MODE_FIRST_CHAR,
                         MODE_INSIDE_QUOTED,
                         MODE_TERMINATING_QUOTE,
-                        MODE_SEPARATOR,
                         MODE_RAW_TEXT
                     );
             }
@@ -226,7 +212,6 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
             case MODE_INSIDE_QUOTED:
                 throw new EndOfTextException("Missing terminating '\"\'");
             case MODE_TERMINATING_QUOTE:
-            case MODE_SEPARATOR:
             case MODE_RAW_TEXT:
                 strings.add(
                     element.toString()
@@ -239,7 +224,6 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
                     MODE_FIRST_CHAR,
                     MODE_INSIDE_QUOTED,
                     MODE_TERMINATING_QUOTE,
-                    MODE_SEPARATOR,
                     MODE_RAW_TEXT
                 );
         }
