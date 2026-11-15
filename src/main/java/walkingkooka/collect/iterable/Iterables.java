@@ -22,6 +22,7 @@ import walkingkooka.reflect.PublicStaticHelper;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.function.BiPredicate;
+import java.util.function.Function;
 
 final public class Iterables implements PublicStaticHelper {
 
@@ -70,6 +71,17 @@ final public class Iterables implements PublicStaticHelper {
      */
     public static <T> Iterable<T> iterator(final Iterator<T> iterator) {
         return IterableIterator.with(iterator);
+    }
+
+    /**
+     * {@see IterableMapping}
+     */
+    public static <S, D> Iterable<D> mapping(final Iterable<S> iterable,
+                                             final Function<S, D> mapper) {
+        return IterableMapping.with(
+            iterable,
+            mapper
+        );
     }
 
     /**
