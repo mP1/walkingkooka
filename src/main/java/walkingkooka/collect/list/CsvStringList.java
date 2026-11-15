@@ -54,13 +54,6 @@ public final class CsvStringList extends CsvTsvStringList<CsvStringList> {
             csvStringList;
     }
 
-    private CsvStringList(final List<String> strings) {
-        this(
-            strings,
-            null
-        );
-    }
-
     // @VisibleForTesting
     CsvStringList(final List<String> strings,
                   final BitSet lineBreaks) {
