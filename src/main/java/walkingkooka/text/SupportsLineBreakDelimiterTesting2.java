@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface SupportsLineBreakDelimiterTesting2<T extends SupportsLineBreakDelimiter<T>> extends SupportsLineBreakDelimiterTesting,
-    HasLineBreakDelimiterTesting {
+    HasLineBreakDelimiterTesting2<T> {
 
     // lastLineBreaks...................................................................................................
 
@@ -38,31 +38,6 @@ public interface SupportsLineBreakDelimiterTesting2<T extends SupportsLineBreakD
         assertThrows(
             IllegalStateException.class,
             () -> supportsLineBreakDelimiter.lastLineBreak()
-        );
-    }
-
-    // lineBreaks.......................................................................................................
-
-    @Test
-    default void testLineBreakWithNegativeIndexFails() {
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> this.createSupportsLineBreakDelimiter()
-                .lineBreak(
-                    -1
-                )
-        );
-    }
-
-    @Test
-    default void testLineBreakWithInvalidIndexFails() {
-        final T supportsLineBreakDelimiter = this.createSupportsLineBreakDelimiter();
-
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> supportsLineBreakDelimiter.lineBreak(
-                supportsLineBreakDelimiter.size()
-            )
         );
     }
 
