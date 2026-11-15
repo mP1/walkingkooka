@@ -20,11 +20,23 @@ package walkingkooka.collect.list;
 import org.junit.jupiter.api.Test;
 import walkingkooka.EndOfTextException;
 
+import java.util.BitSet;
+import java.util.List;
+
 public final class CsvStringListTest extends CsvTsvStringListTestCase<CsvStringList> {
 
     @Override
     public CsvStringList empty() {
         return CsvStringList.EMPTY;
+    }
+
+    @Override
+    CsvStringList createList(final List<String> strings,
+                             final BitSet lineBreaks) {
+        return new CsvStringList(
+            strings,
+            lineBreaks
+        );
     }
 
     // ParseString......................................................................................................
@@ -481,6 +493,19 @@ public final class CsvStringListTest extends CsvTsvStringListTestCase<CsvStringL
         this.tsvStringListAndCheck(
             this.parseString(csv),
             csv.replace(',', '\t')
+        );
+    }
+
+    // HasMultiLineText.................................................................................................
+
+    @Test
+    public void testMultiLineTextWithLineBreaks() {
+        this.multiLineTextAndCheck(
+            this.parseString("a,b,c,d")
+                .setLineBreak(0)
+                .setLineBreak(2),
+            TEXT_CONTEXT,
+            "a\nb,c\nd"
         );
     }
 

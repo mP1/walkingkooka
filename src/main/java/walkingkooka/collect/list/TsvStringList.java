@@ -19,6 +19,7 @@ package walkingkooka.collect.list;
 
 import walkingkooka.text.CharacterConstant;
 
+import java.util.BitSet;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -51,11 +52,20 @@ public final class TsvStringList extends CsvTsvStringList<TsvStringList> {
             new TsvStringList(strings);
     }
 
-    /**
-     * Private ctor use #parse or any would be mutator methods.
-     */
     private TsvStringList(final List<String> strings) {
-        super(strings);
+        this(
+            strings,
+            null
+        );
+    }
+
+    // @VisibleForTesting
+    TsvStringList(final List<String> strings,
+                  final BitSet lineBreaks) {
+        super(
+            strings,
+            lineBreaks
+        );
     }
 
     @Override
@@ -68,12 +78,10 @@ public final class TsvStringList extends CsvTsvStringList<TsvStringList> {
             final List<String> copy;
 
             if (strings instanceof CsvStringList) {
-                copy = ((CsvStringList) strings)
-                    .strings;
-
-                tsvStringList = copy.isEmpty() ?
-                    EMPTY :
-                    new TsvStringList(copy);
+                tsvStringList = this.replaceStrings(
+                    ((CsvStringList) strings)
+                        .strings
+                );
             } else {
                 copy = Lists.array();
                 for (final String string : strings) {
@@ -83,13 +91,20 @@ public final class TsvStringList extends CsvTsvStringList<TsvStringList> {
 
                 tsvStringList = this.strings.equals(copy) ?
                     this :
-                    copy.isEmpty() ?
-                        EMPTY :
-                        new TsvStringList(copy);
+                    this.replaceStrings(copy);
             }
         }
 
         return tsvStringList;
+    }
+
+    private TsvStringList replaceStrings(final List<String> strings) {
+        return strings.isEmpty() ?
+            EMPTY :
+            new TsvStringList(
+                strings,
+                this.lineBreaks
+            );
     }
 
     // CanRemoveTrailingNullOrEmptyStrings..............................................................................
@@ -106,5 +121,13 @@ public final class TsvStringList extends CsvTsvStringList<TsvStringList> {
     @Override
     CharacterConstant characterConstant() {
         return SEPARATOR;
+    }
+
+    @Override
+    TsvStringList replaceLineBreaks(final BitSet lineBreaks) {
+        return new TsvStringList(
+            this.strings,
+            lineBreaks
+        );
     }
 }
