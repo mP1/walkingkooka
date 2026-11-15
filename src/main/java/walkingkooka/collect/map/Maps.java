@@ -36,7 +36,7 @@ import java.util.TreeMap;
 import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
-final public class Maps extends GwtMaps implements PublicStaticHelper {
+final public class Maps extends MapsGwt implements PublicStaticHelper {
 
     /**
      * Registers a {@link Map} type as immutable.

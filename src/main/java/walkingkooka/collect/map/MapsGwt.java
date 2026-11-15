@@ -24,13 +24,13 @@ import java.util.Map;
  * This method contains shadowed methods which will be used when the equivalent static methods in {@link Maps}
  * are ignored because of @GwtIncompatible.
  */
-abstract class GwtMaps {
+abstract class MapsGwt {
 
     static public <K, V> Map<K, V> concurrent() {
         return new HashMap<>();
     }
 
-    GwtMaps() {
+    MapsGwt() {
         super(); // stop creation
     }
 }
