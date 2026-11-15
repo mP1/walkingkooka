@@ -40,16 +40,15 @@ public final class TsvStringList extends CsvTsvStringList<TsvStringList> {
      * https://www.ietf.org/rfc/rfc4180.txt
      */
     public static TsvStringList parse(final String text) {
-        final List<String> strings = Lists.array();
-
-        SEPARATOR.parse(
+        final TsvStringList tsvStringList = parse0(
             text,
-            strings::add
+            SEPARATOR.character(),
+            TsvStringList::new
         );
 
-        return strings.isEmpty() ?
+        return tsvStringList.isEmpty() ?
             EMPTY :
-            new TsvStringList(strings);
+            tsvStringList;
     }
 
     private TsvStringList(final List<String> strings) {

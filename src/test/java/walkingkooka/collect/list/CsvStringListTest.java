@@ -56,17 +56,71 @@ public final class CsvStringListTest extends CsvTsvStringListTestCase<CsvStringL
 
     @Test
     public void testParseUnquotedCr() {
-        this.parseStringInvalidCharacterFails(
+        this.parseStringAndCheck(
+            "\r",
+            CsvStringList.EMPTY.concat("")
+                .lastLineBreak()
+                .concat("")
+        );
+    }
+
+    @Test
+    public void testParseUnquotedCr2() {
+        this.parseStringAndCheck(
             "a\rb",
-            '\r'
+            CsvStringList.EMPTY.concat("a")
+                .lastLineBreak()
+                .concat("b")
+        );
+    }
+
+    @Test
+    public void testParseUnquotedCrNl() {
+        this.parseStringAndCheck(
+            "\r\n",
+            CsvStringList.EMPTY.concat("")
+                .lastLineBreak()
+                .concat("")
+        );
+    }
+
+    @Test
+    public void testParseUnquotedCrNl2() {
+        this.parseStringAndCheck(
+            "a\r\nb",
+            CsvStringList.EMPTY.concat("a")
+                .lastLineBreak()
+                .concat("b")
         );
     }
 
     @Test
     public void testParseUnquotedNl() {
-        this.parseStringInvalidCharacterFails(
+        this.parseStringAndCheck(
+            "\n",
+            CsvStringList.EMPTY.concat("")
+                .lastLineBreak()
+                .concat("")
+        );
+    }
+
+    @Test
+    public void testParseUnquotedNl2() {
+        this.parseStringAndCheck(
             "a\nb",
-            '\n'
+            CsvStringList.EMPTY.concat("a")
+                .lastLineBreak()
+                .concat("b")
+        );
+    }
+
+    @Test
+    public void testParseUnquotedNl3() {
+        this.parseStringAndCheck(
+            "a\n",
+            CsvStringList.EMPTY.concat("a")
+                .lastLineBreak()
+                .concat("")
         );
     }
 
@@ -506,6 +560,17 @@ public final class CsvStringListTest extends CsvTsvStringListTestCase<CsvStringL
                 .setLineBreak(2),
             TEXT_CONTEXT,
             "a\nb,c\nd"
+        );
+    }
+
+    @Test
+    public void testMultiLineTextWithLineBreaks2() {
+        final String text = "a\nb,c\nd";
+
+        this.multiLineTextAndCheck(
+            this.parseString(text),
+            TEXT_CONTEXT,
+            text
         );
     }
 
