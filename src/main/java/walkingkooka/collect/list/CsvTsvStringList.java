@@ -17,6 +17,9 @@
 
 package walkingkooka.collect.list;
 
+import walkingkooka.EndOfTextException;
+import walkingkooka.InvalidCharacterException;
+import walkingkooka.NeverError;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.HasMultiLineText;
 import walkingkooka.text.HasTextWithSeparator;
@@ -29,6 +32,8 @@ import java.util.AbstractList;
 import java.util.BitSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
 
 /**
  * Base class for both {@link CsvStringList} and {@link TsvStringList}.
@@ -42,6 +47,216 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
     HasTextWithSeparator,
     HasTsvStringList,
     SupportsLineBreakDelimiter<T> {
+
+    /**
+     * Parses the given {@link String}, adding each encountered element to the given {@link Consumer}.
+     */
+    static <T extends CsvTsvStringList<T>> T parse0(final String text,
+                                                    final char separatorChar,
+                                                    final BiFunction<List<String>, BitSet, T> factory) {
+        Objects.requireNonNull(text, "text");
+
+        final List<String> strings = Lists.array();
+        final BitSet lineBreaks = new BitSet();
+
+        final int MODE_FIRST_CHAR = 1;
+        final int MODE_NL_OR_FIRST_CHAR = 2;
+        final int MODE_INSIDE_QUOTED = 3;
+        final int MODE_TERMINATING_QUOTE = 4;
+        final int MODE_SEPARATOR = 5;
+        final int MODE_RAW_TEXT = 6;
+
+        int mode = MODE_FIRST_CHAR;
+
+        StringBuilder element = null;
+
+        int i = 0;
+        final int length = text.length();
+
+        while (i < length) {
+            final char c = text.charAt(i);
+
+            switch (mode) {
+                case MODE_NL_OR_FIRST_CHAR:
+                    // skip the NL after a CR
+                    if (NL_CHAR == c) {
+                        mode = MODE_FIRST_CHAR;
+                        break;
+                    }
+                case MODE_FIRST_CHAR:
+                    switch(c) {
+                        case CR_CHAR:
+                            mode = MODE_FIRST_CHAR;
+
+                            lineBreaks.set(
+                                strings.size()
+                            );
+                            strings.add("");
+                            mode = MODE_NL_OR_FIRST_CHAR;
+                            break;
+                        case NL_CHAR:
+                            mode = MODE_FIRST_CHAR;
+
+                            lineBreaks.set(
+                                strings.size()
+                            );
+                            strings.add("");
+                            break;
+                        case DOUBLE_QUOTE_CHAR:
+                            element = new StringBuilder();
+                            mode = MODE_INSIDE_QUOTED;
+                            break;
+                        default:
+                            if (separatorChar == c) {
+                                mode = MODE_FIRST_CHAR;
+
+                                strings.add("");
+                            } else {
+                                element = new StringBuilder()
+                                    .append(c);
+                                mode = MODE_RAW_TEXT;
+                            }
+                            break;
+                    }
+                    break;
+                case MODE_INSIDE_QUOTED:
+                    switch (c) {
+                        // double quote could be end of quoted string or escaped double quote.
+                        case DOUBLE_QUOTE_CHAR:
+                            mode = MODE_TERMINATING_QUOTE;
+                            break;
+                        default:
+                            element.append(c);
+                            break;
+                    }
+                    break;
+                case MODE_TERMINATING_QUOTE:
+                    if (DOUBLE_QUOTE_CHAR == c) {
+                        element.append(DOUBLE_QUOTE_CHAR);
+                        mode = MODE_INSIDE_QUOTED;
+                    } else {
+                        if (separatorChar == c) {
+                            // quote was terminating
+                            strings.add(
+                                element.toString()
+                            );
+
+                            mode = MODE_FIRST_CHAR;
+                        } else {
+                            // trailing quote must be followed by separator or EOF, trailing spaces etc are an ICE.
+                            throw new InvalidCharacterException(
+                                text,
+                                i
+                            );
+                        }
+                    }
+                    break;
+                case MODE_SEPARATOR:
+                    if (separatorChar != c) {
+                        throw new InvalidCharacterException(
+                            text,
+                            i
+                        );
+                    }
+                    strings.add(
+                        element.toString()
+                    );
+                    mode = MODE_FIRST_CHAR;
+                    break;
+                case MODE_RAW_TEXT:
+                    switch (c) {
+                        case DOUBLE_QUOTE_CHAR:
+                            throw new InvalidCharacterException(
+                                text,
+                                i
+                            );
+                        case CR_CHAR:
+                            lineBreaks.set(
+                                strings.size()
+                            );
+                            strings.add(
+                                element.toString()
+                            );
+                            mode = MODE_NL_OR_FIRST_CHAR;
+                            break;
+                        case NL_CHAR:
+                            lineBreaks.set(
+                                strings.size()
+                            );
+                            strings.add(
+                                element.toString()
+                            );
+                            mode = MODE_FIRST_CHAR;
+                            break;
+                        default:
+                            if (separatorChar == c) {
+                                strings.add(
+                                    element.toString()
+                                );
+                                mode = MODE_FIRST_CHAR;
+                            } else {
+                                element.append(c);
+                            }
+                            break;
+                    }
+                    break;
+                default:
+                    NeverError.unhandledCase(
+                        mode,
+                        MODE_NL_OR_FIRST_CHAR,
+                        MODE_FIRST_CHAR,
+                        MODE_INSIDE_QUOTED,
+                        MODE_TERMINATING_QUOTE,
+                        MODE_SEPARATOR,
+                        MODE_RAW_TEXT
+                    );
+            }
+
+            i++;
+        }
+
+        // EOT
+        switch (mode) {
+            case MODE_NL_OR_FIRST_CHAR:
+            case MODE_FIRST_CHAR:
+                if (0 != i) {
+                    strings.add("");
+                }
+                break;
+            case MODE_INSIDE_QUOTED:
+                throw new EndOfTextException("Missing terminating '\"\'");
+            case MODE_TERMINATING_QUOTE:
+            case MODE_SEPARATOR:
+            case MODE_RAW_TEXT:
+                strings.add(
+                    element.toString()
+                );
+                break;
+            default:
+                NeverError.unhandledCase(
+                    mode,
+                    MODE_NL_OR_FIRST_CHAR,
+                    MODE_FIRST_CHAR,
+                    MODE_INSIDE_QUOTED,
+                    MODE_TERMINATING_QUOTE,
+                    MODE_SEPARATOR,
+                    MODE_RAW_TEXT
+                );
+        }
+
+        return factory.apply(
+            strings,
+            lineBreaks.isEmpty() ?
+                null :
+                lineBreaks
+        );
+    }
+
+    private final static char CR_CHAR = '\r';
+
+    private final static char NL_CHAR = '\n';
+
+    private final static char DOUBLE_QUOTE_CHAR = '"';
 
     /**
      * Package private ctor use #parse or any would be mutator methods.

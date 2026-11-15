@@ -43,18 +43,15 @@ public final class CsvStringList extends CsvTsvStringList<CsvStringList> {
      * https://www.ietf.org/rfc/rfc4180.txt
      */
     public static CsvStringList parse(final String text) {
-        final List<String> strings = Lists.array();
-
-        SEPARATOR.parse(
+        final CsvStringList csvStringList = parse0(
             text,
-            strings::add
+            SEPARATOR.character(),
+            CsvStringList::new
         );
 
-        return strings.isEmpty() ?
+        return csvStringList.isEmpty() ?
             EMPTY :
-            new CsvStringList(
-                strings
-            );
+            csvStringList;
     }
 
     private CsvStringList(final List<String> strings) {
