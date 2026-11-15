@@ -18,10 +18,8 @@
 package walkingkooka.collect.list;
 
 import walkingkooka.text.CharacterConstant;
-import walkingkooka.text.HasMultiLineTextAndCollectionString;
 import walkingkooka.text.TextContext;
 
-import java.util.AbstractList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -29,11 +27,7 @@ import java.util.Objects;
 /**
  * An immutable list of String elements. Note null elements are not allowed.
  */
-public final class TsvStringList extends AbstractList<String> implements DelimiterStringImmutableList,
-    ImmutableListDefaults<TsvStringList, String>,
-    HasCsvStringList,
-    HasMultiLineTextAndCollectionString,
-    HasTsvStringList {
+public final class TsvStringList extends CsvTsvStringList<TsvStringList> {
 
     /**
      * An empty {@link TsvStringList}
@@ -62,61 +56,48 @@ public final class TsvStringList extends AbstractList<String> implements Delimit
      * Private ctor use #parse or any would be mutator methods.
      */
     private TsvStringList(final List<String> strings) {
-        super();
-        this.strings = strings;
-    }
-
-    @Override
-    public String get(final int index) {
-        return this.strings.get(index);
-    }
-
-    @Override
-    public int size() {
-        return this.strings.size();
-    }
-
-    @Override
-    public void elementCheck(final String string) {
-        Objects.requireNonNull(string, "string");
+        super(strings);
     }
 
     @Override
     public TsvStringList setElements(final Collection<String> strings) {
-        TsvStringList tsvStringList;
+        final TsvStringList tsvStringList;
 
         if (strings instanceof TsvStringList) {
             tsvStringList = (TsvStringList) strings;
         } else {
-            final List<String> copy = Lists.array();
-            for(final String string : strings) {
-                Objects.requireNonNull(strings, "includes null string");
-                copy.add(string);
-            }
-            tsvStringList = this.strings.equals(copy) ?
-                this :
-                copy.isEmpty() ?
+            final List<String> copy;
+
+            if (strings instanceof CsvStringList) {
+                copy = ((CsvStringList) strings)
+                    .strings;
+
+                tsvStringList = copy.isEmpty() ?
                     EMPTY :
                     new TsvStringList(copy);
+            } else {
+                copy = Lists.array();
+                for (final String string : strings) {
+                    Objects.requireNonNull(strings, "includes null string");
+                    copy.add(string);
+                }
+
+                tsvStringList = this.strings.equals(copy) ?
+                    this :
+                    copy.isEmpty() ?
+                        EMPTY :
+                        new TsvStringList(copy);
+            }
         }
 
         return tsvStringList;
     }
 
-    private final List<String> strings;
-
     // CanRemoveTrailingNullOrEmptyStrings..............................................................................
 
     @Override
     public TsvStringList removeTrailingNullOrEmptyStrings() {
-        return (TsvStringList) DelimiterStringImmutableList.super.removeTrailingNullOrEmptyStrings();
-    }
-
-    // HasCsvStringList.................................................................................................
-
-    @Override
-    public CsvStringList csvStringList() {
-        return CsvStringList.EMPTY.setElements(this);
+        return (TsvStringList) super.removeTrailingNullOrEmptyStrings();
     }
 
     // HasMultiLineText.................................................................................................
@@ -132,32 +113,7 @@ public final class TsvStringList extends AbstractList<String> implements Delimit
     public final static CharacterConstant SEPARATOR = CharacterConstant.TAB;
 
     @Override
-    public CharSequence defaultTextSeparator() {
+    CharacterConstant characterConstant() {
         return SEPARATOR;
-    }
-
-    @Override
-    public CharSequence textSeparator(final int index) {
-        return SEPARATOR;
-    }
-
-    /**
-     * Note strings with quotes, tab, CR or NL will be quoted and double quotes escaped.
-     */
-    @Override
-    public String textWithSeparator(final CharSequence separator) {
-        final String stringSeparator = String.valueOf(separator);
-
-        return SEPARATOR.toDelimiteredString(
-            this.strings,
-            (int position) -> stringSeparator
-        );
-    }
-
-    // HasTsvStringList.................................................................................................
-
-    @Override
-    public TsvStringList tsvStringList() {
-        return this;
     }
 }
