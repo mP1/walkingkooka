@@ -19,62 +19,15 @@ package walkingkooka.collect.list;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.EndOfTextException;
-import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.HasMultiLineTextAndCollectionString;
-import walkingkooka.text.HasMultiLineTextAndCollectionStringTesting;
 
 import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class TsvStringListTest implements DelimiterStringImmutableListTesting<TsvStringList>,
-    ParseStringTesting<TsvStringList>,
-    CanRemoveTrailingNullOrEmptyStringsTesting,
-    HasCsvStringListTesting,
-    HasMultiLineTextAndCollectionStringTesting,
-    HasTsvStringListTesting {
+public final class TsvStringListTest extends CsvTsvStringListTestCase<TsvStringList> {
 
-    // setElements......................................................................................................
-
-    @Test
-    public void testSetElementsIncludesNullFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> TsvStringList.EMPTY.setElements(
-                Lists.of(null)
-            )
-        );
-    }
-
-    @Test
-    public void testSetElementsWithEmpty() {
-        assertSame(
-            TsvStringList.EMPTY,
-            TsvStringList.EMPTY.setElements(
-                Lists.of(
-                    "1A"
-                )
-            ).setElements(Lists.empty())
-        );
-    }
-
-    @Test
-    public void testSetElementsWithTabStringList() {
-        final TsvStringList tsvStringList = TsvStringList.EMPTY.concat("abc");
-
-        assertSame(
-            tsvStringList,
-            TsvStringList.EMPTY.setElements(
-                Lists.of(
-                    "1A"
-                )
-            ).setElements(tsvStringList)
-        );
-    }
-
-    @Override
-    public TsvStringList createList() {
+    public TsvStringList empty() {
         return TsvStringList.EMPTY;
     }
 
@@ -372,16 +325,6 @@ public final class TsvStringListTest implements DelimiterStringImmutableListTest
     @Override
     public TsvStringList parseString(final String text) {
         return TsvStringList.parse(text);
-    }
-
-    @Override
-    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> thrown) {
-        return thrown;
-    }
-
-    @Override
-    public RuntimeException parseStringFailedExpected(final RuntimeException thrown) {
-        return thrown;
     }
 
     // HasText..........................................................................................................

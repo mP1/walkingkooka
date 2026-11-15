@@ -19,61 +19,13 @@ package walkingkooka.collect.list;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.EndOfTextException;
-import walkingkooka.test.ParseStringTesting;
-import walkingkooka.text.HasMultiLineTextAndCollectionStringTesting;
 
 import java.util.Collection;
 
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-public final class CsvStringListTest implements DelimiterStringImmutableListTesting<CsvStringList>,
-    ParseStringTesting<CsvStringList>,
-    CanRemoveTrailingNullOrEmptyStringsTesting,
-    HasCsvStringListTesting,
-    HasMultiLineTextAndCollectionStringTesting,
-    HasTsvStringListTesting {
-
-    // setElements......................................................................................................
-
-    @Test
-    public void testSetElementsIncludesNullFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> CsvStringList.EMPTY.setElements(
-                Lists.of(null)
-            )
-        );
-    }
-
-    @Test
-    public void testSetElementsWithEmpty() {
-        assertSame(
-            CsvStringList.EMPTY,
-            CsvStringList.EMPTY.setElements(
-                Lists.of(
-                    "1A"
-                )
-            ).setElements(Lists.empty())
-        );
-    }
-
-    @Test
-    public void testSetElementsWithCsvStringList() {
-        final CsvStringList csvStringList = CsvStringList.EMPTY.concat("abc");
-
-        assertSame(
-            csvStringList,
-            CsvStringList.EMPTY.setElements(
-                Lists.of(
-                    "1A"
-                )
-            ).setElements(csvStringList)
-        );
-    }
+public final class CsvStringListTest extends CsvTsvStringListTestCase<CsvStringList> {
 
     @Override
-    public CsvStringList createList() {
+    public CsvStringList empty() {
         return CsvStringList.EMPTY;
     }
 
@@ -373,16 +325,6 @@ public final class CsvStringListTest implements DelimiterStringImmutableListTest
         return CsvStringList.parse(text);
     }
 
-    @Override
-    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> thrown) {
-        return thrown;
-    }
-
-    @Override
-    public RuntimeException parseStringFailedExpected(final RuntimeException thrown) {
-        return thrown;
-    }
-
     // HasText..........................................................................................................
 
     @Test
@@ -546,7 +488,7 @@ public final class CsvStringListTest implements DelimiterStringImmutableListTest
         final String csv = "a,b,1";
 
         this.tsvStringListAndCheck(
-            CsvStringList.parse(csv),
+            this.parseString(csv),
             csv.replace(',', '\t')
         );
     }
