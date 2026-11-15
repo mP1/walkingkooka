@@ -32,7 +32,10 @@ public final class TsvStringList extends CsvTsvStringList<TsvStringList> {
     /**
      * An empty {@link TsvStringList}
      */
-    public final static TsvStringList EMPTY = new TsvStringList(Lists.empty());
+    public final static TsvStringList EMPTY = new TsvStringList(
+        Lists.empty(),
+        null
+    );
 
     /**
      * Parses TSV text according to RFC 4180, replaces commas with tabs
@@ -49,13 +52,6 @@ public final class TsvStringList extends CsvTsvStringList<TsvStringList> {
         return tsvStringList.isEmpty() ?
             EMPTY :
             tsvStringList;
-    }
-
-    private TsvStringList(final List<String> strings) {
-        this(
-            strings,
-            null
-        );
     }
 
     // @VisibleForTesting
