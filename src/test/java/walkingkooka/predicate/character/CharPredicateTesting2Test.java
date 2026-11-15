@@ -18,14 +18,15 @@
 
 package walkingkooka.predicate.character;
 
+import walkingkooka.Cast;
 import walkingkooka.reflect.PublicClassTesting;
 
-public final class CharPredicateTesting2Test implements PublicClassTesting<CharPredicateTesting2> {
+public final class CharPredicateTesting2Test implements PublicClassTesting<CharPredicateTesting2<?>> {
 
     // class............................................................................................................
 
     @Override
-    public Class<CharPredicateTesting2> type() {
-        return CharPredicateTesting2.class;
+    public Class<CharPredicateTesting2<?>> type() {
+        return Cast.to(CharPredicateTesting2.class);
     }
 }
