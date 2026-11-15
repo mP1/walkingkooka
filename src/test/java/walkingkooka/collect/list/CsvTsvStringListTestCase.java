@@ -24,8 +24,9 @@ import walkingkooka.text.HasMultiLineTextTesting;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.SupportsLineBreakDelimiterTesting2;
 
-import java.util.BitSet;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -82,6 +83,119 @@ public abstract class CsvTsvStringListTestCase<T extends CsvTsvStringList<T>> im
                         "1A"
                     )
                 ).setElements(list)
+        );
+    }
+
+    // delete...........................................................................................................
+
+    @Test
+    public final void testDelete() {
+        this.deleteAndCheck(
+            this.empty()
+                .concat("a")
+                .concat("b")
+                .concat("c")
+                .setLineBreak(2),
+            "b",
+            this.createList(
+                Lists.of(
+                    CsvTsvStringListElement.string("a"),
+                    CsvTsvStringListElement.stringLineBreak("c")
+                )
+            )
+        );
+    }
+
+    // deleteAtIndex....................................................................................................
+
+    @Test
+    public final void testDeleteAtIndex() {
+        this.deleteAtIndexAndCheck(
+            this.empty()
+                .concat("a")
+                .concat("b")
+                .concat("c")
+                .setLineBreak(2),
+            1,
+            this.createList(
+                Lists.of(
+                    CsvTsvStringListElement.string("a"),
+                    CsvTsvStringListElement.stringLineBreak("c")
+                )
+            )
+        );
+    }
+
+    // deleteAll........................................................................................................
+
+    @Test
+    public final void testDeleteAll() {
+        this.deleteAllAndCheck(
+            this.empty()
+                .concat("a")
+                .concat("b")
+                .concat("c")
+                .concat("d")
+                .setLineBreak(3),
+            Lists.of(
+                "b",
+                "c"
+            ),
+            this.createList(
+                Lists.of(
+                    CsvTsvStringListElement.string("a"),
+                    CsvTsvStringListElement.stringLineBreak("d")
+                )
+            )
+        );
+    }
+
+    // deleteIf.........................................................................................................
+
+    @Test
+    public final void testDeleteIf() {
+        this.deleteIfAndCheck(
+            this.empty()
+                .concat("a")
+                .concat("b")
+                .concat("c")
+                .concat("d")
+                .setLineBreak(2) // deleted
+                .setLineBreak(3),
+            (final String string) -> Lists.of(
+                "b",
+                "c"
+            ).contains(string),
+            this.createList(
+                Lists.of(
+                    CsvTsvStringListElement.string("a"),
+                    CsvTsvStringListElement.stringLineBreak("d")
+                )
+            )
+        );
+    }
+
+    // swap.............................................................................................................
+
+    @Test
+    public final void testSwap() {
+        this.swapAndCheck(
+            this.empty()
+                .concat("a")
+                .concat("b")
+                .setLineBreak(1)
+                .concat("c")
+                .concat("d"),
+            1,
+            2,
+            this.createList(
+                Lists.of(
+                    CsvTsvStringListElement.string("a"),
+                    CsvTsvStringListElement.string("c"),
+                    CsvTsvStringListElement.stringLineBreak("b"),
+                    CsvTsvStringListElement.string("d")
+                )
+            )
         );
     }
 
@@ -173,13 +287,13 @@ public abstract class CsvTsvStringListTestCase<T extends CsvTsvStringList<T>> im
 
     private T createList(final String... strings) {
         return this.createList(
-            Lists.of(strings),
-            null
+            Arrays.stream(strings)
+                .map(CsvTsvStringListElement::string)
+                .collect(Collectors.toList())
         );
     }
 
-    abstract T createList(final List<String> strings,
-                          final BitSet lineBreaks);
+    abstract T createList(final List<CsvTsvStringListElement> strings);
 
     @Override
     public T createList() {
@@ -240,19 +354,15 @@ public abstract class CsvTsvStringListTestCase<T extends CsvTsvStringList<T>> im
     public final void testSetLineBreakWithDifferent() {
         final T list = this.createList("a", "b");
 
-        final BitSet lineBreaks = new BitSet();
-        lineBreaks.set(0);
-
         // false -> true
         this.setLineBreakAndCheck(
             list,
             0,
             this.createList(
                 Lists.of(
-                    "a",
-                    "b"
-                ),
-                lineBreaks
+                    CsvTsvStringListElement.stringLineBreak("a"),
+                    CsvTsvStringListElement.string("b")
+                )
             )
         );
     }
@@ -279,11 +389,8 @@ public abstract class CsvTsvStringListTestCase<T extends CsvTsvStringList<T>> im
             list,
             1,
             this.createList(
-                Lists.of(
-                    "a",
-                    "b"
-                ),
-                null
+                "a",
+                "b"
             )
         );
     }
@@ -294,18 +401,14 @@ public abstract class CsvTsvStringListTestCase<T extends CsvTsvStringList<T>> im
             .setLineBreak(0)
             .setLineBreak(1);
 
-        final BitSet lineBreaks = new BitSet();
-        lineBreaks.set(0);
-
         this.removeLineBreakAndCheck(
             list,
             1,
             this.createList(
                 Lists.of(
-                    "a",
-                    "b"
-                ),
-                lineBreaks
+                    CsvTsvStringListElement.stringLineBreak("a"),
+                    CsvTsvStringListElement.string("b")
+                )
             )
         );
     }
@@ -318,47 +421,6 @@ public abstract class CsvTsvStringListTestCase<T extends CsvTsvStringList<T>> im
     @Override
     public final T createSupportsLineBreakDelimiter() {
         return this.createList();
-    }
-    
-    // equals...........................................................................................................
-
-    @Test
-    public final void testBitSetEmptyAndSetAndClear() {
-        final BitSet bitSet = new BitSet();
-        bitSet.set(10);
-        bitSet.clear(10);
-
-        this.checkEquals(
-            bitSet,
-            new BitSet()
-        );
-    }
-
-    @Test
-    public final void testBitSetEmptyAndSet() {
-        final BitSet bitSet = new BitSet();
-        bitSet.set(10);
-
-        this.checkNotEquals(
-            bitSet,
-            new BitSet()
-        );
-    }
-
-    @Test
-    public final void testBitSetEmptyAndClearedBits2() {
-        final BitSet bitSet = new BitSet();
-        bitSet.set(10);
-
-        final BitSet bitSet2 = new BitSet();
-        bitSet2.set(99);
-        bitSet2.set(10);
-        bitSet2.clear(99);
-
-        this.checkEquals(
-            bitSet,
-            bitSet2
-        );
     }
 
     // multiLineText....................................................................................................
@@ -386,7 +448,7 @@ public abstract class CsvTsvStringListTestCase<T extends CsvTsvStringList<T>> im
 
     @Test
     public final void testEqualsDifferentLineBreaks2() {
-        final T list = this.createList("a,b,c");
+        final T list = this.createList("a", "b", "c");
 
         this.checkNotEquals(
             list.setLineBreak(0),
