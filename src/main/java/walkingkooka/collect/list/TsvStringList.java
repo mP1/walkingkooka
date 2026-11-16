@@ -18,11 +18,20 @@
 package walkingkooka.collect.list;
 
 import walkingkooka.text.CharacterConstant;
+import walkingkooka.text.TextContext;
 
 import java.util.List;
 
 /**
- * An immutable list of String elements. Note null elements are not allowed.
+ * An immutable list of String non NULL elements, that may be encoded to a CSV {@link String} as documented in
+ * https://www.ietf.org/rfc/rfc4180.txt.
+ * <br>
+ * Special characters such as line endings, quotes or even tabs will be encoded within a double quoted token.
+ * It is also possible to set individual tokens to be followed by a {@link walkingkooka.text.LineEnding} rather than a
+ * TAB when converted by to text using {@link #multiLineText(TextContext)}.
+ * <br>
+ * The {@link #parse(String)} is provided and honours the RFC transforming the provided text into a {@link CsvStringList}
+ * instance.
  */
 public final class TsvStringList extends CsvTsvStringList<TsvStringList> {
 
