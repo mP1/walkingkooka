@@ -95,7 +95,7 @@ public final class TsvStringListTest extends CsvTsvStringListTestCase<TsvStringL
     }
 
     @Test
-    public void testParseQuotedTokenWithoutSeparator() {
+    public void testParseQuotedTokenWithoutSeparatorFails() {
         this.parseStringInvalidCharacterFails(
             "\"\" \tabc",
             ' '
@@ -103,7 +103,7 @@ public final class TsvStringListTest extends CsvTsvStringListTestCase<TsvStringL
     }
 
     @Test
-    public void testParseQuotedTokenWithoutSeparator2() {
+    public void testParseQuotedTokenWithoutSeparatorFails2() {
         this.parseStringInvalidCharacterFails(
             "\"a\" \tbc",
             ' '
