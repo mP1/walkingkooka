@@ -133,26 +133,46 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
                     }
                     break;
                 case MODE_TERMINATING_QUOTE:
-                    if (DOUBLE_QUOTE_CHAR == c) {
-                        element.append(DOUBLE_QUOTE_CHAR);
-                        mode = MODE_INSIDE_QUOTED;
-                    } else {
-                        if (separatorChar == c) {
-                            // quote was terminating
+                    switch (c) {
+                        case DOUBLE_QUOTE_CHAR:
+                            element.append(DOUBLE_QUOTE_CHAR);
+                            mode = MODE_INSIDE_QUOTED;
+                            break;
+                        case CR_CHAR:
                             strings.add(
-                                CsvTsvStringListElement.string(
+                                CsvTsvStringListElement.stringLineBreak(
+                                    element.toString()
+                                )
+                            );
+
+                            mode = MODE_NL_OR_FIRST_CHAR;
+                            break;
+                        case NL_CHAR:
+                            strings.add(
+                                CsvTsvStringListElement.stringLineBreak(
                                     element.toString()
                                 )
                             );
 
                             mode = MODE_FIRST_CHAR;
-                        } else {
-                            // trailing quote must be followed by separator or EOF, trailing spaces etc are an ICE.
-                            throw new InvalidCharacterException(
-                                text,
-                                i
-                            );
-                        }
+                            break;
+                        default:
+                            if (separatorChar == c) {
+                                // quote was terminating
+                                strings.add(
+                                    CsvTsvStringListElement.string(
+                                        element.toString()
+                                    )
+                                );
+
+                                mode = MODE_FIRST_CHAR;
+                            } else {
+                                // trailing quote must be followed by separator or EOF, trailing spaces etc are an ICE.
+                                throw new InvalidCharacterException(
+                                    text,
+                                    i
+                                );
+                            }
                     }
                     break;
                 case MODE_RAW_TEXT:

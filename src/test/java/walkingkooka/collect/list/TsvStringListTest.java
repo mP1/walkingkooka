@@ -146,7 +146,7 @@ public final class TsvStringListTest extends CsvTsvStringListTestCase<TsvStringL
     }
 
     @Test
-    public void testParseQuotedAndUnquoted() {
+    public void testParseQuotedSeparatorUnquoted() {
         this.parseStringAndCheck(
             "\"abc\"\tdef",
             TsvStringList.EMPTY.concat("abc")
@@ -155,7 +155,7 @@ public final class TsvStringListTest extends CsvTsvStringListTestCase<TsvStringL
     }
 
     @Test
-    public void testParseQuotedAndUnquoted2() {
+    public void testParseQuotedSeparatorUnquoted2() {
         this.parseStringAndCheck(
             "\"abc\"\t\"def\"\"ghi\"\tjkl",
             TsvStringList.EMPTY.concat("abc")
@@ -165,13 +165,46 @@ public final class TsvStringListTest extends CsvTsvStringListTestCase<TsvStringL
     }
 
     @Test
-    public void testParseQuotedAndUnquoted3() {
+    public void testParseQuotedSeparatorUnquoted3() {
         this.parseStringAndCheck(
             "\"abc\"\tdef\t\"ghi\"\"jkl\"\tmno",
             TsvStringList.EMPTY.concat("abc")
                 .concat("def")
                 .concat("ghi\"jkl")
                 .concat("mno")
+        );
+    }
+
+    @Test
+    public void testParseQuotedSeparatorAndCr() {
+        this.parseStringAndCheck(
+            "\"abc\"\t\"def\"\r",
+            TsvStringList.EMPTY.concat("abc")
+                .concat("def")
+                .lastLineBreak()
+                .concat("")
+        );
+    }
+
+    @Test
+    public void testParseQuotedSeparatorAndCrNl() {
+        this.parseStringAndCheck(
+            "\"abc\"\t\"def\"\r\n",
+            TsvStringList.EMPTY.concat("abc")
+                .concat("def")
+                .lastLineBreak()
+                .concat("")
+        );
+    }
+
+    @Test
+    public void testParseQuotedSeparatorAndNl() {
+        this.parseStringAndCheck(
+            "\"abc\"\t\"def\"\n",
+            TsvStringList.EMPTY.concat("abc")
+                .concat("def")
+                .lastLineBreak()
+                .concat("")
         );
     }
 

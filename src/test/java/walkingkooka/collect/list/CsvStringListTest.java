@@ -145,7 +145,7 @@ public final class CsvStringListTest extends CsvTsvStringListTestCase<CsvStringL
     }
 
     @Test
-    public void testParseQuotedAndUnquoted() {
+    public void testParseQuotedSeparatorUnquoted() {
         this.parseStringAndCheck(
             "\"abc\",def",
             CsvStringList.EMPTY.concat("abc")
@@ -154,7 +154,7 @@ public final class CsvStringListTest extends CsvTsvStringListTestCase<CsvStringL
     }
 
     @Test
-    public void testParseQuotedAndUnquoted2() {
+    public void testParseQuotedSeparatorUnquoted2() {
         this.parseStringAndCheck(
             "\"abc\",\"def\"\"ghi\",jkl",
             CsvStringList.EMPTY.concat("abc")
@@ -164,13 +164,46 @@ public final class CsvStringListTest extends CsvTsvStringListTestCase<CsvStringL
     }
 
     @Test
-    public void testParseQuotedAndUnquoted3() {
+    public void testParseQuotedSeparatorUnquoted3() {
         this.parseStringAndCheck(
             "\"abc\",def,\"ghi\"\"jkl\",mno",
             CsvStringList.EMPTY.concat("abc")
                 .concat("def")
                 .concat("ghi\"jkl")
                 .concat("mno")
+        );
+    }
+
+    @Test
+    public void testParseQuotedSeparatorAndCr() {
+        this.parseStringAndCheck(
+            "\"abc\",\"def\"\r",
+            CsvStringList.EMPTY.concat("abc")
+                .concat("def")
+                .lastLineBreak()
+                .concat("")
+        );
+    }
+
+    @Test
+    public void testParseQuotedSeparatorAndCrNl() {
+        this.parseStringAndCheck(
+            "\"abc\",\"def\"\r\n",
+            CsvStringList.EMPTY.concat("abc")
+                .concat("def")
+                .lastLineBreak()
+                .concat("")
+        );
+    }
+
+    @Test
+    public void testParseQuotedSeparatorAndNl() {
+        this.parseStringAndCheck(
+            "\"abc\",\"def\"\n",
+            CsvStringList.EMPTY.concat("abc")
+                .concat("def")
+                .lastLineBreak()
+                .concat("")
         );
     }
 

@@ -522,6 +522,39 @@ public abstract class CsvTsvStringListTestCase<T extends CsvTsvStringList<T>> im
         );
     }
 
+    @Test
+    public final void testParseQuotedCrUnquoted() {
+        this.parseStringAndCheck(
+            "\"abc\"\rdef",
+            this.empty()
+                .concat("abc")
+                .lastLineBreak()
+                .concat("def")
+        );
+    }
+
+    @Test
+    public final void testParseQuotedCrNlUnquoted() {
+        this.parseStringAndCheck(
+            "\"abc\"\r\ndef",
+            this.empty()
+                .concat("abc")
+                .lastLineBreak()
+                .concat("def")
+        );
+    }
+
+    @Test
+    public final void testParseQuotedNlUnquoted() {
+        this.parseStringAndCheck(
+            "\"abc\"\ndef",
+            this.empty()
+                .concat("abc")
+                .lastLineBreak()
+                .concat("def")
+        );
+    }
+
     @Override
     public final Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> thrown) {
         return thrown;
