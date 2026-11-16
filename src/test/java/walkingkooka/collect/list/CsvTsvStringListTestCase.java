@@ -18,6 +18,7 @@
 package walkingkooka.collect.list;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.EndOfTextException;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.HasLineBreakDelimiterTesting2;
 import walkingkooka.text.HasMultiLineTextTesting;
@@ -301,6 +302,225 @@ public abstract class CsvTsvStringListTestCase<T extends CsvTsvStringList<T>> im
     }
 
     abstract T empty();
+
+    // parse.........
+
+    @Override
+    public final void testParseStringEmptyFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    public final void testParseEmptyString() {
+        this.parseStringAndCheck(
+            "",
+            this.empty()
+        );
+    }
+
+    @Test
+    public final void testParseUnquotedCr() {
+        this.parseStringAndCheck(
+            "\r",
+            this.empty().concat("")
+                .lastLineBreak()
+                .concat("")
+        );
+    }
+
+    @Test
+    public final void testParseUnquotedCr2() {
+        this.parseStringAndCheck(
+            "a\rb",
+            this.empty().concat("a")
+                .lastLineBreak()
+                .concat("b")
+        );
+    }
+
+    @Test
+    public final void testParseUnquotedCrNl() {
+        this.parseStringAndCheck(
+            "\r\n",
+            this.empty().concat("")
+                .lastLineBreak()
+                .concat("")
+        );
+    }
+
+    @Test
+    public final void testParseUnquotedCrNl2() {
+        this.parseStringAndCheck(
+            "a\r\nb",
+            this.empty().concat("a")
+                .lastLineBreak()
+                .concat("b")
+        );
+    }
+
+    @Test
+    public final void testParseUnquotedNl() {
+        this.parseStringAndCheck(
+            "\n",
+            this.empty().concat("")
+                .lastLineBreak()
+                .concat("")
+        );
+    }
+
+    @Test
+    public final void testParseUnquotedNl2() {
+        this.parseStringAndCheck(
+            "a\nb",
+            this.empty().concat("a")
+                .lastLineBreak()
+                .concat("b")
+        );
+    }
+
+    @Test
+    public final void testParseUnquotedNl3() {
+        this.parseStringAndCheck(
+            "a\n",
+            this.empty().concat("a")
+                .lastLineBreak()
+                .concat("")
+        );
+    }
+
+    @Test
+    public final void testParseUnquotedDoubleQuote() {
+        this.parseStringInvalidCharacterFails(
+            "a\"b",
+            '\"'
+        );
+    }
+
+    @Test
+    public final void testParseUnescapedToken() {
+        final String text = "A";
+
+        this.parseStringAndCheck(
+            text,
+            this.empty()
+                .concat(text)
+        );
+    }
+
+    @Test
+    public final void testParseUnescapedToken2() {
+        final String text = "abc";
+
+        this.parseStringAndCheck(
+            text,
+            this.empty()
+                .concat(text)
+        );
+    }
+
+    @Test
+    public final void testParseUnescapedTokenSpacesBefore() {
+        final String text = " A";
+
+        this.parseStringAndCheck(
+            text,
+            this.empty()
+                .concat(text)
+        );
+    }
+
+    @Test
+    public final void testParseUnescapedTokenSpacesAfter() {
+        final String text = "A ";
+
+        this.parseStringAndCheck(
+            text,
+            this.empty()
+                .concat(text)
+        );
+    }
+
+    @Test
+    public final void testParseUnescapedTokenSpacesBeforeAndAfter() {
+        final String text = "A ";
+
+        this.parseStringAndCheck(
+            text,
+            this.empty()
+                .concat(text)
+        );
+    }
+
+    @Test
+    public final void testParseEmptyQuotedToken() {
+        this.parseStringAndCheck(
+            "\"\"",
+            this.empty()
+                .concat("")
+        );
+    }
+
+    @Test
+    public final void testParseQuotedToken() {
+        this.parseStringAndCheck(
+            "\"A\"",
+            this.empty()
+                .concat("A")
+        );
+    }
+
+    @Test
+    public final void testParseQuotedToken2() {
+        this.parseStringAndCheck(
+            "\"ABC\"",
+            this.empty()
+                .concat("ABC")
+        );
+    }
+
+    @Test
+    public final void testParseQuotedTokenWithEscapedDoubleQuote() {
+        this.parseStringAndCheck(
+            "\"\"\"\"",
+            this.empty()
+                .concat("\"")
+        );
+    }
+
+    @Test
+    public final void testParseQuotedTokenWithEscapedDoubleQuote2() {
+        this.parseStringAndCheck(
+            "\"a\"\"b\"",
+            this.empty()
+                .concat("a\"b")
+        );
+    }
+
+    @Test
+    public final void testParseMissingTerminateQuote() {
+        this.parseStringFails(
+            "\"abc",
+            new EndOfTextException("Missing terminating '\"'")
+        );
+    }
+
+    @Test
+    public final void testParseQuotedWithCr() {
+        this.parseStringAndCheck(
+            "\"abc\r\"",
+            this.empty()
+                .concat("abc\r")
+        );
+    }
+
+    @Test
+    public final void testParseQuotedWithNl() {
+        this.parseStringAndCheck(
+            "\"abc\n\"",
+            this.empty()
+                .concat("abc\n")
+        );
+    }
 
     @Override
     public final Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> thrown) {
