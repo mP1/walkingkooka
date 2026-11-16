@@ -37,97 +37,6 @@ public final class TsvStringListTest extends CsvTsvStringListTestCase<TsvStringL
 
     // ParseString......................................................................................................
 
-    @Override
-    public void testParseStringEmptyFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Test
-    public void testParseEmptyString() {
-        this.parseStringAndCheck(
-            "",
-            TsvStringList.EMPTY
-        );
-    }
-
-    @Test
-    public void testParseUnquotedCr() {
-        this.parseStringAndCheck(
-            "\r",
-            TsvStringList.EMPTY.concat("")
-                .lastLineBreak()
-                .concat("")
-        );
-    }
-
-    @Test
-    public void testParseUnquotedCr2() {
-        this.parseStringAndCheck(
-            "a\rb",
-            TsvStringList.EMPTY.concat("a")
-                .lastLineBreak()
-                .concat("b")
-        );
-    }
-
-    @Test
-    public void testParseUnquotedCrNl() {
-        this.parseStringAndCheck(
-            "\r\n",
-            TsvStringList.EMPTY.concat("")
-                .lastLineBreak()
-                .concat("")
-        );
-    }
-
-    @Test
-    public void testParseUnquotedCrNl2() {
-        this.parseStringAndCheck(
-            "a\r\nb",
-            TsvStringList.EMPTY.concat("a")
-                .lastLineBreak()
-                .concat("b")
-        );
-    }
-
-    @Test
-    public void testParseUnquotedNl() {
-        this.parseStringAndCheck(
-            "\n",
-            TsvStringList.EMPTY.concat("")
-                .lastLineBreak()
-                .concat("")
-        );
-    }
-
-    @Test
-    public void testParseUnquotedNl2() {
-        this.parseStringAndCheck(
-            "a\nb",
-            TsvStringList.EMPTY.concat("a")
-                .lastLineBreak()
-                .concat("b")
-        );
-    }
-
-    @Test
-    public void testParseUnquotedNl3() {
-        this.parseStringAndCheck(
-            "a\n",
-            TsvStringList.EMPTY.concat("a")
-                .lastLineBreak()
-                .concat("")
-        );
-    }
-
-    @Test
-    public void testParseUnquotedDoubleQuote() {
-        this.parseStringInvalidCharacterFails(
-            "a\"b",
-            '\"'
-        );
-    }
-
     @Test
     public void testParseUnescapedAndEmptyToken() {
         this.parseStringAndCheck(
@@ -153,56 +62,6 @@ public final class TsvStringListTest extends CsvTsvStringListTestCase<TsvStringL
             TsvStringList.EMPTY.concat("")
                 .concat("")
                 .concat("")
-        );
-    }
-
-    @Test
-    public void testParseUnescapedToken() {
-        final String text = "A";
-
-        this.parseStringAndCheck(
-            text,
-            TsvStringList.EMPTY.concat(text)
-        );
-    }
-
-    @Test
-    public void testParseUnescapedToken2() {
-        final String text = "abc";
-
-        this.parseStringAndCheck(
-            text,
-            TsvStringList.EMPTY.concat(text)
-        );
-    }
-
-    @Test
-    public void testParseUnescapedTokenSpacesBefore() {
-        final String text = " A";
-
-        this.parseStringAndCheck(
-            text,
-            TsvStringList.EMPTY.concat(text)
-        );
-    }
-
-    @Test
-    public void testParseUnescapedTokenSpacesAfter() {
-        final String text = "A ";
-
-        this.parseStringAndCheck(
-            text,
-            TsvStringList.EMPTY.concat(text)
-        );
-    }
-
-    @Test
-    public void testParseUnescapedTokenSpacesBeforeAndAfter() {
-        final String text = "A ";
-
-        this.parseStringAndCheck(
-            text,
-            TsvStringList.EMPTY.concat(text)
         );
     }
 
@@ -252,46 +111,6 @@ public final class TsvStringListTest extends CsvTsvStringListTestCase<TsvStringL
     }
 
     @Test
-    public void testParseEmptyQuotedToken() {
-        this.parseStringAndCheck(
-            "\"\"",
-            TsvStringList.EMPTY.concat("")
-        );
-    }
-
-    @Test
-    public void testParseQuotedToken() {
-        this.parseStringAndCheck(
-            "\"A\"",
-            TsvStringList.EMPTY.concat("A")
-        );
-    }
-
-    @Test
-    public void testParseQuotedToken2() {
-        this.parseStringAndCheck(
-            "\"ABC\"",
-            TsvStringList.EMPTY.concat("ABC")
-        );
-    }
-
-    @Test
-    public void testParseQuotedTokenWithEscapedDoubleQuote() {
-        this.parseStringAndCheck(
-            "\"\"\"\"",
-            TsvStringList.EMPTY.concat("\"")
-        );
-    }
-
-    @Test
-    public void testParseQuotedTokenWithEscapedDoubleQuote2() {
-        this.parseStringAndCheck(
-            "\"a\"\"b\"",
-            TsvStringList.EMPTY.concat("a\"b")
-        );
-    }
-
-    @Test
     public void testParseQuotedTokenQuotedToken() {
         this.parseStringAndCheck(
             "\"abc\"\t\"def\"",
@@ -311,14 +130,6 @@ public final class TsvStringListTest extends CsvTsvStringListTestCase<TsvStringL
     }
 
     @Test
-    public void testParseMissingTerminateQuote() {
-        this.parseStringFails(
-            "\"abc",
-            new EndOfTextException("Missing terminating '\"'")
-        );
-    }
-
-    @Test
     public void testParseMissingTerminateQuote2() {
         this.parseStringFails(
             "\"abc\"\t\"def",
@@ -331,22 +142,6 @@ public final class TsvStringListTest extends CsvTsvStringListTestCase<TsvStringL
         this.parseStringAndCheck(
             "\"abc\t\"",
             TsvStringList.EMPTY.concat("abc\t")
-        );
-    }
-
-    @Test
-    public void testParseQuotedWithCr() {
-        this.parseStringAndCheck(
-            "\"abc\r\"",
-            TsvStringList.EMPTY.concat("abc\r")
-        );
-    }
-
-    @Test
-    public void testParseQuotedWithNl() {
-        this.parseStringAndCheck(
-            "\"abc\n\"",
-            TsvStringList.EMPTY.concat("abc\n")
         );
     }
 
