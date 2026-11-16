@@ -140,10 +140,9 @@ public interface ImmutableListDefaults<T extends ImmutableList<E>, E> extends Im
      */
     @Override
     default T delete(final E element) {
-        final List<E> list = this.toList();
-        final boolean removed = list.remove(element);
-        return removed ?
-            this.setElements(list) :
+        final int index = this.indexOf(element);
+        return -1 != index ?
+            this.deleteAtIndex(index) :
             (T) this;
     }
 
