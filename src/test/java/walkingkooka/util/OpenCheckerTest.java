@@ -20,8 +20,7 @@ package walkingkooka.util;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.reflect.ThrowableTesting;
 
 import java.util.function.Function;
@@ -30,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final public class OpenCheckerTest implements ClassTesting2<OpenChecker<Exception>>,
+final public class OpenCheckerTest implements PublicClassTesting<OpenChecker<Exception>>,
     ThrowableTesting,
     ToStringTesting {
 
@@ -137,10 +136,5 @@ final public class OpenCheckerTest implements ClassTesting2<OpenChecker<Exceptio
         private Thrown(final String message) {
             super(message);
         }
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
