@@ -14,12 +14,18 @@ below. Most if not all values and abstractions are immutable, functional and pro
 
 ## [*.collect](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/collect)
 
-- A collection of `List`, `Set`, `Map`, and `Stack` abstractions, may of which are immutable.
-- `ImmutableList` an immutable `List` with would be mutator methods such as concat, replace and more.
-- `ImmutableListDefaults` an `ImmutableList` implementation leaving only a single method to be implemented (aka equivalent of `AbstractList` for `List`).
-- Many additional adaptors missing from the JDK
-- Many factory methods are available for the various implementations.
-- Factory methods are available that provide a Concurrent implementations in a JRE but a regular when translated to javascript, which is single threaded anyway.
+A few extra collection types that could be useful.
+
+- Most are immutable, supporting would be mutator methods that return a new instance after or if modification occurs.
+- Supporting parsing from text following RFC standards where applicable
+- Support encoding back to text, handling escaping as necessary.
+
+- [AutoExpandArrayList](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/collect/list/AutoExpandArrayList.java)
+- [BooleanList](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/collect/list/BooleanList.java)
+- [CsvStringList](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/collect/list/CsvStringList.java)
+- [ImmutableList](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/collect/list/ImmutableList.java)
+- [StringList](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/collect/list/StringList.java)
+- [TsvStringList](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/collect/list/TsvStringList.java)
 
 ## [*.comparator](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/compare)
 
