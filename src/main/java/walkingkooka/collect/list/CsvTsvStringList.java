@@ -29,11 +29,13 @@ import walkingkooka.text.SupportsLineBreakDelimiter;
 import walkingkooka.text.TextContext;
 
 import java.util.AbstractList;
-import java.util.BitSet;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.BiFunction;
 import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Base class for both {@link CsvStringList} and {@link TsvStringList}.
@@ -53,11 +55,11 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
      */
     static <T extends CsvTsvStringList<T>> T parse0(final String text,
                                                     final char separatorChar,
-                                                    final BiFunction<List<String>, BitSet, T> factory) {
+                                                    //final BiFunction<List<String>, BitSet, T> factory
+                                                    final Function<List<CsvTsvStringListElement>, T> factory) {
         Objects.requireNonNull(text, "text");
 
-        final List<String> strings = Lists.array();
-        final BitSet lineBreaks = new BitSet();
+        final List<CsvTsvStringListElement> strings = Lists.array();
 
         final int MODE_FIRST_CHAR = 1;
         final int MODE_NL_OR_FIRST_CHAR = 2;
@@ -83,23 +85,22 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
                         break;
                     }
                 case MODE_FIRST_CHAR:
-                    switch(c) {
+                    switch (c) {
                         case CR_CHAR:
                             mode = MODE_FIRST_CHAR;
 
-                            lineBreaks.set(
-                                strings.size()
+                            strings.add(
+                                CsvTsvStringListElement.stringLineBreak("")
                             );
-                            strings.add("");
+
                             mode = MODE_NL_OR_FIRST_CHAR;
                             break;
                         case NL_CHAR:
                             mode = MODE_FIRST_CHAR;
 
-                            lineBreaks.set(
-                                strings.size()
+                            strings.add(
+                                CsvTsvStringListElement.stringLineBreak("")
                             );
-                            strings.add("");
                             break;
                         case DOUBLE_QUOTE_CHAR:
                             element = new StringBuilder();
@@ -109,7 +110,9 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
                             if (separatorChar == c) {
                                 mode = MODE_FIRST_CHAR;
 
-                                strings.add("");
+                                strings.add(
+                                    CsvTsvStringListElement.string("")
+                                );
                             } else {
                                 element = new StringBuilder()
                                     .append(c);
@@ -137,7 +140,9 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
                         if (separatorChar == c) {
                             // quote was terminating
                             strings.add(
-                                element.toString()
+                                CsvTsvStringListElement.string(
+                                    element.toString()
+                                )
                             );
 
                             mode = MODE_FIRST_CHAR;
@@ -158,27 +163,28 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
                                 i
                             );
                         case CR_CHAR:
-                            lineBreaks.set(
-                                strings.size()
-                            );
                             strings.add(
-                                element.toString()
+                                CsvTsvStringListElement.stringLineBreak(
+                                    element.toString()
+                                )
                             );
+
                             mode = MODE_NL_OR_FIRST_CHAR;
                             break;
                         case NL_CHAR:
-                            lineBreaks.set(
-                                strings.size()
-                            );
                             strings.add(
-                                element.toString()
+                                CsvTsvStringListElement.stringLineBreak(
+                                    element.toString()
+                                )
                             );
                             mode = MODE_FIRST_CHAR;
                             break;
                         default:
                             if (separatorChar == c) {
                                 strings.add(
-                                    element.toString()
+                                    CsvTsvStringListElement.string(
+                                        element.toString()
+                                    )
                                 );
                                 mode = MODE_FIRST_CHAR;
                             } else {
@@ -206,7 +212,9 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
             case MODE_NL_OR_FIRST_CHAR:
             case MODE_FIRST_CHAR:
                 if (0 != i) {
-                    strings.add("");
+                    strings.add(
+                        CsvTsvStringListElement.string("")
+                    );
                 }
                 break;
             case MODE_INSIDE_QUOTED:
@@ -214,7 +222,7 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
             case MODE_TERMINATING_QUOTE:
             case MODE_RAW_TEXT:
                 strings.add(
-                    element.toString()
+                    CsvTsvStringListElement.string(element.toString())
                 );
                 break;
             default:
@@ -228,12 +236,7 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
                 );
         }
 
-        return factory.apply(
-            strings,
-            lineBreaks.isEmpty() ?
-                null :
-                lineBreaks
-        );
+        return factory.apply(strings);
     }
 
     private final static char CR_CHAR = '\r';
@@ -245,17 +248,135 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
     /**
      * Package private ctor use #parse or any would be mutator methods.
      */
-    CsvTsvStringList(final List<String> strings,
-                     final BitSet lineBreaks) {
+    CsvTsvStringList(final List<CsvTsvStringListElement> strings) {
         super();
         this.strings = strings;
-        this.lineBreaks = lineBreaks;
     }
 
     @Override
     public final String get(final int index) {
-        return this.strings.get(index);
+        final CsvTsvStringListElement string = this.strings.get(index);
+        return null != string ?
+            string.string :
+            null;
     }
+
+    @Override
+    public final T deleteAtIndex(final int index) {
+        final List<CsvTsvStringListElement> strings = Lists.array();
+        strings.addAll(this.strings);
+        strings.remove(index);
+
+        return this.replaceStrings(strings);
+    }
+
+    @Override
+    public final T deleteAll(final Collection<String> strings) {
+        Objects.requireNonNull(strings, "strings");
+
+        return this.deleteStringsIf(
+            (final CsvTsvStringListElement element) -> strings.contains(element.string)
+        );
+    }
+
+    @Override
+    public final T deleteIf(final Predicate<? super String> predicate) {
+        Objects.requireNonNull(predicate, "predicate");
+
+        return this.deleteStringsIf(
+            (final CsvTsvStringListElement element) -> predicate.test(element.string)
+        );
+    }
+
+    private T deleteStringsIf(final Predicate<CsvTsvStringListElement> predicate) {
+        final List<CsvTsvStringListElement> deleteAll = Lists.array();
+        deleteAll.addAll(this.strings);
+        deleteAll.removeIf(predicate);
+
+        return this.replaceStrings(deleteAll);
+    }
+
+    @Override
+    public T swap(final int left,
+                  final int right) {
+        T swapped = (T) this;
+
+        if (left != right) {
+            final List<CsvTsvStringListElement> before = this.strings;
+
+            final CsvTsvStringListElement leftString = before.get(left);
+            final CsvTsvStringListElement rightString = before.get(right);
+            if (false == leftString.equals(rightString)) {
+
+                // different need to return a new CsvTsvStringList
+                final List<CsvTsvStringListElement> after = Lists.array();
+                after.addAll(before);
+
+                after.set(
+                    right,
+                    leftString
+                );
+                after.set(
+                    left,
+                    rightString
+                );
+
+                swapped = this.replaceStrings(after);
+            }
+        }
+
+        return swapped;
+    }
+
+    @Override
+    public final T setElements(final Collection<String> strings) {
+        final T list;
+
+        if (strings instanceof CsvStringList) {
+            list = this.setCsvStringList((CsvStringList) strings);
+        } else {
+            if (strings instanceof TsvStringList) {
+                list = this.setTsvStringList(
+                    ((TsvStringList) strings)
+                );
+            } else {
+                final List<CsvTsvStringListElement> previous = this.strings;
+                final List<CsvTsvStringListElement> next = Lists.array();
+                int i = 0;
+
+                for (final String string : strings) {
+                    Objects.requireNonNull(strings, "includes null string");
+
+                    next.add(
+                        i < previous.size() ?
+                            previous.get(i)
+                                .setString(string) :
+                            CsvTsvStringListElement.string(string)
+                    );
+
+                    i++;
+                }
+
+                list = previous.equals(next) ?
+                    (T) this :
+                    this.setStrings(next);
+            }
+        }
+
+        return list;
+    }
+
+    abstract T setCsvStringList(final CsvStringList csvStringList);
+
+    abstract T setTsvStringList(final TsvStringList tsvStringList);
+
+    private T setStrings(final List<CsvTsvStringListElement> strings) {
+        return this.strings.equals(strings) ?
+            (T) this :
+            this.replaceStrings(strings);
+    }
+
+    abstract T replaceStrings(final List<CsvTsvStringListElement> strings);
 
     @Override
     public final int size() {
@@ -267,7 +388,7 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
         Objects.requireNonNull(string, "string");
     }
 
-    final List<String> strings;
+    final List<CsvTsvStringListElement> strings;
 
     // HasCsvStringList.................................................................................................
 
@@ -351,7 +472,7 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
 
         return this.characterConstant()
             .toDelimiteredString(
-                this.strings,
+                this,
                 (int position) -> stringSeparator
             );
     }
@@ -367,37 +488,25 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
 
     @Override
     public final boolean lineBreak(final int index) {
-        this.checkIndex(index);
-
-        final BitSet lineBreaks = this.lineBreaks;
-        return null != lineBreaks &&
-            lineBreaks.get(index);
+        return this.strings.get(index) instanceof CsvTsvStringListElementStringLineBreak;
     }
 
     @Override
     public final T setLineBreak(final int index) {
-        this.checkIndex(index);
-
         final T after;
-        final BitSet lineBreaks = this.lineBreaks;
 
-        // any change ?
-        if (null == lineBreaks) {
-            final BitSet afterLineBreaks = new BitSet();
-            afterLineBreaks.set(index);
-
-            after = this.replaceLineBreaks(afterLineBreaks);
+        if (this.lineBreak(index)) {
+            after = (T) this;
         } else {
-            if (false == lineBreaks.get(index)) {
-                final BitSet afterLineBreaks = (BitSet) lineBreaks.clone();
-                afterLineBreaks.set(index);
+            final List<CsvTsvStringListElement> copy = Lists.array();
+            copy.addAll(this.strings);
+            copy.set(
+                index,
+                copy.get(index)
+                    .setLineBreak()
+            );
 
-                after = this.replaceLineBreaks(
-                    afterLineBreaks
-                );
-            } else {
-                after = (T) this;
-            }
+            after = this.replaceStrings(copy);
         }
 
         return after;
@@ -405,24 +514,18 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
 
     @Override
     public final T removeLineBreak(final int index) {
-        this.checkIndex(index);
-
         final T after;
 
-        // any change ?
-        final BitSet lineBreaks = this.lineBreaks;
-        if (null != lineBreaks && this.lineBreaks.get(index)) {
-            final BitSet afterLineBreaks = (BitSet) lineBreaks.clone();
-            afterLineBreaks.set(
+        if (this.lineBreak(index)) {
+            final List<CsvTsvStringListElement> copy = Lists.array();
+            copy.addAll(this.strings);
+            copy.set(
                 index,
-                false
+                copy.get(index)
+                    .removeLineBreak()
             );
 
-            after = this.replaceLineBreaks(
-                afterLineBreaks.isEmpty() ?
-                    null :
-                    afterLineBreaks
-            );
+            after = this.replaceStrings(copy);
         } else {
             after = (T) this;
         }
@@ -432,31 +535,12 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
 
     @Override
     public final T clearAllLineBreaks() {
-        final BitSet lineBreaks = this.lineBreaks;
-        return null == lineBreaks ?
-            (T) this :
-            this.replaceLineBreaks(
-                null
-            );
+        return this.setStrings(
+            this.strings.stream()
+                .map(CsvTsvStringListElement::removeLineBreak)
+                .collect(Collectors.toList())
+        );
     }
-
-    abstract T replaceLineBreaks(final BitSet lineBreaks);
-
-    /**
-     * Helper used by linebreak getter/setter/remover to validate the given index.
-     */
-    final void checkIndex(final int index) {
-        final int size = this.size();
-
-        if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException("Index " + index + " < 0 or > " + size);
-        }
-    }
-
-    /**
-     * Tracks which values have a {@link walkingkooka.text.LineEnding} following them rather than CSVs.
-     */
-    final BitSet lineBreaks;
 
     // equals...........................................................................................................
 
@@ -471,23 +555,6 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
     }
 
     private boolean equals0(final CsvTsvStringList<?> other) {
-        boolean equals = this.strings.equals(other.strings);
-
-        if (equals) {
-            final BitSet lineBreaks = this.lineBreaks;
-            final BitSet otherLineBreaks = other.lineBreaks;
-
-            equals = lineBreaks == otherLineBreaks;
-
-            if (false == equals) {
-                // lineBreaks could be null
-                equals = Objects.equals(
-                    lineBreaks,
-                    otherLineBreaks
-                );
-            }
-        }
-
-        return equals;
+        return this.strings.equals(other.strings);
     }
 }

@@ -19,10 +19,7 @@ package walkingkooka.collect.list;
 
 import walkingkooka.text.CharacterConstant;
 
-import java.util.BitSet;
-import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * An immutable list of String elements. Note null elements are not allowed.
@@ -33,8 +30,7 @@ public final class TsvStringList extends CsvTsvStringList<TsvStringList> {
      * An empty {@link TsvStringList}
      */
     public final static TsvStringList EMPTY = new TsvStringList(
-        Lists.empty(),
-        null
+        Lists.empty()
     );
 
     /**
@@ -55,51 +51,25 @@ public final class TsvStringList extends CsvTsvStringList<TsvStringList> {
     }
 
     // @VisibleForTesting
-    TsvStringList(final List<String> strings,
-                  final BitSet lineBreaks) {
-        super(
-            strings,
-            lineBreaks
-        );
+    TsvStringList(final List<CsvTsvStringListElement> strings) {
+        super(strings);
     }
 
     @Override
-    public TsvStringList setElements(final Collection<String> strings) {
-        final TsvStringList tsvStringList;
+    TsvStringList setCsvStringList(final CsvStringList csvStringList) {
+        return this.replaceStrings(csvStringList.strings);
+    }
 
-        if (strings instanceof TsvStringList) {
-            tsvStringList = (TsvStringList) strings;
-        } else {
-            final List<String> copy;
-
-            if (strings instanceof CsvStringList) {
-                tsvStringList = this.replaceStrings(
-                    ((CsvStringList) strings)
-                        .strings
-                );
-            } else {
-                copy = Lists.array();
-                for (final String string : strings) {
-                    Objects.requireNonNull(strings, "includes null string");
-                    copy.add(string);
-                }
-
-                tsvStringList = this.strings.equals(copy) ?
-                    this :
-                    this.replaceStrings(copy);
-            }
-        }
-
+    @Override
+    TsvStringList setTsvStringList(final TsvStringList tsvStringList) {
         return tsvStringList;
     }
 
-    private TsvStringList replaceStrings(final List<String> strings) {
+    @Override
+    TsvStringList replaceStrings(final List<CsvTsvStringListElement> strings) {
         return strings.isEmpty() ?
             EMPTY :
-            new TsvStringList(
-                strings,
-                this.lineBreaks
-            );
+            new TsvStringList(strings);
     }
 
     // CanRemoveTrailingNullOrEmptyStrings..............................................................................
@@ -116,13 +86,5 @@ public final class TsvStringList extends CsvTsvStringList<TsvStringList> {
     @Override
     CharacterConstant characterConstant() {
         return SEPARATOR;
-    }
-
-    @Override
-    TsvStringList replaceLineBreaks(final BitSet lineBreaks) {
-        return new TsvStringList(
-            this.strings,
-            lineBreaks
-        );
     }
 }

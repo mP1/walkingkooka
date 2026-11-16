@@ -20,7 +20,6 @@ package walkingkooka.collect.list;
 import org.junit.jupiter.api.Test;
 import walkingkooka.EndOfTextException;
 
-import java.util.BitSet;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -32,12 +31,8 @@ public final class TsvStringListTest extends CsvTsvStringListTestCase<TsvStringL
     }
 
     @Override
-    TsvStringList createList(final List<String> strings,
-                             final BitSet lineBreaks) {
-        return new TsvStringList(
-            strings,
-            lineBreaks
-        );
+    TsvStringList createList(final List<CsvTsvStringListElement> strings) {
+        return new TsvStringList(strings);
     }
 
     // ParseString......................................................................................................
