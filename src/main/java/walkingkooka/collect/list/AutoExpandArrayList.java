@@ -20,8 +20,9 @@ package walkingkooka.collect.list;
 import java.util.ArrayList;
 
 /**
- * An {@link ArrayList} that includes a {@link #set(int, Object)} that auto adds elements if the index if greater than
- * the current size.
+ * An {@link ArrayList} that includes a {@link #set(int, Object)} that auto adds null elements if the provided index is
+ * greater than the current size. All other methods operate as expected, getting an index outside the range will throw a
+ * {@link IndexOutOfBoundsException}.
  */
 final class AutoExpandArrayList<T> extends ArrayList<T> {
 
