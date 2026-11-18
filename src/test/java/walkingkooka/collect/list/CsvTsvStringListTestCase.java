@@ -555,6 +555,39 @@ public abstract class CsvTsvStringListTestCase<T extends CsvTsvStringList<T>> im
         );
     }
 
+    @Test
+    public final void testParseQuotedTokenCrQuotedToken() {
+        this.parseStringAndCheck(
+            "\"abc\"\r\"def\"",
+            this.empty()
+                .concat("abc")
+                .lastLineBreak()
+                .concat("def")
+        );
+    }
+
+    @Test
+    public final void testParseQuotedTokenNlQuotedToken() {
+        this.parseStringAndCheck(
+            "\"abc\"\n\"def\"",
+            this.empty()
+                .concat("abc")
+                .lastLineBreak()
+                .concat("def")
+        );
+    }
+
+    @Test
+    public final void testParseQuotedTokenCrNlQuotedToken() {
+        this.parseStringAndCheck(
+            "\"abc\"\r\n\"def\"",
+            this.empty()
+                .concat("abc")
+                .lastLineBreak()
+                .concat("def")
+        );
+    }
+
     @Override
     public final Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> thrown) {
         return thrown;
