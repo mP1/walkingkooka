@@ -36,7 +36,8 @@ public final class StringList extends AbstractList<String>
     CanRemoveTrailingNullOrEmptyStrings,
     HasCsvStringList,
     HasMultiLineText,
-    HasTsvStringList {
+    HasTsvStringList,
+    StringLikeList {
 
     /**
      * An empty {@link StringList}.

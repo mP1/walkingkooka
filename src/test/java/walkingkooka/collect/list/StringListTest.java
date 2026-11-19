@@ -13,7 +13,8 @@ public class StringListTest implements ListTesting2<StringList, String>,
     ImmutableListTesting<StringList, String>,
     HasCsvStringListTesting,
     HasMultiLineTextTesting,
-    HasTsvStringListTesting {
+    HasTsvStringListTesting,
+    StringLikeListTesting {
 
     private final static String STRING1 = "AAA";
 
@@ -247,6 +248,17 @@ public class StringListTest implements ListTesting2<StringList, String>,
                 .concat("bbb")
                 .concat("111"),
             "aaa\tbbb\t111"
+        );
+    }
+
+    // StringLikeList...................................................................................................
+
+    @Test
+    public void testGetCharacterWithNullString() {
+        this.getCharacterAndCheck(
+            StringList.EMPTY.concat(null),
+            0,
+            null
         );
     }
 
