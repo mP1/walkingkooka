@@ -17,5 +17,53 @@
 
 package walkingkooka.collect.list;
 
-public final class StringLikeListTestingTest implements StringLikeListTesting {
+import org.junit.jupiter.api.Test;
+import walkingkooka.reflect.ThrowableTesting;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+public final class StringLikeListTestingTest implements StringLikeListTesting,
+    ThrowableTesting {
+
+    @Test
+    public void testGetCharacterAndCheckWhenNullString() {
+        this.getCharacterAndCheck(
+            StringList.EMPTY.concat(null),
+            0,
+            null
+        );
+    }
+
+    @Test
+    public void testGetCharacterAndCheckWhenOneCharacterString() {
+        this.getCharacterAndCheck(
+            StringList.EMPTY.concat("A"),
+            0,
+            'A'
+        );
+    }
+
+    @Test
+    public void testGetCharacterWhenEmptyStringFails() {
+        this.getMessageAndCheck(
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> StringList.EMPTY.concat("")
+                    .getCharacter(0)
+            ),
+            "Empty \"0\""
+        );
+    }
+
+    @Test
+    public void testGetCharacterWhenTwoCharacterStringFails() {
+        this.getMessageAndCheck(
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> StringList.EMPTY.concat("AB")
+                    .getCharacter(0)
+            ),
+            "Invalid character expected 1 character but got 2"
+        );
+    }
 }
