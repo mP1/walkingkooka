@@ -20,4 +20,14 @@ package walkingkooka.collect.list;
 import walkingkooka.test.Testing;
 
 public interface StringLikeListTesting extends Testing {
+
+    default void getCharacterAndCheck(final StringLikeList list,
+                                      final int index,
+                                      final Character expected) {
+        this.checkEquals(
+            expected,
+            list.getCharacter(index),
+            () -> "getCharacter " + index
+        );
+    }
 }
