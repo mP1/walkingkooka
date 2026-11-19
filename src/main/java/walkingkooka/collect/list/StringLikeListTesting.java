@@ -17,9 +17,7 @@
 
 package walkingkooka.collect.list;
 
-import walkingkooka.test.Testing;
-
-public interface StringLikeListTesting extends Testing {
+public interface StringLikeListTesting extends ListTesting {
 
     default void getCharacterAndCheck(final StringLikeList list,
                                       final int index,
