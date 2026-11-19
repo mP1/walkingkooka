@@ -20,4 +20,14 @@ package walkingkooka.collect.list;
 import walkingkooka.text.HasTextWithSeparatorTesting;
 
 public interface DelimiterStringImmutableListTesting extends HasTextWithSeparatorTesting {
+
+    default void getCharacterAndCheck(final DelimiterStringImmutableList list,
+                                      final int index,
+                                      final Character expected) {
+        this.checkEquals(
+            expected,
+            list.getCharacter(index),
+            () -> "getCharacter " + index
+        );
+    }
 }
