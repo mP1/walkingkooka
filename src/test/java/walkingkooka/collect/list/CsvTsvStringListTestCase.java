@@ -19,6 +19,7 @@ package walkingkooka.collect.list;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.EndOfTextException;
+import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.HasLineBreakDelimiterTesting2;
 import walkingkooka.text.HasMultiLineTextTesting;
@@ -39,10 +40,42 @@ public abstract class CsvTsvStringListTestCase<T extends CsvTsvStringList<T>> im
     HasLineBreakDelimiterTesting2<T>,
     HasMultiLineTextTesting,
     HasTsvStringListTesting,
-    SupportsLineBreakDelimiterTesting2<T> {
+    SupportsLineBreakDelimiterTesting2<T>,
+    ThrowableTesting {
 
     CsvTsvStringListTestCase() {
         super();
+    }
+
+    // getCharacter.....................................................................................................
+
+    @Test
+    public final void testGetCharacterWithEmptyStringFails() {
+        this.getMessageAndCheck(
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> this.empty()
+                    .concat(
+                        ""
+                    ).getCharacter(0)
+            ),
+            "Empty \"0\""
+        );
+    }
+
+
+    @Test
+    public final void testGetCharacterWithMultiCharacterStringFails() {
+        this.getMessageAndCheck(
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> this.empty()
+                    .concat(
+                        "AB"
+                    ).getCharacter(0)
+            ),
+            "Invalid character expected 1 character but got 2"
+        );
     }
 
     // setElements......................................................................................................
