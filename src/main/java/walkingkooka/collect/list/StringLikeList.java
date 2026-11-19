@@ -17,7 +17,37 @@
 
 package walkingkooka.collect.list;
 
+import walkingkooka.EmptyTextException;
+
 import java.util.List;
 
 public interface StringLikeList extends List<String> {
+
+    /**
+     * Helper that gets the {@link String} and verifies it is a single character and returns {@link Character}.
+     * Any {@link String strings} that are empty or have more than one character will throw a {@link IllegalArgumentException}.
+     */
+    default Character getCharacter(final int index) {
+        final String string = this.get(index);
+
+        final Character character;
+
+        if (null != string) {
+            final int length = string.length();
+            switch (length) {
+                case 0:
+                    throw new EmptyTextException(
+                        String.valueOf(index)
+                    );
+                case 1:
+                    character = string.charAt(0);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid character expected 1 character but got " + length);
+            }
+        } else {
+            character = null;
+        }
+        return character;
+    }
 }
