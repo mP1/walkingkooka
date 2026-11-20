@@ -44,10 +44,9 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
     implements CanRemoveTrailingNullOrEmptyStrings,
     DelimiterStringImmutableList,
     ImmutableListDefaults<T, String>,
-    HasCsvStringList,
+    HasCsvStringListTsvStringList,
     HasMultiLineText,
     HasTextWithSeparator,
-    HasTsvStringList,
     SupportsLineBreakDelimiter<T> {
 
     /**
