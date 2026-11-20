@@ -43,8 +43,8 @@ public interface StringLikeListTesting extends ListTesting {
                                          final String expected) {
         this.checkEquals(
             expected,
-            list.getOrNull(index),
-            () -> "getOrNull " + index
+            list.getStringOrNull(index),
+            () -> "getStringOrNull " + index
         );
     }
 }

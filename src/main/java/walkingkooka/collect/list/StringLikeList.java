@@ -54,7 +54,7 @@ public interface StringLikeList extends List<String> {
     /**
      * Getter that returns null if the index is after the end of this list. Negative indices are passed to {@link #get(int)}.
      */
-    default String getOrNull(final int index) {
+    default String getStringOrNull(final int index) {
         return index < this.size() ?
             this.get(index) :
             null;
