@@ -39,6 +39,15 @@ public final class CsvStringListTest extends CsvTsvStringListTestCase<CsvStringL
         return new CsvStringList(strings);
     }
 
+    @Override
+    <E> CsvStringList makeXXXStringList(final List<E> list,
+                                        final Function<E, String> mapper) {
+        return CsvStringList.makeCsvStringList(
+            list,
+            mapper
+        );
+    }
+
     // ParseString......................................................................................................
 
     @Test
