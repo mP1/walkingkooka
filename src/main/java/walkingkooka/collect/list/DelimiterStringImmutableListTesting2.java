@@ -18,5 +18,6 @@
 package walkingkooka.collect.list;
 
 public interface DelimiterStringImmutableListTesting2<T extends DelimiterStringImmutableList> extends ImmutableListTesting<T, String>,
-    DelimiterStringImmutableListTesting {
+    DelimiterStringImmutableListTesting,
+    StringLikeListTesting2<T> {
 }
