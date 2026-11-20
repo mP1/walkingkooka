@@ -18,8 +18,10 @@
 package walkingkooka.collect.list;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.reflect.PublicClassTesting;
 
-public final class HasCsvStringListTestingTest implements HasCsvStringListTesting {
+public final class HasCsvStringListTestingTest implements PublicClassTesting<HasCsvStringListTesting>,
+    HasCsvStringListTesting {
 
     @Test
     public void testCsvStringList() {
@@ -29,5 +31,12 @@ public final class HasCsvStringListTestingTest implements HasCsvStringListTestin
             CsvStringList.parse(text),
             text
         );
+    }
+
+    // class............................................................................................................
+
+    @Override
+    public Class<HasCsvStringListTesting> type() {
+        return HasCsvStringListTesting.class;
     }
 }
