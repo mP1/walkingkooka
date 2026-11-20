@@ -17,9 +17,31 @@
 
 package walkingkooka.collect.list;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.PublicClassTesting;
 
-public final class HasCsvStringListTsvStringListTestingTest implements PublicClassTesting<HasCsvStringListTsvStringListTesting> {
+public final class HasCsvStringListTsvStringListTestingTest implements HasCsvStringListTsvStringListTesting,
+    PublicClassTesting<HasCsvStringListTsvStringListTesting> {
+
+    @Test
+    public void testCsvStringListAndCheck() {
+        final CsvStringList csvStringList = CsvStringList.parse("a,b");
+
+        this.csvStringListAndCheck(
+            csvStringList,
+            csvStringList
+        );
+    }
+
+    @Test
+    public void testTsvStringListAndCheck() {
+        final TsvStringList tsvStringList = TsvStringList.parse("a\tb");
+
+        this.tsvStringListAndCheck(
+            tsvStringList,
+            tsvStringList
+        );
+    }
 
     @Override
     public Class<HasCsvStringListTsvStringListTesting> type() {
