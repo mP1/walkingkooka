@@ -17,6 +17,6 @@
 
 package walkingkooka.collect.list;
 
-public interface HasCsvStringListTsvStringListTesting extends HasCsvStringList,
+public interface HasCsvStringListTsvStringListTesting extends HasCsvStringListTesting,
     HasTsvStringListTesting {
 }
