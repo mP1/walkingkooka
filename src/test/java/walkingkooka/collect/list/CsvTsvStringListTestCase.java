@@ -38,6 +38,7 @@ public abstract class CsvTsvStringListTestCase<T extends CsvTsvStringList<T>> im
     ParseStringTesting<T>,
     CanRemoveTrailingNullOrEmptyStringsTesting,
     HasCsvStringListTesting,
+    HasCsvStringListTsvStringListTesting2<T>,
     HasLineBreakDelimiterTesting2<T>,
     HasMultiLineTextTesting,
     HasTsvStringListTesting,
@@ -814,6 +815,11 @@ public abstract class CsvTsvStringListTestCase<T extends CsvTsvStringList<T>> im
 
     @Override
     public final T createSupportsLineBreakDelimiter() {
+        return this.createList();
+    }
+
+    @Override
+    public final T createHasCsvStringListTsvStringList() {
         return this.createList();
     }
 
