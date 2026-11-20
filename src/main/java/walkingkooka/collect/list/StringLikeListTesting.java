@@ -29,6 +29,25 @@ public interface StringLikeListTesting extends ListTesting {
         );
     }
 
+    default void getCharacterOrNullAndCheck(final StringLikeList list,
+                                            final int index) {
+        this.getCharacterOrNullAndCheck(
+            list,
+            index,
+            null
+        );
+    }
+
+    default void getCharacterOrNullAndCheck(final StringLikeList list,
+                                            final int index,
+                                            final Character expected) {
+        this.checkEquals(
+            expected,
+            list.getCharacterOrNull(index),
+            () -> "getCharacterOrNull " + index
+        );
+    }
+
     default void getStringOrNullAndCheck(final StringLikeList list,
                                          final int index) {
         this.getStringOrNullAndCheck(
