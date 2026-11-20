@@ -19,10 +19,15 @@ package walkingkooka.collect.list;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.EndOfTextException;
+import walkingkooka.reflect.ThrowableTesting;
 
 import java.util.List;
+import java.util.function.Function;
 
-public final class CsvStringListTest extends CsvTsvStringListTestCase<CsvStringList> {
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+public final class CsvStringListTest extends CsvTsvStringListTestCase<CsvStringList>
+    implements ThrowableTesting {
 
     @Override
     public CsvStringList empty() {
@@ -394,6 +399,77 @@ public final class CsvStringListTest extends CsvTsvStringListTestCase<CsvStringL
             this.parseString(text),
             TEXT_CONTEXT,
             text
+        );
+    }
+
+    // makeCsvStringList................................................................................................
+
+    @Test
+    public void testMakeCsvStringListWithNullListFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> CsvStringList.makeCsvStringList(
+                null,
+                Function.identity()
+            )
+        );
+    }
+
+    @Test
+    public void testMakeCsvStringListWithNullMapperFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> CsvStringList.makeCsvStringList(
+                Lists.empty(),
+                null
+            )
+        );
+    }
+
+    @Test
+    public void testMakeCsvStringListWithMapperReturnsNullFails() {
+        this.getMessageAndCheck(
+            assertThrows(
+                NullPointerException.class,
+                () -> CsvStringList.makeCsvStringList(
+                    Lists.of(0),
+                    (final Integer integer) -> null
+                )
+            ),
+            "Mapper returned null"
+        );
+    }
+
+    @Test
+    public void testMakeCsvStringListWithEmptyList() {
+        this.makeCsvStringListAndCheck(
+            Lists.empty(),
+            (final Object object) -> {
+                throw new UnsupportedOperationException();
+            },
+            CsvStringList.EMPTY
+        );
+    }
+
+    @Test
+    public void testMakeCsvStringListWithNonEmptyList() {
+        this.makeCsvStringListAndCheck(
+            Lists.of(123),
+            (final Integer value) -> value.toString(),
+            CsvStringList.EMPTY.concat("123")
+        );
+    }
+
+    private <T> void makeCsvStringListAndCheck(final List<T> list,
+                                               final Function<T, String> mapper,
+                                               final CsvStringList expected) {
+        this.checkEquals(
+            expected,
+            CsvStringList.makeCsvStringList(
+                list,
+                mapper
+            ),
+            list::toString
         );
     }
 

@@ -21,6 +21,9 @@ import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.TextContext;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * An immutable list of String non NULL elements, that may be encoded to a CSV {@link String} as documented in
@@ -41,6 +44,27 @@ public final class CsvStringList extends CsvTsvStringList<CsvStringList> {
     public final static CsvStringList EMPTY = new CsvStringList(
         Lists.empty()
     );
+
+    /**
+     * Helper that combines mapping elements from a source list into a {@link CsvStringList}.
+     */
+    public static <T> CsvStringList makeCsvStringList(final List<T> list,
+                                                      final Function<T, String> mapper) {
+        Objects.requireNonNull(list, "list");
+        Objects.requireNonNull(mapper, "mapper");
+
+        return EMPTY.replaceStrings(
+            list.stream()
+                .map(
+                    (T value) -> CsvTsvStringListElement.string(
+                        Objects.requireNonNull(
+                            mapper.apply(value),
+                            "Mapper returned null"
+                        )
+                    )
+                ).collect(Collectors.toList())
+        );
+    }
 
     /**
      * Parses CSV text according to RFC 4180.
