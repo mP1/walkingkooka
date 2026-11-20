@@ -33,6 +33,28 @@ public interface StringLikeListTesting2<T extends StringLikeList> extends String
         );
     }
 
+    // getCharacterOrNull...............................................................................................
+
+    @Test
+    default void testGetCharacterOrNullWithNegativeIndexFails() {
+        assertThrows(
+            IndexOutOfBoundsException.class,
+            () -> this.createList()
+                .getCharacterOrNull(-1)
+        );
+    }
+
+    @Test
+    default void testGetCharacterOrNullWithSizePlus1() {
+        final T list = this.createList();
+
+        this.getCharacterOrNullAndCheck(
+            list,
+            list.size() + 1,
+            null
+        );
+    }
+
     // getStringOrNull..................................................................................................
 
     @Test
