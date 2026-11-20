@@ -33,10 +33,10 @@ public interface StringLikeListTesting2<T extends StringLikeList> extends String
         );
     }
 
-    // getOrNull........................................................................................................
+    // getStringOrNull..................................................................................................
 
     @Test
-    default void testGetOrNullWithNegativeIndexFails() {
+    default void testGetStringOrNullWithNegativeIndexFails() {
         assertThrows(
             IndexOutOfBoundsException.class,
             () -> this.createList()
@@ -45,10 +45,10 @@ public interface StringLikeListTesting2<T extends StringLikeList> extends String
     }
 
     @Test
-    default void testGetOrNullWithSizePlus1() {
+    default void testGetStringOrNullWithSizePlus1() {
         final T list = this.createList();
 
-        this.getOrNullAndCheck(
+        this.getStringOrNullAndCheck(
             list,
             list.size() + 1,
             null
