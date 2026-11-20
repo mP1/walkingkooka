@@ -7,7 +7,7 @@ import walkingkooka.text.LineEnding;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public class StringListTest implements ListTesting2<StringList, String>,
+public final class StringListTest implements ListTesting2<StringList, String>,
     PublicClassTesting<StringList>,
     CanRemoveTrailingNullOrEmptyStringsTesting,
     ImmutableListTesting<StringList, String>,
