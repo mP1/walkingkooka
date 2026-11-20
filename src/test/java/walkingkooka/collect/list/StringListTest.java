@@ -14,7 +14,7 @@ public class StringListTest implements ListTesting2<StringList, String>,
     HasCsvStringListTesting,
     HasMultiLineTextTesting,
     HasTsvStringListTesting,
-    StringLikeListTesting {
+    StringLikeListTesting2<StringList> {
 
     private final static String STRING1 = "AAA";
 
