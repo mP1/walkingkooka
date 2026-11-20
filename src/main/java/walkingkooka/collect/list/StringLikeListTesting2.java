@@ -40,7 +40,7 @@ public interface StringLikeListTesting2<T extends StringLikeList> extends String
         assertThrows(
             IndexOutOfBoundsException.class,
             () -> this.createList()
-                .getCharacter(-1)
+                .getStringOrNull(-1)
         );
     }
 
