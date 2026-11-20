@@ -28,6 +28,7 @@ import walkingkooka.text.SupportsLineBreakDelimiterTesting2;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -47,6 +48,80 @@ public abstract class CsvTsvStringListTestCase<T extends CsvTsvStringList<T>> im
         super();
     }
 
+    // makeXXXStringList................................................................................................
+
+    @Test
+    public final void testMakeXXXStringListWithNullListFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.makeXXXStringList(
+                null,
+                Function.identity()
+            )
+        );
+    }
+
+    @Test
+    public final void testMakeXXXStringListWithNullMapperFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.makeXXXStringList(
+                Lists.empty(),
+                null
+            )
+        );
+    }
+
+    @Test
+    public final void testMakeXXXStringListWithMapperReturnsNullFails() {
+        this.getMessageAndCheck(
+            assertThrows(
+                NullPointerException.class,
+                () -> this.makeXXXStringList(
+                    Lists.of(0),
+                    (final Integer integer) -> null
+                )
+            ),
+            "Mapper returned null"
+        );
+    }
+
+    @Test
+    public final void testMakeXXXStringListWithEmptyList() {
+        this.makeXXXStringListAndCheck(
+            Lists.empty(),
+            (final Object object) -> {
+                throw new UnsupportedOperationException();
+            },
+            this.empty()
+        );
+    }
+
+    @Test
+    public final void testMakeXXXStringListWithNonEmptyList() {
+        this.makeXXXStringListAndCheck(
+            Lists.of(123),
+            (final Integer value) -> value.toString(),
+            this.empty()
+                .concat("123")
+        );
+    }
+
+    private <E> void makeXXXStringListAndCheck(final List<E> list,
+                                               final Function<E, String> mapper,
+                                               final T expected) {
+        this.checkEquals(
+            expected,
+            this.makeXXXStringList(
+                list,
+                mapper
+            ),
+            list::toString
+        );
+    }
+
+    abstract <E> T makeXXXStringList(final List<E> list,
+                                     final Function<E, String> mapper);
     // getCharacter.....................................................................................................
 
     @Test

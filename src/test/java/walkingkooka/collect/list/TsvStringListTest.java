@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.EndOfTextException;
 
 import java.util.List;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -33,6 +34,16 @@ public final class TsvStringListTest extends CsvTsvStringListTestCase<TsvStringL
     @Override
     TsvStringList createList(final List<CsvTsvStringListElement> strings) {
         return new TsvStringList(strings);
+    }
+
+
+    @Override
+    <E> TsvStringList makeXXXStringList(final List<E> list,
+                                        final Function<E, String> mapper) {
+        return TsvStringList.makeTsvStringList(
+            list,
+            mapper
+        );
     }
 
     // ParseString......................................................................................................
