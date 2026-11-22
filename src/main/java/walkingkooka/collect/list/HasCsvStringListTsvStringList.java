@@ -18,7 +18,8 @@
 package walkingkooka.collect.list;
 
 /**
- * Uses {@link HasCsvStringList} to create the {@link TsvStringList}.
+ * Uses {@link HasCsvStringList} to create the {@link TsvStringList}. This provides a default {@link #csvStringList()}
+ * which assumes the {@link String} do not need to be converted or re-encoded because it does not have CSVs within.
  */
 public interface HasCsvStringListTsvStringList extends HasCsvStringList,
     HasTsvStringList {
