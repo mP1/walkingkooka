@@ -15,10 +15,9 @@
  *
  */
 
-package walkingkooka.collect.list;
+package walkingkooka.text;
 
 import walkingkooka.reflect.PublicClassTesting;
-import walkingkooka.text.TextContextTesting;
 
 public final class TextContextTestingTest implements PublicClassTesting<TextContextTesting> {
 
