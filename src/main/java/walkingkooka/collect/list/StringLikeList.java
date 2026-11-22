@@ -21,6 +21,10 @@ import walkingkooka.EmptyTextException;
 
 import java.util.List;
 
+/**
+ * A {@link List} containing only {@link String} elements which may or may not be null.<br>
+ * Various helpers are available.
+ */
 public interface StringLikeList extends List<String> {
 
     /**
