@@ -17,9 +17,35 @@
 
 package walkingkooka.text;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.PublicClassTesting;
 
-public final class TextContextTestingTest implements PublicClassTesting<TextContextTesting> {
+public final class TextContextTestingTest implements PublicClassTesting<TextContextTesting>,
+    TextContextTesting {
+
+    @Test
+    public void testTextContextDifferentTextContext() {
+        this.checkNotEquals(
+            TEXT_CONTEXT,
+            DIFFERENT_TEXT_CONTEXT
+        );
+    }
+
+    @Test
+    public void testTextContextDifferentTextContextIndentation() {
+        this.checkNotEquals(
+            TEXT_CONTEXT.indentation(),
+            DIFFERENT_TEXT_CONTEXT.indentation()
+        );
+    }
+
+    @Test
+    public void testTextContextDifferentTextContextLineEnding() {
+        this.checkNotEquals(
+            TEXT_CONTEXT.lineEnding(),
+            DIFFERENT_TEXT_CONTEXT.lineEnding()
+        );
+    }
 
     // class............................................................................................................
 

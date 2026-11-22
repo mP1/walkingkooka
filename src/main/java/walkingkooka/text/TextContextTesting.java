@@ -26,4 +26,10 @@ public interface TextContextTesting extends HasIndentationTesting,
     );
 
     TextContext TEXT_CONTEXT = TEXT_PRINTING;
+
+    TextPrinting DIFFERENT_TEXT_CONTEXT = TextPrinting.with(
+        DIFFERENT_INDENTATION,
+        DIFFERENT_LINE_ENDING
+    );
+
 }
