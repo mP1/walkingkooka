@@ -24,7 +24,11 @@ import walkingkooka.CanBinaryTesting;
 import walkingkooka.HasValueTesting;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.PublicClassTesting;
+
+import java.util.Collection;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -35,6 +39,7 @@ public final class MultiLineTextTest implements CanBinaryTesting,
     HasValueTesting,
     HasTextTesting,
     HashCodeEqualsDefinedTesting2<MultiLineText>,
+    TextContextTesting,
     ToStringTesting,
     PublicClassTesting<MultiLineText> {
 
@@ -176,6 +181,128 @@ public final class MultiLineTextTest implements CanBinaryTesting,
         this.isEmptyAndCheck(
             this.createObject(),
             false
+        );
+    }
+
+    // fromCollection...................................................................................................
+
+    private final static Function<Number, String> MAPPER = (Number number) -> null == number ?
+        "*" :
+        "@" + number;
+
+    @Test
+    public void testFromCollectionWithNullCollectionFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> MultiLineText.fromCollection(
+                null,
+                MAPPER,
+                TEXT_CONTEXT
+            )
+        );
+    }
+
+    @Test
+    public void testFromCollectionWithNullMapperFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> MultiLineText.fromCollection(
+                Lists.empty(),
+                null,
+                TEXT_CONTEXT
+            )
+        );
+    }
+
+    @Test
+    public void testFromCollectionWithNullContextFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> MultiLineText.fromCollection(
+                Lists.empty(),
+                MAPPER,
+                null
+            )
+        );
+    }
+
+    @Test
+    public void testFromCollectionWithEmpty() {
+        this.fromCollectionAndCheck(
+            Lists.empty(),
+            MultiLineText.EMPTY
+        );
+    }
+
+    @Test
+    public void testFromCollectionWithOne() {
+        this.fromCollectionAndCheck(
+            Lists.of(11),
+            MultiLineText.EMPTY.setText("@11")
+        );
+    }
+
+    @Test
+    public void testFromCollectionWithSeveral() {
+        this.fromCollectionAndCheck(
+            Lists.of(
+                11,
+                22,
+                33
+            ),
+            MultiLineText.EMPTY.setText("@11\n@22\n@33")
+        );
+    }
+
+    @Test
+    public void testFromCollectionWithSeveral2() {
+        this.fromCollectionAndCheck(
+            Lists.of(
+                11L,
+                22L,
+                33L
+            ),
+            (Long longValue) -> String.valueOf(longValue),
+            DIFFERENT_TEXT_CONTEXT,
+            MultiLineText.EMPTY.setText("11\r\n" +
+                "22\r\n" +
+                "33")
+        );
+    }
+
+    @Test
+    public void testFromCollectionIncludesNull() {
+        this.fromCollectionAndCheck(
+            Lists.of(
+                11,
+                null,
+                33
+            ),
+            MultiLineText.EMPTY.setText("@11\n*\n@33")
+        );
+    }
+
+    private void fromCollectionAndCheck(final Collection<Number> collection,
+                                        final MultiLineText expected) {
+        this.fromCollectionAndCheck(
+            collection,
+            MAPPER,
+            TEXT_CONTEXT,
+            expected
+        );
+    }
+
+    private <T> void fromCollectionAndCheck(final Collection<T> collection,
+                                            final Function<T, String> mapper,
+                                            final TextContext context,
+                                            final MultiLineText expected) {
+        this.checkEquals(
+            expected,
+            MultiLineText.fromCollection(
+                collection,
+                mapper,
+                context
+            )
         );
     }
 

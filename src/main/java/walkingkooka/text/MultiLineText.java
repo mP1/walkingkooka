@@ -24,7 +24,9 @@ import walkingkooka.Cast;
 import walkingkooka.HasValue;
 
 import java.nio.charset.Charset;
+import java.util.Collection;
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * A wrapper intended to hold the result of a {@link HasMultiLineText}.
@@ -33,6 +35,38 @@ public final class MultiLineText implements HasValue<String>,
     CanBinary,
     CanBeEmpty,
     HasText {
+
+    /**
+     * Accepts a {@link Collection} of elements, uses the mapper to convert them to a {@link String},
+     * and inserts the {@link TextContext#lineEnding()} producing a {@link MultiLineText}.
+     */
+    public static <T> MultiLineText fromCollection(final Collection<T> collection,
+                                                   final Function<T, String> mapper,
+                                                   final TextContext context) {
+        Objects.requireNonNull(collection, "collection");
+        Objects.requireNonNull(mapper, "mapper");
+        Objects.requireNonNull(context, "context");
+
+        final StringBuilder b = new StringBuilder();
+
+        final LineEnding lineEnding = context.lineEnding();
+        boolean separatorRequired = false;
+
+        for(final T element : collection) {
+            if(separatorRequired) {
+                b.append(lineEnding);
+            }
+            b.append(
+                mapper.apply(element)
+            );
+
+            separatorRequired = true;
+        }
+
+        return MultiLineText.EMPTY.setText(
+            b.toString()
+        );
+    }
 
     /**
      * A {@link MultiLineText} with no text.
