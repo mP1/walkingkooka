@@ -19,15 +19,14 @@ package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.test.ParseStringTesting;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class LineEndingTest implements ClassTesting2<LineEnding>,
+final public class LineEndingTest implements PublicClassTesting<LineEnding>,
     CharSequenceTesting2<LineEnding>,
     ParseStringTesting<LineEnding>,
     HasLineEndingTesting,
@@ -231,11 +230,6 @@ final public class LineEndingTest implements ClassTesting2<LineEnding>,
     @Override
     public Class<LineEnding> type() {
         return LineEnding.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     @Override
