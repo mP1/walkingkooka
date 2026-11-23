@@ -23,6 +23,7 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
+import java.util.Optional;
 
 final public class CharPredicates implements PublicStaticHelper {
 
@@ -138,6 +139,8 @@ final public class CharPredicates implements PublicStaticHelper {
             throw new InvalidCharacterException(
                 chars.toString(),
                 invalidChar
+            ).setLabel(
+                Optional.of(label)
             );
         }
 
