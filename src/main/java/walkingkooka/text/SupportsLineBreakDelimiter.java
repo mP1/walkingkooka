@@ -56,4 +56,10 @@ public interface SupportsLineBreakDelimiter<T extends SupportsLineBreakDelimiter
      * Returns a {@link SupportsLineBreakDelimiter} with all line breaks cleared.
      */
     T clearAllLineBreaks();
+
+    /**
+     * Returns a {@link SupportsLineBreakDelimiter} with all line breaks set. Line endings will be appended to each
+     * {@link String} when producing text.
+     */
+    T setAllLineBreaks();
 }

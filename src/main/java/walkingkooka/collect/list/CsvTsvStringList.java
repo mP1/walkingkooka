@@ -423,6 +423,7 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
      */
     @Override
     public final MultiLineText multiLineText(final TextContext context) {
+
         Objects.requireNonNull(context, "context");
 
         final StringBuilder b = new StringBuilder();
@@ -557,6 +558,15 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
         return this.setStrings(
             this.strings.stream()
                 .map(CsvTsvStringListElement::removeLineBreak)
+                .collect(Collectors.toList())
+        );
+    }
+
+    @Override
+    public final T setAllLineBreaks() {
+        return this.setStrings(
+            this.strings.stream()
+                .map(CsvTsvStringListElement::setLineBreak)
                 .collect(Collectors.toList())
         );
     }

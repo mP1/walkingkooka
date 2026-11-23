@@ -834,6 +834,19 @@ public abstract class CsvTsvStringListTestCase<T extends CsvTsvStringList<T>> im
         );
     }
 
+    // setAllLineBreaks.................................................................................................
+
+    @Test
+    public final void testSetAllLineBreaks() {
+        this.multiLineTextAndCheck(
+            this.createList("aaa", "bbb")
+                .setAllLineBreaks(),
+            TEXT_CONTEXT,
+            "aaa\n" +
+                "bbb\n"
+        );
+    }
+
     // equals...........................................................................................................
 
     @Test
