@@ -181,7 +181,7 @@ public final class CharPredicatesTest implements PublicStaticHelperTesting<CharP
     }
 
     @Test
-    public void testIsInitialAndPartPartlFail() {
+    public void testIsInitialAndPartPartFail() {
         this.isInitialAndPartCheck(
             "A!",
             false
