@@ -18,6 +18,7 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
@@ -30,7 +31,8 @@ final public class LineEndingTest implements ClassTesting2<LineEnding>,
     CharSequenceTesting2<LineEnding>,
     ParseStringTesting<LineEnding>,
     HasLineEndingTesting,
-    HasTextTesting {
+    HasTextTesting,
+    ToStringTesting {
 
     // HasLineEnding....................................................................................................
 
@@ -158,36 +160,14 @@ final public class LineEndingTest implements ClassTesting2<LineEnding>,
         return LineEnding.parse(text);
     }
 
-    // LineEnding.......................................................................................................
-
-    @Test
-    public void testCr() {
-        this.checkEquals("\r", LineEnding.CR.toString());
-    }
-
-    @Test
-    public void testCrNl() {
-        this.checkEquals("\r\n", LineEnding.CRNL.toString());
-    }
-
-    @Test
-    public void testNl() {
-        this.checkEquals("\n", LineEnding.NL.toString());
-    }
-
-    @Test
-    public void testNone() {
-        this.checkEquals("", LineEnding.NONE.toString());
+    @Override
+    public LineEnding createCharSequence() {
+        return LineEnding.CR;
     }
 
     @Test
     public void testSystem() {
         assertNotSame(LineEnding.SYSTEM, LineEnding.NONE);
-    }
-
-    @Override
-    public LineEnding createCharSequence() {
-        return LineEnding.CR;
     }
 
     // HasText..........................................................................................................
@@ -197,6 +177,40 @@ final public class LineEndingTest implements ClassTesting2<LineEnding>,
         this.textAndCheck(
             LineEnding.CRNL,
             "\r\n"
+        );
+    }
+
+    // toString.........................................................................................................
+
+    @Test
+    public void testToStringCr() {
+        this.toStringAndCheck(
+            LineEnding.CR,
+            "\r"
+        );
+    }
+
+    @Test
+    public void testToStringCrNl() {
+        this.toStringAndCheck(
+            LineEnding.CRNL,
+            "\r\n"
+        );
+    }
+
+    @Test
+    public void testToStringNl() {
+        this.toStringAndCheck(
+            LineEnding.NL,
+            "\n"
+        );
+    }
+
+    @Test
+    public void testToStringNone() {
+        this.toStringAndCheck(
+            LineEnding.NONE,
+            ""
         );
     }
 
