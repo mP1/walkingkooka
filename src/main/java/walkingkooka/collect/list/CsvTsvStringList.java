@@ -94,7 +94,6 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
                             mode = MODE_NL_OR_FIRST_CHAR;
                             break;
                         case NL_CHAR:
-                            //mode = MODE_FIRST_CHAR;
                             mode = MODE_FIRST_CHAR_AFTER_NL;
 
                             strings.add(
