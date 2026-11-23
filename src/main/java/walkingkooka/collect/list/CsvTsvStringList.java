@@ -59,13 +59,14 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
 
         final List<CsvTsvStringListElement> strings = Lists.array();
 
-        final int MODE_FIRST_CHAR = 1;
-        final int MODE_NL_OR_FIRST_CHAR = 2;
-        final int MODE_INSIDE_QUOTED = 3;
-        final int MODE_TERMINATING_QUOTE = 4;
-        final int MODE_RAW_TEXT = 5;
+        final int MODE_FIRST_CHAR_AFTER_DELIMITER = 1;
+        final int MODE_FIRST_CHAR_AFTER_NL = 2;
+        final int MODE_NL_OR_FIRST_CHAR = 3;
+        final int MODE_INSIDE_QUOTED = 4;
+        final int MODE_TERMINATING_QUOTE = 5;
+        final int MODE_RAW_TEXT = 6;
 
-        int mode = MODE_FIRST_CHAR;
+        int mode = MODE_FIRST_CHAR_AFTER_DELIMITER;
 
         StringBuilder element = null;
 
@@ -79,13 +80,14 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
                 case MODE_NL_OR_FIRST_CHAR:
                     // skip the NL after a CR
                     if (NL_CHAR == c) {
-                        mode = MODE_FIRST_CHAR;
+                        mode = MODE_FIRST_CHAR_AFTER_NL;
                         break;
                     }
-                case MODE_FIRST_CHAR:
+                case MODE_FIRST_CHAR_AFTER_DELIMITER:
+                case MODE_FIRST_CHAR_AFTER_NL:
                     switch (c) {
                         case CR_CHAR:
-                            mode = MODE_FIRST_CHAR;
+                            mode = MODE_FIRST_CHAR_AFTER_DELIMITER;
 
                             strings.add(
                                 CsvTsvStringListElement.stringLineBreak("")
@@ -94,7 +96,8 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
                             mode = MODE_NL_OR_FIRST_CHAR;
                             break;
                         case NL_CHAR:
-                            mode = MODE_FIRST_CHAR;
+                            //mode = MODE_FIRST_CHAR;
+                            mode = MODE_FIRST_CHAR_AFTER_NL;
 
                             strings.add(
                                 CsvTsvStringListElement.stringLineBreak("")
@@ -106,7 +109,7 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
                             break;
                         default:
                             if (separatorChar == c) {
-                                mode = MODE_FIRST_CHAR;
+                                mode = MODE_FIRST_CHAR_AFTER_DELIMITER;
 
                                 strings.add(
                                     CsvTsvStringListElement.string("")
@@ -152,7 +155,7 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
                                 )
                             );
 
-                            mode = MODE_FIRST_CHAR;
+                            mode = MODE_FIRST_CHAR_AFTER_NL;
                             break;
                         default:
                             if (separatorChar == c) {
@@ -163,7 +166,7 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
                                     )
                                 );
 
-                                mode = MODE_FIRST_CHAR;
+                                mode = MODE_FIRST_CHAR_AFTER_DELIMITER;
                             } else {
                                 // trailing quote must be followed by separator or EOF, trailing spaces etc are an ICE.
                                 throw new InvalidCharacterException(
@@ -195,7 +198,7 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
                                     element.toString()
                                 )
                             );
-                            mode = MODE_FIRST_CHAR;
+                            mode = MODE_FIRST_CHAR_AFTER_DELIMITER;
                             break;
                         default:
                             if (separatorChar == c) {
@@ -204,7 +207,7 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
                                         element.toString()
                                     )
                                 );
-                                mode = MODE_FIRST_CHAR;
+                                mode = MODE_FIRST_CHAR_AFTER_DELIMITER;
                             } else {
                                 element.append(c);
                             }
@@ -215,7 +218,7 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
                     NeverError.unhandledCase(
                         mode,
                         MODE_NL_OR_FIRST_CHAR,
-                        MODE_FIRST_CHAR,
+                        MODE_FIRST_CHAR_AFTER_DELIMITER,
                         MODE_INSIDE_QUOTED,
                         MODE_TERMINATING_QUOTE,
                         MODE_RAW_TEXT
@@ -228,7 +231,11 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
         // EOT
         switch (mode) {
             case MODE_NL_OR_FIRST_CHAR:
-            case MODE_FIRST_CHAR:
+            case MODE_FIRST_CHAR_AFTER_NL:
+                // dont insert an empty record after last LineEnding
+                break;
+            case MODE_FIRST_CHAR_AFTER_DELIMITER:
+                // last character was COMMA or TSV insert empty String
                 if (0 != i) {
                     strings.add(
                         CsvTsvStringListElement.string("")
@@ -247,7 +254,8 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
                 NeverError.unhandledCase(
                     mode,
                     MODE_NL_OR_FIRST_CHAR,
-                    MODE_FIRST_CHAR,
+                    MODE_FIRST_CHAR_AFTER_DELIMITER,
+                    MODE_FIRST_CHAR_AFTER_NL,
                     MODE_INSIDE_QUOTED,
                     MODE_TERMINATING_QUOTE,
                     MODE_RAW_TEXT
