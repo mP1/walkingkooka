@@ -19,12 +19,15 @@ package walkingkooka.test;
 
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
+import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
 
-public final class ParseStringTestingTest implements ParseStringTesting<String> {
+public final class ParseStringTestingTest implements ParseStringTesting<String>,
+    PublicClassTesting<ParseStringTesting<String>> {
 
     @Test
     public void testParseStringNullFails() {
@@ -269,5 +272,12 @@ public final class ParseStringTestingTest implements ParseStringTesting<String> 
     @Override
     public RuntimeException parseStringFailedExpected(final RuntimeException expected) {
         return expected;
+    }
+
+    // class............................................................................................................
+
+    @Override
+    public Class<ParseStringTesting<String>> type() {
+        return Cast.to(ParseStringTesting.class);
     }
 }
