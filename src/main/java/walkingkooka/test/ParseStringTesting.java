@@ -32,7 +32,10 @@ public interface ParseStringTesting<T> extends Testing {
 
     @Test
     default void testParseStringNullFails() {
-        assertThrows(NullPointerException.class, () -> this.parseString(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> this.parseString(null)
+        );
     }
 
     @Test
