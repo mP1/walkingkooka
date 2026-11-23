@@ -42,9 +42,7 @@ public interface ParseStringTesting<T> extends ThrowableTesting {
     @Test
     default void testParseStringEmptyFails() {
         assertThrows(
-            this.parseStringFailedExpected(
-                IllegalArgumentException.class
-            ),
+            IllegalArgumentException.class,
             () -> this.parseString("")
         );
     }
@@ -111,38 +109,25 @@ public interface ParseStringTesting<T> extends ThrowableTesting {
      */
     default void parseStringFails(final String text,
                                   final Class<? extends RuntimeException> expected) {
-
-        final Class<? extends RuntimeException> expected2 = this.parseStringFailedExpected(expected);
         assertThrows(
-            expected2,
+            expected,
             () -> this.parseString(text)
         );
     }
-
-    /**
-     * Some APIs wrap the original exception inside another.
-     */
-    Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected);
 
     /**
      * Parsers the given text and verifies the expected {@link RuntimeException} was thrown and messages match.
      */
     default void parseStringFails(final String text,
                                   final RuntimeException expected) {
-        final RuntimeException expected2 = this.parseStringFailedExpected(expected);
         final RuntimeException thrown = assertThrows(
             expected.getClass(),
             () -> this.parseString(text)
         );
         this.checkEquals(
-            expected2.getMessage(),
+            expected.getMessage(),
             thrown.getMessage(),
             () -> "Incorrect failure message for " + CharSequences.quoteAndEscape(text)
         );
     }
-
-    /**
-     * Some APIs wrap the original exception inside another.
-     */
-    RuntimeException parseStringFailedExpected(final RuntimeException expected);
 }

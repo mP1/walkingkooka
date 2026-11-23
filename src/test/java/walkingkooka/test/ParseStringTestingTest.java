@@ -241,16 +241,6 @@ public final class ParseStringTestingTest implements ParseStringTesting<String>,
         public void testParseStringEmptyFails() {
             ParseStringTesting.super.testParseStringEmptyFails();
         }
-
-        @Override
-        public final Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
-            return expected;
-        }
-
-        @Override
-        public final RuntimeException parseStringFailedExpected(final RuntimeException expected) {
-            return expected;
-        }
     }
 
     private void mustFail(final Runnable run) {
@@ -266,16 +256,6 @@ public final class ParseStringTestingTest implements ParseStringTesting<String>,
     @Override
     public String parseString(final String text) {
         return text + "!!!";
-    }
-
-    @Override
-    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
-        return expected;
-    }
-
-    @Override
-    public RuntimeException parseStringFailedExpected(final RuntimeException expected) {
-        return expected;
     }
 
     // class............................................................................................................
