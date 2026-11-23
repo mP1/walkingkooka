@@ -1304,16 +1304,6 @@ public final class RangeTest implements ClassTesting2<Range<CaseInsensitiveStrin
         );
     }
 
-    @Override
-    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
-        return expected;
-    }
-
-    @Override
-    public RuntimeException parseStringFailedExpected(final RuntimeException expected) {
-        return expected;
-    }
-
     // hashCode/equals..................................................................................................
 
     // all..............................................................................................................

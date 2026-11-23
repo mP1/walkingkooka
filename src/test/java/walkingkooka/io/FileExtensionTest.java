@@ -256,16 +256,6 @@ public final class FileExtensionTest implements ComparableTesting2<FileExtension
         return FileExtension.parse(text);
     }
 
-    @Override
-    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> thrown) {
-        return thrown;
-    }
-
-    @Override
-    public RuntimeException parseStringFailedExpected(final RuntimeException thrown) {
-        return thrown;
-    }
-
     // constants........................................................................................................
 
     @Test
