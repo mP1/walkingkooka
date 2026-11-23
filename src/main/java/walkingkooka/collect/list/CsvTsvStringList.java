@@ -87,8 +87,6 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
                 case MODE_FIRST_CHAR_AFTER_NL:
                     switch (c) {
                         case CR_CHAR:
-                            mode = MODE_FIRST_CHAR_AFTER_DELIMITER;
-
                             strings.add(
                                 CsvTsvStringListElement.stringLineBreak("")
                             );
