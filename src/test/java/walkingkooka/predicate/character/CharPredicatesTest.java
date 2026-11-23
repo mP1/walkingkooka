@@ -20,6 +20,7 @@ package walkingkooka.predicate.character;
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.reflect.PublicStaticHelperTesting;
+import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.text.CharSequences;
 
 import java.lang.reflect.Method;
@@ -27,7 +28,8 @@ import java.lang.reflect.Method;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CharPredicatesTest implements PublicStaticHelperTesting<CharPredicates> {
+public final class CharPredicatesTest implements PublicStaticHelperTesting<CharPredicates>,
+    ThrowableTesting {
 
     // FailIfNullOrEmptyOrInitialAndPartFalse...........................................................................
 
@@ -113,9 +115,12 @@ public final class CharPredicatesTest implements PublicStaticHelperTesting<CharP
 
     @Test
     public void testFailIfNullOrEmptyOrInitialAndPartFalseInitialTestFails() {
-        assertThrows(
-            InvalidCharacterException.class,
-            () -> this.failIfNullOrEmptyOrInitialAndPartFalseAndCheck("98")
+        this.getMessageAndCheck(
+            assertThrows(
+                InvalidCharacterException.class,
+                () -> this.failIfNullOrEmptyOrInitialAndPartFalseAndCheck("98")
+            ),
+            "Invalid \"TEXT\" character '9' at 0"
         );
     }
 
