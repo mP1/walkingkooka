@@ -433,7 +433,6 @@ public abstract class CsvTsvStringListTestCase<T extends CsvTsvStringList<T>> im
             "\r",
             this.empty().concat("")
                 .lastLineBreak()
-                .concat("")
         );
     }
 
@@ -453,7 +452,6 @@ public abstract class CsvTsvStringListTestCase<T extends CsvTsvStringList<T>> im
             "\r\n",
             this.empty().concat("")
                 .lastLineBreak()
-                .concat("")
         );
     }
 
@@ -473,7 +471,6 @@ public abstract class CsvTsvStringListTestCase<T extends CsvTsvStringList<T>> im
             "\n",
             this.empty().concat("")
                 .lastLineBreak()
-                .concat("")
         );
     }
 

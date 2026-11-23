@@ -193,7 +193,6 @@ public final class TsvStringListTest extends CsvTsvStringListTestCase<TsvStringL
             TsvStringList.EMPTY.concat("abc")
                 .concat("def")
                 .lastLineBreak()
-                .concat("")
         );
     }
 
@@ -204,7 +203,6 @@ public final class TsvStringListTest extends CsvTsvStringListTestCase<TsvStringL
             TsvStringList.EMPTY.concat("abc")
                 .concat("def")
                 .lastLineBreak()
-                .concat("")
         );
     }
 
@@ -215,7 +213,6 @@ public final class TsvStringListTest extends CsvTsvStringListTestCase<TsvStringL
             TsvStringList.EMPTY.concat("abc")
                 .concat("def")
                 .lastLineBreak()
-                .concat("")
         );
     }
 
