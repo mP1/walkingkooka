@@ -54,7 +54,6 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
      */
     static <T extends CsvTsvStringList<T>> T parse0(final String text,
                                                     final char separatorChar,
-                                                    //final BiFunction<List<String>, BitSet, T> factory
                                                     final Function<List<CsvTsvStringListElement>, T> factory) {
         Objects.requireNonNull(text, "text");
 
