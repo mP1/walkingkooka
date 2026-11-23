@@ -19,6 +19,7 @@ package walkingkooka.test;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
+import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.text.CharSequences;
 
 import java.util.function.Function;
@@ -28,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Helper for testing a parse string method, which may be either a static or instance method.
  */
-public interface ParseStringTesting<T> extends Testing {
+public interface ParseStringTesting<T> extends ThrowableTesting {
 
     @Test
     default void testParseStringNullFails() {
@@ -89,13 +90,19 @@ public interface ParseStringTesting<T> extends Testing {
         );
     }
 
+    /**
+     * Asserts that a {@link InvalidCharacterException} is thrown and the position matches the expected position.
+     * The actual message which may include a label is ignored.
+     */
     default void parseStringInvalidCharacterFails(final String text,
                                                   final int pos) {
-        this.parseStringFails(
-            text,
-            this.parseStringFailedExpected(
-                new InvalidCharacterException(text, pos)
-            )
+        final InvalidCharacterException thrown = assertThrows(
+            InvalidCharacterException.class,
+            () -> this.parseString(text)
+        );
+        this.checkEquals(
+            pos,
+            thrown.position()
         );
     }
 

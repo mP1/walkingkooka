@@ -25,6 +25,7 @@ import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public final class ParseStringTestingTest implements ParseStringTesting<String>,
     PublicClassTesting<ParseStringTesting<String>> {
@@ -99,7 +100,10 @@ public final class ParseStringTestingTest implements ParseStringTesting<String>,
     static class TestParseStringInvalidCharacterFails extends TestParseStringTesting<String> {
         @Override
         public String parseString(final String text) {
-            throw new InvalidCharacterException(text, text.length() - 1);
+            throw new InvalidCharacterException(text, text.length() - 1)
+                .setLabel(
+                    Optional.of("Label123")
+                );
         }
     }
 
