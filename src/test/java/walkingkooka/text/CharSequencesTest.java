@@ -1456,6 +1456,55 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
         );
     }
 
+    // toCharacter......................................................................................................
+
+    @Test
+    public void testToCharacterWhenEmptyStringFails() {
+        this.getMessageAndCheck(
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> CharSequences.toCharacter("")
+            ),
+            "Empty \"CharSequence\""
+        );
+    }
+
+    @Test
+    public void testToCharacterWhenTwoCharacterStringFails() {
+        this.getMessageAndCheck(
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> CharSequences.toCharacter("AB")
+            ),
+            "Invalid character expected 1 character but got 2"
+        );
+    }
+
+    @Test
+    public void testToCharacterAndCheckWhenNullString() {
+        this.toCharacterAndCheck(
+            null,
+            null
+        );
+    }
+
+    @Test
+    public void testToCharacterAndCheckWhenOneCharacterString() {
+        this.toCharacterAndCheck(
+            "A",
+            'A'
+        );
+    }
+
+    private void toCharacterAndCheck(final CharSequence charSequence,
+                                     final Character expected) {
+        this.checkEquals(
+            expected,
+            CharSequences.toCharacter(charSequence),
+            () -> String.valueOf(charSequence)
+        );
+    }
+    
     // trim.............................................................................................................
 
     @Test

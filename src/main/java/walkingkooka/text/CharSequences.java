@@ -694,6 +694,31 @@ final public class CharSequences implements PublicStaticHelper {
     }
 
     /**
+     * Returns the first {@link Character} after validating that the given {@link CharSequence} has only 1 character.
+     * A null will return null.
+     */
+    public static Character toCharacter(final CharSequence charSequence) {
+        Character character;
+
+        if (null != charSequence) {
+            final int length = charSequence.length();
+            switch (length) {
+                case 0:
+                    throw new EmptyTextException("CharSequence");
+                case 1:
+                    character = charSequence.charAt(0);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid character expected 1 character but got " + length);
+            }
+        } else {
+            character = null;
+        }
+
+        return character;
+    }
+
+    /**
      * Returns a message that the to index points to a character before the from index.
      */
     static String toIndexBeforeFromIndex(final int from, final int to, final int length) {
