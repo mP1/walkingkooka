@@ -1476,7 +1476,7 @@ final public class CharSequencesTest implements PublicStaticHelperTesting<CharSe
                 IllegalArgumentException.class,
                 () -> CharSequences.toCharacter("AB")
             ),
-            "Invalid character expected 1 character but got 2"
+            "Length 2 of \"value\" expected 1 = \"AB\""
         );
     }
 
