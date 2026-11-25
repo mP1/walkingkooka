@@ -63,7 +63,7 @@ public final class StringLikeListTestingTest implements StringLikeListTesting,
                 () -> StringList.EMPTY.concat("AB")
                     .getCharacter(0)
             ),
-            "Invalid character expected 1 character but got 2"
+            "Length 2 of \"value\" expected 1 = \"AB\""
         );
     }
 }

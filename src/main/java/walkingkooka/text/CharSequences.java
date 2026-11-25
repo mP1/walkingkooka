@@ -21,6 +21,7 @@ import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Cast;
 import walkingkooka.EmptyTextException;
 import walkingkooka.InvalidCharacterException;
+import walkingkooka.InvalidTextLengthException;
 import walkingkooka.reflect.PublicStaticHelper;
 
 import java.io.Reader;
@@ -709,7 +710,12 @@ final public class CharSequences implements PublicStaticHelper {
                     character = charSequence.charAt(0);
                     break;
                 default:
-                    throw new IllegalArgumentException("Invalid character expected 1 character but got " + length);
+                    throw new InvalidTextLengthException(
+                        "value",
+                        charSequence.toString(),
+                        1,
+                        1
+                    );
             }
         } else {
             character = null;
