@@ -18,8 +18,10 @@
 package walkingkooka.collect.list;
 
 import walkingkooka.EmptyTextException;
+import walkingkooka.text.CharSequences;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * A {@link List} containing only {@link String} elements which may or may not be null.<br>
@@ -32,27 +34,17 @@ public interface StringLikeList extends List<String> {
      * Any {@link String strings} that are empty or have more than one character will throw a {@link IllegalArgumentException}.
      */
     default Character getCharacter(final int index) {
-        final String string = this.get(index);
-
-        final Character character;
-
-        if (null != string) {
-            final int length = string.length();
-            switch (length) {
-                case 0:
-                    throw new EmptyTextException(
-                        String.valueOf(index)
-                    );
-                case 1:
-                    character = string.charAt(0);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Invalid character expected 1 character but got " + length);
-            }
-        } else {
-            character = null;
+        try {
+            return CharSequences.toCharacter(
+                this.get(index)
+            );
+        } catch (final EmptyTextException rethrow) {
+            throw rethrow.setLabel(
+                Optional.of(
+                    String.valueOf(index)
+                )
+            );
         }
-        return character;
     }
 
     /**
