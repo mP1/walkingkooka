@@ -70,6 +70,17 @@ public interface ListTesting2<L extends List<E>, E> extends ListTesting, Collect
         );
     }
 
+    @Test
+    default void testSubListWithZeroFromAndToSize() {
+        final L list = this.createList();
+
+        this.subListAndCheck(
+            list,
+            0,
+            list.size()
+        );
+    }
+
     default L createCollection() {
         return this.createList();
     }

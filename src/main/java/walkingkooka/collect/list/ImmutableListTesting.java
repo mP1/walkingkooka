@@ -35,6 +35,11 @@ public interface ImmutableListTesting<L extends ImmutableList<E>, E> extends Lis
     CanBeEmptyTesting,
     CanFirstOrEmptyTesting {
 
+    @Override
+    default void testSubListWithZeroFromAndToSize() {
+        throw new UnsupportedOperationException();
+    }
+
     // concat...........................................................................................................
 
     default void concatAndCheck(final ImmutableList<E> list,
