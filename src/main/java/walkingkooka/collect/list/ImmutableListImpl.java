@@ -100,4 +100,52 @@ abstract class ImmutableListImpl<T> extends AbstractList<T> implements Immutable
             this :
             copy;
     }
+
+    @Override
+    public final ImmutableList<T> subList(final int from,
+                                          final int to) {
+        if(from < 0) {
+            throw new IndexOutOfBoundsException("Invalid from index " + from + " < 0");
+        }
+
+        if(to < from) {
+            throw new IndexOutOfBoundsException("Invalid to index " + to + " < " + from);
+        }
+
+        final int size = this.size();
+        if(to > size) {
+            throw new IndexOutOfBoundsException("Invalid to index " + to + " > " + size);
+        }
+
+        final ImmutableList<T> subList;
+
+        if(0 == from && to == size) {
+            subList = this;
+        } else {
+            if(from == to) {
+                subList = empty();
+            } else {
+                if(to - from == 1) {
+                    subList = ImmutableListImplSingleton.withElement(
+                        this.get(from)
+                    );
+                } else {
+                    // can never be ImmutableListEmpty or ImmutableListImplNonSingleton
+                    final int offset = this.offset();
+
+                    subList = ImmutableListImplNonSingletonSubList.with(
+                        this.elements(),
+                        from + offset,
+                        to + offset
+                    );
+                }
+            }
+        }
+
+        return subList;
+    }
+
+    abstract Object[] elements();
+
+    abstract int offset();
 }

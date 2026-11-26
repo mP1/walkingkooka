@@ -33,7 +33,8 @@ final class ImmutableListImplNonSingleton<T> extends ImmutableListImpl<T> {
         return new ImmutableListImplNonSingleton<>(notCopied);
     }
 
-    private ImmutableListImplNonSingleton(final Object[] elements) {
+    // @VisibleForTesting
+    ImmutableListImplNonSingleton(final Object... elements) {
         super();
         this.elements = elements;
     }
@@ -53,5 +54,15 @@ final class ImmutableListImplNonSingleton<T> extends ImmutableListImpl<T> {
         return false;
     }
 
-    private final Object[] elements;
+    @Override
+    Object[] elements() {
+        return this.elements;
+    }
+
+    final Object[] elements;
+
+    @Override
+    int offset() {
+        return 0;
+    }
 }

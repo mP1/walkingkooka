@@ -59,7 +59,7 @@ public final class BooleanList extends AbstractList<Boolean>
 
     @Override
     public BooleanList setElements(final Collection<Boolean> booleans) {
-        BooleanList booleanList;
+        final BooleanList booleanList;
 
         if (booleans instanceof BooleanList) {
             booleanList = (BooleanList) booleans;
@@ -69,18 +69,30 @@ public final class BooleanList extends AbstractList<Boolean>
                 Objects.requireNonNull(booleans, "booleans")
             );
 
-            switch (booleans.size()) {
-                case 0:
-                    booleanList = EMPTY;
-                    break;
-                default:
-                    booleanList = new BooleanList(copy);
-                    break;
-            }
+            booleanList = this.equals(copy) ?
+                this :
+                this.replaceBoolean(copy);
         }
 
-        return this.equals(booleanList) ?
+        return booleanList;
+    }
+
+    @Override
+    public BooleanList subList(final int from,
+                               final int to) {
+        return 0 == from && this.size() == to ?
             this :
-            booleanList;
+            this.replaceBoolean(
+                this.booleans.subList(
+                    from,
+                    to
+                )
+            );
+    }
+
+    private BooleanList replaceBoolean(final List<Boolean> booleans) {
+        return booleans.isEmpty() ?
+            EMPTY :
+            new BooleanList(booleans);
     }
 }

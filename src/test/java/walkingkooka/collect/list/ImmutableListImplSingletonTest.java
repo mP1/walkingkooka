@@ -27,6 +27,16 @@ public final class ImmutableListImplSingletonTest extends ImmutableListImplNotEm
 
     private final static String ELEMENT = "*element*";
 
+    @Override
+    public void testAllConstructorsVisibility() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testIfClassIsFinalIfAllConstructorsArePrivate() {
+        throw new UnsupportedOperationException();
+    }
+
     @Test
     public void testWithNonNull() {
         ImmutableListImplSingleton.singleton(ELEMENT);

@@ -70,29 +70,41 @@ public final class StringList extends AbstractList<String>
 
     @Override
     public StringList setElements(final Collection<String> strings) {
-        Objects.requireNonNull(strings, "strings");
-
-        StringList stringList;
+        final StringList stringList;
 
         if (strings instanceof StringList) {
             stringList = (StringList) strings;
         } else {
             final List<String> copy = Lists.array();
-            copy.addAll(strings);
+            copy.addAll(
+                Objects.requireNonNull(strings, "strings")
+            );
 
-            switch (strings.size()) {
-                case 0:
-                    stringList = EMPTY;
-                    break;
-                default:
-                    stringList = new StringList(copy);
-                    break;
-            }
+            stringList = this.equals(copy) ?
+                this :
+                this.replaceString(copy);
         }
 
-        return this.equals(stringList) ?
+        return stringList;
+    }
+
+    @Override
+    public StringList subList(final int from,
+                               final int to) {
+        return 0 == from && this.size() == to ?
             this :
-            stringList;
+            this.replaceString(
+                this.strings.subList(
+                    from,
+                    to
+                )
+            );
+    }
+
+    private StringList replaceString(final List<String> strings) {
+        return strings.isEmpty() ?
+            EMPTY :
+            new StringList(strings);
     }
 
     // CanRemoveTrailingNullOrEmptyStrings..............................................................................

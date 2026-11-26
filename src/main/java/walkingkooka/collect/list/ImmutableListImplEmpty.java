@@ -78,6 +78,16 @@ final class ImmutableListImplEmpty<T> extends ImmutableListImpl<T> {
     }
 
     @Override
+    Object[] elements() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    int offset() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public String toString() {
         return "[]";
     }

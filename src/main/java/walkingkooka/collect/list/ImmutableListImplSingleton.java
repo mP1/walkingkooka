@@ -38,7 +38,8 @@ final class ImmutableListImplSingleton<T> extends ImmutableListImpl<T> {
     /**
      * Private ctor use factory
      */
-    private ImmutableListImplSingleton(final T element) {
+    // @VisibleForTesting
+    ImmutableListImplSingleton(final T element) {
         super();
         this.element = element;
     }
@@ -80,4 +81,14 @@ final class ImmutableListImplSingleton<T> extends ImmutableListImpl<T> {
     }
 
     private final T element;
+
+    @Override
+    Object[] elements() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    int offset() {
+        throw new UnsupportedOperationException();
+    }
 }

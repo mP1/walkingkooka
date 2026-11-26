@@ -3,6 +3,8 @@ package walkingkooka.collect.list;
 import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.PublicClassTesting;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class BooleanListTest implements ListTesting2<BooleanList, Boolean>,
@@ -101,6 +103,65 @@ public class BooleanListTest implements ListTesting2<BooleanList, Boolean>,
                 Lists.of(
                     BOOLEAN1,
                     null
+                )
+            )
+        );
+    }
+
+    // subList..........................................................................................................
+
+    private final static List<Boolean> ELEMENTS = Lists.of(
+        true,
+        true,
+        false,
+        false,
+        true
+    );
+
+    @Test
+    public void testSubList() {
+        this.subListAndCheck(
+            new BooleanList(ELEMENTS),
+            0,
+            2,
+            new BooleanList(
+                Lists.of(
+                    true,
+                    true
+                )
+            )
+        );
+    }
+
+    @Test
+    public void testSubList2() {
+        this.subListAndCheck(
+            new BooleanList(ELEMENTS),
+            2,
+            4,
+            new BooleanList(
+                Lists.of(
+                    false,
+                    false
+                )
+            )
+        );
+    }
+
+    @Test
+    public void testSubListSubList() {
+        this.subListAndCheck(
+            new BooleanList(ELEMENTS)
+                .subList(
+                    1,
+                    4
+                ), // true, false, false
+            1,
+            3,
+            new BooleanList(
+                Lists.of(
+                    false,
+                    false
                 )
             )
         );

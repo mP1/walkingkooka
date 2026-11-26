@@ -147,12 +147,13 @@ public final class ListTestingTest implements ListTesting {
 
     @Test
     public void testSubListAndCheckDifferent() {
+        final List<Number> list = new ArrayList<>();
+        list.add(11);
+        list.add(22);
+        list.add(33);
+
         this.subListAndCheck(
-            Lists.of(
-                11,
-                22,
-                333
-            ),
+            list,
             1,
             2,
             Lists.of(22)

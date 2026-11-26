@@ -29,6 +29,18 @@ public final class ImmutableListImplNonSingletonTest extends ImmutableListImplNo
 
     private final static String ELEMENT1 = "1a";
     private final static String ELEMENT2 = "2b";
+    private final static String ELEMENT3 = "3c";
+    private final static String ELEMENT4 = "4d";
+
+    @Override
+    public void testAllConstructorsVisibility() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testIfClassIsFinalIfAllConstructorsArePrivate() {
+        throw new UnsupportedOperationException();
+    }
 
     @Test
     public void testAddFails() {
@@ -117,6 +129,95 @@ public final class ImmutableListImplNonSingletonTest extends ImmutableListImplNo
             Predicates.is(ELEMENT1),
             ImmutableListImplNonSingleton.with(
                 Lists.of(ELEMENT2)
+            )
+        );
+    }
+
+    @Test
+    public void testSubListEmpty() {
+        this.subListAndCheck(
+            this.createList(),
+            0,
+            0,
+            ImmutableListImpl.empty()
+        );
+    }
+
+    @Test
+    public void testSubListEmpty2() {
+        this.subListAndCheck(
+            this.createList(),
+            1,
+            1,
+            ImmutableListImpl.empty()
+        );
+    }
+
+    @Test
+    public void testSubList() {
+        this.subListAndCheck(
+            new ImmutableListImplNonSingleton<>(
+                ELEMENT1,
+                ELEMENT2,
+                ELEMENT3,
+                ELEMENT4
+            ),
+            0,
+            1,
+            new ImmutableListImplSingleton<>(
+                ELEMENT1
+            )
+        );
+    }
+
+    @Test
+    public void testSubList2() {
+        this.subListAndCheck(
+            new ImmutableListImplNonSingleton<>(
+                ELEMENT1,
+                ELEMENT2,
+                ELEMENT3,
+                ELEMENT4
+            ),
+            1,
+            2,
+            new ImmutableListImplSingleton<>(
+                ELEMENT2
+            )
+        );
+    }
+
+    @Test
+    public void testSubList3() {
+        this.subListAndCheck(
+            new ImmutableListImplNonSingleton<>(
+                ELEMENT1,
+                ELEMENT2,
+                ELEMENT3,
+                ELEMENT4
+            ),
+            3,
+            4,
+            new ImmutableListImplSingleton<>(
+                ELEMENT4
+            )
+        );
+    }
+
+    @Test
+    public void testSubList4() {
+        this.subListAndCheck(
+            new ImmutableListImplNonSingleton<>(
+                ELEMENT1,
+                ELEMENT2,
+                ELEMENT3,
+                ELEMENT4
+            ),
+            0,
+            2,
+            new ImmutableListImplNonSingleton<>(
+                ELEMENT1,
+                ELEMENT2
             )
         );
     }
