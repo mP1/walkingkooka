@@ -309,6 +309,70 @@ public abstract class CsvTsvStringListTestCase<T extends CsvTsvStringList<T>> im
         );
     }
 
+    // subList..........................................................................................................
+
+    private final static String STRING1 = "AAA";
+
+    private final static String STRING2 = "BBB";
+
+    private final static String STRING3 = "CCC";
+
+    private final static String STRING4 = "DDD";
+
+    private final static String STRING5 = "EEE";
+    
+    private final static String[] ELEMENTS = new String[]{
+        STRING1,
+        STRING2,
+        STRING3,
+        STRING4,
+        STRING5
+    };
+
+    @Test
+    public final void testSubList() {
+        this.subListAndCheck(
+            this.createList(ELEMENTS),
+            0,
+            2,
+            this.createList(
+                STRING1,
+                STRING2
+            )
+        );
+    }
+
+    @Test
+    public final void testSubList2() {
+        this.subListAndCheck(
+            this.createList(ELEMENTS),
+            2,
+            4,
+            this.createList(
+                STRING3,
+                STRING4
+            )
+        );
+    }
+
+    @Test
+    public final void testSubListSubList() {
+        this.subListAndCheck(
+            this.createList(ELEMENTS)
+                .subList(
+                    1,
+                    4
+                ), // 2, 3, 4
+            1,
+            3,
+            this.createList(
+                STRING3,
+                STRING4
+            )
+        );
+    }
+
+
     // HasMultiLineText.................................................................................................
 
     @Test

@@ -389,6 +389,19 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
         return list;
     }
 
+    @Override
+    public final T subList(final int from,
+                           final int to) {
+        return 0 == from && this.size() == to ?
+            (T) this :
+            this.replaceStrings(
+                this.strings.subList(
+                    from,
+                    to
+                )
+            );
+    }
+
     abstract T setCsvStringList(final CsvStringList csvStringList);
 
     abstract T setTsvStringList(final TsvStringList tsvStringList);

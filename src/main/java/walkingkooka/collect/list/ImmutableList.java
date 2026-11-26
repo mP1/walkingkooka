@@ -114,6 +114,12 @@ public interface ImmutableList<E> extends List<E>,
     }
 
     /**
+     * Returns a sub list view of this {@link ImmutableList}.
+     */
+    ImmutableList<E> subList(final int from,
+                             final int to);
+
+    /**
      * Returns a mutable {@link List} with the items in this list. Modifying the given list does not update the elements in this list.
      */
     List<E> toList();

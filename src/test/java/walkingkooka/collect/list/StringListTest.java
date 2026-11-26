@@ -5,6 +5,8 @@ import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.text.HasMultiLineTextTesting;
 import walkingkooka.text.LineEnding;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class StringListTest implements ListTesting2<StringList, String>,
@@ -19,6 +21,12 @@ public final class StringListTest implements ListTesting2<StringList, String>,
     private final static String STRING1 = "AAA";
 
     private final static String STRING2 = "BBB";
+
+    private final static String STRING3 = "CCC";
+
+    private final static String STRING4 = "DDD";
+
+    private final static String STRING5 = "EEE";
 
     // list.............................................................................................................
 
@@ -108,6 +116,65 @@ public final class StringListTest implements ListTesting2<StringList, String>,
                 Lists.of(
                     STRING1,
                     null
+                )
+            )
+        );
+    }
+
+    // subList..........................................................................................................
+
+    private final static List<String> ELEMENTS = Lists.of(
+        STRING1,
+        STRING2,
+        STRING3,
+        STRING4,
+        STRING5
+    );
+
+    @Test
+    public void testSubList() {
+        this.subListAndCheck(
+            new StringList(ELEMENTS),
+            0,
+            2,
+            new StringList(
+                Lists.of(
+                    STRING1,
+                    STRING2
+                )
+            )
+        );
+    }
+
+    @Test
+    public void testSubList2() {
+        this.subListAndCheck(
+            new StringList(ELEMENTS),
+            2,
+            4,
+            new StringList(
+                Lists.of(
+                    STRING3,
+                    STRING4
+                )
+            )
+        );
+    }
+
+    @Test
+    public void testSubListSubList() {
+        this.subListAndCheck(
+            new StringList(ELEMENTS)
+                .subList(
+                    1,
+                    4
+                ), // 2, 3, 4
+            1,
+            3,
+            new StringList(
+                Lists.of(
+                    STRING3,
+                    STRING4
                 )
             )
         );
