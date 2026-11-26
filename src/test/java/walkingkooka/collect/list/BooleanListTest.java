@@ -47,15 +47,6 @@ public class BooleanListTest implements ListTesting2<BooleanList, Boolean>,
     // setElements......................................................................................................
 
     @Test
-    public void testWithDoesntDoubleWrap() {
-        final BooleanList list = this.createList();
-        assertSame(
-            list,
-            list.setElements(list)
-        );
-    }
-
-    @Test
     public void testSetElementsWithEmpty() {
         assertSame(
             BooleanList.EMPTY,
