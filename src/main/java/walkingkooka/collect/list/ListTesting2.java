@@ -23,6 +23,8 @@ import walkingkooka.reflect.TypeNameTesting;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public interface ListTesting2<L extends List<E>, E> extends ListTesting, CollectionTesting2<L, E>,
     TypeNameTesting<L> {
 
@@ -42,6 +44,30 @@ public interface ListTesting2<L extends List<E>, E> extends ListTesting, Collect
         }
 
         this.sizeAndCheck(list, i);
+    }
+
+    @Test
+    default void testSubListWithNegativeFromFails() {
+        assertThrows(
+            IndexOutOfBoundsException.class,
+            () -> this.createList()
+                .subList(
+                    -1,
+                    0
+                )
+        );
+    }
+
+    @Test
+    default void testSubListWithInvalidToFails() {
+        assertThrows(
+            IndexOutOfBoundsException.class,
+            () -> this.createList()
+                .subList(
+                    0,
+                    Integer.MAX_VALUE
+                )
+        );
     }
 
     default L createCollection() {
