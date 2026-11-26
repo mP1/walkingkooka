@@ -118,4 +118,31 @@ public interface ListTesting extends CollectionTesting {
             element
         );
     }
+
+    // subList..........................................................................................................
+
+    default <E> void subListAndCheck(final List<E> list,
+                                     final int from,
+                                     final int to) {
+        this.subListAndCheck(
+            list,
+            from,
+            to,
+            list
+        );
+    }
+
+    default <E> void subListAndCheck(final List<E> list,
+                                     final int from,
+                                     final int to,
+                                     final List<E> expected) {
+        this.checkEquals(
+            expected,
+            list.subList(
+                from,
+                to
+            ),
+            () -> "subList " + from + ", " + to
+        );
+    }
 }
