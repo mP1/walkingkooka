@@ -20,6 +20,7 @@ package walkingkooka.collect.list;
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -127,6 +128,34 @@ public final class ListTestingTest implements ListTesting {
                 "C3"
             ),
             list
+        );
+    }
+
+    @Test
+    public void testSubListAndCheckSame() {
+        final List<Integer> list = new ArrayList<>();
+        list.add(11);
+        list.add(22);
+
+        this.subListAndCheck(
+            list,
+            0,
+            2,
+            list
+        );
+    }
+
+    @Test
+    public void testSubListAndCheckDifferent() {
+        this.subListAndCheck(
+            Lists.of(
+                11,
+                22,
+                333
+            ),
+            1,
+            2,
+            Lists.of(22)
         );
     }
 }
