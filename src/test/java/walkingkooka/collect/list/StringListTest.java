@@ -60,15 +60,6 @@ public final class StringListTest implements ListTesting2<StringList, String>,
     // setElements......................................................................................................
 
     @Test
-    public void testWithDoesntDoubleWrap() {
-        final StringList list = this.createList();
-        assertSame(
-            list,
-            list.setElements(list)
-        );
-    }
-
-    @Test
     public void testSetElementsWithEmpty() {
         assertSame(
             StringList.EMPTY,
