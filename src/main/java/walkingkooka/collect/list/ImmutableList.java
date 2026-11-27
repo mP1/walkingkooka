@@ -24,7 +24,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -111,6 +114,35 @@ public interface ImmutableList<E> extends List<E>,
         final List<E> reversed = this.toList();
         Collections.reverse(reversed);
         return this.setElements(reversed);
+    }
+
+    /**
+     * Helper that may be used by any {@link #setElements(Collection)}, which tests if the elements is the same type,
+     * returning that, as well as making a defensive copy and calling a factory if different.
+     */
+    default ImmutableList<E> setElementsMaybeCreate(final Collection<E> elements,
+                                                    final Predicate<Collection<E>> isSame,
+                                                    final Consumer<E> elementChecker,
+                                                    final Function<List<E>, ImmutableList<E>> factory) {
+        final ImmutableList<E> immutableList;
+
+        if (isSame.test(elements)) {
+            immutableList = (ImmutableList<E>) elements;
+        } else {
+            Objects.requireNonNull(elements, "elements");
+
+            final List<E> copy = Lists.array();
+            for (final E each : elements) {
+                elementChecker.accept(each);
+                copy.add(each);
+            }
+
+            immutableList = this.equals(copy) ?
+                this :
+                factory.apply(copy);
+        }
+
+        return immutableList;
     }
 
     /**

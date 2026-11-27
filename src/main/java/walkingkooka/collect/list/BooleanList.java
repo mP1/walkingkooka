@@ -20,7 +20,6 @@ package walkingkooka.collect.list;
 import java.util.AbstractList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * An immutable list of {@link Boolean} that allows null elements.
@@ -59,22 +58,13 @@ public final class BooleanList extends AbstractList<Boolean>
 
     @Override
     public BooleanList setElements(final Collection<Boolean> booleans) {
-        final BooleanList booleanList;
-
-        if (booleans instanceof BooleanList) {
-            booleanList = (BooleanList) booleans;
-        } else {
-            final List<Boolean> copy = Lists.array();
-            copy.addAll(
-                Objects.requireNonNull(booleans, "booleans")
+        return (BooleanList)
+            this.setElementsMaybeCreate(
+                booleans,
+                (Collection<Boolean> collection) -> collection instanceof BooleanList,
+                this::elementCheck,
+                this::replaceBoolean
             );
-
-            booleanList = this.equals(copy) ?
-                this :
-                this.replaceBoolean(copy);
-        }
-
-        return booleanList;
     }
 
     @Override
