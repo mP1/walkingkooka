@@ -329,6 +329,26 @@ public final class StringListTest implements ListTesting2<StringList, String>,
         );
     }
 
+    @Test
+    public void testTsvStringListIncludesNull() {
+        this.tsvStringListAndCheck(
+            StringList.EMPTY.concat("aaa")
+                .concat("")
+                .concat("111"),
+            "aaa\t\t111"
+        );
+    }
+
+    @Test
+    public void testTsvStringListIncludesEmptyString() {
+        this.tsvStringListAndCheck(
+            StringList.EMPTY.concat("aaa")
+                .concat("")
+                .concat("111"),
+            "aaa\t\t111"
+        );
+    }
+
     // StringLikeList...................................................................................................
 
     @Test
