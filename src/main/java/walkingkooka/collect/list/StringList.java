@@ -147,6 +147,6 @@ public final class StringList extends AbstractList<String>
 
     @Override
     public TsvStringList tsvStringList() {
-        return TsvStringList.EMPTY.setElements(this);
+        return TsvStringList.EMPTY.setElements(this.csvStringList()); // csvStringList replaces null with empty String
     }
 }
