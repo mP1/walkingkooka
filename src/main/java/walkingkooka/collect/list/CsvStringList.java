@@ -47,6 +47,7 @@ public final class CsvStringList extends CsvTsvStringList<CsvStringList> {
 
     /**
      * Helper that combines mapping elements from a source list into a {@link CsvStringList}.
+     * Not the mapper cannot return null
      */
     public static <T> CsvStringList makeCsvStringList(final List<T> list,
                                                       final Function<T, String> mapper) {
