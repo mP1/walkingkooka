@@ -47,6 +47,7 @@ public final class TsvStringList extends CsvTsvStringList<TsvStringList> {
 
     /**
      * Helper that combines mapping elements from a source list into a {@link TsvStringList}.
+     * CsvStringList.makeCsvStringList java mapper not null javadoc
      */
     public static <T> TsvStringList makeTsvStringList(final List<T> list,
                                                       final Function<T, String> mapper) {
