@@ -70,22 +70,13 @@ public final class StringList extends AbstractList<String>
 
     @Override
     public StringList setElements(final Collection<String> strings) {
-        final StringList stringList;
-
-        if (strings instanceof StringList) {
-            stringList = (StringList) strings;
-        } else {
-            final List<String> copy = Lists.array();
-            copy.addAll(
-                Objects.requireNonNull(strings, "strings")
+        return (StringList)
+            this.setElementsMaybeCreate(
+                strings,
+                (Collection<String> collection) -> collection instanceof StringList,
+                this::elementCheck,
+                this::replaceStrings
             );
-
-            stringList = this.equals(copy) ?
-                this :
-                this.replaceString(copy);
-        }
-
-        return stringList;
     }
 
     @Override
@@ -93,7 +84,7 @@ public final class StringList extends AbstractList<String>
                               final int to) {
         return 0 == from && this.size() == to ?
             this :
-            this.replaceString(
+            this.replaceStrings(
                 this.strings.subList(
                     from,
                     to
@@ -101,7 +92,7 @@ public final class StringList extends AbstractList<String>
             );
     }
 
-    private StringList replaceString(final List<String> strings) {
+    private StringList replaceStrings(final List<String> strings) {
         return strings.isEmpty() ?
             EMPTY :
             new StringList(strings);
