@@ -17,6 +17,7 @@
 
 package walkingkooka.collect.list;
 
+import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasMultiLineText;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.MultiLineText;
@@ -107,9 +108,16 @@ public final class StringList extends AbstractList<String>
 
     // HasCsvStringList.................................................................................................
 
+    /**
+     * Converts this {@link StringList} into a {@link CsvStringList} with null elements converted into empty strings.
+     */
     @Override
     public CsvStringList csvStringList() {
-        return CsvStringList.EMPTY.setElements(this);
+        return CsvStringList.EMPTY.setElements(
+            this.strings.stream()
+                .map((final String string) -> CharSequences.nullToEmpty(string).toString())
+                .collect(Collectors.toList())
+        );
     }
 
     // HasMultiLineText.................................................................................................

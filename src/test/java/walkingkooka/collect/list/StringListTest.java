@@ -262,6 +262,26 @@ public final class StringListTest implements ListTesting2<StringList, String>,
         );
     }
 
+    @Test
+    public void testCsvStringListIncludesNull() {
+        this.csvStringListAndCheck(
+            StringList.EMPTY.concat("aaa")
+                .concat(null)
+                .concat("111"),
+            "aaa,,111"
+        );
+    }
+
+    @Test
+    public void testCsvStringListIncludesEmptyString() {
+        this.csvStringListAndCheck(
+            StringList.EMPTY.concat("aaa")
+                .concat("")
+                .concat("111"),
+            "aaa,,111"
+        );
+    }
+
     // HasMultiLineText.................................................................................................
 
     @Test
