@@ -19,8 +19,7 @@ package walkingkooka.collect.list;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 
 import java.util.AbstractList;
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ import java.util.function.Predicate;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ImmutableListTest implements ImmutableListTesting<ImmutableList<String>, String>,
-    ClassTesting<ImmutableList<String>> {
+    PublicClassTesting<ImmutableList<String>> {
 
     // collector........................................................................................................
 
@@ -186,11 +185,6 @@ public final class ImmutableListTest implements ImmutableListTesting<ImmutableLi
     }
 
     // class............................................................................................................
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
-    }
 
     @Override
     public Class<ImmutableList<String>> type() {
