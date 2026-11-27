@@ -120,6 +120,31 @@ public interface ImmutableList<E> extends List<E>,
                              final int to);
 
     /**
+     * Validates parameters and returns this if the from and to match this list.
+     */
+    default ImmutableList<E> subListMaybeSame(final int from,
+                                              final int to) {
+        if (from < 0) {
+            throw new IndexOutOfBoundsException("Invalid from index " + from + " < 0");
+        }
+
+        if (to < from) {
+            throw new IndexOutOfBoundsException("Invalid to index " + to + " < " + from);
+        }
+
+        final int size = this.size();
+        if (to > size) {
+            throw new IndexOutOfBoundsException("Invalid to index " + to + " > " + size);
+        }
+
+        if (from == 0 || to == size) {
+            return this;
+        }
+
+        throw new UnsupportedOperationException();
+    }
+
+    /**
      * Returns a mutable {@link List} with the items in this list. Modifying the given list does not update the elements in this list.
      */
     List<E> toList();
