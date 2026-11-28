@@ -23,6 +23,16 @@ package walkingkooka.text;
 public interface HasText extends HasTextLength {
 
     /**
+     * Helper that turns nulls into empty strings otherwise returns {@link HasText#text()}.
+     * If the given {@link HasText#text()} returns null, then this will return null.
+     */
+    static String textOrEmptyString(final HasText hasTextOrNull) {
+        return null != hasTextOrNull ?
+            hasTextOrNull.text() :
+            "";
+    }
+
+    /**
      * Text getter
      */
     String text();

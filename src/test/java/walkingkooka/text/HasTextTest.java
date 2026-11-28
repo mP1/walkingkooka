@@ -17,9 +17,58 @@
 
 package walkingkooka.text;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.PublicClassTesting;
 
 public final class HasTextTest implements PublicClassTesting<HasText> {
+
+    // textOrEmptyString................................................................................................
+
+    @Test
+    public void testTextOrEmptyStringWithNull() {
+        this.textOrEmptyStringAndCheck(
+            null,
+            ""
+        );
+    }
+
+    @Test
+    public void testTextOrEmptyStringWithNonNull() {
+        final String text = "Hello";
+
+        this.textOrEmptyStringAndCheck(
+            new HasText() {
+                @Override
+                public String text() {
+                    return text;
+                }
+            },
+            text
+        );
+    }
+
+    @Test
+    public void testTextOrEmptyStringWithNonNullReturnsNull() {
+        this.textOrEmptyStringAndCheck(
+            new HasText() {
+                @Override
+                public String text() {
+                    return null;
+                }
+            },
+            null
+        );
+    }
+
+    private void textOrEmptyStringAndCheck(final HasText has,
+                                           final String expected) {
+        this.checkEquals(
+            expected,
+            HasText.textOrEmptyString(has)
+        );
+    }
+
+    // class............................................................................................................
 
     @Override
     public Class<HasText> type() {
