@@ -37,7 +37,8 @@ public final class DelimiterSeparatedValues<T extends CsvTsvStringList<T>> {
         CsvStringList.EMPTY::setElements,
         (final List<CsvTsvStringListElement> elements) -> elements.isEmpty() ?
             CsvStringList.EMPTY :
-            new CsvStringList(elements)
+            new CsvStringList(elements),
+        CsvStringList.EMPTY
     );
 
     public final static DelimiterSeparatedValues<TsvStringList> TAB = new DelimiterSeparatedValues<TsvStringList>(
@@ -45,16 +46,20 @@ public final class DelimiterSeparatedValues<T extends CsvTsvStringList<T>> {
         TsvStringList.EMPTY::setElements,
         (final List<CsvTsvStringListElement> elements) -> elements.isEmpty() ?
             TsvStringList.EMPTY :
-            new TsvStringList(elements)
+            new TsvStringList(elements),
+        TsvStringList.EMPTY
     );
 
     private DelimiterSeparatedValues(final char character,
                                      final Function<List<String>, T> setElements,
-                                     final Function<List<CsvTsvStringListElement>, T> newInstance) {
+                                     final Function<List<CsvTsvStringListElement>, T> newInstance,
+                                     final T empty) {
         super();
         this.character = character;
         this.setElements = setElements;
         this.newInstance = newInstance;
+
+        this.empty = empty;
     }
 
     public char character() {
@@ -291,4 +296,10 @@ public final class DelimiterSeparatedValues<T extends CsvTsvStringList<T>> {
     private final static char DOUBLE_QUOTE_CHAR = '"';
 
     private final Function<List<CsvTsvStringListElement>, T> newInstance;
+
+    public T empty() {
+        return this.empty;
+    }
+
+    private final T empty;
 }

@@ -86,6 +86,32 @@ public final class DelimiterSeparatedValuesTest implements PublicClassTesting<De
         );
     }
 
+    // empty............................................................................................................
+
+    @Test
+    public void testEmptyWithComma() {
+        this.emptyAndCheck(
+            DelimiterSeparatedValues.COMMA,
+            CsvStringList.EMPTY
+        );
+    }
+
+    @Test
+    public void testEmptyWithTab() {
+        this.emptyAndCheck(
+            DelimiterSeparatedValues.TAB,
+            TsvStringList.EMPTY
+        );
+    }
+
+    private <T extends CsvTsvStringList<T>> void emptyAndCheck(final DelimiterSeparatedValues<T> values,
+                                                               final T expected) {
+        this.checkEquals(
+            expected,
+            values.empty()
+        );
+    }
+
     // class............................................................................................................
 
     @Override
