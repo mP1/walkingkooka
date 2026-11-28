@@ -33,13 +33,13 @@ abstract class ToStringBuilderAppenderScalar<V> extends ToStringBuilderAppender<
     abstract boolean isDefaultValue();
 
     @Override //
-    final String before(final ToStringBuilder builder) {
+    final String beforeValue(final ToStringBuilder builder) {
         return null; // no after
     }
 
     @Override //
-    final void after(final String after,
-                     final ToStringBuilder builder) {
+    final void afterValue(final String after,
+                          final ToStringBuilder builder) {
         // only arrays append after
     }
 }

@@ -33,7 +33,8 @@ abstract class ToStringBuilderAppenderVector<V> extends ToStringBuilderAppender<
      */
     abstract boolean isEmpty();
 
-    @Override final String before(final ToStringBuilder builder) {
+    @Override //
+    final String beforeValue(final ToStringBuilder builder) {
         final String before = builder.before;
         if (null != before) {
             builder.buffer.append(before);
@@ -41,7 +42,9 @@ abstract class ToStringBuilderAppenderVector<V> extends ToStringBuilderAppender<
         return builder.after;
     }
 
-    @Override final void after(final String after, final ToStringBuilder builder) {
+    @Override //
+    final void afterValue(final String after,
+                          final ToStringBuilder builder) {
         if (null != after) {
             builder.append(after);
         }
