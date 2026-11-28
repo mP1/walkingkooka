@@ -29,7 +29,10 @@ public final class ToStringBuilderAppenderScalarSharedDefaultTest extends ToStri
             .value((Object) null)
             .value(1);
 
-        this.buildAndCheck(builder, "1");
+        this.buildAndCheck(
+            builder,
+            "1"
+        );
     }
 
     @Test
@@ -78,12 +81,14 @@ public final class ToStringBuilderAppenderScalarSharedDefaultTest extends ToStri
     }
 
     @Override
-    void append(final ToStringBuilder builder, final Object value) {
+    void append(final ToStringBuilder builder,
+                final Object value) {
         builder.append(value);
     }
 
     @Override
-    void value(final ToStringBuilder builder, final Object value) {
+    void value(final ToStringBuilder builder,
+               final Object value) {
         builder.value(value);
     }
 
