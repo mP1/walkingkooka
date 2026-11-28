@@ -28,7 +28,10 @@ public final class ToStringBuilderAppenderScalarSharedDoubleTest extends ToStrin
 
         b.value(123.5);
 
-        this.buildAndCheck(b, "123.5");
+        this.buildAndCheck(
+            b,
+            "123.5"
+        );
     }
 
     @Test
@@ -37,7 +40,10 @@ public final class ToStringBuilderAppenderScalarSharedDoubleTest extends ToStrin
         b.enable(ToStringBuilderOption.HEX_WHOLE_NUMBERS);
         b.append(123.5f);
 
-        this.buildAndCheck(b, "123.5");
+        this.buildAndCheck(
+            b,
+            "123.5"
+        );
     }
 
     @Test
@@ -47,7 +53,10 @@ public final class ToStringBuilderAppenderScalarSharedDoubleTest extends ToStrin
         b.append(0f);
         b.append(1);
 
-        this.buildAndCheck(b, "" + 0f + 1);
+        this.buildAndCheck(
+            b,
+            "" + 0f + 1
+        );
     }
 
     @Test
@@ -57,7 +66,10 @@ public final class ToStringBuilderAppenderScalarSharedDoubleTest extends ToStrin
 
         b.value(123.5f);
 
-        this.buildAndCheck(b, "123.5");
+        this.buildAndCheck(
+            b,
+            "123.5"
+        );
     }
 
     @Test
@@ -68,7 +80,10 @@ public final class ToStringBuilderAppenderScalarSharedDoubleTest extends ToStrin
 
         b.value(123.5f);
 
-        this.buildAndCheck(b, "123.5");
+        this.buildAndCheck(
+            b,
+            "123.5"
+        );
     }
 
     @Test
@@ -80,16 +95,21 @@ public final class ToStringBuilderAppenderScalarSharedDoubleTest extends ToStrin
         b.value(0f);
         b.value(1);
 
-        this.buildAndCheck(b, 0f + SEPARATOR + "00000001");
+        this.buildAndCheck(
+            b,
+            0f + SEPARATOR + "00000001"
+        );
     }
 
     @Override
-    void append(final ToStringBuilder builder, final Double value) {
+    void append(final ToStringBuilder builder,
+                final Double value) {
         builder.append((double) value);
     }
 
     @Override
-    void value(final ToStringBuilder builder, final Double value) {
+    void value(final ToStringBuilder builder,
+               final Double value) {
         builder.value((double) value);
     }
 
