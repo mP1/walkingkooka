@@ -28,7 +28,10 @@ public final class ToStringBuilderAppenderScalarSharedCharSequenceTest extends T
         final ToStringBuilder b = ToStringBuilder.empty();
         b.value("");
 
-        this.buildAndCheck(b, "");
+        this.buildAndCheck(
+            b,
+            ""
+        );
     }
 
     @Test
@@ -37,7 +40,10 @@ public final class ToStringBuilderAppenderScalarSharedCharSequenceTest extends T
         b.label(LABEL1);
         b.value("");
 
-        this.buildAndCheck(b, "");
+        this.buildAndCheck(
+            b,
+            ""
+        );
     }
 
     @Test
@@ -48,7 +54,10 @@ public final class ToStringBuilderAppenderScalarSharedCharSequenceTest extends T
         b.label(LABEL1);
         b.value("abc\n");
 
-        this.buildAndCheck(b, LABEL1 + "=\"abc\n\"");
+        this.buildAndCheck(
+            b,
+            LABEL1 + "=\"abc\n\""
+        );
     }
 
     @Test
@@ -59,7 +68,10 @@ public final class ToStringBuilderAppenderScalarSharedCharSequenceTest extends T
         b.label(LABEL1);
         b.value(Indentation.SPACES2);
 
-        this.buildAndCheck(b, LABEL1 + "=\"  \"");
+        this.buildAndCheck(
+            b,
+            LABEL1 + "=\"  \""
+        );
     }
 
     @Test
@@ -70,7 +82,10 @@ public final class ToStringBuilderAppenderScalarSharedCharSequenceTest extends T
         b.label(LABEL1);
         b.value(LineEnding.NL);
 
-        this.buildAndCheck(b, LABEL1 + "=\"\n\"");
+        this.buildAndCheck(
+            b,
+            LABEL1 + "=\"\n\""
+        );
     }
 
     @Test
@@ -82,7 +97,10 @@ public final class ToStringBuilderAppenderScalarSharedCharSequenceTest extends T
         b.label(LABEL1);
         b.value(LineEnding.NL);
 
-        this.buildAndCheck(b, LABEL1 + "=\"\\n\"");
+        this.buildAndCheck(
+            b,
+            LABEL1 + "=\"\\n\""
+        );
     }
 
     @Test
@@ -94,7 +112,10 @@ public final class ToStringBuilderAppenderScalarSharedCharSequenceTest extends T
         b.label(LABEL1);
         b.value("abc\n");
 
-        this.buildAndCheck(b, LABEL1 + "=abc\\n");
+        this.buildAndCheck(
+            b,
+            LABEL1 + "=abc\\n"
+        );
     }
 
     @Test
@@ -104,18 +125,25 @@ public final class ToStringBuilderAppenderScalarSharedCharSequenceTest extends T
         b.enable(ToStringBuilderOption.ESCAPE);
 
         b.label(LABEL1);
-        b.value(Indentation.with('\t', 2));
+        b.value(
+            Indentation.with('\t', 2)
+        );
 
-        this.buildAndCheck(b, LABEL1 + "=\\t\\t");
+        this.buildAndCheck(
+            b,
+            LABEL1 + "=\\t\\t"
+        );
     }
 
     @Override
-    void append(final ToStringBuilder builder, final CharSequence value) {
+    void append(final ToStringBuilder builder,
+                final CharSequence value) {
         builder.append(value);
     }
 
     @Override
-    void value(final ToStringBuilder builder, final CharSequence value) {
+    void value(final ToStringBuilder builder,
+               final CharSequence value) {
         builder.value(value);
     }
 
