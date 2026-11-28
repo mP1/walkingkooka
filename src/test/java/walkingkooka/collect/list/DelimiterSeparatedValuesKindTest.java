@@ -23,6 +23,8 @@ import walkingkooka.reflect.PublicClassTesting;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class DelimiterSeparatedValuesKindTest implements PublicClassTesting<DelimiterSeparatedValuesKind<?>> {
 
     // character........................................................................................................
@@ -109,6 +111,80 @@ public final class DelimiterSeparatedValuesKindTest implements PublicClassTestin
         this.checkEquals(
             expected,
             values.empty()
+        );
+    }
+
+    // escape...........................................................................................................
+
+    @Test
+    public void testEscapeWithNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> DelimiterSeparatedValuesKind.COMMA.escape(null)
+        );
+    }
+
+    @Test
+    public void testEscapeWithEmptyString() {
+        this.escapeAndCheck(
+            DelimiterSeparatedValuesKind.COMMA,
+            "",
+            ""
+        );
+    }
+
+    @Test
+    public void testEscapeWithCharactersNotRequiringEscaping() {
+        this.escapeAndCheck(
+            DelimiterSeparatedValuesKind.COMMA,
+            "abc",
+            "abc"
+        );
+    }
+
+    @Test
+    public void testEscapeWithCommaWithCharactersRequiringQuotes() {
+        this.escapeAndCheck(
+            DelimiterSeparatedValuesKind.COMMA,
+            "ab,c\t",
+            "\"ab,c\t\""
+        );
+    }
+
+    @Test
+    public void testEscapeWithTabWithCharactersNotRequiringQuotes() {
+        this.escapeAndCheck(
+            DelimiterSeparatedValuesKind.TAB,
+            "ab,c",
+            "ab,c"
+        );
+    }
+
+    @Test
+    public void testEscapeWithTabWithCharactersRequiringQuotes() {
+        this.escapeAndCheck(
+            DelimiterSeparatedValuesKind.TAB,
+            "ab,c\t",
+            "\"ab,c\t\""
+        );
+    }
+
+    @Test
+    public void testEscapeWithCharactersRequiringEscaping() {
+        this.escapeAndCheck(
+            DelimiterSeparatedValuesKind.COMMA,
+            "ab\"c",
+            "\"ab\"\"c\""
+        );
+    }
+
+    private void escapeAndCheck(final DelimiterSeparatedValuesKind<?> kind,
+                                final String string,
+                                final String expected) {
+        this.checkEquals(
+            expected,
+            kind.escape(string),
+            () -> string
         );
     }
 
