@@ -25,9 +25,16 @@ public final class ToStringBuilderAppenderVectorArrayShared2LongTest extends ToS
     public void testValueIncludesDefault() {
         final ToStringBuilder b = this.builder();
         b.label(LABEL1);
-        b.value(new long[]{0, 1, 2});
+        b.value(
+            new long[]{
+                0,
+                1,
+                2
+            }
+        );
 
-        this.buildAndCheck(b, LABEL1 + LABEL_SEPARATOR + 0 + VALUE_SEPARATOR + 1 + VALUE_SEPARATOR + 2);
+        this.buildAndCheck(
+            b, LABEL1 + LABEL_SEPARATOR + 0 + VALUE_SEPARATOR + 1 + VALUE_SEPARATOR + 2);
     }
 
     @Test
@@ -35,10 +42,18 @@ public final class ToStringBuilderAppenderVectorArrayShared2LongTest extends ToS
         final ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.HEX_WHOLE_NUMBERS);
 
-        b.value(new long[]{0, 1, 2});
+        b.value(
+            new long[]{
+                0,
+                1,
+                2
+            }
+        );
 
-        this.buildAndCheck(b,
-            "0000000000000000" + VALUE_SEPARATOR + "0000000000000001" + VALUE_SEPARATOR + "0000000000000002");
+        this.buildAndCheck(
+            b,
+            "0000000000000000" + VALUE_SEPARATOR + "0000000000000001" + VALUE_SEPARATOR + "0000000000000002"
+        );
     }
 
     @Override
@@ -46,7 +61,8 @@ public final class ToStringBuilderAppenderVectorArrayShared2LongTest extends ToS
         return new long[0];
     }
 
-    @Override String defaultValueToString(final long[] value) {
+    @Override //
+    String defaultValueToString(final long[] value) {
         return "";
     }
 
@@ -57,16 +73,22 @@ public final class ToStringBuilderAppenderVectorArrayShared2LongTest extends ToS
 
     @Override
     long[] value2() {
-        return new long[]{1, 2, 33};
+        return new long[]{
+            1,
+            2,
+            33
+        };
     }
 
     @Override
-    void append(final ToStringBuilder builder, final long[] value) {
+    void append(final ToStringBuilder builder,
+                final long[] value) {
         builder.append(value);
     }
 
     @Override
-    void value(final ToStringBuilder builder, final long[] value) {
+    void value(final ToStringBuilder builder,
+               final long[] value) {
         builder.value(value);
     }
 

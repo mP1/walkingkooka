@@ -54,7 +54,9 @@ public final class ToStringBuilderAppenderVectorOptionalTest extends ToStringBui
         final ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE);
         b.label("Label123")
-            .value(Optional.of(123));
+            .value(
+                Optional.of(123)
+            );
 
         this.buildAndCheck(
             b,

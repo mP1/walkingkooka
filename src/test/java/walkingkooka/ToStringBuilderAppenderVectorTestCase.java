@@ -30,9 +30,15 @@ public abstract class ToStringBuilderAppenderVectorTestCase<A extends ToStringBu
         final ToStringBuilder b = this.builder();
 
         b.label(LABEL1);
-        this.value(b, null);
+        this.value(
+            b,
+            null
+        );
 
-        this.buildAndCheck(b, "");
+        this.buildAndCheck(
+            b,
+            ""
+        );
     }
 
     @Test
@@ -42,7 +48,10 @@ public abstract class ToStringBuilderAppenderVectorTestCase<A extends ToStringBu
         b.label(LABEL1);
         b.value((Object) null);
 
-        this.buildAndCheck(b, "");
+        this.buildAndCheck(
+            b,
+            ""
+        );
     }
 
     @Test
@@ -62,7 +71,10 @@ public abstract class ToStringBuilderAppenderVectorTestCase<A extends ToStringBu
         this.value(b, this.value1());
         this.value(b, this.value2());
 
-        this.buildAndCheck(b, this.value1ToString() + SEPARATOR + this.value2ToString(valueSeparator));
+        this.buildAndCheck(
+            b,
+            this.value1ToString() + SEPARATOR + this.value2ToString(valueSeparator)
+        );
     }
 
     @Test
@@ -80,9 +92,15 @@ public abstract class ToStringBuilderAppenderVectorTestCase<A extends ToStringBu
 
         b.label(LABEL1);
         b.valueSeparator(valueSeparator);
-        this.value(b, this.value2());
+        this.value(
+            b,
+            this.value2()
+        );
 
-        this.buildAndCheck(b, LABEL1 + LABEL_SEPARATOR + this.value2ToString(valueSeparator));
+        this.buildAndCheck(
+            b,
+            LABEL1 + LABEL_SEPARATOR + this.value2ToString(valueSeparator)
+        );
     }
 
     @Test
@@ -103,10 +121,19 @@ public abstract class ToStringBuilderAppenderVectorTestCase<A extends ToStringBu
         b.separator(separator);
         b.valueSeparator(separator);
 
-        this.value(b, value1);
-        this.value(b, value2);
+        this.value(
+            b,
+            value1
+        );
+        this.value(
+            b,
+            value2
+        );
 
-        this.buildAndCheck(b, this.value1ToString() + separator + this.value2ToString(separator));
+        this.buildAndCheck(
+            b,
+            this.value1ToString() + separator + this.value2ToString(separator)
+        );
     }
 
     @Test
@@ -117,34 +144,66 @@ public abstract class ToStringBuilderAppenderVectorTestCase<A extends ToStringBu
         b.label(LABEL2);
         b.value(this.value2());
 
-        this.buildAndCheck(b, this.value1ToString() + SEPARATOR + LABEL2 + LABEL_SEPARATOR + this.value2ToString(VALUE_SEPARATOR));
+        this.buildAndCheck(
+            b,
+            this.value1ToString() + SEPARATOR + LABEL2 + LABEL_SEPARATOR + this.value2ToString(VALUE_SEPARATOR)
+        );
     }
 
     @Test
     public final void testSurroundValueDefault() {
-        this.surroundValueAndCheck("(", ")", this.defaultValue(), "");
+        this.surroundValueAndCheck(
+            "(",
+            ")",
+            this.defaultValue(),
+            ""
+        );
     }
 
     @Test
     public final void testSurroundValueDefault2() {
-        this.surroundValueAndCheck("(", ")", this.defaultValue2(), "");
+        this.surroundValueAndCheck(
+            "(",
+            ")",
+            this.defaultValue2(),
+            ""
+        );
     }
 
     @Test
     public final void testSurroundValue() {
-        this.surroundValueAndCheck("(", ")", this.value1(), "(" + this.value1ToString() + ")");
+        this.surroundValueAndCheck(
+            "(",
+            ")",
+            this.value1(),
+            "(" + this.value1ToString() + ")"
+        );
     }
 
     @Test
     public final void testSurroundValue2() {
-        this.surroundValueAndCheck("(((", ")))", this.value1(), "(((" + this.value1ToString() + ")))");
+        this.surroundValueAndCheck(
+            "(((",
+            ")))",
+            this.value1(),
+            "(((" + this.value1ToString() + ")))"
+        );
     }
 
-    private void surroundValueAndCheck(final String before, final String after, final V value, final String expected) {
+    private void surroundValueAndCheck(final String before,
+                                       final String after,
+                                       final V value,
+                                       final String expected) {
         final ToStringBuilder b = this.builder();
         b.surroundValues(before, after);
-        this.value(b, value);
-        this.buildAndCheck(b, expected);
+        this.value(
+            b,
+            value
+        );
+        this.buildAndCheck(
+            b,
+            expected
+        );
     }
 
     @Test
@@ -152,8 +211,14 @@ public abstract class ToStringBuilderAppenderVectorTestCase<A extends ToStringBu
         final ToStringBuilder b = this.builder();
         b.disable(ToStringBuilderOption.INLINE_ELEMENTS);
 
-        this.value(b, this.value2());
-        this.buildAndCheck(b, "");
+        this.value(
+            b,
+            this.value2()
+        );
+        this.buildAndCheck(
+            b,
+            ""
+        );
     }
 
     @Test
@@ -162,12 +227,19 @@ public abstract class ToStringBuilderAppenderVectorTestCase<A extends ToStringBu
         b.disable(ToStringBuilderOption.INLINE_ELEMENTS);
 
         b.label(LABEL1);
-        this.value(b, this.value2());
-        this.buildAndCheck(b, "");
+        this.value(
+            b,
+            this.value2()
+        );
+        this.buildAndCheck(
+            b,
+            ""
+        );
     }
 
     final ToStringBuilder builder() {
-        return ToStringBuilder.empty().disable(ToStringBuilderOption.ESCAPE)
+        return ToStringBuilder.empty()
+            .disable(ToStringBuilderOption.ESCAPE)
             .disable(ToStringBuilderOption.HEX_BYTES)
             .disable(ToStringBuilderOption.HEX_WHOLE_NUMBERS)
             .enable(ToStringBuilderOption.INLINE_ELEMENTS)

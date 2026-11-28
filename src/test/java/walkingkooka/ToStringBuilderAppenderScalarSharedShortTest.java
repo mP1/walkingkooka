@@ -28,16 +28,21 @@ public final class ToStringBuilderAppenderScalarSharedShortTest extends ToString
 
         b.value((short) 1);
 
-        this.buildAndCheck(b, "0001");
+        this.buildAndCheck(
+            b,
+            "0001"
+        );
     }
 
     @Override
-    void append(final ToStringBuilder builder, final Short value) {
+    void append(final ToStringBuilder builder,
+                final Short value) {
         builder.append((short) value);
     }
 
     @Override
-    void value(final ToStringBuilder builder, final Short value) {
+    void value(final ToStringBuilder builder,
+               final Short value) {
         builder.value((short) value);
     }
 

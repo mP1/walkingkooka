@@ -28,7 +28,10 @@ public final class ToStringBuilderAppenderScalarSharedLongTest extends ToStringB
 
         b.value(1L);
 
-        this.buildAndCheck(b, "0000000000000001");
+        this.buildAndCheck(
+            b,
+            "0000000000000001"
+        );
     }
 
     @Test
@@ -36,9 +39,14 @@ public final class ToStringBuilderAppenderScalarSharedLongTest extends ToStringB
         final ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.HEX_WHOLE_NUMBERS);
 
-        b.value(Long.valueOf(1L));
+        b.value(
+            Long.valueOf(1L)
+        );
 
-        this.buildAndCheck(b, "0000000000000001");
+        this.buildAndCheck(
+            b,
+            "0000000000000001"
+        );
     }
 
     @Test
@@ -48,7 +56,9 @@ public final class ToStringBuilderAppenderScalarSharedLongTest extends ToStringB
 
         b.value(0x1ABCDEFL);
 
-        this.buildAndCheck(b, "0000000001abcdef");
+        this.buildAndCheck(
+            b, "0000000001abcdef"
+        );
     }
 
     @Test
@@ -56,18 +66,25 @@ public final class ToStringBuilderAppenderScalarSharedLongTest extends ToStringB
         final ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.HEX_WHOLE_NUMBERS);
 
-        b.value(Long.valueOf(0x1ABCDEF));
+        b.value(
+            Long.valueOf(0x1ABCDEF)
+        );
 
-        this.buildAndCheck(b, "0000000001abcdef");
+        this.buildAndCheck(
+            b,
+            "0000000001abcdef"
+        );
     }
 
     @Override
-    void append(final ToStringBuilder builder, final Long value) {
+    void append(final ToStringBuilder builder,
+                final Long value) {
         builder.append((long) value);
     }
 
     @Override
-    void value(final ToStringBuilder builder, final Long value) {
+    void value(final ToStringBuilder builder,
+               final Long value) {
         builder.value((long) value);
     }
 
