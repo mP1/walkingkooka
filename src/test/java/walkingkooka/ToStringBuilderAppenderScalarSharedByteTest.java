@@ -29,7 +29,10 @@ public final class ToStringBuilderAppenderScalarSharedByteTest extends ToStringB
         b.label(LABEL1);
         b.value((byte) 34);
 
-        this.buildAndCheck(b, "0c " + LABEL1 + "=22");
+        this.buildAndCheck(
+            b,
+            "0c " + LABEL1 + "=22"
+        );
     }
 
     @Test
@@ -40,7 +43,10 @@ public final class ToStringBuilderAppenderScalarSharedByteTest extends ToStringB
         b.label(LABEL1);
         b.value((byte) 34);
 
-        this.buildAndCheck(b, "0c " + LABEL1 + "=22");
+        this.buildAndCheck(
+            b,
+            "0c " + LABEL1 + "=22"
+        );
     }
 
     @Test
@@ -51,16 +57,21 @@ public final class ToStringBuilderAppenderScalarSharedByteTest extends ToStringB
         b.label(LABEL1);
         b.value(Byte.valueOf((byte) 34));
 
-        this.buildAndCheck(b, "0c " + LABEL1 + "=22");
+        this.buildAndCheck(
+            b,
+            "0c " + LABEL1 + "=22"
+        );
     }
 
     @Override
-    void append(final ToStringBuilder builder, final Byte value) {
+    void append(final ToStringBuilder builder,
+                final Byte value) {
         builder.append((byte) value);
     }
 
     @Override
-    void value(final ToStringBuilder builder, final Byte value) {
+    void value(final ToStringBuilder builder,
+               final Byte value) {
         builder.value((byte) value);
     }
 
