@@ -42,9 +42,15 @@ public abstract class ToStringBuilderAppenderTestCase2<A extends ToStringBuilder
         final String valueString = this.defaultAppendToString(value);
 
         final ToStringBuilder b = this.builder();
-        this.append(b, value);
+        this.append(
+            b,
+            value
+        );
 
-        this.buildAndCheck(b, valueString);
+        this.buildAndCheck(
+            b,
+            valueString
+        );
     }
 
     @Test
@@ -53,9 +59,15 @@ public abstract class ToStringBuilderAppenderTestCase2<A extends ToStringBuilder
         final String valueString = value.toString();
 
         final ToStringBuilder b = this.builder();
-        this.append(b, value);
+        this.append(
+            b,
+            value
+        );
 
-        this.buildAndCheck(b, valueString);
+        this.buildAndCheck(
+            b,
+            valueString
+        );
     }
 
     @Test
@@ -63,18 +75,30 @@ public abstract class ToStringBuilderAppenderTestCase2<A extends ToStringBuilder
         final ToStringBuilder b = this.builder();
 
         final V value = this.defaultValue();
-        this.value(b, value);
+        this.value(
+            b,
+            value
+        );
 
-        this.buildAndCheck(b, "");
+        this.buildAndCheck(
+            b,
+            ""
+        );
     }
 
     @Test
     public final void testValue() {
         final ToStringBuilder b = this.builder();
 
-        this.value(b, this.value1());
+        this.value(
+            b,
+            this.value1()
+        );
 
-        this.buildAndCheck(b, this.value1ToString());
+        this.buildAndCheck(
+            b,
+            this.value1ToString()
+        );
     }
 
     @Test
@@ -83,9 +107,15 @@ public abstract class ToStringBuilderAppenderTestCase2<A extends ToStringBuilder
         b.disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE);
 
         final V value = this.defaultValue();
-        this.value(b, value);
+        this.value(
+            b,
+            value
+        );
 
-        this.buildAndCheck(b, this.defaultValueToString(value));
+        this.buildAndCheck(
+            b,
+            this.defaultValueToString(value)
+        );
     }
 
     @Test
@@ -95,7 +125,12 @@ public abstract class ToStringBuilderAppenderTestCase2<A extends ToStringBuilder
         this.value(b, this.value1());
         this.value(b, this.value2());
 
-        this.buildAndCheck(b, this.value1ToString() + SEPARATOR + this.value2ToString());
+        this.buildAndCheck(
+            b,
+            this.value1ToString() +
+                SEPARATOR +
+                this.value2ToString()
+        );
     }
 
     @Test
@@ -105,9 +140,15 @@ public abstract class ToStringBuilderAppenderTestCase2<A extends ToStringBuilder
 
         final ToStringBuilder b = this.builder();
         b.label(LABEL1);
-        this.append(b, value1);
+        this.append(
+            b,
+            value1
+        );
 
-        this.buildAndCheck(b, value1ToString);
+        this.buildAndCheck(
+            b,
+            value1ToString
+        );
     }
 
     @Test
@@ -115,9 +156,15 @@ public abstract class ToStringBuilderAppenderTestCase2<A extends ToStringBuilder
         final ToStringBuilder b = this.builder();
 
         b.label(LABEL1);
-        this.value(b, this.value1());
+        this.value(
+            b,
+            this.value1()
+        );
 
-        this.buildAndCheck(b, LABEL1 + LABEL_SEPARATOR + this.value1ToString());
+        this.buildAndCheck(
+            b,
+            LABEL1 + LABEL_SEPARATOR + this.value1ToString()
+        );
     }
 
     @Test
@@ -126,10 +173,19 @@ public abstract class ToStringBuilderAppenderTestCase2<A extends ToStringBuilder
         final V value1 = this.value1();
 
         b.label(LABEL1);
-        this.append(b, value1);
-        this.value(b, this.value2());
+        this.append(
+            b,
+            value1
+        );
+        this.value(
+            b,
+            this.value2()
+        );
 
-        this.buildAndCheck(b, value1 + this.value2ToString());
+        this.buildAndCheck(
+            b,
+            value1 + this.value2ToString()
+        );
     }
 
     @Test
@@ -137,10 +193,19 @@ public abstract class ToStringBuilderAppenderTestCase2<A extends ToStringBuilder
         final ToStringBuilder b = this.builder();
 
         b.label(LABEL1);
-        this.value(b, this.value1());
-        this.value(b, this.value2());
+        this.value(
+            b,
+            this.value1()
+        );
+        this.value(
+            b,
+            this.value2()
+        );
 
-        this.buildAndCheck(b, LABEL1 + LABEL_SEPARATOR + this.value1ToString() + SEPARATOR + this.value2ToString());
+        this.buildAndCheck(
+            b,
+            LABEL1 + LABEL_SEPARATOR + this.value1ToString() + SEPARATOR + this.value2ToString()
+        );
     }
 
     abstract ToStringBuilder builder();
@@ -151,9 +216,11 @@ public abstract class ToStringBuilderAppenderTestCase2<A extends ToStringBuilder
 
     abstract V value2();
 
-    abstract void append(final ToStringBuilder builder, final V value);
+    abstract void append(final ToStringBuilder builder,
+                         final V value);
 
-    abstract void value(final ToStringBuilder builder, final V value);
+    abstract void value(final ToStringBuilder builder,
+                        final V value);
 
     abstract String defaultAppendToString(final V value);
 
@@ -164,15 +231,21 @@ public abstract class ToStringBuilderAppenderTestCase2<A extends ToStringBuilder
     abstract String value2ToString();
 
     final void buildAndCheck(final ToStringBuilder builder) {
-        this.buildAndCheck(builder, "");
+        this.buildAndCheck(
+            builder,
+            ""
+        );
     }
 
-    final void buildAndCheck(final ToStringBuilder builder, final String expected) {
+    final void buildAndCheck(final ToStringBuilder builder,
+                             final String expected) {
         final String built = builder.build();
         if (false == expected.equals(built)) {
-            this.checkEquals(format(expected),
+            this.checkEquals(
+                format(expected),
                 format(built),
-                () -> "options=" + builder.options.toString());
+                () -> "options=" + builder.options.toString()
+            );
         }
     }
 
