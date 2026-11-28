@@ -37,10 +37,10 @@ public final class DelimiterSeparatedValues<T extends CsvTsvStringList<T>> {
     );
 
     private DelimiterSeparatedValues(final char character,
-                                     final Function<List<String>, T> factory) {
+                                     final Function<List<String>, T> setElements) {
         super();
         this.character = character;
-        this.factory = factory;
+        this.setElements = setElements;
     }
 
     public char character() {
@@ -50,11 +50,11 @@ public final class DelimiterSeparatedValues<T extends CsvTsvStringList<T>> {
     private final char character;
 
     /**
-     * Factory that returns an instance with the given {@link String} values.
+     * SetElements that returns an instance with the given {@link String} values.
      */
     public T setElements(final List<String> strings) {
-        return this.factory.apply(strings);
+        return this.setElements.apply(strings);
     }
 
-    private final Function<List<String>, T> factory;
+    private final Function<List<String>, T> setElements;
 }
