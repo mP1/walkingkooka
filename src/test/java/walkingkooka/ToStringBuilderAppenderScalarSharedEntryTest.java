@@ -33,16 +33,21 @@ public final class ToStringBuilderAppenderScalarSharedEntryTest extends ToString
         final String value = "value123";
         b.value(Map.entry("key1", value));
 
-        this.buildAndCheck(b, "key1" + LABEL_SEPARATOR + '"' + value + '"');
+        this.buildAndCheck(
+            b,
+            "key1" + LABEL_SEPARATOR + '"' + value + '"'
+        );
     }
 
     @Override
-    void append(final ToStringBuilder builder, final Entry<?, ?> value) {
+    void append(final ToStringBuilder builder,
+                final Entry<?, ?> value) {
         builder.append(value);
     }
 
     @Override
-    void value(final ToStringBuilder builder, final Entry<?, ?> value) {
+    void value(final ToStringBuilder builder,
+               final Entry<?, ?> value) {
         builder.value(value);
     }
 

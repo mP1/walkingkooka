@@ -27,9 +27,20 @@ public class ToStringBuilderAppenderVectorArraySharedBooleanTest extends ToStrin
         b.enable(ToStringBuilderOption.ONE_AND_ZERO_BOOLEAN_ARRAYS);
 
         b.label(LABEL1);
-        b.value(new boolean[]{true, true, false, false, true});
+        b.value(
+            new boolean[]{
+                true,
+                true,
+                false,
+                false,
+                true
+            }
+        );
 
-        this.buildAndCheck(b, LABEL1 + LABEL_SEPARATOR + "11001");
+        this.buildAndCheck(
+            b,
+            LABEL1 + LABEL_SEPARATOR + "11001"
+        );
     }
 
     @Test
@@ -37,9 +48,20 @@ public class ToStringBuilderAppenderVectorArraySharedBooleanTest extends ToStrin
         final ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.ONE_AND_ZERO_BOOLEAN_ARRAYS);
 
-        b.value(new boolean[]{true, true, false, false, true});
+        b.value(
+            new boolean[]{
+                true,
+                true,
+                false,
+                false,
+                true
+            }
+        );
 
-        this.buildAndCheck(b, "11001");
+        this.buildAndCheck(
+            b,
+            "11001"
+        );
     }
 
     @Test
@@ -47,11 +69,30 @@ public class ToStringBuilderAppenderVectorArraySharedBooleanTest extends ToStrin
         final ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.ONE_AND_ZERO_BOOLEAN_ARRAYS);
 
-        b.value(new boolean[]{true, true, false, false, true});
+        b.value(
+            new boolean[]{
+                true,
+                true,
+                false,
+                false,
+                true
+            }
+        );
         b.label(LABEL1);
-        b.value(new boolean[]{false, true, true, false, false});
+        b.value(
+            new boolean[]{
+                false,
+                true,
+                true,
+                false,
+                false
+            }
+        );
 
-        this.buildAndCheck(b, "11001" + SEPARATOR + LABEL1 + LABEL_SEPARATOR + "01100");
+        this.buildAndCheck(
+            b,
+            "11001" + SEPARATOR + LABEL1 + LABEL_SEPARATOR + "01100"
+        );
     }
 
     @Test
@@ -59,9 +100,17 @@ public class ToStringBuilderAppenderVectorArraySharedBooleanTest extends ToStrin
         final ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.ONE_AND_ZERO_BOOLEAN_ARRAYS);
 
-        b.value(new Boolean[]{true, true});
+        b.value(
+            new Boolean[]{
+                true,
+                true
+            }
+        );
 
-        this.buildAndCheck(b, true + VALUE_SEPARATOR + true);
+        this.buildAndCheck(
+            b,
+            true + VALUE_SEPARATOR + true
+        );
     }
 
     @Override
@@ -80,16 +129,23 @@ public class ToStringBuilderAppenderVectorArraySharedBooleanTest extends ToStrin
 
     @Override
     boolean[] value2() {
-        return new boolean[]{true, false, false, true};
+        return new boolean[]{
+            true,
+            false,
+            false,
+            true
+        };
     }
 
     @Override
-    void append(final ToStringBuilder builder, final boolean[] value) {
+    void append(final ToStringBuilder builder,
+                final boolean[] value) {
         builder.append(value);
     }
 
     @Override
-    void value(final ToStringBuilder builder, final boolean[] value) {
+    void value(final ToStringBuilder builder,
+               final boolean[] value) {
         builder.value(value);
     }
 

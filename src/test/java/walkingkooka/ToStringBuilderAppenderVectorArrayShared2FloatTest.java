@@ -36,7 +36,8 @@ public final class ToStringBuilderAppenderVectorArrayShared2FloatTest extends To
         return new float[0];
     }
 
-    @Override String defaultValueToString(final float[] value) {
+    @Override //
+    String defaultValueToString(final float[] value) {
         return "";
     }
 
@@ -47,16 +48,22 @@ public final class ToStringBuilderAppenderVectorArrayShared2FloatTest extends To
 
     @Override
     float[] value2() {
-        return new float[]{1, 2, 33.5f};
+        return new float[]{
+            1,
+            2,
+            33.5f
+        };
     }
 
     @Override
-    void append(final ToStringBuilder builder, final float[] value) {
+    void append(final ToStringBuilder builder,
+                final float[] value) {
         builder.append(value);
     }
 
     @Override
-    void value(final ToStringBuilder builder, final float[] value) {
+    void value(final ToStringBuilder builder,
+               final float[] value) {
         builder.value(value);
     }
 

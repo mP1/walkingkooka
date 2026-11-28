@@ -27,8 +27,10 @@ public class ToStringBuilderAppenderVectorArrayShared2IntTest extends ToStringBu
         b.label(LABEL1);
         b.value(new int[]{0, 1, 2});
 
-        this.buildAndCheck(b,
-            LABEL1 + LABEL_SEPARATOR + 0 + VALUE_SEPARATOR + 1 + VALUE_SEPARATOR + 2);
+        this.buildAndCheck(
+            b,
+            LABEL1 + LABEL_SEPARATOR + 0 + VALUE_SEPARATOR + 1 + VALUE_SEPARATOR + 2
+        );
     }
 
     @Test
@@ -36,9 +38,18 @@ public class ToStringBuilderAppenderVectorArrayShared2IntTest extends ToStringBu
         final ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.HEX_WHOLE_NUMBERS);
 
-        b.value(new int[]{0, 1, 2});
+        b.value(
+            new int[]{
+                0,
+                1,
+                2
+            }
+        );
 
-        this.buildAndCheck(b, "00000000" + VALUE_SEPARATOR + "00000001" + VALUE_SEPARATOR + "00000002");
+        this.buildAndCheck(
+            b,
+            "00000000" + VALUE_SEPARATOR + "00000001" + VALUE_SEPARATOR + "00000002"
+        );
     }
 
     @Override
@@ -46,7 +57,8 @@ public class ToStringBuilderAppenderVectorArrayShared2IntTest extends ToStringBu
         return new int[0];
     }
 
-    @Override final String defaultValueToString(final int[] value) {
+    @Override //
+    final String defaultValueToString(final int[] value) {
         return "";
     }
 
@@ -61,12 +73,14 @@ public class ToStringBuilderAppenderVectorArrayShared2IntTest extends ToStringBu
     }
 
     @Override
-    void append(final ToStringBuilder builder, final int[] value) {
+    void append(final ToStringBuilder builder,
+                final int[] value) {
         builder.append(value);
     }
 
     @Override
-    void value(final ToStringBuilder builder, final int[] value) {
+    void value(final ToStringBuilder builder,
+               final int[] value) {
         builder.value(value);
     }
 

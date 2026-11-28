@@ -28,16 +28,21 @@ public final class ToStringBuilderAppenderScalarSharedIntTest extends ToStringBu
 
         b.value(1);
 
-        this.buildAndCheck(b, "00000001");
+        this.buildAndCheck(
+            b,
+            "00000001"
+        );
     }
 
     @Override
-    void append(final ToStringBuilder builder, final Integer value) {
+    void append(final ToStringBuilder builder,
+                final Integer value) {
         builder.append((int) value);
     }
 
     @Override
-    void value(final ToStringBuilder builder, final Integer value) {
+    void value(final ToStringBuilder builder,
+               final Integer value) {
         builder.value((int) value);
     }
 

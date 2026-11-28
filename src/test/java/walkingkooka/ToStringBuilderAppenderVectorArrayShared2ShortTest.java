@@ -25,9 +25,18 @@ public final class ToStringBuilderAppenderVectorArrayShared2ShortTest extends To
     public void testValueIncludesDefault() {
         final ToStringBuilder b = this.builder();
         b.label(LABEL1);
-        b.value(new short[]{0, 1, 2});
+        b.value(
+            new short[]{
+                0,
+                1,
+                2
+            }
+        );
 
-        this.buildAndCheck(b, LABEL1 + LABEL_SEPARATOR + 0 + VALUE_SEPARATOR + 1 + VALUE_SEPARATOR + 2);
+        this.buildAndCheck(
+            b,
+            LABEL1 + LABEL_SEPARATOR + 0 + VALUE_SEPARATOR + 1 + VALUE_SEPARATOR + 2
+        );
     }
 
     @Test
@@ -35,9 +44,18 @@ public final class ToStringBuilderAppenderVectorArrayShared2ShortTest extends To
         final ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.HEX_WHOLE_NUMBERS);
 
-        b.value(new short[]{0, 1, 2});
+        b.value(
+            new short[]{
+                0,
+                1,
+                2
+            }
+        );
 
-        this.buildAndCheck(b, "0000" + VALUE_SEPARATOR + "0001" + VALUE_SEPARATOR + "0002");
+        this.buildAndCheck(
+            b,
+            "0000" + VALUE_SEPARATOR + "0001" + VALUE_SEPARATOR + "0002"
+        );
     }
 
     @Override
@@ -45,7 +63,8 @@ public final class ToStringBuilderAppenderVectorArrayShared2ShortTest extends To
         return new short[0];
     }
 
-    @Override String defaultValueToString(final short[] value) {
+    @Override //
+    String defaultValueToString(final short[] value) {
         return "";
     }
 
@@ -56,16 +75,22 @@ public final class ToStringBuilderAppenderVectorArrayShared2ShortTest extends To
 
     @Override
     short[] value2() {
-        return new short[]{1, 2, 33};
+        return new short[]{
+            1,
+            2,
+            33
+        };
     }
 
     @Override
-    void append(final ToStringBuilder builder, final short[] value) {
+    void append(final ToStringBuilder builder,
+                final short[] value) {
         builder.append(value);
     }
 
     @Override
-    void value(final ToStringBuilder builder, final short[] value) {
+    void value(final ToStringBuilder builder,
+               final short[] value) {
         builder.value(value);
     }
 

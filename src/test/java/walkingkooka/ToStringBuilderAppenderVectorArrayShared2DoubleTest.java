@@ -27,8 +27,10 @@ public final class ToStringBuilderAppenderVectorArrayShared2DoubleTest extends T
         b.label(LABEL1);
         b.value(new double[]{0.0, 1.0, 2.0});
 
-        this.buildAndCheck(b,
-            LABEL1 + LABEL_SEPARATOR + 0.0 + VALUE_SEPARATOR + 1.0 + VALUE_SEPARATOR + 2.0);
+        this.buildAndCheck(
+            b,
+            LABEL1 + LABEL_SEPARATOR + 0.0 + VALUE_SEPARATOR + 1.0 + VALUE_SEPARATOR + 2.0
+        );
     }
 
     @Override
@@ -36,7 +38,8 @@ public final class ToStringBuilderAppenderVectorArrayShared2DoubleTest extends T
         return new double[0];
     }
 
-    @Override String defaultValueToString(final double[] value) {
+    @Override //
+    String defaultValueToString(final double[] value) {
         return "";
     }
 
@@ -47,16 +50,22 @@ public final class ToStringBuilderAppenderVectorArrayShared2DoubleTest extends T
 
     @Override
     double[] value2() {
-        return new double[]{1.0, 2.0, 33.5};
+        return new double[]{
+            1.0,
+            2.0,
+            33.5
+        };
     }
 
     @Override
-    void append(final ToStringBuilder builder, final double[] value) {
+    void append(final ToStringBuilder builder,
+                final double[] value) {
         builder.append(value);
     }
 
     @Override
-    void value(final ToStringBuilder builder, final double[] value) {
+    void value(final ToStringBuilder builder,
+               final double[] value) {
         builder.value(value);
     }
 

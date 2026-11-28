@@ -29,16 +29,24 @@ public final class ToStringBuilderAppenderVectorArraySharedCharTest extends ToSt
         b.label(LABEL2);
         b.value(2);
 
-        this.buildAndCheck(b, LABEL2 + LABEL_SEPARATOR + 2);
+        this.buildAndCheck(
+            b,
+            LABEL2 + LABEL_SEPARATOR + 2
+        );
     }
 
     @Test
     public void testValueIncludesDefault() {
         final ToStringBuilder b = this.builder();
         b.label(LABEL1);
-        b.value("\0ab".toCharArray());
+        b.value(
+            "\0ab".toCharArray()
+        );
 
-        this.buildAndCheck(b, LABEL1 + LABEL_SEPARATOR + "\0ab");
+        this.buildAndCheck(
+            b,
+            LABEL1 + LABEL_SEPARATOR + "\0ab"
+        );
     }
 
     @Test
@@ -58,9 +66,14 @@ public final class ToStringBuilderAppenderVectorArraySharedCharTest extends ToSt
         b.enable(ToStringBuilderOption.INLINE_ELEMENTS);
 
         b.label(LABEL1);
-        b.value("abc".toCharArray());
+        b.value(
+            "abc".toCharArray()
+        );
 
-        this.buildAndCheck(b, LABEL1 + LABEL_SEPARATOR + "abc");
+        this.buildAndCheck(
+            b,
+            LABEL1 + LABEL_SEPARATOR + "abc"
+        );
     }
 
     @Test
@@ -83,7 +96,10 @@ public final class ToStringBuilderAppenderVectorArraySharedCharTest extends ToSt
         b.label(LABEL1);
         b.value("\0\na".toCharArray());
 
-        this.buildAndCheck(b, LABEL1 + LABEL_SEPARATOR + "\"\\0\\na\"");
+        this.buildAndCheck(
+            b,
+            LABEL1 + LABEL_SEPARATOR + "\"\\0\\na\""
+        );
     }
 
     @Override
@@ -91,7 +107,8 @@ public final class ToStringBuilderAppenderVectorArraySharedCharTest extends ToSt
         return new char[0];
     }
 
-    @Override String defaultValueToString(final char[] value) {
+    @Override //
+    String defaultValueToString(final char[] value) {
         return "";
     }
 
@@ -106,12 +123,14 @@ public final class ToStringBuilderAppenderVectorArraySharedCharTest extends ToSt
     }
 
     @Override
-    void append(final ToStringBuilder builder, final char[] value) {
+    void append(final ToStringBuilder builder,
+                final char[] value) {
         builder.append(value);
     }
 
     @Override
-    void value(final ToStringBuilder builder, final char[] value) {
+    void value(final ToStringBuilder builder,
+               final char[] value) {
         builder.value(value);
     }
 
