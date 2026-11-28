@@ -29,7 +29,10 @@ public final class ToStringBuilderAppenderScalarSharedCharTest extends ToStringB
         b.label(LABEL1);
         b.value('z');
 
-        this.buildAndCheck(b, "'a' " + LABEL1 + "='z'");
+        this.buildAndCheck(
+            b,
+            "'a' " + LABEL1 + "='z'"
+        );
     }
 
     @Test
@@ -42,16 +45,21 @@ public final class ToStringBuilderAppenderScalarSharedCharTest extends ToStringB
         b.label(LABEL1);
         b.value('z');
 
-        this.buildAndCheck(b, "'\\n' " + LABEL1 + "='z'");
+        this.buildAndCheck(
+            b,
+            "'\\n' " + LABEL1 + "='z'"
+        );
     }
 
     @Override
-    void append(final ToStringBuilder builder, final Character value) {
+    void append(final ToStringBuilder builder,
+                final Character value) {
         builder.append((char) value);
     }
 
     @Override
-    void value(final ToStringBuilder builder, final Character value) {
+    void value(final ToStringBuilder builder,
+               final Character value) {
         builder.value((char) value);
     }
 
