@@ -40,12 +40,14 @@ public final class ToStringBuilderAppenderScalarSharedBooleanTest extends ToStri
     }
     
     @Override
-    void append(final ToStringBuilder builder, final Boolean value) {
+    void append(final ToStringBuilder builder,
+                final Boolean value) {
         builder.append((boolean) value);
     }
 
     @Override
-    void value(final ToStringBuilder builder, final Boolean value) {
+    void value(final ToStringBuilder builder,
+               final Boolean value) {
         builder.value((boolean) value);
     }
 
