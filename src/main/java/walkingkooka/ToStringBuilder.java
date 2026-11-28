@@ -671,10 +671,9 @@ final public class ToStringBuilder implements Builder<String> {
     }
 
     /**
-     * Adds a label and separators of required and if necessary. Note if the buffer is full true is
-     * returned and the label removed.
+     * Adds a label and separators of required and if necessary.
      */
-    boolean appendLabel(final String label) {
+    void appendLabel(final String label) {
         final StringBuilder buffer = this.buffer;
         final int length = buffer.length();
 
@@ -690,14 +689,10 @@ final public class ToStringBuilder implements Builder<String> {
             this.label = null;
         }
 
-        // if the buffer has become full remove label, separators etc and return true.
-        boolean full = false;
+        // if the buffer has become full remove label
         if (buffer.length() >= this.globalLength) {
             buffer.setLength(length);
-            full = true;
         }
-
-        return full;
     }
 
     void appendUsesToStringBuilder(final UsesToStringBuilder uses) {

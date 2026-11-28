@@ -371,14 +371,13 @@ abstract class ToStringBuilderAppender<V> {
         final int beforeLength = builder.buffer.length();
 
         if (false == this.shouldSkip(builder)) {
-            if (false == builder.appendLabel(builder.label)) {
+            builder.appendLabel(builder.label);
 
-                final String after = this.beforeValue(builder);
-                this.value(builder);
-                this.afterValue(after, builder);
+            final String after = this.beforeValue(builder);
+            this.value(builder);
+            this.afterValue(after, builder);
 
-                builder.trimBufferIfNecessary(beforeLength);
-            }
+            builder.trimBufferIfNecessary(beforeLength);
         }
     }
 
@@ -388,21 +387,21 @@ abstract class ToStringBuilderAppender<V> {
 
         if (false == this.shouldSkip(builder)) {
             final ToStringBuilderMode mode = builder.mode;
-            if (false == builder.appendLabel(builder.label)) {
 
-                final String after = this.beforeValue(builder);
+            builder.appendLabel(builder.label);
 
-                final int lengthBeforeValue = buffer.length();
-                this.value(builder);
+            final String after = this.beforeValue(builder);
 
-                if (buffer.length() == lengthBeforeValue && builder.option(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)) {
-                    buffer.setLength(beforeLength);
-                    builder.mode = mode; // restore mode trying to reverse any changes because value is empty
-                } else {
-                    this.afterValue(after, builder);
+            final int lengthBeforeValue = buffer.length();
+            this.value(builder);
 
-                    builder.trimBufferIfNecessary(beforeLength);
-                }
+            if (buffer.length() == lengthBeforeValue && builder.option(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)) {
+                buffer.setLength(beforeLength);
+                builder.mode = mode; // restore mode trying to reverse any changes because value is empty
+            } else {
+                this.afterValue(after, builder);
+
+                builder.trimBufferIfNecessary(beforeLength);
             }
         }
     }
