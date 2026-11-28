@@ -19,13 +19,16 @@ package walkingkooka.collect.list;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.reflect.PublicClassTesting;
+import walkingkooka.reflect.ThrowableTesting;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class DelimiterSeparatedValuesKindTest implements PublicClassTesting<DelimiterSeparatedValuesKind<?>> {
+public final class DelimiterSeparatedValuesKindTest implements PublicClassTesting<DelimiterSeparatedValuesKind<?>>,
+    ThrowableTesting {
 
     // character........................................................................................................
 
@@ -188,6 +191,108 @@ public final class DelimiterSeparatedValuesKindTest implements PublicClassTestin
         );
     }
 
+    // unescape.........................................................................................................
+
+    @Test
+    public void testUnescapeWithNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> DelimiterSeparatedValuesKind.COMMA.unescape(null)
+        );
+    }
+
+    @Test
+    public void testUnescapeWithOnlyDoubleQuoteFails() {
+        assertThrows(
+            InvalidCharacterException.class,
+            () -> DelimiterSeparatedValuesKind.COMMA.unescape("\"")
+        );
+    }
+
+    @Test
+    public void testUnescapeWithMissingTerminatingDoubleQuoteFails() {
+        this.getMessageAndCheck(
+            assertThrows(
+                InvalidCharacterException.class,
+                () -> DelimiterSeparatedValuesKind.COMMA.unescape("\"missing")
+            ),
+            "Invalid character 'g' at 7"
+        );
+    }
+
+    @Test
+    public void testUnescapeWithEmptyString() {
+        this.unescapeAndCheck(
+            DelimiterSeparatedValuesKind.COMMA,
+            "",
+            ""
+        );
+    }
+
+    @Test
+    public void testUnescapeWithCharactersNotRequiringEscaping() {
+        this.unescapeAndCheck(
+            DelimiterSeparatedValuesKind.COMMA,
+            "abc",
+            "abc"
+        );
+    }
+
+    @Test
+    public void testUnescapeWithCommaWithTab() {
+        this.unescapeAndCheck(
+            DelimiterSeparatedValuesKind.COMMA,
+            "abc\t",
+            "abc\t"
+        );
+    }
+
+    @Test
+    public void testUnescapeWithTabWithComma() {
+        this.unescapeAndCheck(
+            DelimiterSeparatedValuesKind.TAB,
+            "ab,c",
+            "ab,c"
+        );
+    }
+
+    @Test
+    public void testUnescapeWithTabWithCharactersRequiringQuotes() {
+        this.unescapeAndCheck(
+            DelimiterSeparatedValuesKind.TAB,
+            "\"ab,c\t\"",
+            "ab,c\t"
+        );
+    }
+
+    @Test
+    public void testUnescapeWithDoubleQuoted() {
+        this.unescapeAndCheck(
+            DelimiterSeparatedValuesKind.COMMA,
+            "\"Hello\"",
+            "Hello"
+        );
+    }
+
+    @Test
+    public void testUnescapeWithDoubleQuotedAndEscapedQuotes() {
+        this.unescapeAndCheck(
+            DelimiterSeparatedValuesKind.COMMA,
+            "\"Hel\"\"lo\"",
+            "Hel\"lo"
+        );
+    }
+
+    private void unescapeAndCheck(final DelimiterSeparatedValuesKind<?> kind,
+                                  final String string,
+                                  final String expected) {
+        this.checkEquals(
+            expected,
+            kind.unescape(string),
+            () -> string
+        );
+    }
+    
     // class............................................................................................................
 
     @Override
