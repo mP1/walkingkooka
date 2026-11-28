@@ -17,8 +17,28 @@
 
 package walkingkooka;
 
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertSame;
+
 public final class ToStringBuilderAppenderScalarSharedBooleanTest extends ToStringBuilderAppenderScalarTestCase<ToStringBuilderAppenderScalarSharedBoolean, Boolean> {
 
+    @Test
+    public void testWithTrueSingleton() {
+        assertSame(
+            ToStringBuilderAppenderScalarSharedBoolean.with(true),
+            ToStringBuilderAppenderScalarSharedBoolean.with(true)
+        );
+    }
+
+    @Test
+    public void testWithFalseSingleton() {
+        assertSame(
+            ToStringBuilderAppenderScalarSharedBoolean.with(false),
+            ToStringBuilderAppenderScalarSharedBoolean.with(false)
+        );
+    }
+    
     @Override
     void append(final ToStringBuilder builder, final Boolean value) {
         builder.append((boolean) value);
