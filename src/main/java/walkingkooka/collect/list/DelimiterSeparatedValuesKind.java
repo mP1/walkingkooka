@@ -302,4 +302,31 @@ public final class DelimiterSeparatedValuesKind<T extends CsvTsvStringList<T>> {
     }
 
     private final T empty;
+
+    // escape...........................................................................................................
+
+    public String escape(final String text) {
+        String escaped = text;
+
+        final int length = text.length();
+        for (int i = 0; i < length; i++) {
+
+            final char c = text.charAt(i);
+            if(DOUBLE_QUOTE_CHAR == c || CR_CHAR == c || NL_CHAR == c || this.character == c) {
+                escaped = DOUBLE_QUOTE_STRING.concat(
+                    text.replace(
+                        DOUBLE_QUOTE_STRING,
+                        DOUBLE_DOUBLE_QUOTE_STRING
+                    )
+                ).concat(DOUBLE_QUOTE_STRING);
+
+                i = length;
+            }
+        }
+
+        return escaped;
+    }
+
+    private final static String DOUBLE_QUOTE_STRING = "\"";
+    private final static String DOUBLE_DOUBLE_QUOTE_STRING = "\"\"";
 }
