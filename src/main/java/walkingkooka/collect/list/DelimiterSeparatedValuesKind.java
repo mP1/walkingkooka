@@ -30,9 +30,9 @@ import java.util.function.Function;
  * An enumeration with type safe methods to parse, fetch an empty instance and get the actual separator character.
  * Possible new entries include SEMI-COLON and PIPE.
  */
-public final class DelimiterSeparatedValues<T extends CsvTsvStringList<T>> {
+public final class DelimiterSeparatedValuesKind<T extends CsvTsvStringList<T>> {
 
-    public final static DelimiterSeparatedValues<CsvStringList> COMMA = new DelimiterSeparatedValues<CsvStringList>(
+    public final static DelimiterSeparatedValuesKind<CsvStringList> COMMA = new DelimiterSeparatedValuesKind<CsvStringList>(
         ',',
         CsvStringList.EMPTY::setElements,
         (final List<CsvTsvStringListElement> elements) -> elements.isEmpty() ?
@@ -41,7 +41,7 @@ public final class DelimiterSeparatedValues<T extends CsvTsvStringList<T>> {
         CsvStringList.EMPTY
     );
 
-    public final static DelimiterSeparatedValues<TsvStringList> TAB = new DelimiterSeparatedValues<TsvStringList>(
+    public final static DelimiterSeparatedValuesKind<TsvStringList> TAB = new DelimiterSeparatedValuesKind<TsvStringList>(
         '\t',
         TsvStringList.EMPTY::setElements,
         (final List<CsvTsvStringListElement> elements) -> elements.isEmpty() ?
@@ -50,10 +50,10 @@ public final class DelimiterSeparatedValues<T extends CsvTsvStringList<T>> {
         TsvStringList.EMPTY
     );
 
-    private DelimiterSeparatedValues(final char character,
-                                     final Function<List<String>, T> setElements,
-                                     final Function<List<CsvTsvStringListElement>, T> newInstance,
-                                     final T empty) {
+    private DelimiterSeparatedValuesKind(final char character,
+                                         final Function<List<String>, T> setElements,
+                                         final Function<List<CsvTsvStringListElement>, T> newInstance,
+                                         final T empty) {
         super();
         this.character = character;
         this.setElements = setElements;
