@@ -20,8 +20,14 @@ package walkingkooka;
 final class ToStringBuilderAppenderScalarSharedBoolean extends ToStringBuilderAppenderScalarShared<Boolean> {
 
     static ToStringBuilderAppenderScalarSharedBoolean with(final boolean value) {
-        return new ToStringBuilderAppenderScalarSharedBoolean(value);
+        return value ?
+            TRUE :
+            FALSE;
     }
+
+    private final static ToStringBuilderAppenderScalarSharedBoolean TRUE = new ToStringBuilderAppenderScalarSharedBoolean(true);
+
+    private final static ToStringBuilderAppenderScalarSharedBoolean FALSE = new ToStringBuilderAppenderScalarSharedBoolean(false);
 
     private ToStringBuilderAppenderScalarSharedBoolean(final boolean value) {
         super(value);
