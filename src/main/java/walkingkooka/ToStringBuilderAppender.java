@@ -369,22 +369,9 @@ abstract class ToStringBuilderAppender<V> {
 
     final void appendLabelAndValue(final ToStringBuilder builder) {
         if (false == this.shouldSkip(builder)) {
-            final int beforeLength = builder.buffer.length();
-
-            builder.appendLabel(builder.label);
-
-            final String after = this.beforeValue(builder);
-            this.value(builder);
-            this.afterValue(after, builder);
-
-            builder.trimBufferIfNecessary(beforeLength);
-        }
-    }
-
-    final void appendLabelAndValueAndPostEmptyCheck(final ToStringBuilder builder) {
-        if (false == this.shouldSkip(builder)) {
             final StringBuilder buffer = builder.buffer;
-            final int beforeLength = buffer.length();
+
+            final int beforeLabelLength = buffer.length();
 
             final ToStringBuilderMode mode = builder.mode;
 
@@ -395,13 +382,14 @@ abstract class ToStringBuilderAppender<V> {
             final int lengthBeforeValue = buffer.length();
             this.value(builder);
 
+            // if value contributed no new characters and SKIP_IF_DEFAULT_VALUE is enabled remove the label.
             if (buffer.length() == lengthBeforeValue && builder.option(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)) {
-                buffer.setLength(beforeLength);
+                buffer.setLength(beforeLabelLength);
                 builder.mode = mode; // restore mode trying to reverse any changes because value is empty
             } else {
                 this.afterValue(after, builder);
 
-                builder.trimBufferIfNecessary(beforeLength);
+                builder.trimBufferIfNecessary(beforeLabelLength);
             }
         }
     }

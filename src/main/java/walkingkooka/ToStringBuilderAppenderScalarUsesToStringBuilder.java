@@ -29,7 +29,7 @@ final class ToStringBuilderAppenderScalarUsesToStringBuilder extends ToStringBui
 
     @Override
     void append0(final ToStringBuilder builder) {
-        this.appendLabelAndValueAndPostEmptyCheck(builder);
+        this.appendLabelAndValue(builder);
     }
 
     @Override
