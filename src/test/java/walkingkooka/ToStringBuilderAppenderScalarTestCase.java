@@ -32,15 +32,27 @@ public abstract class ToStringBuilderAppenderScalarTestCase<A extends ToStringBu
     @Test
     public final void testFullThenAppend() {
         final ToStringBuilder b = this.builderFull();
-        this.append(b, this.value1());
-        this.buildAndCheck(b, this.full());
+        this.append(
+            b,
+            this.value1()
+        );
+        this.buildAndCheck(
+            b,
+            this.full()
+        );
     }
 
     @Test
     public final void testFullThenValue() {
         final ToStringBuilder b = this.builderFull();
-        this.value(b, this.value1());
-        this.buildAndCheck(b, this.full());
+        this.value(
+            b,
+            this.value1()
+        );
+        this.buildAndCheck(
+            b,
+            this.full()
+        );
     }
 
     private ToStringBuilder builderFull() {
@@ -57,7 +69,8 @@ public abstract class ToStringBuilderAppenderScalarTestCase<A extends ToStringBu
     }
 
     final ToStringBuilder builder() {
-        return ToStringBuilder.empty().disable(ToStringBuilderOption.ESCAPE)
+        return ToStringBuilder.empty()
+            .disable(ToStringBuilderOption.ESCAPE)
             .disable(ToStringBuilderOption.HEX_BYTES)
             .disable(ToStringBuilderOption.HEX_WHOLE_NUMBERS)
             .disable(ToStringBuilderOption.INLINE_ELEMENTS)
