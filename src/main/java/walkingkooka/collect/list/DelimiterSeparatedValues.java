@@ -35,13 +35,17 @@ public final class DelimiterSeparatedValues<T extends CsvTsvStringList<T>> {
     public final static DelimiterSeparatedValues<CsvStringList> COMMA = new DelimiterSeparatedValues<CsvStringList>(
         ',',
         CsvStringList.EMPTY::setElements,
-        CsvStringList::new
+        (final List<CsvTsvStringListElement> elements) -> elements.isEmpty() ?
+            CsvStringList.EMPTY :
+            new CsvStringList(elements)
     );
 
     public final static DelimiterSeparatedValues<TsvStringList> TAB = new DelimiterSeparatedValues<TsvStringList>(
         '\t',
         TsvStringList.EMPTY::setElements,
-        TsvStringList::new
+        (final List<CsvTsvStringListElement> elements) -> elements.isEmpty() ?
+            TsvStringList.EMPTY :
+            new TsvStringList(elements)
     );
 
     private DelimiterSeparatedValues(final char character,
