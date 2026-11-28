@@ -682,7 +682,7 @@ final public class ToStringBuilder implements Builder<String> {
         if (null != label) {
             buffer.append(label);
             // only add $labelSeparator if label isnt empty
-            if (!label.isEmpty()) {
+            if (false == label.isEmpty()) {
                 buffer.append(this.labelSeparator);
                 this.mode = ToStringBuilderMode.LABEL_SEPARATOR;
             }

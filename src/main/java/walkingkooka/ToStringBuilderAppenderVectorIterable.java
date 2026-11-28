@@ -46,7 +46,7 @@ final class ToStringBuilderAppenderVectorIterable extends ToStringBuilderAppende
         boolean first = true;
 
         while (from.hasNext()) {
-            if (!first) {
+            if (false == first) {
                 builder.appendValueSeparator();
             }
 
