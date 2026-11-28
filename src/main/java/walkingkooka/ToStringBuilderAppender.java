@@ -373,9 +373,9 @@ abstract class ToStringBuilderAppender<V> {
         if (false == this.shouldSkip(builder)) {
             if (false == builder.appendLabel(builder.label)) {
 
-                final String after = this.before(builder);
+                final String after = this.beforeValue(builder);
                 this.value(builder);
-                this.after(after, builder);
+                this.afterValue(after, builder);
 
                 builder.trimBufferIfNecessary(beforeLength);
             }
@@ -390,7 +390,7 @@ abstract class ToStringBuilderAppender<V> {
             final ToStringBuilderMode mode = builder.mode;
             if (false == builder.appendLabel(builder.label)) {
 
-                final String after = this.before(builder);
+                final String after = this.beforeValue(builder);
 
                 final int lengthBeforeValue = buffer.length();
                 this.value(builder);
@@ -399,7 +399,7 @@ abstract class ToStringBuilderAppender<V> {
                     buffer.setLength(beforeLength);
                     builder.mode = mode; // restore mode trying to reverse any changes because value is empty
                 } else {
-                    this.after(after, builder);
+                    this.afterValue(after, builder);
 
                     builder.trimBufferIfNecessary(beforeLength);
                 }
@@ -416,15 +416,15 @@ abstract class ToStringBuilderAppender<V> {
     /**
      * Vectors or contains may surround values with a before/after values.
      */
-    abstract String before(final ToStringBuilder builder);
+    abstract String beforeValue(final ToStringBuilder builder);
 
     /**
      * Inserts the value which may involve escaping or other forms of encoding such as HEX if enabled.
      */
     abstract void value(final ToStringBuilder builder);
 
-    abstract void after(final String after,
-                        final ToStringBuilder builder);
+    abstract void afterValue(final String after,
+                             final ToStringBuilder builder);
 
     /**
      * The value.
