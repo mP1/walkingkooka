@@ -35,9 +35,11 @@ final class ToStringBuilderAppenderScalarSharedBoolean extends ToStringBuilderAp
     @SuppressWarnings("UnnecessaryUnboxing")
     @Override
     void value(final ToStringBuilder builder) {
-        builder.buffer.append(this.value.booleanValue() ?
+        builder.buffer.append(
+            this.value.booleanValue() ?
             ToStringBuilder.DEFAULT_TRUE_VALUE :
-            ToStringBuilder.DEFAULT_FALSE_VALUE);
+            ToStringBuilder.DEFAULT_FALSE_VALUE
+        );
         builder.mode = builder.mode.value();
     }
 }
