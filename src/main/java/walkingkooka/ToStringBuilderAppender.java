@@ -118,7 +118,11 @@ abstract class ToStringBuilderAppender<V> {
      * {@see ToStringBuilderAppenderScalarSharedDouble}
      */
     static ToStringBuilderAppender<?> floatValue(final Float value) {
-        return ToStringBuilderAppenderScalarSharedDouble.with(null == value ? null : value.doubleValue());
+        return ToStringBuilderAppenderScalarSharedDouble.with(
+            null == value ?
+                null :
+                value.doubleValue()
+        );
     }
 
     /**
@@ -366,7 +370,7 @@ abstract class ToStringBuilderAppender<V> {
     final void appendLabelBeforeValueAfter(final ToStringBuilder builder) {
         final int beforeLength = builder.buffer.length();
 
-        if (!this.shouldSkip(builder)) {
+        if (false == this.shouldSkip(builder)) {
             if (false == builder.appendLabel(builder.label)) {
 
                 final String after = this.before(builder);
@@ -382,7 +386,7 @@ abstract class ToStringBuilderAppender<V> {
         final StringBuilder buffer = builder.buffer;
         final int beforeLength = buffer.length();
 
-        if (!this.shouldSkip(builder)) {
+        if (false == this.shouldSkip(builder)) {
             final ToStringBuilderMode mode = builder.mode;
             if (false == builder.appendLabel(builder.label)) {
 
@@ -419,7 +423,8 @@ abstract class ToStringBuilderAppender<V> {
      */
     abstract void value(final ToStringBuilder builder);
 
-    abstract void after(final String after, ToStringBuilder builder);
+    abstract void after(final String after,
+                        final ToStringBuilder builder);
 
     /**
      * The value.
