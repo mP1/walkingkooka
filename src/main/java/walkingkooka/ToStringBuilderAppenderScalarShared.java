@@ -25,6 +25,6 @@ abstract class ToStringBuilderAppenderScalarShared<V> extends ToStringBuilderApp
 
     @Override //
     final void append0(final ToStringBuilder builder) {
-        this.appendLabelBeforeValueAfter(builder);
+        this.appendLabelAndValue(builder);
     }
 }

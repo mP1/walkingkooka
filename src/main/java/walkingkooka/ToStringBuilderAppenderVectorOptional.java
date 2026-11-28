@@ -34,7 +34,7 @@ final class ToStringBuilderAppenderVectorOptional<T> extends ToStringBuilderAppe
 
     @Override
     void append0(final ToStringBuilder builder) {
-        this.appendLabelBeforeValueAfterPostEmptyCheck(builder);
+        this.appendLabelAndValueAndPostEmptyCheck(builder);
     }
 
     @Override

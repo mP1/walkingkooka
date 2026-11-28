@@ -367,7 +367,7 @@ abstract class ToStringBuilderAppender<V> {
 
     abstract void append0(final ToStringBuilder builder);
 
-    final void appendLabelBeforeValueAfter(final ToStringBuilder builder) {
+    final void appendLabelAndValue(final ToStringBuilder builder) {
         final int beforeLength = builder.buffer.length();
 
         if (false == this.shouldSkip(builder)) {
@@ -381,7 +381,7 @@ abstract class ToStringBuilderAppender<V> {
         }
     }
 
-    final void appendLabelBeforeValueAfterPostEmptyCheck(final ToStringBuilder builder) {
+    final void appendLabelAndValueAndPostEmptyCheck(final ToStringBuilder builder) {
         final StringBuilder buffer = builder.buffer;
         final int beforeLength = buffer.length();
 
