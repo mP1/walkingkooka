@@ -20,6 +20,7 @@ package walkingkooka.collect.list;
 import walkingkooka.EndOfTextException;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.NeverError;
+import walkingkooka.text.CharSequences;
 
 import java.util.List;
 import java.util.Objects;
@@ -325,6 +326,44 @@ public final class DelimiterSeparatedValuesKind<T extends CsvTsvStringList<T>> {
         }
 
         return escaped;
+    }
+
+    // unescape.........................................................................................................
+
+    public String unescape(final String text) {
+        Objects.requireNonNull(text, "text");
+
+        final String unescaped;
+
+        final int length = text.length();
+        if (0 == length) {
+            unescaped = text;
+        } else {
+            final char c = text.charAt(0);
+            if (DOUBLE_QUOTE_CHAR == c) {
+                final int last = length - 1;
+
+                if (length == 1 || DOUBLE_QUOTE_CHAR != text.charAt(last)) {
+                    throw new InvalidCharacterException(
+                        text,
+                        last
+                    );
+                }
+
+                unescaped = CharSequences.subSequence(
+                    text.replace(
+                        DOUBLE_DOUBLE_QUOTE_STRING,
+                        DOUBLE_QUOTE_STRING
+                    ),
+                    1,
+                    -1
+                ).toString();
+            } else {
+                unescaped = text;
+            }
+        }
+
+        return unescaped;
     }
 
     private final static String DOUBLE_QUOTE_STRING = "\"";
