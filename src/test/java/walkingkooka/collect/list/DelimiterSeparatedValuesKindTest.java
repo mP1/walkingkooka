@@ -23,14 +23,14 @@ import walkingkooka.reflect.PublicClassTesting;
 
 import java.util.List;
 
-public final class DelimiterSeparatedValuesTest implements PublicClassTesting<DelimiterSeparatedValues<?>> {
+public final class DelimiterSeparatedValuesKindTest implements PublicClassTesting<DelimiterSeparatedValuesKind<?>> {
 
     // character........................................................................................................
 
     @Test
     public void testCharacterWithComma() {
         this.characterAndCheck(
-            DelimiterSeparatedValues.COMMA,
+            DelimiterSeparatedValuesKind.COMMA,
             ','
         );
     }
@@ -38,12 +38,12 @@ public final class DelimiterSeparatedValuesTest implements PublicClassTesting<De
     @Test
     public void testCharacterWithTab() {
         this.characterAndCheck(
-            DelimiterSeparatedValues.TAB,
+            DelimiterSeparatedValuesKind.TAB,
             '\t'
         );
     }
 
-    private void characterAndCheck(final DelimiterSeparatedValues<?> values,
+    private void characterAndCheck(final DelimiterSeparatedValuesKind<?> values,
                                    final char expected) {
         this.checkEquals(
             expected,
@@ -62,7 +62,7 @@ public final class DelimiterSeparatedValuesTest implements PublicClassTesting<De
     @Test
     public void testSetElementsWithComma() {
         this.setElementsAndCheck(
-            DelimiterSeparatedValues.COMMA,
+            DelimiterSeparatedValuesKind.COMMA,
             ELEMENTS,
             CsvStringList.EMPTY.setElements(ELEMENTS)
         );
@@ -71,13 +71,13 @@ public final class DelimiterSeparatedValuesTest implements PublicClassTesting<De
     @Test
     public void testSetElementsWithTab() {
         this.setElementsAndCheck(
-            DelimiterSeparatedValues.TAB,
+            DelimiterSeparatedValuesKind.TAB,
             ELEMENTS,
             TsvStringList.EMPTY.setElements(ELEMENTS)
         );
     }
 
-    private <T extends CsvTsvStringList<T>> void setElementsAndCheck(final DelimiterSeparatedValues<T> values,
+    private <T extends CsvTsvStringList<T>> void setElementsAndCheck(final DelimiterSeparatedValuesKind<T> values,
                                                                      final List<String> elements,
                                                                      final T expected) {
         this.checkEquals(
@@ -91,7 +91,7 @@ public final class DelimiterSeparatedValuesTest implements PublicClassTesting<De
     @Test
     public void testEmptyWithComma() {
         this.emptyAndCheck(
-            DelimiterSeparatedValues.COMMA,
+            DelimiterSeparatedValuesKind.COMMA,
             CsvStringList.EMPTY
         );
     }
@@ -99,12 +99,12 @@ public final class DelimiterSeparatedValuesTest implements PublicClassTesting<De
     @Test
     public void testEmptyWithTab() {
         this.emptyAndCheck(
-            DelimiterSeparatedValues.TAB,
+            DelimiterSeparatedValuesKind.TAB,
             TsvStringList.EMPTY
         );
     }
 
-    private <T extends CsvTsvStringList<T>> void emptyAndCheck(final DelimiterSeparatedValues<T> values,
+    private <T extends CsvTsvStringList<T>> void emptyAndCheck(final DelimiterSeparatedValuesKind<T> values,
                                                                final T expected) {
         this.checkEquals(
             expected,
@@ -115,7 +115,7 @@ public final class DelimiterSeparatedValuesTest implements PublicClassTesting<De
     // class............................................................................................................
 
     @Override
-    public Class<DelimiterSeparatedValues<?>> type() {
-        return Cast.to(DelimiterSeparatedValues.class);
+    public Class<DelimiterSeparatedValuesKind<?>> type() {
+        return Cast.to(DelimiterSeparatedValuesKind.class);
     }
 }

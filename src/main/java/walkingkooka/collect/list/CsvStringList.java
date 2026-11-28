@@ -73,7 +73,7 @@ public final class CsvStringList extends CsvTsvStringList<CsvStringList> {
      * https://www.ietf.org/rfc/rfc4180.txt
      */
     public static CsvStringList parse(final String text) {
-        return DelimiterSeparatedValues.COMMA.parse(text);
+        return DelimiterSeparatedValuesKind.COMMA.parse(text);
     }
 
     // @VisibleForTesting
