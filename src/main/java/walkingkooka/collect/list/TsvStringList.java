@@ -73,11 +73,7 @@ public final class TsvStringList extends CsvTsvStringList<TsvStringList> {
      * https://www.ietf.org/rfc/rfc4180.txt
      */
     public static TsvStringList parse(final String text) {
-        final TsvStringList tsvStringList = DelimiterSeparatedValues.TAB.parse(text);
-
-        return tsvStringList.isEmpty() ?
-            EMPTY :
-            tsvStringList;
+        return DelimiterSeparatedValues.TAB.parse(text);
     }
 
     // @VisibleForTesting
