@@ -113,4 +113,12 @@ public final class TsvStringList extends CsvTsvStringList<TsvStringList> {
     CharacterConstant characterConstant() {
         return SEPARATOR;
     }
+
+    // delimiterSeparatedValuesKind.....................................................................................
+
+    @Override
+    public DelimiterSeparatedValuesKind<TsvStringList> delimiterSeparatedValuesKind() {
+        return DelimiterSeparatedValuesKind.TAB;
+    }
+
 }

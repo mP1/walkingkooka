@@ -364,6 +364,10 @@ abstract class CsvTsvStringList<T extends CsvTsvStringList<T>> extends AbstractL
         );
     }
 
+    // HasDelimiterSeparatedValuesKind..................................................................................
+
+    public abstract DelimiterSeparatedValuesKind<T> delimiterSeparatedValuesKind();
+
     // equals...........................................................................................................
 
     @Override

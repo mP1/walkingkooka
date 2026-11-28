@@ -23,6 +23,11 @@ import walkingkooka.reflect.PackagePrivateClassTesting;
 public final class CsvTsvStringListTest implements PackagePrivateClassTesting<CsvTsvStringList<?>> {
 
     @Override
+    public void testAllMethodsVisibility() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Class<CsvTsvStringList<?>> type() {
         return Cast.to(CsvTsvStringList.class);
     }
